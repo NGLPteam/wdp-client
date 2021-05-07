@@ -1,17 +1,20 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useFragment } from "relay-hooks";
+import Link from "next/link";
 
 import { CollectionCardFragment$key } from "__generated__/CollectionCardFragment.graphql";
+
+import { Card } from "components/Cards";
 
 export default function CollectionCard(props: Props) {
   const collection = useFragment(fragment, props.collection);
 
   return (
-    <div>
-      <h2>{collection.title}</h2>
+    <Card>
+      <h2><Link href={`/collections/${collection.slug}`}>{collection.title}</Link></h2>
       <p>{collection.description}</p>
-    </div>
+    </Card>
   );
 }
 
@@ -21,7 +24,7 @@ interface Props {
 
 const fragment = graphql`
 fragment CollectionCardFragment on Collection {
-  id
+  slug
   title
   description
 }

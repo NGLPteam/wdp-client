@@ -5,10 +5,9 @@ import { CollectionListQueryVariables } from "__generated__/CollectionListQuery.
 
 export default function CollectionFilters(props: Props) {
   const { register, handleSubmit } = useForm({
-    defaultValues: {
-      order: props.variables.order
-    }
+    defaultValues: props.variables
   });
+
   const onSubmit = useCallback((data: CollectionListQueryVariables) => {
     props.setVariables(data);
   }, [props.setVariables]);
@@ -20,12 +19,12 @@ export default function CollectionFilters(props: Props) {
         <option value="OLDEST">Oldest</option>
       </select>
 
-      <input type="submit" />
+      <button type="submit">Apply</button>
     </form>
   );
 }
 
-interface Variables extends CollectionListQueryVariables {
+export interface Variables extends CollectionListQueryVariables {
   order: "RECENT" | "OLDEST";
 };
 

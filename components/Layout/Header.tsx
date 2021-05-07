@@ -25,7 +25,6 @@ export default function Header() {
 
 const Container = styled.header`
 width: 100%;
-text-align: center;
 flex: 0 0 auto;
 font-size: 18px;
 z-index: 999;
@@ -35,6 +34,7 @@ box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
 display: flex;
 justify-content: center;
 align-items: center;
+text-align: center;
 `;
 
 const NavLogo = styled(StyledLink)`
@@ -65,6 +65,7 @@ flex-direction: row;
 justify-content: space-evenly;
 align-items: center;
 height: 80px;
+padding: 0 1em;
 width: 100%;
 `;
 

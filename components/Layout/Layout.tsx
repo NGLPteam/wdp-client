@@ -28,6 +28,8 @@ display: flex;
 flex-direction: column;
 min-height: 100vh;
 max-height: 100vh;
+overflow-x: hidden;
+max-width: 100vw;
 `;
 
 const Content = styled.main`

@@ -1,5 +1,5 @@
 """A collection"""
-type Collection implements Node {
+type Collection implements Node & Sluggable {
   createdAt: ISO8601DateTime!
   description: String!
   id: ID!
@@ -20,6 +20,7 @@ type Collection implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemConnection!
+  slug: Slug!
   title: String!
   updatedAt: ISO8601DateTime!
 }
@@ -67,11 +68,12 @@ type CreateCollectionPayload {
 scalar ISO8601DateTime
 
 """An item that belongs to a collection"""
-type Item implements Node {
+type Item implements Node & Sluggable {
   collection: Collection!
   createdAt: ISO8601DateTime!
   description: String!
   id: ID!
+  slug: Slug!
   title: String!
   updatedAt: ISO8601DateTime!
 }
@@ -126,7 +128,7 @@ type PageInfo {
 }
 
 type Query {
-  collection(id: ID!): Collection
+  collection(slug: Slug!): Collection
   collections(
     order: SimpleOrder = RECENT
 
@@ -144,7 +146,7 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionConnection!
-  item(id: ID!): Item
+  item(slug: Slug!): Item
 
   """Fetches an object given its ID."""
   node(
@@ -167,13 +169,21 @@ enum SimpleOrder {
   OLDEST
 }
 
+"""A slug that can identify a record in context"""
+scalar Slug
+
+interface Sluggable {
+  slug: Slug!
+}
+
 """A user"""
-type User implements Node {
+type User implements Node & Sluggable {
   email: String
   emailVerified: Boolean!
   globalAdmin: Boolean!
   id: ID!
   name: String
+  slug: Slug!
   username: String
 }
 

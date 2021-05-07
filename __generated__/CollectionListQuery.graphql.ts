@@ -6,7 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type CollectionListQueryVariables = {
-    order?: SimpleOrder | null;
+    order: SimpleOrder;
 };
 export type CollectionListQueryResponse = {
     readonly collections: {
@@ -26,7 +26,7 @@ export type CollectionListQuery = {
 
 /*
 query CollectionListQuery(
-  $order: SimpleOrder
+  $order: SimpleOrder!
 ) {
   collections(order: $order) {
     edges {
@@ -39,7 +39,7 @@ query CollectionListQuery(
 }
 
 fragment CollectionCardFragment on Collection {
-  id
+  slug
   title
   description
 }
@@ -143,7 +143,7 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "id",
+                    "name": "slug",
                     "storageKey": null
                   },
                   {
@@ -159,6 +159,13 @@ return {
                     "kind": "ScalarField",
                     "name": "description",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -172,14 +179,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e820787f973518856edd4d3aa7b7f46e",
+    "cacheID": "0e39c442ea5ad7e107dfe96a56e72780",
     "id": null,
     "metadata": {},
     "name": "CollectionListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder\n) {\n  collections(order: $order) {\n    edges {\n      node {\n        ...CollectionCardFragment\n        id\n      }\n    }\n  }\n}\n\nfragment CollectionCardFragment on Collection {\n  id\n  title\n  description\n}\n"
+    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n) {\n  collections(order: $order) {\n    edges {\n      node {\n        ...CollectionCardFragment\n        id\n      }\n    }\n  }\n}\n\nfragment CollectionCardFragment on Collection {\n  slug\n  title\n  description\n}\n"
   }
 };
 })();
-(node as any).hash = 'b1f416bb47324a70befcdaa363ad4a79';
+(node as any).hash = '677172ff0a324a32d1ca7cc0b3a9712c';
 export default node;

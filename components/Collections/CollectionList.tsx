@@ -4,6 +4,7 @@ import { graphql } from "react-relay";
 import useAuthenticatedQuery from 'hooks/useAuthenticatedQuery';
 
 import { CollectionListQuery, CollectionListQueryVariables } from "__generated__/CollectionListQuery.graphql";
+import { CardList } from "components/Cards";
 
 import CollectionCard from "./CollectionCard";
 import CollectionFilters from "./CollectionFilters";
@@ -21,15 +22,17 @@ export default function CollectionList() {
     <div>
       {/* @ts-expect-error */}
       <CollectionFilters variables={variables} setVariables={setVariables} />
-      {data.collections.edges.map(({ node: collection }, index) => (
-        <CollectionCard key={index} collection={collection} />
-      ))}
+      <CardList>
+        {data.collections.edges.map(({ node: collection }, index) => (
+          <CollectionCard key={index} collection={collection} />
+        ))}
+      </CardList>
     </div>
   );
 }
 
 const query = graphql`
-query CollectionListQuery($order: SimpleOrder) {
+query CollectionListQuery($order: SimpleOrder!) {
   collections(order: $order) {
     edges {
       node {

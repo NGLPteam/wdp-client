@@ -4,16 +4,16 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CollectionCardFragment = {
+export type ItemCardFragment = {
     readonly slug: unknown;
     readonly title: string;
     readonly description: string;
-    readonly " $refType": "CollectionCardFragment";
+    readonly " $refType": "ItemCardFragment";
 };
-export type CollectionCardFragment$data = CollectionCardFragment;
-export type CollectionCardFragment$key = {
-    readonly " $data"?: CollectionCardFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionCardFragment">;
+export type ItemCardFragment$data = ItemCardFragment;
+export type ItemCardFragment$key = {
+    readonly " $data"?: ItemCardFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"ItemCardFragment">;
 };
 
 
@@ -22,7 +22,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "CollectionCardFragment",
+  "name": "ItemCardFragment",
   "selections": [
     {
       "alias": null,
@@ -46,8 +46,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Collection",
+  "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'caae86542a4c2d9fbe3227792c9ce02f';
+(node as any).hash = '4dbcbd5859f905a38011a44d5bd10614';
 export default node;
