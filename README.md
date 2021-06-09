@@ -1,4 +1,4 @@
-# NGLP Backend Client
+# NGLP Admin UI
 
 ```sh
 npm install

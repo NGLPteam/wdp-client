@@ -1,10 +1,244 @@
-"""A collection"""
-type Collection implements Node & Sluggable {
+"""An access control list"""
+type AccessControlList {
+  permissions: [PermissionGrant!]!
+}
+
+union AnyAsset = AssetAudio | AssetDocument | AssetImage | AssetPDF | AssetUnknown | AssetVideo
+
+"""Something that can be attached to"""
+union AnyAttachable = Collection | Community | Item
+
+union AnyContributor = OrganizationContributor | PersonContributor
+
+"""The connection type for AnyContributor."""
+type AnyContributorConnection {
+  """A list of edges."""
+  edges: [AnyContributorEdge]
+
+  """A list of nodes."""
+  nodes: [AnyContributor]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type AnyContributorEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: AnyContributor
+}
+
+"""A hierarchical entity type"""
+union AnyEntity = Collection | Community | Item
+
+"""A generic asset type, implemented by all the more specific kinds"""
+interface Asset {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  downloadUrl: String
+  fileSize: Int!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+}
+
+type AssetAudio implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
   createdAt: ISO8601DateTime!
-  description: String!
+  downloadUrl: String
+  fileSize: Int!
   id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+type AssetDocument implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  createdAt: ISO8601DateTime!
+  downloadUrl: String
+  fileSize: Int!
+  id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+type AssetImage implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  createdAt: ISO8601DateTime!
+  downloadUrl: String
+  fileSize: Int!
+  id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The supported kinds of assets in the system"""
+enum AssetKind {
+  image
+  video
+  audio
+  pdf
+  document
+  unknown
+}
+
+type AssetPDF implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  createdAt: ISO8601DateTime!
+  downloadUrl: String
+  fileSize: Int!
+  id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+type AssetPreview {
+  alt: String!
+  large: PreviewImageMap!
+  medium: PreviewImageMap!
+  small: PreviewImageMap!
+  thumb: PreviewImageMap!
+}
+
+type AssetUnknown implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  createdAt: ISO8601DateTime!
+  downloadUrl: String
+  fileSize: Int!
+  id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+type AssetVideo implements Asset & Node & Sluggable {
+  attachable: AnyAttachable!
+  caption: String
+  contentType: String!
+  createdAt: ISO8601DateTime!
+  downloadUrl: String
+  fileSize: Int!
+  id: ID!
+  kind: AssetKind!
+  name: String!
+  preview: AssetPreview
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""A collection of items"""
+type Collection implements Entity & HierarchicalEntry & Contributable & Node & Sluggable {
+  """Derived access control list"""
+  accessControlList: AccessControlList
+
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+
+  """The role(s) that gave the permissions to access this resource, if any."""
+  applicableRoles: [Role!]
+  children(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionConnection!
+  community: Community!
+  contributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionContributionConnection!
+
+  """Contributors to this element"""
+  contributors(
+    order: SimpleOrder = RECENT
+    kind: ContributorFilterKind = ALL
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): AnyContributorConnection!
+  createdAt: ISO8601DateTime!
+  doi: String
+  id: ID!
+  identifier: String!
+  itemLinks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionLinkedItemConnection!
   items(
     order: SimpleOrder = RECENT
+    leaves: Boolean = false
 
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -20,9 +254,32 @@ type Collection implements Node & Sluggable {
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemConnection!
+  links(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionLinkConnection!
+  parent: CollectionParent
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  properties: JSON
+  publishedOn: ISO8601Date
   slug: Slug!
-  title: String!
+  summary: String
+  title: String
   updatedAt: ISO8601DateTime!
+  visibleAfterAt: ISO8601DateTime
 }
 
 """The connection type for Collection."""
@@ -37,6 +294,37 @@ type CollectionConnection {
   pageInfo: PageInfo!
 }
 
+"""A contribution to a collection"""
+type CollectionContribution implements Contribution & Node & Sluggable {
+  collection: Collection!
+  contributor: AnyContributor!
+  createdAt: ISO8601DateTime!
+  id: ID!
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for CollectionContribution."""
+type CollectionContributionConnection {
+  """A list of edges."""
+  edges: [CollectionContributionEdge]
+
+  """A list of nodes."""
+  nodes: [CollectionContribution]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type CollectionContributionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: CollectionContribution
+}
+
 """An edge in a connection."""
 type CollectionEdge {
   """A cursor for use in pagination."""
@@ -46,10 +334,286 @@ type CollectionEdge {
   node: Collection
 }
 
+type CollectionLink implements Node & Sluggable {
+  createdAt: ISO8601DateTime!
+  id: ID!
+  operator: CollectionLinkOperator!
+  slug: Slug!
+  source: Collection!
+  target: Collection!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for CollectionLink."""
+type CollectionLinkConnection {
+  """A list of edges."""
+  edges: [CollectionLinkEdge]
+
+  """A list of nodes."""
+  nodes: [CollectionLink]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type CollectionLinkEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: CollectionLink
+}
+
+enum CollectionLinkOperator {
+  contains
+  references
+}
+
+type CollectionLinkedItem implements Node & Sluggable {
+  createdAt: ISO8601DateTime!
+  id: ID!
+  operator: CollectionLinkedItemOperator!
+  slug: Slug!
+  source: Collection!
+  target: Item!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for CollectionLinkedItem."""
+type CollectionLinkedItemConnection {
+  """A list of edges."""
+  edges: [CollectionLinkedItemEdge]
+
+  """A list of nodes."""
+  nodes: [CollectionLinkedItem]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type CollectionLinkedItemEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: CollectionLinkedItem
+}
+
+enum CollectionLinkedItemOperator {
+  contains
+  references
+}
+
+union CollectionParent = Collection | Community
+
+"""A community of users"""
+type Community implements Entity & Node & Sluggable {
+  """Derived access control list"""
+  accessControlList: AccessControlList
+
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+
+  """The role(s) that gave the permissions to access this resource, if any."""
+  applicableRoles: [Role!]
+  collections(
+    order: SimpleOrder = RECENT
+    leaves: Boolean = false
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionConnection!
+  createdAt: ISO8601DateTime!
+  id: ID!
+  metadata: JSON
+  name: String!
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  position: Int
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for Community."""
+type CommunityConnection {
+  """A list of edges."""
+  edges: [CommunityEdge]
+
+  """A list of nodes."""
+  nodes: [Community]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type CommunityEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Community
+}
+
+"""Something that can be contributed to"""
+interface Contributable {
+  """Contributors to this element"""
+  contributors(
+    order: SimpleOrder = RECENT
+    kind: ContributorFilterKind = ALL
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): AnyContributorConnection!
+}
+
+"""A contribution from a contributor"""
+interface Contribution {
+  contributor: AnyContributor!
+}
+
+"""A contributor who has made a contribution"""
+interface Contributor {
+  bio: String
+  collectionContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionContributionConnection!
+  email: String
+  identifier: String!
+  itemContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemContributionConnection!
+  kind: ContributorKind!
+  links: [ContributorLink]!
+  prefix: String
+  suffix: String
+  url: String
+}
+
+enum ContributorFilterKind {
+  ALL
+  ORGANIZATION
+  PERSON
+}
+
+enum ContributorKind {
+  organization
+  person
+}
+
+"""A link for a contributor"""
+type ContributorLink {
+  title: String!
+  url: String!
+}
+
+"""Autogenerated input type of CreateAsset"""
+input CreateAssetInput {
+  """The entity that owns the attachment"""
+  entityId: ID!
+
+  """
+  This is the path returned from uploading a file via tus. It should look vaguely like `/files/<base64>`
+  
+  """
+  attachmentUrl: String!
+
+  """A human readable name for the asset"""
+  name: String!
+
+  """The position the asset occupies amongst siblings"""
+  position: Int
+
+  """Alt text to display for the asset (if applicable)"""
+  altText: String
+
+  """A caption to display below the asset (if applicable)"""
+  caption: String
+
+  """The original filename, since Tus mangles them."""
+  filename: String = "asset"
+
+  """
+  The original content type. WDP will detect a real content type, so this can't be spoofed, but it can be helpful with generating
+  an initial asset with the correct kind.
+  
+  """
+  mimeType: String = "application/octet-stream"
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreateAsset"""
+type CreateAssetPayload {
+  asset: AnyAsset
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+}
+
 """Autogenerated input type of CreateCollection"""
 input CreateCollectionInput {
+  """
+  The parent of the new collection. This can be the encoded ID of a community or another collection.
+  
+  """
+  parentId: ID!
   title: String!
-  description: String!
+  identifier: String!
 
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -64,18 +628,234 @@ type CreateCollectionPayload {
   haltCode: String
 }
 
+"""Autogenerated input type of CreateCommunity"""
+input CreateCommunityInput {
+  """A human readable title for the community"""
+  name: String!
+
+  """The position the community occupies in the list"""
+  position: Int
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreateCommunity"""
+type CreateCommunityPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """A representation of a successfully created community"""
+  community: Community
+  errors: [UserError!]!
+  haltCode: String
+}
+
+"""Autogenerated input type of CreateItem"""
+input CreateItemInput {
+  """
+  The parent of the item. This can be the encoded ID of a collection or another item.
+  
+  """
+  parentId: ID!
+  title: String!
+  identifier: String!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreateItem"""
+type CreateItemPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+
+  """A representation of a successfully created item"""
+  item: Item
+}
+
+"""Autogenerated input type of CreateRole"""
+input CreateRoleInput {
+  name: String!
+  accessControlList: JSON!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreateRole"""
+type CreateRolePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+  role: Role
+}
+
+"""An entity that exists in the hierarchy."""
+interface Entity {
+  """Derived access control list"""
+  accessControlList: AccessControlList
+
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+
+  """The role(s) that gave the permissions to access this resource, if any."""
+  applicableRoles: [Role!]
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+}
+
+interface ExposesPermissions {
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+}
+
+"""Autogenerated input type of GrantAccess"""
+input GrantAccessInput {
+  entityId: ID!
+  roleId: ID!
+  userId: ID!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of GrantAccess"""
+type GrantAccessPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  entity: AnyEntity
+  errors: [UserError!]!
+
+  """Whether or not access was granted"""
+  granted: Boolean
+  haltCode: String
+}
+
+"""A hierarchical entry, like a collection or an item."""
+interface HierarchicalEntry {
+  createdAt: ISO8601DateTime!
+  doi: String
+  identifier: String!
+  properties: JSON
+  publishedOn: ISO8601Date
+  summary: String
+  title: String
+  updatedAt: ISO8601DateTime!
+  visibleAfterAt: ISO8601DateTime
+}
+
+"""An ISO 8601-encoded date"""
+scalar ISO8601Date
+
 """An ISO 8601-encoded datetime"""
 scalar ISO8601DateTime
 
 """An item that belongs to a collection"""
-type Item implements Node & Sluggable {
+type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggable {
+  """Derived access control list"""
+  accessControlList: AccessControlList
+
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+
+  """The role(s) that gave the permissions to access this resource, if any."""
+  applicableRoles: [Role!]
+  children(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemConnection!
   collection: Collection!
+  community: Community!
+  contributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemContributionConnection!
+
+  """Contributors to this element"""
+  contributors(
+    order: SimpleOrder = RECENT
+    kind: ContributorFilterKind = ALL
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): AnyContributorConnection!
   createdAt: ISO8601DateTime!
-  description: String!
+  doi: String
   id: ID!
+  identifier: String!
+  links(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemLinkConnection!
+  parent: ItemParent
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  properties: JSON
+  publishedOn: ISO8601Date
   slug: Slug!
-  title: String!
+  summary: String
+  title: String
   updatedAt: ISO8601DateTime!
+  visibleAfterAt: ISO8601DateTime
 }
 
 """The connection type for Item."""
@@ -90,6 +870,37 @@ type ItemConnection {
   pageInfo: PageInfo!
 }
 
+"""A contribution to an item"""
+type ItemContribution implements Contribution & Node & Sluggable {
+  contributor: AnyContributor!
+  createdAt: ISO8601DateTime!
+  id: ID!
+  item: Item!
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for ItemContribution."""
+type ItemContributionConnection {
+  """A list of edges."""
+  edges: [ItemContributionEdge]
+
+  """A list of nodes."""
+  nodes: [ItemContribution]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type ItemContributionEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ItemContribution
+}
+
 """An edge in a connection."""
 type ItemEdge {
   """A cursor for use in pagination."""
@@ -99,17 +910,197 @@ type ItemEdge {
   node: Item
 }
 
+type ItemLink implements Node & Sluggable {
+  createdAt: ISO8601DateTime!
+  id: ID!
+  operator: ItemLinkOperator!
+  slug: Slug!
+  source: Item!
+  target: Item!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for ItemLink."""
+type ItemLinkConnection {
+  """A list of edges."""
+  edges: [ItemLinkEdge]
+
+  """A list of nodes."""
+  nodes: [ItemLink]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type ItemLinkEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: ItemLink
+}
+
+enum ItemLinkOperator {
+  contains
+  references
+}
+
+union ItemParent = Collection | Item
+
+"""Represents untyped JSON"""
+scalar JSON
+
+"""
+The entry point for making changes to the data within the WDP API.
+
+"""
 type Mutation {
+  createAsset(
+    """Parameters for CreateAsset"""
+    input: CreateAssetInput!
+  ): CreateAssetPayload
   createCollection(
     """Parameters for CreateCollection"""
     input: CreateCollectionInput!
   ): CreateCollectionPayload
+
+  """Create a community"""
+  createCommunity(
+    """Parameters for CreateCommunity"""
+    input: CreateCommunityInput!
+  ): CreateCommunityPayload
+
+  """Create an item"""
+  createItem(
+    """Parameters for CreateItem"""
+    input: CreateItemInput!
+  ): CreateItemPayload
+
+  """
+  Create a global role, with a set of permissions, that can be used to grant access to various parts of the hierarchy
+  in a granular fashion.
+  
+  """
+  createRole(
+    """Parameters for CreateRole"""
+    input: CreateRoleInput!
+  ): CreateRolePayload
+
+  """Grant access to a specific hierarchical entity"""
+  grantAccess(
+    """Parameters for GrantAccess"""
+    input: GrantAccessInput!
+  ): GrantAccessPayload
+
+  """
+  Reassign the collection to another point in the hierarchy.
+  
+  This will update all child collections and descended items, if need be.
+  
+  """
+  reparentCollection(
+    """Parameters for ReparentCollection"""
+    input: ReparentCollectionInput!
+  ): ReparentCollectionPayload
+
+  """
+  Reassign the item to another point in the hierarchy.
+  
+  This will also update any descendant items, if need be.
+  
+  """
+  reparentItem(
+    """Parameters for ReparentItem"""
+    input: ReparentItemInput!
+  ): ReparentItemPayload
+
+  """Revoke access from a specific hierarchical entity"""
+  revokeAccess(
+    """Parameters for RevokeAccess"""
+    input: RevokeAccessInput!
+  ): RevokeAccessPayload
+
+  """Update a collection"""
+  updateCollection(
+    """Parameters for UpdateCollection"""
+    input: UpdateCollectionInput!
+  ): UpdateCollectionPayload
+
+  """Update a community"""
+  updateCommunity(
+    """Parameters for UpdateCommunity"""
+    input: UpdateCommunityInput!
+  ): UpdateCommunityPayload
+
+  """Update an item"""
+  updateItem(
+    """Parameters for UpdateItem"""
+    input: UpdateItemInput!
+  ): UpdateItemPayload
+
+  """
+  Update the name or permissions for a given role.
+  
+  """
+  updateRole(
+    """Parameters for UpdateRole"""
+    input: UpdateRoleInput!
+  ): UpdateRolePayload
 }
 
 """An object with an ID."""
 interface Node {
   """ID of the object."""
   id: ID!
+}
+
+"""An organization that has made contributions"""
+type OrganizationContributor implements Contributor & Node & Sluggable {
+  bio: String
+  collectionContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionContributionConnection!
+  createdAt: ISO8601DateTime!
+  email: String
+  id: ID!
+  identifier: String!
+  itemContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemContributionConnection!
+  kind: ContributorKind!
+  legalName: String
+  links: [ContributorLink]!
+  location: String
+  prefix: String
+  slug: Slug!
+  suffix: String
+  updatedAt: ISO8601DateTime!
+  url: String
 }
 
 """Information about pagination in a connection."""
@@ -127,9 +1118,90 @@ type PageInfo {
   startCursor: String
 }
 
+"""A grant of a specific permission within a specific scope"""
+type PermissionGrant {
+  allowed: Boolean!
+  name: String!
+  scope: String
+}
+
+"""A person that has made contributions"""
+type PersonContributor implements Contributor & Node & Sluggable {
+  affiliation: String
+  bio: String
+  collectionContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): CollectionContributionConnection!
+  createdAt: ISO8601DateTime!
+  email: String
+  familyName: String
+  givenName: String
+  id: ID!
+  identifier: String!
+  itemContributions(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): ItemContributionConnection!
+  kind: ContributorKind!
+  links: [ContributorLink]!
+  prefix: String
+  slug: Slug!
+  suffix: String
+  title: String
+  updatedAt: ISO8601DateTime!
+  url: String
+}
+
+type PreviewImage {
+  alt: String!
+  dimensions: [Int!]!
+  height: Int!
+  url: String!
+  width: Int!
+}
+
+type PreviewImageMap {
+  alt: String!
+  dimensions: [Int!]!
+  height: Int!
+  png: PreviewImage
+  webp: PreviewImage
+  width: Int!
+}
+
+"""
+The entry point for retrieving data from within the WDP API.
+
+"""
 type Query {
+  """Look up a collection by slug"""
   collection(slug: Slug!): Collection
-  collections(
+
+  """List all communities"""
+  communities(
     order: SimpleOrder = RECENT
 
     """Returns the elements in the list that come after the specified cursor."""
@@ -145,7 +1217,15 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
-  ): CollectionConnection!
+  ): CommunityConnection!
+
+  """Look up a community by slug"""
+  community(slug: Slug!): Community
+
+  """Look up a contributor by slug"""
+  contributor(slug: Slug!): AnyContributor
+
+  """Look up an item by slug"""
   item(slug: Slug!): Item
 
   """Fetches an object given its ID."""
@@ -160,8 +1240,148 @@ type Query {
     ids: [ID!]!
   ): [Node]!
 
+  """List all roles"""
+  roles(
+    order: SimpleOrder = RECENT
+
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """Returns the first _n_ elements from the list."""
+    first: Int
+
+    """Returns the last _n_ elements from the list."""
+    last: Int
+  ): RoleConnection!
+
   """The currently authenticated user. AKA: you"""
   viewer: User
+}
+
+"""Autogenerated input type of ReparentCollection"""
+input ReparentCollectionInput {
+  """
+  The collection in need of a new parent
+  
+  """
+  collectionId: ID!
+
+  """
+  The id for the collection's new parent. This can be a community or another collection.
+  
+  """
+  parentId: ID!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of ReparentCollection"""
+type ReparentCollectionPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  collection: Collection
+  errors: [UserError!]!
+  haltCode: String
+}
+
+"""Autogenerated input type of ReparentItem"""
+input ReparentItemInput {
+  """
+  The collection in need of a new parent
+  
+  """
+  itemId: ID!
+
+  """
+  The id for the item's new parent. This can be a collection or another item.
+  
+  """
+  parentId: ID!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of ReparentItem"""
+type ReparentItemPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+  item: Item
+}
+
+"""Autogenerated input type of RevokeAccess"""
+input RevokeAccessInput {
+  entityId: ID!
+  roleId: ID!
+  userId: ID!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of RevokeAccess"""
+type RevokeAccessPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  entity: AnyEntity
+  errors: [UserError!]!
+  haltCode: String
+
+  """Whether or not access was revoked"""
+  revoked: Boolean
+}
+
+"""A named role in the WDP API"""
+type Role implements Node & Sluggable {
+  """The access control list for this specific role"""
+  accessControlList: AccessControlList!
+
+  """A list of action names that have been granted to this role"""
+  allowedActions: [String!]!
+  createdAt: ISO8601DateTime!
+  id: ID!
+
+  """The human readable name of the role within the system"""
+  name: String!
+
+  """
+  Surfaced from the accessControlList for convenience, these are returned as
+  an array that allows a user to check for the state of all possible roles
+  without having to specify them explicitly in the GraphQL request
+  
+  """
+  permissions: [PermissionGrant!]!
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for Role."""
+type RoleConnection {
+  """A list of edges."""
+  edges: [RoleEdge]
+
+  """A list of nodes."""
+  nodes: [Role]
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type RoleEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+
+  """The item at the end of the edge."""
+  node: Role
 }
 
 enum SimpleOrder {
@@ -172,18 +1392,123 @@ enum SimpleOrder {
 """A slug that can identify a record in context"""
 scalar Slug
 
+"""
+Objects have a serialized slug for looking them up in the system and generating links without UUIDs
+"""
 interface Sluggable {
   slug: Slug!
 }
 
+"""Autogenerated input type of UpdateCollection"""
+input UpdateCollectionInput {
+  collectionId: ID!
+
+  """Human readable title for the collection"""
+  title: String!
+
+  """
+  Machine readable title for the collection, should be unique within its scope
+  """
+  identifier: String!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateCollection"""
+type UpdateCollectionPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """A new representation of the collection, on a successful update"""
+  collection: Collection
+  errors: [UserError!]!
+  haltCode: String
+}
+
+"""Autogenerated input type of UpdateCommunity"""
+input UpdateCommunityInput {
+  communityId: ID!
+
+  """A human readable title for the community"""
+  name: String!
+
+  """The position the community occupies in the list"""
+  position: Int
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateCommunity"""
+type UpdateCommunityPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+
+  """A new representation of the community, on a succesful update"""
+  community: Community
+  errors: [UserError!]!
+  haltCode: String
+}
+
+"""Autogenerated input type of UpdateItem"""
+input UpdateItemInput {
+  """The item to update"""
+  itemId: ID!
+  title: String!
+  identifier: String!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateItem"""
+type UpdateItemPayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+
+  """A new representation of the item, on a succesful update"""
+  item: Item
+}
+
+"""Autogenerated input type of UpdateRole"""
+input UpdateRoleInput {
+  roleId: ID!
+  name: String!
+  accessControlList: JSON!
+
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateRole"""
+type UpdateRolePayload {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  haltCode: String
+  role: Role
+}
+
 """A user"""
-type User implements Node & Sluggable {
+type User implements ExposesPermissions & Node & Sluggable {
+  """
+  A list of allowed actions for the given user on this entity (and its descendants).
+  """
+  allowedActions: [String!]!
+  createdAt: ISO8601DateTime!
   email: String
   emailVerified: Boolean!
   globalAdmin: Boolean!
   id: ID!
   name: String
+
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
   slug: Slug!
+  updatedAt: ISO8601DateTime!
   username: String
 }
 

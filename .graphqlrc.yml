@@ -1,12 +1,12 @@
-schema: http://localhost:6222/graphql
+schema: https://api.staging.nglp.org/graphql
 extensions:
-  customDirectives:
-    - "directive @connection(key: String!, filters: [String]) on FIELD"
-  codegen:
-    generates:
-      "schema.graphql":
-        plugins:
-          - schema-ast
-      "__schema__/schema.json":
-        plugins:
-          - introspection
+    customDirectives:
+        - "directive @connection(key: String!, filters: [String]) on FIELD"
+    codegen:
+        generates:
+            "schema.graphql":
+                plugins:
+                    - schema-ast
+            "__schema__/schema.json":
+                plugins:
+                    - introspection
