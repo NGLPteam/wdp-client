@@ -6,21 +6,30 @@ import Document, {
   Main,
   NextScript,
   DocumentContext,
-  DocumentInitialProps
+  DocumentInitialProps,
 } from "next/document";
 import { RelayEnvironmentProvider } from "relay-hooks";
 import { SSRCookies } from "@react-keycloak/ssr";
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-import { ServerStyleSheet } from "styled-components";
+import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import Layout from "components/Layout";
 
 import initialEnvironment from "relay/initialEnvironment";
 import parseCookies from "utils/parseCookies";
 
+const FONTS = [
+  "Karla-Regular",
+  "Karla-Bold",
+  "Karla-Italic",
+  "Karla-Bold-Italic",
+];
+
 export default class extends Document<Props> {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps & Props> {
     const sheet = new ServerStyleSheet();
 
     const cookies = parseCookies(ctx?.req);
@@ -35,9 +44,11 @@ export default class extends Document<Props> {
         enhanceComponent: (Component) => (props) => {
           return (
             <RelayEnvironmentProvider environment={env}>
-              <Layout>
-                <Component {...props} />
-              </Layout>
+              <StyleSheetManager sheet={sheet.instance} disableVendorPrefixes>
+                <Layout>
+                  <Component {...props} />
+                </Layout>
+              </StyleSheetManager>
             </RelayEnvironmentProvider>
           );
         },
@@ -69,7 +80,7 @@ export default class extends Document<Props> {
         records,
         styles: [
           ...React.Children.toArray(initialProps.styles),
-          sheet.getStyleElement()
+          sheet.getStyleElement(),
         ],
       };
     } finally {
@@ -82,14 +93,21 @@ export default class extends Document<Props> {
       <Html>
         <Head>
           <link rel="icon" href="/favicon.ico" />
+          {FONTS.map((font) => (
+            <React.Fragment key={font}>
+              <link
+                rel="preload"
+                href={`fonts/${font}.woff2`}
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+              />
+            </React.Fragment>
+          ))}
         </Head>
         <body>
           <template id="relay-data">
-            {
-              Buffer.from(
-                JSON.stringify(this.props.records)
-              ).toString("base64")
-            }
+            {Buffer.from(JSON.stringify(this.props.records)).toString("base64")}
           </template>
           <Main />
           <NextScript />
