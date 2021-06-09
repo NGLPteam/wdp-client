@@ -52,5 +52,9 @@ export default `
 
     /* layout colors */
     --bg-color-base: var(--neutral00);
+
+    /* layout sizes */
+    --container-max: 1000px;
+    --grid-column-gap: ${pxToRem("16px")}
   }
 `;

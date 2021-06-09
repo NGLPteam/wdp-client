@@ -8,34 +8,27 @@ import SignOut from "components/Auth/SignOut";
 
 export default function Header() {
   return (
-    <Container>
-      <NavBar>
-        <NavLogo href="/">NGLP</NavLogo>
-        <NavSpacer />
-        <NavItems>
-          <NavItem href="/collections">Collections</NavItem>
-          <NavItem href="/profile">Profile</NavItem>
-          <SignIn />
-          <SignOut />
-        </NavItems>
-      </NavBar>
-    </Container>
+    <header>
+      <nav className="grid">
+        <div className="grid__item--4">
+          <a href="/">NGLP</a>
+        </div>
+        <ul className="grid__item--6 grid__item--right flex flex--right">
+          <li>
+            <a href="/collections">Collections</a>
+          </li>
+          <li>
+            <a href="/profile">Profile</a>
+          </li>
+          <li>
+            <SignIn />
+            <SignOut />
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 }
-
-const Container = styled.header`
-  width: 100%;
-  flex: 0 0 auto;
-  font-size: 18px;
-  z-index: 999;
-  height: 80px;
-  background-color: var(--netural10);
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
 
 const NavLogo = styled(StyledLink)`
   display: block;

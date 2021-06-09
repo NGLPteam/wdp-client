@@ -19,19 +19,17 @@ export default function Layout({ children }: LayoutProps) {
   );
 }
 
-interface LayoutProps extends PropsWithChildren<any> {
-
-}
+interface LayoutProps extends PropsWithChildren<any> {}
 
 const Container = styled.section`
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-max-height: 100vh;
-overflow-x: hidden;
-max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
 `;
 
 const Content = styled.main`
-flex: 2 1 auto;
-`
+  flex: 2 1 auto;
+`;
