@@ -13,7 +13,7 @@ import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 
 import GlobalStyles from "theme";
-import Layout from "components/Layout";
+import AppBody from "components/global/AppBody";
 import FullPageLoader from "components/FullPageLoader";
 import useLatest from "hooks/useLatest";
 
@@ -62,9 +62,9 @@ export default function NGLPApp({
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <ThemeProvider theme={theme}>
-            <Layout>
+            <AppBody>
               <Component {...pageProps} />
-            </Layout>
+            </AppBody>
           </ThemeProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>

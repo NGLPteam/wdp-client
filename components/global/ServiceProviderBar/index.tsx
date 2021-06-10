@@ -11,8 +11,9 @@ const ServiceProviderBar = ({ className }: Props) => {
 interface Props extends React.HTMLProps<HTMLDivElement> {}
 
 const StyledServiceProviderBar = styled(ServiceProviderBar)`
-  background: var(--brand90);
   margin: 0 auto;
+  width: 100%;
+  background: var(--brand90);
   padding: 12px;
   color: var(--brand20);
   text-align: center;
