@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "relay": "relay-compiler",
-    "schema": "graphql codegen"
+    "schema": "graphql codegen",
+    "storybook": "start-storybook -s ./public -p 6006"
   },
   "dependencies": {
     "@bedrock-layout/use-stateful-ref": "^1.1.2",
@@ -36,6 +37,11 @@
     "@graphql-codegen/schema-ast": "^1.18.2",
     "@graphql-codegen/typescript": "^1.22.0",
     "@graphql-codegen/typescript-resolvers": "^1.19.1",
+    "@storybook/addon-a11y": "^6.2.9",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.2",
     "@types/react": "^17.0.5",
