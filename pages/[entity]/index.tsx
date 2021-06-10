@@ -1,22 +1,22 @@
 import React from "react";
-import Link from "next/link";
 import useGetQueryParam from "hooks/useGetQueryParam";
+import CollectionListView from "components/views/collections/CollectionList";
+import CommunityListView from "components/views/communities/CommunityList";
+import ItemListView from "components/views/items/ItemList";
+import UserListView from "components/views/users/UserList";
+import PageNotFoundView from "components/views/PageNotFound";
 
-export default function EntityListPage() {
+export default function EntityListPage({ ...pageProps }) {
     const entity = useGetQueryParam("entity");
 
-    // TODO: here we'll use a map to return the right template per entity
+    const viewMap = {
+        collections: CollectionListView,
+        communities: CommunityListView,
+        items: ItemListView,
+        users: UserListView,
+    };
 
-    return (
-        <div>
-            <h1>{entity} list</h1>
-            <ul>
-                <li>
-                    <Link href={`/${entity}/1`}>
-                        <a>{entity} number 1</a>
-                    </Link>
-                </li>
-            </ul>
-        </div>
-    );
+    const Template = viewMap[entity] || PageNotFoundView;
+
+    return <Template {...pageProps} />;
 }
