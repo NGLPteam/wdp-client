@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import ServiceProviderBar from "components/global/ServiceProviderBar";
 import MainNav from "components/global/MainNav";
+import TopNavItem from "components/atomic/TopNavItem";
 
 import SignIn from "components/Auth/SignIn";
 import SignOut from "components/Auth/SignOut";
@@ -12,8 +13,15 @@ function AppHeader({ children, className }: Props) {
     <header className={className} role="banner">
       <ServiceProviderBar />
       <MainNav>
-        <a href="/collections">Collections</a>
-        <a href="/profile">Profile</a>
+        <TopNavItem as="a" href="/communities">
+          Communities
+        </TopNavItem>
+        <TopNavItem as="a" href="/collections">
+          Collections
+        </TopNavItem>
+        <TopNavItem as="a" href="/items">
+          Items
+        </TopNavItem>
         <span>
           <SignIn />
           <SignOut />
