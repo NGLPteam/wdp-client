@@ -1,11 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { tLabel } from "theme/mixins/typography";
 import { aTextGlow } from "theme/mixins/appearance";
 
-const TopNavItem = styled.a`
+const TopNavItem = styled.a<Props>`
   color: var(--brand20);
   border-bottom: 2px solid transparent;
   padding-bottom: 1px;
+  transition: var(--border-transition), var(--color-transition);
   ${tLabel("md")}
 
   &:hover {
@@ -13,7 +14,7 @@ const TopNavItem = styled.a`
     border-color: var(--brand30);
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 0;
     ${aTextGlow("darkMode")}
   }
@@ -22,6 +23,17 @@ const TopNavItem = styled.a`
     color: var(--neutral00);
     border-color: var(--neutral00);
   }
+
+  ${({ active }) =>
+    active &&
+    css`
+      color: var(--neutral00);
+      border-color: var(--neutral00);
+    `}
 `;
+
+interface Props {
+  active?: boolean;
+}
 
 export default TopNavItem;
