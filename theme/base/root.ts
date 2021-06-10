@@ -1,8 +1,11 @@
 // Root CSS variables
 // --------------------
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
-import { hexToHSL } from "../mixins/colors";
-import { pxToRem } from "../mixins/functions";
+import { hexToHSL } from "theme/mixins/colors";
+import { pxToRem } from "theme/mixins/functions";
+import { transition } from "theme/base/variables";
+
+const { duration, timing } = transition.colorMode;
 
 export default `
   :root {
@@ -75,6 +78,10 @@ export default `
     --container-column-margin: ${pxToRem("20px")};
 
     /* layout grid */
-    --grid-column-gap: ${pxToRem("16px")}
+    --grid-column-gap: ${pxToRem("16px")};
+
+    /* transitions */
+    --border-transition: border ${duration}s ${timing};
+    --color-transition: color ${duration}s ${timing};
   }
 `;

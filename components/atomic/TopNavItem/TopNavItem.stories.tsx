@@ -10,10 +10,14 @@ const wrapperStyle = {
   padding: "2rem",
 };
 
-export const Primary = () => (
+export const Primary = (args) => (
   <div style={wrapperStyle}>
-    <TopNavItem as="a" key={1} href="/">
+    <TopNavItem as="a" key={1} href="/" {...args}>
       Link A
     </TopNavItem>
   </div>
 );
+
+Primary.args = {
+  active: false,
+};
