@@ -5,6 +5,7 @@ import baseRoot from "./base/root";
 import baseTypography from "./base/typography";
 import baseAppearance from "./base/appearance";
 import utilityLayout from "./utility/layout";
+import utilityTypography from "./utility/typography";
 
 const GlobalStyles = createGlobalStyle`
   ${baseResets}
@@ -14,6 +15,7 @@ const GlobalStyles = createGlobalStyle`
   ${baseAppearance}
 
   ${utilityLayout}
+  ${utilityTypography}
 `;
 
 export default GlobalStyles;
