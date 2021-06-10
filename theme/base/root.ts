@@ -70,8 +70,11 @@ export default `
     /* layout colors */
     --bg-color-base: var(--neutral00);
 
-    /* layout sizes */
+    /* layout sizes and margins */
     --container-max: 1000px;
+    --container-column-margin: ${pxToRem("20px")};
+
+    /* layout grid */
     --grid-column-gap: ${pxToRem("16px")}
   }
 `;
