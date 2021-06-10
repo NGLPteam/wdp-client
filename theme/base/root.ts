@@ -16,16 +16,16 @@ export default `
     --brand10: ${hexToHSL("#E9F3F7")};
 
     /* neutral colors */
-    --netural100: ${hexToHSL("#000000")};
-    --netural90: ${hexToHSL("#232324")};
-    --netural70: ${hexToHSL("#67676B")};
-    --netural60: ${hexToHSL("#87878C")};
-    --netural50: ${hexToHSL("#A5A5AB")};
-    --netural40: ${hexToHSL("#BCBCC3")};
-    --netural20: ${hexToHSL("#E1E1E5")};
-    --netural10: ${hexToHSL("#F0F0F5")};
-    --netural05: ${hexToHSL("#FAFAFC")};
-    --netural00: ${hexToHSL("#FFFFFF")};
+    --neutral100: ${hexToHSL("#000000")};
+    --neutral90: ${hexToHSL("#232324")};
+    --neutral70: ${hexToHSL("#67676B")};
+    --neutral60: ${hexToHSL("#87878C")};
+    --neutral50: ${hexToHSL("#A5A5AB")};
+    --neutral40: ${hexToHSL("#BCBCC3")};
+    --neutral20: ${hexToHSL("#E1E1E5")};
+    --neutral10: ${hexToHSL("#F0F0F5")};
+    --neutral05: ${hexToHSL("#FAFAFC")};
+    --neutral00: ${hexToHSL("#FFFFFF")};
 
     /* system colors */
     --green-dark: ${hexToHSL("#3E9460")};
@@ -65,7 +65,7 @@ export default `
     --line-height-h3: ${pxToRem("24px")};
 
     /* font colors */
-    --color-base: var(--netural90);
+    --color-base: var(--neutral90);
 
     /* layout colors */
     --bg-color-base: var(--neutral00);

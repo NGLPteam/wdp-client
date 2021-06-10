@@ -4,7 +4,9 @@ const MainNav = ({ className, children }: Props) => {
   return (
     <nav className={className}>
       <div className={`${className}__inner`}>
-        <a href="/">Institution Name</a>
+        <a className="t-label-md" href="/">
+          Institution Name
+        </a>
         <ul className="flex">
           {children &&
             children.map((child, i) => (

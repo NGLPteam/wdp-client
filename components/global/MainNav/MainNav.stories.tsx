@@ -1,4 +1,5 @@
 import MainNav from "./";
+import TopNavItem from "components/atomic/TopNavItem";
 
 export default {
   title: "Components/Global/MainNav",
@@ -7,11 +8,11 @@ export default {
 
 export const Primary = () => (
   <MainNav>
-    <a key={1} href="/">
+    <TopNavItem key={1} href="/">
       Link A
-    </a>
-    <a key={2} href="/">
+    </TopNavItem>
+    <TopNavItem key={2} href="/">
       Link B
-    </a>
+    </TopNavItem>
   </MainNav>
 );
