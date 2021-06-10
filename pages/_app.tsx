@@ -2,12 +2,17 @@ import React, { useMemo } from "react";
 import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 
-import { SSRKeycloakProvider, SSRCookies, useKeycloak } from "@react-keycloak/ssr";
+import {
+  SSRKeycloakProvider,
+  SSRCookies,
+  useKeycloak,
+} from "@react-keycloak/ssr";
 import { RelayEnvironmentProvider } from "relay-hooks";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 
+import GlobalStyles from "theme";
 import Layout from "components/Layout";
 import FullPageLoader from "components/FullPageLoader";
 import useLatest from "hooks/useLatest";
@@ -17,7 +22,12 @@ import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 import theme from "utils/theme";
 
-export default function NGLPApp({ Component, pageProps, cookies, records: r }: AppProps & InitialProps) {
+export default function NGLPApp({
+  Component,
+  pageProps,
+  cookies,
+  records: r,
+}: AppProps & InitialProps) {
   useRemoveServerInjectedCSS();
 
   const records = useDeserializeRecords(r);
@@ -37,15 +47,19 @@ export default function NGLPApp({ Component, pageProps, cookies, records: r }: A
     keycloakConfig,
     LoadingComponent: <FullPageLoader />,
     persistor,
-  }
+  };
 
   return (
     <React.Fragment>
       <Head>
         <title>WDP Backend Client</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
-      <SSRKeycloakProvider {...ssrProps} >
+      <GlobalStyles />
+      <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <ThemeProvider theme={theme}>
             <Layout>
@@ -85,9 +99,7 @@ function KeycloakRelayProvider({ children, records }: KeycloakRelayProps) {
     return environment(keycloakRef, records);
   }, [records]);
 
-  return (
-    <RelayEnvironmentProvider children={children} environment={env} />
-  );
+  return <RelayEnvironmentProvider children={children} environment={env} />;
 }
 
 function useRemoveServerInjectedCSS() {
@@ -109,7 +121,9 @@ function useDeserializeRecords(r: RecordMap | null): RecordMap {
       const recordsData = document.getElementById("relay-data")?.innerHTML;
 
       if (recordsData) {
-        const records: RecordMap = JSON.parse(Buffer.from(recordsData, "base64").toString());
+        const records: RecordMap = JSON.parse(
+          Buffer.from(recordsData, "base64").toString()
+        );
 
         return records;
       }
