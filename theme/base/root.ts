@@ -36,7 +36,12 @@ export default `
     --red-tint: ${hexToHSL("#F7DBD9")};
 
     /* fonts */
-    --font-face-base: "Karla", sans-serif;
+    --font-face-base: "Karla", serif;
+
+    /* font weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
 
     /* font sizes */
     --font-size-base: 1rem;

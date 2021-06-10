@@ -1,32 +1,20 @@
-import { embedFonts } from "@castiron/style-mixins";
-
-const FONTS = [
-  {
-    name: `"Karla"`,
-    fileName: "Karla-Regular",
-    weight: 400,
-    style: "normal",
-  },
-  {
-    name: `"Karla"`,
-    fileName: "Karla-Italic",
-    weight: 400,
-    style: "italic",
-  },
-  {
-    name: `"Karla"`,
-    fileName: "Karla-Bold",
-    weight: 700,
-    style: "normal",
-  },
-  {
-    name: `"Karla"`,
-    fileName: "Karla-Bold-Italic",
-    weight: 700,
-    style: "italic",
-  },
-];
+function fontFace(name, filename, style = "normal", weight = 400) {
+  console.log("filename", filename);
+  return `
+    @font-face {
+      font-family: ${name};
+      font-style: ${style};
+      font-weight: ${weight};
+      font-display: block;
+      src: url("fonts/${filename}.woff2") format("woff2"),
+        url("fonts/${filename}.woff") format("woff");
+    }
+  `;
+}
 
 export default `
-  ${embedFonts(FONTS)}
+  ${fontFace("Karla", "Karla-Regular", "normal", 400)}
+  ${fontFace("Karla", "Karla-Italic", "italic", 400)}
+  ${fontFace("Karla", "Karla-Bold", "normal", 700)}
+  ${fontFace("Karla", "Karla-Bold-Italic", "italic", 700)}
 `;
