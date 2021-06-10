@@ -6,15 +6,14 @@ import GlobalStyles from "components/GlobalStyles";
 // TODO: Style & move these to their respective global folder, AppHeader and AppFooter
 import ServiceProviderBar from "../ServiceProviderBar";
 import Footer from "../../Layout/Footer";
-import Header from "../../Layout/Header";
+import AppHeader from "../AppHeader";
 
 function AppBody({ children }: Props) {
   return (
     <>
       <GlobalStyles />
       <StyledBody>
-        <ServiceProviderBar />
-        <Header />
+        <AppHeader />
         <StyledMain children={children} />
         <Footer />
       </StyledBody>
