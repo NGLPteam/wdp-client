@@ -14,7 +14,7 @@ import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
-import Layout from "components/Layout";
+import AppBody from "components/global/AppBody";
 
 import initialEnvironment from "relay/initialEnvironment";
 import parseCookies from "utils/parseCookies";
@@ -45,9 +45,9 @@ export default class extends Document<Props> {
           return (
             <RelayEnvironmentProvider environment={env}>
               <StyleSheetManager sheet={sheet.instance} disableVendorPrefixes>
-                <Layout>
+                <AppBody>
                   <Component {...props} />
-                </Layout>
+                </AppBody>
               </StyleSheetManager>
             </RelayEnvironmentProvider>
           );
