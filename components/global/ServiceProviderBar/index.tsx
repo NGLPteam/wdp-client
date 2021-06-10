@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ServiceProviderBar = ({ className }: Props) => {
   return (
-    <div className={className} role="banner">
+    <div className={className}>
       <span className="t-label-md">Service Provider Name</span>
     </div>
   );
