@@ -1,7 +1,10 @@
 import React from "react";
+import { useSetActiveEntity } from "hooks/useGlobalData";
 import Link from "next/link";
 
 export default function Home() {
+    useSetActiveEntity();
+
     return (
         <div>
             <h1>NGLP Admin</h1>

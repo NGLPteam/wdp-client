@@ -1,10 +1,10 @@
 import React from "react";
-import useGetQueryParam from "hooks/useGetQueryParam";
+import { useSetActiveEntity, useSetActiveId, useSetActiveView } from "hooks/useGlobalData";
 
 export default function EntityManagePage() {
-    const entity = useGetQueryParam("entity");
-    const id = useGetQueryParam("id");
-    const view = useGetQueryParam("view") || "properties";
+    const entity = useSetActiveEntity();
+    const id = useSetActiveId();
+    const view = useSetActiveView();
 
     return (
         <div>

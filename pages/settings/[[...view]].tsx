@@ -1,8 +1,9 @@
 import React from "react";
-import useGetQueryParam from "hooks/useGetQueryParam";
+import { useSetActiveEntity, useSetActiveView } from "hooks/useGlobalData";
 
 export default function SettingsPage() {
-    const view = useGetQueryParam("view") || "main";
+    useSetActiveEntity();
+    const view = useSetActiveView();
 
     return (
         <div>
