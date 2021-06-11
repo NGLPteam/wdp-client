@@ -6,8 +6,8 @@ import NamedLink from "components/atomic/NamedLink";
 import ServiceProviderBar from "components/global/ServiceProviderBar";
 import MainNav from "components/global/MainNav";
 import TopNavItem from "components/atomic/TopNavItem";
-import SignIn from "components/Auth/SignIn";
-import SignOut from "components/Auth/SignOut";
+import SignIn from "components/scaffolding/Auth/SignIn";
+import SignOut from "components/scaffolding/Auth/SignOut";
 
 function AppHeader({ children, className }: Props) {
   const { asPath } = useRouter();

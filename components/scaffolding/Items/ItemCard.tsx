@@ -4,7 +4,7 @@ import { useFragment } from "relay-hooks";
 
 import { ItemCardFragment$key } from "__generated__/ItemCardFragment.graphql";
 
-import { Card } from "components/Cards";
+import { Card } from "components/scaffolding/Cards";
 
 export default function ItemCard(props: Props) {
   const item = useFragment(fragment, props.item);
@@ -22,9 +22,9 @@ interface Props {
 }
 
 const fragment = graphql`
-fragment ItemCardFragment on Item {
-  slug
-  title
-  description
-}
+  fragment ItemCardFragment on Item {
+    slug
+    title
+    description
+  }
 `;
