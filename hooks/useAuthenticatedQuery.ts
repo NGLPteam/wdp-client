@@ -1,9 +1,15 @@
 import { QueryOptions, useQuery } from "relay-hooks";
+
+import useAuthenticatedFetchKey from "./useAuthenticatedFetchKey";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
-import useAuthenticatedFetchKey from './useAuthenticatedFetchKey';
-
-export default function useAuthenticatedQuery<T extends OperationType = OperationType>(gqlQuery: GraphQLTaggedNode, variables?: T["variables"], options?: QueryOptions) {
+export default function useAuthenticatedQuery<
+  T extends OperationType = OperationType
+>(
+  gqlQuery: GraphQLTaggedNode,
+  variables?: T["variables"],
+  options?: QueryOptions
+) {
   const fetchKey = useAuthenticatedFetchKey();
 
   const proxiedOptions: QueryOptions = { fetchKey, ...options };

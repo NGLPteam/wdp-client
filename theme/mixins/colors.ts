@@ -2,9 +2,9 @@
 
 export function hexToHSL(H: string | any[]) {
   // Convert hex to RGB first
-  let r: string | number | bigint | any = 0,
-    g: string | number | bigint | any = 0,
-    b: string | number | bigint | any = 0;
+  let r: string | number | bigint | any = 0;
+  let g: string | number | bigint | any = 0;
+  let b: string | number | bigint | any = 0;
   if (H.length == 4) {
     r = "0x" + H[1] + H[1];
     g = "0x" + H[2] + H[2];
@@ -18,12 +18,12 @@ export function hexToHSL(H: string | any[]) {
   r /= 255;
   g /= 255;
   b /= 255;
-  let cmin = Math.min(r, g, b),
-    cmax = Math.max(r, g, b),
-    delta = cmax - cmin,
-    h = 0,
-    s = 0,
-    l = 0;
+  const cmin = Math.min(r, g, b);
+  const cmax = Math.max(r, g, b);
+  const delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
 
   if (delta == 0) h = 0;
   else if (cmax == r) h = ((g - b) / delta) % 6;

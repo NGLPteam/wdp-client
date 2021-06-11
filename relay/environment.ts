@@ -12,7 +12,10 @@ interface KeycloakRef {
   current?: KeycloakInstance;
 }
 
-export default function buildEnvironment(keycloakRef: KeycloakRef, records?: RecordMap) {
+export default function buildEnvironment(
+  keycloakRef: KeycloakRef,
+  records?: RecordMap
+) {
   const source = new RecordSource(records);
 
   const store = new Store(source, { queryCacheExpirationTime: 5 * 60 * 1000 });
@@ -30,7 +33,7 @@ export default function buildEnvironment(keycloakRef: KeycloakRef, records?: Rec
         await keycloakRef.current?.updateToken(86400);
 
         return keycloakRef.current?.token;
-      }
+      },
     }),
   ]);
 
@@ -38,4 +41,4 @@ export default function buildEnvironment(keycloakRef: KeycloakRef, records?: Rec
     network,
     store,
   });
-};
+}

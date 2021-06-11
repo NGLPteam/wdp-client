@@ -9,29 +9,33 @@ import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
 
 function AppHeader({ children, className }: Props) {
-    const activeEntity = useGetActiveEntity();
+  const activeEntity = useGetActiveEntity();
 
-    return (
-        <header className={className} role="banner">
-            <ServiceProviderBar />
-            <MainNav>
-                <NamedLink route="communityList" passHref>
-                    <TopNavItem active={activeEntity === "communities"}>Communities</TopNavItem>
-                </NamedLink>
-                <NamedLink route="collectionList" passHref>
-                    <TopNavItem active={activeEntity === "collections"}>Collections</TopNavItem>
-                </NamedLink>
-                <NamedLink route="itemList" passHref>
-                    <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
-                </NamedLink>
-                <span>
-                    <SignIn />
-                    <SignOut />
-                </span>
-            </MainNav>
-            {children}
-        </header>
-    );
+  return (
+    <header className={className} role="banner">
+      <ServiceProviderBar />
+      <MainNav>
+        <NamedLink route="communityList" passHref>
+          <TopNavItem active={activeEntity === "communities"}>
+            Communities
+          </TopNavItem>
+        </NamedLink>
+        <NamedLink route="collectionList" passHref>
+          <TopNavItem active={activeEntity === "collections"}>
+            Collections
+          </TopNavItem>
+        </NamedLink>
+        <NamedLink route="itemList" passHref>
+          <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
+        </NamedLink>
+        <span>
+          <SignIn />
+          <SignOut />
+        </span>
+      </MainNav>
+      {children}
+    </header>
+  );
 }
 
 interface Props extends React.HTMLProps<HTMLDivElement> {}
