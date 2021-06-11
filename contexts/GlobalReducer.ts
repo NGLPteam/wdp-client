@@ -8,12 +8,12 @@ const Reducer = (state, action) => {
         case "SET_ACTIVE_ID":
             return {
                 ...state,
-                activeEntity: action.payload,
+                activeId: action.payload,
             };
         case "SET_ACTIVE_VIEW":
             return {
                 ...state,
-                activeEntity: action.payload,
+                activeView: action.payload,
             };
         case "SET_ERROR":
             return {

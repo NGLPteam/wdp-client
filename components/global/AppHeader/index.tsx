@@ -10,6 +10,7 @@ import { useGetActiveEntity } from "hooks/useGlobalData";
 
 function AppHeader({ children, className }: Props) {
     const activeEntity = useGetActiveEntity();
+    console.log("activeEntity: " + activeEntity);
 
     return (
         <header className={className} role="banner">

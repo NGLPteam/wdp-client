@@ -26,6 +26,7 @@ export const useGlobalData = (dataPoint?: string) => {
 export const useSetActiveEntity = () => {
     const { dispatch } = useContext(GlobalDataContext);
     const entity = useGetQueryParam("entity") || "";
+    console.log(entity);
 
     useEffect(() => {
         dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
