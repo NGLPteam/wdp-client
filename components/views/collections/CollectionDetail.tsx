@@ -2,8 +2,13 @@ import React from "react";
 import SubcollectionList from "components/views/entities/SubcollectionList";
 import SubitemList from "components/views/entities/SubitemList";
 import Link from "next/link";
+import { useGlobalData } from "hooks/useGlobalData";
 
-export default function CollectionDetail({ id, view }: Props) {
+export default function CollectionDetail() {
+    const {
+        state: { activeId: id, activeView: view },
+    } = useGlobalData();
+
     return (
         <div>
             <h1>
@@ -28,13 +33,8 @@ export default function CollectionDetail({ id, view }: Props) {
                     </li>
                 </ul>
             )}
-            {view === "collections" && <SubcollectionList id={id} />}
-            {view === "items" && <SubitemList id={id} />}
+            {view === "collections" && <SubcollectionList />}
+            {view === "items" && <SubitemList />}
         </div>
     );
-}
-
-interface Props {
-    id: string;
-    view: string;
 }
