@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import { graphql } from "react-relay";
 
-import useAuthenticatedQuery from 'hooks/useAuthenticatedQuery';
+import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 
-import { CollectionListQuery, CollectionListQueryVariables } from "__generated__/CollectionListQuery.graphql";
-import { CardList } from "components/Cards";
+import {
+  CollectionListQuery,
+  CollectionListQueryVariables,
+} from "__generated__/CollectionListQuery.graphql";
+import { CardList } from "components/scaffolding/Cards";
 
 import CollectionCard from "./CollectionCard";
 import CollectionFilters from "./CollectionFilters";
 
 export default function CollectionList() {
-  const [variables, setVariables] = useState<CollectionListQueryVariables>({ order: "RECENT" });
+  const [variables, setVariables] = useState<CollectionListQueryVariables>({
+    order: "RECENT",
+  });
 
-  const { data, isLoading } = useAuthenticatedQuery<CollectionListQuery>(query, variables);
+  const { data, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
+    query,
+    variables
+  );
 
   if (isLoading) {
     return null;
@@ -32,13 +40,13 @@ export default function CollectionList() {
 }
 
 const query = graphql`
-query CollectionListQuery($order: SimpleOrder!) {
-  collections(order: $order) {
-    edges {
-      node {
-        ...CollectionCardFragment
+  query CollectionListQuery($order: SimpleOrder!) {
+    collections(order: $order) {
+      edges {
+        node {
+          ...CollectionCardFragment
+        }
       }
     }
   }
-}
 `;

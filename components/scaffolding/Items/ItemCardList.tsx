@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { ItemCardListFragment$key } from "__generated__/ItemCardListFragment.graphql";
 
-import { CardList } from "components/Cards";
+import { CardList } from "components/scaffolding/Cards";
 
 import ItemCard from "./ItemCard";
 
@@ -29,11 +29,11 @@ interface Props {
 }
 
 const fragment = graphql`
-fragment ItemCardListFragment on ItemConnection {
-  edges {
-    node {
-      ...ItemCardFragment
+  fragment ItemCardListFragment on ItemConnection {
+    edges {
+      node {
+        ...ItemCardFragment
+      }
     }
   }
-}
 `;
