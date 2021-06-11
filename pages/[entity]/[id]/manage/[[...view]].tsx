@@ -9,7 +9,7 @@ export default function EntityManagePage() {
     return (
         <div>
             <h1>
-                {entity} #{id} - Manage {view}
+                Manage {entity} #{id} - {view} view
             </h1>
         </div>
     );
