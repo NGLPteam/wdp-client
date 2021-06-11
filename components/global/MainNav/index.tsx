@@ -1,12 +1,13 @@
 import * as Styled from "./styles";
+import Link from "next/link";
 
 const MainNav = ({ children }: Props) => {
   return (
     <Styled.Nav>
       <Styled.Inner>
-        <a className="t-label-md" href="/">
-          Institution Name
-        </a>
+        <Link href="/" passHref>
+          <a className="t-label-md">Institution Name</a>
+        </Link>
         <ul className="flex">
           {children &&
             children.map((child, i) => (
