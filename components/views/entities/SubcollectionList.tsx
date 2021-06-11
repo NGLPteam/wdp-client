@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { useGlobalData } from "hooks/useGlobalData";
 
-export default function SubcollectionList({ id }: Props) {
+export default function SubcollectionList() {
+    const {
+        state: { activeId: id },
+    } = useGlobalData();
+
     return (
         <div>
             <h1>Collections for {id}</h1>
@@ -14,8 +19,4 @@ export default function SubcollectionList({ id }: Props) {
             </ul>
         </div>
     );
-}
-
-interface Props {
-    id: string;
 }

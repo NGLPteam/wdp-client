@@ -1,8 +1,13 @@
 import React from "react";
 import SubcollectionList from "components/views/entities/SubcollectionList";
 import Link from "next/link";
+import { useGlobalData } from "hooks/useGlobalData";
 
-export default function CommunityDetail({ id, view }: Props) {
+export default function CommunityDetail() {
+    const {
+        state: { activeId: id, activeView: view },
+    } = useGlobalData();
+
     return (
         <div>
             <h1>
@@ -22,12 +27,7 @@ export default function CommunityDetail({ id, view }: Props) {
                     </li>
                 </ul>
             )}
-            {view === "collections" && <SubcollectionList id={id} />}
+            {view === "collections" && <SubcollectionList />}
         </div>
     );
-}
-
-interface Props {
-    id: string;
-    view: string;
 }
