@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
-import styled from "styled-components";
 
 import GlobalStyles from "components/GlobalStyles";
+import * as Styled from "./styles";
 
 // TODO: Style & move these to their respective global folder, AppHeader and AppFooter
 import ServiceProviderBar from "../ServiceProviderBar";
@@ -12,11 +12,11 @@ function AppBody({ children }: Props) {
   return (
     <>
       <GlobalStyles />
-      <StyledBody>
+      <Styled.Body>
         <AppHeader />
-        <StyledMain children={children} />
+        <Styled.Main children={children} />
         <Footer />
-      </StyledBody>
+      </Styled.Body>
     </>
   );
 }
@@ -24,16 +24,3 @@ function AppBody({ children }: Props) {
 interface Props extends PropsWithChildren<any> {}
 
 export default AppBody;
-
-const StyledBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  max-height: 100vh;
-  overflow-x: hidden;
-  max-width: 100vw;
-`;
-
-const StyledMain = styled.main`
-  flex: 2 1 auto;
-`;
