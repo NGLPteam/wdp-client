@@ -14,7 +14,7 @@ import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 
 import GlobalStyles from "theme";
 import AppBody from "components/global/AppBody";
-import FullPageLoader from "components/FullPageLoader";
+import FullPageLoader from "components/global/FullPageLoader";
 import useLatest from "hooks/useLatest";
 
 import environment from "relay/environment";
