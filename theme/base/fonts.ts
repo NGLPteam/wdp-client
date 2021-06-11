@@ -1,13 +1,12 @@
 function fontFace(name, filename, style = "normal", weight = 400) {
-  console.log("filename", filename);
   return `
     @font-face {
       font-family: ${name};
       font-style: ${style};
       font-weight: ${weight};
       font-display: block;
-      src: url("fonts/${filename}.woff2") format("woff2"),
-        url("fonts/${filename}.woff") format("woff");
+      src: url("/fonts/${filename}.woff2") format("woff2"),
+        url("/fonts/${filename}.woff") format("woff");
     }
   `;
 }
