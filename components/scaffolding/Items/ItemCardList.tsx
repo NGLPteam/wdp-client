@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useFragment } from "relay-hooks";
-import styled from "styled-components";
 
 import { ItemCardListFragment$key } from "__generated__/ItemCardListFragment.graphql";
 

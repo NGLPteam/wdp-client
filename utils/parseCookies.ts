@@ -3,7 +3,7 @@ import type { IncomingMessage } from "http";
 
 export default function parseCookies(req?: IncomingMessage) {
   if (!req || !req.headers) {
-    return {}
+    return {};
   }
 
   return cookie.parse(req.headers.cookie || "");

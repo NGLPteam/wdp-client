@@ -5,13 +5,16 @@ import { CollectionListQueryVariables } from "__generated__/CollectionListQuery.
 
 export default function CollectionFilters(props: Props) {
   const { register, handleSubmit } = useForm({
-    defaultValues: props.variables
+    defaultValues: props.variables,
   });
 
-  const onSubmit = useCallback((data: CollectionListQueryVariables) => {
-    props.setVariables(data);
-  }, [props.setVariables]);
-  
+  const onSubmit = useCallback(
+    (data: CollectionListQueryVariables) => {
+      props.setVariables(data);
+    },
+    [props.setVariables]
+  );
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <select {...register("order", { required: true })}>
@@ -26,9 +29,9 @@ export default function CollectionFilters(props: Props) {
 
 export interface Variables extends CollectionListQueryVariables {
   order: "RECENT" | "OLDEST";
-};
+}
 
 interface Props {
   variables: Variables;
-  setVariables: (variables: CollectionListQueryVariables) => void
+  setVariables: (variables: CollectionListQueryVariables) => void;
 }

@@ -1,6 +1,6 @@
 // Utility layout classes
 // --------------------
-import styled, { css } from "styled-components";
+import { css } from "styled-components";
 const COLUMNS = 12;
 
 function createItems() {

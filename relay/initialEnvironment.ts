@@ -8,12 +8,15 @@ import {
   retryMiddleware,
 } from "react-relay-network-modern/node8";
 import { SSRCookies } from "@react-keycloak/ssr";
-
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 
 type TokenPersistor = ReturnType<typeof SSRCookies>;
 
-export default function buildInitialEnvironment(relayServerSSR: RelayServerSSR, ssrCookies: TokenPersistor, ctx: DocumentContext) {
+export default function buildInitialEnvironment(
+  relayServerSSR: RelayServerSSR,
+  ssrCookies: TokenPersistor,
+  ctx: DocumentContext
+) {
   const network = new RelayNetworkLayer([
     relayServerSSR.getMiddleware(),
     (next) => async (req) => {
@@ -61,4 +64,4 @@ export default function buildInitialEnvironment(relayServerSSR: RelayServerSSR, 
     network,
     store: new Store(new RecordSource()),
   });
-};
+}
