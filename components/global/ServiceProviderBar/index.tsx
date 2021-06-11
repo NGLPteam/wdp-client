@@ -1,22 +1,11 @@
-import styled from "styled-components";
+import * as Styled from "./styles";
 
-const ServiceProviderBar = ({ className }: Props) => {
+const ServiceProviderBar = () => {
   return (
-    <div className={className}>
+    <Styled.Bar>
       <span className="t-label-md">Service Provider Name</span>
-    </div>
+    </Styled.Bar>
   );
 };
 
-interface Props extends React.HTMLProps<HTMLDivElement> {}
-
-const StyledServiceProviderBar = styled(ServiceProviderBar)`
-  margin: 0 auto;
-  width: 100%;
-  background: var(--brand90);
-  padding: 12px var(--container-column-margin);
-  color: var(--brand20);
-  text-align: center;
-`;
-
-export default StyledServiceProviderBar;
+export default ServiceProviderBar;
