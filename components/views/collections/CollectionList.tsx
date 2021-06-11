@@ -1,17 +1,17 @@
 import React from "react";
-import Link from "next/link";
+import NamedLink from "components/atomic/NamedLink";
 
 export default function CollectionList() {
-    return (
-        <div>
-            <h1>Collections</h1>
-            <ul>
-                <li>
-                    <Link href={`/collections/1`}>
-                        <a>Collection number 1</a>
-                    </Link>
-                </li>
-            </ul>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Collections</h1>
+      <ul>
+        <li>
+          <NamedLink route="collectionDetail" params={{ slug: 1 }}>
+            <a>Collection number 1</a>
+          </NamedLink>
+        </li>
+      </ul>
+    </div>
+  );
 }
