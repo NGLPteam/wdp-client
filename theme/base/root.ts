@@ -69,6 +69,7 @@ export default `
 
     /* font colors */
     --color-base: var(--neutral90);
+    --color-dark-bg: var(--brand20);
 
     /* layout colors */
     --bg-color-base: var(--neutral00);
@@ -81,7 +82,12 @@ export default `
     --grid-column-gap: ${pxToRem("16px")};
 
     /* transitions */
+    --base-duration: ${duration}s;
+    --base-timing: ${timing};
     --border-transition: border ${duration}s ${timing};
     --color-transition: color ${duration}s ${timing};
+
+    /* border radius */
+    --border-radius-lg: ${pxToRem("40px")};
   }
 `;

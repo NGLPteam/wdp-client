@@ -1,10 +1,15 @@
 import MainNav from "./";
-import TopNavItem from "components/atomic/TopNavItem";
+import { TopNavItem } from "components/atomic";
+import { NavSearch } from "components/global";
 
 export default {
   title: "Components/Global/MainNav",
   component: MainNav,
 };
+
+function handleSubmit(value) {
+  console.log("submitted!", value);
+}
 
 export const Primary = () => (
   <MainNav>
@@ -14,5 +19,6 @@ export const Primary = () => (
     <TopNavItem key={2} href="/">
       Link B
     </TopNavItem>
+    <NavSearch onSubmit={handleSubmit} />
   </MainNav>
 );

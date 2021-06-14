@@ -13,7 +13,7 @@ export const Inner = styled.div`
   margin: 0 auto;
   max-width: var(--container-max);
   padding: 20px 0;
-  color: var(--brand20);
+  color: var(--color-dark-bg);
 `;
 
 export const Item = styled.li`
