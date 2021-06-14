@@ -9,7 +9,7 @@ import useGetQueryParam from "hooks/useGetQueryParam";
  * @returns the value of the point, or the full data if not
  */
 export const useGlobalData = (dataPoint?: string) => {
-    const { state, dispatch } = useContext(GlobalDataContext);
+    const { state, dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     if (dataPoint && state[dataPoint]) {
         return state[dataPoint];
     } else {
@@ -24,7 +24,7 @@ export const useGlobalData = (dataPoint?: string) => {
  * @returns entity
  */
 export const useSetActiveEntity = () => {
-    const { dispatch } = useContext(GlobalDataContext);
+    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const entity = useGetQueryParam("entity") || "";
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export const useSetActiveEntity = () => {
  * @return the value of the active entity
  */
 export const useGetActiveEntity = () => {
-    const { state } = useContext(GlobalDataContext);
+    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
     return state.activeEntity;
 };
 
@@ -47,7 +47,7 @@ export const useGetActiveEntity = () => {
  * @returns entity
  */
 export const useSetActiveId = () => {
-    const { dispatch } = useContext(GlobalDataContext);
+    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const id = useGetQueryParam("id") || "";
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export const useSetActiveId = () => {
  * @return the value of the active entity
  */
 export const useGetActiveId = () => {
-    const { state } = useContext(GlobalDataContext);
+    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
     return state.activeId;
 };
 
@@ -70,7 +70,7 @@ export const useGetActiveId = () => {
  * @returns entity
  */
 export const useSetActiveView = () => {
-    const { dispatch } = useContext(GlobalDataContext);
+    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const view = useGetQueryParam("view") || "main";
 
     useEffect(() => {
@@ -84,6 +84,6 @@ export const useSetActiveView = () => {
  * @return the value of the active entity
  */
 export const useGetActiveView = () => {
-    const { state } = useContext(GlobalDataContext);
+    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
     return state.activeView;
 };
