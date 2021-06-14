@@ -47,7 +47,7 @@ export default function buildInitialEnvironment(
     }),
     authMiddleware({
       allowEmptyToken: true,
-      token: (req) => {
+      token: () => {
         const { token } = ssrCookies.getTokens();
 
         if (token) {
@@ -56,7 +56,7 @@ export default function buildInitialEnvironment(
 
         return null;
       },
-      tokenRefreshPromise: async (req) => null,
+      tokenRefreshPromise: async () => null,
     }),
   ]);
 
