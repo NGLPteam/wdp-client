@@ -9,4 +9,8 @@ export default `
     color: var(--color-base);
     background-color: var(--bg-color-base);
   }
+  
+  ul, ol {
+    list-style-position: inside;
+  }
 `;

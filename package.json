@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@bedrock-layout/use-stateful-ref": "^1.1.2",
+    "@castiron/components-input": "^1.0.0-alpha.2",
     "@castiron/style-mixins": "^1.0.0",
     "@react-keycloak/ssr": "^3.3.0",
     "@react-keycloak/web": "^3.4.0",

@@ -42,13 +42,10 @@ export default `
 
   .flex {
     display: flex;
+    flex-wrap: wrap;
 
-    &--center {
-      align-content: center;
-    }
-
-    &--right {
-        align-content: flex-end;
+    &--align-center {
+      align-items: center;
     }
   }
 `;

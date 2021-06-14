@@ -1,3 +1,1 @@
-import MainNav from "./MainNav";
-
-export default MainNav;
+export { default } from "./MainNav";
