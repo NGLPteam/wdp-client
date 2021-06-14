@@ -38,4 +38,4 @@ jobs:
 
       - name: "Lint Client"
         run: |
-          npm run lint:js
+          npm run lint
