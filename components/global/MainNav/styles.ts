@@ -16,7 +16,7 @@ export const Inner = styled.div`
   color: var(--brand20);
 `;
 
-export const Item = styled.div`
+export const Item = styled.li`
   & + & {
     margin-inline-start: 28px;
   }
