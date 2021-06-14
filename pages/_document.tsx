@@ -66,7 +66,7 @@ export default class extends Document<Props> {
             return sheet.collectStyles(
               <App
                 {...props}
-                // @ts-expect-error
+                // @ts-expect-error scaffolding
                 records={records}
               />
             );

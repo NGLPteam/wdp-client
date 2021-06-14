@@ -15,6 +15,7 @@ type ParsedToken = KeycloakTokenParsed & {
 export default function useHasRole(role: string): boolean | null {
   const { keycloak, initialized } = useKeycloak<KeycloakInstance>();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed;
 
   if (!initialized || typeof keycloak.hasRealmRole !== "function") {

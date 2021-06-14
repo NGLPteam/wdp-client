@@ -28,7 +28,7 @@ export default function CollectionList() {
 
   return (
     <div>
-      {/* @ts-expect-error */}
+      {/* @ts-expect-error scaffolding */}
       <CollectionFilters variables={variables} setVariables={setVariables} />
       <CardList>
         {data.collections.edges.map(({ node: collection }, index) => (

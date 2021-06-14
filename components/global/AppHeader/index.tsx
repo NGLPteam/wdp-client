@@ -38,6 +38,6 @@ function AppHeader({ children, className }: Props) {
   );
 }
 
-interface Props extends React.HTMLProps<HTMLDivElement> {}
+type Props = React.HTMLProps<HTMLDivElement>;
 
 export default AppHeader;
