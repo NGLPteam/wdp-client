@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  ignorePatterns: ["components/scaffolding/**"],
+  ignorePatterns: ["components/scaffolding/**", "**/*.stories.tsx"],
   rules: {
     // "unused-imports/no-unused-imports": 2,
     // Turned off for this project

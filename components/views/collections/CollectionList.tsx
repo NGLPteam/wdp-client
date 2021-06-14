@@ -1,5 +1,5 @@
 import React from "react";
-import NamedLink from "components/atomic/NamedLink";
+import MixedLink from "components/atomic/MixedLink";
 
 export default function CollectionList() {
   return (
@@ -7,9 +7,9 @@ export default function CollectionList() {
       <h1>Collections</h1>
       <ul>
         <li>
-          <NamedLink route="collectionDetail" params={{ slug: 1 }}>
-            <a>Collection number 1</a>
-          </NamedLink>
+          <MixedLink route="collectionDetail" params={{ id: 1 }}>
+            Collection number 1
+          </MixedLink>
         </li>
       </ul>
     </div>
