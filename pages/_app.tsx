@@ -14,8 +14,7 @@ import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 
 import GlobalStyles from "theme";
-import AppBody from "components/global/AppBody";
-import FullPageLoader from "components/global/FullPageLoader";
+import { AppBody, FullPageLoader } from "components/global";
 import useLatest from "hooks/useLatest";
 
 import environment from "relay/environment";

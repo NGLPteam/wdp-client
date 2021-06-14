@@ -2,8 +2,7 @@ import React, { PropsWithChildren } from "react";
 
 import * as Styled from "./styles";
 
-import AppFooter from "components/global/AppFooter";
-import AppHeader from "components/global/AppHeader";
+import { AppHeader, AppFooter } from "components/global";
 
 function AppBody({ children }: Props) {
   return (
