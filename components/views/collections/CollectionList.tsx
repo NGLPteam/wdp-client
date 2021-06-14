@@ -8,7 +8,7 @@ export default function CollectionList() {
       <ul>
         <li>
           <MixedLink route="collectionDetail" params={{ id: 1 }}>
-            Collection number 1
+            <a>Collection number 1</a>
           </MixedLink>
         </li>
       </ul>

@@ -20,7 +20,9 @@ const externalLink = "https://www.google.com";
 
 const Template: Story<Props> = (args) => (
   <div onClick={handleClick} role="link" tabIndex={0}>
-    <MixedLink {...args}>Click Me</MixedLink>
+    <MixedLink {...args}>
+      <a>Click Me</a>
+    </MixedLink>
   </div>
 );
 
