@@ -1,4 +1,3 @@
-/* eslint-disable no-console, jsx-a11y/click-events-have-key-events */
 import React from "react";
 import { Story } from "@storybook/react";
 import MixedLink, { Props } from ".";
