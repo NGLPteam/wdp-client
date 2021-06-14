@@ -6,7 +6,10 @@ export default function Footer() {
   return (
     <Container>
       {"© "}
-      <Link href="/">NGLP</Link> {new Date().getFullYear()}
+      <Link href="/">
+        <a>NGLP</a>
+      </Link>
+      {new Date().getFullYear()}
       {"."}
     </Container>
   );
