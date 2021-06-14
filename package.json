@@ -9,6 +9,7 @@
     "relay": "relay-compiler",
     "schema": "graphql codegen",
     "storybook": "start-storybook -s ./public -p 6006",
+    "build-storybook": "build-storybook -o ./build/storybook",
     "lint": "npm-run-all lint:js lint:ts",
     "lint:js": "eslint -c .eslintrcjs.js \"**/*.{js,jsx}\"",
     "lint:ts": "eslint -c .eslintrc.js \"**/*.{ts,tsx}\"",
