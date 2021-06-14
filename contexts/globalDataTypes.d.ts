@@ -1,7 +1,7 @@
 interface GlobalState {
-    [activeEntity: string]: string | undefined;
-    [activeId: string]: string | undefined;
-    [activeView: string]: string | undefined;
+    activeEntity: string | undefined;
+    activeId: string | undefined;
+    activeView: string | undefined;
 }
 
 interface GlobalContextInterface {
