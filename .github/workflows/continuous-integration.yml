@@ -1,0 +1,41 @@
+name: continuous-integration
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint-js:
+    runs-on: ubuntu-latest
+    name: Lint Javascript
+
+    steps:
+      - name: "Check out code"
+        uses: actions/checkout@v2
+
+      - name: "Install Node"
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
+      - name: "Restore Node dependencies from cache"
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-node-module-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-module-cache-
+
+      - name: "Install Node dependencies"
+        env:
+          NODE_ENV: development
+        run: |
+          npm install
+
+      - name: "Lint Client"
+        run: |
+          npm run lint:js
