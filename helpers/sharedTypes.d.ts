@@ -6,8 +6,8 @@
 //     draft: "Draft",
 //   }
 //   export const item = (str: string) => ITEM_MAP[str] || str
- * 
+ *
  */
 interface Map {
-    [key: string]: string | undefined;
+  [key: string]: string | undefined;
 }

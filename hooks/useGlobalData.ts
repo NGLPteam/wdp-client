@@ -9,8 +9,8 @@ import useGetQueryParam from "hooks/useGetQueryParam";
  * @returns the value of the point, or the full data if not
  */
 export const useGlobalData = (): GlobalState => {
-    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
-    return state;
+  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  return state;
 };
 
 /**
@@ -18,10 +18,10 @@ export const useGlobalData = (): GlobalState => {
  * @returns the value of the point
  */
 export const useGlobalDataPoint = (dataPoint: string): string => {
-    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
-    const point = dataPoint as keyof typeof state;
+  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const point = dataPoint as keyof typeof state;
 
-    return state[point] || "";
+  return state[point] || "";
 };
 
 /** Here are some simplified getters/setters */
@@ -30,22 +30,22 @@ export const useGlobalDataPoint = (dataPoint: string): string => {
  * @returns entity
  */
 export const useSetActiveEntity = () => {
-    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
-    const entity = useGetQueryParam("entity") || "";
+  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const entity = useGetQueryParam("entity") || "";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
-    }, [entity]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
+  }, [entity]);
 
-    return entity;
+  return entity;
 };
 
 /**
  * @return the value of the active entity
  */
 export const useGetActiveEntity = () => {
-    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
-    return state.activeEntity;
+  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  return state.activeEntity;
 };
 
 /**
@@ -53,22 +53,22 @@ export const useGetActiveEntity = () => {
  * @returns entity
  */
 export const useSetActiveId = () => {
-    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
-    const id = useGetQueryParam("id") || "";
+  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const id = useGetQueryParam("id") || "";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_ID", payload: id });
-    }, [id]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_ID", payload: id });
+  }, [id]);
 
-    return id;
+  return id;
 };
 
 /**
  * @return the value of the active entity
  */
 export const useGetActiveId = () => {
-    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
-    return state.activeId;
+  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  return state.activeId;
 };
 
 /**
@@ -76,20 +76,20 @@ export const useGetActiveId = () => {
  * @returns entity
  */
 export const useSetActiveView = () => {
-    const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
-    const view = useGetQueryParam("view") || "main";
+  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const view = useGetQueryParam("view") || "main";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_VIEW", payload: view });
-    }, [view]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_VIEW", payload: view });
+  }, [view]);
 
-    return view;
+  return view;
 };
 
 /**
  * @return the value of the active entity
  */
 export const useGetActiveView = () => {
-    const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
-    return state.activeView;
+  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  return state.activeView;
 };

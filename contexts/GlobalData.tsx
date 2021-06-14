@@ -2,15 +2,15 @@ import React, { createContext, useReducer } from "react";
 import GlobalReducer from "./GlobalReducer";
 
 const initialState = {
-    activeEntity: "",
-    activeId: "",
-    activeView: "",
+  activeEntity: "",
+  activeId: "",
+  activeView: "",
 };
 
 const GlobalDataContext = createContext<GlobalContextInterface | null>(null);
 
 function GlobalDataProvider({ children }: Props) {
-    const [state, dispatch] = useReducer(GlobalReducer, initialState);
+  const [state, dispatch] = useReducer(GlobalReducer, initialState);
 
   return (
     <GlobalDataContext.Provider value={{ state, dispatch }}>
@@ -20,7 +20,7 @@ function GlobalDataProvider({ children }: Props) {
 }
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export default GlobalDataContext;
