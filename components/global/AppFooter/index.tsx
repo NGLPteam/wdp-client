@@ -6,20 +6,16 @@ export default function Footer() {
   return (
     <Container>
       {"© "}
-      <Link href="/">
-        NGLP
-      </Link>
-      {" "}
-      {new Date().getFullYear()}
+      <Link href="/">NGLP</Link> {new Date().getFullYear()}
       {"."}
     </Container>
   );
 }
 
 const Container = styled.footer`
-width: 100vw;
-text-align: center;
-flex: 0 0 auto;
-margin: 1em auto;
-padding: 1em;
+  width: 100vw;
+  text-align: center;
+  flex: 0 0 auto;
+  margin: 1em auto;
+  padding: 1em;
 `;

@@ -16,7 +16,7 @@ export default function UserDebug() {
   }
 
   if (isLoading) {
-    return <p>Loading user info....</p>
+    return <p>Loading user info....</p>;
   }
 
   return (
@@ -34,10 +34,11 @@ export default function UserDebug() {
 }
 
 const query = graphql`
-query UserDebugQuery {
-  viewer {
-    id
-    email
-    name
+  query UserDebugQuery {
+    viewer {
+      id
+      email
+      name
+    }
   }
-}`;
+`;

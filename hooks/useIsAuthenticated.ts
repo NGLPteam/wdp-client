@@ -7,9 +7,12 @@ export function useVisibleToAuthenticated(): boolean {
 
   const isAuthenticated = useIsAuthenticated();
 
-  useEffect(function() {
-    setVisible(isAuthenticated === true);
-  }, [isAuthenticated]);
+  useEffect(
+    function () {
+      setVisible(isAuthenticated === true);
+    },
+    [isAuthenticated]
+  );
 
   return visible;
 }
@@ -19,9 +22,12 @@ export function useVisibleToUnauthenticated(): boolean {
 
   const isAuthenticated = useIsAuthenticated();
 
-  useEffect(function() {
-    setVisible(isAuthenticated === false);
-  }, [isAuthenticated]);
+  useEffect(
+    function () {
+      setVisible(isAuthenticated === false);
+    },
+    [isAuthenticated]
+  );
 
   return visible;
 }

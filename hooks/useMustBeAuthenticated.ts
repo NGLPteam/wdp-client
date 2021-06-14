@@ -8,9 +8,12 @@ export default function useMustBeAuthenticated() {
 
   const router = useRouter();
 
-  useEffect(function() {
-    if (initialized && !keycloak.authenticated) {
-      router.push("/sign_in");
-    }
-  }, [initialized, keycloak, router]);
+  useEffect(
+    function () {
+      if (initialized && !keycloak.authenticated) {
+        router.push("/sign_in");
+      }
+    },
+    [initialized, keycloak, router]
+  );
 }

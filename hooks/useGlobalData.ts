@@ -27,11 +27,11 @@ export const useSetActiveEntity = () => {
     const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const entity = useGetQueryParam("entity") || "";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
-    }, [entity]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
+  }, [entity]);
 
-    return entity;
+  return entity;
 };
 
 /**
@@ -50,11 +50,11 @@ export const useSetActiveId = () => {
     const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const id = useGetQueryParam("id") || "";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_ID", payload: id });
-    }, [id]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_ID", payload: id });
+  }, [id]);
 
-    return id;
+  return id;
 };
 
 /**
@@ -73,11 +73,11 @@ export const useSetActiveView = () => {
     const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
     const view = useGetQueryParam("view") || "main";
 
-    useEffect(() => {
-        dispatch({ type: "SET_ACTIVE_VIEW", payload: view });
-    }, [view]);
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_VIEW", payload: view });
+  }, [view]);
 
-    return view;
+  return view;
 };
 
 /**

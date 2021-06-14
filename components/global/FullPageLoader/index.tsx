@@ -22,13 +22,13 @@ export default function FullPageLoader() {
 }
 
 const Loader = styled.div`
-width: 100vw;
-height: 100vw;
-display: flex;
-flex-direction: columns;
-align-items: center;
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  flex-direction: columns;
+  align-items: center;
 `;
 
 const LoaderContent = styled.div`
-text-align: center;
+  text-align: center;
 `;

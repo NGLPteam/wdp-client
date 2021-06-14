@@ -6,26 +6,26 @@ import { useSetActiveEntity } from "hooks/useGlobalData";
 import type { KeycloakInstance } from "keycloak-js";
 
 export default function SignInPage() {
-    useSetActiveEntity();
-    const { initialized, keycloak } = useKeycloak<KeycloakInstance>();
-    const router = useRouter();
+  useSetActiveEntity();
+  const { initialized, keycloak } = useKeycloak<KeycloakInstance>();
+  const router = useRouter();
 
-    useEffect(
-        function () {
-            if (!initialized || typeof window === "undefined") {
-                return;
-            }
+  useEffect(
+    function () {
+      if (!initialized || typeof window === "undefined") {
+        return;
+      }
 
-            if (keycloak.authenticated) {
-                router.push("/");
+      if (keycloak.authenticated) {
+        router.push("/");
 
-                return;
-            }
+        return;
+      }
 
-            keycloak.login();
-        },
-        [initialized, keycloak, router]
-    );
+      keycloak.login();
+    },
+    [initialized, keycloak, router]
+  );
 
-    return null;
+  return null;
 }

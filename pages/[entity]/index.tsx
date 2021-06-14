@@ -7,16 +7,16 @@ import UserListView from "components/views/users/UserList";
 import PageNotFoundView from "components/views/PageNotFound";
 
 export default function EntityListPage({ ...pageProps }) {
-    const entity = useSetActiveEntity();
+  const entity = useSetActiveEntity();
 
-    const viewMap = {
-        collections: CollectionListView,
-        communities: CommunityListView,
-        items: ItemListView,
-        users: UserListView,
-    };
+  const viewMap = {
+    collections: CollectionListView,
+    communities: CommunityListView,
+    items: ItemListView,
+    users: UserListView,
+  };
 
-    const Template = viewMap[entity] || PageNotFoundView;
+  const Template = viewMap[entity] || PageNotFoundView;
 
-    return <Template {...pageProps} />;
+  return <Template {...pageProps} />;
 }

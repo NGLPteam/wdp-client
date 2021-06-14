@@ -12,7 +12,11 @@ const GlobalDataContext = createContext<GlobalContextInterface | null>(null);
 function GlobalDataProvider({ children }: Props) {
     const [state, dispatch] = useReducer(GlobalReducer, initialState);
 
-    return <GlobalDataContext.Provider value={{ state, dispatch }}>{children}</GlobalDataContext.Provider>;
+  return (
+    <GlobalDataContext.Provider value={{ state, dispatch }}>
+      {children}
+    </GlobalDataContext.Provider>
+  );
 }
 
 interface Props {

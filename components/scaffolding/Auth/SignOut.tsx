@@ -14,5 +14,9 @@ export default function SignOut() {
     return null;
   }
 
-  return <button color="inherit" onClick={signOut}>Sign Out</button>;
+  return (
+    <button color="inherit" onClick={signOut}>
+      Sign Out
+    </button>
+  );
 }
