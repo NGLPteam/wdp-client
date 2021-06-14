@@ -102,7 +102,11 @@ function KeycloakRelayProvider({ children, records }: KeycloakRelayProps) {
     return environment(keycloakRef, records);
   }, [records]);
 
-  return <RelayEnvironmentProvider children={children} environment={env} />;
+  return (
+    <RelayEnvironmentProvider environment={env}>
+      {children}
+    </RelayEnvironmentProvider>
+  );
 }
 
 function useRemoveServerInjectedCSS() {

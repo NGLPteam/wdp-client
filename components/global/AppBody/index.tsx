@@ -10,13 +10,13 @@ function AppBody({ children }: Props) {
     <>
       <Styled.Body>
         <AppHeader />
-        <Styled.Main children={children} />
+        <Styled.Main>{children}</Styled.Main>
         <AppFooter />
       </Styled.Body>
     </>
   );
 }
 
-interface Props extends PropsWithChildren<any> {}
+type Props = PropsWithChildren<any>;
 
 export default AppBody;

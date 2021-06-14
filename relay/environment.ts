@@ -26,10 +26,10 @@ export default function buildEnvironment(
     }),
     authMiddleware({
       allowEmptyToken: true,
-      token: (req) => {
+      token: () => {
         return keycloakRef.current?.token;
       },
-      tokenRefreshPromise: async (req) => {
+      tokenRefreshPromise: async () => {
         await keycloakRef.current?.updateToken(86400);
 
         return keycloakRef.current?.token;
