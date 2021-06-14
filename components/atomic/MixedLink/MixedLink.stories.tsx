@@ -1,3 +1,4 @@
+/* eslint-disable no-console, jsx-a11y/click-events-have-key-events */
 import React from "react";
 import { Story } from "@storybook/react";
 import MixedLink, { Props } from ".";
@@ -18,7 +19,7 @@ const internalLinkWithQuery = "/collections/?order=1";
 const externalLink = "https://www.google.com";
 
 const Template: Story<Props> = (args) => (
-  <div onClick={handleClick}>
+  <div onClick={handleClick} role="link" tabIndex={0}>
     <MixedLink {...args}>Click Me</MixedLink>
   </div>
 );
