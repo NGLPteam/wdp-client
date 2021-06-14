@@ -3,9 +3,7 @@ import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
 
 export default function ItemDetail() {
-  const {
-    state: { activeId: id, activeView: view },
-  } = useGlobalData();
+  const { activeId: id, activeView: view } = useGlobalData();
 
   return (
     <div>
