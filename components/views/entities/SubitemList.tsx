@@ -3,10 +3,7 @@ import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
 
 export default function SubitemList() {
-  const {
-    state: { activeId: id },
-  } = useGlobalData();
-
+  const { activeId: id } = useGlobalData();
   return (
     <div>
       <h1>Items for {id}</h1>

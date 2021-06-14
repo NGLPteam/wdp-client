@@ -2,9 +2,7 @@ import { useGlobalData } from "hooks/useGlobalData";
 import React from "react";
 
 export default function UserDetail() {
-  const {
-    state: { activeId: id },
-  } = useGlobalData();
+  const { activeId: id } = useGlobalData();
 
   return (
     <div>

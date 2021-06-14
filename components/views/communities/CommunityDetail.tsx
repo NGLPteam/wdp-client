@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
 
 export default function CommunityDetail() {
-  const {
-    state: { activeId: id, activeView: view },
-  } = useGlobalData();
+  const { activeId: id, activeView: view } = useGlobalData();
 
   return (
     <div>

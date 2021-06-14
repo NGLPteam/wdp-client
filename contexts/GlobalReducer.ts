@@ -1,4 +1,4 @@
-const Reducer = (state, action) => {
+const Reducer = (state: GlobalState, action: GlobalAction) => {
   switch (action.type) {
     case "SET_ACTIVE_ENTITY":
       return {
@@ -14,11 +14,6 @@ const Reducer = (state, action) => {
       return {
         ...state,
         activeView: action.payload,
-      };
-    case "SET_ERROR":
-      return {
-        ...state,
-        error: action.payload,
       };
     default:
       return state;

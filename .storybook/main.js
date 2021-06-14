@@ -10,12 +10,13 @@ module.exports = {
   typescript: {
     check: false,
     checkOptions: {},
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      propFilter: (prop) =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
-    },
+    reactDocgen: "react-docgen",
+    // reactDocgen: "react-docgen-typescript",
+    // reactDocgenTypescriptOptions: {
+    //   shouldExtractLiteralValuesFromEnum: true,
+    //   propFilter: (prop) =>
+    //     prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+    // },
   },
   webpackFinal: async (config) => {
     config.resolve.modules = [path.resolve(__dirname, ".."), "node_modules"];
