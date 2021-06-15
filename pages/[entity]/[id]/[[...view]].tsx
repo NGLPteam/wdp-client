@@ -1,4 +1,5 @@
 import React from "react";
+import { useSetLocale } from "hooks/useSetLocale";
 import {
   useSetActiveEntity,
   useSetActiveId,
@@ -11,11 +12,12 @@ import UserDetailView from "components/views/users/UserDetail";
 import PageNotFoundView from "components/views/PageNotFound";
 
 export default function EntityDetailPage({ ...pageProps }) {
+  useSetLocale("en");
   const entity = useSetActiveEntity();
   useSetActiveId();
   useSetActiveView();
 
-  const viewMap = {
+  const viewMap: MapOver = {
     collections: CollectionDetailView,
     communities: CommunityDetailView,
     items: ItemDetailView,

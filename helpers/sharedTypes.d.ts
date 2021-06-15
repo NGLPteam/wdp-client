@@ -8,6 +8,6 @@
 //   export const item = (str: string) => ITEM_MAP[str] || str
  *
  */
-interface Map {
-  [key: string]: string | undefined;
+interface MapOver {
+  [key: string]: string | React.ElementType | undefined;
 }

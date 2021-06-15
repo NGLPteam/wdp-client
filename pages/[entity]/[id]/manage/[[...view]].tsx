@@ -1,4 +1,5 @@
 import React from "react";
+import { useSetLocale } from "hooks/useSetLocale";
 import {
   useSetActiveEntity,
   useSetActiveId,
@@ -6,6 +7,7 @@ import {
 } from "hooks/useGlobalData";
 
 export default function EntityManagePage() {
+  useSetLocale("en");
   const entity = useSetActiveEntity();
   const id = useSetActiveId();
   const view = useSetActiveView();
