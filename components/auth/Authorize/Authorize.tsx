@@ -1,4 +1,4 @@
-import useIsAuthorizedTo from "../../../hooks/useIsAuthorizedTo";
+// import useIsAuthorizedTo from "../../../hooks/useIsAuthorizedTo";
 
 export default function Authorize({
   children,

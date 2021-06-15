@@ -11,14 +11,14 @@ export default function CommunityList() {
         entity="communities"
         permissions={["self.assets.create", "self.update", "items.create"]}
       >
-        <h1>I'm authorized!</h1>
+        <h1>I am authorized!</h1>
       </Authorize>
       <Authorize
         isAuthorized={false}
         entity="communities"
         permissions={["self.assets.create", "self.update", "items.create"]}
       >
-        <h1>I'm authorized!</h1>
+        <h1>I am authorized!</h1>
       </Authorize>
       <ul>
         <li>

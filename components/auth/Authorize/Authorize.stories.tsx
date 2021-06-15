@@ -13,7 +13,7 @@ const Template: Story<Props> = (args) => (
     permissions={["self.assets.create", "self.update", "items.create"]}
     {...args}
   >
-    <h1>I'm authorized!</h1>
+    <h1>I am authorized!</h1>
   </Authorize>
 );
 
