@@ -17,7 +17,7 @@ npm run storybook
 
 ### Client architecture
 
-- `/pages` — a single component that uses [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) and [`getStaticPaths`](https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation) to dynamically generate static pages for all routes.
+- `/pages` — a single component that dynamically generates static pages for all routes.
 - `/components` — all React components for generating portions of static pages. These are further organized by type (see below).
 - `/theme` — global styles, mixins, and font files. Component styles are defined in the same directory as their components using `styled-components`, and are compiled into a single stylesheet on the server.
 - `/types` — reusuable types for recurring data structures like pages, images, locales, etc.
