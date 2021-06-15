@@ -17,7 +17,6 @@ npm run storybook
 
 ### Client architecture
 
-- `/auth` - shared authentication components
 - `/pages` — a single component that dynamically generates static pages for all routes.
 - `/components` — all React components for generating portions of static pages. These are further organized by type (see below).
 - `/theme` — global styles, mixins, and font files. Component styles are defined in the same directory as their components using `styled-components`, and are compiled into a single stylesheet on the server.
@@ -29,6 +28,7 @@ npm run storybook
 The components are separated out into these folders:
 
 - `/atomic/` - small resuable components such as links, buttons, and inputs
+- `/auth/` - shared authentication components
 - `/dynamic/` — components that make run-time API requests and are rendered client-side.
 - `/factories/` - mapped components with shared props, such as icons
 - `/layout/` - small reusable layout components such as grids and cards
