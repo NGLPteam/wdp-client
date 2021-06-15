@@ -1,0 +1,45 @@
+{
+  "key": "en",
+  "translation": {
+    "english-site-name": "English",
+    "espanol-site-name": "Español",
+    "localize-content": "Localize site content",
+    "read-more": "Read more",
+    "related-content": "Related content",
+    "error-title": "Error",
+    "error-text": "There has been an error.",
+    "page-not-found-title": "Page not found",
+    "page-not-found-text": "The page you're looking for was not found.",
+    "published": "Published",
+    "search-clear": "Clear all",
+    "search-no-results": "No results. Please try a different search.",
+    "search-placeholder": "Write your search and hit enter…",
+    "search-filter": "Search",
+    "search-site": "Search the website",
+    "skip-to-content": "Skip to main content",
+    "submit-search": "Submit search",
+    "tags": "Tags",
+    "toggle-nav": "Toggle navigation menu",
+    "toggle-search": "Toggle search",
+    "contact-form": {
+      "contact-us": "Contact us",
+      "email": "Email",
+      "inquiry": "Inquiry",
+      "send": "Send",
+      "sending": "Sending…",
+      "reset": "Reset form",
+      "success": "Thank you. We’ve received your message.",
+      "error": "We seem to have run into a problem."
+    },
+    "filters": {
+      "ascending": "Ascending",
+      "descending": "Descending",
+      "all": "All"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "showing": "Showing {{from}} to {{to}} of {{total}}"
+    }
+  }
+}
