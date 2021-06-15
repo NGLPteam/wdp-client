@@ -19,22 +19,21 @@ export default function NewCollectionForm() {
   } = useForm<FieldValues>();
 
   const submitForm = useCallback<SubmitHandler<FieldValues>>((input) => {
-    const variables: NewCollectionFormCreateMutationVariables = {
-      input,
-    };
-
-    mutate({
-      onCompleted(response: NewCollectionFormCreateMutationResponse) {
-        console.dir({ collection: response.createCollection.collection });
-      },
-      updater(store) {
-        // In a more final version, we'd add the edge to the connection,
-        // But for this stage, we just invalidate the store so that navigating
-        // back to the collections page triggers a refetch with our new collection.
-        store.invalidateStore();
-      },
-      variables,
-    });
+    // const variables: NewCollectionFormCreateMutationVariables = {
+    //   input,
+    // };
+    // mutate({
+    //   onCompleted(response: NewCollectionFormCreateMutationResponse) {
+    //     console.dir({ collection: response.createCollection.collection });
+    //   },
+    //   updater(store) {
+    //     // In a more final version, we'd add the edge to the connection,
+    //     // But for this stage, we just invalidate the store so that navigating
+    //     // back to the collections page triggers a refetch with our new collection.
+    //     store.invalidateStore();
+    //   },
+    //   variables,
+    // });
   }, []);
 
   return (
@@ -47,6 +46,8 @@ export default function NewCollectionForm() {
           {...register("title", { required: true })}
         />
       </Fieldset>
+      <input type="hidden" id="parentId" value="1" />
+      <input type="hidden" id="identifier" value="1" />
 
       <button type="submit" disabled={mutationState.loading}>
         Create New Collection
