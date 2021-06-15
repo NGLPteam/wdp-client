@@ -15,7 +15,6 @@ export default function CollectionCard(props: Props) {
       <h2>
         <Link href={`/collections/${collection.slug}`}>{collection.title}</Link>
       </h2>
-      <p>{collection.description}</p>
     </Card>
   );
 }
@@ -28,6 +27,5 @@ const fragment = graphql`
   fragment CollectionCardFragment on Collection {
     slug
     title
-    description
   }
 `;

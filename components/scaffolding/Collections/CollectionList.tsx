@@ -31,22 +31,29 @@ export default function CollectionList() {
       {/* @ts-expect-error scaffolding */}
       <CollectionFilters variables={variables} setVariables={setVariables} />
       <CardList>
-        {data.collections.edges.map(({ node: collection }, index) => (
+        {/* {data.collections.edges.map(({ node: collection }, index) => (
           <CollectionCard key={index} collection={collection} />
-        ))}
+        ))} */}
       </CardList>
     </div>
   );
 }
 
 const query = graphql`
-  query CollectionListQuery($order: SimpleOrder!) {
-    collections(order: $order) {
-      edges {
-        node {
-          ...CollectionCardFragment
-        }
-      }
+  query CollectionListQuery {
+    collection(slug: "24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB") {
+      title
     }
   }
 `;
+
+// HERE's the OLDER REAL QUERY
+// query CollectionListQuery($order: SimpleOrder!) {
+//   collections(order: $order) {
+//     edges {
+//       node {
+//         ...CollectionCardFragment
+//       }
+//     }
+//   }
+// }

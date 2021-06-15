@@ -4,8 +4,9 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type CreateCollectionInput = {
+    parentId: string;
     title: string;
-    description: string;
+    identifier: string;
     clientMutationId?: string | null;
 };
 export type NewCollectionFormCreateMutationVariables = {
@@ -14,8 +15,7 @@ export type NewCollectionFormCreateMutationVariables = {
 export type NewCollectionFormCreateMutationResponse = {
     readonly createCollection: {
         readonly collection: {
-            readonly title: string;
-            readonly description: string;
+            readonly title: string | null;
         } | null;
         readonly errors: ReadonlyArray<{
             readonly message: string;
@@ -36,7 +36,6 @@ mutation NewCollectionFormCreateMutation(
   createCollection(input: $input) {
     collection {
       title
-      description
       id
     }
     errors {
@@ -69,13 +68,6 @@ v2 = {
   "storageKey": null
 },
 v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "description",
-  "storageKey": null
-},
-v4 = {
   "alias": null,
   "args": null,
   "concreteType": "UserError",
@@ -116,12 +108,11 @@ return {
             "name": "collection",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
@@ -152,7 +143,6 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -163,21 +153,21 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e7a7502d6610d4d3e0d1b481a573296c",
+    "cacheID": "67689f7e95503f2334a613bc4e61f062",
     "id": null,
     "metadata": {},
     "name": "NewCollectionFormCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation NewCollectionFormCreateMutation(\n  $input: CreateCollectionInput!\n) {\n  createCollection(input: $input) {\n    collection {\n      title\n      description\n      id\n    }\n    errors {\n      message\n    }\n  }\n}\n"
+    "text": "mutation NewCollectionFormCreateMutation(\n  $input: CreateCollectionInput!\n) {\n  createCollection(input: $input) {\n    collection {\n      title\n      id\n    }\n    errors {\n      message\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '3ec24ca413aeeb1a0544b2be34200216';
+(node as any).hash = '19511af8fc2a05bf647cd0358d7bb453';
 export default node;

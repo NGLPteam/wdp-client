@@ -3,19 +3,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
-export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type CollectionListQueryVariables = {
-    order: SimpleOrder;
-};
+export type CollectionListQueryVariables = {};
 export type CollectionListQueryResponse = {
-    readonly collections: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly " $fragmentRefs": FragmentRefs<"CollectionCardFragment">;
-            } | null;
-        } | null> | null;
-    };
+    readonly collection: {
+        readonly title: string | null;
+    } | null;
 };
 export type CollectionListQuery = {
     readonly response: CollectionListQueryResponse;
@@ -25,85 +17,47 @@ export type CollectionListQuery = {
 
 
 /*
-query CollectionListQuery(
-  $order: SimpleOrder!
-) {
-  collections(order: $order) {
-    edges {
-      node {
-        ...CollectionCardFragment
-        id
-      }
-    }
+query CollectionListQuery {
+  collection(slug: "24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB") {
+    title
+    id
   }
-}
-
-fragment CollectionCardFragment on Collection {
-  slug
-  title
-  description
 }
 */
 
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "order"
+    "kind": "Literal",
+    "name": "slug",
+    "value": "24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB"
   }
 ],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "order",
-    "variableName": "order"
-  }
-];
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+};
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "CollectionListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "CollectionConnection",
+        "args": (v0/*: any*/),
+        "concreteType": "Collection",
         "kind": "LinkedField",
-        "name": "collections",
+        "name": "collection",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "CollectionEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Collection",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  {
-                    "args": null,
-                    "kind": "FragmentSpread",
-                    "name": "CollectionCardFragment"
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
+          (v1/*: any*/)
         ],
-        "storageKey": null
+        "storageKey": "collection(slug:\"24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB\")"
       }
     ],
     "type": "Query",
@@ -111,82 +65,40 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "CollectionListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "CollectionConnection",
+        "args": (v0/*: any*/),
+        "concreteType": "Collection",
         "kind": "LinkedField",
-        "name": "collections",
+        "name": "collection",
         "plural": false,
         "selections": [
+          (v1/*: any*/),
           {
             "alias": null,
             "args": null,
-            "concreteType": "CollectionEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Collection",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "slug",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "description",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "collection(slug:\"24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB\")"
       }
     ]
   },
   "params": {
-    "cacheID": "0e39c442ea5ad7e107dfe96a56e72780",
+    "cacheID": "9dcbf333515d4b2f1f137b6a028549fc",
     "id": null,
     "metadata": {},
     "name": "CollectionListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n) {\n  collections(order: $order) {\n    edges {\n      node {\n        ...CollectionCardFragment\n        id\n      }\n    }\n  }\n}\n\nfragment CollectionCardFragment on Collection {\n  slug\n  title\n  description\n}\n"
+    "text": "query CollectionListQuery {\n  collection(slug: \"24XzMKrs0Z3nTMZysbo7OIxe0vwM1xB\") {\n    title\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '677172ff0a324a32d1ca7cc0b3a9712c';
+(node as any).hash = '2c9f87f0ebb97bad254da31d82d68024';
 export default node;

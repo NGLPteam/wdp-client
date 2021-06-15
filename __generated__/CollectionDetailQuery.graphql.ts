@@ -9,8 +9,7 @@ export type CollectionDetailQueryVariables = {
 };
 export type CollectionDetailQueryResponse = {
     readonly collection: {
-        readonly title: string;
-        readonly description: string;
+        readonly title: string | null;
         readonly items: {
             readonly " $fragmentRefs": FragmentRefs<"ItemCardListFragment">;
         };
@@ -29,7 +28,6 @@ query CollectionDetailQuery(
 ) {
   collection(slug: $slug) {
     title
-    description
     items {
       ...ItemCardListFragment
     }
@@ -40,7 +38,6 @@ query CollectionDetailQuery(
 fragment ItemCardFragment on Item {
   slug
   title
-  description
 }
 
 fragment ItemCardListFragment on ItemConnection {
@@ -79,13 +76,6 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -105,7 +95,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -144,7 +133,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -177,8 +165,7 @@ return {
                         "storageKey": null
                       },
                       (v2/*: any*/),
-                      (v3/*: any*/),
-                      (v4/*: any*/)
+                      (v3/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -188,21 +175,21 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "05197591aa885dfca6751b301c2607e9",
+    "cacheID": "953e0f91c8c79cee6fe4caab020850b2",
     "id": null,
     "metadata": {},
     "name": "CollectionDetailQuery",
     "operationKind": "query",
-    "text": "query CollectionDetailQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    title\n    description\n    items {\n      ...ItemCardListFragment\n    }\n    id\n  }\n}\n\nfragment ItemCardFragment on Item {\n  slug\n  title\n  description\n}\n\nfragment ItemCardListFragment on ItemConnection {\n  edges {\n    node {\n      ...ItemCardFragment\n      id\n    }\n  }\n}\n"
+    "text": "query CollectionDetailQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    title\n    items {\n      ...ItemCardListFragment\n    }\n    id\n  }\n}\n\nfragment ItemCardFragment on Item {\n  slug\n  title\n}\n\nfragment ItemCardListFragment on ItemConnection {\n  edges {\n    node {\n      ...ItemCardFragment\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8fc40e835f1316b129c3a7cf262aef77';
+(node as any).hash = '63fe13dab5bb949fd8cd9ce14645cf11';
 export default node;

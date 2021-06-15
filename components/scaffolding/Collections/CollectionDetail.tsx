@@ -19,7 +19,6 @@ export default function CollectionDetail(props: Props) {
   return (
     <div>
       <h2>{data.collection.title}</h2>
-      <p>{data.collection.description}</p>
       <ItemCardList items={data.collection.items} />
     </div>
   );
@@ -33,7 +32,6 @@ const query = graphql`
   query CollectionDetailQuery($slug: Slug!) {
     collection(slug: $slug) {
       title
-      description
 
       items {
         ...ItemCardListFragment

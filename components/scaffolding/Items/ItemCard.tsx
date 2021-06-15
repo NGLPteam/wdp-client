@@ -12,7 +12,6 @@ export default function ItemCard(props: Props) {
   return (
     <Card>
       <h3>{item.title}</h3>
-      <p>{item.description}</p>
     </Card>
   );
 }
@@ -25,6 +24,5 @@ const fragment = graphql`
   fragment ItemCardFragment on Item {
     slug
     title
-    description
   }
 `;

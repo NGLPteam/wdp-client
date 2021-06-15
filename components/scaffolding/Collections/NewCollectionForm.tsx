@@ -47,14 +47,6 @@ export default function NewCollectionForm() {
           {...register("title", { required: true })}
         />
       </Fieldset>
-      <Fieldset>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          aria-invalid={errors.description ? "true" : "false"}
-          {...register("description", { required: true })}
-        />
-      </Fieldset>
 
       <button type="submit" disabled={mutationState.loading}>
         Create New Collection
@@ -65,7 +57,6 @@ export default function NewCollectionForm() {
 
 interface FieldValues {
   title: string;
-  description: string;
 }
 
 const mutation = graphql`
@@ -73,7 +64,6 @@ const mutation = graphql`
     createCollection(input: $input) {
       collection {
         title
-        description
       }
 
       errors {

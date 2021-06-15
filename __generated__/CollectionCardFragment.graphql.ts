@@ -6,8 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionCardFragment = {
     readonly slug: unknown;
-    readonly title: string;
-    readonly description: string;
+    readonly title: string | null;
     readonly " $refType": "CollectionCardFragment";
 };
 export type CollectionCardFragment$data = CollectionCardFragment;
@@ -37,17 +36,10 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "title",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'caae86542a4c2d9fbe3227792c9ce02f';
+(node as any).hash = '2b9003072521dc6f158e6c72327b4a49';
 export default node;
