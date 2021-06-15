@@ -1,4 +1,4 @@
-export function flattenParam(s: string | string[]): string {
+export function flattenParam(s: string | string[]): string | undefined {
   if (isStringArray(s)) {
     return s[0];
   } else if (isString(s)) {
@@ -11,5 +11,5 @@ export function isString(v: any): boolean {
 }
 
 export function isStringArray(v: any): boolean {
-  return Array.isArray(v) && v.length && v.every(isString);
+  return Array.isArray(v) && !!v.length && v.every(isString);
 }
