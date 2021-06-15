@@ -19,6 +19,17 @@ module.exports = {
     // Remove once fixed
     camelcase: 1,
   },
+  overrides: [
+    {
+      files: ["**/*.stories.tsx"],
+      rules: {
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-noninteractive-tabindex": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "no-console": 0,
+      },
+    },
+  ],
   plugins: ["@typescript-eslint"],
   extends: ["@castiron", "plugin:@typescript-eslint/recommended"],
 };
