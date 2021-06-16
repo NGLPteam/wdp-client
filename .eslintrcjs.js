@@ -27,5 +27,5 @@ module.exports = {
     "jsx-a11y/no-noninteractive-tabindex": ["error", { tags: ["a"] }],
   },
   // plugins: [],
-  extends: ["@castiron"],
+  extends: ["@castiron", "next"],
 };

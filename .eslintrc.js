@@ -27,9 +27,10 @@ module.exports = {
         "jsx-a11y/no-noninteractive-tabindex": 0,
         "jsx-a11y/no-static-element-interactions": 0,
         "no-console": 0,
+        "import/no-anonymous-default-export": 0,
       },
     },
   ],
   plugins: ["@typescript-eslint"],
-  extends: ["@castiron", "plugin:@typescript-eslint/recommended"],
+  extends: ["next", "@castiron", "plugin:@typescript-eslint/recommended"],
 };
