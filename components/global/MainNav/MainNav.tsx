@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const MainNav = ({ children }: Props) => {
   return (
-    <Styled.Nav>
+    <Styled.Nav className="a-bg-brand100">
       <Styled.Inner>
         <Link href="/" passHref>
           <a className="t-label-md">Institution Name</a>

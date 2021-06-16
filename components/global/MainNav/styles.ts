@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background: var(--brand100);
   padding: 0 var(--container-column-margin);
 `;
 
@@ -13,7 +12,6 @@ export const Inner = styled.div`
   margin: 0 auto;
   max-width: var(--container-max);
   padding: 20px 0;
-  color: var(--color-dark-bg);
 `;
 
 export const Item = styled.li`

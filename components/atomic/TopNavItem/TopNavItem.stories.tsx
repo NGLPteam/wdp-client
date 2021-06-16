@@ -3,19 +3,17 @@ import TopNavItem from "./";
 export default {
   title: "Components/Atomic/TopNavItem",
   component: TopNavItem,
-};
-
-const wrapperStyle = {
-  backgroundColor: "var(--brand100)",
-  padding: "2rem",
+  parameters: {
+    themes: {
+      default: "brand100",
+    },
+  },
 };
 
 export const Primary = (args) => (
-  <div style={wrapperStyle}>
-    <TopNavItem as="a" key={1} href="/" {...args}>
-      Link A
-    </TopNavItem>
-  </div>
+  <TopNavItem as="a" key={1} href="/" {...args}>
+    Link A
+  </TopNavItem>
 );
 
 Primary.args = {

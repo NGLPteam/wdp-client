@@ -25,6 +25,26 @@ export function aGlow(type: "darkMode" | "lightMode") {
       `;
 }
 
+export function aBgDark(bgColor = "brand100") {
+  return css`
+    --background-color: var(--${bgColor});
+    --color: var(--brand20);
+    --color-light: var(--brand50);
+    background-color: var(--background-color);
+    color: var(--color);
+  `;
+}
+
+export function aBgLight(bgColor = "neutral00") {
+  return css`
+    --background-color: var(--${bgColor});
+    --color: var(--neutral90);
+    --color-light: var(--neutral70);
+    background-color: var(--background-color);
+    color: var(--color);
+  `;
+}
+
 // TODO: Make padding function
 // padding(2) -> 8px (whatever 8 is in rem)
 

@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { aGlow } from "theme/mixins/appearance";
+import { aGlow, aBgDark, aBgLight } from "theme/mixins/appearance";
 // Appearance
 // --------------------
 
@@ -25,5 +25,18 @@ export default css`
 
   .a-focus:focus-visible {
     ${aGlow("lightMode")}
+  }
+
+  .a-bg-neutral00 {
+    ${aBgLight("neutral00")}
+  }
+
+  .a-bg-brand100,
+  .a-bg-brand90 {
+    ${aBgDark("brand100")}
+  }
+
+  .a-bg-brand90 {
+    --background-color: var(--brand90);
   }
 `;

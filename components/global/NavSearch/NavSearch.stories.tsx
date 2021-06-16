@@ -6,6 +6,11 @@ type Props = React.ComponentProps<typeof NavSearch>;
 export default {
   title: "Components/Global/NavSearch",
   component: NavSearch,
+  parameters: {
+    themes: {
+      default: "brand100",
+    },
+  },
 };
 
 function handleSubmit(value) {
