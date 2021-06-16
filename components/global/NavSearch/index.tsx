@@ -1,3 +1,3 @@
-import NavSearch from "./styles";
+import NavSearch from "./NavSearch";
 
 export default NavSearch;

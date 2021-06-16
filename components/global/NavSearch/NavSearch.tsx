@@ -1,24 +1,13 @@
 import React, { useRef } from "react";
-import CICInput from "@castiron/components-input";
-import { IconFactory } from "components/factories";
 import get from "lodash/get";
+import * as Styled from "./styles";
 
 function NavSearch({ className, onSubmit }: Props) {
-  const inputEl = useRef();
-
-  const labelProps = {
-    className: "a-hidden",
-  };
-
-  const inputProps = {
-    className: `${className}__input a-focus-dark`,
-    placeholder: "Search",
-    ref: inputEl,
-  };
+  const inputRef = useRef();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const value = get(inputEl, "current.value", "");
+    const value = get(inputRef, "current.value", "");
     if (onSubmit) {
       onSubmit(value);
     }
@@ -26,14 +15,7 @@ function NavSearch({ className, onSubmit }: Props) {
 
   return (
     <form className={className} onSubmit={handleSubmit}>
-      <IconFactory icon="search" className={`${className}__icon`} />
-      <CICInput
-        type="search"
-        inputId="search"
-        label="Search"
-        inputProps={inputProps}
-        labelProps={labelProps}
-      />
+      <Styled.SearchInput inputRef={inputRef} />
       <button className="a-hidden" type="submit">
         Submit Search
       </button>
