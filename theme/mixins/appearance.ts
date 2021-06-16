@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { pxToRem } from "theme/mixins/functions";
+import { pxToRem } from "./functions";
 
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
@@ -45,8 +45,8 @@ export function aBgLight(bgColor = "neutral00") {
   `;
 }
 
-// TODO: Make padding function
-// padding(2) -> 8px (whatever 8 is in rem)
-
-// TODO: Set up breakpoint function
-// respond()
+// Returns padding at base 4
+// size 1 = 4px, size 2 = 8px, etc
+export function basePadding(size: number) {
+  return pxToRem(`${size * 4}px`);
+}
