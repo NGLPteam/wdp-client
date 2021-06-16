@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { basePadding } from "theme/mixins/appearance";
 
 export const Nav = styled.nav`
   padding: 0 var(--container-column-margin);
@@ -11,11 +12,11 @@ export const Inner = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   max-width: var(--container-max);
-  padding: 20px 0;
+  padding: ${basePadding(5)} 0;
 `;
 
 export const Item = styled.li`
   & + & {
-    margin-inline-start: 28px;
+    margin-inline-start: ${basePadding(7)};
   }
 `;
