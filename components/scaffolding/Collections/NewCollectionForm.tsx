@@ -46,6 +46,8 @@ export default function NewCollectionForm() {
           {...register("title", { required: true })}
         />
       </Fieldset>
+      <input type="hidden" id="parentId" value="1" />
+      <input type="hidden" id="identifier" value="1" />
 
       <button type="submit" disabled={mutationState.loading}>
         Create New Collection
