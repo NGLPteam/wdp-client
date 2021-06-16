@@ -58,3 +58,4 @@ We fully support the current release of all evergreen browsers (defined in `brow
 - Chrome (Windows and OSX)
 - Safari
 - Latest release of Safari on iOS and Chrome on Android
+
