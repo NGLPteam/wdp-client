@@ -2,14 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { tLabel } from "theme/mixins/typography";
 import { pxToRem } from "theme/mixins/functions";
-import NavSearch from "./NavSearch";
-type Props = React.ComponentProps<typeof NavSearch>;
+import { encodedIconClose } from "components/svgs/icons/Close";
 
-//
-// background-image: url("data:image/svg+xml;base64,${() => {
-//   return encodeURIComponent(renderToStaticMarkup(typeof Close));
-// }});
-const StyledNavSearch = styled(NavSearch)<Props>`
+import NavSearchInput from "./NavSearchInput";
+type Props = React.ComponentProps<typeof NavSearchInput>;
+
+export const SearchInput = styled(NavSearchInput)<Props>`
   position: relative;
   color: var(--color-dark-bg);
   --search-top-padding: ${pxToRem("7px")};
@@ -36,7 +34,7 @@ const StyledNavSearch = styled(NavSearch)<Props>`
       height: 20px;
       width: 20px;
       border-radius: 10px;
-      background: red;
+      background: url(${encodedIconClose({ fill: "#D1E7F0" })}) center no-repeat;
     }
   }
 
@@ -47,5 +45,3 @@ const StyledNavSearch = styled(NavSearch)<Props>`
     left: var(--search-left-padding);
   }
 `;
-
-export default StyledNavSearch;
