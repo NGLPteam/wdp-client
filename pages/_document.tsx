@@ -26,7 +26,7 @@ const FONTS = [
   "Karla-Bold-Italic",
 ];
 
-export default class extends Document<Props> {
+export default class AppDocument extends Document<Props> {
   static async getInitialProps(
     ctx: DocumentContext
   ): Promise<DocumentInitialProps & Props> {

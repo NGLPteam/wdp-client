@@ -1,7 +1,8 @@
 // Base Typography
 // --------------------
+import { css } from "styled-components";
 
-export default `
+export default css`
   body {
     font-size: var(--font-size-base);
     font-family: var(--font-face-base);

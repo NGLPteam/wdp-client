@@ -1,13 +1,14 @@
 // Root CSS variables
 // --------------------
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
+import { css } from "styled-components";
 import { hexToHSL } from "theme/mixins/colors";
 import { pxToRem } from "theme/mixins/functions";
 import { transition } from "theme/base/variables";
 
 const { duration, timing } = transition.colorMode;
 
-export default `
+export default css`
   :root {
     /* brand colors - these may change based on backend values */
     --brand100: ${hexToHSL("#00658F")};
@@ -50,7 +51,7 @@ export default `
     /* font sizes */
     --font-size-base: 1rem;
     --font-size-sm: ${pxToRem("14px")};
-    
+
     /* label font sizes */
     --font-size-label-lg: ${pxToRem("15px")};
     --line-height-label-lg: ${pxToRem("24px")};
@@ -58,7 +59,7 @@ export default `
     --line-height-label-md: ${pxToRem("20px")};
     --font-size-label-sm: ${pxToRem("13px")};
     --line-height-label-sm: ${pxToRem("20px")};
-    
+
     /* header font sizes */
     --font-size-h1: ${pxToRem("30px")};
     --line-height-h1: ${pxToRem("36px")};

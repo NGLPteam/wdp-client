@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 function fontFace(name, filename, style = "normal", weight = 400) {
   return `
     @font-face {
@@ -11,7 +13,7 @@ function fontFace(name, filename, style = "normal", weight = 400) {
   `;
 }
 
-export default `
+export default css`
   ${fontFace("Karla", "Karla-Regular", "normal", 400)}
   ${fontFace("Karla", "Karla-Italic", "italic", 400)}
   ${fontFace("Karla", "Karla-Bold", "normal", 700)}

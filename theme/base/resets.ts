@@ -1,14 +1,15 @@
 // Resets
 // --------------------
+import { css } from "styled-components";
 
-export default `
+export default css`
   /* Box sizing rules */
   *,
   *::before,
   *::after {
     box-sizing: border-box;
   }
-  
+
   /* Remove default padding */
   html,
   body,

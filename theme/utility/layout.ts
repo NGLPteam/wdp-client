@@ -19,24 +19,24 @@ function createItems() {
   `;
 }
 
-export default `
+export default css`
   .grid {
     display: grid;
     grid-template-columns: repeat(${COLUMNS}, 1fr);
     column-gap: var(--grid-column-gap);
 
     &__item {
-        grid-column: span ${COLUMNS};
+      grid-column: span ${COLUMNS};
 
-        ${createItems()}
+      ${createItems()}
 
-        &--center {
-            justify-self: center;
-        }
+      &--center {
+        justify-self: center;
+      }
 
-        &--right {
-            justify-self: end;
-        }
+      &--right {
+        justify-self: end;
+      }
     }
   }
 

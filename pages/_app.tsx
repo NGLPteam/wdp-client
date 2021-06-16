@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
 import { GlobalDataProvider } from "contexts/GlobalData";
-import { ThemeProvider } from "styled-components";
 
 import {
   SSRKeycloakProvider,
@@ -20,7 +19,6 @@ import useLatest from "hooks/useLatest";
 import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
-import theme from "utils/theme";
 
 export default function NGLPApp({
   Component,
@@ -62,11 +60,9 @@ export default function NGLPApp({
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <GlobalDataProvider>
-            <ThemeProvider theme={theme}>
-              <AppBody>
-                <Component {...pageProps} />
-              </AppBody>
-            </ThemeProvider>
+            <AppBody>
+              <Component {...pageProps} />
+            </AppBody>
           </GlobalDataProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>
