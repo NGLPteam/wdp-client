@@ -15,7 +15,7 @@ export default function EntityDetailPage({ ...pageProps }) {
   useSetActiveId();
   useSetActiveView();
 
-  const viewMap = {
+  const viewMap: MapOver = {
     collections: CollectionDetailView,
     communities: CommunityDetailView,
     items: ItemDetailView,

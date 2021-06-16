@@ -9,7 +9,7 @@ import PageNotFoundView from "components/views/PageNotFound";
 export default function EntityListPage({ ...pageProps }) {
   const entity = useSetActiveEntity();
 
-  const viewMap = {
+  const viewMap: MapOver = {
     collections: CollectionListView,
     communities: CommunityListView,
     items: ItemListView,
