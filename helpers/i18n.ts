@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import { localeData } from "./localeStrings";
 
@@ -7,7 +8,8 @@ export const updateI18n = (lang: string) => {
 };
 
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
     // debug: true,
     lng: "en",

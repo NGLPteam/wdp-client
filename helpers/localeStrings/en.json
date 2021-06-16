@@ -1,8 +1,7 @@
 {
   "key": "en",
   "translation": {
-    "english-site-name": "English",
-    "espanol-site-name": "Español",
+    "site-name": "English",
     "localize-content": "Localize site content",
     "read-more": "Read more",
     "related-content": "Related content",
@@ -11,16 +10,18 @@
     "page-not-found-title": "Page not found",
     "page-not-found-text": "The page you're looking for was not found.",
     "published": "Published",
-    "search-clear": "Clear all",
-    "search-no-results": "No results. Please try a different search.",
-    "search-placeholder": "Write your search and hit enter…",
-    "search-filter": "Search",
-    "search-site": "Search the website",
     "skip-to-content": "Skip to main content",
     "submit-search": "Submit search",
     "tags": "Tags",
     "toggle-nav": "Toggle navigation menu",
     "toggle-search": "Toggle search",
+    "search": {
+      "clear": "Clear all",
+      "no-results": "No results. Please try a different search.",
+      "placeholder": "Write your search and hit enter…",
+      "filter": "Search",
+      "site": "Search the website"
+    },
     "contact-form": {
       "contact-us": "Contact us",
       "email": "Email",

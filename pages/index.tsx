@@ -1,10 +1,8 @@
 import React from "react";
-import { useSetLocale } from "hooks/useSetLocale";
 import { useSetActiveEntity } from "hooks/useGlobalData";
 import Link from "next/link";
 
 export default function Home() {
-  useSetLocale("en");
   useSetActiveEntity();
 
   return (

@@ -1,11 +1,9 @@
 import { useEffect } from "react";
-import { useSetLocale } from "hooks/useSetLocale";
 import { useKeycloak } from "@react-keycloak/ssr";
 import { useRouter } from "next/router";
 import type { KeycloakInstance } from "keycloak-js";
 
 export default function SignInPage() {
-  useSetLocale("en");
   const { initialized, keycloak } = useKeycloak<KeycloakInstance>();
   const router = useRouter();
 
