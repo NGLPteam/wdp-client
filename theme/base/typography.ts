@@ -39,8 +39,4 @@ export default `
   //   font-size: var(--font-size-h5);
   //   line-height: var(--line-height-h5, var(--line-height-header));
   // }
-
-  ul, ol {
-    list-style-position: inside;
-  }
 `;

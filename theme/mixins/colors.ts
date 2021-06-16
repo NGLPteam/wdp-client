@@ -1,10 +1,10 @@
 // See: https://css-tricks.com/converting-color-spaces-in-javascript/
 
-export function hexToHSL(H: string | any[]) {
+export function hexToHSL(H: string | string[]) {
   // Convert hex to RGB first
-  let r: string | number | bigint | any = 0;
-  let g: string | number | bigint | any = 0;
-  let b: string | number | bigint | any = 0;
+  let r: string | number | bigint;
+  let g: string | number | bigint;
+  let b: string | number | bigint;
   if (H.length === 4) {
     r = "0x" + H[1] + H[1];
     g = "0x" + H[2] + H[2];
@@ -15,9 +15,10 @@ export function hexToHSL(H: string | any[]) {
     b = "0x" + H[5] + H[6];
   }
   // Then to HSL
-  r /= 255;
-  g /= 255;
-  b /= 255;
+  // Cast rgb as Numbers (int or float)
+  r = Number(r) / 255;
+  g = Number(g) / 255;
+  b = Number(b) / 255;
   const cmin = Math.min(r, g, b);
   const cmax = Math.max(r, g, b);
   const delta = cmax - cmin;
