@@ -4,32 +4,31 @@
 import { css } from "styled-components";
 import { hexToHSL } from "theme/mixins/colors";
 import { pxToRem } from "theme/mixins/functions";
-import { transition } from "theme/base/variables";
+import { transition, colors } from "theme/base/variables";
 
 const { duration, timing } = transition.colorMode;
 
+// Set color variables from colors object
+function createColors() {
+  let styles = "";
+
+  for (const [colorKey, colorKeyValues] of Object.entries(colors)) {
+    for (const [key, hexColor] of Object.entries(colorKeyValues)) {
+      styles += `
+        --${colorKey}${key}: ${hexToHSL(hexColor)};
+      `;
+    }
+  }
+
+  return css`
+    ${styles}
+  `;
+}
+
 export default css`
   :root {
-    /* brand colors - these may change based on backend values */
-    --brand100: ${hexToHSL("#00658F")};
-    --brand90: ${hexToHSL("#006E9B")};
-    --brand70: ${hexToHSL("#3588AA")};
-    --brand50: ${hexToHSL("#6DACC7")};
-    --brand30: ${hexToHSL("#B6D6E3")};
-    --brand20: ${hexToHSL("#D1E7F0")};
-    --brand10: ${hexToHSL("#E9F3F7")};
-
-    /* neutral colors */
-    --neutral100: ${hexToHSL("#000000")};
-    --neutral90: ${hexToHSL("#232324")};
-    --neutral70: ${hexToHSL("#67676B")};
-    --neutral60: ${hexToHSL("#87878C")};
-    --neutral50: ${hexToHSL("#A5A5AB")};
-    --neutral40: ${hexToHSL("#BCBCC3")};
-    --neutral20: ${hexToHSL("#E1E1E5")};
-    --neutral10: ${hexToHSL("#F0F0F5")};
-    --neutral05: ${hexToHSL("#FAFAFC")};
-    --neutral00: ${hexToHSL("#FFFFFF")};
+    /* colors */
+    ${createColors()}
 
     /* system colors */
     --green-dark: ${hexToHSL("#3E9460")};
