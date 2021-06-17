@@ -23,6 +23,7 @@ export default css`
   .l-grid {
     display: grid;
     grid-template-columns: repeat(${COLUMNS}, 1fr);
+    row-gap: var(--grid-column-gap);
     column-gap: var(--grid-column-gap);
 
     &__item {
