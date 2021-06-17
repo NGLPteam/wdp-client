@@ -1,9 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import Breadcrumbs from "components/atomic/Breadcrumbs";
 
 export default function CommunityList() {
   return (
     <div>
+      <Breadcrumbs />
       <h1>Communities</h1>
       <ul>
         <li>

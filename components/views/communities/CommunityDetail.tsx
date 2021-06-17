@@ -2,12 +2,14 @@ import React from "react";
 import SubcollectionList from "components/views/entities/SubcollectionList";
 import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
+import Breadcrumbs from "components/atomic/Breadcrumbs";
 
 export default function CommunityDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
 
   return (
     <div>
+      <Breadcrumbs />
       <h1>
         Community: {id} -- view: {view}
       </h1>
