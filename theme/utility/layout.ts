@@ -20,7 +20,7 @@ function createItems() {
 }
 
 export default css`
-  .grid {
+  .l-grid {
     display: grid;
     grid-template-columns: repeat(${COLUMNS}, 1fr);
     column-gap: var(--grid-column-gap);
@@ -40,7 +40,7 @@ export default css`
     }
   }
 
-  .flex {
+  .l-flex {
     display: flex;
     flex-wrap: wrap;
 
