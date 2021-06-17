@@ -3,12 +3,14 @@ import SubcollectionList from "components/views/entities/SubcollectionList";
 import SubitemList from "components/views/entities/SubitemList";
 import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
+import Breadcrumbs from "components/atomic/Breadcrumbs";
 
 export default function CollectionDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
 
   return (
     <div>
+      <Breadcrumbs />
       <h1>
         Collection: {id} -- view: {view}
       </h1>
