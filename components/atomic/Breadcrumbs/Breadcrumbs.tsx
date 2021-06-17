@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { default as CICBreadcrumbs } from "@castiron/components-breadcrumbs";
+import styled from "styled-components";
+import CICBreadcrumbs from "@castiron/components-breadcrumbs";
 import { data as defaultData } from "./Breadcrumbs.data";
 
 const BreadcrumbsWrapper = ({
