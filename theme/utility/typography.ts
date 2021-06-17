@@ -20,4 +20,15 @@ export default css`
   .t-copy-sm {
     font-size: var(--font-size-sm);
   }
+
+  /* Rich Text */
+  .t-rte {
+    a {
+      transition: var(--color-transition);
+
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+  }
 `;

@@ -31,6 +31,7 @@ export function aBgDark(bgColor = "brand100") {
     --color: var(--brand20);
     --color-light: var(--brand20);
     --header-color: var(--neutral00);
+    --accent-color: var(--neutral00);
     background-color: var(--background-color);
     color: var(--color);
   `;
@@ -42,6 +43,7 @@ export function aBgLight(bgColor = "neutral00") {
     --color: var(--neutral90);
     --color-light: var(--neutral70);
     --header-color: var(--brand100);
+    --accent-color: var(--brand100);
     background-color: var(--background-color);
     color: var(--color);
   `;
