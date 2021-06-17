@@ -1,4 +1,4 @@
-import * as Styled from "./styles";
+import * as Styled from "./MainNav.styles";
 import Link from "next/link";
 
 const MainNav = ({ children }: Props) => {
@@ -8,7 +8,7 @@ const MainNav = ({ children }: Props) => {
         <Link href="/" passHref>
           <a className="t-label-md">Institution Name</a>
         </Link>
-        <ul className="flex flex--align-center">
+        <ul className="l-flex l-flex--align-center">
           {children &&
             children.map((child, i) => (
               <Styled.Item key={i}>{child}</Styled.Item>
