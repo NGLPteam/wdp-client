@@ -16,4 +16,8 @@ export default css`
   .t-label-lg {
     ${tLabel("lg")}
   }
+
+  .t-copy-sm {
+    font-size: var(--font-size-sm);
+  }
 `;

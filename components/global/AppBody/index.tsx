@@ -7,7 +7,7 @@ import { AppHeader, AppFooter } from "components/global";
 function AppBody({ children }: Props) {
   return (
     <>
-      <Styled.Body>
+      <Styled.Body className="a-bg-neutral00">
         <AppHeader />
         <Styled.Main>{children}</Styled.Main>
         <AppFooter />

@@ -49,6 +49,7 @@ export default css`
 
     /* font sizes */
     --font-size-base: 1rem;
+    --line-height-base: ${pxToRem("20px")};
     --font-size-sm: ${pxToRem("14px")};
 
     /* label font sizes */
