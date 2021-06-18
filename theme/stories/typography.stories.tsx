@@ -1,8 +1,28 @@
 import React from "react";
 import { Story } from "@storybook/react";
+import {
+  Title,
+  Subtitle,
+  Primary,
+  ArgsTable,
+  Stories,
+} from "@storybook/addon-docs/blocks";
 
 export default {
   title: "Styles/Typography",
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle>Base typography styling and utility classes</Subtitle>
+          <Primary />
+          <ArgsTable />
+          <Stories />
+        </>
+      ),
+    },
+  },
 };
 
 export const Headers: Story = () => (

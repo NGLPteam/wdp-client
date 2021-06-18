@@ -43,6 +43,12 @@ export default css`
     --line-height-h2: ${pxToRem("28px")};
     --font-size-h3: ${pxToRem("18px")};
     --line-height-h3: ${pxToRem("24px")};
+    --font-size-h4: var(--font-size-base);
+    --line-height-h4: var(--line-height-header);
+    --font-size-h5: var(--font-size-base);
+    --line-height-h5: var(--line-height-header);
+    --font-size-h6: var(--font-size-base);
+    --line-height-h6: var(--line-height-header);
 
     /* font colors */
     --color-base: var(--neutral90);

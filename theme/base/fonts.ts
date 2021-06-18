@@ -18,4 +18,7 @@ export default css`
   ${fontFace("Karla", "Karla-Italic", "italic", 400)}
   ${fontFace("Karla", "Karla-Bold", "normal", 700)}
   ${fontFace("Karla", "Karla-Bold-Italic", "italic", 700)}
+  ${fontFace("Karla", "Karla-Medium", "normal", 500)}
+  ${fontFace("Karla", "Karla-SemiBold", "normal", 600)}
+  ${fontFace("Karla", "Karla-SemiBold", "normal", 600)}
 `;
