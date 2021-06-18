@@ -35,7 +35,7 @@ export const Label: Story = () => (
 
 const PARAGRAPH =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sagittis tempor dui, vitae aliquam nisi facilisis eu. Nunc vitae posuere purus, ac gravida arcu. Sed finibus quam nec risus hendrerit, sit amet dictum massa porta. Quisque ut tortor maximus nibh ornare facilisis. Ut vitae nisi eu velit tempus vehicula eget eget dui. Proin ultricies turpis eget tortor sagittis, at consectetur lectus vehicula.";
-const DEMO_ARRAY = Array.from(Array(3));
+const DEMO_ARRAY = [1, 2, 3];
 
 export const RichText: Story = () => (
   <div className="t-rte">

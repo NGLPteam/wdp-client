@@ -5,7 +5,7 @@ function MainFooterNav({ header, children }: Props) {
   return (
     <>
       <Styled.Header>{header}</Styled.Header>
-      <Styled.List className="t-rte">
+      <Styled.List>
         {children &&
           children.map((child, i) => (
             <Styled.ListItem key={i}>{child}</Styled.ListItem>

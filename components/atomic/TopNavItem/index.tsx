@@ -1,3 +1,3 @@
-import TopNavItem from "./styles";
+import TopNavItem from "./TopNavItem.styles";
 
 export default TopNavItem;

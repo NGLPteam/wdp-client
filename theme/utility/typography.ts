@@ -1,7 +1,7 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tLabel } from "theme/mixins/typography";
+import { tLabel, tLink, tList } from "theme/mixins/typography";
 
 export default css`
   /* Labels */
@@ -24,11 +24,16 @@ export default css`
   /* Rich Text */
   .t-rte {
     a {
-      transition: var(--color-transition);
+      ${tLink()}
+    }
 
-      &:hover {
-        color: var(--accent-color);
-      }
+    > * + * {
+      margin-top: 1.3em;
+    }
+
+    ul,
+    ol {
+      ${tList}
     }
   }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
-import { tLabel } from "theme/mixins/typography";
+import { tLabel, tLink } from "theme/mixins/typography";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -34,6 +34,10 @@ export const List = styled.ul`
 export const ListItem = styled.li`
   & + & {
     padding-top: ${basePadding(4)};
+  }
+
+  a {
+    ${tLink("color-light")}
   }
 `;
 

@@ -10,8 +10,8 @@ export const transition = {
 
 export const colors = {
   brand: {
-    90: "#00658F",
-    100: "#006E9B",
+    100: "#00658F",
+    90: "#006E9B",
     70: "#3588AA",
     50: "#6DACC7",
     30: "#B6D6E3",
