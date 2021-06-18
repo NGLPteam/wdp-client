@@ -9,8 +9,6 @@ export default {
   component: Breadcrumbs,
 };
 
-const args = {};
-
 const Template: Story<BreadcrumbProps> = (args) => {
   return <Breadcrumbs data={data} {...args} />;
 };
