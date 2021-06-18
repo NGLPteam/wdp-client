@@ -39,7 +39,7 @@ const MainFooter = ({ children, copyright, about }: Props) => {
 interface Props {
   copyright?: string;
   about?: string;
-  children: React.ReactNode[];
+  children: [React.ReactNode, React.ReactNode];
 }
 
 MainFooter.Nav = MainFooterNav;
