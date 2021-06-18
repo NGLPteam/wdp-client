@@ -10,6 +10,10 @@ export default css`
     line-height: var(--line-height-base);
   }
 
+  strong {
+    font-weight: var(--font-weight-medium);
+  }
+
   h1,
   h2,
   h3,
@@ -24,28 +28,35 @@ export default css`
   h1 {
     font-size: var(--font-size-h1);
     font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-h1, var(--line-height-header));
+    line-height: var(--line-height-h1);
   }
 
   h2 {
     font-size: var(--font-size-h2);
     font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-h2, var(--line-height-header));
+    line-height: var(--line-height-h2);
   }
 
   h3 {
     font-size: var(--font-size-h3);
     font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-h3, var(--line-height-header));
+    line-height: var(--line-height-h3);
   }
 
   h4 {
     font-size: var(--font-size-h4);
-    line-height: var(--line-height-h4, var(--line-height-header));
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-h4);
   }
 
   h5 {
     font-size: var(--font-size-h5);
-    line-height: var(--line-height-h5, var(--line-height-header));
+    line-height: var(--line-height-h5);
+  }
+
+  h6 {
+    font-size: var(--font-size-h6);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-h6);
   }
 `;
