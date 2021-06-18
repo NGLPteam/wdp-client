@@ -1,3 +1,6 @@
+import { css } from "styled-components";
+import { hexToHSL } from "theme/mixins/colors";
+
 export const transition = {
   colorMode: {
     duration: 0.2,
@@ -27,7 +30,36 @@ export const colors = {
     "05": "#FAFAFC",
     "00": "#FFFFFF",
   },
+  green: {
+    dark: "#3E9460",
+    aa: "#48B072",
+    tint: "#D9F7E5",
+  },
+  red: {
+    dark: "#DD5A51",
+    aa: "#E5857E",
+    tint: "#F7DBD9",
+  },
 };
+
+// Set color variables from colors object
+export function createColors() {
+  let styles = "";
+
+  for (const [colorKey, colorKeyValues] of Object.entries(colors)) {
+    // eslint-disable-next-line no-constant-condition
+    const delimiter = colorKey === "neutral" || "brand" ? "" : "-";
+    for (const [key, hexColor] of Object.entries(colorKeyValues)) {
+      styles += `
+        --${colorKey}${delimiter}${key}: ${hexToHSL(hexColor)};
+      `;
+    }
+  }
+
+  return css`
+    ${styles}
+  `;
+}
 
 export const breakpoints = {
   140: "1400px",

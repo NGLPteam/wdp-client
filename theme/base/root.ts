@@ -2,28 +2,10 @@
 // --------------------
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
 import { css } from "styled-components";
-import { hexToHSL } from "theme/mixins/colors";
 import { pxToRem } from "theme/mixins/functions";
-import { transition, colors } from "theme/base/variables";
+import { transition, createColors } from "theme/base/variables";
 
 const { duration, timing } = transition.colorMode;
-
-// Set color variables from colors object
-function createColors() {
-  let styles = "";
-
-  for (const [colorKey, colorKeyValues] of Object.entries(colors)) {
-    for (const [key, hexColor] of Object.entries(colorKeyValues)) {
-      styles += `
-        --${colorKey}${key}: ${hexToHSL(hexColor)};
-      `;
-    }
-  }
-
-  return css`
-    ${styles}
-  `;
-}
 
 export default css`
   :root {
@@ -31,12 +13,6 @@ export default css`
     ${createColors()}
 
     /* system colors */
-    --green-dark: ${hexToHSL("#3E9460")};
-    --green: ${hexToHSL("#48B072")};
-    --green-tint: ${hexToHSL("#D9F7E5")};
-    --red-dark: ${hexToHSL("#DD5A51")};
-    --red: ${hexToHSL("#E5857E")};
-    --red-tint: ${hexToHSL("#F7DBD9")};
 
     /* fonts */
     --font-face-base: "Karla", serif;
