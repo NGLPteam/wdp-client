@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { tLabel } from "theme/mixins/typography";
 import { pxToRem } from "theme/mixins/functions";
+import { aBgDark, aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 
 import NavSearchInput from "./NavSearchInput";
@@ -13,13 +14,27 @@ export const SearchInput = styled(NavSearchInput)<Props>`
   --search-top-padding: ${pxToRem("7px")};
   --search-left-padding: ${pxToRem("12px")};
 
+  &:focus-within &__input,
+  &:hover &__input {
+    ${aBgLight()}
+
+    &::-webkit-search-cancel-button {
+      background-image: url(${encodedIconClose({ fill: "#000" })});
+    }
+  }
+
+  &:focus-within &__icon,
+  &:hover &__icon {
+    color: var(--color-base);
+  }
+
   &__input {
-    background-color: var(--brand90);
+    ${aBgDark("brand90")}
     border-radius: var(--border-radius-lg);
     border: none;
     padding: var(--search-top-padding) var(--search-left-padding)
       var(--search-top-padding) ${pxToRem("36px")};
-    color: var(--color-dark-bg);
+    transition: background var(--base-duration) var(--base-timing);
 
     &::placeholder {
       color: var(--brand50);

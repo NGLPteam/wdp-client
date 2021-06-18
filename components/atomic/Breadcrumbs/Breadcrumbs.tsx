@@ -17,7 +17,7 @@ const BreadcrumbsWrapper = ({
   return (
     <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
       {data.map(({ label, ...props }, i) => (
-        <a key={i} {...props}>
+        <a className={`${className}__link`} key={i} {...props}>
           {label}
         </a>
       ))}
@@ -31,26 +31,30 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
     list-style: none;
     margin-bottom: 36px;
   }
-  &__li {
-    a {
-      font-size: var(--font-size-sm);
-      color: var(--neutral50);
-      &:hover {
-        color: var(--brand70);
-        text-decoration: underline;
-      }
-    }
 
+  &__li {
     &:focus-visible {
       outline: 0;
     }
-    &:last-of-type a {
-      color: var(--brand70);
+  }
+
+  &__link {
+    font-size: var(--font-size-sm);
+    color: var(--color-light);
+    transition: var(--color-transition);
+    &:hover {
+      color: var(--accent-color);
       text-decoration: underline;
     }
   }
+
+  &__li:last-of-type &__link {
+    color: var(--accent-light);
+    text-decoration: underline;
+  }
+
   &__delimiter {
-    color: var(--neutral50);
+    color: var(--neutral60);
     padding: 0 0.5rem;
   }
 `;

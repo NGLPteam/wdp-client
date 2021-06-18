@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import get from "lodash/get";
-import * as Styled from "./styles";
+import * as Styled from "./NavSearch.styles";
 
 function NavSearch({ className, onSubmit }: Props) {
   const inputRef = useRef();

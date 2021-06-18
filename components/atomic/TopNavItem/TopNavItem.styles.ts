@@ -6,6 +6,7 @@ const TopNavItem = styled.a<Props>`
   border-bottom: 2px solid transparent;
   padding-bottom: 1px;
   transition: var(--border-transition), var(--color-transition);
+  color: var(--brand20);
   ${tLabel("md")}
 
   &:hover {
