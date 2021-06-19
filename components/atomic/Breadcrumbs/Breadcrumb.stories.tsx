@@ -1,8 +1,22 @@
 import Breadcrumbs from "./Breadcrumbs";
 import { Story } from "@storybook/react";
-import { data } from "./Breadcrumbs.data";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
+
+const data = [
+  {
+    label: "Breadcrumb Parent",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+  {
+    label: "Another Breadcrumb Child",
+    href: "#",
+  },
+];
 
 export default {
   title: "Components/Atomic/Breadcrumbs",

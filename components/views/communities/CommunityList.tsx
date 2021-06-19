@@ -1,12 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import Breadcrumbs from "components/atomic/Breadcrumbs";
+import { PageHeader } from "components/layout";
 
 export default function CommunityList() {
   return (
-    <div>
-      <Breadcrumbs />
-      <h1>Communities</h1>
+    <section>
+      <PageHeader title="Communities" />
       <ul>
         <li>
           <Link href={`/communities/1`}>
@@ -14,6 +13,6 @@ export default function CommunityList() {
           </Link>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }

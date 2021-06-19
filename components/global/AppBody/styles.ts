@@ -12,8 +12,8 @@ export const Body = styled.div`
 
 export const Main = styled.main`
   flex: 2 1 auto;
-  padding: ${basePadding(5)} var(--container-column-margin);
+  padding: ${basePadding(8)} var(--container-column-margin);
   margin: 0 auto;
   width: 100%;
-  max-width: var(--container-max);
+  max-width: calc(var(--container-max) + (var(--container-column-margin) * 2));
 `;
