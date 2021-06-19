@@ -1,12 +1,11 @@
 import React from "react";
 import MixedLink from "components/atomic/MixedLink";
-import Breadcrumbs from "components/atomic/Breadcrumbs";
+import { PageHeader } from "components/layout";
 
 export default function CollectionList() {
   return (
-    <div>
-      <Breadcrumbs />
-      <h1>Collections</h1>
+    <section>
+      <PageHeader title="Collections" />
       <ul>
         <li>
           <MixedLink route="collectionDetail" params={{ id: 1 }}>
@@ -14,6 +13,6 @@ export default function CollectionList() {
           </MixedLink>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }

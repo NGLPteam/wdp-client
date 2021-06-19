@@ -1,26 +1,41 @@
 import React from "react";
 import Link from "next/link";
+import SubitemList from "components/views/entities/SubitemList";
 import { useGlobalData } from "hooks/useGlobalData";
-import Breadcrumbs from "components/atomic/Breadcrumbs";
+import { TabNav, Tab } from "components/atomic";
+import { PageHeader } from "components/layout";
 
 export default function ItemDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
+  // TODO: Dynamic breadcrumbs
+  const breadcrumbs = {
+    data: [
+      {
+        label: "Items",
+        href: "/items",
+      },
+      {
+        label: `Item: ${id}`,
+        href: "#",
+      },
+    ],
+  };
 
   return (
-    <div>
-      <Breadcrumbs />
-      <h1>
-        Item: {id} -- view: {view}
-      </h1>
-      {view === "main" && (
-        <ul>
-          <li>
-            <Link href={`/items/${id}/manage`}>
-              <a>Manage</a>
-            </Link>
-          </li>
-        </ul>
-      )}
-    </div>
+    <section>
+      <PageHeader title={`Item: ${id}`} breadcrumbsProps={breadcrumbs}>
+        <TabNav>
+          <Link href={`/items/${id}/items`} passHref>
+            <Tab active={view === "items"}>Child Items</Tab>
+          </Link>
+          <Link href={`/items/${id}/manage`} passHref>
+            <Tab active={view === "manage"}>Manage</Tab>
+          </Link>
+        </TabNav>
+      </PageHeader>
+
+      {view === "main" && <div>Main</div>}
+      {view === "items" && <SubitemList />}
+    </section>
   );
 }

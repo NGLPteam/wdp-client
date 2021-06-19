@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import CICBreadcrumbs from "@castiron/components-breadcrumbs";
-import { data as defaultData } from "./Breadcrumbs.data";
 
 const BreadcrumbsWrapper = ({
   className = "breadcrumbs",
-  data = defaultData,
+  data = [],
   delimiter = " / ",
   ...args
 }) => {

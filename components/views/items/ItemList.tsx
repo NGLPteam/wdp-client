@@ -1,12 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import Breadcrumbs from "components/atomic/Breadcrumbs";
+import { PageHeader } from "components/layout";
 
 export default function ItemList() {
   return (
-    <div>
-      <Breadcrumbs />
-      <h1>Items</h1>
+    <section>
+      <PageHeader title="Items" />
       <ul>
         <li>
           <Link href={`/items/1`}>
@@ -14,6 +13,6 @@ export default function ItemList() {
           </Link>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }
