@@ -6,10 +6,10 @@ interface GlobalState {
 
 interface GlobalContextInterface {
   state: GlobalState;
-  dispatch: React.Dispatch<any>;
+  dispatch: React.Dispatch<GlobalAction>;
 }
 
 interface GlobalAction {
   type: string;
-  payload: any;
+  payload: string | undefined;
 }

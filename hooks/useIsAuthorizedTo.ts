@@ -3,7 +3,7 @@ import { useFragment } from "relay-hooks";
 import { useIsAuthorizedToFragment$key } from "__generated__/useIsAuthorizedToFragment.graphql";
 
 export default function useIsAuthorizedTo(
-  rawEntity: any,
+  rawEntity,
   ...permissions: string[]
 ): boolean {
   const { allowedActions } = useFragment<useIsAuthorizedToFragment$key>(
