@@ -39,16 +39,22 @@ export default css`
     /* header font sizes */
     --font-size-h1: ${pxToRem("30px")};
     --line-height-h1: ${pxToRem("36px")};
+    --font-weight-h1: var(--font-weight-medium);
     --font-size-h2: ${pxToRem("22px")};
     --line-height-h2: ${pxToRem("28px")};
+    --font-weight-h2: var(--font-weight-semibold);
     --font-size-h3: ${pxToRem("18px")};
     --line-height-h3: ${pxToRem("24px")};
+    --font-weight-h3: var(--font-weight-medium);
     --font-size-h4: var(--font-size-base);
     --line-height-h4: var(--line-height-header);
+    --font-weight-h4: var(--font-weight-semibold);
     --font-size-h5: var(--font-size-base);
     --line-height-h5: var(--line-height-header);
+    --font-weight-h5: var(--font-weight-medium);
     --font-size-h6: var(--font-size-base);
     --line-height-h6: var(--line-height-header);
+    --font-weight-h6: var(--font-weight-regular);
 
     /* font colors */
     --color-base: var(--neutral90);

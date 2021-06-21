@@ -22,13 +22,24 @@ export const tLink = (color?: string) => css`
   }
 `;
 
+// Base list styling
 export const tList = css`
   padding: 0;
   margin-left: ${basePadding(2)};
 `;
 
+// Remove list styling
 export const tListUnstyled = css`
   padding: 0;
   margin-left: 0;
   list-style-type: none;
 `;
+
+// Base heading styling
+export function tHeading(size: 1 | 2 | 3 | 4 | 5 | 6) {
+  return css`
+    font-size: var(${`--font-size-h${size}`});
+    font-weight: var(${`--font-weight-h${size}`});
+    line-height: var(${`--line-height-h${size}`});
+  `;
+}
