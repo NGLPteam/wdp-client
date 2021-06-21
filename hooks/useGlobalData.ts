@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import GlobalDataContext from "contexts/GlobalData";
 import useGetQueryParam from "hooks/useGetQueryParam";
+import useGetQuery from "hooks/useGetQuery";
 
 /**
  * These hooks are helpers to access the global data context
@@ -72,8 +73,8 @@ export const useGetActiveId = () => {
 };
 
 /**
- * @sets the value of the active entity to the store
- * @returns entity
+ * @sets the value of the active view to the store
+ * @returns view
  */
 export const useSetActiveView = () => {
   const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
@@ -87,9 +88,24 @@ export const useSetActiveView = () => {
 };
 
 /**
- * @return the value of the active entity
+ * @return the value of the active view
  */
 export const useGetActiveView = () => {
   const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
   return state.activeView;
+};
+
+/**
+ * @sets the value of the active view to the store
+ * @returns view
+ */
+export const useSetActiveSubview = () => {
+  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const subview = useGetQuery("view.1") || "main";
+
+  useEffect(() => {
+    dispatch({ type: "SET_ACTIVE_SUBVIEW", payload: subview });
+  }, [subview]);
+
+  return subview;
 };

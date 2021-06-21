@@ -3,6 +3,7 @@ import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tHeading } from "theme/mixins/typography";
 
 export const Nav = styled.nav`
+  padding-top: ${basePadding(1)};
   padding-inline-end: ${basePadding(7)};
 `;
 
@@ -16,19 +17,21 @@ export const ListItem = styled.li`
 
 export const Link = styled.a<LinkProps>`
   display: block;
-  border-bottom: 1px solid var(--neutral40);
+  box-shadow: inset 0 -1px 0 var(--neutral40);
   padding-bottom: 6px;
   color: var(--color-light);
+  transition: box-shadow var(--base-duration) var(--base-timing),
+    var(--color-transition);
   ${tHeading(3)}
 
   &:hover {
     color: inherit;
-    border-color: var(--color);
+    box-shadow: inset 0 -1px 0 var(--color);
   }
 
   &:focus-visible {
     outline: 0;
-    border-color: var(--brand50);
+    box-shadow: inset 0 -1px 0 var(--brand50);
     color: var(--brand50);
     ${aTextGlow("lightMode")}
   }
@@ -36,7 +39,7 @@ export const Link = styled.a<LinkProps>`
   ${({ active }) =>
     active &&
     css`
-      border-bottom: 2px solid var(--accent-color);
+      box-shadow: inset 0 -2px 0 var(--accent-color);
       color: var(--accent-color);
     `}
 `;

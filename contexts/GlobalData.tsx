@@ -5,6 +5,7 @@ const initialState = {
   activeEntity: "",
   activeId: "",
   activeView: "",
+  activeSubview: "",
 };
 
 const GlobalDataContext = createContext<GlobalContextInterface | null>(null);

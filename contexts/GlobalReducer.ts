@@ -15,6 +15,11 @@ const Reducer = (state: GlobalState, action: GlobalAction) => {
         ...state,
         activeView: action.payload,
       };
+    case "SET_ACTIVE_SUBVIEW":
+      return {
+        ...state,
+        activeSubview: action.payload,
+      };
     default:
       return state;
   }
