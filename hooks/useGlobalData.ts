@@ -105,7 +105,7 @@ export const useSetActiveSubview = () => {
   const subview = useGetQuery("view.1") || "main";
 
   useEffect(() => {
-    dispatch({ type: "SET_ACTIVE_SUBVIEW", payload: subview });
+    dispatch({ type: "SET_ACTIVE_SUBVIEW", payload: String(subview) });
   }, [subview]);
 
   return subview;
