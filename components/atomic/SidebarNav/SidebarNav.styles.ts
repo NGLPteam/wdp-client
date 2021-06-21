@@ -25,8 +25,12 @@ export const Link = styled.a<LinkProps>`
   ${tHeading(3)}
 
   &:hover {
-    color: inherit;
-    box-shadow: inset 0 -1px 0 var(--color);
+    ${({ active }) =>
+      !active &&
+      css`
+        color: inherit;
+        box-shadow: inset 0 -1px 0 var(--color);
+      `}
   }
 
   &:focus-visible {

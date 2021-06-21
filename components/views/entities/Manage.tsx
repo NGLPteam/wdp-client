@@ -1,39 +1,50 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
+import get from "lodash/get";
 import { useGlobalData } from "hooks/useGlobalData";
 import { SidebarNav } from "components/atomic";
-import { Properties } from "./";
+import {
+  Properties,
+  Order,
+  Links,
+  Access,
+  Pages,
+  Contributions,
+  Files,
+} from "../manage";
 
-const LINKS = [
-  {
-    subview: "properties",
+const ROUTES = {
+  properties: {
     label: "Properties",
+    component: Properties,
   },
-  {
-    subview: "order",
+  order: {
     label: "Order",
+    component: Order,
   },
-  {
-    subview: "links",
+  links: {
     label: "Links",
+    component: Links,
   },
-  {
-    subview: "access",
+  access: {
     label: "Access",
+    component: Access,
   },
-  {
-    subview: "pages",
+  pages: {
     label: "Pages",
+    component: Pages,
   },
-  {
-    subview: "contributions",
+  contributions: {
     label: "Contributions",
+    component: Contributions,
   },
-  {
-    subview: "files",
+  files: {
     label: "Files",
+    component: Files,
   },
-];
+};
+
+const DEFAULT_ROUTE = ROUTES.properties;
 
 export default function Manage() {
   const {
@@ -43,22 +54,28 @@ export default function Manage() {
     activeSubview: subview,
   } = useGlobalData();
 
+  // Get the current subview component
+  const activeView = useMemo(() => {
+    return get(ROUTES, subview) || DEFAULT_ROUTE;
+  }, [subview]);
+
+  const SubviewComponent = get(activeView, "component", null);
+
   return (
     <section className="l-grid">
       <SidebarNav className="l-grid__item l-grid__item--3">
-        {LINKS.map(({ subview, label }) => (
-          <Link
-            key={subview}
-            href={`/${entity}/${id}/${view}/${subview}`}
-            passHref
-          >
-            <SidebarNav.Link>{label}</SidebarNav.Link>
+        {Object.entries(ROUTES).map(([key, value], i) => (
+          <Link key={key} href={`/${entity}/${id}/${view}/${key}`} passHref>
+            <SidebarNav.Link
+              active={subview === key || (i === 0 && subview === "main")}
+            >
+              {value.label}
+            </SidebarNav.Link>
           </Link>
         ))}
       </SidebarNav>
       <div className="l-grid__item l-grid__item--9">
-        <pre>subview: {subview}</pre>
-        {subview === "properties" && <Properties />}
+        {SubviewComponent && <SubviewComponent />}
       </div>
     </section>
   );
