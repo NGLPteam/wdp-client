@@ -30,7 +30,7 @@ export function aBgDark(bgColor = "brand100") {
     --background-color: var(--${bgColor});
     --color: var(--brand20);
     --color-light: var(--brand20); // Passes AA
-    --clor-lighter: var(--brand30); // AA+, Can pass under some circumstances
+    --color-lighter: var(--brand30); // AA+, Can pass under some circumstances
     --header-color: var(--neutral00);
     --accent-color: var(--neutral00);
     --accent-light: var(--neutral10);
