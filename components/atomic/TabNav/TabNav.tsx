@@ -18,5 +18,6 @@ interface Props {
 }
 
 TabNav.Tab = Styled.Tab;
+TabNav.Tab.displayName = "TabNav.Tab";
 
 export default TabNav;
