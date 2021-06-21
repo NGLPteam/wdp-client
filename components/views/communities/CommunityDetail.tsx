@@ -1,5 +1,5 @@
 import React from "react";
-import SubcollectionList from "components/views/entities/SubcollectionList";
+import { SubcollectionList, Manage } from "components/views/entities";
 import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
 import { TabNav, Tab } from "components/atomic";
@@ -36,6 +36,7 @@ export default function CommunityDetail() {
 
       {view === "main" && <div>Main</div>}
       {view === "collections" && <SubcollectionList />}
+      {view === "manage" && <Manage />}
     </section>
   );
 }

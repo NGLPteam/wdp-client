@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import SubitemList from "components/views/entities/SubitemList";
+import { SubitemList, Manage } from "components/views/entities";
 import { useGlobalData } from "hooks/useGlobalData";
 import { TabNav, Tab } from "components/atomic";
 import { PageHeader } from "components/layout";
@@ -36,6 +36,7 @@ export default function ItemDetail() {
 
       {view === "main" && <div>Main</div>}
       {view === "items" && <SubitemList />}
+      {view === "manage" && <Manage />}
     </section>
   );
 }
