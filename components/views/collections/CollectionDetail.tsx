@@ -5,7 +5,7 @@ import {
   Manage,
 } from "components/views/entities";
 import Link from "next/link";
-import { TabNav, Tab } from "components/atomic";
+import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
 import { useGlobalData } from "hooks/useGlobalData";
 
@@ -30,13 +30,15 @@ export default function CollectionDetail() {
       <PageHeader title={`Collection: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
           <Link href={`/collections/${id}/collections`} passHref>
-            <Tab active={view === "collections"}>Child Collections</Tab>
+            <TabNav.Tab active={view === "collections"}>
+              Child Collections
+            </TabNav.Tab>
           </Link>
           <Link href={`/collections/${id}/items`} passHref>
-            <Tab active={view === "items"}>Child Items</Tab>
+            <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
           </Link>
           <Link href={`/collections/${id}/manage`} passHref>
-            <Tab active={view === "manage"}>Manage</Tab>
+            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>
