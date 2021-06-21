@@ -31,6 +31,14 @@ function AppHeader({ children, className = "" }: Props) {
         <MixedLink route="itemList" passHref>
           <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
         </MixedLink>
+        <MixedLink route="userList" passHref>
+          <TopNavItem active={activeEntity === "users"}>Users</TopNavItem>
+        </MixedLink>
+        <MixedLink route="contributorList" passHref>
+          <TopNavItem active={activeEntity === "contributors"}>
+            Contributors
+          </TopNavItem>
+        </MixedLink>
         <NavSearch onSubmit={handleSubmit} />
         <span>
           <SignIn />

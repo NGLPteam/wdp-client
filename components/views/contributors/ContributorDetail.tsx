@@ -5,17 +5,17 @@ import { useGlobalData } from "hooks/useGlobalData";
 import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
 
-export default function UserDetail() {
+export default function ContributorDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
   // TODO: Dynamic breadcrumbs
   const breadcrumbs = {
     data: [
       {
-        label: "Users",
-        href: "/Users",
+        label: "Contributors",
+        href: "/Contributors",
       },
       {
-        label: `User: ${id}`,
+        label: `Contributor: ${id}`,
         href: "#",
       },
     ],
@@ -23,19 +23,19 @@ export default function UserDetail() {
 
   return (
     <section>
-      <PageHeader title={`User: ${id}`} breadcrumbsProps={breadcrumbs}>
+      <PageHeader title={`Contributor: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
-          <Link href={`/users/${id}`} passHref>
+          <Link href={`/contributors/${id}`} passHref>
             <TabNav.Tab active={view === "main"}>Main</TabNav.Tab>
           </Link>
-          <Link href={`/users/${id}/manage`} passHref>
+          <Link href={`/contributors/${id}/manage`} passHref>
             <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>
 
       {view === "main" && <div>Main</div>}
-      {view === "Users" && <SubitemList />}
+      {view === "Contributors" && <SubitemList />}
       {view === "manage" && <Manage />}
     </section>
   );
