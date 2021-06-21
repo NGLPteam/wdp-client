@@ -1,6 +1,6 @@
 import PageHeader from "./";
 import { data } from "components/atomic/Breadcrumbs/Breadcrumb.data";
-import { TabNav, Tab } from "components/atomic";
+import { TabNav } from "components/atomic";
 
 export default {
   title: "Components/Layout/PageHeader",
@@ -15,9 +15,9 @@ export default {
 export const Primary = (args) => (
   <PageHeader {...args} breadcrumbsProps={{ data }}>
     <TabNav>
-      <Tab active>Child Collections</Tab>
-      <Tab href="#">Child Items</Tab>
-      <Tab href="#">Manage</Tab>
+      <TabNav.Tab active>Child Collections</TabNav.Tab>
+      <TabNav.Tab href="#">Child Items</TabNav.Tab>
+      <TabNav.Tab href="#">Manage</TabNav.Tab>
     </TabNav>
   </PageHeader>
 );

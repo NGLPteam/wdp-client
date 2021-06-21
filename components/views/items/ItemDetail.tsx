@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { SubitemList, Manage } from "components/views/entities";
 import { useGlobalData } from "hooks/useGlobalData";
-import { TabNav, Tab } from "components/atomic";
+import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
 
 export default function ItemDetail() {
@@ -26,10 +26,10 @@ export default function ItemDetail() {
       <PageHeader title={`Item: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
           <Link href={`/items/${id}/items`} passHref>
-            <Tab active={view === "items"}>Child Items</Tab>
+            <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
           </Link>
           <Link href={`/items/${id}/manage`} passHref>
-            <Tab active={view === "manage"}>Manage</Tab>
+            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>

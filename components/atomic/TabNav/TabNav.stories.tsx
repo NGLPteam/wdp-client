@@ -1,5 +1,4 @@
 import TabNav from "./TabNav";
-import Tab from "components/atomic/Tab";
 import { Story } from "@storybook/react";
 type Props = React.ComponentProps<typeof TabNav>;
 
@@ -11,11 +10,11 @@ export default {
 const Template: Story<Props> = (args) => {
   return (
     <TabNav {...args}>
-      <Tab href="#" active>
+      <TabNav.Tab href="#" active>
         Tab 1
-      </Tab>
-      <Tab href="#">Tab 2</Tab>
-      <Tab href="#">Tab 3</Tab>
+      </TabNav.Tab>
+      <TabNav.Tab href="#">Tab 2</TabNav.Tab>
+      <TabNav.Tab href="#">Tab 3</TabNav.Tab>
     </TabNav>
   );
 };

@@ -13,9 +13,10 @@ const TabNav = ({ children }: Props) => {
     </Styled.Nav>
   );
 };
-
 interface Props {
   children: React.ReactNode[];
 }
+
+TabNav.Tab = Styled.Tab;
 
 export default TabNav;

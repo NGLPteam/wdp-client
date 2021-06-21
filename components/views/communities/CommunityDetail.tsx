@@ -2,7 +2,7 @@ import React from "react";
 import { SubcollectionList, Manage } from "components/views/entities";
 import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
-import { TabNav, Tab } from "components/atomic";
+import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
 
 export default function CommunityDetail() {
@@ -26,10 +26,12 @@ export default function CommunityDetail() {
       <PageHeader title={`Community: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
           <Link href={`/communities/${id}/collections`} passHref>
-            <Tab active={view === "collections"}>Child Collections</Tab>
+            <TabNav.Tab active={view === "collections"}>
+              Child Collections
+            </TabNav.Tab>
           </Link>
           <Link href={`/communities/${id}/manage`} passHref>
-            <Tab active={view === "manage"}>Manage</Tab>
+            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>
