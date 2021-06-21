@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function st8(this: any, ...args) {
+function st8(this, ...args) {
   switch (arguments.length) {
     case 0:
       return this[0];

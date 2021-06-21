@@ -1,7 +1,5 @@
-import React, { PropsWithChildren } from "react";
-
+import React from "react";
 import * as Styled from "./styles";
-
 import { AppHeader, AppFooter } from "components/global";
 
 function AppBody({ children }: Props) {
@@ -16,6 +14,8 @@ function AppBody({ children }: Props) {
   );
 }
 
-type Props = PropsWithChildren<any>;
+interface Props {
+  children: React.ReactNode;
+}
 
 export default AppBody;

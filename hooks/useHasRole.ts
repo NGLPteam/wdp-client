@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { useKeycloak } from "@react-keycloak/ssr";
 
 import type { KeycloakInstance, KeycloakTokenParsed } from "keycloak-js";

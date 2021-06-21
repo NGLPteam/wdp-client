@@ -6,10 +6,10 @@ export function flattenParam(s: string | string[]): string | undefined {
   }
 }
 
-export function isString(v: any): boolean {
+export function isString(v: string | string[]): boolean {
   return typeof v === "string";
 }
 
-export function isStringArray(v: any): boolean {
+export function isStringArray(v: string | string[]): boolean {
   return Array.isArray(v) && !!v.length && v.every(isString);
 }

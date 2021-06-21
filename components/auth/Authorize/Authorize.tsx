@@ -3,10 +3,10 @@
 export default function Authorize({
   behavior = "show",
   children,
-  entity,
+  // entity,
   isAuthorized = true,
-  permissions,
-}: Props) {
+}: // permissions,
+Props) {
   //   TODO: Want to use it like:
   //   const isAuthorized = useIsAuthorizedTo(entity, ...permissions);
   //   const isAuthorized = useIsAuthorizedTo("communities", "self.assets.create", "self.update", "items.create");
@@ -27,7 +27,7 @@ export default function Authorize({
 interface Props {
   behavior?: string;
   children: React.ReactNode;
-  entity: string;
+  entity?: string;
   isAuthorized?: boolean;
-  permissions: string[];
+  permissions?: string[];
 }

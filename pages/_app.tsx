@@ -95,7 +95,7 @@ function KeycloakRelayProvider({ children, records }: KeycloakRelayProps) {
 
   const env = useMemo(() => {
     return environment(keycloakRef, records);
-  }, [records]);
+  }, [keycloakRef, records]);
 
   return (
     <RelayEnvironmentProvider environment={env}>
