@@ -1,6 +1,9 @@
 import React from "react";
-import SubcollectionList from "components/views/entities/SubcollectionList";
-import SubitemList from "components/views/entities/SubitemList";
+import {
+  SubcollectionList,
+  SubitemList,
+  Manage,
+} from "components/views/entities";
 import Link from "next/link";
 import { TabNav, Tab } from "components/atomic";
 import { PageHeader } from "components/layout";
@@ -41,6 +44,7 @@ export default function CollectionDetail() {
       {view === "main" && <div>Main</div>}
       {view === "collections" && <SubcollectionList />}
       {view === "items" && <SubitemList />}
+      {view === "manage" && <Manage />}
     </section>
   );
 }
