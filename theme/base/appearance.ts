@@ -15,4 +15,8 @@ export default css`
   ol {
     list-style-position: inside;
   }
+
+  a {
+    cursor: pointer;
+  }
 `;
