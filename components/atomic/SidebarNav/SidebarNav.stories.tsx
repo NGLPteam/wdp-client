@@ -10,7 +10,7 @@ export default {
   },
 };
 
-export const Primary = (args) => (
+export const Default = (args) => (
   <SidebarNav {...args}>
     <SidebarNav.Link href="#" active>
       Link
@@ -20,4 +20,4 @@ export const Primary = (args) => (
   </SidebarNav>
 );
 
-Primary.args = {};
+Default.args = {};

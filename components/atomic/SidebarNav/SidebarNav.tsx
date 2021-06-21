@@ -20,5 +20,6 @@ interface Props {
 }
 
 SidebarNav.Link = Styled.Link;
+SidebarNav.Link.displayName = "SidebarNav.Link";
 
 export default SidebarNav;
