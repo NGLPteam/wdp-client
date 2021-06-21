@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import * as Styled from "./SidebarNav.styles";
 
-const SidebarNav = ({ children }: Props) => {
+const SidebarNav = ({ children, className }: Props) => {
   return (
-    <Styled.Nav>
+    <Styled.Nav className={className}>
       <Styled.List>
         {children &&
           children.map((child, i) => (
@@ -16,6 +16,7 @@ const SidebarNav = ({ children }: Props) => {
 
 interface Props {
   children: ReactNode[];
+  className?: string;
 }
 
 SidebarNav.Link = Styled.Link;
