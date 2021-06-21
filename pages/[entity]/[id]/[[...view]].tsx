@@ -3,6 +3,7 @@ import {
   useSetActiveEntity,
   useSetActiveId,
   useSetActiveView,
+  useSetActiveSubview,
 } from "hooks/useGlobalData";
 import CollectionDetailView from "components/views/collections/CollectionDetail";
 import CommunityDetailView from "components/views/communities/CommunityDetail";
@@ -14,6 +15,7 @@ export default function EntityDetailPage({ ...pageProps }) {
   const entity = useSetActiveEntity();
   useSetActiveId();
   useSetActiveView();
+  useSetActiveSubview();
 
   const viewMap: MapOver = {
     collections: CollectionDetailView,

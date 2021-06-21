@@ -2,6 +2,7 @@ interface GlobalState {
   activeEntity: string | undefined;
   activeId: string | undefined;
   activeView: string | undefined;
+  activeSubview: string | undefined;
 }
 
 interface GlobalContextInterface {
