@@ -16,13 +16,17 @@ export default function CommunityList() {
     order: "RECENT",
   });
 
-  const { data, isLoading } = useAuthenticatedQuery<CommunityListQuery>(
+  const { data, error, isLoading } = useAuthenticatedQuery<CommunityListQuery>(
     query,
     variables
   );
 
   if (isLoading) {
     return null;
+  }
+
+  if (error?.message) {
+    return <div>{error.message}</div>;
   }
 
   return (
