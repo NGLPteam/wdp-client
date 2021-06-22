@@ -26,5 +26,5 @@ export interface Variables extends CommunityListQueryVariables {
 
 interface Props {
   variables: Variables;
-  setVariables: (variables: CommunityListQueryVariables) => void;
+  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
 }
