@@ -29,9 +29,6 @@ export default function ItemList() {
     return <div>{error.message}</div>;
   }
 
-  if (data) {
-    console.log(data);
-  }
   return (
     <section>
       <PageHeader title="Items" />
