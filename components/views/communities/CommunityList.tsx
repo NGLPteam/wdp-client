@@ -1,18 +1,70 @@
-import React from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+import { graphql } from "react-relay";
+import {
+  CommunityListQuery,
+  CommunityListQueryVariables,
+} from "__generated__/CommunityListQuery.graphql";
+import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { PageHeader } from "components/layout";
+import { Card, CardList } from "components/layout/CardList/CardList";
+import Link from "next/link";
+import { FullPageLoader } from "components/global";
+import CommunityHeaders from "./CommunityHeaders";
 
 export default function CommunityList() {
+  const [variables, setVariables] = useState<Variables>({
+    order: "RECENT",
+  });
+
+  const { data, error, isLoading } = useAuthenticatedQuery<CommunityListQuery>(
+    query,
+    variables
+  );
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (error?.message) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <section>
       <PageHeader title="Communities" />
-      <ul>
-        <li>
-          <Link href={`/communities/1`}>
-            <a>Community number 1</a>
-          </Link>
-        </li>
-      </ul>
+      <CardList>
+        <CommunityHeaders variables={variables} setVariables={setVariables} />
+        {data?.communities?.edges ? (
+          data.communities.edges.map(({ node: community }, index) => (
+            <Card key={index}>
+              <h4>
+                <Link href={`/communities/${community.slug}`}>
+                  {community.name}
+                </Link>
+              </h4>
+            </Card>
+          ))
+        ) : (
+          <FullPageLoader />
+        )}
+      </CardList>
     </section>
   );
 }
+
+export interface Variables extends CommunityListQueryVariables {
+  order: "RECENT" | "OLDEST";
+}
+
+const query = graphql`
+  query CommunityListQuery($order: SimpleOrder!) {
+    communities(order: $order) {
+      edges {
+        node {
+          slug
+          name
+        }
+      }
+    }
+  }
+`;
