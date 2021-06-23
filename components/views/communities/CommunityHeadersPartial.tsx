@@ -9,13 +9,11 @@ export default function CommunityHeaders({ variables, setVariables }: Props) {
 
   return (
     <div>
-      <h4>
-        Name{" "}
-        <button onClick={handleSort}>
-          {/* TODO: use lovely svg caret */}
-          {variables.order === "RECENT" ? ">" : "^"}
-        </button>
-      </h4>
+      <h4>Name</h4>
+      <button onClick={handleSort}>
+        Sort {/* TODO: use lovely svg caret */}
+        {variables.order === "RECENT" ? "RECENT" : "OLDEST"}
+      </button>
     </div>
   );
 }
