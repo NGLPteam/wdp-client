@@ -9,7 +9,7 @@ import { PageHeader } from "components/layout";
 import { Card, CardList } from "components/layout/CardList/CardList";
 import Link from "next/link";
 import { FullPageLoader } from "components/global";
-import CommunityHeaders from "./CommunityHeaders";
+import CommunityHeaders from "./CommunityHeadersPartial";
 
 export default function CommunityList() {
   const [variables, setVariables] = useState<Variables>({

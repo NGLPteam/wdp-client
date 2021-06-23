@@ -22,13 +22,14 @@ export default function FullPageLoader() {
 }
 
 const Loader = styled.div`
-  width: 100vw;
-  height: 100vw;
-  display: flex;
-  flex-direction: columns;
-  align-items: center;
+  width: 100%;
+  min-height: 80px;
+  display: grid;
+  align-items: start;
 `;
 
 const LoaderContent = styled.div`
-  text-align: center;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 1em auto;
 `;

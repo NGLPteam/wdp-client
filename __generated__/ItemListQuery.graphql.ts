@@ -5,12 +5,12 @@
 import { ConcreteRequest } from "relay-runtime";
 export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type CollectionListQueryVariables = {
+export type ItemListQueryVariables = {
     order: SimpleOrder;
 };
-export type CollectionListQueryResponse = {
+export type ItemListQueryResponse = {
     readonly viewer: {
-        readonly collections: {
+        readonly items: {
             readonly nodes: ReadonlyArray<{
                 readonly __typename: string;
                 readonly id: string;
@@ -42,19 +42,19 @@ export type CollectionListQueryResponse = {
         };
     } | null;
 };
-export type CollectionListQuery = {
-    readonly response: CollectionListQueryResponse;
-    readonly variables: CollectionListQueryVariables;
+export type ItemListQuery = {
+    readonly response: ItemListQueryResponse;
+    readonly variables: ItemListQueryVariables;
 };
 
 
 
 /*
-query CollectionListQuery(
+query ItemListQuery(
   $order: SimpleOrder!
 ) {
   viewer {
-    collections(access: READ_ONLY, order: $order) {
+    items(access: READ_ONLY, order: $order) {
       nodes {
         __typename
         id
@@ -231,7 +231,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CollectionListQuery",
+    "name": "ItemListQuery",
     "selections": [
       {
         "alias": null,
@@ -244,15 +244,15 @@ return {
           {
             "alias": null,
             "args": (v1/*: any*/),
-            "concreteType": "CollectionConnection",
+            "concreteType": "ItemConnection",
             "kind": "LinkedField",
-            "name": "collections",
+            "name": "items",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Collection",
+                "concreteType": "Item",
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
@@ -334,7 +334,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CollectionListQuery",
+    "name": "ItemListQuery",
     "selections": [
       {
         "alias": null,
@@ -347,15 +347,15 @@ return {
           {
             "alias": null,
             "args": (v1/*: any*/),
-            "concreteType": "CollectionConnection",
+            "concreteType": "ItemConnection",
             "kind": "LinkedField",
-            "name": "collections",
+            "name": "items",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Collection",
+                "concreteType": "Item",
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
@@ -443,14 +443,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9a5f89f5f722a974d61ff494ffe6fc65",
+    "cacheID": "4306160d603bbeb99ea758f88914917c",
     "id": null,
     "metadata": {},
-    "name": "CollectionListQuery",
+    "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n) {\n  viewer {\n    items(access: READ_ONLY, order: $order) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9fad4f5c82e47d629de6dd4e37d9ada2';
+(node as any).hash = '2ba4b68146641c1cec7070882326ab03';
 export default node;
