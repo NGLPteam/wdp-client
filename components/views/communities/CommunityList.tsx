@@ -44,6 +44,8 @@ export default function CommunityList() {
               </h4>
             </Card>
           ))
+        ) : data?.communities === null ? (
+          <div>No communities.</div>
         ) : (
           <FullPageLoader />
         )}

@@ -44,6 +44,8 @@ export default function CollectionList() {
               </h4>
             </Card>
           ))
+        ) : data?.viewer === null ? (
+          <div>No collections.</div>
         ) : (
           <FullPageLoader />
         )}
