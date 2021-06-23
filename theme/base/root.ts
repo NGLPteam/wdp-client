@@ -75,6 +75,8 @@ export default css`
     --base-timing: ${timing};
     --border-transition: border ${duration}s ${timing};
     --color-transition: color ${duration}s ${timing};
+    --background-transition: background ${duration}s ${timing};
+    --opacity-transition: opacity ${duration}s ${timing};
 
     /* border radius */
     --border-radius-lg: ${pxToRem("40px")};

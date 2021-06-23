@@ -4,3 +4,5 @@ export { default as TabNav } from "./TabNav";
 export { default as ContentTitle } from "./ContentTitle";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as SidebarNav } from "./SidebarNav";
+export { default as Button } from "./Button";
+export { default as ButtonControl } from "./ButtonControl";
