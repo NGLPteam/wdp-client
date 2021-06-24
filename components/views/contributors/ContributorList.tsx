@@ -52,7 +52,7 @@ export default function ContributorList() {
                 <Card key={index}>
                   <h4>
                     <Link href={`/contributors/${contributor.slug}`}>
-                      {contributor.firstName} {contributor.lastName}
+                      {`${contributor.firstName} ${contributor.lastName}`}
                     </Link>
                   </h4>
                 </Card>
