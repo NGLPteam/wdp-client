@@ -36,16 +36,31 @@ export default function ContributorList() {
       <CardList>
         <ContributorHeaders variables={variables} setVariables={setVariables} />
         {data?.contributors?.nodes ? (
-          data.contributors.nodes.map((contributor, index) => (
-            <Card key={index}>
-              <h4>
-                <Link href={`/contributors/${contributor.slug}`}>
-                  {contributor.name ||
-                    `${contributor.firstName} ${contributor.lastName}`}
-                </Link>
-              </h4>
-            </Card>
-          ))
+          data.contributors.nodes.map((contributor, index) => {
+            if (contributor.__typename === "OrganizationContributor") {
+              return (
+                <Card key={index}>
+                  <h4>
+                    <Link href={`/contributors/${contributor.slug}`}>
+                      {contributor.name}
+                    </Link>
+                  </h4>
+                </Card>
+              );
+            } else if (contributor.__typename === "PersonContributor") {
+              return (
+                <Card key={index}>
+                  <h4>
+                    <Link href={`/contributors/${contributor.slug}`}>
+                      {contributor.firstName} {contributor.lastName}
+                    </Link>
+                  </h4>
+                </Card>
+              );
+            } else {
+              return null;
+            }
+          })
         ) : data?.contributors === null ? (
           <div>No Contributors.</div>
         ) : (
