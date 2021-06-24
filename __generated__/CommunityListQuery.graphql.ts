@@ -22,6 +22,7 @@ export type CommunityListQueryResponse = {
             readonly pageCount: number | null;
             readonly hasNextPage: boolean;
             readonly hasPreviousPage: boolean;
+            readonly totalCount: number;
         };
     };
 };
@@ -51,6 +52,7 @@ query CommunityListQuery(
       pageCount
       hasNextPage
       hasPreviousPage
+      totalCount
     }
   }
 }
@@ -141,6 +143,13 @@ v4 = {
       "args": null,
       "kind": "ScalarField",
       "name": "hasPreviousPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
       "storageKey": null
     }
   ],
@@ -245,14 +254,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d57d68ca1e21c81d9880446871a49a18",
+    "cacheID": "b41f7cf30512130baaeeb7e141d9e7dd",
     "id": null,
     "metadata": {},
     "name": "CommunityListQuery",
     "operationKind": "query",
-    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}\n"
+    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '55847a41ed2e8bc7e6b3ad112ff669eb';
+(node as any).hash = 'be267940b8cf4b17eaf4de5a1306c412';
 export default node;

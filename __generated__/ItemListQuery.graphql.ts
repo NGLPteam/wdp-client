@@ -25,6 +25,7 @@ export type ItemListQueryResponse = {
                 readonly pageCount: number | null;
                 readonly hasNextPage: boolean;
                 readonly hasPreviousPage: boolean;
+                readonly totalCount: number;
             };
         };
     } | null;
@@ -57,6 +58,7 @@ query ItemListQuery(
         pageCount
         hasNextPage
         hasPreviousPage
+        totalCount
       }
     }
     id
@@ -197,6 +199,13 @@ v2 = {
           "kind": "ScalarField",
           "name": "hasPreviousPage",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -249,14 +258,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b183661d82ce3183dedcbd8917a64b0c",
+    "cacheID": "49a9897cfaea8a17469760ceda24ad58",
     "id": null,
     "metadata": {},
     "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8340c766b215f9d5d58ab3164cfbc595';
+(node as any).hash = 'a2833ddf17197962d885db4062f0361c';
 export default node;

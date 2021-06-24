@@ -30,6 +30,7 @@ export type ContributorListQueryResponse = {
             readonly pageCount: number | null;
             readonly hasNextPage: boolean;
             readonly hasPreviousPage: boolean;
+            readonly totalCount: number;
         };
     };
 };
@@ -68,6 +69,7 @@ query ContributorListQuery(
       pageCount
       hasNextPage
       hasPreviousPage
+      totalCount
     }
   }
 }
@@ -196,6 +198,13 @@ v6 = {
       "kind": "ScalarField",
       "name": "hasPreviousPage",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -286,14 +295,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f2d32877aced0214bbc5b019ada93178",
+    "cacheID": "b97ca926c7a6ae61a54d521d5cfb4fa2",
     "id": null,
     "metadata": {},
     "name": "ContributorListQuery",
     "operationKind": "query",
-    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}\n"
+    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'fbaf75c5a21590d5e8da2b90dc8659dc';
+(node as any).hash = '1a687616a0536446f5f6b491d593aebd';
 export default node;

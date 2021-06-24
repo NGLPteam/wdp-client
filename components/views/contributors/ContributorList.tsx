@@ -94,6 +94,7 @@ const query = graphql`
         pageCount
         hasNextPage
         hasPreviousPage
+        totalCount
       }
     }
   }

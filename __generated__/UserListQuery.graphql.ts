@@ -21,6 +21,7 @@ export type UserListQueryResponse = {
             readonly pageCount: number | null;
             readonly hasNextPage: boolean;
             readonly hasPreviousPage: boolean;
+            readonly totalCount: number;
         };
     };
 };
@@ -49,6 +50,7 @@ query UserListQuery(
       pageCount
       hasNextPage
       hasPreviousPage
+      totalCount
     }
   }
 }
@@ -147,6 +149,13 @@ v5 = {
       "kind": "ScalarField",
       "name": "hasPreviousPage",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -230,14 +239,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a7724d75589b3a86c219457686ea5850",
+    "cacheID": "421db8e9e9064f7aa27e5c0e01d55333",
     "id": null,
     "metadata": {},
     "name": "UserListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}\n"
+    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4e1012dc00c85c32c9ce9d369e6cf287';
+(node as any).hash = 'e9bf4ba1df519085e4e4e854b5bb4488';
 export default node;
