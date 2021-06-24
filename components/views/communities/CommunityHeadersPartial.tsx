@@ -18,11 +18,9 @@ export default function CommunityHeaders({ variables, setVariables }: Props) {
   );
 }
 
-export interface Variables extends CommunityListQueryVariables {
-  order: "RECENT" | "OLDEST";
-}
-
 interface Props {
-  variables: Variables;
-  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
+  variables: CommunityListQueryVariables;
+  setVariables: React.Dispatch<
+    React.SetStateAction<CommunityListQueryVariables>
+  >;
 }

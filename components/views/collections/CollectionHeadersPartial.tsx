@@ -18,11 +18,9 @@ export default function CollectionHeaders({ variables, setVariables }: Props) {
   );
 }
 
-export interface Variables extends CollectionListQueryVariables {
-  order: "RECENT" | "OLDEST";
-}
-
 interface Props {
-  variables: Variables;
-  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
+  variables: CollectionListQueryVariables;
+  setVariables: React.Dispatch<
+    React.SetStateAction<CollectionListQueryVariables>
+  >;
 }

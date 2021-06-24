@@ -12,7 +12,7 @@ import { FullPageLoader } from "components/global";
 import UserHeaders from "./UserHeadersPartial";
 
 export default function UserList() {
-  const [variables, setVariables] = useState<Variables>({
+  const [variables, setVariables] = useState<UserListQueryVariables>({
     order: "RECENT",
   });
 
@@ -50,10 +50,6 @@ export default function UserList() {
       </CardList>
     </section>
   );
-}
-
-export interface Variables extends UserListQueryVariables {
-  order: "RECENT" | "OLDEST";
 }
 
 // TODO: make breadcrumbs into a fragment to live within breadcrumbs

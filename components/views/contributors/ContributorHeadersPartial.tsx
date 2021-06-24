@@ -18,11 +18,9 @@ export default function ContributorHeaders({ variables, setVariables }: Props) {
   );
 }
 
-export interface Variables extends ContributorListQueryVariables {
-  order: "RECENT" | "OLDEST";
-}
-
 interface Props {
-  variables: Variables;
-  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
+  variables: ContributorListQueryVariables;
+  setVariables: React.Dispatch<
+    React.SetStateAction<ContributorListQueryVariables>
+  >;
 }

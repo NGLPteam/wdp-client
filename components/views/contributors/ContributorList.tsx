@@ -12,7 +12,7 @@ import { FullPageLoader } from "components/global";
 import ContributorHeaders from "./ContributorHeadersPartial";
 
 export default function ContributorList() {
-  const [variables, setVariables] = useState<Variables>({
+  const [variables, setVariables] = useState<ContributorListQueryVariables>({
     order: "RECENT",
   });
 
@@ -69,10 +69,6 @@ export default function ContributorList() {
       </CardList>
     </section>
   );
-}
-
-export interface Variables extends ContributorListQueryVariables {
-  order: "RECENT" | "OLDEST";
 }
 
 // TODO: make breadcrumbs into a fragment to live within breadcrumbs

@@ -18,11 +18,7 @@ export default function ItemHeaders({ variables, setVariables }: Props) {
   );
 }
 
-export interface Variables extends ItemListQueryVariables {
-  order: "RECENT" | "OLDEST";
-}
-
 interface Props {
-  variables: Variables;
-  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
+  variables: ItemListQueryVariables;
+  setVariables: React.Dispatch<React.SetStateAction<ItemListQueryVariables>>;
 }

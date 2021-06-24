@@ -12,7 +12,7 @@ import { FullPageLoader } from "components/global";
 import CollectionHeaders from "./CollectionHeadersPartial";
 
 export default function CollectionList() {
-  const [variables, setVariables] = useState<Variables>({
+  const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
   });
 
@@ -52,10 +52,6 @@ export default function CollectionList() {
       </CardList>
     </section>
   );
-}
-
-export interface Variables extends CollectionListQueryVariables {
-  order: "RECENT" | "OLDEST";
 }
 
 // TODO: make breadcrumbs into a fragment to live within breadcrumbs

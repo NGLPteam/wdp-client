@@ -18,11 +18,7 @@ export default function UserHeaders({ variables, setVariables }: Props) {
   );
 }
 
-export interface Variables extends UserListQueryVariables {
-  order: "RECENT" | "OLDEST";
-}
-
 interface Props {
-  variables: Variables;
-  setVariables: React.Dispatch<React.SetStateAction<Variables>>;
+  variables: UserListQueryVariables;
+  setVariables: React.Dispatch<React.SetStateAction<UserListQueryVariables>>;
 }
