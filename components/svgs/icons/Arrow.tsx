@@ -1,6 +1,6 @@
 import Props from "./iconType";
 
-function IconSearch({ title, ...props }: Props) {
+function IconArrow({ title, ...props }: Props) {
   return (
     <svg
       width="16"
@@ -11,15 +11,15 @@ function IconSearch({ title, ...props }: Props) {
       role="img"
       {...props}
     >
-      <title>{title || "Magnifying Glass"}</title>
+      <title>{title || "Arrow"}</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M3 7a4 4 0 118 0 4 4 0 01-8 0zm4-5a5 5 0 103.164 8.872l2.482 2.482.354.353.707-.707-.354-.354-2.482-2.482A5 5 0 007 2z"
+        d="M2 8.65272L2.76142 9.33594L7.49805 4.08344L7.49805 14.001H8.50055V4.07979L13.2395 9.32046L14 8.6362L7.99921 2.00012L2 8.65272Z"
         fill="currentColor"
       />
     </svg>
   );
 }
 
-export default IconSearch;
+export default IconArrow;
