@@ -1,5 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 import CICBreadcrumbs from "@castiron/components-breadcrumbs";
+import Link from "next/link";
 
 const BreadcrumbsWrapper = ({
   className = "breadcrumbs",
@@ -16,9 +18,9 @@ const BreadcrumbsWrapper = ({
   return (
     <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
       {data.map(({ label, ...props }, i) => (
-        <a className={`${className}__link`} key={i} {...props}>
-          {label}
-        </a>
+        <Link key={i} {...props}>
+          <a className={`${className}__link`}>{label}</a>
+        </Link>
       ))}
     </CICBreadcrumbs>
   );
