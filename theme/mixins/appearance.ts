@@ -53,6 +53,40 @@ export function aBgLight(bgColor = "neutral00") {
   `;
 }
 
+export function aBaseInput() {
+  return css`
+    border: 1px solid var(--color-lighter);
+    background-color: var(--background-color);
+    color: var(--color);
+    border-radius: var(--input-border-radius, 0);
+    min-height: var(--input-min-height, ${basePadding(8)});
+    padding: var(--input-padding, 0 ${basePadding(2)});
+    transition: var(--background-transition), var(--color-transition),
+      var(--border-transition), var(--opacity-transition);
+    text-align: var(--input-text-align, left);
+
+    &:focus,
+    &:hover {
+      outline: 0;
+      border-color: var(--accent-color);
+    }
+
+    &:focus-visible {
+      ${aGlow("lightMode")}
+      background-color: var(--input-focus-background, inherit);
+    }
+
+    &::placeholder {
+      color: var(--color-lighter);
+    }
+
+    &:disabled,
+    [aria-disabled="true"] {
+      opacity: 0.35;
+    }
+  `;
+}
+
 // Returns padding at base 4
 // size 1 = 4px, size 2 = 8px, etc
 export function basePadding(size: number) {
