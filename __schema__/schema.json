@@ -2129,6 +2129,50 @@
                 "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
               }
             ],
             "type": {
@@ -2301,14 +2345,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "leaves",
-                "description": null,
+                "name": "nodeFilter",
+                "description": "Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "TreeNodeFilter",
                   "ofType": null
                 },
-                "defaultValue": "false",
+                "defaultValue": "ROOTS_ONLY",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -2357,6 +2401,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -2527,6 +2615,18 @@
             "deprecationReason": null
           },
           {
+            "name": "thumbnail",
+            "description": "A mapping of an entity's preview thumbnail",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AssetPreview",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "title",
             "description": null,
             "args": [],
@@ -2595,16 +2695,6 @@
             "ofType": null
           }
         ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Boolean",
-        "description": "The `Boolean` scalar type represents `true` or `false`.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -3560,14 +3650,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "leaves",
-                "description": null,
+                "name": "nodeFilter",
+                "description": "Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "TreeNodeFilter",
                   "ofType": null
                 },
-                "defaultValue": "false",
+                "defaultValue": "ROOTS_ONLY",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -3616,6 +3706,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -3756,6 +3890,18 @@
                 "name": "Slug",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A mapping of an entity's preview thumbnail",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AssetPreview",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3974,6 +4120,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -5262,6 +5452,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A mapping of an entity's preview thumbnail",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AssetPreview",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -5666,6 +5868,16 @@
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -6153,6 +6365,50 @@
                 "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
               }
             ],
             "type": {
@@ -6391,6 +6647,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A mapping of an entity's preview thumbnail",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "AssetPreview",
               "ofType": null
             },
             "isDeprecated": false,
@@ -7942,6 +8210,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "PageDirection",
+        "description": "Determines the direction that page-number based pagination should flow",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FORWARDS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "BACKWARDS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "PageInfo",
         "description": "Information about pagination in a connection.",
@@ -7986,6 +8277,42 @@
                 "name": "Boolean",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "page",
+            "description": "The page (if page-based pagination is supported and one was provided, does not introspect a value with cursor-based pagination)",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageCount",
+            "description": "The total number of pages available to the connection (if page-based pagination supported and a page was provided)",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "perPage",
+            "description": "The number of edges/nodes per page (if page-based pagination supported and a page was provided)",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -8747,6 +9074,50 @@
                 "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
               }
             ],
             "type": {
@@ -8815,6 +9186,139 @@
               "kind": "UNION",
               "name": "AnyContributor",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contributors",
+            "description": "A list of all contributors in the system",
+            "args": [
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SimpleOrder",
+                  "ofType": null
+                },
+                "defaultValue": "RECENT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "kind",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ContributorFilterKind",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnyContributorConnection",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -8993,6 +9497,127 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "RoleConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "users",
+            "description": "A list of all users in the system",
+            "args": [
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SimpleOrder",
+                  "ofType": null
+                },
+                "defaultValue": "RECENT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserConnection",
                 "ofType": null
               }
             },
@@ -9839,6 +10464,35 @@
         ]
       },
       {
+        "kind": "ENUM",
+        "name": "TreeNodeFilter",
+        "description": "When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ROOTS_ONLY",
+            "description": "Fetch only nodes that are \"roots\": nodes that do not have a parent of the same type",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ROOTS_AND_LEAVES",
+            "description": "Fetch all nodes that match other filters passed to the resolver",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LEAVES_ONLY",
+            "description": "Fetch only nodes that are \"leaves\"; nodes that have a parent of the same type",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "UpdateCollectionInput",
         "description": "Autogenerated input type of UpdateCollection",
@@ -10460,14 +11114,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "leaves",
-                "description": null,
+                "name": "nodeFilter",
+                "description": "Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "TreeNodeFilter",
                   "ofType": null
                 },
-                "defaultValue": "false",
+                "defaultValue": "ROOTS_ONLY",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10516,6 +11170,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -10561,14 +11259,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "leaves",
-                "description": null,
+                "name": "nodeFilter",
+                "description": "Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "TreeNodeFilter",
                   "ofType": null
                 },
-                "defaultValue": "false",
+                "defaultValue": "ROOTS_ONLY",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10617,6 +11315,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -10738,14 +11480,14 @@
                 "deprecationReason": null
               },
               {
-                "name": "leaves",
-                "description": null,
+                "name": "nodeFilter",
+                "description": "Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation",
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "TreeNodeFilter",
                   "ofType": null
                 },
-                "defaultValue": "false",
+                "defaultValue": "ROOTS_ONLY",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10794,6 +11536,50 @@
                   "ofType": null
                 },
                 "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
                 "isDeprecated": false,
                 "deprecationReason": null
               }
@@ -10909,6 +11695,104 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserConnection",
+        "description": "The connection type for User.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "UserEdge",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
