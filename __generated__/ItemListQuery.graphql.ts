@@ -3,10 +3,10 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type ItemListQueryVariables = {
     order: SimpleOrder;
+    page: number;
 };
 export type ItemListQueryResponse = {
     readonly viewer: {
@@ -18,27 +18,14 @@ export type ItemListQueryResponse = {
                 readonly title: string | null;
                 readonly slug: unknown;
                 readonly allowedActions: ReadonlyArray<string>;
-                readonly hierarchicalDepth: number;
-                readonly breadcrumbs: ReadonlyArray<{
-                    readonly depth: number;
-                    readonly label: string;
-                    readonly kind: EntityKind;
-                    readonly slug: string;
-                    readonly crumb: {
-                        readonly __typename: string;
-                        readonly hierarchicalDepth?: number;
-                        readonly allowedActions?: ReadonlyArray<string>;
-                        readonly name?: string;
-                        readonly title?: string | null;
-                        readonly breadcrumbs?: ReadonlyArray<{
-                            readonly depth: number;
-                            readonly label: string;
-                            readonly kind: EntityKind;
-                            readonly slug: string;
-                        }>;
-                    };
-                }>;
             } | null> | null;
+            readonly pageInfo: {
+                readonly page: number | null;
+                readonly perPage: number | null;
+                readonly pageCount: number | null;
+                readonly hasNextPage: boolean;
+                readonly hasPreviousPage: boolean;
+            };
         };
     } | null;
 };
@@ -52,9 +39,10 @@ export type ItemListQuery = {
 /*
 query ItemListQuery(
   $order: SimpleOrder!
+  $page: Int!
 ) {
   viewer {
-    items(access: READ_ONLY, order: $order) {
+    items(order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         id
@@ -62,42 +50,13 @@ query ItemListQuery(
         title
         slug
         allowedActions
-        hierarchicalDepth
-        breadcrumbs {
-          depth
-          label
-          kind
-          slug
-          crumb {
-            __typename
-            ... on Entity {
-              __isEntity: __typename
-              hierarchicalDepth
-              allowedActions
-            }
-            ... on Community {
-              name
-            }
-            ... on Collection {
-              title
-            }
-            ... on Item {
-              title
-              breadcrumbs {
-                depth
-                label
-                kind
-                slug
-                id
-              }
-            }
-            ... on Node {
-              __isNode: __typename
-              id
-            }
-          }
-          id
-        }
+      }
+      pageInfo {
+        page
+        perPage
+        pageCount
+        hasNextPage
+        hasPreviousPage
       }
     }
     id
@@ -111,120 +70,139 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "order"
-  }
-],
-v1 = [
-  {
-    "kind": "Literal",
-    "name": "access",
-    "value": "READ_ONLY"
   },
   {
-    "kind": "Variable",
-    "name": "order",
-    "variableName": "order"
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v2 = {
   "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "identifier",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "allowedActions",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "hierarchicalDepth",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "depth",
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "label",
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "kind",
-  "storageKey": null
-},
-v12 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v8/*: any*/),
-    (v7/*: any*/)
+  "args": [
+    {
+      "kind": "Variable",
+      "name": "order",
+      "variableName": "order"
+    },
+    {
+      "kind": "Variable",
+      "name": "page",
+      "variableName": "page"
+    },
+    {
+      "kind": "Literal",
+      "name": "perPage",
+      "value": 20
+    }
   ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
-},
-v13 = {
-  "kind": "InlineFragment",
+  "concreteType": "ItemConnection",
+  "kind": "LinkedField",
+  "name": "items",
+  "plural": false,
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
+      "concreteType": "Item",
+      "kind": "LinkedField",
+      "name": "nodes",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "title",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "allowedActions",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PageInfo",
+      "kind": "LinkedField",
+      "name": "pageInfo",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "page",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "perPage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "pageCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "hasNextPage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "hasPreviousPage",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
-  "type": "Community",
-  "abstractKey": null
-},
-v14 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v5/*: any*/)
-  ],
-  "type": "Collection",
-  "abstractKey": null
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -241,88 +219,7 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": (v1/*: any*/),
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Item",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "EntityBreadcrumb",
-                    "kind": "LinkedField",
-                    "name": "breadcrumbs",
-                    "plural": true,
-                    "selections": [
-                      (v9/*: any*/),
-                      (v10/*: any*/),
-                      (v11/*: any*/),
-                      (v6/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "crumb",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v12/*: any*/),
-                          (v13/*: any*/),
-                          (v14/*: any*/),
-                          {
-                            "kind": "InlineFragment",
-                            "selections": [
-                              (v5/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "EntityBreadcrumb",
-                                "kind": "LinkedField",
-                                "name": "breadcrumbs",
-                                "plural": true,
-                                "selections": [
-                                  (v9/*: any*/),
-                                  (v10/*: any*/),
-                                  (v11/*: any*/),
-                                  (v6/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "type": "Item",
-                            "abstractKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -344,113 +241,22 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": (v1/*: any*/),
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Item",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "EntityBreadcrumb",
-                    "kind": "LinkedField",
-                    "name": "breadcrumbs",
-                    "plural": true,
-                    "selections": [
-                      (v9/*: any*/),
-                      (v10/*: any*/),
-                      (v11/*: any*/),
-                      (v6/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "crumb",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v12/*: any*/),
-                          (v13/*: any*/),
-                          (v14/*: any*/),
-                          {
-                            "kind": "InlineFragment",
-                            "selections": [
-                              (v5/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "EntityBreadcrumb",
-                                "kind": "LinkedField",
-                                "name": "breadcrumbs",
-                                "plural": true,
-                                "selections": [
-                                  (v9/*: any*/),
-                                  (v10/*: any*/),
-                                  (v11/*: any*/),
-                                  (v6/*: any*/),
-                                  (v3/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "type": "Item",
-                            "abstractKey": null
-                          },
-                          {
-                            "kind": "InlineFragment",
-                            "selections": [
-                              (v3/*: any*/)
-                            ],
-                            "type": "Node",
-                            "abstractKey": "__isNode"
-                          }
-                        ],
-                        "storageKey": null
-                      },
-                      (v3/*: any*/)
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v3/*: any*/)
+          (v2/*: any*/),
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4306160d603bbeb99ea758f88914917c",
+    "cacheID": "b183661d82ce3183dedcbd8917a64b0c",
     "id": null,
     "metadata": {},
     "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n) {\n  viewer {\n    items(access: READ_ONLY, order: $order) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2ba4b68146641c1cec7070882326ab03';
+(node as any).hash = '8340c766b215f9d5d58ab3164cfbc595';
 export default node;

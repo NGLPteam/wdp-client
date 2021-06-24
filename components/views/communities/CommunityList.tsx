@@ -14,6 +14,7 @@ import CommunityHeaders from "./CommunityHeadersPartial";
 export default function CommunityList() {
   const [variables, setVariables] = useState<CommunityListQueryVariables>({
     order: "RECENT",
+    page: 1,
   });
 
   const { data, error, isLoading } = useAuthenticatedQuery<CommunityListQuery>(
@@ -55,13 +56,20 @@ export default function CommunityList() {
 }
 
 const query = graphql`
-  query CommunityListQuery($order: SimpleOrder!) {
-    communities(order: $order) {
+  query CommunityListQuery($order: SimpleOrder!, $page: Int!) {
+    communities(order: $order, page: $page, perPage: 20) {
       edges {
         node {
           slug
           name
         }
+      }
+      pageInfo {
+        page
+        perPage
+        pageCount
+        hasNextPage
+        hasPreviousPage
       }
     }
   }

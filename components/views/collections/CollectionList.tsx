@@ -14,6 +14,7 @@ import CollectionHeaders from "./CollectionHeadersPartial";
 export default function CollectionList() {
   const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
+    page: 1,
   });
 
   const { data, error, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
@@ -54,11 +55,10 @@ export default function CollectionList() {
   );
 }
 
-// TODO: make breadcrumbs into a fragment to live within breadcrumbs
 const query = graphql`
-  query CollectionListQuery($order: SimpleOrder!) {
+  query CollectionListQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      collections(access: READ_ONLY, order: $order) {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
         nodes {
           __typename
           id
@@ -95,6 +95,13 @@ const query = graphql`
               }
             }
           }
+        }
+        pageInfo {
+          page
+          perPage
+          pageCount
+          hasNextPage
+          hasPreviousPage
         }
       }
     }

@@ -14,6 +14,7 @@ import ItemHeaders from "./ItemHeadersPartial";
 export default function ItemList() {
   const [variables, setVariables] = useState<ItemListQueryVariables>({
     order: "RECENT",
+    page: 1,
   });
 
   const { data, error, isLoading } = useAuthenticatedQuery<ItemListQuery>(
@@ -35,8 +36,8 @@ export default function ItemList() {
       <CardList>
         <ItemHeaders variables={variables} setVariables={setVariables} />
         {data?.viewer?.items?.nodes ? (
-          data.viewer.items.nodes.map((item, index) => (
-            <Card key={index}>
+          data.viewer.items.nodes.map((item, i) => (
+            <Card key={i}>
               <h4>
                 <Link href={`/items/${item.slug}`}>{item.title}</Link>
               </h4>
@@ -52,11 +53,10 @@ export default function ItemList() {
   );
 }
 
-// TODO: make breadcrumbs into a fragment to live within breadcrumbs
 const query = graphql`
-  query ItemListQuery($order: SimpleOrder!) {
+  query ItemListQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      items(access: READ_ONLY, order: $order) {
+      items(order: $order, page: $page, perPage: 20) {
         nodes {
           __typename
           id
@@ -64,35 +64,13 @@ const query = graphql`
           title
           slug
           allowedActions
-          hierarchicalDepth
-          breadcrumbs {
-            depth
-            label
-            kind
-            slug
-            crumb {
-              __typename
-              ... on Entity {
-                hierarchicalDepth
-                allowedActions
-              }
-              ... on Community {
-                name
-              }
-              ... on Collection {
-                title
-              }
-              ... on Item {
-                title
-                breadcrumbs {
-                  depth
-                  label
-                  kind
-                  slug
-                }
-              }
-            }
-          }
+        }
+        pageInfo {
+          page
+          perPage
+          pageCount
+          hasNextPage
+          hasPreviousPage
         }
       }
     }

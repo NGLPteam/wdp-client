@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type ContributorListQueryVariables = {
     order: SimpleOrder;
+    page: number;
 };
 export type ContributorListQueryResponse = {
     readonly contributors: {
@@ -23,6 +24,13 @@ export type ContributorListQueryResponse = {
             value in case none of the concrete values match.*/
             readonly __typename: "%other";
         }) | null> | null;
+        readonly pageInfo: {
+            readonly page: number | null;
+            readonly perPage: number | null;
+            readonly pageCount: number | null;
+            readonly hasNextPage: boolean;
+            readonly hasPreviousPage: boolean;
+        };
     };
 };
 export type ContributorListQuery = {
@@ -35,8 +43,9 @@ export type ContributorListQuery = {
 /*
 query ContributorListQuery(
   $order: SimpleOrder!
+  $page: Int!
 ) {
-  contributors(order: $order) {
+  contributors(order: $order, page: $page, perPage: 20) {
     nodes {
       __typename
       ... on OrganizationContributor {
@@ -53,6 +62,13 @@ query ContributorListQuery(
         id
       }
     }
+    pageInfo {
+      page
+      perPage
+      pageCount
+      hasNextPage
+      hasPreviousPage
+    }
   }
 }
 */
@@ -63,6 +79,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "order"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -70,6 +91,16 @@ v1 = [
     "kind": "Variable",
     "name": "order",
     "variableName": "order"
+  },
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 20
   }
 ],
 v2 = {
@@ -122,6 +153,52 @@ v5 = {
   ],
   "type": "PersonContributor",
   "abstractKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "page",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "perPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "pageCount",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasPreviousPage",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -151,7 +228,8 @@ return {
               (v5/*: any*/)
             ],
             "storageKey": null
-          }
+          },
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
@@ -200,21 +278,22 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0efad274acb7a8b8f8d7aa39911f5782",
+    "cacheID": "f2d32877aced0214bbc5b019ada93178",
     "id": null,
     "metadata": {},
     "name": "ContributorListQuery",
     "operationKind": "query",
-    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n) {\n  contributors(order: $order) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ef5fcd30f227977c9ad30b17c48d4197';
+(node as any).hash = 'fbaf75c5a21590d5e8da2b90dc8659dc';
 export default node;

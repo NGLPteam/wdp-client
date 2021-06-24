@@ -7,6 +7,7 @@ export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added va
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type CollectionListQueryVariables = {
     order: SimpleOrder;
+    page: number;
 };
 export type CollectionListQueryResponse = {
     readonly viewer: {
@@ -39,6 +40,13 @@ export type CollectionListQueryResponse = {
                     };
                 }>;
             } | null> | null;
+            readonly pageInfo: {
+                readonly page: number | null;
+                readonly perPage: number | null;
+                readonly pageCount: number | null;
+                readonly hasNextPage: boolean;
+                readonly hasPreviousPage: boolean;
+            };
         };
     } | null;
 };
@@ -52,9 +60,10 @@ export type CollectionListQuery = {
 /*
 query CollectionListQuery(
   $order: SimpleOrder!
+  $page: Int!
 ) {
   viewer {
-    collections(access: READ_ONLY, order: $order) {
+    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         id
@@ -99,6 +108,13 @@ query CollectionListQuery(
           id
         }
       }
+      pageInfo {
+        page
+        perPage
+        pageCount
+        hasNextPage
+        hasPreviousPage
+      }
     }
     id
   }
@@ -111,6 +127,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "order"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -123,6 +144,16 @@ v1 = [
     "kind": "Variable",
     "name": "order",
     "variableName": "order"
+  },
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 20
   }
 ],
 v2 = {
@@ -225,6 +256,52 @@ v14 = {
   ],
   "type": "Collection",
   "abstractKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "page",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "perPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "pageCount",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasPreviousPage",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -319,7 +396,8 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v15/*: any*/)
             ],
             "storageKey": null
           }
@@ -432,7 +510,8 @@ return {
                   }
                 ],
                 "storageKey": null
-              }
+              },
+              (v15/*: any*/)
             ],
             "storageKey": null
           },
@@ -443,14 +522,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9a5f89f5f722a974d61ff494ffe6fc65",
+    "cacheID": "edf4bd7c32d1a6714b75c25c7fb2ded4",
     "id": null,
     "metadata": {},
     "name": "CollectionListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9fad4f5c82e47d629de6dd4e37d9ada2';
+(node as any).hash = 'fe5411e339dd3b02aae0c81dd9d38667';
 export default node;

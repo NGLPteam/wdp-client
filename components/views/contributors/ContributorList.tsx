@@ -14,6 +14,7 @@ import ContributorHeaders from "./ContributorHeadersPartial";
 export default function ContributorList() {
   const [variables, setVariables] = useState<ContributorListQueryVariables>({
     order: "RECENT",
+    page: 1,
   });
 
   const {
@@ -71,10 +72,9 @@ export default function ContributorList() {
   );
 }
 
-// TODO: make breadcrumbs into a fragment to live within breadcrumbs
 const query = graphql`
-  query ContributorListQuery($order: SimpleOrder!) {
-    contributors(order: $order) {
+  query ContributorListQuery($order: SimpleOrder!, $page: Int!) {
+    contributors(order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         ... on OrganizationContributor {
@@ -87,6 +87,13 @@ const query = graphql`
           lastName: familyName
           slug
         }
+      }
+      pageInfo {
+        page
+        perPage
+        pageCount
+        hasNextPage
+        hasPreviousPage
       }
     }
   }
