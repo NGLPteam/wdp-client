@@ -4,7 +4,7 @@ import { ContributorListQueryVariables } from "__generated__/ContributorListQuer
 export default function ContributorHeaders({ variables, setVariables }: Props) {
   const handleSort = useCallback(() => {
     const newOrder = variables.order === "RECENT" ? "OLDEST" : "RECENT";
-    setVariables({ order: newOrder });
+    setVariables({ order: newOrder, page: 1 });
   }, [variables, setVariables]);
 
   return (

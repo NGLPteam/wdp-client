@@ -4,7 +4,7 @@ import { ItemListQueryVariables } from "__generated__/ItemListQuery.graphql";
 export default function ItemHeaders({ variables, setVariables }: Props) {
   const handleSort = useCallback(() => {
     const newOrder = variables.order === "RECENT" ? "OLDEST" : "RECENT";
-    setVariables({ order: newOrder });
+    setVariables({ order: newOrder, page: 1 });
   }, [variables, setVariables]);
 
   return (
