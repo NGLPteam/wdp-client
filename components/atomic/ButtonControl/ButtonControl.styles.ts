@@ -53,7 +53,8 @@ export const ButtonControl = styled.button<BaseProps>`
   }
 
   &:disabled,
-  [aria-disabled="true"] {
+  [aria-disabled="true"],
+  [aria-disabled="true"] & {
     opacity: 0.4;
   }
 `;
