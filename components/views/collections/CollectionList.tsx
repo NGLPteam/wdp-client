@@ -26,6 +26,9 @@ export default function CollectionList() {
     variables
   );
 
+  const currentPage = 1;
+  const totalPages = 1;
+
   if (error?.message) {
     return <div>{error.message}</div>;
   }
@@ -57,11 +60,11 @@ export default function CollectionList() {
             ) : null}
           </CardList>
           <Pagination
-            currentPage={1}
-            totalPages={1}
+            currentPage={currentPage}
+            totalPages={totalPages}
             onSubmitPage={handleSubmit}
-            onNextPage={"?page=2"}
-            onPrevPage={"#"}
+            onNextPage={`collections?page=${currentPage - 1}`}
+            onPrevPage={`collections?page=${currentPage + 1}`}
           />
         </>
       )}
