@@ -12,7 +12,7 @@ import { FullPageLoader } from "components/global";
 import ItemHeaders from "./ItemHeadersPartial";
 
 export default function ItemList() {
-  const [variables, setVariables] = useState<Variables>({
+  const [variables, setVariables] = useState<ItemListQueryVariables>({
     order: "RECENT",
   });
 
@@ -50,10 +50,6 @@ export default function ItemList() {
       </CardList>
     </section>
   );
-}
-
-export interface Variables extends ItemListQueryVariables {
-  order: "RECENT" | "OLDEST";
 }
 
 // TODO: make breadcrumbs into a fragment to live within breadcrumbs

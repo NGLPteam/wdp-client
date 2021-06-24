@@ -12,7 +12,7 @@ import { FullPageLoader } from "components/global";
 import CommunityHeaders from "./CommunityHeadersPartial";
 
 export default function CommunityList() {
-  const [variables, setVariables] = useState<Variables>({
+  const [variables, setVariables] = useState<CommunityListQueryVariables>({
     order: "RECENT",
   });
 
@@ -52,10 +52,6 @@ export default function CommunityList() {
       </CardList>
     </section>
   );
-}
-
-export interface Variables extends CommunityListQueryVariables {
-  order: "RECENT" | "OLDEST";
 }
 
 const query = graphql`

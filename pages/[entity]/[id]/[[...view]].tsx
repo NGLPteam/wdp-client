@@ -7,6 +7,7 @@ import {
 } from "hooks/useGlobalData";
 import CollectionDetailView from "components/views/collections/CollectionDetail";
 import CommunityDetailView from "components/views/communities/CommunityDetail";
+import ContributorDetailView from "components/views/contributors/ContributorDetail";
 import ItemDetailView from "components/views/items/ItemDetail";
 import UserDetailView from "components/views/users/UserDetail";
 import PageNotFoundView from "components/views/PageNotFound";
@@ -20,6 +21,7 @@ export default function EntityDetailPage({ ...pageProps }) {
   const viewMap: MapOver = {
     collections: CollectionDetailView,
     communities: CommunityDetailView,
+    contributors: ContributorDetailView,
     items: ItemDetailView,
     users: UserDetailView,
   };

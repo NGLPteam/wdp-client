@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { SubitemList, Manage } from "components/views/entities";
 import { useGlobalData } from "hooks/useGlobalData";
 import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
@@ -12,7 +11,7 @@ export default function ContributorDetail() {
     data: [
       {
         label: "Contributors",
-        href: "/Contributors",
+        href: "/contributors",
       },
       {
         label: `Contributor: ${id}`,
@@ -25,18 +24,18 @@ export default function ContributorDetail() {
     <section>
       <PageHeader title={`Contributor: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
-          <Link href={`/contributors/${id}`} passHref>
-            <TabNav.Tab active={view === "main"}>Main</TabNav.Tab>
+          <Link href={`/contributors/${id}/action`} passHref>
+            <TabNav.Tab active={view === "action"}>
+              Another Action Here
+            </TabNav.Tab>
           </Link>
-          <Link href={`/contributors/${id}/manage`} passHref>
-            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
+          <Link href={`/contributors/${id}/delete`} passHref>
+            <TabNav.Tab active={view === "delete"}>Delete</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>
 
       {view === "main" && <div>Main</div>}
-      {view === "Contributors" && <SubitemList />}
-      {view === "manage" && <Manage />}
     </section>
   );
 }

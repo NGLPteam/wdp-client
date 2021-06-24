@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { SubitemList, Manage } from "components/views/entities";
 import { useGlobalData } from "hooks/useGlobalData";
 import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
@@ -12,7 +11,7 @@ export default function UserDetail() {
     data: [
       {
         label: "Users",
-        href: "/Users",
+        href: "/users",
       },
       {
         label: `User: ${id}`,
@@ -25,18 +24,18 @@ export default function UserDetail() {
     <section>
       <PageHeader title={`User: ${id}`} breadcrumbsProps={breadcrumbs}>
         <TabNav>
-          <Link href={`/users/${id}`} passHref>
-            <TabNav.Tab active={view === "main"}>Main</TabNav.Tab>
+          <Link href={`/users/${id}/action`} passHref>
+            <TabNav.Tab active={view === "action"}>
+              Another Action Here
+            </TabNav.Tab>
           </Link>
-          <Link href={`/users/${id}/manage`} passHref>
-            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
+          <Link href={`/users/${id}/delete`} passHref>
+            <TabNav.Tab active={view === "delete"}>Delete</TabNav.Tab>
           </Link>
         </TabNav>
       </PageHeader>
 
       {view === "main" && <div>Main</div>}
-      {view === "Users" && <SubitemList />}
-      {view === "manage" && <Manage />}
     </section>
   );
 }

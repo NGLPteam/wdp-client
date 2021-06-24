@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
-import { ItemListQueryVariables } from "__generated__/ItemListQuery.graphql";
+import { UserListQueryVariables } from "__generated__/UserListQuery.graphql";
 
-export default function ItemHeaders({ variables, setVariables }: Props) {
+export default function UserHeaders({ variables, setVariables }: Props) {
   const handleSort = useCallback(() => {
     const newOrder = variables.order === "RECENT" ? "OLDEST" : "RECENT";
     setVariables({ order: newOrder });
@@ -9,7 +9,7 @@ export default function ItemHeaders({ variables, setVariables }: Props) {
 
   return (
     <div>
-      <h4>Title</h4>
+      <h4>Name</h4>
       <button onClick={handleSort}>
         Sort {/* TODO: use lovely svg caret */}
         {variables.order === "RECENT" ? "RECENT" : "OLDEST"}
@@ -19,6 +19,6 @@ export default function ItemHeaders({ variables, setVariables }: Props) {
 }
 
 interface Props {
-  variables: ItemListQueryVariables;
-  setVariables: React.Dispatch<React.SetStateAction<ItemListQueryVariables>>;
+  variables: UserListQueryVariables;
+  setVariables: React.Dispatch<React.SetStateAction<UserListQueryVariables>>;
 }
