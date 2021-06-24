@@ -9,9 +9,14 @@ import { PageHeader } from "components/layout";
 import { Card, CardList } from "components/layout/CardList/CardList";
 import Link from "next/link";
 import { FullPageLoader } from "components/global";
+import { Pagination } from "components/atomic";
 import CollectionHeaders from "./CollectionHeadersPartial";
 
 export default function CollectionList() {
+  const handleSubmit = (value) => {
+    console.info("submitted value", value);
+  };
+
   const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
   });
@@ -21,10 +26,6 @@ export default function CollectionList() {
     variables
   );
 
-  if (isLoading) {
-    return null;
-  }
-
   if (error?.message) {
     return <div>{error.message}</div>;
   }
@@ -32,24 +33,38 @@ export default function CollectionList() {
   return (
     <section>
       <PageHeader title="Collections" />
-      <CardList>
-        <CollectionHeaders variables={variables} setVariables={setVariables} />
-        {data?.viewer?.collections?.nodes ? (
-          data.viewer.collections.nodes.map((collection, index) => (
-            <Card key={index}>
-              <h4>
-                <Link href={`/collections/${collection.slug}`}>
-                  {collection.title}
-                </Link>
-              </h4>
-            </Card>
-          ))
-        ) : data?.viewer === null ? (
-          <div>No collections.</div>
-        ) : (
-          <FullPageLoader />
-        )}
-      </CardList>
+      {isLoading ? (
+        <FullPageLoader />
+      ) : (
+        <>
+          <CardList>
+            <CollectionHeaders
+              variables={variables}
+              setVariables={setVariables}
+            />
+            {data?.viewer?.collections?.nodes ? (
+              data.viewer.collections.nodes.map((collection, index) => (
+                <Card key={index}>
+                  <h4>
+                    <Link href={`/collections/${collection.slug}`}>
+                      {collection.title}
+                    </Link>
+                  </h4>
+                </Card>
+              ))
+            ) : data?.viewer === null ? (
+              <div>No collections.</div>
+            ) : null}
+          </CardList>
+          <Pagination
+            currentPage={1}
+            totalPages={1}
+            onSubmitPage={handleSubmit}
+            onNextPage={"?page=2"}
+            onPrevPage={"#"}
+          />
+        </>
+      )}
     </section>
   );
 }

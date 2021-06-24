@@ -35,7 +35,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
 };
 
 interface Props {
-  className: string;
+  className?: string;
   currentPage: number;
   totalPages: number;
   onNextPage: string;
