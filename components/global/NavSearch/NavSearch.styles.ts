@@ -35,6 +35,7 @@ export const SearchInput = styled(NavSearchInput)<Props>`
     padding: var(--search-top-padding) var(--search-left-padding)
       var(--search-top-padding) ${pxToRem("36px")};
     transition: background var(--base-duration) var(--base-timing);
+    color: var(--neutral00);
 
     &::placeholder {
       color: var(--brand50);
