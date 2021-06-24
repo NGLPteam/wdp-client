@@ -23,6 +23,12 @@ function AppFooter() {
         <MixedLink route="itemList" passHref>
           <a>Items</a>
         </MixedLink>
+        <MixedLink route="userList" passHref>
+          <a>Users</a>
+        </MixedLink>
+        <MixedLink route="contributorList" passHref>
+          <a>Contributors</a>
+        </MixedLink>
       </MainFooter.Nav>
       <MainFooter.Nav header="Learn">
         <a href="#">Features</a>

@@ -2,14 +2,14 @@ import React from "react";
 import Link from "next/link";
 import { PageHeader } from "components/layout";
 
-export default function UserList() {
+export default function ContributorList() {
   return (
     <section>
-      <PageHeader title="Users" />
+      <PageHeader title="Contributors" />
       <ul>
         <li>
-          <Link href={`/users/1`}>
-            <a>User number 1</a>
+          <Link href={`/contributors/1`}>
+            <a>Contributor number 1</a>
           </Link>
         </li>
       </ul>

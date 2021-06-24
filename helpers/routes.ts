@@ -21,6 +21,10 @@ const routes: RoutesMap = {
   collectionDetail: (params?: Params): string => `/collections/${params?.id}`,
   itemList: (): string => `/items`,
   itemDetail: (params?: Params): string => `/items/${params?.id}`,
+  userList: (): string => `/users`,
+  userDetail: (params?: Params): string => `/users/${params?.id}`,
+  contributorList: (): string => `/contributors`,
+  contributorDetail: (params?: Params): string => `/contributors/${params?.id}`,
 };
 
 // Gets the current asPath from useRouter
