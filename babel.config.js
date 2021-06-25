@@ -1,4 +1,12 @@
 module.exports = {
   presets: ["next/babel"],
-  plugins: ["relay"],
+  plugins: [
+    "relay",
+    [
+      "babel-plugin-styled-components",
+      {
+        ssr: false,
+      },
+    ],
+  ],
 };

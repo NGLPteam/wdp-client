@@ -1,12 +1,17 @@
 import React from "react";
 import * as Styled from "./MainFooter.styles";
 import MainFooterNav from "./MainFooterNav";
+import { MixedLink, LogoPlaceholder } from "components/atomic";
 
 const MainFooter = ({ children, copyright, about }: Props) => {
   return (
     <Styled.Wrapper>
       <Styled.Nav className="l-grid">
-        <div className="l-grid__item l-grid__item--4">Powered by NGLP–WDP</div>
+        <div className="l-grid__item l-grid__item--4">
+          <MixedLink href="/" passHref>
+            <LogoPlaceholder>Powered by NGLP–WDP</LogoPlaceholder>
+          </MixedLink>
+        </div>
         {children &&
           children.map((child, i) => (
             <div className="l-grid__item l-grid__item--2" key={i}>

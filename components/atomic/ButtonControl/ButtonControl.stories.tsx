@@ -22,7 +22,6 @@ export default {
 interface Props extends BaseProps {
   disabled: boolean;
   text: string;
-  as: string;
   href: string;
   "aria-label"?: string;
 }

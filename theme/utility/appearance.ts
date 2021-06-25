@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { aGlow, aBgDark, aBgLight } from "theme/mixins/appearance";
+import { aGlow, aBgDark, aBgLight, aBaseInput } from "theme/mixins/appearance";
 // Appearance
 // --------------------
 
@@ -38,5 +38,9 @@ export default css`
 
   .a-bg-brand90 {
     --background-color: var(--brand90);
+  }
+
+  .a-input {
+    ${aBaseInput()}
   }
 `;

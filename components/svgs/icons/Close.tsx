@@ -5,7 +5,7 @@ export function encodedIconClose(props: Props): string {
   return encodeSvg(<IconClose {...props} />);
 }
 
-function IconClose({ fill, ...props }: Props) {
+function IconClose({ fill, title, ...props }: Props) {
   return (
     <svg
       width="16"
@@ -13,8 +13,10 @@ function IconClose({ fill, ...props }: Props) {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
       {...props}
     >
+      <title>{title || "Close"}</title>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
