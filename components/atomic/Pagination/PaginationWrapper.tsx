@@ -1,5 +1,6 @@
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
-import { MixedLink, ButtonControl } from "components/atomic";
+import { ButtonControl } from "components/atomic";
+import Link from "next/link";
 
 const PaginationWrapper = ({
   className,
@@ -18,7 +19,7 @@ const PaginationWrapper = ({
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
-      <MixedLink href={onPrevPage} passHref>
+      <Link href={onPrevPage} passHref>
         <ButtonControl
           as="a"
           icon="arrow"
@@ -26,14 +27,14 @@ const PaginationWrapper = ({
           aria-label="Previous Page"
           aria-disabled={currentPage <= 1}
         />
-      </MixedLink>
+      </Link>
       <CICPaginationInput
         {...props}
         className={inputClassname}
         classes={inputClasses}
         inputId="paginationInput"
       />
-      <MixedLink href={onNextPage} passHref>
+      <Link href={onNextPage} passHref>
         <ButtonControl
           as="a"
           icon="arrow"
@@ -41,7 +42,7 @@ const PaginationWrapper = ({
           aria-label="Next Page"
           aria-disabled={currentPage >= totalPages}
         />
-      </MixedLink>
+      </Link>
     </nav>
   );
 };

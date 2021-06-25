@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { graphql } from "react-relay";
 import {
   CollectionListQuery,
@@ -11,28 +11,39 @@ import Link from "next/link";
 import { FullPageLoader } from "components/global";
 import { Pagination } from "components/atomic";
 import CollectionHeaders from "./CollectionHeadersPartial";
+import { useRouter } from "next/router";
 
 export default function CollectionList() {
+  const router = useRouter();
   const handleSubmit = (value) => {
-    console.info("submitted value", value);
+    router.push({ query: { page: value } });
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
-    page: 1,
+    page: currentPage,
   });
+
+  useEffect(() => {
+    const newPage = parseInt(router.query.page as string) || 1;
+    setCurrentPage(newPage);
+    setVariables((v) => ({
+      ...v,
+      page: newPage,
+    }));
+  }, [router.query.page]);
 
   const { data, error, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
     query,
     variables
   );
 
-  const currentPage = 1;
-  const totalPages = 1;
-
   if (error?.message) {
     return <div>{error.message}</div>;
   }
+
+  const totalPages = data?.viewer?.collections?.pageInfo?.pageCount || 1;
 
   return (
     <section>
@@ -64,8 +75,8 @@ export default function CollectionList() {
             currentPage={currentPage}
             totalPages={totalPages}
             onSubmitPage={handleSubmit}
-            onNextPage={`collections?page=${currentPage - 1}`}
-            onPrevPage={`collections?page=${currentPage + 1}`}
+            onNextPage={`collections?page=${currentPage + 1}`}
+            onPrevPage={`collections?page=${currentPage - 1}`}
           />
         </>
       )}
