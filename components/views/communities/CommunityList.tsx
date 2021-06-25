@@ -57,7 +57,7 @@ export default function CommunityList() {
 
 const query = graphql`
   query CommunityListQuery($order: SimpleOrder!, $page: Int!) {
-    communities(order: $order, page: $page, perPage: 20) {
+    communities(order: $order, page: $page, perPage: 10) {
       edges {
         node {
           slug

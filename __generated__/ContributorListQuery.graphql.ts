@@ -46,7 +46,7 @@ query ContributorListQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  contributors(order: $order, page: $page, perPage: 20) {
+  contributors(order: $order, page: $page, perPage: 10) {
     nodes {
       __typename
       ... on OrganizationContributor {
@@ -102,7 +102,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 20
+    "value": 10
   }
 ],
 v2 = {
@@ -295,14 +295,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b97ca926c7a6ae61a54d521d5cfb4fa2",
+    "cacheID": "d4b5b6e3c87ed601a27225af65bbeacd",
     "id": null,
     "metadata": {},
     "name": "ContributorListQuery",
     "operationKind": "query",
-    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
+    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 10) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1a687616a0536446f5f6b491d593aebd';
+(node as any).hash = '01799fdaa7c68cadb04071515a1816fc';
 export default node;

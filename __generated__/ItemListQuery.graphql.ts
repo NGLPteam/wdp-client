@@ -43,7 +43,7 @@ query ItemListQuery(
   $page: Int!
 ) {
   viewer {
-    items(order: $order, page: $page, perPage: 20) {
+    items(order: $order, page: $page, perPage: 10) {
       nodes {
         __typename
         id
@@ -102,7 +102,7 @@ v2 = {
     {
       "kind": "Literal",
       "name": "perPage",
-      "value": 20
+      "value": 10
     }
   ],
   "concreteType": "ItemConnection",
@@ -258,14 +258,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "49a9897cfaea8a17469760ceda24ad58",
+    "cacheID": "d216f2b83de88383d38a5a68e098ad60",
     "id": null,
     "metadata": {},
     "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a2833ddf17197962d885db4062f0361c';
+(node as any).hash = 'a7966cb7ceaae0c5caccf163488fe383';
 export default node;

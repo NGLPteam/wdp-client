@@ -1,12 +1,11 @@
+import Link from "next/link";
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
-import { MixedLink, ButtonControl } from "components/atomic";
+import { ButtonControl } from "components/atomic";
+import { normalizePathData } from "helpers/routes";
+import { useRouter } from "next/router";
+import { UrlObject } from "url";
 
-const PaginationWrapper = ({
-  className,
-  onPrevPage,
-  onNextPage,
-  ...props
-}: Props) => {
+const PaginationWrapper = ({ className, ...props }: Props) => {
   const inputClassname = `${className}__input-wrapper`;
   const inputClasses = {
     input: `a-input`,
@@ -15,10 +14,21 @@ const PaginationWrapper = ({
     total: `${className}__total`,
   };
   const { currentPage, totalPages } = props;
+  const router = useRouter();
+  const { pathname, pathParams } = normalizePathData(router.asPath);
+
+  const makeLinkObject = (page: number): UrlObject => ({
+    pathname: pathname || "",
+    query: { ...pathParams, page: page },
+  });
+
+  const handleSubmit = (value) => {
+    router.push(makeLinkObject(value));
+  };
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
-      <MixedLink href={onPrevPage} passHref>
+      <Link href={makeLinkObject(currentPage - 1)} passHref>
         <ButtonControl
           as="a"
           icon="arrow"
@@ -26,14 +36,15 @@ const PaginationWrapper = ({
           aria-label="Previous Page"
           aria-disabled={currentPage <= 1}
         />
-      </MixedLink>
+      </Link>
       <CICPaginationInput
         {...props}
         className={inputClassname}
         classes={inputClasses}
         inputId="paginationInput"
+        onSubmitPage={handleSubmit}
       />
-      <MixedLink href={onNextPage} passHref>
+      <Link href={makeLinkObject(currentPage + 1)} passHref>
         <ButtonControl
           as="a"
           icon="arrow"
@@ -41,7 +52,7 @@ const PaginationWrapper = ({
           aria-label="Next Page"
           aria-disabled={currentPage >= totalPages}
         />
-      </MixedLink>
+      </Link>
     </nav>
   );
 };
@@ -50,9 +61,6 @@ interface Props {
   className?: string;
   currentPage: number;
   totalPages: number;
-  onNextPage: string;
-  onPrevPage: string;
-  onSubmitPage: (value: string) => void;
 }
 
 export default PaginationWrapper;

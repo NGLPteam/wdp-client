@@ -37,7 +37,7 @@ query UserListQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  users(order: $order, page: $page, perPage: 20) {
+  users(order: $order, page: $page, perPage: 10) {
     nodes {
       email
       name
@@ -83,7 +83,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 20
+    "value": 10
   }
 ],
 v2 = {
@@ -239,14 +239,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "421db8e9e9064f7aa27e5c0e01d55333",
+    "cacheID": "c5e917dd214f0997dd78467325328152",
     "id": null,
     "metadata": {},
     "name": "UserListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
+    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 10) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e9bf4ba1df519085e4e4e854b5bb4488';
+(node as any).hash = '7303c8e54cbb5d216affdc1270c9038d';
 export default node;

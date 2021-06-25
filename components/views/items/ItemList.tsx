@@ -56,7 +56,7 @@ export default function ItemList() {
 const query = graphql`
   query ItemListQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      items(order: $order, page: $page, perPage: 20) {
+      items(order: $order, page: $page, perPage: 10) {
         nodes {
           __typename
           id

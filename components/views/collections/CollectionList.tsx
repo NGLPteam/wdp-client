@@ -1,38 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { graphql } from "react-relay";
 import {
   CollectionListQuery,
   CollectionListQueryVariables,
 } from "__generated__/CollectionListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import useSetVarsWithParam from "hooks/useSetVarsWithParam";
+import CollectionHeaders from "./CollectionHeadersPartial";
+import Link from "next/link";
 import { PageHeader } from "components/layout";
 import { Card, CardList } from "components/layout/CardList/CardList";
-import Link from "next/link";
 import { FullPageLoader } from "components/global";
 import { Pagination } from "components/atomic";
-import CollectionHeaders from "./CollectionHeadersPartial";
-import { useRouter } from "next/router";
 
 export default function CollectionList() {
-  const router = useRouter();
-  const handleSubmit = (value) => {
-    router.push({ query: { page: value } });
-  };
-
   const [currentPage, setCurrentPage] = useState(1);
   const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
     page: currentPage,
   });
 
-  useEffect(() => {
-    const newPage = parseInt(router.query.page as string) || 1;
-    setCurrentPage(newPage);
-    setVariables((v) => ({
-      ...v,
-      page: newPage,
-    }));
-  }, [router.query.page]);
+  useSetVarsWithParam("page", currentPage, setCurrentPage, setVariables);
 
   const { data, error, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
     query,
@@ -71,13 +59,7 @@ export default function CollectionList() {
               <div>No collections.</div>
             ) : null}
           </CardList>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onSubmitPage={handleSubmit}
-            onNextPage={`collections?page=${currentPage + 1}`}
-            onPrevPage={`collections?page=${currentPage - 1}`}
-          />
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
         </>
       )}
     </section>
@@ -87,7 +69,7 @@ export default function CollectionList() {
 const query = graphql`
   query CollectionListQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
         nodes {
           __typename
           id

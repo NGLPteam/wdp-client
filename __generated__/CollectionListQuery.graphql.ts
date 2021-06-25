@@ -64,7 +64,7 @@ query CollectionListQuery(
   $page: Int!
 ) {
   viewer {
-    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
+    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
       nodes {
         __typename
         id
@@ -155,7 +155,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 20
+    "value": 10
   }
 ],
 v2 = {
@@ -531,14 +531,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2c8e614b1f5805b393854106c9007989",
+    "cacheID": "d946068ea9d0253056926aa3296291d8",
     "id": null,
     "metadata": {},
     "name": "CollectionListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        breadcrumbs {\n          depth\n          label\n          kind\n          slug\n          crumb {\n            __typename\n            ... on Entity {\n              __isEntity: __typename\n              hierarchicalDepth\n              allowedActions\n            }\n            ... on Community {\n              name\n            }\n            ... on Collection {\n              title\n            }\n            ... on Item {\n              title\n              breadcrumbs {\n                depth\n                label\n                kind\n                slug\n                id\n              }\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '10d3a85d3d5210328f6b1a45969a4ecf';
+(node as any).hash = 'd23d835d5ab0cb8165cb5d3b969580ca';
 export default node;

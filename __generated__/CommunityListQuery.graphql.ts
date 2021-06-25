@@ -38,7 +38,7 @@ query CommunityListQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  communities(order: $order, page: $page, perPage: 20) {
+  communities(order: $order, page: $page, perPage: 10) {
     edges {
       node {
         slug
@@ -85,7 +85,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 20
+    "value": 10
   }
 ],
 v2 = {
@@ -254,14 +254,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b41f7cf30512130baaeeb7e141d9e7dd",
+    "cacheID": "14eadc10dfd25029d0e0afa6d3be0b89",
     "id": null,
     "metadata": {},
     "name": "CommunityListQuery",
     "operationKind": "query",
-    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
+    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 10) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'be267940b8cf4b17eaf4de5a1306c412';
+(node as any).hash = '85c5123259e65e157cc94d18da52f62c';
 export default node;

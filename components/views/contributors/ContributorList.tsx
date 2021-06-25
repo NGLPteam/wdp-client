@@ -74,7 +74,7 @@ export default function ContributorList() {
 
 const query = graphql`
   query ContributorListQuery($order: SimpleOrder!, $page: Int!) {
-    contributors(order: $order, page: $page, perPage: 20) {
+    contributors(order: $order, page: $page, perPage: 10) {
       nodes {
         __typename
         ... on OrganizationContributor {

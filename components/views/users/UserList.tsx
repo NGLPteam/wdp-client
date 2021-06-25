@@ -55,7 +55,7 @@ export default function UserList() {
 
 const query = graphql`
   query UserListQuery($order: SimpleOrder!, $page: Int!) {
-    users(order: $order, page: $page, perPage: 20) {
+    users(order: $order, page: $page, perPage: 10) {
       nodes {
         email
         name
