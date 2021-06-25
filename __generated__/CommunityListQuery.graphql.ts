@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type CommunityListQueryVariables = {
     order: SimpleOrder;
+    page: number;
 };
 export type CommunityListQueryResponse = {
     readonly communities: {
@@ -15,6 +16,14 @@ export type CommunityListQueryResponse = {
                 readonly name: string;
             } | null;
         } | null> | null;
+        readonly pageInfo: {
+            readonly page: number | null;
+            readonly perPage: number | null;
+            readonly pageCount: number | null;
+            readonly hasNextPage: boolean;
+            readonly hasPreviousPage: boolean;
+            readonly totalCount: number;
+        };
     };
 };
 export type CommunityListQuery = {
@@ -27,14 +36,23 @@ export type CommunityListQuery = {
 /*
 query CommunityListQuery(
   $order: SimpleOrder!
+  $page: Int!
 ) {
-  communities(order: $order) {
+  communities(order: $order, page: $page, perPage: 10) {
     edges {
       node {
         slug
         name
         id
       }
+    }
+    pageInfo {
+      page
+      perPage
+      pageCount
+      hasNextPage
+      hasPreviousPage
+      totalCount
     }
   }
 }
@@ -46,6 +64,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "order"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -53,6 +76,16 @@ v1 = [
     "kind": "Variable",
     "name": "order",
     "variableName": "order"
+  },
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 10
   }
 ],
 v2 = {
@@ -67,6 +100,59 @@ v3 = {
   "args": null,
   "kind": "ScalarField",
   "name": "name",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "page",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "perPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "pageCount",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasPreviousPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -107,7 +193,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
@@ -159,21 +246,22 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "fc43c6bd3fa11e3a983e9372051f8c5c",
+    "cacheID": "14eadc10dfd25029d0e0afa6d3be0b89",
     "id": null,
     "metadata": {},
     "name": "CommunityListQuery",
     "operationKind": "query",
-    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n) {\n  communities(order: $order) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 10) {\n    edges {\n      node {\n        slug\n        name\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'adf34487ebc9cbd4f87e5b9b39e0dd30';
+(node as any).hash = '85c5123259e65e157cc94d18da52f62c';
 export default node;

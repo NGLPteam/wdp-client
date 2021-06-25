@@ -14,6 +14,7 @@ import UserHeaders from "./UserHeadersPartial";
 export default function UserList() {
   const [variables, setVariables] = useState<UserListQueryVariables>({
     order: "RECENT",
+    page: 1,
   });
 
   const { data, error, isLoading } = useAuthenticatedQuery<UserListQuery>(
@@ -52,14 +53,21 @@ export default function UserList() {
   );
 }
 
-// TODO: make breadcrumbs into a fragment to live within breadcrumbs
 const query = graphql`
-  query UserListQuery($order: SimpleOrder!) {
-    users(order: $order) {
+  query UserListQuery($order: SimpleOrder!, $page: Int!) {
+    users(order: $order, page: $page, perPage: 10) {
       nodes {
         email
         name
         slug
+      }
+      pageInfo {
+        page
+        perPage
+        pageCount
+        hasNextPage
+        hasPreviousPage
+        totalCount
       }
     }
   }

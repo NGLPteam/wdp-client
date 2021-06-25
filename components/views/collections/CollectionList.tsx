@@ -5,33 +5,33 @@ import {
   CollectionListQueryVariables,
 } from "__generated__/CollectionListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import useSetVarsWithParam from "hooks/useSetVarsWithParam";
+import CollectionHeaders from "./CollectionHeadersPartial";
+import Link from "next/link";
 import { PageHeader } from "components/layout";
 import { Card, CardList } from "components/layout/CardList/CardList";
-import Link from "next/link";
 import { FullPageLoader } from "components/global";
 import { Pagination } from "components/atomic";
-import CollectionHeaders from "./CollectionHeadersPartial";
 
 export default function CollectionList() {
-  const handleSubmit = (value) => {
-    console.info("submitted value", value);
-  };
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [variables, setVariables] = useState<CollectionListQueryVariables>({
     order: "RECENT",
+    page: currentPage,
   });
+
+  useSetVarsWithParam("page", currentPage, setCurrentPage, setVariables);
 
   const { data, error, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
     query,
     variables
   );
 
-  const currentPage = 1;
-  const totalPages = 1;
-
   if (error?.message) {
     return <div>{error.message}</div>;
   }
+
+  const totalPages = data?.viewer?.collections?.pageInfo?.pageCount || 1;
 
   return (
     <section>
@@ -59,24 +59,17 @@ export default function CollectionList() {
               <div>No collections.</div>
             ) : null}
           </CardList>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onSubmitPage={handleSubmit}
-            onNextPage={`collections?page=${currentPage - 1}`}
-            onPrevPage={`collections?page=${currentPage + 1}`}
-          />
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
         </>
       )}
     </section>
   );
 }
 
-// TODO: make breadcrumbs into a fragment to live within breadcrumbs
 const query = graphql`
-  query CollectionListQuery($order: SimpleOrder!) {
+  query CollectionListQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      collections(access: READ_ONLY, order: $order) {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
         nodes {
           __typename
           id
@@ -113,6 +106,14 @@ const query = graphql`
               }
             }
           }
+        }
+        pageInfo {
+          page
+          perPage
+          pageCount
+          hasNextPage
+          hasPreviousPage
+          totalCount
         }
       }
     }

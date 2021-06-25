@@ -1255,6 +1255,16 @@ type PageInfo {
 
   """When paginating backwards, the cursor to continue."""
   startCursor: String
+
+  """
+  The total number of nodes available to this connection, constrained by applied filters (if any)
+  """
+  totalCount: Int!
+
+  """
+  The total number of nodes available to this connection, independent of any filters
+  """
+  totalUnfilteredCount: Int!
 }
 
 """A grant of a specific permission within a specific scope"""

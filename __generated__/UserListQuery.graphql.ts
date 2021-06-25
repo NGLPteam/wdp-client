@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type UserListQueryVariables = {
     order: SimpleOrder;
+    page: number;
 };
 export type UserListQueryResponse = {
     readonly users: {
@@ -14,6 +15,14 @@ export type UserListQueryResponse = {
             readonly name: string | null;
             readonly slug: unknown;
         } | null> | null;
+        readonly pageInfo: {
+            readonly page: number | null;
+            readonly perPage: number | null;
+            readonly pageCount: number | null;
+            readonly hasNextPage: boolean;
+            readonly hasPreviousPage: boolean;
+            readonly totalCount: number;
+        };
     };
 };
 export type UserListQuery = {
@@ -26,13 +35,22 @@ export type UserListQuery = {
 /*
 query UserListQuery(
   $order: SimpleOrder!
+  $page: Int!
 ) {
-  users(order: $order) {
+  users(order: $order, page: $page, perPage: 10) {
     nodes {
       email
       name
       slug
       id
+    }
+    pageInfo {
+      page
+      perPage
+      pageCount
+      hasNextPage
+      hasPreviousPage
+      totalCount
     }
   }
 }
@@ -44,6 +62,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "order"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -51,6 +74,16 @@ v1 = [
     "kind": "Variable",
     "name": "order",
     "variableName": "order"
+  },
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 10
   }
 ],
 v2 = {
@@ -72,6 +105,59 @@ v4 = {
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "page",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "perPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "pageCount",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasNextPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hasPreviousPage",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -102,7 +188,8 @@ return {
               (v4/*: any*/)
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -144,21 +231,22 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "2f5b1038f6af60d1e2f29941f2f87498",
+    "cacheID": "c5e917dd214f0997dd78467325328152",
     "id": null,
     "metadata": {},
     "name": "UserListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $order: SimpleOrder!\n) {\n  users(order: $order) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n  }\n}\n"
+    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 10) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '03f53fa9570fc1891426a3074add6350';
+(node as any).hash = '7303c8e54cbb5d216affdc1270c9038d';
 export default node;

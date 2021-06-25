@@ -4,7 +4,7 @@ import { CommunityListQueryVariables } from "__generated__/CommunityListQuery.gr
 export default function CommunityHeaders({ variables, setVariables }: Props) {
   const handleSort = useCallback(() => {
     const newOrder = variables.order === "RECENT" ? "OLDEST" : "RECENT";
-    setVariables({ order: newOrder });
+    setVariables({ order: newOrder, page: 1 });
   }, [variables, setVariables]);
 
   return (
