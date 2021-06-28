@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@/relay/*": ["__generated__/*"]
-    }
+    },
+    "downlevelIteration": true // needed for react-aria/table
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
