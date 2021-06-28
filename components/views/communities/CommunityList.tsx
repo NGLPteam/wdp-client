@@ -8,12 +8,19 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { PageHeader, Table } from "components/layout";
 import { FullPageLoader } from "components/global";
+import { ButtonControl } from "components/atomic";
+import { formatDate } from "helpers/dates";
 
 // Set the table columns for react-aria/table
 const COLUMNS = [
   { name: "Name", key: "name", allowsSorting: false },
   { name: "Updated At", key: "updatedAt", allowsSorting: true },
-  { name: "Actions", key: "actions", allowsSorting: false, hideLabel: true },
+  {
+    name: "Actions",
+    key: "actions",
+    allowsSorting: false,
+    hideLabel: true,
+  },
 ];
 
 const SORT = {
@@ -92,8 +99,14 @@ export default function CommunityList() {
                 {(columnKey) =>
                   columnKey === "actions" ? (
                     <Table.Cell>
-                      <button>Edit -&gt;</button>
-                      <button>Delete x</button>
+                      <div className="t-align-right">
+                        <ButtonControl
+                          icon="arrow"
+                          iconRotate={90}
+                          aria-label="Edit"
+                        />
+                        <ButtonControl icon="delete" aria-label="Delete" />
+                      </div>
                     </Table.Cell>
                   ) : columnKey === "name" ? (
                     <Table.Cell>
@@ -101,6 +114,8 @@ export default function CommunityList() {
                         {item[columnKey]}
                       </Link>
                     </Table.Cell>
+                  ) : columnKey === "updatedAt" ? (
+                    <Table.Cell>{formatDate(item[columnKey])}</Table.Cell>
                   ) : (
                     <Table.Cell>{item[columnKey]}</Table.Cell>
                   )

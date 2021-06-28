@@ -64,9 +64,16 @@ export const Cell = styled.td`
 `;
 
 export const Row = styled.tr`
-  &:hover ${Cell}, &:focus {
-    background-color: var(--neutral05);
+  &:hover,
+  &:focus,
+  &:focus-within {
+    background-color: var(--brand10);
     cursor: pointer;
+
+    button {
+      visibility: 1;
+      opacity: 1;
+    }
   }
 `;
 
