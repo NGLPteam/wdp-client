@@ -2,13 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import CICBreadcrumbs from "@castiron/components-breadcrumbs";
 import Link from "next/link";
+import transformBreadcrumbList from "helpers/transforms/breadcrumbs";
 
 const BreadcrumbsWrapper = ({
   className = "breadcrumbs",
-  data = [],
+  data,
   delimiter = " / ",
   ...args
 }) => {
+  // TRANSFORM BREADCRUMBS
+  const breadcrumbsData = transformBreadcrumbList(data, `Item: id`);
+
   const classes = {
     ol: `${className}__ol`,
     li: `${className}__li`,
@@ -17,8 +21,8 @@ const BreadcrumbsWrapper = ({
 
   return (
     <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
-      {data.map(({ label, ...props }, i) => (
-        <Link key={i} {...props}>
+      {breadcrumbsData.map(({ label, href, ...props }, i) => (
+        <Link key={i} href={href} {...props}>
           <a className={`${className}__link`}>{label}</a>
         </Link>
       ))}
