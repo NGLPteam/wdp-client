@@ -21,6 +21,18 @@ export default css`
     font-size: var(--font-size-sm);
   }
 
+  .t-align-right {
+    text-align: right;
+  }
+
+  .t-align-center {
+    text-align: center;
+  }
+
+  .t-align-left {
+    text-align: left;
+  }
+
   /* Rich Text */
   .t-rte {
     a {

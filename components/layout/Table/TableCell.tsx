@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useFocusRing } from "@react-aria/focus";
 import * as Styled from "./Table.styles";
 
-export default function TableCell({ cell, state }) {
+function TableCell({ cell, state }) {
   const ref = useRef();
   const { gridCellProps } = useTableCell({ node: cell }, state, ref);
   const { isFocusVisible, focusProps } = useFocusRing();
@@ -19,3 +19,5 @@ export default function TableCell({ cell, state }) {
     </Styled.Cell>
   );
 }
+
+export default TableCell;

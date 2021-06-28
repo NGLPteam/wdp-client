@@ -19,9 +19,12 @@ export const ButtonControl = styled.button<BaseProps>`
   transition: var(--color-transition), var(--border-transition),
     var(--background-transition), var(--opacity-transition);
 
+  & + & {
+    margin-inline-start: ${basePadding(3)};
+  }
+
   > span {
     display: inline-block;
-    min-width: ${basePadding(25)};
   }
 
   ${({ icon }) =>
@@ -32,7 +35,6 @@ export const ButtonControl = styled.button<BaseProps>`
       justify-content: space-between;
 
       > span {
-        min-width: ${basePadding(21)};
         padding-inline-end: ${pxToRem("10px")};
       }
     `}
