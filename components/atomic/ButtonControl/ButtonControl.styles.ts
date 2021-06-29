@@ -18,6 +18,8 @@ export const ButtonControl = styled.button<BaseProps>`
   color: var(--brand100);
   transition: var(--color-transition), var(--border-transition),
     var(--background-transition), var(--opacity-transition);
+  opacity: var(--button-control-opacity, 1);
+  visibility: var(--button-control-visibility, visible);
 
   & + & {
     margin-inline-start: ${basePadding(3)};

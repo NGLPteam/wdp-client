@@ -12,6 +12,7 @@ function TableCell({ cell, state }) {
   return (
     <Styled.Cell
       {...mergeProps(gridCellProps, focusProps)}
+      align={cell?.props?.align}
       ref={ref}
       data-focus-visible={isFocusVisible}
     >

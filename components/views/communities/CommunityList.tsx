@@ -98,15 +98,13 @@ export default function CommunityList() {
               <Table.Row>
                 {(columnKey) =>
                   columnKey === "actions" ? (
-                    <Table.Cell>
-                      <div className="t-align-right">
-                        <ButtonControl
-                          icon="arrow"
-                          iconRotate={90}
-                          aria-label="Edit"
-                        />
-                        <ButtonControl icon="delete" aria-label="Delete" />
-                      </div>
+                    <Table.Cell align="right">
+                      <ButtonControl
+                        icon="arrow"
+                        iconRotate={90}
+                        aria-label="Edit"
+                      />
+                      <ButtonControl icon="delete" aria-label="Delete" />
                     </Table.Cell>
                   ) : columnKey === "name" ? (
                     <Table.Cell>
