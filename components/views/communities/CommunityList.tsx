@@ -34,6 +34,11 @@ const SORT = {
   },
 };
 
+enum Order {
+  OLDEST = "OLDEST",
+  RECENT = "RECENT",
+}
+
 export default function CommunityList() {
   const [variables, setVariables] = useState<CommunityListQueryVariables>({
     order: "RECENT",
@@ -45,30 +50,34 @@ export default function CommunityList() {
     variables
   );
 
-  // Flatten node to fit react-aria/table list structure
-  const items = useMemo(() => {
+  // Flatten node to fit list structure
+  const rows = useMemo(() => {
     return data?.communities?.edges.map(({ node }) => ({ ...node }));
   }, [data?.communities?.edges]);
 
-  // Set sort descriptor to fit react-aria/table structure
-  const sortDescriptor = useMemo(() => SORT[variables.order], [
-    variables.order,
-  ]);
+  // Set sort descriptor to fit sort structure
+  const sort = useMemo(() => SORT[variables.order], [variables.order]);
 
   const handleSort = useCallback(
     (sortValue) => {
       // Find the value in sort options
+      /* eslint-disable @typescript-eslint/no-unused-vars */
       const newOrder = Object.entries(SORT).find(
         ([key, value]) =>
           value.column === sortValue.column &&
           value.direction === sortValue.direction
       );
+      /* eslint-enable @typescript-eslint/no-unused-vars */
       // Return the key
-      if (newOrder[0]) {
-        setVariables({ order: newOrder[0] });
+      // This is bizare but it fixes the types issue.
+      if (newOrder && newOrder[0]) {
+        const order = Order[newOrder[0]];
+        if (order) {
+          setVariables({ ...variables, order });
+        }
       }
     },
-    [setVariables]
+    [setVariables, variables]
   );
 
   return (
@@ -77,48 +86,46 @@ export default function CommunityList() {
       {isLoading ? (
         <FullPageLoader />
       ) : data?.communities?.edges ? (
-        <Table
-          aria-label={`Table of Communities`}
-          onSortChange={handleSort}
-          sortDescriptor={sortDescriptor}
-        >
-          <Table.Header columns={COLUMNS}>
-            {({ name, allowsSorting, hideLabel }) => (
+        <Table aria-label={`Table of Communities`} multiselect>
+          <Table.Header columns={COLUMNS} multiselect>
+            {({ key, name, allowsSorting, hideLabel }) => (
               <Table.Column
+                key={key}
+                columnKey={key}
                 allowsSorting={allowsSorting}
                 onSortChange={handleSort}
-                sortDescriptor={sortDescriptor}
+                sort={sort}
               >
                 <span className={hideLabel ? "a-hidden" : null}>{name}</span>
               </Table.Column>
             )}
           </Table.Header>
-          <Table.Body items={items}>
-            {(item) => (
-              <Table.Row>
-                {(columnKey) =>
-                  columnKey === "actions" ? (
-                    <Table.Cell align="right">
-                      <ButtonControl
-                        icon="arrow"
-                        iconRotate={90}
-                        aria-label="Edit"
-                      />
-                      <ButtonControl icon="delete" aria-label="Delete" />
-                    </Table.Cell>
-                  ) : columnKey === "name" ? (
-                    <Table.Cell>
-                      <Link href={`/communities/${item.slug}`}>
-                        {item[columnKey]}
-                      </Link>
-                    </Table.Cell>
-                  ) : columnKey === "updatedAt" ? (
-                    <Table.Cell>{formatDate(item[columnKey])}</Table.Cell>
-                  ) : (
-                    <Table.Cell>{item[columnKey]}</Table.Cell>
-                  )
-                }
-              </Table.Row>
+          <Table.Body rows={rows} columns={COLUMNS} multiselect>
+            {({ row, column }, i) => (
+              <Table.Cell
+                key={column.key}
+                align={column.key === "actions" ? "right" : "left"}
+                role={i === 0 ? "rowheader" : "gridcell"}
+              >
+                {column.key === "actions" ? (
+                  <>
+                    <ButtonControl
+                      icon="arrow"
+                      iconRotate={90}
+                      aria-label="Edit"
+                    />
+                    <ButtonControl icon="delete" aria-label="Delete" />
+                  </>
+                ) : column.key === "name" ? (
+                  <Link href={`/communities/${row.slug}`}>
+                    {row[column.key]}
+                  </Link>
+                ) : column.key === "updatedAt" ? (
+                  formatDate(row[column.key])
+                ) : (
+                  row[column.key]
+                )}
+              </Table.Cell>
             )}
           </Table.Body>
         </Table>

@@ -1,64 +1,35 @@
-import React, { useRef } from "react";
-import {
-  useTableState,
-  Cell,
-  Column,
-  Row,
-  TableBody,
-  TableHeader,
-} from "@react-stately/table";
-import { useTable } from "@react-aria/table";
-
-import TableRowGroup from "./TableRowGroup";
-import TableHeaderRow from "./TableHeaderRow";
-import TableColumnHeader from "./TableColumnHeader";
-import TableCell from "./TableCell";
-import TableRow from "./TableRow";
+import React from "react";
 import * as Styled from "./Table.styles";
 
-const Table = (props) => {
-  const state = useTableState({
-    ...props,
-    showSelectionCheckboxes: props.selectionMode === "multiple",
-  });
-  const ref = useRef();
-  const { collection } = state;
-  const { gridProps } = useTable(props, state, ref);
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
+import TableColumn from "./TableColumn";
+import TableCell from "./TableCell";
 
+const Table = ({
+  children,
+  "aria-label": ariaLabel,
+  multiselect,
+  ...tableProps
+}: Props) => {
   return (
-    <Styled.Table {...gridProps} ref={ref}>
-      <TableRowGroup type="thead">
-        {collection.headerRows.map((headerRow) => (
-          <TableHeaderRow key={headerRow.key} item={headerRow} state={state}>
-            {[...headerRow.childNodes].map((column) => (
-              <TableColumnHeader
-                key={column.key}
-                column={column}
-                state={state}
-              />
-            ))}
-          </TableHeaderRow>
-        ))}
-      </TableRowGroup>
-      {collection?.body?.childNodes && (
-        <TableRowGroup type={Styled.TableBody}>
-          {[...collection.body.childNodes].map((row) => (
-            <TableRow key={row.key} item={row} state={state}>
-              {[...row.childNodes].map((cell) => (
-                <TableCell key={cell.key} cell={cell} state={state} />
-              ))}
-            </TableRow>
-          ))}
-        </TableRowGroup>
-      )}
-    </Styled.Table>
+    <Styled.TableWrapper data-multiselect={multiselect}>
+      <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
+        {children}
+      </Styled.Table>
+    </Styled.TableWrapper>
   );
 };
 
-Table.Cell = Cell;
-Table.Column = Column;
-Table.Row = Row;
+interface Props {
+  children: React.ReactNode[] | Element[];
+  "aria-label": string;
+  multiselect?: boolean;
+}
+
 Table.Body = TableBody;
 Table.Header = TableHeader;
+Table.Column = TableColumn;
+Table.Cell = TableCell;
 
 export default Table;
