@@ -13,7 +13,7 @@ const transformBreadcrumbList = (
 
     return {
       label: crumb.label,
-      href,
+      href: href,
     };
   });
   // Now add the current id as active crumb
