@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
@@ -52,6 +52,12 @@ export const Cell = styled.td`
   padding-bottom: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
 
+  ${({ align }) =>
+    align &&
+    css`
+      text-align: ${align};
+    `}
+
   &:first-child {
     border-top-left-radius: var(--table-border-radius);
     border-bottom-left-radius: var(--table-border-radius);
@@ -64,16 +70,18 @@ export const Cell = styled.td`
 `;
 
 export const Row = styled.tr`
+  --button-control-opacity: 0;
+  --button-control-visibility: 0;
+
   &:hover,
   &:focus,
   &:focus-within {
     background-color: var(--brand10);
     cursor: pointer;
+    transition: var(--background-transition);
 
-    button {
-      visibility: 1;
-      opacity: 1;
-    }
+    --button-control-opacity: 1;
+    --button-control-visibility: 1;
   }
 `;
 
