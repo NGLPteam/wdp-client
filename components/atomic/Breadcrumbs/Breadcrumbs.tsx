@@ -11,7 +11,13 @@ const BreadcrumbsWrapper = ({
   ...args
 }) => {
   // TRANSFORM BREADCRUMBS
-  const breadcrumbsData = transformBreadcrumbList(data, `Item: id`);
+  // TODO: remove conditional when other breadcrumbs from data are hooked up
+  let breadcrumbsData = [];
+  if (data?.[0]?.slug) {
+    transformBreadcrumbList(data, `Item: id`);
+  } else {
+    breadcrumbsData = data || [];
+  }
 
   const classes = {
     ol: `${className}__ol`,
