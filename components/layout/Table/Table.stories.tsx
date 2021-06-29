@@ -1,12 +1,7 @@
+import { ButtonControl } from "components/atomic";
 import { useState } from "react";
-import Table from ".";
-import {
-  Cell,
-  Column,
-  Row,
-  TableBody,
-  TableHeader,
-} from "@react-stately/table";
+import Table from "./Table";
+import { SortProps } from "helpers/sharedTypes";
 
 export default {
   title: "Components/Layout/Table",
@@ -20,43 +15,73 @@ export default {
 
 const columns = [
   { name: "Name", key: "name", allowsSorting: true },
-  { name: "Type", key: "type", allowsSorting: false },
-  { name: "Date Modified", key: "date", allowsSorting: true },
+  { name: "Type", key: "type", allowsSorting: true },
+  { name: "Date Modified", key: "date" },
+  { name: "Actions", key: "actions", hideLabel: true },
 ];
 
 const rows = [
-  { id: 1, name: "Games", date: "6/7/2020", type: "File folder" },
-  { id: 2, name: "Program Files", date: "4/7/2021", type: "File folder" },
-  { id: 3, name: "bootmgr", date: "11/20/2010", type: "System file" },
-  { id: 4, name: "log.txt", date: "1/18/2016", type: "Text Document" },
+  { key: 1, name: "Item Name 1", date: "6/7/2020", type: "Schema Type" },
+  { key: 2, name: "Item Name 2", date: "4/7/2021", type: "Schema Type" },
+  { key: 3, name: "Item Name 3", date: "11/20/2010", type: "Schema Type" },
+  { key: 4, name: "Item Name 4", date: "1/18/2016", type: "Schema Type" },
 ];
 
-export const Default = (args) => {
-  const [sort, setSort] = useState({ column: "name", direction: "ascending" });
-  function onSortChange(value) {
-    setSort(value);
-  }
+export const Default = ({ multiselect, ...args }) => {
+  const [sort, setSort] = useState<SortProps>({
+    column: "name",
+    direction: "descending",
+  });
+  const handleSort = (sort) => {
+    console.log("sort", sort);
+    setSort(sort);
+  };
 
   return (
-    <>
-      <Table
-        aria-label="Example dynamic collection table"
-        onSortChange={onSortChange}
-        sortDescriptor={sort}
-      >
-        <TableHeader columns={columns}>
-          {(column) => (
-            <Column allowsSorting={column.allowsSorting}>{column.name}</Column>
+    <div className="l-container-max">
+      <Table aria-label={args["aria-label"]} multiselect={multiselect}>
+        <Table.Header columns={columns} multiselect={multiselect}>
+          {({ key, name, allowsSorting, hideLabel }) => (
+            <Table.Column
+              key={key}
+              columnKey={key}
+              allowsSorting={allowsSorting}
+              sort={sort}
+              onSortChange={handleSort}
+            >
+              <span className={hideLabel ? "a-hidden" : ""}>{name}</span>
+            </Table.Column>
           )}
-        </TableHeader>
-        <TableBody items={rows}>
-          {(item) => <Row>{(columnKey) => <Cell>{item[columnKey]}</Cell>}</Row>}
-        </TableBody>
+        </Table.Header>
+        <Table.Body rows={rows} columns={columns} multiselect={multiselect}>
+          {({ row, column }, i) => (
+            <Table.Cell
+              key={column.key}
+              role={i === 0 ? "rowheader" : "gridcell"}
+              align={column.key === "actions" ? "right" : "left"}
+            >
+              {column.key === "name" ? (
+                <a href="#">{row[column.key]}</a>
+              ) : column.key === "actions" ? (
+                <ButtonControl icon="delete" aria-label="Delete" />
+              ) : (
+                row[column.key]
+              )}
+            </Table.Cell>
+          )}
+        </Table.Body>
       </Table>
-    </>
+    </div>
   );
 };
 
 Default.args = {
-  title: "Page Header",
+  "aria-label": "Example plain table",
+  multiselect: false,
+};
+
+export const WithMultiselect = Default.bind({});
+WithMultiselect.args = {
+  "aria-label": "Example plain table",
+  multiselect: true,
 };

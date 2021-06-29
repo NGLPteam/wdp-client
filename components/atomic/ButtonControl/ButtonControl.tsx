@@ -20,6 +20,7 @@ interface Props {
   iconRotate?: number;
   children?: JSX.Element | JSX.Element[] | string;
   as?: React.ElementType;
+  onClick?: () => void;
 }
 
 export default ButtonControl;

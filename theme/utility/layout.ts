@@ -55,4 +55,10 @@ export default css`
       align-items: center;
     }
   }
+
+  .l-container-max {
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;

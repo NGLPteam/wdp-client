@@ -1,14 +1,16 @@
-import React, { useRef } from "react";
-import { useTableHeaderRow } from "@react-aria/table";
+import React from "react";
 import * as Styled from "./Table.styles";
 
-export default function TableHeaderRow({ item, state, children }) {
-  const ref = useRef();
-  const { rowProps } = useTableHeaderRow({ node: item }, state, ref);
-
+const TableHeaderRow = ({ children, ...rowProps }: HeaderRowProps) => {
   return (
-    <Styled.HeaderRow {...rowProps} ref={ref}>
+    <Styled.HeaderRow role="row" {...rowProps}>
       {children}
     </Styled.HeaderRow>
   );
+};
+
+interface HeaderRowProps {
+  children: React.ReactNode | React.ReactNode[] | Element | Element[];
 }
+
+export default TableHeaderRow;

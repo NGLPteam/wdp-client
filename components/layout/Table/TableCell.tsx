@@ -1,24 +1,19 @@
-import { useTableCell } from "@react-aria/table";
-import { mergeProps } from "@react-aria/utils";
-import { useRef } from "react";
-import { useFocusRing } from "@react-aria/focus";
+import React from "react";
 import * as Styled from "./Table.styles";
 
-function TableCell({ cell, state }) {
-  const ref = useRef();
-  const { gridCellProps } = useTableCell({ node: cell }, state, ref);
-  const { isFocusVisible, focusProps } = useFocusRing();
-
+const TableCell = ({ children, role, align, ...cellProps }: CellProps) => {
+  // role should be rowheader if first
   return (
-    <Styled.Cell
-      {...mergeProps(gridCellProps, focusProps)}
-      align={cell?.props?.align}
-      ref={ref}
-      data-focus-visible={isFocusVisible}
-    >
-      {cell.rendered}
+    <Styled.Cell role={role} align={align} {...cellProps}>
+      {children}
     </Styled.Cell>
   );
+};
+
+interface CellProps {
+  children?: React.ReactNode | React.ReactNode[] | Element | Element[];
+  role: "gridcell" | "rowheader";
+  align?: "left" | "right" | "center";
 }
 
 export default TableCell;

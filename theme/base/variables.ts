@@ -65,6 +65,7 @@ export function createColors() {
 export const breakpoints = {
   140: "1400px",
   120: "1280px",
+  100: "1000px",
   70: "768px",
   30: "375px",
 };
