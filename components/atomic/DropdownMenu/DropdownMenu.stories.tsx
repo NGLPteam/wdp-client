@@ -18,17 +18,20 @@ const MENU_ITEMS = [
   <button key={3}>Custom item 3</button>,
 ];
 
-export const Default = () => {
+export const Default = (args) => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
       disclosure={<button>Custom menu</button>}
       menuItems={MENU_ITEMS}
+      {...args}
     />
   );
 };
 
-Default.args = {};
+Default.args = {
+  isMainNav: false,
+};
 
 export const WithTopMenuItem = () => {
   return (
@@ -40,7 +43,7 @@ export const WithTopMenuItem = () => {
   );
 };
 
-WithTopMenuItem.args = {};
+WithTopMenuItem.args = { ...Default.args };
 
 export const WithButton = () => {
   return (
@@ -52,7 +55,7 @@ export const WithButton = () => {
   );
 };
 
-WithButton.args = {};
+WithButton.args = { ...Default.args };
 
 export const WithButtonControl = () => {
   return (
@@ -64,4 +67,4 @@ export const WithButtonControl = () => {
   );
 };
 
-WithButtonControl.args = {};
+WithButtonControl.args = { ...Default.args };

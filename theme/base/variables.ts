@@ -43,6 +43,10 @@ export const colors = {
   },
 };
 
+export const zIndex = {
+  dropdown: 100,
+};
+
 // Set color variables from colors object
 export function createColors() {
   let styles = "";

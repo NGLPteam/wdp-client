@@ -3,7 +3,7 @@ import { TopNavItem, DropdownMenu } from "components/atomic";
 
 // TODO: Simplify with Reakit/Menu
 // TODO: Abstrct into Dropdown component that can take any styled button for activiation
-const TopNavDropdown = ({ children, id, active, label }: Props) => {
+const TopNavDropdown = ({ children, active, label }: Props) => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": label }}
@@ -13,6 +13,7 @@ const TopNavDropdown = ({ children, id, active, label }: Props) => {
         </TopNavItem>
       }
       menuItems={children}
+      isMainNav
     />
   );
 };
@@ -20,7 +21,6 @@ const TopNavDropdown = ({ children, id, active, label }: Props) => {
 interface Props {
   active?: boolean;
   children: JSX.Element[];
-  id: string;
   label: string;
 }
 
