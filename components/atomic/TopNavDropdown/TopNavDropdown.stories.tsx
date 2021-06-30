@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import TopNavDropdown from ".";
-import { MixedLink } from "..";
+import React from "react";
+import TopNavDropdown from "./";
+import { MixedLink } from "components/atomic";
 
 export default {
   title: "Components/Atomic/TopNavDropdown",
@@ -12,21 +12,10 @@ export default {
   },
 };
 
-export const Default = (args) => {
-  const [active, setActive] = useState(args.active);
-  const handleToggleClick = () => {
-    setActive(!active);
-  };
-
+export const Default = ({ active }) => {
   return (
     <div>
-      <TopNavDropdown
-        id="dropdown"
-        active={active}
-        label="Dropdown"
-        onToggleClick={handleToggleClick}
-        onEsc={() => setActive(null)}
-      >
+      <TopNavDropdown id="dropdown" active={active} label="Dropdown">
         <MixedLink route="userList" passHref>
           <a>Users</a>
         </MixedLink>
@@ -39,5 +28,5 @@ export const Default = (args) => {
 };
 
 Default.args = {
-  active: true,
+  active: false,
 };

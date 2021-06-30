@@ -1,6 +1,6 @@
 import React from "react";
 import { ButtonControl, Button, TopNavItem } from "components/atomic";
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./";
 
 export default {
   title: "Components/Atomic/DropdownMenu",
@@ -13,7 +13,7 @@ export default {
 };
 
 const MENU_ITEMS = [
-  <button key={1}>Custom item 1</button>,
+  <button key={1}>Custom</button>,
   <button key={2}>Custom item 2</button>,
   <button key={3}>Custom item 3</button>,
 ];
@@ -30,7 +30,7 @@ export const Default = () => {
 
 Default.args = {};
 
-export const AsTopMenuItem = () => {
+export const WithTopMenuItem = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
@@ -40,9 +40,9 @@ export const AsTopMenuItem = () => {
   );
 };
 
-AsTopMenuItem.args = {};
+WithTopMenuItem.args = {};
 
-export const AsButton = () => {
+export const WithButton = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
@@ -52,9 +52,9 @@ export const AsButton = () => {
   );
 };
 
-AsButton.args = {};
+WithButton.args = {};
 
-export const AsButtonControl = () => {
+export const WithButtonControl = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
@@ -64,4 +64,4 @@ export const AsButtonControl = () => {
   );
 };
 
-AsButtonControl.args = {};
+WithButtonControl.args = {};

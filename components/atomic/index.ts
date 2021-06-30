@@ -10,3 +10,4 @@ export { default as ButtonControl } from "./ButtonControl";
 export { default as Pagination } from "./Pagination";
 export { default as Input } from "./Input";
 export { default as LogoPlaceholder } from "./LogoPlaceholder";
+export { default as DropdownMenu } from "./DropdownMenu";
