@@ -37,7 +37,7 @@ export default function ItemDetail() {
   return (
     <section>
       <PageHeader
-        title={`Item: ${id}`}
+        title={data.item.title}
         breadcrumbsProps={{ data: data.item.breadcrumbs }}
       >
         <TabNav>
