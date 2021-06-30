@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import MixedLink from "components/atomic/MixedLink";
 import { MainNav, ServiceProviderBar, NavSearch } from "components/global";
-import { TopNavItem } from "components/atomic/";
-import TopNavItemWithChildren from "components/atomic/TopNavItemWithChildren";
+import { TopNavItem, TopNavDropdown } from "components/atomic/";
 import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
@@ -46,10 +45,10 @@ function AppHeader({ children, className = "" }: Props) {
           <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
         </MixedLink>
         <div ref={submenuRef}>
-          <TopNavItemWithChildren
+          <TopNavDropdown
             id="admin"
             active={active === "admin"}
-            label="Admin"
+            label="Manage"
             onToggleClick={handleToggleClick}
             onEsc={() => setActive(null)}
           >
@@ -63,7 +62,7 @@ function AppHeader({ children, className = "" }: Props) {
                 Contributors
               </a>
             </MixedLink>
-          </TopNavItemWithChildren>
+          </TopNavDropdown>
         </div>
         <NavSearch onSubmit={handleSubmit} />
         <span>

@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
-import styled from "styled-components";
+import * as Styled from "./TopNavDropdown.styles";
 import useFocusTrap from "hooks/useFocusTrap";
 import { useKeyDownEvent } from "hooks/listeners";
 import { TopNavItem } from "..";
 
-const TopNavItemWithChildren = ({
+// TODO: Simplify with Reakit/Menu
+// TODO: Abstrct into Dropdown component that can take any styled button for activiation
+const TopNavDropdown = ({
   children,
   id,
   active,
@@ -23,39 +25,19 @@ const TopNavItemWithChildren = ({
   useKeyDownEvent(handleKeyDown);
 
   return (
-    <Wrapper ref={ref}>
+    <Styled.Wrapper ref={ref}>
       <TopNavItem
         onClick={() => onToggleClick(id)}
         aria-expanded={active}
         aria-haspopup
+        active={active}
       >
         {label}
       </TopNavItem>
-      <div className={active === true ? "open" : "closed"}>{children}</div>
-    </Wrapper>
+      <Styled.Dropdown>{children}</Styled.Dropdown>
+    </Styled.Wrapper>
   );
 };
-
-const Wrapper = styled.div`
-  position: relative;
-  div {
-    position: absolute;
-    top: 30px;
-    left: -1em;
-    z-index: -1;
-    opacity: 0;
-    background-color: var(--brand10);
-    color: var(--brand90);
-    padding: 1em;
-    > * {
-      display: block;
-    }
-    &.open {
-      opacity: 1;
-      z-index: 1;
-    }
-  }
-`;
 
 interface Props {
   active?: boolean;
@@ -66,4 +48,4 @@ interface Props {
   onEsc: () => void;
 }
 
-export default TopNavItemWithChildren;
+export default TopNavDropdown;

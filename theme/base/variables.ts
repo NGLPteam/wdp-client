@@ -3,7 +3,7 @@ import { hexToHSL } from "theme/mixins/colors";
 
 export const transition = {
   colorMode: {
-    duration: 0.2,
+    duration: 0.17,
     timing: "ease-in",
   },
 };

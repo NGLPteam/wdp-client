@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import TopNavItemWithChildren from ".";
+import TopNavDropdown from ".";
 import { MixedLink } from "..";
 
 export default {
-  title: "Components/Atomic/TopNavItemWithChildren",
-  component: TopNavItemWithChildren,
+  title: "Components/Atomic/TopNavDropdown",
+  component: TopNavDropdown,
   parameters: {
     themes: {
       default: "brand100",
@@ -12,18 +12,18 @@ export default {
   },
 };
 
-export const Default = () => {
-  const [active, setActive] = useState(null);
-  const handleToggleClick = (id) => {
-    setActive((prevActive) => (prevActive === id ? null : id));
+export const Default = (args) => {
+  const [active, setActive] = useState(args.active);
+  const handleToggleClick = () => {
+    setActive(!active);
   };
 
   return (
     <div>
-      <TopNavItemWithChildren
-        id="admin"
-        active={active === "admin"}
-        label="Admin"
+      <TopNavDropdown
+        id="dropdown"
+        active={active}
+        label="Dropdown"
         onToggleClick={handleToggleClick}
         onEsc={() => setActive(null)}
       >
@@ -33,7 +33,11 @@ export const Default = () => {
         <MixedLink route="contributorList" passHref>
           <a>Contributors</a>
         </MixedLink>
-      </TopNavItemWithChildren>
+      </TopNavDropdown>
     </div>
   );
+};
+
+Default.args = {
+  active: true,
 };
