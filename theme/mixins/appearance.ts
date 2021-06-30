@@ -28,6 +28,7 @@ export function aGlow(type: "darkMode" | "lightMode") {
 export function aBgDark(bgColor = "brand100") {
   return css`
     --background-color: var(--${bgColor});
+    --background-light: var(--brand90);
     --color: var(--brand20);
     --color-light: var(--brand20); // Passes AA
     --color-lighter: var(--brand30); // AA+, Can pass under some circumstances
@@ -42,6 +43,7 @@ export function aBgDark(bgColor = "brand100") {
 export function aBgLight(bgColor = "neutral00") {
   return css`
     --background-color: var(--${bgColor});
+    --background-light: var(--brand10);
     --color: var(--neutral90);
     --color-light: var(--neutral70); // Passes AA
     --color-lighter: var(--neutral60); // AA+, Can pass under some circumstances
@@ -77,7 +79,7 @@ export function aBaseInput() {
     }
 
     &::placeholder {
-      color: var(--color-lighter);
+      color: var(--color-light);
     }
 
     &:disabled,

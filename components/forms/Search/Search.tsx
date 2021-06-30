@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import get from "lodash/get";
-import * as Styled from "./NavSearch.styles";
+import * as Styled from "./Search.styles";
 
-function NavSearch({ className, onSubmit }: Props) {
+function Search({ className, onSubmit }: Props) {
   const inputRef = useRef();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,4 +28,4 @@ interface Props {
   onSubmit: (value: string) => void;
 }
 
-export default NavSearch;
+export default Search;

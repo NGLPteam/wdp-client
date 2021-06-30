@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import MixedLink from "components/atomic/MixedLink";
-import { MainNav, ServiceProviderBar, NavSearch } from "components/global";
+import { MainNav, ServiceProviderBar } from "components/global";
+import { Search } from "components/forms";
 import { TopNavItem, TopNavDropdown } from "components/atomic/";
 import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
@@ -50,7 +51,7 @@ function AppHeader({ children, className = "" }: Props) {
             </MixedLink>
           </TopNavDropdown>
         </div>
-        <NavSearch onSubmit={handleSubmit} />
+        <Search onSubmit={handleSubmit} />
         <span>
           <SignIn />
           <SignOut />
