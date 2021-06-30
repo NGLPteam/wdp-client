@@ -11,6 +11,7 @@ import ContributorDetailView from "components/views/contributors/ContributorDeta
 import ItemDetailView from "components/views/items/ItemDetail";
 import UserDetailView from "components/views/users/UserDetail";
 import PageNotFoundView from "components/views/PageNotFound";
+import { MapOver } from "helpers/sharedTypes";
 
 export default function EntityDetailPage({ ...pageProps }) {
   const entity = useSetActiveEntity();

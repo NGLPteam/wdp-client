@@ -8,16 +8,11 @@
 //   export const item = (str: string) => ITEM_MAP[str] || str
  *
  */
-interface MapOver {
+export interface MapOver {
   [key: string]: string | React.ElementType | undefined;
 }
 
 export interface SortProps {
   direction: "ascending" | "descending" | "none";
   column: string;
-}
-
-export enum OrderEnum {
-  OLDEST,
-  RECENT,
 }
