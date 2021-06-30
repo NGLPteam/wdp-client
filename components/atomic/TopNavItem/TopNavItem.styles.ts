@@ -3,6 +3,7 @@ import { tLabel } from "theme/mixins/typography";
 import { aTextGlow } from "theme/mixins/appearance";
 
 const TopNavItem = styled.a<Props>`
+  display: inline-block;
   border-bottom: 2px solid transparent;
   padding-bottom: 1px;
   transition: var(--border-transition), var(--color-transition);

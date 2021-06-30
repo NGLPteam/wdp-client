@@ -1,6 +1,6 @@
 import MainNav from "./";
-import { TopNavItem } from "components/atomic";
-import { NavSearch } from "components/global";
+import { TopNavItem, TopNavDropdown } from "components/atomic";
+import { Search } from "components/forms";
 
 export default {
   title: "Components/Global/MainNav",
@@ -19,6 +19,10 @@ export const Primary = () => (
     <TopNavItem key={2} href="/">
       Link B
     </TopNavItem>
-    <NavSearch onSubmit={handleSubmit} />
+    <TopNavDropdown key={3} label="Dropdown">
+      <a href="#">Sublink A</a>
+      <a href="#">Sublink B</a>
+    </TopNavDropdown>
+    <Search onSubmit={handleSubmit} />
   </MainNav>
 );

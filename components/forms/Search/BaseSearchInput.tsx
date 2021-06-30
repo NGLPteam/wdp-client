@@ -2,7 +2,7 @@ import React from "react";
 import CICInput from "@castiron/components-input";
 import { IconFactory } from "components/factories";
 
-function NavSearchInput({ className, inputRef }: Props) {
+function SearchInput({ className, inputRef }: Props) {
   const labelProps = {
     className: "a-hidden",
   };
@@ -30,6 +30,7 @@ function NavSearchInput({ className, inputRef }: Props) {
 interface Props {
   className?: string;
   inputRef: React.RefObject<HTMLInputElement>;
+  isDark?: boolean;
 }
 
-export default NavSearchInput;
+export default SearchInput;
