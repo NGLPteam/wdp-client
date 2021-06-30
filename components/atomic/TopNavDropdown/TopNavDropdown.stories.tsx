@@ -15,7 +15,7 @@ export default {
 export const Default = ({ active }) => {
   return (
     <div>
-      <TopNavDropdown id="dropdown" active={active} label="Dropdown">
+      <TopNavDropdown active={active} label="Dropdown">
         <MixedLink route="userList" passHref>
           <a>Users</a>
         </MixedLink>

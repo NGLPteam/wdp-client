@@ -23,10 +23,6 @@ function AppHeader({ children, className = "" }: Props) {
   };
   useClickEvent(handleClick);
 
-  const handleToggleClick = (id) => {
-    setActive((prevActive) => (prevActive === id ? null : id));
-  };
-
   return (
     <header className={className} role="banner">
       <ServiceProviderBar />
@@ -45,13 +41,7 @@ function AppHeader({ children, className = "" }: Props) {
           <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
         </MixedLink>
         <div ref={submenuRef}>
-          <TopNavDropdown
-            id="admin"
-            active={active === "admin"}
-            label="Manage"
-            onToggleClick={handleToggleClick}
-            onEsc={() => setActive(null)}
-          >
+          <TopNavDropdown active={active === "admin"} label="Manage">
             <MixedLink route="userList" passHref>
               <a>Users</a>
             </MixedLink>

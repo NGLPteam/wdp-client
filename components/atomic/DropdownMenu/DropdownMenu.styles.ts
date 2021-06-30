@@ -1,37 +1,69 @@
-import styled from "styled-components";
-import { basePadding, aTextGlow } from "theme/mixins/appearance";
+import styled, { css } from "styled-components";
+import { basePadding, aBgLight, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
+import { getZIndex } from "theme/mixins/base";
 import { Menu as BaseMenu, MenuItem } from "reakit/Menu";
 
-export const Menu = styled(BaseMenu)`
-  border-radius: ${pxToRem("4px")};
-  padding: ${basePadding(4)} 0;
-  background-color: var(--brand10);
-  color: var(--brand90);
-  transition: opacity 0.15s ease-out;
-  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
-`;
-
-export const Item = styled(MenuItem)`
-  display: block;
-  width: 100%;
-  padding: ${basePadding(2)} ${basePadding(6)};
-  text-align: left;
-  color: var(--brand100);
-  transition: var(--color-transition), var(--background-transition);
-  ${tLabel("sm")}
-
-  &:hover {
-    background-color: var(--brand100);
-    color: var(--neutral00);
-  }
+export const MenuWrapper = styled(BaseMenu)`
+  z-index: ${getZIndex("dropdown")};
 
   &:focus {
     outline: 0;
   }
+`;
 
+export const Menu = styled.div<StyledMenuProps>`
+  ${({ isMainNav }) =>
+    isMainNav
+      ? css`
+          --menu-align-items: flex-start;
+          --menu-item-border: 2px solid transparent;
+          --menu-item-hover-border: 2px solid white;
+          --menu-item-margin: ${basePadding(2)} ${basePadding(6)};
+          ${aBgDark("brand90")}
+        `
+      : css`
+          --menu-align-items: stretch;
+          --menu-item-border: 0;
+          --menu-item-border-hover: 0;
+          --menu-item-hover-background: var(--brand100);
+          --menu-item-padding: ${basePadding(2)} ${basePadding(6)};
+          ${aBgLight("brand10")}
+        `}
+
+  display: flex;
+  align-items: var(--menu-align-items);
+  flex-direction: column;
+  border-radius: ${pxToRem("4px")};
+  padding: ${basePadding(4)} 0;
+  color: var(--accent-light);
+  transition: opacity 0.15s ease-out;
+  box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
+  margin-top: ${basePadding(1)};
+`;
+
+interface StyledMenuProps {
+  isMainNav?: boolean;
+}
+
+export const Item = styled(MenuItem)`
+  transition: var(--color-transition), var(--background-transition);
+  margin: var(--menu-item-margin, 0);
+  border-bottom: var(--menu-item-border, 0);
+  padding: var(--menu-item-padding, 0);
+  text-align: left;
+  color: var(--accent-light);
+  ${tLabel("sm")}
+
+  &:hover,
   &:focus-visible:not(:hover) {
-    ${aTextGlow("darkMode")}
+    color: var(--neutral00);
+    border-bottom: var(--menu-item-hover-border, 0);
+    background: var(--menu-item-hover-background, none);
+  }
+
+  &:focus {
+    outline: 0;
   }
 `;
