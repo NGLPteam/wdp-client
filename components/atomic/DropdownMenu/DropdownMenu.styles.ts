@@ -15,10 +15,12 @@ export const Menu = styled(BaseMenu)`
 
 export const Item = styled(MenuItem)`
   display: block;
+  width: 100%;
   padding: ${basePadding(2)} ${basePadding(6)};
-  ${tLabel("sm")}
+  text-align: left;
   color: var(--brand100);
   transition: var(--color-transition), var(--background-transition);
+  ${tLabel("sm")}
 
   &:hover {
     background-color: var(--brand100);

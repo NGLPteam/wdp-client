@@ -53,14 +53,10 @@ function AppHeader({ children, className = "" }: Props) {
             onEsc={() => setActive(null)}
           >
             <MixedLink route="userList" passHref>
-              <a href="" onClick={() => setActive(null)}>
-                Users
-              </a>
+              <a>Users</a>
             </MixedLink>
             <MixedLink route="contributorList" passHref>
-              <a href="" onClick={() => setActive(null)}>
-                Contributors
-              </a>
+              <a>Contributors</a>
             </MixedLink>
           </TopNavDropdown>
         </div>
