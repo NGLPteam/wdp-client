@@ -6,6 +6,7 @@ import ContributorListView from "components/views/contributors/ContributorList";
 import ItemListView from "components/views/items/ItemList";
 import UserListView from "components/views/users/UserList";
 import PageNotFoundView from "components/views/PageNotFound";
+import { MapOver } from "helpers/sharedTypes";
 
 export default function EntityListPage({ ...pageProps }) {
   const entity = useSetActiveEntity();
