@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { graphql } from "react-relay";
 import {
   ItemDetailQuery,
@@ -10,6 +10,7 @@ import { useGlobalData } from "hooks/useGlobalData";
 import { SubitemList, Manage } from "components/views/entities";
 import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
+import transformBreadcrumbList from "helpers/transforms/breadcrumbs";
 
 export default function ItemDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
@@ -26,6 +27,12 @@ export default function ItemDetail() {
     setVariables((v) => ({ ...v, slug: id }));
   }, [id, setVariables]);
 
+  const breadcrumbsData = useMemo(() => {
+    if (!data || !data.item) return [];
+
+    return transformBreadcrumbList(data.item.breadcrumbs, data.item.title);
+  }, [data]);
+
   if (isLoading) {
     return null;
   }
@@ -38,7 +45,7 @@ export default function ItemDetail() {
     <section>
       <PageHeader
         title={data.item.title}
-        breadcrumbsProps={{ data: data.item.breadcrumbs }}
+        breadcrumbsProps={{ data: breadcrumbsData }}
       >
         <TabNav>
           <Link href={`/items/${id}/items`} passHref>
@@ -49,15 +56,6 @@ export default function ItemDetail() {
           </Link>
         </TabNav>
       </PageHeader>
-
-      {view === "main" && (
-        <div>
-          <h2>Title: {data.item.title}</h2>
-          <h4>Slug: {data.item.slug}</h4>
-          <h4>Publication Date: {data.item.publishedOn}</h4>
-          <h4>Summary: {data.item.summary}</h4>
-        </div>
-      )}
       {view === "items" && <SubitemList />}
       {view === "manage" && <Manage />}
     </section>
