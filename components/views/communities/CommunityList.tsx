@@ -7,7 +7,7 @@ import {
 } from "__generated__/CommunityListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { ButtonControl, MixedLink } from "components/atomic";
-import { PageActions, PageHeader } from "components/layout";
+import { PageActions, PageCountActions, PageHeader } from "components/layout";
 import { Search } from "components/forms";
 
 export default function CommunityList() {
@@ -97,6 +97,16 @@ export default function CommunityList() {
             Add Community
           </ButtonControl>
         }
+      />
+
+      <PageCountActions
+        pageInfo={data?.communities?.pageInfo}
+        selectedCount={0}
+        multiselectActions={[
+          <ButtonControl key="delete" onClick={handleAdd} icon="delete">
+            Delete
+          </ButtonControl>,
+        ]}
       />
       <EntityTable
         entityName="community"

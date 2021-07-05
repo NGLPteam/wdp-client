@@ -1,2 +1,16 @@
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { useGlobalData } from "./useGlobalData";
+export { default as useAuthenticatedQuery } from "./useAuthenticatedQuery";
+export { default as useAuthenticatedFetchKey } from "./useAuthenticatedFetchKey";
+export { default as useFocusTrap } from "./useFocusTrap";
+export { default as useGetQuery } from "./useGetQuery";
+export { default as useGetQueryParam } from "./useGetQueryParam";
+export { default as useHasRole } from "./useHasRole";
+export { default as useIsAuthenticated } from "./useIsAuthenticated";
+export { default as useIsAuthorizedTo } from "./useIsAuthorizedTo";
+export { default as useKeycloakCallback } from "./useKeycloakCallback";
+export { default as useLatest } from "./useLatest";
+export { default as useMustBeAuthenticated } from "./useMustBeAuthenticated";
+export { useSetLocale } from "./useSetLocale";
+export { default as useSetVarsWithParam } from "./useSetVarsWithParam";
+export { default as useSt8 } from "./useSt8";
