@@ -1,16 +1,12 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { graphql } from "react-relay";
 import {
   ItemDetailQuery,
   ItemDetailQueryVariables,
 } from "__generated__/ItemDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import Link from "next/link";
 import { useGlobalData } from "hooks/useGlobalData";
-import { SubitemList, Manage } from "components/views/entities";
-import { TabNav } from "components/atomic";
-import { PageHeader } from "components/layout";
-import transformBreadcrumbList from "helpers/transforms/breadcrumbs";
+import { SubitemList, Manage, EntityHeader } from "components/views/entities";
 
 export default function ItemDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
@@ -27,12 +23,6 @@ export default function ItemDetail() {
     setVariables((v) => ({ ...v, slug: id }));
   }, [id, setVariables]);
 
-  const breadcrumbsData = useMemo(() => {
-    if (!data || !data.item) return [];
-
-    return transformBreadcrumbList(data.item.breadcrumbs, data.item.title);
-  }, [data]);
-
   if (isLoading) {
     return null;
   }
@@ -43,19 +33,9 @@ export default function ItemDetail() {
 
   return (
     <section>
-      <PageHeader
-        title={data.item.title}
-        breadcrumbsProps={{ data: breadcrumbsData }}
-      >
-        <TabNav>
-          <Link href={`/items/${id}/items`} passHref>
-            <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
-          </Link>
-          <Link href={`/items/${id}/manage`} passHref>
-            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
-          </Link>
-        </TabNav>
-      </PageHeader>
+      {data && data.item && (
+        <EntityHeader id={id} entity={data.item} view={view} />
+      )}
       {view === "items" && <SubitemList />}
       {view === "manage" && <Manage />}
     </section>
@@ -70,12 +50,7 @@ const query = graphql`
       summary
       publishedOn
       hierarchicalDepth
-      breadcrumbs {
-        depth
-        label
-        kind
-        slug
-      }
+      ...useBreadcrumbsFragment
     }
   }
 `;
