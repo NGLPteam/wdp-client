@@ -31,7 +31,7 @@ export default function ItemList() {
         Cell: ({ row, value }) => {
           return (
             <MixedLink
-              route="collectionDetail"
+              route="itemDetail"
               params={{ id: row.original.slug }}
               passHref
             >
