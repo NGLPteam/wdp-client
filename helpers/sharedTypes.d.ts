@@ -16,3 +16,12 @@ export interface SortProps {
   direction: "ascending" | "descending" | "none";
   column: string;
 }
+
+export interface PageInfo {
+  page: number;
+  perPage: number;
+  pageCount: number;
+  hasNextPage?: boolean;
+  hasPreviousPage?: boolean;
+  totalCount: number;
+}

@@ -43,4 +43,16 @@ export default css`
   .a-input {
     ${aBaseInput()}
   }
+
+  .a-color-accent {
+    color: var(--accent-color);
+  }
+
+  .a-color-light {
+    color: var(--color-light);
+  }
+
+  .a-color-lighter {
+    color: var(--color-lighter);
+  }
 `;

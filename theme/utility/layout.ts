@@ -31,6 +31,10 @@ export default css`
     // Only set a 12 column grid for desktop views
     ${respond(`grid-template-columns: repeat(${COLUMNS}, 1fr);`, 70, "min")}
 
+    &--center {
+      align-items: center;
+    }
+
     &__item {
       // All grid items, if not defined, should span the full grid width
       grid-column: span 1 / -1;
