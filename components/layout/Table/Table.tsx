@@ -3,17 +3,16 @@ import * as Styled from "./Table.styles";
 
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
-import TableColumn from "./TableColumn";
 import TableCell from "./TableCell";
 
 const Table = ({
   children,
   "aria-label": ariaLabel,
-  multiselect,
+  withRowSelection,
   ...tableProps
 }: Props) => {
   return (
-    <Styled.TableWrapper data-multiselect={multiselect}>
+    <Styled.TableWrapper data-multiselect={withRowSelection}>
       <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
         {children}
       </Styled.Table>
@@ -24,12 +23,11 @@ const Table = ({
 interface Props {
   children: React.ReactNode[] | Element[];
   "aria-label": string;
-  multiselect?: boolean;
+  withRowSelection?: boolean;
 }
 
 Table.Body = TableBody;
 Table.Header = TableHeader;
-Table.Column = TableColumn;
 Table.Cell = TableCell;
 
 export default Table;

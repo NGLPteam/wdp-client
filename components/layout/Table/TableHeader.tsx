@@ -1,34 +1,66 @@
 import React from "react";
-import isFunction from "lodash/isFunction";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
+import TableSortButton from "./TableSortButton";
+import { IndeterminateCheckbox } from "components/atomic";
+import { HeaderGroupProperties } from "types/react-table";
+import { CheckboxProps } from "types/form-fields";
 
-const TableHeader = ({ children, columns, multiselect }) => {
-  const childIsRenderFunc = isFunction(children);
-
-  if (!columns || !childIsRenderFunc) {
-    return null;
-  }
-
+const TableHeader = ({
+  headerGroups = [],
+  withCheckbox,
+  checkboxProps,
+}: Props) => {
+  /* eslint-disable react/jsx-key */
+  /* keys are injected using the get props functions */
   return (
     <thead>
-      <TableHeaderRow>
-        {multiselect ? (
-          <Styled.HeaderCell role="columnheader" data-select-cell="true">
-            <Styled.SelectCellInner>
-              <input type="checkbox" />
-            </Styled.SelectCellInner>
-          </Styled.HeaderCell>
-        ) : (
-          <Styled.HeaderCell role="presentation"></Styled.HeaderCell>
-        )}
-        {columns.map((column) =>
-          childIsRenderFunc ? children(column) : children
-        )}
-        <Styled.HeaderCell role="presentation"></Styled.HeaderCell>
-      </TableHeaderRow>
+      {headerGroups.map((headerGroup) => {
+        const headerGroupProps = {
+          ...(headerGroup.getHeaderGroupProps &&
+            headerGroup.getHeaderGroupProps()),
+        };
+        return (
+          <TableHeaderRow {...headerGroupProps}>
+            {withCheckbox ? (
+              <Styled.HeaderCell role="columnheader" data-select-cell="true">
+                <Styled.SelectCellInner>
+                  <IndeterminateCheckbox {...checkboxProps} />
+                </Styled.SelectCellInner>
+              </Styled.HeaderCell>
+            ) : (
+              <Styled.HeaderCell role="presentation" />
+            )}
+
+            {headerGroup.headers.map((column) => {
+              return (
+                <Styled.HeaderCell
+                  {...column.getHeaderProps()}
+                  {...(column.getSortByToggleProps &&
+                    column.getSortByToggleProps())}
+                >
+                  <Styled.HeaderCellInner>
+                    {column.render("Header")}
+                    {column.isSorted && (
+                      <TableSortButton desc={column.isSortedDesc} />
+                    )}
+                  </Styled.HeaderCellInner>
+                </Styled.HeaderCell>
+              );
+            })}
+            <Styled.HeaderCell role="presentation" />
+          </TableHeaderRow>
+        );
+      })}
     </thead>
   );
+  /* eslint-enable react/jsx-key */
 };
+
+interface Props {
+  headerGroups: HeaderGroupProperties[];
+  withCheckbox?: boolean;
+  checkboxProps?: CheckboxProps;
+}
 
 export default TableHeader;

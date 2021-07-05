@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { graphql } from "react-relay";
 import {
   CollectionListQuery,
   CollectionListQueryVariables,
 } from "__generated__/CollectionListQuery.graphql";
+import { EntityTable } from "components/global";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import useSetVarsWithParam from "hooks/useSetVarsWithParam";
-import CollectionHeaders from "./CollectionHeadersPartial";
-import Link from "next/link";
-import { PageHeader } from "components/layout";
-import { Card, CardList } from "components/layout/CardList/CardList";
-import { FullPageLoader } from "components/global";
-import { Pagination } from "components/atomic";
+import { MixedLink } from "components/atomic";
 
 export default function CollectionList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,42 +23,74 @@ export default function CollectionList() {
     variables
   );
 
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Title",
+        accessor: "title",
+        disableSortBy: true,
+        Cell: ({ row, value }) => {
+          return (
+            <MixedLink
+              route="collectionDetail"
+              params={{ id: row.original.slug }}
+              passHref
+            >
+              <a>{value}</a>
+            </MixedLink>
+          );
+        },
+      },
+    ],
+    []
+  );
 
-  const totalPages = data?.viewer?.collections?.pageInfo?.pageCount || 1;
+  const actions = useMemo(
+    () => ({
+      edit: {
+        // eslint-disable-next-line no-console
+        handleClick: ({ row }) => console.log(`edit ${row.original.slug}`),
+      },
+      delete: {
+        // eslint-disable-next-line no-console
+        handleClick: ({ row }) => console.log(`delete ${row.original.slug}`),
+      },
+    }),
+    []
+  );
+
+  const handleSort = useCallback(
+    ({ order }) => {
+      if (order) return setVariables({ order, page: variables.page });
+    },
+    [variables.page]
+  );
+
+  const handleSelectionChange = useCallback(({ selectedRowIds }) => {
+    // eslint-disable-next-line no-console
+    console.table(selectedRowIds);
+  }, []);
+
+  const entities = useMemo(() => data?.viewer?.collections?.nodes, [data]);
+  const pageInfo = useMemo(() => data?.viewer?.collections?.pageInfo, [data]);
 
   return (
-    <section>
-      <PageHeader title="Collections" />
-      {isLoading ? (
-        <FullPageLoader />
-      ) : (
-        <>
-          <CardList>
-            <CollectionHeaders
-              variables={variables}
-              setVariables={setVariables}
-            />
-            {data?.viewer?.collections?.nodes ? (
-              data.viewer.collections.nodes.map((collection, index) => (
-                <Card key={index}>
-                  <h4>
-                    <Link href={`/collections/${collection.slug}`}>
-                      {collection.title}
-                    </Link>
-                  </h4>
-                </Card>
-              ))
-            ) : data?.viewer === null ? (
-              <div>No collections.</div>
-            ) : null}
-          </CardList>
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
-        </>
-      )}
-    </section>
+    <>
+      <EntityTable
+        entityName="collection"
+        error={error}
+        entities={entities}
+        pageInfo={pageInfo}
+        columns={columns}
+        actions={actions}
+        isLoading={isLoading}
+        onSort={handleSort}
+        onSelectionChange={handleSelectionChange}
+        withUpdatedAt
+        withCreatedAt
+        withRowSelection
+      />
+    </>
   );
 }
 
@@ -74,38 +102,12 @@ const query = graphql`
           __typename
           id
           identifier
+          createdAt
+          updatedAt
           title
           slug
           allowedActions
           hierarchicalDepth
-          breadcrumbs {
-            depth
-            label
-            kind
-            slug
-            crumb {
-              __typename
-              ... on Entity {
-                hierarchicalDepth
-                allowedActions
-              }
-              ... on Community {
-                name
-              }
-              ... on Collection {
-                title
-              }
-              ... on Item {
-                title
-                breadcrumbs {
-                  depth
-                  label
-                  kind
-                  slug
-                }
-              }
-            }
-          }
         }
         pageInfo {
           page

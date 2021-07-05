@@ -1,7 +1,4 @@
-import { ButtonControl } from "components/atomic";
-import { useState } from "react";
 import Table from "./Table";
-import { SortProps } from "helpers/sharedTypes";
 
 export default {
   title: "Components/Layout/Table",
@@ -13,63 +10,83 @@ export default {
   },
 };
 
-const columns = [
-  { name: "Name", key: "name", allowsSorting: true },
-  { name: "Type", key: "type", allowsSorting: true },
-  { name: "Date Modified", key: "date" },
-  { name: "Actions", key: "actions", hideLabel: true },
+const headerGroups = [
+  {
+    headers: [
+      {
+        id: "name",
+        render: () => "Name",
+        getHeaderProps: () => ({ key: "1", role: "role" }),
+      },
+      {
+        id: "date",
+        render: () => "Date of Birth",
+        getHeaderProps: () => ({ key: "2", role: "role" }),
+      },
+      {
+        id: "place",
+        render: () => "Place of Birth",
+        getHeaderProps: () => ({ key: "3", role: "role" }),
+      },
+    ],
+    getHeaderGroupProps: () => ({ key: "1", role: "role" }),
+  },
 ];
 
 const rows = [
-  { key: 1, name: "Item Name 1", date: "6/7/2020", type: "Schema Type" },
-  { key: 2, name: "Item Name 2", date: "4/7/2021", type: "Schema Type" },
-  { key: 3, name: "Item Name 3", date: "11/20/2010", type: "Schema Type" },
-  { key: 4, name: "Item Name 4", date: "1/18/2016", type: "Schema Type" },
+  {
+    getRowProps: () => ({ key: "1", role: "role" }),
+    cells: [
+      {
+        render: () => "John Milton",
+        getCellProps: () => ({ key: "1", role: "role" }),
+      },
+      {
+        render: () => "December 9, 1608",
+        getCellProps: () => ({ key: "2", role: "role" }),
+      },
+      {
+        render: () => "London",
+        getCellProps: () => ({ key: "3", role: "role" }),
+      },
+    ],
+  },
+  {
+    getRowProps: () => ({ key: "2", role: "role" }),
+    cells: [
+      {
+        render: () => "Christina Rossetti",
+        getCellProps: () => ({ key: "1", role: "role" }),
+      },
+      {
+        render: () => "December 5, 1830",
+        getCellProps: () => ({ key: "2", role: "role" }),
+      },
+      {
+        render: () => "London",
+        getCellProps: () => ({ key: "3", role: "role" }),
+      },
+    ],
+  },
 ];
 
-export const Default = ({ multiselect, ...args }) => {
-  const [sort, setSort] = useState<SortProps>({
-    column: "name",
-    direction: "descending",
-  });
-  const handleSort = (sort) => {
-    console.info("sort", sort);
-    setSort(sort);
-  };
+const selectableRows = rows.map((row) => ({
+  ...row,
+  getToggleRowSelectedProps: () => ({}),
+}));
 
+export const Default = ({ withRowSelection, rows, ...args }) => {
   return (
     <div className="l-container-max">
-      <Table aria-label={args["aria-label"]} multiselect={multiselect}>
-        <Table.Header columns={columns} multiselect={multiselect}>
-          {({ key, name, allowsSorting, hideLabel }) => (
-            <Table.Column
-              key={key}
-              columnKey={key}
-              allowsSorting={allowsSorting}
-              sort={sort}
-              onSortChange={handleSort}
-            >
-              <span className={hideLabel ? "a-hidden" : ""}>{name}</span>
-            </Table.Column>
-          )}
-        </Table.Header>
-        <Table.Body rows={rows} columns={columns} multiselect={multiselect}>
-          {({ row, column }, i) => (
-            <Table.Cell
-              key={column.key}
-              role={i === 0 ? "rowheader" : "gridcell"}
-              align={column.key === "actions" ? "right" : "left"}
-            >
-              {column.key === "name" ? (
-                <a href="#">{row[column.key]}</a>
-              ) : column.key === "actions" ? (
-                <ButtonControl icon="delete" aria-label="Delete" />
-              ) : (
-                row[column.key]
-              )}
-            </Table.Cell>
-          )}
-        </Table.Body>
+      <Table
+        aria-label={args["aria-label"]}
+        withRowSelection={withRowSelection}
+      >
+        <Table.Header
+          withCheckbox={withRowSelection}
+          headerGroups={headerGroups}
+        />
+        <Table.Body rows={rows} />
       </Table>
     </div>
   );
@@ -77,11 +94,14 @@ export const Default = ({ multiselect, ...args }) => {
 
 Default.args = {
   "aria-label": "Example plain table",
-  multiselect: false,
+  withRowSelection: false,
+  withCheckbox: false,
+  rows,
 };
 
 export const WithMultiselect = Default.bind({});
 WithMultiselect.args = {
   "aria-label": "Example plain table",
-  multiselect: true,
+  withRowSelection: true,
+  rows: selectableRows,
 };
