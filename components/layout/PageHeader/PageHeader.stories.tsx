@@ -12,7 +12,7 @@ export default {
   },
 };
 
-export const Primary = (args) => (
+export const Default = (args) => (
   <PageHeader {...args} breadcrumbsProps={{ data }}>
     <TabNav>
       <TabNav.Tab active>Child Collections</TabNav.Tab>
@@ -22,6 +22,6 @@ export const Primary = (args) => (
   </PageHeader>
 );
 
-Primary.args = {
+Default.args = {
   title: "Page Header",
 };
