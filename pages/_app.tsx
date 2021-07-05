@@ -15,19 +15,22 @@ import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 import GlobalStyles from "theme";
 import { AppBody, FullPageLoader } from "components/global";
 import useLatest from "hooks/useLatest";
+import { useSetLocale } from "hooks/useSetLocale";
+import { appWithTranslation } from "next-i18next";
 
 import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 
-export default function NGLPApp({
+function NGLPApp({
   Component,
   pageProps,
   cookies,
   records: r,
 }: AppProps & InitialProps) {
-  useRemoveServerInjectedCSS();
+  useSetLocale("en");
 
+  useRemoveServerInjectedCSS();
   const records = useDeserializeRecords(r);
 
   const persistor = SSRCookies(cookies);
@@ -134,3 +137,5 @@ function useDeserializeRecords(r: RecordMap | null): RecordMap {
     return {} as RecordMap;
   }, [r]);
 }
+
+export default appWithTranslation(NGLPApp);
