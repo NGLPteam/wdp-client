@@ -15,6 +15,8 @@ export type ItemListQueryResponse = {
                 readonly __typename: string;
                 readonly id: string;
                 readonly identifier: string;
+                readonly updatedAt: unknown;
+                readonly createdAt: unknown;
                 readonly title: string | null;
                 readonly slug: unknown;
                 readonly allowedActions: ReadonlyArray<string>;
@@ -48,6 +50,8 @@ query ItemListQuery(
         __typename
         id
         identifier
+        updatedAt
+        createdAt
         title
         slug
         allowedActions
@@ -131,6 +135,20 @@ v2 = {
           "args": null,
           "kind": "ScalarField",
           "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "updatedAt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "createdAt",
           "storageKey": null
         },
         {
@@ -258,14 +276,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d216f2b83de88383d38a5a68e098ad60",
+    "cacheID": "92f1bb8b497f8a01e59b88bb8a5f44a0",
     "id": null,
     "metadata": {},
     "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        updatedAt\n        createdAt\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a7966cb7ceaae0c5caccf163488fe383';
+(node as any).hash = '0fd707a7f39cffb890c8d54cf8f1271f';
 export default node;

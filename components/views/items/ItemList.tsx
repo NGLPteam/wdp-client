@@ -1,55 +1,95 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { graphql } from "react-relay";
 import {
   ItemListQuery,
   ItemListQueryVariables,
 } from "__generated__/ItemListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { PageHeader } from "components/layout";
-import { Card, CardList } from "components/layout/CardList/CardList";
-import Link from "next/link";
-import { FullPageLoader } from "components/global";
-import ItemHeaders from "./ItemHeadersPartial";
+import { EntityTable } from "components/global";
+import useSetVarsWithParam from "../../../hooks/useSetVarsWithParam";
+import { MixedLink } from "../../atomic";
 
 export default function ItemList() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [variables, setVariables] = useState<ItemListQueryVariables>({
     order: "RECENT",
     page: 1,
   });
+  useSetVarsWithParam("page", currentPage, setCurrentPage, setVariables);
 
   const { data, error, isLoading } = useAuthenticatedQuery<ItemListQuery>(
     query,
     variables
   );
 
-  if (isLoading) {
-    return null;
-  }
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Title",
+        accessor: "title",
+        disableSortBy: true,
+        Cell: ({ row, value }) => {
+          return (
+            <MixedLink
+              route="collectionDetail"
+              params={{ id: row.original.slug }}
+              passHref
+            >
+              <a>{value}</a>
+            </MixedLink>
+          );
+        },
+      },
+    ],
+    []
+  );
 
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
+  const actions = useMemo(
+    () => ({
+      edit: {
+        // eslint-disable-next-line no-console
+        handleClick: ({ row }) => console.log(`edit ${row.original.slug}`),
+      },
+      delete: {
+        // eslint-disable-next-line no-console
+        handleClick: ({ row }) => console.log(`delete ${row.original.slug}`),
+      },
+    }),
+    []
+  );
+
+  const handleSort = useCallback(
+    ({ order }) => {
+      if (order) return setVariables({ order, page: variables.page });
+    },
+    [variables.page]
+  );
+
+  const handleSelectionChange = useCallback(({ selectedRowIds }) => {
+    // eslint-disable-next-line no-console
+    console.table(selectedRowIds);
+  }, []);
+
+  const entities = useMemo(() => data?.viewer?.items?.nodes, [data]);
+  const pageInfo = useMemo(() => data?.viewer?.items?.pageInfo, [data]);
 
   return (
-    <section>
-      <PageHeader title="Items" />
-      <CardList>
-        <ItemHeaders variables={variables} setVariables={setVariables} />
-        {data?.viewer?.items?.nodes ? (
-          data.viewer.items.nodes.map((item, i) => (
-            <Card key={i}>
-              <h4>
-                <Link href={`/items/${item.slug}`}>{item.title}</Link>
-              </h4>
-            </Card>
-          ))
-        ) : data?.viewer === null ? (
-          <div>No items.</div>
-        ) : (
-          <FullPageLoader />
-        )}
-      </CardList>
-    </section>
+    <>
+      <EntityTable
+        entityName="collection"
+        error={error}
+        entities={entities}
+        pageInfo={pageInfo}
+        columns={columns}
+        actions={actions}
+        isLoading={isLoading}
+        onSort={handleSort}
+        onSelectionChange={handleSelectionChange}
+        withUpdatedAt
+        withCreatedAt
+        withRowSelection
+      />
+    </>
   );
 }
 
@@ -61,6 +101,8 @@ const query = graphql`
           __typename
           id
           identifier
+          updatedAt
+          createdAt
           title
           slug
           allowedActions
