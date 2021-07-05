@@ -6,7 +6,9 @@ import {
   CommunityListQueryVariables,
 } from "__generated__/CommunityListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { MixedLink } from "components/atomic";
+import { ButtonControl, MixedLink } from "components/atomic";
+import { PageActions, PageHeader } from "components/layout";
+import { Search } from "components/forms";
 
 export default function CommunityList() {
   const columns = useMemo(
@@ -70,6 +72,16 @@ export default function CommunityList() {
     [variables.page]
   );
 
+  const handleSearch = (value) => {
+    // eslint-disable-next-line
+    console.info("search value", value);
+  };
+
+  const handleAdd = () => {
+    // eslint-disable-next-line
+    console.info("add new community");
+  };
+
   const handleSelectionChange = useCallback(({ selectedRowIds }) => {
     // eslint-disable-next-line no-console
     console.table(selectedRowIds);
@@ -77,6 +89,15 @@ export default function CommunityList() {
 
   return (
     <>
+      <PageHeader title="Communities" />
+      <PageActions
+        search={<Search onSubmit={handleSearch} />}
+        actions={
+          <ButtonControl onClick={handleAdd} icon="plus">
+            Add Community
+          </ButtonControl>
+        }
+      />
       <EntityTable
         entityName="community"
         entities={entities}

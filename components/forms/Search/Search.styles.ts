@@ -9,9 +9,9 @@ import BaseSearchInput from "./BaseSearchInput";
 type Props = React.ComponentProps<typeof BaseSearchInput>;
 
 export const SearchInput = styled(BaseSearchInput)<Props>`
-  position: relative;
   --search-top-padding: ${pxToRem("7px")};
   --search-left-padding: ${pxToRem("12px")};
+  position: relative;
 
   &:focus-within,
   &:hover {
@@ -26,11 +26,13 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
     }
 
     &::-webkit-search-cancel-button {
+      cursor: pointer;
       background-image: url(${encodedIconClose({ fill: "#000" })});
     }
   }
 
   &__input {
+    width: 100%;
     background-color: var(--background-light);
     border-radius: var(--border-radius-lg);
     border: none;
