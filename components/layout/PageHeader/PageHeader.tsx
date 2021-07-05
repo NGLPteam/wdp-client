@@ -7,7 +7,7 @@ type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 const PageHeader = ({ title, breadcrumbsProps, children }: Props) => {
   return (
     <Styled.Header>
-      <Breadcrumbs {...breadcrumbsProps} />
+      {breadcrumbsProps && <Breadcrumbs {...breadcrumbsProps} />}
       <ContentTitle>{title}</ContentTitle>
       {children && <Styled.TabsWrapper>{children}</Styled.TabsWrapper>}
     </Styled.Header>

@@ -1,40 +1,52 @@
-import React from "react";
-import { SubcollectionList, Manage } from "components/views/entities";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
+import { graphql } from "react-relay";
+import {
+  CommunityDetailQuery,
+  CommunityDetailQueryVariables,
+} from "@/relay/CommunityDetailQuery.graphql";
+import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import {
+  SubcollectionList,
+  Manage,
+  EntityHeader,
+} from "components/views/entities";
 import { useGlobalData } from "hooks/useGlobalData";
-import { TabNav } from "components/atomic";
-import { PageHeader } from "components/layout";
 
 export default function CommunityDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
-  // TODO: Dynamic breadcrumbs
-  const breadcrumbs = {
-    data: [
-      {
-        label: "Communities",
-        href: "/communities",
-      },
-      {
-        label: `Community: ${id}`,
-        href: "#",
-      },
-    ],
-  };
+
+  const [variables, setVariables] = useState<CommunityDetailQueryVariables>({
+    slug: id,
+  });
+
+  const {
+    data,
+    error,
+    isLoading,
+  } = useAuthenticatedQuery<CommunityDetailQuery>(query, variables);
+
+  useEffect(() => {
+    setVariables((v) => ({ ...v, slug: id }));
+  }, [id, setVariables]);
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (error?.message) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <section>
-      <PageHeader title={`Community: ${id}`} breadcrumbsProps={breadcrumbs}>
-        <TabNav>
-          <Link href={`/communities/${id}/collections`} passHref>
-            <TabNav.Tab active={view === "collections"}>
-              Child Collections
-            </TabNav.Tab>
-          </Link>
-          <Link href={`/communities/${id}/manage`} passHref>
-            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
-          </Link>
-        </TabNav>
-      </PageHeader>
+      {data && data.community && (
+        <EntityHeader
+          id={id}
+          title={data.community.name}
+          view={view}
+          type="COMMUNITY"
+        />
+      )}
 
       {view === "main" && <div>Main</div>}
       {view === "collections" && <SubcollectionList />}
@@ -42,3 +54,12 @@ export default function CommunityDetail() {
     </section>
   );
 }
+
+const query = graphql`
+  query CommunityDetailQuery($slug: Slug!) {
+    community(slug: $slug) {
+      name
+      slug
+    }
+  }
+`;

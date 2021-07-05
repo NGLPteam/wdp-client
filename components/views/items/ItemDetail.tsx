@@ -5,8 +5,8 @@ import {
   ItemDetailQueryVariables,
 } from "__generated__/ItemDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { useGlobalData } from "hooks/useGlobalData";
 import { SubitemList, Manage, EntityHeader } from "components/views/entities";
+import { useBreadcrumbs, useGlobalData } from "hooks";
 
 export default function ItemDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
@@ -18,6 +18,8 @@ export default function ItemDetail() {
     query,
     variables
   );
+
+  const breadcrumbs = useBreadcrumbs(data?.item);
 
   useEffect(() => {
     setVariables((v) => ({ ...v, slug: id }));
@@ -34,7 +36,13 @@ export default function ItemDetail() {
   return (
     <section>
       {data && data.item && (
-        <EntityHeader id={id} entity={data.item} view={view} />
+        <EntityHeader
+          id={id}
+          type="ITEM"
+          view={view}
+          title={data.item.title}
+          breadcrumbs={breadcrumbs}
+        />
       )}
       {view === "items" && <SubitemList />}
       {view === "manage" && <Manage />}

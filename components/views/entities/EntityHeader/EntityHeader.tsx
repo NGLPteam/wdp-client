@@ -3,29 +3,61 @@ import Link from "next/link";
 import { PageHeader } from "components/layout";
 import { TabNav } from "components/atomic";
 
-import { useBreadcrumbs } from "hooks";
+import { BreadcrumbListType } from "hooks/useBreadcrumbs";
+import { EntityKind } from "@/relay/CollectionListQuery.graphql";
+import { entityMap } from "helpers/routes";
 
-const EntityHeader = ({ id, entity, view }: Props) => {
-  const breadcrumbs = useBreadcrumbs(entity);
+/**
+ * Takes an entity id, object, and current router view,
+ * and returns a PageHeader with the entity title, breadcrumbs, and tabbed navigation.
+ */
+const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
+  function getTabs() {
+    const tabs = [
+      <Link key="manage" href={`/${entityMap[type]}/${id}/manage`} passHref>
+        <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
+      </Link>,
+    ];
 
-  return (
-    <PageHeader title={entity.title} breadcrumbsProps={{ data: breadcrumbs }}>
-      <TabNav>
-        <Link href={`/items/${id}/items`} passHref>
+    if (type !== "COMMUNITY") {
+      tabs.unshift(
+        <Link key="items" href={`/${entityMap[type]}/${id}/items`} passHref>
           <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
         </Link>
-        <Link href={`/items/${id}/manage`} passHref>
-          <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
+      );
+    }
+
+    if (type !== "ITEM") {
+      tabs.unshift(
+        <Link
+          key="collections"
+          href={`/${entityMap[type]}/${id}/collections`}
+          passHref
+        >
+          <TabNav.Tab active={view === "items"}>Child Collections</TabNav.Tab>
         </Link>
-      </TabNav>
+      );
+    }
+
+    return tabs;
+  }
+
+  return (
+    <PageHeader title={title} breadcrumbsProps={{ data: breadcrumbs }}>
+      <TabNav>{getTabs()}</TabNav>
     </PageHeader>
   );
 };
-
-// TODO: Fix any type
 interface Props {
+  /** Entity type (COMMUNITY, COLLECTION, ITEM) */
+  type: EntityKind;
+  /** Entity id */
   id: string;
-  entity?: any;
+  /** Entity title */
+  title: string;
+  /** Entity breadcrumbs */
+  breadcrumbs?: BreadcrumbListType;
+  /** Current router view */
   view?: string;
 }
 

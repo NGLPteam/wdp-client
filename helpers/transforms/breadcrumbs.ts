@@ -1,14 +1,10 @@
+import { entityMap } from "helpers/routes";
+
 const transformBreadcrumbList = (
   breadcrumbs,
   currentLabel
 ): Record<string, string>[] => {
   const breadcrumbsData = breadcrumbs.map((crumb) => {
-    // TODO: may need to add more to this:
-    const entityMap = {
-      COMMUNITY: "communities",
-      COLLECTION: "collections",
-      ITEM: "items",
-    };
     const href = `/${entityMap[crumb.kind]}/${crumb.slug}`;
 
     return {

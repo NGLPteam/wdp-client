@@ -14,7 +14,7 @@ export default {
 };
 
 function handleSubmit(value) {
-  console.log("submitted!", value);
+  console.info("submitted!", value);
 }
 
 export const Primary: Story<Props> = (args) => <Search {...args} />;

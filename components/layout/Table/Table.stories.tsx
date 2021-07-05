@@ -33,7 +33,7 @@ export const Default = ({ multiselect, ...args }) => {
     direction: "descending",
   });
   const handleSort = (sort) => {
-    console.log("sort", sort);
+    console.info("sort", sort);
     setSort(sort);
   };
 
