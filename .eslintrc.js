@@ -18,6 +18,16 @@ module.exports = {
     "jsx-a11y/no-noninteractive-tabindex": ["error", { tags: ["a"] }],
     // Remove once fixed
     camelcase: 1,
+    // Sometimes I want to keep a var around.
+    "@typescript-eslint/no-unused-vars": [
+      1,
+      {
+        args: "after-used",
+        ignoreRestSiblings: true,
+        varsIgnorePattern: "PropTypes|React",
+        argsIgnorePattern: "[iI]gnored",
+      },
+    ],
   },
   overrides: [
     {
