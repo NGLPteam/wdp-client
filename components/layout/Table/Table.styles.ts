@@ -32,8 +32,8 @@ export const TableWrapper = styled.div`
 
 export const Table = styled.table`
   border-collapse: collapse;
-  margin-inline-start: calc(var(--table-margin-left) * -1);
-  margin-inline-end: calc(var(--table-margin-right) * -1);
+  margin-inline: calc(var(--table-margin-left) * -1)
+    calc(var(--table-margin-right) * -1);
   width: calc(100% + var(--table-margin-left) + var(--table-margin-right));
 `;
 
