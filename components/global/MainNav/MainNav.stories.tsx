@@ -8,7 +8,7 @@ export default {
 };
 
 function handleSubmit(value) {
-  console.log("submitted!", value);
+  console.info("submitted!", value);
 }
 
 export const Primary = () => (

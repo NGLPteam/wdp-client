@@ -10,9 +10,8 @@ export type CollectionDetailQueryVariables = {
 export type CollectionDetailQueryResponse = {
     readonly collection: {
         readonly title: string | null;
-        readonly items: {
-            readonly " $fragmentRefs": FragmentRefs<"ItemCardListFragment">;
-        };
+        readonly slug: unknown;
+        readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
     } | null;
 };
 export type CollectionDetailQuery = {
@@ -28,24 +27,20 @@ query CollectionDetailQuery(
 ) {
   collection(slug: $slug) {
     title
-    items {
-      ...ItemCardListFragment
-    }
+    slug
+    ...useBreadcrumbsFragment
     id
   }
 }
 
-fragment ItemCardFragment on Item {
-  slug
-  title
-}
-
-fragment ItemCardListFragment on ItemConnection {
-  edges {
-    node {
-      ...ItemCardFragment
-      id
-    }
+fragment useBreadcrumbsFragment on Entity {
+  __isEntity: __typename
+  breadcrumbs {
+    depth
+    label
+    kind
+    slug
+    id
   }
 }
 */
@@ -76,6 +71,13 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -95,21 +97,11 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "ItemCardListFragment"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "useBreadcrumbsFragment"
           }
         ],
         "storageKey": null
@@ -133,63 +125,63 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
           {
-            "alias": null,
-            "args": null,
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
+            "kind": "InlineFragment",
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ItemEdge",
+                "concreteType": "EntityBreadcrumb",
                 "kind": "LinkedField",
-                "name": "edges",
+                "name": "breadcrumbs",
                 "plural": true,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Item",
-                    "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "slug",
-                        "storageKey": null
-                      },
-                      (v2/*: any*/),
-                      (v3/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "depth",
                     "storageKey": null
-                  }
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "label",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
-            "storageKey": null
-          },
-          (v3/*: any*/)
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "953e0f91c8c79cee6fe4caab020850b2",
+    "cacheID": "056f8bb3f5133bc067cf254d43616f21",
     "id": null,
     "metadata": {},
     "name": "CollectionDetailQuery",
     "operationKind": "query",
-    "text": "query CollectionDetailQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    title\n    items {\n      ...ItemCardListFragment\n    }\n    id\n  }\n}\n\nfragment ItemCardFragment on Item {\n  slug\n  title\n}\n\nfragment ItemCardListFragment on ItemConnection {\n  edges {\n    node {\n      ...ItemCardFragment\n      id\n    }\n  }\n}\n"
+    "text": "query CollectionDetailQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    title\n    slug\n    ...useBreadcrumbsFragment\n    id\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '63fe13dab5bb949fd8cd9ce14645cf11';
+(node as any).hash = 'cd6e525312b2173c463f6ad020acf7fc';
 export default node;

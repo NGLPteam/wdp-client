@@ -9,12 +9,17 @@ type Params = {
 };
 
 type RouteProps = (params?: Params) => string;
-
 interface RoutesMap {
   [key: string]: RouteProps;
 }
 
-const routes: RoutesMap = {
+export const entityMap = {
+  COMMUNITY: "communities",
+  COLLECTION: "collections",
+  ITEM: "items",
+};
+
+export const routes: RoutesMap = {
   communityList: (): string => `/communities`,
   communityDetail: (params?: Params): string => `/communities/${params?.id}`,
   collectionList: (): string => `/collections`,
@@ -29,7 +34,7 @@ const routes: RoutesMap = {
 
 // Gets the current asPath from useRouter
 // Returns if route and params match the current path
-function isActiveRoute(asPath: string, route: string, params?: Params) {
+export function isActiveRoute(asPath: string, route: string, params?: Params) {
   const href = routes[route](params);
   return fuzzyMatchPaths(href, asPath);
 }
@@ -54,5 +59,3 @@ export const normalizePathData = (pathnameInput: string) => {
 
   return { pathname, pathParams } as const;
 };
-
-export { routes, isActiveRoute };

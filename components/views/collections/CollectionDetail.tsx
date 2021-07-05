@@ -1,48 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { graphql } from "react-relay";
+import {
+  CollectionDetailQuery,
+  CollectionDetailQueryVariables,
+} from "@/relay/CollectionDetailQuery.graphql";
+import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import {
   SubcollectionList,
   SubitemList,
   Manage,
+  EntityHeader,
 } from "components/views/entities";
-import Link from "next/link";
-import { TabNav } from "components/atomic";
-import { PageHeader } from "components/layout";
 import { useGlobalData } from "hooks/useGlobalData";
+import { useBreadcrumbs } from "hooks";
 
 export default function CollectionDetail() {
   const { activeId: id, activeView: view } = useGlobalData();
-  // TODO: Dynamic breadcrumbs
-  const breadcrumbs = {
-    data: [
-      {
-        label: "Collections",
-        href: "/collections",
-      },
-      {
-        label: `Collection: ${id}`,
-        href: "#",
-      },
-    ],
-  };
+
+  const [variables, setVariables] = useState<CollectionDetailQueryVariables>({
+    slug: id,
+  });
+
+  const {
+    data,
+    error,
+    isLoading,
+  } = useAuthenticatedQuery<CollectionDetailQuery>(query, variables);
+
+  const breadcrumbs = useBreadcrumbs(data?.collection);
+
+  useEffect(() => {
+    setVariables((v) => ({ ...v, slug: id }));
+  }, [id, setVariables]);
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (error?.message) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <section>
-      <PageHeader title={`Collection: ${id}`} breadcrumbsProps={breadcrumbs}>
-        <TabNav>
-          <Link href={`/collections/${id}/collections`} passHref>
-            <TabNav.Tab active={view === "collections"}>
-              Child Collections
-            </TabNav.Tab>
-          </Link>
-          <Link href={`/collections/${id}/items`} passHref>
-            <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
-          </Link>
-          <Link href={`/collections/${id}/manage`} passHref>
-            <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
-          </Link>
-        </TabNav>
-      </PageHeader>
-
+      {data && data.collection && (
+        <EntityHeader
+          id={id}
+          type="COLLECTION"
+          view={view}
+          title={data.collection.title}
+          breadcrumbs={breadcrumbs}
+        />
+      )}
       {view === "main" && <div>Main</div>}
       {view === "collections" && <SubcollectionList />}
       {view === "items" && <SubitemList />}
@@ -50,3 +59,13 @@ export default function CollectionDetail() {
     </section>
   );
 }
+
+const query = graphql`
+  query CollectionDetailQuery($slug: Slug!) {
+    collection(slug: $slug) {
+      title
+      slug
+      ...useBreadcrumbsFragment
+    }
+  }
+`;
