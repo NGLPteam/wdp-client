@@ -10,7 +10,7 @@ import {
   SubitemList,
   Manage,
 } from "components/views/entities";
-import { EntityHeader } from "components/global";
+import { EntityHeader } from "components/composed/entity";
 import { useGlobalData } from "hooks/useGlobalData";
 import { useBreadcrumbs } from "hooks";
 

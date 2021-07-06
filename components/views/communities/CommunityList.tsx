@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { graphql } from "react-relay";
-import { EntityList } from "components/global";
+import { EntityList } from "components/composed/entity";
 import {
   CommunityListQuery,
   CommunityListQueryVariables,

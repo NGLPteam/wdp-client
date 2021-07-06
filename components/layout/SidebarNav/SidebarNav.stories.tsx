@@ -1,7 +1,7 @@
 import SidebarNav from ".";
 
 export default {
-  title: "Components/Atomic/SidebarNav",
+  title: "Components/Layout/SidebarNav",
   component: SidebarNav,
   parameters: {
     themes: {

@@ -4,7 +4,7 @@ import {
   CollectionListQuery,
   CollectionListQueryVariables,
 } from "__generated__/CollectionListQuery.graphql";
-import { EntityList } from "components/global";
+import { EntityList } from "components/composed/entity";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import useSetVarsWithParam from "hooks/useSetVarsWithParam";
 import { MixedLink } from "components/atomic";
