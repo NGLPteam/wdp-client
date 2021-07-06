@@ -27,19 +27,19 @@ npm run storybook
 
 The components are separated out into these folders:
 
-- `/atomic/` - small resuable components such as links, buttons, and inputs
-- `/auth/` - shared authentication components
-- `/dynamic/` — components that make run-time API requests and are rendered client-side.
-- `/factories/` - mapped components with shared props, such as icons
-- `/layout/` - small reusable layout components such as grids and cards
-- `/global/` - composed, app wide components
-- `/scaffolding/` - a temp folder for the original scaffolding components
-- `/views/` - composed components specific to routes
-- `/svgs/` - svgs, such as icons and logos
+- `/atomic/` - Small, reusable components such as links, buttons, and inputs. Should not be tied to any particular routes, models, or other api data.
+- `/auth/` - Shared authentication components
+- `/composed/` - Larger, reusable composed components such as page layouts. Can be tied to api data structures.
+- `/factories/` - Mapped components with shared props, such as icons
+- `/layout/` - Small reusable layout components such as grids and cards
+- `/global/` - Composed, app wide components, that are visible on every page
+- `/scaffolding/` - A temp folder for the original scaffolding components
+- `/views/` - Composed components specific to routes. These components can fetch data.
+- `/svgs/` - Svgs, such as icons and logos
 
-Folders are lower case if they contain a collection of components, and camcel case if they contain one component. Folders that contain many components should have an `index.ts` file with default exports.
+Folders are lower case if they contain a collection of components, and camel case if they contain one component or a component with parent/child relationships, such as `MainNav` and `MainNav.Item`. Components can be grouped into sub folders, ie `/atomic/buttons/` and `/composed/entities/`, but further nesting should be avoided.
 
-Single components should be in a camel cased folder, with an index, stories, and styles file (if applicable). For example:
+Folders that contain many components should have an `index.ts` file with default exports. Single components should be in a camel cased folder, with an index, stories, and styles file (if applicable). For example:
 
 ```
 components/global/MainNav
@@ -58,4 +58,3 @@ We fully support the current release of all evergreen browsers (defined in `brow
 - Chrome (Windows and OSX)
 - Safari
 - Latest release of Safari on iOS and Chrome on Android
-
