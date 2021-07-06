@@ -2,7 +2,7 @@ import React from "react";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
-import { IndeterminateCheckbox } from "components/atomic";
+import { Checkbox } from "components/atomic";
 import { HeaderGroupProperties } from "types/react-table";
 import { CheckboxProps } from "types/form-fields";
 
@@ -25,7 +25,7 @@ const TableHeader = ({
             {withCheckbox ? (
               <Styled.HeaderCell role="columnheader" data-select-cell="true">
                 <Styled.SelectCellInner>
-                  <IndeterminateCheckbox {...checkboxProps} />
+                  <Checkbox {...checkboxProps} />
                 </Styled.SelectCellInner>
               </Styled.HeaderCell>
             ) : (
