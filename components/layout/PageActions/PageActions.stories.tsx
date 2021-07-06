@@ -1,5 +1,5 @@
-import { ButtonControl } from "components/atomic";
-import { Search } from "components/forms";
+import { ButtonControl } from "components/atomic/buttons";
+import { Search } from "components/atomic/forms";
 import PageActions from "./";
 
 export default {

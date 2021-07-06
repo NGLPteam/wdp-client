@@ -1,4 +1,4 @@
-import { ButtonControl } from "components/atomic";
+import { ButtonControl } from "components/atomic/buttons";
 import React from "react";
 
 const availableActions = {

@@ -1,7 +1,7 @@
-import Input from "./";
+import Input from ".";
 
 export default {
-  title: "Components/Atomic/Input",
+  title: "Components/Atomic/Forms/Input",
   component: Input,
   parameters: {
     themes: {

@@ -1,4 +1,4 @@
-import { ButtonControl } from "components/atomic";
+import { ButtonControl } from "components/atomic/buttons";
 import PageCountActions from "./";
 
 export default {

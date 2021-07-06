@@ -1,5 +1,5 @@
 import React from "react";
-import TopNavDropdown from "./";
+import TopNavDropdown from ".";
 import { MixedLink } from "components/atomic";
 
 export default {

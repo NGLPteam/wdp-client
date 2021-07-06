@@ -1,4 +1,4 @@
-import TopNavItem from "./";
+import TopNavItem from ".";
 
 export default {
   title: "Components/Atomic/TopNavItem",

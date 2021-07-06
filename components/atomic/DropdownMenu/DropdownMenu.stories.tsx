@@ -1,5 +1,6 @@
 import React from "react";
-import { ButtonControl, Button, TopNavItem } from "components/atomic";
+import { TopNavItem } from "components/atomic";
+import { ButtonControl, Button } from "components/atomic/buttons";
 import DropdownMenu from "./";
 
 export default {

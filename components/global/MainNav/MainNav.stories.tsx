@@ -1,6 +1,6 @@
 import MainNav from "./";
 import { TopNavItem, TopNavDropdown } from "components/atomic";
-import { Search } from "components/forms";
+import { Search } from "components/atomic/forms";
 
 export default {
   title: "Components/Global/MainNav",

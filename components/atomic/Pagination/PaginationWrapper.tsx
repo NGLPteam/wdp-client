@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
-import { ButtonControl } from "components/atomic";
+import { ButtonControl } from "components/atomic/buttons";
 import { normalizePathData } from "helpers/routes";
 import { useRouter } from "next/router";
 import { UrlObject } from "url";

@@ -1,11 +1,12 @@
 import React from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { ButtonControl, Pagination } from "components/atomic";
+import { Pagination } from "components/atomic";
+import { ButtonControl } from "components/atomic/buttons";
 import { useTranslation } from "react-i18next";
 import { ColumnOptions } from "types/react-table";
 import { PageInfo } from "types/common";
-import { Search } from "components/forms";
+import { Search } from "components/atomic/forms";
 import { FullPageLoader, EntityTable } from "components/global";
 import {
   EntityTableActions,

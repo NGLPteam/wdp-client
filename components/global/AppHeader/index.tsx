@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import MixedLink from "components/atomic/MixedLink";
 import { MainNav, ServiceProviderBar } from "components/global";
-import { Search } from "components/forms";
+import { Search } from "components/atomic/forms";
 import { TopNavItem, TopNavDropdown } from "components/atomic/";
 import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
