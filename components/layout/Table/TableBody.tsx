@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
-import { IndeterminateCheckbox } from "components/atomic";
+import { Checkbox } from "components/atomic";
 import { RowProperties } from "types/react-table";
 
 const TableBody = ({ rows }: Props) => {
@@ -14,7 +14,7 @@ const TableBody = ({ rows }: Props) => {
           {row.getToggleRowSelectedProps ? (
             <Styled.Cell role="gridcell" data-select-cell="true">
               <Styled.SelectCellInner>
-                <IndeterminateCheckbox
+                <Checkbox
                   {...(row.getToggleRowSelectedProps &&
                     row.getToggleRowSelectedProps())}
                 />

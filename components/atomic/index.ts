@@ -12,4 +12,4 @@ export { default as Input } from "./Input";
 export { default as LogoPlaceholder } from "./LogoPlaceholder";
 export { default as DropdownMenu } from "./DropdownMenu";
 export { default as T } from "./Translate";
-export { default as IndeterminateCheckbox } from "./IndeterminateCheckbox";
+export { default as Checkbox } from "./Checkbox";
