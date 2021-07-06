@@ -2,14 +2,20 @@ import React, { useEffect, useCallback } from "react";
 import startCase from "lodash/startCase";
 import isFunction from "lodash/isFunction";
 import { useTable, useRowSelect, useSortBy } from "react-table";
-import { PageHeader, Table } from "components/layout";
-import { Pagination } from "components/atomic";
+import {
+  PageActions,
+  PageCountActions,
+  PageHeader,
+  Table,
+} from "components/layout";
+import { ButtonControl, Pagination } from "components/atomic";
 import useColumnInject from "./plugins/useColumnInject";
 import useRowActions from "./plugins/useRowActions";
 import mapSortBy from "./helpers/mapSortBy";
 import { useTranslation } from "react-i18next";
 import { ColumnOptions } from "types/react-table";
 import { PageInfo } from "types/common";
+import { Search } from "components/forms";
 
 const EntityTableLoaded = ({
   entityName,
@@ -96,11 +102,28 @@ const EntityTableLoaded = ({
   return (
     <section>
       {title && <PageHeader title={startCase(title)} />}
-      {pageInfo && (
-        <span>{`showing ${(pageInfo.page - 1) * pageInfo.perPage + 1} to ${
-          pageInfo.page * pageInfo.perPage
-        } of ${pageInfo.totalCount}`}</span>
-      )}
+      <PageActions
+        search={
+          <Search
+            onSubmit={(value) => {
+              // eslint-disable-next-line
+              console.log("search", value);
+            }}
+          />
+        }
+        actions={
+          <ButtonControl
+            onClick={() => {
+              // eslint-disable-next-line
+              console.log("click");
+            }}
+            icon="plus"
+          >
+            Add
+          </ButtonControl>
+        }
+      />
+      {pageInfo && <PageCountActions pageInfo={pageInfo} />}
       <Table
         withRowSelection={withRowSelection}
         rows={rows}

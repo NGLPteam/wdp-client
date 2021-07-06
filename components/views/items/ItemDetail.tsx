@@ -5,7 +5,8 @@ import {
   ItemDetailQueryVariables,
 } from "__generated__/ItemDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { SubitemList, Manage, EntityHeader } from "components/views/entities";
+import { SubitemList, Manage } from "components/views/entities";
+import { EntityHeader } from "components/global";
 import { useBreadcrumbs, useGlobalData } from "hooks";
 
 export default function ItemDetail() {

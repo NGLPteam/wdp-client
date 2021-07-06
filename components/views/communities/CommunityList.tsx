@@ -6,9 +6,7 @@ import {
   CommunityListQueryVariables,
 } from "__generated__/CommunityListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { ButtonControl, MixedLink } from "components/atomic";
-import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { Search } from "components/forms";
+import { MixedLink } from "components/atomic";
 
 export default function CommunityList() {
   const columns = useMemo(
@@ -72,42 +70,15 @@ export default function CommunityList() {
     [variables.page]
   );
 
-  const handleSearch = (value) => {
-    // eslint-disable-next-line
-    console.info("search value", value);
-  };
-
-  const handleAdd = () => {
-    // eslint-disable-next-line
-    console.info("add new community");
-  };
-
   const handleSelectionChange = useCallback(({ selectedRowIds }) => {
     // eslint-disable-next-line no-console
     console.table(selectedRowIds);
   }, []);
 
+  const pageInfo = useMemo(() => data?.communities?.pageInfo, [data]);
+
   return (
     <>
-      <PageHeader title="Communities" />
-      <PageActions
-        search={<Search onSubmit={handleSearch} />}
-        actions={
-          <ButtonControl onClick={handleAdd} icon="plus">
-            Add Community
-          </ButtonControl>
-        }
-      />
-
-      <PageCountActions
-        pageInfo={data?.communities?.pageInfo}
-        selectedCount={0}
-        multiselectActions={[
-          <ButtonControl key="delete" onClick={handleAdd} icon="delete">
-            Delete
-          </ButtonControl>,
-        ]}
-      />
       <EntityTable
         entityName="community"
         entities={entities}
@@ -117,6 +88,7 @@ export default function CommunityList() {
         actions={actions}
         onSort={handleSort}
         onSelectionChange={handleSelectionChange}
+        pageInfo={pageInfo}
         withUpdatedAt
         withRowSelection
       />

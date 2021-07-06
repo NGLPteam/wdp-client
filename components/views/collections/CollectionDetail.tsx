@@ -9,8 +9,8 @@ import {
   SubcollectionList,
   SubitemList,
   Manage,
-  EntityHeader,
 } from "components/views/entities";
+import { EntityHeader } from "components/global";
 import { useGlobalData } from "hooks/useGlobalData";
 import { useBreadcrumbs } from "hooks";
 
