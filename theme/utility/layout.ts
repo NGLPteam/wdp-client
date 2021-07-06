@@ -58,6 +58,10 @@ export default css`
     &--align-center {
       align-items: center;
     }
+
+    &--gap {
+      gap: var(--grid-column-gap);
+    }
   }
 
   .l-container-max {
