@@ -15,7 +15,11 @@ const PageCountActions = ({
   if (!pageInfo) return;
   const hasSelected = selectedCount > 1;
   const label = hasSelected ? `Selected: ` : `Showing `;
-  const displayCount = hasSelected ? selectedCount : pageInfo.perPage;
+  const displayCount = hasSelected
+    ? selectedCount
+    : pageInfo.totalCount < pageInfo.perPage
+    ? pageInfo.totalCount
+    : pageInfo.perPage;
 
   return (
     <Styled.Wrapper>
