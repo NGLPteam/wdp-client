@@ -6,3 +6,4 @@ export { default as MainNav } from "./MainNav";
 export { default as ServiceProviderBar } from "./ServiceProviderBar";
 export { default as EntityHeader } from "./EntityHeader";
 export { default as EntityTable } from "./EntityTable";
+export { default as EntityList } from "./EntityList";

@@ -5,7 +5,7 @@ import {
   ItemListQueryVariables,
 } from "__generated__/ItemListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { EntityTable } from "components/global";
+import { EntityList } from "components/global";
 import useSetVarsWithParam from "../../../hooks/useSetVarsWithParam";
 import { MixedLink } from "../../atomic";
 
@@ -75,7 +75,7 @@ export default function ItemList() {
 
   return (
     <>
-      <EntityTable
+      <EntityList
         entityName="item"
         error={error}
         entities={entities}
