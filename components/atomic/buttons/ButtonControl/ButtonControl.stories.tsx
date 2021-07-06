@@ -4,7 +4,7 @@ import { ICON_KEYS } from "components/factories/IconFactory";
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 
 export default {
-  title: "Components/Atomic/ButtonControl",
+  title: "Components/Atomic/Buttons/ButtonControl",
   component: ButtonControl,
   parameters: {
     themes: {

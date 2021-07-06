@@ -4,7 +4,7 @@ import Search from ".";
 type Props = React.ComponentProps<typeof Search>;
 
 export default {
-  title: "Components/Forms/Search",
+  title: "Components/Atomic/Forms/Search",
   component: Search,
   parameters: {
     themes: {

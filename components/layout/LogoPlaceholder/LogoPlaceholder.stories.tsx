@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import LogoPlaceholder from "./";
+import LogoPlaceholder from ".";
 
 export default {
   title: "Components/Atomic/LogoPlaceholder",

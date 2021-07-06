@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
-import { Checkbox } from "components/atomic";
+import { Checkbox } from "components/atomic/forms";
 import { RowProperties } from "types/react-table";
 
 const TableBody = ({ rows }: Props) => {

@@ -3,7 +3,7 @@ import { Story } from "@storybook/react";
 type Props = React.ComponentProps<typeof Button>;
 
 export default {
-  title: "Components/Atomic/Button",
+  title: "Components/Atomic/Buttons/Button",
   component: Button,
   parameters: {
     themes: {
