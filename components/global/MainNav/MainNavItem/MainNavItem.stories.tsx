@@ -1,8 +1,8 @@
-import TopNavItem from ".";
+import MainNavItem from ".";
 
 export default {
-  title: "Components/Atomic/TopNavItem",
-  component: TopNavItem,
+  title: "Components/Global/MainNav/MainNav.Item",
+  component: MainNavItem,
   parameters: {
     themes: {
       default: "brand100",
@@ -11,9 +11,9 @@ export default {
 };
 
 export const Primary = (args) => (
-  <TopNavItem as="a" key={1} href="/" {...args}>
+  <MainNavItem as="a" key={1} href="/" {...args}>
     Link A
-  </TopNavItem>
+  </MainNavItem>
 );
 
 Primary.args = {

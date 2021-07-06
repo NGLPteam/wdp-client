@@ -1,13 +1,8 @@
 export { default as MixedLink } from "./MixedLink";
-export { default as TopNavItem } from "./TopNavItem";
-export { default as TopNavDropdown } from "./TopNavDropdown";
 export { default as TabNav } from "./TabNav";
 export { default as ContentTitle } from "./ContentTitle";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as SidebarNav } from "../layout/SidebarNav";
-// export { default as Button } from "./buttons/Button";
-// export { default as ButtonControl } from "./buttons/ButtonControl";
 export { default as Pagination } from "./Pagination";
-export { default as LogoPlaceholder } from "../layout/LogoPlaceholder";
 export { default as DropdownMenu } from "./DropdownMenu";
 export { default as T } from "./Translate";

@@ -1,7 +1,8 @@
 import React from "react";
 import * as Styled from "./MainFooter.styles";
 import MainFooterNav from "./MainFooterNav";
-import { MixedLink, LogoPlaceholder } from "components/atomic";
+import { MixedLink } from "components/atomic";
+import { LogoPlaceholder } from "components/global";
 
 const MainFooter = ({ children, copyright, about }: Props) => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { TopNavItem } from "components/atomic";
+import { MainNavItem } from "components/global/MainNav";
 import { ButtonControl, Button } from "components/atomic/buttons";
 import DropdownMenu from "./";
 
@@ -38,7 +38,7 @@ export const WithTopMenuItem = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
-      disclosure={<TopNavItem as="button">Custom menu</TopNavItem>}
+      disclosure={<MainNavItem as="button">Custom menu</MainNavItem>}
       menuItems={MENU_ITEMS}
     />
   );

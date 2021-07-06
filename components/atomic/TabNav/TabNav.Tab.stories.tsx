@@ -4,7 +4,7 @@ import TabNav from ".";
 type Props = React.ComponentProps<typeof TabNav.Tab>;
 
 export default {
-  title: "Components/Atomic/TabNav.Tab",
+  title: "Components/Atomic/TabNav/TabNav.Tab",
   component: TabNav.Tab,
   parameters: {
     themes: {
