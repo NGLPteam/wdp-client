@@ -76,7 +76,7 @@ export default function ItemList() {
   return (
     <>
       <EntityTable
-        entityName="collection"
+        entityName="item"
         error={error}
         entities={entities}
         pageInfo={pageInfo}
