@@ -1,5 +1,8 @@
 import * as Styled from "./MainNav.styles";
-import { MixedLink, LogoPlaceholder } from "components/atomic";
+import { MixedLink } from "components/atomic";
+import { LogoPlaceholder } from "components/global";
+import MainNavDropdown from "./MainNavDropdown";
+import MainNavItem from "./MainNavItem";
 
 const MainNav = ({ children }: Props) => {
   return (
@@ -24,5 +27,8 @@ const MainNav = ({ children }: Props) => {
 interface Props extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode[];
 }
+
+MainNav.Dropdown = MainNavDropdown;
+MainNav.Item = MainNavItem;
 
 export default MainNav;

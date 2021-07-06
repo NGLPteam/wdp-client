@@ -1,16 +1,17 @@
 import React from "react";
-import { TopNavItem, DropdownMenu } from "components/atomic";
+import { DropdownMenu } from "components/atomic";
+import { MainNavItem } from "../";
 
 // TODO: Simplify with Reakit/Menu
 // TODO: Abstrct into Dropdown component that can take any styled button for activiation
-const TopNavDropdown = ({ children, active, label }: Props) => {
+const MainNavDropdown = ({ children, active, label }: Props) => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": label }}
       disclosure={
-        <TopNavItem as="button" active={active}>
+        <MainNavItem as="button" active={active}>
           {label}
-        </TopNavItem>
+        </MainNavItem>
       }
       menuItems={children}
       isMainNav
@@ -24,4 +25,4 @@ interface Props {
   label: string;
 }
 
-export default TopNavDropdown;
+export default MainNavDropdown;

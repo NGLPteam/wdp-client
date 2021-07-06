@@ -3,7 +3,7 @@ import { Story } from "@storybook/react";
 import LogoPlaceholder from ".";
 
 export default {
-  title: "Components/Atomic/LogoPlaceholder",
+  title: "Components/Global/LogoPlaceholder",
   component: LogoPlaceholder,
   parameters: {
     actions: {

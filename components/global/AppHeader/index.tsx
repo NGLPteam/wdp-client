@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import MixedLink from "components/atomic/MixedLink";
 import { MainNav, ServiceProviderBar } from "components/global";
 import { Search } from "components/atomic/forms";
-import { TopNavItem, TopNavDropdown } from "components/atomic/";
 import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
@@ -29,27 +28,27 @@ function AppHeader({ children, className = "" }: Props) {
       <ServiceProviderBar />
       <MainNav>
         <MixedLink route="communityList" passHref>
-          <TopNavItem active={activeEntity === "communities"}>
+          <MainNav.Item active={activeEntity === "communities"}>
             Communities
-          </TopNavItem>
+          </MainNav.Item>
         </MixedLink>
         <MixedLink route="collectionList" passHref>
-          <TopNavItem active={activeEntity === "collections"}>
+          <MainNav.Item active={activeEntity === "collections"}>
             Collections
-          </TopNavItem>
+          </MainNav.Item>
         </MixedLink>
         <MixedLink route="itemList" passHref>
-          <TopNavItem active={activeEntity === "items"}>Items</TopNavItem>
+          <MainNav.Item active={activeEntity === "items"}>Items</MainNav.Item>
         </MixedLink>
         <div ref={submenuRef}>
-          <TopNavDropdown active={active === "admin"} label="Manage">
+          <MainNav.Dropdown active={active === "admin"} label="Manage">
             <MixedLink route="userList" passHref>
               <a>Users</a>
             </MixedLink>
             <MixedLink route="contributorList" passHref>
               <a>Contributors</a>
             </MixedLink>
-          </TopNavDropdown>
+          </MainNav.Dropdown>
         </div>
         <Search onSubmit={handleSubmit} />
         <span>
