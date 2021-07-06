@@ -26,6 +26,11 @@ export const parameters = {
         class: "a-bg-brand100",
         color: `var(--brand100, ${get(colors, "brand.100")})`,
       },
+      {
+        name: "brand90",
+        class: "a-bg-brand90",
+        color: `var(--brand90, ${get(colors, "brand.90")})`,
+      },
     ],
   },
   backgrounds: { disable: true }, // disabled in favor of themes
