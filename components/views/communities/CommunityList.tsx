@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { graphql } from "react-relay";
-import { EntityTable } from "components/global";
+import { EntityList } from "components/global";
 import {
   CommunityListQuery,
   CommunityListQueryVariables,
@@ -79,7 +79,7 @@ export default function CommunityList() {
 
   return (
     <>
-      <EntityTable
+      <EntityList
         entityName="community"
         entities={entities}
         columns={columns}

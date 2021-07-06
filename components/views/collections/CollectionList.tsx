@@ -4,7 +4,7 @@ import {
   CollectionListQuery,
   CollectionListQueryVariables,
 } from "__generated__/CollectionListQuery.graphql";
-import { EntityTable } from "components/global";
+import { EntityList } from "components/global";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import useSetVarsWithParam from "hooks/useSetVarsWithParam";
 import { MixedLink } from "components/atomic";
@@ -76,7 +76,7 @@ export default function CollectionList() {
 
   return (
     <>
-      <EntityTable
+      <EntityList
         entityName="collection"
         error={error}
         entities={entities}
