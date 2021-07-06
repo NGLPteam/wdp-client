@@ -6,7 +6,7 @@ import {
 } from "@/relay/CommunityDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { SubcollectionList, Manage } from "components/views/entities";
-import { EntityHeader } from "components/global";
+import { EntityHeader } from "components/composed/entity";
 import { useGlobalData } from "hooks/useGlobalData";
 
 export default function CommunityDetail() {

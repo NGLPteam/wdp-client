@@ -4,15 +4,12 @@ import { PageActions, PageCountActions, PageHeader } from "components/layout";
 import { Pagination } from "components/atomic";
 import { ButtonControl } from "components/atomic/buttons";
 import { useTranslation } from "react-i18next";
-import { ColumnOptions } from "types/react-table";
 import { PageInfo } from "types/common";
 import { Search } from "components/atomic/forms";
-import { FullPageLoader, EntityTable } from "components/global";
-import {
-  EntityTableActions,
-  OnSelectionChangeProps,
-  OnSortProps,
-} from "../EntityTable/EntityTable";
+import { FullPageLoader } from "components/global";
+import { EntityTable } from "components/composed/entity";
+
+type EntityTableProps = React.ComponentProps<typeof EntityTable>;
 
 const EntityList = ({
   isLoading,
@@ -68,22 +65,13 @@ const EntityList = ({
 
 // TODO: Either extend EntityTable (and potentially EntityGrid), or
 // Create an Entity context rather than passing data down multiple levels of components
-export interface EntityListProps {
+export interface EntityListProps extends EntityTableProps {
   isLoading?: boolean;
   // Need an Alexa consultation to decide how to define this type.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error?: any;
-  columns: ColumnOptions[];
-  pageInfo?: PageInfo;
   entityName?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  entities?: ReadonlyArray<any>;
-  withUpdatedAt?: boolean;
-  withCreatedAt?: boolean;
-  actions?: EntityTableActions;
-  onSort?: (props: OnSortProps) => void;
-  onSelectionChange?: (props: OnSelectionChangeProps) => void;
-  withRowSelection?: boolean;
+  pageInfo?: PageInfo;
 }
 
 export default EntityList;

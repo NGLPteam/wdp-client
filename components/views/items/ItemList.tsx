@@ -5,7 +5,7 @@ import {
   ItemListQueryVariables,
 } from "__generated__/ItemListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { EntityList } from "components/global";
+import { EntityList } from "components/composed/entity";
 import useSetVarsWithParam from "../../../hooks/useSetVarsWithParam";
 import { MixedLink } from "../../atomic";
 
