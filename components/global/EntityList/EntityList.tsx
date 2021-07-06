@@ -65,6 +65,8 @@ const EntityList = ({
   );
 };
 
+// TODO: Either extend EntityTable (and potentially EntityGrid), or
+// Create an Entity context rather than passing data down multiple levels of components
 export interface EntityListProps {
   isLoading?: boolean;
   // Need an Alexa consultation to decide how to define this type.
