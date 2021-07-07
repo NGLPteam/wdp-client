@@ -18,7 +18,8 @@
     "lint:ts": "eslint -c .eslintrc.js \"**/*.{ts,tsx}\"",
     "fix": "npm-run-all fix:js fix:ts",
     "fix:js": "eslint --cache -c .eslintrcjs.js \"**/*.{js,jsx}\" --fix",
-    "fix:ts": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix"
+    "fix:ts": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix",
+    "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
     "@bedrock-layout/use-stateful-ref": "^1.1.2",
@@ -80,10 +81,14 @@
     "babel-plugin-styled-components": "^1.13.1",
     "eslint-config-next": "^11.0.0",
     "graphql": "^15.5.1",
+    "npm-force-resolutions": "^0.0.10",
     "relay-compiler": "^11.0.2",
     "relay-compiler-language-typescript": "^14.0.0",
     "relay-config": "^11.0.2",
     "storybook-addon-themes": "^6.1.0",
     "typescript": "^4.3.5"
+  },
+  "resolutions": {
+    "**/react": "^17.0.0"
   }
 }
