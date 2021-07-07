@@ -28,7 +28,10 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
-      <Link href={makeLinkObject(currentPage - 1)} passHref>
+      <Link
+        href={currentPage <= 1 ? "#" : makeLinkObject(currentPage - 1)}
+        passHref
+      >
         <ButtonControl
           as="a"
           icon="arrow"
@@ -44,7 +47,10 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
         inputId="paginationInput"
         onSubmitPage={handleSubmit}
       />
-      <Link href={makeLinkObject(currentPage + 1)} passHref>
+      <Link
+        href={currentPage >= totalPages ? "#" : makeLinkObject(currentPage + 1)}
+        passHref
+      >
         <ButtonControl
           as="a"
           icon="arrow"
