@@ -17,6 +17,7 @@ export const TableWrapper = styled.div`
 
   border-top: var(--table-border);
   border-bottom: var(--table-border);
+  margin-bottom: ${basePadding(6)};
 
   ${respond(
     css`
