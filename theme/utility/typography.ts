@@ -19,6 +19,8 @@ export default css`
 
   .t-copy-sm {
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-base);
+    text-transform: none;
   }
 
   .t-align-right {

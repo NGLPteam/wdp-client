@@ -25,14 +25,14 @@ const PageCountActions = ({
         {hasSelected ? (
           <Trans
             ns="common"
-            i18nKey="selectedCount"
+            i18nKey="selected.count"
             values={{ count: selectedCount, total: totalCount }}
             components={[<span key="color" className="a-color-accent"></span>]}
           />
         ) : (
           <Trans
             ns="common"
-            i18nKey="showingCount"
+            i18nKey="showing.count"
             values={{ start, end, total: totalCount }}
             components={[<span key="color" className="a-color-accent"></span>]}
           />

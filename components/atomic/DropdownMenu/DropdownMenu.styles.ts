@@ -54,7 +54,7 @@ export const Item = styled(MenuItem)`
   padding: var(--menu-item-padding, 0);
   text-align: left;
   color: var(--accent-light);
-  ${tLabel("sm")}
+  ${tLabel("md")}
 
   &:hover,
   &:focus-visible:not(:hover) {

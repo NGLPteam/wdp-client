@@ -16,6 +16,7 @@ export default css`
 
     /* fonts */
     --font-face-base: "Karla", serif;
+    --font-weight-base: 400;
 
     /* font weights */
     --font-weight-regular: 400;

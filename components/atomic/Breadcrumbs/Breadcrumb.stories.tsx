@@ -24,10 +24,44 @@ export default {
 };
 
 const Template: Story<BreadcrumbProps> = (args) => {
-  return <Breadcrumbs data={data} {...args} />;
+  return <Breadcrumbs {...args} />;
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Default = Template.bind({});
+Default.args = {
   delimiter: ` / `,
+  data,
+};
+
+const dataLong = [
+  {
+    label: "Breadcrumb Parent",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+  {
+    label: "Breadcrumb Child",
+    href: "#",
+  },
+];
+
+export const WithMoreThanFourItems = Template.bind({});
+WithMoreThanFourItems.args = {
+  delimiter: ` / `,
+  data: dataLong,
 };
