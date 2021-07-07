@@ -12,9 +12,8 @@ function AppHeader({ children, className = "" }: Props) {
   const [active, setActive] = useState(null);
   const submenuRef = useRef<HTMLDivElement>();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = (value) => {
-    // TODO: Submit search
+    console.info("search", value);
   };
 
   const handleClick = (e) => {
@@ -43,10 +42,10 @@ function AppHeader({ children, className = "" }: Props) {
         <div ref={submenuRef}>
           <MainNav.Dropdown active={active === "admin"} label="Manage">
             <MixedLink route="userList" passHref>
-              <a>Users</a>
+              <MainNav.Item>Users</MainNav.Item>
             </MixedLink>
             <MixedLink route="contributorList" passHref>
-              <a>Contributors</a>
+              <MainNav.Item>Contributors</MainNav.Item>
             </MixedLink>
           </MainNav.Dropdown>
         </div>

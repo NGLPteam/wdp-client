@@ -1,10 +1,10 @@
 import React from "react";
 import { MainNavItem } from "components/global/MainNav";
 import { ButtonControl, Button } from "components/atomic/buttons";
-import DropdownMenu from "./";
+import DropdownMenu from ".";
 
 export default {
-  title: "Components/Atomic/DropdownMenu",
+  title: "Components/Atomic/Dropdowns/DropdownMenu",
   component: DropdownMenu,
   parameters: {
     themes: {

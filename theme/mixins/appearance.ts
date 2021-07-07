@@ -34,7 +34,8 @@ export function aBgDark(bgColor = "brand100") {
     --color-lighter: var(--brand30); // AA+, Can pass under some circumstances
     --header-color: var(--neutral00);
     --accent-color: var(--neutral00);
-    --accent-light: var(--neutral10);
+    --accent-light: var(--brand10);
+    --accent-lighter: var(--brand20);
     background-color: var(--background-color);
     color: var(--color);
   `;
@@ -50,6 +51,7 @@ export function aBgLight(bgColor = "neutral00") {
     --header-color: var(--brand100);
     --accent-color: var(--brand100);
     --accent-light: var(--brand90);
+    --accent-lighter: var(--brand80);
     background-color: var(--background-color);
     color: var(--color);
   `;
