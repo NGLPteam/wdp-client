@@ -116,6 +116,7 @@ const query = graphql`
           hasNextPage
           hasPreviousPage
           totalCount
+          totalUnfilteredCount
         }
       }
     }

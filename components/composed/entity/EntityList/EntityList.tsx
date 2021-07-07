@@ -4,7 +4,7 @@ import { PageActions, PageCountActions, PageHeader } from "components/layout";
 import { Pagination } from "components/atomic";
 import { ButtonControl } from "components/atomic/buttons";
 import { useTranslation } from "react-i18next";
-import { PageInfo } from "types/common";
+import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { EntityTable } from "components/composed/entity";

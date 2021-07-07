@@ -28,6 +28,7 @@ export type ItemListQueryResponse = {
                 readonly hasNextPage: boolean;
                 readonly hasPreviousPage: boolean;
                 readonly totalCount: number;
+                readonly totalUnfilteredCount: number;
             };
         };
     } | null;
@@ -63,6 +64,7 @@ query ItemListQuery(
         hasNextPage
         hasPreviousPage
         totalCount
+        totalUnfilteredCount
       }
     }
     id
@@ -224,6 +226,13 @@ v2 = {
           "kind": "ScalarField",
           "name": "totalCount",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalUnfilteredCount",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -276,14 +285,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "92f1bb8b497f8a01e59b88bb8a5f44a0",
+    "cacheID": "959aad42b2d1196b7ebd481eb3aecfb0",
     "id": null,
     "metadata": {},
     "name": "ItemListQuery",
     "operationKind": "query",
-    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        updatedAt\n        createdAt\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ItemListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        updatedAt\n        createdAt\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0fd707a7f39cffb890c8d54cf8f1271f';
+(node as any).hash = '2bc38a696951f988c5b9a9f35b9cc496';
 export default node;
