@@ -7,19 +7,25 @@ import { RowProperties } from "types/react-table";
 const TableBody = ({ rows }: Props) => {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
+
+  const renderCheckboxCell = (row) => {
+    const props = row.getToggleRowSelectedProps();
+
+    return (
+      <Styled.SelectCell role="gridcell">
+        <Styled.SelectCellInner>
+          <Checkbox {...props} />
+        </Styled.SelectCellInner>
+      </Styled.SelectCell>
+    );
+  };
+
   return (
     <Styled.TableBody role="rowgroup">
       {rows.map((row) => (
         <TableRow {...row.getRowProps()}>
           {row.getToggleRowSelectedProps ? (
-            <Styled.Cell role="gridcell" data-select-cell="true">
-              <Styled.SelectCellInner>
-                <Checkbox
-                  {...(row.getToggleRowSelectedProps &&
-                    row.getToggleRowSelectedProps())}
-                />
-              </Styled.SelectCellInner>
-            </Styled.Cell>
+            renderCheckboxCell(row)
           ) : (
             <Styled.Cell role="presentation" />
           )}

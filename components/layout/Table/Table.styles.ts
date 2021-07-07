@@ -4,16 +4,27 @@ import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { respond } from "theme/mixins/base";
 
-export const TableWrapper = styled.div`
+export const TableWrapper = styled.div<TableWrapperProps>`
   --table-border: 1px solid var(--neutral40);
   --table-border-radius: ${pxToRem("6px")};
   --table-column-gap: ${basePadding(4)};
   --table-margin-left: var(--table-column-gap);
   --table-margin-right: var(--table-column-gap);
+  --checkbox-opacity: 0;
+  --checkbox-visibility: 0;
 
-  &[data-multiselect="true"] {
-    --table-margin-left: ${basePadding(13)};
-  }
+  ${({ withRowSelection }) =>
+    withRowSelection &&
+    css`
+      --table-margin-left: ${basePadding(13)};
+    `}
+
+  ${({ showCheckboxes }) =>
+    showCheckboxes &&
+    css`
+      --checkbox-opacity: 1;
+      --checkbox-visibility: 1;
+    `}
 
   border-top: var(--table-border);
   border-bottom: var(--table-border);
@@ -30,6 +41,11 @@ export const TableWrapper = styled.div`
     100
   )}
 `;
+
+interface TableWrapperProps {
+  withRowSelection: boolean;
+  showCheckboxes: boolean;
+}
 
 export const Table = styled.table`
   border-collapse: collapse;
@@ -106,18 +122,20 @@ export const Cell = styled.td`
     border-bottom-right-radius: var(--table-border-radius);
     width: var(--table-margin-right);
   }
+`;
 
-  &[data-select-cell="true"] {
-    width: 0.1%;
-    max-width: auto;
-    white-space: nowrap;
-    padding: 0 var(--table-column-gap);
-  }
+export const SelectCell = styled.td`
+  width: 0.1%;
+  max-width: auto;
+  white-space: nowrap;
+  padding: 0 var(--table-column-gap);
+  border-top-left-radius: var(--table-border-radius);
+  border-bottom-left-radius: var(--table-border-radius);
 `;
 
 export const SelectCellInner = styled.div`
-  visibility: var(--button-control-visibility);
-  opacity: var(--button-control-opacity);
+  visibility: var(--checkbox-visibility);
+  opacity: var(--checkbox-opacity);
 `;
 
 export const Row = styled.tr`
@@ -132,6 +150,8 @@ export const Row = styled.tr`
 
     --button-control-opacity: 1;
     --button-control-visibility: 1;
+    --checkbox-opacity: 1;
+    --checkbox-visibility: 1;
   }
 `;
 

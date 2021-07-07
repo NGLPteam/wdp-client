@@ -9,10 +9,14 @@ const Table = ({
   children,
   "aria-label": ariaLabel,
   withRowSelection,
+  showCheckboxes,
   ...tableProps
 }: Props) => {
   return (
-    <Styled.TableWrapper data-multiselect={withRowSelection}>
+    <Styled.TableWrapper
+      withRowSelection={withRowSelection}
+      showCheckboxes={showCheckboxes}
+    >
       <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
         {children}
       </Styled.Table>
@@ -24,6 +28,7 @@ interface Props {
   children: React.ReactNode[] | Element[];
   "aria-label": string;
   withRowSelection?: boolean;
+  showCheckboxes?: boolean;
 }
 
 Table.Body = TableBody;
