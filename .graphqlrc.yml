@@ -1,12 +1,27 @@
 schema: https://api.staging.nglp.org/graphql
 extensions:
-    customDirectives:
-        - "directive @connection(key: String!, filters: [String]) on FIELD"
-    codegen:
-        generates:
-            "schema.graphql":
-                plugins:
-                    - schema-ast
-            "__schema__/schema.json":
-                plugins:
-                    - introspection
+  customDirectives:
+    - "directive @connection(key: String!, filters: [String]) on FIELD"
+  codegen:
+    generates:
+      "schema.graphql":
+        config:
+          includeDirectives: true
+        plugins:
+          - schema-ast
+      "__schema__/schema.json":
+        plugins:
+          - introspection
+      "types/graphql-schema.d.ts":
+        config:
+          defaultScalarType: string
+          enumsAsTypes: true
+          futureProofEnums: true
+          futureProofUnions: true
+          scalars:
+            JSON: any
+            Slug: string
+          useTypeImports: true
+        plugins:
+          - typescript
+          - typescript-resolvers
