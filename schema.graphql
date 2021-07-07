@@ -1,3 +1,8 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
 """An access control list"""
 type AccessControlList {
   permissions: [PermissionGrant!]!
@@ -14,10 +19,8 @@ union AnyContributor = OrganizationContributor | PersonContributor
 type AnyContributorConnection {
   """A list of edges."""
   edges: [AnyContributorEdge]
-
   """A list of nodes."""
   nodes: [AnyContributor]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -26,7 +29,6 @@ type AnyContributorConnection {
 type AnyContributorEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: AnyContributor
 }
@@ -158,29 +160,19 @@ type AssetVideo implements Asset & Node & Sluggable {
 type Collection implements Entity & HierarchicalEntry & Contributable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
-
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
-
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
-
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionConnection!
@@ -188,126 +180,84 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
   contributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionContributionConnection!
-
   """Contributors to this element"""
   contributors(
     order: SimpleOrder = RECENT
     kind: ContributorFilterKind = ALL
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
   createdAt: ISO8601DateTime!
   doi: String
-
-  """
-  The depth of the hierarchical entity, taking into account any parent types
-  """
+  """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
   identifier: String!
   itemLinks(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionLinkedItemConnection!
   items(
     order: SimpleOrder = RECENT
-
-    """
-    Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation
-    """
+    """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): ItemConnection!
   links(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionLinkConnection!
   parent: CollectionParent
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   properties: JSON
   publishedOn: ISO8601Date
   slug: Slug!
   summary: String
-
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
   title: String
@@ -319,10 +269,8 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
 type CollectionConnection {
   """A list of edges."""
   edges: [CollectionEdge]
-
   """A list of nodes."""
   nodes: [Collection]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -341,10 +289,8 @@ type CollectionContribution implements Contribution & Node & Sluggable {
 type CollectionContributionConnection {
   """A list of edges."""
   edges: [CollectionContributionEdge]
-
   """A list of nodes."""
   nodes: [CollectionContribution]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -353,7 +299,6 @@ type CollectionContributionConnection {
 type CollectionContributionEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: CollectionContribution
 }
@@ -362,7 +307,6 @@ type CollectionContributionEdge {
 type CollectionEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: Collection
 }
@@ -381,10 +325,8 @@ type CollectionLink implements Node & Sluggable {
 type CollectionLinkConnection {
   """A list of edges."""
   edges: [CollectionLinkEdge]
-
   """A list of nodes."""
   nodes: [CollectionLink]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -393,7 +335,6 @@ type CollectionLinkConnection {
 type CollectionLinkEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: CollectionLink
 }
@@ -417,10 +358,8 @@ type CollectionLinkedItem implements Node & Sluggable {
 type CollectionLinkedItemConnection {
   """A list of edges."""
   edges: [CollectionLinkedItemEdge]
-
   """A list of nodes."""
   nodes: [CollectionLinkedItem]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -429,7 +368,6 @@ type CollectionLinkedItemConnection {
 type CollectionLinkedItemEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: CollectionLinkedItem
 }
@@ -445,63 +383,41 @@ union CollectionParent = Collection | Community
 type Community implements Entity & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
-
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
-
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
-
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   collections(
     order: SimpleOrder = RECENT
-
-    """
-    Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation
-    """
+    """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CollectionConnection!
   createdAt: ISO8601DateTime!
-
-  """
-  The depth of the hierarchical entity, taking into account any parent types
-  """
+  """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
   metadata: JSON
   name: String!
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   position: Int
   slug: Slug!
-
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
   updatedAt: ISO8601DateTime!
@@ -511,10 +427,8 @@ type Community implements Entity & Node & Sluggable {
 type CommunityConnection {
   """A list of edges."""
   edges: [CommunityEdge]
-
   """A list of nodes."""
   nodes: [Community]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -523,7 +437,6 @@ type CommunityConnection {
 type CommunityEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: Community
 }
@@ -534,27 +447,18 @@ interface Contributable {
   contributors(
     order: SimpleOrder = RECENT
     kind: ContributorFilterKind = ALL
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
@@ -571,15 +475,10 @@ interface Contributor {
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionContributionConnection!
@@ -588,15 +487,10 @@ interface Contributor {
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemContributionConnection!
@@ -628,35 +522,27 @@ type ContributorLink {
 input CreateAssetInput {
   """The entity that owns the attachment"""
   entityId: ID!
-
   """
   This is the path returned from uploading a file via tus. It should look vaguely like `/files/<base64>`
   
   """
   attachmentUrl: String!
-
   """A human readable name for the asset"""
   name: String!
-
   """The position the asset occupies amongst siblings"""
   position: Int
-
   """Alt text to display for the asset (if applicable)"""
   altText: String
-
   """A caption to display below the asset (if applicable)"""
   caption: String
-
   """The original filename, since Tus mangles them."""
   filename: String = "asset"
-
   """
   The original content type. WDP will detect a real content type, so this can't be spoofed, but it can be helpful with generating
   an initial asset with the correct kind.
   
   """
   mimeType: String = "application/octet-stream"
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -664,7 +550,6 @@ input CreateAssetInput {
 """Autogenerated return type of CreateAsset"""
 type CreateAssetPayload {
   asset: AnyAsset
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   errors: [UserError!]!
@@ -680,7 +565,6 @@ input CreateCollectionInput {
   parentId: ID!
   title: String!
   identifier: String!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -698,10 +582,8 @@ type CreateCollectionPayload {
 input CreateCommunityInput {
   """A human readable title for the community"""
   name: String!
-
   """The position the community occupies in the list"""
   position: Int
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -710,7 +592,6 @@ input CreateCommunityInput {
 type CreateCommunityPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-
   """A representation of a successfully created community"""
   community: Community
   errors: [UserError!]!
@@ -726,7 +607,6 @@ input CreateItemInput {
   parentId: ID!
   title: String!
   identifier: String!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -737,7 +617,6 @@ type CreateItemPayload {
   clientMutationId: String
   errors: [UserError!]!
   haltCode: String
-
   """A representation of a successfully created item"""
   item: Item
 }
@@ -746,7 +625,6 @@ type CreateItemPayload {
 input CreateRoleInput {
   name: String!
   accessControlList: JSON!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -764,26 +642,16 @@ type CreateRolePayload {
 interface Entity {
   """Derived access control list"""
   accessControlList: AccessControlList
-
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
-
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
-
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
-
-  """
-  The depth of the hierarchical entity, taking into account any parent types
-  """
+  """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
-
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
 }
@@ -810,11 +678,8 @@ enum EntityPermissionFilter {
 }
 
 interface ExposesPermissions {
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
 }
@@ -824,7 +689,6 @@ input GrantAccessInput {
   entityId: ID!
   roleId: ID!
   userId: ID!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -835,7 +699,6 @@ type GrantAccessPayload {
   clientMutationId: String
   entity: AnyEntity
   errors: [UserError!]!
-
   """Whether or not access was granted"""
   granted: Boolean
   haltCode: String
@@ -864,29 +727,19 @@ scalar ISO8601DateTime
 type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
-
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
-
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
-
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemConnection!
@@ -895,80 +748,55 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
   contributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemContributionConnection!
-
   """Contributors to this element"""
   contributors(
     order: SimpleOrder = RECENT
     kind: ContributorFilterKind = ALL
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
   createdAt: ISO8601DateTime!
   doi: String
-
-  """
-  The depth of the hierarchical entity, taking into account any parent types
-  """
+  """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
   identifier: String!
   links(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemLinkConnection!
   parent: ItemParent
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   properties: JSON
   publishedOn: ISO8601Date
   slug: Slug!
   summary: String
-
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
   title: String
@@ -980,10 +808,8 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
 type ItemConnection {
   """A list of edges."""
   edges: [ItemEdge]
-
   """A list of nodes."""
   nodes: [Item]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1002,10 +828,8 @@ type ItemContribution implements Contribution & Node & Sluggable {
 type ItemContributionConnection {
   """A list of edges."""
   edges: [ItemContributionEdge]
-
   """A list of nodes."""
   nodes: [ItemContribution]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1014,7 +838,6 @@ type ItemContributionConnection {
 type ItemContributionEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: ItemContribution
 }
@@ -1023,7 +846,6 @@ type ItemContributionEdge {
 type ItemEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: Item
 }
@@ -1042,10 +864,8 @@ type ItemLink implements Node & Sluggable {
 type ItemLinkConnection {
   """A list of edges."""
   edges: [ItemLinkEdge]
-
   """A list of nodes."""
   nodes: [ItemLink]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1054,7 +874,6 @@ type ItemLinkConnection {
 type ItemLinkEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: ItemLink
 }
@@ -1082,19 +901,16 @@ type Mutation {
     """Parameters for CreateCollection"""
     input: CreateCollectionInput!
   ): CreateCollectionPayload
-
   """Create a community"""
   createCommunity(
     """Parameters for CreateCommunity"""
     input: CreateCommunityInput!
   ): CreateCommunityPayload
-
   """Create an item"""
   createItem(
     """Parameters for CreateItem"""
     input: CreateItemInput!
   ): CreateItemPayload
-
   """
   Create a global role, with a set of permissions, that can be used to grant access to various parts of the hierarchy
   in a granular fashion.
@@ -1104,13 +920,11 @@ type Mutation {
     """Parameters for CreateRole"""
     input: CreateRoleInput!
   ): CreateRolePayload
-
   """Grant access to a specific hierarchical entity"""
   grantAccess(
     """Parameters for GrantAccess"""
     input: GrantAccessInput!
   ): GrantAccessPayload
-
   """
   Reassign the collection to another point in the hierarchy.
   
@@ -1121,7 +935,6 @@ type Mutation {
     """Parameters for ReparentCollection"""
     input: ReparentCollectionInput!
   ): ReparentCollectionPayload
-
   """
   Reassign the item to another point in the hierarchy.
   
@@ -1132,31 +945,26 @@ type Mutation {
     """Parameters for ReparentItem"""
     input: ReparentItemInput!
   ): ReparentItemPayload
-
   """Revoke access from a specific hierarchical entity"""
   revokeAccess(
     """Parameters for RevokeAccess"""
     input: RevokeAccessInput!
   ): RevokeAccessPayload
-
   """Update a collection"""
   updateCollection(
     """Parameters for UpdateCollection"""
     input: UpdateCollectionInput!
   ): UpdateCollectionPayload
-
   """Update a community"""
   updateCommunity(
     """Parameters for UpdateCommunity"""
     input: UpdateCommunityInput!
   ): UpdateCommunityPayload
-
   """Update an item"""
   updateItem(
     """Parameters for UpdateItem"""
     input: UpdateItemInput!
   ): UpdateItemPayload
-
   """
   Update the name or permissions for a given role.
   
@@ -1179,15 +987,10 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionContributionConnection!
@@ -1198,15 +1001,10 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemContributionConnection!
@@ -1231,39 +1029,21 @@ enum PageDirection {
 type PageInfo {
   """When paginating forwards, the cursor to continue."""
   endCursor: String
-
   """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
-
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
-
-  """
-  The page (if page-based pagination is supported and one was provided, does not introspect a value with cursor-based pagination)
-  """
+  """The page (if page-based pagination is supported and one was provided, does not introspect a value with cursor-based pagination)"""
   page: Int
-
-  """
-  The total number of pages available to the connection (if page-based pagination supported and a page was provided)
-  """
+  """The total number of pages available to the connection (if page-based pagination supported and a page was provided)"""
   pageCount: Int
-
-  """
-  The number of edges/nodes per page (if page-based pagination supported and a page was provided)
-  """
+  """The number of edges/nodes per page (if page-based pagination supported and a page was provided)"""
   perPage: Int
-
   """When paginating backwards, the cursor to continue."""
   startCursor: String
-
-  """
-  The total number of nodes available to this connection, constrained by applied filters (if any)
-  """
+  """The total number of nodes available to this connection, constrained by applied filters (if any)"""
   totalCount: Int!
-
-  """
-  The total number of nodes available to this connection, independent of any filters
-  """
+  """The total number of nodes available to this connection, independent of any filters"""
   totalUnfilteredCount: Int!
 }
 
@@ -1281,15 +1061,10 @@ type PersonContributor implements Contributor & Node & Sluggable {
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionContributionConnection!
@@ -1302,15 +1077,10 @@ type PersonContributor implements Contributor & Node & Sluggable {
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): ItemContributionConnection!
@@ -1348,132 +1118,89 @@ The entry point for retrieving data from within the WDP API.
 type Query {
   """Look up a collection by slug"""
   collection(slug: Slug!): Collection
-
   """List all communities"""
   communities(
     order: SimpleOrder = RECENT
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CommunityConnection!
-
   """Look up a community by slug"""
   community(slug: Slug!): Community
-
   """Look up a contributor by slug"""
   contributor(slug: Slug!): AnyContributor
-
   """A list of all contributors in the system"""
   contributors(
     order: SimpleOrder = RECENT
     kind: ContributorFilterKind = ALL
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
-
   """Look up an item by slug"""
   item(slug: Slug!): Item
-
   """Fetches an object given its ID."""
   node(
     """ID of the object."""
     id: ID!
   ): Node
-
   """Fetches a list of objects given a list of IDs."""
   nodes(
     """IDs of the objects."""
     ids: [ID!]!
   ): [Node]!
-
   """List all roles"""
   roles(
     order: SimpleOrder = RECENT
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
   ): RoleConnection!
-
   """A list of all users in the system"""
   users(
     order: SimpleOrder = RECENT
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): UserConnection!
-
   """The currently authenticated user. AKA: you"""
   viewer: User
 }
@@ -1485,13 +1212,11 @@ input ReparentCollectionInput {
   
   """
   collectionId: ID!
-
   """
   The id for the collection's new parent. This can be a community or another collection.
   
   """
   parentId: ID!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1512,13 +1237,11 @@ input ReparentItemInput {
   
   """
   itemId: ID!
-
   """
   The id for the item's new parent. This can be a collection or another item.
   
   """
   parentId: ID!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1537,7 +1260,6 @@ input RevokeAccessInput {
   entityId: ID!
   roleId: ID!
   userId: ID!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1549,7 +1271,6 @@ type RevokeAccessPayload {
   entity: AnyEntity
   errors: [UserError!]!
   haltCode: String
-
   """Whether or not access was revoked"""
   revoked: Boolean
 }
@@ -1558,15 +1279,12 @@ type RevokeAccessPayload {
 type Role implements Node & Sluggable {
   """The access control list for this specific role"""
   accessControlList: AccessControlList!
-
   """A list of action names that have been granted to this role"""
   allowedActions: [String!]!
   createdAt: ISO8601DateTime!
   id: ID!
-
   """The human readable name of the role within the system"""
   name: String!
-
   """
   Surfaced from the accessControlList for convenience, these are returned as
   an array that allows a user to check for the state of all possible roles
@@ -1582,10 +1300,8 @@ type Role implements Node & Sluggable {
 type RoleConnection {
   """A list of edges."""
   edges: [RoleEdge]
-
   """A list of nodes."""
   nodes: [Role]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1594,7 +1310,6 @@ type RoleConnection {
 type RoleEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: Role
 }
@@ -1607,43 +1322,28 @@ enum SimpleOrder {
 """A slug that can identify a record in context"""
 scalar Slug
 
-"""
-Objects have a serialized slug for looking them up in the system and generating links without UUIDs
-"""
+"""Objects have a serialized slug for looking them up in the system and generating links without UUIDs"""
 interface Sluggable {
   slug: Slug!
 }
 
-"""
-When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed.
-"""
+"""When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed."""
 enum TreeNodeFilter {
-  """
-  Fetch only nodes that are "roots": nodes that do not have a parent of the same type
-  """
+  """Fetch only nodes that are "roots": nodes that do not have a parent of the same type"""
   ROOTS_ONLY
-
   """Fetch all nodes that match other filters passed to the resolver"""
   ROOTS_AND_LEAVES
-
-  """
-  Fetch only nodes that are "leaves"; nodes that have a parent of the same type
-  """
+  """Fetch only nodes that are "leaves"; nodes that have a parent of the same type"""
   LEAVES_ONLY
 }
 
 """Autogenerated input type of UpdateCollection"""
 input UpdateCollectionInput {
   collectionId: ID!
-
   """Human readable title for the collection"""
   title: String!
-
-  """
-  Machine readable title for the collection, should be unique within its scope
-  """
+  """Machine readable title for the collection, should be unique within its scope"""
   identifier: String!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1652,7 +1352,6 @@ input UpdateCollectionInput {
 type UpdateCollectionPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-
   """A new representation of the collection, on a successful update"""
   collection: Collection
   errors: [UserError!]!
@@ -1662,13 +1361,10 @@ type UpdateCollectionPayload {
 """Autogenerated input type of UpdateCommunity"""
 input UpdateCommunityInput {
   communityId: ID!
-
   """A human readable title for the community"""
   name: String!
-
   """The position the community occupies in the list"""
   position: Int
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1677,7 +1373,6 @@ input UpdateCommunityInput {
 type UpdateCommunityPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-
   """A new representation of the community, on a succesful update"""
   community: Community
   errors: [UserError!]!
@@ -1690,7 +1385,6 @@ input UpdateItemInput {
   itemId: ID!
   title: String!
   identifier: String!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1701,7 +1395,6 @@ type UpdateItemPayload {
   clientMutationId: String
   errors: [UserError!]!
   haltCode: String
-
   """A new representation of the item, on a succesful update"""
   item: Item
 }
@@ -1711,7 +1404,6 @@ input UpdateRoleInput {
   roleId: ID!
   name: String!
   accessControlList: JSON!
-
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1727,71 +1419,45 @@ type UpdateRolePayload {
 
 """A user"""
 type User implements ExposesPermissions & Node & Sluggable {
-  """
-  A list of allowed actions for the given user on this entity (and its descendants).
-  """
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
   collections(
     access: EntityPermissionFilter = READ_ONLY
     order: SimpleOrder = RECENT
-
-    """
-    Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation
-    """
+    """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CollectionConnection!
   communities(
     access: EntityPermissionFilter = READ_ONLY
     order: SimpleOrder = RECENT
-
-    """
-    Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation
-    """
+    """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CommunityConnection!
@@ -1803,37 +1469,24 @@ type User implements ExposesPermissions & Node & Sluggable {
   items(
     access: EntityPermissionFilter = READ_ONLY
     order: SimpleOrder = RECENT
-
-    """
-    Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation
-    """
+    """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-
     """Returns the elements in the list that come after the specified cursor."""
     after: String
-
-    """
-    Returns the elements in the list that come before the specified cursor.
-    """
+    """Returns the elements in the list that come before the specified cursor."""
     before: String
-
     """Returns the first _n_ elements from the list."""
     first: Int
-
     """Returns the last _n_ elements from the list."""
     last: Int
-
     """The page of edges/nodes to fetch"""
     page: Int
-
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
-
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): ItemConnection!
   name: String
-
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   slug: Slug!
@@ -1845,10 +1498,8 @@ type User implements ExposesPermissions & Node & Sluggable {
 type UserConnection {
   """A list of edges."""
   edges: [UserEdge]
-
   """A list of nodes."""
   nodes: [User]
-
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1857,7 +1508,6 @@ type UserConnection {
 type UserEdge {
   """A cursor for use in pagination."""
   cursor: String!
-
   """The item at the end of the edge."""
   node: User
 }
@@ -1865,10 +1515,8 @@ type UserEdge {
 """A user-readable error"""
 type UserError {
   code: String
-
   """A description of the error"""
   message: String!
-
   """Which input value this error came from"""
   path: [String!]
 }
