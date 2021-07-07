@@ -2,7 +2,6 @@ export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { useGlobalData } from "./useGlobalData";
 export { default as useAuthenticatedQuery } from "./useAuthenticatedQuery";
 export { default as useAuthenticatedFetchKey } from "./useAuthenticatedFetchKey";
-export { default as useFocusTrap } from "./useFocusTrap";
 export { default as useGetQuery } from "./useGetQuery";
 export { default as useGetQueryParam } from "./useGetQueryParam";
 export { default as useHasRole } from "./useHasRole";
