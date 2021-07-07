@@ -4,5 +4,6 @@ export { default as ContentTitle } from "./ContentTitle";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as SidebarNav } from "../layout/SidebarNav";
 export { default as Pagination } from "./Pagination";
-export { default as DropdownMenu } from "./DropdownMenu";
+export { default as DropdownMenu } from "./dropdown/DropdownMenu";
+export { default as Dropdown } from "./dropdown/Dropdown";
 export { default as T } from "./Translate";

@@ -27,8 +27,13 @@ export default css`
     ${aGlow("lightMode")}
   }
 
-  .a-bg-neutral00 {
+  .a-bg-neutral00,
+  .a-bg-brand10 {
     ${aBgLight("neutral00")}
+  }
+
+  .a-bg-brand10 {
+    --background-color: var(--brand10);
   }
 
   .a-bg-brand100,
@@ -38,6 +43,9 @@ export default css`
 
   .a-bg-brand90 {
     --background-color: var(--brand90);
+    --color: var(--brand10);
+    --color-light: var(--brand10);
+    --color-lighter: var(--brand20);
   }
 
   .a-input {

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import CICBreadcrumbs from "@castiron/components-breadcrumbs";
-import { DropdownMenu, MixedLink } from "components/atomic";
+import { Dropdown, MixedLink } from "components/atomic";
 import { useTranslation } from "react-i18next";
 
 const BreadcrumbsWrapper = ({
@@ -43,9 +43,9 @@ const BreadcrumbsWrapper = ({
     breadcrumbItems.push(getLink(data[0], 0));
     // Add dropdown
     breadcrumbItems.push(
-      <DropdownMenu
+      <Dropdown
         key={1}
-        menuProps={{ "aria-label": t("breadcrumb.dropdown.label") }}
+        label={t("breadcrumb.dropdown.label")}
         disclosure={<button>...</button>}
         menuItems={dropdownItems}
       />
@@ -74,6 +74,8 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
   }
 
   &__li {
+    display: flex;
+
     &:focus-visible {
       outline: 0;
     }
