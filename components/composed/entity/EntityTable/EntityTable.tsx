@@ -85,11 +85,18 @@ const EntityTable = ({
   // Prepare rows
   rows.forEach((row) => prepareRow(row));
 
+  const checkboxProps = getToggleAllRowsSelectedProps();
+
   return (
-    <Table withRowSelection={withRowSelection} rows={rows} {...getTableProps()}>
+    <Table
+      withRowSelection={withRowSelection}
+      showCheckboxes={checkboxProps.indeterminate || checkboxProps.checked}
+      rows={rows}
+      {...getTableProps()}
+    >
       <Table.Header
         withCheckbox={withRowSelection}
-        checkboxProps={getToggleAllRowsSelectedProps()}
+        checkboxProps={checkboxProps}
         headerGroups={headerGroups}
       />
       <Table.Body rows={rows} {...getTableBodyProps()} />
