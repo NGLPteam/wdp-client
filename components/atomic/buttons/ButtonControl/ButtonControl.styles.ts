@@ -41,7 +41,7 @@ export const ButtonControl = styled.button<BaseProps>`
       }
     `}
 
-  &:hover {
+  &:hover:not(:disabled):not([aria-disabled="true"]) {
     background-color: var(--brand100);
     color: var(--neutral00);
   }
@@ -60,6 +60,8 @@ export const ButtonControl = styled.button<BaseProps>`
   &[aria-disabled="true"],
   [aria-disabled="true"] & {
     opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
   }
 `;
 
