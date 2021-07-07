@@ -47,12 +47,10 @@ export default function ItemList() {
   const actions = useMemo(
     () => ({
       edit: {
-        // eslint-disable-next-line no-console
-        handleClick: ({ row }) => console.log(`edit ${row.original.slug}`),
+        handleClick: ({ row }) => console.info(`edit ${row.original.slug}`),
       },
       delete: {
-        // eslint-disable-next-line no-console
-        handleClick: ({ row }) => console.log(`delete ${row.original.slug}`),
+        handleClick: ({ row }) => console.info(`delete ${row.original.slug}`),
       },
     }),
     []

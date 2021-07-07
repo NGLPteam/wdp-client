@@ -28,6 +28,8 @@ module.exports = {
         argsIgnorePattern: "[iI]gnored",
       },
     ],
+    // Allow console.info
+    "no-console": ["error", { allow: ["info"] }],
   },
   overrides: [
     {

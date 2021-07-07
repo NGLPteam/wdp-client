@@ -34,7 +34,7 @@ const EntityList = ({
               <Search
                 onSubmit={(value) => {
                   // eslint-disable-next-line
-                  console.log("search", value);
+                  console.info("search", value);
                 }}
               />
             }
@@ -42,7 +42,7 @@ const EntityList = ({
               <ButtonControl
                 onClick={() => {
                   // eslint-disable-next-line
-                  console.log("click");
+                  console.info("click");
                 }}
                 icon="plus"
               >
