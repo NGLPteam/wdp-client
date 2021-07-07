@@ -6,7 +6,7 @@ import useColumnInject from "./plugins/useColumnInject";
 import useRowActions from "./plugins/useRowActions";
 import mapSortBy from "./helpers/mapSortBy";
 import { ColumnOptions } from "types/react-table";
-import { PageInfo } from "types/common";
+import { PageInfo } from "types/graphql-schema";
 
 const EntityTable = ({
   entities,

@@ -29,6 +29,7 @@ export type CollectionListQueryResponse = {
                 readonly hasNextPage: boolean;
                 readonly hasPreviousPage: boolean;
                 readonly totalCount: number;
+                readonly totalUnfilteredCount: number;
             };
         };
     } | null;
@@ -65,6 +66,7 @@ query CollectionListQuery(
         hasNextPage
         hasPreviousPage
         totalCount
+        totalUnfilteredCount
       }
     }
     id
@@ -238,6 +240,13 @@ v2 = {
           "kind": "ScalarField",
           "name": "totalCount",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalUnfilteredCount",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -290,14 +299,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6351cc45407b5609ce001f21b851784f",
+    "cacheID": "e0be14342417584dd086dc493056e36e",
     "id": null,
     "metadata": {},
     "name": "CollectionListQuery",
     "operationKind": "query",
-    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query CollectionListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a97bcdeb0ecd718cf21985f388c741f8';
+(node as any).hash = '65cc2becbab91510af0d58494e74be8f';
 export default node;

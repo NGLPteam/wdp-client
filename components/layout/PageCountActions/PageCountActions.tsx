@@ -1,6 +1,6 @@
 import React from "react";
-import { PageInfo } from "helpers/sharedTypes";
 import { Trans } from "react-i18next";
+import { PageInfo } from "types/graphql-schema";
 import * as Styled from "./PageCountActions.styles";
 
 /**

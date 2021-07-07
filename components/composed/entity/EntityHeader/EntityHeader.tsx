@@ -4,7 +4,7 @@ import { PageHeader } from "components/layout";
 import { TabNav } from "components/atomic";
 
 import { BreadcrumbListType } from "hooks/useBreadcrumbs";
-import { EntityKind } from "types/common";
+import { EntityKind } from "types/graphql-schema";
 import { entityMap } from "helpers/routes";
 
 /**
