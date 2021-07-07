@@ -59,7 +59,7 @@ export default function CommunityList() {
     () =>
       data?.communities?.edges
         ? data?.communities?.edges.map(({ node }) => ({ ...node }))
-        : [],
+        : null,
     [data]
   );
 
