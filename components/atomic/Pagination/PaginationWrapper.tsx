@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
 import { ButtonControl } from "components/atomic/buttons";
-import { normalizePathData } from "helpers/routes";
+import { MixedLink } from "components/atomic";
 import { useRouter } from "next/router";
-import { UrlObject } from "url";
 
 const PaginationWrapper = ({ className, ...props }: Props) => {
   const inputClassname = `${className}__input-wrapper`;
@@ -14,22 +12,22 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
     total: `${className}__total`,
   };
   const { currentPage, totalPages } = props;
-  const router = useRouter();
-  const { pathname, pathParams } = normalizePathData(router.asPath);
 
-  const makeLinkObject = (page: number): UrlObject => ({
-    pathname: pathname || "",
-    query: { ...pathParams, page: page },
-  });
+  // Get current path and query without using next router
+  const pathname = window.location.pathname;
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const router = useRouter();
 
   const handleSubmit = (value) => {
-    router.push(makeLinkObject(value));
+    router.push({ pathname, query: { ...params, page: value } });
   };
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
-      <Link
-        href={currentPage <= 1 ? "#" : makeLinkObject(currentPage - 1)}
+      <MixedLink
+        href={pathname}
+        params={{ ...params, page: currentPage - 1 }}
         passHref
       >
         <ButtonControl
@@ -39,7 +37,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
           aria-label="Previous Page"
           aria-disabled={currentPage <= 1}
         />
-      </Link>
+      </MixedLink>
       <CICPaginationInput
         {...props}
         className={inputClassname}
@@ -47,8 +45,9 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
         inputId="paginationInput"
         onSubmitPage={handleSubmit}
       />
-      <Link
-        href={currentPage >= totalPages ? "#" : makeLinkObject(currentPage + 1)}
+      <MixedLink
+        href={pathname}
+        params={{ ...params, page: currentPage + 1 }}
         passHref
       >
         <ButtonControl
@@ -58,7 +57,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
           aria-label="Next Page"
           aria-disabled={currentPage >= totalPages}
         />
-      </Link>
+      </MixedLink>
     </nav>
   );
 };
