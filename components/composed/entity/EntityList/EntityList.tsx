@@ -15,6 +15,7 @@ const EntityList = ({
   isLoading,
   error,
   entityName,
+  entities,
   pageInfo,
   ...props
 }: EntityListProps) => {
@@ -50,7 +51,11 @@ const EntityList = ({
             }
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}
-          <EntityTable {...props} />
+          {entities ? (
+            <EntityTable entities={entities} {...props} />
+          ) : (
+            <div>No results</div>
+          )}
           {pageInfo && (
             <Pagination
               currentPage={pageInfo.page}
