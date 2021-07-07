@@ -1,5 +1,6 @@
 import React from "react";
 import { PageInfo } from "helpers/sharedTypes";
+import { Trans } from "react-i18next";
 import * as Styled from "./PageCountActions.styles";
 
 /**
@@ -14,20 +15,28 @@ const PageCountActions = ({
 }: Props) => {
   if (!pageInfo) return;
   const hasSelected = selectedCount > 1;
-  const label = hasSelected ? `Selected: ` : `Showing `;
-  const displayCount = hasSelected
-    ? selectedCount
-    : pageInfo.totalCount < pageInfo.perPage
-    ? pageInfo.totalCount
-    : pageInfo.perPage;
+  const { page, perPage, totalCount } = pageInfo;
+  const start = (page - 1) * perPage + 1;
+  const end = totalCount < perPage ? totalCount : page * perPage;
 
   return (
     <Styled.Wrapper>
       <Styled.Count className="t-label-md a-color-light">
-        <span className={hasSelected ? "a-color-accent" : null}>{label}</span>
-        <span className="a-color-accent">{displayCount}</span>
-        {` of `}
-        <span className="a-color-accent">{pageInfo.totalCount}</span>
+        {hasSelected ? (
+          <Trans
+            ns="common"
+            i18nKey="selectedCount"
+            values={{ count: selectedCount, total: totalCount }}
+            components={[<span key="color" className="a-color-accent"></span>]}
+          />
+        ) : (
+          <Trans
+            ns="common"
+            i18nKey="showingCount"
+            values={{ start, end, total: totalCount }}
+            components={[<span key="color" className="a-color-accent"></span>]}
+          />
+        )}
       </Styled.Count>
       {multiselectActions && selectedCount ? (
         <Styled.Actions>{multiselectActions}</Styled.Actions>

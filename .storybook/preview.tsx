@@ -1,13 +1,15 @@
 import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";
 import get from "lodash/get";
+import { I18nextProvider } from "react-i18next";
+import i18n from "helpers/i18n";
 
 export const decorators = [
   (Story) => (
-    <>
+    <I18nextProvider i18n={i18n}>
       <GlobalStyles />
       <Story />
-    </>
+    </I18nextProvider>
   ),
 ];
 
@@ -25,11 +27,6 @@ export const parameters = {
         name: "brand100",
         class: "a-bg-brand100",
         color: `var(--brand100, ${get(colors, "brand.100")})`,
-      },
-      {
-        name: "brand90",
-        class: "a-bg-brand90",
-        color: `var(--brand90, ${get(colors, "brand.90")})`,
       },
     ],
   },
