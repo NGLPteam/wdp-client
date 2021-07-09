@@ -8,7 +8,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   --table-border: 1px solid var(--neutral40);
   --table-border-radius: ${pxToRem("6px")};
   --table-column-gap: ${basePadding(4)};
-  --table-margin-inline-start: var(--table-column-gap);
+  --table-margin-left: var(--table-column-gap);
   --table-margin-right: var(--table-column-gap);
   --checkbox-opacity: 0;
   --checkbox-visibility: 0;
@@ -16,7 +16,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   ${({ withRowSelection }) =>
     withRowSelection &&
     css`
-      --table-margin-inline-start: ${basePadding(13)};
+      --table-margin-left: ${basePadding(13)};
     `}
 
   ${({ showCheckboxes }) =>
@@ -32,10 +32,10 @@ export const TableWrapper = styled.div<TableWrapperProps>`
 
   ${respond(
     css`
-      --table-margin-inline-start: 0px;
+      --table-margin-left: 0px;
       --table-margin-right: 0px;
       &[data-multiselect="true"] {
-        --table-margin-inline-start: 0px;
+        --table-margin-left: 0px;
       }
     `,
     100
