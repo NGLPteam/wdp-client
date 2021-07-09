@@ -1,4 +1,5 @@
 import CICInput from "@castiron/components-input";
+import { useUID } from "react-uid";
 
 const Input = ({
   className,
@@ -6,11 +7,13 @@ const Input = ({
   labelProps = {},
   ...props
 }: Props) => {
+  const uid = useUID();
   inputProps.className = `${className}__input`;
   labelProps.className = `${className}__label`;
 
   return (
     <CICInput
+      inputId={uid}
       className={className}
       inputProps={inputProps}
       labelProps={labelProps}
@@ -22,7 +25,6 @@ const Input = ({
 interface Props {
   className: string;
   type?: string;
-  inputId: string;
   label: string | React.ReactNode;
   description: string | React.ReactNode;
   inputProps: React.InputHTMLAttributes<HTMLInputElement>;
