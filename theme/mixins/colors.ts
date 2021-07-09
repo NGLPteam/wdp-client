@@ -1,6 +1,6 @@
 // See: https://css-tricks.com/converting-color-spaces-in-javascript/
 
-export function hexToHSL(H: string | string[]) {
+export function hexToHSLA(H: string | string[], A = 1) {
   // Convert hex to RGB first
   let r: string | number | bigint;
   let g: string | number | bigint;
@@ -40,5 +40,5 @@ export function hexToHSL(H: string | string[]) {
   s = +(s * 100).toFixed(1);
   l = +(l * 100).toFixed(1);
 
-  return "hsl(" + h + "," + s + "%," + l + "%)";
+  return `hsla(${h},${s}%,${l}%, ${A})`;
 }

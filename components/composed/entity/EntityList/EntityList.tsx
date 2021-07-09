@@ -8,6 +8,7 @@ import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { EntityTable } from "components/composed/entity";
+import Link from "next/link";
 
 type EntityTableProps = React.ComponentProps<typeof EntityTable>;
 
@@ -21,6 +22,7 @@ const EntityList = ({
 }: EntityListProps) => {
   const { t } = useTranslation("glossary");
   const title = t(entityName, { count: 2 });
+  const pathname = window.location.pathname;
 
   return (
     <section>
@@ -39,15 +41,19 @@ const EntityList = ({
               />
             }
             actions={
-              <ButtonControl
-                onClick={() => {
-                  // eslint-disable-next-line
-                  console.info("click");
+              <Link
+                href={{
+                  pathname,
+                  query: {
+                    drawer: "add",
+                  },
                 }}
-                icon="plus"
+                passHref
               >
-                Add
-              </ButtonControl>
+                <ButtonControl as="a" icon="plus">
+                  Add
+                </ButtonControl>
+              </Link>
             }
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}

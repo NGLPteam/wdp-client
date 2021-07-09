@@ -1,5 +1,5 @@
 import { respondBase, fluidScaleBase } from "@castiron/style-mixins";
-import { breakpoints, zIndex } from "../base/variables";
+import { breakpoints } from "../base/variables";
 import get from "lodash/get";
 
 export function respond(content, size, operator = "max", aspect = "width") {
@@ -16,8 +16,4 @@ export function fluidScale(
 ) {
   if (max === min) return max;
   return fluidScaleBase(max, min, maxVw, minVw);
-}
-
-export function getZIndex(key) {
-  return zIndex[key] ? zIndex[key] : 0;
 }

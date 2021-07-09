@@ -4,7 +4,7 @@ import { pxToRem } from "./functions";
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
     ? css`
-        text-shadow: 0 0 ${pxToRem("6px")} hsla(var(--brand100), 0.2);
+        text-shadow: 0 0 ${pxToRem("6px")} var(--light-glow-color);
       `
     : css`
         text-shadow: 0 0 ${pxToRem("8px")} var(--brand30);
@@ -14,7 +14,7 @@ export function aTextGlow(type: "darkMode" | "lightMode") {
 export function aGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
     ? css`
-        box-shadow: 0 0 ${pxToRem("6px")} hsla(var(--brand100), 0.2);
+        box-shadow: 0 0 ${pxToRem("6px")} var(--light-glow-color);
         outline: 0;
         transition: box-shadow var(--base-duration) var(--base-timing);
       `
@@ -98,5 +98,5 @@ export function aBaseInput() {
 // Returns padding at base 4
 // size 1 = 4px, size 2 = 8px, etc
 export function basePadding(size: number) {
-  return pxToRem(`${size * 4}px`);
+  return pxToRem(size * 4);
 }
