@@ -19,18 +19,6 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
     background-color: transparent;
   }
 
-  &:focus-within &__input,
-  &:hover &__input {
-    &::placeholder {
-      color: var(--brand90);
-    }
-
-    &::-webkit-search-cancel-button {
-      cursor: pointer;
-      background-image: url(${encodedIconClose({ fill: "#000" })});
-    }
-  }
-
   &__input {
     width: 100%;
     background-color: var(--background-light);
@@ -48,7 +36,7 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
 
     &::-webkit-search-cancel-button {
       position: relative;
-      right: 0;
+      inset-inline-end: 0;
 
       appearance: none;
       height: 20px;
@@ -58,10 +46,22 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
     }
   }
 
+  &:focus-within &__input,
+  &:hover &__input {
+    &::placeholder {
+      color: var(--brand90);
+    }
+
+    &::-webkit-search-cancel-button {
+      cursor: pointer;
+      background-image: url(${encodedIconClose({ fill: "#000" })});
+    }
+  }
+
   &__icon {
     position: absolute;
-    top: 50%;
+    inset-block-start: 50%;
     transform: translateY(-50%);
-    left: var(--search-left-padding);
+    inset-inline-start: var(--search-left-padding);
   }
 `;

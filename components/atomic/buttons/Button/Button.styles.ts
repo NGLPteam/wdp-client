@@ -39,14 +39,14 @@ const Button = styled.button<Props>`
     outline: 0;
   }
 
-  &:focus-visible:not(:hover) {
-    --button-background-color: var(--button-focus-color);
-    border-color: var(--button-focus-border);
-  }
-
   &:disabled,
   [data-disabled="true"] {
     opacity: var(--button-disabled-opacity);
+  }
+
+  &:focus-visible:not(:hover) {
+    --button-background-color: var(--button-focus-color);
+    border-color: var(--button-focus-border);
   }
 `;
 

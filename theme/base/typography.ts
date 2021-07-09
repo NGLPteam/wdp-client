@@ -21,7 +21,6 @@ export default css`
   h4,
   h5,
   h6 {
-    // font-family: var(--font-face-header, inherit);
     font-weight: var(--font-weight-h1);
     color: var(--header-color);
   }

@@ -25,13 +25,13 @@ export const tLink = (color?: string) => css`
 // Base list styling
 export const tList = css`
   padding: 0;
-  margin-left: ${basePadding(2)};
+  margin-inline-start: ${basePadding(2)};
 `;
 
 // Remove list styling
 export const tListUnstyled = css`
   padding: 0;
-  margin-left: 0;
+  margin-inline-start: 0;
   list-style-type: none;
 `;
 

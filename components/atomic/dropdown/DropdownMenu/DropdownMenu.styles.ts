@@ -40,7 +40,7 @@ export const Menu = styled.div<StyledMenuProps>`
   color: var(--accent-light);
   transition: opacity 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
-  margin-top: ${basePadding(1)};
+  margin-block-start: ${basePadding(1)};
 `;
 
 interface StyledMenuProps {
@@ -52,18 +52,18 @@ export const Item = styled(MenuItem)`
   margin: var(--menu-item-margin, 0);
   border-bottom: var(--menu-item-border, 0);
   padding: var(--menu-item-padding, 0);
-  text-align: left;
+  text-align: start;
   color: var(--accent-light);
   ${tLabel("md")}
+
+  &:focus {
+    outline: 0;
+  }
 
   &:hover,
   &:focus-visible:not(:hover) {
     color: var(--neutral00);
     border-bottom: var(--menu-item-hover-border, 0);
     background: var(--menu-item-hover-background, none);
-  }
-
-  &:focus {
-    outline: 0;
   }
 `;

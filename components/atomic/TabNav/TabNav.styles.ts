@@ -20,20 +20,20 @@ const activeState = css`
 `;
 
 export const Tab = styled.a<Props>`
-  // Setting default values lets tabs work with any background
+  /* Setting default values lets tabs work with any background */
   --tab-color: inherit;
   --tab-hover-color: var(--color-light);
 
   display: inline-block;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  padding-bottom: ${basePadding(2)};
+  padding-block-end: ${basePadding(2)};
   color: var(--tab-color);
   transition: var(--border-transition), var(--color-transition);
   ${tLabel("md")}
 
   .a-bg-neutral00 & {
-    // Specific values for white backgrounds
+    /* Specific values for white backgrounds */
     --tab-color: var(--neutral80);
     --tab-hover-color: var(--neutral60);
   }

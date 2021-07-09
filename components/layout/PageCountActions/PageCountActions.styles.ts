@@ -3,7 +3,7 @@ import { basePadding } from "theme/mixins/appearance";
 
 export const Wrapper = styled.div`
   min-height: ${basePadding(10)};
-  padding-bottom: ${basePadding(2)};
+  padding-block-end: ${basePadding(2)};
   display: flex;
   flex-wrap: wrap;
   align-items: center;

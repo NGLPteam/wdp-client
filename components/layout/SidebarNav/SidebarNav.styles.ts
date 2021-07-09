@@ -3,7 +3,7 @@ import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tHeading } from "theme/mixins/typography";
 
 export const Nav = styled.nav`
-  padding-top: ${basePadding(1)};
+  padding-block: ${basePadding(1)};
   padding-inline-end: ${basePadding(7)};
 `;
 
@@ -11,14 +11,14 @@ export const List = styled.ul``;
 
 export const ListItem = styled.li`
   & + & {
-    padding-top: ${basePadding(5)};
+    padding-block: ${basePadding(5)};
   }
 `;
 
 export const Link = styled.a<LinkProps>`
   display: block;
   box-shadow: inset 0 -1px 0 var(--neutral40);
-  padding-bottom: 6px;
+  padding-block-end: 6px;
   color: var(--color-light);
   transition: box-shadow var(--base-duration) var(--base-timing),
     var(--color-transition);

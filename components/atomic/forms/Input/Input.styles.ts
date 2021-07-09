@@ -11,7 +11,7 @@ const Input = styled(InputWrapper)<Props>`
 
   &__label {
     ${tLabel("sm")};
-    padding-bottom: ${pxToRem("6px")};
+    padding-block-end: ${pxToRem("6px")};
     color: var(--color-light);
   }
 

@@ -23,7 +23,7 @@ export const List = styled.ul<ListProps>`
   color: var(--accent-light);
   transition: opacity 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
-  margin-top: ${basePadding(1)};
+  margin-block-start: ${basePadding(1)};
   opacity: 1;
 
   &[aria-hidden="true"] {
@@ -38,7 +38,7 @@ interface ListProps {
 export const Item = styled.li`
   transition: var(--color-transition), var(--background-transition);
   padding: ${basePadding(2)} ${basePadding(6)};
-  text-align: left;
+  text-align: start;
   color: var(--color);
 
   &:hover,
