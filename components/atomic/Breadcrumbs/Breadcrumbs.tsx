@@ -69,7 +69,7 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
   &__ol {
     display: flex;
     list-style: none;
-    margin-bottom: 36px;
+    margin-block-end: 36px;
     font-size: var(--font-size-sm);
   }
 

@@ -14,8 +14,8 @@ export const Nav = styled.nav`
   margin: 0 auto;
   max-width: var(--container-max);
   border-top: 1px solid var(--neutral40);
-  padding-top: ${basePadding(10)};
-  padding-bottom: ${basePadding(17)};
+  padding-block: ${basePadding(10)};
+  padding-block-end: ${basePadding(17)};
 
   &.l-grid {
     row-gap: ${basePadding(10)};
@@ -24,7 +24,7 @@ export const Nav = styled.nav`
 
 export const Header = styled.h3`
   ${tLabel("sm")}
-  padding-bottom: ${basePadding(3.5)};
+  padding-block-end: ${basePadding(3.5)};
 `;
 
 export const List = styled.ul`
@@ -33,7 +33,7 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   & + & {
-    padding-top: ${basePadding(4)};
+    padding-block: ${basePadding(4)};
   }
 
   a {

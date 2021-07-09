@@ -24,7 +24,7 @@ export default css`
   }
 
   .t-align-right {
-    text-align: right;
+    text-align: end;
   }
 
   .t-align-center {
@@ -32,7 +32,7 @@ export default css`
   }
 
   .t-align-left {
-    text-align: left;
+    text-align: start;
   }
 
   /* Rich Text */
@@ -42,7 +42,7 @@ export default css`
     }
 
     > * + * {
-      margin-top: 1.3em;
+      margin-block-start: 1.3em;
     }
 
     ul,

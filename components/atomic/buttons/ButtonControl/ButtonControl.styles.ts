@@ -14,7 +14,7 @@ export const ButtonControl = styled.button<BaseProps>`
   background-color: var(--brand10);
   padding: ${pxToRem("5px")} ${pxToRem("8px")};
   ${tLabel("sm")}
-  text-align: left;
+  text-align: start;
   color: var(--brand100);
   transition: var(--color-transition), var(--border-transition),
     var(--background-transition), var(--opacity-transition);
@@ -41,9 +41,12 @@ export const ButtonControl = styled.button<BaseProps>`
       }
     `}
 
-  &:hover:not(:disabled):not([aria-disabled="true"]) {
-    background-color: var(--brand100);
-    color: var(--neutral00);
+  &:disabled,
+    &[aria-disabled="true"],
+    [aria-disabled="true"] & {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
   }
 
   &:focus {
@@ -56,12 +59,9 @@ export const ButtonControl = styled.button<BaseProps>`
     ${aGlow("lightMode")}
   }
 
-  &:disabled,
-  &[aria-disabled="true"],
-  [aria-disabled="true"] & {
-    opacity: 0.4;
-    cursor: default;
-    pointer-events: none;
+  &:hover:not(:disabled):not([aria-disabled="true"]) {
+    background-color: var(--brand100);
+    color: var(--neutral00);
   }
 `;
 

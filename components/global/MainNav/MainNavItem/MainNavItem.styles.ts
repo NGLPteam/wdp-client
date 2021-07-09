@@ -5,7 +5,7 @@ import { aTextGlow } from "theme/mixins/appearance";
 const MainNavItem = styled.a<Props>`
   display: inline-block;
   border-bottom: 2px solid transparent;
-  padding-bottom: 1px;
+  padding-block-end: 1px;
   transition: var(--border-transition), var(--color-transition);
   color: var(--accent-light);
   ${tLabel("md")}

@@ -8,7 +8,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   --table-border: 1px solid var(--neutral40);
   --table-border-radius: ${pxToRem("6px")};
   --table-column-gap: ${basePadding(4)};
-  --table-margin-left: var(--table-column-gap);
+  --table-margin-inline-start: var(--table-column-gap);
   --table-margin-right: var(--table-column-gap);
   --checkbox-opacity: 0;
   --checkbox-visibility: 0;
@@ -16,7 +16,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   ${({ withRowSelection }) =>
     withRowSelection &&
     css`
-      --table-margin-left: ${basePadding(13)};
+      --table-margin-inline-start: ${basePadding(13)};
     `}
 
   ${({ showCheckboxes }) =>
@@ -28,14 +28,14 @@ export const TableWrapper = styled.div<TableWrapperProps>`
 
   border-top: var(--table-border);
   border-bottom: var(--table-border);
-  margin-bottom: ${basePadding(6)};
+  margin-block-end: ${basePadding(6)};
 
   ${respond(
     css`
-      --table-margin-left: 0px;
+      --table-margin-inline-start: 0px;
       --table-margin-right: 0px;
       &[data-multiselect="true"] {
-        --table-margin-left: 0px;
+        --table-margin-inline-start: 0px;
       }
     `,
     100
@@ -89,11 +89,11 @@ export const HeaderCell = styled.th`
 export const HeaderCellInner = styled.span`
   display: flex;
   align-items: center;
-  padding-top: ${pxToRem("7px")};
-  padding-bottom: ${pxToRem("7px")};
+  padding-block: ${pxToRem("7px")};
+  padding-block-end: ${pxToRem("7px")};
   padding-inline-end: var(--table-column-gap);
   ${tLabel("sm")}
-  text-align: left;
+  text-align: start;
 
   > * + * {
     margin-inline-start: ${basePadding(2)};
@@ -101,8 +101,8 @@ export const HeaderCellInner = styled.span`
 `;
 
 export const Cell = styled.td`
-  padding-top: ${basePadding(2)};
-  padding-bottom: ${basePadding(2)};
+  padding-block: ${basePadding(2)};
+  padding-block-end: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
 
   ${({ align }) =>
@@ -160,7 +160,7 @@ export const SortButton = styled.button`
   align-items: center;
   justify-content: space-between;
   ${tLabel("sm")}
-  text-align: left;
+  text-align: start;
   transition: var(--color-transition);
 
   > span {
