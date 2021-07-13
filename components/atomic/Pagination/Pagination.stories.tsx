@@ -1,8 +1,11 @@
+import React from "react";
+import { withNextRouter } from "storybook-addon-next-router";
 import Pagination from ".";
 
 export default {
   title: "Components/Atomic/Pagination",
   component: Pagination,
+  decorators: [withNextRouter],
   parameters: {
     themes: {
       default: "neutral00",

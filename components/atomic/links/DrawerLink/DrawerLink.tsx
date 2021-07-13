@@ -6,7 +6,7 @@ type LinkProps = React.ComponentProps<typeof Link>;
  * Opens a Drawer from query parameters
  */
 const DrawerLink = forwardRef(
-  ({ children, drawer, query, ...props }: Props, ref) => {
+  ({ children, drawer, query, passHref, ...props }: Props, ref) => {
     const pathname = window.location.pathname;
 
     /* Add Drawer query params */
@@ -16,7 +16,11 @@ const DrawerLink = forwardRef(
     };
 
     return (
-      <Link href={{ pathname, query: { ...drawerQuery, ...query } }} {...props}>
+      <Link
+        href={{ pathname, query: { ...drawerQuery, ...query } }}
+        passHref={passHref}
+        {...props}
+      >
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
@@ -25,11 +29,12 @@ const DrawerLink = forwardRef(
   }
 );
 export interface Props extends Omit<LinkProps, "href"> {
-  children: React.ReactNode;
   /** Drawer to open */
   drawer: string;
   /** Extra query parameters */
   query?: Record<string, string | number>;
+  /** Pass href to child component */
+  passHref?: boolean;
 }
 
 export default DrawerLink;

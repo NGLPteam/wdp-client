@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./MainFooter.styles";
 import MainFooterNav from "./MainFooterNav";
-import { MixedLink } from "components/atomic";
+import Link from "next/link";
 import { LogoPlaceholder } from "components/global";
 
 const MainFooter = ({ children, copyright, about }: Props) => {
@@ -9,9 +9,9 @@ const MainFooter = ({ children, copyright, about }: Props) => {
     <Styled.Wrapper>
       <Styled.Nav className="l-grid">
         <div className="l-grid__item l-grid__item--4">
-          <MixedLink href="/" passHref>
+          <Link href="/" passHref>
             <LogoPlaceholder>Powered by NGLP–WDP</LogoPlaceholder>
-          </MixedLink>
+          </Link>
         </div>
         {children &&
           children.map((child, i) => (

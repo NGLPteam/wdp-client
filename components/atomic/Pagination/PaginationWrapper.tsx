@@ -1,7 +1,7 @@
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
 import { ButtonControl } from "components/atomic/buttons";
-import { MixedLink } from "components/atomic";
-import { useRouter } from "next/router";
 
 const PaginationWrapper = ({ className, ...props }: Props) => {
   const inputClassname = `${className}__input-wrapper`;
@@ -20,14 +20,13 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
   const router = useRouter();
 
   const handleSubmit = (value) => {
-    router.push({ pathname, query: { ...params, page: value } });
+    router.push({ pathname, query: { ...router.query, page: value } });
   };
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
-      <MixedLink
-        href={pathname}
-        params={{ ...params, page: currentPage - 1 }}
+      <Link
+        href={{ pathname, query: { ...params, page: currentPage - 1 } }}
         passHref
       >
         <ButtonControl
@@ -37,7 +36,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
           aria-label="Previous Page"
           aria-disabled={currentPage <= 1}
         />
-      </MixedLink>
+      </Link>
       <CICPaginationInput
         {...props}
         className={inputClassname}
@@ -45,9 +44,8 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
         inputId="paginationInput"
         onSubmitPage={handleSubmit}
       />
-      <MixedLink
-        href={pathname}
-        params={{ ...params, page: currentPage + 1 }}
+      <Link
+        href={{ pathname, query: { ...params, page: currentPage + 1 } }}
         passHref
       >
         <ButtonControl
@@ -57,7 +55,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
           aria-label="Next Page"
           aria-disabled={currentPage >= totalPages}
         />
-      </MixedLink>
+      </Link>
     </nav>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import MainFooter from "components/global/MainFooter";
-import { MixedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 
 const DEFAULTS = {
   about: `Our Institution’s Name, in partnership with the Name of a Service
@@ -14,21 +14,21 @@ function AppFooter() {
   return (
     <MainFooter {...DEFAULTS}>
       <MainFooter.Nav header="Manage">
-        <MixedLink route="communityList" passHref>
+        <NamedLink route="communityList" passHref>
           <a>Communities</a>
-        </MixedLink>
-        <MixedLink route="collectionList" passHref>
+        </NamedLink>
+        <NamedLink route="collectionList" passHref>
           <a>Collections</a>
-        </MixedLink>
-        <MixedLink route="itemList" passHref>
+        </NamedLink>
+        <NamedLink route="itemList" passHref>
           <a>Items</a>
-        </MixedLink>
-        <MixedLink route="userList" passHref>
+        </NamedLink>
+        <NamedLink route="userList" passHref>
           <a>Users</a>
-        </MixedLink>
-        <MixedLink route="contributorList" passHref>
+        </NamedLink>
+        <NamedLink route="contributorList" passHref>
           <a>Contributors</a>
-        </MixedLink>
+        </NamedLink>
       </MainFooter.Nav>
       <MainFooter.Nav header="Learn">
         <a href="#">Features</a>

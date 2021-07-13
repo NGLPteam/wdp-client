@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import CICBreadcrumbs from "@castiron/components-breadcrumbs";
-import { Dropdown, MixedLink } from "components/atomic";
+import { Dropdown } from "components/atomic";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 const BreadcrumbsWrapper = ({
@@ -23,11 +24,11 @@ const BreadcrumbsWrapper = ({
     if (!data) return [];
 
     const getLink = ({ label, href, ...props }, i) => (
-      <MixedLink key={i} href={href} {...props}>
+      <Link key={i} href={href} {...props}>
         <a className={`${className}__link`}>
           <span className="t-copy-sm">{label}</span>
         </a>
-      </MixedLink>
+      </Link>
     );
 
     if (data.length < 4) {

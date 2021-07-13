@@ -6,7 +6,7 @@ import {
   CommunityListQueryVariables,
 } from "__generated__/CommunityListQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { MixedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 
 export default function CommunityList() {
   const columns = useMemo(
@@ -17,13 +17,13 @@ export default function CommunityList() {
         disableSortBy: true,
         Cell: ({ row, value }) => {
           return (
-            <MixedLink
+            <NamedLink
               route="communityDetail"
-              params={{ id: row.original.slug }}
+              routeParams={{ id: row.original.slug }}
               passHref
             >
               <a>{value}</a>
-            </MixedLink>
+            </NamedLink>
           );
         },
       },
