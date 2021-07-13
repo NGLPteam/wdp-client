@@ -1,15 +1,35 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
 } from "reakit/Dialog";
 import { aBgLight, basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
+import { reducedMotion } from "@castiron/style-mixins";
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+`;
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+`;
 
 export const DialogBackdrop = styled(BaseDialogBackdrop)`
   position: fixed;
   background: var(--dialog-backdrop-background);
-  transition: var(--opacity-transition);
+  transition: opacity 0.1s var(--base-timing);
   opacity: 0;
   inset-block: 0;
   inset-inline: 0;
@@ -32,12 +52,19 @@ export const Dialog = styled(BaseDialog)`
   overflow: auto;
   border: 1px solid var(--neutral10);
   transform: translateX(100%);
-  transition: transform var(--base-duration) var(--base-timing);
   z-index: var(--z-index-drawer);
   ${aBgLight()}
 
-  &[data-enter] {
+  ${reducedMotion(css`
     transform: translateX(0);
+  `)}
+
+  &[data-enter] {
+    animation: ${slideIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+  }
+
+  &[data-leave] {
+    animation: ${slideOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
   }
 `;
 

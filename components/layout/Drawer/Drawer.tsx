@@ -18,7 +18,6 @@ const Drawer = ({
   onClose,
   hideOnClickOutside = true,
 }: Props) => {
-  // const dialog = useDialogState({ animated: true });
   const uidLabel = useUID();
   const uidDesc = useUID();
   const { t } = useTranslation("common");
