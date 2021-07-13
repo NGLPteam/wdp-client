@@ -33,7 +33,7 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   & + & {
-    padding-block: ${basePadding(4)};
+    padding-block-start: ${basePadding(4)};
   }
 
   a {
