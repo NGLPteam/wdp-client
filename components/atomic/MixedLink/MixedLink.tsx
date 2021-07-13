@@ -39,7 +39,7 @@ const MixedLink = forwardRef(
       const { pathname, pathParams } = normalizePathData(pathnameInput);
       const linkObject: UrlObject = {
         pathname: pathname || "",
-        query: { ...pathParams, ...params },
+        query: { ...pathParams },
       };
 
       return (
