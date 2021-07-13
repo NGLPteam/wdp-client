@@ -5,7 +5,7 @@ import MixedLink from "./MixedLink";
 type MixedLinkProps = React.ComponentProps<typeof MixedLink>;
 
 export default {
-  title: "Components/Atomic/MixedLink",
+  title: "Components/Atomic/Links/MixedLink",
   component: MixedLink,
   parameters: {
     actions: {

@@ -1,14 +1,13 @@
 import React from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { Pagination } from "components/atomic";
+import { DrawerLink, Pagination } from "components/atomic";
 import { ButtonControl } from "components/atomic/buttons";
 import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { EntityTable } from "components/composed/entity";
-import Link from "next/link";
 
 type EntityTableProps = React.ComponentProps<typeof EntityTable>;
 
@@ -22,7 +21,7 @@ const EntityList = ({
 }: EntityListProps) => {
   const { t } = useTranslation("glossary");
   const title = t(entityName, { count: 2 });
-  const pathname = window.location.pathname;
+  const addLabel = t("actions.add", { entity: entityName });
 
   return (
     <section>
@@ -41,19 +40,11 @@ const EntityList = ({
               />
             }
             actions={
-              <Link
-                href={{
-                  pathname,
-                  query: {
-                    drawer: "add",
-                  },
-                }}
-                passHref
-              >
+              <DrawerLink drawer="add" passHref>
                 <ButtonControl as="a" icon="plus">
-                  Add
+                  {addLabel}
                 </ButtonControl>
-              </Link>
+              </DrawerLink>
             }
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}

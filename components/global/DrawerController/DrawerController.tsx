@@ -10,13 +10,18 @@ import { useDialogState } from "reakit/Dialog";
  */
 const DrawerController = () => {
   const { type, removeDialogQuery } = useDrawerQuery();
-  const dialog = useDialogState({ animated: true, visible: !!type });
+
+  const dialog = useDialogState({
+    animated: true,
+    visible: !!type,
+  });
 
   // Remove dialog query strings if the dialog is closed
   // This is needed in case the user hits escape or clicks outside the dialog
   useEffect(() => {
     if (!dialog.visible) removeDialogQuery();
-  }, [dialog.visible, removeDialogQuery]);
+    // eslint-disable-next-line
+  }, [dialog.visible]);
 
   // Open the drawer if dialog type is defined
   useEffect(() => {
@@ -26,7 +31,12 @@ const DrawerController = () => {
 
   // TODO: Change label, header and contents based on query
   return (
-    <Drawer label="Drawer" header="Drawer header" dialog={dialog}>
+    <Drawer
+      label={"Drawer Label"}
+      header={"Drawer Header"}
+      dialog={dialog}
+      hideOnClickOutside={false}
+    >
       <div>Content</div>
     </Drawer>
   );

@@ -16,6 +16,7 @@ const Drawer = ({
   children,
   onSave,
   onClose,
+  hideOnClickOutside = true,
 }: Props) => {
   // const dialog = useDialogState({ animated: true });
   const uidLabel = useUID();
@@ -37,6 +38,7 @@ const Drawer = ({
       <Styled.Dialog
         aria-labelledby={uidLabel}
         aria-describedby={uidDesc}
+        hideOnClickOutside={hideOnClickOutside}
         {...dialog}
       >
         <Styled.Header>
@@ -74,6 +76,8 @@ interface Props {
   onSave?: () => void;
   /** Function runs on close or cancel */
   onClose?: () => void;
+  /** If false, disables hiding on click outside the drawer */
+  hideOnClickOutside: boolean;
 }
 
 export default Drawer;

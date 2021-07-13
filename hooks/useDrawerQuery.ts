@@ -13,6 +13,7 @@ function useDrawerQuery() {
     type: query?.drawer,
     entity: query?.entity,
     removeDialogQuery,
+    hideOnClickOutside: query?.hideOnClickOutside,
   };
 }
 
