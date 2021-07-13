@@ -1,5 +1,5 @@
 import * as Styled from "./MainNav.styles";
-import { MixedLink } from "components/atomic";
+import Link from "next/link";
 import { LogoPlaceholder } from "components/global";
 import MainNavDropdown from "./MainNavDropdown";
 import MainNavItem from "./MainNavItem";
@@ -8,11 +8,11 @@ const MainNav = ({ children }: Props) => {
   return (
     <Styled.Nav className="a-bg-brand100">
       <Styled.Inner>
-        <MixedLink href="/" passHref>
+        <Link href="/" passHref>
           <LogoPlaceholder>
             <span className="t-label-md">Institution Name</span>
           </LogoPlaceholder>
-        </MixedLink>
+        </Link>
         <ul className="l-flex l-flex--align-center">
           {children &&
             children.map((child, i) => (

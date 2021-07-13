@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { MixedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 import { MainNav, ServiceProviderBar } from "components/global";
 import { Search } from "components/atomic/forms";
 import SignIn from "components/scaffolding/Auth/SignIn";
@@ -26,27 +26,27 @@ function AppHeader({ children, className = "" }: Props) {
     <header className={className} role="banner">
       <ServiceProviderBar />
       <MainNav>
-        <MixedLink route="communityList" passHref>
+        <NamedLink route="communityList" passHref>
           <MainNav.Item active={activeEntity === "communities"}>
             Communities
           </MainNav.Item>
-        </MixedLink>
-        <MixedLink route="collectionList" passHref>
+        </NamedLink>
+        <NamedLink route="collectionList" passHref>
           <MainNav.Item active={activeEntity === "collections"}>
             Collections
           </MainNav.Item>
-        </MixedLink>
-        <MixedLink route="itemList" passHref>
+        </NamedLink>
+        <NamedLink route="itemList" passHref>
           <MainNav.Item active={activeEntity === "items"}>Items</MainNav.Item>
-        </MixedLink>
+        </NamedLink>
         <div ref={submenuRef}>
           <MainNav.Dropdown active={active === "admin"} label="Manage">
-            <MixedLink route="userList" passHref>
+            <NamedLink route="userList" passHref>
               <MainNav.Item>Users</MainNav.Item>
-            </MixedLink>
-            <MixedLink route="contributorList" passHref>
+            </NamedLink>
+            <NamedLink route="contributorList" passHref>
               <MainNav.Item>Contributors</MainNav.Item>
-            </MixedLink>
+            </NamedLink>
           </MainNav.Dropdown>
         </div>
         <Search onSubmit={handleSubmit} />

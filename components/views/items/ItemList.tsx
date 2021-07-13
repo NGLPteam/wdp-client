@@ -7,7 +7,7 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { EntityList } from "components/composed/entity";
 import useSetVarsWithParam from "../../../hooks/useSetVarsWithParam";
-import { MixedLink } from "../../atomic";
+import { NamedLink } from "../../atomic";
 
 export default function ItemList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,13 +30,13 @@ export default function ItemList() {
         disableSortBy: true,
         Cell: ({ row, value }) => {
           return (
-            <MixedLink
+            <NamedLink
               route="itemDetail"
-              params={{ id: row.original.slug }}
+              routeParams={{ id: row.original.slug }}
               passHref
             >
               <a>{value}</a>
-            </MixedLink>
+            </NamedLink>
           );
         },
       },

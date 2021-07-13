@@ -1,6 +1,6 @@
 import React from "react";
 import MainNavDropdown from ".";
-import { MixedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 
 export default {
   title: "Components/Global/MainNav/MainNav.Dropdown",
@@ -16,12 +16,12 @@ export const Default = ({ active }) => {
   return (
     <div>
       <MainNavDropdown active={active} label="Dropdown">
-        <MixedLink route="userList" passHref>
+        <NamedLink route="userList" passHref>
           <a>Users</a>
-        </MixedLink>
-        <MixedLink route="contributorList" passHref>
+        </NamedLink>
+        <NamedLink route="contributorList" passHref>
           <a>Contributors</a>
-        </MixedLink>
+        </NamedLink>
       </MainNavDropdown>
     </div>
   );

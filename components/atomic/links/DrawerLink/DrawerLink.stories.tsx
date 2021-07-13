@@ -15,14 +15,18 @@ export default {
 /**
  * View updates to next router in Actions panel
  */
-export const Template: Story<Props> = ({ children, ...args }) => (
+const Template: Story<Props> = ({ children, ...args }) => (
   <DrawerLink {...args}>{children}</DrawerLink>
 );
-
 Template.args = {
   drawer: "add",
   passHref: true,
   children: <a>Example Drawer Link</a>,
+};
+
+export const Default: Story<Props> = Template.bind({});
+Default.args = {
+  ...Template.args,
 };
 
 export const WithButton: Story<Props> = Template.bind({});
