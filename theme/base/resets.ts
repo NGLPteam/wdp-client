@@ -76,8 +76,7 @@ export default css`
   /* stylelint-disable scss/media-feature-value-dollar-variable, declaration-no-important */
   @media (prefers-reduced-motion: reduce) {
     * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
+      animation: none !important;
       scroll-behavior: auto !important;
     }
   }

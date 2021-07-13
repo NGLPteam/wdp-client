@@ -2,5 +2,8 @@
   "key": "English",
   "showing.count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
   "selected.count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
-  "breadcrumb.dropdown.label": "Show parent collections"
+  "breadcrumb.dropdown.label": "Show parent collections",
+  "save": "Save",
+  "cancel": "Cancel",
+  "close": "Close"
 }

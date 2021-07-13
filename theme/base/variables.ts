@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { hexToHSL } from "theme/mixins/colors";
+import { hexToHSLA } from "theme/mixins/colors";
 
 export const transition = {
   colorMode: {
@@ -45,10 +45,13 @@ export const colors = {
 
 export const zIndex = {
   dropdown: 100,
+  drawer: 200,
+  "drawer-backdrop": 199,
+  modal: 300,
 };
 
 // Set color variables from colors object
-export function createColors() {
+export function setColorVars() {
   let styles = "";
 
   for (const [colorKey, colorKeyValues] of Object.entries(colors)) {
@@ -56,9 +59,23 @@ export function createColors() {
     const delimiter = colorKey === "neutral" || "brand" ? "" : "-";
     for (const [key, hexColor] of Object.entries(colorKeyValues)) {
       styles += `
-        --${colorKey}${delimiter}${key}: ${hexToHSL(hexColor)};
+        --${colorKey}${delimiter}${key}: ${hexToHSLA(hexColor)};
       `;
     }
+  }
+
+  return css`
+    ${styles}
+  `;
+}
+
+export function setZIndexVars() {
+  let styles = "";
+
+  for (const [key, value] of Object.entries(zIndex)) {
+    styles += `
+      --z-index-${key}: ${value};
+    `;
   }
 
   return css`

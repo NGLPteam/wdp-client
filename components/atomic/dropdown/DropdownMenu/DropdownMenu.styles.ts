@@ -2,11 +2,10 @@ import styled, { css } from "styled-components";
 import { basePadding, aBgLight, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { getZIndex } from "theme/mixins/base";
 import { Menu as BaseMenu, MenuItem } from "reakit/Menu";
 
 export const MenuWrapper = styled(BaseMenu)`
-  z-index: ${getZIndex("dropdown")};
+  z-index: var(--z-index-dropdown);
 
   &:focus {
     outline: 0;

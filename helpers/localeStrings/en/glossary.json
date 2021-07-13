@@ -4,5 +4,8 @@
   "collection": "collection",
   "collection_plural": "collections",
   "item": "item",
-  "item_plural": "items"
+  "item_plural": "items",
+  "actions": {
+    "add": "Add $t({{entity}})"
+  }
 }

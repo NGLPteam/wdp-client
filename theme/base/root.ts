@@ -3,14 +3,23 @@
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
 import { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
-import { transition, createColors } from "theme/base/variables";
+import {
+  transition,
+  colors,
+  setColorVars,
+  setZIndexVars,
+} from "theme/base/variables";
+import { hexToHSLA } from "theme/mixins/colors";
 
 const { duration, timing } = transition.colorMode;
 
 export default css`
   :root {
+    /* z-indexes */
+    ${setZIndexVars()}
+
     /* colors */
-    ${createColors()}
+    ${setColorVars()}
 
     /* system colors */
 
@@ -63,6 +72,8 @@ export default css`
 
     /* layout colors */
     --bg-color-base: var(--neutral00);
+    --dialog-backdrop-background: ${hexToHSLA(colors.neutral[100], 0.75)};
+    --light-glow-color: ${hexToHSLA(colors.brand[100], 0.2)};
 
     /* layout sizes and margins */
     --container-max: 1000px;
@@ -81,5 +92,8 @@ export default css`
 
     /* border radius */
     --border-radius-lg: ${pxToRem("40px")};
+
+    /* padding */
+    --base-padding: 4px;
   }
 `;

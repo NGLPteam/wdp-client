@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { basePadding, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-import { getZIndex } from "theme/mixins/base";
 
 export const Wrapper = styled.div`
-  z-index: ${getZIndex("dropdown")};
+  z-index: var(--z-index-dropdown);
 
   &:focus {
     outline: 0;

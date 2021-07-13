@@ -13,7 +13,7 @@ import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 
 import GlobalStyles from "theme";
-import { AppBody, FullPageLoader } from "components/global";
+import { AppBody, FullPageLoader, DrawerController } from "components/global";
 import useLatest from "hooks/useLatest";
 import { useSetLocale } from "hooks/useSetLocale";
 import { appWithTranslation } from "next-i18next";
@@ -65,6 +65,7 @@ function NGLPApp({
           <GlobalDataProvider>
             <AppBody>
               <Component {...pageProps} />
+              <DrawerController />
             </AppBody>
           </GlobalDataProvider>
         </KeycloakRelayProvider>

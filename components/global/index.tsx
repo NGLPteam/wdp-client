@@ -5,3 +5,4 @@ export { default as FullPageLoader } from "./FullPageLoader";
 export { default as MainNav } from "./MainNav";
 export { default as ServiceProviderBar } from "./ServiceProviderBar";
 export { default as LogoPlaceholder } from "./LogoPlaceholder";
+export { default as DrawerController } from "./DrawerController";

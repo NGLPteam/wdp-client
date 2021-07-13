@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import MixedLink from "components/atomic/MixedLink";
+import { MixedLink } from "components/atomic";
 import { MainNav, ServiceProviderBar } from "components/global";
 import { Search } from "components/atomic/forms";
 import SignIn from "components/scaffolding/Auth/SignIn";
