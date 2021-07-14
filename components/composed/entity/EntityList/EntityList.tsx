@@ -1,14 +1,14 @@
 import React from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { DrawerLink, Pagination } from "components/atomic";
-import { ButtonControl } from "components/atomic/buttons";
+import { Pagination } from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { EntityTable } from "components/composed/entity";
 import { useRouter } from "next/router";
+import EntityAddButton from "../EntityAddButton/EntityAddButton";
 
 type EntityTableProps = React.ComponentProps<typeof EntityTable>;
 
@@ -23,7 +23,6 @@ const EntityList = ({
   const { t } = useTranslation("glossary");
   const router = useRouter();
   const title = t(entityName, { count: 2 });
-  const addLabel = t("actions.add", { entity: entityName });
 
   const handleSubmit = (value) => {
     const pathname = window.location.pathname;
@@ -44,13 +43,7 @@ const EntityList = ({
         <>
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
-            actions={
-              <DrawerLink drawer="add" passHref>
-                <ButtonControl as="a" icon="plus">
-                  {addLabel}
-                </ButtonControl>
-              </DrawerLink>
-            }
+            actions={<EntityAddButton entityName={entityName} />}
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}
           {entities ? (

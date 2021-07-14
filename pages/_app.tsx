@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
-import { GlobalDataProvider } from "contexts/GlobalData";
+import { GlobalDataProvider, UserContextProvider } from "contexts";
 
 import {
   SSRKeycloakProvider,
@@ -63,10 +63,12 @@ function NGLPApp({
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <GlobalDataProvider>
-            <AppBody>
-              <Component {...pageProps} />
-              <DrawerController />
-            </AppBody>
+            <UserContextProvider>
+              <AppBody>
+                <Component {...pageProps} />
+                <DrawerController />
+              </AppBody>
+            </UserContextProvider>
           </GlobalDataProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>

@@ -6,7 +6,6 @@ export { default as useGetQuery } from "./useGetQuery";
 export { default as useGetQueryParam } from "./useGetQueryParam";
 export { default as useHasRole } from "./useHasRole";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
-export { default as useIsAuthorizedTo } from "./useIsAuthorizedTo";
 export { default as useKeycloakCallback } from "./useKeycloakCallback";
 export { default as useLatest } from "./useLatest";
 export { default as useMustBeAuthenticated } from "./useMustBeAuthenticated";
@@ -15,3 +14,7 @@ export { default as useSetVarsWithParam } from "./useSetVarsWithParam";
 export { default as useSt8 } from "./useSt8";
 export { default as useLockBodyScroll } from "./useLockBodyScroll";
 export { default as useDrawerQuery } from "./useDrawerQuery";
+export {
+  default as useUserContext,
+  useIsUserActionAllowed,
+} from "./useUserContext";
