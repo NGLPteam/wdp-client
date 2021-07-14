@@ -7,12 +7,18 @@ import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
 import { useClickEvent } from "hooks/listeners";
 import { useRouter } from "next/router";
+import { useIsUserActionAllowed } from "hooks";
 
 function AppHeader({ children, className = "" }: Props) {
   const activeEntity = useGetActiveEntity();
   const router = useRouter();
   const [active, setActive] = useState(null);
   const submenuRef = useRef<HTMLDivElement>();
+  const showManageDropdown = useIsUserActionAllowed([
+    "users.read",
+    "contributors.read",
+  ]);
+  const showCommunityList = useIsUserActionAllowed(["communities.read"]);
 
   const handleSubmit = (value) => {
     router.push({
@@ -25,17 +31,20 @@ function AppHeader({ children, className = "" }: Props) {
     if (submenuRef?.current?.contains(e.target)) return;
     setActive(null);
   };
+
   useClickEvent(handleClick);
 
   return (
     <header className={className} role="banner">
       <ServiceProviderBar />
       <MainNav>
-        <NamedLink route="communityList" passHref>
-          <MainNav.Item active={activeEntity === "communities"}>
-            Communities
-          </MainNav.Item>
-        </NamedLink>
+        {showCommunityList && (
+          <NamedLink route="communityList" passHref>
+            <MainNav.Item active={activeEntity === "communities"}>
+              Communities
+            </MainNav.Item>
+          </NamedLink>
+        )}
         <NamedLink route="collectionList" passHref>
           <MainNav.Item active={activeEntity === "collections"}>
             Collections
@@ -44,16 +53,18 @@ function AppHeader({ children, className = "" }: Props) {
         <NamedLink route="itemList" passHref>
           <MainNav.Item active={activeEntity === "items"}>Items</MainNav.Item>
         </NamedLink>
-        <div ref={submenuRef}>
-          <MainNav.Dropdown active={active === "admin"} label="Manage">
-            <NamedLink route="userList" passHref>
-              <MainNav.Item>Users</MainNav.Item>
-            </NamedLink>
-            <NamedLink route="contributorList" passHref>
-              <MainNav.Item>Contributors</MainNav.Item>
-            </NamedLink>
-          </MainNav.Dropdown>
-        </div>
+        {showManageDropdown && (
+          <div ref={submenuRef}>
+            <MainNav.Dropdown active={active === "admin"} label="Manage">
+              <NamedLink route="userList" passHref>
+                <MainNav.Item>Users</MainNav.Item>
+              </NamedLink>
+              <NamedLink route="contributorList" passHref>
+                <MainNav.Item>Contributors</MainNav.Item>
+              </NamedLink>
+            </MainNav.Dropdown>
+          </div>
+        )}
         <Search onSubmit={handleSubmit} />
         <span>
           <SignIn />
