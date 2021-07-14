@@ -8,6 +8,7 @@ import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { EntityTable } from "components/composed/entity";
+import { useRouter } from "next/router";
 
 type EntityTableProps = React.ComponentProps<typeof EntityTable>;
 
@@ -20,8 +21,19 @@ const EntityList = ({
   ...props
 }: EntityListProps) => {
   const { t } = useTranslation("glossary");
+  const router = useRouter();
   const title = t(entityName, { count: 2 });
   const addLabel = t("actions.add", { entity: entityName });
+
+  const handleSubmit = (value) => {
+    const pathname = window.location.pathname;
+    const { entity, page, ...query } = router.query;
+
+    router.push({
+      pathname,
+      query: { ...query, q: value },
+    });
+  };
 
   return (
     <section>
@@ -31,14 +43,7 @@ const EntityList = ({
       ) : (
         <>
           <PageActions
-            search={
-              <Search
-                onSubmit={(value) => {
-                  // eslint-disable-next-line
-                  console.info("search", value);
-                }}
-              />
-            }
+            search={<Search onSubmit={handleSubmit} />}
             actions={
               <DrawerLink drawer="add" passHref>
                 <ButtonControl as="a" icon="plus">
