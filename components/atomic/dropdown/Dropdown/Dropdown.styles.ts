@@ -3,6 +3,7 @@ import { basePadding, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div`
+  position: relative;
   z-index: var(--z-index-dropdown);
 
   &:focus {
