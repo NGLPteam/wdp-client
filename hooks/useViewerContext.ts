@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useMemo } from "react";
-import UserContext from "contexts/UserContext";
+import ViewerContext from "contexts/ViewerContext";
 
 /**
  * Access the user context
  *
- * @returns UserContext state
+ * @returns ViewerContext state
  */
-const useUserContext = () => {
-  const state = useContext(UserContext);
+const useViewerContext = () => {
+  const state = useContext(ViewerContext);
   return state;
 };
 
-export default useUserContext;
+export default useViewerContext;
 
 /**
  * Determine if a user action is allowed
@@ -21,7 +21,7 @@ export default useUserContext;
  * @returns boolean
  */
 export const useIsUserActionAllowed = (actions: string[]) => {
-  const { allowedActions } = useContext(UserContext);
+  const { allowedActions } = useContext(ViewerContext);
 
   return useMemo(
     () => allowedActions?.some((action) => actions.includes(action)),

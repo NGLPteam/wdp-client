@@ -1,2 +1,5 @@
-export { default as UserContext, UserContextProvider } from "./UserContext";
+export {
+  default as ViewerContext,
+  ViewerContextProvider,
+} from "./ViewerContext";
 export { GlobalDataProvider } from "./GlobalData";
