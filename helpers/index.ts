@@ -1,3 +1,4 @@
 export { default as encodeSvg } from "./encodeSvg";
-export { formatDate } from "./dates";
+export * from "./dates";
 export { routes } from "./routes";
+export * from "./arrays";

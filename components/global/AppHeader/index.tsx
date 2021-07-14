@@ -7,18 +7,17 @@ import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
 import { useClickEvent } from "hooks/listeners";
 import { useRouter } from "next/router";
-import { useIsUserActionAllowed } from "hooks";
+import { useIsAuthorized } from "hooks";
 
 function AppHeader({ children, className = "" }: Props) {
   const activeEntity = useGetActiveEntity();
   const router = useRouter();
   const [active, setActive] = useState(null);
   const submenuRef = useRef<HTMLDivElement>();
-  const showManageDropdown = useIsUserActionAllowed([
-    "users.read",
-    "contributors.read",
-  ]);
-  const showCommunityList = useIsUserActionAllowed(["communities.read"]);
+  const showManageDropdown = useIsAuthorized({
+    actions: ["users.read", "contributors.read"],
+  });
+  const showCommunityList = useIsAuthorized({ actions: "communities.read" });
 
   const handleSubmit = (value) => {
     router.push({
