@@ -14,7 +14,5 @@ export { default as useSetVarsWithParam } from "./useSetVarsWithParam";
 export { default as useSt8 } from "./useSt8";
 export { default as useLockBodyScroll } from "./useLockBodyScroll";
 export { default as useDrawerQuery } from "./useDrawerQuery";
-export {
-  default as useViewerContext,
-  useIsUserActionAllowed,
-} from "./useViewerContext";
+export { default as useViewerContext } from "./useViewerContext";
+export { default as useIsAuthorized } from "./useIsAuthorized";
