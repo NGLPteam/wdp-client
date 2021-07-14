@@ -1,6 +1,5 @@
 import React from "react";
-import { MainNavItem } from "components/global/MainNav";
-import { ButtonControl, Button } from "components/atomic/buttons";
+import { ButtonControl, Button } from "components/atomic";
 import DropdownMenu from ".";
 
 export default {
@@ -33,18 +32,6 @@ export const Default = (args) => {
 Default.args = {
   isMainNav: false,
 };
-
-export const WithTopMenuItem = () => {
-  return (
-    <DropdownMenu
-      menuProps={{ "aria-label": "Custom menu" }}
-      disclosure={<MainNavItem as="button">Custom menu</MainNavItem>}
-      menuItems={MENU_ITEMS}
-    />
-  );
-};
-
-WithTopMenuItem.args = { ...Default.args };
 
 export const WithButton = () => {
   return (

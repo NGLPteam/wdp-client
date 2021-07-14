@@ -5,5 +5,28 @@
   "breadcrumb.dropdown.label": "Show parent collections",
   "save": "Save",
   "cancel": "Cancel",
-  "close": "Close"
+  "close": "Close",
+  "manage": "Manage",
+  "site": {
+    "title": "NGLP",
+    "description": "..."
+  },
+  "header": {
+    "provider": "Service Provider Name",
+    "institution": "Institution Name",
+    "manage": "Manage"
+  },
+  "footer": {
+    "about": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform.",
+    "copyright": "Copyright 2021 Institution Name and other necessary data. More legal details can be found here.",
+    "manage": "Manage",
+    "learn": "Learn",
+    "nav": {
+      "features": "Features",
+      "partners": "Partners",
+      "in_use": "In Use",
+      "help": "Help",
+      "contact": "Contact"
+    }
+  }
 }
