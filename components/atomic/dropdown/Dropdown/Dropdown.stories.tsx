@@ -2,7 +2,6 @@ import Dropdown from "./Dropdown";
 import { Story } from "@storybook/react";
 import { ButtonControl } from "components/atomic/buttons";
 import { IconFactory } from "components/factories";
-import MainNavItem from "components/global/MainNav/MainNavItem";
 
 type Props = React.ComponentProps<typeof Dropdown>;
 
@@ -45,23 +44,6 @@ WithButton.args = {
       Toggle subnav
     </ButtonControl>
   ),
-};
-
-export const WithStyledLinks = Template.bind({});
-WithStyledLinks.args = {
-  ...Default.args,
-  disclosure: <MainNavItem as="button">Toggle subnav</MainNavItem>,
-  menuItems: [
-    <MainNavItem href="#" key={1}>
-      Item
-    </MainNavItem>,
-    <MainNavItem href="#" key={2}>
-      Item
-    </MainNavItem>,
-    <MainNavItem href="#" key={3}>
-      Item
-    </MainNavItem>,
-  ],
 };
 
 export const WithFunction = Template.bind({});

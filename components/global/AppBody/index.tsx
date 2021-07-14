@@ -1,14 +1,14 @@
 import React from "react";
 import * as Styled from "./styles";
-import { AppHeader, AppFooter } from "components/global";
+import { Header, Footer } from "components/global";
 
 function AppBody({ children }: Props) {
   return (
     <>
       <Styled.Body className="a-bg-neutral00">
-        <AppHeader />
+        <Header />
         <Styled.Main>{children}</Styled.Main>
-        <AppFooter />
+        <Footer />
       </Styled.Body>
     </>
   );

@@ -5,6 +5,10 @@
   "collection_plural": "collections",
   "item": "item",
   "item_plural": "items",
+  "user": "user",
+  "user_plural": "users",
+  "contributor": "contributor",
+  "contributor_plural": "contributors",
   "actions": {
     "add": "Add $t({{entity}})"
   }

@@ -35,6 +35,10 @@ export default css`
     text-align: start;
   }
 
+  .t-capitalize {
+    text-transform: capitalize;
+  }
+
   /* Rich Text */
   .t-rte {
     a {

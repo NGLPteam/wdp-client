@@ -37,15 +37,15 @@ The components are separated out into these folders:
 - `/views/` - Composed components specific to routes. These components can fetch data.
 - `/svgs/` - Svgs, such as icons and logos
 
-Folders are lower case if they contain a collection of components, and camel case if they contain one component or a component with parent/child relationships, such as `MainNav` and `MainNav.Item`. Components can be grouped into sub folders, ie `/atomic/buttons/` and `/composed/entities/`, but further nesting should be avoided.
+Folders are lower case if they contain a collection of components, and camel case if they contain one component or a component with parent/child relationships. Components can be grouped into sub folders, ie `/atomic/buttons/` and `/composed/entities/`, but further nesting should be avoided.
 
 Folders that contain many components should have an `index.ts` file with default exports. Single components should be in a camel cased folder, with an index, stories, and styles file (if applicable). For example:
 
 ```
-components/global/MainNav
+components/global/Header
 index.tsx // Exports the component
-MainNav.tsx // Defines the component
-MainNav.stories.tsx // Storybook file
+Header.tsx // Defines the component
+Header.stories.tsx // Storybook file
 styles.ts // Styled components
 ```
 
