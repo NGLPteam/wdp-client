@@ -1,15 +1,17 @@
-import { ButtonControl } from "components/atomic/buttons";
 import React from "react";
+import { Authorize } from "components/auth";
+import { ButtonControl } from "components/atomic/buttons";
 
 const availableActions = {
   edit: {
     label: "Edit",
-    icon: "arrow",
-    iconRotate: 90,
+    icon: "edit",
+    action: "self.update",
   },
   delete: {
     label: "Delete",
     icon: "delete",
+    action: "self.delete",
   },
 };
 
@@ -17,7 +19,6 @@ const renderOneAction = (row, action, actionConfig) => {
   const actionDefinition = availableActions[action];
 
   const buttonProps = {
-    key: action,
     "aria-label": actionDefinition.label,
     icon: actionDefinition.icon,
     iconRotate: actionDefinition.iconRotate || 0,
@@ -26,7 +27,15 @@ const renderOneAction = (row, action, actionConfig) => {
     }),
   };
 
-  return <ButtonControl {...buttonProps} />;
+  return (
+    <Authorize
+      key={action}
+      actions={actionDefinition.action}
+      allowedActions={row?.original?.allowedActions}
+    >
+      <ButtonControl {...buttonProps} />
+    </Authorize>
+  );
 };
 
 const renderActions = (row, configuration) => {
@@ -46,7 +55,9 @@ const useRowActions = (hooks) => {
     const actions = {
       Header: () => null,
       id: "actions",
-      Cell: ({ row }) => renderActions(row, actionsConfiguration),
+      Cell: ({ row }) => {
+        return renderActions(row, actionsConfiguration);
+      },
     };
 
     return [...columns, actions];
