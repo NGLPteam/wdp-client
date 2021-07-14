@@ -2,25 +2,30 @@ import { useMemo } from "react";
 import { useViewerContext } from "hooks";
 import { normalizeArray } from "helpers";
 
-// I would probably lean toward a single, flexible interface for auth checks. Eg: useAuthorizationCheck(ability, object) and have object be flexible. If object is a set of objects, the ability could be checked against each of them. If object is a single object, the ability is checked against that object. If object is null, then it's a global ability check.
-
 /**
- * Determine if a user action is allowed
+ * Determine if the user is authorized to perform an action.
+ * Pass in allowedActions to compare against an array of actions.
+ * Leave empty to compare against global viewer actions.
  *
  * @returns boolean
  */
-export const useIsAuthorized = ({ actions }: useIsAuthorizedProps) => {
-  const { allowedActions } = useViewerContext();
-  const checkActions = normalizeArray(actions);
+export const useIsAuthorized = ({
+  actions,
+  allowedActions,
+}: useIsAuthorizedProps) => {
+  const { allowedActions: viewerAllowedActions } = useViewerContext();
 
-  return useMemo(
-    () => allowedActions?.some((action) => checkActions.includes(action)),
-    [allowedActions, checkActions]
-  );
+  return useMemo(() => {
+    const checkActions = normalizeArray(actions);
+    const actionsList = allowedActions || viewerAllowedActions;
+
+    return actionsList?.some((action) => checkActions.includes(action));
+  }, [viewerAllowedActions, allowedActions, actions]);
 };
 
-interface useIsAuthorizedProps {
+export interface useIsAuthorizedProps {
   actions: string[] | string | null;
+  allowedActions?: string[] | readonly string[];
 }
 
 export default useIsAuthorized;
