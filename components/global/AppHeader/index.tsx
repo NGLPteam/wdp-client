@@ -6,14 +6,19 @@ import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
 import { useGetActiveEntity } from "hooks/useGlobalData";
 import { useClickEvent } from "hooks/listeners";
+import { useRouter } from "next/router";
 
 function AppHeader({ children, className = "" }: Props) {
   const activeEntity = useGetActiveEntity();
+  const router = useRouter();
   const [active, setActive] = useState(null);
   const submenuRef = useRef<HTMLDivElement>();
 
   const handleSubmit = (value) => {
-    console.info("search", value);
+    router.push({
+      pathname: "/search",
+      query: { q: value },
+    });
   };
 
   const handleClick = (e) => {
