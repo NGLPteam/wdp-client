@@ -15,6 +15,6 @@ export { default as useSt8 } from "./useSt8";
 export { default as useLockBodyScroll } from "./useLockBodyScroll";
 export { default as useDrawerQuery } from "./useDrawerQuery";
 export {
-  default as useUserContext,
+  default as useViewerContext,
   useIsUserActionAllowed,
-} from "./useUserContext";
+} from "./useViewerContext";

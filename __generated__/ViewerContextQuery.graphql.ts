@@ -3,22 +3,22 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type UserContextQueryVariables = {};
-export type UserContextQueryResponse = {
+export type ViewerContextQueryVariables = {};
+export type ViewerContextQueryResponse = {
     readonly viewer: {
         readonly name: string | null;
         readonly allowedActions: ReadonlyArray<string>;
     } | null;
 };
-export type UserContextQuery = {
-    readonly response: UserContextQueryResponse;
-    readonly variables: UserContextQueryVariables;
+export type ViewerContextQuery = {
+    readonly response: ViewerContextQueryResponse;
+    readonly variables: ViewerContextQueryVariables;
 };
 
 
 
 /*
-query UserContextQuery {
+query ViewerContextQuery {
   viewer {
     name
     allowedActions
@@ -47,7 +47,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "UserContextQuery",
+    "name": "ViewerContextQuery",
     "selections": [
       {
         "alias": null,
@@ -70,7 +70,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "UserContextQuery",
+    "name": "ViewerContextQuery",
     "selections": [
       {
         "alias": null,
@@ -95,14 +95,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "03bf8e3f6946e9f51d731ebe9f01d1f6",
+    "cacheID": "86c86e9da976f38350221d5db55bb9dc",
     "id": null,
     "metadata": {},
-    "name": "UserContextQuery",
+    "name": "ViewerContextQuery",
     "operationKind": "query",
-    "text": "query UserContextQuery {\n  viewer {\n    name\n    allowedActions\n    id\n  }\n}\n"
+    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd6e3cdd7dcbb84cbed6923b0a7fdaae2';
+(node as any).hash = '390ccdff68826b5158dcc3a11217a4e5';
 export default node;
