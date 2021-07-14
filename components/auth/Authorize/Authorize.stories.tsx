@@ -35,6 +35,12 @@ IsAuthorized.args = {
   allowedActions: ["self.delete", "self.update"],
 };
 
+export const IsAuthorizedWithArray = Template.bind({});
+IsAuthorizedWithArray.args = {
+  actions: ["self.delete", "self.update"],
+  allowedActions: ["self.delete", "self.update"],
+};
+
 export const IsNotAuthorized = Template.bind({});
 IsNotAuthorized.args = {
   actions: "self.delete",
