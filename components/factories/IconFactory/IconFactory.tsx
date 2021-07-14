@@ -8,6 +8,7 @@ const ICON_MAP = {
   plus: Icons.Plus,
   search: Icons.Search,
   delete: Icons.Delete,
+  edit: Icons.Edit,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
