@@ -71,6 +71,10 @@ export const HeaderCell = styled.th`
     cursor: pointer;
   }
 
+  &[data-select-cell="true"] {
+    padding-inline-start: var(--table-column-gap);
+  }
+
   ${respond(
     css`
       &[data-select-cell="true"] {
@@ -102,7 +106,6 @@ export const HeaderCellInner = styled.span`
 
 export const Cell = styled.td`
   padding-block: ${basePadding(2)};
-  padding-block-end: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
 
   ${({ align }) =>
@@ -190,5 +193,7 @@ export const HeaderRow = styled.tr`
   &:focus-within {
     --button-control-opacity: 1;
     --button-control-visibility: 1;
+    --checkbox-opacity: 1;
+    --checkbox-visibility: 1;
   }
 `;

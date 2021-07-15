@@ -20,6 +20,7 @@ Template.args = {
 export const Default = Template.bind({});
 Default.args = {
   ...Template.args,
+  disabled: false,
 };
 
 export const Controlled = ({ checked: initCheck, ...args }) => {
