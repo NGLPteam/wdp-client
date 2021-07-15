@@ -16,7 +16,7 @@ const PageCountActions = ({
   if (!pageInfo) return;
   const hasSelected = selectedCount > 1;
   const { page, perPage, totalCount } = pageInfo;
-  const start = (page - 1) * perPage + 1;
+  const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
   const end = totalCount < perPage ? totalCount : page * perPage;
 
   return (
