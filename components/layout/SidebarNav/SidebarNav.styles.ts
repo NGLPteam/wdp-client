@@ -11,7 +11,7 @@ export const List = styled.ul``;
 
 export const ListItem = styled.li`
   & + & {
-    padding-block: ${basePadding(5)};
+    padding-block-start: ${basePadding(5)};
   }
 `;
 
