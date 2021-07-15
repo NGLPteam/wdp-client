@@ -19,8 +19,8 @@ const HeaderNavLinks = ({ navigation }) => {
 
   return navigation.map((child, i) =>
     child.children ? (
-      <Authorize actions={child.actions}>
-        <Styled.Item key={i}>
+      <Authorize actions={child.actions} key={i}>
+        <Styled.Item>
           <Dropdown
             label={t(child.label)}
             disclosure={<Styled.Link as="button">{t(child.label)}</Styled.Link>}
@@ -30,8 +30,8 @@ const HeaderNavLinks = ({ navigation }) => {
         </Styled.Item>
       </Authorize>
     ) : child.actions ? (
-      <Authorize actions={child.actions}>
-        <Styled.Item key={i}>{renderLink(child)}</Styled.Item>
+      <Authorize actions={child.actions} key={i}>
+        <Styled.Item>{renderLink(child)}</Styled.Item>
       </Authorize>
     ) : (
       <Styled.Item key={i}>{renderLink(child)}</Styled.Item>

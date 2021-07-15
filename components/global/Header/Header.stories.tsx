@@ -1,6 +1,10 @@
 import Header from "./";
 import { Story } from "@storybook/react";
-import { ViewerContext, RouterContextProvider } from "contexts";
+import {
+  ViewerContext,
+  RouterContextProvider,
+  GlobalContextProvider,
+} from "contexts";
 type Props = React.ComponentProps<typeof Header>;
 
 export default {
@@ -8,9 +12,11 @@ export default {
   component: Header,
   decorators: [
     (Story) => (
-      <RouterContextProvider>
-        <Story />
-      </RouterContextProvider>
+      <GlobalContextProvider>
+        <RouterContextProvider>
+          <Story />
+        </RouterContextProvider>
+      </GlobalContextProvider>
     ),
   ],
 };

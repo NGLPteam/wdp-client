@@ -9,11 +9,11 @@
   "manage": "Manage",
   "site": {
     "title": "NGLP",
-    "description": "..."
+    "description": "...",
+    "provider": "Service Provider Name",
+    "institution": "Institution Name"
   },
   "header": {
-    "provider": "Service Provider Name",
-    "institution": "Institution Name",
     "manage": "Manage"
   },
   "footer": {

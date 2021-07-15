@@ -36,12 +36,12 @@ const CONTRIBUTORS_LINK = {
  */
 const appData = {
   siteInfo: {
-    siteTitle: "site.title",
-    siteDescription: "site.description",
+    title: "site.title",
+    description: "site.description",
+    provider: "site.provider",
+    institution: "site.institution",
   },
   headerData: {
-    provider: "header.provider",
-    institution: "header.institution",
     navigation: [
       COMMUNITIES_LINK,
       COLLECTIONS_LINK,
