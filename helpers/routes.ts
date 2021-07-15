@@ -17,6 +17,8 @@ export const entityMap = {
   COMMUNITY: "communities",
   COLLECTION: "collections",
   ITEM: "items",
+  USER: "users",
+  CONTRIBUTOR: "contributors",
 };
 
 export const routes: RoutesMap = {

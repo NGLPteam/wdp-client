@@ -15,10 +15,10 @@ export type CollectionListQueryResponse = {
                 readonly __typename: string;
                 readonly id: string;
                 readonly identifier: string;
-                readonly createdAt: unknown;
-                readonly updatedAt: unknown;
+                readonly createdAt: string;
+                readonly updatedAt: string;
                 readonly title: string | null;
-                readonly slug: unknown;
+                readonly slug: string;
                 readonly allowedActions: ReadonlyArray<string>;
                 readonly hierarchicalDepth: number;
             } | null> | null;

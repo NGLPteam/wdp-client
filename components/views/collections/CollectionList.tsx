@@ -1,94 +1,27 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  CollectionListQuery,
-  CollectionListQueryVariables,
+  CollectionListQuery as Query,
+  CollectionListQueryResponse as QueryResponse,
 } from "__generated__/CollectionListQuery.graphql";
-import { EntityList } from "components/composed/entity";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import useSetVarsWithParam from "hooks/useSetVarsWithParam";
-import { NamedLink } from "components/atomic";
+import CollectionList from "components/composed/collection/CollectionList";
 
-export default function CollectionList() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [variables, setVariables] = useState<CollectionListQueryVariables>({
-    order: "RECENT",
-    page: currentPage,
-  });
+import type { ExtractsConnection } from "types/graphql-helpers";
 
-  useSetVarsWithParam("page", currentPage, setCurrentPage, setVariables);
+type ConnectionType = QueryResponse["viewer"]["collections"];
 
-  const { data, error, isLoading } = useAuthenticatedQuery<CollectionListQuery>(
-    query,
-    variables
-  );
-
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Title",
-        accessor: "title",
-        disableSortBy: true,
-        Cell: ({ row, value }) => {
-          return (
-            <NamedLink
-              route="collectionDetail"
-              routeParams={{ id: row.original.slug }}
-              passHref
-            >
-              <a>{value}</a>
-            </NamedLink>
-          );
-        },
-      },
-    ],
+export default function CollectionListView() {
+  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
+    (data) => data?.viewer?.collections,
     []
   );
-
-  const actions = useMemo(
-    () => ({
-      edit: {
-        handleClick: ({ row }) => console.info(`edit ${row.original.slug}`),
-      },
-      delete: {
-        handleClick: ({ row }) => console.info(`delete ${row.original.slug}`),
-      },
-    }),
-    []
-  );
-
-  const handleSort = useCallback(
-    ({ order }) => {
-      if (order) return setVariables({ order, page: variables.page });
-    },
-    [variables.page]
-  );
-
-  const handleSelectionChange = useCallback(({ selectedRowIds }) => {
-    // eslint-disable-next-line no-console
-    console.table(selectedRowIds);
-  }, []);
-
-  const entities = useMemo(() => data?.viewer?.collections?.nodes, [data]);
-  const pageInfo = useMemo(() => data?.viewer?.collections?.pageInfo, [data]);
 
   return (
-    <>
-      <EntityList
-        entityName="collection"
-        error={error}
-        entities={entities}
-        pageInfo={pageInfo}
-        columns={columns}
-        actions={actions}
-        isLoading={isLoading}
-        onSort={handleSort}
-        onSelectionChange={handleSelectionChange}
-        withUpdatedAt
-        withCreatedAt
-        withRowSelection
-      />
-    </>
+    <CollectionList<Query, ConnectionType>
+      defaultOrder="RECENT"
+      query={query}
+      toConnection={toConnection}
+    />
   );
 }
 

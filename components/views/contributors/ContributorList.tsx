@@ -1,74 +1,27 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  ContributorListQuery,
-  ContributorListQueryVariables,
+  ContributorListQuery as Query,
+  ContributorListQueryResponse as QueryResponse,
 } from "__generated__/ContributorListQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { PageHeader } from "components/layout";
-import { Card, CardList } from "components/layout/CardList/CardList";
-import Link from "next/link";
-import { FullPageLoader } from "components/global";
-import ContributorHeaders from "./ContributorHeadersPartial";
+import ContributorList from "components/composed/contributor/ContributorList";
 
-export default function ContributorList() {
-  const [variables, setVariables] = useState<ContributorListQueryVariables>({
-    order: "RECENT",
-    page: 1,
-  });
+import type { ExtractsConnection } from "types/graphql-helpers";
 
-  const {
-    data,
-    error,
-    isLoading,
-  } = useAuthenticatedQuery<ContributorListQuery>(query, variables);
+type ConnectionType = QueryResponse["contributors"];
 
-  if (isLoading) {
-    return null;
-  }
-
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
+export default function ContributorListView() {
+  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
+    (data) => data?.contributors,
+    []
+  );
 
   return (
-    <section>
-      <PageHeader title="Contributors" />
-      <CardList>
-        <ContributorHeaders variables={variables} setVariables={setVariables} />
-        {data?.contributors?.nodes ? (
-          data.contributors.nodes.map((contributor, index) => {
-            if (contributor.__typename === "OrganizationContributor") {
-              return (
-                <Card key={index}>
-                  <h4>
-                    <Link href={`/contributors/${contributor.slug}`}>
-                      {contributor.name}
-                    </Link>
-                  </h4>
-                </Card>
-              );
-            } else if (contributor.__typename === "PersonContributor") {
-              return (
-                <Card key={index}>
-                  <h4>
-                    <Link href={`/contributors/${contributor.slug}`}>
-                      {`${contributor.firstName} ${contributor.lastName}`}
-                    </Link>
-                  </h4>
-                </Card>
-              );
-            } else {
-              return null;
-            }
-          })
-        ) : data?.contributors === null ? (
-          <div>No Contributors.</div>
-        ) : (
-          <FullPageLoader />
-        )}
-      </CardList>
-    </section>
+    <ContributorList<Query, ConnectionType>
+      defaultOrder="RECENT"
+      query={query}
+      toConnection={toConnection}
+    />
   );
 }
 
@@ -79,12 +32,16 @@ const query = graphql`
         __typename
         ... on OrganizationContributor {
           name: legalName
-          slug
+          createdAt
+          updatedAt
         }
-
         ... on PersonContributor {
           firstName: givenName
           lastName: familyName
+          createdAt
+          updatedAt
+        }
+        ... on Sluggable {
           slug
         }
       }
@@ -95,6 +52,7 @@ const query = graphql`
         hasNextPage
         hasPreviousPage
         totalCount
+        totalUnfilteredCount
       }
     }
   }

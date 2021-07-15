@@ -5,12 +5,12 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionDetailQueryVariables = {
-    slug: unknown;
+    slug: string;
 };
 export type CollectionDetailQueryResponse = {
     readonly collection: {
         readonly title: string | null;
-        readonly slug: unknown;
+        readonly slug: string;
         readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
     } | null;
 };

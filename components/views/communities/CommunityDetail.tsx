@@ -5,12 +5,25 @@ import {
   CommunityDetailQueryVariables,
 } from "@/relay/CommunityDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { SubcollectionList, Manage } from "components/views/entities";
+import { Manage } from "components/views/entities";
+import CommunityChildCollections from "./CommunityChildCollections";
 import { EntityHeader } from "components/composed/entity";
 import { useRouterContext } from "hooks/useRouterContext";
+import { useRouter } from "next/router";
 
 export default function CommunityDetail() {
   const { activeId: id, activeView: view } = useRouterContext();
+
+  // This redirect is a temporary workaround to deal with immature routing. For demo
+  // purposes, we want to show the correct landing page, but the current approach locks us
+  // into an inflexible structure. Remove this when routing is revised.
+  const router = useRouter();
+  useEffect(() => {
+    if (view === "main" && id) {
+      const redirect = `/communities/${id}/collections`;
+      router.push(redirect);
+    }
+  }, [view, id, router]);
 
   const [variables, setVariables] = useState<CommunityDetailQueryVariables>({
     slug: id,
@@ -46,7 +59,9 @@ export default function CommunityDetail() {
       )}
 
       {view === "main" && <div>Main</div>}
-      {view === "collections" && <SubcollectionList />}
+      {view === "collections" && (
+        <CommunityChildCollections community={data.community} />
+      )}
       {view === "manage" && <Manage />}
     </section>
   );

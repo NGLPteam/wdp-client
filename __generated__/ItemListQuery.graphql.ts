@@ -15,10 +15,10 @@ export type ItemListQueryResponse = {
                 readonly __typename: string;
                 readonly id: string;
                 readonly identifier: string;
-                readonly updatedAt: unknown;
-                readonly createdAt: unknown;
+                readonly updatedAt: string;
+                readonly createdAt: string;
                 readonly title: string | null;
-                readonly slug: unknown;
+                readonly slug: string;
                 readonly allowedActions: ReadonlyArray<string>;
             } | null> | null;
             readonly pageInfo: {

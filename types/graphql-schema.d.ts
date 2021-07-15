@@ -1,12 +1,12 @@
 import type { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-type Maybe<T> = T | null;
-type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
-type Scalars = {
+export type Scalars = {
   ID: string;
   String: string;
   Boolean: boolean;
@@ -23,20 +23,20 @@ type Scalars = {
 };
 
 /** An access control list */
-type AccessControlList = {
+export type AccessControlList = {
   __typename?: 'AccessControlList';
   permissions: Array<PermissionGrant>;
 };
 
-type AnyAsset = AssetAudio | AssetDocument | AssetImage | AssetPdf | AssetUnknown | AssetVideo | { __typename?: "%other" };
+export type AnyAsset = AssetAudio | AssetDocument | AssetImage | AssetPdf | AssetUnknown | AssetVideo | { __typename?: "%other" };
 
 /** Something that can be attached to */
-type AnyAttachable = Collection | Community | Item | { __typename?: "%other" };
+export type AnyAttachable = Collection | Community | Item | { __typename?: "%other" };
 
-type AnyContributor = OrganizationContributor | PersonContributor | { __typename?: "%other" };
+export type AnyContributor = OrganizationContributor | PersonContributor | { __typename?: "%other" };
 
 /** The connection type for AnyContributor. */
-type AnyContributorConnection = {
+export type AnyContributorConnection = Paginated & {
   __typename?: 'AnyContributorConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<AnyContributorEdge>>>;
@@ -47,7 +47,7 @@ type AnyContributorConnection = {
 };
 
 /** An edge in a connection. */
-type AnyContributorEdge = {
+export type AnyContributorEdge = {
   __typename?: 'AnyContributorEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -56,10 +56,10 @@ type AnyContributorEdge = {
 };
 
 /** A hierarchical entity type */
-type AnyEntity = Collection | Community | Item | { __typename?: "%other" };
+export type AnyEntity = Collection | Community | Item | { __typename?: "%other" };
 
 /** A generic asset type, implemented by all the more specific kinds */
-type Asset = {
+export type Asset = {
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -70,7 +70,7 @@ type Asset = {
   preview?: Maybe<AssetPreview>;
 };
 
-type AssetAudio = Asset & Node & Sluggable & {
+export type AssetAudio = Asset & Node & Sluggable & {
   __typename?: 'AssetAudio';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -86,7 +86,7 @@ type AssetAudio = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
-type AssetDocument = Asset & Node & Sluggable & {
+export type AssetDocument = Asset & Node & Sluggable & {
   __typename?: 'AssetDocument';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -102,7 +102,7 @@ type AssetDocument = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
-type AssetImage = Asset & Node & Sluggable & {
+export type AssetImage = Asset & Node & Sluggable & {
   __typename?: 'AssetImage';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -119,7 +119,7 @@ type AssetImage = Asset & Node & Sluggable & {
 };
 
 /** The supported kinds of assets in the system */
-type AssetKind =
+export type AssetKind =
   | 'image'
   | 'video'
   | 'audio'
@@ -128,7 +128,7 @@ type AssetKind =
   | 'unknown'
   | '%future added value';
 
-type AssetPdf = Asset & Node & Sluggable & {
+export type AssetPdf = Asset & Node & Sluggable & {
   __typename?: 'AssetPDF';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -144,7 +144,7 @@ type AssetPdf = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
-type AssetPreview = {
+export type AssetPreview = {
   __typename?: 'AssetPreview';
   alt: Scalars['String'];
   large: PreviewImageMap;
@@ -153,7 +153,7 @@ type AssetPreview = {
   thumb: PreviewImageMap;
 };
 
-type AssetUnknown = Asset & Node & Sluggable & {
+export type AssetUnknown = Asset & Node & Sluggable & {
   __typename?: 'AssetUnknown';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -169,7 +169,7 @@ type AssetUnknown = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
-type AssetVideo = Asset & Node & Sluggable & {
+export type AssetVideo = Asset & Node & Sluggable & {
   __typename?: 'AssetVideo';
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
@@ -186,7 +186,7 @@ type AssetVideo = Asset & Node & Sluggable & {
 };
 
 /** A collection of items */
-type Collection = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
+export type Collection = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -196,7 +196,9 @@ type Collection = Entity & HierarchicalEntry & Contributable & Node & Sluggable 
   applicableRoles?: Maybe<Array<Role>>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
+  /** @deprecated Use Collection.collections */
   children: CollectionConnection;
+  collections: CollectionConnection;
   community: Community;
   contributions: CollectionContributionConnection;
   /** Contributors to this element */
@@ -209,12 +211,14 @@ type Collection = Entity & HierarchicalEntry & Contributable & Node & Sluggable 
   identifier: Scalars['String'];
   itemLinks: CollectionLinkedItemConnection;
   items: ItemConnection;
+  leaf: Scalars['Boolean'];
   links: CollectionLinkConnection;
   parent?: Maybe<CollectionParent>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
   properties?: Maybe<Scalars['JSON']>;
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
+  root: Scalars['Boolean'];
   slug: Scalars['Slug'];
   summary?: Maybe<Scalars['String']>;
   /** A mapping of an entity's preview thumbnail */
@@ -226,7 +230,7 @@ type Collection = Entity & HierarchicalEntry & Contributable & Node & Sluggable 
 
 
 /** A collection of items */
-type CollectionChildrenArgs = {
+export type CollectionChildrenArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -235,16 +239,33 @@ type CollectionChildrenArgs = {
 
 
 /** A collection of items */
-type CollectionContributionsArgs = {
+export type CollectionCollectionsArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 
 /** A collection of items */
-type CollectionContributorsArgs = {
+export type CollectionContributionsArgs = {
+  order?: Maybe<SimpleOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** A collection of items */
+export type CollectionContributorsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
@@ -258,16 +279,20 @@ type CollectionContributorsArgs = {
 
 
 /** A collection of items */
-type CollectionItemLinksArgs = {
+export type CollectionItemLinksArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 
 /** A collection of items */
-type CollectionItemsArgs = {
+export type CollectionItemsArgs = {
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -281,15 +306,19 @@ type CollectionItemsArgs = {
 
 
 /** A collection of items */
-type CollectionLinksArgs = {
+export type CollectionLinksArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 /** The connection type for Collection. */
-type CollectionConnection = {
+export type CollectionConnection = Paginated & {
   __typename?: 'CollectionConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CollectionEdge>>>;
@@ -300,7 +329,7 @@ type CollectionConnection = {
 };
 
 /** A contribution to a collection */
-type CollectionContribution = Contribution & Node & Sluggable & {
+export type CollectionContribution = Contribution & Node & Sluggable & {
   __typename?: 'CollectionContribution';
   collection: Collection;
   contributor: AnyContributor;
@@ -311,7 +340,7 @@ type CollectionContribution = Contribution & Node & Sluggable & {
 };
 
 /** The connection type for CollectionContribution. */
-type CollectionContributionConnection = {
+export type CollectionContributionConnection = Paginated & {
   __typename?: 'CollectionContributionConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CollectionContributionEdge>>>;
@@ -322,7 +351,7 @@ type CollectionContributionConnection = {
 };
 
 /** An edge in a connection. */
-type CollectionContributionEdge = {
+export type CollectionContributionEdge = {
   __typename?: 'CollectionContributionEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -331,7 +360,7 @@ type CollectionContributionEdge = {
 };
 
 /** An edge in a connection. */
-type CollectionEdge = {
+export type CollectionEdge = {
   __typename?: 'CollectionEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -339,7 +368,7 @@ type CollectionEdge = {
   node?: Maybe<Collection>;
 };
 
-type CollectionLink = Node & Sluggable & {
+export type CollectionLink = Node & Sluggable & {
   __typename?: 'CollectionLink';
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
@@ -351,7 +380,7 @@ type CollectionLink = Node & Sluggable & {
 };
 
 /** The connection type for CollectionLink. */
-type CollectionLinkConnection = {
+export type CollectionLinkConnection = Paginated & {
   __typename?: 'CollectionLinkConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CollectionLinkEdge>>>;
@@ -362,7 +391,7 @@ type CollectionLinkConnection = {
 };
 
 /** An edge in a connection. */
-type CollectionLinkEdge = {
+export type CollectionLinkEdge = {
   __typename?: 'CollectionLinkEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -370,12 +399,12 @@ type CollectionLinkEdge = {
   node?: Maybe<CollectionLink>;
 };
 
-type CollectionLinkOperator =
+export type CollectionLinkOperator =
   | 'contains'
   | 'references'
   | '%future added value';
 
-type CollectionLinkedItem = Node & Sluggable & {
+export type CollectionLinkedItem = Node & Sluggable & {
   __typename?: 'CollectionLinkedItem';
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
@@ -387,7 +416,7 @@ type CollectionLinkedItem = Node & Sluggable & {
 };
 
 /** The connection type for CollectionLinkedItem. */
-type CollectionLinkedItemConnection = {
+export type CollectionLinkedItemConnection = Paginated & {
   __typename?: 'CollectionLinkedItemConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CollectionLinkedItemEdge>>>;
@@ -398,7 +427,7 @@ type CollectionLinkedItemConnection = {
 };
 
 /** An edge in a connection. */
-type CollectionLinkedItemEdge = {
+export type CollectionLinkedItemEdge = {
   __typename?: 'CollectionLinkedItemEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -406,15 +435,15 @@ type CollectionLinkedItemEdge = {
   node?: Maybe<CollectionLinkedItem>;
 };
 
-type CollectionLinkedItemOperator =
+export type CollectionLinkedItemOperator =
   | 'contains'
   | 'references'
   | '%future added value';
 
-type CollectionParent = Collection | Community | { __typename?: "%other" };
+export type CollectionParent = Collection | Community | { __typename?: "%other" };
 
 /** A community of users */
-type Community = Entity & Node & Sluggable & {
+export type Community = Entity & Node & Sluggable & {
   __typename?: 'Community';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -430,6 +459,7 @@ type Community = Entity & Node & Sluggable & {
   hierarchicalDepth: Scalars['Int'];
   id: Scalars['ID'];
   metadata?: Maybe<Scalars['JSON']>;
+  /** @deprecated Use Community.title */
   name: Scalars['String'];
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
@@ -437,25 +467,22 @@ type Community = Entity & Node & Sluggable & {
   slug: Scalars['Slug'];
   /** A mapping of an entity's preview thumbnail */
   thumbnail?: Maybe<AssetPreview>;
+  title: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
 
 /** A community of users */
-type CommunityCollectionsArgs = {
+export type CommunityCollectionsArgs = {
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Scalars['Int'];
 };
 
 /** The connection type for Community. */
-type CommunityConnection = {
+export type CommunityConnection = Paginated & {
   __typename?: 'CommunityConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<CommunityEdge>>>;
@@ -466,7 +493,7 @@ type CommunityConnection = {
 };
 
 /** An edge in a connection. */
-type CommunityEdge = {
+export type CommunityEdge = {
   __typename?: 'CommunityEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -475,14 +502,14 @@ type CommunityEdge = {
 };
 
 /** Something that can be contributed to */
-type Contributable = {
+export type Contributable = {
   /** Contributors to this element */
   contributors: AnyContributorConnection;
 };
 
 
 /** Something that can be contributed to */
-type ContributableContributorsArgs = {
+export type ContributableContributorsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
@@ -495,12 +522,12 @@ type ContributableContributorsArgs = {
 };
 
 /** A contribution from a contributor */
-type Contribution = {
+export type Contribution = {
   contributor: AnyContributor;
 };
 
 /** A contributor who has made a contribution */
-type Contributor = {
+export type Contributor = {
   bio?: Maybe<Scalars['String']>;
   collectionContributions: CollectionContributionConnection;
   email?: Maybe<Scalars['String']>;
@@ -515,7 +542,7 @@ type Contributor = {
 
 
 /** A contributor who has made a contribution */
-type ContributorCollectionContributionsArgs = {
+export type ContributorCollectionContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -524,33 +551,33 @@ type ContributorCollectionContributionsArgs = {
 
 
 /** A contributor who has made a contribution */
-type ContributorItemContributionsArgs = {
+export type ContributorItemContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
 };
 
-type ContributorFilterKind =
+export type ContributorFilterKind =
   | 'ALL'
   | 'ORGANIZATION'
   | 'PERSON'
   | '%future added value';
 
-type ContributorKind =
+export type ContributorKind =
   | 'organization'
   | 'person'
   | '%future added value';
 
 /** A link for a contributor */
-type ContributorLink = {
+export type ContributorLink = {
   __typename?: 'ContributorLink';
   title: Scalars['String'];
   url: Scalars['String'];
 };
 
 /** Autogenerated input type of CreateAsset */
-type CreateAssetInput = {
+export type CreateAssetInput = {
   /** The entity that owns the attachment */
   entityId: Scalars['ID'];
   /** This is the path returned from uploading a file via tus. It should look vaguely like `/files/<base64>` */
@@ -575,7 +602,7 @@ type CreateAssetInput = {
 };
 
 /** Autogenerated return type of CreateAsset */
-type CreateAssetPayload = {
+export type CreateAssetPayload = {
   __typename?: 'CreateAssetPayload';
   asset?: Maybe<AnyAsset>;
   /** A unique identifier for the client performing the mutation. */
@@ -585,7 +612,7 @@ type CreateAssetPayload = {
 };
 
 /** Autogenerated input type of CreateCollection */
-type CreateCollectionInput = {
+export type CreateCollectionInput = {
   /** The parent of the new collection. This can be the encoded ID of a community or another collection. */
   parentId: Scalars['ID'];
   title: Scalars['String'];
@@ -595,7 +622,7 @@ type CreateCollectionInput = {
 };
 
 /** Autogenerated return type of CreateCollection */
-type CreateCollectionPayload = {
+export type CreateCollectionPayload = {
   __typename?: 'CreateCollectionPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -605,9 +632,9 @@ type CreateCollectionPayload = {
 };
 
 /** Autogenerated input type of CreateCommunity */
-type CreateCommunityInput = {
+export type CreateCommunityInput = {
   /** A human readable title for the community */
-  name: Scalars['String'];
+  title: Scalars['String'];
   /** The position the community occupies in the list */
   position?: Maybe<Scalars['Int']>;
   /** A unique identifier for the client performing the mutation. */
@@ -615,7 +642,7 @@ type CreateCommunityInput = {
 };
 
 /** Autogenerated return type of CreateCommunity */
-type CreateCommunityPayload = {
+export type CreateCommunityPayload = {
   __typename?: 'CreateCommunityPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -626,7 +653,7 @@ type CreateCommunityPayload = {
 };
 
 /** Autogenerated input type of CreateItem */
-type CreateItemInput = {
+export type CreateItemInput = {
   /** The parent of the item. This can be the encoded ID of a collection or another item. */
   parentId: Scalars['ID'];
   title: Scalars['String'];
@@ -636,7 +663,7 @@ type CreateItemInput = {
 };
 
 /** Autogenerated return type of CreateItem */
-type CreateItemPayload = {
+export type CreateItemPayload = {
   __typename?: 'CreateItemPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -647,7 +674,7 @@ type CreateItemPayload = {
 };
 
 /** Autogenerated input type of CreateRole */
-type CreateRoleInput = {
+export type CreateRoleInput = {
   name: Scalars['String'];
   accessControlList: Scalars['JSON'];
   /** A unique identifier for the client performing the mutation. */
@@ -655,7 +682,7 @@ type CreateRoleInput = {
 };
 
 /** Autogenerated return type of CreateRole */
-type CreateRolePayload = {
+export type CreateRolePayload = {
   __typename?: 'CreateRolePayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -665,7 +692,7 @@ type CreateRolePayload = {
 };
 
 /** An entity that exists in the hierarchy. */
-type Entity = {
+export type Entity = {
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
@@ -682,7 +709,7 @@ type Entity = {
   thumbnail?: Maybe<AssetPreview>;
 };
 
-type EntityBreadcrumb = Node & {
+export type EntityBreadcrumb = Node & {
   __typename?: 'EntityBreadcrumb';
   crumb: AnyEntity;
   depth: Scalars['Int'];
@@ -693,18 +720,18 @@ type EntityBreadcrumb = Node & {
 };
 
 /** An enumeration of the different kinds of hierarchical entities */
-type EntityKind =
+export type EntityKind =
   | 'COMMUNITY'
   | 'COLLECTION'
   | 'ITEM'
   | '%future added value';
 
-type EntityPermissionFilter =
+export type EntityPermissionFilter =
   | 'READ_ONLY'
   | 'CRUD'
   | '%future added value';
 
-type ExposesPermissions = {
+export type ExposesPermissions = {
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
   /** An array of hashes that can be requested to load in a context */
@@ -712,7 +739,7 @@ type ExposesPermissions = {
 };
 
 /** Autogenerated input type of GrantAccess */
-type GrantAccessInput = {
+export type GrantAccessInput = {
   entityId: Scalars['ID'];
   roleId: Scalars['ID'];
   userId: Scalars['ID'];
@@ -721,7 +748,7 @@ type GrantAccessInput = {
 };
 
 /** Autogenerated return type of GrantAccess */
-type GrantAccessPayload = {
+export type GrantAccessPayload = {
   __typename?: 'GrantAccessPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -733,12 +760,14 @@ type GrantAccessPayload = {
 };
 
 /** A hierarchical entry, like a collection or an item. */
-type HierarchicalEntry = {
+export type HierarchicalEntry = {
   createdAt: Scalars['ISO8601DateTime'];
   doi?: Maybe<Scalars['String']>;
   identifier: Scalars['String'];
+  leaf: Scalars['Boolean'];
   properties?: Maybe<Scalars['JSON']>;
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
+  root: Scalars['Boolean'];
   summary?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   updatedAt: Scalars['ISO8601DateTime'];
@@ -748,7 +777,7 @@ type HierarchicalEntry = {
 
 
 /** An item that belongs to a collection */
-type Item = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
+export type Item = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -758,6 +787,7 @@ type Item = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
   applicableRoles?: Maybe<Array<Role>>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
+  /** @deprecated Use Item.items */
   children: ItemConnection;
   collection: Collection;
   community: Community;
@@ -770,12 +800,15 @@ type Item = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
   hierarchicalDepth: Scalars['Int'];
   id: Scalars['ID'];
   identifier: Scalars['String'];
+  items: ItemConnection;
+  leaf: Scalars['Boolean'];
   links: ItemLinkConnection;
   parent?: Maybe<ItemParent>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
   properties?: Maybe<Scalars['JSON']>;
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
+  root: Scalars['Boolean'];
   slug: Scalars['Slug'];
   summary?: Maybe<Scalars['String']>;
   /** A mapping of an entity's preview thumbnail */
@@ -787,7 +820,7 @@ type Item = Entity & HierarchicalEntry & Contributable & Node & Sluggable & {
 
 
 /** An item that belongs to a collection */
-type ItemChildrenArgs = {
+export type ItemChildrenArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -796,16 +829,20 @@ type ItemChildrenArgs = {
 
 
 /** An item that belongs to a collection */
-type ItemContributionsArgs = {
+export type ItemContributionsArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 
 /** An item that belongs to a collection */
-type ItemContributorsArgs = {
+export type ItemContributorsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
@@ -819,15 +856,32 @@ type ItemContributorsArgs = {
 
 
 /** An item that belongs to a collection */
-type ItemLinksArgs = {
+export type ItemItemsArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemLinksArgs = {
+  order?: Maybe<SimpleOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 /** The connection type for Item. */
-type ItemConnection = {
+export type ItemConnection = Paginated & {
   __typename?: 'ItemConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<ItemEdge>>>;
@@ -838,7 +892,7 @@ type ItemConnection = {
 };
 
 /** A contribution to an item */
-type ItemContribution = Contribution & Node & Sluggable & {
+export type ItemContribution = Contribution & Node & Sluggable & {
   __typename?: 'ItemContribution';
   contributor: AnyContributor;
   createdAt: Scalars['ISO8601DateTime'];
@@ -849,7 +903,7 @@ type ItemContribution = Contribution & Node & Sluggable & {
 };
 
 /** The connection type for ItemContribution. */
-type ItemContributionConnection = {
+export type ItemContributionConnection = Paginated & {
   __typename?: 'ItemContributionConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<ItemContributionEdge>>>;
@@ -860,7 +914,7 @@ type ItemContributionConnection = {
 };
 
 /** An edge in a connection. */
-type ItemContributionEdge = {
+export type ItemContributionEdge = {
   __typename?: 'ItemContributionEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -869,7 +923,7 @@ type ItemContributionEdge = {
 };
 
 /** An edge in a connection. */
-type ItemEdge = {
+export type ItemEdge = {
   __typename?: 'ItemEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -877,7 +931,7 @@ type ItemEdge = {
   node?: Maybe<Item>;
 };
 
-type ItemLink = Node & Sluggable & {
+export type ItemLink = Node & Sluggable & {
   __typename?: 'ItemLink';
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
@@ -889,7 +943,7 @@ type ItemLink = Node & Sluggable & {
 };
 
 /** The connection type for ItemLink. */
-type ItemLinkConnection = {
+export type ItemLinkConnection = Paginated & {
   __typename?: 'ItemLinkConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<ItemLinkEdge>>>;
@@ -900,7 +954,7 @@ type ItemLinkConnection = {
 };
 
 /** An edge in a connection. */
-type ItemLinkEdge = {
+export type ItemLinkEdge = {
   __typename?: 'ItemLinkEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -908,16 +962,16 @@ type ItemLinkEdge = {
   node?: Maybe<ItemLink>;
 };
 
-type ItemLinkOperator =
+export type ItemLinkOperator =
   | 'contains'
   | 'references'
   | '%future added value';
 
-type ItemParent = Collection | Item | { __typename?: "%other" };
+export type ItemParent = Collection | Item | { __typename?: "%other" };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type Mutation = {
+export type Mutation = {
   __typename?: 'Mutation';
   createAsset?: Maybe<CreateAssetPayload>;
   createCollection?: Maybe<CreateCollectionPayload>;
@@ -958,90 +1012,90 @@ type Mutation = {
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationCreateAssetArgs = {
+export type MutationCreateAssetArgs = {
   input: CreateAssetInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationCreateCollectionArgs = {
+export type MutationCreateCollectionArgs = {
   input: CreateCollectionInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationCreateCommunityArgs = {
+export type MutationCreateCommunityArgs = {
   input: CreateCommunityInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationCreateItemArgs = {
+export type MutationCreateItemArgs = {
   input: CreateItemInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationCreateRoleArgs = {
+export type MutationCreateRoleArgs = {
   input: CreateRoleInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationGrantAccessArgs = {
+export type MutationGrantAccessArgs = {
   input: GrantAccessInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationReparentCollectionArgs = {
+export type MutationReparentCollectionArgs = {
   input: ReparentCollectionInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationReparentItemArgs = {
+export type MutationReparentItemArgs = {
   input: ReparentItemInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationRevokeAccessArgs = {
+export type MutationRevokeAccessArgs = {
   input: RevokeAccessInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationUpdateCollectionArgs = {
+export type MutationUpdateCollectionArgs = {
   input: UpdateCollectionInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationUpdateCommunityArgs = {
+export type MutationUpdateCommunityArgs = {
   input: UpdateCommunityInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationUpdateItemArgs = {
+export type MutationUpdateItemArgs = {
   input: UpdateItemInput;
 };
 
 
 /** The entry point for making changes to the data within the WDP API. */
-type MutationUpdateRoleArgs = {
+export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
 };
 
 /** An object with an ID. */
-type Node = {
+export type Node = {
   /** ID of the object. */
   id: Scalars['ID'];
 };
 
 /** An organization that has made contributions */
-type OrganizationContributor = Contributor & Node & Sluggable & {
+export type OrganizationContributor = Contributor & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
   bio?: Maybe<Scalars['String']>;
   collectionContributions: CollectionContributionConnection;
@@ -1063,7 +1117,7 @@ type OrganizationContributor = Contributor & Node & Sluggable & {
 
 
 /** An organization that has made contributions */
-type OrganizationContributorCollectionContributionsArgs = {
+export type OrganizationContributorCollectionContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1072,7 +1126,7 @@ type OrganizationContributorCollectionContributionsArgs = {
 
 
 /** An organization that has made contributions */
-type OrganizationContributorItemContributionsArgs = {
+export type OrganizationContributorItemContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1080,13 +1134,13 @@ type OrganizationContributorItemContributionsArgs = {
 };
 
 /** Determines the direction that page-number based pagination should flow */
-type PageDirection =
+export type PageDirection =
   | 'FORWARDS'
   | 'BACKWARDS'
   | '%future added value';
 
 /** Information about pagination in a connection. */
-type PageInfo = {
+export type PageInfo = {
   __typename?: 'PageInfo';
   /** When paginating forwards, the cursor to continue. */
   endCursor?: Maybe<Scalars['String']>;
@@ -1108,8 +1162,14 @@ type PageInfo = {
   totalUnfilteredCount: Scalars['Int'];
 };
 
+/** Connections can be paginated by cursor or number. */
+export type Paginated = {
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
 /** A grant of a specific permission within a specific scope */
-type PermissionGrant = {
+export type PermissionGrant = {
   __typename?: 'PermissionGrant';
   allowed: Scalars['Boolean'];
   name: Scalars['String'];
@@ -1117,7 +1177,7 @@ type PermissionGrant = {
 };
 
 /** A person that has made contributions */
-type PersonContributor = Contributor & Node & Sluggable & {
+export type PersonContributor = Contributor & Node & Sluggable & {
   __typename?: 'PersonContributor';
   affiliation?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
@@ -1141,7 +1201,7 @@ type PersonContributor = Contributor & Node & Sluggable & {
 
 
 /** A person that has made contributions */
-type PersonContributorCollectionContributionsArgs = {
+export type PersonContributorCollectionContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1150,14 +1210,14 @@ type PersonContributorCollectionContributionsArgs = {
 
 
 /** A person that has made contributions */
-type PersonContributorItemContributionsArgs = {
+export type PersonContributorItemContributionsArgs = {
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
 };
 
-type PreviewImage = {
+export type PreviewImage = {
   __typename?: 'PreviewImage';
   alt: Scalars['String'];
   dimensions: Array<Scalars['Int']>;
@@ -1166,7 +1226,7 @@ type PreviewImage = {
   width: Scalars['Int'];
 };
 
-type PreviewImageMap = {
+export type PreviewImageMap = {
   __typename?: 'PreviewImageMap';
   alt: Scalars['String'];
   dimensions: Array<Scalars['Int']>;
@@ -1177,7 +1237,7 @@ type PreviewImageMap = {
 };
 
 /** The entry point for retrieving data from within the WDP API. */
-type Query = {
+export type Query = {
   __typename?: 'Query';
   /** Look up a collection by slug */
   collection?: Maybe<Collection>;
@@ -1205,13 +1265,13 @@ type Query = {
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryCollectionArgs = {
+export type QueryCollectionArgs = {
   slug: Scalars['Slug'];
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryCommunitiesArgs = {
+export type QueryCommunitiesArgs = {
   order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -1224,19 +1284,19 @@ type QueryCommunitiesArgs = {
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryCommunityArgs = {
+export type QueryCommunityArgs = {
   slug: Scalars['Slug'];
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryContributorArgs = {
+export type QueryContributorArgs = {
   slug: Scalars['Slug'];
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryContributorsArgs = {
+export type QueryContributorsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
@@ -1250,25 +1310,25 @@ type QueryContributorsArgs = {
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryItemArgs = {
+export type QueryItemArgs = {
   slug: Scalars['Slug'];
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryNodeArgs = {
+export type QueryNodeArgs = {
   id: Scalars['ID'];
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryNodesArgs = {
+export type QueryNodesArgs = {
   ids: Array<Scalars['ID']>;
 };
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryRolesArgs = {
+export type QueryRolesArgs = {
   order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -1278,7 +1338,7 @@ type QueryRolesArgs = {
 
 
 /** The entry point for retrieving data from within the WDP API. */
-type QueryUsersArgs = {
+export type QueryUsersArgs = {
   order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -1290,7 +1350,7 @@ type QueryUsersArgs = {
 };
 
 /** Autogenerated input type of ReparentCollection */
-type ReparentCollectionInput = {
+export type ReparentCollectionInput = {
   /** The collection in need of a new parent */
   collectionId: Scalars['ID'];
   /** The id for the collection's new parent. This can be a community or another collection. */
@@ -1300,7 +1360,7 @@ type ReparentCollectionInput = {
 };
 
 /** Autogenerated return type of ReparentCollection */
-type ReparentCollectionPayload = {
+export type ReparentCollectionPayload = {
   __typename?: 'ReparentCollectionPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1310,7 +1370,7 @@ type ReparentCollectionPayload = {
 };
 
 /** Autogenerated input type of ReparentItem */
-type ReparentItemInput = {
+export type ReparentItemInput = {
   /** The collection in need of a new parent */
   itemId: Scalars['ID'];
   /** The id for the item's new parent. This can be a collection or another item. */
@@ -1320,7 +1380,7 @@ type ReparentItemInput = {
 };
 
 /** Autogenerated return type of ReparentItem */
-type ReparentItemPayload = {
+export type ReparentItemPayload = {
   __typename?: 'ReparentItemPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1330,7 +1390,7 @@ type ReparentItemPayload = {
 };
 
 /** Autogenerated input type of RevokeAccess */
-type RevokeAccessInput = {
+export type RevokeAccessInput = {
   entityId: Scalars['ID'];
   roleId: Scalars['ID'];
   userId: Scalars['ID'];
@@ -1339,7 +1399,7 @@ type RevokeAccessInput = {
 };
 
 /** Autogenerated return type of RevokeAccess */
-type RevokeAccessPayload = {
+export type RevokeAccessPayload = {
   __typename?: 'RevokeAccessPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1351,7 +1411,7 @@ type RevokeAccessPayload = {
 };
 
 /** A named role in the WDP API */
-type Role = Node & Sluggable & {
+export type Role = Node & Sluggable & {
   __typename?: 'Role';
   /** The access control list for this specific role */
   accessControlList: AccessControlList;
@@ -1372,7 +1432,7 @@ type Role = Node & Sluggable & {
 };
 
 /** The connection type for Role. */
-type RoleConnection = {
+export type RoleConnection = Paginated & {
   __typename?: 'RoleConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<RoleEdge>>>;
@@ -1383,7 +1443,7 @@ type RoleConnection = {
 };
 
 /** An edge in a connection. */
-type RoleEdge = {
+export type RoleEdge = {
   __typename?: 'RoleEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -1391,19 +1451,19 @@ type RoleEdge = {
   node?: Maybe<Role>;
 };
 
-type SimpleOrder =
+export type SimpleOrder =
   | 'RECENT'
   | 'OLDEST'
   | '%future added value';
 
 
 /** Objects have a serialized slug for looking them up in the system and generating links without UUIDs */
-type Sluggable = {
+export type Sluggable = {
   slug: Scalars['Slug'];
 };
 
 /** When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed. */
-type TreeNodeFilter =
+export type TreeNodeFilter =
   /** Fetch only nodes that are "roots": nodes that do not have a parent of the same type */
   | 'ROOTS_ONLY'
   /** Fetch all nodes that match other filters passed to the resolver */
@@ -1413,7 +1473,7 @@ type TreeNodeFilter =
   | '%future added value';
 
 /** Autogenerated input type of UpdateCollection */
-type UpdateCollectionInput = {
+export type UpdateCollectionInput = {
   collectionId: Scalars['ID'];
   /** Human readable title for the collection */
   title: Scalars['String'];
@@ -1424,7 +1484,7 @@ type UpdateCollectionInput = {
 };
 
 /** Autogenerated return type of UpdateCollection */
-type UpdateCollectionPayload = {
+export type UpdateCollectionPayload = {
   __typename?: 'UpdateCollectionPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1435,10 +1495,10 @@ type UpdateCollectionPayload = {
 };
 
 /** Autogenerated input type of UpdateCommunity */
-type UpdateCommunityInput = {
+export type UpdateCommunityInput = {
   communityId: Scalars['ID'];
   /** A human readable title for the community */
-  name: Scalars['String'];
+  title: Scalars['String'];
   /** The position the community occupies in the list */
   position?: Maybe<Scalars['Int']>;
   /** A unique identifier for the client performing the mutation. */
@@ -1446,7 +1506,7 @@ type UpdateCommunityInput = {
 };
 
 /** Autogenerated return type of UpdateCommunity */
-type UpdateCommunityPayload = {
+export type UpdateCommunityPayload = {
   __typename?: 'UpdateCommunityPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1457,7 +1517,7 @@ type UpdateCommunityPayload = {
 };
 
 /** Autogenerated input type of UpdateItem */
-type UpdateItemInput = {
+export type UpdateItemInput = {
   /** The item to update */
   itemId: Scalars['ID'];
   title: Scalars['String'];
@@ -1467,7 +1527,7 @@ type UpdateItemInput = {
 };
 
 /** Autogenerated return type of UpdateItem */
-type UpdateItemPayload = {
+export type UpdateItemPayload = {
   __typename?: 'UpdateItemPayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1478,7 +1538,7 @@ type UpdateItemPayload = {
 };
 
 /** Autogenerated input type of UpdateRole */
-type UpdateRoleInput = {
+export type UpdateRoleInput = {
   roleId: Scalars['ID'];
   name: Scalars['String'];
   accessControlList: Scalars['JSON'];
@@ -1487,7 +1547,7 @@ type UpdateRoleInput = {
 };
 
 /** Autogenerated return type of UpdateRole */
-type UpdateRolePayload = {
+export type UpdateRolePayload = {
   __typename?: 'UpdateRolePayload';
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -1497,7 +1557,7 @@ type UpdateRolePayload = {
 };
 
 /** A user */
-type User = ExposesPermissions & Node & Sluggable & {
+export type User = ExposesPermissions & Node & Sluggable & {
   __typename?: 'User';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
@@ -1519,7 +1579,7 @@ type User = ExposesPermissions & Node & Sluggable & {
 
 
 /** A user */
-type UserCollectionsArgs = {
+export type UserCollectionsArgs = {
   access?: Maybe<EntityPermissionFilter>;
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
@@ -1534,7 +1594,7 @@ type UserCollectionsArgs = {
 
 
 /** A user */
-type UserCommunitiesArgs = {
+export type UserCommunitiesArgs = {
   access?: Maybe<EntityPermissionFilter>;
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
@@ -1549,7 +1609,7 @@ type UserCommunitiesArgs = {
 
 
 /** A user */
-type UserItemsArgs = {
+export type UserItemsArgs = {
   access?: Maybe<EntityPermissionFilter>;
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
@@ -1563,7 +1623,7 @@ type UserItemsArgs = {
 };
 
 /** The connection type for User. */
-type UserConnection = {
+export type UserConnection = Paginated & {
   __typename?: 'UserConnection';
   /** A list of edges. */
   edges?: Maybe<Array<Maybe<UserEdge>>>;
@@ -1574,7 +1634,7 @@ type UserConnection = {
 };
 
 /** An edge in a connection. */
-type UserEdge = {
+export type UserEdge = {
   __typename?: 'UserEdge';
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
@@ -1583,7 +1643,7 @@ type UserEdge = {
 };
 
 /** A user-readable error */
-type UserError = {
+export type UserError = {
   __typename?: 'UserError';
   code?: Maybe<Scalars['String']>;
   /** A description of the error */
@@ -1690,6 +1750,7 @@ export type ResolversTypes = {
   AssetUnknown: ResolverTypeWrapper<Omit<AssetUnknown, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetVideo: ResolverTypeWrapper<Omit<AssetVideo, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   Collection: ResolverTypeWrapper<Omit<Collection, 'parent'> & { parent?: Maybe<ResolversTypes['CollectionParent']> }>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CollectionConnection: ResolverTypeWrapper<CollectionConnection>;
   CollectionContribution: ResolverTypeWrapper<Omit<CollectionContribution, 'contributor'> & { contributor: ResolversTypes['AnyContributor'] }>;
   CollectionContributionConnection: ResolverTypeWrapper<CollectionContributionConnection>;
@@ -1730,7 +1791,6 @@ export type ResolversTypes = {
   ExposesPermissions: ResolversTypes['User'];
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   HierarchicalEntry: ResolversTypes['Collection'] | ResolversTypes['Item'];
   ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
   ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']>;
@@ -1751,6 +1811,7 @@ export type ResolversTypes = {
   OrganizationContributor: ResolverTypeWrapper<OrganizationContributor>;
   PageDirection: PageDirection;
   PageInfo: ResolverTypeWrapper<PageInfo>;
+  Paginated: ResolversTypes['AnyContributorConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CollectionLinkConnection'] | ResolversTypes['CollectionLinkedItemConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['ItemLinkConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['UserConnection'];
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PreviewImage: ResolverTypeWrapper<PreviewImage>;
@@ -1804,6 +1865,7 @@ export type ResolversParentTypes = {
   AssetUnknown: Omit<AssetUnknown, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetVideo: Omit<AssetVideo, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   Collection: Omit<Collection, 'parent'> & { parent?: Maybe<ResolversParentTypes['CollectionParent']> };
+  Boolean: Scalars['Boolean'];
   CollectionConnection: CollectionConnection;
   CollectionContribution: Omit<CollectionContribution, 'contributor'> & { contributor: ResolversParentTypes['AnyContributor'] };
   CollectionContributionConnection: CollectionContributionConnection;
@@ -1838,7 +1900,6 @@ export type ResolversParentTypes = {
   ExposesPermissions: ResolversParentTypes['User'];
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
-  Boolean: Scalars['Boolean'];
   HierarchicalEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   ISO8601Date: Scalars['ISO8601Date'];
   ISO8601DateTime: Scalars['ISO8601DateTime'];
@@ -1857,6 +1918,7 @@ export type ResolversParentTypes = {
   Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['CollectionLink'] | ResolversParentTypes['CollectionLinkedItem'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['ItemLink'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['User'];
   OrganizationContributor: OrganizationContributor;
   PageInfo: PageInfo;
+  Paginated: ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CollectionLinkConnection'] | ResolversParentTypes['CollectionLinkedItemConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['ItemLinkConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['UserConnection'];
   PermissionGrant: PermissionGrant;
   PersonContributor: PersonContributor;
   PreviewImage: PreviewImage;
@@ -2044,21 +2106,24 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
-  contributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<CollectionContributionsArgs, never>>;
+  contributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<CollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  itemLinks?: Resolver<ResolversTypes['CollectionLinkedItemConnection'], ParentType, ContextType, RequireFields<CollectionItemLinksArgs, never>>;
+  itemLinks?: Resolver<ResolversTypes['CollectionLinkedItemConnection'], ParentType, ContextType, RequireFields<CollectionItemLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
-  links?: Resolver<ResolversTypes['CollectionLinkConnection'], ParentType, ContextType, RequireFields<CollectionLinksArgs, never>>;
+  leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  links?: Resolver<ResolversTypes['CollectionLinkConnection'], ParentType, ContextType, RequireFields<CollectionLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
   parent?: Resolver<Maybe<ResolversTypes['CollectionParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   properties?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
@@ -2171,6 +2236,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -2299,8 +2365,10 @@ export type HierarchicalEntryResolvers<ContextType = any, ParentType extends Res
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   properties?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -2323,18 +2391,21 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemChildrenArgs, never>>;
   collection?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
-  contributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ItemContributionsArgs, never>>;
+  contributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ItemContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  links?: Resolver<ResolversTypes['ItemLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, never>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  links?: Resolver<ResolversTypes['ItemLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
   parent?: Resolver<Maybe<ResolversTypes['ItemParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   properties?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
@@ -2464,6 +2535,11 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalUnfilteredCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PaginatedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Paginated'] = ResolversParentTypes['Paginated']> = {
+  __resolveType: TypeResolveFn<'AnyContributorConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CollectionLinkConnection' | 'CollectionLinkedItemConnection' | 'CommunityConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'ItemLinkConnection' | 'RoleConnection' | 'UserConnection', ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
 };
 
 export type PermissionGrantResolvers<ContextType = any, ParentType extends ResolversParentTypes['PermissionGrant'] = ResolversParentTypes['PermissionGrant']> = {
@@ -2720,6 +2796,7 @@ export type Resolvers<ContextType = any> = {
   Node?: NodeResolvers<ContextType>;
   OrganizationContributor?: OrganizationContributorResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
+  Paginated?: PaginatedResolvers<ContextType>;
   PermissionGrant?: PermissionGrantResolvers<ContextType>;
   PersonContributor?: PersonContributorResolvers<ContextType>;
   PreviewImage?: PreviewImageResolvers<ContextType>;

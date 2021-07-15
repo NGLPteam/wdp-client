@@ -1,41 +1,79 @@
-import React from "react";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { useRouterContext } from "hooks/useRouterContext";
-import { TabNav } from "components/atomic";
-import { PageHeader } from "components/layout";
+import { EntityHeader } from "components/composed/entity";
+import { Manage } from "../entities";
+import ContributorContributions from "./ContributorContributions";
+import { graphql } from "react-relay";
+import {
+  ContributorDetailQuery,
+  ContributorDetailQueryVariables,
+} from "@/relay/ContributorDetailQuery.graphql";
+import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 
 export default function ContributorDetail() {
   const { activeId: id, activeView: view } = useRouterContext();
-  // TODO: Dynamic breadcrumbs
-  const breadcrumbs = {
-    data: [
-      {
-        label: "Contributors",
-        href: "/contributors",
-      },
-      {
-        label: `Contributor: ${id}`,
-        href: "#",
-      },
-    ],
-  };
+
+  const [variables, setVariables] = useState<ContributorDetailQueryVariables>({
+    slug: id,
+  });
+
+  const {
+    data,
+    error,
+    isLoading,
+  } = useAuthenticatedQuery<ContributorDetailQuery>(query, variables);
+
+  useEffect(() => {
+    setVariables((v) => ({ ...v, slug: id }));
+  }, [id, setVariables]);
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (error?.message) {
+    return <div>{error.message}</div>;
+  }
 
   return (
     <section>
-      <PageHeader title={`Contributor: ${id}`} breadcrumbsProps={breadcrumbs}>
-        <TabNav>
-          <Link href={`/contributors/${id}/action`} passHref>
-            <TabNav.Tab active={view === "action"}>
-              Another Action Here
-            </TabNav.Tab>
-          </Link>
-          <Link href={`/contributors/${id}/delete`} passHref>
-            <TabNav.Tab active={view === "delete"}>Delete</TabNav.Tab>
-          </Link>
-        </TabNav>
-      </PageHeader>
+      {data?.contributor && (
+        <EntityHeader
+          id={id}
+          title={`${
+            data?.contributor?.name ||
+            `${data?.contributor?.firstName} ${data?.contributor?.lastName}`
+          }`}
+          view={view}
+          type="CONTRIBUTOR"
+        />
+      )}
 
       {view === "main" && <div>Main</div>}
+      {view === "contributions" && <ContributorContributions />}
+      {view === "manage" && <Manage />}
     </section>
   );
 }
+
+const query = graphql`
+  query ContributorDetailQuery($slug: Slug!) {
+    contributor(slug: $slug) {
+      __typename
+      ... on OrganizationContributor {
+        name: legalName
+        createdAt
+        updatedAt
+      }
+      ... on PersonContributor {
+        firstName: givenName
+        lastName: familyName
+        createdAt
+        updatedAt
+      }
+      ... on Sluggable {
+        slug
+      }
+    }
+  }
+`;

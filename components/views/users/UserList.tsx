@@ -1,55 +1,27 @@
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  UserListQuery,
-  UserListQueryVariables,
+  UserListQuery as Query,
+  UserListQueryResponse as QueryResponse,
 } from "__generated__/UserListQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { PageHeader } from "components/layout";
-import { Card, CardList } from "components/layout/CardList/CardList";
-import Link from "next/link";
-import { FullPageLoader } from "components/global";
-import UserHeaders from "./UserHeadersPartial";
+import UserList from "components/composed/user/UserList";
 
-export default function UserList() {
-  const [variables, setVariables] = useState<UserListQueryVariables>({
-    order: "RECENT",
-    page: 1,
-  });
+import type { ExtractsConnection } from "types/graphql-helpers";
 
-  const { data, error, isLoading } = useAuthenticatedQuery<UserListQuery>(
-    query,
-    variables
+type ConnectionType = QueryResponse["users"];
+
+export default function UserListView() {
+  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
+    (data) => data?.users,
+    []
   );
 
-  if (isLoading) {
-    return null;
-  }
-
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
-
   return (
-    <section>
-      <PageHeader title="Users" />
-      <CardList>
-        <UserHeaders variables={variables} setVariables={setVariables} />
-        {data?.users?.nodes ? (
-          data.users.nodes.map((user, index) => (
-            <Card key={index}>
-              <h4>
-                <Link href={`/users/${user.slug}`}>{user.name}</Link>
-              </h4>
-            </Card>
-          ))
-        ) : data?.users === null ? (
-          <div>No Users.</div>
-        ) : (
-          <FullPageLoader />
-        )}
-      </CardList>
-    </section>
+    <UserList<Query, ConnectionType>
+      defaultOrder="RECENT"
+      query={query}
+      toConnection={toConnection}
+    />
   );
 }
 
@@ -58,8 +30,11 @@ const query = graphql`
     users(order: $order, page: $page, perPage: 10) {
       nodes {
         email
+        globalAdmin
         name
         slug
+        createdAt
+        updatedAt
       }
       pageInfo {
         page
@@ -68,6 +43,7 @@ const query = graphql`
         hasNextPage
         hasPreviousPage
         totalCount
+        totalUnfilteredCount
       }
     }
   }

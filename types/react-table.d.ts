@@ -8,13 +8,31 @@ export enum RenderType {
   Footer = "Footer",
 }
 
-export interface ColumnOptions {
+export interface ColumnOptions<T> {
   Header?: string | ReactNode;
   accessor?:
     | string
     | ((originalRow: Record<string, unknown>, rowIndex: number) => Primitive);
   disableSortBy?: boolean;
-  Cell?: (props: CellProperties) => ReactNode;
+  Cell?: (props: CellProperties<T>) => ReactNode;
+}
+
+export interface CellProperties<T> {
+  column: ColumnProperties;
+  row: RowProperties<T>;
+  getCellProps: () => CellProps;
+  value: ReactNode;
+  render: (type: string) => ReactNode;
+}
+
+export interface RowProperties<T> {
+  cells: CellProperties[];
+  allCells: CellProperties[];
+  getRowProps: () => RowProps;
+  getToggleRowSelectedProps: () => CheckboxProps;
+  values: ReactNode[];
+  original: T;
+  state: Record<string, unknown>;
 }
 
 export interface ColumnProperties {
@@ -27,27 +45,9 @@ export interface ColumnProperties {
   render: (type: string) => ReactNode;
 }
 
-export interface RowProperties {
-  cells: CellProperties[];
-  allCells: CellProperties[];
-  getRowProps: () => RowProps;
-  getToggleRowSelectedProps: () => CheckboxProps;
-  values: ReactNode[];
-  original: Record<string, unknown>;
-  state: Record<string, unknown>;
-}
-
 export interface RowProps {
   key: string;
   role: string;
-}
-
-export interface CellProperties {
-  column: ColumnProperties;
-  row: RowProperties;
-  getCellProps: () => CellProps;
-  value: ReactNode;
-  render: (type: string) => ReactNode;
 }
 
 export interface CellProps {
