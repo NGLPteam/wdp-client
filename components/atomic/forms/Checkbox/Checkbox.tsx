@@ -1,4 +1,5 @@
 import React, { forwardRef, useRef, useEffect } from "react";
+import * as Styled from "./Checkbox.styles";
 
 function Checkbox({ children, indeterminate, ...props }: Props, ref) {
   const defaultRef = useRef();
@@ -9,10 +10,18 @@ function Checkbox({ children, indeterminate, ...props }: Props, ref) {
   }, [resolvedRef, indeterminate]);
 
   return (
-    <label aria-label={props["aria-label"] || null}>
-      <input type="checkbox" ref={resolvedRef} {...props} />
-      {children}
-    </label>
+    <Styled.Label aria-label={props["aria-label"] || null}>
+      <Styled.Checkbox
+        className="a-hidden"
+        type="checkbox"
+        ref={resolvedRef}
+        {...props}
+      />
+      <Styled.Icon icon="checkbox" data-checked="false" role="presentation" />
+      {children && (
+        <Styled.LabelText className="t-copy-sm">{children}</Styled.LabelText>
+      )}
+    </Styled.Label>
   );
 }
 
