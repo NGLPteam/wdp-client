@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 import get from "lodash/get";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 import { SidebarNav } from "components/atomic";
 import {
   Properties,
@@ -52,7 +52,7 @@ export default function Manage() {
     activeId: id,
     activeView: view,
     activeSubview: subview,
-  } = useGlobalData();
+  } = useRouterContext();
 
   // Get the current subview component
   const activeView = useMemo(() => {

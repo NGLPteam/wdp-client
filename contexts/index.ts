@@ -2,4 +2,7 @@ export {
   default as ViewerContext,
   ViewerContextProvider,
 } from "./ViewerContext";
-export { GlobalDataProvider } from "./GlobalData";
+export {
+  default as RouterContext,
+  RouterContextProvider,
+} from "./RouterContext";

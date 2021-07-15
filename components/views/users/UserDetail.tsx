@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 import { TabNav } from "components/atomic";
 import { PageHeader } from "components/layout";
 
 export default function UserDetail() {
-  const { activeId: id, activeView: view } = useGlobalData();
+  const { activeId: id, activeView: view } = useRouterContext();
   // TODO: Dynamic breadcrumbs
   const breadcrumbs = {
     data: [

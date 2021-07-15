@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetActiveEntity } from "hooks/useGlobalData";
+import { useGetActiveEntity } from "hooks/useRouterContext";
 import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";

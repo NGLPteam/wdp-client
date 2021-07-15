@@ -1,5 +1,5 @@
 import React from "react";
-import { useSetActiveEntity } from "hooks/useGlobalData";
+import { useSetActiveEntity } from "hooks/useRouterContext";
 import CollectionListView from "components/views/collections/CollectionList";
 import CommunityListView from "components/views/communities/CommunityList";
 import ContributorListView from "components/views/contributors/ContributorList";

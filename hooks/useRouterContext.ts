@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
-import GlobalDataContext from "contexts/GlobalData";
+import RouterContext, {
+  RouterState,
+  RouterContextInterface,
+} from "contexts/RouterContext";
 import useGetQueryParam from "hooks/useGetQueryParam";
 import useGetQuery from "hooks/useGetQuery";
 
@@ -10,8 +13,8 @@ import useGetQuery from "hooks/useGetQuery";
  * @param dataPoint - optional, otherwise whole data returned
  * @returns the value of the point, or the full data if not
  */
-export const useGlobalData = (): GlobalState => {
-  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+export const useRouterContext = (): RouterState => {
+  const { state } = useContext(RouterContext) as RouterContextInterface;
   return state;
 };
 
@@ -19,8 +22,8 @@ export const useGlobalData = (): GlobalState => {
  * @param dataPoint
  * @returns the value of the point
  */
-export const useGlobalDataPoint = (dataPoint: string): string => {
-  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+export const useRouterContextPoint = (dataPoint: string): string => {
+  const { state } = useContext(RouterContext) as RouterContextInterface;
   const point = dataPoint as keyof typeof state;
 
   return state[point] || "";
@@ -32,7 +35,7 @@ export const useGlobalDataPoint = (dataPoint: string): string => {
  * @returns entity
  */
 export const useSetActiveEntity = () => {
-  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { dispatch } = useContext(RouterContext) as RouterContextInterface;
   const entity = useGetQueryParam("entity") || "";
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export const useSetActiveEntity = () => {
  * @return the value of the active entity
  */
 export const useGetActiveEntity = () => {
-  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { state } = useContext(RouterContext) as RouterContextInterface;
   return state.activeEntity;
 };
 
@@ -55,7 +58,7 @@ export const useGetActiveEntity = () => {
  * @returns entity
  */
 export const useSetActiveId = () => {
-  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { dispatch } = useContext(RouterContext) as RouterContextInterface;
   const id = useGetQueryParam("id") || "";
 
   useEffect(() => {
@@ -69,7 +72,7 @@ export const useSetActiveId = () => {
  * @return the value of the active entity
  */
 export const useGetActiveId = () => {
-  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { state } = useContext(RouterContext) as RouterContextInterface;
   return state.activeId;
 };
 
@@ -78,7 +81,7 @@ export const useGetActiveId = () => {
  * @returns view
  */
 export const useSetActiveView = () => {
-  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { dispatch } = useContext(RouterContext) as RouterContextInterface;
   const view = useGetQueryParam("view") || "main";
 
   useEffect(() => {
@@ -92,7 +95,7 @@ export const useSetActiveView = () => {
  * @return the value of the active view
  */
 export const useGetActiveView = () => {
-  const { state } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { state } = useContext(RouterContext) as RouterContextInterface;
   return state.activeView;
 };
 
@@ -101,7 +104,7 @@ export const useGetActiveView = () => {
  * @returns view
  */
 export const useSetActiveSubview = () => {
-  const { dispatch } = useContext(GlobalDataContext) as GlobalContextInterface;
+  const { dispatch } = useContext(RouterContext) as RouterContextInterface;
   const subview = useGetQuery("view.1") || "main";
 
   useEffect(() => {

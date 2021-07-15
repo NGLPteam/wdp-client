@@ -1,9 +1,9 @@
 import React from "react";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 import { ContentTitle } from "components/atomic";
 
 export default function Files() {
-  const { activeEntity: entity, activeId: id } = useGlobalData();
+  const { activeEntity: entity, activeId: id } = useRouterContext();
   return (
     <div>
       <ContentTitle as="h2">Files</ContentTitle>

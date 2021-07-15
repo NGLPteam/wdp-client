@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 
 export default function SubcollectionList() {
-  const { activeId: id } = useGlobalData();
+  const { activeId: id } = useRouterContext();
   return (
     <div>
       <h1>Collections for {id}</h1>
