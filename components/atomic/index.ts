@@ -8,3 +8,4 @@ export { default as Dropdown } from "./dropdown/Dropdown";
 export { default as T } from "./Translate";
 export * from "./buttons";
 export * from "./links";
+export { default as Error } from "./Error";
