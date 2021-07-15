@@ -7,10 +7,10 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { SubcollectionList, Manage } from "components/views/entities";
 import { EntityHeader } from "components/composed/entity";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 
 export default function CommunityDetail() {
-  const { activeId: id, activeView: view } = useGlobalData();
+  const { activeId: id, activeView: view } = useRouterContext();
 
   const [variables, setVariables] = useState<CommunityDetailQueryVariables>({
     slug: id,

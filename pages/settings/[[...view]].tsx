@@ -1,5 +1,5 @@
 import React from "react";
-import { useSetActiveEntity, useSetActiveView } from "hooks/useGlobalData";
+import { useSetActiveEntity, useSetActiveView } from "hooks/useRouterContext";
 
 export default function SettingsPage() {
   useSetActiveEntity();

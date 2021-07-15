@@ -7,10 +7,10 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { SubitemList, Manage } from "components/views/entities";
 import { EntityHeader } from "components/composed/entity";
-import { useBreadcrumbs, useGlobalData } from "hooks";
+import { useBreadcrumbs, useRouterContext } from "hooks";
 
 export default function ItemDetail() {
-  const { activeId: id, activeView: view } = useGlobalData();
+  const { activeId: id, activeView: view } = useRouterContext();
   const [variables, setVariables] = useState<ItemDetailQueryVariables>({
     slug: id || "Kr6Na0VT4d41FYJvT8LDGIKb5zgBzBb",
   });

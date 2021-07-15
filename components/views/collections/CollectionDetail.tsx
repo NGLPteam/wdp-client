@@ -11,11 +11,11 @@ import {
   Manage,
 } from "components/views/entities";
 import { EntityHeader } from "components/composed/entity";
-import { useGlobalData } from "hooks/useGlobalData";
+import { useRouterContext } from "hooks/useRouterContext";
 import { useBreadcrumbs } from "hooks";
 
 export default function CollectionDetail() {
-  const { activeId: id, activeView: view } = useGlobalData();
+  const { activeId: id, activeView: view } = useRouterContext();
 
   const [variables, setVariables] = useState<CollectionDetailQueryVariables>({
     slug: id,

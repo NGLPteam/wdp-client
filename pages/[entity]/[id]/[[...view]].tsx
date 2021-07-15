@@ -4,7 +4,7 @@ import {
   useSetActiveId,
   useSetActiveView,
   useSetActiveSubview,
-} from "hooks/useGlobalData";
+} from "hooks/useRouterContext";
 import CollectionDetailView from "components/views/collections/CollectionDetail";
 import CommunityDetailView from "components/views/communities/CommunityDetail";
 import ContributorDetailView from "components/views/contributors/ContributorDetail";
