@@ -5,12 +5,26 @@ import {
   ItemDetailQueryVariables,
 } from "__generated__/ItemDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { SubitemList, Manage } from "components/views/entities";
+import ItemChildItems from "./ItemChildItems";
+import { Manage } from "components/views/entities";
 import { EntityHeader } from "components/composed/entity";
 import { useBreadcrumbs, useRouterContext } from "hooks";
+import { useRouter } from "next/router";
 
 export default function ItemDetail() {
   const { activeId: id, activeView: view } = useRouterContext();
+
+  // This redirect is a temporary workaround to deal with immature routing. For demo
+  // purposes, we want to show the correct landing page, but the current approach locks us
+  // into an inflexible structure. Remove this when routing is revised.
+  const router = useRouter();
+  useEffect(() => {
+    if (view === "main" && id) {
+      const redirect = `/items/${id}/items`;
+      router.push(redirect);
+    }
+  }, [view, id, router]);
+
   const [variables, setVariables] = useState<ItemDetailQueryVariables>({
     slug: id || "Kr6Na0VT4d41FYJvT8LDGIKb5zgBzBb",
   });
@@ -34,18 +48,20 @@ export default function ItemDetail() {
     return <div>{error.message}</div>;
   }
 
+  const { item } = data;
+
   return (
     <section>
-      {data && data.item && (
+      {item && (
         <EntityHeader
           id={id}
           type="ITEM"
           view={view}
-          title={data.item.title}
+          title={item.title}
           breadcrumbs={breadcrumbs}
         />
       )}
-      {view === "items" && <SubitemList />}
+      {view === "items" && <ItemChildItems item={item} />}
       {view === "manage" && <Manage />}
     </section>
   );

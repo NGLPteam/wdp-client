@@ -10,20 +10,15 @@ export type ContributorListQueryVariables = {
 };
 export type ContributorListQueryResponse = {
     readonly contributors: {
-        readonly nodes: ReadonlyArray<({
-            readonly __typename: "OrganizationContributor";
-            readonly name: string | null;
-            readonly slug: unknown;
-        } | {
-            readonly __typename: "PersonContributor";
-            readonly firstName: string | null;
-            readonly lastName: string | null;
-            readonly slug: unknown;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null> | null;
+        readonly nodes: ReadonlyArray<{
+            readonly __typename: string;
+            readonly slug?: string;
+            readonly name?: string | null;
+            readonly createdAt?: string;
+            readonly updatedAt?: string;
+            readonly firstName?: string | null;
+            readonly lastName?: string | null;
+        } | null> | null;
         readonly pageInfo: {
             readonly page: number | null;
             readonly perPage: number | null;
@@ -31,6 +26,7 @@ export type ContributorListQueryResponse = {
             readonly hasNextPage: boolean;
             readonly hasPreviousPage: boolean;
             readonly totalCount: number;
+            readonly totalUnfilteredCount: number;
         };
     };
 };
@@ -51,11 +47,17 @@ query ContributorListQuery(
       __typename
       ... on OrganizationContributor {
         name: legalName
-        slug
+        createdAt
+        updatedAt
       }
       ... on PersonContributor {
         firstName: givenName
         lastName: familyName
+        createdAt
+        updatedAt
+      }
+      ... on Sluggable {
+        __isSluggable: __typename
         slug
       }
       ... on Node {
@@ -70,6 +72,7 @@ query ContributorListQuery(
       hasNextPage
       hasPreviousPage
       totalCount
+      totalUnfilteredCount
     }
   }
 }
@@ -116,10 +119,17 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "createdAt",
   "storageKey": null
 },
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -129,12 +139,13 @@ v4 = {
       "name": "legalName",
       "storageKey": null
     },
-    (v3/*: any*/)
+    (v3/*: any*/),
+    (v4/*: any*/)
   ],
   "type": "OrganizationContributor",
   "abstractKey": null
 },
-v5 = {
+v6 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -151,12 +162,27 @@ v5 = {
       "name": "familyName",
       "storageKey": null
     },
-    (v3/*: any*/)
+    (v3/*: any*/),
+    (v4/*: any*/)
   ],
   "type": "PersonContributor",
   "abstractKey": null
 },
-v6 = {
+v7 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    }
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
+},
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -205,6 +231,13 @@ v6 = {
       "kind": "ScalarField",
       "name": "totalCount",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalUnfilteredCount",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -233,12 +266,13 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
@@ -269,8 +303,9 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v4/*: any*/),
               (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -288,21 +323,21 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d4b5b6e3c87ed601a27225af65bbeacd",
+    "cacheID": "1874a875093cef29bb31797a52f29546",
     "id": null,
     "metadata": {},
     "name": "ContributorListQuery",
     "operationKind": "query",
-    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 10) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        slug\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
+    "text": "query ContributorListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 10) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '01799fdaa7c68cadb04071515a1816fc';
+(node as any).hash = '4dc62c8c9627013dbb6dc7b7a505fcb8';
 export default node;

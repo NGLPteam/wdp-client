@@ -12,8 +12,11 @@ export type UserListQueryResponse = {
     readonly users: {
         readonly nodes: ReadonlyArray<{
             readonly email: string | null;
+            readonly globalAdmin: boolean;
             readonly name: string | null;
-            readonly slug: unknown;
+            readonly slug: string;
+            readonly createdAt: string;
+            readonly updatedAt: string;
         } | null> | null;
         readonly pageInfo: {
             readonly page: number | null;
@@ -22,6 +25,7 @@ export type UserListQueryResponse = {
             readonly hasNextPage: boolean;
             readonly hasPreviousPage: boolean;
             readonly totalCount: number;
+            readonly totalUnfilteredCount: number;
         };
     };
 };
@@ -40,8 +44,11 @@ query UserListQuery(
   users(order: $order, page: $page, perPage: 10) {
     nodes {
       email
+      globalAdmin
       name
       slug
+      createdAt
+      updatedAt
       id
     }
     pageInfo {
@@ -51,6 +58,7 @@ query UserListQuery(
       hasNextPage
       hasPreviousPage
       totalCount
+      totalUnfilteredCount
     }
   }
 }
@@ -97,17 +105,38 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "globalAdmin",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "name",
   "storageKey": null
 },
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "createdAt",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -156,6 +185,13 @@ v5 = {
       "kind": "ScalarField",
       "name": "totalCount",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalUnfilteredCount",
+      "storageKey": null
     }
   ],
   "storageKey": null
@@ -185,11 +221,14 @@ return {
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
-              (v4/*: any*/)
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
@@ -222,6 +261,9 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -232,21 +274,21 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c5e917dd214f0997dd78467325328152",
+    "cacheID": "25367345c79e5e53c04ffa37e4bf3e3a",
     "id": null,
     "metadata": {},
     "name": "UserListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 10) {\n    nodes {\n      email\n      name\n      slug\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n    }\n  }\n}\n"
+    "text": "query UserListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 10) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '7303c8e54cbb5d216affdc1270c9038d';
+(node as any).hash = '20c471a48ed23766a25f6467a5704c5e';
 export default node;

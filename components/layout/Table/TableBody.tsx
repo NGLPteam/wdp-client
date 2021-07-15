@@ -4,7 +4,7 @@ import TableRow from "./TableRow";
 import { Checkbox } from "components/atomic/forms";
 import { RowProperties } from "types/react-table";
 
-const TableBody = ({ rows }: Props) => {
+function TableBody<T>({ rows }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
 
@@ -43,10 +43,10 @@ const TableBody = ({ rows }: Props) => {
     </Styled.TableBody>
   );
   /* eslint-enable react/jsx-key */
-};
+}
 
-interface Props {
-  rows: RowProperties[];
+interface Props<T> {
+  rows: RowProperties<T>[];
 }
 
 export default TableBody;

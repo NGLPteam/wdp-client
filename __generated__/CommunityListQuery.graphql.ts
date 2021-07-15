@@ -12,10 +12,11 @@ export type CommunityListQueryResponse = {
     readonly communities: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly key: unknown;
-                readonly slug: unknown;
+                readonly key: string;
+                readonly slug: string;
                 readonly name: string;
-                readonly updatedAt: unknown;
+                readonly updatedAt: string;
+                readonly createdAt: string;
             } | null;
         } | null> | null;
         readonly pageInfo: {
@@ -48,6 +49,7 @@ query CommunityListQuery(
         slug
         name
         updatedAt
+        createdAt
         id
       }
     }
@@ -123,6 +125,13 @@ v5 = {
   "storageKey": null
 },
 v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "createdAt",
+  "storageKey": null
+},
+v7 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -216,14 +225,15 @@ return {
                   (v2/*: any*/),
                   (v3/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/)
+                  (v5/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
@@ -265,6 +275,7 @@ return {
                   (v3/*: any*/),
                   (v4/*: any*/),
                   (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -278,21 +289,21 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "150783a38f2fe0356c171c9bc9041292",
+    "cacheID": "d388279c8c585071fcf250b45727b0b0",
     "id": null,
     "metadata": {},
     "name": "CommunityListQuery",
     "operationKind": "query",
-    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 10) {\n    edges {\n      node {\n        key: slug\n        slug\n        name\n        updatedAt\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query CommunityListQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 10) {\n    edges {\n      node {\n        key: slug\n        slug\n        name\n        updatedAt\n        createdAt\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0ded7978908f2de20473876583d681da';
+(node as any).hash = 'bbd0cf02afc94a8d9fd99e461b28704e';
 export default node;

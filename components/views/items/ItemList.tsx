@@ -1,93 +1,27 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  ItemListQuery,
-  ItemListQueryVariables,
+  ItemListQuery as Query,
+  ItemListQueryResponse as QueryResponse,
 } from "__generated__/ItemListQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { EntityList } from "components/composed/entity";
-import useSetVarsWithParam from "../../../hooks/useSetVarsWithParam";
-import { NamedLink } from "../../atomic";
+import ItemList from "components/composed/item/ItemList";
 
-export default function ItemList() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [variables, setVariables] = useState<ItemListQueryVariables>({
-    order: "RECENT",
-    page: 1,
-  });
-  useSetVarsWithParam("page", currentPage, setCurrentPage, setVariables);
+import type { ExtractsConnection } from "types/graphql-helpers";
 
-  const { data, error, isLoading } = useAuthenticatedQuery<ItemListQuery>(
-    query,
-    variables
-  );
+type ConnectionType = QueryResponse["viewer"]["items"];
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Title",
-        accessor: "title",
-        disableSortBy: true,
-        Cell: ({ row, value }) => {
-          return (
-            <NamedLink
-              route="itemDetail"
-              routeParams={{ id: row.original.slug }}
-              passHref
-            >
-              <a>{value}</a>
-            </NamedLink>
-          );
-        },
-      },
-    ],
+export default function ItemListView() {
+  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
+    (data) => data?.viewer?.items,
     []
   );
-
-  const actions = useMemo(
-    () => ({
-      edit: {
-        handleClick: ({ row }) => console.info(`edit ${row.original.slug}`),
-      },
-      delete: {
-        handleClick: ({ row }) => console.info(`delete ${row.original.slug}`),
-      },
-    }),
-    []
-  );
-
-  const handleSort = useCallback(
-    ({ order }) => {
-      if (order) return setVariables({ order, page: variables.page });
-    },
-    [variables.page]
-  );
-
-  const handleSelectionChange = useCallback(({ selectedRowIds }) => {
-    // eslint-disable-next-line no-console
-    console.table(selectedRowIds);
-  }, []);
-
-  const entities = useMemo(() => data?.viewer?.items?.nodes, [data]);
-  const pageInfo = useMemo(() => data?.viewer?.items?.pageInfo, [data]);
 
   return (
-    <>
-      <EntityList
-        entityName="item"
-        error={error}
-        entities={entities}
-        pageInfo={pageInfo}
-        columns={columns}
-        actions={actions}
-        isLoading={isLoading}
-        onSort={handleSort}
-        onSelectionChange={handleSelectionChange}
-        withUpdatedAt
-        withCreatedAt
-        withRowSelection
-      />
-    </>
+    <ItemList<Query, ConnectionType>
+      defaultOrder="RECENT"
+      query={query}
+      toConnection={toConnection}
+    />
   );
 }
 

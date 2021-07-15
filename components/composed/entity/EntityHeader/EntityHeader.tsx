@@ -4,7 +4,6 @@ import { PageHeader } from "components/layout";
 import { TabNav } from "components/atomic";
 
 import { BreadcrumbListType } from "hooks/useBreadcrumbs";
-import { EntityKind } from "types/graphql-schema";
 import { entityMap } from "helpers/routes";
 
 /**
@@ -12,6 +11,7 @@ import { entityMap } from "helpers/routes";
  * and returns a PageHeader with the entity title, breadcrumbs, and tabbed navigation.
  */
 const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
+  // TODO: Refactor this once we arrive at a sustainable routing approach.
   function getTabs() {
     const tabs = [
       <Link key="manage" href={`/${entityMap[type]}/${id}/manage`} passHref>
@@ -19,7 +19,7 @@ const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       </Link>,
     ];
 
-    if (type !== "COMMUNITY") {
+    if (!["COMMUNITY", "CONTRIBUTOR"].includes(type)) {
       tabs.unshift(
         <Link key="items" href={`/${entityMap[type]}/${id}/items`} passHref>
           <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
@@ -27,14 +27,30 @@ const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       );
     }
 
-    if (type !== "ITEM") {
+    if (["CONTRIBUTOR"].includes(type)) {
+      tabs.unshift(
+        <Link
+          key="contributions"
+          href={`/${entityMap[type]}/${id}/contributions`}
+          passHref
+        >
+          <TabNav.Tab active={view === "contributions"}>
+            Contributions
+          </TabNav.Tab>
+        </Link>
+      );
+    }
+
+    if (!["ITEM", "CONTRIBUTOR"].includes(type)) {
       tabs.unshift(
         <Link
           key="collections"
           href={`/${entityMap[type]}/${id}/collections`}
           passHref
         >
-          <TabNav.Tab active={view === "items"}>Child Collections</TabNav.Tab>
+          <TabNav.Tab active={view === "collections"}>
+            Child Collections
+          </TabNav.Tab>
         </Link>
       );
     }
@@ -48,16 +64,14 @@ const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
     </PageHeader>
   );
 };
+
+type HeaderTypes = "COMMUNITY" | "COLLECTION" | "ITEM" | "USER" | "CONTRIBUTOR";
+
 interface Props {
-  /** Entity type (COMMUNITY, COLLECTION, ITEM) */
-  type: EntityKind;
-  /** Entity id */
+  type: HeaderTypes;
   id: string;
-  /** Entity title */
   title: string;
-  /** Entity breadcrumbs */
   breadcrumbs?: BreadcrumbListType;
-  /** Current router view */
   view?: string;
 }
 

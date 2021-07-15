@@ -4,12 +4,12 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type CommunityDetailQueryVariables = {
-    slug: unknown;
+    slug: string;
 };
 export type CommunityDetailQueryResponse = {
     readonly community: {
         readonly name: string;
-        readonly slug: unknown;
+        readonly slug: string;
     } | null;
 };
 export type CommunityDetailQuery = {

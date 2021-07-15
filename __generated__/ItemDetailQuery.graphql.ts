@@ -5,12 +5,12 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ItemDetailQueryVariables = {
-    slug: unknown;
+    slug: string;
 };
 export type ItemDetailQueryResponse = {
     readonly item: {
         readonly title: string | null;
-        readonly slug: unknown;
+        readonly slug: string;
         readonly summary: string | null;
         readonly publishedOn: unknown | null;
         readonly hierarchicalDepth: number;

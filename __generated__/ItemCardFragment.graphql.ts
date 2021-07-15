@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ItemCardFragment = {
-    readonly slug: unknown;
+    readonly slug: string;
     readonly title: string | null;
     readonly " $refType": "ItemCardFragment";
 };

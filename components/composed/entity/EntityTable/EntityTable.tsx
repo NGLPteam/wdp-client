@@ -2,32 +2,24 @@ import React, { useEffect, useCallback } from "react";
 import isFunction from "lodash/isFunction";
 import { useTable, useRowSelect, useSortBy } from "react-table";
 import { Table } from "components/layout";
-import useColumnInject from "./plugins/useColumnInject";
 import useRowActions from "./plugins/useRowActions";
 import mapSortBy from "./helpers/mapSortBy";
 import { ColumnOptions } from "types/react-table";
 import { PageInfo } from "types/graphql-schema";
 
-const EntityTable = ({
+function EntityTable<T>({
   entities,
   columns,
   actions,
-  withUpdatedAt,
-  withCreatedAt,
-  withRowSelection,
   onSort,
   onSelectionChange,
-}: EntityTableProps) => {
+}: EntityTableProps<T>) {
+  const withRowSelection = isFunction(onSelectionChange);
+
   const tableHooks = [
     useSortBy,
-    useColumnInject,
     withRowSelection && useRowSelect,
     useRowActions,
-  ].filter((n) => n);
-
-  const injectColumns = [
-    withUpdatedAt && "updatedAt",
-    withCreatedAt && "createdAt",
   ].filter((n) => n);
 
   const getRowId = useCallback((row) => {
@@ -50,7 +42,6 @@ const EntityTable = ({
       getRowId,
       disableMultiSort: true,
       actions,
-      injectColumns,
     },
     ...tableHooks
   );
@@ -84,13 +75,15 @@ const EntityTable = ({
 
   // Prepare rows
   rows.forEach((row) => prepareRow(row));
-
-  const checkboxProps = getToggleAllRowsSelectedProps();
+  const checkboxProps =
+    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
   return (
     <Table
       withRowSelection={withRowSelection}
-      showCheckboxes={checkboxProps.indeterminate || checkboxProps.checked}
+      showCheckboxes={
+        checkboxProps && (checkboxProps.indeterminate || checkboxProps.checked)
+      }
       rows={rows}
       {...getTableProps()}
     >
@@ -102,21 +95,21 @@ const EntityTable = ({
       <Table.Body rows={rows} {...getTableBodyProps()} />
     </Table>
   );
-};
-
-export interface EntityTableActionProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  row: any;
 }
 
-export interface EntityTableActionOptions {
-  handleClick?: (props: EntityTableActionProps) => void;
+export interface EntityTableActionProps<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  row: { original: T };
+}
+
+export interface EntityTableActionOptions<T> {
+  handleClick?: (props: EntityTableActionProps<T>) => void;
   // TODO: Support a named route and params.
 }
 
-export interface EntityTableActions {
-  edit?: EntityTableActionOptions;
-  delete?: EntityTableActionOptions;
+export interface EntityTableActions<T> {
+  edit?: EntityTableActionOptions<T>;
+  delete?: EntityTableActionOptions<T>;
 }
 
 export interface OnSortProps {
@@ -129,17 +122,14 @@ export interface OnSelectionChangeProps {
   selectedRowIds: string[];
 }
 
-export interface EntityTableProps {
-  columns: ColumnOptions[];
+export interface EntityTableProps<T> {
+  columns: ColumnOptions<T>[];
   pageInfo?: PageInfo;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   entities?: ReadonlyArray<any>;
-  withUpdatedAt?: boolean;
-  withCreatedAt?: boolean;
-  actions?: EntityTableActions;
+  actions?: EntityTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
-  withRowSelection?: boolean;
 }
 
 export default EntityTable;

@@ -16,7 +16,7 @@ union AnyAttachable = Collection | Community | Item
 union AnyContributor = OrganizationContributor | PersonContributor
 
 """The connection type for AnyContributor."""
-type AnyContributorConnection {
+type AnyContributorConnection implements Paginated {
   """A list of edges."""
   edges: [AnyContributorEdge]
   """A list of nodes."""
@@ -175,9 +175,9 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
-  ): CollectionConnection!
-  community: Community!
-  contributions(
+  ): CollectionConnection! @deprecated(reason: "Use Collection.collections")
+  collections(
+    order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -186,6 +186,30 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): CollectionConnection!
+  community: Community!
+  contributions(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
   ): CollectionContributionConnection!
   """Contributors to this element"""
   contributors(
@@ -213,6 +237,7 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
   id: ID!
   identifier: String!
   itemLinks(
+    order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -221,6 +246,12 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
   ): CollectionLinkedItemConnection!
   items(
     order: SimpleOrder = RECENT
@@ -241,7 +272,9 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): ItemConnection!
+  leaf: Boolean!
   links(
+    order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -250,12 +283,19 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
   ): CollectionLinkConnection!
   parent: CollectionParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   properties: JSON
   publishedOn: ISO8601Date
+  root: Boolean!
   slug: Slug!
   summary: String
   """A mapping of an entity's preview thumbnail"""
@@ -266,7 +306,7 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
 }
 
 """The connection type for Collection."""
-type CollectionConnection {
+type CollectionConnection implements Paginated {
   """A list of edges."""
   edges: [CollectionEdge]
   """A list of nodes."""
@@ -286,7 +326,7 @@ type CollectionContribution implements Contribution & Node & Sluggable {
 }
 
 """The connection type for CollectionContribution."""
-type CollectionContributionConnection {
+type CollectionContributionConnection implements Paginated {
   """A list of edges."""
   edges: [CollectionContributionEdge]
   """A list of nodes."""
@@ -322,7 +362,7 @@ type CollectionLink implements Node & Sluggable {
 }
 
 """The connection type for CollectionLink."""
-type CollectionLinkConnection {
+type CollectionLinkConnection implements Paginated {
   """A list of edges."""
   edges: [CollectionLinkEdge]
   """A list of nodes."""
@@ -355,7 +395,7 @@ type CollectionLinkedItem implements Node & Sluggable {
 }
 
 """The connection type for CollectionLinkedItem."""
-type CollectionLinkedItemConnection {
+type CollectionLinkedItemConnection implements Paginated {
   """A list of edges."""
   edges: [CollectionLinkedItemEdge]
   """A list of nodes."""
@@ -393,14 +433,6 @@ type Community implements Entity & Node & Sluggable {
     order: SimpleOrder = RECENT
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
-    """Returns the elements in the list that come after the specified cursor."""
-    after: String
-    """Returns the elements in the list that come before the specified cursor."""
-    before: String
-    """Returns the first _n_ elements from the list."""
-    first: Int
-    """Returns the last _n_ elements from the list."""
-    last: Int
     """The page of edges/nodes to fetch"""
     page: Int
     """The direction in which pages advance (to traverse pages backwards)"""
@@ -413,18 +445,19 @@ type Community implements Entity & Node & Sluggable {
   hierarchicalDepth: Int!
   id: ID!
   metadata: JSON
-  name: String!
+  name: String! @deprecated(reason: "Use Community.title")
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   position: Int
   slug: Slug!
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
+  title: String!
   updatedAt: ISO8601DateTime!
 }
 
 """The connection type for Community."""
-type CommunityConnection {
+type CommunityConnection implements Paginated {
   """A list of edges."""
   edges: [CommunityEdge]
   """A list of nodes."""
@@ -581,7 +614,7 @@ type CreateCollectionPayload {
 """Autogenerated input type of CreateCommunity"""
 input CreateCommunityInput {
   """A human readable title for the community"""
-  name: String!
+  title: String!
   """The position the community occupies in the list"""
   position: Int
   """A unique identifier for the client performing the mutation."""
@@ -709,8 +742,10 @@ interface HierarchicalEntry {
   createdAt: ISO8601DateTime!
   doi: String
   identifier: String!
+  leaf: Boolean!
   properties: JSON
   publishedOn: ISO8601Date
+  root: Boolean!
   summary: String
   title: String
   updatedAt: ISO8601DateTime!
@@ -742,10 +777,11 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
-  ): ItemConnection!
+  ): ItemConnection! @deprecated(reason: "Use Item.items")
   collection: Collection!
   community: Community!
   contributions(
+    order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -754,6 +790,12 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
   ): ItemContributionConnection!
   """Contributors to this element"""
   contributors(
@@ -780,7 +822,8 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
   hierarchicalDepth: Int!
   id: ID!
   identifier: String!
-  links(
+  items(
+    order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -789,12 +832,37 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
     first: Int
     """Returns the last _n_ elements from the list."""
     last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): ItemConnection!
+  leaf: Boolean!
+  links(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
   ): ItemLinkConnection!
   parent: ItemParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   properties: JSON
   publishedOn: ISO8601Date
+  root: Boolean!
   slug: Slug!
   summary: String
   """A mapping of an entity's preview thumbnail"""
@@ -805,7 +873,7 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
 }
 
 """The connection type for Item."""
-type ItemConnection {
+type ItemConnection implements Paginated {
   """A list of edges."""
   edges: [ItemEdge]
   """A list of nodes."""
@@ -825,7 +893,7 @@ type ItemContribution implements Contribution & Node & Sluggable {
 }
 
 """The connection type for ItemContribution."""
-type ItemContributionConnection {
+type ItemContributionConnection implements Paginated {
   """A list of edges."""
   edges: [ItemContributionEdge]
   """A list of nodes."""
@@ -861,7 +929,7 @@ type ItemLink implements Node & Sluggable {
 }
 
 """The connection type for ItemLink."""
-type ItemLinkConnection {
+type ItemLinkConnection implements Paginated {
   """A list of edges."""
   edges: [ItemLinkEdge]
   """A list of nodes."""
@@ -1045,6 +1113,12 @@ type PageInfo {
   totalCount: Int!
   """The total number of nodes available to this connection, independent of any filters"""
   totalUnfilteredCount: Int!
+}
+
+"""Connections can be paginated by cursor or number."""
+interface Paginated {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
 }
 
 """A grant of a specific permission within a specific scope"""
@@ -1297,7 +1371,7 @@ type Role implements Node & Sluggable {
 }
 
 """The connection type for Role."""
-type RoleConnection {
+type RoleConnection implements Paginated {
   """A list of edges."""
   edges: [RoleEdge]
   """A list of nodes."""
@@ -1362,7 +1436,7 @@ type UpdateCollectionPayload {
 input UpdateCommunityInput {
   communityId: ID!
   """A human readable title for the community"""
-  name: String!
+  title: String!
   """The position the community occupies in the list"""
   position: Int
   """A unique identifier for the client performing the mutation."""
@@ -1495,7 +1569,7 @@ type User implements ExposesPermissions & Node & Sluggable {
 }
 
 """The connection type for User."""
-type UserConnection {
+type UserConnection implements Paginated {
   """A list of edges."""
   edges: [UserEdge]
   """A list of nodes."""
