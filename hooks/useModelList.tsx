@@ -87,7 +87,7 @@ export default function useModelList<
   );
 
   const connection = useMemo(() => toConnection(data), [toConnection, data]);
-  const entities = useMemo(() => toEntities<ConnectionType>(connection), [
+  const models = useMemo(() => toEntities<ConnectionType>(connection), [
     connection,
   ]);
   const pageInfo = useMemo(() => toPageInfo<ConnectionType>(connection), [
@@ -95,13 +95,13 @@ export default function useModelList<
   ]);
   const memoizedColumns = useMemo(() => columns, [columns]);
 
-  const entityListProps = {
+  const modelListProps = {
     error,
     isLoading,
     selection,
     onSort: handleSort,
     onSelectionChange: handleSelection,
-    entities,
+    models,
     pageInfo,
     columns: memoizedColumns,
     actions,
@@ -113,9 +113,9 @@ export default function useModelList<
     selection,
     page,
     pageInfo,
-    entities,
-    ...entityListProps,
-    entityListProps,
+    models,
+    ...modelListProps,
+    modelListProps,
   };
 }
 

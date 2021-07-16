@@ -15,14 +15,14 @@ type ModelTableProps = React.ComponentProps<typeof ModelTable>;
 function ModelList<T>({
   isLoading,
   error,
-  entityName,
-  entities,
+  modelName,
+  models,
   pageInfo,
   ...props
 }: ModelListProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
-  const title = t(entityName, { count: 2 });
+  const title = t(modelName, { count: 2 });
 
   const handleSubmit = (value) => {
     const pathname = window.location.pathname;
@@ -43,13 +43,13 @@ function ModelList<T>({
         <>
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
-            actions={<ModelAddButton entityName={entityName} />}
+            actions={<ModelAddButton modelName={modelName} />}
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}
           {error ? (
             <Error error={error} />
-          ) : entities && entities.length > 0 ? (
-            <ModelTable title={title} entities={entities} {...props} />
+          ) : models && models.length > 0 ? (
+            <ModelTable title={title} models={models} {...props} />
           ) : (
             <div style={{ marginBottom: 20 }}>TODO: Style No Results</div>
           )}
@@ -74,7 +74,7 @@ function ModelList<T>({
 export interface ModelListProps<T> extends Omit<ModelTableProps, "title"> {
   isLoading?: boolean;
   error?: { name: string; message: string };
-  entityName?: string;
+  modelName?: string;
   pageInfo?: PageInfo;
 }
 
