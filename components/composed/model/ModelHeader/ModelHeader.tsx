@@ -4,7 +4,7 @@ import { PageHeader } from "components/layout";
 import { TabNav } from "components/atomic";
 
 import { BreadcrumbListType } from "hooks/useBreadcrumbs";
-import { entityMap } from "helpers/routes";
+import { modelMap } from "helpers/routes";
 
 /**
  * Takes an model id, object, and current router view,
@@ -14,14 +14,14 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
   // TODO: Refactor this once we arrive at a sustainable routing approach.
   function getTabs() {
     const tabs = [
-      <Link key="manage" href={`/${entityMap[type]}/${id}/manage`} passHref>
+      <Link key="manage" href={`/${modelMap[type]}/${id}/manage`} passHref>
         <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
       </Link>,
     ];
 
     if (!["COMMUNITY", "CONTRIBUTOR"].includes(type)) {
       tabs.unshift(
-        <Link key="items" href={`/${entityMap[type]}/${id}/items`} passHref>
+        <Link key="items" href={`/${modelMap[type]}/${id}/items`} passHref>
           <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
         </Link>
       );
@@ -31,7 +31,7 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       tabs.unshift(
         <Link
           key="contributions"
-          href={`/${entityMap[type]}/${id}/contributions`}
+          href={`/${modelMap[type]}/${id}/contributions`}
           passHref
         >
           <TabNav.Tab active={view === "contributions"}>
@@ -45,7 +45,7 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       tabs.unshift(
         <Link
           key="collections"
-          href={`/${entityMap[type]}/${id}/collections`}
+          href={`/${modelMap[type]}/${id}/collections`}
           passHref
         >
           <TabNav.Tab active={view === "collections"}>

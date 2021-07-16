@@ -26,7 +26,7 @@ function ModelList<T>({
 
   const handleSubmit = (value) => {
     const pathname = window.location.pathname;
-    const { entity, page, ...query } = router.query;
+    const { model, page, ...query } = router.query;
 
     router.push({
       pathname,
@@ -66,8 +66,8 @@ function ModelList<T>({
   );
 }
 
-// TODO: Either extend ModelTable (and potentially EntityGrid), or
-// Create an Entity context rather than passing data down multiple levels of components
+// TODO: Either extend ModelTable (and potentially ModelGrid), or
+// Create an Model context rather than passing data down multiple levels of components
 
 // The generic type is consumed by ModelTableProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

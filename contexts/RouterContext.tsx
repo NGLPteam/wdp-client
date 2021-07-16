@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from "react";
 
 const initialState = {
-  activeEntity: "",
+  activeModel: "",
   activeId: "",
   activeView: "",
   activeSubview: "",
@@ -14,7 +14,7 @@ const RouterReducer = (state: RouterState, action: RouterAction) => {
     case "SET_ACTIVE_ENTITY":
       return {
         ...state,
-        activeEntity: action.payload,
+        activeModel: action.payload,
       };
     case "SET_ACTIVE_ID":
       return {
@@ -55,7 +55,7 @@ export default RouterContext;
 export { RouterContextProvider };
 
 export interface RouterState {
-  activeEntity: string | undefined;
+  activeModel: string | undefined;
   activeId: string | undefined;
   activeView: string | undefined;
   activeSubview: string | undefined;

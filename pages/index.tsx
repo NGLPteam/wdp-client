@@ -1,8 +1,8 @@
 import React from "react";
-import { useSetActiveEntity } from "hooks/useRouterContext";
+import { useSetActiveModel } from "hooks/useRouterContext";
 
 export default function Home() {
-  useSetActiveEntity();
+  useSetActiveModel();
 
   return <div>WDP Admin Homepage</div>;
 }

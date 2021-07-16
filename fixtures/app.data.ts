@@ -2,33 +2,33 @@ const COMMUNITIES_LINK = {
   label: "glossary:community_plural",
   route: "communityList",
   actions: "communities.read",
-  entity: "communities",
+  model: "communities",
 };
 
 const COLLECTIONS_LINK = {
   label: "glossary:collection_plural",
   route: "collectionList",
-  entity: "collections",
+  model: "collections",
 };
 
 const ITEMS_LINK = {
   label: "glossary:item_plural",
   route: "itemList",
-  entity: "items",
+  model: "items",
 };
 
 const USERS_LINK = {
   label: "glossary:user_plural",
   route: "userList",
   actions: "users.read",
-  entity: "users",
+  model: "users",
 };
 
 const CONTRIBUTORS_LINK = {
   label: "glossary:contributor_plural",
   route: "contributorList",
   actions: "contributors.read",
-  entity: "contributors",
+  model: "contributors",
 };
 
 /**

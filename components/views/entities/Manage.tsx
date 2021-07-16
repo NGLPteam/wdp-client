@@ -48,7 +48,7 @@ const DEFAULT_ROUTE = ROUTES.properties;
 
 export default function Manage() {
   const {
-    activeEntity: entity,
+    activeModel: entity,
     activeId: id,
     activeView: view,
     activeSubview: subview,

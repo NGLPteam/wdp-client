@@ -11,7 +11,7 @@ function useDrawerQuery() {
 
   return {
     type: query?.drawer,
-    entity: query?.entity,
+    model: query?.model,
     removeDialogQuery,
     hideOnClickOutside: query?.hideOnClickOutside,
   };
