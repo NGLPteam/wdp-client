@@ -5,6 +5,7 @@ export function hexToHSLA(H: string | string[], A = 1) {
   let r: string | number | bigint;
   let g: string | number | bigint;
   let b: string | number | bigint;
+
   if (H.length === 4) {
     r = "0x" + H[1] + H[1];
     g = "0x" + H[2] + H[2];
@@ -13,6 +14,9 @@ export function hexToHSLA(H: string | string[], A = 1) {
     r = "0x" + H[1] + H[2];
     g = "0x" + H[3] + H[4];
     b = "0x" + H[5] + H[6];
+  } else {
+    console.warn("Hex value cannot be converted to HSLA", H);
+    return H;
   }
   // Then to HSL
   // Cast rgb as Numbers (int or float)

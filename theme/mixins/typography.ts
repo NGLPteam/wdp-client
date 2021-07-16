@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
+import { basePadding } from "./appearance";
 
 export function tLabel(size: "sm" | "md" | "lg") {
   return css`

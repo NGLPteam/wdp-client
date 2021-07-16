@@ -1,7 +1,7 @@
 // Utility layout classes
 // --------------------
 import { css } from "styled-components";
-import { respond } from "theme/mixins/base";
+import { respond } from "../mixins/base";
 const COLUMNS = 12;
 
 function createItems() {
