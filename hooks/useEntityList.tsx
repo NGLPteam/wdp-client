@@ -2,7 +2,6 @@ import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { PageInfo } from "types/graphql-schema";
-import { ColumnOptions } from "types/react-table";
 import { EntityTableActionProps } from "components/composed/entity/EntityTable/EntityTable";
 import { useRouter } from "next/router";
 
@@ -13,6 +12,7 @@ import type {
   HasEdgesWithNode,
   HasNodes,
 } from "types/graphql-helpers";
+import { Column } from "react-table";
 
 interface EntityListArguments<
   T extends OperationType,
@@ -23,7 +23,8 @@ interface EntityListArguments<
   queryVars?: Partial<T["variables"]>;
   defaultOrder: T["variables"]["order"];
   toConnection: ExtractsConnection<T, ConnectionType>;
-  columns: ColumnOptions<U>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: Column<any>[];
   initialPage?: number;
   handleEdit?: (props: EntityTableActionProps<U>) => void;
   handleDelete?: (props: EntityTableActionProps<U>) => void;
