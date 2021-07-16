@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import { useBreadcrumbsFragment$key } from "__generated__/useBreadcrumbsFragment.graphql";
+import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 import { transformBreadcrumbList } from "helpers/transforms";
 
 export type BreadcrumbListType = ReturnType<typeof transformBreadcrumbList>;

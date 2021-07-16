@@ -1,8 +1,10 @@
 import { modelMap } from "helpers/routes";
+import { useBreadcrumbsFragment } from "@/relay/useBreadcrumbsFragment.graphql";
+import { EntityBreadcrumb } from "types/graphql-schema";
 
 const transformBreadcrumbList = (
-  breadcrumbs,
-  currentLabel
+  breadcrumbs: EntityBreadcrumb[] | useBreadcrumbsFragment["breadcrumbs"],
+  currentLabel: string
 ): Record<string, string>[] => {
   const breadcrumbsData = breadcrumbs.map((crumb) => {
     const href = `/${modelMap[crumb.kind]}/${crumb.slug}`;
