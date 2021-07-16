@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useGlobalContext } from "hooks";
+import appData from "fixtures/app.data";
 import { NamedLink } from "components/atomic";
 import { LogoPlaceholder } from "components/global";
 import { Authorize } from "components/auth";
 import * as Styled from "./Footer.styles";
 
 function Footer() {
-  const { footerData } = useGlobalContext();
+  const { footerData } = appData;
   const { t } = useTranslation("common");
 
   const renderLink = ({ actions, label, route, href }, i) => {

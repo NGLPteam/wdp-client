@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { useGlobalContext } from "hooks";
+import appData from "fixtures/app.data";
 import { LogoPlaceholder } from "components/global";
 import HeaderSearch from "./HeaderSearch";
 import HeaderNavLinks from "./HeaderNavLinks";
@@ -10,7 +10,7 @@ import HeaderAccount from "./HeaderAccount";
 
 function Header() {
   const { t } = useTranslation("common");
-  const { siteInfo, headerData } = useGlobalContext();
+  const { siteInfo, headerData } = appData;
 
   return (
     <header role="banner">

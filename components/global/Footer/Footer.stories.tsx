@@ -1,18 +1,11 @@
 import Footer from "./";
 import { Story } from "@storybook/react";
-import { ViewerContext, GlobalContextProvider } from "contexts";
+import { ViewerContext } from "contexts";
 type Props = React.ComponentProps<typeof Footer>;
 
 export default {
   title: "Components/Global/Footer",
   component: Footer,
-  decorators: [
-    (Story) => (
-      <GlobalContextProvider>
-        <Story />
-      </GlobalContextProvider>
-    ),
-  ],
 };
 
 export const Default: Story<Props> = () => (

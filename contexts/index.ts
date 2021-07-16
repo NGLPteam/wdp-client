@@ -7,7 +7,3 @@ export {
   default as RouterContext,
   RouterContextProvider,
 } from "./RouterContext";
-export {
-  default as GlobalContext,
-  GlobalContextProvider,
-} from "./GlobalContext";

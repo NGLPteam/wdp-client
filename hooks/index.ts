@@ -16,4 +16,3 @@ export { default as useLockBodyScroll } from "./useLockBodyScroll";
 export { default as useDrawerQuery } from "./useDrawerQuery";
 export { default as useViewerContext } from "./useViewerContext";
 export { default as useIsAuthorized } from "./useIsAuthorized";
-export { default as useGlobalContext } from "./useGlobalContext";
