@@ -1,7 +1,7 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tLabel, tLink, tList } from "theme/mixins/typography";
+import { tLabel, tLink, tList } from "../mixins/typography";
 
 export default css`
   /* Labels */

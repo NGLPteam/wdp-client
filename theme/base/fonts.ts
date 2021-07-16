@@ -1,6 +1,11 @@
 import { css } from "styled-components";
 
-function fontFace(name, filename, style = "normal", weight = 400) {
+function fontFace(
+  name: string,
+  filename: string,
+  style = "normal",
+  weight = 400
+) {
   return `
     @font-face {
       font-family: ${name};

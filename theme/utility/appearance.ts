@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { aGlow, aBgDark, aBgLight, aBaseInput } from "theme/mixins/appearance";
+import { aGlow, aBgDark, aBgLight, aBaseInput } from "../mixins/appearance";
 // Appearance
 // --------------------
 

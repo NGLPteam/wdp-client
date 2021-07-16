@@ -2,14 +2,14 @@
 // --------------------
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
 import { css } from "styled-components";
-import { pxToRem } from "theme/mixins/functions";
+import { pxToRem } from "../mixins/functions";
 import {
   transition,
   colors,
   setColorVars,
   setZIndexVars,
-} from "theme/base/variables";
-import { hexToHSLA } from "theme/mixins/colors";
+} from "../base/variables";
+import { hexToHSLA } from "../mixins/colors";
 
 const { duration, timing } = transition.colorMode;
 

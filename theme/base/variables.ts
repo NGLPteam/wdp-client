@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { hexToHSLA } from "theme/mixins/colors";
+import { hexToHSLA } from "../mixins/colors";
 
 export const transition = {
   colorMode: {

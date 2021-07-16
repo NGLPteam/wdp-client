@@ -2,15 +2,21 @@ import { respondBase, fluidScaleBase } from "@castiron/style-mixins";
 import { breakpoints } from "../base/variables";
 import get from "lodash/get";
 
-export function respond(content, size, operator = "max", aspect = "width") {
+export function respond(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: string | any, // TODO: Get the return type of styled-compoonents css function
+  size: number,
+  operator = "max",
+  aspect = "width"
+) {
   // If the size isn't found in breakpoints, use the size value
   const pxSize = get(breakpoints, size, size);
   return respondBase(content, pxSize, operator, aspect);
 }
 
 export function fluidScale(
-  max,
-  min,
+  max: string | number,
+  min: string | number,
   maxVw = get(breakpoints, 140, "1400px"),
   minVw = get(breakpoints, 30, "375px")
 ) {
