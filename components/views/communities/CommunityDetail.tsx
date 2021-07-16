@@ -7,7 +7,7 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { Manage } from "components/views/entities";
 import CommunityChildCollections from "./CommunityChildCollections";
-import { EntityHeader } from "components/composed/entity";
+import { ModelHeader } from "components/composed/model";
 import { useRouterContext } from "hooks/useRouterContext";
 import { useRouter } from "next/router";
 
@@ -50,7 +50,7 @@ export default function CommunityDetail() {
   return (
     <section>
       {data && data.community && (
-        <EntityHeader
+        <ModelHeader
           id={id}
           title={data.community.name}
           view={view}

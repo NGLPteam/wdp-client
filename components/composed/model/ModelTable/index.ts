@@ -1,2 +1,2 @@
-export { default } from "./EntityTable";
+export { default } from "./ModelTable";
 export { default as columns } from "./helpers/columns";

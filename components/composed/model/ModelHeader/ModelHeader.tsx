@@ -10,7 +10,7 @@ import { entityMap } from "helpers/routes";
  * Takes an entity id, object, and current router view,
  * and returns a PageHeader with the entity title, breadcrumbs, and tabbed navigation.
  */
-const EntityHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
+const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
   // TODO: Refactor this once we arrive at a sustainable routing approach.
   function getTabs() {
     const tabs = [
@@ -75,4 +75,4 @@ interface Props {
   view?: string;
 }
 
-export default EntityHeader;
+export default ModelHeader;

@@ -6,20 +6,20 @@ import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
-import { EntityTable } from "components/composed/entity";
+import { ModelTable } from "components/composed/model";
 import { useRouter } from "next/router";
-import EntityAddButton from "../EntityAddButton/EntityAddButton";
+import ModelAddButton from "../ModelAddButton/ModelAddButton";
 
-type EntityTableProps = React.ComponentProps<typeof EntityTable>;
+type ModelTableProps = React.ComponentProps<typeof ModelTable>;
 
-function EntityList<T>({
+function ModelList<T>({
   isLoading,
   error,
   entityName,
   entities,
   pageInfo,
   ...props
-}: EntityListProps<T>) {
+}: ModelListProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
   const title = t(entityName, { count: 2 });
@@ -43,13 +43,13 @@ function EntityList<T>({
         <>
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
-            actions={<EntityAddButton entityName={entityName} />}
+            actions={<ModelAddButton entityName={entityName} />}
           />
           {pageInfo && <PageCountActions pageInfo={pageInfo} />}
           {error ? (
             <Error error={error} />
           ) : entities && entities.length > 0 ? (
-            <EntityTable title={title} entities={entities} {...props} />
+            <ModelTable title={title} entities={entities} {...props} />
           ) : (
             <div style={{ marginBottom: 20 }}>TODO: Style No Results</div>
           )}
@@ -66,16 +66,16 @@ function EntityList<T>({
   );
 }
 
-// TODO: Either extend EntityTable (and potentially EntityGrid), or
+// TODO: Either extend ModelTable (and potentially EntityGrid), or
 // Create an Entity context rather than passing data down multiple levels of components
 
-// The generic type is consumed by EntityTableProps
+// The generic type is consumed by ModelTableProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface EntityListProps<T> extends Omit<EntityTableProps, "title"> {
+export interface ModelListProps<T> extends Omit<ModelTableProps, "title"> {
   isLoading?: boolean;
   error?: { name: string; message: string };
   entityName?: string;
   pageInfo?: PageInfo;
 }
 
-export default EntityList;
+export default ModelList;
