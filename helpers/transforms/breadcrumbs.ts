@@ -1,11 +1,11 @@
-import { entityMap } from "helpers/routes";
+import { modelMap } from "helpers/routes";
 
 const transformBreadcrumbList = (
   breadcrumbs,
   currentLabel
 ): Record<string, string>[] => {
   const breadcrumbsData = breadcrumbs.map((crumb) => {
-    const href = `/${entityMap[crumb.kind]}/${crumb.slug}`;
+    const href = `/${modelMap[crumb.kind]}/${crumb.slug}`;
 
     return {
       label: crumb.label,

@@ -13,7 +13,7 @@ interface RoutesMap {
   [key: string]: RouteProps;
 }
 
-export const entityMap = {
+export const modelMap = {
   COMMUNITY: "communities",
   COLLECTION: "collections",
   ITEM: "items",

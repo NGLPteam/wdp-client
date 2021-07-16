@@ -31,31 +31,31 @@ export const useRouterContextPoint = (dataPoint: string): string => {
 
 /** Here are some simplified getters/setters */
 /**
- * @sets the value of the active entity to the store
- * @returns entity
+ * @sets the value of the active model to the store
+ * @returns model
  */
-export const useSetActiveEntity = () => {
+export const useSetActiveModel = () => {
   const { dispatch } = useContext(RouterContext) as RouterContextInterface;
-  const entity = useGetQueryParam("entity") || "";
+  const model = useGetQueryParam("model") || "";
 
   useEffect(() => {
-    dispatch({ type: "SET_ACTIVE_ENTITY", payload: entity });
-  }, [entity]);
+    dispatch({ type: "SET_ACTIVE_ENTITY", payload: model });
+  }, [model]);
 
-  return entity;
+  return model;
 };
 
 /**
- * @return the value of the active entity
+ * @return the value of the active model
  */
-export const useGetActiveEntity = () => {
+export const useGetActiveModel = () => {
   const { state } = useContext(RouterContext) as RouterContextInterface;
-  return state.activeEntity;
+  return state.activeModel;
 };
 
 /**
- * @sets the value of the active entity to the store
- * @returns entity
+ * @sets the value of the active model to the store
+ * @returns model
  */
 export const useSetActiveId = () => {
   const { dispatch } = useContext(RouterContext) as RouterContextInterface;
@@ -69,7 +69,7 @@ export const useSetActiveId = () => {
 };
 
 /**
- * @return the value of the active entity
+ * @return the value of the active model
  */
 export const useGetActiveId = () => {
   const { state } = useContext(RouterContext) as RouterContextInterface;

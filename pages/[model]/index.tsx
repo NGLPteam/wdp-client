@@ -1,5 +1,5 @@
 import React from "react";
-import { useSetActiveEntity } from "hooks/useRouterContext";
+import { useSetActiveModel } from "hooks/useRouterContext";
 import CollectionListView from "components/views/collections/CollectionList";
 import CommunityListView from "components/views/communities/CommunityList";
 import ContributorListView from "components/views/contributors/ContributorList";
@@ -8,8 +8,8 @@ import UserListView from "components/views/users/UserList";
 import PageNotFoundView from "components/views/PageNotFound";
 import { MapOver } from "helpers/sharedTypes";
 
-export default function EntityListPage({ ...pageProps }) {
-  const entity = useSetActiveEntity();
+export default function ModelListPage({ ...pageProps }) {
+  const entity = useSetActiveModel();
 
   const viewMap: MapOver = {
     collections: CollectionListView,

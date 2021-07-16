@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetActiveEntity } from "hooks/useRouterContext";
+import { useGetActiveModel } from "hooks/useRouterContext";
 import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";
@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next";
 
 const HeaderNavLinks = ({ navigation }) => {
   const { t } = useTranslation("common");
-  const activeEntity = useGetActiveEntity();
+  const activeModel = useGetActiveModel();
 
   const renderLink = (child) => (
     <NamedLink route={child.route} passHref>
-      <Styled.Link active={activeEntity === child.entity}>
+      <Styled.Link active={activeModel === child.model}>
         {t(child.label)}
       </Styled.Link>
     </NamedLink>

@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  useSetActiveEntity,
+  useSetActiveModel,
   useSetActiveId,
   useSetActiveView,
   useSetActiveSubview,
@@ -13,8 +13,8 @@ import UserDetailView from "components/views/users/UserDetail";
 import PageNotFoundView from "components/views/PageNotFound";
 import { MapOver } from "helpers/sharedTypes";
 
-export default function EntityDetailPage({ ...pageProps }) {
-  const entity = useSetActiveEntity();
+export default function ModelDetailPage({ ...pageProps }) {
+  const entity = useSetActiveModel();
   useSetActiveId();
   useSetActiveView();
   useSetActiveSubview();

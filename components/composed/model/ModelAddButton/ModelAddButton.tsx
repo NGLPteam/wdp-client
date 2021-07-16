@@ -7,7 +7,7 @@ import { useIsAuthorized } from "hooks";
 const ButtonControlAdd = ({ modelName }: Props) => {
   const { t } = useTranslation("glossary");
   const { query } = useRouter();
-  const isAuthorized = useIsAuthorized({ actions: `${query.entity}.create` });
+  const isAuthorized = useIsAuthorized({ actions: `${query.model}.create` });
 
   return isAuthorized ? (
     <DrawerLink drawer="add" passHref>
