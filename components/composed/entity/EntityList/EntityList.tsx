@@ -49,7 +49,7 @@ function EntityList<T>({
           {error ? (
             <Error error={error} />
           ) : entities && entities.length > 0 ? (
-            <EntityTable entities={entities} {...props} />
+            <EntityTable title={title} entities={entities} {...props} />
           ) : (
             <div style={{ marginBottom: 20 }}>TODO: Style No Results</div>
           )}
@@ -71,11 +71,9 @@ function EntityList<T>({
 
 // The generic type is consumed by EntityTableProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface EntityListProps<T> extends EntityTableProps {
+export interface EntityListProps<T> extends Omit<EntityTableProps, "title"> {
   isLoading?: boolean;
-  // Need an Alexa consultation to decide how to define this type.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error?: any;
+  error?: { name: string; message: string };
   entityName?: string;
   pageInfo?: PageInfo;
 }
