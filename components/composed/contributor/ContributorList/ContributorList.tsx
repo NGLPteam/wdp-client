@@ -23,7 +23,7 @@ function ContributorList<
   toConnection: ExtractsConnection<Query, ConnectionType>;
   defaultOrder: Query["variables"]["order"];
 }) {
-  const { entityListProps } = useModelList<Query, ConnectionType>({
+  const { modelListProps } = useModelList<Query, ConnectionType>({
     query,
     queryVars,
     defaultOrder,
@@ -45,8 +45,8 @@ function ContributorList<
   return (
     <>
       <ModelList<ExtractConnectionNodeType<ConnectionType>>
-        entityName="contributor"
-        {...entityListProps}
+        modelName="contributor"
+        {...modelListProps}
       />
     </>
   );

@@ -7,8 +7,8 @@ import { BreadcrumbListType } from "hooks/useBreadcrumbs";
 import { entityMap } from "helpers/routes";
 
 /**
- * Takes an entity id, object, and current router view,
- * and returns a PageHeader with the entity title, breadcrumbs, and tabbed navigation.
+ * Takes an model id, object, and current router view,
+ * and returns a PageHeader with the model title, breadcrumbs, and tabbed navigation.
  */
 const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
   // TODO: Refactor this once we arrive at a sustainable routing approach.

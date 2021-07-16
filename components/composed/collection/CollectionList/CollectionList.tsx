@@ -23,7 +23,7 @@ function CollectionList<
   toConnection: ExtractsConnection<Query, ConnectionType>;
   defaultOrder: Query["variables"]["order"];
 }) {
-  const { entityListProps } = useModelList<Query, ConnectionType>({
+  const { modelListProps } = useModelList<Query, ConnectionType>({
     query,
     queryVars,
     defaultOrder,
@@ -41,8 +41,8 @@ function CollectionList<
   return (
     <>
       <ModelList<ExtractConnectionNodeType<ConnectionType>>
-        entityName="collection"
-        {...entityListProps}
+        modelName="collection"
+        {...modelListProps}
       />
     </>
   );

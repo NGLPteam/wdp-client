@@ -11,7 +11,7 @@ function ModelTable<
   T extends Record<string, unknown> = Record<string, unknown>
 >({
   title,
-  entities,
+  models,
   columns,
   actions,
   onSort,
@@ -40,7 +40,7 @@ function ModelTable<
   } = useTable<T>(
     {
       columns,
-      data: entities,
+      data: models,
       manualSortBy: true,
       getRowId,
       disableMultiSort: true,
@@ -133,7 +133,7 @@ export interface ModelTableProps<
   title: string;
   pageInfo?: PageInfo;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  entities?: ReadonlyArray<any>;
+  models?: ReadonlyArray<any>;
   actions?: ModelTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
