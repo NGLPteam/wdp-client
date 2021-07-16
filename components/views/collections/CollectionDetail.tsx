@@ -6,7 +6,7 @@ import {
 } from "@/relay/CollectionDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { Manage } from "components/views/entities";
-import { EntityHeader } from "components/composed/entity";
+import { ModelHeader } from "components/composed/model";
 import { useRouterContext } from "hooks/useRouterContext";
 import { useBreadcrumbs } from "hooks";
 import CollectionChildCollections from "./CollectionChildCollections";
@@ -54,7 +54,7 @@ export default function CollectionDetail() {
   return (
     <section>
       {data && data.collection && (
-        <EntityHeader
+        <ModelHeader
           id={id}
           type="COLLECTION"
           view={view}

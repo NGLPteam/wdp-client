@@ -1,7 +1,7 @@
 import React from "react";
-import useEntityList from "hooks/useEntityList";
-import { columns } from "components/composed/entity/EntityTable";
-import { EntityList } from "components/composed/entity";
+import useModelList from "hooks/useModelList";
+import { columns } from "components/composed/model/ModelTable";
+import { ModelList } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import {
   Connectionish,
@@ -23,7 +23,7 @@ function ItemList<
   toConnection: ExtractsConnection<Query, ConnectionType>;
   defaultOrder: Query["variables"]["order"];
 }) {
-  const { entityListProps } = useEntityList<Query, ConnectionType>({
+  const { entityListProps } = useModelList<Query, ConnectionType>({
     query,
     queryVars,
     defaultOrder,
@@ -40,7 +40,7 @@ function ItemList<
 
   return (
     <>
-      <EntityList<ExtractConnectionNodeType<ConnectionType>>
+      <ModelList<ExtractConnectionNodeType<ConnectionType>>
         entityName="item"
         {...entityListProps}
       />

@@ -7,7 +7,7 @@ import {
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import ItemChildItems from "./ItemChildItems";
 import { Manage } from "components/views/entities";
-import { EntityHeader } from "components/composed/entity";
+import { ModelHeader } from "components/composed/model";
 import { useBreadcrumbs, useRouterContext } from "hooks";
 import { useRouter } from "next/router";
 
@@ -53,7 +53,7 @@ export default function ItemDetail() {
   return (
     <section>
       {item && (
-        <EntityHeader
+        <ModelHeader
           id={id}
           type="ITEM"
           view={view}

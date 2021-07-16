@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouterContext } from "hooks/useRouterContext";
-import { EntityHeader } from "components/composed/entity";
+import { ModelHeader } from "components/composed/model";
 import { Manage } from "../entities";
 import ContributorContributions from "./ContributorContributions";
 import { graphql } from "react-relay";
@@ -38,7 +38,7 @@ export default function ContributorDetail() {
   return (
     <section>
       {data?.contributor && (
-        <EntityHeader
+        <ModelHeader
           id={id}
           title={`${
             data?.contributor?.name ||

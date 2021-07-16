@@ -7,7 +7,7 @@ import mapSortBy from "./helpers/mapSortBy";
 
 import { PageInfo } from "types/graphql-schema";
 
-function EntityTable<
+function ModelTable<
   T extends Record<string, unknown> = Record<string, unknown>
 >({
   title,
@@ -16,7 +16,7 @@ function EntityTable<
   actions,
   onSort,
   onSelectionChange,
-}: EntityTableProps<T>) {
+}: ModelTableProps<T>) {
   const withRowSelection = isFunction(onSelectionChange);
 
   const tableHooks = [
@@ -100,19 +100,19 @@ function EntityTable<
   );
 }
 
-export interface EntityTableActionProps<T> {
+export interface ModelTableActionProps<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   row: { original: T };
 }
 
-export interface EntityTableActionOptions<T> {
-  handleClick?: (props: EntityTableActionProps<T>) => void;
+export interface ModelTableActionOptions<T> {
+  handleClick?: (props: ModelTableActionProps<T>) => void;
   // TODO: Support a named route and params.
 }
 
-export interface EntityTableActions<T> {
-  edit?: EntityTableActionOptions<T>;
-  delete?: EntityTableActionOptions<T>;
+export interface ModelTableActions<T> {
+  edit?: ModelTableActionOptions<T>;
+  delete?: ModelTableActionOptions<T>;
 }
 
 export interface OnSortProps {
@@ -125,7 +125,7 @@ export interface OnSelectionChangeProps {
   selectedRowIds: string[];
 }
 
-export interface EntityTableProps<
+export interface ModelTableProps<
   T extends Record<string, unknown> = Record<string, unknown>
 > {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -134,9 +134,9 @@ export interface EntityTableProps<
   pageInfo?: PageInfo;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   entities?: ReadonlyArray<any>;
-  actions?: EntityTableActions<T>;
+  actions?: ModelTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
 }
 
-export default EntityTable;
+export default ModelTable;
