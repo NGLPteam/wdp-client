@@ -1,9 +1,10 @@
 import { modelMap } from "helpers/routes";
-import { useBreadcrumbsFragment } from "@/relay/useBreadcrumbsFragment.graphql";
 import { EntityBreadcrumb } from "types/graphql-schema";
 
+type Breadcrumbs = Partial<EntityBreadcrumb>[];
+
 const transformBreadcrumbList = (
-  breadcrumbs: EntityBreadcrumb[] | useBreadcrumbsFragment["breadcrumbs"],
+  breadcrumbs: Breadcrumbs | Readonly<Breadcrumbs>,
   currentLabel: string
 ): Record<string, string>[] => {
   const breadcrumbsData = breadcrumbs.map((crumb) => {
