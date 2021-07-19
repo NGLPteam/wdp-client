@@ -7,6 +7,8 @@
   "cancel": "Cancel",
   "close": "Close",
   "manage": "Manage",
+  "error": "Error",
+  "no_results": "No Results",
   "site": {
     "title": "NGLP",
     "description": "...",
