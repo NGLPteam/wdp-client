@@ -1,7 +1,7 @@
 import React from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { Pagination, Error } from "components/atomic";
+import { Pagination, ErrorMessage, NoResultsMessage } from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
@@ -45,21 +45,26 @@ function ModelList<T>({
             search={<Search onSubmit={handleSubmit} />}
             actions={<ModelAddButton modelName={modelName} />}
           />
-          {pageInfo && <PageCountActions pageInfo={pageInfo} />}
+          {pageInfo && models && models.length > 0 && (
+            <PageCountActions pageInfo={pageInfo} />
+          )}
           {error ? (
-            <Error error={error} />
+            <ErrorMessage name={error.name} message={error.message} />
           ) : models && models.length > 0 ? (
             <ModelTable title={title} models={models} {...props} />
           ) : (
-            <div style={{ marginBottom: 20 }}>TODO: Style No Results</div>
+            <NoResultsMessage />
           )}
 
-          {pageInfo && (
-            <Pagination
-              currentPage={pageInfo.page}
-              totalPages={pageInfo.pageCount}
-            />
-          )}
+          {pageInfo &&
+            models &&
+            models.length > 0 &&
+            pageInfo.pageCount > 1 && (
+              <Pagination
+                currentPage={pageInfo.page}
+                totalPages={pageInfo.pageCount}
+              />
+            )}
         </>
       )}
     </section>

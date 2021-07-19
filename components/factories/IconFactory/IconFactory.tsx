@@ -10,6 +10,8 @@ const ICON_MAP = {
   delete: Icons.Delete,
   edit: Icons.Edit,
   checkbox: Icons.Checkbox,
+  warning: Icons.Warning,
+  empty: Icons.Empty,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
@@ -18,6 +20,7 @@ const SIZE_MAP = {
   sm: 16,
   md: 24,
   lg: 32,
+  xlg: 48,
 };
 
 export const SIZE_KEYS = Object.keys(SIZE_MAP);
@@ -39,7 +42,7 @@ function IconFactory({ icon, size, rotate, ...props }: Props) {
 
 interface Props extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
   icon: string;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xlg";
   rotate?: number;
 }
 
