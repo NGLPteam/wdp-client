@@ -35,7 +35,6 @@ export const Default: Story<Props> = Template.bind({});
 Default.args = {
   text: "Button",
   disabled: false,
-  icon: null,
 };
 
 export const WithIcon: Story<Props> = Template.bind({});

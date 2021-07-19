@@ -1,4 +1,7 @@
+import { Story } from "@storybook/react";
 import SidebarNav from ".";
+
+type Props = React.ComponentProps<typeof SidebarNav>;
 
 export default {
   title: "Components/Layout/SidebarNav",
@@ -10,7 +13,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Default: Story<Props> = (args) => (
   <SidebarNav {...args}>
     <SidebarNav.Link href="#" active>
       Link

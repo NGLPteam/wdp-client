@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { Story } from "@storybook/react";
 import Checkbox from "./Checkbox";
+
+type Props = React.ComponentProps<typeof Checkbox>;
 
 export default {
   title: "Components/Atomic/Forms/Checkbox",
@@ -11,7 +14,7 @@ export default {
   },
 };
 
-const Template = (args) => <Checkbox {...args} />;
+const Template: Story<Props> = (args) => <Checkbox {...args} />;
 Template.args = {
   indeterminate: true,
   children: "Checkbox with Intermediate state",
@@ -23,7 +26,7 @@ Default.args = {
   disabled: false,
 };
 
-export const Controlled = ({ checked: initCheck, ...args }) => {
+export const Controlled: Story<Props> = ({ checked: initCheck, ...args }) => {
   const [checked, setChecked] = useState(initCheck);
   const handleToggle = () => {
     setChecked(!checked);

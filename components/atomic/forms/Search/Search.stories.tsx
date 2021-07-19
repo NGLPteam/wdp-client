@@ -1,6 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react";
 import Search from ".";
+
 type Props = React.ComponentProps<typeof Search>;
 
 export default {
@@ -13,7 +14,7 @@ export default {
   },
 };
 
-function handleSubmit(value) {
+function handleSubmit(value: string) {
   console.info("submitted!", value);
 }
 

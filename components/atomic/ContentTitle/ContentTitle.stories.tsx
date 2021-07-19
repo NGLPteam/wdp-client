@@ -1,4 +1,6 @@
 import ContentTitle from ".";
+import { Story } from "@storybook/react";
+type Props = React.ComponentProps<typeof ContentTitle>;
 
 export default {
   title: "Components/Atomic/ContentTitle",
@@ -10,16 +12,17 @@ export default {
   },
 };
 
-export const Primary = ({ text }) => <ContentTitle>{text}</ContentTitle>;
+const Template: Story<Props> = ({ text, ...args }) => (
+  <ContentTitle {...args}>{text}</ContentTitle>
+);
 
+export const Primary: Story<Props> = Template.bind({});
 Primary.args = {
   text: "Page Content",
 };
 
-export const Secondary = ({ text }) => (
-  <ContentTitle as="h2">{text}</ContentTitle>
-);
-
+export const Secondary: Story<Props> = Template.bind({});
 Secondary.args = {
   text: "Secondary Page Content",
+  as: "h2",
 };

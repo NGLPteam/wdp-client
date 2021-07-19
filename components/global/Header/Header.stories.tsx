@@ -7,7 +7,7 @@ export default {
   title: "Components/Global/Header",
   component: Header,
   decorators: [
-    (Story) => (
+    (Story: Story) => (
       <RouterContextProvider>
         <Story />
       </RouterContextProvider>

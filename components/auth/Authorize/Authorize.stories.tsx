@@ -13,7 +13,7 @@ export default {
   title: "Components/Auth/Authorize",
   component: Authorize,
   decorators: [
-    (Story) => (
+    (Story: Story) => (
       <ViewerContext.Provider value={viewerData}>
         <Story />
       </ViewerContext.Provider>

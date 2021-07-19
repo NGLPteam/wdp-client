@@ -1,4 +1,7 @@
 import Input from ".";
+import { Story } from "@storybook/react";
+
+type Props = React.ComponentProps<typeof Input>;
 
 export default {
   title: "Components/Atomic/Forms/Input",
@@ -10,7 +13,7 @@ export default {
   },
 };
 
-const Template = (args) => <Input {...args} />;
+const Template: Story<Props> = (args) => <Input {...args} />;
 Template.args = {
   type: "string",
   label: "Label",

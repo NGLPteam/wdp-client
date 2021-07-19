@@ -10,7 +10,7 @@ function Checkbox({ children, indeterminate, ...props }: Props, ref) {
   }, [resolvedRef, indeterminate]);
 
   return (
-    <Styled.Label aria-label={props["aria-label"] || null}>
+    <Styled.Label aria-label={props["aria-label"] || undefined}>
       <Styled.Checkbox
         className="a-hidden"
         type="checkbox"
@@ -26,7 +26,7 @@ function Checkbox({ children, indeterminate, ...props }: Props, ref) {
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  children?: JSX.Element;
+  children?: JSX.Element | string;
   indeterminate?: boolean;
 }
 

@@ -10,12 +10,12 @@ import * as Styled from "./PageCountActions.styles";
  */
 const PageCountActions = ({
   pageInfo,
-  selectedCount,
+  selectedCount = 0,
   multiselectActions,
 }: Props) => {
   if (!pageInfo) return;
   const hasSelected = selectedCount > 1;
-  const { page, perPage, totalCount } = pageInfo;
+  const { page = 1, perPage = 10, totalCount = 0 } = pageInfo;
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
   const end = totalCount < perPage ? totalCount : page * perPage;
 

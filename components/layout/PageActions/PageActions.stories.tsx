@@ -1,6 +1,9 @@
+import { Story } from "@storybook/react";
 import { ButtonControl } from "components/atomic/buttons";
 import { Search } from "components/atomic/forms";
 import PageActions from "./";
+
+type Props = React.ComponentProps<typeof PageActions>;
 
 export default {
   title: "Components/Layout/PageActions",
@@ -12,11 +15,11 @@ export default {
   },
 };
 
-const handleSubmit = (value) => {
+const handleSubmit = (value: string) => {
   console.info("search", value);
 };
 
-export const Default = () => (
+export const Default: Story<Props> = () => (
   <PageActions
     search={<Search onSubmit={handleSubmit} />}
     actions={[

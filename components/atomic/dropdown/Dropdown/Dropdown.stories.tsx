@@ -2,6 +2,7 @@ import Dropdown from "./Dropdown";
 import { Story } from "@storybook/react";
 import { ButtonControl } from "components/atomic/buttons";
 import { IconFactory } from "components/factories";
+import { BaseDisclosureProps } from "./BaseDropdown";
 
 type Props = React.ComponentProps<typeof Dropdown>;
 
@@ -22,19 +23,14 @@ const MENU_ITEMS = [
   </a>,
 ];
 
-const Template: Story<Props> = (args) => {
-  return (
-    <Dropdown
-      label="Example subnav"
-      disclosure={<button>Toggle subnav</button>}
-      menuItems={MENU_ITEMS}
-      {...args}
-    />
-  );
-};
+const Template: Story<Props> = (args) => <Dropdown {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  label: "Example subnav",
+  disclosure: <button>Toggle subnav</button>,
+  menuItems: MENU_ITEMS,
+};
 
 export const WithButton = Template.bind({});
 WithButton.args = {
@@ -49,16 +45,20 @@ WithButton.args = {
 export const WithFunction = Template.bind({});
 WithFunction.args = {
   ...Default.args,
-  disclosure: (disclosureProps) => {
-    return (
-      <div className="l-flex l-flex--gap">
-        <a href="#">A Link</a>
-        <button {...disclosureProps}>
-          <IconFactory icon="chevron" rotate={180} />
-        </button>
-      </div>
-    );
-  },
+  disclosure: (
+    <>
+      {(disclosureProps: BaseDisclosureProps) => {
+        return (
+          <div className="l-flex l-flex--gap">
+            <a href="#">A Link</a>
+            <button {...disclosureProps}>
+              <IconFactory icon="chevron" rotate={180} />
+            </button>
+          </div>
+        );
+      }}
+    </>
+  ),
 };
 
 export const MultipleDropdowns: Story<Props> = (args) => {

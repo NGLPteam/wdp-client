@@ -1,6 +1,9 @@
+import { Story } from "@storybook/react";
 import PageHeader from "./";
 import { data } from "components/atomic/Breadcrumbs/Breadcrumb.data";
 import { TabNav } from "components/atomic";
+
+type Props = React.ComponentProps<typeof PageHeader>;
 
 export default {
   title: "Components/Layout/PageHeader",
@@ -12,7 +15,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Default: Story<Props> = (args) => (
   <PageHeader {...args} breadcrumbsProps={{ data }}>
     <TabNav>
       <TabNav.Tab active>Child Collections</TabNav.Tab>

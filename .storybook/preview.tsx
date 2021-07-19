@@ -2,10 +2,11 @@ import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";
 import get from "lodash/get";
 import { I18nextProvider } from "react-i18next";
+import { Story } from "@storybook/react";
 import i18n from "helpers/i18n";
 
 export const decorators = [
-  (Story) => (
+  (Story: Story) => (
     <I18nextProvider i18n={i18n}>
       <GlobalStyles />
       <Story />

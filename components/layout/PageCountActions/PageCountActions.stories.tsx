@@ -1,5 +1,8 @@
+import { Story } from "@storybook/react";
 import { ButtonControl } from "components/atomic/buttons";
 import PageCountActions from "./";
+
+type Props = React.ComponentProps<typeof PageCountActions>;
 
 export default {
   title: "Components/Layout/PageCountActions",
@@ -11,7 +14,7 @@ export default {
   },
 };
 
-export const Default = (args) => (
+export const Default: Story<Props> = (args) => (
   <PageCountActions
     {...args}
     multiselectActions={[

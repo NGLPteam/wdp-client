@@ -1,6 +1,9 @@
 import React from "react";
+import { Story } from "@storybook/react";
 import { ButtonControl, Button } from "components/atomic";
 import DropdownMenu from ".";
+
+type Props = React.ComponentProps<typeof DropdownMenu>;
 
 export default {
   title: "Components/Atomic/Dropdowns/DropdownMenu",
@@ -18,13 +21,13 @@ const MENU_ITEMS = [
   <button key={3}>Custom item 3</button>,
 ];
 
-export const Default = (args) => {
+export const Default: Story<Props> = ({ isMainNav }) => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
       disclosure={<button>Custom menu</button>}
       menuItems={MENU_ITEMS}
-      {...args}
+      isMainNav={isMainNav}
     />
   );
 };
@@ -33,7 +36,7 @@ Default.args = {
   isMainNav: false,
 };
 
-export const WithButton = () => {
+export const WithButton: Story<Props> = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}
@@ -45,7 +48,7 @@ export const WithButton = () => {
 
 WithButton.args = { ...Default.args };
 
-export const WithButtonControl = () => {
+export const WithButtonControl: Story<Props> = () => {
   return (
     <DropdownMenu
       menuProps={{ "aria-label": "Custom menu" }}

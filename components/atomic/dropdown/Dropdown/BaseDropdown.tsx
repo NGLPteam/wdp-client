@@ -7,7 +7,7 @@ import isFunction from "lodash/isFunction";
  * A dropdown for navigation submenus.
  * Adds appropriate aria labels and open/close functionality.
  */
-function BaseDropdown({ className, disclosure, submenu, label }) {
+function BaseDropdown({ className, disclosure, submenu, label }: Props) {
   const uid = useUID();
   const wrapperRef = useRef(null);
   const firstInteractiveRef = useRef(null);
@@ -31,7 +31,10 @@ function BaseDropdown({ className, disclosure, submenu, label }) {
     hidden: !active,
   };
 
-  function renderDisclosure(disclosure, disclosureProps) {
+  function renderDisclosure(
+    disclosure: JSX.Element | ((props: BaseDisclosureProps) => void),
+    disclosureProps: BaseDisclosureProps
+  ) {
     if (isFunction(disclosure)) return disclosure(disclosureProps);
     return React.cloneElement(disclosure, disclosureProps);
   }
@@ -42,6 +45,19 @@ function BaseDropdown({ className, disclosure, submenu, label }) {
       {React.cloneElement(submenu, submenuProps)}
     </div>
   );
+}
+
+interface Props {
+  className?: string;
+  disclosure: JSX.Element | ((props: BaseDisclosureProps) => void);
+  submenu: JSX.Element;
+  label: string;
+}
+export interface BaseDisclosureProps {
+  "aria-controls": string;
+  "aria-expanded": boolean;
+  "aria-label": string;
+  onClick: () => void;
 }
 
 export default React.memo(BaseDropdown);

@@ -70,7 +70,7 @@ interface Props {
   /** Drawer header */
   header: string;
   /** Drawer content */
-  children: JSX.Element;
+  children: JSX.Element | string;
   /** Adds a Save button to the drawer footer. Function runs on save */
   onSave?: () => void;
   /** Function runs on close or cancel */

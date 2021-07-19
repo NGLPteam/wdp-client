@@ -1,4 +1,8 @@
+import { Story } from "@storybook/react";
 import Table from "./Table";
+
+type Props = React.ComponentProps<typeof Table>;
+type BodyProps = React.ComponentProps<typeof Table.Body>;
 
 export default {
   title: "Components/Layout/Table",
@@ -75,7 +79,11 @@ const selectableRows = rows.map((row) => ({
   getToggleRowSelectedProps: () => ({}),
 }));
 
-export const Default = ({ withRowSelection, rows, ...args }) => {
+export const Default: Story<Props & BodyProps> = ({
+  withRowSelection,
+  rows,
+  ...args
+}) => {
   return (
     <div className="l-container-max">
       <Table
@@ -95,7 +103,6 @@ export const Default = ({ withRowSelection, rows, ...args }) => {
 Default.args = {
   "aria-label": "Example plain table",
   withRowSelection: false,
-  withCheckbox: false,
   rows,
 };
 
