@@ -2,18 +2,29 @@ import { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
-import { transformBreadcrumbList } from "helpers/transforms";
+import { modelMap } from "helpers/routes";
 
-export type BreadcrumbListType = ReturnType<typeof transformBreadcrumbList>;
+export type BreadcrumbListType =
+  | {
+      label: string;
+      href: string;
+    }[]
+  | null;
 
-// TODO: Property types
 export default function useBreadcrumbs(entity): BreadcrumbListType {
   const data = useFragment<useBreadcrumbsFragment$key>(fragment, entity);
 
   const breadcrumbsData = useMemo(() => {
     if (!entity) return null;
 
-    return transformBreadcrumbList(data.breadcrumbs, entity.title);
+    return data.breadcrumbs.map((crumb) => {
+      const href = `/${modelMap[crumb.kind]}/${crumb.slug}`;
+
+      return {
+        label: crumb.label,
+        href: href,
+      };
+    });
   }, [data, entity]);
 
   return breadcrumbsData || null;
