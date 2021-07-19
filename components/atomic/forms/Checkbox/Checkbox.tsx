@@ -1,12 +1,22 @@
-import React, { forwardRef, useRef, useEffect } from "react";
+import React, {
+  forwardRef,
+  Ref,
+  useRef,
+  useEffect,
+  MutableRefObject,
+} from "react";
 import * as Styled from "./Checkbox.styles";
 
-function Checkbox({ children, indeterminate, ...props }: Props, ref) {
-  const defaultRef = useRef();
+function Checkbox(
+  { children, indeterminate, ...props }: Props,
+  ref: Ref<HTMLInputElement>
+) {
+  const defaultRef = useRef<HTMLInputElement>(null);
   const resolvedRef = ref || defaultRef;
 
   useEffect(() => {
-    resolvedRef.current.indeterminate = indeterminate;
+    (resolvedRef as MutableRefObject<HTMLInputElement>).current.indeterminate =
+      indeterminate || false;
   }, [resolvedRef, indeterminate]);
 
   return (

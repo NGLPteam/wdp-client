@@ -47,7 +47,7 @@ const PageCountActions = ({
 
 interface Props {
   /** Page info object (page, perPage, pageCount...) */
-  pageInfo?: PageInfo;
+  pageInfo?: Partial<PageInfo>;
   /** Number of selected items */
   selectedCount?: number;
   /** Multiselect multiselectActions, an array of buttons */

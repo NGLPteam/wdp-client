@@ -19,7 +19,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
   const params = Object.fromEntries(urlSearchParams.entries());
   const router = useRouter();
 
-  const handleSubmit = (value) => {
+  const handleSubmit = (value: string) => {
     router.push({ pathname, query: { ...router.query, page: value } });
   };
 

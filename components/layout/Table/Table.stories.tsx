@@ -79,7 +79,7 @@ const selectableRows = rows.map((row) => ({
   getToggleRowSelectedProps: () => ({}),
 }));
 
-export const Default: Story<Props & BodyProps> = ({
+export const Default: Story<Props & Partial<BodyProps>> = ({
   withRowSelection,
   rows,
   ...args
@@ -103,6 +103,8 @@ export const Default: Story<Props & BodyProps> = ({
 Default.args = {
   "aria-label": "Example plain table",
   withRowSelection: false,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   rows,
 };
 
