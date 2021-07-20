@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { PageInfo } from "types/graphql-schema";
-import { ModelTableActionProps } from "components/composed/model/ModelData/ModelData";
+import { ModelTableActionProps } from "components/composed/model/ModelList/ModelList";
 import { useRouter } from "next/router";
 
 import type {

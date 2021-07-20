@@ -1,109 +1,142 @@
-import React, { useState } from "react";
-import startCase from "lodash/startCase";
-import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import {
-  Pagination,
-  ErrorMessage,
-  NoResultsMessage,
-  DataViewToggle,
-} from "components/atomic";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useCallback } from "react";
+import isFunction from "lodash/isFunction";
+import { useTable, useRowSelect, useSortBy, Column } from "react-table";
+import ModelTable from "../ModelTable";
+import ModelGrid from "../ModelGrid";
+import useRowActions from "../plugins/useRowActions";
+import mapSortBy from "../helpers/mapSortBy";
+
 import { PageInfo } from "types/graphql-schema";
-import { Search } from "components/atomic/forms";
-import { FullPageLoader } from "components/global";
-import { ModelData } from "components/composed/model";
-import { useRouter } from "next/router";
 
-type ModelDataProps = React.ComponentProps<typeof ModelData>;
-
-function ModelList<T>({
-  isLoading,
-  error,
-  modelName,
+function ModelList<
+  T extends Record<string, unknown> = Record<string, unknown>
+>({
+  title,
   models,
-  pageInfo,
-  ...props
+  columns,
+  actions,
+  onSort,
+  onSelectionChange,
+  selectedView,
 }: ModelListProps<T>) {
-  const { t } = useTranslation("glossary");
-  const router = useRouter();
-  const [view, setView] = useState("grid");
-  const title = t(modelName, { count: 2 });
+  const withRowSelection = isFunction(onSelectionChange);
 
-  const handleSubmit = (value) => {
-    const pathname = window.location.pathname;
-    const { model, page, ...query } = router.query;
+  const tableHooks = [
+    useSortBy,
+    withRowSelection && useRowSelect,
+    useRowActions,
+  ].filter((n) => n);
 
-    router.push({
-      pathname,
-      query: { ...query, q: value },
-    });
-  };
+  const getRowId = useCallback((row) => {
+    return row.slug;
+  }, []);
 
-  const handleViewToggle = () => {
-    setView(view === "table" ? "grid" : "table");
-  };
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state: { selectedRowIds, sortBy },
+    getToggleAllRowsSelectedProps,
+  } = useTable<T>(
+    {
+      columns,
+      data: models,
+      manualSortBy: true,
+      getRowId,
+      disableMultiSort: true,
+      actions,
+    },
+    ...tableHooks
+  );
 
-  return (
-    <section>
-      {title && <PageHeader title={startCase(title)} />}
-      {isLoading ? (
-        <FullPageLoader />
-      ) : (
-        <>
-          <PageActions
-            search={<Search onSubmit={handleSubmit} />}
-            actions={
-              <DataViewToggle
-                selectedView={view}
-                controlsID="id"
-                onClick={handleViewToggle}
-              />
-            }
-          />
-          {pageInfo && models && models.length > 0 && (
-            <PageCountActions pageInfo={pageInfo} />
-          )}
-          {error ? (
-            <ErrorMessage name={error.name} message={error.message} />
-          ) : models && models.length > 0 ? (
-            <div id="id">
-              <ModelData
-                title={title}
-                models={models}
-                selectedView={view}
-                {...props}
-              />
-            </div>
-          ) : (
-            <NoResultsMessage />
-          )}
+  const handleSort = useCallback(
+    (sortBy) => {
+      if (!isFunction(onSort)) return;
+      if (!Array.isArray(sortBy) || sortBy.length === 0) return;
+      const { id, desc } = sortBy[0];
+      const order = mapSortBy(id, desc);
+      onSort({ id, desc, order });
+    },
+    [onSort]
+  );
 
-          {pageInfo &&
-            models &&
-            models.length > 0 &&
-            pageInfo.pageCount > 1 && (
-              <Pagination
-                currentPage={pageInfo.page}
-                totalPages={pageInfo.pageCount}
-              />
-            )}
-        </>
-      )}
-    </section>
+  const handleSelectionChange = useCallback(
+    (selectedRowIds) => {
+      if (!isFunction(onSelectionChange)) return;
+      onSelectionChange({ selectedRowIds });
+    },
+    [onSelectionChange]
+  );
+
+  useEffect(() => {
+    handleSort(sortBy);
+  }, [handleSort, sortBy]);
+
+  useEffect(() => {
+    handleSelectionChange(selectedRowIds);
+  }, [handleSelectionChange, selectedRowIds]);
+
+  // Prepare rows
+  rows.forEach((row) => prepareRow(row));
+
+  const checkboxProps =
+    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
+
+  return selectedView === "table" ? (
+    <ModelTable
+      title={title}
+      withRowSelection={withRowSelection}
+      checkboxProps={checkboxProps}
+      tableProps={getTableProps()}
+      headerGroups={headerGroups}
+      rows={rows}
+      tableBodyProps={getTableBodyProps()}
+    />
+  ) : (
+    <ModelGrid rows={rows} />
   );
 }
 
-// TODO: Either extend ModelTable (and potentially ModelGrid), or
-// Create an Model context rather than passing data down multiple levels of components
+export interface ModelTableActionProps<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  row: { original: T };
+}
 
-// The generic type is consumed by ModelDataProps
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListProps<T>
-  extends Omit<ModelDataProps, "title" | "selectedView"> {
-  isLoading?: boolean;
-  error?: { name: string; message: string };
-  modelName?: string;
+export interface ModelTableActionOptions<T> {
+  handleClick?: (props: ModelTableActionProps<T>) => void;
+  // TODO: Support a named route and params.
+}
+
+export interface ModelTableActions<T> {
+  edit?: ModelTableActionOptions<T>;
+  delete?: ModelTableActionOptions<T>;
+}
+
+export interface OnSortProps {
+  order: string;
+  id: string;
+  desc: boolean;
+}
+
+export interface OnSelectionChangeProps {
+  selectedRowIds: string[];
+}
+
+export interface ModelListProps<
+  T extends Record<string, unknown> = Record<string, unknown>
+> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: Column<any>[];
+  title: string;
   pageInfo?: PageInfo;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  models?: ReadonlyArray<any>;
+  actions?: ModelTableActions<T>;
+  onSort?: (props: OnSortProps) => void;
+  onSelectionChange?: (props: OnSelectionChangeProps) => void;
+  selectedView: "table" | "grid" | string;
 }
 
 export default ModelList;

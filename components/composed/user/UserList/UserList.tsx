@@ -1,7 +1,7 @@
 import React from "react";
 import useModelList from "hooks/useModelList";
-import { columns } from "components/composed/model/ModelData";
-import { ModelList } from "components/composed/model";
+import { columns } from "components/composed/model/ModelList";
+import { ModelListPage } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import {
   Connectionish,
@@ -51,7 +51,7 @@ function UserList<
 
   return (
     <>
-      <ModelList<ExtractConnectionNodeType<ConnectionType>>
+      <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
         modelName="user"
         {...modelListProps}
       />
