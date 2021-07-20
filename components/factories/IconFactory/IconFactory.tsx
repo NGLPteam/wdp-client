@@ -12,6 +12,8 @@ const ICON_MAP = {
   checkbox: Icons.Checkbox,
   warning: Icons.Warning,
   empty: Icons.Empty,
+  viewGrid: Icons.ViewGrid,
+  viewList: Icons.ViewList,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

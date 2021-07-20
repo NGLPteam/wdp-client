@@ -9,3 +9,5 @@ export { default as Edit } from "./Edit";
 export { default as Checkbox } from "./Checkbox";
 export { default as Warning } from "./Warning";
 export { default as Empty } from "./Empty";
+export { default as ViewGrid } from "./ViewGrid";
+export { default as ViewList } from "./ViewList";

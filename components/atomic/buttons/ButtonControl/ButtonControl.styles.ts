@@ -22,7 +22,7 @@ export const ButtonControl = styled.button<BaseProps>`
   visibility: var(--button-control-visibility, visible);
 
   & + & {
-    margin-inline-start: ${basePadding(3)};
+    margin-inline-start: var(--button-control-spacing, ${basePadding(3)});
   }
 
   > span {
@@ -62,6 +62,10 @@ export const ButtonControl = styled.button<BaseProps>`
   &:hover:not(:disabled):not([aria-disabled="true"]) {
     background-color: var(--brand100);
     color: var(--neutral00);
+  }
+
+  &[aria-pressed="true"] {
+    background-color: var(--brand20);
   }
 `;
 
