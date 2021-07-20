@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import isFunction from "lodash/isFunction";
 import { useTable, useRowSelect, useSortBy, Column } from "react-table";
 import ModelTable from "../ModelTable";
+import ModelGrid from "../ModelGrid";
 import useRowActions from "./plugins/useRowActions";
 import mapSortBy from "./helpers/mapSortBy";
 
@@ -16,6 +17,7 @@ function ModelData<
   actions,
   onSort,
   onSelectionChange,
+  selectedView,
 }: ModelTableProps<T>) {
   const withRowSelection = isFunction(onSelectionChange);
 
@@ -82,7 +84,7 @@ function ModelData<
   const checkboxProps =
     getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
-  return (
+  return selectedView === "table" ? (
     <ModelTable
       title={title}
       withRowSelection={withRowSelection}
@@ -92,6 +94,8 @@ function ModelData<
       rows={rows}
       tableBodyProps={getTableBodyProps()}
     />
+  ) : (
+    <ModelGrid rows={rows} />
   );
 }
 
@@ -132,6 +136,7 @@ export interface ModelTableProps<
   actions?: ModelTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
+  selectedView: "table" | "grid" | string;
 }
 
 export default ModelData;

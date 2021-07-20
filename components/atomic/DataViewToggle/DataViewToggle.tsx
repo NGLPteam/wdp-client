@@ -3,10 +3,6 @@ import { ButtonControl } from "components/atomic";
 import * as Styled from "./DataViewToggle.styles";
 
 const DataViewToggle = ({ selectedView, controlsID, onClick }: Props) => {
-  const handleOnClick = () => {
-    onClick && onClick(selectedView === "table" ? "grid" : "table");
-  };
-
   return (
     <Styled.Wrapper>
       <ButtonControl
@@ -15,7 +11,7 @@ const DataViewToggle = ({ selectedView, controlsID, onClick }: Props) => {
         aria-pressed={selectedView === "grid"}
         aria-disabled={selectedView === "grid"}
         aria-label="Grid"
-        onClick={handleOnClick}
+        onClick={onClick}
       ></ButtonControl>
       <ButtonControl
         icon="viewList"
@@ -23,16 +19,16 @@ const DataViewToggle = ({ selectedView, controlsID, onClick }: Props) => {
         aria-pressed={selectedView === "table"}
         aria-disabled={selectedView === "table"}
         aria-label="Table"
-        onClick={handleOnClick}
+        onClick={onClick}
       ></ButtonControl>
     </Styled.Wrapper>
   );
 };
 
 interface Props {
-  selectedView: "table" | "grid";
+  selectedView: "table" | "grid" | string;
   controlsID: string;
-  onClick: (selectedView: string) => void;
+  onClick: () => void;
 }
 
 export default DataViewToggle;

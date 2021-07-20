@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
-import { Pagination, ErrorMessage, NoResultsMessage } from "components/atomic";
+import {
+  Pagination,
+  ErrorMessage,
+  NoResultsMessage,
+  DataViewToggle,
+} from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { ModelData } from "components/composed/model";
 import { useRouter } from "next/router";
-import ModelAddButton from "../ModelAddButton/ModelAddButton";
 
 type ModelDataProps = React.ComponentProps<typeof ModelData>;
 
@@ -22,6 +26,7 @@ function ModelList<T>({
 }: ModelListProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
+  const [view, setView] = useState("table");
   const title = t(modelName, { count: 2 });
 
   const handleSubmit = (value) => {
@@ -34,6 +39,10 @@ function ModelList<T>({
     });
   };
 
+  const handleViewToggle = () => {
+    setView(view === "table" ? "grid" : "table");
+  };
+
   return (
     <section>
       {title && <PageHeader title={startCase(title)} />}
@@ -43,7 +52,13 @@ function ModelList<T>({
         <>
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
-            actions={<ModelAddButton modelName={modelName} />}
+            actions={
+              <DataViewToggle
+                selectedView={view}
+                controlsID="id"
+                onClick={handleViewToggle}
+              />
+            }
           />
           {pageInfo && models && models.length > 0 && (
             <PageCountActions pageInfo={pageInfo} />
@@ -51,7 +66,14 @@ function ModelList<T>({
           {error ? (
             <ErrorMessage name={error.name} message={error.message} />
           ) : models && models.length > 0 ? (
-            <ModelData title={title} models={models} {...props} />
+            <div id="id">
+              <ModelData
+                title={title}
+                models={models}
+                selectedView={view}
+                {...props}
+              />
+            </div>
           ) : (
             <NoResultsMessage />
           )}
