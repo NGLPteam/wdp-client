@@ -1,6 +1,6 @@
 import React from "react";
 import useModelList from "hooks/useModelList";
-import { columns } from "components/composed/model/ModelTable";
+import { columns } from "components/composed/model/ModelData";
 import { ModelList } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import {

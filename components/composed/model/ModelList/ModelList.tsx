@@ -6,11 +6,11 @@ import { useTranslation } from "react-i18next";
 import { PageInfo } from "types/graphql-schema";
 import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
-import { ModelTable } from "components/composed/model";
+import { ModelData } from "components/composed/model";
 import { useRouter } from "next/router";
 import ModelAddButton from "../ModelAddButton/ModelAddButton";
 
-type ModelTableProps = React.ComponentProps<typeof ModelTable>;
+type ModelDataProps = React.ComponentProps<typeof ModelData>;
 
 function ModelList<T>({
   isLoading,
@@ -51,7 +51,7 @@ function ModelList<T>({
           {error ? (
             <ErrorMessage name={error.name} message={error.message} />
           ) : models && models.length > 0 ? (
-            <ModelTable title={title} models={models} {...props} />
+            <ModelData title={title} models={models} {...props} />
           ) : (
             <NoResultsMessage />
           )}
@@ -74,9 +74,9 @@ function ModelList<T>({
 // TODO: Either extend ModelTable (and potentially ModelGrid), or
 // Create an Model context rather than passing data down multiple levels of components
 
-// The generic type is consumed by ModelTableProps
+// The generic type is consumed by ModelDataProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListProps<T> extends Omit<ModelTableProps, "title"> {
+export interface ModelListProps<T> extends Omit<ModelDataProps, "title"> {
   isLoading?: boolean;
   error?: { name: string; message: string };
   modelName?: string;
