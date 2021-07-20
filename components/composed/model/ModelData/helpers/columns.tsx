@@ -15,7 +15,8 @@ const updatedAt = {
   accessor: (row) => formatDate(row.updatedAt),
 };
 
-const nameFactory = (route, label, accessor) => ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const nameFactory = (route: string, label: string, accessor: any) => ({
   Header: label,
   accessor: accessor,
   disableSortBy: true,

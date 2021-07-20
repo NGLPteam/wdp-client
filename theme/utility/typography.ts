@@ -23,6 +23,10 @@ export default css`
     text-transform: none;
   }
 
+  .t-weight-md {
+    font-weight: var(--font-weight-medium);
+  }
+
   .t-align-right {
     text-align: end;
   }
