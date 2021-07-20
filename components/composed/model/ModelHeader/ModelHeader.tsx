@@ -7,21 +7,21 @@ import { BreadcrumbListType } from "hooks/useBreadcrumbs";
 import { modelMap } from "helpers/routes";
 
 /**
- * Takes an model id, object, and current router view,
+ * Takes an model slug, object, and current router view,
  * and returns a PageHeader with the model title, breadcrumbs, and tabbed navigation.
  */
-const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
+const ModelHeader = ({ type, slug, title, view, breadcrumbs }: Props) => {
   // TODO: Refactor this once we arrive at a sustainable routing approach.
   function getTabs() {
     const tabs = [
-      <Link key="manage" href={`/${modelMap[type]}/${id}/manage`} passHref>
+      <Link key="manage" href={`/${modelMap[type]}/${slug}/manage`} passHref>
         <TabNav.Tab active={view === "manage"}>Manage</TabNav.Tab>
       </Link>,
     ];
 
     if (!["COMMUNITY", "CONTRIBUTOR"].includes(type)) {
       tabs.unshift(
-        <Link key="items" href={`/${modelMap[type]}/${id}/items`} passHref>
+        <Link key="items" href={`/${modelMap[type]}/${slug}/items`} passHref>
           <TabNav.Tab active={view === "items"}>Child Items</TabNav.Tab>
         </Link>
       );
@@ -31,7 +31,7 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       tabs.unshift(
         <Link
           key="contributions"
-          href={`/${modelMap[type]}/${id}/contributions`}
+          href={`/${modelMap[type]}/${slug}/contributions`}
           passHref
         >
           <TabNav.Tab active={view === "contributions"}>
@@ -45,7 +45,7 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
       tabs.unshift(
         <Link
           key="collections"
-          href={`/${modelMap[type]}/${id}/collections`}
+          href={`/${modelMap[type]}/${slug}/collections`}
           passHref
         >
           <TabNav.Tab active={view === "collections"}>
@@ -71,7 +71,7 @@ type HeaderTypes = "COMMUNITY" | "COLLECTION" | "ITEM" | "USER" | "CONTRIBUTOR";
 
 interface Props {
   type: HeaderTypes;
-  id: string;
+  slug: string;
   title: string;
   breadcrumbs?: BreadcrumbListType;
   view?: string;

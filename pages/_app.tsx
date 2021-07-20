@@ -50,6 +50,8 @@ function NGLPApp({
     persistor,
   };
 
+  const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <React.Fragment>
       <Head>
@@ -64,7 +66,7 @@ function NGLPApp({
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
             <AppBody>
-              <Component {...pageProps} />
+              {getLayout(<Component {...pageProps} />)}
               <DrawerController />
             </AppBody>
           </AppContextProvider>
