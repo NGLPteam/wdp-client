@@ -23,8 +23,8 @@ const Template: Story<Props> = (args) => {
     <>
       <DataViewToggle
         {...args}
-        onClick={(view: string) => {
-          console.info("new view", view);
+        onClick={() => {
+          console.info("clicked!");
         }}
       />
       <p id={args.controlsID}>selected view: {args.selectedView}</p>
