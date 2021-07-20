@@ -3,8 +3,8 @@ import isFunction from "lodash/isFunction";
 import { useTable, useRowSelect, useSortBy, Column } from "react-table";
 import ModelTable from "../ModelTable";
 import ModelGrid from "../ModelGrid";
-import useRowActions from "./plugins/useRowActions";
-import mapSortBy from "./helpers/mapSortBy";
+import useRowActions from "../plugins/useRowActions";
+import mapSortBy from "../helpers/mapSortBy";
 
 import { PageInfo } from "types/graphql-schema";
 
