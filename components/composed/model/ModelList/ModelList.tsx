@@ -26,7 +26,7 @@ function ModelList<T>({
 }: ModelListProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
-  const [view, setView] = useState("table");
+  const [view, setView] = useState("grid");
   const title = t(modelName, { count: 2 });
 
   const handleSubmit = (value) => {
@@ -98,7 +98,8 @@ function ModelList<T>({
 
 // The generic type is consumed by ModelDataProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListProps<T> extends Omit<ModelDataProps, "title"> {
+export interface ModelListProps<T>
+  extends Omit<ModelDataProps, "title" | "selectedView"> {
   isLoading?: boolean;
   error?: { name: string; message: string };
   modelName?: string;
