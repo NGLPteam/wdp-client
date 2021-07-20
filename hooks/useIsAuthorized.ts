@@ -24,7 +24,7 @@ export const useIsAuthorized = ({
 };
 
 export interface useIsAuthorizedProps {
-  actions: string[] | string | null;
+  actions: string[] | string;
   allowedActions?: string[] | readonly string[];
 }
 

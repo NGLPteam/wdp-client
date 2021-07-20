@@ -106,6 +106,7 @@ export const HeaderCellInner = styled.span`
 export const Cell = styled.td`
   padding-block: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
+  height: ${basePadding(12)};
 
   ${({ align }) =>
     align &&

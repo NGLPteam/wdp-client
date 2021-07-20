@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
+import isFunction from "lodash/isFunction";
 import { routes } from "helpers";
 type LinkProps = React.ComponentProps<typeof Link>;
 
@@ -10,11 +11,15 @@ const NamedLink = forwardRef(
   ({ route, routeParams, query, children, passHref, ...props }: Props, ref) => {
     // If the route can't be found, fallback to the original value
     const pathname = routes[route] ? routes[route](routeParams) : route;
+    // We could check if the pathname is active here,
+    // but not all NamedLinks need to know if the route is currently active
 
     // Pass all other props to Link
     return (
       <Link href={{ pathname, query }} passHref={passHref} {...props}>
-        {React.isValidElement(children)
+        {isFunction(children)
+          ? children({ ...props, pathname, query })
+          : React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
       </Link>

@@ -24,14 +24,31 @@ export const modelMap = {
 export const routes: RoutesMap = {
   communityList: (): string => `/communities`,
   communityDetail: (params?: Params): string => `/communities/${params?.id}`,
+  communityManage: (params?: Params): string =>
+    `/communities/${params?.id}/manage`,
+  communityCollections: (params?: Params): string =>
+    `/communities/${params?.id}/collections`,
   collectionList: (): string => `/collections`,
   collectionDetail: (params?: Params): string => `/collections/${params?.id}`,
+  collectionManage: (params?: Params): string =>
+    `/collections/${params?.id}/manage`,
+  collectionCollections: (params?: Params): string =>
+    `/collections/${params?.id}/collections`,
+  collectionItems: (params?: Params): string =>
+    `/collections/${params?.id}/items`,
   itemList: (): string => `/items`,
   itemDetail: (params?: Params): string => `/items/${params?.id}`,
+  itemManage: (params?: Params): string => `/items/${params?.id}/manage`,
+  itemItems: (params?: Params): string => `/items/${params?.id}/items`,
   userList: (): string => `/users`,
   userDetail: (params?: Params): string => `/users/${params?.id}`,
+  userManage: (params?: Params): string => `/users/${params?.id}/manage`,
   contributorList: (): string => `/contributors`,
   contributorDetail: (params?: Params): string => `/contributors/${params?.id}`,
+  contributorManage: (params?: Params): string =>
+    `/contributors/${params?.id}/manage`,
+  contributorContributions: (params?: Params): string =>
+    `/contributors/${params?.id}/contributions`,
 };
 
 // Gets the current asPath from useRouter

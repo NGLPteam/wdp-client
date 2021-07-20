@@ -50,12 +50,7 @@ export default function CommunityDetail() {
   return (
     <section>
       {data && data.community && (
-        <ModelHeader
-          id={id}
-          title={data.community.name}
-          view={view}
-          type="COMMUNITY"
-        />
+        <ModelHeader id={id} title={data.community.name} model="community" />
       )}
 
       {view === "main" && <div>Main</div>}

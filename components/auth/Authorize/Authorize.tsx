@@ -19,6 +19,6 @@ export default function Authorize({
 
 interface Props {
   children: JSX.Element;
-  actions: string | string[] | null;
+  actions: string | string[];
   allowedActions?: string[] | readonly string[];
 }

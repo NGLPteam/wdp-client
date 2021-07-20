@@ -55,8 +55,7 @@ export default function ItemDetail() {
       {item && (
         <ModelHeader
           id={id}
-          type="ITEM"
-          view={view}
+          model="item"
           title={item.title}
           breadcrumbs={breadcrumbs}
         />

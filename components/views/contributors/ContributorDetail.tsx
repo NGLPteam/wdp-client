@@ -44,8 +44,7 @@ export default function ContributorDetail() {
             data?.contributor?.name ||
             `${data?.contributor?.firstName} ${data?.contributor?.lastName}`
           }`}
-          view={view}
-          type="CONTRIBUTOR"
+          model="contributor"
         />
       )}
 

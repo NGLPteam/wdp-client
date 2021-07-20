@@ -56,8 +56,7 @@ export default function CollectionDetail() {
       {data && data.collection && (
         <ModelHeader
           id={id}
-          type="COLLECTION"
-          view={view}
+          model="collection"
           title={data.collection.title}
           breadcrumbs={breadcrumbs}
         />
