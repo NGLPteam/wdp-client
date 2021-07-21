@@ -28,9 +28,9 @@ function ModelListPage<T>({
   const { t } = useTranslation("glossary");
   const router = useRouter();
   const [view, setView] = useState(DataViewOptions.grid);
-  const title = t(modelName, { count: 2 });
+  const title = modelName ? t(modelName, { count: 2 }) : "";
 
-  const handleSubmit = (value) => {
+  const handleSubmit = (value: string) => {
     const pathname = window.location.pathname;
     const { model, page, ...query } = router.query;
 
@@ -86,6 +86,7 @@ function ModelListPage<T>({
           {pageInfo &&
             models &&
             models.length > 0 &&
+            pageInfo.pageCount &&
             pageInfo.pageCount > 1 && (
               <Pagination
                 currentPage={pageInfo.page}

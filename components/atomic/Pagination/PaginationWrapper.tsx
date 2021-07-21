@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { PaginationInput as CICPaginationInput } from "@castiron/components-pagination";
 import { ButtonControl } from "components/atomic/buttons";
+import { Maybe } from "types/graphql-schema";
 
 const PaginationWrapper = ({ className, ...props }: Props) => {
   const inputClassname = `${className}__input-wrapper`;
@@ -22,6 +23,8 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
   const handleSubmit = (value: string) => {
     router.push({ pathname, query: { ...router.query, page: value } });
   };
+
+  if (!currentPage || !totalPages) return null;
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
@@ -62,8 +65,8 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
 
 interface Props {
   className?: string;
-  currentPage: number;
-  totalPages: number;
+  currentPage?: Maybe<number> | number;
+  totalPages?: Maybe<number> | number;
 }
 
 export default PaginationWrapper;

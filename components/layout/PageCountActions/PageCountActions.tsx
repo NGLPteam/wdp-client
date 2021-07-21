@@ -13,7 +13,7 @@ const PageCountActions = ({
   selectedCount = 0,
   multiselectActions,
 }: Props) => {
-  if (!pageInfo) return;
+  if (!pageInfo) return null;
   const hasSelected = selectedCount > 1;
   const { page = 1, perPage = 10, totalCount = 0 } = pageInfo;
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
