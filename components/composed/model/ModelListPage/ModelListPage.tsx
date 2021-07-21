@@ -14,6 +14,7 @@ import { FullPageLoader } from "components/global";
 import { ModelList } from "components/composed/model";
 import { useRouter } from "next/router";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+import ModelAddButton from "../ModelAddButton/ModelAddButton";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
@@ -50,7 +51,12 @@ function ModelListPage<T>({
 
   return (
     <section>
-      {title && <PageHeader title={startCase(title)} />}
+      {title && (
+        <PageHeader
+          title={startCase(title)}
+          buttons={<ModelAddButton modelName={modelName} />}
+        />
+      )}
       {isLoading ? (
         <FullPageLoader />
       ) : (

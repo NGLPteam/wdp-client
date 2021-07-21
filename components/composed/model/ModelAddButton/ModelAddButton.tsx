@@ -19,7 +19,7 @@ const ButtonControlAdd = ({ modelName }: Props) => {
 };
 
 interface Props {
-  modelName: string;
+  modelName?: string;
 }
 
 export default ButtonControlAdd;

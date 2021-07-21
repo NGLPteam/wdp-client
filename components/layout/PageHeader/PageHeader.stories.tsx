@@ -16,13 +16,17 @@ export default {
 };
 
 export const Default: Story<Props> = (args) => (
-  <PageHeader {...args} breadcrumbsProps={{ data }}>
-    <TabNav>
-      <TabNav.Tab active>Child Collections</TabNav.Tab>
-      <TabNav.Tab href="#">Child Items</TabNav.Tab>
-      <TabNav.Tab href="#">Manage</TabNav.Tab>
-    </TabNav>
-  </PageHeader>
+  <PageHeader
+    {...args}
+    breadcrumbsProps={{ data }}
+    tabs={
+      <TabNav>
+        <TabNav.Tab active>Child Collections</TabNav.Tab>
+        <TabNav.Tab href="#">Child Items</TabNav.Tab>
+        <TabNav.Tab href="#">Manage</TabNav.Tab>
+      </TabNav>
+    }
+  />
 );
 
 Default.args = {

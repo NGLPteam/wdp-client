@@ -59,9 +59,11 @@ const ModelHeader = ({ type, id, title, view, breadcrumbs }: Props) => {
   }
 
   return (
-    <PageHeader title={title} breadcrumbsProps={{ data: breadcrumbs }}>
-      <TabNav>{getTabs()}</TabNav>
-    </PageHeader>
+    <PageHeader
+      title={title}
+      breadcrumbsProps={{ data: breadcrumbs }}
+      tabs={<TabNav>{getTabs()}</TabNav>}
+    />
   );
 };
 

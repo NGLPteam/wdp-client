@@ -88,5 +88,6 @@ export const breakpoints = {
   120: "1280px",
   100: "1000px",
   70: "768px",
+  40: "414px",
   30: "375px",
 };
