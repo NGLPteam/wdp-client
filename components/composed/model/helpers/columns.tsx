@@ -22,7 +22,11 @@ const nameFactory = (route: string, label: string, accessor: any) => ({
   disableSortBy: true,
   Cell: ({ row, value }) => {
     return (
-      <NamedLink route={route} routeParams={{ id: row.original.slug }} passHref>
+      <NamedLink
+        route={route}
+        routeParams={{ slug: row.original.slug }}
+        passHref
+      >
         <a>{value}</a>
       </NamedLink>
     );

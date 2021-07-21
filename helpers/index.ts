@@ -1,4 +1,4 @@
 export { default as encodeSvg } from "./encodeSvg";
 export * from "./dates";
-export { routes } from "./routes";
+export { RouteHelper } from "./routes";
 export * from "./arrays";
