@@ -22,18 +22,22 @@ export default function UserDetail() {
 
   return (
     <section>
-      <PageHeader title={`User: ${id}`} breadcrumbsProps={breadcrumbs}>
-        <TabNav>
-          <Link href={`/users/${id}/action`} passHref>
-            <TabNav.Tab active={view === "action"}>
-              Another Action Here
-            </TabNav.Tab>
-          </Link>
-          <Link href={`/users/${id}/delete`} passHref>
-            <TabNav.Tab active={view === "delete"}>Delete</TabNav.Tab>
-          </Link>
-        </TabNav>
-      </PageHeader>
+      <PageHeader
+        title={`User: ${id}`}
+        breadcrumbsProps={breadcrumbs}
+        tabs={
+          <TabNav>
+            <Link href={`/users/${id}/action`} passHref>
+              <TabNav.Tab active={view === "action"}>
+                Another Action Here
+              </TabNav.Tab>
+            </Link>
+            <Link href={`/users/${id}/delete`} passHref>
+              <TabNav.Tab active={view === "delete"}>Delete</TabNav.Tab>
+            </Link>
+          </TabNav>
+        }
+      />
 
       {view === "main" && <div>Main</div>}
     </section>
