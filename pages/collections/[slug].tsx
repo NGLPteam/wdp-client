@@ -7,7 +7,7 @@ export default function CollectionDetail() {
 
   // Nothing to see here, move on to collections
   router.push({
-    pathname: `/collection/[slug]/collections`,
+    pathname: `/collections/[slug]/collections`,
     query: { ...router.query },
   });
 

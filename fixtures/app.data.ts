@@ -1,7 +1,6 @@
 const COMMUNITIES_LINK = {
   label: "glossary:community_plural",
   route: "communities",
-  routeSegments: ["communities", "community"],
   actions: "communities.read",
   model: "communities",
 };
@@ -9,21 +8,18 @@ const COMMUNITIES_LINK = {
 const COLLECTIONS_LINK = {
   label: "glossary:collection_plural",
   route: "collections",
-  routeSegments: ["collections", "collection"],
   model: "collections",
 };
 
 const ITEMS_LINK = {
   label: "glossary:item_plural",
   route: "items",
-  routeSegments: ["items", "item"],
   model: "items",
 };
 
 const USERS_LINK = {
   label: "glossary:user_plural",
   route: "users",
-  routeSegments: ["users", "user"],
   actions: "users.read",
   model: "users",
 };
@@ -31,7 +27,6 @@ const USERS_LINK = {
 const CONTRIBUTORS_LINK = {
   label: "glossary:contributor_plural",
   route: "contributors",
-  routeSegments: ["contributors", "contributor"],
   actions: "contributors.read",
   model: "contributors",
 };

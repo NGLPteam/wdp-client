@@ -1,41 +1,121 @@
 // TODO: Where should this live? Should we have a root routes/ folder?
 import NextNamedRoutes from "./NextNamedRoutes";
+interface Route {
+  name: string;
+  path: string;
+  routes?: Route[];
+}
+
+const baseRoutes: Route[] = [
+  {
+    name: "collections",
+    path: "/collections",
+    routes: [
+      {
+        name: "collection",
+        path: "/collections/[slug]",
+        routes: [
+          {
+            name: "collection.child.collections",
+            path: "/collections/[slug]/collections",
+          },
+          {
+            name: "collection.child.items",
+            path: "/collections/[slug]/items",
+          },
+          {
+            name: "collection.manage",
+            path: "/collections/[slug]/manage",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "items",
+    path: "/items",
+    routes: [
+      {
+        name: "item",
+        path: "/items/[slug]",
+        routes: [
+          {
+            name: "item.child.items",
+            path: "/items/[slug]/items",
+          },
+          {
+            name: "item.manage",
+            path: "/items/[slug]/manage",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "communities",
+    path: "/communities",
+    routes: [
+      {
+        name: "community",
+        path: "/communities/[slug]",
+        routes: [
+          {
+            name: "community.child.collections",
+            path: "/communities/[slug]/collections",
+          },
+          {
+            name: "community.child.items",
+            path: "/communities/[slug]/items",
+          },
+          {
+            name: "community.manage",
+            path: "/communitie/[slug]/manage",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "users",
+    path: "/users",
+    routes: [
+      {
+        name: "user",
+        path: "/users/[slug]",
+      },
+    ],
+  },
+  {
+    name: "contributors",
+    path: "/contributors",
+    routes: [
+      {
+        name: "contributor",
+        path: "/contributors/[slug]",
+      },
+    ],
+  },
+];
 
 const RouteHelper = new NextNamedRoutes();
 
-// Define routes
-// communities
-RouteHelper.add("communities", "/communities");
-RouteHelper.add("community", "/community/[slug]");
-RouteHelper.add("community.child.collections", "/community/[slug]/collections");
-RouteHelper.add("community.child.items", "/community/[slug]/items");
-RouteHelper.add("community.manage", "/community/[slug]/manage");
+// Fun with recursive functions
+function addRoute(route) {
+  if (!route.name || !route.path) {
+    console.warn("Route requires a name and path", route);
+    return;
+  }
 
-// collections
-RouteHelper.add("collections", "/collections");
-RouteHelper.add("collection", "/collection/[slug]");
-RouteHelper.add(
-  "collection.child.collections",
-  "/collection/[slug]/collections"
-);
-RouteHelper.add("collection.child.items", "/collection/[slug]/items");
-RouteHelper.add("collection.manage", "/collection/[slug]/manage");
+  RouteHelper.add(route.name, route.path);
 
-// items
-RouteHelper.add("items", "/items");
-RouteHelper.add("item", "/item/[slug]");
-RouteHelper.add("item.child.items", "/item/[slug]/items");
-RouteHelper.add("item.manage", "/item/[slug]/manage");
+  if (route.routes) {
+    route.routes.forEach(addRoute);
+  }
+}
 
-// users
-RouteHelper.add("users", "/users");
-RouteHelper.add("user", "/user/[slug]");
+baseRoutes.forEach(addRoute);
 
-// contributors
-RouteHelper.add("contributors", "/contributors");
-RouteHelper.add("contributor", "/contributor/[slug]");
-
-export const modelMap = {
+const modelMap = {
   COMMUNITY: "communities",
   COLLECTION: "collections",
   ITEM: "items",
@@ -43,4 +123,4 @@ export const modelMap = {
   CONTRIBUTOR: "contributors",
 };
 
-export { RouteHelper };
+export { RouteHelper, baseRoutes, modelMap };
