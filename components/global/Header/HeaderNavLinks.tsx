@@ -1,21 +1,25 @@
 import React from "react";
-import { useGetActiveModel } from "hooks/useRouterContext";
 import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";
 import { useTranslation } from "react-i18next";
+import { RouteHelper } from "helpers";
 
 const HeaderNavLinks = ({ navigation }) => {
   const { t } = useTranslation("common");
-  const activeModel = useGetActiveModel();
+  const activeRoute = RouteHelper.activeRoute();
 
-  const renderLink = (child) => (
-    <NamedLink route={child.route} passHref>
-      <Styled.Link active={activeModel === child.model}>
-        {t(child.label)}
-      </Styled.Link>
-    </NamedLink>
-  );
+  const renderLink = (child) => {
+    const active = activeRoute?.segments?.some((r) =>
+      child.routeSegments?.includes(r)
+    );
+
+    return (
+      <NamedLink route={child.route} passHref>
+        <Styled.Link active={active}>{t(child.label)}</Styled.Link>
+      </NamedLink>
+    );
+  };
 
   return navigation.map((child, i) =>
     child.children ? (

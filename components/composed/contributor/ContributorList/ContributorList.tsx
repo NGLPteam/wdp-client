@@ -33,7 +33,7 @@ function ContributorList<
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
       columns.nameFactory(
-        "contributorDetail",
+        "contributor",
         "name",
         (row) => `${row.name || `${row.firstName} ${row.lastName}`}`
       ),

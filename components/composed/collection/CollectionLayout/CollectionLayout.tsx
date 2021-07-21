@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { CollectionDetailQuery } from "@/relay/CollectionDetailQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
@@ -14,7 +14,9 @@ export default function CollectionLayout({ children }) {
     data,
     error,
     isLoading,
-  } = useAuthenticatedQuery<CollectionDetailQuery>(query, { slug });
+  } = useAuthenticatedQuery<CollectionDetailQuery>(query, {
+    slug,
+  });
 
   const breadcrumbs = useBreadcrumbs(data?.collection);
 
@@ -30,7 +32,6 @@ export default function CollectionLayout({ children }) {
     <section>
       {data && data.collection && (
         <ModelHeader
-          slug={slug}
           type="COLLECTION"
           title={data.collection.title}
           breadcrumbs={breadcrumbs}

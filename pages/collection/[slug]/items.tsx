@@ -9,7 +9,6 @@ import CollectionLayout from "components/composed/collection/CollectionLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
-import CollectionDetail from "../[slug]";
 
 type ConnectionType = QueryResponse["collection"]["items"];
 

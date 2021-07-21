@@ -32,7 +32,7 @@ function UserList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
-      columns.nameFactory("userDetail", "name", "name"),
+      columns.nameFactory("user", "name", "name"),
       columns.createdAt,
       columns.updatedAt,
       {

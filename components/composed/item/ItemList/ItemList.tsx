@@ -32,7 +32,7 @@ function ItemList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
-      columns.nameFactory("itemDetail", "title", "title"),
+      columns.nameFactory("item", "title", "title"),
       columns.createdAt,
       columns.updatedAt,
     ],
