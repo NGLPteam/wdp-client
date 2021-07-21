@@ -1,1 +1,1 @@
-export { default } from "./DataViewToggle";
+export { default, DataViewOptions } from "./DataViewToggle";
