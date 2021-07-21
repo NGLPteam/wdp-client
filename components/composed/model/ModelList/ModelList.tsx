@@ -7,6 +7,7 @@ import useRowActions from "../plugins/useRowActions";
 import mapSortBy from "../helpers/mapSortBy";
 
 import { PageInfo } from "types/graphql-schema";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function ModelList<
   T extends Record<string, unknown> = Record<string, unknown>
@@ -136,7 +137,7 @@ export interface ModelListProps<
   actions?: ModelTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
-  selectedView: "table" | "grid" | string;
+  selectedView: DataViewOptions;
 }
 
 export default ModelList;

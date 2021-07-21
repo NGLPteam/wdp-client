@@ -13,6 +13,7 @@ import { Search } from "components/atomic/forms";
 import { FullPageLoader } from "components/global";
 import { ModelList } from "components/composed/model";
 import { useRouter } from "next/router";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
@@ -26,7 +27,7 @@ function ModelListPage<T>({
 }: ModelListPageProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
-  const [view, setView] = useState("grid");
+  const [view, setView] = useState(DataViewOptions.grid);
   const title = t(modelName, { count: 2 });
 
   const handleSubmit = (value) => {
@@ -40,7 +41,11 @@ function ModelListPage<T>({
   };
 
   const handleViewToggle = () => {
-    setView(view === "table" ? "grid" : "table");
+    setView(
+      view === DataViewOptions.table
+        ? DataViewOptions.grid
+        : DataViewOptions.table
+    );
   };
 
   return (

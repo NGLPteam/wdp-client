@@ -1,5 +1,5 @@
 import { Story } from "@storybook/react";
-import DataViewToggle from ".";
+import DataViewToggle, { DataViewOptions } from ".";
 type Props = React.ComponentProps<typeof DataViewToggle>;
 
 export default {
@@ -12,7 +12,7 @@ export default {
   },
   argTypes: {
     selectedView: {
-      options: ["grid", "table"],
+      options: DataViewOptions,
       control: { view: "select" },
     },
   },
@@ -35,6 +35,6 @@ const Template: Story<Props> = (args) => {
 
 export const Default: Story<Props> = Template.bind({});
 Default.args = {
-  selectedView: "table",
+  selectedView: DataViewOptions.table,
   controlsID: "someID",
 };

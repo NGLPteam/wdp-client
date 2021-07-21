@@ -25,8 +25,13 @@ const DataViewToggle = ({ selectedView, controlsID, onClick }: Props) => {
   );
 };
 
+export enum DataViewOptions {
+  table = "table",
+  grid = "grid",
+}
+
 interface Props {
-  selectedView: "table" | "grid" | string;
+  selectedView: DataViewOptions;
   controlsID: string;
   onClick: () => void;
 }
