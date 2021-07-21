@@ -3,16 +3,14 @@ import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";
 import { useTranslation } from "react-i18next";
-import { RouteHelper } from "helpers";
+import { useRouter } from "next/router";
 
 const HeaderNavLinks = ({ navigation }) => {
   const { t } = useTranslation("common");
-  const activeRoute = RouteHelper.activeRoute();
+  const { pathname } = useRouter();
 
   const renderLink = (child) => {
-    const active = activeRoute?.segments?.some((r) =>
-      child.routeSegments?.includes(r)
-    );
+    const active = pathname.indexOf(child.route) === 1;
 
     return (
       <NamedLink route={child.route} passHref>

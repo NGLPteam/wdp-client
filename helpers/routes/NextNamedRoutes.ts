@@ -6,7 +6,6 @@ type Route<RouteName> = {
   identifiers: string[];
   path: string;
   regex: RegExp;
-  segments: string[];
 };
 
 class NextNamedRoutes<RouteName> {
@@ -23,16 +22,11 @@ class NextNamedRoutes<RouteName> {
       throw new Error(`Duplicate route added: ${name}`);
     }
 
-    // Splits route into segments, ex: ["collection", "[slug]", "manage"]
-    const segments = path.split("/");
-    segments.shift();
-
     this.routes.push({
       name,
       identifiers: NextNamedRoutes.identifiersInPath(path),
       path,
       regex: NextNamedRoutes.pathToRegex(path),
-      segments,
     });
     return this;
   }
