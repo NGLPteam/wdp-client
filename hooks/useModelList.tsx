@@ -110,10 +110,7 @@ export default function useModelList<
   return {
     data,
     order,
-    selection,
     page,
-    pageInfo,
-    models,
     ...modelListProps,
     modelListProps,
   };
@@ -132,7 +129,7 @@ function connectionHasNodes(connection: any): connection is HasNodes {
 function toEntities<ConnectionType extends Connectionish>(
   connection?: ConnectionType
 ): readonly ExtractConnectionNodeType<ConnectionType>[] {
-  if (!connection) return null;
+  if (!connection) return [];
   if (connectionHasEdges(connection)) {
     return connection.edges.map(({ node }) => node);
   } else if (connectionHasNodes(connection)) {
@@ -144,7 +141,7 @@ function toEntities<ConnectionType extends Connectionish>(
 
 function toPageInfo<ConnectionType extends Connectionish>(
   connection?: ConnectionType
-): PageInfo {
-  if (!connection) return null;
+): PageInfo | undefined {
+  if (!connection) return undefined;
   return connection.pageInfo;
 }

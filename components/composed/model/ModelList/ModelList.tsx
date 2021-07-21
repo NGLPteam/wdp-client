@@ -43,7 +43,7 @@ function ModelList<
   } = useTable<T>(
     {
       columns,
-      data: models,
+      data: models || [],
       manualSortBy: true,
       getRowId,
       disableMultiSort: true,
@@ -58,7 +58,7 @@ function ModelList<
       if (!Array.isArray(sortBy) || sortBy.length === 0) return;
       const { id, desc } = sortBy[0];
       const order = mapSortBy(id, desc);
-      onSort({ id, desc, order });
+      if (order) onSort({ id, desc, order });
     },
     [onSort]
   );
@@ -133,7 +133,7 @@ export interface ModelListProps<
   title: string;
   pageInfo?: PageInfo;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  models?: ReadonlyArray<any>;
+  models?: ReadonlyArray<any> | ReadonlyArray<T>;
   actions?: ModelTableActions<T>;
   onSort?: (props: OnSortProps) => void;
   onSelectionChange?: (props: OnSelectionChangeProps) => void;
