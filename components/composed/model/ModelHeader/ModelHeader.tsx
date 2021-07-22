@@ -4,7 +4,7 @@ import { NamedLink, TabNav } from "components/atomic";
 
 import { BreadcrumbListType } from "hooks/useBreadcrumbs";
 import { useRouter } from "next/router";
-import { RouteHelper } from "helpers/routes";
+import { RouteHelper } from "routes";
 
 /**
  * Takes an model type, object, and current router pathname

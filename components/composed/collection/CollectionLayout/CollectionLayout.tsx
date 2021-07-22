@@ -5,7 +5,7 @@ import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { ModelHeader } from "components/composed/model";
 import { useBreadcrumbs } from "hooks";
 import { useRouter } from "next/router";
-import { routeQueryArrayToString } from "helpers";
+import { routeQueryArrayToString } from "routes";
 
 export default function CollectionLayout({ children }) {
   const router = useRouter();

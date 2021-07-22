@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
-import { RouteHelper } from "helpers";
+import { RouteHelper } from "routes";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 /**

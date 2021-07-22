@@ -9,7 +9,7 @@ import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
-import { routeQueryArrayToString } from "helpers";
+import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = QueryResponse["community"]["collections"];
 
