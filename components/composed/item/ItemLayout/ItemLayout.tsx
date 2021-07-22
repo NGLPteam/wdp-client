@@ -1,25 +1,22 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { CollectionLayoutQuery } from "@/relay/CollectionLayoutQuery.graphql";
+import { ItemLayoutQuery } from "__generated__/ItemLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { ModelHeader } from "components/composed/model";
-import { useBreadcrumbs } from "hooks";
 import { useRouter } from "next/router";
+import { useBreadcrumbs } from "hooks";
 import { routeQueryArrayToString } from "helpers";
 
-export default function CollectionLayout({ children }) {
+export default function ItemLayout({ children }) {
   const router = useRouter();
   const { slug } = router.query;
 
-  const {
-    data,
-    error,
-    isLoading,
-  } = useAuthenticatedQuery<CollectionLayoutQuery>(query, {
-    slug: routeQueryArrayToString(slug),
-  });
+  const { data, error, isLoading } = useAuthenticatedQuery<ItemLayoutQuery>(
+    query,
+    { slug: routeQueryArrayToString(slug) }
+  );
 
-  const breadcrumbs = useBreadcrumbs(data?.collection);
+  const breadcrumbs = useBreadcrumbs(data?.item);
 
   if (isLoading) {
     return null;
@@ -31,10 +28,10 @@ export default function CollectionLayout({ children }) {
 
   return (
     <section>
-      {data && data.collection && (
+      {data && data.item && (
         <ModelHeader
-          type="COLLECTION"
-          title={data.collection.title}
+          type="ITEM"
+          title={data.item.title}
           breadcrumbs={breadcrumbs}
         />
       )}
@@ -45,8 +42,8 @@ export default function CollectionLayout({ children }) {
 }
 
 const query = graphql`
-  query CollectionLayoutQuery($slug: Slug!) {
-    collection(slug: $slug) {
+  query ItemLayoutQuery($slug: Slug!) {
+    item(slug: $slug) {
       title
       slug
       ...useBreadcrumbsFragment

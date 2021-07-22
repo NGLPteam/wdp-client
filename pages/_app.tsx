@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+// import type { NextLayoutComponentType } from "next";
 import Head from "next/head";
 import { AppContextProvider } from "contexts";
 
@@ -11,6 +12,7 @@ import { RelayEnvironmentProvider } from "relay-hooks";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
+import type { Page } from "types/page";
 
 import GlobalStyles from "theme";
 import { AppBody, FullPageLoader, DrawerController } from "components/global";
@@ -87,6 +89,7 @@ type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 interface InitialProps {
   cookies: unknown;
   records?: RecordMap;
+  Component: Page;
 }
 
 interface KeycloakRelayProps {

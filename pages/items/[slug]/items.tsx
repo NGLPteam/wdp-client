@@ -1,24 +1,24 @@
 import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  itemsCollectionChildQuery as Query,
-  itemsCollectionChildQueryResponse as QueryResponse,
-} from "__generated__/itemsCollectionChildQuery.graphql";
+  itemsItemChildQuery as Query,
+  itemsItemChildQueryResponse as QueryResponse,
+} from "__generated__/itemsItemChildQuery.graphql";
 import ItemList from "components/composed/item/ItemList";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
+import ItemLayout from "components/composed/item/ItemLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "helpers";
 
-type ConnectionType = QueryResponse["collection"]["items"];
+type ConnectionType = QueryResponse["item"]["items"];
 
-export default function CollectionChildItems() {
+export default function ItemChildItems() {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.collection?.items,
+    (data) => data?.item?.items,
     []
   );
 
@@ -26,23 +26,23 @@ export default function CollectionChildItems() {
     <ItemList<Query, ConnectionType>
       defaultOrder="RECENT"
       query={query}
-      queryVars={{ collectionSlug: routeQueryArrayToString(slug) }}
+      queryVars={{ itemSlug: routeQueryArrayToString(slug) }}
       toConnection={toConnection}
     />
   );
 }
 
-CollectionChildItems.getLayout = (page) => {
-  return <CollectionLayout>{page}</CollectionLayout>;
+ItemChildItems.getLayout = (page) => {
+  return <ItemLayout>{page}</ItemLayout>;
 };
 
 const query = graphql`
-  query itemsCollectionChildQuery(
+  query itemsItemChildQuery(
     $order: SimpleOrder!
     $page: Int!
-    $collectionSlug: Slug!
+    $itemSlug: Slug!
   ) {
-    collection(slug: $collectionSlug) {
+    item(slug: $itemSlug) {
       items(order: $order, page: $page, perPage: 10) {
         nodes {
           __typename

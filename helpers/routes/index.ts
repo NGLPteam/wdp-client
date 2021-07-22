@@ -1,5 +1,6 @@
 // TODO: Where should this live? Should we have a root routes/ folder?
 import NextNamedRoutes from "./NextNamedRoutes";
+import isArray from "lodash/isArray";
 interface Route {
   name: string;
   path: string;
@@ -64,12 +65,8 @@ const baseRoutes: Route[] = [
             path: "/communities/[slug]/collections",
           },
           {
-            name: "community.child.items",
-            path: "/communities/[slug]/items",
-          },
-          {
             name: "community.manage",
-            path: "/communitie/[slug]/manage",
+            path: "/communities/[slug]/manage",
           },
         ],
       },
@@ -123,4 +120,8 @@ const modelMap = {
   CONTRIBUTOR: "contributors",
 };
 
-export { RouteHelper, baseRoutes, modelMap };
+function routeQueryArrayToString(item: string | string[]): string {
+  return isArray(item) ? item[0] : item;
+}
+
+export { RouteHelper, baseRoutes, modelMap, routeQueryArrayToString };
