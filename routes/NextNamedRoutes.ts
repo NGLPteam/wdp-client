@@ -1,5 +1,10 @@
-// TODO: Support match [...rest] style paths (we don't use them currently)
 const nextStylePathComponent = /\[[^/]+\]/g;
+
+export type BaseRoute = {
+  name: string;
+  path: string;
+  routes?: BaseRoute[];
+};
 
 type Route<RouteName> = {
   name: RouteName;
@@ -9,6 +14,13 @@ type Route<RouteName> = {
 };
 
 class NextNamedRoutes<RouteName> {
+  constructor(baseRoutes?: BaseRoute[]) {
+    // Recursively add base routes
+    if (baseRoutes) {
+      this.addBaseRoutes(baseRoutes);
+    }
+  }
+
   /**
    * All registered routes.
    */
@@ -18,6 +30,12 @@ class NextNamedRoutes<RouteName> {
    * Registers a named route. The path should be the filesystem path corresponding to the route.
    */
   add(name: RouteName, path: string): NextNamedRoutes<RouteName> {
+    if (!name || !path) {
+      throw new Error(
+        `Route requires a name and path. name: ${name}, path: ${path}`
+      );
+    }
+
     if (this.findRouteByName(name)) {
       throw new Error(`Duplicate route added: ${name}`);
     }
@@ -77,6 +95,26 @@ class NextNamedRoutes<RouteName> {
     }
 
     return NextNamedRoutes.injectParamsIntoPath(route.path, params);
+  }
+
+  /**
+   * Recursively adds base routes
+   * @param baseRoutes The routes to add
+   */
+  private addBaseRoutes(baseRoutes: BaseRoute[]) {
+    if (!baseRoutes) {
+      throw new Error(`No base routes defined`);
+    }
+
+    const addRoute = (route) => {
+      this.add(route.name, route.path);
+
+      if (route.routes) {
+        route.routes.forEach(addRoute);
+      }
+    };
+
+    baseRoutes.forEach(addRoute);
   }
 
   static injectParamsIntoPath(
