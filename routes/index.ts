@@ -1,13 +1,9 @@
 // TODO: Where should this live? Should we have a root routes/ folder?
 import NextNamedRoutes from "./NextNamedRoutes";
+import type { BaseRoute } from "./NextNamedRoutes";
 import isArray from "lodash/isArray";
-interface Route {
-  name: string;
-  path: string;
-  routes?: Route[];
-}
 
-const baseRoutes: Route[] = [
+const baseRoutes: BaseRoute[] = [
   {
     name: "collections",
     path: "/collections",
@@ -94,34 +90,10 @@ const baseRoutes: Route[] = [
   },
 ];
 
-const RouteHelper = new NextNamedRoutes();
-
-// Fun with recursive functions
-function addRoute(route) {
-  if (!route.name || !route.path) {
-    console.warn("Route requires a name and path", route);
-    return;
-  }
-
-  RouteHelper.add(route.name, route.path);
-
-  if (route.routes) {
-    route.routes.forEach(addRoute);
-  }
-}
-
-baseRoutes.forEach(addRoute);
-
-const modelMap = {
-  COMMUNITY: "communities",
-  COLLECTION: "collections",
-  ITEM: "items",
-  USER: "users",
-  CONTRIBUTOR: "contributors",
-};
+const RouteHelper = new NextNamedRoutes(baseRoutes);
 
 function routeQueryArrayToString(item: string | string[]): string {
   return isArray(item) ? item[0] : item;
 }
 
-export { RouteHelper, baseRoutes, modelMap, routeQueryArrayToString };
+export { RouteHelper, baseRoutes, routeQueryArrayToString };

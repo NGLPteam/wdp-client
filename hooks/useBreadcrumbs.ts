@@ -2,7 +2,12 @@ import { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
-import { modelMap } from "routes";
+
+const kindMap = {
+  COMMUNITY: "communities",
+  COLLECTION: "collections",
+  ITEM: "items",
+};
 
 export type BreadcrumbListType =
   | {
@@ -18,7 +23,7 @@ export default function useBreadcrumbs(entity): BreadcrumbListType {
     if (!entity) return null;
 
     return data.breadcrumbs.map((crumb) => {
-      const href = `/${modelMap[crumb.kind]}/${crumb.slug}`;
+      const href = `/${kindMap[crumb.kind]}/${crumb.slug}`;
 
       return {
         label: crumb.label,
