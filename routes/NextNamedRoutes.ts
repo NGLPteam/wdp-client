@@ -4,6 +4,7 @@ export type BaseRoute = {
   name: string;
   path: string;
   routes?: BaseRoute[];
+  redirect?: string;
 };
 
 type Route<RouteName> = {
@@ -11,6 +12,7 @@ type Route<RouteName> = {
   identifiers: string[];
   path: string;
   regex: RegExp;
+  redirect?: string;
 };
 
 class NextNamedRoutes<RouteName> {
@@ -29,7 +31,11 @@ class NextNamedRoutes<RouteName> {
   /**
    * Registers a named route. The path should be the filesystem path corresponding to the route.
    */
-  add(name: RouteName, path: string): NextNamedRoutes<RouteName> {
+  add(
+    name: RouteName,
+    path: string,
+    redirect?: string
+  ): NextNamedRoutes<RouteName> {
     if (!name || !path) {
       throw new Error(
         `Route requires a name and path. name: ${name}, path: ${path}`
@@ -45,6 +51,7 @@ class NextNamedRoutes<RouteName> {
       identifiers: NextNamedRoutes.identifiersInPath(path),
       path,
       regex: NextNamedRoutes.pathToRegex(path),
+      redirect,
     });
     return this;
   }
@@ -106,11 +113,11 @@ class NextNamedRoutes<RouteName> {
       throw new Error(`No base routes defined`);
     }
 
-    const addRoute = (route) => {
-      this.add(route.name, route.path);
+    const addRoute = ({ name, path, redirect, routes }) => {
+      this.add(name, path, redirect);
 
-      if (route.routes) {
-        route.routes.forEach(addRoute);
+      if (routes) {
+        routes.forEach(addRoute);
       }
     };
 
