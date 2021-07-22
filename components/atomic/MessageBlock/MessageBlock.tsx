@@ -13,9 +13,7 @@ const MessageBlock = ({ type = "error", name, message, link }: Props) => {
         <IconFactory icon={type === "error" ? "warning" : "empty"} size="xlg" />
         <Styled.Header>{name}</Styled.Header>
         {message && (
-          <Styled.Message className="t-rte">
-            <p>{message}</p>
-          </Styled.Message>
+          <Styled.Message className="t-rte">{message}</Styled.Message>
         )}
         {link && (
           <Styled.ButtonWrapper>
