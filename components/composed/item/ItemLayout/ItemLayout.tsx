@@ -5,7 +5,7 @@ import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { ModelHeader } from "components/composed/model";
 import { useRouter } from "next/router";
 import { useBreadcrumbs } from "hooks";
-import { routeQueryArrayToString } from "helpers";
+import { routeQueryArrayToString } from "routes";
 
 export default function ItemLayout({ children }) {
   const router = useRouter();

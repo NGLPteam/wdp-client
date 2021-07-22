@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
-import { modelMap } from "helpers/routes";
+import { modelMap } from "routes";
 
 export type BreadcrumbListType =
   | {

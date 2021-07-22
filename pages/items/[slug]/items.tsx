@@ -9,7 +9,7 @@ import ItemLayout from "components/composed/item/ItemLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
-import { routeQueryArrayToString } from "helpers";
+import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = QueryResponse["item"]["items"];
 
