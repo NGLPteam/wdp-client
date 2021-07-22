@@ -1,13 +1,9 @@
 /** This context is for wrapping all app wide contexts */
 import React from "react";
-import { RouterContextProvider, ViewerContextProvider } from "contexts";
+import { ViewerContextProvider } from "contexts";
 
 const AppContextProvider = ({ children }: Props) => {
-  return (
-    <RouterContextProvider>
-      <ViewerContextProvider>{children}</ViewerContextProvider>
-    </RouterContextProvider>
-  );
+  return <ViewerContextProvider>{children}</ViewerContextProvider>;
 };
 
 interface Props {

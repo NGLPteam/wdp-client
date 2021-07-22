@@ -1,18 +1,12 @@
 import Header from "./";
 import { Story } from "@storybook/react";
-import { ViewerContext, RouterContextProvider } from "contexts";
+import { ViewerContext } from "contexts";
 type Props = React.ComponentProps<typeof Header>;
 
 export default {
   title: "Components/Global/Header",
   component: Header,
-  decorators: [
-    (Story: Story) => (
-      <RouterContextProvider>
-        <Story />
-      </RouterContextProvider>
-    ),
-  ],
+  decorators: [(Story: Story) => <Story />],
 };
 
 export const Default: Story<Props> = () => (

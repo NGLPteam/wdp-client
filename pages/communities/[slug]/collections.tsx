@@ -1,49 +1,49 @@
 import React, { useCallback } from "react";
 import { graphql } from "react-relay";
+import { useRouter } from "next/router";
 import {
-  itemsCollectionChildQuery as Query,
-  itemsCollectionChildQueryResponse as QueryResponse,
-} from "__generated__/itemsCollectionChildQuery.graphql";
-import ItemList from "components/composed/item/ItemList";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
+  collectionsCommunityChildQuery as Query,
+  collectionsCommunityChildQueryResponse as QueryResponse,
+} from "__generated__/collectionsCommunityChildQuery.graphql";
+import CollectionList from "components/composed/collection/CollectionList";
+import CommunityLayout from "components/composed/community/CommunityLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
-import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "helpers";
 
-type ConnectionType = QueryResponse["collection"]["items"];
+type ConnectionType = QueryResponse["community"]["collections"];
 
-export default function CollectionChildItems() {
+export default function CommunityChildCollections() {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.collection?.items,
+    (data) => data?.community?.collections,
     []
   );
 
   return (
-    <ItemList<Query, ConnectionType>
+    <CollectionList<Query, ConnectionType>
       defaultOrder="RECENT"
       query={query}
-      queryVars={{ collectionSlug: routeQueryArrayToString(slug) }}
+      queryVars={{ communitySlug: routeQueryArrayToString(slug) }}
       toConnection={toConnection}
     />
   );
 }
 
-CollectionChildItems.getLayout = (page) => {
-  return <CollectionLayout>{page}</CollectionLayout>;
+CommunityChildCollections.getLayout = (page) => {
+  return <CommunityLayout>{page}</CommunityLayout>;
 };
 
 const query = graphql`
-  query itemsCollectionChildQuery(
+  query collectionsCommunityChildQuery(
     $order: SimpleOrder!
     $page: Int!
-    $collectionSlug: Slug!
+    $communitySlug: Slug!
   ) {
-    collection(slug: $collectionSlug) {
-      items(order: $order, page: $page, perPage: 10) {
+    community(slug: $communitySlug) {
+      collections(order: $order, page: $page, perPage: 10) {
         nodes {
           __typename
           id

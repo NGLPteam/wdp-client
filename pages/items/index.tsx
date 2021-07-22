@@ -1,23 +1,23 @@
 import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import {
-  collectionsQuery as Query,
-  collectionsQueryResponse as QueryResponse,
-} from "__generated__/collectionsQuery.graphql";
-import CollectionList from "components/composed/collection/CollectionList";
+  itemsQuery as Query,
+  itemsQueryResponse as QueryResponse,
+} from "__generated__/itemsQuery.graphql";
+import ItemList from "components/composed/item/ItemList";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
 
-type ConnectionType = QueryResponse["viewer"]["collections"];
+type ConnectionType = QueryResponse["viewer"]["items"];
 
-export default function CollectionListView() {
+export default function ItemListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.viewer?.collections,
+    (data) => data?.viewer?.items,
     []
   );
 
   return (
-    <CollectionList<Query, ConnectionType>
+    <ItemList<Query, ConnectionType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}
@@ -26,19 +26,18 @@ export default function CollectionListView() {
 }
 
 const query = graphql`
-  query collectionsQuery($order: SimpleOrder!, $page: Int!) {
+  query itemsQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
+      items(order: $order, page: $page, perPage: 10) {
         nodes {
           __typename
           id
           identifier
-          createdAt
           updatedAt
+          createdAt
           title
           slug
           allowedActions
-          hierarchicalDepth
         }
         pageInfo {
           page

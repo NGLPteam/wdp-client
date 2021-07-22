@@ -1,13 +1,12 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { CollectionLayoutQuery } from "@/relay/CollectionLayoutQuery.graphql";
+import { CommunityLayoutQuery } from "@/relay/CommunityLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { ModelHeader } from "components/composed/model";
-import { useBreadcrumbs } from "hooks";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "helpers";
 
-export default function CollectionLayout({ children }) {
+export default function CommunityLayout({ children }) {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -15,11 +14,9 @@ export default function CollectionLayout({ children }) {
     data,
     error,
     isLoading,
-  } = useAuthenticatedQuery<CollectionLayoutQuery>(query, {
+  } = useAuthenticatedQuery<CommunityLayoutQuery>(query, {
     slug: routeQueryArrayToString(slug),
   });
-
-  const breadcrumbs = useBreadcrumbs(data?.collection);
 
   if (isLoading) {
     return null;
@@ -31,12 +28,8 @@ export default function CollectionLayout({ children }) {
 
   return (
     <section>
-      {data && data.collection && (
-        <ModelHeader
-          type="COLLECTION"
-          title={data.collection.title}
-          breadcrumbs={breadcrumbs}
-        />
+      {data && data.community && (
+        <ModelHeader type="COMMUNITY" title={data.community.name} />
       )}
 
       {children}
@@ -45,11 +38,10 @@ export default function CollectionLayout({ children }) {
 }
 
 const query = graphql`
-  query CollectionLayoutQuery($slug: Slug!) {
-    collection(slug: $slug) {
-      title
+  query CommunityLayoutQuery($slug: Slug!) {
+    community(slug: $slug) {
+      name
       slug
-      ...useBreadcrumbsFragment
     }
   }
 `;

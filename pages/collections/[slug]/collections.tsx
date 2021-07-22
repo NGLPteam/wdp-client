@@ -1,18 +1,19 @@
 import React, { useCallback } from "react";
 import { graphql } from "react-relay";
+import { useRouter } from "next/router";
 import {
-  CollectionChildCollectionsQuery as Query,
-  CollectionChildCollectionsQueryResponse as QueryResponse,
-} from "__generated__/CollectionChildCollectionsQuery.graphql";
+  collectionsCollectionChildQuery as Query,
+  collectionsCollectionChildQueryResponse as QueryResponse,
+} from "__generated__/collectionsCollectionChildQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
-import { useRouter } from "next/router";
+import { routeQueryArrayToString } from "helpers";
 
 type ConnectionType = QueryResponse["collection"]["collections"];
 
-export default function Collections() {
+export default function CollectionChildCollections() {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -25,18 +26,18 @@ export default function Collections() {
     <CollectionList<Query, ConnectionType>
       defaultOrder="RECENT"
       query={query}
-      queryVars={{ collectionSlug: slug }}
+      queryVars={{ collectionSlug: routeQueryArrayToString(slug) }}
       toConnection={toConnection}
     />
   );
 }
 
-Collections.getLayout = (page) => {
+CollectionChildCollections.getLayout = (page) => {
   return <CollectionLayout>{page}</CollectionLayout>;
 };
 
 const query = graphql`
-  query CollectionChildCollectionsQuery(
+  query collectionsCollectionChildQuery(
     $order: SimpleOrder!
     $page: Int!
     $collectionSlug: Slug!

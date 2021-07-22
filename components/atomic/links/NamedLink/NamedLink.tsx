@@ -49,7 +49,7 @@ export interface Props extends Omit<LinkProps, "href"> {
   /** Route parameters */
   routeParams?: Record<string, string | number>;
   /** Query parameters */
-  query?: { [key: string]: string | string[] };
+  query?: { [key: string]: string | string[] | number };
   /** Pass href to child component */
   passHref?: boolean;
 }
