@@ -22,6 +22,16 @@ export type itemsCollectionChildQueryResponse = {
                 readonly slug: string;
                 readonly allowedActions: ReadonlyArray<string>;
                 readonly hierarchicalDepth: number;
+                readonly thumbnail: {
+                    readonly image: {
+                        readonly png: {
+                            readonly url: string;
+                            readonly height: number;
+                            readonly width: number;
+                            readonly alt: string;
+                        } | null;
+                    };
+                } | null;
             } | null> | null;
             readonly pageInfo: {
                 readonly page: number | null;
@@ -49,7 +59,7 @@ query itemsCollectionChildQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
-    items(order: $order, page: $page, perPage: 10) {
+    items(order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         id
@@ -60,6 +70,16 @@ query itemsCollectionChildQuery(
         slug
         allowedActions
         hierarchicalDepth
+        thumbnail {
+          image: medium {
+            png {
+              url
+              height
+              width
+              alt
+            }
+          }
+        }
       }
       pageInfo {
         page
@@ -122,7 +142,7 @@ v5 = {
     {
       "kind": "Literal",
       "name": "perPage",
-      "value": 10
+      "value": 20
     }
   ],
   "concreteType": "ItemConnection",
@@ -193,6 +213,67 @@ v5 = {
           "args": null,
           "kind": "ScalarField",
           "name": "hierarchicalDepth",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AssetPreview",
+          "kind": "LinkedField",
+          "name": "thumbnail",
+          "plural": false,
+          "selections": [
+            {
+              "alias": "image",
+              "args": null,
+              "concreteType": "PreviewImageMap",
+              "kind": "LinkedField",
+              "name": "medium",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "PreviewImage",
+                  "kind": "LinkedField",
+                  "name": "png",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "url",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "height",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "width",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "alt",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -314,14 +395,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e35653a1fd7bfe55d30772f73e97a096",
+    "cacheID": "f7c81625cd943650affd8bd32b3b7853",
     "id": null,
     "metadata": {},
     "name": "itemsCollectionChildQuery",
     "operationKind": "query",
-    "text": "query itemsCollectionChildQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query itemsCollectionChildQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6282460888e19e38a2864967877f437e';
+(node as any).hash = 'b7e7d5976b54c402654fe7d6622c8764';
 export default node;

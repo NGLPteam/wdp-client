@@ -11,17 +11,6 @@ export function tLabel(size: "sm" | "md" | "lg") {
   `;
 }
 
-// Base link styling, with color override
-export const tLink = (color?: string) => css`
-  color: var(--${color || "accent-color"}, inherit);
-  transition: var(--color-transition);
-
-  &:hover {
-    color: var(--accent-color);
-    text-decoration: underline;
-  }
-`;
-
 // Base list styling
 export const tList = css`
   padding: 0;

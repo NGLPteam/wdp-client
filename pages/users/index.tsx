@@ -27,7 +27,7 @@ export default function UserListView() {
 
 const query = graphql`
   query usersQuery($order: SimpleOrder!, $page: Int!) {
-    users(order: $order, page: $page, perPage: 10) {
+    users(order: $order, page: $page, perPage: 20) {
       nodes {
         email
         globalAdmin

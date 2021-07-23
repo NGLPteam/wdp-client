@@ -16,7 +16,7 @@ export const LogoPlaceholder = styled.a`
   }
 
   display: inline-block;
-  border-radius: var(--logo-border-radius, var(--border-radius-lg));
+  border-radius: var(--logo-border-radius, var(--border-radius-xlg));
   background-color: var(--logo-background);
   padding: 0 ${basePadding(4)};
   color: var(--logo-color);

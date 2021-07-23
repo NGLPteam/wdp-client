@@ -90,8 +90,13 @@ export default css`
     --background-transition: background ${duration}s ${timing};
     --opacity-transition: opacity ${duration}s ${timing};
 
-    /* border radius */
-    --border-radius-lg: ${pxToRem("40px")};
+    /* borders */
+    --border-color: var(--neutral40);
+    --border-radius-xs: ${pxToRem("4px")};
+    --border-radius-sm: ${pxToRem("6px")};
+    --border-radius-rg: ${pxToRem("8px")};
+    --border-radius-lg: ${pxToRem("10px")};
+    --border-radius-xlg: ${pxToRem("40px")};
 
     /* padding */
     --base-padding: 4px;

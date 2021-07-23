@@ -21,7 +21,7 @@ function Checkbox(
 
   return (
     <Styled.Label aria-label={props["aria-label"] || undefined}>
-      <Styled.Checkbox
+      <input
         className="a-hidden"
         type="checkbox"
         ref={resolvedRef}

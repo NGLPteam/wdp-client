@@ -95,6 +95,17 @@ export function aBaseInput() {
   `;
 }
 
+// Base link styling, with color override
+export const aLink = (color?: string) => css`
+  color: var(--${color || "accent-color"}, inherit);
+  transition: var(--color-transition);
+
+  &:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+`;
+
 // Returns padding at base 4
 // size 1 = 4px, size 2 = 8px, etc
 export function basePadding(size: number) {

@@ -28,7 +28,7 @@ export default function ItemListView() {
 const query = graphql`
   query itemsQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      items(order: $order, page: $page, perPage: 10) {
+      items(order: $order, page: $page, perPage: 20) {
         nodes {
           __typename
           id
@@ -38,6 +38,16 @@ const query = graphql`
           title
           slug
           allowedActions
+          thumbnail {
+            image: medium {
+              png {
+                url
+                height
+                width
+                alt
+              }
+            }
+          }
         }
         pageInfo {
           page

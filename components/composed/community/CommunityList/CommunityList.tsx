@@ -42,6 +42,7 @@ function CommunityList<
     <>
       <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
         modelName="community"
+        hideViewToggle
         {...modelListProps}
       />
     </>

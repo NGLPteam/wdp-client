@@ -8,6 +8,7 @@ import {
   ExtractsConnection,
   ExtractConnectionNodeType,
 } from "types/graphql-helpers";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function CollectionList<
   Query extends OperationType,
@@ -32,6 +33,7 @@ function CollectionList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
+      columns.thumbnail,
       columns.nameFactory("collection", "title", "title"),
       columns.createdAt,
       columns.updatedAt,
@@ -42,6 +44,7 @@ function CollectionList<
     <>
       <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
         modelName="collection"
+        defaultView={DataViewOptions.grid}
         {...modelListProps}
       />
     </>

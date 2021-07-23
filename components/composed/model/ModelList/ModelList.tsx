@@ -85,7 +85,7 @@ function ModelList<
   const checkboxProps =
     getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
-  return selectedView === "table" ? (
+  return selectedView === DataViewOptions.table ? (
     <ModelTable
       title={title}
       withRowSelection={withRowSelection}
@@ -96,7 +96,7 @@ function ModelList<
       tableBodyProps={getTableBodyProps()}
     />
   ) : (
-    <ModelGrid rows={rows} />
+    <ModelGrid rows={rows} checkboxProps={checkboxProps} />
   );
 }
 

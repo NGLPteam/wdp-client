@@ -46,6 +46,7 @@ function ContributorList<
     <>
       <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
         modelName="contributor"
+        hideViewToggle
         {...modelListProps}
       />
     </>

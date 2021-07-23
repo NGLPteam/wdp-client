@@ -53,6 +53,7 @@ function UserList<
     <>
       <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
         modelName="user"
+        hideViewToggle
         {...modelListProps}
       />
     </>

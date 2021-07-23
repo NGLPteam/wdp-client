@@ -42,7 +42,7 @@ query communitiesQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  communities(order: $order, page: $page, perPage: 10) {
+  communities(order: $order, page: $page, perPage: 20) {
     edges {
       node {
         key: slug
@@ -93,7 +93,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 10
+    "value": 20
   }
 ],
 v2 = {
@@ -296,14 +296,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "92dc30079a53773327ab79e85f2d563a",
+    "cacheID": "87a17f7b5e4dcc4963673e0a9b77436b",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 10) {\n    edges {\n      node {\n        key: slug\n        slug\n        name\n        updatedAt\n        createdAt\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        key: slug\n        slug\n        name\n        updatedAt\n        createdAt\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '11511dbf45f9fc9df644a3be0c5e5361';
+(node as any).hash = '941b14c5643a56587196394852fb6f16';
 export default node;

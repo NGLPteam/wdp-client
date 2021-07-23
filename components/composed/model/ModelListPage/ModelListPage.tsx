@@ -24,11 +24,13 @@ function ModelListPage<T>({
   modelName,
   models,
   pageInfo,
+  defaultView,
+  hideViewToggle,
   ...props
 }: ModelListPageProps<T>) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
-  const [view, setView] = useState(DataViewOptions.grid);
+  const [view, setView] = useState(defaultView || DataViewOptions.table);
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
   const handleSubmit = (value: string) => {
@@ -64,11 +66,13 @@ function ModelListPage<T>({
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
             actions={
-              <DataViewToggle
-                selectedView={view}
-                controlsID="id"
-                onClick={handleViewToggle}
-              />
+              !hideViewToggle && (
+                <DataViewToggle
+                  selectedView={view}
+                  controlsID="id"
+                  onClick={handleViewToggle}
+                />
+              )
             }
           />
           {pageInfo && models && models.length > 0 && (
@@ -116,6 +120,10 @@ export interface ModelListPageProps<T>
   error?: { name: string; message: string };
   modelName?: string;
   pageInfo?: PageInfo;
+  /** Set the default view (grid/table) */
+  defaultView?: DataViewOptions;
+  /** Hide the grid/table view toggle */
+  hideViewToggle?: boolean;
 }
 
 export default ModelListPage;
