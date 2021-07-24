@@ -2,6 +2,10 @@ import type { BaseRoute } from "./NextNamedRoutes";
 
 export const baseRoutes: BaseRoute[] = [
   {
+    name: "home",
+    path: "/",
+  },
+  {
     name: "collections",
     path: "/collections",
     routes: [

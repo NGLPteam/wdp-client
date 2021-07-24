@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { ItemLayoutQuery } from "__generated__/ItemLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { ModelHeader } from "components/composed/model";
+import { PageHeader } from "components/layout";
 import { useRouter } from "next/router";
 import { useBreadcrumbs } from "hooks";
 import { routeQueryArrayToString } from "routes";
@@ -26,13 +26,24 @@ export default function ItemLayout({ children }) {
     return <div>{error.message}</div>;
   }
 
+  const tabRoutes = [
+    {
+      label: "Child Items",
+      route: `collection.child.items`,
+    },
+    {
+      label: "Manage",
+      route: `collection.manage`,
+    },
+  ];
+
   return (
     <section>
       {data && data.item && (
-        <ModelHeader
-          type="ITEM"
+        <PageHeader
           title={data.item.title}
-          breadcrumbs={breadcrumbs}
+          breadcrumbsProps={{ data: breadcrumbs }}
+          tabRoutes={tabRoutes}
         />
       )}
 
