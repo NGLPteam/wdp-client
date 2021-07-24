@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { CommunityLayoutQuery } from "@/relay/CommunityLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { ModelHeader } from "components/composed/model";
+import { PageHeader } from "components/layout";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
@@ -26,10 +26,21 @@ export default function CommunityLayout({ children }) {
     return <div>{error.message}</div>;
   }
 
+  const tabRoutes = [
+    {
+      label: "Child Collections",
+      route: `collection.child.collections`,
+    },
+    {
+      label: "Manage",
+      route: `collection.manage`,
+    },
+  ];
+
   return (
     <section>
       {data && data.community && (
-        <ModelHeader type="COMMUNITY" title={data.community.name} />
+        <PageHeader title={data.community.name} tabRoutes={tabRoutes} />
       )}
 
       {children}

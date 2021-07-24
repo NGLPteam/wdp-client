@@ -7,7 +7,7 @@ export type BaseRoute = {
   redirect?: string;
 };
 
-type Route<RouteName> = {
+export type Route<RouteName> = {
   name: RouteName;
   identifiers: string[];
   path: string;
@@ -63,9 +63,10 @@ class NextNamedRoutes<RouteName> {
   activeRoute(): Route<RouteName> {
     const rn = this.findRouteByPath(window.location.pathname);
     if (!rn) {
-      throw new Error(
+      console.warn(
         `No route associated with this pathname: ${window.location.pathname}`
       );
+      return null;
     }
     return rn;
   }
