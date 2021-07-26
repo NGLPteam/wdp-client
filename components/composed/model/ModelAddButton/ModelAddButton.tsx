@@ -1,13 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { DrawerLink, ButtonControl } from "components/atomic";
-import { useRouter } from "next/router";
 import { useIsAuthorized } from "hooks";
+import { getModelPlural } from "helpers";
 
 const ButtonControlAdd = ({ modelName }: Props) => {
   const { t } = useTranslation("glossary");
-  const { query } = useRouter();
-  const isAuthorized = useIsAuthorized({ actions: `${query.model}.create` });
+  const isAuthorized = useIsAuthorized({
+    actions: `${getModelPlural(modelName)}.create`,
+  });
 
   return isAuthorized ? (
     <DrawerLink drawer="add" passHref>
