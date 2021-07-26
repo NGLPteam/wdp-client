@@ -29,11 +29,11 @@ export default function CommunityLayout({ children }) {
   const tabRoutes = [
     {
       label: "Child Collections",
-      route: `collection.child.collections`,
+      route: `community.child.collections`,
     },
     {
       label: "Manage",
-      route: `collection.manage`,
+      route: `community.manage`,
     },
   ];
 

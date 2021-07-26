@@ -29,11 +29,11 @@ export default function ItemLayout({ children }) {
   const tabRoutes = [
     {
       label: "Child Items",
-      route: `collection.child.items`,
+      route: `item.child.items`,
     },
     {
       label: "Manage",
-      route: `collection.manage`,
+      route: `item.manage`,
     },
   ];
 
