@@ -116,8 +116,10 @@ export const Thumbnail = styled.div`
 
 export const Children = styled.div`
   grid-area: children;
+  color: var(--color-light);
 
   > * + * {
     margin-block-start: ${basePadding(2)};
+    font-size: var(--font-size-sm);
   }
 `;

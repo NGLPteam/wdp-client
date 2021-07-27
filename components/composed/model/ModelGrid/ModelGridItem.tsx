@@ -28,14 +28,7 @@ function ModelGridItem<
             return;
 
           return (
-            <div
-              key={i}
-              className={
-                cell.column.id === "title"
-                  ? "t-weight-md a-link"
-                  : "t-copy-sm a-color-light"
-              }
-            >
+            <div key={i}>
               {cell.column.id !== "title" && (
                 <span>{`${cell.render("Header")}: `}</span>
               )}

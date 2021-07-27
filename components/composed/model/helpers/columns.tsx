@@ -28,7 +28,7 @@ const nameFactory = (route: string, label: string, accessor: any) => ({
         routeParams={{ slug: row.original.slug }}
         passHref
       >
-        <a>{value}</a>
+        <a className="t-weight-md a-link">{value}</a>
       </NamedLink>
     );
   },
