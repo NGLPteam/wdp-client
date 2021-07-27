@@ -40,11 +40,11 @@ const renderOneAction = (row, action, actionConfig) => {
 
 const renderActions = (row, configuration) => {
   return (
-    <>
+    <div className="t-align-right">
       {Object.keys(configuration).map((action) => {
         return renderOneAction(row, action, configuration[action]);
       })}
-    </>
+    </div>
   );
 };
 
