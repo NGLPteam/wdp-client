@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   align-items: center;
   min-height: ${basePadding(10)};
   padding-block-end: ${basePadding(2)};
-  border-bottom: 1px solid var(--border-color);
 `;
 
 export const Count = styled.div`

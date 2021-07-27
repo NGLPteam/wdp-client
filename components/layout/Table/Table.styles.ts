@@ -37,7 +37,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
         --table-margin-left: 0px;
       }
     `,
-    100
+    110
   )}
 `;
 
@@ -83,7 +83,7 @@ export const HeaderCell = styled.th`
         border-bottom: 0;
       }
     `,
-    100,
+    110,
     "min"
   )}
 `;

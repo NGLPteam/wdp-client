@@ -45,7 +45,7 @@ export default css`
 
   /* Set core body defaults */
   body {
-    min-height: 100vh;
+    min-block-size: 100vh;
     text-rendering: geometricPrecision;
   }
 

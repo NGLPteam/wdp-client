@@ -37,7 +37,7 @@ function TableBody<
             return (
               <Styled.Cell
                 {...cellProps}
-                className={cell.column.truncate ? "t-truncate" : null}
+                className={cell.column?.truncate ? "t-truncate" : null}
               >
                 {cell.render("Cell")}
               </Styled.Cell>

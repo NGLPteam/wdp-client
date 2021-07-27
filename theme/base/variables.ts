@@ -86,7 +86,8 @@ export function setZIndexVars() {
 export const breakpoints = {
   140: "1400px",
   120: "1280px",
-  100: "1000px",
+  110: "1100px",
+  100: "1024px",
   80: "834px",
   70: "768px",
   60: "667px",

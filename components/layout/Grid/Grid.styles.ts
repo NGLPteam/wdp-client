@@ -10,15 +10,8 @@ const TABLET_BREAK = 70;
 
 export const Wrapper = styled.div<Partial<Props>>`
   --checkbox-opacity: 0;
-  display: grid;
-  row-gap: var(--grid-column-gap);
-  column-gap: var(--grid-column-gap);
-  grid-template-columns: repeat(4, 1fr);
-  margin-inline: -${basePadding(4)};
-  margin-block-start: ${basePadding(4)};
-
-  ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
-  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 
   ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
 
@@ -26,10 +19,23 @@ export const Wrapper = styled.div<Partial<Props>>`
     css`
       --checkbox-opacity: 1;
       --actions-opacity: 1;
-      margin-inline: auto;
     `,
     TABLET_BREAK
   )}
+`;
+
+export const Inner = styled.div`
+  display: grid;
+  row-gap: var(--grid-column-gap);
+  column-gap: var(--grid-column-gap);
+  grid-template-columns: repeat(4, 1fr);
+  margin-inline: -${basePadding(4)};
+  padding-block: ${basePadding(4)} ${basePadding(8)};
+
+  ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
+  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
+
+  ${respond(` margin-inline: auto;`, TABLET_BREAK)}
 `;
 
 export const Item = styled.div`
