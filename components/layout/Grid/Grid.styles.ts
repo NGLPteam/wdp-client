@@ -4,12 +4,19 @@ import { respond } from "theme/mixins/base";
 import Grid from "./Grid";
 type Props = React.ComponentProps<typeof Grid>;
 
-const MOBILE_BREAK = 40;
+const MOBILE_BREAK = "tableBreak";
 const TABLET_BREAK = 70;
 
 export const Wrapper = styled.div<Partial<Props>>`
   --checkbox-opacity: 0;
+  display: grid;
+  row-gap: var(--grid-column-gap);
+  column-gap: var(--grid-column-gap);
   margin-inline: -${basePadding(4)};
+  grid-template-columns: repeat(4, 1fr);
+
+  ${respond(`grid-template-columns: repeat(2, 1fr);`, TABLET_BREAK)}
+  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
 
   ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
 
@@ -17,12 +24,6 @@ export const Wrapper = styled.div<Partial<Props>>`
     css`
       --checkbox-opacity: 1;
       --actions-opacity: 1;
-    `,
-    TABLET_BREAK
-  )}
-
-  ${respond(
-    css`
       margin-inline: auto;
     `,
     TABLET_BREAK
@@ -40,6 +41,8 @@ export const Item = styled.div`
   padding-inline: ${basePadding(4)} ${basePadding(2)};
   border-radius: ${basePadding(2)};
   gap: ${basePadding(2)};
+  background-color: transparent;
+  transition: var(--background-transition);
 
   ${respond(
     `
@@ -59,9 +62,7 @@ export const Item = styled.div`
   &:focus-within {
     --checkbox-opacity: 1;
     --actions-opacity: 1;
-
     ${aBgLight("brand10")}
-    transition: var(--background-transition);
 
     ${respond(
       css`
@@ -106,14 +107,11 @@ export const Thumbnail = styled.div`
     object-position: bottom left;
   }
 
-  ${respond(
-    css`
-      > div > img {
-        object-position: top left;
-      }
-    `,
-    MOBILE_BREAK
-  )}
+  > div > img {
+    object-position: bottom left;
+
+    ${respond(`object-position: top left;`, MOBILE_BREAK)}
+  }
 `;
 
 export const Children = styled.div`

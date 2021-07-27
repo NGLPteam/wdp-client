@@ -6,7 +6,7 @@ type CheckboxProps = React.ComponentProps<typeof Checkbox>;
 
 const GridItem = ({ children, checkboxProps, actions, thumbnail }: Props) => {
   return (
-    <Styled.Item className={"l-grid__item l-grid__item--3"}>
+    <Styled.Item>
       {checkboxProps && (
         <Styled.Checkbox>
           <Checkbox {...checkboxProps} />

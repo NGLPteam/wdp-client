@@ -59,7 +59,7 @@ export const WithImages: Story<Props> = () => (
   <Grid>
     <>
       {gridArray.map((i) => (
-        <Grid.Item key={i} image={getRandImage()}>
+        <Grid.Item key={i} thumbnail={getRandImage()}>
           <>
             <div className="t-weight-md">Item {i}</div>
             <div>Metadata</div>
@@ -79,7 +79,7 @@ export const WithCheckboxes: Story<Props> = ({ showCheckboxes }) => (
         <Grid.Item
           key={i}
           checkboxProps={{ "aria-label": "Select item" }}
-          image={getRandImage()}
+          thumbnail={getRandImage()}
         >
           <>
             <div className="t-weight-md">Item {i}</div>
@@ -103,7 +103,7 @@ export const WithActions: Story<Props> = ({ showCheckboxes }) => (
           key={i}
           checkboxProps={{ "aria-label": "Select item" }}
           actions={<ButtonControl icon="edit" aria-label="Delete item" />}
-          image={getRandImage()}
+          thumbnail={getRandImage()}
         >
           <>
             <div className="t-weight-md">Item {i}</div>

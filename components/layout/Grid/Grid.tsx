@@ -4,9 +4,7 @@ import GridItem from "./GridItem";
 
 const Grid = ({ children, showCheckboxes }: Props) => {
   return (
-    <Styled.Wrapper className="l-grid" showCheckboxes={showCheckboxes}>
-      {children}
-    </Styled.Wrapper>
+    <Styled.Wrapper showCheckboxes={showCheckboxes}>{children}</Styled.Wrapper>
   );
 };
 

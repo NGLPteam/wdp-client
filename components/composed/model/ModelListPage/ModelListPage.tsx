@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import startCase from "lodash/startCase";
 import { PageActions, PageCountActions, PageHeader } from "components/layout";
 import {
@@ -15,6 +15,8 @@ import { ModelList } from "components/composed/model";
 import { useRouter } from "next/router";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import ModelAddButton from "../ModelAddButton/ModelAddButton";
+import { useWindowSize } from "hooks";
+import { breakpoints } from "theme/base/variables";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
@@ -31,6 +33,14 @@ function ModelListPage<T>({
   const { t } = useTranslation("glossary");
   const router = useRouter();
   const [view, setView] = useState(defaultView || DataViewOptions.table);
+  const size = useWindowSize();
+
+  // If mobile, set view to grid and hide view controls
+  const isMobile = useMemo(
+    () => size.width && size.width <= parseInt(breakpoints.tableBreak, 10),
+    [size]
+  );
+
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
   const handleSubmit = (value: string) => {
@@ -66,7 +76,7 @@ function ModelListPage<T>({
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
             actions={
-              !hideViewToggle && (
+              !(hideViewToggle || isMobile) && (
                 <DataViewToggle
                   selectedView={view}
                   controlsID="id"
@@ -85,7 +95,7 @@ function ModelListPage<T>({
               <ModelList
                 title={title}
                 models={models}
-                selectedView={view}
+                selectedView={isMobile ? DataViewOptions.grid : view}
                 {...props}
               />
             </div>
