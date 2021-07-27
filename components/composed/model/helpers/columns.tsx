@@ -7,12 +7,14 @@ const createdAt = {
   id: "createdAt",
   disableSortBy: true,
   accessor: (row) => formatDate(row.createdAt),
+  truncate: true,
 };
 
 const updatedAt = {
   Header: "Updated At",
   id: "updatedAt",
   accessor: (row) => formatDate(row.updatedAt),
+  truncate: true,
 };
 
 // collection, title, title

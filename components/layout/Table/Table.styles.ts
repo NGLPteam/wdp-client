@@ -47,7 +47,6 @@ interface TableWrapperProps {
 }
 
 export const Table = styled.table`
-  border-collapse: collapse;
   margin-inline: calc(var(--table-margin-left) * -1)
     calc(var(--table-margin-right) * -1);
   width: calc(100% + var(--table-margin-left) + var(--table-margin-right));
@@ -106,6 +105,7 @@ export const HeaderCellInner = styled.span`
 export const Cell = styled.td`
   padding-block: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
+  max-width: 15vw;
 
   ${({ align }) =>
     align &&

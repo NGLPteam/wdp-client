@@ -109,4 +109,24 @@ export default css`
     color: inherit;
     text-decoration: none;
   }
+
+  /* Remove table styling */
+  table,
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  th,
+  td {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: inherit;
+    border-spacing: 0;
+    border-color: inherit;
+    text-align: left;
+    font-weight: inherit;
+  }
 `;

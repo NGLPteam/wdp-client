@@ -1,7 +1,7 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tLabel, tList } from "../mixins/typography";
+import { tLabel, tList, tTruncate } from "../mixins/typography";
 import { aLink } from "../mixins/appearance";
 
 export default css`
@@ -60,5 +60,9 @@ export default css`
     ol {
       ${tList}
     }
+  }
+
+  .t-truncate {
+    ${tTruncate}
   }
 `;

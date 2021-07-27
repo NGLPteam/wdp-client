@@ -1,19 +1,31 @@
 import React from "react";
 import * as Styled from "./Table.styles";
 
-const TableCell = ({ children, role, align, ...cellProps }: CellProps) => {
+function TableCell({
+  children,
+  role,
+  align,
+  truncate,
+  ...cellProps
+}: CellProps) {
   // role should be rowheader if first
   return (
-    <Styled.Cell role={role} align={align} {...cellProps}>
+    <Styled.Cell
+      className={truncate ? "t-truncate" : null}
+      role={role}
+      align={align}
+      {...cellProps}
+    >
       {children}
     </Styled.Cell>
   );
-};
+}
 
 interface CellProps {
   children?: React.ReactNode | React.ReactNode[] | Element | Element[];
   role: "gridcell" | "rowheader";
   align?: "left" | "right" | "center";
+  truncate?: boolean;
 }
 
 export default TableCell;
