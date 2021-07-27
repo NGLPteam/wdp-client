@@ -7,12 +7,14 @@ const createdAt = {
   id: "createdAt",
   disableSortBy: true,
   accessor: (row) => formatDate(row.createdAt),
+  truncate: true,
 };
 
 const updatedAt = {
   Header: "Updated At",
   id: "updatedAt",
   accessor: (row) => formatDate(row.updatedAt),
+  truncate: true,
 };
 
 // collection, title, title
@@ -28,7 +30,7 @@ const nameFactory = (route: string, label: string, accessor: any) => ({
         routeParams={{ slug: row.original.slug }}
         passHref
       >
-        <a>{value}</a>
+        <a className="t-weight-md a-link">{value}</a>
       </NamedLink>
     );
   },
@@ -43,7 +45,7 @@ const thumbnail = {
   GridCell: ({ value }) => {
     return value?.image?.png ? (
       <Image
-        image={{ ...value?.image?.png, width: 150, height: 180 }}
+        image={{ ...value?.image?.png, width: 180, height: 180 }}
         objectFit="contain"
       />
     ) : null;

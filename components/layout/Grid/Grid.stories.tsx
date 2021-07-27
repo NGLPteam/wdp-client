@@ -21,18 +21,29 @@ export default {
   },
 };
 
-function getRandImage() {
-  const width = 150 * 2;
+function renderRandImage() {
+  const width = Math.round(Math.random()) === 1 ? 180 * 2 : 150 * 2;
+  const height = 180 * 2;
 
   return (
     <Image
       image={{
-        height: width,
+        height: height,
         width: width,
         alt: "Alt text",
-        url: `https://via.placeholder.com/${width}/E1E1E5/67676B`,
+        url: `https://via.placeholder.com/${width}x${height}/E1E1E5/67676B`,
       }}
     />
+  );
+}
+
+function renderGridContent(i: number) {
+  return (
+    <>
+      <div className="t-weight-md a-link">Item {i}</div>
+      <div>Metadata</div>
+      <div>Metadata</div>
+    </>
   );
 }
 
@@ -42,13 +53,7 @@ export const Default: Story<Props> = () => (
   <Grid>
     <>
       {gridArray.map((i) => (
-        <Grid.Item key={i}>
-          <>
-            <div className="t-weight-md">Item {i}</div>
-            <div>Metadata</div>
-            <div>Metadata</div>
-          </>
-        </Grid.Item>
+        <Grid.Item key={i}>{renderGridContent(i)}</Grid.Item>
       ))}
     </>
   </Grid>
@@ -59,12 +64,8 @@ export const WithImages: Story<Props> = () => (
   <Grid>
     <>
       {gridArray.map((i) => (
-        <Grid.Item key={i} thumbnail={getRandImage()}>
-          <>
-            <div className="t-weight-md">Item {i}</div>
-            <div>Metadata</div>
-            <div>Metadata</div>
-          </>
+        <Grid.Item key={i} thumbnail={renderRandImage()}>
+          {renderGridContent(i)}
         </Grid.Item>
       ))}
     </>
@@ -79,13 +80,9 @@ export const WithCheckboxes: Story<Props> = ({ showCheckboxes }) => (
         <Grid.Item
           key={i}
           checkboxProps={{ "aria-label": "Select item" }}
-          thumbnail={getRandImage()}
+          thumbnail={renderRandImage()}
         >
-          <>
-            <div className="t-weight-md">Item {i}</div>
-            <div>Metadata</div>
-            <div>Metadata</div>
-          </>
+          {renderGridContent(i)}
         </Grid.Item>
       ))}
     </>
@@ -103,13 +100,9 @@ export const WithActions: Story<Props> = ({ showCheckboxes }) => (
           key={i}
           checkboxProps={{ "aria-label": "Select item" }}
           actions={<ButtonControl icon="edit" aria-label="Delete item" />}
-          thumbnail={getRandImage()}
+          thumbnail={renderRandImage()}
         >
-          <>
-            <div className="t-weight-md">Item {i}</div>
-            <div>Metadata</div>
-            <div>Metadata</div>
-          </>
+          {renderGridContent(i)}
         </Grid.Item>
       ))}
     </>

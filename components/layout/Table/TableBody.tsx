@@ -35,7 +35,12 @@ function TableBody<
               ...(cell.getCellProps && cell.getCellProps()),
             };
             return (
-              <Styled.Cell {...cellProps}>{cell.render("Cell")}</Styled.Cell>
+              <Styled.Cell
+                {...cellProps}
+                className={cell.column?.truncate ? "t-truncate" : null}
+              >
+                {cell.render("Cell")}
+              </Styled.Cell>
             );
           })}
           <Styled.Cell role="presentation" />

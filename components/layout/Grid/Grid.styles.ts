@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { aBgLight, basePadding } from "theme/mixins/appearance";
-import { respond } from "theme/mixins/base";
+import { fluidScale, respond } from "theme/mixins/base";
+import { pxToRem } from "theme/mixins/functions";
 import Grid from "./Grid";
 type Props = React.ComponentProps<typeof Grid>;
 
@@ -9,14 +10,8 @@ const TABLET_BREAK = 70;
 
 export const Wrapper = styled.div<Partial<Props>>`
   --checkbox-opacity: 0;
-  display: grid;
-  row-gap: var(--grid-column-gap);
-  column-gap: var(--grid-column-gap);
-  margin-inline: -${basePadding(4)};
-  grid-template-columns: repeat(4, 1fr);
-
-  ${respond(`grid-template-columns: repeat(2, 1fr);`, TABLET_BREAK)}
-  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 
   ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
 
@@ -24,17 +19,30 @@ export const Wrapper = styled.div<Partial<Props>>`
     css`
       --checkbox-opacity: 1;
       --actions-opacity: 1;
-      margin-inline: auto;
     `,
     TABLET_BREAK
   )}
+`;
+
+export const Inner = styled.div`
+  display: grid;
+  row-gap: var(--grid-column-gap);
+  column-gap: var(--grid-column-gap);
+  grid-template-columns: repeat(4, 1fr);
+  margin-inline: -${basePadding(4)};
+  padding-block: ${basePadding(4)} ${basePadding(8)};
+
+  ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
+  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
+
+  ${respond(` margin-inline: auto;`, TABLET_BREAK)}
 `;
 
 export const Item = styled.div`
   display: grid;
   grid-template:
     "checkbox actions" auto
-    "image image" minmax(auto, 180px)
+    "image image" auto
     "children children" 1fr
     / auto 1fr;
   padding-block: ${basePadding(2)} ${basePadding(4)};
@@ -48,7 +56,7 @@ export const Item = styled.div`
     `
       grid-template:
         "checkbox image children actions" 1fr
-        / auto minmax(auto, 64px) 1fr auto;
+        / auto auto 1fr auto;
       padding-inline: 0;
       padding-block-start: 0;
       gap: ${basePadding(3)};
@@ -76,26 +84,32 @@ export const Item = styled.div`
 export const Checkbox = styled.div`
   grid-area: checkbox;
   opacity: var(--checkbox-opacity, 0);
-  padding-block-start: ${basePadding(2)};
-  min-height: ${basePadding(10)};
+  padding-block: ${basePadding(2)};
 `;
 
 export const Actions = styled.div`
   grid-area: actions;
   opacity: var(--actions-opacity, 0);
   text-align: end;
+  --button-control-spacing: ${pxToRem(10)};
 `;
 
 export const Thumbnail = styled.div`
   grid-area: image;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding-inline-end: ${basePadding(2)};
   padding-block-end: ${basePadding(2)};
+  height: ${fluidScale("190px", "150px")};
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
 
   ${respond(
-    css`
+    `
       display: block;
       padding-block-end: 0;
+      height: 60px;
     `,
     MOBILE_BREAK
   )}
@@ -116,8 +130,10 @@ export const Thumbnail = styled.div`
 
 export const Children = styled.div`
   grid-area: children;
+  color: var(--color-light);
 
   > * + * {
     margin-block-start: ${basePadding(2)};
+    font-size: var(--font-size-sm);
   }
 `;

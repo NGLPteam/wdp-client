@@ -45,7 +45,7 @@ export default css`
 
   /* Set core body defaults */
   body {
-    min-height: 100vh;
+    min-block-size: 100vh;
     text-rendering: geometricPrecision;
   }
 
@@ -108,5 +108,25 @@ export default css`
   a {
     color: inherit;
     text-decoration: none;
+  }
+
+  /* Remove table styling */
+  table,
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  th,
+  td {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: inherit;
+    border-spacing: 0;
+    border-color: inherit;
+    text-align: start;
+    font-weight: inherit;
   }
 `;

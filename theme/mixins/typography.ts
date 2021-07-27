@@ -32,3 +32,9 @@ export function tHeading(size: 1 | 2 | 3 | 4 | 5 | 6) {
     line-height: var(${`--line-height-h${size}`});
   `;
 }
+
+export const tTruncate = `
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
