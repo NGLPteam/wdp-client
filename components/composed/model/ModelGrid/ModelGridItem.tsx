@@ -29,7 +29,7 @@ function ModelGridItem<
 
           return (
             <div key={i}>
-              {cell.column.id !== "title" && (
+              {cell.column.id !== "title" && cell.column.id !== "name" && (
                 <span>{`${cell.render("Header")}: `}</span>
               )}
               {cell.render("Cell")}

@@ -99,6 +99,7 @@ export function aBaseInput() {
 export const aLink = (color?: string) => css`
   color: var(--${color || "accent-color"}, inherit);
   transition: var(--color-transition);
+  cursor: pointer;
 
   &:hover {
     color: var(--accent-color);

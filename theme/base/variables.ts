@@ -89,6 +89,7 @@ export const breakpoints = {
   100: "1000px",
   80: "834px",
   70: "768px",
+  60: "667px",
   tableBreak: "540px",
   50: "540px",
   40: "414px",

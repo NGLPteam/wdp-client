@@ -126,7 +126,7 @@ export default css`
     border-collapse: inherit;
     border-spacing: 0;
     border-color: inherit;
-    text-align: left;
+    text-align: start;
     font-weight: inherit;
   }
 `;

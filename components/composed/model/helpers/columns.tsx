@@ -45,7 +45,7 @@ const thumbnail = {
   GridCell: ({ value }) => {
     return value?.image?.png ? (
       <Image
-        image={{ ...value?.image?.png, width: 150, height: 180 }}
+        image={{ ...value?.image?.png, width: 180, height: 180 }}
         objectFit="contain"
       />
     ) : null;
