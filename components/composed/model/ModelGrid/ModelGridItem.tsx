@@ -36,6 +36,9 @@ function ModelGridItem<
                   : "t-copy-sm a-color-light"
               }
             >
+              {cell.column.id !== "title" && (
+                <span>{`${cell.render("Header")}: `}</span>
+              )}
               {cell.render("Cell")}
             </div>
           );
