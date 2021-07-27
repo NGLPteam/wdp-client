@@ -1,5 +1,11 @@
 import { css } from "styled-components";
-import { aGlow, aBgDark, aBgLight, aBaseInput } from "../mixins/appearance";
+import {
+  aGlow,
+  aBgDark,
+  aBgLight,
+  aBaseInput,
+  aLink,
+} from "../mixins/appearance";
 // Appearance
 // --------------------
 
@@ -62,5 +68,9 @@ export default css`
 
   .a-color-lighter {
     color: var(--color-lighter);
+  }
+
+  .a-link {
+    ${aLink()}
   }
 `;

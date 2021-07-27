@@ -30,6 +30,17 @@ module.exports = {
     ],
     // Allow console.info & .warn
     "no-console": ["error", { allow: ["info", "warn"] }],
+    // The alt attribute on an Image component is in the image object
+    // Stop false positives on the Image component
+    "jsx-a11y/alt-text": [
+      2,
+      {
+        elements: ["img", "object", "area", 'input[type="image"]'],
+        object: ["Object"],
+        area: ["Area"],
+        'input[type="image"]': ["InputImage"],
+      },
+    ],
   },
   overrides: [
     {

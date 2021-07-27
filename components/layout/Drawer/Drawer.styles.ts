@@ -104,7 +104,7 @@ export const Footer = styled.footer`
     position: absolute;
     display: block;
     content: "";
-    border-top: 1px solid var(--neutral40);
+    border-top: 1px solid var(--border-color);
     inset-block-start: 0;
     inset-inline: var(--drawer-padding-inline);
   }

@@ -28,7 +28,7 @@ export default function CollectionListView() {
 const query = graphql`
   query collectionsQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
         nodes {
           __typename
           id
@@ -39,6 +39,16 @@ const query = graphql`
           slug
           allowedActions
           hierarchicalDepth
+          thumbnail {
+            image: medium {
+              png {
+                url
+                height
+                width
+                alt
+              }
+            }
+          }
         }
         pageInfo {
           page

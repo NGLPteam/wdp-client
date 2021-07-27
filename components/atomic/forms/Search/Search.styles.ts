@@ -22,7 +22,7 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
   &__input {
     width: 100%;
     background-color: var(--background-light);
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-xlg);
     border: none;
     padding: var(--search-top-padding) var(--search-left-padding)
       var(--search-top-padding) ${pxToRem("36px")};

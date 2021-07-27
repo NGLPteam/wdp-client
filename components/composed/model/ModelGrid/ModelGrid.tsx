@@ -1,37 +1,32 @@
-import { Checkbox } from "components/atomic/forms";
-import React from "react";
-import { Row } from "react-table";
+import React, { useMemo } from "react";
+import { Row, TableToggleRowsSelectedProps } from "react-table";
+import Grid from "components/layout/Grid/Grid";
+import ModelGridItem from "./ModelGridItem";
 
 function ModelGrid<
   T extends Record<string, unknown> = Record<string, unknown>
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
->({ rows }: Props<T>) {
-  const renderCheckbox = (row: Row<T>) => {
-    const props = row.getToggleRowSelectedProps();
-
-    return <Checkbox {...props} />;
-  };
+>({ rows, checkboxProps }: Props<T>) {
+  const showCheckboxes = useMemo(
+    () =>
+      checkboxProps && (checkboxProps.indeterminate || checkboxProps.checked),
+    [checkboxProps]
+  );
 
   return (
-    <div className="l-grid" role="grid">
-      {rows.map((row, i) => (
-        <div role="gridcell" className="l-grid__item l-grid__item--3" key={i}>
-          <div>{renderCheckbox(row)}</div>
-          {row.cells.map((cell, i) => {
-            return (
-              <div key={i} className={i === 0 ? "t-weight-md" : "t-copy-sm"}>
-                {cell.render("Cell")}
-              </div>
-            );
-          })}
-        </div>
-      ))}
-    </div>
+    <Grid showCheckboxes={showCheckboxes}>
+      <>
+        {rows.map((row, i) => (
+          <ModelGridItem key={i} row={row} />
+        ))}
+      </>
+    </Grid>
   );
 }
 
 interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
   rows: Row<T>[];
+  checkboxProps: TableToggleRowsSelectedProps;
 }
 
 export default ModelGrid;

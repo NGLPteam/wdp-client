@@ -21,6 +21,16 @@ export type collectionsQueryResponse = {
                 readonly slug: string;
                 readonly allowedActions: ReadonlyArray<string>;
                 readonly hierarchicalDepth: number;
+                readonly thumbnail: {
+                    readonly image: {
+                        readonly png: {
+                            readonly url: string;
+                            readonly height: number;
+                            readonly width: number;
+                            readonly alt: string;
+                        } | null;
+                    };
+                } | null;
             } | null> | null;
             readonly pageInfo: {
                 readonly page: number | null;
@@ -47,7 +57,7 @@ query collectionsQuery(
   $page: Int!
 ) {
   viewer {
-    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {
+    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         id
@@ -58,6 +68,16 @@ query collectionsQuery(
         slug
         allowedActions
         hierarchicalDepth
+        thumbnail {
+          image: medium {
+            png {
+              url
+              height
+              width
+              alt
+            }
+          }
+        }
       }
       pageInfo {
         page
@@ -115,7 +135,7 @@ v2 = {
     {
       "kind": "Literal",
       "name": "perPage",
-      "value": 10
+      "value": 20
     }
   ],
   "concreteType": "CollectionConnection",
@@ -186,6 +206,67 @@ v2 = {
           "args": null,
           "kind": "ScalarField",
           "name": "hierarchicalDepth",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AssetPreview",
+          "kind": "LinkedField",
+          "name": "thumbnail",
+          "plural": false,
+          "selections": [
+            {
+              "alias": "image",
+              "args": null,
+              "concreteType": "PreviewImageMap",
+              "kind": "LinkedField",
+              "name": "medium",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "PreviewImage",
+                  "kind": "LinkedField",
+                  "name": "png",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "url",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "height",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "width",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "alt",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -299,14 +380,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "812adc073351a69716f412e810cea881",
+    "cacheID": "44b1e49e7edcf3636fd22d0f5a8fe365",
     "id": null,
     "metadata": {},
     "name": "collectionsQuery",
     "operationKind": "query",
-    "text": "query collectionsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query collectionsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        createdAt\n        updatedAt\n        title\n        slug\n        allowedActions\n        hierarchicalDepth\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9ebd8b1a46bc5bdcdaaa2790edca9a60';
+(node as any).hash = 'ca44578d810b77aac1bcc4de502bb678';
 export default node;

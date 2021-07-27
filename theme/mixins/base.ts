@@ -5,7 +5,7 @@ import get from "lodash/get";
 export function respond(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: string | any, // TODO: Get the return type of styled-compoonents css function
-  size: number,
+  size: string | number,
   operator = "max",
   aspect = "width"
 ) {

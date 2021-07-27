@@ -42,7 +42,7 @@ query contributorsQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  contributors(order: $order, page: $page, perPage: 10) {
+  contributors(order: $order, page: $page, perPage: 20) {
     nodes {
       __typename
       ... on OrganizationContributor {
@@ -105,7 +105,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 10
+    "value": 20
   }
 ],
 v2 = {
@@ -330,14 +330,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6901a14ca0b068b22c07c36bf5bc9ec1",
+    "cacheID": "d06b77e856b7367b915da34c79ade802",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 10) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '55bb4eece3677ae9428c6c2563d4aa5b';
+(node as any).hash = 'd0bff0073ce776074ffd2b1f547895a5';
 export default node;

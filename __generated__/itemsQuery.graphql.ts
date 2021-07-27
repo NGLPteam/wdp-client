@@ -20,6 +20,16 @@ export type itemsQueryResponse = {
                 readonly title: string | null;
                 readonly slug: string;
                 readonly allowedActions: ReadonlyArray<string>;
+                readonly thumbnail: {
+                    readonly image: {
+                        readonly png: {
+                            readonly url: string;
+                            readonly height: number;
+                            readonly width: number;
+                            readonly alt: string;
+                        } | null;
+                    };
+                } | null;
             } | null> | null;
             readonly pageInfo: {
                 readonly page: number | null;
@@ -46,7 +56,7 @@ query itemsQuery(
   $page: Int!
 ) {
   viewer {
-    items(order: $order, page: $page, perPage: 10) {
+    items(order: $order, page: $page, perPage: 20) {
       nodes {
         __typename
         id
@@ -56,6 +66,16 @@ query itemsQuery(
         title
         slug
         allowedActions
+        thumbnail {
+          image: medium {
+            png {
+              url
+              height
+              width
+              alt
+            }
+          }
+        }
       }
       pageInfo {
         page
@@ -108,7 +128,7 @@ v2 = {
     {
       "kind": "Literal",
       "name": "perPage",
-      "value": 10
+      "value": 20
     }
   ],
   "concreteType": "ItemConnection",
@@ -172,6 +192,67 @@ v2 = {
           "args": null,
           "kind": "ScalarField",
           "name": "allowedActions",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AssetPreview",
+          "kind": "LinkedField",
+          "name": "thumbnail",
+          "plural": false,
+          "selections": [
+            {
+              "alias": "image",
+              "args": null,
+              "concreteType": "PreviewImageMap",
+              "kind": "LinkedField",
+              "name": "medium",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "PreviewImage",
+                  "kind": "LinkedField",
+                  "name": "png",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "url",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "height",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "width",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "alt",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -285,14 +366,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a3daa681c17ba1ecbcfb6c34ca6745c1",
+    "cacheID": "9310e68446a455de65641408775750ac",
     "id": null,
     "metadata": {},
     "name": "itemsQuery",
     "operationKind": "query",
-    "text": "query itemsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 10) {\n      nodes {\n        __typename\n        id\n        identifier\n        updatedAt\n        createdAt\n        title\n        slug\n        allowedActions\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query itemsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      nodes {\n        __typename\n        id\n        identifier\n        updatedAt\n        createdAt\n        title\n        slug\n        allowedActions\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      pageInfo {\n        page\n        perPage\n        pageCount\n        hasNextPage\n        hasPreviousPage\n        totalCount\n        totalUnfilteredCount\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1af09e9d23f73c4cc7068b0922f550c5';
+(node as any).hash = '6c54574781c2fd94e66b9a1e66a6d31a';
 export default node;

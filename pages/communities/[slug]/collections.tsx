@@ -43,7 +43,7 @@ const query = graphql`
     $communitySlug: Slug!
   ) {
     community(slug: $communitySlug) {
-      collections(order: $order, page: $page, perPage: 10) {
+      collections(order: $order, page: $page, perPage: 20) {
         nodes {
           __typename
           id
@@ -54,6 +54,16 @@ const query = graphql`
           slug
           allowedActions
           hierarchicalDepth
+          thumbnail {
+            image: medium {
+              png {
+                url
+                height
+                width
+                alt
+              }
+            }
+          }
         }
         pageInfo {
           page

@@ -1,6 +1,6 @@
 import { IconFactory } from "components/factories";
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
+import { basePadding, aGlow } from "theme/mixins/appearance";
 
 export const Label = styled.label`
   display: flex;
@@ -16,8 +16,6 @@ export const LabelText = styled.span`
   }
 `;
 
-export const Checkbox = styled.input``;
-
 export const Icon = styled(IconFactory)`
   cursor: pointer;
   display: inline-block;
@@ -25,6 +23,10 @@ export const Icon = styled(IconFactory)`
 
   [data-path-name="check"] {
     color: transparent;
+  }
+
+  [data-path-name="box"] {
+    fill: var(--neutral00);
   }
 
   input:hover + & {
@@ -58,5 +60,10 @@ export const Icon = styled(IconFactory)`
   input:disabled + & {
     color: var(--color-lighter);
     cursor: default;
+  }
+
+  input:focus + & {
+    ${aGlow("lightMode")}
+    color: var(--accent-light);
   }
 `;

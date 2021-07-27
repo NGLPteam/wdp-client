@@ -5,7 +5,7 @@ import { tLabel } from "theme/mixins/typography";
 import { respond } from "theme/mixins/base";
 
 export const TableWrapper = styled.div<TableWrapperProps>`
-  --table-border: 1px solid var(--neutral40);
+  --table-border: 1px solid var(--border-color);
   --table-border-radius: ${pxToRem("6px")};
   --table-column-gap: ${basePadding(4)};
   --table-margin-left: var(--table-column-gap);

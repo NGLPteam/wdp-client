@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
-import { tLabel, tLink } from "theme/mixins/typography";
+import { basePadding, aLink } from "theme/mixins/appearance";
+import { tLabel } from "theme/mixins/typography";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 export const Nav = styled.nav`
   margin: 0 auto;
   max-width: var(--container-max);
-  border-top: 1px solid var(--neutral40);
+  border-top: 1px solid var(--border-color);
   padding-block: ${basePadding(10)};
   padding-block-end: ${basePadding(17)};
 
@@ -37,7 +37,7 @@ export const ListItem = styled.li`
   }
 
   a {
-    ${tLink("color-light")}
+    ${aLink("color-light")}
   }
 `;
 

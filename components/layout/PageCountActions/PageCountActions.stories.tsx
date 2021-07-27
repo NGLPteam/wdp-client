@@ -28,7 +28,7 @@ export const Default: Story<Props> = (args) => (
 Default.args = {
   pageInfo: {
     page: 1,
-    perPage: 10,
+    perPage: 20,
     pageCount: 5,
     totalCount: 50,
   },
@@ -40,7 +40,7 @@ export const WithSelectedCount = Default.bind({});
 WithSelectedCount.args = {
   pageInfo: {
     page: 1,
-    perPage: 10,
+    perPage: 20,
     pageCount: 5,
     totalCount: 50,
   },

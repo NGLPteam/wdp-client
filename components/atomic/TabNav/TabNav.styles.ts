@@ -5,7 +5,7 @@ import { tLabel } from "theme/mixins/typography";
 export const Nav = styled.nav``;
 
 export const List = styled.ul`
-  box-shadow: inset 0 -1px 0 var(--neutral40);
+  box-shadow: inset 0 -1px 0 var(--border-color);
 `;
 
 export const Item = styled.li`

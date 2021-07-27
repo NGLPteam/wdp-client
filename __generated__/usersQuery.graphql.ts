@@ -41,7 +41,7 @@ query usersQuery(
   $order: SimpleOrder!
   $page: Int!
 ) {
-  users(order: $order, page: $page, perPage: 10) {
+  users(order: $order, page: $page, perPage: 20) {
     nodes {
       email
       globalAdmin
@@ -91,7 +91,7 @@ v1 = [
   {
     "kind": "Literal",
     "name": "perPage",
-    "value": 10
+    "value": 20
   }
 ],
 v2 = {
@@ -281,14 +281,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "556c7571b18c08acda52cb03c123fb68",
+    "cacheID": "84688b429deca8729c02cefb3bf24e01",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 10) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ca4d4071bd5c1ac8d2495d8e783e3edd';
+(node as any).hash = 'f72968a041a8a5464d60d036950940ed';
 export default node;

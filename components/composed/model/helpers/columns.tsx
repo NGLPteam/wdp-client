@@ -1,5 +1,5 @@
 import { formatDate } from "helpers";
-import { NamedLink } from "components/atomic";
+import { NamedLink, Image } from "components/atomic";
 import React from "react";
 
 const createdAt = {
@@ -15,6 +15,7 @@ const updatedAt = {
   accessor: (row) => formatDate(row.updatedAt),
 };
 
+// collection, title, title
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nameFactory = (route: string, label: string, accessor: any) => ({
   Header: label,
@@ -33,6 +34,31 @@ const nameFactory = (route: string, label: string, accessor: any) => ({
   },
 });
 
-const columns = { createdAt, updatedAt, nameFactory };
+const thumbnail = {
+  Header: <span className="a-hidden">Thumbnail</span>,
+  id: "thumbnail",
+  accessor: "thumbnail",
+  disableSortBy: true,
+  // TODO: Find a way to pass size or view (table/grid) down to a single Cell render
+  GridCell: ({ value }) => {
+    return value?.image?.png ? (
+      <Image
+        image={{ ...value?.image?.png, width: 150, height: 180 }}
+        objectFit="contain"
+      />
+    ) : null;
+  },
+  Cell: ({ value }) => {
+    return value?.image?.png ? (
+      <Image
+        image={{ ...value?.image?.png, width: 50, height: 50 }}
+        objectFit="contain"
+        objectPosition="center"
+      />
+    ) : null;
+  },
+};
+
+const columns = { createdAt, updatedAt, nameFactory, thumbnail };
 
 export default columns;

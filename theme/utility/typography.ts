@@ -1,7 +1,8 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tLabel, tLink, tList } from "../mixins/typography";
+import { tLabel, tList } from "../mixins/typography";
+import { aLink } from "../mixins/appearance";
 
 export default css`
   /* Labels */
@@ -43,10 +44,12 @@ export default css`
     text-transform: capitalize;
   }
 
+  .t-link 
+
   /* Rich Text */
   .t-rte {
     a {
-      ${tLink()}
+      ${aLink()}
     }
 
     > * + * {

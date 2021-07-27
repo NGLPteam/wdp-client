@@ -3,7 +3,42 @@ import { colors } from "../theme/base/variables";
 import get from "lodash/get";
 import { I18nextProvider } from "react-i18next";
 import { Story } from "@storybook/react";
-import i18n from "helpers/i18n";
+import * as nextImage from "next/image";
+import i18n from "../helpers/i18n";
+
+Object.defineProperty(nextImage, "default", {
+  configurable: true,
+  value: (props) => {
+    const {
+      src,
+      alt,
+      width,
+      height,
+      objectFit = "contain",
+      objectPosition = "bottom left",
+      className,
+    } = props;
+    const wrapperStyle =
+      objectFit !== "cover"
+        ? {}
+        : {
+            position: "absolute",
+            inset: 0,
+            inlineSize: "100%",
+            blockSize: "100%",
+          };
+    const style = {
+      objectFit,
+      objectPosition,
+      blockSize: objectFit === "cover" ? "100%" : "auto",
+    };
+    return (
+      <div className={className}>
+        <img src={src} alt={alt} width={width} height={height} style={style} />
+      </div>
+    );
+  },
+});
 
 export const decorators = [
   (Story: Story) => (
