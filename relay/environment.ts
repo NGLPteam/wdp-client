@@ -22,17 +22,17 @@ export default function buildEnvironment(
 
   const network = new RelayNetworkLayer([
     urlMiddleware({
-      url: process.env.NEXT_PUBLIC_API_URL,
+      url: process.env.NEXT_PUBLIC_API_URL || "",
     }),
     authMiddleware({
       allowEmptyToken: true,
       token: () => {
-        return keycloakRef.current?.token;
+        return keycloakRef.current?.token || "";
       },
       tokenRefreshPromise: async () => {
         await keycloakRef.current?.updateToken(86400);
 
-        return keycloakRef.current?.token;
+        return keycloakRef.current?.token || "";
       },
     }),
   ]);
