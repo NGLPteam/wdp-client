@@ -17,7 +17,7 @@ export type usersQueryResponse = {
             readonly slug: string;
             readonly createdAt: string;
             readonly updatedAt: string;
-        } | null> | null;
+        }>;
         readonly pageInfo: {
             readonly page: number | null;
             readonly perPage: number | null;

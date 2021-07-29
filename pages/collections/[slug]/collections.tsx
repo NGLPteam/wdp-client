@@ -8,33 +8,37 @@ import {
 import CollectionList from "components/composed/collection/CollectionList";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 
+import { Page } from "types/page";
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { routeQueryArrayToString } from "routes";
 
-type ConnectionType = QueryResponse["collection"]["collections"];
+type ConnectionType = NonNullable<QueryResponse["collection"]>["collections"];
+type NodeType = ConnectionType["nodes"][number];
 
-export default function CollectionChildCollections() {
+const CollectionChildCollections: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.collection?.collections,
+    (data) => data?.collection?.collections || null,
     []
   );
 
   return (
-    <CollectionList<Query, ConnectionType>
+    <CollectionList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       queryVars={{ collectionSlug: routeQueryArrayToString(slug) }}
       toConnection={toConnection}
     />
   );
-}
+};
 
 CollectionChildCollections.getLayout = (page) => {
   return <CollectionLayout>{page}</CollectionLayout>;
 };
+
+export default CollectionChildCollections;
 
 const query = graphql`
   query collectionsCollectionChildQuery(

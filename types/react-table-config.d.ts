@@ -21,7 +21,7 @@ declare module "react-table" {
   // https://www.typescriptlang.org/docs/handbook/declaration-merging.html
   export interface TableOptions<
     D extends Record<string, unknown>
-  > extends UseRowSelectOptions<D>,
+  > extends Partial<UseRowSelectOptions<D>>,
       UseSortByOptions<D>,
       // note that having Record here allows you to add anything to the options, this
       // matches the spirit of the underlying js library, but might be cleaner if it's
@@ -33,17 +33,38 @@ declare module "react-table" {
 
   export interface Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectHooks<D>,
+  > extends Partial<UseRowSelectHooks<D>>,
       UseSortByHooks<D> {}
+
+  export interface ModelTableActionProps<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    row: Row<D>;
+  }
+
+  export interface ModelTableActionOptions<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    handleClick: (props: ModelTableActionProps<D>) => void;
+  }
+
+  export interface ModelTableActions<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    edit?: ModelTableActionOptions<D>;
+    delete?: ModelTableActionOptions<D>;
+  }
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectInstanceProps<D>,
-      UseSortByInstanceProps<D> {}
+  > extends Partial<UseRowSelectInstanceProps<D>>,
+      UseSortByInstanceProps<D> {
+    actions?: ModelTableActions<D>;
+  }
 
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectState<D>,
+  > extends Partial<UseRowSelectState<D>>,
       UseSortByState<D> {}
 
   export interface ColumnInterface<
@@ -57,12 +78,12 @@ declare module "react-table" {
   }
 
   // export interface Cell<
-  //   D extends Record<string, unknown> = Record<string, unknown>,
+  //   D extends Record<string, unknown> = Record<string, unknown>>,
   //   V = any
   // > extends  {}
 
   export interface Row<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectRowProps<D> {}
+  > extends Partial<UseRowSelectRowProps<D>> {}
 }
 /* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-explicit-any */

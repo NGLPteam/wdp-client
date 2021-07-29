@@ -9,6 +9,7 @@ import CommunityList from "components/composed/community/CommunityList";
 import type { ExtractsConnection } from "types/graphql-helpers";
 
 type ConnectionType = QueryResponse["communities"];
+type NodeType = ConnectionType["edges"][number]["node"];
 
 export default function CommunityListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -17,7 +18,7 @@ export default function CommunityListView() {
   );
 
   return (
-    <CommunityList<Query, ConnectionType>
+    <CommunityList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}

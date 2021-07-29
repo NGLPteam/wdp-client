@@ -1,10 +1,13 @@
 import React from "react";
 import ItemLayout from "components/composed/item/ItemLayout";
+import { Page } from "types/page";
 
-export default function Manage() {
+const Manage: Page = () => {
   return <></>;
-}
+};
 
 Manage.getLayout = (page) => {
   return <ItemLayout>{page}</ItemLayout>;
 };
+
+export default Manage;

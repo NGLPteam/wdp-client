@@ -1,10 +1,13 @@
 import React from "react";
 import CommunityLayout from "components/composed/community/CommunityLayout";
+import { Page } from "types/page";
 
-export default function Manage() {
+const Manage: Page = () => {
   return <></>;
-}
+};
 
 Manage.getLayout = (page) => {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
+
+export default Manage;

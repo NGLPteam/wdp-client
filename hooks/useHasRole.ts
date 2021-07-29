@@ -19,11 +19,11 @@ export default function useHasRole(role: string): boolean | null {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed;
 
-  if (!initialized || typeof keycloak.hasRealmRole !== "function") {
+  if (!initialized || typeof keycloak?.hasRealmRole !== "function") {
     return null;
   }
 
-  return keycloak.hasRealmRole(role);
+  return keycloak?.hasRealmRole(role);
 }
 
 export function useIsAdmin() {

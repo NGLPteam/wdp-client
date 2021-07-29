@@ -6,7 +6,7 @@ import * as Styled from "./Header.styles";
 const HeaderSearch = () => {
   const router = useRouter();
 
-  const handleSubmit = (value) => {
+  const handleSubmit = (value: string) => {
     router.push({
       pathname: "/search",
       query: { q: value },

@@ -8,7 +8,7 @@ export default function SignOut() {
 
   const visible = useVisibleToAuthenticated();
 
-  const signOut = useCallback(() => keycloak.logout(), [keycloak]);
+  const signOut = useCallback(() => keycloak?.logout(), [keycloak]);
 
   if (!visible) {
     return null;

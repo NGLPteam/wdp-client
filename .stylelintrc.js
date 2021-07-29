@@ -8,4 +8,5 @@ module.exports = {
   rules: {
     "csstools/use-logical": "always",
   },
+  ignoreFiles: ["helpers/models.ts"],
 };

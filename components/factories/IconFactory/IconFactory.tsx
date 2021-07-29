@@ -1,6 +1,7 @@
 import * as Icons from "components/svgs/icons";
+import React from "react";
 
-const ICON_MAP = {
+export const ICON_MAP = {
   arrow: Icons.Arrow,
   chevron: Icons.Chevron,
   close: Icons.Close,
@@ -18,16 +19,19 @@ const ICON_MAP = {
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
 
-const SIZE_MAP = {
+export const SIZE_MAP = {
   sm: 16,
   md: 24,
   lg: 32,
   xlg: 48,
 };
 
+export type IconKeys = keyof typeof ICON_MAP;
+export type SizeKeys = keyof typeof SIZE_MAP;
+
 export const SIZE_KEYS = Object.keys(SIZE_MAP);
 
-function IconFactory({ icon, size, rotate, ...props }: Props) {
+function IconFactory({ icon, size = "sm", rotate, ...props }: Props) {
   const Icon = ICON_MAP[icon];
   if (!Icon) return null;
 
@@ -37,15 +41,16 @@ function IconFactory({ icon, size, rotate, ...props }: Props) {
     ? {
         transform: `rotate(${rotate}deg)`,
       }
-    : null;
+    : undefined;
 
   return <Icon width={width} height={height} style={style} {...props} />;
 }
 
-interface Props extends Omit<React.HTMLProps<HTMLDivElement>, "size"> {
-  icon: string;
-  size?: "sm" | "md" | "lg" | "xlg";
+interface Props extends Omit<React.HTMLProps<SVGSVGElement>, "size"> {
+  icon: IconKeys;
+  size?: SizeKeys;
   rotate?: number;
+  crossOrigin?: "" | "anonymous" | "use-credentials" | undefined;
 }
 
 export default IconFactory;

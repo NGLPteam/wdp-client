@@ -11,7 +11,7 @@ function TableCell({
   // role should be rowheader if first
   return (
     <Styled.Cell
-      className={truncate ? "t-truncate" : null}
+      className={truncate ? "t-truncate" : undefined}
       role={role}
       align={align}
       {...cellProps}

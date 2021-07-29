@@ -13,7 +13,7 @@ const TableSortButton = ({ desc, ...buttonProps }: Props) => {
 };
 
 interface Props {
-  desc: boolean;
+  desc: boolean | null;
 }
 
 export default TableSortButton;

@@ -81,7 +81,7 @@ const selectableRows = rows.map((row) => ({
 
 export const Default: Story<Props & Partial<BodyProps>> = ({
   withRowSelection,
-  rows,
+  rows = [],
   ...args
 }) => {
   return (
@@ -103,8 +103,6 @@ export const Default: Story<Props & Partial<BodyProps>> = ({
 Default.args = {
   "aria-label": "Example plain table",
   withRowSelection: false,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   rows,
 };
 

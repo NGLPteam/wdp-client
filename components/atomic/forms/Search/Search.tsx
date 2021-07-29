@@ -3,7 +3,7 @@ import get from "lodash/get";
 import * as Styled from "./Search.styles";
 
 function Search({ className, onSubmit }: Props) {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,16 +1,8 @@
 import React, { useMemo } from "react";
 import { Table } from "components/layout";
-import {
-  HeaderGroup,
-  Row,
-  TableBodyProps,
-  TableProps,
-  TableToggleRowsSelectedProps,
-} from "react-table";
+import { ModelTableGridProps } from "components/composed/model/ModelList";
 
-function ModelTable<
-  T extends Record<string, unknown> = Record<string, unknown>
->({
+function ModelTable<T extends Record<string, unknown>>({
   title,
   withRowSelection,
   checkboxProps,
@@ -18,7 +10,7 @@ function ModelTable<
   headerGroups,
   rows,
   tableBodyProps,
-}: ModelTableProps<T>) {
+}: ModelTableGridProps<T>) {
   const showCheckboxes = useMemo(
     () =>
       checkboxProps && (checkboxProps.indeterminate || checkboxProps.checked),
@@ -40,18 +32,6 @@ function ModelTable<
       <Table.Body rows={rows} {...tableBodyProps} />
     </Table>
   );
-}
-
-export interface ModelTableProps<
-  T extends Record<string, unknown> = Record<string, unknown>
-> {
-  title: string;
-  withRowSelection?: boolean;
-  checkboxProps: TableToggleRowsSelectedProps;
-  tableProps: TableProps;
-  headerGroups: HeaderGroup<T>[];
-  rows: Row<T>[];
-  tableBodyProps: TableBodyProps;
 }
 
 export default ModelTable;

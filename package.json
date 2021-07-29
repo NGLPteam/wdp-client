@@ -20,6 +20,7 @@
     "fix": "npm-run-all fix:*",
     "fix:js": "eslint --cache -c .eslintrcjs.js \"**/*.{js,jsx}\" --fix",
     "fix:ts": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix",
+    "types": "npx tsc --strict -w",
     "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
@@ -70,10 +71,12 @@
     "@storybook/addon-essentials": "^6.3.2",
     "@storybook/addon-links": "^6.3.2",
     "@storybook/react": "^6.3.2",
+    "@types/cookie": "^0.4.1",
     "@types/lodash": "^4.14.171",
     "@types/node": "^16.0.0",
     "@types/react": "^17.0.13",
     "@types/react-confirm": "^0.1.4",
+    "@types/react-dom": "^17.0.9",
     "@types/react-relay": "^11.0.1",
     "@types/react-table": "^7.7.2",
     "@types/regenerator-runtime": "^0.13.0",

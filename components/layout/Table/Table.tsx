@@ -8,8 +8,8 @@ import TableCell from "./TableCell";
 const Table = ({
   children,
   "aria-label": ariaLabel,
-  withRowSelection,
-  showCheckboxes,
+  withRowSelection = false,
+  showCheckboxes = false,
   ...tableProps
 }: Props) => {
   return (

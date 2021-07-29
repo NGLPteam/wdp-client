@@ -31,7 +31,7 @@ export type collectionsQueryResponse = {
                         } | null;
                     };
                 } | null;
-            } | null> | null;
+            }>;
             readonly pageInfo: {
                 readonly page: number | null;
                 readonly perPage: number | null;
@@ -42,7 +42,7 @@ export type collectionsQueryResponse = {
                 readonly totalUnfilteredCount: number;
             };
         };
-    } | null;
+    };
 };
 export type collectionsQuery = {
     readonly response: collectionsQueryResponse;

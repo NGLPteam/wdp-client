@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
 import * as Styled from "./PageHeader.styles";
 import { RouteHelper } from "routes";
@@ -41,7 +41,7 @@ const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
 
 interface Props {
   /** Page title */
-  title: string;
+  title?: ReactNode;
   /** Breadcrumb props to be passed down to Breadcrumbs component */
   breadcrumbsProps?: BreadcrumbProps;
   /** Child tabs (TabNav) */

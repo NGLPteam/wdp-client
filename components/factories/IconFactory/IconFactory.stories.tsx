@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import IconFactory, { ICON_KEYS, SIZE_KEYS } from "./IconFactory";
+import IconFactory, { IconKeys, ICON_MAP, SIZE_MAP } from "./IconFactory";
 type Props = React.ComponentProps<typeof IconFactory>;
 
 export default {
@@ -8,11 +8,11 @@ export default {
   component: IconFactory,
   argTypes: {
     icon: {
-      options: ICON_KEYS,
+      options: Object.keys(ICON_MAP),
       control: { type: "select" },
     },
     size: {
-      options: SIZE_KEYS,
+      options: Object.keys(SIZE_MAP),
       control: { type: "select" },
     },
   },
@@ -20,7 +20,7 @@ export default {
 
 const Template: Story<Props> = (args) => <IconFactory {...args} />;
 Template.args = {
-  icon: ICON_KEYS[0],
+  icon: "arrow",
   size: "sm",
 };
 
@@ -29,9 +29,11 @@ Default.args = {
   ...Template.args,
 };
 
+const icons = Object.keys(ICON_MAP) as IconKeys[];
+
 export const AllIcons: Story<Props> = ({ icon, ...args }) => (
   <div className="l-flex l-flex--gap">
-    {ICON_KEYS.map((key, i) => (
+    {icons.map((key, i) => (
       <div key={i}>
         <IconFactory icon={key} {...args} />
       </div>

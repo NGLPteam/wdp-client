@@ -17,8 +17,8 @@ export type communitiesQueryResponse = {
                 readonly name: string;
                 readonly updatedAt: string;
                 readonly createdAt: string;
-            } | null;
-        } | null> | null;
+            };
+        }>;
         readonly pageInfo: {
             readonly page: number | null;
             readonly perPage: number | null;

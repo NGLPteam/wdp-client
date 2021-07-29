@@ -1,5 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function UserLayout({ children }) {
+type Props = {
+  children: ReactNode;
+};
+
+export default function UserLayout({ children }: Props) {
   return <>{children}</>;
 }
