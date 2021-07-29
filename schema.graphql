@@ -18,9 +18,9 @@ union AnyContributor = OrganizationContributor | PersonContributor
 """The connection type for AnyContributor."""
 type AnyContributorConnection implements Paginated {
   """A list of edges."""
-  edges: [AnyContributorEdge]
+  edges: [AnyContributorEdge!]!
   """A list of nodes."""
-  nodes: [AnyContributor]
+  nodes: [AnyContributor!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -30,7 +30,7 @@ type AnyContributorEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: AnyContributor
+  node: AnyContributor!
 }
 
 """A hierarchical entity type"""
@@ -308,9 +308,9 @@ type Collection implements Entity & HierarchicalEntry & Contributable & Node & S
 """The connection type for Collection."""
 type CollectionConnection implements Paginated {
   """A list of edges."""
-  edges: [CollectionEdge]
+  edges: [CollectionEdge!]!
   """A list of nodes."""
-  nodes: [Collection]
+  nodes: [Collection!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -328,9 +328,9 @@ type CollectionContribution implements Contribution & Node & Sluggable {
 """The connection type for CollectionContribution."""
 type CollectionContributionConnection implements Paginated {
   """A list of edges."""
-  edges: [CollectionContributionEdge]
+  edges: [CollectionContributionEdge!]!
   """A list of nodes."""
-  nodes: [CollectionContribution]
+  nodes: [CollectionContribution!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -340,7 +340,7 @@ type CollectionContributionEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: CollectionContribution
+  node: CollectionContribution!
 }
 
 """An edge in a connection."""
@@ -348,7 +348,7 @@ type CollectionEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: Collection
+  node: Collection!
 }
 
 type CollectionLink implements Node & Sluggable {
@@ -364,9 +364,9 @@ type CollectionLink implements Node & Sluggable {
 """The connection type for CollectionLink."""
 type CollectionLinkConnection implements Paginated {
   """A list of edges."""
-  edges: [CollectionLinkEdge]
+  edges: [CollectionLinkEdge!]!
   """A list of nodes."""
-  nodes: [CollectionLink]
+  nodes: [CollectionLink!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -376,7 +376,7 @@ type CollectionLinkEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: CollectionLink
+  node: CollectionLink!
 }
 
 enum CollectionLinkOperator {
@@ -397,9 +397,9 @@ type CollectionLinkedItem implements Node & Sluggable {
 """The connection type for CollectionLinkedItem."""
 type CollectionLinkedItemConnection implements Paginated {
   """A list of edges."""
-  edges: [CollectionLinkedItemEdge]
+  edges: [CollectionLinkedItemEdge!]!
   """A list of nodes."""
-  nodes: [CollectionLinkedItem]
+  nodes: [CollectionLinkedItem!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -409,7 +409,7 @@ type CollectionLinkedItemEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: CollectionLinkedItem
+  node: CollectionLinkedItem!
 }
 
 enum CollectionLinkedItemOperator {
@@ -433,6 +433,14 @@ type Community implements Entity & Node & Sluggable {
     order: SimpleOrder = RECENT
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
     """The page of edges/nodes to fetch"""
     page: Int
     """The direction in which pages advance (to traverse pages backwards)"""
@@ -459,9 +467,9 @@ type Community implements Entity & Node & Sluggable {
 """The connection type for Community."""
 type CommunityConnection implements Paginated {
   """A list of edges."""
-  edges: [CommunityEdge]
+  edges: [CommunityEdge!]!
   """A list of nodes."""
-  nodes: [Community]
+  nodes: [Community!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -471,7 +479,7 @@ type CommunityEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: Community
+  node: Community!
 }
 
 """Something that can be contributed to"""
@@ -875,9 +883,9 @@ type Item implements Entity & HierarchicalEntry & Contributable & Node & Sluggab
 """The connection type for Item."""
 type ItemConnection implements Paginated {
   """A list of edges."""
-  edges: [ItemEdge]
+  edges: [ItemEdge!]!
   """A list of nodes."""
-  nodes: [Item]
+  nodes: [Item!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -895,9 +903,9 @@ type ItemContribution implements Contribution & Node & Sluggable {
 """The connection type for ItemContribution."""
 type ItemContributionConnection implements Paginated {
   """A list of edges."""
-  edges: [ItemContributionEdge]
+  edges: [ItemContributionEdge!]!
   """A list of nodes."""
-  nodes: [ItemContribution]
+  nodes: [ItemContribution!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -907,7 +915,7 @@ type ItemContributionEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: ItemContribution
+  node: ItemContribution!
 }
 
 """An edge in a connection."""
@@ -915,7 +923,7 @@ type ItemEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: Item
+  node: Item!
 }
 
 type ItemLink implements Node & Sluggable {
@@ -931,9 +939,9 @@ type ItemLink implements Node & Sluggable {
 """The connection type for ItemLink."""
 type ItemLinkConnection implements Paginated {
   """A list of edges."""
-  edges: [ItemLinkEdge]
+  edges: [ItemLinkEdge!]!
   """A list of nodes."""
-  nodes: [ItemLink]
+  nodes: [ItemLink!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -943,7 +951,7 @@ type ItemLinkEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: ItemLink
+  node: ItemLink!
 }
 
 enum ItemLinkOperator {
@@ -1373,9 +1381,9 @@ type Role implements Node & Sluggable {
 """The connection type for Role."""
 type RoleConnection implements Paginated {
   """A list of edges."""
-  edges: [RoleEdge]
+  edges: [RoleEdge!]!
   """A list of nodes."""
-  nodes: [Role]
+  nodes: [Role!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1385,7 +1393,7 @@ type RoleEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: Role
+  node: Role!
 }
 
 enum SimpleOrder {
@@ -1571,9 +1579,9 @@ type User implements ExposesPermissions & Node & Sluggable {
 """The connection type for User."""
 type UserConnection implements Paginated {
   """A list of edges."""
-  edges: [UserEdge]
+  edges: [UserEdge!]!
   """A list of nodes."""
-  nodes: [User]
+  nodes: [User!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -1583,7 +1591,7 @@ type UserEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: User
+  node: User!
 }
 
 """A user-readable error"""

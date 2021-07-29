@@ -141,12 +141,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "AnyContributorEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AnyContributorEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -157,12 +165,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "UNION",
-                "name": "AnyContributor",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "AnyContributor",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -222,9 +238,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "UNION",
-              "name": "AnyContributor",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyContributor",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3045,12 +3065,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3061,12 +3089,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Collection",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Collection",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3233,12 +3269,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionContributionEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionContributionEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3249,12 +3293,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionContribution",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionContribution",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3314,9 +3366,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "CollectionContribution",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionContribution",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3353,9 +3409,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Collection",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Collection",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3510,12 +3570,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionLinkEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionLinkEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3526,12 +3594,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionLink",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionLink",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3591,9 +3667,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "CollectionLink",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionLink",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3771,12 +3851,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionLinkedItemEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionLinkedItemEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3787,12 +3875,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CollectionLinkedItem",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CollectionLinkedItem",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -3852,9 +3948,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "CollectionLinkedItem",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionLinkedItem",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4019,6 +4119,54 @@
                   "ofType": null
                 },
                 "defaultValue": "ROOTS_ONLY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -4283,12 +4431,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "CommunityEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CommunityEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -4299,12 +4455,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Community",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Community",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -4364,9 +4528,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Community",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Community",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7368,12 +7536,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ItemEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ItemEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7384,12 +7560,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Item",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Item",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7556,12 +7740,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ItemContributionEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ItemContributionEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7572,12 +7764,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ItemContribution",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ItemContribution",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7637,9 +7837,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "ItemContribution",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ItemContribution",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7676,9 +7880,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Item",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Item",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7833,12 +8041,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ItemLinkEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ItemLinkEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7849,12 +8065,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "ItemLink",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ItemLink",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -7914,9 +8138,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "ItemLink",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ItemLink",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -10979,12 +11207,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "RoleEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "RoleEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -10995,12 +11231,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Role",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -11060,9 +11304,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "Role",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Role",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -12469,12 +12717,20 @@
             "description": "A list of edges.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "UserEdge",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserEdge",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -12485,12 +12741,20 @@
             "description": "A list of nodes.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "User",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "User",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -12550,9 +12814,13 @@
             "description": "The item at the end of the edge.",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "User",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null

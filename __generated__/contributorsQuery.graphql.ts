@@ -18,7 +18,7 @@ export type contributorsQueryResponse = {
             readonly updatedAt?: string;
             readonly firstName?: string | null;
             readonly lastName?: string | null;
-        } | null> | null;
+        }>;
         readonly pageInfo: {
             readonly page: number | null;
             readonly perPage: number | null;

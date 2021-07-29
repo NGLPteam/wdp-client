@@ -30,7 +30,7 @@ export type itemsQueryResponse = {
                         } | null;
                     };
                 } | null;
-            } | null> | null;
+            }>;
             readonly pageInfo: {
                 readonly page: number | null;
                 readonly perPage: number | null;
