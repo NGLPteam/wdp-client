@@ -20,6 +20,7 @@
     "fix": "npm-run-all fix:*",
     "fix:js": "eslint --cache -c .eslintrcjs.js \"**/*.{js,jsx}\" --fix",
     "fix:ts": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix",
+    "types": "npx tsc --strict -w",
     "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
