@@ -3,19 +3,19 @@ const nextStylePathComponent = /\[[^/]+\]/g;
 export type BaseRoute = {
   name: string;
   path: string;
-  routes?: BaseRoute[];
   redirect?: string;
+  routes?: BaseRoute[];
 };
 
-export type Route<RouteName> = {
-  name: RouteName;
+type Route = {
+  name: string;
   identifiers: string[];
   path: string;
   regex: RegExp;
   redirect?: string;
 };
 
-class NextNamedRoutes<RouteName> {
+class NextNamedRoutes {
   constructor(baseRoutes?: BaseRoute[]) {
     // Recursively add base routes
     if (baseRoutes) {
@@ -26,16 +26,12 @@ class NextNamedRoutes<RouteName> {
   /**
    * All registered routes.
    */
-  routes: Route<RouteName>[] = [];
+  routes: Route[] = [];
 
   /**
    * Registers a named route. The path should be the filesystem path corresponding to the route.
    */
-  add(
-    name: RouteName,
-    path: string,
-    redirect?: string
-  ): NextNamedRoutes<RouteName> {
+  add(name: string, path: string, redirect?: string): NextNamedRoutes {
     if (!name || !path) {
       throw new Error(
         `Route requires a name and path. name: ${name}, path: ${path}`
@@ -60,7 +56,7 @@ class NextNamedRoutes<RouteName> {
    * Returns the currently active route (based on window.location)
    * Uses regex matching internally
    */
-  activeRoute(): Route<RouteName> {
+  activeRoute(): Route | null {
     const rn = this.findRouteByPath(window.location.pathname);
     if (!rn) {
       console.warn(
@@ -75,7 +71,7 @@ class NextNamedRoutes<RouteName> {
    * Returns metadata about a route given its name.
    * @param name The name of the route you want to find.
    */
-  findRouteByName(name: RouteName): Route<RouteName> | undefined {
+  findRouteByName(name: string): Route | undefined {
     return this.routes.find((route) => route.name === name);
   }
 
@@ -84,7 +80,7 @@ class NextNamedRoutes<RouteName> {
    * Uses regex matching internally.
    * @param path The path to search for.
    */
-  findRouteByPath(path: string): Route<RouteName> | undefined {
+  findRouteByPath(path: string): Route | undefined {
     return this.routes.find((route) => route.regex.test(path));
   }
 
@@ -93,10 +89,7 @@ class NextNamedRoutes<RouteName> {
    * @param name The route to render.
    * @param params The parameters that should be injected into the route
    */
-  pathnameForParams(
-    name: RouteName,
-    params: { [key: string]: string }
-  ): string {
+  pathnameForParams(name: string, params: { [key: string]: string }): string {
     const route = this.findRouteByName(name);
     if (!route) {
       throw new Error(`Could not find route: ${name}`);
@@ -114,7 +107,7 @@ class NextNamedRoutes<RouteName> {
       throw new Error(`No base routes defined`);
     }
 
-    const addRoute = ({ name, path, redirect, routes }) => {
+    const addRoute = ({ name, path, redirect, routes }: BaseRoute) => {
       this.add(name, path, redirect);
 
       if (routes) {
