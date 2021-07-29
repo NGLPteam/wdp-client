@@ -6,14 +6,10 @@ const MODEL_MAP = {
   CONTRIBUTOR: "contributors",
 };
 
-export function getModelSingular(value): string | null {
-  const model = Object.keys(MODEL_MAP).find(
-    (modelName) => modelName.toLowerCase() === value
-  );
-  return model || null;
-}
+export type ModelNames = keyof typeof MODEL_MAP;
 
-export function getModelPlural(name): string | null {
-  const key = name.toUpperCase();
-  return MODEL_MAP[key] || null;
+export function getModelPlural(name: Lowercase<ModelNames>): string | null {
+  const key = <Uppercase<ModelNames>>name.toUpperCase();
+  if (!Object.keys(MODEL_MAP).includes(key)) return null;
+  return MODEL_MAP[key];
 }

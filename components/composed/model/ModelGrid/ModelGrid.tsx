@@ -1,16 +1,22 @@
 import React, { useMemo } from "react";
-import { Row, TableToggleRowsSelectedProps } from "react-table";
 import Grid from "components/layout/Grid/Grid";
 import ModelGridItem from "./ModelGridItem";
+import { ModelTableGridProps } from "components/composed/model/ModelList";
 
-function ModelGrid<
-  T extends Record<string, unknown> = Record<string, unknown>
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
->({ rows, checkboxProps }: Props<T>) {
+function ModelGrid<T extends Record<string, unknown>>({
+  rows,
+  checkboxProps,
+  withRowSelection,
+}: Pick<
+  ModelTableGridProps<T>,
+  "rows" | "checkboxProps" | "withRowSelection"
+>) {
   const showCheckboxes = useMemo(
     () =>
-      checkboxProps && (checkboxProps.indeterminate || checkboxProps.checked),
-    [checkboxProps]
+      withRowSelection &&
+      checkboxProps &&
+      (checkboxProps.indeterminate || checkboxProps.checked),
+    [withRowSelection, checkboxProps]
   );
 
   return (
@@ -22,11 +28,6 @@ function ModelGrid<
       </>
     </Grid>
   );
-}
-
-interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
-  rows: Row<T>[];
-  checkboxProps: TableToggleRowsSelectedProps;
 }
 
 export default ModelGrid;

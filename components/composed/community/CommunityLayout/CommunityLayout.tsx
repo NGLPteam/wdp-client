@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { CommunityLayoutQuery } from "@/relay/CommunityLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
@@ -6,7 +6,7 @@ import { PageHeader } from "components/layout";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
-export default function CommunityLayout({ children }) {
+export default function CommunityLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { slug } = router.query;
 

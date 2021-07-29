@@ -1,11 +1,11 @@
-import { Store, RecordSource, Environment } from "relay-runtime";
+import { Environment, RecordSource, Store } from "relay-runtime";
 import "regenerator-runtime/runtime";
 import { DocumentContext } from "next/document";
 import {
-  RelayNetworkLayer,
-  urlMiddleware,
   authMiddleware,
+  RelayNetworkLayer,
   retryMiddleware,
+  urlMiddleware,
 } from "react-relay-network-modern/node8";
 import { SSRCookies } from "@react-keycloak/ssr";
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
@@ -21,20 +21,19 @@ export default function buildInitialEnvironment(
     relayServerSSR.getMiddleware(),
     (next) => async (req) => {
       try {
-        const response = await next(req);
-
-        return response;
+        return await next(req);
       } catch (err) {
         if (err?.res?.status === 401) {
-          ctx.res.writeHead(302, { Location: "/sign_in" });
-          ctx.res.end();
+          ctx?.res?.writeHead(302, { Location: "/sign_in" });
+          ctx?.res?.end();
+          return Promise.reject(Error("Invalid keycloak token."));
         } else {
           throw err;
         }
       }
     },
     urlMiddleware({
-      url: process.env.NEXT_PUBLIC_API_URL,
+      url: process.env.NEXT_PUBLIC_API_URL || "",
     }),
     retryMiddleware({
       statusCodes(statusCode) {
@@ -54,9 +53,9 @@ export default function buildInitialEnvironment(
           return token;
         }
 
-        return null;
+        return "";
       },
-      tokenRefreshPromise: async () => null,
+      tokenRefreshPromise: async () => "",
     }),
   ]);
 

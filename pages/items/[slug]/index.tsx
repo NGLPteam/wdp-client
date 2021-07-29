@@ -2,8 +2,9 @@ import React from "react";
 import { useRouter } from "next/router";
 import ItemLayout from "components/composed/item/ItemLayout";
 import { RouteHelper } from "routes";
+import { Page } from "types/page";
 
-export default function ItemDetail() {
+const ItemDetail: Page = () => {
   const router = useRouter();
   const activeRoute = RouteHelper.activeRoute();
 
@@ -14,8 +15,10 @@ export default function ItemDetail() {
   });
 
   return null;
-}
+};
 
 ItemDetail.getLayout = (page) => {
   return <ItemLayout>{page}</ItemLayout>;
 };
+
+export default ItemDetail;

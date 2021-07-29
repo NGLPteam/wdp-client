@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-// import type { NextLayoutComponentType } from "next";
 import Head from "next/head";
 import { AppContextProvider } from "contexts";
 
@@ -24,12 +23,12 @@ import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 
-function NGLPApp({
+const NGLPApp = ({
   Component,
   pageProps,
-  cookies,
+  cookies = {},
   records: r,
-}: AppProps & InitialProps) {
+}: AppProps & InitialProps) => {
   useSetLocale("en");
 
   useRemoveServerInjectedCSS();
@@ -76,18 +75,18 @@ function NGLPApp({
       </SSRKeycloakProvider>
     </React.Fragment>
   );
-}
+};
 
 NGLPApp.getInitialProps = async (context: AppContext) => {
   return {
-    cookies: parseCookies(context?.ctx?.req),
+    cookies: parseCookies(context?.ctx?.req) || {},
   };
 };
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 
 interface InitialProps {
-  cookies: unknown;
+  cookies?: Record<string, string>;
   records?: RecordMap;
   Component: Page;
 }
@@ -119,12 +118,12 @@ function useRemoveServerInjectedCSS() {
     const jssStyles = document.querySelector("#jss-server-side");
 
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles?.parentElement?.removeChild(jssStyles);
     }
   }, []);
 }
 
-function useDeserializeRecords(r: RecordMap | null): RecordMap {
+function useDeserializeRecords(r: RecordMap | null | undefined): RecordMap {
   return useMemo<RecordMap>(() => {
     if (r) return r;
 

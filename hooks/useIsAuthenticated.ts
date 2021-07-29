@@ -40,5 +40,5 @@ export default function useIsAuthenticated(): boolean | null {
     return null;
   }
 
-  return keycloak.authenticated;
+  return keycloak?.authenticated || false;
 }

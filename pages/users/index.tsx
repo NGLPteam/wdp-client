@@ -7,8 +7,8 @@ import {
 import UserList from "components/composed/user/UserList";
 
 import type { ExtractsConnection } from "types/graphql-helpers";
-
 type ConnectionType = QueryResponse["users"];
+type NodeType = ConnectionType["nodes"][number];
 
 export default function UserListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -17,7 +17,7 @@ export default function UserListView() {
   );
 
   return (
-    <UserList<Query, ConnectionType>
+    <UserList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}

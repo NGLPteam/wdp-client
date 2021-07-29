@@ -1,5 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function ContributorLayout({ children }) {
+export default function ContributorLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return <>{children}</>;
 }

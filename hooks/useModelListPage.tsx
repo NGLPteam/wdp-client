@@ -2,38 +2,47 @@ import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { PageInfo } from "types/graphql-schema";
-import { ModelTableActionProps } from "components/composed/model/ModelList/ModelList";
 import { useRouter } from "next/router";
 
 import type {
   ExtractsConnection,
-  ExtractConnectionNodeType,
   Connectionish,
   HasEdgesWithNode,
   HasNodes,
 } from "types/graphql-helpers";
-import { Column } from "react-table";
+import type { Column, ModelTableActionProps } from "react-table";
+import type { ModelListPageProps } from "components/composed/model/ModelListPage";
 
-interface ModelListArguments<
+interface UseModelListPageReturnProps<
+  T extends OperationType,
+  NodeType extends Record<string, unknown>
+> {
+  modelListProps: ModelListPageProps<NodeType>;
+  data: T["response"];
+  order: T["variables"]["order"];
+  page: number;
+}
+
+interface UseModelListPageProps<
   T extends OperationType,
   ConnectionType extends Connectionish,
-  U = ExtractConnectionNodeType<ConnectionType>
+  NodeType extends Record<string, unknown>
 > {
   query: GraphQLTaggedNode;
   queryVars?: Partial<T["variables"]>;
   defaultOrder: T["variables"]["order"];
   toConnection: ExtractsConnection<T, ConnectionType>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: Column<any>[];
+  columns: Column<NodeType>[];
   initialPage?: number;
-  handleEdit?: (props: ModelTableActionProps<U>) => void;
-  handleDelete?: (props: ModelTableActionProps<U>) => void;
+  handleEdit?: (props: ModelTableActionProps<NodeType>) => void;
+  handleDelete?: (props: ModelTableActionProps<NodeType>) => void;
   handleSelection?: (props: { selection: string[] }) => void;
 }
 
-export default function useModelList<
+export default function useModelListPage<
   T extends OperationType,
-  ConnectionType extends Connectionish
+  ConnectionType extends Connectionish,
+  NodeType extends Record<string, unknown>
 >({
   query,
   queryVars = {},
@@ -44,7 +53,11 @@ export default function useModelList<
   handleDelete,
   columns,
   handleSelection: originalHandleSelection,
-}: ModelListArguments<T, ConnectionType>) {
+}: UseModelListPageProps<
+  T,
+  ConnectionType,
+  NodeType
+>): UseModelListPageReturnProps<T, NodeType> {
   const router = useRouter();
   const routerPage = parseInt(router.query.page as string) || 1;
   const didMountRef = useRef(false);
@@ -86,14 +99,18 @@ export default function useModelList<
     [handleEdit, handleDelete]
   );
 
-  const connection = useMemo(() => toConnection(data), [toConnection, data]);
-  const models = useMemo(() => toEntities<ConnectionType>(connection), [
-    connection,
+  const connection = useMemo(() => toConnection(data) || null, [
+    toConnection,
+    data,
   ]);
+  const models = useMemo(
+    () => toEntities<ConnectionType, NodeType>(connection),
+    [connection]
+  );
   const pageInfo = useMemo(() => toPageInfo<ConnectionType>(connection), [
     connection,
   ]);
-  const memoizedColumns = useMemo(() => columns, [columns]);
+  const memoizedColumns = useMemo<Column<NodeType>[]>(() => columns, [columns]);
 
   const modelListProps = {
     error,
@@ -126,9 +143,10 @@ function connectionHasNodes(connection: any): connection is HasNodes {
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
-function toEntities<ConnectionType extends Connectionish>(
-  connection?: ConnectionType
-): readonly ExtractConnectionNodeType<ConnectionType>[] {
+function toEntities<
+  ConnectionType extends Connectionish,
+  NodeType extends Record<string, unknown>
+>(connection: ConnectionType | undefined | null): readonly NodeType[] {
   if (!connection) return [];
   if (connectionHasEdges(connection)) {
     return connection.edges.map(({ node }) => node);
@@ -140,7 +158,7 @@ function toEntities<ConnectionType extends Connectionish>(
 }
 
 function toPageInfo<ConnectionType extends Connectionish>(
-  connection?: ConnectionType
+  connection?: ConnectionType | undefined | null
 ): PageInfo | undefined {
   if (!connection) return undefined;
   return connection.pageInfo;

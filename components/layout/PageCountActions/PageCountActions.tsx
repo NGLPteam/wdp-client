@@ -15,7 +15,9 @@ const PageCountActions = ({
 }: Props) => {
   if (!pageInfo) return null;
   const hasSelected = selectedCount > 1;
-  const { page = 1, perPage = 10, totalCount = 0 } = pageInfo;
+  const page = pageInfo.page || 1;
+  const perPage = pageInfo.perPage || 10;
+  const totalCount = pageInfo.totalCount || 0;
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
   const end = totalCount < perPage ? totalCount : page * perPage;
 

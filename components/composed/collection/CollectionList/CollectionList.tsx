@@ -1,18 +1,35 @@
 import React from "react";
-import useModelList from "hooks/useModelList";
+import useModelListPage from "hooks/useModelListPage";
 import { columns } from "components/composed/model/ModelList";
 import { ModelListPage } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import {
-  Connectionish,
-  ExtractsConnection,
-  ExtractConnectionNodeType,
-} from "types/graphql-helpers";
+import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+
+interface Png {
+  alt: string;
+  url: string;
+}
+
+interface Image {
+  png?: Png | null;
+}
+
+interface Thumbnail {
+  image?: Image | null;
+}
+
+interface CollectionNode extends Record<string, unknown> {
+  createdAt: string;
+  updatedAt: string;
+  thumbnail?: Thumbnail | null;
+  slug: string;
+}
 
 function CollectionList<
   Query extends OperationType,
-  ConnectionType extends Connectionish
+  ConnectionType extends Connectionish,
+  NodeType extends CollectionNode
 >({
   query,
   queryVars = {},
@@ -24,7 +41,7 @@ function CollectionList<
   toConnection: ExtractsConnection<Query, ConnectionType>;
   defaultOrder: Query["variables"]["order"];
 }) {
-  const { modelListProps } = useModelList<Query, ConnectionType>({
+  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
     query,
     queryVars,
     defaultOrder,
@@ -33,16 +50,16 @@ function CollectionList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
-      columns.thumbnail,
-      columns.nameFactory("collection", "title", "title"),
-      columns.createdAt,
-      columns.updatedAt,
+      columns.thumbnail<NodeType>(),
+      columns.name<NodeType>({ route: "collection", accessor: "title" }),
+      columns.createdAt<NodeType>(),
+      columns.updatedAt<NodeType>(),
     ],
   });
 
   return (
     <>
-      <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
+      <ModelListPage<NodeType>
         modelName="collection"
         defaultView={DataViewOptions.grid}
         {...modelListProps}

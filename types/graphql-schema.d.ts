@@ -39,9 +39,9 @@ export type AnyContributor = OrganizationContributor | PersonContributor | { __t
 export type AnyContributorConnection = Paginated & {
   __typename?: 'AnyContributorConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<AnyContributorEdge>>>;
+  edges: Array<AnyContributorEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<AnyContributor>>>;
+  nodes: Array<AnyContributor>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -52,7 +52,7 @@ export type AnyContributorEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<AnyContributor>;
+  node: AnyContributor;
 };
 
 /** A hierarchical entity type */
@@ -321,9 +321,9 @@ export type CollectionLinksArgs = {
 export type CollectionConnection = Paginated & {
   __typename?: 'CollectionConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<CollectionEdge>>>;
+  edges: Array<CollectionEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Collection>>>;
+  nodes: Array<Collection>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -343,9 +343,9 @@ export type CollectionContribution = Contribution & Node & Sluggable & {
 export type CollectionContributionConnection = Paginated & {
   __typename?: 'CollectionContributionConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<CollectionContributionEdge>>>;
+  edges: Array<CollectionContributionEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<CollectionContribution>>>;
+  nodes: Array<CollectionContribution>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -356,7 +356,7 @@ export type CollectionContributionEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<CollectionContribution>;
+  node: CollectionContribution;
 };
 
 /** An edge in a connection. */
@@ -365,7 +365,7 @@ export type CollectionEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<Collection>;
+  node: Collection;
 };
 
 export type CollectionLink = Node & Sluggable & {
@@ -383,9 +383,9 @@ export type CollectionLink = Node & Sluggable & {
 export type CollectionLinkConnection = Paginated & {
   __typename?: 'CollectionLinkConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<CollectionLinkEdge>>>;
+  edges: Array<CollectionLinkEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<CollectionLink>>>;
+  nodes: Array<CollectionLink>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -396,7 +396,7 @@ export type CollectionLinkEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<CollectionLink>;
+  node: CollectionLink;
 };
 
 export type CollectionLinkOperator =
@@ -419,9 +419,9 @@ export type CollectionLinkedItem = Node & Sluggable & {
 export type CollectionLinkedItemConnection = Paginated & {
   __typename?: 'CollectionLinkedItemConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<CollectionLinkedItemEdge>>>;
+  edges: Array<CollectionLinkedItemEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<CollectionLinkedItem>>>;
+  nodes: Array<CollectionLinkedItem>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -432,7 +432,7 @@ export type CollectionLinkedItemEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<CollectionLinkedItem>;
+  node: CollectionLinkedItem;
 };
 
 export type CollectionLinkedItemOperator =
@@ -476,6 +476,10 @@ export type Community = Entity & Node & Sluggable & {
 export type CommunityCollectionsArgs = {
   order?: Maybe<SimpleOrder>;
   nodeFilter?: Maybe<TreeNodeFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Scalars['Int'];
@@ -485,9 +489,9 @@ export type CommunityCollectionsArgs = {
 export type CommunityConnection = Paginated & {
   __typename?: 'CommunityConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<CommunityEdge>>>;
+  edges: Array<CommunityEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Community>>>;
+  nodes: Array<Community>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -498,7 +502,7 @@ export type CommunityEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<Community>;
+  node: Community;
 };
 
 /** Something that can be contributed to */
@@ -884,9 +888,9 @@ export type ItemLinksArgs = {
 export type ItemConnection = Paginated & {
   __typename?: 'ItemConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<ItemEdge>>>;
+  edges: Array<ItemEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Item>>>;
+  nodes: Array<Item>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -906,9 +910,9 @@ export type ItemContribution = Contribution & Node & Sluggable & {
 export type ItemContributionConnection = Paginated & {
   __typename?: 'ItemContributionConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<ItemContributionEdge>>>;
+  edges: Array<ItemContributionEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<ItemContribution>>>;
+  nodes: Array<ItemContribution>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -919,7 +923,7 @@ export type ItemContributionEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<ItemContribution>;
+  node: ItemContribution;
 };
 
 /** An edge in a connection. */
@@ -928,7 +932,7 @@ export type ItemEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<Item>;
+  node: Item;
 };
 
 export type ItemLink = Node & Sluggable & {
@@ -946,9 +950,9 @@ export type ItemLink = Node & Sluggable & {
 export type ItemLinkConnection = Paginated & {
   __typename?: 'ItemLinkConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<ItemLinkEdge>>>;
+  edges: Array<ItemLinkEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<ItemLink>>>;
+  nodes: Array<ItemLink>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -959,7 +963,7 @@ export type ItemLinkEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<ItemLink>;
+  node: ItemLink;
 };
 
 export type ItemLinkOperator =
@@ -1260,7 +1264,7 @@ export type Query = {
   /** A list of all users in the system */
   users: UserConnection;
   /** The currently authenticated user. AKA: you */
-  viewer?: Maybe<User>;
+  viewer: User;
 };
 
 
@@ -1435,9 +1439,9 @@ export type Role = Node & Sluggable & {
 export type RoleConnection = Paginated & {
   __typename?: 'RoleConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<RoleEdge>>>;
+  edges: Array<RoleEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<Role>>>;
+  nodes: Array<Role>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -1448,7 +1452,7 @@ export type RoleEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<Role>;
+  node: Role;
 };
 
 export type SimpleOrder =
@@ -1561,6 +1565,7 @@ export type User = ExposesPermissions & Node & Sluggable & {
   __typename?: 'User';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  anonymous: Scalars['Boolean'];
   collections: CollectionConnection;
   communities: CommunityConnection;
   createdAt: Scalars['ISO8601DateTime'];
@@ -1626,9 +1631,9 @@ export type UserItemsArgs = {
 export type UserConnection = Paginated & {
   __typename?: 'UserConnection';
   /** A list of edges. */
-  edges?: Maybe<Array<Maybe<UserEdge>>>;
+  edges: Array<UserEdge>;
   /** A list of nodes. */
-  nodes?: Maybe<Array<Maybe<User>>>;
+  nodes: Array<User>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
 };
@@ -1639,7 +1644,7 @@ export type UserEdge = {
   /** A cursor for use in pagination. */
   cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  node?: Maybe<User>;
+  node: User;
 };
 
 /** A user-readable error */
@@ -1734,8 +1739,8 @@ export type ResolversTypes = {
   AnyAsset: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'];
   AnyAttachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   AnyContributor: ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'];
-  AnyContributorConnection: ResolverTypeWrapper<Omit<AnyContributorConnection, 'nodes'> & { nodes?: Maybe<Array<Maybe<ResolversTypes['AnyContributor']>>> }>;
-  AnyContributorEdge: ResolverTypeWrapper<Omit<AnyContributorEdge, 'node'> & { node?: Maybe<ResolversTypes['AnyContributor']> }>;
+  AnyContributorConnection: ResolverTypeWrapper<Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyContributor']> }>;
+  AnyContributorEdge: ResolverTypeWrapper<Omit<AnyContributorEdge, 'node'> & { node: ResolversTypes['AnyContributor'] }>;
   String: ResolverTypeWrapper<Scalars['String']>;
   AnyEntity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   Asset: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'];
@@ -1850,8 +1855,8 @@ export type ResolversParentTypes = {
   AnyAsset: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'];
   AnyAttachable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   AnyContributor: ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'];
-  AnyContributorConnection: Omit<AnyContributorConnection, 'nodes'> & { nodes?: Maybe<Array<Maybe<ResolversParentTypes['AnyContributor']>>> };
-  AnyContributorEdge: Omit<AnyContributorEdge, 'node'> & { node?: Maybe<ResolversParentTypes['AnyContributor']> };
+  AnyContributorConnection: Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyContributor']> };
+  AnyContributorEdge: Omit<AnyContributorEdge, 'node'> & { node: ResolversParentTypes['AnyContributor'] };
   String: Scalars['String'];
   AnyEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   Asset: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'];
@@ -1967,15 +1972,15 @@ export type AnyContributorResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type AnyContributorConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyContributorConnection'] = ResolversParentTypes['AnyContributorConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['AnyContributorEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['AnyContributor']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['AnyContributorEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['AnyContributor']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type AnyContributorEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyContributorEdge'] = ResolversParentTypes['AnyContributorEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['AnyContributor'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2134,8 +2139,8 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type CollectionConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionConnection'] = ResolversParentTypes['CollectionConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Collection']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['CollectionEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Collection']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -2151,21 +2156,21 @@ export type CollectionContributionResolvers<ContextType = any, ParentType extend
 };
 
 export type CollectionContributionConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionContributionConnection'] = ResolversParentTypes['CollectionContributionConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionContributionEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionContribution']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['CollectionContributionEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['CollectionContribution']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CollectionContributionEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionContributionEdge'] = ResolversParentTypes['CollectionContributionEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['CollectionContribution']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['CollectionContribution'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CollectionEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionEdge'] = ResolversParentTypes['CollectionEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2181,15 +2186,15 @@ export type CollectionLinkResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type CollectionLinkConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionLinkConnection'] = ResolversParentTypes['CollectionLinkConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionLinkEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionLink']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['CollectionLinkEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['CollectionLink']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CollectionLinkEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionLinkEdge'] = ResolversParentTypes['CollectionLinkEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['CollectionLink']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['CollectionLink'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2205,15 +2210,15 @@ export type CollectionLinkedItemResolvers<ContextType = any, ParentType extends 
 };
 
 export type CollectionLinkedItemConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionLinkedItemConnection'] = ResolversParentTypes['CollectionLinkedItemConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionLinkedItemEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['CollectionLinkedItem']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['CollectionLinkedItemEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['CollectionLinkedItem']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CollectionLinkedItemEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CollectionLinkedItemEdge'] = ResolversParentTypes['CollectionLinkedItemEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['CollectionLinkedItem']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['CollectionLinkedItem'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2242,15 +2247,15 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type CommunityConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommunityConnection'] = ResolversParentTypes['CommunityConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['CommunityEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Community']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['CommunityEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Community']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type CommunityEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommunityEdge'] = ResolversParentTypes['CommunityEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2416,8 +2421,8 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type ItemConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemConnection'] = ResolversParentTypes['ItemConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ItemEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Item']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['ItemEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Item']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -2433,21 +2438,21 @@ export type ItemContributionResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type ItemContributionConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemContributionConnection'] = ResolversParentTypes['ItemContributionConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ItemContributionEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ItemContribution']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['ItemContributionEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['ItemContribution']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ItemContributionEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemContributionEdge'] = ResolversParentTypes['ItemContributionEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['ItemContribution']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['ItemContribution'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ItemEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemEdge'] = ResolversParentTypes['ItemEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Item'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2463,15 +2468,15 @@ export type ItemLinkResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ItemLinkConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemLinkConnection'] = ResolversParentTypes['ItemLinkConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['ItemLinkEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ItemLink']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['ItemLinkEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['ItemLink']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ItemLinkEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ItemLinkEdge'] = ResolversParentTypes['ItemLinkEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['ItemLink']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['ItemLink'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2601,7 +2606,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, RequireFields<QueryNodesArgs, 'ids'>>;
   roles?: Resolver<ResolversTypes['RoleConnection'], ParentType, ContextType, RequireFields<QueryRolesArgs, 'order'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
-  viewer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
 
 export type ReparentCollectionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReparentCollectionPayload'] = ResolversParentTypes['ReparentCollectionPayload']> = {
@@ -2642,15 +2647,15 @@ export type RoleResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type RoleConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['RoleConnection'] = ResolversParentTypes['RoleConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['RoleEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Role']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['RoleEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type RoleEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['RoleEdge'] = ResolversParentTypes['RoleEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Role'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -2697,6 +2702,7 @@ export type UpdateRolePayloadResolvers<ContextType = any, ParentType extends Res
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  anonymous?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<UserCollectionsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<UserCommunitiesArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -2714,15 +2720,15 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type UserConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserConnection'] = ResolversParentTypes['UserConnection']> = {
-  edges?: Resolver<Maybe<Array<Maybe<ResolversTypes['UserEdge']>>>, ParentType, ContextType>;
-  nodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['UserEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserEdge'] = ResolversParentTypes['UserEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -11,14 +11,23 @@ export type contributorsQueryVariables = {
 export type contributorsQueryResponse = {
     readonly contributors: {
         readonly nodes: ReadonlyArray<{
-            readonly __typename: string;
-            readonly slug?: string;
-            readonly name?: string | null;
-            readonly createdAt?: string;
-            readonly updatedAt?: string;
-            readonly firstName?: string | null;
-            readonly lastName?: string | null;
-        } | null> | null;
+            readonly __typename: "OrganizationContributor";
+            readonly slug: string;
+            readonly name: string | null;
+            readonly createdAt: string;
+            readonly updatedAt: string;
+        } | {
+            readonly __typename: "PersonContributor";
+            readonly slug: string;
+            readonly firstName: string | null;
+            readonly lastName: string | null;
+            readonly createdAt: string;
+            readonly updatedAt: string;
+        } | {
+            /*This will never be '%other', but we need some
+            value in case none of the concrete values match.*/
+            readonly __typename: "%other";
+        }>;
         readonly pageInfo: {
             readonly page: number | null;
             readonly perPage: number | null;
@@ -46,19 +55,17 @@ query contributorsQuery(
     nodes {
       __typename
       ... on OrganizationContributor {
+        slug
         name: legalName
         createdAt
         updatedAt
       }
       ... on PersonContributor {
+        slug
         firstName: givenName
         lastName: familyName
         createdAt
         updatedAt
-      }
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
       }
       ... on Node {
         __isNode: __typename
@@ -119,19 +126,27 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "createdAt",
+  "name": "slug",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "updatedAt",
+  "name": "createdAt",
   "storageKey": null
 },
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v6 = {
   "kind": "InlineFragment",
   "selections": [
+    (v3/*: any*/),
     {
       "alias": "name",
       "args": null,
@@ -139,15 +154,16 @@ v5 = {
       "name": "legalName",
       "storageKey": null
     },
-    (v3/*: any*/),
-    (v4/*: any*/)
+    (v4/*: any*/),
+    (v5/*: any*/)
   ],
   "type": "OrganizationContributor",
   "abstractKey": null
 },
-v6 = {
+v7 = {
   "kind": "InlineFragment",
   "selections": [
+    (v3/*: any*/),
     {
       "alias": "firstName",
       "args": null,
@@ -162,25 +178,11 @@ v6 = {
       "name": "familyName",
       "storageKey": null
     },
-    (v3/*: any*/),
-    (v4/*: any*/)
+    (v4/*: any*/),
+    (v5/*: any*/)
   ],
   "type": "PersonContributor",
   "abstractKey": null
-},
-v7 = {
-  "kind": "InlineFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    }
-  ],
-  "type": "Sluggable",
-  "abstractKey": "__isSluggable"
 },
 v8 = {
   "alias": null,
@@ -266,7 +268,6 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/)
             ],
@@ -303,7 +304,6 @@ return {
             "plural": true,
             "selections": [
               (v2/*: any*/),
-              (v5/*: any*/),
               (v6/*: any*/),
               (v7/*: any*/),
               {
@@ -330,14 +330,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d06b77e856b7367b915da34c79ade802",
+    "cacheID": "456a9c0cd35b8c6803f303eec2c63076",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        slug\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd0bff0073ce776074ffd2b1f547895a5';
+(node as any).hash = '445852d78d860ae7cbee9fb1b497379a';
 export default node;

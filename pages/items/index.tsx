@@ -9,6 +9,7 @@ import ItemList from "components/composed/item/ItemList";
 import type { ExtractsConnection } from "types/graphql-helpers";
 
 type ConnectionType = QueryResponse["viewer"]["items"];
+type NodeType = ConnectionType["nodes"][number];
 
 export default function ItemListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -17,7 +18,7 @@ export default function ItemListView() {
   );
 
   return (
-    <ItemList<Query, ConnectionType>
+    <ItemList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}

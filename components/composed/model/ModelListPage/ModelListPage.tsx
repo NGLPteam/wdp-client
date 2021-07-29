@@ -17,10 +17,20 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 import ModelAddButton from "../ModelAddButton/ModelAddButton";
 import { useWindowSize } from "hooks";
 import { breakpoints } from "theme/base/variables";
+import type { ModelNames } from "helpers/models";
+import { ModelListProps } from "components/composed/model/ModelList";
 
-type ModelDataProps = React.ComponentProps<typeof ModelList>;
+export interface ModelListPageProps<T extends Record<string, unknown>>
+  extends Omit<ModelListProps<T>, "title" | "selectedView"> {
+  isLoading?: boolean;
+  error?: { name: string; message: string } | null;
+  modelName?: Lowercase<ModelNames>;
+  pageInfo?: PageInfo;
+  defaultView?: DataViewOptions;
+  hideViewToggle?: boolean;
+}
 
-function ModelListPage<T>({
+function ModelListPage<T extends Record<string, unknown>>({
   isLoading,
   error,
   modelName,
@@ -66,7 +76,7 @@ function ModelListPage<T>({
       {title && (
         <PageHeader
           title={startCase(title)}
-          buttons={<ModelAddButton modelName={modelName} />}
+          buttons={modelName && <ModelAddButton modelName={modelName} />}
         />
       )}
       {isLoading ? (
@@ -76,13 +86,14 @@ function ModelListPage<T>({
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
             actions={
-              !(hideViewToggle || isMobile) && (
+              (!(hideViewToggle || isMobile) && (
                 <DataViewToggle
                   selectedView={view}
                   controlsID="id"
                   onClick={handleViewToggle}
                 />
-              )
+              )) ||
+              undefined
             }
           />
           {pageInfo && models && models.length > 0 && (
@@ -117,23 +128,6 @@ function ModelListPage<T>({
       )}
     </section>
   );
-}
-
-// TODO: Either extend ModelTable (and potentially ModelGrid), or
-// Create an Model context rather than passing data down multiple levels of components
-
-// The generic type is consumed by ModelDataProps
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListPageProps<T>
-  extends Omit<ModelDataProps, "title" | "selectedView"> {
-  isLoading?: boolean;
-  error?: { name: string; message: string };
-  modelName?: string;
-  pageInfo?: PageInfo;
-  /** Set the default view (grid/table) */
-  defaultView?: DataViewOptions;
-  /** Hide the grid/table view toggle */
-  hideViewToggle?: boolean;
 }
 
 export default ModelListPage;

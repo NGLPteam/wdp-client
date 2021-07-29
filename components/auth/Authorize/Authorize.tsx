@@ -9,7 +9,7 @@ import { useIsAuthorized } from "hooks";
  */
 export default function Authorize({
   children,
-  actions,
+  actions = null,
   allowedActions,
 }: Props) {
   const isAuthorized = useIsAuthorized({ actions, allowedActions });
@@ -19,6 +19,6 @@ export default function Authorize({
 
 interface Props {
   children: JSX.Element;
-  actions: string | string[] | null;
+  actions?: string | string[] | null;
   allowedActions?: string[] | readonly string[];
 }

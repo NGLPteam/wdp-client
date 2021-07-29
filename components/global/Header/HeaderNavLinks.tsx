@@ -3,42 +3,79 @@ import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import { RouteHelper } from "routes";
+type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
+type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
-const HeaderNavLinks = ({ navigation }) => {
+interface HeaderNavItem {
+  label: string;
+  actions?: AuthorizeProps["actions"];
+}
+
+interface HeaderNavLink extends HeaderNavItem {
+  route: NamedLinkProps["route"];
+  children?: never;
+}
+
+interface HeaderNavParent extends HeaderNavItem {
+  route?: never;
+  children: HeaderNavLink[];
+}
+
+interface Props {
+  navigation: (HeaderNavLink | HeaderNavParent)[];
+}
+
+function HeaderNavLinks({ navigation }: Props) {
   const { t } = useTranslation("common");
-  const { pathname } = useRouter();
 
-  const renderLink = (child) => {
-    const active = pathname.indexOf(child.route) === 1;
-
+  const maybeAuthorize = (
+    node: AuthorizeProps["children"],
+    item: HeaderNavLink | HeaderNavParent
+  ) => {
+    if (!item.actions) return node;
     return (
-      <NamedLink route={child.route} passHref>
-        <Styled.Link active={active}>{t(child.label)}</Styled.Link>
+      <Authorize key={item.label} actions={item.actions}>
+        {node}
+      </Authorize>
+    );
+  };
+
+  const renderDropdown = (item: HeaderNavParent) => {
+    return (
+      <Dropdown
+        label={t(item.label)}
+        disclosure={<Styled.Link as="button">{t(item.label)}</Styled.Link>}
+        menuItems={item.children.map(renderLink)}
+        isDarkMode
+      />
+    );
+  };
+
+  const renderLink = (item: HeaderNavLink) => {
+    const activeRoute = RouteHelper.activeRoute();
+    // TODO: We need a more sophisticated active match here. With this approach, the manage dropdown would not be active for /manage/users
+    const active = activeRoute?.name === item.route;
+    return (
+      <NamedLink route={item.route} passHref>
+        <Styled.Link active={active}>{t(item.label)}</Styled.Link>
       </NamedLink>
     );
   };
 
-  return navigation.map((child, i) =>
-    child.children ? (
-      <Authorize actions={child.actions} key={i}>
-        <Styled.Item>
-          <Dropdown
-            label={t(child.label)}
-            disclosure={<Styled.Link as="button">{t(child.label)}</Styled.Link>}
-            menuItems={child.children.map(renderLink)}
-            isDarkMode
-          />
-        </Styled.Item>
-      </Authorize>
-    ) : child.actions ? (
-      <Authorize actions={child.actions} key={i}>
-        <Styled.Item>{renderLink(child)}</Styled.Item>
-      </Authorize>
-    ) : (
-      <Styled.Item key={i}>{renderLink(child)}</Styled.Item>
-    )
+  return (
+    <>
+      {navigation.map((item) =>
+        maybeAuthorize(
+          <Styled.Item key={item.label}>
+            {item.children && renderDropdown(item)}
+            {item.route && renderLink(item)}
+          </Styled.Item>,
+          item
+        )
+      )}
+    </>
   );
-};
+}
 
 export default HeaderNavLinks;

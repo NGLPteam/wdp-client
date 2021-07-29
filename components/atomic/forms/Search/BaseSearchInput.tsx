@@ -32,8 +32,7 @@ function SearchInput({ className, inputRef }: Props) {
 
 interface Props {
   className?: string;
-  inputRef: React.RefObject<HTMLInputElement>;
-  isDark?: boolean;
+  inputRef?: React.MutableRefObject<HTMLInputElement | undefined>;
 }
 
 export default SearchInput;

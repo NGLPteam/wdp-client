@@ -7,8 +7,8 @@ import type { KeycloakInstance } from "keycloak-js";
  *
  * @returns
  */
-export default function useAuthenticatedFetchKey(): string | null {
+export default function useAuthenticatedFetchKey(): string | undefined {
   const { keycloak } = useKeycloak<KeycloakInstance>();
 
-  return useMemo(() => keycloak.idToken, [keycloak.idToken]);
+  return useMemo(() => keycloak?.idToken, [keycloak?.idToken]);
 }

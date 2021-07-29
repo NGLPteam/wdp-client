@@ -8,7 +8,7 @@ export type ViewerContextQueryResponse = {
     readonly viewer: {
         readonly name: string | null;
         readonly allowedActions: ReadonlyArray<string>;
-    } | null;
+    };
 };
 export type ViewerContextQuery = {
     readonly response: ViewerContextQueryResponse;

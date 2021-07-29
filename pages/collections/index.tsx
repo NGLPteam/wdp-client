@@ -9,6 +9,7 @@ import CollectionList from "components/composed/collection/CollectionList";
 import type { ExtractsConnection } from "types/graphql-helpers";
 
 type ConnectionType = QueryResponse["viewer"]["collections"];
+type NodeType = ConnectionType["nodes"][number];
 
 export default function CollectionListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -17,7 +18,7 @@ export default function CollectionListView() {
   );
 
   return (
-    <CollectionList<Query, ConnectionType>
+    <CollectionList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}
