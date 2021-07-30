@@ -9,9 +9,10 @@ import * as Styled from "./Dropdown.styles";
 function Dropdown({ disclosure, menuItems, label, isDarkMode }: Props) {
   const submenu = (
     <Styled.List className={isDarkMode ? "a-bg-brand90" : "a-bg-brand10"}>
-      {menuItems.map((item, i) => (
-        <Styled.Item key={i}>{React.cloneElement(item)}</Styled.Item>
-      ))}
+      {menuItems.map((item, i) => {
+        if (item === null) return null;
+        return <Styled.Item key={i}>{React.cloneElement(item)}</Styled.Item>;
+      })}
     </Styled.List>
   );
 
@@ -29,7 +30,7 @@ function Dropdown({ disclosure, menuItems, label, isDarkMode }: Props) {
 
 interface Props {
   disclosure: JSX.Element;
-  menuItems: JSX.Element[];
+  menuItems: (JSX.Element | null)[];
   label: string;
   isDarkMode?: boolean;
 }

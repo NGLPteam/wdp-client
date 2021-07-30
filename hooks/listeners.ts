@@ -1,27 +1,38 @@
-import { useEffect } from "react";
+import { SyntheticEvent, RefObject, useEffect } from "react";
 
-export const useEventListener = (event, callback) => {
+export const useEventListener = (
+  event: keyof HTMLElementEventMap,
+  callback: EventListenerOrEventListenerObject
+) => {
   useEffect(() => {
     window.addEventListener(event, callback);
     return () => window.removeEventListener(event, callback);
   }, [event, callback]);
 };
 
-export const useKeyDownEvent = (callback) => {
+export const useKeyDownEvent = (
+  callback: EventListenerOrEventListenerObject
+) => {
   useEventListener("keydown", callback);
 };
 
-export const useClickEvent = (callback) => {
+export const useClickEvent = (callback: EventListenerOrEventListenerObject) => {
   useEventListener("click", callback);
 };
 
 // Hook
-export const useOnClickOutside = (ref, handler) => {
+export const useOnClickOutside = <T extends HTMLElement>(
+  ref: RefObject<T>,
+  handler: EventListener
+) => {
   useEffect(
     () => {
-      const listener = (event) => {
+      const listener = (event: Event) => {
         // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref?.current?.contains(event.target)) {
+        if (
+          !ref.current ||
+          (event.target instanceof Node && ref?.current.contains(event.target))
+        ) {
           return;
         }
 

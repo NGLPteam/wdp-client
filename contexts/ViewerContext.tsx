@@ -24,7 +24,7 @@ function ViewerContextProvider({ children }: Props) {
 }
 
 interface ViewerContextProps {
-  name?: string;
+  name?: string | null;
   allowedActions: readonly string[];
 }
 

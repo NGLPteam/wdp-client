@@ -8,7 +8,7 @@ export default function SignIn() {
   const visible = useVisibleToUnauthenticated();
 
   const signIn = useCallback(() => {
-    keycloak.login();
+    keycloak?.login();
   }, [keycloak]);
 
   if (!visible) {

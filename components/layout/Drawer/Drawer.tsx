@@ -23,12 +23,12 @@ const Drawer = ({
   const { t } = useTranslation("common");
 
   const handleSave = () => {
-    dialog.hide();
+    if (dialog && dialog.hide) dialog.hide();
     if (onSave) onSave();
   };
 
   const handleClose = () => {
-    dialog.hide();
+    if (dialog && dialog.hide) dialog.hide();
     if (onClose) onClose();
   };
 

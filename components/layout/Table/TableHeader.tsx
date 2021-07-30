@@ -42,7 +42,7 @@ function TableHeader({
                   <Styled.HeaderCellInner>
                     {column.render("Header")}
                     {column.isSorted && (
-                      <TableSortButton desc={column.isSortedDesc} />
+                      <TableSortButton desc={column.isSortedDesc || null} />
                     )}
                   </Styled.HeaderCellInner>
                 </Styled.HeaderCell>

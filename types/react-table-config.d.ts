@@ -21,7 +21,7 @@ declare module "react-table" {
   // https://www.typescriptlang.org/docs/handbook/declaration-merging.html
   export interface TableOptions<
     D extends Record<string, unknown>
-  > extends UseRowSelectOptions<D>,
+  > extends Partial<UseRowSelectOptions<D>>,
       UseSortByOptions<D>,
       // note that having Record here allows you to add anything to the options, this
       // matches the spirit of the underlying js library, but might be cleaner if it's
@@ -33,17 +33,17 @@ declare module "react-table" {
 
   export interface Hooks<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectHooks<D>,
+  > extends Partial<UseRowSelectHooks<D>>,
       UseSortByHooks<D> {}
 
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectInstanceProps<D>,
+  > extends Partial<UseRowSelectInstanceProps<D>>,
       UseSortByInstanceProps<D> {}
 
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectState<D>,
+  > extends Partial<UseRowSelectState<D>>,
       UseSortByState<D> {}
 
   export interface ColumnInterface<
@@ -63,6 +63,6 @@ declare module "react-table" {
 
   export interface Row<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseRowSelectRowProps<D> {}
+  > extends Partial<UseRowSelectRowProps<D>> {}
 }
 /* eslint-enable @typescript-eslint/no-empty-interface, @typescript-eslint/no-explicit-any */
