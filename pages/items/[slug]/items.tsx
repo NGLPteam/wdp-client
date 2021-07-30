@@ -7,13 +7,14 @@ import {
 import ItemList from "components/composed/item/ItemList";
 import ItemLayout from "components/composed/item/ItemLayout";
 
+import { Page } from "types/page";
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = QueryResponse["item"]["items"];
 
-export default function ItemChildItems() {
+const ItemChildItems: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -30,11 +31,13 @@ export default function ItemChildItems() {
       toConnection={toConnection}
     />
   );
-}
+};
 
 ItemChildItems.getLayout = (page) => {
   return <ItemLayout>{page}</ItemLayout>;
 };
+
+export default ItemChildItems;
 
 const query = graphql`
   query itemsItemChildQuery(

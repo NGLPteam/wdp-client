@@ -9,7 +9,7 @@ export type UserDebugQueryResponse = {
         readonly id: string;
         readonly email: string | null;
         readonly name: string | null;
-    } | null;
+    };
 };
 export type UserDebugQuery = {
     readonly response: UserDebugQueryResponse;

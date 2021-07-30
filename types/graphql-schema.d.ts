@@ -1264,7 +1264,7 @@ export type Query = {
   /** A list of all users in the system */
   users: UserConnection;
   /** The currently authenticated user. AKA: you */
-  viewer?: Maybe<User>;
+  viewer: User;
 };
 
 
@@ -1565,6 +1565,7 @@ export type User = ExposesPermissions & Node & Sluggable & {
   __typename?: 'User';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  anonymous: Scalars['Boolean'];
   collections: CollectionConnection;
   communities: CommunityConnection;
   createdAt: Scalars['ISO8601DateTime'];
@@ -2605,7 +2606,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, RequireFields<QueryNodesArgs, 'ids'>>;
   roles?: Resolver<ResolversTypes['RoleConnection'], ParentType, ContextType, RequireFields<QueryRolesArgs, 'order'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
-  viewer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
 
 export type ReparentCollectionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReparentCollectionPayload'] = ResolversParentTypes['ReparentCollectionPayload']> = {
@@ -2701,6 +2702,7 @@ export type UpdateRolePayloadResolvers<ContextType = any, ParentType extends Res
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  anonymous?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<UserCollectionsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<UserCommunitiesArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;

@@ -2,8 +2,9 @@ import React from "react";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { useRouter } from "next/router";
 import { RouteHelper } from "routes";
+import { Page } from "types/page";
 
-export default function CollectionDetail() {
+const CollectionDetail: Page = () => {
   const router = useRouter();
   const activeRoute = RouteHelper.activeRoute();
 
@@ -14,8 +15,10 @@ export default function CollectionDetail() {
   });
 
   return null;
-}
+};
 
 CollectionDetail.getLayout = (page) => {
   return <CollectionLayout>{page}</CollectionLayout>;
 };
+
+export default CollectionDetail;

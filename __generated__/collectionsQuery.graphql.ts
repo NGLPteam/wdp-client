@@ -42,7 +42,7 @@ export type collectionsQueryResponse = {
                 readonly totalUnfilteredCount: number;
             };
         };
-    } | null;
+    };
 };
 export type collectionsQuery = {
     readonly response: collectionsQueryResponse;

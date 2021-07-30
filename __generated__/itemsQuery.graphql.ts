@@ -41,7 +41,7 @@ export type itemsQueryResponse = {
                 readonly totalUnfilteredCount: number;
             };
         };
-    } | null;
+    };
 };
 export type itemsQuery = {
     readonly response: itemsQueryResponse;

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { ErrorMessage } from "components/atomic";
+import { Page } from "types/page";
 
-function Error({ statusCode }) {
+interface Props {
+  statusCode?: number;
+}
+
+const Error: Page<Props> = ({ statusCode }) => {
   const message = (
     <p>
       {statusCode
@@ -15,7 +20,7 @@ function Error({ statusCode }) {
       <ErrorMessage message={message} name={`${statusCode || ""} Error`} />
     </div>
   );
-}
+};
 
 Error.getInitialProps = ({ res, err }) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;

@@ -8,12 +8,13 @@ import {
 import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 
+import { Page } from "types/page";
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = QueryResponse["community"]["collections"];
 
-export default function CommunityChildCollections() {
+const CommunityChildCollections: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -30,11 +31,13 @@ export default function CommunityChildCollections() {
       toConnection={toConnection}
     />
   );
-}
+};
 
 CommunityChildCollections.getLayout = (page) => {
   return <CommunityLayout>{page}</CommunityLayout>;
 };
+
+export default CommunityChildCollections;
 
 const query = graphql`
   query collectionsCommunityChildQuery(
