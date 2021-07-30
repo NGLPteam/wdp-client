@@ -12,17 +12,16 @@ import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
-type ConnectionType = QueryResponse["item"]["items"];
+type ConnectionType = NonNullable<QueryResponse["item"]>["items"];
 
 const ItemChildItems: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.item?.items,
+    (data) => data.item?.items || null,
     []
   );
-
   return (
     <ItemList<Query, ConnectionType>
       defaultOrder="RECENT"

@@ -12,14 +12,14 @@ import type { ExtractsConnection } from "types/graphql-helpers";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
-type ConnectionType = QueryResponse["collection"]["items"];
+type ConnectionType = NonNullable<QueryResponse["collection"]>["items"];
 
 const CollectionChildItems: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.collection?.items,
+    (data) => data?.collection?.items || null,
     []
   );
 

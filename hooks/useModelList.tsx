@@ -86,7 +86,10 @@ export default function useModelList<
     [handleEdit, handleDelete]
   );
 
-  const connection = useMemo(() => toConnection(data), [toConnection, data]);
+  const connection = useMemo(() => toConnection(data) || null, [
+    toConnection,
+    data,
+  ]);
   const models = useMemo(() => toEntities<ConnectionType>(connection), [
     connection,
   ]);
@@ -127,7 +130,7 @@ function connectionHasNodes(connection: any): connection is HasNodes {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 function toEntities<ConnectionType extends Connectionish>(
-  connection?: ConnectionType
+  connection: ConnectionType | undefined | null
 ): readonly ExtractConnectionNodeType<ConnectionType>[] {
   if (!connection) return [];
   if (connectionHasEdges(connection)) {
@@ -140,7 +143,7 @@ function toEntities<ConnectionType extends Connectionish>(
 }
 
 function toPageInfo<ConnectionType extends Connectionish>(
-  connection?: ConnectionType
+  connection?: ConnectionType | undefined | null
 ): PageInfo | undefined {
   if (!connection) return undefined;
   return connection.pageInfo;

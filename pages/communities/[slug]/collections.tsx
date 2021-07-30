@@ -12,14 +12,14 @@ import { Page } from "types/page";
 import type { ExtractsConnection } from "types/graphql-helpers";
 import { routeQueryArrayToString } from "routes";
 
-type ConnectionType = QueryResponse["community"]["collections"];
+type ConnectionType = NonNullable<QueryResponse["community"]>["collections"];
 
 const CommunityChildCollections: Page = () => {
   const router = useRouter();
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.community?.collections,
+    (data) => data.community?.collections || null,
     []
   );
 

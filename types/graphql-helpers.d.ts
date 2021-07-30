@@ -27,7 +27,7 @@ export type Connectionish = HasAnyNodes & HasPageInfo;
 
 export type ExtractsConnection<T extends OperationType, ConnectionType> = (
   data: T["response"]
-) => ConnectionType;
+) => ConnectionType | null;
 
 export type ExtractsNodes<T extends Connectionish> = (
   data: T
