@@ -1,10 +1,10 @@
 import { OperationType } from "relay-runtime";
-
-import type { PageInfo } from "./graphql-schema";
+import type { PageInfo, EntityBreadcrumb } from "./graphql-schema";
 
 export type PathProxy<TRoot, T> = {
   [P in keyof T]: PathProxy<TRoot, T[P]>;
 };
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface HasEdgesWithNode {
   edges: ReadonlyArray<{ node: any }>;

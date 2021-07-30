@@ -37,6 +37,8 @@ CollectionChildCollections.getLayout = (page) => {
   return <CollectionLayout>{page}</CollectionLayout>;
 };
 
+export default CollectionChildCollections;
+
 const query = graphql`
   query collectionsCollectionChildQuery(
     $order: SimpleOrder!

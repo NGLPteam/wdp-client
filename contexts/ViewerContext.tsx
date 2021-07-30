@@ -4,10 +4,10 @@ import { ViewerContextQuery } from "__generated__/ViewerContextQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 
 const initialState = {
-  allowedActions: null,
+  allowedActions: [],
 };
 
-const ViewerContext = createContext<ViewerContextProps | null>(null);
+const ViewerContext = createContext<ViewerContextProps>(initialState);
 
 function ViewerContextProvider({ children }: Props) {
   const { data } = useAuthenticatedQuery<ViewerContextQuery>(query);
@@ -25,7 +25,7 @@ function ViewerContextProvider({ children }: Props) {
 
 interface ViewerContextProps {
   name?: string;
-  allowedActions: readonly string[] | null;
+  allowedActions: readonly string[];
 }
 
 interface Props {

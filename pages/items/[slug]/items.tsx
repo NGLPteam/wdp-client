@@ -19,7 +19,7 @@ const ItemChildItems: Page = () => {
   const { slug } = router.query;
 
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data.item?.items || null,
+    (data) => data?.item?.items || null,
     []
   );
   return (
