@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import { ErrorMessage } from "components/atomic";
 import { Page } from "types/page";
 

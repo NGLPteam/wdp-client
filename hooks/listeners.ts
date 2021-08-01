@@ -1,4 +1,4 @@
-import { SyntheticEvent, RefObject, useEffect } from "react";
+import { RefObject, useEffect } from "react";
 
 export const useEventListener = (
   event: keyof HTMLElementEventMap,

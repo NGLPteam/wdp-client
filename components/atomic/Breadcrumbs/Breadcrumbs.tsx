@@ -4,13 +4,24 @@ import CICBreadcrumbs from "@castiron/components-breadcrumbs";
 import { Dropdown } from "components/atomic";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+type LinkProps = React.ComponentProps<typeof Link>;
+
+interface Crumbs extends LinkProps {
+  label: string;
+}
 
 const BreadcrumbsWrapper = ({
   className = "breadcrumbs",
   data,
   delimiter = " / ",
   ...args
+}: {
+  className: string;
+  data: Crumbs[];
+  delimiter: string;
 }) => {
+  console.log(data, "data");
+
   const classes = {
     ol: `${className}__ol`,
     li: `${className}__li`,
@@ -23,7 +34,7 @@ const BreadcrumbsWrapper = ({
   const items = useMemo(() => {
     if (!data) return [];
 
-    const getLink = ({ label, href, ...props }, i) => (
+    const getLink = ({ label, href, ...props }: Crumbs, i: number) => (
       <Link key={i} href={href} {...props}>
         <a className={`${className}__link`}>
           <span className="t-copy-sm">{label}</span>

@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import React, { ComponentType, ReactElement, ReactNode } from "react";
+import { ComponentType, ReactElement, ReactNode } from "react";
 
 export type GetLayout = (page: ReactElement) => ReactNode;
 

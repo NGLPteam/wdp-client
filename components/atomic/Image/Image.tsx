@@ -1,61 +1,61 @@
+import React from "react";
 import NextImage from "next/image";
-import { PreviewImage } from "types/graphql-schema";
 type NextImageProps = React.ComponentProps<typeof NextImage>;
 
-function Image({
-  className,
-  image,
-  layout = "intrinsic",
-  priority = false,
-  quality = 50,
-  ...props
-}: Props) {
-  if (!image?.url) return null;
+function Image(props: Props) {
+  // Destructuring props in this component is awkward because the Props type relies on
+  // a discriminated union. If we destructure the image and layout props into separate
+  // variables, Typescript loses track of the connection between them and our prop types
+  // won't be checked correctly.
+  const {
+    image: { url, alt },
+    layout: layoutIgnored,
+    ...nextImageProps
+  } = props;
 
-  const { url, alt, width, height } = image;
+  const commonNextImageProps = {
+    src: url,
+    alt: alt,
+    ...nextImageProps,
+  };
 
-  // next/image won't accept width/height values if layout === "fill"
-  const dimensionProps =
-    layout !== "fill" ? { width, height, layout } : { width, height };
-
-  // Due to next/image's strict typing, we can't spread props like we expect.
-  // We need to explicitly return either layout=fill or width/height
-  // https://stackoverflow.com/questions/68148204/types-of-property-src-are-incompatible-in-nextjs-image
-  // Spreading these props results in a 'src' type error:
-  // const dimensionProps = layout !== "fill" ? { width, height, layout } : { layout };
-
-  return layout === "fill" ? (
-    <NextImage
-      src={url}
-      alt={alt}
-      layout={layout}
-      priority={priority}
-      quality={quality}
-      className={className}
-      {...props}
-    />
-  ) : (
-    <NextImage
-      src={url}
-      alt={alt}
-      priority={priority}
-      quality={quality}
-      className={className}
-      {...dimensionProps}
-      {...props}
-    />
-  );
+  if (props.layout === "fill") {
+    return <NextImage layout={props.layout} {...commonNextImageProps} />;
+  } else {
+    return (
+      <NextImage
+        {...commonNextImageProps}
+        layout={props.layout}
+        width={props.image.width}
+        height={props.image.height}
+      />
+    );
+  }
 }
 
-// We need to pick exactly which props we want to pass to next/image
-// due to next/image's strict typing
-interface Props
+interface BaseImageProps
   extends Pick<
     NextImageProps,
-    "layout" | "priority" | "quality" | "sizes" | "objectFit" | "objectPosition"
+    "priority" | "quality" | "sizes" | "objectFit" | "objectPosition"
   > {
-  image?: Partial<PreviewImage>;
   className?: string;
 }
+
+interface FillImage {
+  alt: string;
+  url: string;
+}
+
+interface DimensionalImage extends FillImage {
+  height: number | string;
+  width: number | string;
+}
+
+type Props =
+  | (BaseImageProps & { layout: "fill"; image: FillImage })
+  | (BaseImageProps & {
+      layout?: Exclude<NextImageProps["layout"], "fill">;
+      image: DimensionalImage;
+    });
 
 export default Image;

@@ -1,5 +1,5 @@
 import { OperationType } from "relay-runtime";
-import type { PageInfo, EntityBreadcrumb } from "./graphql-schema";
+import type { PageInfo } from "./graphql-schema";
 
 export type PathProxy<TRoot, T> = {
   [P in keyof T]: PathProxy<TRoot, T[P]>;
