@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import * as Styled from "./ButtonControl.styles";
 import { IconFactory } from "components/factories";
+type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
 const ButtonControl = forwardRef(
   ({ children, iconRotate, ...props }: Props, ref) => {
@@ -18,7 +19,7 @@ const ButtonControl = forwardRef(
 );
 
 interface Props {
-  icon?: string;
+  icon?: IconFactoryProps["icon"];
   iconRotate?: number;
   children?: JSX.Element | JSX.Element[] | string;
   as?: React.ElementType;

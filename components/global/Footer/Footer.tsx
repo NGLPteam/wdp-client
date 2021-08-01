@@ -91,10 +91,7 @@ function Footer() {
       </Styled.Nav>
       {footerData.copyright && (
         <Styled.Copyright className="l-grid">
-          <div
-            className="l-grid__item l-grid__item--4"
-            role="presentation"
-          ></div>
+          <div className="l-grid__item l-grid__item--4" role="presentation" />
           <p className="l-grid__item l-grid__item--8">
             {"© "}
             {t(footerData.copyright)}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { CollectionLayoutQuery } from "@/relay/CollectionLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
@@ -7,7 +7,11 @@ import { useBreadcrumbs } from "hooks";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
-export default function CollectionLayout({ children }) {
+export default function CollectionLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const router = useRouter();
   const { slug } = router.query;
 

@@ -47,7 +47,7 @@ export interface ModelTableProps<
 > {
   title: string;
   withRowSelection?: boolean;
-  checkboxProps: TableToggleRowsSelectedProps;
+  checkboxProps?: TableToggleRowsSelectedProps;
   tableProps: TableProps;
   headerGroups: HeaderGroup<T>[];
   rows: Row<T>[];

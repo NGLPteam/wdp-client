@@ -1,10 +1,13 @@
 import genericColumns from "../helpers/columns";
+import type { Hooks, Row } from "react-table";
 
-const useColumnInject = (hooks) => {
+type GenericColumnTypes = keyof typeof genericColumns;
+
+const useColumnInject = (hooks: Hooks) => {
   hooks.allColumns.push((columns, { instance }) => {
     const { injectColumns: injectColumnNames } = instance;
     const injectColumns = injectColumnNames.map(
-      (columnType) => genericColumns[columnType]
+      (columnType: GenericColumnTypes) => genericColumns[columnType]
     );
     const [first, ...rest] = columns;
 
