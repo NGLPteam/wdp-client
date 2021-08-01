@@ -1,29 +1,63 @@
 import React from "react";
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import appData from "fixtures/app.data";
 import { NamedLink } from "components/atomic";
+import Link from "next/link";
 import { LogoPlaceholder } from "components/global";
 import { Authorize } from "components/auth";
 import * as Styled from "./Footer.styles";
+type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
+type LinkProps = React.ComponentProps<typeof Link>;
+type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
 function Footer() {
   const { footerData } = appData;
   const { t } = useTranslation("common");
 
-  const renderLink = ({ actions, label, route, href }, i) => {
-    const wrappedLink = (
-      <Styled.ListItem key={i}>
-        <NamedLink route={route || href} passHref>
-          <a className="t-capitalize">{t(label)}</a>
-        </NamedLink>
-      </Styled.ListItem>
-    );
+  interface RenderLinkPropsBase {
+    actions?: AuthorizeProps["actions"];
+    label: string;
+    route?: NamedLinkProps["route"];
+    href?: LinkProps["href"];
+  }
 
-    if (actions) {
+  interface RenderLinkPropsWithRoute extends RenderLinkPropsBase {
+    route: NamedLinkProps["route"];
+    href?: never;
+  }
+
+  interface RenderLinkPropsWithHref extends RenderLinkPropsBase {
+    route?: never;
+    href: LinkProps["href"];
+  }
+
+  type RenderLinkProps = RenderLinkPropsWithRoute | RenderLinkPropsWithHref;
+
+  const renderLink = (props: RenderLinkProps, i: number) => {
+    let wrappedLink = null;
+
+    if (props.route) {
+      wrappedLink = (
+        <NamedLink route={props.route} passHref>
+          <a className="t-capitalize">{t(props.label)}</a>
+        </NamedLink>
+      );
+    }
+
+    // Explicit check here because for some reason TS is having a hard time
+    // understanding the discriminated union.
+    if (props.href) {
+      wrappedLink = (
+        <Link href={props.href} passHref>
+          <a className="t-capitalize">{t(props.label)}</a>
+        </Link>
+      );
+    }
+
+    if (props.actions && wrappedLink) {
       return (
-        <Authorize actions={actions} key={i}>
-          {wrappedLink}
+        <Authorize actions={props.actions} key={i}>
+          <Styled.ListItem key={i}>{wrappedLink}</Styled.ListItem>
         </Authorize>
       );
     }
