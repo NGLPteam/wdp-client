@@ -59,7 +59,9 @@ class NextNamedRoutes {
   activeRoute(): Route {
     const rn = this.findRouteByPath(window.location.pathname);
     if (!rn)
-      throw `No route associated with this pathname: ${window.location.pathname}`;
+      throw new Error(
+        `No route associated with this pathname: ${window.location.pathname}`
+      );
     return rn;
   }
 

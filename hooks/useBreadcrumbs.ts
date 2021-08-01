@@ -13,8 +13,6 @@ const kindMap = {
   "%future added value": null,
 };
 
-type SupportedKinds = typeof kindMap[keyof typeof kindMap];
-
 export type BreadcrumbListType =
   | {
       label: string;
@@ -34,13 +32,17 @@ export default function useBreadcrumbs(
       const routeName = kindMap[crumb.kind];
 
       if (!routeName) {
-        throw `Unable to find route for "${routeName} in useBreadcrumbs`;
+        throw new Error(
+          `Unable to find route for "${routeName} in useBreadcrumbs`
+        );
       }
 
       const route = RouteHelper.findRouteByName(routeName);
 
       if (!route) {
-        throw `Unable to find route for "${routeName} in useBreadcrumbs`;
+        throw new Error(
+          `Unable to find route for "${routeName} in useBreadcrumbs`
+        );
       }
 
       const nextQuery = { slug: crumb.slug };

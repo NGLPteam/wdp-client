@@ -19,8 +19,7 @@ export default function buildInitialEnvironment(
 ) {
   const network = new RelayNetworkLayer([
     relayServerSSR.getMiddleware(),
-    // TODO: Alexa to figure out the strict types here.
-    // @ts-ignore
+
     (next) => async (req) => {
       try {
         return await next(req);

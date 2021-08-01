@@ -20,8 +20,6 @@ const BreadcrumbsWrapper = ({
   data: Crumbs[];
   delimiter: string;
 }) => {
-  console.log(data, "data");
-
   const classes = {
     ol: `${className}__ol`,
     li: `${className}__li`,
