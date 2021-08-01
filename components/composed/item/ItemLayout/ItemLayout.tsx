@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { ItemLayoutQuery } from "__generated__/ItemLayoutQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useBreadcrumbs } from "hooks";
 import { routeQueryArrayToString } from "routes";
 
-export default function ItemLayout({ children }) {
+export default function ItemLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { slug } = router.query;
 
