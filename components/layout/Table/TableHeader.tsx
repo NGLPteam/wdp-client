@@ -3,14 +3,12 @@ import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
 import { Checkbox } from "components/atomic/forms";
-import { TableHeaderProps, TableCommonProps } from "react-table";
+import { TableHeaderProps, HeaderGroup, TableCommonProps } from "react-table";
 import { CheckboxProps } from "types/form-fields";
 
-function TableHeader({
-  headerGroups = [],
-  withCheckbox,
-  checkboxProps,
-}: Props) {
+function TableHeader<
+  T extends Record<string, unknown> = Record<string, unknown>
+>({ headerGroups = [], withCheckbox, checkboxProps }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
   return (
@@ -69,13 +67,8 @@ interface Header {
   isSortedDesc?: boolean;
 }
 
-interface HeaderGroupProps {
-  headers: Header[];
-  getHeaderGroupProps: () => TableHeaderProps;
-}
-
-interface Props {
-  headerGroups: HeaderGroupProps[];
+interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
+  headerGroups: HeaderGroup<T>[];
   withCheckbox?: boolean;
   checkboxProps?: CheckboxProps;
 }
