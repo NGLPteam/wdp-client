@@ -28,7 +28,7 @@ export default function useBreadcrumbs(
   const breadcrumbsData = useMemo(() => {
     if (!entity) return null;
 
-    return data.breadcrumbs.map((crumb) => {
+    return data?.breadcrumbs.map((crumb) => {
       const routeName = kindMap[crumb.kind];
 
       if (!routeName) {

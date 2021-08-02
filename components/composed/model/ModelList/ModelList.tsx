@@ -1,6 +1,13 @@
 import React, { useEffect, useCallback } from "react";
 import isFunction from "lodash/isFunction";
-import { useTable, useRowSelect, useSortBy, Column } from "react-table";
+import {
+  useTable,
+  useRowSelect,
+  useSortBy,
+  ModelTableActions,
+  Column,
+  Hooks,
+} from "react-table";
 import ModelTable from "../ModelTable";
 import ModelGrid from "../ModelGrid";
 import useRowActions from "../plugins/useRowActions";
@@ -22,11 +29,8 @@ function ModelList<
 }: ModelListProps<T>) {
   const withRowSelection = isFunction(onSelectionChange);
 
-  const tableHooks = [
-    useSortBy,
-    withRowSelection && useRowSelect,
-    useRowActions,
-  ].filter((n) => n);
+  const tableHooks = [useSortBy, useRowActions];
+  if (withRowSelection) tableHooks.push(useRowSelect);
 
   const getRowId = useCallback((row) => {
     return row.slug;
@@ -98,21 +102,6 @@ function ModelList<
   ) : (
     <ModelGrid rows={rows} checkboxProps={checkboxProps} />
   );
-}
-
-export interface ModelTableActionProps<T> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  row: { original: T };
-}
-
-export interface ModelTableActionOptions<T> {
-  handleClick?: (props: ModelTableActionProps<T>) => void;
-  // TODO: Support a named route and params.
-}
-
-export interface ModelTableActions<T> {
-  edit?: ModelTableActionOptions<T>;
-  delete?: ModelTableActionOptions<T>;
 }
 
 export interface OnSortProps {

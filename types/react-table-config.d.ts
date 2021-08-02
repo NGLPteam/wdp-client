@@ -36,10 +36,29 @@ declare module "react-table" {
   > extends Partial<UseRowSelectHooks<D>>,
       UseSortByHooks<D> {}
 
+  export interface ModelTableActionProps<D> {
+    row: Row<D>;
+  }
+
+  export interface ModelTableActionOptions<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    handleClick: (props: ModelTableActionProps<D>) => void;
+  }
+
+  export interface ModelTableActions<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    edit?: ModelTableActionOptions<D>;
+    delete?: ModelTableActionOptions<D>;
+  }
+
   export interface TableInstance<
     D extends Record<string, unknown> = Record<string, unknown>
   > extends Partial<UseRowSelectInstanceProps<D>>,
-      UseSortByInstanceProps<D> {}
+      UseSortByInstanceProps<D> {
+    actions?: ModelTableActions<D>;
+  }
 
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>

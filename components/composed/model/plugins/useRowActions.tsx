@@ -5,7 +5,11 @@ import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
-type ActionConfig = { handleClick: ({ row }: { row: Row }) => void };
+type ActionConfig<
+  D extends Record<string, unknown> = Record<string, unknown>
+> = {
+  handleClick: ({ row }: { row: Row<D> }) => void;
+};
 
 type ActionKeys = "edit" | "delete";
 
@@ -16,11 +20,17 @@ interface ActionDefinition {
   iconRotate: number;
 }
 
-type AvailableActions = {
+type ActionDefinitions = {
   [K in ActionKeys]: ActionDefinition;
 };
 
-const availableActions: AvailableActions = {
+type ActionConfigurations<
+  D extends Record<string, unknown> = Record<string, unknown>
+> = {
+  [K in ActionKeys]?: ActionConfig<D>;
+};
+
+const availableActions: ActionDefinitions = {
   edit: {
     label: "Edit",
     icon: "edit",
@@ -35,11 +45,9 @@ const availableActions: AvailableActions = {
   },
 };
 
-const renderOneAction = (
-  row: Row,
-  action: ActionKeys,
-  actionConfig: ActionConfig
-) => {
+function renderOneAction<
+  D extends Record<string, unknown> = Record<string, unknown>
+>(row: Row<D>, action: ActionKeys, actionConfig: ActionConfig<D>) {
   const actionDefinition = availableActions[action];
 
   const buttonProps = {
@@ -51,42 +59,54 @@ const renderOneAction = (
     }),
   };
 
+  const allowedActions = row?.original?.allowedActions as string[] | undefined;
+  const content = <ButtonControl {...buttonProps} />;
+
+  if (!allowedActions) return content;
+
   return (
     <Authorize
       key={action}
       actions={actionDefinition.action}
-      allowedActions={row?.original?.allowedActions}
+      allowedActions={allowedActions}
     >
-      <ButtonControl {...buttonProps} />
+      {content}
     </Authorize>
   );
-};
+}
 
-const renderActions = (row: Row, configuration: AvailableActions) => {
+function renderActions<
+  D extends Record<string, unknown> = Record<string, unknown>
+>(row: Row<D>, configuration: ActionConfigurations<D>) {
+  const keys = Object.keys(configuration) as Array<ActionKeys>;
   return (
     <div className="t-align-right">
-      {Object.keys(configuration).map((action) => {
-        return renderOneAction(row, action, configuration[action]);
+      {keys.map((action) => {
+        let actionConfig = configuration[action];
+        if (!actionConfig) return null;
+        return renderOneAction<D>(row, action, actionConfig);
       })}
     </div>
   );
-};
+}
 
-const useRowActions = (hooks: Hooks) => {
+function useRowActions<
+  D extends Record<string, unknown> = Record<string, unknown>
+>(hooks: Hooks<D>) {
   hooks.allColumns.push((columns, { instance }) => {
-    const { actions: actionsConfiguration } = instance;
-    if (!actionsConfiguration) return columns;
-    const actions = {
+    const { actions } = instance;
+    if (!actions) return columns;
+    const actionColumn = {
       Header: () => null,
       id: "actions",
-      Cell: ({ row }: { row: Row }) => {
-        return renderActions(row, actionsConfiguration);
+      Cell: ({ row }: { row: Row<D> }) => {
+        return renderActions<D>(row, actions);
       },
     };
 
-    return [...columns, actions];
+    return [...columns, actionColumn];
   });
-};
+}
 
 useRowActions.pluginName = "useRowActions";
 

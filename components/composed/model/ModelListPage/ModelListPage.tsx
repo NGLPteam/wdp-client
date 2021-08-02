@@ -20,7 +20,9 @@ import { breakpoints } from "theme/base/variables";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
-function ModelListPage<T>({
+function ModelListPage<
+  T extends Record<string, unknown> = Record<string, unknown>
+>({
   isLoading,
   error,
   modelName,
@@ -125,8 +127,9 @@ function ModelListPage<T>({
 
 // The generic type is consumed by ModelDataProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListPageProps<T>
-  extends Omit<ModelDataProps, "title" | "selectedView"> {
+export interface ModelListPageProps<
+  T extends Record<string, unknown> = Record<string, unknown>
+> extends Omit<ModelDataProps, "title" | "selectedView"> {
   isLoading?: boolean;
   error?: { name: string; message: string } | null;
   modelName?: string;
