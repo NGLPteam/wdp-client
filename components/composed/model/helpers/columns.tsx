@@ -1,19 +1,20 @@
 import { formatDate } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import React from "react";
+import { CellProps } from "react-table";
 
 const createdAt = {
   Header: "Created At",
   id: "createdAt",
   disableSortBy: true,
-  accessor: (row) => formatDate(row.createdAt),
+  accessor: (row: { createdAt: string }) => formatDate(row.createdAt),
   truncate: true,
 };
 
 const updatedAt = {
   Header: "Updated At",
   id: "updatedAt",
-  accessor: (row) => formatDate(row.updatedAt),
+  accessor: (row: { updatedAt: string }) => formatDate(row.updatedAt),
   truncate: true,
 };
 
@@ -23,7 +24,8 @@ const nameFactory = (route: string, label: string, accessor: any) => ({
   Header: label,
   accessor: accessor,
   disableSortBy: true,
-  Cell: ({ row, value }) => {
+  Cell: ({ row, value }: { row: any; value: any }) => {
+    if (!row?.original?.slug) return value;
     return (
       <NamedLink
         route={route}
@@ -42,7 +44,7 @@ const thumbnail = {
   accessor: "thumbnail",
   disableSortBy: true,
   // TODO: Find a way to pass size or view (table/grid) down to a single Cell render
-  GridCell: ({ value }) => {
+  GridCell: ({ value }: { value: any }) => {
     return value?.image?.png ? (
       <Image
         image={{ ...value?.image?.png, width: 180, height: 180 }}
@@ -50,7 +52,7 @@ const thumbnail = {
       />
     ) : null;
   },
-  Cell: ({ value }) => {
+  Cell: ({ value }: { value: any }) => {
     return value?.image?.png ? (
       <Image
         image={{ ...value?.image?.png, width: 50, height: 50 }}

@@ -16,9 +16,13 @@ function ModelGridItem<
     [row]
   );
 
+  const checkboxProps = row.getToggleRowSelectedProps
+    ? row.getToggleRowSelectedProps()
+    : undefined;
+
   return (
     <Grid.Item
-      checkboxProps={row.getToggleRowSelectedProps()}
+      checkboxProps={checkboxProps}
       actions={actions && actions.render("Cell")}
       thumbnail={thumbnail && thumbnail.render("GridCell")}
     >

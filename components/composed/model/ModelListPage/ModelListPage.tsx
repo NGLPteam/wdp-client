@@ -17,6 +17,7 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 import ModelAddButton from "../ModelAddButton/ModelAddButton";
 import { useWindowSize } from "hooks";
 import { breakpoints } from "theme/base/variables";
+import type { ModelNames } from "helpers/models";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
@@ -68,7 +69,7 @@ function ModelListPage<
       {title && (
         <PageHeader
           title={startCase(title)}
-          buttons={<ModelAddButton modelName={modelName} />}
+          buttons={modelName && <ModelAddButton modelName={modelName} />}
         />
       )}
       {isLoading ? (
@@ -132,7 +133,7 @@ export interface ModelListPageProps<
 > extends Omit<ModelDataProps, "title" | "selectedView"> {
   isLoading?: boolean;
   error?: { name: string; message: string } | null;
-  modelName?: string;
+  modelName?: Lowercase<ModelNames>;
   pageInfo?: PageInfo;
   /** Set the default view (grid/table) */
   defaultView?: DataViewOptions;

@@ -6,7 +6,7 @@ const MODEL_MAP = {
   CONTRIBUTOR: "contributors",
 };
 
-type ModelNames = keyof typeof MODEL_MAP;
+export type ModelNames = keyof typeof MODEL_MAP;
 
 export function getModelPlural(name: Lowercase<ModelNames>): string | null {
   const key = <Uppercase<ModelNames>>name.toUpperCase();

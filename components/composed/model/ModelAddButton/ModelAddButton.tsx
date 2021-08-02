@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { DrawerLink, ButtonControl } from "components/atomic";
 import { useIsAuthorized } from "hooks";
 import { getModelPlural } from "helpers";
+import type { ModelNames } from "helpers/models";
 
 const ButtonControlAdd = ({ modelName }: Props) => {
   const { t } = useTranslation("glossary");
@@ -20,7 +21,7 @@ const ButtonControlAdd = ({ modelName }: Props) => {
 };
 
 interface Props {
-  modelName?: string;
+  modelName: Lowercase<ModelNames>;
 }
 
 export default ButtonControlAdd;
