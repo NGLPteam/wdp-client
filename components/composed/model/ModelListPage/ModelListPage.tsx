@@ -21,9 +21,7 @@ import type { ModelNames } from "helpers/models";
 
 type ModelDataProps = React.ComponentProps<typeof ModelList>;
 
-function ModelListPage<
-  T extends Record<string, unknown> = Record<string, unknown>
->({
+function ModelListPage<T extends object = {}>({
   isLoading,
   error,
   modelName,
@@ -128,9 +126,8 @@ function ModelListPage<
 
 // The generic type is consumed by ModelDataProps
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListPageProps<
-  T extends Record<string, unknown> = Record<string, unknown>
-> extends Omit<ModelDataProps, "title" | "selectedView"> {
+export interface ModelListPageProps<T extends object = {}>
+  extends Omit<ModelDataProps, "title" | "selectedView"> {
   isLoading?: boolean;
   error?: { name: string; message: string } | null;
   modelName?: Lowercase<ModelNames>;

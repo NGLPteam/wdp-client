@@ -3,12 +3,19 @@ import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
 import { Checkbox } from "components/atomic/forms";
-import { TableHeaderProps, HeaderGroup, TableCommonProps } from "react-table";
+import {
+  TableHeaderProps,
+  HeaderGroup,
+  TableCommonProps,
+  ColumnInstance,
+} from "react-table";
 import { CheckboxProps } from "types/form-fields";
 
-function TableHeader<
-  T extends Record<string, unknown> = Record<string, unknown>
->({ headerGroups = [], withCheckbox, checkboxProps }: Props<T>) {
+function TableHeader<T extends object = {}>({
+  headerGroups = [],
+  withCheckbox,
+  checkboxProps,
+}: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
   return (
@@ -67,8 +74,27 @@ interface Header {
   isSortedDesc?: boolean;
 }
 
-interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
-  headerGroups: HeaderGroup<T>[];
+interface RequiredHeaderProps<T extends object = {}>
+  extends Pick<ColumnInstance<T>, "getHeaderProps" | "render"> {}
+
+interface OptionalHeaderProps<T extends object = {}>
+  extends Partial<
+    Pick<
+      ColumnInstance<T>,
+      "getSortByToggleProps" | "isSorted" | "isSortedDesc"
+    >
+  > {}
+
+type PartialHeader<T extends object = {}> = RequiredHeaderProps<T> &
+  OptionalHeaderProps<T>;
+
+interface PartialHeaderGroup<T extends object = {}>
+  extends Pick<HeaderGroup<T>, "getHeaderGroupProps"> {
+  headers: PartialHeader<T>[];
+}
+
+interface Props<T extends object = {}> {
+  headerGroups: PartialHeaderGroup<T>[];
   withCheckbox?: boolean;
   checkboxProps?: CheckboxProps;
 }

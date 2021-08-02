@@ -8,9 +8,7 @@ import {
   TableToggleRowsSelectedProps,
 } from "react-table";
 
-function ModelTable<
-  T extends Record<string, unknown> = Record<string, unknown>
->({
+function ModelTable<T extends object = {}>({
   title,
   withRowSelection,
   checkboxProps,
@@ -42,9 +40,7 @@ function ModelTable<
   );
 }
 
-export interface ModelTableProps<
-  T extends Record<string, unknown> = Record<string, unknown>
-> {
+export interface ModelTableProps<T extends object = {}> {
   title: string;
   withRowSelection?: boolean;
   checkboxProps?: TableToggleRowsSelectedProps;

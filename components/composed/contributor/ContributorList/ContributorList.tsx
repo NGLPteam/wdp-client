@@ -35,7 +35,8 @@ function ContributorList<
       columns.nameFactory(
         "contributor",
         "name",
-        (row) => `${row.name || `${row.firstName} ${row.lastName}`}`
+        (row: Record<string, unknown>) =>
+          `${row.name || `${row.firstName} ${row.lastName}`}`
       ),
       columns.createdAt,
       columns.updatedAt,

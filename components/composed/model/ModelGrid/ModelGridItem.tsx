@@ -3,9 +3,7 @@ import { Row } from "react-table";
 import Grid from "components/layout/Grid/Grid";
 // import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-function ModelGridItem<
-  T extends Record<string, unknown> = Record<string, unknown>
->({ row }: Props<T>) {
+function ModelGridItem<T extends object = {}>({ row }: Props<T>) {
   const actions = useMemo(
     () => row.cells.find((cell) => cell.column.id === "actions"),
     [row]
@@ -45,7 +43,7 @@ function ModelGridItem<
   );
 }
 
-interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
+interface Props<T extends object = {}> {
   row: Row<T>;
 }
 

@@ -5,9 +5,7 @@ import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
-type ActionConfig<
-  D extends Record<string, unknown> = Record<string, unknown>
-> = {
+type ActionConfig<D extends object = {}> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
 };
 
@@ -24,9 +22,7 @@ type ActionDefinitions = {
   [K in ActionKeys]: ActionDefinition;
 };
 
-type ActionConfigurations<
-  D extends Record<string, unknown> = Record<string, unknown>
-> = {
+type ActionConfigurations<D extends object = {}> = {
   [K in ActionKeys]?: ActionConfig<D>;
 };
 
@@ -45,9 +41,11 @@ const availableActions: ActionDefinitions = {
   },
 };
 
-function renderOneAction<
-  D extends Record<string, unknown> = Record<string, unknown>
->(row: Row<D>, action: ActionKeys, actionConfig: ActionConfig<D>) {
+function renderOneAction<D extends Record<string, unknown>>(
+  row: Row<D>,
+  action: ActionKeys,
+  actionConfig: ActionConfig<D>
+) {
   const actionDefinition = availableActions[action];
 
   const buttonProps = {
@@ -75,9 +73,10 @@ function renderOneAction<
   );
 }
 
-function renderActions<
-  D extends Record<string, unknown> = Record<string, unknown>
->(row: Row<D>, configuration: ActionConfigurations<D>) {
+function renderActions<D extends Record<string, unknown>>(
+  row: Row<D>,
+  configuration: ActionConfigurations<D>
+) {
   const keys = Object.keys(configuration) as Array<ActionKeys>;
   return (
     <div className="t-align-right">
@@ -90,9 +89,7 @@ function renderActions<
   );
 }
 
-function useRowActions<
-  D extends Record<string, unknown> = Record<string, unknown>
->(hooks: Hooks<D>) {
+function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {
   hooks.allColumns.push((columns, { instance }) => {
     const { actions } = instance;
     if (!actions) return columns;

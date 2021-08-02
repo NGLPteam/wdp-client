@@ -2,19 +2,13 @@ import React from "react";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
 import { Checkbox } from "components/atomic/forms";
-import { Row } from "react-table";
+import type { Row, Cell } from "react-table";
+import { ColumnInstance } from "react-table";
 
-type RowLite<T extends Record<string, unknown>> = Pick<
-  Row<T>,
-  "getToggleRowSelectedProps" | "getRowProps" | "cells"
->;
-
-function TableBody<
-  T extends Record<string, unknown> = Record<string, unknown>
->({ rows }: Props<T>) {
+function TableBody<T extends object = {}>({ rows }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
-  const renderCheckboxCell = (row: RowLite<T>) => {
+  const renderCheckboxCell = (row: RowProps<T>) => {
     if (!row.getToggleRowSelectedProps) return;
     const props = row.getToggleRowSelectedProps();
 
@@ -57,8 +51,22 @@ function TableBody<
   /* eslint-enable react/jsx-key */
 }
 
-interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
-  rows: RowLite<T>[];
+interface RequiredCellProps<T extends object = {}, V = any>
+  extends Pick<Cell<T, V>, "getCellProps" | "render"> {}
+
+interface OptionalCellProps<T extends object = {}, V = any>
+  extends Partial<Pick<Cell<T, V>, "column">> {}
+
+type CellProps<T extends object = {}> = RequiredCellProps<T> &
+  OptionalCellProps<T>;
+
+interface RowProps<T extends object = {}>
+  extends Pick<Row<T>, "getToggleRowSelectedProps" | "getRowProps"> {
+  cells: CellProps[];
+}
+
+interface Props<T extends object = {}> {
+  rows: RowProps<T>[];
 }
 
 export default TableBody;

@@ -16,9 +16,7 @@ import mapSortBy from "../helpers/mapSortBy";
 import { PageInfo } from "types/graphql-schema";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-function ModelList<
-  T extends Record<string, unknown> = Record<string, unknown>
->({
+function ModelList<T extends Record<string, unknown>>({
   title,
   models,
   columns,
@@ -114,9 +112,7 @@ export interface OnSelectionChangeProps {
   selectedRowIds: string[];
 }
 
-export interface ModelListProps<
-  T extends Record<string, unknown> = Record<string, unknown>
-> {
+export interface ModelListProps<T extends Record<string, unknown>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: Column<any>[];
   title: string;
