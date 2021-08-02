@@ -21,7 +21,7 @@ interface Props {
   /** Search component */
   search?: JSX.Element;
   /** One or more ButtonControl actions */
-  actions: JSX.Element | JSX.Element[];
+  actions?: JSX.Element | JSX.Element[];
 }
 
 export default PageActions;

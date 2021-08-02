@@ -21,7 +21,7 @@ export type BreadcrumbListType =
   | null;
 
 export default function useBreadcrumbs(
-  entity: useBreadcrumbsFragment$key
+  entity: useBreadcrumbsFragment$key | null
 ): BreadcrumbListType {
   const data = useFragment<useBreadcrumbsFragment$key>(fragment, entity);
 

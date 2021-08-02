@@ -38,7 +38,7 @@ function Footer() {
 
     if (props.route) {
       wrappedLink = (
-        <NamedLink route={props.route} passHref>
+        <NamedLink key={i} route={props.route} passHref>
           <a className="t-capitalize">{t(props.label)}</a>
         </NamedLink>
       );
@@ -48,7 +48,7 @@ function Footer() {
     // understanding the discriminated union.
     if (props.href) {
       wrappedLink = (
-        <Link href={props.href} passHref>
+        <Link key={i} href={props.href} passHref>
           <a className="t-capitalize">{t(props.label)}</a>
         </Link>
       );
@@ -56,7 +56,7 @@ function Footer() {
 
     if (props.actions && wrappedLink) {
       return (
-        <Authorize actions={props.actions} key={i}>
+        <Authorize key={i} actions={props.actions}>
           <Styled.ListItem key={i}>{wrappedLink}</Styled.ListItem>
         </Authorize>
       );

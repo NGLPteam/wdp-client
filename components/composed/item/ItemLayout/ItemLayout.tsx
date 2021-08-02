@@ -16,7 +16,7 @@ export default function ItemLayout({ children }: { children: ReactNode }) {
     { slug: routeQueryArrayToString(slug) }
   );
 
-  const breadcrumbs = useBreadcrumbs(data?.item);
+  const breadcrumbs = useBreadcrumbs(data?.item || null);
 
   if (isLoading) {
     return null;

@@ -76,13 +76,14 @@ function ModelListPage<T>({
           <PageActions
             search={<Search onSubmit={handleSubmit} />}
             actions={
-              !(hideViewToggle || isMobile) && (
+              (!(hideViewToggle || isMobile) && (
                 <DataViewToggle
                   selectedView={view}
                   controlsID="id"
                   onClick={handleViewToggle}
                 />
-              )
+              )) ||
+              undefined
             }
           />
           {pageInfo && models && models.length > 0 && (
@@ -127,7 +128,7 @@ function ModelListPage<T>({
 export interface ModelListPageProps<T>
   extends Omit<ModelDataProps, "title" | "selectedView"> {
   isLoading?: boolean;
-  error?: { name: string; message: string };
+  error?: { name: string; message: string } | null;
   modelName?: string;
   pageInfo?: PageInfo;
   /** Set the default view (grid/table) */

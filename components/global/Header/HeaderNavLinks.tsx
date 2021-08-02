@@ -3,7 +3,6 @@ import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import * as Styled from "./Header.styles";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 import { RouteHelper } from "routes";
@@ -29,58 +28,52 @@ interface Props {
 
 function HeaderNavLinks({ navigation }: Props) {
   const { t } = useTranslation("common");
-  const { pathname } = useRouter();
 
-  const wrapWithAuthorizationAndItem = (
-    key: number,
-    actions: AuthorizeProps["actions"] | undefined,
-    node: AuthorizeProps["children"]
+  const maybeAuthorize = (
+    node: AuthorizeProps["children"],
+    item: HeaderNavLink | HeaderNavParent
   ) => {
+    if (!item.actions) return node;
     return (
-      <Authorize key={key} actions={actions}>
-        <Styled.Item>{node}</Styled.Item>
+      <Authorize key={item.label} actions={item.actions}>
+        {node}
       </Authorize>
     );
   };
 
-  const renderDropdown = (item: HeaderNavParent, i: number) => {
-    return wrapWithAuthorizationAndItem(
-      i,
-      item.actions,
-      <Styled.Item>
-        <Dropdown
-          label={t(item.label)}
-          disclosure={<Styled.Link as="button">{t(item.label)}</Styled.Link>}
-          menuItems={item.children.map(renderLink)}
-          isDarkMode
-        />
-      </Styled.Item>
+  const renderDropdown = (item: HeaderNavParent) => {
+    return (
+      <Dropdown
+        label={t(item.label)}
+        disclosure={<Styled.Link as="button">{t(item.label)}</Styled.Link>}
+        menuItems={item.children.map(renderLink)}
+        isDarkMode
+      />
     );
   };
 
-  const renderLink = (item: HeaderNavLink, i: number) => {
+  const renderLink = (item: HeaderNavLink) => {
     const activeRoute = RouteHelper.activeRoute();
+    // TODO: We need a more sophisticated active match here. With this approach, the manage dropdown would not be active for /manage/users
     const active = activeRoute?.name == item.route;
-    return wrapWithAuthorizationAndItem(
-      i,
-      item.actions,
+    return (
       <NamedLink route={item.route} passHref>
         <Styled.Link active={active}>{t(item.label)}</Styled.Link>
       </NamedLink>
     );
   };
 
-  const renderItem = (item: HeaderNavLink | HeaderNavParent, i: number) => {
-    if (item.children) return renderDropdown(item, i);
-    if (item.route) return renderLink(item, i);
-    return <></>;
-  };
-
   return (
     <>
-      {navigation.map((item, i) => {
-        renderItem(item, i);
-      })}
+      {navigation.map((item) =>
+        maybeAuthorize(
+          <Styled.Item key={item.label}>
+            {item.children && renderDropdown(item)}
+            {item.route && renderLink(item)}
+          </Styled.Item>,
+          item
+        )
+      )}
     </>
   );
 }

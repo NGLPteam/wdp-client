@@ -26,7 +26,7 @@ function ModelGrid<
 
 interface Props<T extends Record<string, unknown> = Record<string, unknown>> {
   rows: Row<T>[];
-  checkboxProps: TableToggleRowsSelectedProps;
+  checkboxProps?: TableToggleRowsSelectedProps;
 }
 
 export default ModelGrid;

@@ -23,7 +23,7 @@ export default function CollectionLayout({
     slug: routeQueryArrayToString(slug),
   });
 
-  const breadcrumbs = useBreadcrumbs(data?.collection);
+  const breadcrumbs = useBreadcrumbs(data?.collection || null);
 
   if (isLoading) {
     return null;
