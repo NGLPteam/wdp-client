@@ -62,7 +62,7 @@ type CellProps<T extends object = {}> = RequiredCellProps<T> &
 
 interface RowProps<T extends object = {}>
   extends Pick<Row<T>, "getToggleRowSelectedProps" | "getRowProps"> {
-  cells: CellProps[];
+  cells: CellProps<T>[];
 }
 
 interface Props<T extends object = {}> {

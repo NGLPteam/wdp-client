@@ -1,24 +1,22 @@
 import { formatDate } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import React from "react";
-import { CellProps } from "react-table";
 
 const createdAt = {
   Header: "Created At",
   id: "createdAt",
   disableSortBy: true,
-  accessor: (row: { createdAt: string }) => formatDate(row.createdAt),
+  accessor: (row) => formatDate(row.createdAt),
   truncate: true,
 };
 
 const updatedAt = {
   Header: "Updated At",
   id: "updatedAt",
-  accessor: (row: { updatedAt: string }) => formatDate(row.updatedAt),
+  accessor: (row) => formatDate(row.updatedAt),
   truncate: true,
 };
 
-// collection, title, title
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const nameFactory = (route: string, label: string, accessor: any) => ({
   Header: label,

@@ -114,7 +114,7 @@ export interface OnSelectionChangeProps {
 
 export interface ModelListProps<T extends Record<string, unknown>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: Column<any>[];
+  columns: Column<T>[];
   title: string;
   pageInfo?: PageInfo;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
