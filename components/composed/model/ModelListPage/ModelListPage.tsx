@@ -18,10 +18,19 @@ import ModelAddButton from "../ModelAddButton/ModelAddButton";
 import { useWindowSize } from "hooks";
 import { breakpoints } from "theme/base/variables";
 import type { ModelNames } from "helpers/models";
+import { ModelListProps } from "components/composed/model/ModelList";
 
-type ModelDataProps = React.ComponentProps<typeof ModelList>;
+export interface ModelListPageProps<T extends Record<string, unknown>>
+  extends Omit<ModelListProps<T>, "title" | "selectedView"> {
+  isLoading?: boolean;
+  error?: { name: string; message: string } | null;
+  modelName?: Lowercase<ModelNames>;
+  pageInfo?: PageInfo;
+  defaultView?: DataViewOptions;
+  hideViewToggle?: boolean;
+}
 
-function ModelListPage<T extends object = {}>({
+function ModelListPage<T extends Record<string, unknown>>({
   isLoading,
   error,
   modelName,
@@ -119,23 +128,6 @@ function ModelListPage<T extends object = {}>({
       )}
     </section>
   );
-}
-
-// TODO: Either extend ModelTable (and potentially ModelGrid), or
-// Create an Model context rather than passing data down multiple levels of components
-
-// The generic type is consumed by ModelDataProps
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface ModelListPageProps<T extends object = {}>
-  extends Omit<ModelDataProps, "title" | "selectedView"> {
-  isLoading?: boolean;
-  error?: { name: string; message: string } | null;
-  modelName?: Lowercase<ModelNames>;
-  pageInfo?: PageInfo;
-  /** Set the default view (grid/table) */
-  defaultView?: DataViewOptions;
-  /** Hide the grid/table view toggle */
-  hideViewToggle?: boolean;
 }
 
 export default ModelListPage;

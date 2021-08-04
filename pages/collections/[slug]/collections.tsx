@@ -13,6 +13,7 @@ import type { ExtractsConnection } from "types/graphql-helpers";
 import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = NonNullable<QueryResponse["collection"]>["collections"];
+type NodeType = ConnectionType["nodes"][number];
 
 const CollectionChildCollections: Page = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const CollectionChildCollections: Page = () => {
   );
 
   return (
-    <CollectionList<Query, ConnectionType>
+    <CollectionList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       queryVars={{ collectionSlug: routeQueryArrayToString(slug) }}

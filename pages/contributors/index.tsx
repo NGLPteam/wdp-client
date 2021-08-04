@@ -9,6 +9,7 @@ import ContributorList from "components/composed/contributor/ContributorList";
 import type { ExtractsConnection } from "types/graphql-helpers";
 
 type ConnectionType = QueryResponse["contributors"];
+type NodeType = ConnectionType["nodes"][number];
 
 export default function ContributorListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -17,7 +18,7 @@ export default function ContributorListView() {
   );
 
   return (
-    <ContributorList<Query, ConnectionType>
+    <ContributorList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       toConnection={toConnection}

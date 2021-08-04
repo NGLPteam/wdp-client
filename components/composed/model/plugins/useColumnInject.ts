@@ -1,5 +1,5 @@
 import genericColumns from "../helpers/columns";
-import type { Hooks, Row } from "react-table";
+import type { Hooks } from "react-table";
 
 type GenericColumnTypes = keyof typeof genericColumns;
 

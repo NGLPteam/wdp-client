@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "routes";
 
 type ConnectionType = NonNullable<QueryResponse["item"]>["items"];
+type NodeType = ConnectionType["nodes"][number];
 
 const ItemChildItems: Page = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const ItemChildItems: Page = () => {
     []
   );
   return (
-    <ItemList<Query, ConnectionType>
+    <ItemList<Query, ConnectionType, NodeType>
       defaultOrder="RECENT"
       query={query}
       queryVars={{ itemSlug: routeQueryArrayToString(slug) }}

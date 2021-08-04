@@ -11,7 +11,7 @@ import {
 } from "react-table";
 import { CheckboxProps } from "types/form-fields";
 
-function TableHeader<T extends object = {}>({
+function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],
   withCheckbox,
   checkboxProps,
@@ -74,26 +74,24 @@ interface Header {
   isSortedDesc?: boolean;
 }
 
-interface RequiredHeaderProps<T extends object = {}>
-  extends Pick<ColumnInstance<T>, "getHeaderProps" | "render"> {}
+type RequiredHeaderProps<T extends Record<string, unknown>> = Pick<
+  ColumnInstance<T>,
+  "getHeaderProps" | "render"
+>;
 
-interface OptionalHeaderProps<T extends object = {}>
-  extends Partial<
-    Pick<
-      ColumnInstance<T>,
-      "getSortByToggleProps" | "isSorted" | "isSortedDesc"
-    >
-  > {}
+type OptionalHeaderProps<T extends Record<string, unknown>> = Partial<
+  Pick<ColumnInstance<T>, "getSortByToggleProps" | "isSorted" | "isSortedDesc">
+>;
 
-type PartialHeader<T extends object = {}> = RequiredHeaderProps<T> &
+type PartialHeader<T extends Record<string, unknown>> = RequiredHeaderProps<T> &
   OptionalHeaderProps<T>;
 
-interface PartialHeaderGroup<T extends object = {}>
+interface PartialHeaderGroup<T extends Record<string, unknown>>
   extends Pick<HeaderGroup<T>, "getHeaderGroupProps"> {
   headers: PartialHeader<T>[];
 }
 
-interface Props<T extends object = {}> {
+interface Props<T extends Record<string, unknown>> {
   headerGroups: PartialHeaderGroup<T>[];
   withCheckbox?: boolean;
   checkboxProps?: CheckboxProps;

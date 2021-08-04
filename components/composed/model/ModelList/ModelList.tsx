@@ -6,7 +6,11 @@ import {
   useSortBy,
   ModelTableActions,
   Column,
-  Hooks,
+  TableToggleRowsSelectedProps,
+  TableProps,
+  HeaderGroup,
+  Row,
+  TableBodyProps,
 } from "react-table";
 import ModelTable from "../ModelTable";
 import ModelGrid from "../ModelGrid";
@@ -15,6 +19,37 @@ import mapSortBy from "../helpers/mapSortBy";
 
 import { PageInfo } from "types/graphql-schema";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+
+export interface OnSortProps {
+  order: string;
+  id: string;
+  desc: boolean;
+}
+
+export interface OnSelectionChangeProps {
+  selectedRowIds: string[];
+}
+
+export interface ModelTableGridProps<T extends Record<string, unknown>> {
+  title: string;
+  withRowSelection?: boolean;
+  checkboxProps?: TableToggleRowsSelectedProps;
+  tableProps: TableProps;
+  headerGroups: HeaderGroup<T>[];
+  rows: Row<T>[];
+  tableBodyProps: TableBodyProps;
+}
+
+export interface ModelListProps<T extends Record<string, unknown>> {
+  columns: Column<T>[];
+  title: string;
+  pageInfo?: PageInfo;
+  models?: ReadonlyArray<T>;
+  actions?: ModelTableActions<T>;
+  onSort?: (props: OnSortProps) => void;
+  onSelectionChange?: (props: OnSelectionChangeProps) => void;
+  selectedView: DataViewOptions;
+}
 
 function ModelList<T extends Record<string, unknown>>({
   title,
@@ -98,31 +133,12 @@ function ModelList<T extends Record<string, unknown>>({
       tableBodyProps={getTableBodyProps()}
     />
   ) : (
-    <ModelGrid rows={rows} checkboxProps={checkboxProps} />
+    <ModelGrid
+      withRowSelection={withRowSelection}
+      rows={rows}
+      checkboxProps={checkboxProps}
+    />
   );
-}
-
-export interface OnSortProps {
-  order: string;
-  id: string;
-  desc: boolean;
-}
-
-export interface OnSelectionChangeProps {
-  selectedRowIds: string[];
-}
-
-export interface ModelListProps<T extends Record<string, unknown>> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: Column<T>[];
-  title: string;
-  pageInfo?: PageInfo;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  models?: ReadonlyArray<any> | ReadonlyArray<T>;
-  actions?: ModelTableActions<T>;
-  onSort?: (props: OnSortProps) => void;
-  onSelectionChange?: (props: OnSelectionChangeProps) => void;
-  selectedView: DataViewOptions;
 }
 
 export default ModelList;

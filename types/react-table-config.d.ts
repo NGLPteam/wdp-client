@@ -36,7 +36,9 @@ declare module "react-table" {
   > extends Partial<UseRowSelectHooks<D>>,
       UseSortByHooks<D> {}
 
-  export interface ModelTableActionProps<D> {
+  export interface ModelTableActionProps<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
     row: Row<D>;
   }
 
@@ -76,7 +78,7 @@ declare module "react-table" {
   }
 
   // export interface Cell<
-  //   D extends Record<string, unknown> = Record<string, unknown>,
+  //   D extends Record<string, unknown> = Record<string, unknown>>,
   //   V = any
   // > extends  {}
 

@@ -1,17 +1,19 @@
 import React from "react";
-import useModelList from "hooks/useModelList";
+import useModelListPage from "hooks/useModelListPage";
 import { columns } from "components/composed/model/ModelList";
 import { ModelListPage } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import {
-  Connectionish,
-  ExtractsConnection,
-  ExtractConnectionNodeType,
-} from "types/graphql-helpers";
+import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
+
+interface ContributorNode extends Record<string, unknown> {
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 function ContributorList<
   Query extends OperationType,
-  ConnectionType extends Connectionish
+  ConnectionType extends Connectionish,
+  NodeType extends ContributorNode
 >({
   query,
   queryVars = {},
@@ -23,7 +25,7 @@ function ContributorList<
   toConnection: ExtractsConnection<Query, ConnectionType>;
   defaultOrder: Query["variables"]["order"];
 }) {
-  const { modelListProps } = useModelList<Query, ConnectionType>({
+  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
     query,
     queryVars,
     defaultOrder,
@@ -32,20 +34,19 @@ function ContributorList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
-      columns.nameFactory(
-        "contributor",
-        "name",
-        (row: Record<string, unknown>) =>
-          `${row.name || `${row.firstName} ${row.lastName}`}`
-      ),
-      columns.createdAt,
-      columns.updatedAt,
+      columns.name<NodeType>({
+        route: "contributor",
+        accessor: (row: any) =>
+          `${row.name || `${row.firstName} ${row.lastName}`}`,
+      }),
+      columns.createdAt<NodeType>(),
+      columns.updatedAt<NodeType>(),
     ],
   });
 
   return (
     <>
-      <ModelListPage<ExtractConnectionNodeType<ConnectionType>>
+      <ModelListPage<NodeType>
         modelName="contributor"
         hideViewToggle
         {...modelListProps}

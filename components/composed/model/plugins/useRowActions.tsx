@@ -5,7 +5,7 @@ import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
-type ActionConfig<D extends object = {}> = {
+type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
 };
 
@@ -22,7 +22,7 @@ type ActionDefinitions = {
   [K in ActionKeys]: ActionDefinition;
 };
 
-type ActionConfigurations<D extends object = {}> = {
+type ActionConfigurations<D extends Record<string, unknown>> = {
   [K in ActionKeys]?: ActionConfig<D>;
 };
 
@@ -81,7 +81,7 @@ function renderActions<D extends Record<string, unknown>>(
   return (
     <div className="t-align-right">
       {keys.map((action) => {
-        let actionConfig = configuration[action];
+        const actionConfig = configuration[action];
         if (!actionConfig) return null;
         return renderOneAction<D>(row, action, actionConfig);
       })}

@@ -19,7 +19,6 @@ export default function buildInitialEnvironment(
 ) {
   const network = new RelayNetworkLayer([
     relayServerSSR.getMiddleware(),
-
     (next) => async (req) => {
       try {
         return await next(req);
