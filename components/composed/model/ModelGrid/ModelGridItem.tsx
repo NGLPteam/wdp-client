@@ -22,7 +22,7 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
     <Grid.Item
       checkboxProps={checkboxProps}
       actions={actions && actions.render("Cell")}
-      thumbnail={thumbnail && thumbnail.render("GridCell")}
+      thumbnail={thumbnail && thumbnail.render("Cell", { grid: true })}
     >
       <>
         {row.cells.map((cell, i) => {

@@ -1,14 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
 import { Checkbox } from "components/atomic/forms";
-import {
-  TableHeaderProps,
-  HeaderGroup,
-  TableCommonProps,
-  ColumnInstance,
-} from "react-table";
+import { HeaderGroup, ColumnInstance } from "react-table";
 import { CheckboxProps } from "types/form-fields";
 
 function TableHeader<T extends Record<string, unknown>>({
@@ -60,18 +55,6 @@ function TableHeader<T extends Record<string, unknown>>({
     </thead>
   );
   /* eslint-enable react/jsx-key */
-}
-
-interface Header {
-  id: string;
-  render: (
-    type?: "Header" | "Footer" | string,
-    props?: Record<string, unknown>
-  ) => ReactNode;
-  getHeaderProps: () => TableHeaderProps;
-  getSortByToggleProps?: () => TableCommonProps;
-  isSorted?: boolean;
-  isSortedDesc?: boolean;
 }
 
 type RequiredHeaderProps<T extends Record<string, unknown>> = Pick<

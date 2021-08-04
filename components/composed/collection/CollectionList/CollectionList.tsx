@@ -6,9 +6,24 @@ import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
+interface Png {
+  alt: string;
+  url: string;
+}
+
+interface Image {
+  png?: Png | null;
+}
+
+interface Thumbnail {
+  image?: Image | null;
+}
+
 interface CollectionNode extends Record<string, unknown> {
   createdAt: string;
   updatedAt: string;
+  thumbnail?: Thumbnail | null;
+  slug: string;
 }
 
 function CollectionList<
@@ -35,11 +50,8 @@ function CollectionList<
     handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
     handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
     columns: [
-      columns.thumbnail(),
-      columns.name<NodeType>({
-        route: "collection",
-        accessor: "title",
-      }),
+      columns.thumbnail<NodeType>(),
+      columns.name<NodeType>({ route: "collection", accessor: "title" }),
       columns.createdAt<NodeType>(),
       columns.updatedAt<NodeType>(),
     ],

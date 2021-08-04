@@ -3,8 +3,8 @@ import ReactDOMServer from "react-dom/server";
 
 export default function encodeSvg(
   reactElement: React.ReactElement<
-    any,
-    string | React.JSXElementConstructor<any>
+    Record<string, unknown>,
+    string | React.JSXElementConstructor<Record<string, unknown>>
   >
 ) {
   return (

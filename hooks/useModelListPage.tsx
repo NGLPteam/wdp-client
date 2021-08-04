@@ -15,7 +15,6 @@ import type { ModelListPageProps } from "components/composed/model/ModelListPage
 
 interface UseModelListPageReturnProps<
   T extends OperationType,
-  ConnectionType extends Connectionish,
   NodeType extends Record<string, unknown>
 > {
   modelListProps: ModelListPageProps<NodeType>;
@@ -58,7 +57,7 @@ export default function useModelListPage<
   T,
   ConnectionType,
   NodeType
->): UseModelListPageReturnProps<T, ConnectionType, NodeType> {
+>): UseModelListPageReturnProps<T, NodeType> {
   const router = useRouter();
   const routerPage = parseInt(router.query.page as string) || 1;
   const didMountRef = useRef(false);

@@ -50,13 +50,13 @@ function TableBody<T extends Record<string, unknown>>({ rows }: Props<T>) {
   /* eslint-enable react/jsx-key */
 }
 
-type RequiredCellProps<T extends Record<string, unknown>, V = any> = Pick<
-  Cell<T, V>,
+type RequiredCellProps<T extends Record<string, unknown>> = Pick<
+  Cell<T, Record<string, unknown>>,
   "getCellProps" | "render"
 >;
 
-type OptionalCellProps<T extends Record<string, unknown>, V = any> = Partial<
-  Pick<Cell<T, V>, "column">
+type OptionalCellProps<T extends Record<string, unknown>> = Partial<
+  Pick<Cell<T, Record<string, unknown>>, "column">
 >;
 
 type CellProps<T extends Record<string, unknown>> = RequiredCellProps<T> &

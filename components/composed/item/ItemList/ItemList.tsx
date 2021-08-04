@@ -9,6 +9,7 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 interface ItemNode extends Record<string, unknown> {
   createdAt: string;
   updatedAt: string;
+  slug: string;
 }
 
 function ItemList<
@@ -38,7 +39,6 @@ function ItemList<
       columns.thumbnail(),
       columns.name<NodeType>({
         route: "item",
-        label: "title",
         accessor: "title",
       }),
       columns.createdAt<NodeType>(),

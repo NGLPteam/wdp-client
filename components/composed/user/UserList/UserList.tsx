@@ -4,10 +4,12 @@ import { columns } from "components/composed/model/ModelList";
 import { ModelListPage } from "components/composed/model";
 import { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
+import { CellProps } from "react-table";
 
 interface UserListNode extends Record<string, unknown> {
   createdAt: string;
   updatedAt: string;
+  slug: string;
 }
 
 function UserList<
@@ -49,7 +51,8 @@ function UserList<
         Header: "Admin?",
         accessor: "globalAdmin",
         disableSortBy: true,
-        Cell: ({ value }: any) => (value && value === true ? "Yes" : "No"),
+        Cell: ({ value }: CellProps<NodeType>) =>
+          value && value === true ? "Yes" : "No",
       },
     ],
   });

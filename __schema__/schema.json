@@ -20,7 +20,18 @@
             "type": {
               "kind": "NON_NULL",
               "name": null,
-              "ofType": {
+              "ofType": {      const imageAttributes = grid
+                ? { objectFit: "contain" }
+          : { objectFit: "contain", objectPosition: "center" };
+          const imageDimensions = grid
+          ? {
+            width: 180,
+            height: 180,
+          }
+          : {
+            width: 50,
+            height: 50,
+          };
                 "kind": "LIST",
                 "name": null,
                 "ofType": {

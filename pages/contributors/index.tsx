@@ -9,7 +9,10 @@ import ContributorList from "components/composed/contributor/ContributorList";
 import type { ExtractsConnection } from "types/graphql-helpers";
 
 type ConnectionType = QueryResponse["contributors"];
-type NodeType = ConnectionType["nodes"][number];
+type NodeType = Exclude<
+  ConnectionType["nodes"][number],
+  { readonly __typename: "%other" }
+>;
 
 export default function ContributorListView() {
   const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
@@ -32,18 +35,17 @@ const query = graphql`
       nodes {
         __typename
         ... on OrganizationContributor {
+          slug
           name: legalName
           createdAt
           updatedAt
         }
         ... on PersonContributor {
+          slug
           firstName: givenName
           lastName: familyName
           createdAt
           updatedAt
-        }
-        ... on Sluggable {
-          slug
         }
       }
       pageInfo {

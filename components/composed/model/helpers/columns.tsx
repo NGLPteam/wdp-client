@@ -2,18 +2,48 @@ import { formatDate } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import React from "react";
 import type { Column } from "react-table";
+import { CellProps } from "react-table";
 
-type Node = Record<string, unknown>;
+type Node = Record<string, unknown> & {
+  slug: string;
+};
 
-interface Creatable extends Node {
-  createdAt?: string;
+interface CreatableNode extends Node {
+  createdAt?: string | null;
 }
 
-interface Updatable extends Node {
-  updatedAt?: string;
+interface UpdatableNode extends Node {
+  updatedAt?: string | null;
 }
 
-const createdAt = <NodeType extends Creatable>() => {
+interface Png {
+  alt: string;
+  url: string;
+}
+
+interface Image {
+  png?: Png | null;
+}
+
+interface Thumbnail {
+  image?: Image | null;
+}
+
+interface ThumbnailNode extends Node {
+  thumbnail?: Thumbnail | null;
+}
+
+// Use if the column requires an accessor to be passed in.
+type RequiredColumnish<T extends Node> = Column<T> & {
+  truncate?: boolean;
+};
+
+// Use if the column is self sufficient
+type PartialColumnish<T extends Node> = Partial<RequiredColumnish<T>>;
+
+const createdAt = <NodeType extends CreatableNode>(
+  props: PartialColumnish<NodeType> = {}
+): Column<NodeType> => {
   return {
     Header: "Created At",
     id: "createdAt",
@@ -23,10 +53,13 @@ const createdAt = <NodeType extends Creatable>() => {
       if (!originalRow.createdAt) return null;
       return formatDate(originalRow.createdAt);
     },
+    ...props,
   };
 };
 
-const updatedAt = <NodeType extends Updatable>() => {
+const updatedAt = <NodeType extends UpdatableNode>(
+  props: PartialColumnish<NodeType> = {}
+): Column<NodeType> => {
   return {
     Header: "Updated At",
     id: "updatedAt",
@@ -36,25 +69,20 @@ const updatedAt = <NodeType extends Updatable>() => {
       if (!originalRow.updatedAt) return null;
       return formatDate(originalRow.updatedAt);
     },
+    ...props,
   };
 };
 
-type Accessor<NodeType extends Node> = Column<NodeType>["accessor"];
-
+type NameColumn<T extends Node> = RequiredColumnish<T> & { route: string };
 const name = <NodeType extends Node>({
   route,
-  label = "title",
-  accessor,
-}: {
-  route: string;
-  label?: string;
-  accessor?: any;
-}) => {
+  ...props
+}: NameColumn<NodeType>): Column<NodeType> => {
   return {
-    Header: label,
-    accessor,
+    Header: "Name",
+    id: "Name",
     disableSortBy: true,
-    Cell: ({ row, value }: { row: any; value: any }) => {
+    Cell: ({ row, value }: CellProps<NodeType>) => {
       if (!row?.original?.slug) return value;
       return (
         <NamedLink
@@ -66,33 +94,36 @@ const name = <NodeType extends Node>({
         </NamedLink>
       );
     },
+    ...props,
   };
 };
 
-const thumbnail = () => {
+const thumbnail = <NodeType extends ThumbnailNode>(
+  props: PartialColumnish<NodeType> = {}
+): Column<NodeType> => {
   return {
     Header: <span className="a-hidden">Thumbnail</span>,
     id: "thumbnail",
-    accessor: "thumbnail",
+    accessor: (row: NodeType) => row.thumbnail,
     disableSortBy: true,
-    // TODO: Find a way to pass size or view (table/grid) down to a single Cell render
-    GridCell: ({ value }: { value: any }) => {
-      return value?.image?.png ? (
+    Cell: ({ grid = false, value }: { grid: boolean; value: Thumbnail }) => {
+      if (!value || !value.image || !value.image.png) return null;
+      const width = grid ? 180 : 50;
+      const height = grid ? 180 : 50;
+      const objectFit = "contain";
+      const objectPosition = grid ? undefined : "center";
+
+      const png = value.image.png;
+
+      return png ? (
         <Image
-          image={{ ...value?.image?.png, width: 180, height: 180 }}
-          objectFit="contain"
+          image={{ ...png, width, height }}
+          objectFit={objectFit}
+          objectPosition={objectPosition}
         />
       ) : null;
     },
-    Cell: ({ value }: { value: any }) => {
-      return value?.image?.png ? (
-        <Image
-          image={{ ...value?.image?.png, width: 50, height: 50 }}
-          objectFit="contain"
-          objectPosition="center"
-        />
-      ) : null;
-    },
+    ...props,
   };
 };
 

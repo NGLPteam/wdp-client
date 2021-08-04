@@ -26,6 +26,7 @@ export default function buildInitialEnvironment(
         if (err?.res?.status === 401) {
           ctx?.res?.writeHead(302, { Location: "/sign_in" });
           ctx?.res?.end();
+          return Promise.reject(Error("Invalid keycloak token."));
         } else {
           throw err;
         }
@@ -45,7 +46,7 @@ export default function buildInitialEnvironment(
     }),
     authMiddleware({
       allowEmptyToken: true,
-      token: (req) => {
+      token: () => {
         const { token } = ssrCookies.getTokens();
 
         if (token) {
