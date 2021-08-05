@@ -11,11 +11,11 @@ export const ButtonControl = styled.button<BaseProps>`
   display: inline-block;
   border: 1px solid transparent;
   border-radius: ${pxToRem("4px")};
-  background-color: var(--brand10);
+  background-color: var(--background-light);
   padding: ${pxToRem("5px")} ${pxToRem("8px")};
   ${tLabel("sm")}
   text-align: start;
-  color: var(--brand100);
+  color: var(--accent-color);
   transition: var(--color-transition), var(--border-transition),
     var(--background-transition), var(--opacity-transition);
   opacity: var(--button-control-opacity, 1);
