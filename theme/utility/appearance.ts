@@ -33,13 +33,12 @@ export default css`
     ${aGlow("lightMode")}
   }
 
-  .a-bg-neutral00,
-  .a-bg-brand10 {
+  .a-bg-neutral00 {
     ${aBgLight("neutral00")}
   }
 
   .a-bg-brand10 {
-    --background-color: var(--brand10);
+    ${aBgLight("brand10")}
   }
 
   .a-bg-brand100,

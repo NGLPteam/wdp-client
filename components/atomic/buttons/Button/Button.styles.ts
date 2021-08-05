@@ -5,8 +5,8 @@ import { tLabel } from "theme/mixins/typography";
 import { basePadding } from "theme/mixins/appearance";
 
 const Button = styled.button<Props>`
-  --button-background-color: var(--brand100);
-  --button-text-color: var(--neutral00);
+  --button-background-color: var(--accent-color);
+  --button-text-color: var(--background-color);
   --button-hover-color: var(--brand70);
   --button-focus-color: var(--brand50);
   --button-focus-border: var(--brand100);
@@ -15,8 +15,8 @@ const Button = styled.button<Props>`
   ${({ secondary }) =>
     secondary &&
     css`
-      --button-background-color: var(--brand10);
-      --button-text-color: var(--brand100);
+      --button-background-color: var(--background-light);
+      --button-text-color: var(--accent-color);
       --button-hover-color: var(--brand20);
       --button-focus-color: var(--brand20);
       --button-disabled-opacity: 0.4;

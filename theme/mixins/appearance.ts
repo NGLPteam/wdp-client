@@ -46,7 +46,9 @@ export function aBgDark(bgColor = "brand100") {
 export function aBgLight(bgColor = "neutral00") {
   return css`
     --background-color: var(--${bgColor});
-    --background-light: var(--brand10);
+    --background-light: var(
+      --${bgColor === "neutral00" ? "brand10" : "brand20"}
+    );
     --color: var(--neutral90);
     --color-light: var(--neutral70); /* Passes AA */
     --color-lighter: var(

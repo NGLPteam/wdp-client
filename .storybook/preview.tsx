@@ -60,6 +60,11 @@ export const parameters = {
         color: `var(--neutral00, ${get(colors, "neutral.00")})`,
       },
       {
+        name: "brand10",
+        class: "a-bg-brand10",
+        color: `var(--brand10, ${get(colors, "brand.10")})`,
+      },
+      {
         name: "brand100",
         class: "a-bg-brand100",
         color: `var(--brand100, ${get(colors, "brand.100")})`,

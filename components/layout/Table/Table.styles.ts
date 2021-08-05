@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { aTextGlow, basePadding } from "theme/mixins/appearance";
+import { aBgLight, aTextGlow, basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { respond } from "theme/mixins/base";
@@ -147,7 +147,7 @@ export const Row = styled.tr`
   &:hover,
   &:focus,
   &:focus-within {
-    background-color: var(--brand10);
+    ${aBgLight("brand10")}
     transition: var(--background-transition);
 
     --button-control-opacity: 1;
