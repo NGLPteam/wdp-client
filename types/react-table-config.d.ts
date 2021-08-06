@@ -69,13 +69,13 @@ declare module "react-table" {
 
   export interface ColumnInterface<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseSortByColumnOptions<D> {}
+  > extends UseSortByColumnOptions<D> {
+    truncate?: boolean;
+  }
 
   export interface ColumnInstance<
     D extends Record<string, unknown> = Record<string, unknown>
-  > extends UseSortByColumnProps<D> {
-    truncate?: boolean;
-  }
+  > extends UseSortByColumnProps<D> {}
 
   // export interface Cell<
   //   D extends Record<string, unknown> = Record<string, unknown>>,
