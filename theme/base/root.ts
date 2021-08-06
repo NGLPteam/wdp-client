@@ -81,6 +81,7 @@ export default css`
 
     /* layout grid */
     --grid-column-gap: ${pxToRem("16px")};
+    --grid-column-gap-sm: ${pxToRem("10px")};
 
     /* transitions */
     --base-duration: ${duration}s;

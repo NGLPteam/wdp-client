@@ -54,11 +54,10 @@ function HeaderNavLinks({ navigation }: Props) {
         label={t(item.label)}
         disclosure={
           <Styled.Link as="button" active={active}>
-            {t(item.label)}
+            <Styled.LinkText>{t(item.label)}</Styled.LinkText>
           </Styled.Link>
         }
         menuItems={item.children.map(renderLink)}
-        isDarkMode
       />
     );
   };
@@ -70,7 +69,9 @@ function HeaderNavLinks({ navigation }: Props) {
 
     return (
       <NamedLink route={item.route} passHref>
-        <Styled.Link active={active}>{t(item.label)}</Styled.Link>
+        <Styled.Link active={active}>
+          <Styled.LinkText>{t(item.label)}</Styled.LinkText>
+        </Styled.Link>
       </NamedLink>
     );
   };

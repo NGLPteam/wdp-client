@@ -59,11 +59,23 @@ export default css`
       align-items: center;
     }
 
+    &--justify-end {
+      justify-content: flex-end;
+    }
+
     &--gap {
       gap: var(--grid-column-gap);
 
       ${noFlexGapSupport(`
         margin-inline-start: var(--grid-column-gap);
+      `)}
+    }
+
+    &--gap-sm {
+      gap: var(--grid-column-gap-sm);
+
+      ${noFlexGapSupport(`
+        margin-inline-start: var(--grid-column-gap-sm);
       `)}
     }
   }

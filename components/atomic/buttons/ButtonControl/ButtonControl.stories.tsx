@@ -61,3 +61,14 @@ IconOnly.args = {
   icon: "close",
   "aria-label": "Button",
 };
+
+export const WithAuthActions: Story<Props> = Template.bind({});
+
+WithAuthActions.args = {
+  disabled: false,
+  icon: "edit",
+  text: "Edit",
+  "aria-label": "Button",
+  actions: "self.edit",
+  allowedActions: ["self.edit"],
+};

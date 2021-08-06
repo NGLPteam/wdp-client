@@ -1,13 +1,15 @@
 import React, { forwardRef } from "react";
 import * as Styled from "./ButtonControl.styles";
 import { IconFactory } from "components/factories";
+import { Authorize } from "components/auth";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
+type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
 const ButtonControl = forwardRef(
-  ({ children, iconRotate, ...props }: Props, ref) => {
+  ({ children, iconRotate, actions, allowedActions, ...props }: Props, ref) => {
     const { icon } = props;
 
-    return (
+    const content = (
       <Styled.ButtonControl ref={ref} {...props}>
         <>
           {children && <span>{children}</span>}
@@ -15,15 +17,24 @@ const ButtonControl = forwardRef(
         </>
       </Styled.ButtonControl>
     );
+
+    return actions || allowedActions ? (
+      <Authorize actions={actions} allowedActions={allowedActions}>
+        {content}
+      </Authorize>
+    ) : (
+      content
+    );
   }
 );
 
-interface Props {
+interface Props extends Omit<AuthorizeProps, "children"> {
+  children?: React.ReactNode;
   icon?: IconFactoryProps["icon"];
   iconRotate?: number;
-  children?: JSX.Element | JSX.Element[] | string;
   as?: React.ElementType;
   onClick?: () => void;
+  "aria-label"?: string;
 }
 
 export default ButtonControl;

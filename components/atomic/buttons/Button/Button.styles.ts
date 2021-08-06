@@ -15,7 +15,7 @@ const Button = styled.button<Props>`
   ${({ secondary }) =>
     secondary &&
     css`
-      --button-background-color: var(--background-light);
+      --button-background-color: var(--button-background);
       --button-text-color: var(--accent-color);
       --button-hover-color: var(--brand20);
       --button-focus-color: var(--brand20);

@@ -83,7 +83,7 @@ export function setZIndexVars() {
   `;
 }
 
-export const breakpoints = {
+export const breakpoints: Record<string | number, string> = {
   140: "1400px",
   120: "1280px",
   110: "1100px",

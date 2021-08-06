@@ -1,6 +1,6 @@
 import React from "react";
-import { Authorize } from "components/auth";
-import { ButtonControl } from "components/atomic/buttons";
+import i18next from "i18next";
+import { ButtonControlGroup } from "components/atomic/buttons";
 import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
@@ -28,23 +28,23 @@ type ActionConfigurations<D extends Record<string, unknown>> = {
 
 const availableActions: ActionDefinitions = {
   edit: {
-    label: "Edit",
+    label: i18next.t("common:edit"),
     icon: "edit",
     action: "self.update",
     iconRotate: 0,
   },
   delete: {
-    label: "Delete",
+    label: i18next.t("common:delete"),
     icon: "delete",
     action: "self.delete",
     iconRotate: 0,
   },
 };
 
-function renderOneAction<D extends Record<string, unknown>>(
+function getButtonProps<D extends Record<string, unknown>>(
   row: Row<D>,
   action: ActionKeys,
-  actionConfig: ActionConfig<D>
+  actionConfig?: ActionConfig<D>
 ) {
   const actionDefinition = availableActions[action];
 
@@ -52,25 +52,16 @@ function renderOneAction<D extends Record<string, unknown>>(
     "aria-label": actionDefinition.label,
     icon: actionDefinition.icon,
     iconRotate: actionDefinition.iconRotate || 0,
-    ...(actionConfig.handleClick && {
+    ...(actionConfig?.handleClick && {
       onClick: () => actionConfig.handleClick({ row }),
     }),
   };
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
-  const content = <ButtonControl key={action} {...buttonProps} />;
 
-  if (!allowedActions) return content;
+  if (!allowedActions) return buttonProps;
 
-  return (
-    <Authorize
-      key={action}
-      actions={actionDefinition.action}
-      allowedActions={allowedActions}
-    >
-      {content}
-    </Authorize>
-  );
+  return { ...buttonProps, actions: actionDefinition.action, allowedActions };
 }
 
 function renderActions<D extends Record<string, unknown>>(
@@ -78,15 +69,26 @@ function renderActions<D extends Record<string, unknown>>(
   configuration: ActionConfigurations<D>
 ) {
   const keys = Object.keys(configuration) as Array<ActionKeys>;
-  return (
-    <div className="t-align-right">
-      {keys.map((action) => {
-        const actionConfig = configuration[action];
-        if (!actionConfig) return null;
-        return renderOneAction<D>(row, action, actionConfig);
-      })}
-    </div>
-  );
+  const buttons = keys
+    .filter((action) => {
+      // Filter out any actions that are not configured
+      const actionConfig = configuration[action];
+      return actionConfig ? action : null;
+    })
+    .map((action) => {
+      // Map actions to button props
+      const actionConfig = configuration[action];
+      return getButtonProps<D>(row, action, actionConfig);
+    });
+
+  return buttons ? (
+    <ButtonControlGroup
+      toggleLabel={i18next.t("common:options")}
+      menuLabel={"Options list"}
+      breakpoint={70}
+      buttons={buttons}
+    />
+  ) : null;
 }
 
 function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {

@@ -3,8 +3,8 @@ import { basePadding, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div`
+  display: inline-block;
   position: relative;
-  z-index: var(--z-index-dropdown);
 
   &:focus {
     outline: 0;
@@ -16,28 +16,33 @@ export const List = styled.ul<ListProps>`
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  max-inline-size: 300px;
-  min-inline-size: 164px;
+  max-inline-size: 100vw;
   border-radius: ${pxToRem("4px")};
   padding: ${basePadding(4)} 0;
   color: var(--accent-light);
-  transition: opacity 0.15s ease-out;
+  transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
   margin-block-start: ${basePadding(1)};
+  visibility: visible;
   opacity: 1;
+  z-index: var(--z-index-dropdown);
+  background-color: var(--background-light);
 
   &[aria-hidden="true"] {
     opacity: 0;
+    visibility: hidden;
+    z-index: -1;
   }
+
+  ${({ right }) => right && `right: 0;`}
 `;
 
 interface ListProps {
-  bgColor?: string;
+  right?: boolean;
 }
 
 export const Item = styled.li`
   transition: var(--color-transition), var(--background-transition);
-  padding: ${basePadding(2)} ${basePadding(6)};
   text-align: start;
   color: var(--color);
 
@@ -47,6 +52,22 @@ export const Item = styled.li`
 
     .a-bg-brand90 & {
       background: none;
+    }
+  }
+
+  > * {
+    width: 100%;
+    padding: ${basePadding(2)} ${basePadding(6)};
+    border-radius: none;
+    background: transparent;
+  }
+
+  > a {
+    display: block;
+    white-space: nowrap;
+
+    &:focus {
+      outline: none;
     }
   }
 `;

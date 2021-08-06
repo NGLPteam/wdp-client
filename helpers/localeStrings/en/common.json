@@ -9,6 +9,9 @@
   "manage": "Manage",
   "error": "Error",
   "no_results": "No Results",
+  "options": "Options",
+  "edit": "Edit",
+  "delete": "Delete",
   "site": {
     "title": "NGLP",
     "description": "...",
