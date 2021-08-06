@@ -30,7 +30,7 @@ export const TitleWrapper = styled.div`
   `)}
 
   ${respond(
-    css`
+    `
       --page-header-gap: ${basePadding(5)};
       flex-direction: column;
       align-items: stretch;
@@ -43,7 +43,7 @@ export const TitleWrapper = styled.div`
 export const H1 = styled.h1`
   ${respond(
     css`
-      padding-block-end: var(--page-header-gap);
+      padding-block-end: ${pxToRem(5)};
       border-bottom: 2px solid var(--accent-color);
     `,
     MOBILE_BREAK

@@ -39,6 +39,7 @@ export function aBgDark(bgColor = "brand100") {
     --accent-color: var(--neutral00);
     --accent-light: var(--brand10);
     --accent-lighter: var(--brand20);
+    --button-background: var(--background-light);
     background-color: var(--background-color);
     color: var(--color);
   `;
@@ -60,6 +61,7 @@ export function aBgLight(bgColor = "neutral00") {
     --accent-color: var(--brand100);
     --accent-light: var(--brand90);
     --accent-lighter: var(--brand80);
+    --button-background: var(--background-light);
     background-color: var(--background-color);
     color: var(--color);
   `;

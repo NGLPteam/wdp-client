@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { ButtonControl } from "components/atomic";
-import * as Styled from "./DataViewToggle.styles";
 
 const DataViewToggle = ({
   viewOptions = [DataViewOptions.table, DataViewOptions.grid],
@@ -19,7 +18,7 @@ const DataViewToggle = ({
   if (viewOptions.length === 1) return null;
 
   return (
-    <Styled.Wrapper>
+    <div className="l-flex l-flex--gap-sm">
       {viewOptions.includes(DataViewOptions.grid) && (
         <ButtonControl
           icon="viewGrid"
@@ -40,7 +39,7 @@ const DataViewToggle = ({
           onClick={selectTable}
         />
       )}
-    </Styled.Wrapper>
+    </div>
   );
 };
 

@@ -55,16 +55,14 @@ export const Item = styled.li`
 `;
 
 export const Link = styled.a<LinkProps>`
+  --nav-link-border: 2px solid transparent;
   display: inline-block;
-  border-bottom: 2px solid transparent;
-  padding-block-end: 1px;
-  transition: var(--border-transition), var(--color-transition);
   color: var(--accent-light);
   ${tLabel("md")}
 
   &:hover {
+    --nav-link-border: 2px solid var(--accent-lighter);
     color: var(--accent-lighter);
-    border-color: var(--accent-lighter);
   }
 
   &:focus-visible {
@@ -74,6 +72,7 @@ export const Link = styled.a<LinkProps>`
 
   &:active,
   &[aria-expanded="true"] {
+    --nav-link-border: 2px solid var(--accent-lighter);
     color: var(--accent-color);
     border-color: var(--accent-color);
   }
@@ -81,9 +80,16 @@ export const Link = styled.a<LinkProps>`
   ${({ active }) =>
     active &&
     css`
+      --nav-link-border: 2px solid var(--accent-lighter);
       color: var(--accent-color);
       border-color: var(--accent-color);
     `}
+`;
+
+export const LinkText = styled.span`
+  transition: var(--border-transition), var(--color-transition);
+  border-bottom: var(--nav-link-border);
+  padding-block-end: 1px;
 `;
 
 interface LinkProps {

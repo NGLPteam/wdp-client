@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { aGlow, basePadding } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
 
 import BaseButtonControl from "./ButtonControl";
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
@@ -11,7 +11,7 @@ export const ButtonControl = styled.button<BaseProps>`
   display: inline-block;
   border: 1px solid transparent;
   border-radius: ${pxToRem("4px")};
-  background-color: var(--background-light);
+  background-color: var(--button-background);
   padding: ${pxToRem("5px")} ${pxToRem("8px")};
   ${tLabel("sm")}
   text-align: start;
@@ -20,10 +20,6 @@ export const ButtonControl = styled.button<BaseProps>`
     var(--background-transition), var(--opacity-transition);
   opacity: var(--button-control-opacity, 1);
   visibility: var(--button-control-visibility, visible);
-
-  & + & {
-    margin-inline-start: var(--button-control-spacing, ${basePadding(3)});
-  }
 
   > span {
     display: inline-block;

@@ -21,6 +21,8 @@ export const Menu = styled.div<StyledMenuProps>`
           --menu-item-hover-border: 2px solid white;
           --menu-item-margin: ${basePadding(2)} ${basePadding(6)};
           ${aBgDark("brand90")}
+          /* Buttons have the same background as the menu */
+          --button-background: var(--brand90);
         `
       : css`
           --menu-align-items: stretch;
@@ -29,6 +31,8 @@ export const Menu = styled.div<StyledMenuProps>`
           --menu-item-hover-background: var(--brand100);
           --menu-item-padding: ${basePadding(2)} ${basePadding(6)};
           ${aBgLight("brand10")}
+          /* Buttons have the same background as the menu */
+          --button-background: var(--brand10);
         `}
 
   display: flex;
