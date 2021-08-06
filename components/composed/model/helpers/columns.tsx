@@ -34,9 +34,7 @@ interface ThumbnailNode extends Node {
 }
 
 // Use if the column requires an accessor to be passed in.
-type RequiredColumnish<T extends Node> = Column<T> & {
-  truncate?: boolean;
-};
+type RequiredColumnish<T extends Node> = Column<T>;
 
 // Use if the column is self sufficient
 type PartialColumnish<T extends Node> = Partial<RequiredColumnish<T>>;
