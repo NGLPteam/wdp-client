@@ -1,38 +1,69 @@
-import React from "react";
-import Link from "next/link";
+import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useUID } from "react-uid";
+import { useFocusTrap } from "@castiron/hooks/";
+
 import appData from "fixtures/app.data";
+import { useToggle } from "hooks";
 import { LogoPlaceholder } from "components/global";
-import HeaderSearch from "./HeaderSearch";
+
 import HeaderNavLinks from "./HeaderNavLinks";
 import * as Styled from "./Header.styles";
 import HeaderAccount from "./HeaderAccount";
 
+import MobileMenu from "../MobileMenu";
+import MobileMenuToggle from "../MobileMenuToggle";
+import ProviderBar from "../ProviderBar";
+import GlobalSearch from "../GlobalSearch";
+
 function Header() {
   const { t } = useTranslation("common");
+  const mobileNavId = useUID();
+  const mobileNavRef = useRef(null);
+  const [isActive, toggleActive, setActive] = useToggle();
+
+  useFocusTrap(mobileNavRef, isActive, {
+    onDeactivate: useCallback(() => setActive(false), [setActive]),
+  });
+
   const { siteInfo, headerData } = appData;
 
   return (
     <header role="banner">
-      <Styled.ProviderBar className="a-bg-brand90">
-        <span className="t-label-md">{t(siteInfo.provider)}</span>
-      </Styled.ProviderBar>
+      <Styled.ProviderBarBlock>
+        <ProviderBar />
+      </Styled.ProviderBarBlock>
       <Styled.Nav className="a-bg-brand100">
         <Styled.Inner>
           {siteInfo.institution && (
-            <Link href="/" passHref>
-              <LogoPlaceholder>
-                <span className="t-label-md">{t(siteInfo.institution)}</span>
-              </LogoPlaceholder>
-            </Link>
+            <LogoPlaceholder>
+              <span className="t-label-md">{t(siteInfo.institution)}</span>
+            </LogoPlaceholder>
           )}
-          <ul className="l-flex l-flex--align-center">
-            <HeaderNavLinks navigation={headerData.navigation} />
-            <HeaderSearch />
+          <Styled.DesktopNavBlock>
+            <ul className="l-flex l-flex--align-center">
+              <HeaderNavLinks navigation={headerData.navigation} />
+            </ul>
+          </Styled.DesktopNavBlock>
+          <Styled.SearchBlock>
+            <GlobalSearch />
+          </Styled.SearchBlock>
+          <Styled.AccountBlock>
             <HeaderAccount />
-          </ul>
+          </Styled.AccountBlock>
+          <MobileMenuToggle
+            onToggle={toggleActive}
+            label={t("header.toggle_nav_menu")}
+            icon="menu"
+          />
         </Styled.Inner>
       </Styled.Nav>
+      <MobileMenu
+        ref={mobileNavRef}
+        id={mobileNavId}
+        active={isActive}
+        onClose={toggleActive}
+      />
     </header>
   );
 }

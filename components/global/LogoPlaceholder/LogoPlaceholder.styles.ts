@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
-export const LogoPlaceholder = styled.a`
+export const LogoLink = styled.a`
   --logo-background-hover: var(--brand90);
   --logo-color-hover: var(--neutral00);
   --logo-background: var(--brand10);

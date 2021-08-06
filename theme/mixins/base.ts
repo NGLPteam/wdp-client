@@ -17,9 +17,19 @@ export function respond(
 export function fluidScale(
   max: string | number,
   min: string | number,
-  maxVw = get(breakpoints, 140, "1400px"),
-  minVw = get(breakpoints, 30, "375px")
+  maxVw: string | number = 140,
+  minVw: string | number = 30
 ) {
+  const defaultMaxVw = get(breakpoints, maxVw, "1400px");
+  const defaultMinVw = get(breakpoints, minVw, "375px");
+
   if (max === min) return max;
-  return fluidScaleBase(max, min, maxVw, minVw);
+  return fluidScaleBase(max, min, defaultMaxVw, defaultMinVw);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function globalNavRespond(content: string | any, operator?: string) {
+  const breakpoint = breakpoints.navBreak;
+
+  return respond(content, breakpoint, operator);
 }

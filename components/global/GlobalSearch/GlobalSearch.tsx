@@ -1,9 +1,8 @@
 import React from "react";
 import { Search } from "components/atomic/forms";
 import { useRouter } from "next/router";
-import * as Styled from "./Header.styles";
 
-const HeaderSearch = () => {
+const GlobalSearch = () => {
   const router = useRouter();
 
   const handleSubmit = (value: string) => {
@@ -13,11 +12,7 @@ const HeaderSearch = () => {
     });
   };
 
-  return (
-    <Styled.Item>
-      <Search onSubmit={handleSubmit} />
-    </Styled.Item>
-  );
+  return <Search onSubmit={handleSubmit} />;
 };
 
-export default HeaderSearch;
+export default GlobalSearch;

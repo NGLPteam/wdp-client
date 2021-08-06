@@ -54,11 +54,11 @@ const appData = {
     ],
   },
   footerData: {
-    about: "footer.about",
-    copyright: "footer.copyright",
+    about: "common:footer.about.body",
+    copyright: "common:footer.copyright",
     navigation: [
       {
-        header: "footer.manage",
+        header: "common:footer.manage",
         children: [
           COMMUNITIES_LINK,
           COLLECTIONS_LINK,
@@ -68,26 +68,26 @@ const appData = {
         ],
       },
       {
-        header: "footer.learn",
+        header: "common:footer.learn",
         children: [
           {
-            label: "footer.nav.features",
+            label: "common:footer.nav.features",
             href: "#",
           },
           {
-            label: "footer.nav.partners",
+            label: "common:footer.nav.partners",
             href: "#",
           },
           {
-            label: "footer.nav.in_use",
+            label: "common:footer.nav.in_use",
             href: "#",
           },
           {
-            label: "footer.nav.help",
+            label: "common:footer.nav.help",
             href: "#",
           },
           {
-            label: "footer.nav.contact",
+            label: "common:footer.nav.contact",
             href: "#",
           },
         ],

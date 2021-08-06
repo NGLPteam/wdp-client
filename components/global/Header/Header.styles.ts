@@ -1,12 +1,10 @@
 import styled, { css } from "styled-components";
 import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
+import { globalNavRespond, respond } from "theme/mixins/base";
 
-export const ProviderBar = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  padding: ${basePadding(4)} var(--container-column-margin);
-  text-align: center;
+export const ProviderBarBlock = styled.div`
+  ${globalNavRespond(`display: none`)}
 `;
 
 export const Nav = styled.nav`
@@ -17,10 +15,31 @@ export const Inner = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--grid-column-gap);
   margin: 0 auto;
   max-width: var(--container-max);
   padding: ${basePadding(5)} 0;
+
+  /* Push all items after the first child to the right */
+  > *:first-child {
+    margin-inline-end: auto;
+  }
+`;
+
+export const SearchBlock = styled.div`
+  ${respond(`display: none`, 60)}
+`;
+
+export const AccountBlock = styled.div`
+  ${globalNavRespond(`display: none`)}
+`;
+
+export const DesktopNavBlock = styled.div`
+  ${globalNavRespond(`display: none`)}
+`;
+
+export const MobileNavBlock = styled.div`
+  ${globalNavRespond(`display: none`, "min")}
 `;
 
 export const Item = styled.li`
