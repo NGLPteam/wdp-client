@@ -10,7 +10,7 @@ const CommunityDetail: Page = () => {
 
   // Nothing to see here, move on to collections
   router.replace({
-    pathname: activeRoute.redirect,
+    pathname: activeRoute?.redirect,
     query: { ...router.query },
   });
 

@@ -56,12 +56,15 @@ class NextNamedRoutes {
    * Returns the currently active route (based on window.location)
    * Uses regex matching internally
    */
-  activeRoute(): Route {
+  activeRoute(): Route | null {
     const rn = this.findRouteByPath(window.location.pathname);
-    if (!rn)
-      throw new Error(
+    if (!rn) {
+      console.warn(
         `No route associated with this pathname: ${window.location.pathname}`
       );
+      return null;
+    }
+
     return rn;
   }
 

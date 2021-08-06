@@ -6,7 +6,6 @@ type Props = React.ComponentProps<typeof Header>;
 export default {
   title: "Components/Global/Header",
   component: Header,
-  decorators: [(Story: Story) => <Story />],
 };
 
 export const Default: Story<Props> = () => (

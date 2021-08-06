@@ -23,7 +23,7 @@ const NamedLink = forwardRef(
 
     // If the route doesn't exist, warn dev in the console
     if (!route) {
-      // console.warn(`Route ${routeName} not found`, RouteHelper.routes);
+      console.warn(`Route ${routeName} not found`, RouteHelper.routes);
       return null;
     }
 
