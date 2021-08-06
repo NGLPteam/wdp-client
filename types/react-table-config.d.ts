@@ -71,6 +71,7 @@ declare module "react-table" {
     D extends Record<string, unknown> = Record<string, unknown>
   > extends UseSortByColumnOptions<D> {
     truncate?: boolean;
+    align?: "left" | "center" | "right";
   }
 
   export interface ColumnInstance<
