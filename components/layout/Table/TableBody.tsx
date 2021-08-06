@@ -35,6 +35,7 @@ function TableBody<T extends Record<string, unknown>>({ rows }: Props<T>) {
             };
             return (
               <Styled.Cell
+                align={cell?.column?.align}
                 {...cellProps}
                 className={cell.column?.truncate ? "t-truncate" : undefined}
               >

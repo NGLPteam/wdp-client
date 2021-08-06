@@ -43,6 +43,7 @@ const createdAt = <NodeType extends CreatableNode>(
   props: PartialColumnish<NodeType> = {}
 ): Column<NodeType> => {
   return {
+    align: "left",
     Header: "Created At",
     id: "createdAt",
     disableSortBy: true,
@@ -59,6 +60,7 @@ const updatedAt = <NodeType extends UpdatableNode>(
   props: PartialColumnish<NodeType> = {}
 ): Column<NodeType> => {
   return {
+    align: "left",
     Header: "Updated At",
     id: "updatedAt",
     disableSortBy: true,
