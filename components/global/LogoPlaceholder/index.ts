@@ -1,3 +1,1 @@
-import { LogoPlaceholder } from "./LogoPlaceholder.styles";
-
-export default LogoPlaceholder;
+export { default } from "./LogoPlaceholder";

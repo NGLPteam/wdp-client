@@ -42,10 +42,21 @@ function HeaderNavLinks({ navigation }: Props) {
   };
 
   const renderDropdown = (item: HeaderNavParent) => {
+    // Check if the disclosure should be active
+    const activeRoute = RouteHelper.activeRoute();
+    const childRoutes = item.children.map((item) => item.route);
+    const active = activeRoute
+      ? childRoutes.includes(activeRoute?.name)
+      : false;
+
     return (
       <Dropdown
         label={t(item.label)}
-        disclosure={<Styled.Link as="button">{t(item.label)}</Styled.Link>}
+        disclosure={
+          <Styled.Link as="button" active={active}>
+            {t(item.label)}
+          </Styled.Link>
+        }
         menuItems={item.children.map(renderLink)}
         isDarkMode
       />
@@ -53,9 +64,10 @@ function HeaderNavLinks({ navigation }: Props) {
   };
 
   const renderLink = (item: HeaderNavLink) => {
+    // Check if the individual route link should be active
     const activeRoute = RouteHelper.activeRoute();
-    // TODO: We need a more sophisticated active match here. With this approach, the manage dropdown would not be active for /manage/users
     const active = activeRoute?.name === item.route;
+
     return (
       <NamedLink route={item.route} passHref>
         <Styled.Link active={active}>{t(item.label)}</Styled.Link>

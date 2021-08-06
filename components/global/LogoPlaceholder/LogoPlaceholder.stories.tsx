@@ -13,7 +13,5 @@ export default {
 };
 
 export const Default: Story = (args) => (
-  <LogoPlaceholder href="#" {...args}>
-    Logo Text
-  </LogoPlaceholder>
+  <LogoPlaceholder {...args}>Logo Text</LogoPlaceholder>
 );

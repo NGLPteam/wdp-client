@@ -88,6 +88,7 @@ export const breakpoints = {
   120: "1280px",
   110: "1100px",
   100: "1024px",
+  navBreak: "960px",
   80: "834px",
   70: "768px",
   60: "667px",
@@ -95,4 +96,6 @@ export const breakpoints = {
   50: "540px",
   40: "414px",
   30: "375px",
+  20: "280px",
+  10: "140px",
 };

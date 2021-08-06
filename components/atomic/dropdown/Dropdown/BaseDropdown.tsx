@@ -10,11 +10,9 @@ import isFunction from "lodash/isFunction";
 function BaseDropdown({ className, disclosure, submenu, label }: Props) {
   const uid = useUID();
   const wrapperRef = useRef(null);
-  const firstInteractiveRef = useRef(null);
   const [active, setActive] = useState(false);
 
   useFocusTrap(wrapperRef, active, {
-    initialFocus: firstInteractiveRef.current,
     onDeactivate: useCallback(() => setActive(false), [setActive]),
   });
 
