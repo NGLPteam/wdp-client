@@ -3,18 +3,24 @@ import React from "react";
 
 export const ICON_MAP = {
   arrow: Icons.Arrow,
+  checkbox: Icons.Checkbox,
   chevron: Icons.Chevron,
   close: Icons.Close,
-  ellipses: Icons.Ellipses,
-  plus: Icons.Plus,
-  search: Icons.Search,
   delete: Icons.Delete,
   edit: Icons.Edit,
-  checkbox: Icons.Checkbox,
-  warning: Icons.Warning,
+  ellipses: Icons.Ellipses,
   empty: Icons.Empty,
+  filters: Icons.Filters,
+  linkChain: Icons.LinkChain,
+  linkExternal: Icons.LinkExternal,
+  menu: Icons.Menu,
+  plus: Icons.Plus,
+  search: Icons.Search,
+  sortable: Icons.Sortable,
   viewGrid: Icons.ViewGrid,
   viewList: Icons.ViewList,
+  user: Icons.User,
+  warning: Icons.Warning,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
