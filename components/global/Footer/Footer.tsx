@@ -20,11 +20,9 @@ function Footer() {
             <Styled.Header>{t(nav.header)}</Styled.Header>
             <Styled.List>
               {nav.children &&
-                nav.children.map((child, i) => (
-                  <Styled.ListItem key={i}>
-                    {renderNavLink(child, i)}
-                  </Styled.ListItem>
-                ))}
+                nav.children.map((child, i) =>
+                  renderNavLink(child, i, Styled.ListItem)
+                )}
             </Styled.List>
           </div>
         ))}

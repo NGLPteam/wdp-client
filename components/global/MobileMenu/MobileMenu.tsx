@@ -45,9 +45,7 @@ const MobileMenu = forwardRef(
             <h3 className="t-label-lg a-color-light">{t(nav.header)}</h3>
             <Styled.List>
               {nav.children &&
-                nav.children.map((child, i) => (
-                  <li key={i}>{renderNavLink(child, i)}</li>
-                ))}
+                nav.children.map((child, i) => renderNavLink(child, i, "li"))}
             </Styled.List>
           </Styled.NavBlock>
         ))}

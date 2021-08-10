@@ -27,30 +27,39 @@ interface RenderLinkPropsWithHref extends RenderLinkPropsBase {
 
 type RenderLinkProps = RenderLinkPropsWithRoute | RenderLinkPropsWithHref;
 
-const renderNavLink = (props: RenderLinkProps, i: number) => {
+const renderNavLink = (
+  { route, href, label, actions }: RenderLinkProps,
+  i: number,
+  wrapper?: typeof React.Component | string
+) => {
   let linkComponent = null;
+  const Wrapper = wrapper || React.Fragment;
 
-  if (props.route) {
+  if (route) {
     linkComponent = (
-      <NamedLink route={props.route} passHref>
-        <a className="t-capitalize a-color-accent">{i18next.t(props.label)}</a>
-      </NamedLink>
+      <Wrapper key={i}>
+        <NamedLink route={route} passHref>
+          <a className="t-capitalize a-color-accent">{i18next.t(label)}</a>
+        </NamedLink>
+      </Wrapper>
     );
   }
 
   // Explicit check here because for some reason TS is having a hard time
   // understanding the discriminated union.
-  if (props.href) {
+  if (href) {
     linkComponent = (
-      <Link href={props.href} passHref>
-        <a className="t-capitalize a-color-accent">{i18next.t(props.label)}</a>
-      </Link>
+      <Wrapper key={i}>
+        <Link href={href} passHref>
+          <a className="t-capitalize a-color-accent">{i18next.t(label)}</a>
+        </Link>
+      </Wrapper>
     );
   }
 
-  if (props.actions && linkComponent) {
+  if (actions && linkComponent) {
     return (
-      <Authorize key={i} actions={props.actions}>
+      <Authorize key={i} actions={actions}>
         {linkComponent}
       </Authorize>
     );
