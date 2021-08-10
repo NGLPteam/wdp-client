@@ -1,7 +1,7 @@
 // Utility layout classes
 // --------------------
 import { css } from "styled-components";
-import { respond } from "../mixins/base";
+import { noFlexGapSupport, respond } from "../mixins/base";
 const COLUMNS = 12;
 
 function createItems() {
@@ -61,6 +61,10 @@ export default css`
 
     &--gap {
       gap: var(--grid-column-gap);
+
+      ${noFlexGapSupport(`
+        margin-inline-start: var(--grid-column-gap);
+      `)}
     }
   }
 

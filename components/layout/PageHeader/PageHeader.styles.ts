@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
-import { respond } from "theme/mixins/base";
+import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 
 const MOBILE_BREAK = 40;
@@ -15,7 +15,6 @@ export const TabsWrapper = styled.div`
 
 export const TitleWrapper = styled.div`
   --page-header-gap: ${pxToRem(5)};
-  --page-header-gap-mobile: ${basePadding(5)};
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -24,12 +23,18 @@ export const TitleWrapper = styled.div`
   border-bottom: 2px solid var(--accent-color);
   gap: var(--page-header-gap);
 
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: var(--page-header-gap);
+    }
+  `)}
+
   ${respond(
     css`
+      --page-header-gap: ${basePadding(5)};
       flex-direction: column;
       align-items: stretch;
       border-bottom: none;
-      gap: var(--page-header-gap-mobile);
     `,
     MOBILE_BREAK
   )}

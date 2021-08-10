@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
-import { globalNavRespond, respond } from "theme/mixins/base";
+import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
 
 export const ProviderBarBlock = styled.div`
   ${globalNavRespond(`display: none`)}
@@ -19,6 +19,12 @@ export const Inner = styled.div`
   margin: 0 auto;
   max-width: var(--container-max);
   padding: ${basePadding(5)} 0;
+
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: var(--grid-column-gap);
+    }
+  `)}
 
   /* Push all items after the first child to the right */
   > *:first-child {

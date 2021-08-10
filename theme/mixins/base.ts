@@ -42,3 +42,11 @@ export function noInsetSupport(content: CssContent) {
     }
   `;
 }
+
+export function noFlexGapSupport(content: CssContent) {
+  return `
+    .no-flex-gap & {
+      ${content}
+    }
+  `;
+}
