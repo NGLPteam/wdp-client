@@ -6,6 +6,7 @@ import { aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 
 import BaseSearchInput from "./BaseSearchInput";
+import { noInsetSupport } from "theme/mixins/base";
 type Props = React.ComponentProps<typeof BaseSearchInput>;
 
 export const SearchInput = styled(BaseSearchInput)<Props>`
@@ -38,6 +39,10 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
       position: relative;
       inset-inline-end: 0;
 
+      ${noInsetSupport(`
+        right: 0;
+      `)}
+
       appearance: none;
       height: 20px;
       width: 20px;
@@ -60,8 +65,13 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
 
   &__icon {
     position: absolute;
-    inset-block-start: 50%;
     transform: translateY(-50%);
+    inset-block-start: 50%;
     inset-inline-start: var(--search-left-padding);
+
+    ${noInsetSupport(`
+      top: 50%;
+      left: var(--search-left-padding);
+    `)}
   }
 `;

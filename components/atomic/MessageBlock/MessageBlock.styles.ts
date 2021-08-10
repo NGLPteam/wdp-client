@@ -23,7 +23,8 @@ export const Wrapper = styled.div<Partial<BaseProps>>`
 
 export const Inner = styled.div`
   max-width: ${pxToRem(657)};
-  margin-inline: auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
 `;
 
 export const Header = styled.h3`

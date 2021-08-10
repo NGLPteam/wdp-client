@@ -4,7 +4,10 @@ import { tLabel } from "theme/mixins/typography";
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: ${basePadding(30)} var(--container-column-margin) ${basePadding(12)};
+  padding-block-start: ${basePadding(30)};
+  padding-inline-start: var(--container-column-margin);
+  padding-inline-end: var(--container-column-margin);
+  padding-block-end: ${basePadding(12)};
   font-size: var(--font-size-sm);
   color: var(--color-light);
   --link-transition: var(--color-transition);
@@ -13,9 +16,9 @@ export const Wrapper = styled.div`
 export const Nav = styled.nav`
   margin: 0 auto;
   max-width: var(--container-max);
-  border-top: 1px solid var(--border-color);
-  padding-block: ${basePadding(10)};
+  padding-block-start: ${basePadding(10)};
   padding-block-end: ${basePadding(17)};
+  border-top: 1px solid var(--border-color);
 
   &.l-grid {
     row-gap: ${basePadding(10)};

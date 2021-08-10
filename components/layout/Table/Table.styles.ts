@@ -47,8 +47,8 @@ interface TableWrapperProps {
 }
 
 export const Table = styled.table`
-  margin-inline: calc(var(--table-margin-left) * -1)
-    calc(var(--table-margin-right) * -1);
+  margin-inline-start: calc(var(--table-margin-left) * -1);
+  margin-inline-end: calc(var(--table-margin-right) * -1);
   width: calc(100% + var(--table-margin-left) + var(--table-margin-right));
 `;
 
@@ -91,7 +91,7 @@ export const HeaderCell = styled.th`
 export const HeaderCellInner = styled.span`
   display: flex;
   align-items: center;
-  padding-block: ${pxToRem("7px")};
+  padding-block-start: ${pxToRem("7px")};
   padding-block-end: ${pxToRem("7px")};
   padding-inline-end: var(--table-column-gap);
   ${tLabel("sm")}
@@ -103,7 +103,8 @@ export const HeaderCellInner = styled.span`
 `;
 
 export const Cell = styled.td`
-  padding-block: ${basePadding(2)};
+  padding-block-start: ${basePadding(2)};
+  padding-block-end: ${basePadding(2)};
   padding-inline-end: var(--table-column-gap);
   max-width: 15vw;
 

@@ -2,7 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
-import { fluidScale, respond } from "theme/mixins/base";
+import { fluidScale, noInsetSupport, respond } from "theme/mixins/base";
 
 const slideIn = keyframes`
   from {
@@ -37,6 +37,12 @@ export const Wrapper = styled.div`
   ${reducedMotion(css`
     opacity: 0;
     transition: var(--opacity-transition);
+  `)}
+
+  ${noInsetSupport(`
+    top: 0;
+    right: 0;
+    bottom: 0;
   `)}
 
   &[data-leave="true"] {
