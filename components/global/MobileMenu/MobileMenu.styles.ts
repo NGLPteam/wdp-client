@@ -2,7 +2,12 @@ import styled, { css, keyframes } from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
-import { fluidScale, noInsetSupport, respond } from "theme/mixins/base";
+import {
+  fluidScale,
+  noFlexGapSupport,
+  noInsetSupport,
+  respond,
+} from "theme/mixins/base";
 
 const slideIn = keyframes`
   from {
@@ -68,6 +73,12 @@ export const Header = styled.div`
   padding-inline-end: ${basePadding(4)};
   padding-block-start: ${basePadding(5)};
   padding-block-end: ${basePadding(5)};
+
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: var(--grid-column-gap);
+    }
+  `)}
 `;
 
 export const SearchBlock = styled.div`
