@@ -2,9 +2,11 @@ import { respondBase, fluidScaleBase } from "@castiron/style-mixins";
 import { breakpoints } from "../base/variables";
 import get from "lodash/get";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CssContent = string | any; // TODO: Get the return type of styled-compoonents css function
+
 export function respond(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content: string | any, // TODO: Get the return type of styled-compoonents css function
+  content: CssContent,
   size: string | number,
   operator = "max",
   aspect = "width"
@@ -27,9 +29,16 @@ export function fluidScale(
   return fluidScaleBase(max, min, defaultMaxVw, defaultMinVw);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function globalNavRespond(content: string | any, operator?: string) {
+export function globalNavRespond(content: CssContent, operator?: string) {
   const breakpoint = breakpoints.navBreak;
 
   return respond(content, breakpoint, operator);
+}
+
+export function noInsetSupport(content: CssContent) {
+  return `
+    @supports not (inset: 1px) {
+      ${content}
+    }
+  `;
 }

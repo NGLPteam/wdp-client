@@ -29,13 +29,21 @@ export const Inner = styled.div`
   row-gap: var(--grid-column-gap);
   column-gap: var(--grid-column-gap);
   grid-template-columns: repeat(4, 1fr);
-  margin-inline: -${basePadding(4)};
-  padding-block: ${basePadding(4)} ${basePadding(8)};
+  margin-inline-start: -${basePadding(4)};
+  margin-inline-end: -${basePadding(4)};
+  padding-block-start: ${basePadding(4)};
+  padding-block-end: ${basePadding(8)};
 
   ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
   ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
 
-  ${respond(` margin-inline: auto;`, TABLET_BREAK)}
+  ${respond(
+    ` 
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  `,
+    TABLET_BREAK
+  )}
 `;
 
 export const Item = styled.div`
@@ -45,8 +53,10 @@ export const Item = styled.div`
     "image image" auto
     "children children" 1fr
     / auto 1fr;
-  padding-block: ${basePadding(2)} ${basePadding(4)};
-  padding-inline: ${basePadding(4)} ${basePadding(2)};
+  padding-block-start: ${basePadding(2)};
+  padding-block-end: ${basePadding(4)};
+  padding-inline-start: ${basePadding(4)};
+  padding-inline-end: ${basePadding(2)};
   border-radius: ${basePadding(2)};
   gap: ${basePadding(2)};
   background-color: transparent;
@@ -57,7 +67,8 @@ export const Item = styled.div`
       grid-template:
         "checkbox image children actions" 1fr
         / auto auto 1fr auto;
-      padding-inline: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
       padding-block-start: 0;
       gap: ${basePadding(3)};
       border-radius: 0;
@@ -84,7 +95,8 @@ export const Item = styled.div`
 export const Checkbox = styled.div`
   grid-area: checkbox;
   opacity: var(--checkbox-opacity, 0);
-  padding-block: ${basePadding(2)};
+  padding-block-start: ${basePadding(2)};
+  padding-block-end: ${basePadding(2)};
 `;
 
 export const Actions = styled.div`
