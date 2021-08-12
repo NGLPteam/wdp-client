@@ -1,71 +1,75 @@
 import React from "react";
-import useModelListPage from "hooks/useModelListPage";
-import { columns } from "components/composed/model/ModelList";
-import { ModelListPage } from "components/composed/model";
-import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
+import ModelListPage from "components/composed/model/ModelListPage";
+import { OperationType } from "relay-runtime";
+import {
+  CollectionListFragment,
+  CollectionListFragment$key,
+} from "@/relay/CollectionListFragment.graphql";
+import { graphql, useFragment } from "react-relay";
+import ModelColumns from "components/composed/model/ModelColumns";
+import type { ModelTableActionProps } from "react-table";
 
-interface Png {
-  alt: string;
-  url: string;
+interface CollectionListProps {
+  data: CollectionListFragment$key;
 }
 
-interface Image {
-  png?: Png | null;
-}
+type CollectionNode = CollectionListFragment["nodes"][number];
 
-interface Thumbnail {
-  image?: Image | null;
-}
+function CollectionList<T extends OperationType>({
+  data,
+}: CollectionListProps) {
+  const columns = [
+    ModelColumns.ThumbnailColumn<CollectionNode>(),
+    ModelColumns.NameColumn<CollectionNode>({
+      route: "collection",
+      accessor: "title",
+    }),
+    ModelColumns.CreatedAtColumn<CollectionNode>(),
+    ModelColumns.UpdatedAtColumn<CollectionNode>(),
+  ];
 
-interface CollectionNode extends Record<string, unknown> {
-  createdAt: string;
-  updatedAt: string;
-  thumbnail?: Thumbnail | null;
-  slug: string;
-}
+  /* eslint-disable no-console */
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<CollectionNode>) =>
+      console.info(`edit ${row.original.slug}`),
+    handleDelete: ({ row }: ModelTableActionProps<CollectionNode>) =>
+      console.info(`delete ${row.original.slug}`),
+  };
+  /* eslint-enable no-console */
 
-function CollectionList<
-  Query extends OperationType,
-  ConnectionType extends Connectionish,
-  NodeType extends CollectionNode
->({
-  query,
-  queryVars = {},
-  toConnection,
-  defaultOrder,
-}: {
-  query: GraphQLTaggedNode;
-  queryVars?: Partial<Query["variables"]>;
-  toConnection: ExtractsConnection<Query, ConnectionType>;
-  defaultOrder: Query["variables"]["order"];
-}) {
-  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
-    query,
-    queryVars,
-    defaultOrder,
-    toConnection,
-    handleEdit: ({ row }) => console.info(`edit ${row.original.slug}`), // eslint-disable-line
-    handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
-    handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
-    columns: [
-      columns.thumbnail<NodeType>(),
-      columns.name<NodeType>({ route: "collection", accessor: "title" }),
-      columns.createdAt<NodeType>(),
-      columns.updatedAt<NodeType>(),
-    ],
-  });
-
+  const collections = useFragment<CollectionListFragment$key>(fragment, data);
   return (
-    <>
-      <ModelListPage<NodeType>
-        modelName="collection"
-        defaultView={DataViewOptions.grid}
-        {...modelListProps}
-      />
-    </>
+    <ModelListPage<T, CollectionListFragment, CollectionNode>
+      modelName="collection"
+      columns={columns}
+      actions={actions}
+      selectable
+      data={collections}
+    />
   );
 }
+
+const fragment = graphql`
+  fragment CollectionListFragment on CollectionConnection {
+    nodes {
+      createdAt
+      updatedAt
+      title
+      slug
+      thumbnail {
+        image: medium {
+          png {
+            url
+            height
+            width
+            alt
+          }
+        }
+      }
+    }
+    ...ModelPaginationFragment
+    ...ModelPageCountActionsFragment
+  }
+`;
 
 export default CollectionList;

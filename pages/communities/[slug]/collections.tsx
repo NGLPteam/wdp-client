@@ -1,36 +1,28 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { graphql } from "react-relay";
-import { useRouter } from "next/router";
-import {
-  collectionsCommunityChildQuery as Query,
-  collectionsCommunityChildQueryResponse as QueryResponse,
-} from "__generated__/collectionsCommunityChildQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug } from "hooks";
+import { collectionsCommunityChildQuery as Query } from "__generated__/collectionsCommunityChildQuery.graphql";
 import CommunityLayout from "components/composed/community/CommunityLayout";
-
 import { Page } from "types/page";
-import type { ExtractsConnection } from "types/graphql-helpers";
-import { routeQueryArrayToString } from "routes";
-
-type ConnectionType = NonNullable<QueryResponse["community"]>["collections"];
-type NodeType = ConnectionType["nodes"][number];
 
 const CommunityChildCollections: Page = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.community?.collections || null,
-    []
-  );
+  const communitySlug = useRouteSlug();
+  // TODO: This should 404 instead of returning null.
+  if (!communitySlug) return null;
 
   return (
-    <CollectionList<Query, ConnectionType, NodeType>
-      defaultOrder="RECENT"
+    <QueryWrapper<Query>
       query={query}
-      queryVars={{ communitySlug: routeQueryArrayToString(slug) }}
-      toConnection={toConnection}
-    />
+      initialVariables={{ communitySlug, order: "RECENT", page: 1 }}
+    >
+      {({ data }) => {
+        // TODO: We should 404 if there is no collection
+        if (!data || !data.community) return null;
+        return <CollectionList<Query> data={data?.community?.collections} />;
+      }}
+    </QueryWrapper>
   );
 };
 
@@ -48,36 +40,7 @@ const query = graphql`
   ) {
     community(slug: $communitySlug) {
       collections(order: $order, page: $page, perPage: 20) {
-        nodes {
-          __typename
-          id
-          identifier
-          createdAt
-          updatedAt
-          title
-          slug
-          allowedActions
-          hierarchicalDepth
-          thumbnail {
-            image: medium {
-              png {
-                url
-                height
-                width
-                alt
-              }
-            }
-          }
-        }
-        pageInfo {
-          page
-          perPage
-          pageCount
-          hasNextPage
-          hasPreviousPage
-          totalCount
-          totalUnfilteredCount
-        }
+        ...CollectionListFragment
       }
     }
   }

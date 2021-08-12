@@ -58,7 +58,7 @@ function renderOneAction<D extends Record<string, unknown>>(
   };
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
-  const content = <ButtonControl {...buttonProps} />;
+  const content = <ButtonControl key={action} {...buttonProps} />;
 
   if (!allowedActions) return content;
 

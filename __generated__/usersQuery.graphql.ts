@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type usersQueryVariables = {
     order: SimpleOrder;
@@ -10,23 +11,7 @@ export type usersQueryVariables = {
 };
 export type usersQueryResponse = {
     readonly users: {
-        readonly nodes: ReadonlyArray<{
-            readonly email: string | null;
-            readonly globalAdmin: boolean;
-            readonly name: string | null;
-            readonly slug: string;
-            readonly createdAt: string;
-            readonly updatedAt: string;
-        }>;
-        readonly pageInfo: {
-            readonly page: number | null;
-            readonly perPage: number | null;
-            readonly pageCount: number | null;
-            readonly hasNextPage: boolean;
-            readonly hasPreviousPage: boolean;
-            readonly totalCount: number;
-            readonly totalUnfilteredCount: number;
-        };
+        readonly " $fragmentRefs": FragmentRefs<"UserListFragment">;
     };
 };
 export type usersQuery = {
@@ -42,25 +27,42 @@ query usersQuery(
   $page: Int!
 ) {
   users(order: $order, page: $page, perPage: 20) {
-    nodes {
-      email
-      globalAdmin
-      name
-      slug
-      createdAt
-      updatedAt
-      id
-    }
-    pageInfo {
-      page
-      perPage
-      pageCount
-      hasNextPage
-      hasPreviousPage
-      totalCount
-      totalUnfilteredCount
-    }
+    ...UserListFragment
   }
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    hasNextPage
+    hasPreviousPage
+    totalCount
+    totalUnfilteredCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+  }
+}
+
+fragment UserListFragment on UserConnection {
+  nodes {
+    email
+    globalAdmin
+    name
+    slug
+    createdAt
+    updatedAt
+    id
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
 }
 */
 
@@ -93,109 +95,7 @@ v1 = [
     "name": "perPage",
     "value": 20
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "globalAdmin",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "createdAt",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "PageInfo",
-  "kind": "LinkedField",
-  "name": "pageInfo",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "page",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "perPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "pageCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasNextPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasPreviousPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalUnfilteredCount",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -212,23 +112,10 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
             "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/)
-            ],
-            "storageKey": null
-          },
-          (v8/*: any*/)
+            "kind": "FragmentSpread",
+            "name": "UserListFragment"
+          }
         ],
         "storageKey": null
       }
@@ -258,12 +145,48 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "email",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "globalAdmin",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "createdAt",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "updatedAt",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -274,21 +197,80 @@ return {
             ],
             "storageKey": null
           },
-          (v8/*: any*/)
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "page",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "pageCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasPreviousPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalUnfilteredCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Paginated",
+            "abstractKey": "__isPaginated"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "84688b429deca8729c02cefb3bf24e01",
+    "cacheID": "1f7ef66a9405c6b9ebca6ca41170264a",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      id\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'f72968a041a8a5464d60d036950940ed';
+(node as any).hash = 'd1c5fcc75f1583313af5dd4e823cce35';
 export default node;

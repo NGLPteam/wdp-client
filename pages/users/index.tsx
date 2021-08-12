@@ -1,50 +1,27 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { graphql } from "react-relay";
-import {
-  usersQuery as Query,
-  usersQueryResponse as QueryResponse,
-} from "__generated__/usersQuery.graphql";
+import { usersQuery as Query } from "__generated__/usersQuery.graphql";
+import { QueryWrapper } from "components/api";
 import UserList from "components/composed/user/UserList";
 
-import type { ExtractsConnection } from "types/graphql-helpers";
-type ConnectionType = QueryResponse["users"];
-type NodeType = ConnectionType["nodes"][number];
-
 export default function UserListView() {
-  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.users,
-    []
-  );
-
   return (
-    <UserList<Query, ConnectionType, NodeType>
-      defaultOrder="RECENT"
+    <QueryWrapper<Query>
       query={query}
-      toConnection={toConnection}
-    />
+      initialVariables={{ order: "RECENT", page: 1 }}
+    >
+      {({ data }) => {
+        if (!data) return null;
+        return <UserList<Query> data={data?.users} />;
+      }}
+    </QueryWrapper>
   );
 }
 
 const query = graphql`
   query usersQuery($order: SimpleOrder!, $page: Int!) {
     users(order: $order, page: $page, perPage: 20) {
-      nodes {
-        email
-        globalAdmin
-        name
-        slug
-        createdAt
-        updatedAt
-      }
-      pageInfo {
-        page
-        perPage
-        pageCount
-        hasNextPage
-        hasPreviousPage
-        totalCount
-        totalUnfilteredCount
-      }
+      ...UserListFragment
     }
   }
 `;

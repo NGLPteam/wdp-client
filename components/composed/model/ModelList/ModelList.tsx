@@ -1,143 +1,77 @@
-import React, { useEffect, useCallback } from "react";
-import isFunction from "lodash/isFunction";
-import {
-  useTable,
-  useRowSelect,
-  useSortBy,
-  ModelTableActions,
-  Column,
-  TableToggleRowsSelectedProps,
-  TableProps,
-  HeaderGroup,
-  Row,
-  TableBodyProps,
-} from "react-table";
-import ModelTable from "../ModelTable";
-import ModelGrid from "../ModelGrid";
-import useRowActions from "../plugins/useRowActions";
-import mapSortBy from "../helpers/mapSortBy";
-
-import { PageInfo } from "types/graphql-schema";
+import React from "react";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+import ModelTable from "components/composed/model/ModelTable";
+import ModelGrid from "components/composed/model/ModelGrid";
+import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
+import ModelPagination from "components/composed/model/ModelPagination";
+import type { PaginatedConnectionish } from "components/composed/model/ModelListPage";
+import useModelList from "components/composed/model/ModelList/hooks/useModelList";
+import type { UseModelListProps } from "components/composed/model/ModelList/hooks/useModelList";
+import { ModelNames } from "helpers";
+import { useTranslation } from "react-i18next";
+import { OperationType } from "relay-runtime";
 
-export interface OnSortProps {
-  order: string;
-  id: string;
-  desc: boolean;
+export interface ModelListProps<
+  T extends OperationType,
+  U extends PaginatedConnectionish,
+  V extends Record<string, unknown>
+> extends UseModelListProps<T, U, V> {
+  view: DataViewOptions;
+  modelName: Lowercase<ModelNames>;
 }
 
-export interface OnSelectionChangeProps {
-  selectedRowIds: string[];
-}
-
-export interface ModelTableGridProps<T extends Record<string, unknown>> {
-  title: string;
-  withRowSelection?: boolean;
-  checkboxProps?: TableToggleRowsSelectedProps;
-  tableProps: TableProps;
-  headerGroups: HeaderGroup<T>[];
-  rows: Row<T>[];
-  tableBodyProps: TableBodyProps;
-}
-
-export interface ModelListProps<T extends Record<string, unknown>> {
-  columns: Column<T>[];
-  title: string;
-  pageInfo?: PageInfo;
-  models?: ReadonlyArray<T>;
-  actions?: ModelTableActions<T>;
-  onSort?: (props: OnSortProps) => void;
-  onSelectionChange?: (props: OnSelectionChangeProps) => void;
-  selectedView: DataViewOptions;
-}
-
-function ModelList<T extends Record<string, unknown>>({
-  title,
-  models,
+function ModelList<
+  T extends OperationType,
+  U extends PaginatedConnectionish,
+  V extends Record<string, unknown>
+>({
+  queryVariables,
+  setQueryVariables,
+  modelName,
+  selectable = false,
+  data,
+  view,
   columns,
   actions,
-  onSort,
-  onSelectionChange,
-  selectedView,
-}: ModelListProps<T>) {
-  const withRowSelection = isFunction(onSelectionChange);
+}: ModelListProps<T, U, V>) {
+  const { t } = useTranslation("glossary");
+  const title = modelName ? t(modelName, { count: 2 }) : "";
 
-  const tableHooks = [useSortBy, useRowActions];
-  if (withRowSelection) tableHooks.push(useRowSelect);
+  // We can also retrieve `selection` from useModelList if we need it, which we eventually
+  // will.
+  const { modelGridOrTableProps } = useModelList<T, U, V>({
+    queryVariables,
+    setQueryVariables,
+    columns,
+    actions,
+    data,
+    selectable,
+  });
 
-  const getRowId = useCallback((row) => {
-    return row.slug;
-  }, []);
+  let ModelListType;
+  switch (view) {
+    case DataViewOptions.table:
+      ModelListType = ModelTable;
+      break;
+    case DataViewOptions.grid:
+      ModelListType = ModelGrid;
+      break;
+    default:
+      ModelListType = null;
+  }
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { selectedRowIds, sortBy },
-    getToggleAllRowsSelectedProps,
-  } = useTable<T>(
-    {
-      columns,
-      data: models || [],
-      manualSortBy: true,
-      getRowId,
-      disableMultiSort: true,
-      actions,
-    },
-    ...tableHooks
-  );
-
-  const handleSort = useCallback(
-    (sortBy) => {
-      if (!isFunction(onSort)) return;
-      if (!Array.isArray(sortBy) || sortBy.length === 0) return;
-      const { id, desc } = sortBy[0];
-      const order = mapSortBy(id, desc);
-      if (order) onSort({ id, desc, order });
-    },
-    [onSort]
-  );
-
-  const handleSelectionChange = useCallback(
-    (selectedRowIds) => {
-      if (!isFunction(onSelectionChange)) return;
-      onSelectionChange({ selectedRowIds });
-    },
-    [onSelectionChange]
-  );
-
-  useEffect(() => {
-    handleSort(sortBy);
-  }, [handleSort, sortBy]);
-
-  useEffect(() => {
-    handleSelectionChange(selectedRowIds);
-  }, [handleSelectionChange, selectedRowIds]);
-
-  // Prepare rows
-  rows.forEach((row) => prepareRow(row));
-
-  const checkboxProps =
-    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
-
-  return selectedView === DataViewOptions.table ? (
-    <ModelTable
-      title={title}
-      withRowSelection={withRowSelection}
-      checkboxProps={checkboxProps}
-      tableProps={getTableProps()}
-      headerGroups={headerGroups}
-      rows={rows}
-      tableBodyProps={getTableBodyProps()}
-    />
-  ) : (
-    <ModelGrid
-      withRowSelection={withRowSelection}
-      rows={rows}
-      checkboxProps={checkboxProps}
-    />
+  return (
+    <>
+      <ModelPageCountActions data={data} />
+      {ModelListType && (
+        <ModelListType<V>
+          title={title}
+          selectable={selectable}
+          {...modelGridOrTableProps}
+        />
+      )}
+      <ModelPagination data={data} />
+    </>
   );
 }
 

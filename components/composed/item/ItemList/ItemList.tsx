@@ -1,60 +1,73 @@
 import React from "react";
-import useModelListPage from "hooks/useModelListPage";
-import { columns } from "components/composed/model/ModelList";
-import { ModelListPage } from "components/composed/model";
-import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
+import ModelListPage from "components/composed/model/ModelListPage";
+import { OperationType } from "relay-runtime";
+import {
+  ItemListFragment,
+  ItemListFragment$key,
+} from "@/relay/ItemListFragment.graphql";
+import { graphql, useFragment } from "react-relay";
+import ModelColumns from "components/composed/model/ModelColumns";
+import type { ModelTableActionProps } from "react-table";
 
-interface ItemNode extends Record<string, unknown> {
-  createdAt: string;
-  updatedAt: string;
-  slug: string;
+interface ItemListProps {
+  data: ItemListFragment$key;
 }
 
-function ItemList<
-  Query extends OperationType,
-  ConnectionType extends Connectionish,
-  NodeType extends ItemNode
->({
-  query,
-  queryVars = {},
-  toConnection,
-  defaultOrder,
-}: {
-  query: GraphQLTaggedNode;
-  queryVars?: Partial<Query["variables"]>;
-  toConnection: ExtractsConnection<Query, ConnectionType>;
-  defaultOrder: Query["variables"]["order"];
-}) {
-  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
-    query,
-    queryVars,
-    defaultOrder,
-    toConnection,
-    handleEdit: ({ row }) => console.info(`edit ${row.original.slug}`), // eslint-disable-line
-    handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
-    handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
-    columns: [
-      columns.thumbnail(),
-      columns.name<NodeType>({
-        route: "item",
-        accessor: "title",
-      }),
-      columns.createdAt<NodeType>(),
-      columns.updatedAt(),
-    ],
-  });
+type ItemNode = ItemListFragment["nodes"][number];
 
+function ItemList<T extends OperationType>({ data }: ItemListProps) {
+  const columns = [
+    ModelColumns.ThumbnailColumn<ItemNode>(),
+    ModelColumns.NameColumn<ItemNode>({
+      route: "item",
+      accessor: "title",
+    }),
+    ModelColumns.CreatedAtColumn<ItemNode>(),
+    ModelColumns.UpdatedAtColumn<ItemNode>(),
+  ];
+
+  /* eslint-disable no-console */
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<ItemNode>) =>
+      console.info(`edit ${row.original.slug}`),
+    handleDelete: ({ row }: ModelTableActionProps<ItemNode>) =>
+      console.info(`delete ${row.original.slug}`),
+  };
+  /* eslint-enable no-console */
+
+  const items = useFragment<ItemListFragment$key>(fragment, data);
   return (
-    <>
-      <ModelListPage<NodeType>
-        modelName="item"
-        defaultView={DataViewOptions.grid}
-        {...modelListProps}
-      />
-    </>
+    <ModelListPage<T, ItemListFragment, ItemNode>
+      modelName="item"
+      actions={actions}
+      selectable
+      columns={columns}
+      data={items}
+    />
   );
 }
+
+const fragment = graphql`
+  fragment ItemListFragment on ItemConnection {
+    nodes {
+      slug
+      createdAt
+      updatedAt
+      title
+      thumbnail {
+        image: medium {
+          png {
+            url
+            height
+            width
+            alt
+          }
+        }
+      }
+    }
+    ...ModelPaginationFragment
+    ...ModelPageCountActionsFragment
+  }
+`;
 
 export default ItemList;
