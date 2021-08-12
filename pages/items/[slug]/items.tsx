@@ -1,35 +1,28 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { graphql } from "react-relay";
-import {
-  itemsItemChildQuery as Query,
-  itemsItemChildQueryResponse as QueryResponse,
-} from "__generated__/itemsItemChildQuery.graphql";
 import ItemList from "components/composed/item/ItemList";
+import { Page } from "types/page";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug } from "hooks";
+import { itemsItemChildQuery as Query } from "__generated__/itemsItemChildQuery.graphql";
 import ItemLayout from "components/composed/item/ItemLayout";
 
-import { Page } from "types/page";
-import type { ExtractsConnection } from "types/graphql-helpers";
-import { useRouter } from "next/router";
-import { routeQueryArrayToString } from "routes";
-
-type ConnectionType = NonNullable<QueryResponse["item"]>["items"];
-type NodeType = ConnectionType["nodes"][number];
-
 const ItemChildItems: Page = () => {
-  const router = useRouter();
-  const { slug } = router.query;
+  const itemSlug = useRouteSlug();
+  // TODO: This should 404 instead of returning null.
+  if (!itemSlug) return null;
 
-  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.item?.items || null,
-    []
-  );
   return (
-    <ItemList<Query, ConnectionType, NodeType>
-      defaultOrder="RECENT"
+    <QueryWrapper<Query>
       query={query}
-      queryVars={{ itemSlug: routeQueryArrayToString(slug) }}
-      toConnection={toConnection}
-    />
+      initialVariables={{ itemSlug, order: "RECENT", page: 1 }}
+    >
+      {({ data }) => {
+        // TODO: We should 404 if there is no collection
+        if (!data || !data.item) return null;
+        return <ItemList<Query> data={data?.item?.items} />;
+      }}
+    </QueryWrapper>
   );
 };
 
@@ -47,36 +40,7 @@ const query = graphql`
   ) {
     item(slug: $itemSlug) {
       items(order: $order, page: $page, perPage: 20) {
-        nodes {
-          __typename
-          id
-          identifier
-          createdAt
-          updatedAt
-          title
-          slug
-          allowedActions
-          hierarchicalDepth
-          thumbnail {
-            image: medium {
-              png {
-                url
-                height
-                width
-                alt
-              }
-            }
-          }
-        }
-        pageInfo {
-          page
-          perPage
-          pageCount
-          hasNextPage
-          hasPreviousPage
-          totalCount
-          totalUnfilteredCount
-        }
+        ...ItemListFragment
       }
     }
   }

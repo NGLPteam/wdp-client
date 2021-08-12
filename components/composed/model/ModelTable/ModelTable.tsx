@@ -1,35 +1,48 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Table } from "components/layout";
-import { ModelTableGridProps } from "components/composed/model/ModelList";
+import type {
+  UseTableInstanceProps,
+  UseRowSelectInstanceProps,
+} from "react-table";
 
-function ModelTable<T extends Record<string, unknown>>({
+type ModelTableProps<U extends Record<string, unknown>> = Pick<
+  UseTableInstanceProps<U>,
+  "headerGroups" | "getTableBodyProps" | "rows" | "getTableProps"
+> &
+  Partial<
+    Pick<UseRowSelectInstanceProps<U>, "getToggleAllRowsSelectedProps">
+  > & {
+    title: string;
+    selectable: boolean;
+    hasSelection: boolean;
+  };
+
+function ModelTable<U extends Record<string, unknown>>({
   title,
-  withRowSelection,
-  checkboxProps,
-  tableProps,
+  selectable,
+  hasSelection,
   headerGroups,
+  getToggleAllRowsSelectedProps,
+  getTableBodyProps,
+  getTableProps,
   rows,
-  tableBodyProps,
-}: ModelTableGridProps<T>) {
-  const showCheckboxes = useMemo(
-    () =>
-      checkboxProps && (checkboxProps.indeterminate || checkboxProps.checked),
-    [checkboxProps]
-  );
+}: ModelTableProps<U>) {
+  const checkboxProps =
+    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
   return (
     <Table
       aria-label={title}
-      withRowSelection={withRowSelection}
-      showCheckboxes={showCheckboxes}
-      {...tableProps}
+      withRowSelection={selectable}
+      showCheckboxes={hasSelection}
+      {...getTableProps()}
     >
-      <Table.Header
-        withCheckbox={withRowSelection}
+      <Table.Header<U>
+        withCheckbox={selectable}
         checkboxProps={checkboxProps}
         headerGroups={headerGroups}
       />
-      <Table.Body rows={rows} {...tableBodyProps} />
+      <Table.Body rows={rows} {...getTableBodyProps()} />
     </Table>
   );
 }

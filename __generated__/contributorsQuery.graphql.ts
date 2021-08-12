@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type contributorsQueryVariables = {
     order: SimpleOrder;
@@ -10,33 +11,7 @@ export type contributorsQueryVariables = {
 };
 export type contributorsQueryResponse = {
     readonly contributors: {
-        readonly nodes: ReadonlyArray<{
-            readonly __typename: "OrganizationContributor";
-            readonly slug: string;
-            readonly name: string | null;
-            readonly createdAt: string;
-            readonly updatedAt: string;
-        } | {
-            readonly __typename: "PersonContributor";
-            readonly slug: string;
-            readonly firstName: string | null;
-            readonly lastName: string | null;
-            readonly createdAt: string;
-            readonly updatedAt: string;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }>;
-        readonly pageInfo: {
-            readonly page: number | null;
-            readonly perPage: number | null;
-            readonly pageCount: number | null;
-            readonly hasNextPage: boolean;
-            readonly hasPreviousPage: boolean;
-            readonly totalCount: number;
-            readonly totalUnfilteredCount: number;
-        };
+        readonly " $fragmentRefs": FragmentRefs<"ContributorListFragment">;
     };
 };
 export type contributorsQuery = {
@@ -52,35 +27,52 @@ query contributorsQuery(
   $page: Int!
 ) {
   contributors(order: $order, page: $page, perPage: 20) {
-    nodes {
-      __typename
-      ... on OrganizationContributor {
-        slug
-        name: legalName
-        createdAt
-        updatedAt
-      }
-      ... on PersonContributor {
-        slug
-        firstName: givenName
-        lastName: familyName
-        createdAt
-        updatedAt
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
+    ...ContributorListFragment
+  }
+}
+
+fragment ContributorListFragment on AnyContributorConnection {
+  nodes {
+    __typename
+    ... on OrganizationContributor {
+      slug
+      name: legalName
+      createdAt
+      updatedAt
     }
-    pageInfo {
-      page
-      perPage
-      pageCount
-      hasNextPage
-      hasPreviousPage
-      totalCount
-      totalUnfilteredCount
+    ... on PersonContributor {
+      slug
+      firstName: givenName
+      lastName: familyName
+      createdAt
+      updatedAt
     }
+    ... on Node {
+      __isNode: __typename
+      id
+    }
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    hasNextPage
+    hasPreviousPage
+    totalCount
+    totalUnfilteredCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
   }
 }
 */
@@ -119,129 +111,21 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "slug",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "createdAt",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "createdAt",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "updatedAt",
-  "storageKey": null
-},
-v6 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v3/*: any*/),
-    {
-      "alias": "name",
-      "args": null,
-      "kind": "ScalarField",
-      "name": "legalName",
-      "storageKey": null
-    },
-    (v4/*: any*/),
-    (v5/*: any*/)
-  ],
-  "type": "OrganizationContributor",
-  "abstractKey": null
-},
-v7 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v3/*: any*/),
-    {
-      "alias": "firstName",
-      "args": null,
-      "kind": "ScalarField",
-      "name": "givenName",
-      "storageKey": null
-    },
-    {
-      "alias": "lastName",
-      "args": null,
-      "kind": "ScalarField",
-      "name": "familyName",
-      "storageKey": null
-    },
-    (v4/*: any*/),
-    (v5/*: any*/)
-  ],
-  "type": "PersonContributor",
-  "abstractKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "PageInfo",
-  "kind": "LinkedField",
-  "name": "pageInfo",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "page",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "perPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "pageCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasNextPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasPreviousPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalUnfilteredCount",
-      "storageKey": null
-    }
-  ],
   "storageKey": null
 };
 return {
@@ -260,20 +144,10 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
             "args": null,
-            "concreteType": null,
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/)
-            ],
-            "storageKey": null
-          },
-          (v8/*: any*/)
+            "kind": "FragmentSpread",
+            "name": "ContributorListFragment"
+          }
         ],
         "storageKey": null
       }
@@ -303,9 +177,54 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__typename",
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "alias": "name",
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "legalName",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "type": "OrganizationContributor",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "alias": "firstName",
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "givenName",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": "lastName",
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "familyName",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "type": "PersonContributor",
+                "abstractKey": null
+              },
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -323,21 +242,80 @@ return {
             ],
             "storageKey": null
           },
-          (v8/*: any*/)
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "page",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "pageCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasPreviousPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalUnfilteredCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Paginated",
+            "abstractKey": "__isPaginated"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "456a9c0cd35b8c6803f303eec2c63076",
+    "cacheID": "dd5e935958d6989649ded357f9d46964",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        name: legalName\n        createdAt\n        updatedAt\n      }\n      ... on PersonContributor {\n        slug\n        firstName: givenName\n        lastName: familyName\n        createdAt\n        updatedAt\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      slug\n      name: legalName\n      createdAt\n      updatedAt\n    }\n    ... on PersonContributor {\n      slug\n      firstName: givenName\n      lastName: familyName\n      createdAt\n      updatedAt\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '445852d78d860ae7cbee9fb1b497379a';
+(node as any).hash = '790ab87225eb5fe0f66f1110d3bc98f8';
 export default node;

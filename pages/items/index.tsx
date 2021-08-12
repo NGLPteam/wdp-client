@@ -1,28 +1,20 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { graphql } from "react-relay";
-import {
-  itemsQuery as Query,
-  itemsQueryResponse as QueryResponse,
-} from "__generated__/itemsQuery.graphql";
 import ItemList from "components/composed/item/ItemList";
-
-import type { ExtractsConnection } from "types/graphql-helpers";
-
-type ConnectionType = QueryResponse["viewer"]["items"];
-type NodeType = ConnectionType["nodes"][number];
+import { QueryWrapper } from "components/api";
+import { itemsQuery as Query } from "__generated__/itemsQuery.graphql";
 
 export default function ItemListView() {
-  const toConnection = useCallback<ExtractsConnection<Query, ConnectionType>>(
-    (data) => data?.viewer?.items,
-    []
-  );
-
   return (
-    <ItemList<Query, ConnectionType, NodeType>
-      defaultOrder="RECENT"
+    <QueryWrapper<Query>
       query={query}
-      toConnection={toConnection}
-    />
+      initialVariables={{ order: "RECENT", page: 1 }}
+    >
+      {({ data }) => {
+        if (!data) return null;
+        return <ItemList<Query> data={data?.viewer?.items} />;
+      }}
+    </QueryWrapper>
   );
 }
 
@@ -30,35 +22,7 @@ const query = graphql`
   query itemsQuery($order: SimpleOrder!, $page: Int!) {
     viewer {
       items(order: $order, page: $page, perPage: 20) {
-        nodes {
-          __typename
-          id
-          identifier
-          updatedAt
-          createdAt
-          title
-          slug
-          allowedActions
-          thumbnail {
-            image: medium {
-              png {
-                url
-                height
-                width
-                alt
-              }
-            }
-          }
-        }
-        pageInfo {
-          page
-          perPage
-          pageCount
-          hasNextPage
-          hasPreviousPage
-          totalCount
-          totalUnfilteredCount
-        }
+        ...ItemListFragment
       }
     }
   }

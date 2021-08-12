@@ -1,26 +1,30 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Grid from "components/layout/Grid/Grid";
 import ModelGridItem from "./ModelGridItem";
-import { ModelTableGridProps } from "components/composed/model/ModelList";
 
-function ModelGrid<T extends Record<string, unknown>>({
+import type {
+  UseTableInstanceProps,
+  UseRowSelectInstanceProps,
+} from "react-table";
+
+type ModelGridProps<U extends Record<string, unknown>> = Pick<
+  UseTableInstanceProps<U>,
+  "rows"
+> &
+  Partial<
+    Pick<UseRowSelectInstanceProps<U>, "getToggleAllRowsSelectedProps">
+  > & {
+    title?: string;
+    selectable: boolean;
+    hasSelection: boolean;
+  };
+
+function ModelGrid<U extends Record<string, unknown>>({
   rows,
-  checkboxProps,
-  withRowSelection,
-}: Pick<
-  ModelTableGridProps<T>,
-  "rows" | "checkboxProps" | "withRowSelection"
->) {
-  const showCheckboxes = useMemo(
-    () =>
-      withRowSelection &&
-      checkboxProps &&
-      (checkboxProps.indeterminate || checkboxProps.checked),
-    [withRowSelection, checkboxProps]
-  );
-
+  hasSelection,
+}: ModelGridProps<U>) {
   return (
-    <Grid showCheckboxes={showCheckboxes}>
+    <Grid showCheckboxes={hasSelection}>
       <>
         {rows.map((row, i) => (
           <ModelGridItem key={i} row={row} />

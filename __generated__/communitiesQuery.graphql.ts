@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type communitiesQueryVariables = {
     order: SimpleOrder;
@@ -10,24 +11,7 @@ export type communitiesQueryVariables = {
 };
 export type communitiesQueryResponse = {
     readonly communities: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly key: string;
-                readonly slug: string;
-                readonly name: string;
-                readonly updatedAt: string;
-                readonly createdAt: string;
-            };
-        }>;
-        readonly pageInfo: {
-            readonly page: number | null;
-            readonly perPage: number | null;
-            readonly pageCount: number | null;
-            readonly hasNextPage: boolean;
-            readonly hasPreviousPage: boolean;
-            readonly totalCount: number;
-            readonly totalUnfilteredCount: number;
-        };
+        readonly " $fragmentRefs": FragmentRefs<"CommunityListFragment">;
     };
 };
 export type communitiesQuery = {
@@ -43,25 +27,41 @@ query communitiesQuery(
   $page: Int!
 ) {
   communities(order: $order, page: $page, perPage: 20) {
-    edges {
-      node {
-        key: slug
-        slug
-        name
-        updatedAt
-        createdAt
-        id
-      }
+    ...CommunityListFragment
+  }
+}
+
+fragment CommunityListFragment on CommunityConnection {
+  edges {
+    node {
+      slug
+      createdAt
+      updatedAt
+      name
+      id
     }
-    pageInfo {
-      page
-      perPage
-      pageCount
-      hasNextPage
-      hasPreviousPage
-      totalCount
-      totalUnfilteredCount
-    }
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    hasNextPage
+    hasPreviousPage
+    totalCount
+    totalUnfilteredCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
   }
 }
 */
@@ -95,102 +95,7 @@ v1 = [
     "name": "perPage",
     "value": 20
   }
-],
-v2 = {
-  "alias": "key",
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "createdAt",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "PageInfo",
-  "kind": "LinkedField",
-  "name": "pageInfo",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "page",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "perPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "pageCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasNextPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasPreviousPage",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalCount",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "totalUnfilteredCount",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -207,33 +112,10 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
             "args": null,
-            "concreteType": "CommunityEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Community",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v7/*: any*/)
+            "kind": "FragmentSpread",
+            "name": "CommunityListFragment"
+          }
         ],
         "storageKey": null
       }
@@ -271,11 +153,34 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "createdAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "updatedAt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -289,21 +194,80 @@ return {
             ],
             "storageKey": null
           },
-          (v7/*: any*/)
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "page",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "pageCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasPreviousPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalUnfilteredCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Paginated",
+            "abstractKey": "__isPaginated"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "87a17f7b5e4dcc4963673e0a9b77436b",
+    "cacheID": "7ab2f4048ef42c6e97d449118ba3613b",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        key: slug\n        slug\n        name\n        updatedAt\n        createdAt\n        id\n      }\n    }\n    pageInfo {\n      page\n      perPage\n      pageCount\n      hasNextPage\n      hasPreviousPage\n      totalCount\n      totalUnfilteredCount\n    }\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      createdAt\n      updatedAt\n      name\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '941b14c5643a56587196394852fb6f16';
+(node as any).hash = 'd07984697f3591e06793188b9e682cfd';
 export default node;

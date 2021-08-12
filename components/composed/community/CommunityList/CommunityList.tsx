@@ -1,56 +1,65 @@
 import React from "react";
-import useModelListPage from "hooks/useModelListPage";
-import { columns } from "components/composed/model/ModelList";
-import { ModelListPage } from "components/composed/model";
-import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
+import { OperationType } from "relay-runtime";
+import {
+  CommunityListFragment$key,
+  CommunityListFragment,
+} from "@/relay/CommunityListFragment.graphql";
+import { graphql, useFragment } from "react-relay";
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import type { ModelTableActionProps } from "react-table";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-interface CommunityNode extends Record<string, unknown> {
-  createdAt: string;
-  updatedAt: string;
-  name: string;
-  slug: string;
+interface CommunityListProps {
+  data: CommunityListFragment$key;
 }
 
-function CommunityList<
-  Query extends OperationType,
-  ConnectionType extends Connectionish,
-  NodeType extends CommunityNode
->({
-  query,
-  queryVars = {},
-  toConnection,
-  defaultOrder,
-}: {
-  query: GraphQLTaggedNode;
-  queryVars?: Partial<Query["variables"]>;
-  toConnection: ExtractsConnection<Query, ConnectionType>;
-  defaultOrder: Query["variables"]["order"];
-}) {
-  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
-    query,
-    queryVars,
-    defaultOrder,
-    toConnection,
-    handleEdit: ({ row }) => console.info(`edit ${row.original.slug}`), // eslint-disable-line
-    handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
-    handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
-    columns: [
-      columns.name<NodeType>({ route: "community", accessor: "name" }),
-      columns.createdAt<NodeType>(),
-      columns.updatedAt<NodeType>(),
-    ],
-  });
+type CommunityNode = CommunityListFragment["edges"][number]["node"];
 
+function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
+  const columns = [
+    ModelColumns.NameColumn<CommunityNode>({
+      route: "community",
+      accessor: "name",
+    }),
+    ModelColumns.CreatedAtColumn<CommunityNode>(),
+    ModelColumns.UpdatedAtColumn<CommunityNode>(),
+  ];
+
+  /* eslint-disable no-console */
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<CommunityNode>) =>
+      console.info(`edit ${row.original.slug}`),
+    handleDelete: ({ row }: ModelTableActionProps<CommunityNode>) =>
+      console.info(`delete ${row.original.slug}`),
+  };
+  /* eslint-enable no-console */
+
+  const communities = useFragment<CommunityListFragment$key>(fragment, data);
   return (
-    <>
-      <ModelListPage<NodeType>
-        modelName="community"
-        hideViewToggle
-        {...modelListProps}
-      />
-    </>
+    <ModelListPage<T, CommunityListFragment, CommunityNode>
+      modelName="community"
+      viewOptions={[DataViewOptions.table]}
+      columns={columns}
+      actions={actions}
+      data={communities}
+    />
   );
 }
+
+const fragment = graphql`
+  fragment CommunityListFragment on CommunityConnection {
+    edges {
+      node {
+        slug
+        createdAt
+        updatedAt
+        name
+      }
+    }
+    ...ModelPaginationFragment
+    ...ModelPageCountActionsFragment
+  }
+`;
 
 export default CommunityList;

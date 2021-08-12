@@ -23,7 +23,8 @@ export interface HasPageInfo {
 
 export type HasAnyNodes = HasEdgesWithNode | HasNodes;
 
-export type Connectionish = HasAnyNodes & HasPageInfo;
+// export type Connectionish = HasAnyNodes & HasPageInfo;
+export type Connectionish = HasAnyNodes;
 
 export type ExtractsConnection<T extends OperationType, ConnectionType> = (
   data: T["response"]

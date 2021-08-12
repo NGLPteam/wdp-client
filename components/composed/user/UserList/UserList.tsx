@@ -1,71 +1,77 @@
 import React from "react";
-import useModelListPage from "hooks/useModelListPage";
-import { columns } from "components/composed/model/ModelList";
-import { ModelListPage } from "components/composed/model";
-import { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { Connectionish, ExtractsConnection } from "types/graphql-helpers";
+import ModelListPage from "components/composed/model/ModelListPage";
+import { OperationType } from "relay-runtime";
+import { graphql, useFragment } from "react-relay";
+import {
+  UserListFragment,
+  UserListFragment$key,
+} from "@/relay/UserListFragment.graphql";
 import { CellProps } from "react-table";
+import ModelColumns from "components/composed/model/ModelColumns";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
+import type { ModelTableActionProps } from "react-table";
 
-interface UserListNode extends Record<string, unknown> {
-  createdAt: string;
-  updatedAt: string;
-  slug: string;
+interface UserListProps {
+  data: UserListFragment$key;
 }
 
-function UserList<
-  Query extends OperationType,
-  ConnectionType extends Connectionish,
-  NodeType extends UserListNode
->({
-  query,
-  queryVars,
-  toConnection,
-  defaultOrder,
-}: {
-  query: GraphQLTaggedNode;
-  queryVars?: Partial<Query["variables"]>;
-  toConnection: ExtractsConnection<Query, ConnectionType>;
-  defaultOrder: Query["variables"]["order"];
-}) {
-  const { modelListProps } = useModelListPage<Query, ConnectionType, NodeType>({
-    query,
-    queryVars,
-    defaultOrder,
-    toConnection,
-    handleEdit: ({ row }) => console.info(`edit ${row.original.slug}`), // eslint-disable-line
-    handleDelete: ({ row }) => console.info(`delete ${row.original.slug}`), // eslint-disable-line
-    handleSelection: ({ selection }) => console.table(selection), // eslint-disable-line
-    columns: [
-      columns.createdAt<NodeType>(),
-      columns.updatedAt<NodeType>(),
-      columns.name<NodeType>({
-        route: "user",
-        accessor: "name",
-      }),
-      {
-        Header: "Email",
-        accessor: "email",
-        disableSortBy: true,
-      },
-      {
-        Header: "Admin?",
-        accessor: "globalAdmin",
-        disableSortBy: true,
-        Cell: ({ value }: CellProps<NodeType>) =>
-          value && value === true ? "Yes" : "No",
-      },
-    ],
-  });
+type UserNode = UserListFragment["nodes"][number];
+function UserList<T extends OperationType>({ data }: UserListProps) {
+  const columns = [
+    ModelColumns.CreatedAtColumn<UserNode>(),
+    ModelColumns.UpdatedAtColumn<UserNode>(),
+    ModelColumns.NameColumn<UserNode>({ route: "user", accessor: "name" }),
+    {
+      Header: "Email",
+      id: "email",
+      accessor: (originalRow: UserNode) => originalRow.email,
+      disableSortBy: true,
+    },
+    {
+      Header: "Admin?",
+      id: "admin",
+      accessor: (originalRow: UserNode) => originalRow.globalAdmin,
+      disableSortBy: true,
+      Cell: ({ value }: CellProps<UserNode>) =>
+        value && value === true ? "Yes" : "No",
+    },
+  ];
 
+  /* eslint-disable no-console */
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<UserNode>) =>
+      console.info(`edit ${row.original.slug}`),
+    handleDelete: ({ row }: ModelTableActionProps<UserNode>) =>
+      console.info(`delete ${row.original.slug}`),
+  };
+  /* eslint-enable no-console */
+
+  const users = useFragment<UserListFragment$key>(fragment, data);
   return (
-    <>
-      <ModelListPage<NodeType>
-        modelName="user"
-        hideViewToggle
-        {...modelListProps}
-      />
-    </>
+    <ModelListPage<T, UserListFragment, UserNode>
+      modelName="user"
+      columns={columns}
+      actions={actions}
+      selectable
+      viewOptions={[DataViewOptions.table]}
+      data={users}
+    />
   );
 }
+
+const fragment = graphql`
+  fragment UserListFragment on UserConnection {
+    nodes {
+      email
+      globalAdmin
+      name
+      slug
+      createdAt
+      updatedAt
+    }
+    ...ModelPaginationFragment
+    ...ModelPageCountActionsFragment
+  }
+`;
 
 export default UserList;

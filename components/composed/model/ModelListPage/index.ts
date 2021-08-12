@@ -1,2 +1,2 @@
 export { default } from "./ModelListPage";
-export type { ModelListPageProps } from "./ModelListPage";
+export type { PaginatedConnectionish } from "./ModelListPage";
