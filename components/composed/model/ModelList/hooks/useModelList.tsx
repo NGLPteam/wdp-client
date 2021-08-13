@@ -92,7 +92,7 @@ function useModelList<
     ...tableHooks
   );
 
-  // Respond route page query variable changes.
+  // Respond to route page query variable changes.
   /* eslint-disable react-hooks/exhaustive-deps */
   const routePage = useRoutePage();
   useEffect(() => {
