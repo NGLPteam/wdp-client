@@ -16,3 +16,4 @@ export { default as useToggle } from "./useToggle";
 export { default as useNoInitialEffect } from "./useNoInitialEffect";
 export { default as useRouteSlug } from "./useRouteSlug";
 export { default as useRoutePage } from "./useRoutePage";
+export { default as useIsMobile } from "./useIsMobile";
