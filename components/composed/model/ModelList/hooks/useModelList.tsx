@@ -58,7 +58,7 @@ function useModelList<
   const initialSortBy = order ? [order] : [];
 
   // Build initial table state
-  const initialState = { sortBy: initialSortBy };
+  const initialState = { selection: {}, sortBy: initialSortBy };
 
   // Setup actions
   const rowActions = useMemo(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
@@ -10,6 +10,7 @@ import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
+import { useIsMobile } from "hooks";
 
 export type PaginatedConnectionish = Connectionish &
   ModelPaginationFragment$key &
@@ -34,7 +35,12 @@ function ModelListPage<
   defaultView,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
+  const isMobile = useIsMobile();
   const [view, setView] = useState(defaultView || DataViewOptions.table);
+
+  useEffect(() => {
+    if (isMobile) setView(DataViewOptions.grid);
+  }, [isMobile]);
 
   return (
     <section>
