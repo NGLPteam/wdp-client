@@ -28,14 +28,21 @@ const PageCountActions = ({
           <Trans
             ns="common"
             i18nKey="selected.count"
-            values={{ count: selectedCount, total: totalCount }}
+            values={{
+              count: selectedCount,
+              total: totalCount.toLocaleString("en-US"),
+            }}
             components={[<span key="color" className="a-color-accent"></span>]}
           />
         ) : (
           <Trans
             ns="common"
             i18nKey="showing.count"
-            values={{ start, end, total: totalCount }}
+            values={{
+              start: start.toLocaleString("en-US"),
+              end: end.toLocaleString("en-US"),
+              total: totalCount.toLocaleString("en-US"),
+            }}
             components={[<span key="color" className="a-color-accent"></span>]}
           />
         )}
