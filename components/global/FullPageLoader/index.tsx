@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { ProgressBar } from "components/atomic";
+import * as Styled from "./FullPageLoader.styles";
 
+/**
+ * The full page loader is always located at the top of the page,
+ * under the main navigation.
+ */
 export default function FullPageLoader() {
   const [visible, setVisible] = useState(false);
 
@@ -15,21 +20,8 @@ export default function FullPageLoader() {
   }
 
   return (
-    <Loader>
-      <LoaderContent>Loading...</LoaderContent>
-    </Loader>
+    <Styled.Wrapper>
+      <ProgressBar />
+    </Styled.Wrapper>
   );
 }
-
-const Loader = styled.div`
-  width: 100%;
-  min-height: 80px;
-  display: grid;
-  align-items: start;
-`;
-
-const LoaderContent = styled.div`
-  width: 100%;
-  max-width: var(--container-max);
-  margin: 1em auto;
-`;

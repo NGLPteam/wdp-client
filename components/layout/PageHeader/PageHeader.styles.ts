@@ -6,6 +6,7 @@ import { pxToRem } from "theme/mixins/functions";
 const MOBILE_BREAK = 40;
 
 export const Header = styled.header`
+  padding-block-start: ${basePadding(6)};
   padding-block-end: ${basePadding(6)};
 `;
 

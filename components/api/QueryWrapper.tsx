@@ -3,8 +3,8 @@ import { QueryOptions } from "relay-hooks";
 import QueryVariablesContext from "contexts/QueryVariablesContext";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { FullPageLoader } from "components/global";
 import { ErrorMessage } from "components/atomic";
+import { FullPageLoader } from "components/global";
 
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
