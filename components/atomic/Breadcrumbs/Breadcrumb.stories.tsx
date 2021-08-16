@@ -1,6 +1,6 @@
 import Breadcrumbs from "./Breadcrumbs";
 import { Story } from "@storybook/react";
-import { withNextRouter } from "storybook-addon-next-router";
+// import { withNextRouter } from "storybook-addon-next-router";
 
 type Props = React.ComponentProps<typeof Breadcrumbs>;
 
@@ -22,7 +22,7 @@ const data = [
 export default {
   title: "Components/Atomic/Breadcrumbs",
   component: Breadcrumbs,
-  decorators: [withNextRouter],
+  // decorators: [withNextRouter],
 };
 
 const Template: Story<Props> = (args) => {
