@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { withNextRouter } from "storybook-addon-next-router";
+// import { withNextRouter } from "storybook-addon-next-router";
 import NamedLink from "./NamedLink";
 
 type Props = React.ComponentProps<typeof NamedLink>;
@@ -8,7 +8,7 @@ type Props = React.ComponentProps<typeof NamedLink>;
 export default {
   title: "Components/Atomic/Links/NamedLink",
   component: NamedLink,
-  decorators: [withNextRouter],
+  // decorators: [withNextRouter],
 };
 
 const Template: Story<Props> = (args) => (

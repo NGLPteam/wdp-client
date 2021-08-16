@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { withNextRouter } from "storybook-addon-next-router";
+// import { withNextRouter } from "storybook-addon-next-router";
 import Pagination from ".";
 
 type Props = React.ComponentProps<typeof Pagination>;
@@ -8,7 +8,7 @@ type Props = React.ComponentProps<typeof Pagination>;
 export default {
   title: "Components/Atomic/Pagination",
   component: Pagination,
-  decorators: [withNextRouter],
+  // decorators: [withNextRouter],
   parameters: {
     themes: {
       default: "neutral00",

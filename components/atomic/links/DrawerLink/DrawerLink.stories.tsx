@@ -1,6 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { withNextRouter } from "storybook-addon-next-router";
+// import { withNextRouter } from "storybook-addon-next-router";
 import DrawerLink from "./DrawerLink";
 import { ButtonControl } from "components/atomic";
 
@@ -9,7 +9,7 @@ type Props = React.ComponentProps<typeof DrawerLink>;
 export default {
   title: "Components/Atomic/Links/DrawerLink",
   component: DrawerLink,
-  decorators: [withNextRouter],
+  // decorators: [withNextRouter],
 };
 
 /**
