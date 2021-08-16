@@ -3,6 +3,7 @@ const path = require("path");
 module.exports = {
   stories: ["../@(components|theme)/**/*.stories.@(ts|tsx|mdx)"],
   addons: [
+    "storybook-addon-next-router",
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-a11y",

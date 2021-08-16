@@ -1,3 +1,4 @@
+import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";
 import get from "lodash/get";
@@ -72,4 +73,7 @@ export const parameters = {
     ],
   },
   backgrounds: { disable: true }, // disabled in favor of themes
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
 };
