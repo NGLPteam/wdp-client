@@ -1,6 +1,5 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { withNextRouter } from "storybook-addon-next-router";
 import NamedLink from "./NamedLink";
 
 type Props = React.ComponentProps<typeof NamedLink>;
@@ -8,7 +7,6 @@ type Props = React.ComponentProps<typeof NamedLink>;
 export default {
   title: "Components/Atomic/Links/NamedLink",
   component: NamedLink,
-  decorators: [withNextRouter],
 };
 
 const Template: Story<Props> = (args) => (
@@ -19,7 +17,7 @@ const Template: Story<Props> = (args) => (
 
 Template.args = {
   passHref: true,
-  route: "communityList",
+  route: "communities",
 };
 
 export const Default: Story<Props> = Template.bind({});
@@ -30,9 +28,9 @@ Default.args = {
 export const WithRouteParams: Story<Props> = Template.bind({});
 WithRouteParams.args = {
   passHref: true,
-  route: "communityDetail",
+  route: "community",
   routeParams: {
-    id: 1,
+    slug: 1,
   },
 };
 
