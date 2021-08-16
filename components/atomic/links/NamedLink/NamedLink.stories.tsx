@@ -19,7 +19,7 @@ const Template: Story<Props> = (args) => (
 
 Template.args = {
   passHref: true,
-  route: "communityList",
+  route: "communities",
 };
 
 export const Default: Story<Props> = Template.bind({});
@@ -30,9 +30,9 @@ Default.args = {
 export const WithRouteParams: Story<Props> = Template.bind({});
 WithRouteParams.args = {
   passHref: true,
-  route: "communityDetail",
+  route: "community",
   routeParams: {
-    id: 1,
+    slug: 1,
   },
 };
 

@@ -1,9 +1,10 @@
-import GlobalStyles from "../theme/globalStyles";
-import { colors } from "../theme/base/variables";
 import get from "lodash/get";
 import { I18nextProvider } from "react-i18next";
 import { Story } from "@storybook/react";
 import * as nextImage from "next/image";
+import { RouterContext } from "next/dist/shared/lib/router-context";
+import GlobalStyles from "../theme/globalStyles";
+import { colors } from "../theme/base/variables";
 import i18n from "../helpers/i18n";
 
 Object.defineProperty(nextImage, "default", {
@@ -72,4 +73,7 @@ export const parameters = {
     ],
   },
   backgrounds: { disable: true }, // disabled in favor of themes
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
 };
