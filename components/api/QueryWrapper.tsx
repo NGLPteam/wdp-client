@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { QueryOptions } from "relay-hooks";
 import QueryVariablesContext from "contexts/QueryVariablesContext";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
@@ -10,6 +10,11 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
 
   const { variables, setVariables } = useManagedVariables<T>(initialVariables);
+
+  useEffect(() => initialVariables && setVariables(initialVariables), [
+    initialVariables,
+    setVariables,
+  ]);
 
   const { data, error, isLoading } = useAuthenticatedQuery<T>(
     query,
