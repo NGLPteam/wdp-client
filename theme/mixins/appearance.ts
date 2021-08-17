@@ -1,6 +1,5 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
-import { tLabel } from "./typography";
 
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
@@ -71,6 +70,7 @@ export function aBgLight(bgColor = "neutral00") {
 export function aBaseInput() {
   return css`
     appearance: none;
+    cursor: pointer;
     border: 1px solid var(--color-lighter);
     background-color: var(--background-color);
     color: var(--color);
@@ -102,12 +102,6 @@ export function aBaseInput() {
     }
   `;
 }
-
-export const aBaseInputLabel = css`
-  ${tLabel("sm")};
-  padding-block-end: ${pxToRem("6px")};
-  color: var(--color-light);
-`;
 
 // Base link styling, with color override
 export const aLink = (color?: string) => css`
