@@ -20,6 +20,7 @@ Template.args = {
   type: "string",
   label: "Label",
   placeholder: "Placeholder text",
+  description: "Descriptive text",
 };
 
 export const Default = Template.bind({});

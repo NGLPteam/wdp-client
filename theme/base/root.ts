@@ -10,6 +10,7 @@ import {
   setZIndexVars,
 } from "../base/variables";
 import { hexToHSLA } from "../mixins/colors";
+import { basePadding } from "theme/mixins/appearance";
 
 const { duration, timing } = transition.colorMode;
 
@@ -101,5 +102,8 @@ export default css`
 
     /* padding */
     --base-padding: 4px;
+
+    /* forms */
+    --form-row-gap: ${basePadding(10)};
   }
 `;

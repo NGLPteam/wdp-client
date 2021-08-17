@@ -21,6 +21,11 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Select Label",
   placeholder: "Placeholder text",
+  description: "Descriptive text",
+  options: [
+    { label: "One", value: 1 },
+    { label: "Two", value: 2 },
+  ],
 };
 
 export const InAForm: Story<Props> = (args) => {

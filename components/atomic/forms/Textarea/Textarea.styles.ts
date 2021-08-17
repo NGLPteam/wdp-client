@@ -1,18 +1,5 @@
 import styled from "styled-components";
-import {
-  aBaseInput,
-  aBaseInputLabel,
-  basePadding,
-} from "theme/mixins/appearance";
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Label = styled.label`
-  ${aBaseInputLabel};
-`;
+import { aBaseInput, basePadding } from "theme/mixins/appearance";
 
 export const TextareaInput = styled.textarea`
   --input-min-height: ${basePadding(30)};
