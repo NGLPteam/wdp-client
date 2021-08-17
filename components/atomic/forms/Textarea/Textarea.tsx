@@ -1,32 +1,34 @@
 import React, { Ref, forwardRef } from "react";
 import { useUID } from "react-uid";
+import BaseInputWrapper from "../BaseInputWrapper";
+import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./Textarea.styles";
+import BaseInputDescription from "../BaseInputDescription";
+
+import type InputProps from "../inputType";
 
 const Textarea = forwardRef(
   (
-    { label, placeholder, ...textareaProps }: Props,
+    { label, description, placeholder, ...textareaProps }: InputProps,
     ref: Ref<HTMLTextAreaElement>
   ) => {
     const uid = useUID();
 
     return (
-      <Styled.Wrapper>
-        <Styled.Label htmlFor={uid}>{label}</Styled.Label>
+      <BaseInputWrapper>
+        <BaseInputLabel htmlFor={uid}>{label}</BaseInputLabel>
         <Styled.TextareaInput
           id={uid}
           ref={ref}
           placeholder={placeholder}
           {...textareaProps}
         />
-      </Styled.Wrapper>
+        {description && (
+          <BaseInputDescription>{description}</BaseInputDescription>
+        )}
+      </BaseInputWrapper>
     );
   }
 );
-
-interface Props {
-  label: string;
-  placeholder?: string;
-  required?: boolean;
-}
 
 export default Textarea;

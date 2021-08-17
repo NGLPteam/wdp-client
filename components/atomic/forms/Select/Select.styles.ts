@@ -1,21 +1,8 @@
 import styled from "styled-components";
-import {
-  aBaseInput,
-  aBaseInputLabel,
-  basePadding,
-} from "theme/mixins/appearance";
+import { aBaseInput, basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { IconFactory } from "components/factories";
 import { noInsetSupport } from "theme/mixins/base";
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Label = styled.label`
-  ${aBaseInputLabel};
-`;
 
 export const SelectWrapper = styled.div`
   position: relative;

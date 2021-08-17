@@ -1,28 +1,33 @@
 import React, { Ref, forwardRef } from "react";
 import { useUID } from "react-uid";
+import BaseInputWrapper from "../BaseInputWrapper";
+import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./Input.styles";
+import BaseInputDescription from "../BaseInputDescription";
+
+import type InputProps from "../inputType";
 
 const Input = forwardRef(
   (
-    { type = "string", label, ...inputProps }: Props,
+    { type = "string", label, description, ...inputProps }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
     const uid = useUID();
 
     return (
-      <Styled.Wrapper>
-        <Styled.Label htmlFor={uid}>{label}</Styled.Label>
+      <BaseInputWrapper>
+        <BaseInputLabel htmlFor={uid}>{label}</BaseInputLabel>
         <Styled.Input id={uid} type={type} ref={ref} {...inputProps} />
-      </Styled.Wrapper>
+        {description && (
+          <BaseInputDescription>{description}</BaseInputDescription>
+        )}
+      </BaseInputWrapper>
     );
   }
 );
 
-interface Props {
+interface Props extends InputProps {
   type?: string;
-  label: string | React.ReactNode;
-  placeholder?: string;
-  required?: boolean;
 }
 
 export default Input;
