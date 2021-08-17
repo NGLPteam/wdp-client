@@ -20,6 +20,12 @@
     "institution": "Institution Name",
     "powered_by": "Powered by NGLP–WDP"
   },
+  "forms": {
+    "file": {
+      "upload": "Upload a file \n or drag and drop here",
+      "count": "...and {{count}} more"
+    }
+  },
   "header": {
     "manage": "Manage",
     "learn": "Learn",

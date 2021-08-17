@@ -2,8 +2,8 @@ import React, { Ref, forwardRef } from "react";
 import { useUID } from "react-uid";
 import BaseInputWrapper from "../BaseInputWrapper";
 import BaseInputLabel from "../BaseInputLabel";
-import * as Styled from "./Textarea.styles";
 import BaseInputDescription from "../BaseInputDescription";
+import * as Styled from "./Textarea.styles";
 
 import type InputProps from "../inputType";
 
