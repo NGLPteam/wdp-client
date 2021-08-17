@@ -1,34 +1,27 @@
-import CICInput from "@castiron/components-input";
+import React, { Ref, forwardRef } from "react";
 import { useUID } from "react-uid";
+import * as Styled from "./Input.styles";
 
-const Input = ({
-  className,
-  inputProps = {},
-  labelProps = {},
-  ...props
-}: Props) => {
-  const uid = useUID();
-  inputProps.className = `${className}__input`;
-  labelProps.className = `${className}__label`;
+const Input = forwardRef(
+  (
+    { type = "string", label, ...inputProps }: Props,
+    ref: Ref<HTMLInputElement>
+  ) => {
+    const uid = useUID();
 
-  return (
-    <CICInput
-      inputId={uid}
-      className={className}
-      inputProps={inputProps}
-      labelProps={labelProps}
-      {...props}
-    />
-  );
-};
+    return (
+      <Styled.Wrapper>
+        <Styled.Label htmlFor={uid}>{label}</Styled.Label>
+        <Styled.Input id={uid} type={type} ref={ref} {...inputProps} />
+      </Styled.Wrapper>
+    );
+  }
+);
 
 interface Props {
-  className: string;
   type?: string;
   label: string | React.ReactNode;
-  description: string | React.ReactNode;
-  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
-  labelProps: React.HTMLAttributes<HTMLLabelElement>;
+  placeholder?: string;
 }
 
 export default Input;
