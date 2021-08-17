@@ -120,3 +120,13 @@ export const aLink = (color?: string) => css`
 export function basePadding(size: number) {
   return pxToRem(size * 4);
 }
+
+export const aHidden = css`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+`;

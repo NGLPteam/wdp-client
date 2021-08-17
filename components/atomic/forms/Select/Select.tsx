@@ -9,14 +9,23 @@ import type InputProps from "../inputType";
 
 const Select = forwardRef(
   (
-    { label, description, placeholder, options, ...inputProps }: Props,
+    {
+      label,
+      hideLabel,
+      description,
+      placeholder,
+      options,
+      ...inputProps
+    }: Props,
     ref: Ref<HTMLSelectElement>
   ) => {
     const uid = useUID();
 
     return (
       <BaseInputWrapper>
-        <BaseInputLabel htmlFor={uid}>{label}</BaseInputLabel>
+        <BaseInputLabel htmlFor={uid} hideLabel={hideLabel}>
+          {label}
+        </BaseInputLabel>
         <Styled.SelectWrapper>
           <Styled.SelectInput id={uid} ref={ref} {...inputProps}>
             <option value="">{placeholder}</option>

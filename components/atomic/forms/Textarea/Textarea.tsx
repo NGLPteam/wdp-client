@@ -9,14 +9,22 @@ import type InputProps from "../inputType";
 
 const Textarea = forwardRef(
   (
-    { label, description, placeholder, ...textareaProps }: InputProps,
+    {
+      label,
+      hideLabel,
+      description,
+      placeholder,
+      ...textareaProps
+    }: InputProps,
     ref: Ref<HTMLTextAreaElement>
   ) => {
     const uid = useUID();
 
     return (
       <BaseInputWrapper>
-        <BaseInputLabel htmlFor={uid}>{label}</BaseInputLabel>
+        <BaseInputLabel htmlFor={uid} hideLabel={hideLabel}>
+          {label}
+        </BaseInputLabel>
         <Styled.TextareaInput
           id={uid}
           ref={ref}

@@ -20,6 +20,7 @@ Template.args = {
   label: "Email",
   placeholder: "Placeholder text",
   description: "Descriptive text",
+  hideLabel: false,
 };
 
 export const Default = Template.bind({});

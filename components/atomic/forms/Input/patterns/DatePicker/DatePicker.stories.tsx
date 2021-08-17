@@ -20,6 +20,7 @@ Template.args = {
   label: "Date Picker",
   placeholder: "Placeholder text",
   description: "Format: MM/DD/YYYY",
+  hideLabel: false,
 };
 
 export const Default = Template.bind({});

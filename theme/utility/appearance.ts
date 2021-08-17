@@ -5,6 +5,7 @@ import {
   aBgLight,
   aBaseInput,
   aLink,
+  aHidden,
 } from "../mixins/appearance";
 // Appearance
 // --------------------
@@ -16,13 +17,7 @@ import {
 
 export default css`
   .a-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+    ${aHidden}
   }
 
   .a-focus-dark:focus-visible {

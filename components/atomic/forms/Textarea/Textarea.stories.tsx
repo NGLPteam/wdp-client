@@ -21,6 +21,7 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Text Area",
   placeholder: "Placeholder text",
+  hideLabel: false,
 };
 
 export const InAForm: Story<Props> = (args) => {
