@@ -21,6 +21,7 @@ export const ICON_MAP = {
   viewList: Icons.ViewList,
   user: Icons.User,
   warning: Icons.Warning,
+  upload: Icons.Upload,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

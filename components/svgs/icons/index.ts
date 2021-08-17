@@ -17,3 +17,4 @@ export { default as User } from "./User";
 export { default as ViewGrid } from "./ViewGrid";
 export { default as ViewList } from "./ViewList";
 export { default as Warning } from "./Warning";
+export { default as Upload } from "./Upload";

@@ -89,7 +89,7 @@ export function aBaseInput() {
 
     &:focus-visible {
       ${aGlow("lightMode")}
-      background-color: var(--input-focus-background, inherit);
+      background-color: var(--input-focus-background, var(--brand10));
     }
 
     &::placeholder {
