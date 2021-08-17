@@ -1,9 +1,19 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { aHidden } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 
-export const Label = styled.label`
-  ${tLabel("sm")};
-  padding-block-end: ${pxToRem("6px")};
-  color: var(--color-light);
+export const Label = styled.label<Props>`
+  ${({ hideLabel }) =>
+    hideLabel
+      ? aHidden
+      : css`
+          ${tLabel("sm")};
+          padding-block-end: ${pxToRem("6px")};
+          color: var(--color-light);
+        `}
 `;
+
+interface Props {
+  hideLabel?: boolean;
+}

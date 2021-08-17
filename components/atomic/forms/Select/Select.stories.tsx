@@ -27,6 +27,7 @@ Default.args = {
     { label: "One", value: 1 },
     { label: "Two", value: 2 },
   ],
+  hideLabel: false,
 };
 
 export const InAForm: Story<Props> = (args) => {

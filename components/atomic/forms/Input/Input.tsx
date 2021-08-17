@@ -9,14 +9,16 @@ import type InputProps from "../inputType";
 
 const Input = forwardRef(
   (
-    { type = "string", label, description, ...inputProps }: Props,
+    { type = "string", label, hideLabel, description, ...inputProps }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
     const uid = useUID();
 
     return (
       <BaseInputWrapper>
-        <BaseInputLabel htmlFor={uid}>{label}</BaseInputLabel>
+        <BaseInputLabel htmlFor={uid} hideLabel={hideLabel}>
+          {label}
+        </BaseInputLabel>
         <Styled.Input id={uid} type={type} ref={ref} {...inputProps} />
         {description && (
           <BaseInputDescription>{description}</BaseInputDescription>

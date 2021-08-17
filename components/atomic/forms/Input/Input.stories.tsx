@@ -21,6 +21,7 @@ Template.args = {
   label: "Text Input",
   placeholder: "Placeholder text",
   description: "Descriptive text",
+  hideLabel: false,
 };
 
 export const Default = Template.bind({});
