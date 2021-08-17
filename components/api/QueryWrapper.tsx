@@ -3,8 +3,8 @@ import { QueryOptions } from "relay-hooks";
 import QueryVariablesContext from "contexts/QueryVariablesContext";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { FullPageLoader } from "components/global";
 import { ErrorMessage } from "components/atomic";
+import { usePageContext } from "hooks";
 
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
@@ -22,6 +22,13 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     options
   );
 
+  const { setLoading: setPageLoading } = usePageContext();
+
+  useEffect(() => {
+    setPageLoading(isLoading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
   const { children, onEmpty, onError, onLoading } = props;
 
   if (error) {
@@ -32,12 +39,8 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     }
   }
 
-  if (isLoading) {
-    if (onLoading) {
-      return onLoading();
-    } else {
-      return <FullPageLoader />;
-    }
+  if (isLoading && onLoading) {
+    return onLoading();
   }
 
   if (data) {

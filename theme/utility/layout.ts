@@ -81,8 +81,12 @@ export default css`
   }
 
   .l-container-max {
-    max-width: var(--container-max);
+    max-width: calc(
+      var(--container-max) + (var(--container-column-margin) * 2)
+    );
     margin-inline-start: auto;
     margin-inline-end: auto;
+    padding-inline-start: var(--container-column-margin);
+    padding-inline-end: var(--container-column-margin);
   }
 `;
