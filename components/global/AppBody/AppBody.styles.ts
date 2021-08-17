@@ -7,12 +7,7 @@ export const Body = styled.div`
   overflow: hidden;
 `;
 
-export const Main = styled.main<MainProps>`
+export const Main = styled.main`
   flex-grow: 1;
   width: 100%;
-  --main-top-pos: ${({ top }) => top}px;
 `;
-
-interface MainProps {
-  top: number;
-}

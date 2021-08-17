@@ -1,15 +1,20 @@
 import styled from "styled-components";
+import { noInsetSupport } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Bar = styled.div`
-  background: var(--brand30);
+  position: sticky;
+  inset-block-start: 0;
   height: ${pxToRem(4)};
+  background: var(--brand30);
+
+  ${noInsetSupport(`top: 0;`)}
 `;
 
 export const Percent = styled.span`
   display: block;
-  background: var(--brand50);
   height: 100%;
   width: 0px;
   transition: width var(--base-duration) var(--base-timing);
+  background: var(--brand50);
 `;

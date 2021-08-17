@@ -14,7 +14,7 @@ import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 import type { Page } from "types/page";
 
 import GlobalStyles from "theme";
-import { AppBody, FullPageLoader, DrawerController } from "components/global";
+import { AppBody, DrawerController } from "components/global";
 import useLatest from "hooks/useLatest";
 import { useSetLocale } from "hooks/useSetLocale";
 import { appWithTranslation } from "next-i18next";
@@ -22,6 +22,7 @@ import { appWithTranslation } from "next-i18next";
 import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
+import { ProgressBar } from "components/atomic";
 
 const NGLPApp = ({
   Component,
@@ -47,7 +48,7 @@ const NGLPApp = ({
   const ssrProps: KeycloakProviderProps = {
     initOptions,
     keycloakConfig,
-    LoadingComponent: <FullPageLoader />,
+    LoadingComponent: <ProgressBar />,
     persistor,
   };
 
