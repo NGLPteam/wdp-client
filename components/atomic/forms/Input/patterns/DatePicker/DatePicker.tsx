@@ -1,12 +1,12 @@
 import React, { Ref, forwardRef } from "react";
-import Input from "../Input";
+import Input from "components/atomic/forms/Input";
 
-import type InputProps from "../../inputType";
+import type InputProps from "components/atomic/forms/inputType";
 
-const Date = forwardRef(
+const DatePicker = forwardRef(
   ({ ...props }: InputProps, ref: Ref<HTMLInputElement>) => {
     return <Input type="date" ref={ref} {...props} />;
   }
 );
 
-export default Date;
+export default DatePicker;
