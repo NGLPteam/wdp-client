@@ -1,5 +1,6 @@
 import React from "react";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
 import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
@@ -60,17 +61,23 @@ function ModelList<
       ModelListType = null;
   }
 
+  const hasRows = modelGridOrTableProps.rows.length > 0;
+
   return (
     <>
       <ModelPageCountActions data={data} />
-      {ModelListType && (
-        <ModelListType<V>
-          title={title}
-          selectable={selectable}
-          {...modelGridOrTableProps}
-        />
+      {hasRows && ModelListType ? (
+        <>
+          <ModelListType<V>
+            title={title}
+            selectable={selectable}
+            {...modelGridOrTableProps}
+          />
+          <ModelPagination data={data} />
+        </>
+      ) : (
+        <NoResultsMessage />
       )}
-      <ModelPagination data={data} />
     </>
   );
 }
