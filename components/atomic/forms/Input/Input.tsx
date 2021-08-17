@@ -22,6 +22,7 @@ interface Props {
   type?: string;
   label: string | React.ReactNode;
   placeholder?: string;
+  required?: boolean;
 }
 
 export default Input;
