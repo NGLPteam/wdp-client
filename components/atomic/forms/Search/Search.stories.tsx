@@ -7,11 +7,6 @@ type Props = React.ComponentProps<typeof Search>;
 export default {
   title: "Components/Atomic/Forms/Search",
   component: Search,
-  parameters: {
-    themes: {
-      default: "brand100",
-    },
-  },
 };
 
 function handleSubmit(value: string) {

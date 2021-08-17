@@ -1,13 +1,13 @@
-import Input from "./";
+import Textarea from "./";
 import { Story } from "@storybook/react";
 import { useForm } from "react-hook-form";
 import { Button } from "components/atomic";
 
-type Props = React.ComponentProps<typeof Input>;
+type Props = React.ComponentProps<typeof Textarea>;
 
 export default {
-  title: "Components/Atomic/Forms/Input",
-  component: Input,
+  title: "Components/Atomic/Forms/Textarea",
+  component: Textarea,
   parameters: {
     themes: {
       default: "neutral00",
@@ -15,16 +15,12 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <Input {...args} />;
-Template.args = {
-  type: "string",
-  label: "Label",
-  placeholder: "Placeholder text",
-};
+const Template: Story<Props> = (args) => <Textarea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  ...Template.args,
+  label: "Textarea Label",
+  placeholder: "Placeholder text",
 };
 
 export const InAForm: Story<Props> = (args) => {
@@ -36,7 +32,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input {...args} {...register("example")} required />
+      <Textarea {...args} {...register("example")} required />
       <Button type="submit">Submit</Button>
     </form>
   );

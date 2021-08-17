@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
+import { tLabel } from "./typography";
 
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
@@ -100,6 +101,12 @@ export function aBaseInput() {
     }
   `;
 }
+
+export const aBaseInputLabel = css`
+  ${tLabel("sm")};
+  padding-block-end: ${pxToRem("6px")};
+  color: var(--color-light);
+`;
 
 // Base link styling, with color override
 export const aLink = (color?: string) => css`

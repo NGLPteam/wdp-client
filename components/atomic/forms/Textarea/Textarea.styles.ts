@@ -4,7 +4,6 @@ import {
   aBaseInputLabel,
   basePadding,
 } from "theme/mixins/appearance";
-import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -15,9 +14,9 @@ export const Label = styled.label`
   ${aBaseInputLabel};
 `;
 
-export const Input = styled.input`
-  --input-min-height: ${pxToRem("42px")};
-  --input-padding: 0 ${basePadding(4)};
+export const TextareaInput = styled.textarea`
+  --input-min-height: ${basePadding(30)};
+  --input-padding: ${basePadding(3)} ${basePadding(4)};
   --input-focus-background: var(--brand10);
   ${aBaseInput()}
 `;
