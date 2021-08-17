@@ -19,9 +19,10 @@ const Template: Story<Props> = (args) => <Select {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Select Label",
-  placeholder: "Placeholder text",
-  description: "Descriptive text",
+  label: "Select Dropdown",
+  placeholder: "Select an item",
+  description:
+    "Description field adding detail or explanation for what this form field or control will do and offering guidance for how to use it.",
   options: [
     { label: "One", value: 1 },
     { label: "Two", value: 2 },

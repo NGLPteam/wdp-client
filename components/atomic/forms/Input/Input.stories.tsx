@@ -18,7 +18,7 @@ export default {
 const Template: Story<Props> = (args) => <Input {...args} />;
 Template.args = {
   type: "string",
-  label: "Label",
+  label: "Text Input",
   placeholder: "Placeholder text",
   description: "Descriptive text",
 };

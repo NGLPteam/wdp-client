@@ -1,13 +1,13 @@
-import Textarea from "./";
+import DatePicker from "./DatePicker";
 import { Story } from "@storybook/react";
 import { useForm } from "react-hook-form";
 import { Button } from "components/atomic";
 
-type Props = React.ComponentProps<typeof Textarea>;
+type Props = React.ComponentProps<typeof DatePicker>;
 
 export default {
-  title: "Components/Atomic/Forms/Textarea",
-  component: Textarea,
+  title: "Components/Atomic/Forms/DatePicker",
+  component: DatePicker,
   parameters: {
     themes: {
       default: "neutral00",
@@ -15,12 +15,16 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <Textarea {...args} />;
+const Template: Story<Props> = (args) => <DatePicker {...args} />;
+Template.args = {
+  label: "Date Picker",
+  placeholder: "Placeholder text",
+  description: "Format: MM/DD/YYYY",
+};
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Text Area",
-  placeholder: "Placeholder text",
+  ...Template.args,
 };
 
 export const InAForm: Story<Props> = (args) => {
@@ -32,7 +36,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Textarea {...args} {...register("example")} required />
+      <DatePicker {...args} {...register("example")} required />
       <Button type="submit">Submit</Button>
     </form>
   );

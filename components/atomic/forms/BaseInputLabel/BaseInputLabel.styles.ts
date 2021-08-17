@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import { aBaseInputLabel } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
+import { tLabel } from "theme/mixins/typography";
 
 export const Label = styled.label`
-  ${aBaseInputLabel};
+  ${tLabel("sm")};
+  padding-block-end: ${pxToRem("6px")};
+  color: var(--color-light);
 `;
