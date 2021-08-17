@@ -70,6 +70,7 @@ export function aBgLight(bgColor = "neutral00") {
 
 export function aBaseInput() {
   return css`
+    appearance: none;
     border: 1px solid var(--color-lighter);
     background-color: var(--background-color);
     color: var(--color);
