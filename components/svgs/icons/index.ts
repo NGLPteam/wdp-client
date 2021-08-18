@@ -18,3 +18,4 @@ export { default as ViewGrid } from "./ViewGrid";
 export { default as ViewList } from "./ViewList";
 export { default as Warning } from "./Warning";
 export { default as Upload } from "./Upload";
+export { default as Toggle } from "./Toggle";

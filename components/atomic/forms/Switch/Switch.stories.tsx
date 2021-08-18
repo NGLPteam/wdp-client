@@ -1,13 +1,13 @@
-import Textarea from "./";
 import { Story } from "@storybook/react";
 import { useForm } from "react-hook-form";
 import { Button } from "components/atomic";
+import Switch from "./Switch";
 
-type Props = React.ComponentProps<typeof Textarea>;
+type Props = React.ComponentProps<typeof Switch>;
 
 export default {
-  title: "Components/Atomic/Forms/Textarea",
-  component: Textarea,
+  title: "Components/Atomic/Forms/Switch",
+  component: Switch,
   parameters: {
     themes: {
       default: "neutral00",
@@ -15,14 +15,18 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <Textarea {...args} />;
+const Template: Story<Props> = (args) => <Switch {...args} />;
+Template.args = {
+  label: "Toggle",
+  text: "Toggle text",
+  description: "Description text",
+  hideLabel: false,
+  required: false,
+};
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Text Area",
-  placeholder: "Placeholder text",
-  hideLabel: false,
-  required: false,
+  ...Template.args,
 };
 
 export const InAForm: Story<Props> = (args) => {
@@ -34,7 +38,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Textarea {...args} {...register("example")} />
+      <Switch {...args} {...register("example")} />
       <Button type="submit">Submit</Button>
     </form>
   );

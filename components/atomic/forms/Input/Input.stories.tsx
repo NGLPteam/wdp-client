@@ -22,6 +22,7 @@ Template.args = {
   placeholder: "Placeholder text",
   description: "Descriptive text",
   hideLabel: false,
+  required: false,
 };
 
 export const Default = Template.bind({});
@@ -38,7 +39,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input {...args} {...register("example")} required />
+      <Input {...args} {...register("example")} />
       <Button type="submit">Submit</Button>
     </form>
   );
