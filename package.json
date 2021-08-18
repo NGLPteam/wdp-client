@@ -35,6 +35,7 @@
     "@react-stately/table": "^3.0.0-beta.1",
     "cookie": "^0.4.1",
     "date-fns": "^2.22.1",
+    "downshift": "^6.1.7",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",
     "keycloak-js": "^12.0.4",
