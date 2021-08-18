@@ -10,6 +10,10 @@ export const SwitchWrapper = styled.div`
   border-bottom: 1px solid var(--color-lighter);
   padding-block-start: ${basePadding(2)};
   padding-block-end: ${basePadding(2)};
+
+  &:hover {
+    border-bottom-color: var(--accent-color);
+  }
 `;
 
 export const Icon = styled(IconFactory)`
