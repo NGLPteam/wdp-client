@@ -22,6 +22,7 @@ export const ICON_MAP = {
   user: Icons.User,
   warning: Icons.Warning,
   upload: Icons.Upload,
+  toggle: Icons.Toggle,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

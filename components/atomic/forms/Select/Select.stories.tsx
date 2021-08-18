@@ -28,6 +28,7 @@ Default.args = {
     { label: "Two", value: 2 },
   ],
   hideLabel: false,
+  required: false,
 };
 
 export const InAForm: Story<Props> = (args) => {
@@ -39,7 +40,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Select {...args} {...register("example")} required />
+      <Select {...args} {...register("example")} />
       <Button type="submit">Submit</Button>
     </form>
   );

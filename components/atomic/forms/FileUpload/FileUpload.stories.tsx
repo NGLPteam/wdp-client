@@ -22,6 +22,7 @@ Template.args = {
   description: "Descriptive text",
   hideLabel: false,
   multiple: false,
+  required: false,
 };
 
 export const Default = Template.bind({});
@@ -38,7 +39,7 @@ export const InAForm: Story<Props> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FileUpload {...args} {...register("example")} required />
+      <FileUpload {...args} {...register("example")} />
       <Button type="submit">Submit</Button>
     </form>
   );
