@@ -37,12 +37,12 @@ const Template: Story<Props> = (args) => {
           <Email
             label="Email"
             {...register("email")}
-            description="FormGridat: example@email.com"
+            description="Format: example@email.com"
           />
           <DatePicker
             label="Date"
             {...register("date")}
-            description="FormGridat: mm/dd/yyyy"
+            description="Format: mm/dd/yyyy"
           />
           <Switch
             label="Hidden"
