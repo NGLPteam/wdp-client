@@ -40,6 +40,8 @@ export function aBgDark(bgColor = "brand100") {
     --accent-light: var(--brand10);
     --accent-lighter: var(--brand20);
     --button-background: var(--background-light);
+    --color-error: var(--neutral00);
+
     background-color: var(--background-color);
     color: var(--color);
   `;
@@ -62,6 +64,7 @@ export function aBgLight(bgColor = "neutral00") {
     --accent-light: var(--brand90);
     --accent-lighter: var(--brand80);
     --button-background: var(--background-light);
+
     background-color: var(--background-color);
     color: var(--color);
   `;
@@ -71,29 +74,29 @@ export function aBaseInput() {
   return css`
     appearance: none;
     cursor: pointer;
-    border: 1px solid var(--color-lighter);
-    background-color: var(--background-color);
+    min-height: var(--input-min-height);
+    background-color: var(--input-background-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    padding: var(--input-padding);
     color: var(--color);
-    border-radius: var(--input-border-radius, 0);
-    min-height: var(--input-min-height, ${basePadding(8)});
-    padding: var(--input-padding, 0 ${basePadding(2)});
+    text-align: var(--input-text-align, left);
     transition: var(--background-transition), var(--color-transition),
       var(--border-transition), var(--opacity-transition);
-    text-align: var(--input-text-align, left);
 
     &:focus,
     &:hover {
       outline: 0;
-      border-color: var(--accent-color);
+      border-color: var(--input-border-hover-color);
     }
 
     &:focus-visible {
       ${aGlow("lightMode")}
-      background-color: var(--input-focus-background, var(--brand10));
+      background-color: var(--input-focus-background);
     }
 
     &::placeholder {
-      color: var(--color-light);
+      color: var(--input-placeholder-color);
     }
 
     &:disabled,

@@ -33,6 +33,14 @@ Default.args = {
   required: false,
 };
 
+export const WithError = Template.bind({});
+WithError.args = {
+  ...Default.args,
+  error: {
+    message: "Egads! An error!",
+  },
+};
+
 export const InAForm: Story<Props> = (args) => {
   const { control, handleSubmit, watch } = useForm();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

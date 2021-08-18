@@ -17,7 +17,7 @@ function IconWarning({ title, ...props }: Props) {
       role="img"
       {...props}
     >
-      <title>{title || "Magnifying Glass"}</title>
+      <title>{title || "Warning"}</title>
       <path
         d="M15.127 1c.77-1.333 2.695-1.333 3.464 0l13.857 24c.77 1.333-.193 3-1.732 3H3.003c-1.54 0-2.502-1.667-1.732-3L15.127 1z"
         style={backgroundStyle}

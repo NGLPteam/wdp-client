@@ -1,9 +1,6 @@
 import React, { forwardRef, Ref, useCallback, useState } from "react";
-import { useUID } from "react-uid";
 import { IconFactory } from "components/factories";
 import BaseInputWrapper from "../BaseInputWrapper";
-import BaseInputLabel from "../BaseInputLabel";
-import BaseInputDescription from "../BaseInputDescription";
 import * as Styled from "./FileUpload.styles";
 
 import type InputProps from "../inputType";
@@ -16,10 +13,9 @@ const FILE_LIST_LIMIT = 3;
  */
 const FileUpload = forwardRef(
   (
-    { label, hideLabel, description, onChange, ...inputProps }: Props,
+    { label, hideLabel, description, onChange, error, ...inputProps }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
-    const uid = useUID();
     const [files, setFiles] = useState([]);
     const { t } = useTranslation("common");
 
@@ -35,38 +31,35 @@ const FileUpload = forwardRef(
     );
 
     return (
-      <BaseInputWrapper>
-        <BaseInputLabel htmlFor={uid} hideLabel={hideLabel}>
-          {label}
-        </BaseInputLabel>
-        <Styled.Wrapper>
-          <Styled.FileInput
-            ref={ref}
-            type="file"
-            onChange={handleChange}
-            {...inputProps}
-          />
-          <IconFactory icon="upload" size="lg" />
-          <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
-          {files && files.length > 0 && (
-            <Styled.UploadList>
-              {files
-                .slice(0, FILE_LIST_LIMIT)
-                .map((file: { name: string }, i) => (
-                  <li key={i}>{file.name}</li>
-                ))}
-              {files.length > FILE_LIST_LIMIT && (
-                <li>
-                  {t("forms.file.count", {
-                    count: files.length - FILE_LIST_LIMIT,
-                  })}
-                </li>
-              )}
-            </Styled.UploadList>
-          )}
-        </Styled.Wrapper>
-        {description && (
-          <BaseInputDescription>{description}</BaseInputDescription>
+      <BaseInputWrapper hideLabel={hideLabel} label={label} error={error}>
+        {({ uid }) => (
+          <Styled.Wrapper>
+            <Styled.FileInput
+              id={uid}
+              ref={ref}
+              type="file"
+              onChange={handleChange}
+              {...inputProps}
+            />
+            <IconFactory icon="upload" size="lg" />
+            <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
+            {files && files.length > 0 && (
+              <Styled.UploadList>
+                {files
+                  .slice(0, FILE_LIST_LIMIT)
+                  .map((file: { name: string }, i) => (
+                    <li key={i}>{file.name}</li>
+                  ))}
+                {files.length > FILE_LIST_LIMIT && (
+                  <li>
+                    {t("forms.file.count", {
+                      count: files.length - FILE_LIST_LIMIT,
+                    })}
+                  </li>
+                )}
+              </Styled.UploadList>
+            )}
+          </Styled.Wrapper>
         )}
       </BaseInputWrapper>
     );

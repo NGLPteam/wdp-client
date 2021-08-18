@@ -37,7 +37,7 @@ export const colors = {
     tint: "#D9F7E5",
   },
   red: {
-    dark: "#DD5A51",
+    dark: "#C94B42",
     aa: "#E5857E",
     tint: "#F7DBD9",
   },
