@@ -11,6 +11,7 @@ import {
 } from "../base/variables";
 import { hexToHSLA } from "../mixins/colors";
 import { basePadding } from "theme/mixins/appearance";
+import { fluidScale } from "theme/mixins/base";
 
 const { duration, timing } = transition.colorMode;
 
@@ -81,7 +82,9 @@ export default css`
     --container-column-margin: ${pxToRem("20px")};
 
     /* layout grid */
+    --grid-row-gap: ${pxToRem("16px")};
     --grid-column-gap: ${pxToRem("16px")};
+    --grid-row-gap-sm: ${pxToRem("10px")};
     --grid-column-gap-sm: ${pxToRem("10px")};
 
     /* transitions */
@@ -104,6 +107,9 @@ export default css`
     --base-padding: 4px;
 
     /* forms */
-    --form-row-gap: ${basePadding(10)};
+    --form-column-gap: ${basePadding(6)};
+    --form-row-gap: ${fluidScale("40px", "16px")};
+    --form-group-padding-top: var(--form-row-gap);
+    --form-group-padding-bottom: ${basePadding(15)};
   }
 `;
