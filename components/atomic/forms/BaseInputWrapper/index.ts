@@ -1,3 +1,1 @@
-import { Wrapper as BaseInputWrapper } from "./BaseInputWrapper.styles";
-
-export default BaseInputWrapper;
+export { default } from "./BaseInputWrapper";

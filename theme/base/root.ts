@@ -69,8 +69,23 @@ export default css`
     --font-weight-h6: var(--font-weight-regular);
 
     /* font colors */
-    --color-base: var(--neutral90);
-    --color-dark-bg: var(--brand20);
+    --color: var(--neutral90);
+    --color-light: var(--neutral70); /* Passes AA */
+    --color-lighter: var(
+      --neutral60
+    ); /* AA+, Can pass under some circumstances */
+    --color-dark: var(--neutral100);
+    --header-color: var(--brand100);
+    --color-error: var(--reddark);
+
+    /* background colors */
+    --background-color: var(--neutral00);
+    --background-light: var(--brand10);
+
+    /* default accent colors */
+    --accent-color: var(--brand100);
+    --accent-light: var(--brand90);
+    --accent-lighter: var(--brand80);
 
     /* layout colors */
     --bg-color-base: var(--neutral00);
@@ -111,5 +126,18 @@ export default css`
     --form-row-gap: ${fluidScale("40px", "16px")};
     --form-group-padding-top: var(--form-row-gap);
     --form-group-padding-bottom: ${basePadding(15)};
+
+    /* buttons */
+    --button-background: var(--background-light);
+
+    /* form inputs */
+    --input-border-color: var(--color-lighter);
+    --input-border-hover-color: var(--accent-color);
+    --input-background-color: var(--background-color);
+    --input-border-radius: 0;
+    --input-focus-background: var(--brand10);
+    --input-placeholder-color: var(--color-light);
+    --input-padding: 0 ${basePadding(2)};
+    --input-min-height: ${basePadding(8)};
   }
 `;

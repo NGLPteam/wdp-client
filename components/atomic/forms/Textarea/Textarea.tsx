@@ -1,8 +1,5 @@
 import React, { Ref, forwardRef } from "react";
-import { useUID } from "react-uid";
 import BaseInputWrapper from "../BaseInputWrapper";
-import BaseInputLabel from "../BaseInputLabel";
-import BaseInputDescription from "../BaseInputDescription";
 import * as Styled from "./Textarea.styles";
 
 import type InputProps from "../inputType";
@@ -14,26 +11,18 @@ const Textarea = forwardRef(
       hideLabel,
       description,
       placeholder,
+      error,
       ...textareaProps
     }: InputProps,
     ref: Ref<HTMLTextAreaElement>
   ) => {
-    const uid = useUID();
-
     return (
-      <BaseInputWrapper>
-        <BaseInputLabel htmlFor={uid} hideLabel={hideLabel}>
-          {label}
-        </BaseInputLabel>
+      <BaseInputWrapper hideLabel={hideLabel} label={label} error={error}>
         <Styled.TextareaInput
-          id={uid}
           ref={ref}
           placeholder={placeholder}
           {...textareaProps}
         />
-        {description && (
-          <BaseInputDescription>{description}</BaseInputDescription>
-        )}
       </BaseInputWrapper>
     );
   }

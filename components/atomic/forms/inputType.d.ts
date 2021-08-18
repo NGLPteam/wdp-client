@@ -6,6 +6,9 @@ interface InputProps {
   description?: string | React.ReactNode;
   placeholder?: string;
   required?: boolean;
+  error?: {
+    message: string;
+  };
 }
 
 export default InputProps;

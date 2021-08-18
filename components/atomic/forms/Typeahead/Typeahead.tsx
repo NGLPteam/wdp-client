@@ -1,9 +1,7 @@
 import React, { Ref, forwardRef, useState } from "react";
 import { useCombobox } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
-import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./Typeahead.styles";
-import BaseInputDescription from "../BaseInputDescription";
 
 import type InputProps from "../inputType";
 
@@ -22,6 +20,7 @@ const Typeahead = forwardRef(
       required,
       onChange,
       value,
+      error,
       ...inputProps
     }: Props,
     ref: Ref<HTMLInputElement>
@@ -61,10 +60,12 @@ const Typeahead = forwardRef(
     });
 
     return (
-      <BaseInputWrapper>
-        <BaseInputLabel hideLabel={hideLabel} {...getLabelProps()}>
-          {label}
-        </BaseInputLabel>
+      <BaseInputWrapper
+        hideLabel={hideLabel}
+        label={label}
+        labelProps={getLabelProps()}
+        error={error}
+      >
         <Styled.InputWrapper {...getComboboxProps()}>
           {/* Hidden input field for react-hook-form or other form control */}
           <input
@@ -96,9 +97,6 @@ const Typeahead = forwardRef(
               ))}
           </Styled.List>
         </Styled.InputWrapper>
-        {description && (
-          <BaseInputDescription>{description}</BaseInputDescription>
-        )}
       </BaseInputWrapper>
     );
   }
