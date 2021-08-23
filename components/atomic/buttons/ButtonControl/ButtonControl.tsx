@@ -30,10 +30,11 @@ const ButtonControl = forwardRef(
 
 interface Props extends Omit<AuthorizeProps, "children"> {
   children?: React.ReactNode;
+  disabled?: boolean;
   icon?: IconFactoryProps["icon"];
   iconRotate?: number;
   as?: React.ElementType;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler;
   "aria-label"?: string;
 }
 

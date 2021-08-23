@@ -13,7 +13,15 @@ const FILE_LIST_LIMIT = 3;
  */
 const FileUpload = forwardRef(
   (
-    { label, hideLabel, description, onChange, error, ...inputProps }: Props,
+    {
+      label,
+      name,
+      hideLabel,
+      description,
+      onChange,
+      error,
+      ...inputProps
+    }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
     const [files, setFiles] = useState([]);
@@ -31,7 +39,7 @@ const FileUpload = forwardRef(
     );
 
     return (
-      <BaseInputWrapper hideLabel={hideLabel} label={label} error={error}>
+      <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
         {({ uid }) => (
           <Styled.Wrapper>
             <Styled.FileInput

@@ -8,6 +8,7 @@ const Select = forwardRef(
   (
     {
       label,
+      name,
       hideLabel,
       description,
       placeholder,
@@ -18,7 +19,7 @@ const Select = forwardRef(
     ref: Ref<HTMLSelectElement>
   ) => {
     return (
-      <BaseInputWrapper hideLabel={hideLabel} label={label} error={error}>
+      <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
         {({ uid }) => (
           <Styled.SelectWrapper>
             <Styled.SelectInput id={uid} ref={ref} {...inputProps}>

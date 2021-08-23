@@ -1,9 +1,11 @@
-import React from "react";
+import type { ReactNode } from "react";
+import type { FieldValues, Path } from "react-hook-form";
 
-interface InputProps {
-  label: string | React.ReactNode;
+interface InputProps<T extends FieldValues = FieldValues> {
+  name: Path<T>;
+  label: string | ReactNode;
   hideLabel?: boolean;
-  description?: string | React.ReactNode;
+  description?: string | ReactNode;
   placeholder?: string;
   required?: boolean;
   error?: {

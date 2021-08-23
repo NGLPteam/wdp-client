@@ -13,6 +13,7 @@ const Typeahead = forwardRef(
   (
     {
       label,
+      name,
       hideLabel,
       description,
       placeholder,
@@ -20,7 +21,6 @@ const Typeahead = forwardRef(
       required,
       onChange,
       value,
-      error,
       ...inputProps
     }: Props,
     ref: Ref<HTMLInputElement>
@@ -61,10 +61,10 @@ const Typeahead = forwardRef(
 
     return (
       <BaseInputWrapper
+        name={name}
         hideLabel={hideLabel}
         label={label}
         labelProps={getLabelProps()}
-        error={error}
       >
         <Styled.InputWrapper {...getComboboxProps()}>
           {/* Hidden input field for react-hook-form or other form control */}
