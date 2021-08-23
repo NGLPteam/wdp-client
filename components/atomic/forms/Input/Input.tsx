@@ -1,24 +1,25 @@
 import React, { Ref, forwardRef } from "react";
+import type { FieldValues } from "react-hook-form";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./Input.styles";
 
 import type InputProps from "../inputType";
 
 const Input = forwardRef(
-  (
+  <T extends FieldValues = FieldValues>(
     {
-      type = "string",
+      type = "text",
       label,
       hideLabel,
       description,
       error,
       ...inputProps
-    }: Props,
+    }: Props<T>,
     ref: Ref<HTMLInputElement>
   ) => {
     return (
       <BaseInputWrapper
-        error={error}
+        name={inputProps.name}
         label={label}
         hideLabel={hideLabel}
         description={description}
@@ -29,7 +30,7 @@ const Input = forwardRef(
   }
 );
 
-interface Props extends InputProps {
+interface Props<T extends FieldValues = FieldValues> extends InputProps<T> {
   type?: string;
 }
 
