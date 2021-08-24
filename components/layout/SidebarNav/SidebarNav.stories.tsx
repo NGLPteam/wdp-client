@@ -13,14 +13,35 @@ export default {
   },
 };
 
-export const Default: Story<Props> = (args) => (
-  <SidebarNav {...args}>
-    <SidebarNav.Link href="#" active>
-      Link
-    </SidebarNav.Link>
-    <SidebarNav.Link href="#">Link</SidebarNav.Link>
-    <SidebarNav.Link href="#">Link</SidebarNav.Link>
-  </SidebarNav>
-);
+const LINKS = [
+  {
+    name: "contributor.details",
+    path: "/contributors/[slug]/details",
+    label: "Details",
+    query: {
+      slug: "Y4wgPoYTqvnYtDDBsmOgrCkbRDdLOeQ",
+    },
+  },
+  {
+    name: "contributor.collections",
+    path: "/contributors/[slug]/collections",
+    label: "Collection Contributions",
+    query: {
+      slug: "Y4wgPoYTqvnYtDDBsmOgrCkbRDdLOeQ",
+    },
+  },
+  {
+    name: "contributor.items",
+    path: "/contributors/[slug]/items",
+    label: "Item Contributions",
+    query: {
+      slug: "Y4wgPoYTqvnYtDDBsmOgrCkbRDdLOeQ",
+    },
+  },
+];
 
-Default.args = {};
+export const Default: Story<Props> = (args) => <SidebarNav {...args} />;
+
+Default.args = {
+  links: LINKS,
+};

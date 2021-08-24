@@ -1,25 +1,46 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import * as Styled from "./SidebarNav.styles";
+import { RouteHelper } from "routes";
+import type { Route } from "routes/NextNamedRoutes";
+import { NamedLink } from "components/atomic";
+import { useTranslation } from "react-i18next";
 
-const SidebarNav = ({ children, className }: Props) => {
-  return (
+const SidebarNav = ({ links, className }: Props) => {
+  const { t } = useTranslation();
+
+  const renderLink = ({ name, label = "", query }: SidebarLink) => {
+    // Check if the individual route link should be active
+    const activeRoute = RouteHelper.activeRoute();
+    const active = activeRoute?.name === name;
+
+    return (
+      <NamedLink route={name} query={query} passHref>
+        <Styled.Link active={active}>{t(label)}</Styled.Link>
+      </NamedLink>
+    );
+  };
+
+  return links && links.length > 0 ? (
     <Styled.Nav className={className}>
       <Styled.List>
-        {children &&
-          children.map((child, i) => (
-            <Styled.ListItem key={i}>{child}</Styled.ListItem>
+        {links &&
+          links.map((item, i) => (
+            <Styled.ListItem key={i}>{renderLink(item)}</Styled.ListItem>
           ))}
       </Styled.List>
     </Styled.Nav>
-  );
+  ) : null;
 };
 
-interface Props {
-  children: ReactNode[];
-  className?: string;
+type Query = { [key: string]: string | number | string[] | undefined };
+
+interface SidebarLink extends Pick<Route, "name" | "label" | "path"> {
+  query?: Query;
 }
 
-SidebarNav.Link = Styled.Link;
-SidebarNav.Link.displayName = "SidebarNav.Link";
+interface Props {
+  links?: SidebarLink[];
+  className?: string;
+}
 
 export default SidebarNav;
