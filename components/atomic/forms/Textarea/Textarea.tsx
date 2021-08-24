@@ -20,6 +20,7 @@ const Textarea = forwardRef(
     return (
       <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
         <Styled.TextareaInput
+          name={name}
           ref={ref}
           placeholder={placeholder}
           {...textareaProps}

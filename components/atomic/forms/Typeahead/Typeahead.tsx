@@ -70,6 +70,7 @@ const Typeahead = forwardRef(
           {/* Hidden input field for react-hook-form or other form control */}
           <input
             ref={ref}
+            name={name}
             type="hidden"
             required={required}
             defaultValue={value}
