@@ -20,6 +20,7 @@ const Switch = forwardRef(
               type="checkbox"
               ref={ref}
               className="a-hidden"
+              name={name}
               {...inputProps}
             />
             <Styled.Icon icon="toggle" />
