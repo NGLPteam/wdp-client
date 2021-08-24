@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDrawerQuery } from "hooks";
-import Drawer from "components/layout/Drawer";
 import { useDialogState } from "reakit/Dialog";
+import drawers from "./helpers/drawers";
+import get from "lodash/get";
 
 /**
  * Controls opening & closing the global dialog
@@ -29,17 +30,11 @@ const DrawerController = () => {
     // eslint-disable-next-line
   }, [type]);
 
-  // TODO: Change label, header and contents based on query
-  return (
-    <Drawer
-      label={"Drawer Label"}
-      header={"Drawer Header"}
-      dialog={dialog}
-      hideOnClickOutside={false}
-    >
-      <div>Content</div>
-    </Drawer>
-  );
+  const DrawerContent = type ? get(drawers, type) : null;
+
+  if (!DrawerContent) return null;
+
+  return <DrawerContent dialog={dialog} hideOnClickOutside={false} />;
 };
 
 export default DrawerController;

@@ -12,7 +12,7 @@ const ButtonControlAdd = ({ modelName }: Props) => {
   });
 
   return isAuthorized ? (
-    <DrawerLink drawer="add" passHref>
+    <DrawerLink drawer={`add_${modelName}`} passHref>
       <ButtonControl as="a" icon="plus">
         {t("actions.add", { name: modelName })}
       </ButtonControl>

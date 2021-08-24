@@ -47,7 +47,7 @@ interface Props {
   /** Child tabs (TabNav) */
   tabRoutes?: { label: string; route: NamedLinkProps["route"] }[];
   /** Child buttons */
-  buttons?: JSX.Element;
+  buttons?: React.ReactNode;
 }
 
 export default PageHeader;

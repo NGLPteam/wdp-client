@@ -7,18 +7,21 @@ import ModelAddButton from "components/composed/model/ModelAddButton";
 
 interface ModelHeaderProps {
   modelName?: Lowercase<ModelNames>;
+  buttons?: React.ReactNode;
 }
 
-function ModelListHeader({ modelName }: ModelHeaderProps) {
+function ModelListHeader({ modelName, buttons }: ModelHeaderProps) {
   const { t } = useTranslation("glossary");
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
-  return (
-    <PageHeader
-      title={startCase(title)}
-      buttons={modelName && <ModelAddButton modelName={modelName} />}
-    />
-  );
+  let renderButtons;
+  if (buttons) {
+    renderButtons = buttons;
+  } else if (modelName) {
+    renderButtons = <ModelAddButton modelName={modelName} />;
+  }
+
+  return <PageHeader title={startCase(title)} buttons={renderButtons} />;
 }
 
 export default ModelListHeader;

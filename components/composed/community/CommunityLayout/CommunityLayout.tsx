@@ -42,7 +42,6 @@ export default function CommunityLayout({ children }: { children: ReactNode }) {
       {data && data.community && (
         <PageHeader title={data.community.name} tabRoutes={tabRoutes} />
       )}
-
       {children}
     </section>
   );

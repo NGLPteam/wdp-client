@@ -20,6 +20,14 @@
     "institution": "Institution Name",
     "powered_by": "Powered by NGLP–WDP"
   },
+  "drawers": {
+    "createPerson.title": "New Person",
+    "createOrganization.title": "New Organization"
+  },
+  "actions" : {
+    "create.contributor.person": "Create Person",
+    "create.contributor.organization": "Create Organization"
+  },
   "forms": {
     "file": {
       "upload": "Upload a file \n or drag and drop here",
