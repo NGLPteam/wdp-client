@@ -10,7 +10,8 @@ function useDrawerQuery() {
   }, [query, push]);
 
   return {
-    type: query?.drawer,
+    type:
+      query?.drawer && typeof query.drawer === "string" ? query.drawer : null,
     model: query?.model,
     removeDialogQuery,
     hideOnClickOutside: query?.hideOnClickOutside,

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
@@ -23,6 +24,7 @@ type ModelListPageProps<
 > = Omit<ModelListProps<T, U, V>, "view"> &
   Pick<ModelListActionsProps, "viewOptions"> & {
     defaultView?: ModelListActionsProps["active"];
+    buttons?: ReactNode;
   };
 
 function ModelListPage<
@@ -31,6 +33,7 @@ function ModelListPage<
   V extends Record<string, unknown>
 >({
   modelName,
+  buttons,
   viewOptions,
   defaultView,
   ...modelListProps
@@ -44,7 +47,7 @@ function ModelListPage<
 
   return (
     <section>
-      <ModelListHeader modelName={modelName} />
+      <ModelListHeader modelName={modelName} buttons={buttons} />
       <ModelListActions
         viewOptions={viewOptions}
         active={view}

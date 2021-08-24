@@ -9,6 +9,8 @@ import { graphql, useFragment } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
+import { useTranslation } from "react-i18next";
+import { DrawerLink, ButtonControl } from "components/atomic";
 
 interface ContributorListProps {
   data: ContributorListFragment$key;
@@ -19,6 +21,8 @@ type ContributorNode = ContributorListFragment["nodes"][number];
 function ContributorList<T extends OperationType>({
   data,
 }: ContributorListProps) {
+  const { t } = useTranslation("common");
+
   const columns = [
     ModelColumns.NameColumn<ContributorNode>({
       route: "contributor",
@@ -50,10 +54,28 @@ function ContributorList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
+  // TODO: We need an authorization check here. The contributors.create check doesn't
+  //  exist yet in the API.
+  const buttons = (
+    <div className="l-flex l-flex--gap">
+      <DrawerLink drawer="addPerson" passHref>
+        <ButtonControl as="a" icon="plus">
+          {t("actions.create.contributor.person")}
+        </ButtonControl>
+      </DrawerLink>
+      <DrawerLink drawer="addOrganization" passHref>
+        <ButtonControl as="a" icon="plus">
+          {t("actions.create.contributor.organization")}
+        </ButtonControl>
+      </DrawerLink>
+    </div>
+  );
+
   const contributors = useFragment<ContributorListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, ContributorListFragment, ContributorNode>
       modelName="contributor"
+      buttons={buttons}
       columns={columns}
       actions={actions}
       viewOptions={[DataViewOptions.table]}
