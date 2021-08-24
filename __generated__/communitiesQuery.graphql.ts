@@ -50,6 +50,7 @@ fragment ModelPageCountActionsFragment on Paginated {
   pageInfo {
     page
     pageCount
+    perPage
     hasNextPage
     hasPreviousPage
     totalCount
@@ -223,6 +224,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "perPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "hasNextPage",
                     "storageKey": null
                   },
@@ -260,12 +268,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7ab2f4048ef42c6e97d449118ba3613b",
+    "cacheID": "c4ac59d2a466c71710b0a8cda97977b5",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      createdAt\n      updatedAt\n      name\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      createdAt\n      updatedAt\n      name\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

@@ -8,6 +8,7 @@ export type ModelPageCountActionsFragment = {
     readonly pageInfo: {
         readonly page: number | null;
         readonly pageCount: number | null;
+        readonly perPage: number | null;
         readonly hasNextPage: boolean;
         readonly hasPreviousPage: boolean;
         readonly totalCount: number;
@@ -55,6 +56,13 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "perPage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "hasNextPage",
           "storageKey": null
         },
@@ -86,5 +94,5 @@ const node: ReaderFragment = {
   "type": "Paginated",
   "abstractKey": "__isPaginated"
 };
-(node as any).hash = 'b8f1d554ed91dd429232c4042da4ccb3';
+(node as any).hash = '1af4eb8bd42ccdcc5e3086735f5e0d5d';
 export default node;

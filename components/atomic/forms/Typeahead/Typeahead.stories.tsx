@@ -56,7 +56,7 @@ export const InAForm: Story<Props> = (args) => {
         control={control}
         defaultValue=""
         render={({ field }) => {
-          console.log(field);
+          console.info(field);
           return <Typeahead {...args} {...field} />;
         }}
       />

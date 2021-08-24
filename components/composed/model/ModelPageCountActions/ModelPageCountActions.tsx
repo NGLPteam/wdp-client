@@ -27,6 +27,7 @@ const fragment = graphql`
     pageInfo {
       page
       pageCount
+      perPage
       hasNextPage
       hasPreviousPage
       totalCount
