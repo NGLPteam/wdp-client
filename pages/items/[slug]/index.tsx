@@ -8,7 +8,7 @@ const ItemDetail: Page = () => {
   const router = useRouter();
   const activeRoute = RouteHelper.activeRoute();
 
-  // Nothing to see here, move on to collections
+  // Nothing to see here, move on to items
   router.replace({
     pathname: activeRoute?.redirect,
     query: { ...router.query },
