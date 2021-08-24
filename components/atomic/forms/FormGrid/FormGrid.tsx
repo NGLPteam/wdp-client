@@ -20,7 +20,7 @@ const FormGrid = ({ methods, twoColumns, children }: Props) => {
 interface Props {
   children: React.ReactNode;
   // todo: Make this required
-  methods?: UseFormReturn;
+  methods?: UseFormReturn<any>;
   twoColumns?: boolean;
 }
 
