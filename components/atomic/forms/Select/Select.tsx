@@ -22,7 +22,7 @@ const Select = forwardRef(
       <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
         {({ uid }) => (
           <Styled.SelectWrapper>
-            <Styled.SelectInput name={name} d={uid} ref={ref} {...inputProps}>
+            <Styled.SelectInput name={name} id={uid} ref={ref} {...inputProps}>
               <option value="">{placeholder}</option>
               {options.map(({ value, label }, i) => (
                 <option key={i} value={value}>
