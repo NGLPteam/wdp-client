@@ -8,6 +8,8 @@ export type ViewerContextQueryResponse = {
     readonly viewer: {
         readonly name: string | null;
         readonly allowedActions: ReadonlyArray<string>;
+        readonly uploadAccess: boolean;
+        readonly uploadToken: string | null;
     };
 };
 export type ViewerContextQuery = {
@@ -22,6 +24,8 @@ query ViewerContextQuery {
   viewer {
     name
     allowedActions
+    uploadAccess
+    uploadToken
     id
   }
 }
@@ -41,6 +45,20 @@ v1 = {
   "kind": "ScalarField",
   "name": "allowedActions",
   "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "uploadAccess",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "uploadToken",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -58,7 +76,9 @@ return {
         "plural": false,
         "selections": [
           (v0/*: any*/),
-          (v1/*: any*/)
+          (v1/*: any*/),
+          (v2/*: any*/),
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
@@ -82,6 +102,8 @@ return {
         "selections": [
           (v0/*: any*/),
           (v1/*: any*/),
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -95,14 +117,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "86c86e9da976f38350221d5db55bb9dc",
+    "cacheID": "0c28a60ea66b6b15e82684a74f804765",
     "id": null,
     "metadata": {},
     "name": "ViewerContextQuery",
     "operationKind": "query",
-    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    id\n  }\n}\n"
+    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '390ccdff68826b5158dcc3a11217a4e5';
+(node as any).hash = '882d0f7d47464d05453b02e0f5965f0b';
 export default node;

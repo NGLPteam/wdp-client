@@ -40,6 +40,10 @@ export const baseRoutes: BaseRoute[] = [
         redirect: "/items/[slug]/items",
         routes: [
           {
+            name: "item.assets.create",
+            path: "/items/[slug]/assets/create",
+          },
+          {
             name: "item.child.items",
             path: "/items/[slug]/items",
           },

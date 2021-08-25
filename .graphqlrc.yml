@@ -21,6 +21,7 @@ extensions:
           scalars:
             JSON: any
             Slug: string
+            UploadID: string
           useTypeImports: true
         plugins:
           - typescript
