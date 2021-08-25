@@ -1,9 +1,11 @@
-import FileUpload from "./";
+import FileUpload, { Props } from "./FileUpload";
 import { Story } from "@storybook/react";
-import { useForm } from "react-hook-form";
-import { Button } from "components/atomic";
+import NullForm from "components/api/NullForm";
+import type { UploadedFileInput } from "types/graphql-schema";
 
-type Props = React.ComponentProps<typeof FileUpload>;
+type FormValues = {
+  example?: UploadedFileInput;
+};
 
 export default {
   title: "Components/Atomic/Forms/FileUpload",
@@ -15,43 +17,25 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <FileUpload {...args} />;
-Template.args = {
+type StoryProps = Omit<Props<FormValues>, "name" | "error">;
+
+export const InAForm: Story<StoryProps> = (args) => {
+  return (
+    <NullForm<FormValues>>
+      {() => <FileUpload<FormValues> {...args} name="example" />}
+    </NullForm>
+  );
+};
+
+InAForm.args = {
+  accept: undefined,
   label: "File Upload",
   placeholder: "Placeholder text",
   description: "Descriptive text",
   hideLabel: false,
-  multiple: false,
   required: false,
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  ...Template.args,
-};
-
-export const WithError = Template.bind({});
-WithError.args = {
-  ...Template.args,
-  error: {
-    message: "Egads! An error!",
-  },
-};
-
-export const InAForm: Story<Props> = (args) => {
-  const { register, handleSubmit, watch } = useForm();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => console.info("submitted", data);
-
-  console.info(watch("example")); // watch input value by passing the name of it
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FileUpload {...args} {...register("example")} />
-      <Button type="submit">Submit</Button>
-    </form>
-  );
-};
-InAForm.args = {
-  ...Default.args,
+InAForm.argTypes = {
+  name: { control: { disable: true } },
 };

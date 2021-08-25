@@ -1,84 +1,200 @@
-import React, { forwardRef, Ref, useCallback, useState } from "react";
-import { IconFactory } from "components/factories";
-import BaseInputWrapper from "../BaseInputWrapper";
-import * as Styled from "./FileUpload.styles";
-
-import type InputProps from "../inputType";
+/* eslint-disable */
+import React, { useCallback, useEffect, useRef } from "react";
+import { useController, useFormContext } from "react-hook-form";
+import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const FILE_LIST_LIMIT = 3;
+import { IconFactory } from "components/factories";
+
+import useLazyRef from "hooks/useLazyRef";
+import useLatest from "hooks/useLatest";
+import useUppy from "hooks/useUppy";
+
+import BaseInputWrapper from "../BaseInputWrapper";
+import type InputProps from "../inputType";
+
+import * as Styled from "./FileUpload.styles";
+import ProgressBar from "./ProgressBar";
+import useUploadReducer from "./useUploadReducer";
+
+import type {
+  ActiveUpload,
+  ActiveUploadRef,
+  State as UploadState,
+} from "./types";
 
 /**
- * A very basic file uploader
+ * A file input that integrates with the tus.io endpoint on the API.
+ *
+ * It will automatically upload a file in the background and then set
+ * the reference to the file within the parent form context.
+ *
+ * It requires the TFieldValues for the current form context to be provided.
+ *
+ * @see useUppy
+ * @see https://tus.io
+ * @see https://uppy.io/docs/tus/
+ * @todo We should add some sort of noop functionality for use with storybook. Right now it will just fail.
  */
-const FileUpload = forwardRef(
-  (
-    {
-      label,
-      name,
-      hideLabel,
-      description,
-      onChange,
-      error,
-      ...inputProps
-    }: Props,
-    ref: Ref<HTMLInputElement>
-  ) => {
-    const [files, setFiles] = useState([]);
-    const { t } = useTranslation("common");
+export default function FileUpload<T extends FieldValues = FieldValues>({
+  name,
+  label,
+  hideLabel,
+  description,
+  error,
+  required,
+  ...inputProps
+}: Props<T>) {
+  const uppy = useUppy();
 
-    // Get the list of files for display
-    // Pass the on change value up to the parent function
-    const handleChange = useCallback(
-      (o) => {
-        const files = o.target.files;
-        if (onChange) onChange(o);
-        setFiles(Array.from(files));
+  const { t } = useTranslation("common");
+
+  const { uploadRef, uploaded } = useWaitForUpload<T>(name, { required });
+
+  const { control, register, setValue, trigger } = useFormContext<T>();
+
+  // Needed in order to make this register with its parent form
+  register(name);
+
+  const { field } = useController<T, typeof name>({
+    control,
+    name,
+    rules: {
+      validate: {
+        uploaded,
       },
-      [onChange]
-    );
+    },
+  });
 
-    return (
-      <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
-        {({ uid }) => (
-          <Styled.Wrapper>
-            <Styled.FileInput
-              id={uid}
-              ref={ref}
-              type="file"
-              onChange={handleChange}
-              {...inputProps}
-            />
-            <IconFactory icon="upload" size="lg" />
-            <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
-            {files && files.length > 0 && (
-              <Styled.UploadList>
-                {files
-                  .slice(0, FILE_LIST_LIMIT)
-                  .map((file: { name: string }, i) => (
-                    <li key={i}>{file.name}</li>
-                  ))}
-                {files.length > FILE_LIST_LIMIT && (
-                  <li>
-                    {t("forms.file.count", {
-                      count: files.length - FILE_LIST_LIMIT,
-                    })}
-                  </li>
-                )}
-              </Styled.UploadList>
-            )}
-          </Styled.Wrapper>
-        )}
-      </BaseInputWrapper>
-    );
-  }
-);
+  const { state, fileInputRef, selectFile } = useUploadReducer({ uppy });
 
-interface Props extends InputProps {
-  multiple?: boolean;
-  accept?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onChange?: (o: any) => void;
+  const changeRef = useLatest(field.onChange);
+  const setRef = useLatest(field.ref);
+
+  const setRefs = useLazyRef<(instance: HTMLInputElement) => void>(
+    () => (instance: HTMLInputElement) => {
+      fileInputRef.current = instance;
+
+      setRef.current(instance);
+    }
+  );
+
+  useEffect(
+    function waitForUpload() {
+      if (state.fileID) {
+        uploadRef.current = uppy.upload();
+
+        // Activate validator
+        trigger(name);
+      }
+    },
+    [name, state.fileID]
+  );
+
+  useEffect(
+    function watchUpload() {
+      changeRef.current(state.upload ?? undefined);
+    },
+    [name, state.upload, setValue]
+  );
+
+  return (
+    <BaseInputWrapper hideLabel={hideLabel} label={label} name={name}>
+      {({ uid }) => (
+        <Styled.Wrapper>
+          <Styled.FileInput
+            id={uid}
+            name={field.name}
+            ref={setRefs}
+            type="file"
+            onBlur={field.onBlur}
+            onChange={selectFile}
+            multiple={false}
+            {...inputProps}
+          />
+          <IconFactory icon="upload" size="lg" />
+          <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
+          <ProgressBar
+            active={state.active}
+            percentUploaded={state.percentUploaded}
+          />
+          <UploadStatus state={state} />
+        </Styled.Wrapper>
+      )}
+    </BaseInputWrapper>
+  );
 }
 
-export default FileUpload;
+export interface Props<T extends FieldValues = FieldValues>
+  extends InputProps<T> {
+  accept?: string;
+  name: Path<T>;
+}
+
+function UploadStatus({ state: { file, upload } }: UploadStatusProps) {
+  if (!file || !upload) {
+    return null;
+  }
+
+  return (
+    <Styled.UploadList>
+      <li>{file.name}</li>
+    </Styled.UploadList>
+  );
+}
+
+interface UploadStatusProps {
+  state: UploadState;
+}
+
+function useWaitForUpload<T extends FieldValues>(
+  name: Path<T>,
+  options: ValidationOptions
+): WaitForUploadReturn<T> {
+  const uploadRef = useActiveUploadRef();
+
+  const uploaded = useValidateUpload<T>(name, uploadRef, options);
+
+  return { uploadRef, uploaded };
+}
+
+interface WaitForUploadReturn<T extends FieldValues> {
+  uploadRef: ActiveUploadRef;
+  uploaded: Validate<PathValue<T, Path<T>>>;
+}
+
+function useActiveUploadRef(): ActiveUploadRef {
+  return useRef<ActiveUpload>(Promise.resolve({ successful: [], failed: [] }));
+}
+
+function useValidateUpload<T extends FieldValues>(
+  name: Path<T>,
+  uploadRef: ActiveUploadRef,
+  options: ValidationOptions
+): Validate<PathValue<T, Path<T>>> {
+  return useCallback(
+    async function (value) {
+      try {
+        const { successful, failed } = await uploadRef.current;
+
+        if (failed.length) {
+          return `Upload Failed (check console for now)`;
+        } else if (options.required && successful.length === 0 && !value) {
+          return `Please specify a file`;
+        }
+      } catch (err) {
+        console.error(err);
+
+        return `Something went wrong with the upload request`;
+      }
+
+      // We're valid
+      return true;
+    },
+    [options.required]
+  );
+}
+
+interface ValidationOptions {
+  required?: boolean;
+}

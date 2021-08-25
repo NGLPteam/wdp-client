@@ -2,11 +2,10 @@ import React from "react";
 import type { FieldValues } from "react-hook-form";
 import { useUID } from "react-uid";
 import isFunction from "lodash/isFunction";
-import { ErrorMessage } from "@hookform/error-message";
 import * as Styled from "./BaseInputWrapper.styles";
-import useFormErrors from "hooks/useFormErrors";
 import type InputProps from "../inputType";
-import { IconFactory } from "components/factories";
+
+import Errors from "components/atomic/forms/Errors";
 
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,
@@ -18,8 +17,6 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
 }: Props<T>) => {
   const uid = useUID();
 
-  const errors = useFormErrors();
-
   return (
     <Styled.Wrapper>
       <Styled.Label htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
@@ -29,16 +26,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
         ? children({ uid })
         : React.cloneElement(children, { id: uid })}
       {description && <Styled.Description>{description}</Styled.Description>}
-      <ErrorMessage
-        errors={errors}
-        name={name}
-        render={({ message }) => (
-          <Styled.Error>
-            <IconFactory icon="warning" title="Error" />
-            <p>{message}</p>
-          </Styled.Error>
-        )}
-      />
+      <Errors name={name} />
     </Styled.Wrapper>
   );
 };

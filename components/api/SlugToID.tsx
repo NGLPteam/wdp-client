@@ -1,20 +1,28 @@
+/* eslint-disable react/no-children-prop */
 import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
 import { SlugToIDCommunityQuery as CommunityQuery } from "@/relay/SlugToIDCommunityQuery.graphql";
-import { SlugToIDCollectionQuery as CollectionQuery } from "@/relay/SlugToIDCollectionQuery.graphql"; 
+import { SlugToIDCollectionQuery as CollectionQuery } from "@/relay/SlugToIDCollectionQuery.graphql";
 import { SlugToIDItemQuery as ItemQuery } from "@/relay/SlugToIDItemQuery.graphql";
 
 import QueryWrapper from "./QueryWrapper";
 
 /**
  * A component that will accept a community slug and extract its node id.
- * 
+ *
  * @see SlugToID
  */
-export function CommunitySlugToID({ children, onEmpty, slug }: WrapperProps<CommunityQuery>) {
-  const extractId: IDExtractor<CommunityQuery> = useCallback((data) => data?.community?.id, []);
+export function CommunitySlugToID({
+  children,
+  onEmpty,
+  slug,
+}: WrapperProps<CommunityQuery>) {
+  const extractId: IDExtractor<CommunityQuery> = useCallback(
+    (data) => data?.community?.id,
+    []
+  );
 
   return (
     <SlugToID<CommunityQuery>
@@ -29,11 +37,18 @@ export function CommunitySlugToID({ children, onEmpty, slug }: WrapperProps<Comm
 
 /**
  * A component that will accept a collection slug and extract its node id.
- * 
+ *
  * @see SlugToID
  */
-export function CollectionSlugToID({ children, onEmpty, slug }: WrapperProps<CollectionQuery>) {
-  const extractId: IDExtractor<CollectionQuery> = useCallback((data) => data?.collection?.id, []);
+export function CollectionSlugToID({
+  children,
+  onEmpty,
+  slug,
+}: WrapperProps<CollectionQuery>) {
+  const extractId: IDExtractor<CollectionQuery> = useCallback(
+    (data) => data?.collection?.id,
+    []
+  );
 
   return (
     <SlugToID<CollectionQuery>
@@ -48,11 +63,18 @@ export function CollectionSlugToID({ children, onEmpty, slug }: WrapperProps<Col
 
 /**
  * A component that will accept an item slug and extract its node id.
- * 
+ *
  * @see SlugToID
  */
-export function ItemSlugToID({ children, onEmpty, slug }: WrapperProps<ItemQuery>) {
-  const extractId: IDExtractor<ItemQuery> = useCallback((data) => data?.item?.id, []);
+export function ItemSlugToID({
+  children,
+  onEmpty,
+  slug,
+}: WrapperProps<ItemQuery>) {
+  const extractId: IDExtractor<ItemQuery> = useCallback(
+    (data) => data?.item?.id,
+    []
+  );
 
   return (
     <SlugToID<ItemQuery>
@@ -68,17 +90,18 @@ export function ItemSlugToID({ children, onEmpty, slug }: WrapperProps<ItemQuery
 /**
  * A specialized component that wraps a query accepting a slug, and transforms it into a Relay Node ID.
  * If an ID is found, it will render its `children` function and provide the ID for consumption.
- * 
+ *
  * Optionally, an `onEmpty` function can be provided, else it will render nothing.
  */
 export default function SlugToID<Q extends OperationType>({
-  children, extractId, onEmpty, query, variables
+  children,
+  extractId,
+  onEmpty,
+  query,
+  variables,
 }: SlugToIDProps<Q>) {
   return (
-    <QueryWrapper<Q>
-      query={query}
-      initialVariables={variables}
-    >
+    <QueryWrapper<Q> query={query} initialVariables={variables}>
       {({ data }) => {
         const id = extractId(data);
 
@@ -97,16 +120,22 @@ export default function SlugToID<Q extends OperationType>({
 /**
  * A type describing a function that receives a GraphQL response and extracts what should be a Relay Node ID.
  */
-type IDExtractor<Q extends OperationType> = (data: Q["response"]) => string | null | undefined;
+type IDExtractor<Q extends OperationType> = (
+  data: Q["response"]
+) => string | null | undefined;
 
-type RenderChildren<Q extends OperationType> = (props: RenderChildrenProps<Q>) => JSX.Element;
+type RenderChildren<Q extends OperationType> = (
+  props: RenderChildrenProps<Q>
+) => JSX.Element;
 
-type RenderEmpty<Q extends OperationType> = (props: RenderEmptyProps<Q>) => JSX.Element;
+type RenderEmpty<Q extends OperationType> = (
+  props: RenderEmptyProps<Q>
+) => JSX.Element;
 
 interface RenderChildrenProps<Q extends OperationType> {
   id: string;
   variables: Q["variables"];
-};
+}
 
 interface RenderEmptyProps<Q extends OperationType> {
   variables: Q["variables"];
@@ -133,33 +162,34 @@ interface SlugToIDProps<Q extends OperationType> {
    * Variables for the `query`
    */
   variables: Q["variables"];
-};
+}
 
 interface WrapperProps<Q extends OperationType> {
   children: RenderChildren<Q>;
   slug: string;
-  onEmpty?: RenderEmpty<Q>
-};
+  onEmpty?: RenderEmpty<Q>;
+}
 
 const communityQuery = graphql`
-query SlugToIDCommunityQuery($slug: Slug!) {
-  community(slug: $slug) {
-    id
+  query SlugToIDCommunityQuery($slug: Slug!) {
+    community(slug: $slug) {
+      id
+    }
   }
-}`;
+`;
 
 const collectionQuery = graphql`
-query SlugToIDCollectionQuery($slug: Slug!) {
-  collection(slug: $slug) {
-    id
+  query SlugToIDCollectionQuery($slug: Slug!) {
+    collection(slug: $slug) {
+      id
+    }
   }
-}
 `;
 
 const itemQuery = graphql`
-query SlugToIDItemQuery($slug: Slug!) {
-  item(slug: $slug) {
-    id
+  query SlugToIDItemQuery($slug: Slug!) {
+    item(slug: $slug) {
+      id
+    }
   }
-}
 `;

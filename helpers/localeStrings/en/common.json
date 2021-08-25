@@ -24,6 +24,14 @@
     "file": {
       "upload": "Upload a file \n or drag and drop here",
       "count": "...and {{count}} more"
+    },
+    "validation": {
+      "uploaded": {
+        "failed": "Upload failed (please check console for now)",
+        "required": "Please specify a file",
+        "server_error": "Something went wrong"
+      },
+      "required": "This is required"
     }
   },
   "header": {

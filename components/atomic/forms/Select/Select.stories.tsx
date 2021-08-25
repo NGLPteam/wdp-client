@@ -1,7 +1,10 @@
 import Select from "./";
 import { Story } from "@storybook/react";
-import { useForm } from "react-hook-form";
-import { Button } from "components/atomic";
+import NullForm from "components/api/NullForm";
+
+type FieldValues = {
+  example?: string;
+};
 
 type Props = React.ComponentProps<typeof Select>;
 
@@ -15,10 +18,20 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <Select {...args} />;
+export const InAForm: Story<Props> = (args) => {
+  return (
+    <NullForm<FieldValues>>
+      {({ form: { register } }) => (
+        <Select
+          {...args}
+          {...register("example", { required: args.required })}
+        />
+      )}
+    </NullForm>
+  );
+};
 
-export const Default = Template.bind({});
-Default.args = {
+InAForm.args = {
   label: "Select Dropdown",
   placeholder: "Select an item",
   description:
@@ -31,28 +44,6 @@ Default.args = {
   required: false,
 };
 
-export const WithError = Template.bind({});
-WithError.args = {
-  ...Default.args,
-  error: {
-    message: "Egads! An error!",
-  },
-};
-
-export const InAForm: Story<Props> = (args) => {
-  const { register, handleSubmit, watch } = useForm();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => console.info("submitted", data);
-
-  console.info(watch("example")); // watch input value by passing the name of it
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Select {...args} {...register("example")} />
-      <Button type="submit">Submit</Button>
-    </form>
-  );
-};
-InAForm.args = {
-  ...Default.args,
+InAForm.argTypes = {
+  name: { control: { disable: true } },
 };

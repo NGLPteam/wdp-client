@@ -3,8 +3,10 @@ import { graphql } from "react-relay";
 import { ViewerContextQuery } from "__generated__/ViewerContextQuery.graphql";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 
-const initialState = {
+const initialState: ViewerContextProps = {
   allowedActions: [],
+  uploadAccess: false,
+  uploadToken: null,
 };
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
@@ -17,15 +19,15 @@ function ViewerContextProvider({ children }: Props) {
   ]);
 
   return (
-    <ViewerContext.Provider value={{ ...viewer }}>
-      {children}
-    </ViewerContext.Provider>
+    <ViewerContext.Provider value={viewer}>{children}</ViewerContext.Provider>
   );
 }
 
 interface ViewerContextProps {
   name?: string | null;
   allowedActions: readonly string[];
+  uploadAccess?: boolean;
+  uploadToken?: string | null;
 }
 
 interface Props {
@@ -41,6 +43,8 @@ const query = graphql`
     viewer {
       name
       allowedActions
+      uploadAccess
+      uploadToken
     }
   }
 `;

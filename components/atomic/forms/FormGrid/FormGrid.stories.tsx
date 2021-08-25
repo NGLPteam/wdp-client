@@ -1,13 +1,22 @@
 import FormGrid from "./";
 import { Story } from "@storybook/react";
-import { useForm } from "react-hook-form";
-import { Button, ContentTitle } from "components/atomic";
 import { Input, DatePicker, Email } from "components/atomic/forms";
+import NullForm from "components/api/NullForm";
 import Switch from "../Switch";
 import Textarea from "../Textarea";
 import FileUpload from "../FileUpload";
+import type { UploadedFileInput } from "types/graphql-schema";
 
-type Props = React.ComponentProps<typeof FormGrid>;
+type Props = Omit<React.ComponentProps<typeof FormGrid>, "children">;
+
+type FormValues = {
+  name?: string;
+  email?: string;
+  date?: string | Date;
+  hidden?: boolean;
+  image?: UploadedFileInput;
+  bio?: string;
+};
 
 export default {
   title: "Components/Atomic/Forms/FormGrid",
@@ -20,14 +29,9 @@ export default {
 };
 
 const Template: Story<Props> = (args) => {
-  const { register, handleSubmit } = useForm();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => console.info("submitted", data);
-
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ContentTitle as="h2">Example Form</ContentTitle>
+    <NullForm<FormValues> contentTitle="Example Form">
+      {({ form: { register } }) => (
         <FormGrid {...args}>
           <Input
             label="Display Name"
@@ -51,7 +55,7 @@ const Template: Story<Props> = (args) => {
           />
           <FileUpload
             label="Image"
-            {...register("image")}
+            name="image"
             accept="image/*"
             description="Allowed formats: webp, png, jpg"
           />
@@ -61,24 +65,26 @@ const Template: Story<Props> = (args) => {
             description="Enter a short bio"
           />
         </FormGrid>
-        <div className="l-flex l-flex--gap">
-          <Button type="submit">Submit</Button>
-          <Button type="button" secondary>
-            Cancel
-          </Button>
-        </div>
-      </form>
-    </>
+      )}
+    </NullForm>
   );
 };
 Template.args = {};
+
+Template.argTypes = {
+  children: { control: { disable: true } },
+};
 
 export const Default = Template.bind({});
 Default.args = {
   twoColumns: false,
 };
 
+Default.argTypes = Template.argTypes;
+
 export const TwoColumns = Template.bind({});
 TwoColumns.args = {
   twoColumns: true,
 };
+
+TwoColumns.argTypes = Template.argTypes;
