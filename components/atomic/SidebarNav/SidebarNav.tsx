@@ -34,7 +34,7 @@ const SidebarNav = ({ links, className }: Props) => {
 
 type Query = { [key: string]: string | number | string[] | undefined };
 
-interface SidebarLink extends Pick<Route, "name" | "label" | "path"> {
+export interface SidebarLink extends Pick<Route, "name" | "label"> {
   query?: Query;
 }
 
