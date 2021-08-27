@@ -22,7 +22,6 @@ import { appWithTranslation } from "next-i18next";
 import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
-import { ProgressBar } from "components/atomic";
 
 const NGLPApp = ({
   Component,
@@ -48,7 +47,7 @@ const NGLPApp = ({
   const ssrProps: KeycloakProviderProps = {
     initOptions,
     keycloakConfig,
-    LoadingComponent: <ProgressBar />,
+    LoadingComponent: <>Loading</>,
     persistor,
   };
 
