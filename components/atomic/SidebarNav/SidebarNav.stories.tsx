@@ -4,7 +4,7 @@ import SidebarNav from ".";
 type Props = React.ComponentProps<typeof SidebarNav>;
 
 export default {
-  title: "Components/Layout/SidebarNav",
+  title: "Components/Atomic/SidebarNav",
   component: SidebarNav,
   parameters: {
     themes: {
