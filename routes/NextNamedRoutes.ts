@@ -2,17 +2,20 @@ const nextStylePathComponent = /\[[^/]+\]/g;
 
 export type BaseRoute = {
   name: string;
+  label?: string;
   path: string;
   redirect?: string;
   routes?: BaseRoute[];
 };
 
-type Route = {
+export type Route = {
   name: string;
+  label?: string;
   identifiers: string[];
   path: string;
   regex: RegExp;
   redirect?: string;
+  routes?: BaseRoute[];
 };
 
 class NextNamedRoutes {
@@ -31,7 +34,13 @@ class NextNamedRoutes {
   /**
    * Registers a named route. The path should be the filesystem path corresponding to the route.
    */
-  add(name: string, path: string, redirect?: string): NextNamedRoutes {
+  add(
+    name: string,
+    path: string,
+    redirect?: string,
+    routes?: BaseRoute[],
+    label?: string
+  ): NextNamedRoutes {
     if (!name || !path) {
       throw new Error(
         `Route requires a name and path. name: ${name}, path: ${path}`
@@ -48,6 +57,8 @@ class NextNamedRoutes {
       path,
       regex: NextNamedRoutes.pathToRegex(path),
       redirect,
+      routes,
+      label,
     });
     return this;
   }
@@ -108,8 +119,8 @@ class NextNamedRoutes {
       throw new Error(`No base routes defined`);
     }
 
-    const addRoute = ({ name, path, redirect, routes }: BaseRoute) => {
-      this.add(name, path, redirect);
+    const addRoute = ({ name, path, redirect, routes, label }: BaseRoute) => {
+      this.add(name, path, redirect, routes, label);
 
       if (routes) {
         routes.forEach(addRoute);

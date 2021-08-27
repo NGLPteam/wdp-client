@@ -93,6 +93,24 @@ export const baseRoutes: BaseRoute[] = [
       {
         name: "contributor",
         path: "/contributors/[slug]",
+        redirect: "/contributors/[slug]/details",
+        routes: [
+          {
+            name: "contributor.details",
+            path: "/contributors/[slug]/details",
+            label: "Details",
+          },
+          {
+            name: "contributor.collections",
+            path: "/contributors/[slug]/collections",
+            label: "Collection Contributions",
+          },
+          {
+            name: "contributor.items",
+            path: "/contributors/[slug]/items",
+            label: "Item Contributions",
+          },
+        ],
       },
     ],
   },

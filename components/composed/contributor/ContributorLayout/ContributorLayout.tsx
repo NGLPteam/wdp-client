@@ -3,8 +3,8 @@ import { graphql } from "react-relay";
 import { ContributorLayoutQuery } from "__generated__/ContributorLayoutQuery.graphql";
 import { useRouter } from "next/router";
 import { useAuthenticatedQuery } from "hooks";
-import { routeQueryArrayToString } from "routes";
-import { PageHeader } from "components/layout";
+import { RouteHelper, routeQueryArrayToString } from "routes";
+import { PageHeader, ContentSidebar } from "components/layout";
 
 export default function ContributorLayout({
   children,
@@ -18,6 +18,16 @@ export default function ContributorLayout({
     slug: routeQueryArrayToString(slug),
   });
 
+  // Get the contributor's child routes with current query
+  const childRoutes = useMemo(() => {
+    const mainRoute = RouteHelper.findRouteByName("contributor");
+
+    return mainRoute?.routes
+      ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
+      : undefined;
+  }, [slug]);
+
+  // Get the contributor's display name
   const displayName = useMemo(
     () =>
       data?.contributor?.__typename === "PersonContributor"
@@ -31,8 +41,7 @@ export default function ContributorLayout({
   return (
     <section>
       {data && data.contributor && <PageHeader title={displayName} />}
-
-      {children}
+      <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
     </section>
   );
 }
