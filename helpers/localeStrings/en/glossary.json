@@ -9,11 +9,13 @@
   "user_plural": "users",
   "contributor": "contributor",
   "contributor_plural": "contributors",
+  "contributor_person": "Person",
+  "contributor_org": "Organization",
   "name": "name",
   "name_plural": "names",
   "title": "title",
   "title_plural": "titles",
   "actions": {
-    "add": "Add $t({{name}})"
+    "add": "Add $t({{ name }})"
   }
 }

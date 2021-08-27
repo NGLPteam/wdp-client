@@ -21,10 +21,10 @@
     "powered_by": "Powered by NGLP–WDP"
   },
   "drawers": {
-    "createPerson.title": "New Person",
-    "createOrganization.title": "New Organization"
+    "createPerson.title": "Create New Person",
+    "createOrganization.title": "Create New Organization"
   },
-  "actions" : {
+  "actions": {
     "create.contributor.person": "Create Person",
     "create.contributor.organization": "Create Organization"
   },

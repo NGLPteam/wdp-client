@@ -1,16 +1,14 @@
 import React from "react";
-import { RouteHelper } from "routes";
 import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import { Page } from "types/page";
+import ContributorUpdatePersonForm from "components/composed/contributor/ContributorUpdatePersonForm";
 
-const ContributorDetail: Page = () => {
-  const activeRoute = RouteHelper.activeRoute();
-
-  return <>{activeRoute?.label}</>;
+const ContributorDetails: Page = () => {
+  return <ContributorUpdatePersonForm data={null} />;
 };
 
-ContributorDetail.getLayout = (page) => {
+ContributorDetails.getLayout = (page) => {
   return <ContributorLayout>{page}</ContributorLayout>;
 };
 
-export default ContributorDetail;
+export default ContributorDetails;

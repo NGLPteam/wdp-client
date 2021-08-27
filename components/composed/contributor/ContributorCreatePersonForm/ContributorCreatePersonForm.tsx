@@ -7,7 +7,6 @@ import MutationForm, {
   useOnSuccess,
   useRenderForm,
   useToVariables,
-  Forms,
 } from "components/api/MutationForm";
 
 import type {
@@ -15,8 +14,14 @@ import type {
   CreatePersonContributorInput,
   ContributorCreatePersonFormMutationResponse,
 } from "@/relay/ContributorCreatePersonFormMutation.graphql";
+import ContributorPersonForm from "../ContributorPersonForm";
 
-export default function ContributorCreatePersonForm({ onCreate }: Props) {
+type MutationFormProps = React.ComponentProps<typeof MutationForm>;
+
+export default function ContributorCreatePersonForm({
+  contentTitle,
+  onCreate,
+}: Props) {
   const getErrors = useGetErrors<ContributorCreatePersonFormMutation>(
     (response) => response.createPersonContributor ?? null,
     []
@@ -39,33 +44,7 @@ export default function ContributorCreatePersonForm({ onCreate }: Props) {
   );
 
   const renderForm = useRenderForm<FormValues>(
-    ({ form: { register } }) => (
-      <Forms.Grid>
-        <Forms.Input
-          label="Identifier*"
-          {...register("identifier", { required: true })}
-          description="Unique Identifier"
-        />
-        <Forms.Input
-          label="Given Name"
-          {...register("givenName")}
-          description="First name"
-        />
-        <Forms.Input
-          label="Family Name"
-          {...register("familyName")}
-          description="Last name"
-        />
-        <Forms.Input label="Title" {...register("title")} />
-        <Forms.Email
-          label="Email"
-          {...register("email")}
-          description="Format: example@email.com"
-        />
-        <Forms.Input label="Affiliation" {...register("affiliation")} />
-        <Forms.Textarea label="Bio" {...register("bio")} />
-      </Forms.Grid>
-    ),
+    ({ form: { register } }) => <ContributorPersonForm register={register} />,
     []
   );
 
@@ -76,7 +55,7 @@ export default function ContributorCreatePersonForm({ onCreate }: Props) {
 
   return (
     <MutationForm<ContributorCreatePersonFormMutation, FormValues>
-      contentTitle="Create Person Contributor"
+      contentTitle={contentTitle}
       getErrors={getErrors}
       mutation={mutation}
       name="createPersonContributor"
@@ -103,7 +82,7 @@ type CreatedContributor = NonNullable<
   ContributorCreatePersonFormMutationResponse["createPersonContributor"]
 >["contributor"];
 
-interface Props {
+interface Props extends Pick<MutationFormProps, "contentTitle"> {
   onCreate?: (contributor: CreatedContributor) => void;
 }
 
@@ -119,17 +98,10 @@ const mutation = graphql`
   mutation ContributorCreatePersonFormMutation(
     $input: CreatePersonContributorInput!
   ) {
-    createPersonContributor(input: $input) {
+    createPersoContributor(input: $input) {
       contributor {
         __typename
-        email
-        givenName
-        familyName
-        suffix
-        title
-        prefix
-        bio
-        affiliation
+        ...ContributorPersonForm
       }
       ...MutationForm_mutationErrors
     }
