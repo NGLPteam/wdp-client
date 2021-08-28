@@ -4,19 +4,18 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type ContributorPersonFormFragment = {
-    readonly givenName: string | null;
-    readonly familyName: string | null;
-    readonly title: string | null;
+export type ContributorOrganizationFormFragment = {
+    readonly legalName: string | null;
     readonly email: string | null;
-    readonly affiliation: string | null;
+    readonly location: string | null;
     readonly bio: string | null;
-    readonly " $refType": "ContributorPersonFormFragment";
+    readonly url: string | null;
+    readonly " $refType": "ContributorOrganizationFormFragment";
 };
-export type ContributorPersonFormFragment$data = ContributorPersonFormFragment;
-export type ContributorPersonFormFragment$key = {
-    readonly " $data"?: ContributorPersonFormFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorPersonFormFragment">;
+export type ContributorOrganizationFormFragment$data = ContributorOrganizationFormFragment;
+export type ContributorOrganizationFormFragment$key = {
+    readonly " $data"?: ContributorOrganizationFormFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"ContributorOrganizationFormFragment">;
 };
 
 
@@ -25,27 +24,13 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ContributorPersonFormFragment",
+  "name": "ContributorOrganizationFormFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "givenName",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "familyName",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
+      "name": "legalName",
       "storageKey": null
     },
     {
@@ -59,7 +44,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "affiliation",
+      "name": "location",
       "storageKey": null
     },
     {
@@ -68,10 +53,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "bio",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "url",
+      "storageKey": null
     }
   ],
-  "type": "PersonContributor",
+  "type": "OrganizationContributor",
   "abstractKey": null
 };
-(node as any).hash = '74ab45bcfc312b2f18088ceeec0f1e13';
+(node as any).hash = '772f513975b4aaf329145089e00689a6';
 export default node;

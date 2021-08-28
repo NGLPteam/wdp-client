@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
-import type { FieldValues, Path } from "react-hook-form";
+import type { FieldValues, Path, DefaultValue } from "react-hook-form";
 
 interface InputProps<T extends FieldValues = FieldValues> {
+  defaultValue?: DefaultValue;
   name: Path<T>;
   label: string | ReactNode;
   hideLabel?: boolean;

@@ -71,7 +71,8 @@ function ContributorList<T extends OperationType>({
     </div>
   );
 
-  const contributors = useFragment<ContributorListFragment$key>(fragment, data);
+  const contributors = useFragment(fragment, data);
+
   return (
     <ModelListPage<T, ContributorListFragment, ContributorNode>
       modelName="contributor"

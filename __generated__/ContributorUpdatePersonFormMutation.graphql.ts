@@ -4,21 +4,33 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type UploadStorage = "CACHE" | "%future added value";
 export type UpdatePersonContributorInput = {
-    contributorId: string;
     email?: string | null;
     url?: string | null;
     bio?: string | null;
+    links?: Array<ContributorLinkInput> | null;
+    image?: UploadedFileInput | null;
     givenName?: string | null;
     familyName?: string | null;
     title?: string | null;
     affiliation?: string | null;
-    links?: Array<ContributorLinkInput> | null;
+    contributorId: string;
+    clearImage?: boolean | null;
     clientMutationId?: string | null;
 };
 export type ContributorLinkInput = {
     title: string;
     url: string;
+};
+export type UploadedFileInput = {
+    id: unknown;
+    storage?: UploadStorage | null;
+    metadata?: UploadedFileMetadataInput | null;
+};
+export type UploadedFileMetadataInput = {
+    filename?: string | null;
+    mimeType?: string | null;
 };
 export type ContributorUpdatePersonFormMutationVariables = {
     input: UpdatePersonContributorInput;
@@ -26,15 +38,7 @@ export type ContributorUpdatePersonFormMutationVariables = {
 export type ContributorUpdatePersonFormMutationResponse = {
     readonly updatePersonContributor: {
         readonly contributor: {
-            readonly __typename: string;
-            readonly email: string | null;
-            readonly givenName: string | null;
-            readonly familyName: string | null;
-            readonly suffix: string | null;
-            readonly title: string | null;
-            readonly prefix: string | null;
-            readonly bio: string | null;
-            readonly affiliation: string | null;
+            readonly " $fragmentRefs": FragmentRefs<"ContributorPersonFormFragment">;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -52,19 +56,20 @@ mutation ContributorUpdatePersonFormMutation(
 ) {
   updatePersonContributor(input: $input) {
     contributor {
-      __typename
-      email
-      givenName
-      familyName
-      suffix
-      title
-      prefix
-      bio
-      affiliation
+      ...ContributorPersonFormFragment
       id
     }
     ...MutationForm_mutationErrors
   }
+}
+
+fragment ContributorPersonFormFragment on PersonContributor {
+  givenName
+  familyName
+  title
+  email
+  affiliation
+  bio
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -98,70 +103,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "givenName",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "familyName",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "suffix",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "prefix",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "bio",
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "affiliation",
-  "storageKey": null
-},
-v11 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -170,7 +112,7 @@ v11 = [
     "storageKey": null
   }
 ],
-v12 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -212,7 +154,7 @@ v12 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v11/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -222,7 +164,7 @@ v12 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v11/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     }
   ],
@@ -252,15 +194,11 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/)
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ContributorPersonFormFragment"
+              }
             ],
             "storageKey": null
           },
@@ -268,7 +206,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v12/*: any*/)
+              (v3/*: any*/)
             ]
           }
         ],
@@ -300,15 +238,48 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "givenName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "familyName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "email",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "affiliation",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "bio",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -319,21 +290,21 @@ return {
             ],
             "storageKey": null
           },
-          (v12/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "5ed211f5b52bdae1776585e9017fbe14",
+    "cacheID": "1c77eab9c0f173aa7dfb1b87e818879b",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdatePersonFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorUpdatePersonFormMutation(\n  $input: UpdatePersonContributorInput!\n) {\n  updatePersonContributor(input: $input) {\n    contributor {\n      __typename\n      email\n      givenName\n      familyName\n      suffix\n      title\n      prefix\n      bio\n      affiliation\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdatePersonFormMutation(\n  $input: UpdatePersonContributorInput!\n) {\n  updatePersonContributor(input: $input) {\n    contributor {\n      ...ContributorPersonFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorPersonFormFragment on PersonContributor {\n  givenName\n  familyName\n  title\n  email\n  affiliation\n  bio\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e71ecd1c3baf3fea568b2883149ed399';
+(node as any).hash = '8f8b90fda4cf62dd03a2ced5c51df830';
 export default node;

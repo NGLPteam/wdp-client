@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
-export type CreateOrganizationContributorInput = {
+export type UpdateOrganizationContributorInput = {
     email?: string | null;
     url?: string | null;
     bio?: string | null;
@@ -13,6 +13,8 @@ export type CreateOrganizationContributorInput = {
     image?: UploadedFileInput | null;
     legalName?: string | null;
     location?: string | null;
+    contributorId: string;
+    clearImage?: boolean | null;
     clientMutationId?: string | null;
 };
 export type ContributorLinkInput = {
@@ -28,45 +30,43 @@ export type UploadedFileMetadataInput = {
     filename?: string | null;
     mimeType?: string | null;
 };
-export type ContributorCreateOrganizationFormMutationVariables = {
-    input: CreateOrganizationContributorInput;
+export type ContributorUpdateOrganizationFormMutationVariables = {
+    input: UpdateOrganizationContributorInput;
 };
-export type ContributorCreateOrganizationFormMutationResponse = {
-    readonly createOrganizationContributor: {
+export type ContributorUpdateOrganizationFormMutationResponse = {
+    readonly updateOrganizationContributor: {
         readonly contributor: {
-            readonly identifier: string;
-            readonly legalName: string | null;
-            readonly email: string | null;
-            readonly location: string | null;
-            readonly bio: string | null;
-            readonly url: string | null;
+            readonly " $fragmentRefs": FragmentRefs<"ContributorOrganizationFormFragment">;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
 };
-export type ContributorCreateOrganizationFormMutation = {
-    readonly response: ContributorCreateOrganizationFormMutationResponse;
-    readonly variables: ContributorCreateOrganizationFormMutationVariables;
+export type ContributorUpdateOrganizationFormMutation = {
+    readonly response: ContributorUpdateOrganizationFormMutationResponse;
+    readonly variables: ContributorUpdateOrganizationFormMutationVariables;
 };
 
 
 
 /*
-mutation ContributorCreateOrganizationFormMutation(
-  $input: CreateOrganizationContributorInput!
+mutation ContributorUpdateOrganizationFormMutation(
+  $input: UpdateOrganizationContributorInput!
 ) {
-  createOrganizationContributor(input: $input) {
+  updateOrganizationContributor(input: $input) {
     contributor {
-      identifier
-      legalName
-      email
-      location
-      bio
-      url
+      ...ContributorOrganizationFormFragment
       id
     }
     ...MutationForm_mutationErrors
   }
+}
+
+fragment ContributorOrganizationFormFragment on OrganizationContributor {
+  legalName
+  email
+  location
+  bio
+  url
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -100,49 +100,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "identifier",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "legalName",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "location",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "bio",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v8 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -151,7 +109,7 @@ v8 = [
     "storageKey": null
   }
 ],
-v9 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -193,7 +151,7 @@ v9 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v8/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -203,7 +161,7 @@ v9 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v8/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     }
   ],
@@ -215,14 +173,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ContributorCreateOrganizationFormMutation",
+    "name": "ContributorUpdateOrganizationFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateOrganizationContributorPayload",
+        "concreteType": "UpdateOrganizationContributorPayload",
         "kind": "LinkedField",
-        "name": "createOrganizationContributor",
+        "name": "updateOrganizationContributor",
         "plural": false,
         "selections": [
           {
@@ -233,12 +191,11 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/)
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ContributorOrganizationFormFragment"
+              }
             ],
             "storageKey": null
           },
@@ -246,7 +203,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v9/*: any*/)
+              (v3/*: any*/)
             ]
           }
         ],
@@ -260,14 +217,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ContributorCreateOrganizationFormMutation",
+    "name": "ContributorUpdateOrganizationFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateOrganizationContributorPayload",
+        "concreteType": "UpdateOrganizationContributorPayload",
         "kind": "LinkedField",
-        "name": "createOrganizationContributor",
+        "name": "updateOrganizationContributor",
         "plural": false,
         "selections": [
           {
@@ -278,12 +235,41 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "legalName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "email",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "location",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "bio",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "url",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -294,21 +280,21 @@ return {
             ],
             "storageKey": null
           },
-          (v9/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "267a1da3ce5ce3d8f6783590e449483e",
+    "cacheID": "db8199e83751dcf78989a0bbf1031838",
     "id": null,
     "metadata": {},
-    "name": "ContributorCreateOrganizationFormMutation",
+    "name": "ContributorUpdateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreateOrganizationFormMutation(\n  $input: CreateOrganizationContributorInput!\n) {\n  createOrganizationContributor(input: $input) {\n    contributor {\n      identifier\n      legalName\n      email\n      location\n      bio\n      url\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorOrganizationFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorOrganizationFormFragment on OrganizationContributor {\n  legalName\n  email\n  location\n  bio\n  url\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5f934468d4989bc5114c9af3d5c1ae38';
+(node as any).hash = '38c2e863724a1ad7b8eeb812bf150b12';
 export default node;
