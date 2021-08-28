@@ -1,7 +1,7 @@
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { default as useAuthenticatedQuery } from "./useAuthenticatedQuery";
 export { default as useAuthenticatedFetchKey } from "./useAuthenticatedFetchKey";
-export { default as useGetQuery } from "./useGetQuery";
+export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useLatest } from "./useLatest";
