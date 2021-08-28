@@ -5,6 +5,7 @@ const imageDomains = [
   "via.placeholder.com",
   "localhost:6006",
   "localhost:3000",
+  "api.staging.nglp.org",
 ];
 
 module.exports = {
