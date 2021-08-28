@@ -1,54 +1,68 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { Forms } from "components/api/MutationForm";
+import type { UseFormRegister } from "react-hook-form";
+import type {
+  ContributorPersonFormFragment$key,
+  ContributorPersonFormFragment,
+} from "@/relay/ContributorPersonFormFragment.graphql";
 
-/**
- * Form for creating or updating a Contributor
- * If id is passed, we assume we're updating rather than creating
- */
-const ContributorPersonForm = ({ register, id }: Props) => {
+function ContributorPersonForm({ register, data }: Props) {
+  const contributor = useFragment(fragment, data);
+
   return (
     <Forms.Grid>
-      {id && <input {...register("contributorId")} type="hidden" />}
       <Forms.Input
-        label="Given Name"
+        defaultValue={contributor?.givenName}
+        label="First Name"
         {...register("givenName")}
-        description="First name"
       />
       <Forms.Input
-        label="Family Name"
+        defaultValue={contributor?.familyName}
+        label="Last Name"
         {...register("familyName")}
-        description="Last name"
       />
-      <Forms.Input label="Title" {...register("title")} />
+      <Forms.Input
+        defaultValue={contributor?.title}
+        label="Title"
+        {...register("title")}
+      />
       <Forms.Email
         label="Email"
+        defaultValue={contributor?.email}
         {...register("email")}
         description="Format: example@email.com"
       />
-      <Forms.Input label="Affiliation" {...register("affiliation")} />
-      <Forms.Textarea label="Bio" {...register("bio")} />
+      <Forms.Input
+        defaultValue={contributor?.affiliation}
+        label="Affiliation"
+        {...register("affiliation")}
+      />
+      <Forms.Textarea
+        defaultValue={contributor?.bio}
+        label="Bio"
+        {...register("bio")}
+      />
     </Forms.Grid>
   );
-};
-
-interface Props {
-  register: any;
-  id?: string;
 }
 
-export default ContributorPersonForm;
+type Fields = Omit<ContributorPersonFormFragment, " $refType">;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface Props {
+  register: UseFormRegister<Partial<Fields>>;
+  data: ContributorPersonFormFragment$key | null;
+}
+
 const fragment = graphql`
   fragment ContributorPersonFormFragment on PersonContributor {
-    email
     givenName
     familyName
-    suffix
     title
-    prefix
-    bio
+    email
     affiliation
+    bio
   }
 `;
+
+export default ContributorPersonForm;

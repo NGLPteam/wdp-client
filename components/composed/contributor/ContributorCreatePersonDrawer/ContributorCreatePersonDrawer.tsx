@@ -11,10 +11,11 @@ export default function ContributorCreatePersonDrawer({
 }) {
   const { t } = useTranslation("common");
 
-  const onCreate = useCallback(() => {
-    if (!dialog?.hide) return;
-    dialog.hide();
-  }, [dialog]);
+  // TODO: Pass this into the drawer
+  // const onCreate = useCallback(() => {
+  //   if (!dialog?.hide) return;
+  //   dialog.hide();
+  // }, [dialog]);
 
   return (
     <Drawer
@@ -23,7 +24,7 @@ export default function ContributorCreatePersonDrawer({
       dialog={dialog}
       hideOnClickOutside={false}
     >
-      <ContributorCreatePersonForm onCreate={onCreate} />
+      <ContributorCreatePersonForm />
     </Drawer>
   );
 }
