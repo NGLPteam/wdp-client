@@ -19,14 +19,14 @@ const ContributorDetails: Page = () => {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => {
         if (!data || !data.contributor) return null;
-        return <ContributorUpdateForm data={data.contributor} />;
+        return (
+          <ContributorLayout data={data.contributor}>
+            <ContributorUpdateForm data={data.contributor} />
+          </ContributorLayout>
+        );
       }}
     </QueryWrapper>
   );
-};
-
-ContributorDetails.getLayout = (page) => {
-  return <ContributorLayout>{page}</ContributorLayout>;
 };
 
 export default ContributorDetails;
@@ -35,6 +35,7 @@ const query = graphql`
   query detailsContributorQuery($slug: Slug!) {
     contributor(slug: $slug) {
       ...ContributorUpdateFormFragment
+      ...ContributorLayoutFragment
     }
   }
 `;
