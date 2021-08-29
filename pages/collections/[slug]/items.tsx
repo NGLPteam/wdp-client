@@ -5,9 +5,11 @@ import { itemsCollectionChildQuery as Query } from "__generated__/itemsCollectio
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { Page } from "types/page";
 import { QueryWrapper } from "components/api";
-import { useRouteSlug } from "hooks";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 
 const CollectionChildItems: Page = () => {
+  const queryVars = useBaseListQueryVars();
+
   const collectionSlug = useRouteSlug();
   // TODO: This should 404 instead of returning null.
   if (!collectionSlug) return null;
@@ -15,7 +17,7 @@ const CollectionChildItems: Page = () => {
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ collectionSlug, order: "RECENT", page: 1 }}
+      initialVariables={{ ...queryVars, collectionSlug }}
     >
       {({ data }) => {
         // TODO: We should 404 if there is no collection
