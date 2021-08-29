@@ -5,14 +5,18 @@ import { useRouter } from "next/router";
 import { useAuthenticatedQuery } from "hooks";
 import { RouteHelper, routeQueryArrayToString } from "routes";
 import { PageHeader, ContentSidebar } from "components/layout";
+import { useTranslation } from "react-i18next";
+import capitalize from "lodash/capitalize";
 
 export default function ContributorLayout({
   children,
 }: {
   children: ReactNode;
 }) {
+  const { t } = useTranslation("glossary");
   const router = useRouter();
   const { slug } = router.query;
+  const mainRoute = RouteHelper.findRouteByName("contributor");
 
   const { data } = useAuthenticatedQuery<ContributorLayoutQuery>(query, {
     slug: routeQueryArrayToString(slug),
@@ -20,12 +24,10 @@ export default function ContributorLayout({
 
   // Get the contributor's child routes with current query
   const childRoutes = useMemo(() => {
-    const mainRoute = RouteHelper.findRouteByName("contributor");
-
     return mainRoute?.routes
       ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
       : undefined;
-  }, [slug]);
+  }, [slug, mainRoute]);
 
   // Get the contributor's display name
   const displayName = useMemo(
@@ -38,9 +40,30 @@ export default function ContributorLayout({
     [data]
   );
 
+  // Build breadcrumbs
+  const breadcrumbs = useMemo(() => {
+    const parentRoute = RouteHelper.findRouteByName("contributors");
+    return parentRoute && mainRoute
+      ? {
+          data: [
+            {
+              href: { pathname: parentRoute.path },
+              label: capitalize(t("contributor_plural")),
+            },
+            {
+              href: { pathname: mainRoute.path, query: { slug } },
+              label: displayName,
+            },
+          ],
+        }
+      : undefined;
+  }, [mainRoute, t, slug, displayName]);
+
   return (
     <section>
-      {data && data.contributor && <PageHeader title={displayName} />}
+      {data && data.contributor && (
+        <PageHeader breadcrumbsProps={breadcrumbs} title={displayName} />
+      )}
       <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
     </section>
   );
