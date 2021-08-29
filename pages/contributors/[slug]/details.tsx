@@ -4,7 +4,7 @@ import { Page } from "types/page";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
-import { detailsContributorQuery as Query } from "__generated__/detailsContributorQuery.graphql";
+import { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 import { useRouteSlug } from "hooks/useRouteSlug";
 
 const ContributorDetails: Page = () => {
@@ -32,7 +32,7 @@ const ContributorDetails: Page = () => {
 export default ContributorDetails;
 
 const query = graphql`
-  query detailsContributorQuery($slug: Slug!) {
+  query detailsSlugContributorsPagesQuery($slug: Slug!) {
     contributor(slug: $slug) {
       ...ContributorUpdateFormFragment
       ...ContributorLayoutFragment

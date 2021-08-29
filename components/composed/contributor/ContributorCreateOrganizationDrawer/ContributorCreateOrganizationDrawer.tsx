@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import ContributorCreateOrganizationForm from "../ContributorCreateOrganizationForm";
 import Drawer from "components/layout/Drawer";
 import { useTranslation } from "react-i18next";
