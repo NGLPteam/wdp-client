@@ -3,13 +3,13 @@ import { graphql } from "react-relay";
 import CollectionList from "components/composed/collection/CollectionList";
 import { QueryWrapper } from "components/api";
 import { collectionsQuery as Query } from "__generated__/collectionsQuery.graphql";
+import { useBaseListQueryVars } from "hooks";
 
 export default function CollectionListView() {
+  const queryVars = useBaseListQueryVars();
+
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ order: "RECENT", page: 1 }}
-    >
+    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => {
         if (!data) return null;
         return <CollectionList<Query> data={data?.viewer?.collections} />;

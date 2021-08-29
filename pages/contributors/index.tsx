@@ -3,13 +3,13 @@ import { graphql } from "react-relay";
 import ContributorList from "components/composed/contributor/ContributorList";
 import { QueryWrapper } from "components/api";
 import { contributorsQuery as Query } from "__generated__/contributorsQuery.graphql";
+import { useBaseListQueryVars } from "hooks";
 
 export default function ContributorListView() {
+  const queryVars = useBaseListQueryVars();
+
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ order: "RECENT", page: 1 }}
-    >
+    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => {
         if (!data) return null;
         return <ContributorList<Query> data={data?.contributors} />;
