@@ -174,9 +174,6 @@ export default function MutationForm<
           <Button disabled={submitDisabled} type="submit">
             Submit
           </Button>
-          <Button type="button" secondary>
-            Cancel
-          </Button>
         </div>
       </form>
     </FormProvider>
