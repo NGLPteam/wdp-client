@@ -1,16 +1,55 @@
 import React from "react";
-import { RouteHelper } from "routes";
 import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import { Page } from "types/page";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug } from "hooks/useRouteSlug";
+import { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+import ItemContributionList from "components/composed/contributions/ItemContributionList";
 
 const ContributorItemContributions: Page = () => {
-  const activeRoute = RouteHelper.activeRoute();
+  const slug = useRouteSlug();
 
-  return <>{activeRoute?.label}</>;
-};
+  // TODO: 404 here.
+  if (!slug) {
+    return null;
+  }
 
-ContributorItemContributions.getLayout = (page) => {
-  return <ContributorLayout>{page}</ContributorLayout>;
+  return (
+    <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
+      {({ data }) => {
+        if (!data || !data.contributor) return null;
+        return (
+          <ContributorLayout data={data.contributor}>
+            {data.contributor.itemContributions && (
+              <ItemContributionList<Query>
+                data={data.contributor.itemContributions}
+              />
+            )}
+          </ContributorLayout>
+        );
+      }}
+    </QueryWrapper>
+  );
 };
 
 export default ContributorItemContributions;
+
+const query = graphql`
+  query itemsSlugContributorsPagesQuery($slug: Slug!) {
+    contributor(slug: $slug) {
+      __typename
+      ...ContributorLayoutFragment
+      ... on OrganizationContributor {
+        itemContributions {
+          ...ItemContributionListFragment
+        }
+      }
+      ... on PersonContributor {
+        itemContributions {
+          ...ItemContributionListFragment
+        }
+      }
+    }
+  }
+`;

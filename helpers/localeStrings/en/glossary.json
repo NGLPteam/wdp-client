@@ -17,5 +17,9 @@
   "title_plural": "titles",
   "actions": {
     "add": "Add $t({{ name }})"
-  }
+  },
+  "item_contribution": "item contribution",
+  "item_contribution_plural": "item contributions",
+  "collection_contribution": "collection contribution",
+  "collection_contribution_plural": "collection contributions"
 }
