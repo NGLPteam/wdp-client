@@ -1,26 +1,25 @@
 import React, { ReactNode, useMemo } from "react";
-import { graphql } from "react-relay";
-import { ContributorLayoutQuery } from "__generated__/ContributorLayoutQuery.graphql";
+import { graphql, useFragment } from "react-relay";
 import { useRouter } from "next/router";
-import { useAuthenticatedQuery } from "hooks";
-import { RouteHelper, routeQueryArrayToString } from "routes";
+import { RouteHelper } from "routes";
 import { PageHeader, ContentSidebar } from "components/layout";
 import { useTranslation } from "react-i18next";
 import capitalize from "lodash/capitalize";
 
+import { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
+
 export default function ContributorLayout({
   children,
+  data,
 }: {
   children: ReactNode;
+  data: ContributorLayoutFragment$key;
 }) {
   const { t } = useTranslation("glossary");
   const router = useRouter();
   const { slug } = router.query;
   const mainRoute = RouteHelper.findRouteByName("contributor");
-
-  const { data } = useAuthenticatedQuery<ContributorLayoutQuery>(query, {
-    slug: routeQueryArrayToString(slug),
-  });
+  const contributor = useFragment(fragment, data);
 
   // Get the contributor's child routes with current query
   const childRoutes = useMemo(() => {
@@ -30,15 +29,14 @@ export default function ContributorLayout({
   }, [slug, mainRoute]);
 
   // Get the contributor's display name
-  const displayName = useMemo(
-    () =>
-      data?.contributor?.__typename === "PersonContributor"
-        ? `${data?.contributor?.firstName} ${data?.contributor?.lastName}`
-        : data?.contributor?.__typename === "OrganizationContributor"
-        ? data?.contributor?.name
-        : "",
-    [data]
-  );
+  const displayName = useMemo(() => {
+    if (!contributor) return "";
+    return contributor.__typename === "PersonContributor"
+      ? `${contributor.firstName} ${contributor.lastName}`
+      : contributor.__typename === "OrganizationContributor"
+      ? contributor.name
+      : "";
+  }, [contributor]);
 
   // Build breadcrumbs
   const breadcrumbs = useMemo(() => {
@@ -61,7 +59,7 @@ export default function ContributorLayout({
 
   return (
     <section>
-      {data && data.contributor && (
+      {contributor && (
         <PageHeader breadcrumbsProps={breadcrumbs} title={displayName} />
       )}
       <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
@@ -69,18 +67,16 @@ export default function ContributorLayout({
   );
 }
 
-const query = graphql`
-  query ContributorLayoutQuery($slug: Slug!) {
-    contributor(slug: $slug) {
-      __typename
-      ... on OrganizationContributor {
-        slug
-        name: legalName
-      }
-      ... on PersonContributor {
-        firstName: givenName
-        lastName: familyName
-      }
+const fragment = graphql`
+  fragment ContributorLayoutFragment on AnyContributor {
+    __typename
+    ... on OrganizationContributor {
+      slug
+      name: legalName
+    }
+    ... on PersonContributor {
+      firstName: givenName
+      lastName: familyName
     }
   }
 `;
