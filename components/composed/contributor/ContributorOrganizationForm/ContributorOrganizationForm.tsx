@@ -22,6 +22,7 @@ function ContributorOrganizationForm({ register, data }: Props) {
         {...register("email")}
         description="Format: example@email.com"
       />
+      <Forms.FileUpload label="Image" name="image" />
       <Forms.Input
         defaultValue={contributor?.location}
         label="Location"

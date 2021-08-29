@@ -22,6 +22,7 @@ function ContributorPersonForm({ register, data }: Props) {
         label="Last Name"
         {...register("familyName")}
       />
+      <Forms.FileUpload label="Image" name="image" />
       <Forms.Input
         defaultValue={contributor?.title}
         label="Title"
