@@ -51,7 +51,6 @@ function ContributorPersonForm({ register, control, data }: Props) {
         {...register("bio")}
       />
       <ContributorLinksInput
-        defaultValue={contributor?.links}
         label="Links"
         name="links"
         register={register}

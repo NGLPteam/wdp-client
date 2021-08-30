@@ -14,7 +14,7 @@ import type {
 import type { ContributorUpdatePersonFormFragment$key } from "@/relay/ContributorUpdatePersonFormFragment.graphql";
 
 export default function ContributorUpdatePersonForm({ data }: Props) {
-  const contributor = useFragment(fragment, data);
+  const { links, ...contributor } = useFragment(fragment, data);
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
@@ -37,6 +37,7 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
     Fields
   >((data) => {
     const { contributorId } = contributor;
+
     // TODO: Why does relay think the contributor ID can be unknown?
     if (!contributorId)
       throw new Error("Contributor ID must be present in contributor update");
@@ -49,6 +50,7 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
       mutation={mutation}
       getErrors={getErrors}
       toVariables={toVariables}
+      defaultValues={{ links }}
     >
       {renderForm}
     </MutationForm>
@@ -78,6 +80,10 @@ const fragment = graphql`
   fragment ContributorUpdatePersonFormFragment on AnyContributor {
     ... on PersonContributor {
       contributorId: id
+      links {
+        title
+        url
+      }
       ...ContributorPersonFormFragment
     }
   }

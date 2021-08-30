@@ -6,6 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdatePersonFormFragment = {
     readonly contributorId?: string;
+    readonly links?: ReadonlyArray<{
+        readonly title: string;
+        readonly url: string;
+    } | null>;
     readonly " $fragmentRefs": FragmentRefs<"ContributorPersonFormFragment">;
     readonly " $refType": "ContributorUpdatePersonFormFragment";
 };
@@ -34,6 +38,31 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
+          "alias": null,
+          "args": null,
+          "concreteType": "ContributorLink",
+          "kind": "LinkedField",
+          "name": "links",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "ContributorPersonFormFragment"
@@ -46,5 +75,5 @@ const node: ReaderFragment = {
   "type": "AnyContributor",
   "abstractKey": "__isAnyContributor"
 };
-(node as any).hash = '0a69e376607c55700f87e60b6632f4c5';
+(node as any).hash = '47d835391fe3c4e923930ed9ad7b942c';
 export default node;
