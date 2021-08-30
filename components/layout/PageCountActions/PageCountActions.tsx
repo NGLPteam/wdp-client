@@ -19,7 +19,10 @@ const PageCountActions = ({
   const perPage = pageInfo.perPage || 10;
   const totalCount = pageInfo.totalCount || 0;
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
-  const end = totalCount < perPage ? totalCount : page * perPage;
+  const end =
+    totalCount < perPage || page * perPage > totalCount
+      ? totalCount
+      : page * perPage;
 
   return (
     <Styled.Wrapper>
