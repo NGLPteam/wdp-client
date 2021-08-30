@@ -17,8 +17,12 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
   const contributor = useFragment(fragment, data);
 
   const renderForm = useRenderForm<Fields>(
-    ({ form }) => (
-      <ContributorPersonForm data={contributor} register={form.register} />
+    ({ form: { register, control } }) => (
+      <ContributorPersonForm
+        data={contributor}
+        register={register}
+        control={control}
+      />
     ),
     []
   );

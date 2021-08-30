@@ -78,6 +78,10 @@ fragment ContributorPersonFormFragment on PersonContributor {
       }
     }
   }
+  links {
+    title
+    url
+  }
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -185,6 +189,20 @@ v4 = {
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -269,13 +287,7 @@ return {
                 "name": "familyName",
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "title",
-                "storageKey": null
-              },
+              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -328,19 +340,26 @@ return {
                             "name": "alt",
                             "storageKey": null
                           },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          }
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ContributorLink",
+                "kind": "LinkedField",
+                "name": "links",
+                "plural": true,
+                "selections": [
+                  (v5/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -361,12 +380,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f126751eb0798721adca3a157cb69ebf",
+    "cacheID": "d9915732b88bfdd8817c089c4d7f5a98",
     "id": null,
     "metadata": {},
     "name": "ContributorCreatePersonFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      ...ContributorPersonFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorPersonFormFragment on PersonContributor {\n  givenName\n  familyName\n  title\n  email\n  affiliation\n  bio\n  image {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      ...ContributorPersonFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorPersonFormFragment on PersonContributor {\n  givenName\n  familyName\n  title\n  email\n  affiliation\n  bio\n  image {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  links {\n    title\n    url\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

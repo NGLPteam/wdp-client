@@ -129,4 +129,24 @@ export default css`
     text-align: start;
     font-weight: inherit;
   }
+
+  /* Remove fieldset and legend styling */
+  fieldset {
+    border: 0;
+    padding: 0.01em 0 0 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  legend {
+    display: table;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    + * {
+      clear: both;
+    }
+  }
 `;

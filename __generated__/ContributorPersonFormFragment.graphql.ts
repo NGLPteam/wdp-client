@@ -19,6 +19,10 @@ export type ContributorPersonFormFragment = {
             } | null;
         };
     } | null;
+    readonly links: ReadonlyArray<{
+        readonly title: string;
+        readonly url: string;
+    } | null>;
     readonly " $refType": "ContributorPersonFormFragment";
 };
 export type ContributorPersonFormFragment$data = ContributorPersonFormFragment;
@@ -29,7 +33,22 @@ export type ContributorPersonFormFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -49,13 +68,7 @@ const node: ReaderFragment = {
       "name": "familyName",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -108,13 +121,7 @@ const node: ReaderFragment = {
                   "name": "alt",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                }
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -123,10 +130,24 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ContributorLink",
+      "kind": "LinkedField",
+      "name": "links",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "PersonContributor",
   "abstractKey": null
 };
-(node as any).hash = '1604161d2ccef90948dd02d53425dece';
+})();
+(node as any).hash = 'aae9c50a3a48020d066617bf4876ac72';
 export default node;

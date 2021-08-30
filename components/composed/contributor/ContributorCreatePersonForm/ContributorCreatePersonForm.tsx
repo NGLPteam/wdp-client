@@ -21,8 +21,12 @@ export default function ContributorCreatePersonForm() {
   );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
-      <ContributorPersonForm data={null} register={register} />
+    ({ form: { register, control } }) => (
+      <ContributorPersonForm
+        data={null}
+        register={register}
+        control={control}
+      />
     ),
     []
   );
