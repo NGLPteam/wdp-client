@@ -42,6 +42,7 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
             defaultValue={field.url}
           />
           <ButtonControl
+            type="button"
             aria-label="Remove Link"
             onClick={() => {
               remove(index);
@@ -50,7 +51,7 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
           />
         </Fieldset.Fields>
       ))}
-      <ButtonControl onClick={handleAddField} icon="plus">
+      <ButtonControl type="button" onClick={handleAddField} icon="plus">
         Add New Link
       </ButtonControl>
     </Fieldset>
