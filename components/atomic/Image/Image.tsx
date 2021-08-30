@@ -24,6 +24,7 @@ function Image(props: Props) {
   } else {
     return (
       <NextImage
+        unoptimized={process.env.NODE_ENV !== "production"}
         {...commonNextImageProps}
         layout={props.layout}
         width={props.image.width}
