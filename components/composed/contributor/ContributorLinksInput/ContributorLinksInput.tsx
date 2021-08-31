@@ -3,7 +3,7 @@ import { ButtonControl } from "components/atomic";
 import { Fieldset } from "components/atomic/forms";
 import { useFieldArray } from "react-hook-form";
 import type {
-  ArrayPath,
+  Path,
   FieldValues,
   Control,
   UseFormRegister,
@@ -16,9 +16,9 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
   control,
   name,
 }: Props<T>) {
-  const { fields, append, remove } = useFieldArray<T>({
-    control, // control props comes from useForm (optional: if you are using FormContext)
-    name, // unique name for your Field Array
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name,
   });
 
   const handleAddField = () => {
@@ -31,12 +31,12 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
         <Fieldset.Fields key={field.id}>
           <Forms.Input
             label="Title"
-            {...register(`${name}.${index}.title` as const)}
+            {...register(`${name}.${index}.title` as Path<Partial<T>>)}
           />
           <Forms.Input
             label="URL"
             type="url"
-            {...register(`${name}.${index}.url` as const)}
+            {...register(`${name}.${index}.url` as Path<Partial<T>>)}
           />
           <ButtonControl
             type="button"
@@ -58,8 +58,8 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
 interface Props<T extends FieldValues = FieldValues> {
   label: string;
   register: UseFormRegister<Partial<T>>;
-  control: Control<T>;
-  name: ArrayPath<T>;
+  control: Control;
+  name: string;
 }
 
 export default ContributorLinksInput;
