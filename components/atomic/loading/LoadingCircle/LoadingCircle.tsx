@@ -6,7 +6,7 @@ const LoadingCircle = ({ label }: Props) => {
   const { t } = useTranslation("common");
 
   return (
-    <Styled.Skeleton aria-label={t(label || "loading")}>
+    <Styled.Skeleton role="progressbar" aria-label={t(label || "loading")}>
       <Styled.Circle></Styled.Circle>
     </Styled.Skeleton>
   );
