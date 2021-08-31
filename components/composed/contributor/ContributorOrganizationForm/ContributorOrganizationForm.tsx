@@ -9,6 +9,7 @@ import type { UseFormRegister } from "react-hook-form";
 
 function ContributorOrganizationForm({ register, data }: Props) {
   const contributor = useFragment(fragment, data);
+
   return (
     <Forms.Grid>
       <Forms.Input
@@ -22,7 +23,11 @@ function ContributorOrganizationForm({ register, data }: Props) {
         {...register("email")}
         description="Format: example@email.com"
       />
-      <Forms.FileUpload label="Image" name="image" />
+      <Forms.FileUpload
+        image={contributor?.image?.thumb}
+        label="Image"
+        name="image"
+      />
       <Forms.Input
         defaultValue={contributor?.location}
         label="Location"
@@ -56,6 +61,14 @@ const fragment = graphql`
     location
     bio
     url
+    image {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 `;
 

@@ -9,6 +9,9 @@ import {
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
+import { CellProps } from "react-table";
+import { NamedLink } from "components/atomic";
+import { useRouter } from "next/router";
 
 interface CollectionContributionListProps {
   data: CollectionContributionListFragment$key;
@@ -18,23 +21,52 @@ type CollectionContributionNode = CollectionContributionListFragment["nodes"][nu
 function CollectionContributionList<T extends OperationType>({
   data,
 }: CollectionContributionListProps) {
+  const router = useRouter();
+
   const columns = [
-    ModelColumns.NameColumn<CollectionContributionNode>({
-      route: "collection",
-      id: "name",
-      accessor: (row) => {
+    {
+      Header: "Name",
+      id: "Name",
+      disableSortBy: true,
+      accessor: (row: CollectionContributionNode) => {
         return row?.collection?.title;
       },
-    }),
+      Cell: ({ row, value }: CellProps<CollectionContributionNode>) => {
+        if (!row?.original?.collection?.slug) return value;
+        return (
+          <NamedLink
+            route="item"
+            routeParams={{ slug: row.original.collection.slug }}
+            passHref
+          >
+            <a className="t-weight-md a-link">{value}</a>
+          </NamedLink>
+        );
+      },
+    },
+    {
+      Header: "Role",
+      id: "role",
+      accessor: (originalRow: CollectionContributionNode) => originalRow.role,
+      disableSortBy: true,
+    },
     ModelColumns.CreatedAtColumn<CollectionContributionNode>(),
   ];
 
-  /* eslint-disable no-console */
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<CollectionContributionNode>) =>
-      console.info(`edit ${row.original.slug}`),
+    handleEdit: ({
+      row,
+    }: ModelTableActionProps<CollectionContributionNode>) => {
+      const pathname = window.location.pathname;
+      router.push({
+        pathname,
+        query: {
+          drawer: "editCollectionContribution",
+          contribution: row.original.slug,
+        },
+      });
+    },
   };
-  /* eslint-enable no-console */
 
   /* eslint-disable max-len */
   const collectionContributions = useFragment<CollectionContributionListFragment$key>(
@@ -64,8 +96,10 @@ const fragment = graphql`
       slug
       createdAt
       updatedAt
+      role
       collection {
         title
+        slug
       }
     }
     ...ModelPaginationFragment

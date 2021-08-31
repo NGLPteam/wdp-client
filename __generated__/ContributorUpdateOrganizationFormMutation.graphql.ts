@@ -67,6 +67,14 @@ fragment ContributorOrganizationFormFragment on OrganizationContributor {
   location
   bio
   url
+  image {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -167,6 +175,13 @@ v3 = {
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -263,11 +278,46 @@ return {
                 "name": "bio",
                 "storageKey": null
               },
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "url",
+                "concreteType": "AssetPreview",
+                "kind": "LinkedField",
+                "name": "image",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImageMap",
+                    "kind": "LinkedField",
+                    "name": "thumb",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "PreviewImage",
+                        "kind": "LinkedField",
+                        "name": "png",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "alt",
+                            "storageKey": null
+                          },
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               },
               {
@@ -287,12 +337,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "db8199e83751dcf78989a0bbf1031838",
+    "cacheID": "2016467b72aa84818914ae31c17b7be8",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorOrganizationFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorOrganizationFormFragment on OrganizationContributor {\n  legalName\n  email\n  location\n  bio\n  url\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorOrganizationFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorOrganizationFormFragment on OrganizationContributor {\n  legalName\n  email\n  location\n  bio\n  url\n  image {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

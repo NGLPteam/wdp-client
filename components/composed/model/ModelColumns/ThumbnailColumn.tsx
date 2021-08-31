@@ -25,17 +25,15 @@ const ThumbnailColumn = <NodeType extends ThumbnailNode>(
   return {
     Header: <span className="a-hidden">Thumbnail</span>,
     id: "thumbnail",
-    accessor: (row: NodeType) => row.thumbnail,
+    accessor: (row: NodeType) => row?.thumbnail?.image,
     disableSortBy: true,
-    Cell: ({ grid = false, value }: { grid: boolean; value: Thumbnail }) => {
-      const { image } = value;
-      if (!image || !image.png) return null;
+    Cell: ({ grid = false, value }: { grid: boolean; value: Image }) => {
+      if (!value || !value?.png) return null;
+      const { png } = value;
       const width = grid ? 180 : 50;
       const height = grid ? 180 : 50;
       const objectFit = "contain";
       const objectPosition = grid ? undefined : "center";
-
-      const png = image.png;
 
       return png ? (
         <Image

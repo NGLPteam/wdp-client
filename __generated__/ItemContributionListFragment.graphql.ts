@@ -9,7 +9,9 @@ export type ItemContributionListFragment = {
         readonly slug: string;
         readonly createdAt: string;
         readonly updatedAt: string;
+        readonly role: string | null;
         readonly item: {
+            readonly slug: string;
             readonly title: string | null;
         };
     }>;
@@ -24,7 +26,15 @@ export type ItemContributionListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -38,13 +48,7 @@ const node: ReaderFragment = {
       "name": "nodes",
       "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -62,11 +66,19 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "role",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Item",
           "kind": "LinkedField",
           "name": "item",
           "plural": false,
           "selections": [
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -94,5 +106,6 @@ const node: ReaderFragment = {
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = '0635c3e4dde816dfc693d2a6bc869754';
+})();
+(node as any).hash = '50ad1cfedf9b94fd4149704f46ffb406';
 export default node;

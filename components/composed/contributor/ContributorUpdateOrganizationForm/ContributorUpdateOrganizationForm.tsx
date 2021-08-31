@@ -54,7 +54,10 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
   );
 }
 
-type Fields = Omit<UpdateOrganizationContributorInput, "contributorId">;
+type Fields = Omit<
+  UpdateOrganizationContributorInput,
+  "contributorId" | "image"
+>;
 
 interface Props {
   data: ContributorUpdateOrganizationFormFragment$key;

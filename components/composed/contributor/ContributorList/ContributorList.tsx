@@ -24,6 +24,12 @@ function ContributorList<T extends OperationType>({
   const { t } = useTranslation("common");
 
   const columns = [
+    ModelColumns.ThumbnailColumn<ContributorNode>({
+      accessor: (row) => {
+        if (row.__typename === "%other") return null;
+        return row?.image?.thumb;
+      },
+    }),
     ModelColumns.NameColumn<ContributorNode>({
       route: "contributor",
       id: "name",
@@ -94,6 +100,15 @@ const fragment = graphql`
         name: legalName
         createdAt
         updatedAt
+        image {
+          alt
+          thumb {
+            dimensions
+            png {
+              url
+            }
+          }
+        }
       }
       ... on PersonContributor {
         slug
@@ -101,6 +116,15 @@ const fragment = graphql`
         lastName: familyName
         createdAt
         updatedAt
+        image {
+          alt
+          thumb {
+            dimensions
+            png {
+              url
+            }
+          }
+        }
       }
     }
     ...ModelPaginationFragment

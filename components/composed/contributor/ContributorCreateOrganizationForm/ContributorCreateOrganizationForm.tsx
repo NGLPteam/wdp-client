@@ -44,7 +44,10 @@ export default function ContributorCreateOrganizationForm() {
   );
 }
 
-type Fields = Omit<CreateOrganizationContributorInput, "clientMutationId">;
+type Fields = Omit<
+  CreateOrganizationContributorInput,
+  "clientMutationId" | "image"
+>;
 
 const mutation = graphql`
   mutation ContributorCreateOrganizationFormMutation(
