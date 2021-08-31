@@ -1,8 +1,14 @@
 import React from "react";
 import { ButtonControl } from "components/atomic";
-import { Fieldset, Input } from "components/atomic/forms";
+import { Fieldset } from "components/atomic/forms";
 import { useFieldArray } from "react-hook-form";
-import type { FieldValues, Control, UseFormRegister } from "react-hook-form";
+import type {
+  ArrayPath,
+  FieldValues,
+  Control,
+  UseFormRegister,
+} from "react-hook-form";
+import { Forms } from "components/api/MutationForm";
 
 function ContributorLinksInput<T extends FieldValues = FieldValues>({
   label,
@@ -23,16 +29,14 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
     <Fieldset label={label}>
       {fields.map((field, index) => (
         <Fieldset.Fields key={field.id}>
-          <Input
+          <Forms.Input
             label="Title"
-            {...register(`${name}.${index}.title`)}
-            defaultValue={field.title}
+            {...register(`${name}.${index}.title` as const)}
           />
-          <Input
+          <Forms.Input
             label="URL"
             type="url"
-            {...register(`${name}.${index}.url`)}
-            defaultValue={field.url}
+            {...register(`${name}.${index}.url` as const)}
           />
           <ButtonControl
             type="button"
@@ -55,7 +59,7 @@ interface Props<T extends FieldValues = FieldValues> {
   label: string;
   register: UseFormRegister<Partial<T>>;
   control: Control<T>;
-  name: string;
+  name: ArrayPath<T>;
 }
 
 export default ContributorLinksInput;

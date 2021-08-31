@@ -47,43 +47,6 @@ fragment ContributorLayoutFragment on AnyContributor {
   }
 }
 
-fragment ContributorOrganizationFormFragment on OrganizationContributor {
-  legalName
-  email
-  location
-  bio
-  url
-  image {
-    thumb {
-      png {
-        alt
-        url
-      }
-    }
-  }
-}
-
-fragment ContributorPersonFormFragment on PersonContributor {
-  givenName
-  familyName
-  title
-  email
-  affiliation
-  bio
-  image {
-    thumb {
-      png {
-        alt
-        url
-      }
-    }
-  }
-  links {
-    title
-    url
-  }
-}
-
 fragment ContributorUpdateFormFragment on AnyContributor {
   __isAnyContributor: __typename
   __typename
@@ -99,7 +62,19 @@ fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
   __isAnyContributor: __typename
   ... on OrganizationContributor {
     contributorId: id
-    ...ContributorOrganizationFormFragment
+    legalName
+    email
+    location
+    bio
+    url
+    image {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 }
 
@@ -107,11 +82,24 @@ fragment ContributorUpdatePersonFormFragment on AnyContributor {
   __isAnyContributor: __typename
   ... on PersonContributor {
     contributorId: id
+    givenName
+    familyName
+    title
+    email
+    affiliation
+    bio
+    image {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
     links {
       title
       url
     }
-    ...ContributorPersonFormFragment
   }
 }
 */
@@ -149,21 +137,21 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "url",
+  "name": "email",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "email",
+  "name": "bio",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "bio",
+  "name": "url",
   "storageKey": null
 },
 v7 = {
@@ -197,7 +185,7 @@ v7 = {
               "name": "alt",
               "storageKey": null
             },
-            (v4/*: any*/)
+            (v6/*: any*/)
           ],
           "storageKey": null
         }
@@ -291,19 +279,6 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ContributorLink",
-                        "kind": "LinkedField",
-                        "name": "links",
-                        "plural": true,
-                        "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/)
-                        ],
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
                         "kind": "ScalarField",
                         "name": "givenName",
                         "storageKey": null
@@ -316,7 +291,7 @@ return {
                         "storageKey": null
                       },
                       (v3/*: any*/),
-                      (v5/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -324,8 +299,21 @@ return {
                         "name": "affiliation",
                         "storageKey": null
                       },
-                      (v6/*: any*/),
-                      (v7/*: any*/)
+                      (v5/*: any*/),
+                      (v7/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ContributorLink",
+                        "kind": "LinkedField",
+                        "name": "links",
+                        "plural": true,
+                        "selections": [
+                          (v3/*: any*/),
+                          (v6/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
                     ],
                     "type": "PersonContributor",
                     "abstractKey": null
@@ -369,7 +357,7 @@ return {
                         "name": "legalName",
                         "storageKey": null
                       },
-                      (v5/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -377,8 +365,8 @@ return {
                         "name": "location",
                         "storageKey": null
                       },
+                      (v5/*: any*/),
                       (v6/*: any*/),
-                      (v4/*: any*/),
                       (v7/*: any*/)
                     ],
                     "type": "OrganizationContributor",
@@ -412,12 +400,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "34cce75ae2f5392f3b4323383dee90a0",
+    "cacheID": "b50b3cbf40aa05d74db2d3c3238296ea",
     "id": null,
     "metadata": {},
     "name": "detailsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query detailsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ContributorOrganizationFormFragment on OrganizationContributor {\n  legalName\n  email\n  location\n  bio\n  url\n  image {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment ContributorPersonFormFragment on PersonContributor {\n  givenName\n  familyName\n  title\n  email\n  affiliation\n  bio\n  image {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  links {\n    title\n    url\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    links {\n      title\n      url\n    }\n    ...ContributorPersonFormFragment\n  }\n}\n"
+    "text": "query detailsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    legalName\n    email\n    location\n    bio\n    url\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n"
   }
 };
 })();

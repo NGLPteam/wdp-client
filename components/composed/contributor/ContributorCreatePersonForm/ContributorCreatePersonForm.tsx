@@ -6,13 +6,14 @@ import MutationForm, {
   useGetErrors,
   useRenderForm,
   useToVariables,
+  Forms,
 } from "components/api/MutationForm";
+import ContributorLinksInput from "../ContributorLinksInput";
 
 import type {
   ContributorCreatePersonFormMutation,
   CreatePersonContributorInput,
 } from "@/relay/ContributorCreatePersonFormMutation.graphql";
-import ContributorPersonForm from "../ContributorPersonForm";
 
 export default function ContributorCreatePersonForm() {
   const getErrors = useGetErrors<ContributorCreatePersonFormMutation>(
@@ -22,11 +23,25 @@ export default function ContributorCreatePersonForm() {
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
-      <ContributorPersonForm
-        data={null}
-        register={register}
-        control={control}
-      />
+      <Forms.Grid>
+        <Forms.Input label="First Name" {...register("givenName")} />
+        <Forms.Input label="Last Name" {...register("familyName")} />
+        <Forms.FileUpload label="Image" name="image" />
+        <Forms.Input label="Title" {...register("title")} />
+        <Forms.Email
+          label="Email"
+          {...register("email")}
+          description="Format: example@email.com"
+        />
+        <Forms.Input label="Affiliation" {...register("affiliation")} />
+        <Forms.Textarea label="Bio" {...register("bio")} />
+        <ContributorLinksInput<Fields>
+          label="Links"
+          name="links"
+          register={register}
+          control={control}
+        />
+      </Forms.Grid>
     ),
     []
   );
@@ -57,7 +72,24 @@ const mutation = graphql`
     createPersonContributor(input: $input) {
       contributor {
         __typename
-        ...ContributorPersonFormFragment
+        givenName
+        familyName
+        title
+        email
+        affiliation
+        bio
+        image {
+          thumb {
+            png {
+              alt
+              url
+            }
+          }
+        }
+        links {
+          title
+          url
+        }
       }
       ...MutationForm_mutationErrors
     }

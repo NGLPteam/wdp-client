@@ -4,8 +4,9 @@ import MutationForm, {
   useRenderForm,
   useGetErrors,
   useToVariables,
+  Forms,
 } from "components/api/MutationForm";
-import ContributorPersonForm from "components/composed/contributor/ContributorPersonForm";
+import ContributorLinksInput from "../ContributorLinksInput";
 
 import type {
   UpdatePersonContributorInput,
@@ -14,15 +15,37 @@ import type {
 import type { ContributorUpdatePersonFormFragment$key } from "@/relay/ContributorUpdatePersonFormFragment.graphql";
 
 export default function ContributorUpdatePersonForm({ data }: Props) {
-  const { links, ...contributor } = useFragment(fragment, data);
+  const { contributorId, image, ...defaultValues } = useFragment(
+    fragment,
+    data
+  );
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
-      <ContributorPersonForm
-        data={contributor}
-        register={register}
-        control={control}
-      />
+      <Forms.Grid>
+        <Forms.Input label="First Name" {...register("givenName")} />
+        <Forms.Input label="Last Name" {...register("familyName")} />
+        <Forms.FileUpload
+          label="Image"
+          name="image"
+          image={image?.thumb}
+          existingValue={image !== null}
+        />
+        <Forms.Input label="Title" {...register("title")} />
+        <Forms.Email
+          label="Email"
+          description="Format: example@email.com"
+          {...register("email")}
+        />
+        <Forms.Input label="Affiliation" {...register("affiliation")} />
+        <Forms.Textarea label="Bio" {...register("bio")} />
+        <ContributorLinksInput
+          label="Links"
+          name="links"
+          register={register}
+          control={control}
+        />
+      </Forms.Grid>
     ),
     []
   );
@@ -36,8 +59,6 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
     ContributorUpdatePersonFormMutation,
     Fields
   >((data) => {
-    const { contributorId } = contributor;
-
     // TODO: Why does relay think the contributor ID can be unknown?
     if (!contributorId)
       throw new Error("Contributor ID must be present in contributor update");
@@ -50,7 +71,7 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
       mutation={mutation}
       getErrors={getErrors}
       toVariables={toVariables}
-      defaultValues={{ links }}
+      defaultValues={defaultValues}
     >
       {renderForm}
     </MutationForm>
@@ -69,7 +90,24 @@ const mutation = graphql`
   ) {
     updatePersonContributor(input: $input) {
       contributor {
-        ...ContributorPersonFormFragment
+        givenName
+        familyName
+        title
+        email
+        affiliation
+        bio
+        image {
+          thumb {
+            png {
+              alt
+              url
+            }
+          }
+        }
+        links {
+          title
+          url
+        }
       }
       ...MutationForm_mutationErrors
     }
@@ -80,11 +118,24 @@ const fragment = graphql`
   fragment ContributorUpdatePersonFormFragment on AnyContributor {
     ... on PersonContributor {
       contributorId: id
+      givenName
+      familyName
+      title
+      email
+      affiliation
+      bio
+      image {
+        thumb {
+          png {
+            alt
+            url
+          }
+        }
+      }
       links {
         title
         url
       }
-      ...ContributorPersonFormFragment
     }
   }
 `;
