@@ -44,7 +44,7 @@ export default function ContributorCreatePersonForm() {
   );
 }
 
-type Fields = Omit<CreatePersonContributorInput, "clientMutationId">;
+type Fields = Omit<CreatePersonContributorInput, "clientMutationId" | "image">;
 
 const mutation = graphql`
   mutation ContributorCreatePersonFormMutation(

@@ -11,6 +11,15 @@ export type ContributorListFragment = {
         readonly name: string | null;
         readonly createdAt: string;
         readonly updatedAt: string;
+        readonly image: {
+            readonly alt: string;
+            readonly thumb: {
+                readonly dimensions: ReadonlyArray<number>;
+                readonly png: {
+                    readonly url: string;
+                } | null;
+            };
+        } | null;
     } | {
         readonly __typename: "PersonContributor";
         readonly slug: string;
@@ -18,6 +27,15 @@ export type ContributorListFragment = {
         readonly lastName: string | null;
         readonly createdAt: string;
         readonly updatedAt: string;
+        readonly image: {
+            readonly alt: string;
+            readonly thumb: {
+                readonly dimensions: ReadonlyArray<number>;
+                readonly png: {
+                    readonly url: string;
+                } | null;
+            };
+        } | null;
     } | {
         /*This will never be '%other', but we need some
         value in case none of the concrete values match.*/
@@ -55,6 +73,60 @@ v2 = {
   "kind": "ScalarField",
   "name": "updatedAt",
   "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "AssetPreview",
+  "kind": "LinkedField",
+  "name": "image",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "alt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PreviewImageMap",
+      "kind": "LinkedField",
+      "name": "thumb",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "dimensions",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PreviewImage",
+          "kind": "LinkedField",
+          "name": "png",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -89,7 +161,8 @@ return {
               "storageKey": null
             },
             (v1/*: any*/),
-            (v2/*: any*/)
+            (v2/*: any*/),
+            (v3/*: any*/)
           ],
           "type": "OrganizationContributor",
           "abstractKey": null
@@ -113,7 +186,8 @@ return {
               "storageKey": null
             },
             (v1/*: any*/),
-            (v2/*: any*/)
+            (v2/*: any*/),
+            (v3/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
@@ -136,5 +210,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '11f27cb90846717ba3635d9225546edb';
+(node as any).hash = '23e54a52d757d67131095356c360d033';
 export default node;

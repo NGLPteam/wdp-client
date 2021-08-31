@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useMemo } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
+import { Image } from "components/atomic";
 import { IconFactory } from "components/factories";
 
 import useLazyRef from "hooks/useLazyRef";
@@ -43,6 +43,8 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
   description,
   error,
   required,
+  image,
+  existingValue,
   ...inputProps
 }: Props<T>) {
   const uppy = useUppy();
@@ -98,6 +100,21 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
     [name, state.upload, setValue]
   );
 
+  const renderImage = useMemo(() => {
+    return () => {
+      if (!image) return null;
+      const { png } = image;
+      if (!png) return null;
+      const width = 100;
+      const height = 100;
+      const objectFit = "contain";
+      const alt = png.alt ? png.alt : t("forms.file.missingAlt");
+      return (
+        <Image image={{ ...png, alt, width, height }} objectFit={objectFit} />
+      );
+    };
+  }, []);
+
   return (
     <BaseInputWrapper hideLabel={hideLabel} label={label} name={name}>
       {({ uid }) => (
@@ -119,16 +136,28 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
             percentUploaded={state.percentUploaded}
           />
           <UploadStatus state={state} />
+          {renderImage()}
         </Styled.Wrapper>
       )}
     </BaseInputWrapper>
   );
 }
 
+export interface Png {
+  alt: string;
+  url: string;
+}
+
+export interface Image {
+  png?: Png | null;
+}
+
 export interface Props<T extends FieldValues = FieldValues>
   extends InputProps<T> {
   accept?: string;
   name: Path<T>;
+  image?: Image | null;
+  existingValue?: Boolean;
 }
 
 function UploadStatus({ state: { file, upload } }: UploadStatusProps) {

@@ -22,16 +22,21 @@
   },
   "drawers": {
     "createPerson.title": "Create New Person",
-    "createOrganization.title": "Create New Organization"
+    "createOrganization.title": "Create New Organization",
+    "editItemContribution.title": "Edit Item Contribution",
+    "editCollectionContribution.title": "Edit Collection Contribution"
   },
   "actions": {
     "create.contributor.person": "Create Person",
-    "create.contributor.organization": "Create Organization"
+    "create.contributor.organization": "Create Organization",
+    "edit.itemContribution": "Edit Item Contribution",
+    "edit.collectionContribution": "Edit Collection Contribution"
   },
   "forms": {
     "file": {
       "upload": "Upload a file \n or drag and drop here",
-      "count": "...and {{count}} more"
+      "count": "...and {{count}} more",
+      "missingAlt": "Alt text not provided"
     },
     "validation": {
       "uploaded": {

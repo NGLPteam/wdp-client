@@ -55,7 +55,7 @@ interface Props {
   data: ContributorUpdatePersonFormFragment$key;
 }
 
-type Fields = Omit<UpdatePersonContributorInput, "contributorId">;
+type Fields = Omit<UpdatePersonContributorInput, "contributorId" | "image">;
 
 const mutation = graphql`
   mutation ContributorUpdatePersonFormMutation(

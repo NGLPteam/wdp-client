@@ -5,7 +5,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import { useRouteSlug } from "hooks/useRouteSlug";
 import { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
-import CollectionContributionList from "components/composed/contributions/CollectionContributionList";
+import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
 
 const ContributorCollectionContributions: Page = () => {
   const slug = useRouteSlug();

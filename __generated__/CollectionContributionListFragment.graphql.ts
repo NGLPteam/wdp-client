@@ -9,8 +9,10 @@ export type CollectionContributionListFragment = {
         readonly slug: string;
         readonly createdAt: string;
         readonly updatedAt: string;
+        readonly role: string | null;
         readonly collection: {
             readonly title: string | null;
+            readonly slug: string;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
@@ -24,7 +26,15 @@ export type CollectionContributionListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -38,13 +48,7 @@ const node: ReaderFragment = {
       "name": "nodes",
       "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -62,6 +66,13 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "role",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Collection",
           "kind": "LinkedField",
           "name": "collection",
@@ -73,7 +84,8 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "title",
               "storageKey": null
-            }
+            },
+            (v0/*: any*/)
           ],
           "storageKey": null
         }
@@ -94,5 +106,6 @@ const node: ReaderFragment = {
   "type": "CollectionContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = '8b249503844371e2a8ba34d8b4b14fcb';
+})();
+(node as any).hash = '581f88236b975cce95c60d5490157631';
 export default node;

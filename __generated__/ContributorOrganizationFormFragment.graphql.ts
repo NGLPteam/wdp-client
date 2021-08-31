@@ -10,6 +10,14 @@ export type ContributorOrganizationFormFragment = {
     readonly location: string | null;
     readonly bio: string | null;
     readonly url: string | null;
+    readonly image: {
+        readonly thumb: {
+            readonly png: {
+                readonly alt: string;
+                readonly url: string;
+            } | null;
+        };
+    } | null;
     readonly " $refType": "ContributorOrganizationFormFragment";
 };
 export type ContributorOrganizationFormFragment$data = ContributorOrganizationFormFragment;
@@ -20,7 +28,15 @@ export type ContributorOrganizationFormFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -54,16 +70,52 @@ const node: ReaderFragment = {
       "name": "bio",
       "storageKey": null
     },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "url",
+      "concreteType": "AssetPreview",
+      "kind": "LinkedField",
+      "name": "image",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PreviewImageMap",
+          "kind": "LinkedField",
+          "name": "thumb",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PreviewImage",
+              "kind": "LinkedField",
+              "name": "png",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "alt",
+                  "storageKey": null
+                },
+                (v0/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "OrganizationContributor",
   "abstractKey": null
 };
-(node as any).hash = '772f513975b4aaf329145089e00689a6';
+})();
+(node as any).hash = '7516de92b4b3e58d9bae5bfcd6ea0cfa';
 export default node;
