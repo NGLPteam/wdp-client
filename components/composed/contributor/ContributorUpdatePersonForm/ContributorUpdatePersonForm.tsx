@@ -71,7 +71,7 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
       mutation={mutation}
       getErrors={getErrors}
       toVariables={toVariables}
-      defaultValues={defaultValues}
+      defaultValues={defaultValues as Fields}
     >
       {renderForm}
     </MutationForm>
