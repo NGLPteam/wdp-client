@@ -7,7 +7,7 @@ export {
   useRenderForm,
   useToVariables,
 } from "./hooks";
-export * as Forms from "components/atomic/forms";
+export * as Forms from "components/forms";
 export type {
   IsSuccessPredicate,
   OnFailureCallback,

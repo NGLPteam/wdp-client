@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox } from "components/atomic/forms";
+import { Checkbox } from "components/forms";
 import * as Styled from "./Grid.styles";
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>;

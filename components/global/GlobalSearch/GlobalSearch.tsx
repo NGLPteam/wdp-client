@@ -1,5 +1,5 @@
 import React from "react";
-import { Search } from "components/atomic/forms";
+import { Search } from "components/forms";
 import { useRouter } from "next/router";
 
 const GlobalSearch = () => {
