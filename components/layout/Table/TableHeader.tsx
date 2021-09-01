@@ -2,7 +2,7 @@ import React from "react";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
-import { Checkbox } from "components/atomic/forms";
+import { Checkbox } from "components/forms";
 import { HeaderGroup, ColumnInstance } from "react-table";
 import { CheckboxProps } from "types/form-fields";
 

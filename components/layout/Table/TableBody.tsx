@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
-import { Checkbox } from "components/atomic/forms";
+import { Checkbox } from "components/forms";
 import type { Row, Cell } from "react-table";
 
 function TableBody<T extends Record<string, unknown>>({ rows }: Props<T>) {
