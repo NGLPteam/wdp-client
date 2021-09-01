@@ -6,19 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateOrganizationFormFragment = {
     readonly contributorId?: string;
-    readonly legalName?: string | null;
-    readonly email?: string | null;
-    readonly location?: string | null;
-    readonly bio?: string | null;
-    readonly url?: string | null;
-    readonly image?: {
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string;
-                readonly url: string;
-            } | null;
-        };
-    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
     readonly " $refType": "ContributorUpdateOrganizationFormFragment";
 };
 export type ContributorUpdateOrganizationFormFragment$data = ContributorUpdateOrganizationFormFragment;
@@ -29,15 +17,7 @@ export type ContributorUpdateOrganizationFormFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -54,74 +34,9 @@ return {
           "storageKey": null
         },
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "legalName",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "email",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "location",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "bio",
-          "storageKey": null
-        },
-        (v0/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "AssetPreview",
-          "kind": "LinkedField",
-          "name": "image",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "PreviewImageMap",
-              "kind": "LinkedField",
-              "name": "thumb",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "PreviewImage",
-                  "kind": "LinkedField",
-                  "name": "png",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "alt",
-                      "storageKey": null
-                    },
-                    (v0/*: any*/)
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "ContributorUpdateOrganizationFormFieldsFragment"
         }
       ],
       "type": "OrganizationContributor",
@@ -131,6 +46,5 @@ return {
   "type": "AnyContributor",
   "abstractKey": "__isAnyContributor"
 };
-})();
-(node as any).hash = 'cce45e88707c79fb9ad1175c05825e97';
+(node as any).hash = '8aac5d127955ead680077e83080d9d09';
 export default node;

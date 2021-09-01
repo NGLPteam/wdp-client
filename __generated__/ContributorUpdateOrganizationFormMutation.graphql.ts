@@ -36,19 +36,7 @@ export type ContributorUpdateOrganizationFormMutationVariables = {
 export type ContributorUpdateOrganizationFormMutationResponse = {
     readonly updateOrganizationContributor: {
         readonly contributor: {
-            readonly legalName: string | null;
-            readonly email: string | null;
-            readonly location: string | null;
-            readonly bio: string | null;
-            readonly url: string | null;
-            readonly image: {
-                readonly thumb: {
-                    readonly png: {
-                        readonly alt: string;
-                        readonly url: string;
-                    } | null;
-                };
-            } | null;
+            readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -66,22 +54,29 @@ mutation ContributorUpdateOrganizationFormMutation(
 ) {
   updateOrganizationContributor(input: $input) {
     contributor {
-      legalName
-      email
-      location
-      bio
-      url
-      image {
-        thumb {
-          png {
-            alt
-            url
-          }
-        }
-      }
+      ...ContributorUpdateOrganizationFormFieldsFragment
       id
     }
     ...MutationForm_mutationErrors
+  }
+}
+
+fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
+  __isAnyContributor: __typename
+  ... on OrganizationContributor {
+    legalName
+    email
+    location
+    bio
+    url
+    image {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 }
 
@@ -116,83 +111,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "legalName",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "location",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "bio",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "AssetPreview",
-  "kind": "LinkedField",
-  "name": "image",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PreviewImageMap",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PreviewImage",
-          "kind": "LinkedField",
-          "name": "png",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "alt",
-              "storageKey": null
-            },
-            (v6/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v8 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -201,7 +120,7 @@ v8 = [
     "storageKey": null
   }
 ],
-v9 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -243,7 +162,7 @@ v9 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v8/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     },
     {
@@ -253,12 +172,19 @@ v9 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v8/*: any*/),
+      "selections": (v2/*: any*/),
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -283,12 +209,11 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/)
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ContributorUpdateOrganizationFormFieldsFragment"
+              }
             ],
             "storageKey": null
           },
@@ -296,7 +221,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v9/*: any*/)
+              (v3/*: any*/)
             ]
           }
         ],
@@ -328,37 +253,115 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "id",
                 "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "legalName",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "email",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "location",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "bio",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "AssetPreview",
+                        "kind": "LinkedField",
+                        "name": "image",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "PreviewImageMap",
+                            "kind": "LinkedField",
+                            "name": "thumb",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "PreviewImage",
+                                "kind": "LinkedField",
+                                "name": "png",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "alt",
+                                    "storageKey": null
+                                  },
+                                  (v4/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "type": "OrganizationContributor",
+                    "abstractKey": null
+                  }
+                ],
+                "type": "AnyContributor",
+                "abstractKey": "__isAnyContributor"
               }
             ],
             "storageKey": null
           },
-          (v9/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "bc76b0ec6d39b6d6bcc10f692c587411",
+    "cacheID": "36b26cdfdf0947597cd7b72ed7ac5adf",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      legalName\n      email\n      location\n      bio\n      url\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorUpdateOrganizationFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'eb050ca6a42ccb1829f4b9491db95c14';
+(node as any).hash = 'cb2d4047fc230e76269381002bc0062d';
 export default node;

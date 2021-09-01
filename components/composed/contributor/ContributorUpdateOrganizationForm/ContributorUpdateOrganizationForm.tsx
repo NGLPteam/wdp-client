@@ -12,11 +12,17 @@ import type {
   UpdateOrganizationContributorInput,
   ContributorUpdateOrganizationFormMutation,
 } from "@/relay/ContributorUpdateOrganizationFormMutation.graphql";
+import type { ContributorUpdateOrganizationFormFieldsFragment$key } from "@/relay/ContributorUpdateOrganizationFormFieldsFragment.graphql";
 
 export default function ContributorUpdateOrganizationForm({ data }: Props) {
-  const { contributorId, image, ...defaultValues } = useFragment(
-    fragment,
-    data
+  const { contributorId, ...fieldsData } = useFragment(fragment, data);
+
+  const {
+    image,
+    ...defaultValues
+  } = useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -79,35 +85,9 @@ interface Props {
   data: ContributorUpdateOrganizationFormFragment$key;
 }
 
-const mutation = graphql`
-  mutation ContributorUpdateOrganizationFormMutation(
-    $input: UpdateOrganizationContributorInput!
-  ) {
-    updateOrganizationContributor(input: $input) {
-      contributor {
-        legalName
-        email
-        location
-        bio
-        url
-        image {
-          thumb {
-            png {
-              alt
-              url
-            }
-          }
-        }
-      }
-      ...MutationForm_mutationErrors
-    }
-  }
-`;
-
-const fragment = graphql`
-  fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
+const fieldsFragment = graphql`
+  fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
     ... on OrganizationContributor {
-      contributorId: id
       legalName
       email
       location
@@ -121,6 +101,28 @@ const fragment = graphql`
           }
         }
       }
+    }
+  }
+`;
+
+const mutation = graphql`
+  mutation ContributorUpdateOrganizationFormMutation(
+    $input: UpdateOrganizationContributorInput!
+  ) {
+    updateOrganizationContributor(input: $input) {
+      contributor {
+        ...ContributorUpdateOrganizationFormFieldsFragment
+      }
+      ...MutationForm_mutationErrors
+    }
+  }
+`;
+
+const fragment = graphql`
+  fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
+    ... on OrganizationContributor {
+      contributorId: id
+      ...ContributorUpdateOrganizationFormFieldsFragment
     }
   }
 `;
