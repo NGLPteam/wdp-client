@@ -20,3 +20,5 @@ interface Props {
 export default Fieldset;
 
 Fieldset.Fields = Styled.Fields;
+Fieldset.Field = Styled.Field;
+Fieldset.Actions = Styled.Actions;

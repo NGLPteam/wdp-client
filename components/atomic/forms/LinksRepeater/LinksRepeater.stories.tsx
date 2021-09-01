@@ -1,13 +1,13 @@
 import React from "react";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
-import ContributorLinksInput from "./ContributorLinksInput";
+import LinksRepeater from "./LinksRepeater";
 
-type Props = React.ComponentProps<typeof ContributorLinksInput>;
+type Props = React.ComponentProps<typeof LinksRepeater>;
 
 export default {
-  title: "Components/Composed/Contributor/ContributorLinksInput",
-  component: ContributorLinksInput,
+  title: "Components/Atomic/Forms/LinksRepeater",
+  component: LinksRepeater,
 };
 
 type FieldValues = {
@@ -21,17 +21,14 @@ export const InAForm: Story<Props> = (args) => {
   return (
     <NullForm<FieldValues>>
       {({ form: { register, control } }) => (
-        <ContributorLinksInput
-          {...args}
-          register={register}
-          control={control}
-        />
+        <LinksRepeater {...args} register={register} control={control} />
       )}
     </NullForm>
   );
 };
 
 InAForm.args = {
-  label: "Links:",
+  label: "Links",
+  itemLabel: "Link",
   name: "links",
 };

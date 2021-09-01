@@ -6,7 +6,7 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-import ContributorLinksInput from "../ContributorLinksInput";
+import { LinksRepeater } from "components/atomic/forms";
 
 import type {
   UpdatePersonContributorInput,
@@ -45,8 +45,9 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
         />
         <Forms.Input label="Affiliation" {...register("affiliation")} />
         <Forms.Textarea label="Bio" {...register("bio")} />
-        <ContributorLinksInput
+        <LinksRepeater
           label="Links"
+          itemLabel="Link"
           name="links"
           register={register}
           control={control}

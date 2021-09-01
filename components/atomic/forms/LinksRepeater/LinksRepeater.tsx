@@ -10,8 +10,9 @@ import type {
 } from "react-hook-form";
 import { Forms } from "components/api/MutationForm";
 
-function ContributorLinksInput<T extends FieldValues = FieldValues>({
+function LinksRepeater<T extends FieldValues = FieldValues>({
   label,
+  itemLabel,
   register,
   control,
   name,
@@ -29,27 +30,33 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
     <Fieldset label={label}>
       {fields.map((field, index) => (
         <Fieldset.Fields key={field.id}>
-          <Forms.Input
-            label="Title"
-            {...register(`${name}.${index}.title` as Path<Partial<T>>)}
-          />
-          <Forms.Input
-            label="URL"
-            type="url"
-            {...register(`${name}.${index}.url` as Path<Partial<T>>)}
-          />
-          <ButtonControl
-            type="button"
-            aria-label="Remove Link"
-            onClick={() => {
-              remove(index);
-            }}
-            icon="delete"
-          />
+          <Fieldset.Field>
+            <Forms.Input
+              label="Title"
+              {...register(`${name}.${index}.title` as Path<Partial<T>>)}
+            />
+          </Fieldset.Field>
+          <Fieldset.Field>
+            <Forms.Input
+              label="URL"
+              type="url"
+              {...register(`${name}.${index}.url` as Path<Partial<T>>)}
+            />
+          </Fieldset.Field>
+          <Fieldset.Actions>
+            <ButtonControl
+              type="button"
+              aria-label={`Remove ${itemLabel}`}
+              onClick={() => {
+                remove(index);
+              }}
+              icon="delete"
+            />
+          </Fieldset.Actions>
         </Fieldset.Fields>
       ))}
       <ButtonControl type="button" onClick={handleAddField} icon="plus">
-        Add New Link
+        Add New {itemLabel}
       </ButtonControl>
     </Fieldset>
   );
@@ -57,9 +64,10 @@ function ContributorLinksInput<T extends FieldValues = FieldValues>({
 
 interface Props<T extends FieldValues = FieldValues> {
   label: string;
+  itemLabel: string;
   register: UseFormRegister<Partial<T>>;
   control: Control;
   name: string;
 }
 
-export default ContributorLinksInput;
+export default LinksRepeater;
