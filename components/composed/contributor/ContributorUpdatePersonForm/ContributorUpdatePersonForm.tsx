@@ -13,11 +13,17 @@ import type {
   ContributorUpdatePersonFormMutation,
 } from "@/relay/ContributorUpdatePersonFormMutation.graphql";
 import type { ContributorUpdatePersonFormFragment$key } from "@/relay/ContributorUpdatePersonFormFragment.graphql";
+import type { ContributorUpdatePersonFormFieldsFragment$key } from "@/relay/ContributorUpdatePersonFormFieldsFragment.graphql";
 
 export default function ContributorUpdatePersonForm({ data }: Props) {
-  const { contributorId, image, ...defaultValues } = useFragment(
-    fragment,
-    data
+  const { contributorId, ...fieldsData } = useFragment(fragment, data);
+
+  const {
+    image,
+    ...defaultValues
+  } = useFragment<ContributorUpdatePersonFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -84,40 +90,9 @@ interface Props {
 
 type Fields = Omit<UpdatePersonContributorInput, "contributorId" | "image">;
 
-const mutation = graphql`
-  mutation ContributorUpdatePersonFormMutation(
-    $input: UpdatePersonContributorInput!
-  ) {
-    updatePersonContributor(input: $input) {
-      contributor {
-        givenName
-        familyName
-        title
-        email
-        affiliation
-        bio
-        image {
-          thumb {
-            png {
-              alt
-              url
-            }
-          }
-        }
-        links {
-          title
-          url
-        }
-      }
-      ...MutationForm_mutationErrors
-    }
-  }
-`;
-
-const fragment = graphql`
-  fragment ContributorUpdatePersonFormFragment on AnyContributor {
+const fieldsFragment = graphql`
+  fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
     ... on PersonContributor {
-      contributorId: id
       givenName
       familyName
       title
@@ -136,6 +111,28 @@ const fragment = graphql`
         title
         url
       }
+    }
+  }
+`;
+
+const mutation = graphql`
+  mutation ContributorUpdatePersonFormMutation(
+    $input: UpdatePersonContributorInput!
+  ) {
+    updatePersonContributor(input: $input) {
+      contributor {
+        ...ContributorUpdatePersonFormFieldsFragment
+      }
+      ...MutationForm_mutationErrors
+    }
+  }
+`;
+
+const fragment = graphql`
+  fragment ContributorUpdatePersonFormFragment on AnyContributor {
+    ... on PersonContributor {
+      contributorId: id
+      ...ContributorUpdatePersonFormFieldsFragment
     }
   }
 `;
