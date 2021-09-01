@@ -20,7 +20,7 @@ const Drawer = ({
 }: Props) => {
   const uidLabel = useUID();
   const uidDesc = useUID();
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const handleSave = () => {
     if (dialog && dialog.hide) dialog.hide();

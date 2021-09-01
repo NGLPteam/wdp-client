@@ -7,7 +7,7 @@ import { renderNavLink } from "helpers";
 
 function Footer() {
   const { footerData } = appData;
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   return (
     <Styled.Wrapper>

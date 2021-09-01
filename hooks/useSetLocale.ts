@@ -1,4 +1,4 @@
-import { updateI18n } from "../helpers/i18n";
+import { updateI18n } from "../i18n";
 
 export function useSetLocale(locale = "en"): void {
   // TODO: do this from the router query string, or get from user setting?

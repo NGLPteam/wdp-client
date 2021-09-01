@@ -5,7 +5,7 @@ import * as nextImage from "next/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";
-import i18n from "../helpers/i18n";
+import i18n from "../i18n";
 
 Object.defineProperty(nextImage, "default", {
   configurable: true,

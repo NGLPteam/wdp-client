@@ -21,7 +21,7 @@ type ContributorNode = ContributorListFragment["nodes"][number];
 function ContributorList<T extends OperationType>({
   data,
 }: ContributorListProps) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const columns = [
     ModelColumns.ThumbnailColumn<ContributorNode>({

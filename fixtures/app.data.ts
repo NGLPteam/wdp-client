@@ -1,31 +1,31 @@
 const COMMUNITIES_LINK = {
-  label: "glossary:community_plural",
+  label: "glossary.community_plural",
   route: "communities",
   actions: "communities.read",
   model: "communities",
 };
 
 const COLLECTIONS_LINK = {
-  label: "glossary:collection_plural",
+  label: "glossary.collection_plural",
   route: "collections",
   model: "collections",
 };
 
 const ITEMS_LINK = {
-  label: "glossary:item_plural",
+  label: "glossary.item_plural",
   route: "items",
   model: "items",
 };
 
 const USERS_LINK = {
-  label: "glossary:user_plural",
+  label: "glossary.user_plural",
   route: "users",
   actions: "users.read",
   model: "users",
 };
 
 const CONTRIBUTORS_LINK = {
-  label: "glossary:contributor_plural",
+  label: "glossary.contributor_plural",
   route: "contributors",
   actions: "contributors.read",
   model: "contributors",
@@ -54,11 +54,11 @@ const appData = {
     ],
   },
   footerData: {
-    about: "common:footer.about.body",
-    copyright: "common:footer.copyright",
+    about: "footer.about.body",
+    copyright: "footer.copyright",
     navigation: [
       {
-        header: "common:footer.manage",
+        header: "footer.manage",
         children: [
           COMMUNITIES_LINK,
           COLLECTIONS_LINK,
@@ -68,26 +68,26 @@ const appData = {
         ],
       },
       {
-        header: "common:footer.learn",
+        header: "footer.learn",
         children: [
           {
-            label: "common:footer.nav.features",
+            label: "footer.nav.features",
             href: "#",
           },
           {
-            label: "common:footer.nav.partners",
+            label: "footer.nav.partners",
             href: "#",
           },
           {
-            label: "common:footer.nav.in_use",
+            label: "footer.nav.in_use",
             href: "#",
           },
           {
-            label: "common:footer.nav.help",
+            label: "footer.nav.help",
             href: "#",
           },
           {
-            label: "common:footer.nav.contact",
+            label: "footer.nav.contact",
             href: "#",
           },
         ],

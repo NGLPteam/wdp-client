@@ -4,7 +4,7 @@ import * as Styled from "./ProgressBar.styles";
 import { useAutoProgress } from "hooks";
 
 const ProgressBar = ({ label }: Props) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
   const percentLoaded = useAutoProgress();
 
   return (

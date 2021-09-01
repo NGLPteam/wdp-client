@@ -9,7 +9,7 @@ export default function ContributorCreateOrganizationDrawer({
 }: {
   dialog: DialogProps;
 }) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   // TODO: Pass this in to the form
   // const onCreate = useCallback(() => {

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import * as Styled from "./ProgressBar.styles";
 
 export default function ProgressBar({ active, percentUploaded }: BarProps) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   if (!active) {
     return null;
