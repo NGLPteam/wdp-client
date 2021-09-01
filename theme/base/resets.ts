@@ -86,14 +86,6 @@ export default css`
     fill: currentColor;
   }
 
-  /* Reset common details gotchas */
-  details summary {
-    cursor: pointer;
-    > * {
-      display: inline;
-    }
-  }
-
   /* Remove button styling */
   button {
     padding: 0;
@@ -140,13 +132,22 @@ export default css`
 
   legend {
     display: table;
-    float: left;
+    float: inline-start;
     margin: 0;
     padding: 0;
     width: 100%;
 
     + * {
       clear: both;
+    }
+  }
+
+  /* Reset common details gotchas */
+  details summary {
+    cursor: pointer;
+
+    > * {
+      display: inline;
     }
   }
 `;
