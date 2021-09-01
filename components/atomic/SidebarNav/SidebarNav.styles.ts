@@ -22,6 +22,7 @@ export const Link = styled.a<LinkProps>`
   color: var(--color-light);
   transition: box-shadow var(--base-duration) var(--base-timing),
     var(--color-transition);
+  text-transform: capitalize;
   ${tHeading(3)}
 
   &:hover {

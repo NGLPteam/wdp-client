@@ -46,7 +46,7 @@ export default function ContributorLayout({
           data: [
             {
               href: { pathname: parentRoute.path },
-              label: capitalize(t("glossary.contributor", { count: 2 })),
+              label: capitalize(t("glossary.contributor.label", { count: 2 })),
             },
             {
               href: { pathname: mainRoute.path, query: { slug } },

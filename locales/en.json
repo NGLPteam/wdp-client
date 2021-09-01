@@ -72,26 +72,43 @@
       }
     },
     "glossary": {
-      "community": "community",
-      "community_plural": "communities",
-      "collection": "collection",
-      "collection_plural": "collections",
-      "item": "item",
-      "item_plural": "items",
-      "user": "user",
-      "user_plural": "users",
-      "contributor": "contributor",
-      "contributor_plural": "contributors"
+      "community": {
+        "label": "community",
+        "label_plural": "communities"
+      },
+      "collection": {
+        "label": "collection",
+        "label_plural": "collections"
+      },
+      "collection_contribution": {
+        "label": "collection $t(glossary.contribution.label_plural)"
+      },
+      "contribution": {
+        "label": "contribution",
+        "label_plural": "contributions"
+      },
+      "item": {
+        "label": "item",
+        "label_plural": "items"
+      },
+      "item_contribution": {
+        "label": "item $t(glossary.contribution.label_plural)"
+      },
+      "user": {
+        "label": "user",
+        "label_plural": "users"
+      },
+      "contributor": {
+        "label": "contributor",
+        "label_plural": "contributors",
+        "person": "Person",
+        "org": "Organization"
+      }
     },
-    "contributor_person": "Person",
-    "contributor_org": "Organization",
     "name": "name",
     "name_plural": "names",
     "title": "title",
     "title_plural": "titles",
-    "item_contribution": "item contribution",
-    "item_contribution_plural": "item contributions",
-    "collection_contribution": "collection contribution",
-    "collection_contribution_plural": "collection contributions"
+    "details": "Details"
   }
 }

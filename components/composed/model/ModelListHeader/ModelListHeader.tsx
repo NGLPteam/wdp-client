@@ -12,7 +12,7 @@ interface ModelHeaderProps {
 
 function ModelListHeader({ modelName, buttons }: ModelHeaderProps) {
   const { t } = useTranslation();
-  const title = modelName ? t(`glossary.${modelName}`, { count: 2 }) : "";
+  const title = modelName ? t(`glossary.${modelName}.label`, { count: 2 }) : "";
 
   let renderButtons;
   if (buttons) {
