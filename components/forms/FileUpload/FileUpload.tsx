@@ -49,7 +49,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 }: Props<T>) {
   const uppy = useUppy();
 
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const { uploadRef, uploaded } = useWaitForUpload<T>(name, { required });
 

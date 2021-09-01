@@ -15,7 +15,7 @@ export default function ContributorLayout({
   children: ReactNode;
   data: ContributorLayoutFragment$key;
 }) {
-  const { t } = useTranslation("glossary");
+  const { t } = useTranslation();
   const router = useRouter();
   const { slug } = router.query;
   const mainRoute = RouteHelper.findRouteByName("contributor");
@@ -46,7 +46,7 @@ export default function ContributorLayout({
           data: [
             {
               href: { pathname: parentRoute.path },
-              label: capitalize(t("contributor_plural")),
+              label: capitalize(t("glossary.contributor.label", { count: 2 })),
             },
             {
               href: { pathname: mainRoute.path, query: { slug } },

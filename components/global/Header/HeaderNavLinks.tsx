@@ -27,7 +27,7 @@ interface Props {
 }
 
 function HeaderNavLinks({ navigation }: Props) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const maybeAuthorize = (
     node: AuthorizeProps["children"],

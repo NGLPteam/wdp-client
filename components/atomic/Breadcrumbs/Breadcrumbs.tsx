@@ -26,7 +26,7 @@ const BreadcrumbsWrapper = ({
     delimiter: `${className}__delimiter`,
   };
 
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   // If the breadcrumb length is > 4, wrap middle breadcrumbs into a dropdown
   const items = useMemo(() => {

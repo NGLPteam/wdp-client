@@ -28,13 +28,13 @@ type ActionConfigurations<D extends Record<string, unknown>> = {
 
 const availableActions: ActionDefinitions = {
   edit: {
-    label: i18next.t("common:edit"),
+    label: i18next.t("edit"),
     icon: "edit",
     action: "self.update",
     iconRotate: 0,
   },
   delete: {
-    label: i18next.t("common:delete"),
+    label: i18next.t("delete"),
     icon: "delete",
     action: "self.delete",
     iconRotate: 0,
@@ -83,7 +83,7 @@ function renderActions<D extends Record<string, unknown>>(
 
   return buttons ? (
     <ButtonControlGroup
-      toggleLabel={i18next.t("common:options")}
+      toggleLabel={i18next.t("options")}
       menuLabel={"Options list"}
       breakpoint={70}
       buttons={buttons}

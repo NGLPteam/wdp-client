@@ -35,7 +35,7 @@ function ModelList<
   columns,
   actions,
 }: ModelListProps<T, U, V>) {
-  const { t } = useTranslation("glossary");
+  const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
   // We can also retrieve `selection` from useModelList if we need it, which we eventually

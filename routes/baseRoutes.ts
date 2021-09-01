@@ -98,17 +98,17 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "contributor.details",
             path: "/contributors/[slug]/details",
-            label: "Details",
+            label: "details",
           },
           {
             name: "contributor.collections",
             path: "/contributors/[slug]/collections",
-            label: "Collection Contributions",
+            label: "glossary.collection_contribution.label",
           },
           {
             name: "contributor.items",
             path: "/contributors/[slug]/items",
-            label: "Item Contributions",
+            label: "glossary.item_contribution.label",
           },
         ],
       },

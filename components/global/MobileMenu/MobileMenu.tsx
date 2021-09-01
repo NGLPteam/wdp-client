@@ -13,7 +13,7 @@ import MobileMenuToggle from "../MobileMenuToggle";
 const MobileMenu = forwardRef(
   ({ id, active, onClose }: Props, ref: Ref<HTMLInputElement>) => {
     const { footerData } = appData;
-    const { t } = useTranslation("common");
+    const { t } = useTranslation();
     const lastActive = useRef(false);
 
     // Keep track of the last active value

@@ -9,7 +9,7 @@ export default function ContributorCreatePersonDrawer({
 }: {
   dialog: DialogProps;
 }) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   // TODO: Pass this into the drawer
   // const onCreate = useCallback(() => {

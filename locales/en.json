@@ -1,0 +1,114 @@
+{
+  "translation": {
+    "key": "English",
+    "showing.count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
+    "selected.count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
+    "breadcrumb.dropdown.label": "Show parent collections",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "manage": "Manage",
+    "error": "Error",
+    "no_results": "No Results",
+    "options": "Options",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading",
+    "site": {
+      "title": "NGLP",
+      "description": "...",
+      "provider": "Service Provider Name",
+      "institution": "Institution Name",
+      "powered_by": "Powered by NGLP–WDP"
+    },
+    "drawers": {
+      "createPerson.title": "Create New Person",
+      "createOrganization.title": "Create New Organization",
+      "editItemContribution.title": "Edit Item Contribution",
+      "editCollectionContribution.title": "Edit Collection Contribution"
+    },
+    "actions": {
+      "add": "Add $t({{ name }})",
+      "create.contributor.person": "Create Person",
+      "create.contributor.organization": "Create Organization",
+      "edit.itemContribution": "Edit Item Contribution",
+      "edit.collectionContribution": "Edit Collection Contribution"
+    },
+    "forms": {
+      "file": {
+        "upload": "Upload a file \n or drag and drop here",
+        "count": "...and {{count}} more",
+        "missingAlt": "Alt text not provided"
+      },
+      "validation": {
+        "uploaded": {
+          "failed": "Upload failed (please check console for now)",
+          "required": "Please specify a file",
+          "server_error": "Something went wrong"
+        },
+        "required": "This is required"
+      }
+    },
+    "header": {
+      "manage": "Manage",
+      "learn": "Learn",
+      "account": "Account",
+      "toggle_nav_menu": "Menu"
+    },
+    "footer": {
+      "about": {
+        "header": "About",
+        "body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
+      },
+      "copyright": "Copyright 2021 Institution Name and other necessary data. More legal details can be found here.",
+      "manage": "Manage",
+      "learn": "Learn",
+      "nav": {
+        "features": "Features",
+        "partners": "Partners",
+        "in_use": "In Use",
+        "help": "Help",
+        "contact": "Contact"
+      }
+    },
+    "glossary": {
+      "community": {
+        "label": "community",
+        "label_plural": "communities"
+      },
+      "collection": {
+        "label": "collection",
+        "label_plural": "collections"
+      },
+      "collection_contribution": {
+        "label": "collection $t(glossary.contribution.label_plural)"
+      },
+      "contribution": {
+        "label": "contribution",
+        "label_plural": "contributions"
+      },
+      "item": {
+        "label": "item",
+        "label_plural": "items"
+      },
+      "item_contribution": {
+        "label": "item $t(glossary.contribution.label_plural)"
+      },
+      "user": {
+        "label": "user",
+        "label_plural": "users"
+      },
+      "contributor": {
+        "label": "contributor",
+        "label_plural": "contributors",
+        "person": "Person",
+        "org": "Organization"
+      }
+    },
+    "name": "name",
+    "name_plural": "names",
+    "title": "title",
+    "title_plural": "titles",
+    "details": "Details"
+  }
+}

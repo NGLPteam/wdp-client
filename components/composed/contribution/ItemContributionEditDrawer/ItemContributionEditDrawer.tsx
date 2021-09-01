@@ -8,7 +8,7 @@ export default function ItemContributionEditDrawer({
 }: {
   dialog: DialogProps;
 }) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   return (
     <Drawer

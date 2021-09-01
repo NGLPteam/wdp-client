@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const ProviderBar = () => {
   const { siteInfo } = appData;
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   return (
     <Styled.Wrapper className="a-bg-brand90">

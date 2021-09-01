@@ -6,7 +6,7 @@ import { getModelPlural } from "helpers";
 import type { ModelNames } from "helpers/models";
 
 const ButtonControlAdd = ({ modelName }: Props) => {
-  const { t } = useTranslation("glossary");
+  const { t } = useTranslation();
   const isAuthorized = useIsAuthorized({
     actions: `${getModelPlural(modelName)}.create`,
   });

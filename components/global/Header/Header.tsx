@@ -17,7 +17,7 @@ import ProviderBar from "../ProviderBar";
 import GlobalSearch from "../GlobalSearch";
 
 function Header() {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
   const mobileNavId = useUID();
   const mobileNavRef = useRef(null);
   const [isActive, toggleActive, setActive] = useToggle();

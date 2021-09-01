@@ -7,7 +7,7 @@ import { IconFactory } from "components/factories";
 import * as Styled from "./Message.styles";
 
 export default function Message({ type, result }: Props) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   let message = "";
 
