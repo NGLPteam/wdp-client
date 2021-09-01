@@ -34,12 +34,19 @@ export type ContributorCreateOrganizationFormMutationVariables = {
 export type ContributorCreateOrganizationFormMutationResponse = {
     readonly createOrganizationContributor: {
         readonly contributor: {
-            readonly identifier: string;
             readonly legalName: string | null;
             readonly email: string | null;
             readonly location: string | null;
             readonly bio: string | null;
             readonly url: string | null;
+            readonly image: {
+                readonly thumb: {
+                    readonly png: {
+                        readonly alt: string;
+                        readonly url: string;
+                    } | null;
+                };
+            } | null;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -57,12 +64,19 @@ mutation ContributorCreateOrganizationFormMutation(
 ) {
   createOrganizationContributor(input: $input) {
     contributor {
-      identifier
       legalName
       email
       location
       bio
       url
+      image {
+        thumb {
+          png {
+            alt
+            url
+          }
+        }
+      }
       id
     }
     ...MutationForm_mutationErrors
@@ -104,42 +118,76 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "identifier",
+  "name": "legalName",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "legalName",
+  "name": "email",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "email",
+  "name": "location",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "location",
+  "name": "bio",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "bio",
+  "name": "url",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "url",
+  "concreteType": "AssetPreview",
+  "kind": "LinkedField",
+  "name": "image",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PreviewImageMap",
+      "kind": "LinkedField",
+      "name": "thumb",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PreviewImage",
+          "kind": "LinkedField",
+          "name": "png",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "alt",
+              "storageKey": null
+            },
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v8 = [
@@ -301,14 +349,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "267a1da3ce5ce3d8f6783590e449483e",
+    "cacheID": "59386cf35204c213d7589bd0b799183e",
     "id": null,
     "metadata": {},
     "name": "ContributorCreateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreateOrganizationFormMutation(\n  $input: CreateOrganizationContributorInput!\n) {\n  createOrganizationContributor(input: $input) {\n    contributor {\n      identifier\n      legalName\n      email\n      location\n      bio\n      url\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorCreateOrganizationFormMutation(\n  $input: CreateOrganizationContributorInput!\n) {\n  createOrganizationContributor(input: $input) {\n    contributor {\n      legalName\n      email\n      location\n      bio\n      url\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5f934468d4989bc5114c9af3d5c1ae38';
+(node as any).hash = 'b78ed8a74d63e4f0fea51d0b494b97c0';
 export default node;

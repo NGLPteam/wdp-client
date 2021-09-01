@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateOrganizationFormFragment = {
     readonly contributorId?: string;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorOrganizationFormFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
     readonly " $refType": "ContributorUpdateOrganizationFormFragment";
 };
 export type ContributorUpdateOrganizationFormFragment$data = ContributorUpdateOrganizationFormFragment;
@@ -36,7 +36,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ContributorOrganizationFormFragment"
+          "name": "ContributorUpdateOrganizationFormFieldsFragment"
         }
       ],
       "type": "OrganizationContributor",
@@ -46,5 +46,5 @@ const node: ReaderFragment = {
   "type": "AnyContributor",
   "abstractKey": "__isAnyContributor"
 };
-(node as any).hash = 'f55496787fe2fe34e30a04ac2c3d4456';
+(node as any).hash = '8aac5d127955ead680077e83080d9d09';
 export default node;

@@ -6,8 +6,8 @@ import MutationForm, {
   useGetErrors,
   useRenderForm,
   useToVariables,
+  Forms,
 } from "components/api/MutationForm";
-import ContributorOrganizationForm from "../ContributorOrganizationForm";
 
 import type {
   ContributorCreateOrganizationFormMutation,
@@ -27,7 +27,18 @@ export default function ContributorCreateOrganizationForm() {
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
-      <ContributorOrganizationForm data={null} register={register} />
+      <Forms.Grid>
+        <Forms.Input label="Legal Name" {...register("legalName")} />
+        <Forms.Email
+          label="Email"
+          {...register("email")}
+          description="Format: example@email.com"
+        />
+        <Forms.FileUpload label="Image" name="image" />
+        <Forms.Input label="Location" {...register("location")} />
+        <Forms.Textarea label="Bio" {...register("bio")} />
+        <Forms.Input label="Url" {...register("url")} />
+      </Forms.Grid>
     ),
     []
   );
@@ -55,12 +66,19 @@ const mutation = graphql`
   ) {
     createOrganizationContributor(input: $input) {
       contributor {
-        identifier
         legalName
         email
         location
         bio
         url
+        image {
+          thumb {
+            png {
+              alt
+              url
+            }
+          }
+        }
       }
       ...MutationForm_mutationErrors
     }

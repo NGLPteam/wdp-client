@@ -36,6 +36,7 @@ interface Props extends Omit<AuthorizeProps, "children"> {
   as?: React.ElementType;
   onClick?: React.MouseEventHandler;
   "aria-label"?: string;
+  type?: "button" | "submit";
 }
 
 export default ButtonControl;

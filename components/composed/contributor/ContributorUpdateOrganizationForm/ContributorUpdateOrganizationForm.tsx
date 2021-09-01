@@ -4,24 +4,46 @@ import MutationForm, {
   useRenderForm,
   useGetErrors,
   useToVariables,
+  Forms,
 } from "components/api/MutationForm";
-import ContributorOrganizationForm from "components/composed/contributor/ContributorOrganizationForm";
 
 import type { ContributorUpdateOrganizationFormFragment$key } from "@/relay/ContributorUpdateOrganizationFormFragment.graphql";
 import type {
   UpdateOrganizationContributorInput,
   ContributorUpdateOrganizationFormMutation,
 } from "@/relay/ContributorUpdateOrganizationFormMutation.graphql";
+import type { ContributorUpdateOrganizationFormFieldsFragment$key } from "@/relay/ContributorUpdateOrganizationFormFieldsFragment.graphql";
 
 export default function ContributorUpdateOrganizationForm({ data }: Props) {
-  const contributor = useFragment(fragment, data);
+  const { contributorId, ...fieldsData } = useFragment(fragment, data);
+
+  const {
+    image,
+    ...defaultValues
+  } = useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData
+  );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form }) => (
-      <ContributorOrganizationForm
-        data={contributor}
-        register={form.register}
-      />
+    ({ form: { register } }) => (
+      <Forms.Grid>
+        <Forms.Input label="Legal Name" {...register("legalName")} />
+        <Forms.Email
+          label="Email"
+          {...register("email")}
+          description="Format: example@email.com"
+        />
+        <Forms.FileUpload
+          label="Image"
+          name="image"
+          image={image?.thumb}
+          existingValue={image !== null}
+        />
+        <Forms.Input label="Location" {...register("location")} />
+        <Forms.Textarea label="Bio" {...register("bio")} />
+        <Forms.Input label="Url" {...register("url")} />
+      </Forms.Grid>
     ),
     []
   );
@@ -35,7 +57,6 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
     ContributorUpdateOrganizationFormMutation,
     Fields
   >((data) => {
-    const { contributorId } = contributor;
     // TODO: Why does relay think the contributor ID can be unknown?
     if (!contributorId)
       throw new Error("Contributor ID must be present in contributor update");
@@ -48,6 +69,7 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
       mutation={mutation}
       getErrors={getErrors}
       toVariables={toVariables}
+      defaultValues={defaultValues}
     >
       {renderForm}
     </MutationForm>
@@ -63,13 +85,33 @@ interface Props {
   data: ContributorUpdateOrganizationFormFragment$key;
 }
 
+const fieldsFragment = graphql`
+  fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
+    ... on OrganizationContributor {
+      legalName
+      email
+      location
+      bio
+      url
+      image {
+        thumb {
+          png {
+            alt
+            url
+          }
+        }
+      }
+    }
+  }
+`;
+
 const mutation = graphql`
   mutation ContributorUpdateOrganizationFormMutation(
     $input: UpdateOrganizationContributorInput!
   ) {
     updateOrganizationContributor(input: $input) {
       contributor {
-        ...ContributorOrganizationFormFragment
+        ...ContributorUpdateOrganizationFormFieldsFragment
       }
       ...MutationForm_mutationErrors
     }
@@ -80,7 +122,7 @@ const fragment = graphql`
   fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
     ... on OrganizationContributor {
       contributorId: id
-      ...ContributorOrganizationFormFragment
+      ...ContributorUpdateOrganizationFormFieldsFragment
     }
   }
 `;

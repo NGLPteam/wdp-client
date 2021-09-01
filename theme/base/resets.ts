@@ -86,14 +86,6 @@ export default css`
     fill: currentColor;
   }
 
-  /* Reset common details gotchas */
-  details summary {
-    cursor: pointer;
-    > * {
-      display: inline;
-    }
-  }
-
   /* Remove button styling */
   button {
     padding: 0;
@@ -128,5 +120,34 @@ export default css`
     border-color: inherit;
     text-align: start;
     font-weight: inherit;
+  }
+
+  /* Remove fieldset and legend styling */
+  fieldset {
+    border: 0;
+    padding: 0.01em 0 0 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  legend {
+    display: table;
+    float: inline-start;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    + * {
+      clear: both;
+    }
+  }
+
+  /* Reset common details gotchas */
+  details summary {
+    cursor: pointer;
+
+    > * {
+      display: inline;
+    }
   }
 `;
