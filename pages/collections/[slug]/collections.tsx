@@ -5,6 +5,7 @@ import CollectionList from "components/composed/collection/CollectionList";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { CollectionListFragment$key } from "@/relay/CollectionListFragment.graphql";
 
 function CollectionChildCollections() {
   const queryVars = useBaseListQueryVars();
@@ -20,8 +21,11 @@ function CollectionChildCollections() {
     >
       {({ data }) => {
         // TODO: We should 404 if there is no collection
-        if (!data || !data.collection) return null;
-        return <CollectionList<Query> data={data?.collection?.collections} />;
+        return (
+          <CollectionList<Query>
+            data={data?.collection?.collections as CollectionListFragment$key}
+          />
+        );
       }}
     </QueryWrapper>
   );

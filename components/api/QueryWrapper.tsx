@@ -29,7 +29,9 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  const { children, onEmpty, onError, onLoading } = props;
+  // Empty, Loading, and Error states should be handled by child components
+  // TODO: Let child components know when we're loading, empty, or erroring
+  const { children, onError } = props;
 
   if (error) {
     if (onError) {
@@ -39,23 +41,13 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     }
   }
 
-  if (isLoading && onLoading) {
-    return onLoading();
-  }
-
-  if (data) {
-    return (
-      <QueryVariablesContext.Provider
-        value={{ queryVariables: variables, setQueryVariables: setVariables }}
-      >
-        {children({ data, variables })}
-      </QueryVariablesContext.Provider>
-    );
-  } else if (onEmpty) {
-    return onEmpty({ variables });
-  }
-
-  return null;
+  return (
+    <QueryVariablesContext.Provider
+      value={{ queryVariables: variables, setQueryVariables: setVariables }}
+    >
+      {children({ data, variables })}
+    </QueryVariablesContext.Provider>
+  );
 }
 
 interface DataRenderProps<T extends OperationType> {

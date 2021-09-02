@@ -9,7 +9,7 @@ interface ModelPageCountActionsProps<
   data: T;
 }
 
-function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
+function ModelPageCountWithData<T extends ModelPageCountActionsFragment$key>({
   data,
 }: ModelPageCountActionsProps<T>) {
   const { pageInfo } = useFragment<ModelPageCountActionsFragment$key>(
@@ -18,6 +18,12 @@ function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
   );
 
   return <PageCountActions pageInfo={pageInfo} />;
+}
+
+function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
+  data,
+}: ModelPageCountActionsProps<T>) {
+  return data ? <ModelPageCountWithData data={data} /> : <PageCountActions />;
 }
 
 export default ModelPageCountActions;
