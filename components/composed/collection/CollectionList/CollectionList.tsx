@@ -10,7 +10,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
 
 interface CollectionListProps {
-  data: CollectionListFragment$key;
+  data?: CollectionListFragment$key;
 }
 
 type CollectionNode = CollectionListFragment["nodes"][number];
@@ -37,7 +37,11 @@ function CollectionList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
-  const collections = useFragment<CollectionListFragment$key>(fragment, data);
+  const collections = useFragment<CollectionListFragment$key>(
+    fragment,
+    data || null
+  );
+
   return (
     <ModelListPage<T, CollectionListFragment, CollectionNode>
       modelName="collection"
