@@ -13,12 +13,14 @@ import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
 import { Button, ContentTitle } from "components/atomic";
 
 import type {
+  AcceptsToVariables,
   ErrorMap,
   GetErrors,
   IsSuccessPredicate,
   MutationName,
   OnSuccessCallback,
   OnFailureCallback,
+  PayloadWithErrors,
   RenderForm,
   VariableTransformer,
 } from "./types";
@@ -83,22 +85,39 @@ export default function MutationForm<
 
   const { getErrors, isSuccess, onFailure, onSuccess, toVariables } = props;
 
+  const castVariables = useCallback<VariableTransformer<M, T>>(
+    function (data) {
+      if (typeof toVariables === "function") {
+        return toVariables(data);
+      }
+
+      return { input: data };
+    },
+    [toVariables]
+  );
+
   const extractErrorsRef = useCallback<GetErrors<M>>(
     function (response: M["response"]) {
       if (typeof getErrors === "function") {
         return getErrors(response);
       }
 
+      const payload = response[name];
+
+      if (hasErrors(payload)) {
+        return payload;
+      }
+
       return null;
     },
-    [getErrors]
+    [getErrors, name]
   );
 
   const { setError } = form;
 
   const submitHandler: SubmitHandler<T> = useCallback(
     async (values) => {
-      const variables = toVariables(values);
+      const variables = castVariables(values);
 
       dispatch({ type: "submit", variables, values });
 
@@ -136,13 +155,13 @@ export default function MutationForm<
       }
     },
     [
+      castVariables,
       dispatch,
       extractErrorsRef,
       isSuccess,
       mutate,
       onFailure,
       onSuccess,
-      toVariables,
       setError,
     ]
   );
@@ -180,10 +199,7 @@ export default function MutationForm<
   );
 }
 
-interface Props<
-  M extends MutationParameters,
-  T extends FieldValues = FieldValues
-> {
+interface BaseProps<M extends MutationParameters, T extends FieldValues> {
   /**
    * A render props function to render the actual form. It receives the methods from
    * `react-hook-form`'s `useForm` on `form` and is placed after globalErrors, the
@@ -223,7 +239,7 @@ interface Props<
    * // must explicitly return null, not undefined
    * const getErrors = (response) => response.createAsset ?? null;
    */
-  getErrors: GetErrors<M>;
+  getErrors?: GetErrors<M>;
 
   /**
    * The graphql node for our mutation.
@@ -271,31 +287,19 @@ interface Props<
   onFailure?: OnFailureCallback<M, T>;
 
   /**
-   * We often need to perform a little bit of transformation on the mutation
-   * input such as adding properties that aren't controlled by the form, removing
-   * null values, and so on.
-   *
-   * This function can be provided in order to accomplish just that. At the very
-   * least, you'll need to finesse the data into `input`.
-   *
-   * @see useToVariables to generate type-safely without extra renders
-   *
-   * @example <caption>Transforming Form Data Into Variables</caption>
-   * const toVariables = (data) => ({ input: data })
-   */
-  toVariables: VariableTransformer<M, T>;
-
-  /**
    * Setting this to true will activate a monitor that will log changes to the form
    * in the browser console.
    */
   watchInConsole?: boolean;
 }
 
-function checkSuccess<
-  M extends MutationParameters,
-  T extends FieldValues = FieldValues
->(
+type Props<M extends MutationParameters, T extends FieldValues> = BaseProps<
+  M,
+  T
+> &
+  AcceptsToVariables<M, T>;
+
+function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   response: M["response"],
   errors: ErrorMap<T>,
   data: UnpackNestedValue<T>,
@@ -306,6 +310,35 @@ function checkSuccess<
   }
 
   return hasNoErrors(errors);
+}
+
+/**
+ * These keys are required to be defined on our mutation payloads
+ * in order to check that the user included the mutation form
+ * fragment.
+ *
+ * @see hasErrors
+ */
+const ERROR_KEYS = ["attributeErrors", "globalErrors", "errors"] as const;
+
+/**
+ * This is a type predicate to check that our mutation payload is valid
+ * and has the right error fragments attached.
+ *
+ * @see ERROR_KEYS for the keys that the payload must implement
+ * @param payload
+ * @returns
+ */
+function hasErrors<M extends MutationParameters>(
+  payload: M["response"][MutationName<M>]
+): payload is PayloadWithErrors<M> {
+  if (payload) {
+    const keys = Object.keys(payload);
+
+    return ERROR_KEYS.every((key) => keys.includes(key));
+  }
+
+  return false;
 }
 
 const errorFragment = graphql`
