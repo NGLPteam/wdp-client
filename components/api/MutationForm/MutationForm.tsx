@@ -21,6 +21,7 @@ import type {
   OnSuccessCallback,
   OnFailureCallback,
   PayloadWithErrors,
+  PayloadWithFragments,
   RenderForm,
   VariableTransformer,
 } from "./types";
@@ -313,32 +314,26 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
 }
 
 /**
- * These keys are required to be defined on our mutation payloads
- * in order to check that the user included the mutation form
- * fragment.
- *
- * @see hasErrors
- */
-const ERROR_KEYS = ["attributeErrors", "globalErrors", "errors"] as const;
-
-/**
  * This is a type predicate to check that our mutation payload is valid
  * and has the right error fragments attached.
  *
- * @see ERROR_KEYS for the keys that the payload must implement
  * @param payload
  * @returns
  */
 function hasErrors<M extends MutationParameters>(
   payload: M["response"][MutationName<M>]
 ): payload is PayloadWithErrors<M> {
-  if (payload) {
-    const keys = Object.keys(payload);
-
-    return ERROR_KEYS.every((key) => keys.includes(key));
+  if (payload && hasFragments<M>(payload) && payload.__fragments) {
+    return Boolean(payload.__fragments.MutationForm_mutationErrors);
   }
 
   return false;
+}
+
+function hasFragments<M extends MutationParameters>(
+  payload: M["response"][MutationName<M>]
+): payload is PayloadWithFragments<M> {
+  return "__fragments" in payload;
 }
 
 const errorFragment = graphql`
