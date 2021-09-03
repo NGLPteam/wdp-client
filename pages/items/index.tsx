@@ -11,7 +11,6 @@ export default function ItemListView() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => {
-        if (!data) return null;
         return <ItemList<Query> data={data?.viewer?.items} />;
       }}
     </QueryWrapper>

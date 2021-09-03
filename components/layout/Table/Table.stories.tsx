@@ -94,7 +94,7 @@ export const Default: Story<Props & Partial<BodyProps>> = ({
           withCheckbox={withRowSelection}
           headerGroups={headerGroups}
         />
-        <Table.Body rows={rows} />
+        <Table.Body loading={false} rows={rows} />
       </Table>
     </div>
   );

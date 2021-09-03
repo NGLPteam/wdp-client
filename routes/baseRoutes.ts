@@ -83,6 +83,14 @@ export const baseRoutes: BaseRoute[] = [
       {
         name: "user",
         path: "/users/[slug]",
+        redirect: "/users/[slug]/details",
+        routes: [
+          {
+            name: "user.details",
+            path: "/users/[slug]/details",
+            label: "details",
+          },
+        ],
       },
     ],
   },

@@ -16,8 +16,8 @@ function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
     fragment,
     data || null
   );
-  if (!enhancedData || !enhancedData.pageInfo) return null;
-  return <PageCountActions pageInfo={enhancedData.pageInfo} />;
+
+  return <PageCountActions pageInfo={enhancedData?.pageInfo} />;
 }
 
 export default ModelPageCountActions;

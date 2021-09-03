@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useMutation } from "relay-hooks";
 import { useForm, FormProvider } from "react-hook-form";
-import { graphql } from "react-relay";
+import { graphql, readInlineData } from "react-relay";
 import type {
   DefaultValues,
   FieldValues,
@@ -103,7 +103,6 @@ export default function MutationForm<
       }
 
       const payload = response[name];
-
       if (hasErrors(payload)) {
         return payload;
       }
@@ -332,9 +331,13 @@ const ERROR_KEYS = ["attributeErrors", "globalErrors", "errors"] as const;
 function hasErrors<M extends MutationParameters>(
   payload: M["response"][MutationName<M>]
 ): payload is PayloadWithErrors<M> {
-  if (payload) {
-    const keys = Object.keys(payload);
-
+  // TODO: This isn't quite working yet. Needs a little more refinement.
+  // @ts-ignore
+  if (payload && payload["__fragments"]) {
+    const keys = Object.keys(
+      // @ts-ignore
+      payload["__fragments"]["MutationForm_mutationErrors"]
+    );
     return ERROR_KEYS.every((key) => keys.includes(key));
   }
 

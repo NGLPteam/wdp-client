@@ -11,6 +11,12 @@ export const Bar = styled.div`
   ${noInsetSupport(`top: 0;`)}
 `;
 
+export const Placeholder = styled.div`
+  position: sticky;
+  inset-block-start: 0;
+  height: ${pxToRem(4)};
+`;
+
 export const Percent = styled.span`
   display: block;
   height: 100%;

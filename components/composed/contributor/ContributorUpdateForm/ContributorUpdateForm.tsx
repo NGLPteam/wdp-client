@@ -1,18 +1,19 @@
 import React from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import ContributorUpdatePersonForm from "components/composed/contributor/ContributorUpdatePersonForm";
 import ContributorUpdateOrganizationForm from "components/composed/contributor/ContributorUpdateOrganizationForm";
 import type { ContributorUpdateFormFragment$key } from "@/relay/ContributorUpdateFormFragment.graphql";
+import { useMaybeFragment } from "hooks";
 
 export default function ContributorUpdateForm({ data }: Props) {
-  const contributor = useFragment<ContributorUpdateFormFragment$key>(
+  const contributor = useMaybeFragment<ContributorUpdateFormFragment$key>(
     fragment,
     data
   );
 
-  if (contributor.__typename === "PersonContributor")
+  if (contributor?.__typename === "PersonContributor")
     return <ContributorUpdatePersonForm data={contributor} />;
-  if (contributor.__typename === "OrganizationContributor")
+  if (contributor?.__typename === "OrganizationContributor")
     return <ContributorUpdateOrganizationForm data={contributor} />;
 
   return null;
@@ -31,5 +32,5 @@ const fragment = graphql`
 `;
 
 interface Props {
-  data: ContributorUpdateFormFragment$key;
+  data?: ContributorUpdateFormFragment$key;
 }

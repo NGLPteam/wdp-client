@@ -5,15 +5,16 @@ import {
   ContributorListFragment,
   ContributorListFragment$key,
 } from "@/relay/ContributorListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
 import { DrawerLink, ButtonControl } from "components/atomic";
+import { useMaybeFragment } from "hooks";
 
 interface ContributorListProps {
-  data: ContributorListFragment$key;
+  data?: ContributorListFragment$key;
 }
 
 type ContributorNode = ContributorListFragment["nodes"][number];
@@ -77,7 +78,7 @@ function ContributorList<T extends OperationType>({
     </div>
   );
 
-  const contributors = useFragment(fragment, data);
+  const contributors = useMaybeFragment(fragment, data);
 
   return (
     <ModelListPage<T, ContributorListFragment, ContributorNode>

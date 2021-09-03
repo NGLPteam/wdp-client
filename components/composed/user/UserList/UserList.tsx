@@ -1,7 +1,8 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "hooks";
 import {
   UserListFragment,
   UserListFragment$key,
@@ -12,7 +13,7 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
 
 interface UserListProps {
-  data: UserListFragment$key;
+  data?: UserListFragment$key;
 }
 
 type UserNode = UserListFragment["nodes"][number];
@@ -46,7 +47,7 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
   };
   /* eslint-enable no-console */
 
-  const users = useFragment<UserListFragment$key>(fragment, data);
+  const users = useMaybeFragment<UserListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, UserListFragment, UserNode>
       modelName="user"

@@ -5,12 +5,13 @@ import {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "hooks";
 import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
 
 interface ItemListProps {
-  data: ItemListFragment$key;
+  data?: ItemListFragment$key;
 }
 
 type ItemNode = ItemListFragment["nodes"][number];
@@ -35,7 +36,7 @@ function ItemList<T extends OperationType>({ data }: ItemListProps) {
   };
   /* eslint-enable no-console */
 
-  const items = useFragment<ItemListFragment$key>(fragment, data);
+  const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, ItemListFragment, ItemNode>
       modelName="item"

@@ -18,10 +18,9 @@ function CollectionChildCollections() {
       query={query}
       initialVariables={{ ...queryVars, collectionSlug }}
     >
-      {({ data }) => {
-        // TODO: We should 404 if there is no collection
-        return <CollectionList<Query> data={data?.collection?.collections} />;
-      }}
+      {({ data }) => (
+        <CollectionList<Query> data={data?.collection?.collections} />
+      )}
     </QueryWrapper>
   );
 }

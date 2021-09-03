@@ -18,10 +18,9 @@ const ContributorDetails: Page = () => {
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => {
-        if (!data || !data.contributor) return null;
         return (
-          <ContributorLayout data={data.contributor}>
-            <ContributorUpdateForm data={data.contributor} />
+          <ContributorLayout data={data?.contributor || undefined}>
+            <ContributorUpdateForm data={data?.contributor || undefined} />
           </ContributorLayout>
         );
       }}

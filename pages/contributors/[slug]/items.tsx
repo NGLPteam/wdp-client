@@ -18,14 +18,11 @@ const ContributorItemContributions: Page = () => {
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => {
-        if (!data || !data.contributor) return null;
         return (
-          <ContributorLayout data={data.contributor}>
-            {data.contributor.itemContributions && (
-              <ItemContributionList<Query>
-                data={data.contributor.itemContributions}
-              />
-            )}
+          <ContributorLayout data={data?.contributor || undefined}>
+            <ItemContributionList<Query>
+              data={data?.contributor?.itemContributions || undefined}
+            />
           </ContributorLayout>
         );
       }}

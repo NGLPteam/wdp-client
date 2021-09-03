@@ -11,7 +11,6 @@ export default function ContributorListView() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => {
-        if (!data) return null;
         return <ContributorList<Query> data={data?.contributors} />;
       }}
     </QueryWrapper>

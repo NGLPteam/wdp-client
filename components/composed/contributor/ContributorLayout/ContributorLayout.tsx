@@ -1,11 +1,11 @@
 import React, { ReactNode, useMemo } from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { RouteHelper } from "routes";
 import { PageHeader, ContentSidebar } from "components/layout";
 import { useTranslation } from "react-i18next";
 import capitalize from "lodash/capitalize";
-
+import { useMaybeFragment } from "hooks";
 import { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
 
 export default function ContributorLayout({
@@ -13,13 +13,13 @@ export default function ContributorLayout({
   data,
 }: {
   children: ReactNode;
-  data: ContributorLayoutFragment$key;
+  data?: ContributorLayoutFragment$key;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
   const { slug } = router.query;
   const mainRoute = RouteHelper.findRouteByName("contributor");
-  const contributor = useFragment(fragment, data);
+  const contributor = useMaybeFragment(fragment, data);
 
   // Get the contributor's child routes with current query
   const childRoutes = useMemo(() => {

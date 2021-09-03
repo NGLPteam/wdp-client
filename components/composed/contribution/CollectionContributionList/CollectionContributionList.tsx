@@ -1,7 +1,7 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import {
   CollectionContributionListFragment,
   CollectionContributionListFragment$key,
@@ -12,9 +12,10 @@ import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
 import { NamedLink } from "components/atomic";
 import { useRouter } from "next/router";
+import { useMaybeFragment } from "hooks";
 
 interface CollectionContributionListProps {
-  data: CollectionContributionListFragment$key;
+  data?: CollectionContributionListFragment$key;
 }
 
 type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
@@ -69,7 +70,7 @@ function CollectionContributionList<T extends OperationType>({
   };
 
   /* eslint-disable max-len */
-  const collectionContributions = useFragment<CollectionContributionListFragment$key>(
+  const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
     fragment,
     data
   );

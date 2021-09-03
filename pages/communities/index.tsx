@@ -10,10 +10,9 @@ export default function CommunityListView() {
 
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => {
-        if (!data) return null;
-        return <CommunityList<Query> data={data?.communities} />;
-      }}
+      {({ data }) => (
+        <CommunityList<Query> data={data?.communities || undefined} />
+      )}
     </QueryWrapper>
   );
 }

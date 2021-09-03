@@ -20,8 +20,6 @@ const CommunityChildCollections: Page = () => {
       initialVariables={{ communitySlug, ...queryVars }}
     >
       {({ data }) => {
-        // TODO: We should 404 if there is no collection
-        if (!data || !data.community) return null;
         return <CollectionList<Query> data={data?.community?.collections} />;
       }}
     </QueryWrapper>

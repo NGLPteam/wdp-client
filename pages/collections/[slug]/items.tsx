@@ -19,11 +19,7 @@ const CollectionChildItems: Page = () => {
       query={query}
       initialVariables={{ ...queryVars, collectionSlug }}
     >
-      {({ data }) => {
-        // TODO: We should 404 if there is no collection
-        if (!data || !data.collection) return null;
-        return <ItemList<Query> data={data?.collection?.items} />;
-      }}
+      {({ data }) => <ItemList<Query> data={data?.collection?.items} />}
     </QueryWrapper>
   );
 };

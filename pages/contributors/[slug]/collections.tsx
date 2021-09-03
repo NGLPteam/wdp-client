@@ -6,7 +6,6 @@ import { QueryWrapper } from "components/api";
 import { useRouteSlug } from "hooks/useRouteSlug";
 import { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
-import { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
 
 const ContributorCollectionContributions: Page = () => {
   const slug = useRouteSlug();
@@ -20,14 +19,10 @@ const ContributorCollectionContributions: Page = () => {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => {
         return (
-          <ContributorLayout
-            data={data?.contributor as ContributorLayoutFragment$key}
-          >
-            {data?.contributor?.collectionContributions && (
-              <CollectionContributionList<Query>
-                data={data.contributor.collectionContributions}
-              />
-            )}
+          <ContributorLayout data={data?.contributor || undefined}>
+            <CollectionContributionList<Query>
+              data={data?.contributor?.collectionContributions}
+            />
           </ContributorLayout>
         );
       }}

@@ -5,7 +5,7 @@ import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { ErrorMessage } from "components/atomic";
 import { usePageContext } from "hooks";
-
+import { QueryStateContext } from "contexts";
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
 
@@ -29,10 +29,10 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  // Empty, Loading, and Error states should be handled by child components
-  // TODO: Let child components know when we're loading, empty, or erroring
   const { children, onError } = props;
 
+  // TODO: Consider where we want to handle high-level errors in queries. Is this an issue
+  //   for the child component, or do we want to centralize the handling in here?
   if (error) {
     if (onError) {
       return onError({ error });
@@ -42,11 +42,15 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   }
 
   return (
-    <QueryVariablesContext.Provider
-      value={{ queryVariables: variables, setQueryVariables: setVariables }}
+    <QueryStateContext.Provider
+      value={{ started: true, loading: isLoading, completed: !isLoading }}
     >
-      {children({ data, variables })}
-    </QueryVariablesContext.Provider>
+      <QueryVariablesContext.Provider
+        value={{ queryVariables: variables, setQueryVariables: setVariables }}
+      >
+        {children({ data, variables })}
+      </QueryVariablesContext.Provider>
+    </QueryStateContext.Provider>
   );
 }
 
