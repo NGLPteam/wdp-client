@@ -77,6 +77,16 @@ export type PayloadWithErrors<
   M extends MutationParameters
 > = M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
 
+interface PayloadFragments {
+  __fragments?: {
+    MutationForm_mutationErrors?: unknown;
+  };
+}
+
+export type PayloadWithFragments<
+  M extends MutationParameters
+> = M["response"][MutationName<M>] & PayloadFragments;
+
 interface RemappedAttributeError<T> {
   path: Path<T>;
 
