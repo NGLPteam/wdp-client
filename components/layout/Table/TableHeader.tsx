@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortButton from "./TableSortButton";
 import { Checkbox } from "components/forms";
 import { HeaderGroup, ColumnInstance } from "react-table";
 import { CheckboxProps } from "types/form-fields";
+import useTableContext from "./hooks/useTableContext";
 
 function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],
@@ -13,6 +14,16 @@ function TableHeader<T extends Record<string, unknown>>({
 }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
+  const { setColumnCount } = useTableContext();
+
+  useEffect(() => {
+    if (headerGroups.length > 0 && setColumnCount) {
+      const { headers } = headerGroups[0];
+      const columnCount = headers.length;
+      setColumnCount(columnCount);
+    }
+  }, [headerGroups, setColumnCount]);
+
   return (
     <thead>
       {headerGroups.map((headerGroup) => {

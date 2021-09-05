@@ -102,6 +102,12 @@ export const HeaderCellInner = styled.span`
   }
 `;
 
+export const FakeRow = styled.div`
+  ${aBgLight("brand10")}
+  height: ${pxToRem("32px")};
+  border-radius: var(--table-border-radius);
+`;
+
 export const Cell = styled.td`
   padding-block-start: ${basePadding(2)};
   padding-block-end: ${basePadding(2)};
@@ -140,6 +146,8 @@ export const SelectCellInner = styled.div`
   visibility: var(--checkbox-visibility);
   opacity: var(--checkbox-opacity);
 `;
+
+export const LoadingRow = styled.tr``;
 
 export const Row = styled.tr`
   --button-control-opacity: 0;
