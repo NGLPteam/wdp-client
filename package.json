@@ -41,7 +41,7 @@
     "@uppy/react": "^1.12.2",
     "@uppy/tus": "^1.9.2",
     "cookie": "^0.4.1",
-    "date-fns": "^2.22.1",
+    "date-fns": "^2.23.0",
     "downshift": "^6.1.7",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",
