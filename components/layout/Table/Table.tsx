@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./Table.styles";
 
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import TableCell from "./TableCell";
+import TableContext from "./contexts/TableContext";
 
 const Table = ({
   children,
@@ -12,15 +13,18 @@ const Table = ({
   showCheckboxes = false,
   ...tableProps
 }: Props) => {
+  const [columnCount, setColumnCount] = useState(0);
   return (
-    <Styled.TableWrapper
-      withRowSelection={withRowSelection}
-      showCheckboxes={showCheckboxes}
-    >
-      <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
-        {children}
-      </Styled.Table>
-    </Styled.TableWrapper>
+    <TableContext.Provider value={{ columnCount, setColumnCount }}>
+      <Styled.TableWrapper
+        withRowSelection={withRowSelection}
+        showCheckboxes={showCheckboxes}
+      >
+        <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
+          {children}
+        </Styled.Table>
+      </Styled.TableWrapper>
+    </TableContext.Provider>
   );
 };
 
