@@ -5,7 +5,6 @@ import { graphql } from "react-relay";
 import type { CreateAssetInput } from "types/graphql-schema";
 
 import MutationForm, {
-  useGetErrors,
   useOnSuccess,
   useRenderForm,
   useToVariables,
@@ -18,11 +17,6 @@ import type {
 } from "@/relay/AssetCreateFormMutation.graphql";
 
 export default function AssetCreateForm({ entityId, onCreate }: Props) {
-  const getErrors = useGetErrors<AssetCreateFormMutation>(
-    (response) => response.createAsset ?? null,
-    []
-  );
-
   const onSuccess = useOnSuccess<AssetCreateFormMutation, FormValues>(
     function ({ response }) {
       const createdAsset = toCreatedAsset(response);
@@ -69,7 +63,6 @@ export default function AssetCreateForm({ entityId, onCreate }: Props) {
   return (
     <MutationForm<AssetCreateFormMutation, FormValues>
       contentTitle="Create Asset"
-      getErrors={getErrors}
       mutation={mutation}
       name="createAsset"
       onSuccess={onSuccess}
