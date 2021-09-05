@@ -23,6 +23,9 @@ import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 
+import { useRouter } from "next/router";
+import { RouteHelper } from "routes";
+
 const NGLPApp = ({
   Component,
   pageProps,
@@ -50,6 +53,18 @@ const NGLPApp = ({
     LoadingComponent: <>Loading</>,
     persistor,
   };
+
+  // Handle redirect routes.
+  const router = useRouter();
+  if (process.browser) {
+    const activeRoute = RouteHelper.activeRoute();
+    if (activeRoute?.redirect) {
+      router.replace({
+        pathname: activeRoute?.redirect,
+        query: { ...router.query },
+      });
+    }
+  }
 
   const getLayout = Component.getLayout || ((page) => page);
 
