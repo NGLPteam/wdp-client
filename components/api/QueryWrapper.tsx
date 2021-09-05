@@ -5,7 +5,7 @@ import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { ErrorMessage } from "components/atomic";
 import { usePageContext } from "hooks";
-
+import { QueryStateContext } from "contexts";
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
 
@@ -29,7 +29,7 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
-  const { children, onEmpty, onError, onLoading } = props;
+  const { children, onError } = props;
 
   if (error) {
     if (onError) {
@@ -45,6 +45,10 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
 
   if (data) {
     return (
+  return (
+    <QueryStateContext.Provider
+      value={{ started: true, loading: isLoading, completed: !isLoading }}
+    >
       <QueryVariablesContext.Provider
         value={{ queryVariables: variables, setQueryVariables: setVariables }}
       >
@@ -56,6 +60,8 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   }
 
   return null;
+    </QueryStateContext.Provider>
+  );
 }
 
 interface DataRenderProps<T extends OperationType> {
