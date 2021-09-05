@@ -8,7 +8,7 @@ type Fragment = Readonly<{
 
 export default function useMaybeFragment<TKey extends Fragment>(
   fragmentInput: GraphQLTaggedNode,
-  fragmentRef?: TKey
+  fragmentRef?: TKey | null
 ) {
   return useFragment<TKey>(fragmentInput, fragmentRef ?? null);
 }
