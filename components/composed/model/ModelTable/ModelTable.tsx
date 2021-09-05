@@ -4,6 +4,7 @@ import type {
   UseTableInstanceProps,
   UseRowSelectInstanceProps,
 } from "react-table";
+import { useQueryStateContext } from "hooks";
 
 type ModelTableProps<U extends Record<string, unknown>> = Pick<
   UseTableInstanceProps<U>,
@@ -27,6 +28,7 @@ function ModelTable<U extends Record<string, unknown>>({
   getTableProps,
   rows,
 }: ModelTableProps<U>) {
+  const queryState = useQueryStateContext();
   const checkboxProps =
     getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
@@ -42,7 +44,11 @@ function ModelTable<U extends Record<string, unknown>>({
         checkboxProps={checkboxProps}
         headerGroups={headerGroups}
       />
-      <Table.Body rows={rows} {...getTableBodyProps()} />
+      <Table.Body
+        loading={!queryState.completed}
+        rows={rows}
+        {...getTableBodyProps()}
+      />
     </Table>
   );
 }
