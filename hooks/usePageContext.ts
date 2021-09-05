@@ -3,7 +3,7 @@ import { useContext } from "react";
 import PageContext from "contexts/PageContext";
 
 /**
- * Access the user context
+ * Access the page context
  *
  * @returns PageContext state
  */
