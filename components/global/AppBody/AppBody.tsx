@@ -15,7 +15,7 @@ function AppBody({ children }: Props) {
         className={`${isFlexGapSupported ? "" : "no-flex-gap"} a-bg-neutral00`}
       >
         <Header />
-        {loading && <ProgressBar />}
+        <ProgressBar loading={loading} />
         <Styled.Main id="main" className="l-container-max">
           {children}
         </Styled.Main>
