@@ -30,7 +30,7 @@ function TableBody<T extends Record<string, unknown>>({
   return (
     <Styled.TableBody role="rowgroup">
       {loading
-        ? times(20, (i) => {
+        ? times(10, (i) => {
             return (
               <Styled.LoadingRow key={i}>
                 <Styled.Cell role="presentation" />

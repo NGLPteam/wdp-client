@@ -11,6 +11,7 @@ import type { UseModelListProps } from "components/composed/model/ModelList/hook
 import { ModelNames } from "helpers";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
+import { useQueryStateContext } from "hooks";
 
 export interface ModelListProps<
   T extends OperationType,
@@ -38,6 +39,8 @@ function ModelList<
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
+  const queryState = useQueryStateContext();
+
   // We can also retrieve `selection` from useModelList if we need it, which we eventually
   // will.
   const { modelGridOrTableProps } = useModelList<T, U, V>({
@@ -61,12 +64,15 @@ function ModelList<
       ModelListType = null;
   }
 
-  const hasRows = modelGridOrTableProps.rows.length > 0;
+  if (!ModelListType) return null;
 
+  const hasRows = modelGridOrTableProps.rows.length > 0;
   return (
     <>
       <ModelPageCountActions data={data} />
-      {hasRows && ModelListType ? (
+      {queryState.completed && !hasRows ? (
+        <NoResultsMessage />
+      ) : (
         <>
           <ModelListType<V>
             title={title}
@@ -75,8 +81,6 @@ function ModelList<
           />
           <ModelPagination data={data} />
         </>
-      ) : (
-        <NoResultsMessage />
       )}
     </>
   );
