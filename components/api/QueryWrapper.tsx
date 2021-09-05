@@ -39,12 +39,6 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     }
   }
 
-  if (isLoading && onLoading) {
-    return onLoading();
-  }
-
-  if (data) {
-    return (
   return (
     <QueryStateContext.Provider
       value={{ started: true, loading: isLoading, completed: !isLoading }}
@@ -54,12 +48,6 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
       >
         {children({ data, variables })}
       </QueryVariablesContext.Provider>
-    );
-  } else if (onEmpty) {
-    return onEmpty({ variables });
-  }
-
-  return null;
     </QueryStateContext.Provider>
   );
 }

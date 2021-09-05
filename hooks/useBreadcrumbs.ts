@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 import { RouteHelper } from "routes";
 import { UrlObject } from "url";
+import { useMaybeFragment } from "hooks";
+
 declare type Url = string | UrlObject;
 
 const kindMap = {
@@ -21,9 +22,9 @@ export type BreadcrumbListType =
   | null;
 
 export default function useBreadcrumbs(
-  entity: useBreadcrumbsFragment$key | null
+  entity?: useBreadcrumbsFragment$key | null
 ): BreadcrumbListType {
-  const data = useFragment<useBreadcrumbsFragment$key>(fragment, entity);
+  const data = useMaybeFragment<useBreadcrumbsFragment$key>(fragment, entity);
 
   const breadcrumbsData = useMemo(() => {
     if (!entity) return null;

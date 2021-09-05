@@ -3,6 +3,7 @@ import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
 import * as Styled from "./PageHeader.styles";
 import { RouteHelper } from "routes";
 import { useRouter } from "next/router";
+import isNil from "lodash/isNil";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
@@ -16,9 +17,9 @@ const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
 
   return (
     <Styled.Header>
-      {breadcrumbsProps && <Breadcrumbs {...breadcrumbsProps} />}
+      {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <Styled.TitleWrapper>
-        <Styled.H1>{title}</Styled.H1>
+        <Styled.H1>{title || "\u00a0"}</Styled.H1>
         {buttons && <Styled.ButtonsWrapper>{buttons}</Styled.ButtonsWrapper>}
       </Styled.TitleWrapper>
       {tabRoutes && (
