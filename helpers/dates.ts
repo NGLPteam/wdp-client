@@ -1,9 +1,9 @@
 import format from "date-fns/format";
-import parse from "date-fns/parse";
+import parseISO from "date-fns/parseISO";
 
 /** Formats a date from the backend, default is `PPp`, ie `MMM d, yyyy, h:mm a`  */
 export function formatDate(dateString: string, formatString?: string) {
-  const parsedDate = parse(dateString, `yyyy-MM-dd'T'kk:mm:ss'Z'`, new Date());
+  const parsedDate = parseISO(dateString);
   try {
     return format(parsedDate, formatString || "PPp");
   } catch (error) {
