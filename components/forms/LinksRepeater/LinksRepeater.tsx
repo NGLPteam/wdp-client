@@ -9,6 +9,7 @@ import type {
   UseFormRegister,
 } from "react-hook-form";
 import { Forms } from "components/api/MutationForm";
+import { useTranslation } from "react-i18next";
 
 function LinksRepeater<T extends FieldValues = FieldValues>({
   label,
@@ -17,6 +18,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
   control,
   name,
 }: Props<T>) {
+  const { t } = useTranslation();
   const { fields, append, remove } = useFieldArray({
     control,
     name,
@@ -27,12 +29,12 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
   };
 
   return (
-    <Fieldset label={label}>
+    <Fieldset label={t(label)}>
       {fields.map((field, index) => (
         <Fieldset.Fields key={field.id}>
           <Fieldset.Field>
             <Forms.Input
-              label="Title"
+              label="forms.inputs.linkRepeater.fields.title"
               {...register(`${name}.${index}.title` as Path<Partial<T>>, {
                 required: true,
               })}
@@ -40,7 +42,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
           </Fieldset.Field>
           <Fieldset.Field>
             <Forms.Input
-              label="URL"
+              label="forms.inputs.linkRepeater.fields.url"
               type="url"
               {...register(`${name}.${index}.url` as Path<Partial<T>>, {
                 required: true,
@@ -50,7 +52,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
           <Fieldset.Actions>
             <ButtonControl
               type="button"
-              aria-label={`Remove ${itemLabel}`}
+              aria-label={t("forms.inputs.linkRepeater.remove", { itemLabel })}
               onClick={() => {
                 remove(index);
               }}
@@ -60,7 +62,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
         </Fieldset.Fields>
       ))}
       <ButtonControl type="button" onClick={handleAddField} icon="plus">
-        Add New {itemLabel}
+        {t("forms.inputs.linkRepeater.add", { itemLabel })}
       </ButtonControl>
     </Fieldset>
   );

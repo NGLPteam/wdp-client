@@ -44,25 +44,37 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.Input label="First Name" {...register("givenName")} />
-        <Forms.Input label="Last Name" {...register("familyName")} />
+        <Forms.Input
+          label="forms.contributor.fields.givenName"
+          {...register("givenName")}
+        />
+        <Forms.Input
+          label="forms.contributor.fields.familyName"
+          {...register("familyName")}
+        />
         <Forms.FileUpload
-          label="Image"
+          label="forms.contributor.fields.image"
           name="image"
           image={image?.thumb}
           existingValue={image !== null}
         />
         <Forms.Input label="Title" {...register("title")} />
         <Forms.Email
-          label="Email"
+          label="forms.contributor.fields.email"
           description="Format: example@email.com"
           {...register("email")}
         />
-        <Forms.Input label="Affiliation" {...register("affiliation")} />
-        <Forms.Textarea label="Bio" {...register("bio")} />
+        <Forms.Input
+          label="forms.contributor.fields.affiliation"
+          {...register("affiliation")}
+        />
+        <Forms.Textarea
+          label="forms.contributor.fields.bio"
+          {...register("bio")}
+        />
         <Forms.LinksRepeater
-          label="Links"
-          itemLabel="Link"
+          label="forms.contributor.fields.links"
+          itemLabel="forms.contributor.fields.link"
           name="links"
           register={register}
           control={control}

@@ -4,6 +4,7 @@ import { useUID } from "react-uid";
 import isFunction from "lodash/isFunction";
 import * as Styled from "./BaseInputWrapper.styles";
 import type InputProps from "../inputType";
+import { useTranslation } from "react-i18next";
 
 import Errors from "components/forms/Errors";
 
@@ -15,12 +16,13 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   labelProps,
   name,
 }: Props<T>) => {
+  const { t } = useTranslation();
   const uid = useUID();
 
   return (
     <Styled.Wrapper>
       <Styled.Label htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
-        {label}
+        {typeof label === "string" ? t(label) : label}
       </Styled.Label>
       {isFunction(children)
         ? children({ uid })

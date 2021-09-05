@@ -14,18 +14,37 @@ import type {
 
 export default function ContributorCreateOrganizationForm() {
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+    ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.Input label="Legal Name" {...register("legalName")} />
+        <Forms.Input
+          label="forms.contributor.fields.legalName"
+          {...register("legalName")}
+        />
         <Forms.Email
-          label="Email"
+          label="forms.contributor.fields.email"
           {...register("email")}
           description="Format: example@email.com"
         />
-        <Forms.FileUpload label="Image" name="image" />
-        <Forms.Input label="Location" {...register("location")} />
-        <Forms.Textarea label="Bio" {...register("bio")} />
-        <Forms.Input label="Url" {...register("url")} />
+        <Forms.FileUpload label="forms.contributor.fields.image" name="image" />
+        <Forms.Input
+          label="forms.contributor.fields.location"
+          {...register("location")}
+        />
+        <Forms.Textarea
+          label="forms.contributor.fields.bio"
+          {...register("bio")}
+        />
+        <Forms.Input
+          label="forms.contributor.fields.url"
+          {...register("url")}
+        />
+        <Forms.LinksRepeater<Fields>
+          label="forms.contributor.fields.links"
+          itemLabel="forms.contributor.fields.link"
+          name="links"
+          register={register}
+          control={control}
+        />
       </Forms.Grid>
     ),
     []
@@ -64,6 +83,10 @@ const mutation = graphql`
               url
             }
           }
+        }
+        links {
+          title
+          url
         }
       }
       ...MutationForm_mutationErrors
