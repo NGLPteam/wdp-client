@@ -47,6 +47,33 @@
           "server_error": "Something went wrong"
         },
         "required": "This is required"
+      },
+      "inputs": {
+        "linkRepeater": {
+          "fields": {
+            "url": "URL",
+            "title": "title"
+          },
+          "add": "Add $t({{ itemLabel }})",
+          "remove": "Add $t({{ itemLabel }})"
+
+        }
+      },
+      "contributor": {
+        "fields": {
+          "legalName" : "Name",
+          "givenName": "First Name",
+          "familyName": "Last Name",
+          "image": "Image",
+          "title": "Title",
+          "email": "Email",
+          "affiliation": "Affiliation",
+          "bio": "Bio",
+          "links": "Links",
+          "link": "Link",
+          "location": "Location",
+          "url": "URL"
+        }
       }
     },
     "header": {

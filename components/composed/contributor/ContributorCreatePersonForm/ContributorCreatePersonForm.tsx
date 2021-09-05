@@ -16,20 +16,35 @@ export default function ContributorCreatePersonForm() {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.Input label="First Name" {...register("givenName")} />
-        <Forms.Input label="Last Name" {...register("familyName")} />
-        <Forms.FileUpload label="Image" name="image" />
-        <Forms.Input label="Title" {...register("title")} />
+        <Forms.Input
+          label="forms.contributor.fields.givenName"
+          {...register("givenName")}
+        />
+        <Forms.Input
+          label="forms.contributor.fields.familyName"
+          {...register("familyName")}
+        />
+        <Forms.FileUpload label="forms.contributor.fields.image" name="image" />
+        <Forms.Input
+          label="forms.contributor.fields.title"
+          {...register("title")}
+        />
         <Forms.Email
-          label="Email"
+          label="forms.contributor.fields.email"
           {...register("email")}
           description="Format: example@email.com"
         />
-        <Forms.Input label="Affiliation" {...register("affiliation")} />
-        <Forms.Textarea label="Bio" {...register("bio")} />
+        <Forms.Input
+          label="forms.contributor.fields.affiliation"
+          {...register("affiliation")}
+        />
+        <Forms.Textarea
+          label="forms.contributor.fields.bio"
+          {...register("bio")}
+        />
         <Forms.LinksRepeater<Fields>
-          label="Links"
-          itemLabel="Link"
+          label="forms.contributor.fields.links"
+          itemLabel="forms.contributor.fields.link"
           name="links"
           register={register}
           control={control}
