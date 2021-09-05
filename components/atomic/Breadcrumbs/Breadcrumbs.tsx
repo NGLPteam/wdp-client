@@ -68,7 +68,7 @@ const BreadcrumbsWrapper = ({
     return breadcrumbItems;
   }, [data, className, t]);
 
-  return data ? (
+  return items ? (
     <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
       {items}
     </CICBreadcrumbs>
