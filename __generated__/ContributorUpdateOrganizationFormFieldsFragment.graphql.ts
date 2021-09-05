@@ -18,6 +18,10 @@ export type ContributorUpdateOrganizationFormFieldsFragment = {
             } | null;
         };
     } | null;
+    readonly links?: ReadonlyArray<{
+        readonly title: string;
+        readonly url: string;
+    } | null>;
     readonly " $refType": "ContributorUpdateOrganizationFormFieldsFragment";
 };
 export type ContributorUpdateOrganizationFormFieldsFragment$data = ContributorUpdateOrganizationFormFieldsFragment;
@@ -114,6 +118,25 @@ return {
             }
           ],
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ContributorLink",
+          "kind": "LinkedField",
+          "name": "links",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            (v0/*: any*/)
+          ],
+          "storageKey": null
         }
       ],
       "type": "OrganizationContributor",
@@ -124,5 +147,5 @@ return {
   "abstractKey": "__isAnyContributor"
 };
 })();
-(node as any).hash = '24da66935d1ef30a16a46cc8af3a2054';
+(node as any).hash = '2c290ddd7095478c12d8a3b99579d7d2';
 export default node;

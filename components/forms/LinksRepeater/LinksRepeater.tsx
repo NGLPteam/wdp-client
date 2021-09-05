@@ -33,14 +33,18 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
           <Fieldset.Field>
             <Forms.Input
               label="Title"
-              {...register(`${name}.${index}.title` as Path<Partial<T>>)}
+              {...register(`${name}.${index}.title` as Path<Partial<T>>, {
+                required: true,
+              })}
             />
           </Fieldset.Field>
           <Fieldset.Field>
             <Forms.Input
               label="URL"
               type="url"
-              {...register(`${name}.${index}.url` as Path<Partial<T>>)}
+              {...register(`${name}.${index}.url` as Path<Partial<T>>, {
+                required: true,
+              })}
             />
           </Fieldset.Field>
           <Fieldset.Actions>
