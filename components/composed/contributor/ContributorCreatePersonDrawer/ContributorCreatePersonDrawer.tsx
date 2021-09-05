@@ -11,12 +11,6 @@ export default function ContributorCreatePersonDrawer({
 }) {
   const { t } = useTranslation();
 
-  // TODO: Pass this into the drawer
-  // const onCreate = useCallback(() => {
-  //   if (!dialog?.hide) return;
-  //   dialog.hide();
-  // }, [dialog]);
-
   return (
     <Drawer
       label={t("actions.create.contributor.person")}

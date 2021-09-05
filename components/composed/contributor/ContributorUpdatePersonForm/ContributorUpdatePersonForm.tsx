@@ -5,6 +5,7 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import compact from "lodash/compact";
 
 import type {
   UpdatePersonContributorInput,
@@ -14,15 +15,31 @@ import type { ContributorUpdatePersonFormFragment$key } from "@/relay/Contributo
 import type { ContributorUpdatePersonFormFieldsFragment$key } from "@/relay/ContributorUpdatePersonFormFieldsFragment.graphql";
 
 export default function ContributorUpdatePersonForm({ data }: Props) {
-  const { contributorId, ...fieldsData } = useFragment(fragment, data);
+  const {
+    contributorId = "",
+    ...fieldsData
+  } = useFragment<ContributorUpdatePersonFormFragment$key>(fragment, data);
 
   const {
     image,
-    ...defaultValues
+    links,
+    ...otherValues
   } = useFragment<ContributorUpdatePersonFormFieldsFragment$key>(
     fieldsFragment,
     fieldsData
   );
+
+  // We need to transform the links value to a mutable value and remove nulls to satisfy
+  // our type checker.
+  const defaultValues = {
+    ...otherValues,
+    links: links ? [...compact(links)] : [],
+  };
+
+  const toVariables = useToVariables<
+    ContributorUpdatePersonFormMutation,
+    Fields
+  >((data) => ({ input: { ...data, contributorId } }), []);
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
@@ -55,21 +72,12 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
     []
   );
 
-  const toVariables = useToVariables<
-    ContributorUpdatePersonFormMutation,
-    Fields
-  >((data) => {
-    if (!contributorId)
-      throw new Error("Contributor ID must be present in contributor update");
-    return { input: { ...data, contributorId } };
-  }, []);
-
   return (
     <MutationForm<ContributorUpdatePersonFormMutation, Fields>
       name="updatePersonContributor"
       mutation={mutation}
       toVariables={toVariables}
-      defaultValues={defaultValues as Fields}
+      defaultValues={defaultValues}
     >
       {renderForm}
     </MutationForm>
