@@ -4,7 +4,6 @@ import { graphql } from "react-relay";
 
 import MutationForm, {
   useRenderForm,
-  useToVariables,
   Forms,
 } from "components/api/MutationForm";
 
@@ -40,16 +39,10 @@ export default function ContributorCreatePersonForm() {
     []
   );
 
-  const toVariables = useToVariables<
-    ContributorCreatePersonFormMutation,
-    Fields
-  >((data) => ({ input: data }), []);
-
   return (
     <MutationForm<ContributorCreatePersonFormMutation, Fields>
       mutation={mutation}
       name="createPersonContributor"
-      toVariables={toVariables}
     >
       {renderForm}
     </MutationForm>
