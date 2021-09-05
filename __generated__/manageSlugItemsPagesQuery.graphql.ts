@@ -4,33 +4,35 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CollectionLayoutQueryVariables = {
-    slug: string;
+export type manageSlugItemsPagesQueryVariables = {
+    itemSlug: string;
 };
-export type CollectionLayoutQueryResponse = {
-    readonly collection: {
-        readonly title: string | null;
-        readonly slug: string;
-        readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
+export type manageSlugItemsPagesQueryResponse = {
+    readonly item: {
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
-export type CollectionLayoutQuery = {
-    readonly response: CollectionLayoutQueryResponse;
-    readonly variables: CollectionLayoutQueryVariables;
+export type manageSlugItemsPagesQuery = {
+    readonly response: manageSlugItemsPagesQueryResponse;
+    readonly variables: manageSlugItemsPagesQueryVariables;
 };
 
 
 
 /*
-query CollectionLayoutQuery(
-  $slug: Slug!
+query manageSlugItemsPagesQuery(
+  $itemSlug: Slug!
 ) {
-  collection(slug: $slug) {
-    title
-    slug
-    ...useBreadcrumbsFragment
+  item(slug: $itemSlug) {
+    ...ItemLayoutFragment
     id
   }
+}
+
+fragment ItemLayoutFragment on Item {
+  title
+  slug
+  ...useBreadcrumbsFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -50,31 +52,24 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "itemSlug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "slug"
+    "variableName": "itemSlug"
   }
 ],
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -86,22 +81,20 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CollectionLayoutQuery",
+    "name": "manageSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Collection",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "collection",
+        "name": "item",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "useBreadcrumbsFragment"
+            "name": "ItemLayoutFragment"
           }
         ],
         "storageKey": null
@@ -114,19 +107,25 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CollectionLayoutQuery",
+    "name": "manageSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Collection",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "collection",
+        "name": "item",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "title",
+            "storageKey": null
+          },
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -159,8 +158,8 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v2/*: any*/),
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -174,14 +173,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ad3ff08b7b0554b852ba1da7c424055a",
+    "cacheID": "2220cde45114809ed2e5e6cd629b774d",
     "id": null,
     "metadata": {},
-    "name": "CollectionLayoutQuery",
+    "name": "manageSlugItemsPagesQuery",
     "operationKind": "query",
-    "text": "query CollectionLayoutQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    title\n    slug\n    ...useBreadcrumbsFragment\n    id\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query manageSlugItemsPagesQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '53a6968c4ca683b806fc0907e18dd3e3';
+(node as any).hash = '66acab7b1b9b2f8a178a55c62d87685f';
 export default node;

@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type detailsSlugContributorsPagesQueryVariables = {
-    slug: string;
+    contributorSlug: string;
 };
 export type detailsSlugContributorsPagesQueryResponse = {
     readonly contributor: {
@@ -21,9 +21,9 @@ export type detailsSlugContributorsPagesQuery = {
 
 /*
 query detailsSlugContributorsPagesQuery(
-  $slug: Slug!
+  $contributorSlug: Slug!
 ) {
-  contributor(slug: $slug) {
+  contributor(slug: $contributorSlug) {
     __typename
     ...ContributorUpdateFormFragment
     ...ContributorLayoutFragment
@@ -123,14 +123,14 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "contributorSlug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "slug"
+    "variableName": "contributorSlug"
   }
 ],
 v2 = {
@@ -442,14 +442,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7e33c3f4317be576ae973b5c65f01046",
+    "cacheID": "9bea393770fe1bca3cb0adfcaf28c0f3",
     "id": null,
     "metadata": {},
     "name": "detailsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query detailsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n"
+    "text": "query detailsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c4749c07138ce497459495d6c88172b0';
+(node as any).hash = 'cd6872235033eba6c4db3582bcc59cc5';
 export default node;

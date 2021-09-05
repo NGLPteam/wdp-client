@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type itemsSlugContributorsPagesQueryVariables = {
-    slug: string;
+    contributorSlug: string;
 };
 export type itemsSlugContributorsPagesQueryResponse = {
     readonly contributor: {
@@ -25,9 +25,9 @@ export type itemsSlugContributorsPagesQuery = {
 
 /*
 query itemsSlugContributorsPagesQuery(
-  $slug: Slug!
+  $contributorSlug: Slug!
 ) {
-  contributor(slug: $slug) {
+  contributor(slug: $contributorSlug) {
     __typename
     ...ContributorLayoutFragment
     ... on OrganizationContributor {
@@ -104,14 +104,14 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "contributorSlug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "slug"
+    "variableName": "contributorSlug"
   }
 ],
 v2 = {
@@ -396,14 +396,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7d4dce6bd935b8ac2f6ff6023ae042bb",
+    "cacheID": "5999f95b62097dfb18c2c6c531a068d6",
     "id": null,
     "metadata": {},
     "name": "itemsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query itemsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    role\n    item {\n      slug\n      title\n      id\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query itemsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    role\n    item {\n      slug\n      title\n      id\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e3f3356127040ade1fc8a570d558e07e';
+(node as any).hash = 'eb9386b871ab34a2c8c291e243e90d12';
 export default node;

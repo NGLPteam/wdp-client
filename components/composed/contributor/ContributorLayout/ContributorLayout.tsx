@@ -1,25 +1,29 @@
 import React, { ReactNode, useMemo } from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { RouteHelper } from "routes";
-import { PageHeader, ContentSidebar } from "components/layout";
 import { useTranslation } from "react-i18next";
 import capitalize from "lodash/capitalize";
+import { useMaybeFragment } from "hooks";
+import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
 
-import { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
+import { PageHeader, ContentSidebar } from "components/layout";
+import ContributorDisplayName, {
+  getContributorDisplayName,
+} from "../ContributorDisplayName";
 
 export default function ContributorLayout({
   children,
   data,
 }: {
   children: ReactNode;
-  data: ContributorLayoutFragment$key;
+  data?: ContributorLayoutFragment$key | null;
 }) {
   const { t } = useTranslation();
   const router = useRouter();
   const { slug } = router.query;
   const mainRoute = RouteHelper.findRouteByName("contributor");
-  const contributor = useFragment(fragment, data);
+  const contributor = useMaybeFragment(fragment, data);
 
   // Get the contributor's child routes with current query
   const childRoutes = useMemo(() => {
@@ -27,16 +31,6 @@ export default function ContributorLayout({
       ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
       : undefined;
   }, [slug, mainRoute]);
-
-  // Get the contributor's display name
-  const displayName = useMemo(() => {
-    if (!contributor) return "";
-    return contributor.__typename === "PersonContributor"
-      ? `${contributor.firstName} ${contributor.lastName}`
-      : contributor.__typename === "OrganizationContributor"
-      ? contributor.name
-      : "";
-  }, [contributor]);
 
   // Build breadcrumbs
   const breadcrumbs = useMemo(() => {
@@ -50,18 +44,19 @@ export default function ContributorLayout({
             },
             {
               href: { pathname: mainRoute.path, query: { slug } },
-              label: displayName,
+              label: getContributorDisplayName(contributor),
             },
           ],
         }
       : undefined;
-  }, [mainRoute, t, slug, displayName]);
+  }, [contributor, mainRoute, t, slug]);
 
   return (
     <section>
-      {contributor && (
-        <PageHeader breadcrumbsProps={breadcrumbs} title={displayName} />
-      )}
+      <PageHeader
+        breadcrumbsProps={breadcrumbs}
+        title={<ContributorDisplayName contributor={contributor} />}
+      />
       <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
     </section>
   );

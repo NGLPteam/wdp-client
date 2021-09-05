@@ -4,19 +4,20 @@ import {
   CommunityListFragment$key,
   CommunityListFragment,
 } from "@/relay/CommunityListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
+import type { ModelTableActionProps } from "react-table";
+import { useMaybeFragment } from "hooks";
+
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import type { ModelTableActionProps } from "react-table";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-interface CommunityListProps {
-  data: CommunityListFragment$key;
-}
-
-type CommunityNode = CommunityListFragment["edges"][number]["node"];
-
 function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
+  const communities = useMaybeFragment<CommunityListFragment$key>(
+    fragment,
+    data
+  );
+
   const columns = [
     ModelColumns.NameColumn<CommunityNode>({
       route: "community",
@@ -35,7 +36,6 @@ function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
   };
   /* eslint-enable no-console */
 
-  const communities = useFragment<CommunityListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, CommunityListFragment, CommunityNode>
       modelName="community"
@@ -46,6 +46,12 @@ function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
     />
   );
 }
+
+interface CommunityListProps {
+  data?: CommunityListFragment$key;
+}
+
+type CommunityNode = CommunityListFragment["edges"][number]["node"];
 
 const fragment = graphql`
   fragment CommunityListFragment on CommunityConnection {

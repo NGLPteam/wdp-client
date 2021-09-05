@@ -79,7 +79,7 @@ function ModelList<
             selectable={selectable}
             {...modelGridOrTableProps}
           />
-          <ModelPagination data={data} />
+          <ModelPagination data={data || null} />
         </>
       )}
     </>

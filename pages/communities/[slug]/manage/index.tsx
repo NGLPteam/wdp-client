@@ -1,13 +1,37 @@
 import React from "react";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { manageSlugCommunitiesPagesQuery as Query } from "@/relay/manageSlugCommunitiesPagesQuery.graphql";
+
 import CommunityLayout from "components/composed/community/CommunityLayout";
-import { Page } from "types/page";
+import ErrorPage from "next/error";
 
-const Manage: Page = () => {
-  return <></>;
-};
+function ManageCollection() {
+  const queryVars = useBaseListQueryVars();
+  const communitySlug = useRouteSlug();
+  if (!communitySlug) return <ErrorPage statusCode={404} />;
 
-Manage.getLayout = (page) => {
-  return <CommunityLayout>{page}</CommunityLayout>;
-};
+  return (
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...queryVars, communitySlug }}
+    >
+      {({ data }) => (
+        <CommunityLayout data={data?.community}>
+          Manage Community
+        </CommunityLayout>
+      )}
+    </QueryWrapper>
+  );
+}
 
-export default Manage;
+const query = graphql`
+  query manageSlugCommunitiesPagesQuery($communitySlug: Slug!) {
+    community(slug: $communitySlug) {
+      ...CommunityLayoutFragment
+    }
+  }
+`;
+
+export default ManageCollection;

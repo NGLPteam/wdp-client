@@ -1,13 +1,37 @@
 import React from "react";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { manageSlugCollectionsPagesQuery as Query } from "@/relay/manageSlugCollectionsPagesQuery.graphql";
+
 import CollectionLayout from "components/composed/collection/CollectionLayout";
-import { Page } from "types/page";
+import ErrorPage from "next/error";
 
-const Manage: Page = () => {
-  return <></>;
-};
+function ManageCollection() {
+  const queryVars = useBaseListQueryVars();
+  const collectionSlug = useRouteSlug();
+  if (!collectionSlug) return <ErrorPage statusCode={404} />;
 
-Manage.getLayout = (page) => {
-  return <CollectionLayout>{page}</CollectionLayout>;
-};
+  return (
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...queryVars, collectionSlug }}
+    >
+      {({ data }) => (
+        <CollectionLayout data={data?.collection}>
+          Manage Collection
+        </CollectionLayout>
+      )}
+    </QueryWrapper>
+  );
+}
 
-export default Manage;
+const query = graphql`
+  query manageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
+    collection(slug: $collectionSlug) {
+      ...CollectionLayoutFragment
+    }
+  }
+`;
+
+export default ManageCollection;

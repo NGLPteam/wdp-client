@@ -1,30 +1,19 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
-import { ItemLayoutQuery } from "__generated__/ItemLayoutQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
+import { useBreadcrumbs, useMaybeFragment } from "hooks";
+
 import { PageHeader } from "components/layout";
-import { useRouter } from "next/router";
-import { useBreadcrumbs } from "hooks";
-import { routeQueryArrayToString } from "routes";
 
-export default function ItemLayout({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const { data, error, isLoading } = useAuthenticatedQuery<ItemLayoutQuery>(
-    query,
-    { slug: routeQueryArrayToString(slug) }
-  );
-
-  const breadcrumbs = useBreadcrumbs(data?.item || null);
-
-  if (isLoading) {
-    return null;
-  }
-
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
+export default function ItemLayout({
+  children,
+  data,
+}: {
+  children: ReactNode;
+  data?: ItemLayoutFragment$key | null;
+}) {
+  const item = useMaybeFragment(fragment, data);
+  const breadcrumbs = useBreadcrumbs(item || null);
 
   const tabRoutes = [
     {
@@ -39,25 +28,21 @@ export default function ItemLayout({ children }: { children: ReactNode }) {
 
   return (
     <section>
-      {data && data.item && (
-        <PageHeader
-          title={data.item.title}
-          breadcrumbsProps={{ data: breadcrumbs }}
-          tabRoutes={tabRoutes}
-        />
-      )}
+      <PageHeader
+        title={item?.title}
+        breadcrumbsProps={{ data: breadcrumbs }}
+        tabRoutes={tabRoutes}
+      />
 
       {children}
     </section>
   );
 }
 
-const query = graphql`
-  query ItemLayoutQuery($slug: Slug!) {
-    item(slug: $slug) {
-      title
-      slug
-      ...useBreadcrumbsFragment
-    }
+const fragment = graphql`
+  fragment ItemLayoutFragment on Item {
+    title
+    slug
+    ...useBreadcrumbsFragment
   }
 `;

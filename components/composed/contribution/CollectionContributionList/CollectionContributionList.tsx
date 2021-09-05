@@ -1,27 +1,31 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
-import { OperationType } from "relay-runtime";
-import { graphql, useFragment } from "react-relay";
-import {
+import { graphql } from "react-relay";
+import type { OperationType } from "relay-runtime";
+import type {
   CollectionContributionListFragment,
   CollectionContributionListFragment$key,
 } from "@/relay/CollectionContributionListFragment.graphql";
-import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { NamedLink } from "components/atomic";
 import { useRouter } from "next/router";
+import { useMaybeFragment } from "hooks";
 
-interface CollectionContributionListProps {
-  data: CollectionContributionListFragment$key;
-}
+import { NamedLink } from "components/atomic";
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
 function CollectionContributionList<T extends OperationType>({
   data,
 }: CollectionContributionListProps) {
   const router = useRouter();
+
+  /* eslint-disable max-len */
+  const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
+    fragment,
+    data
+  );
+  /* eslint-enable max-len */
 
   const columns = [
     {
@@ -68,13 +72,6 @@ function CollectionContributionList<T extends OperationType>({
     },
   };
 
-  /* eslint-disable max-len */
-  const collectionContributions = useFragment<CollectionContributionListFragment$key>(
-    fragment,
-    data
-  );
-  /* eslint-enable max-len */
-
   return (
     <ModelListPage<
       T,
@@ -89,6 +86,12 @@ function CollectionContributionList<T extends OperationType>({
     />
   );
 }
+
+interface CollectionContributionListProps {
+  data?: CollectionContributionListFragment$key;
+}
+
+type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {

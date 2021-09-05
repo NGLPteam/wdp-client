@@ -1,30 +1,18 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
-import { CommunityLayoutQuery } from "@/relay/CommunityLayoutQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { PageHeader } from "components/layout";
-import { useRouter } from "next/router";
-import { routeQueryArrayToString } from "routes";
+import { useBreadcrumbs, useMaybeFragment } from "hooks";
 
-export default function CommunityLayout({ children }: { children: ReactNode }) {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const {
-    data,
-    error,
-    isLoading,
-  } = useAuthenticatedQuery<CommunityLayoutQuery>(query, {
-    slug: routeQueryArrayToString(slug),
-  });
-
-  if (isLoading) {
-    return null;
-  }
-
-  if (error?.message) {
-    return <div>{error.message}</div>;
-  }
+export default function CommunityLayout({
+  children,
+  data,
+}: {
+  children: ReactNode;
+  data?: CommunityLayoutFragment$key | null;
+}) {
+  const community = useMaybeFragment(fragment, data);
+  const breadcrumbs = useBreadcrumbs(community || null);
 
   const tabRoutes = [
     {
@@ -39,19 +27,20 @@ export default function CommunityLayout({ children }: { children: ReactNode }) {
 
   return (
     <section>
-      {data && data.community && (
-        <PageHeader title={data.community.name} tabRoutes={tabRoutes} />
-      )}
+      <PageHeader
+        title={community?.name}
+        breadcrumbsProps={{ data: breadcrumbs }}
+        tabRoutes={tabRoutes}
+      />
       {children}
     </section>
   );
 }
 
-const query = graphql`
-  query CommunityLayoutQuery($slug: Slug!) {
-    community(slug: $slug) {
-      name
-      slug
-    }
+const fragment = graphql`
+  fragment CommunityLayoutFragment on Community {
+    name
+    slug
+    ...useBreadcrumbsFragment
   }
 `;

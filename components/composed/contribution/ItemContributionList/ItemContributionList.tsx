@@ -1,27 +1,30 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import {
   ItemContributionListFragment,
   ItemContributionListFragment$key,
 } from "@/relay/ItemContributionListFragment.graphql";
-import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { NamedLink } from "components/atomic";
 import { useRouter } from "next/router";
+import { useMaybeFragment } from "hooks";
 
-interface ItemContributionListProps {
-  data: ItemContributionListFragment$key;
-}
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
+import { NamedLink } from "components/atomic";
 
-type ItemContributionNode = ItemContributionListFragment["nodes"][number];
 function ItemContributionList<T extends OperationType>({
   data,
 }: ItemContributionListProps) {
+  const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
+    fragment,
+    data
+  );
+
   const router = useRouter();
+
   const columns = [
     {
       Header: "Name",
@@ -65,11 +68,6 @@ function ItemContributionList<T extends OperationType>({
     },
   };
 
-  const itemContributions = useFragment<ItemContributionListFragment$key>(
-    fragment,
-    data
-  );
-
   return (
     <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>
       modelName="item_contribution"
@@ -80,6 +78,12 @@ function ItemContributionList<T extends OperationType>({
     />
   );
 }
+
+interface ItemContributionListProps {
+  data?: ItemContributionListFragment$key;
+}
+
+type ItemContributionNode = ItemContributionListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment ItemContributionListFragment on ItemContributionConnection {

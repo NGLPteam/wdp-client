@@ -5,37 +5,45 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type itemsItemChildQueryVariables = {
+export type itemsSlugItemsPagesQueryVariables = {
     order: SimpleOrder;
     page: number;
     itemSlug: string;
 };
-export type itemsItemChildQueryResponse = {
+export type itemsSlugItemsPagesQueryResponse = {
     readonly item: {
         readonly items: {
             readonly " $fragmentRefs": FragmentRefs<"ItemListFragment">;
         };
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
-export type itemsItemChildQuery = {
-    readonly response: itemsItemChildQueryResponse;
-    readonly variables: itemsItemChildQueryVariables;
+export type itemsSlugItemsPagesQuery = {
+    readonly response: itemsSlugItemsPagesQueryResponse;
+    readonly variables: itemsSlugItemsPagesQueryVariables;
 };
 
 
 
 /*
-query itemsItemChildQuery(
+query itemsSlugItemsPagesQuery(
   $order: SimpleOrder!
   $page: Int!
   $itemSlug: Slug!
 ) {
   item(slug: $itemSlug) {
+    ...ItemLayoutFragment
     items(order: $order, page: $page, perPage: 20) {
       ...ItemListFragment
     }
     id
   }
+}
+
+fragment ItemLayoutFragment on Item {
+  title
+  slug
+  ...useBreadcrumbsFragment
 }
 
 fragment ItemListFragment on ItemConnection {
@@ -78,6 +86,17 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment useBreadcrumbsFragment on Entity {
+  __isEntity: __typename
+  breadcrumbs {
+    depth
+    label
+    kind
+    slug
+    id
   }
 }
 */
@@ -126,6 +145,20 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -138,7 +171,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "itemsItemChildQuery",
+    "name": "itemsSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -163,6 +196,11 @@ return {
               }
             ],
             "storageKey": null
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemLayoutFragment"
           }
         ],
         "storageKey": null
@@ -179,7 +217,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "itemsItemChildQuery",
+    "name": "itemsSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -189,6 +227,8 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -205,13 +245,7 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "slug",
-                    "storageKey": null
-                  },
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -226,13 +260,7 @@ return {
                     "name": "updatedAt",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -294,7 +322,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -368,21 +396,62 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v7/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityBreadcrumb",
+                "kind": "LinkedField",
+                "name": "breadcrumbs",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "depth",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "label",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  (v6/*: any*/),
+                  (v7/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "90a181ff971882c87cedf1d9053f82fe",
+    "cacheID": "98fe856401c44b61c23d8da5d74062fd",
     "id": null,
     "metadata": {},
-    "name": "itemsItemChildQuery",
+    "name": "itemsSlugItemsPagesQuery",
     "operationKind": "query",
-    "text": "query itemsItemChildQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    title\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query itemsSlugItemsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    title\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'cef1a07da9eea6318fd5d86d13a5dc4c';
+(node as any).hash = '303dd453ed6926af60b2e98df01aa888';
 export default node;

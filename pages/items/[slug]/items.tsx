@@ -1,44 +1,42 @@
 import React from "react";
 import { graphql } from "react-relay";
-import ItemList from "components/composed/item/ItemList";
-import { Page } from "types/page";
 import { QueryWrapper } from "components/api";
-import { useRouteSlug } from "hooks";
-import { itemsItemChildQuery as Query } from "__generated__/itemsItemChildQuery.graphql";
-import ItemLayout from "components/composed/item/ItemLayout";
+import { useBaseListQueryVars, useRouteSlug } from "hooks";
+import type { itemsSlugItemsPagesQuery as Query } from "__generated__/itemsSlugItemsPagesQuery.graphql";
 
-const ItemChildItems: Page = () => {
+import ItemLayout from "components/composed/item/ItemLayout";
+import ItemList from "components/composed/item/ItemList";
+import ErrorPage from "next/error";
+
+function ItemChildItems() {
+  const queryVars = useBaseListQueryVars();
   const itemSlug = useRouteSlug();
-  // TODO: This should 404 instead of returning null.
-  if (!itemSlug) return null;
+  if (!itemSlug) return <ErrorPage statusCode={404} />;
 
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ itemSlug, order: "RECENT", page: 1 }}
+      initialVariables={{ ...queryVars, itemSlug }}
     >
-      {({ data }) => {
-        // TODO: We should 404 if there is no collection
-        if (!data || !data.item) return null;
-        return <ItemList<Query> data={data?.item?.items} />;
-      }}
+      {({ data }) => (
+        <ItemLayout data={data?.item}>
+          <ItemList<Query> data={data?.item?.items} />
+        </ItemLayout>
+      )}
     </QueryWrapper>
   );
-};
-
-ItemChildItems.getLayout = (page) => {
-  return <ItemLayout>{page}</ItemLayout>;
-};
+}
 
 export default ItemChildItems;
 
 const query = graphql`
-  query itemsItemChildQuery(
+  query itemsSlugItemsPagesQuery(
     $order: SimpleOrder!
     $page: Int!
     $itemSlug: Slug!
   ) {
     item(slug: $itemSlug) {
+      ...ItemLayoutFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }

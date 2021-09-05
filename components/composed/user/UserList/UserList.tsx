@@ -1,22 +1,21 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
-import { OperationType } from "relay-runtime";
-import { graphql, useFragment } from "react-relay";
-import {
+import type { OperationType } from "relay-runtime";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "hooks";
+import type {
   UserListFragment,
   UserListFragment$key,
 } from "@/relay/UserListFragment.graphql";
 import { CellProps } from "react-table";
-import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import type { ModelTableActionProps } from "react-table";
 
-interface UserListProps {
-  data: UserListFragment$key;
-}
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-type UserNode = UserListFragment["nodes"][number];
 function UserList<T extends OperationType>({ data }: UserListProps) {
+  const users = useMaybeFragment<UserListFragment$key>(fragment, data);
+
   const columns = [
     ModelColumns.CreatedAtColumn<UserNode>(),
     ModelColumns.UpdatedAtColumn<UserNode>(),
@@ -46,7 +45,6 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
   };
   /* eslint-enable no-console */
 
-  const users = useFragment<UserListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, UserListFragment, UserNode>
       modelName="user"
@@ -58,6 +56,12 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
     />
   );
 }
+
+interface UserListProps {
+  data?: UserListFragment$key;
+}
+
+type UserNode = UserListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment UserListFragment on UserConnection {

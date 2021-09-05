@@ -1,13 +1,33 @@
 import React from "react";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { manageSlugItemsPagesQuery as Query } from "@/relay/manageSlugItemsPagesQuery.graphql";
+
 import ItemLayout from "components/composed/item/ItemLayout";
-import { Page } from "types/page";
+import ErrorPage from "next/error";
 
-const Manage: Page = () => {
-  return <></>;
-};
+function ManageItem() {
+  const queryVars = useBaseListQueryVars();
+  const itemSlug = useRouteSlug();
+  if (!itemSlug) return <ErrorPage statusCode={404} />;
 
-Manage.getLayout = (page) => {
-  return <ItemLayout>{page}</ItemLayout>;
-};
+  return (
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...queryVars, itemSlug }}
+    >
+      {({ data }) => <ItemLayout data={data?.item}>Manage Item</ItemLayout>}
+    </QueryWrapper>
+  );
+}
 
-export default Manage;
+const query = graphql`
+  query manageSlugItemsPagesQuery($itemSlug: Slug!) {
+    item(slug: $itemSlug) {
+      ...ItemLayoutFragment
+    }
+  }
+`;
+
+export default ManageItem;

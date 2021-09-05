@@ -1,21 +1,19 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
-import { OperationType } from "relay-runtime";
-import {
+import type { OperationType } from "relay-runtime";
+import type {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
-import ModelColumns from "components/composed/model/ModelColumns";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "hooks";
 import type { ModelTableActionProps } from "react-table";
 
-interface ItemListProps {
-  data: ItemListFragment$key;
-}
-
-type ItemNode = ItemListFragment["nodes"][number];
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
 
 function ItemList<T extends OperationType>({ data }: ItemListProps) {
+  const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
+
   const columns = [
     ModelColumns.ThumbnailColumn<ItemNode>(),
     ModelColumns.NameColumn<ItemNode>({
@@ -35,7 +33,6 @@ function ItemList<T extends OperationType>({ data }: ItemListProps) {
   };
   /* eslint-enable no-console */
 
-  const items = useFragment<ItemListFragment$key>(fragment, data);
   return (
     <ModelListPage<T, ItemListFragment, ItemNode>
       modelName="item"
@@ -46,6 +43,12 @@ function ItemList<T extends OperationType>({ data }: ItemListProps) {
     />
   );
 }
+
+interface ItemListProps {
+  data?: ItemListFragment$key;
+}
+
+type ItemNode = ItemListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment ItemListFragment on ItemConnection {

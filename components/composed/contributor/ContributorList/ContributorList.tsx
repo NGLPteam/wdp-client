@@ -5,23 +5,22 @@ import {
   ContributorListFragment,
   ContributorListFragment$key,
 } from "@/relay/ContributorListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
-import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
+import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
+import { useMaybeFragment } from "hooks";
+
+import ModelColumns from "components/composed/model/ModelColumns";
+import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { DrawerLink, ButtonControl } from "components/atomic";
-
-interface ContributorListProps {
-  data: ContributorListFragment$key;
-}
-
-type ContributorNode = ContributorListFragment["nodes"][number];
+import { getContributorDisplayName } from "../ContributorDisplayName";
 
 function ContributorList<T extends OperationType>({
   data,
 }: ContributorListProps) {
   const { t } = useTranslation();
+
+  const contributors = useMaybeFragment(fragment, data);
 
   const columns = [
     ModelColumns.ThumbnailColumn<ContributorNode>({
@@ -33,15 +32,7 @@ function ContributorList<T extends OperationType>({
     ModelColumns.NameColumn<ContributorNode>({
       route: "contributor",
       id: "name",
-      accessor: (row) => {
-        if (row.__typename === "OrganizationContributor") {
-          return row.name;
-        }
-        if (row.__typename === "PersonContributor") {
-          return `${row.firstName} ${row.lastName}`;
-        }
-        return "";
-      },
+      accessor: (row) => getContributorDisplayName(row),
     }),
     ModelColumns.CreatedAtColumn<ContributorNode>(),
     ModelColumns.UpdatedAtColumn<ContributorNode>(),
@@ -77,8 +68,6 @@ function ContributorList<T extends OperationType>({
     </div>
   );
 
-  const contributors = useFragment(fragment, data);
-
   return (
     <ModelListPage<T, ContributorListFragment, ContributorNode>
       modelName="contributor"
@@ -90,6 +79,12 @@ function ContributorList<T extends OperationType>({
     />
   );
 }
+
+interface ContributorListProps {
+  data?: ContributorListFragment$key;
+}
+
+type ContributorNode = ContributorListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment ContributorListFragment on AnyContributorConnection {

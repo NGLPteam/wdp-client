@@ -11,7 +11,6 @@ export default function UserListView() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => {
-        if (!data) return null;
         return <UserList<Query> data={data?.users} />;
       }}
     </QueryWrapper>

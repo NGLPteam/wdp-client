@@ -1,46 +1,42 @@
 import React from "react";
 import { graphql } from "react-relay";
-import CollectionList from "components/composed/collection/CollectionList";
 import { QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
-import { collectionsCommunityChildQuery as Query } from "__generated__/collectionsCommunityChildQuery.graphql";
+import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
+
+import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayout from "components/composed/community/CommunityLayout";
-import { Page } from "types/page";
+import ErrorPage from "next/error";
 
-const CommunityChildCollections: Page = () => {
+function CommunityChildCollections() {
   const queryVars = useBaseListQueryVars();
-
   const communitySlug = useRouteSlug();
-  // TODO: This should 404 instead of returning null.
-  if (!communitySlug) return null;
+  if (!communitySlug) return <ErrorPage statusCode={404} />;
 
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ communitySlug, ...queryVars }}
+      initialVariables={{ ...queryVars, communitySlug }}
     >
-      {({ data }) => {
-        // TODO: We should 404 if there is no collection
-        if (!data || !data.community) return null;
-        return <CollectionList<Query> data={data?.community?.collections} />;
-      }}
+      {({ data }) => (
+        <CommunityLayout data={data?.community}>
+          <CollectionList<Query> data={data?.community?.collections} />
+        </CommunityLayout>
+      )}
     </QueryWrapper>
   );
-};
-
-CommunityChildCollections.getLayout = (page) => {
-  return <CommunityLayout>{page}</CommunityLayout>;
-};
+}
 
 export default CommunityChildCollections;
 
 const query = graphql`
-  query collectionsCommunityChildQuery(
+  query collectionsSlugCommunitiesPagesQuery(
     $order: SimpleOrder!
     $page: Int!
     $communitySlug: Slug!
   ) {
     community(slug: $communitySlug) {
+      ...CommunityLayoutFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }
