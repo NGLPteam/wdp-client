@@ -3,7 +3,6 @@ import React from "react";
 import { graphql } from "react-relay";
 
 import MutationForm, {
-  useGetErrors,
   useRenderForm,
   useToVariables,
   Forms,
@@ -15,11 +14,6 @@ import type {
 } from "@/relay/ContributorCreatePersonFormMutation.graphql";
 
 export default function ContributorCreatePersonForm() {
-  const getErrors = useGetErrors<ContributorCreatePersonFormMutation>(
-    (response) => response.createPersonContributor ?? null,
-    []
-  );
-
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
@@ -53,7 +47,6 @@ export default function ContributorCreatePersonForm() {
 
   return (
     <MutationForm<ContributorCreatePersonFormMutation, Fields>
-      getErrors={getErrors}
       mutation={mutation}
       name="createPersonContributor"
       toVariables={toVariables}

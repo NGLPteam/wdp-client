@@ -2,7 +2,6 @@ import React from "react";
 import { graphql, useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
-  useGetErrors,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
@@ -48,16 +47,10 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
     []
   );
 
-  const getErrors = useGetErrors<ContributorUpdateOrganizationFormMutation>(
-    (response) => response.updateOrganizationContributor ?? null,
-    []
-  );
-
   const toVariables = useToVariables<
     ContributorUpdateOrganizationFormMutation,
     Fields
   >((data) => {
-    // TODO: Why does relay think the contributor ID can be unknown?
     if (!contributorId)
       throw new Error("Contributor ID must be present in contributor update");
     return { input: { ...data, contributorId } };
@@ -67,7 +60,6 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
     <MutationForm<ContributorUpdateOrganizationFormMutation, Fields>
       name="updateOrganizationContributor"
       mutation={mutation}
-      getErrors={getErrors}
       toVariables={toVariables}
       defaultValues={defaultValues}
     >
