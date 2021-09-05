@@ -1,43 +1,39 @@
 import React from "react";
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
-import { Page } from "types/page";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
-import { useRouteSlug } from "hooks/useRouteSlug";
-import { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
+
+import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
+import ErrorPage from "next/error";
 
-const ContributorCollectionContributions: Page = () => {
-  const slug = useRouteSlug();
-
-  // TODO: 404 here.
-  if (!slug) {
-    return null;
-  }
+function ContributorCollectionContributions() {
+  const queryVars = useBaseListQueryVars();
+  const contributorSlug = useRouteSlug();
+  if (!contributorSlug) return <ErrorPage statusCode={404} />;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
-      {({ data }) => {
-        if (!data || !data.contributor) return null;
-        return (
-          <ContributorLayout data={data.contributor}>
-            {data.contributor.collectionContributions && (
-              <CollectionContributionList<Query>
-                data={data.contributor.collectionContributions}
-              />
-            )}
-          </ContributorLayout>
-        );
-      }}
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...queryVars, contributorSlug }}
+    >
+      {({ data }) => (
+        <ContributorLayout data={data?.contributor}>
+          <CollectionContributionList<Query>
+            data={data?.contributor?.collectionContributions}
+          />
+        </ContributorLayout>
+      )}
     </QueryWrapper>
   );
-};
+}
 
 export default ContributorCollectionContributions;
 
 const query = graphql`
-  query collectionsSlugContributorsPagesQuery($slug: Slug!) {
-    contributor(slug: $slug) {
+  query collectionsSlugContributorsPagesQuery($contributorSlug: Slug!) {
+    contributor(slug: $contributorSlug) {
       __typename
       ...ContributorLayoutFragment
       ... on OrganizationContributor {

@@ -1,43 +1,39 @@
 import React from "react";
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
-import { Page } from "types/page";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
-import { useRouteSlug } from "hooks/useRouteSlug";
-import { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+
+import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
+import ErrorPage from "next/error";
 
-const ContributorItemContributions: Page = () => {
-  const slug = useRouteSlug();
-
-  // TODO: 404 here.
-  if (!slug) {
-    return null;
-  }
+function ContributorItemContributions() {
+  const queryVars = useBaseListQueryVars();
+  const contributorSlug = useRouteSlug();
+  if (!contributorSlug) return <ErrorPage statusCode={404} />;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
-      {({ data }) => {
-        if (!data || !data.contributor) return null;
-        return (
-          <ContributorLayout data={data.contributor}>
-            {data.contributor.itemContributions && (
-              <ItemContributionList<Query>
-                data={data.contributor.itemContributions}
-              />
-            )}
-          </ContributorLayout>
-        );
-      }}
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...queryVars, contributorSlug }}
+    >
+      {({ data }) => (
+        <ContributorLayout data={data?.contributor}>
+          <ItemContributionList<Query>
+            data={data?.contributor?.itemContributions}
+          />
+        </ContributorLayout>
+      )}
     </QueryWrapper>
   );
-};
+}
 
 export default ContributorItemContributions;
 
 const query = graphql`
-  query itemsSlugContributorsPagesQuery($slug: Slug!) {
-    contributor(slug: $slug) {
+  query itemsSlugContributorsPagesQuery($contributorSlug: Slug!) {
+    contributor(slug: $contributorSlug) {
       __typename
       ...ContributorLayoutFragment
       ... on OrganizationContributor {

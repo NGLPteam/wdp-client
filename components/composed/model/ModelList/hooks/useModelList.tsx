@@ -18,7 +18,7 @@ export interface UseModelListProps<
   U extends PaginatedConnectionish,
   V extends Record<string, unknown>
 > {
-  data: U;
+  data?: U | null;
   columns: Column<V>[];
   actions?: Actions<V>;
   selectable?: boolean;

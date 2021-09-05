@@ -3,9 +3,9 @@ import { QueryOptions } from "relay-hooks";
 import QueryVariablesContext from "contexts/QueryVariablesContext";
 import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
-import { ErrorMessage } from "components/atomic";
 import { usePageContext } from "hooks";
 import { QueryStateContext } from "contexts";
+import ErrorPage from "next/error";
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options } = props;
 
@@ -35,7 +35,11 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     if (onError) {
       return onError({ error });
     } else {
-      return <ErrorMessage message={JSON.stringify(error)} />;
+      /* eslint-disable no-console */
+      console.log("The QueryWrapper component encountered an error.");
+      console.log(error);
+      /* eslint-enable no-console */
+      return <ErrorPage statusCode={404} />;
     }
   }
 

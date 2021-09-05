@@ -4,33 +4,35 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type ItemLayoutQueryVariables = {
-    slug: string;
+export type manageSlugCommunitiesPagesQueryVariables = {
+    communitySlug: string;
 };
-export type ItemLayoutQueryResponse = {
-    readonly item: {
-        readonly title: string | null;
-        readonly slug: string;
-        readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
+export type manageSlugCommunitiesPagesQueryResponse = {
+    readonly community: {
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
     } | null;
 };
-export type ItemLayoutQuery = {
-    readonly response: ItemLayoutQueryResponse;
-    readonly variables: ItemLayoutQueryVariables;
+export type manageSlugCommunitiesPagesQuery = {
+    readonly response: manageSlugCommunitiesPagesQueryResponse;
+    readonly variables: manageSlugCommunitiesPagesQueryVariables;
 };
 
 
 
 /*
-query ItemLayoutQuery(
-  $slug: Slug!
+query manageSlugCommunitiesPagesQuery(
+  $communitySlug: Slug!
 ) {
-  item(slug: $slug) {
-    title
-    slug
-    ...useBreadcrumbsFragment
+  community(slug: $communitySlug) {
+    ...CommunityLayoutFragment
     id
   }
+}
+
+fragment CommunityLayoutFragment on Community {
+  name
+  slug
+  ...useBreadcrumbsFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -50,31 +52,24 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "slug"
+    "name": "communitySlug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "slug"
+    "variableName": "communitySlug"
   }
 ],
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -86,22 +81,20 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ItemLayoutQuery",
+    "name": "manageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "useBreadcrumbsFragment"
+            "name": "CommunityLayoutFragment"
           }
         ],
         "storageKey": null
@@ -114,19 +107,25 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ItemLayoutQuery",
+    "name": "manageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -159,8 +158,8 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v2/*: any*/),
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -174,14 +173,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f95d2c63e535b9416ac005af0f2c2858",
+    "cacheID": "f3373ed82edbe98fab16fe8fa72b37c8",
     "id": null,
     "metadata": {},
-    "name": "ItemLayoutQuery",
+    "name": "manageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query ItemLayoutQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    title\n    slug\n    ...useBreadcrumbsFragment\n    id\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query manageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'aeb8f0cd0f5f4fea0ed7c5bc12988e83';
+(node as any).hash = '1a2e25ece3c9052d025de6b6cb8d055f';
 export default node;

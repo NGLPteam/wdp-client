@@ -6,18 +6,18 @@ import { PageCountActions } from "components/layout";
 interface ModelPageCountActionsProps<
   T extends ModelPageCountActionsFragment$key
 > {
-  data: T;
+  data?: T | null;
 }
 
 function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
   data,
 }: ModelPageCountActionsProps<T>) {
-  const { pageInfo } = useFragment<ModelPageCountActionsFragment$key>(
+  const enhancedData = useFragment<ModelPageCountActionsFragment$key>(
     fragment,
-    data
+    data || null
   );
 
-  return <PageCountActions pageInfo={pageInfo} />;
+  return <PageCountActions pageInfo={enhancedData?.pageInfo} />;
 }
 
 export default ModelPageCountActions;

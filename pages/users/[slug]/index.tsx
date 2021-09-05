@@ -1,8 +1,8 @@
 import { Page } from "types/page";
 
 // This is a redirect route. See routes/baseRoutes.ts.
-const CommunityDetail: Page = () => {
+const User: Page = () => {
   return null;
 };
 
-export default CommunityDetail;
+export default User;

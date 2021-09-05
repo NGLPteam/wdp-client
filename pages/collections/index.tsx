@@ -10,10 +10,7 @@ export default function CollectionListView() {
 
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => {
-        if (!data) return null;
-        return <CollectionList<Query> data={data?.viewer?.collections} />;
-      }}
+      {({ data }) => <CollectionList<Query> data={data?.viewer?.collections} />}
     </QueryWrapper>
   );
 }

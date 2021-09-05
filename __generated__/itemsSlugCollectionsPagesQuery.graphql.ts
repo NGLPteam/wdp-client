@@ -5,45 +5,53 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type collectionsCollectionChildQueryVariables = {
+export type itemsSlugCollectionsPagesQueryVariables = {
     order: SimpleOrder;
     page: number;
     collectionSlug: string;
 };
-export type collectionsCollectionChildQueryResponse = {
+export type itemsSlugCollectionsPagesQueryResponse = {
     readonly collection: {
-        readonly collections: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
+        readonly items: {
+            readonly " $fragmentRefs": FragmentRefs<"ItemListFragment">;
         };
+        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutFragment">;
     } | null;
 };
-export type collectionsCollectionChildQuery = {
-    readonly response: collectionsCollectionChildQueryResponse;
-    readonly variables: collectionsCollectionChildQueryVariables;
+export type itemsSlugCollectionsPagesQuery = {
+    readonly response: itemsSlugCollectionsPagesQueryResponse;
+    readonly variables: itemsSlugCollectionsPagesQueryVariables;
 };
 
 
 
 /*
-query collectionsCollectionChildQuery(
+query itemsSlugCollectionsPagesQuery(
   $order: SimpleOrder!
   $page: Int!
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
-    collections(order: $order, page: $page, perPage: 20) {
-      ...CollectionListFragment
+    ...CollectionLayoutFragment
+    items(order: $order, page: $page, perPage: 20) {
+      ...ItemListFragment
     }
     id
   }
 }
 
-fragment CollectionListFragment on CollectionConnection {
+fragment CollectionLayoutFragment on Collection {
+  title
+  slug
+  ...useBreadcrumbsFragment
+}
+
+fragment ItemListFragment on ItemConnection {
   nodes {
+    slug
     createdAt
     updatedAt
     title
-    slug
     thumbnail {
       image: medium {
         png {
@@ -78,6 +86,17 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment useBreadcrumbsFragment on Entity {
+  __isEntity: __typename
+  breadcrumbs {
+    depth
+    label
+    kind
+    slug
+    id
   }
 }
 */
@@ -126,6 +145,20 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -138,7 +171,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "collectionsCollectionChildQuery",
+    "name": "itemsSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -151,18 +184,23 @@ return {
           {
             "alias": null,
             "args": (v4/*: any*/),
-            "concreteType": "CollectionConnection",
+            "concreteType": "ItemConnection",
             "kind": "LinkedField",
-            "name": "collections",
+            "name": "items",
             "plural": false,
             "selections": [
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "CollectionListFragment"
+                "name": "ItemListFragment"
               }
             ],
             "storageKey": null
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CollectionLayoutFragment"
           }
         ],
         "storageKey": null
@@ -179,7 +217,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "collectionsCollectionChildQuery",
+    "name": "itemsSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -189,22 +227,25 @@ return {
         "name": "collection",
         "plural": false,
         "selections": [
+          (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": (v4/*: any*/),
-            "concreteType": "CollectionConnection",
+            "concreteType": "ItemConnection",
             "kind": "LinkedField",
-            "name": "collections",
+            "name": "items",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Collection",
+                "concreteType": "Item",
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
                 "selections": [
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -219,20 +260,7 @@ return {
                     "name": "updatedAt",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "slug",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -294,7 +322,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -368,21 +396,62 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v7/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityBreadcrumb",
+                "kind": "LinkedField",
+                "name": "breadcrumbs",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "depth",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "label",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  (v6/*: any*/),
+                  (v7/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "54988cb519a7b6833d162fb023396048",
+    "cacheID": "ca4794816a2af9e885cdd13ccf9b10f5",
     "id": null,
     "metadata": {},
-    "name": "collectionsCollectionChildQuery",
+    "name": "itemsSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsCollectionChildQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    createdAt\n    updatedAt\n    title\n    slug\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query itemsSlugCollectionsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    title\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c73c2ac59ad4f822cd62fdd512b74d7b';
+(node as any).hash = 'a1ce20d23df3137a78a7178f5047e035';
 export default node;
