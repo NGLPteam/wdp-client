@@ -1,6 +1,7 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
+import toast from "react-hot-toast";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
@@ -30,9 +31,9 @@ function CollectionList<T extends OperationType>({
   /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      console.info(`edit ${row.original.slug}`),
+      toast(`edit ${row.original.slug}`),
     handleDelete: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      console.info(`delete ${row.original.slug}`),
+      toast(`edit ${row.original.slug}`),
   };
   /* eslint-enable no-console */
 

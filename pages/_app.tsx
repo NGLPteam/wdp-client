@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
 import { AppContextProvider } from "contexts";
-
+import { Toaster } from "react-hot-toast";
 import {
   SSRKeycloakProvider,
   SSRCookies,
@@ -82,6 +82,7 @@ const NGLPApp = ({
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
             <AppBody>
+              <Toaster />
               {getLayout(<Component {...pageProps} />)}
               <DrawerController />
             </AppBody>
