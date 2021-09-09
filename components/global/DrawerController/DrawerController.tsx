@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { useDrawerQuery } from "hooks";
+import { useDrawerHelper } from "hooks";
 import { useDialogState } from "reakit/Dialog";
-import drawers from "./helpers/drawers";
 import get from "lodash/get";
 
 /**
@@ -10,31 +9,39 @@ import get from "lodash/get";
  * passed from DrawerContext
  */
 const DrawerController = () => {
-  const { type, removeDialogQuery } = useDrawerQuery();
+  const drawerHelper = useDrawerHelper();
 
   const dialog = useDialogState({
     animated: true,
-    visible: !!type,
+    visible: !!drawerHelper.type,
   });
 
   // Remove dialog query strings if the dialog is closed
   // This is needed in case the user hits escape or clicks outside the dialog
   useEffect(() => {
-    if (!dialog.visible) removeDialogQuery();
+    if (!dialog.visible) drawerHelper.close();
     // eslint-disable-next-line
   }, [dialog.visible]);
 
   // Open the drawer if dialog type is defined
   useEffect(() => {
-    if (type) dialog.show();
+    if (drawerHelper.type) dialog.show();
     // eslint-disable-next-line
-  }, [type]);
+  }, [drawerHelper.type]);
 
-  const DrawerContent = type ? get(drawers, type) : null;
+  const DrawerContent = drawerHelper.type
+    ? get(drawerHelper.drawers, drawerHelper.type)
+    : null;
 
   if (!DrawerContent) return null;
 
-  return <DrawerContent dialog={dialog} hideOnClickOutside={false} />;
+  return (
+    <DrawerContent
+      params={drawerHelper.params}
+      dialog={dialog}
+      hideOnClickOutside={false}
+    />
+  );
 };
 
 export default DrawerController;

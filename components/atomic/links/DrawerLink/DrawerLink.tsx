@@ -1,26 +1,21 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
+import { useDrawerHelper } from "hooks";
+import type { Drawers } from "hooks/useDrawerHelper";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 /**
  * Opens a Drawer from query parameters
  */
 const DrawerLink = forwardRef(
-  ({ children, drawer, query, passHref, ...props }: Props, ref) => {
-    const pathname = window.location.pathname;
-
-    /* Add Drawer query params */
-    const drawerQuery = {
-      drawer,
-      // More props can be added here
-    };
+  (
+    { children, drawer, drawerQuery, query, passHref, ...props }: Props,
+    ref
+  ) => {
+    const drawerHelper = useDrawerHelper();
 
     return (
-      <Link
-        href={{ pathname, query: { ...drawerQuery, ...query } }}
-        passHref={passHref}
-        {...props}
-      >
+      <Link href={drawerHelper.href(drawer)} passHref={passHref} {...props}>
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
@@ -29,11 +24,13 @@ const DrawerLink = forwardRef(
   }
 );
 export interface Props extends Omit<LinkProps, "href"> {
-  /** Drawer to open */
-  drawer: string;
-  /** Extra query parameters */
+  /* Drawer to open */
+  drawer: Drawers;
+  /* parameters that will be passed to the drawer component */
+  drawerQuery?: Record<string, string | number>;
+  /* Extra query parameters */
   query?: Record<string, string | number>;
-  /** Pass href to child component */
+  /* Pass href to child component */
   passHref?: boolean;
 }
 
