@@ -7,6 +7,7 @@ export const Bar = styled.div`
   inset-block-start: 0;
   height: ${pxToRem(4)};
   background: var(--brand30);
+  width: 100%;
 
   ${noInsetSupport(`top: 0;`)}
 `;

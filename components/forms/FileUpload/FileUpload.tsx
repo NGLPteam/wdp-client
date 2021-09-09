@@ -10,11 +10,12 @@ import useLazyRef from "hooks/useLazyRef";
 import useLatest from "hooks/useLatest";
 import useUppy from "hooks/useUppy";
 
+import { ProgressBar } from "components/atomic";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
 
 import * as Styled from "./FileUpload.styles";
-import ProgressBar from "./ProgressBar";
+import FileUploadStatus from "./FileUploadStatus";
 import useUploadReducer from "./useUploadReducer";
 
 import type {
@@ -132,10 +133,10 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
           <IconFactory icon="upload" size="lg" />
           <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
           <ProgressBar
-            active={state.active}
-            percentUploaded={state.percentUploaded}
+            loading={state.active}
+            percentLoaded={state.percentUploaded}
           />
-          <UploadStatus state={state} />
+          <FileUploadStatus state={state} />
           {renderImage()}
         </Styled.Wrapper>
       )}
@@ -158,22 +159,6 @@ export interface Props<T extends FieldValues = FieldValues>
   name: Path<T>;
   image?: Image | null;
   existingValue?: Boolean;
-}
-
-function UploadStatus({ state: { file, upload } }: UploadStatusProps) {
-  if (!file || !upload) {
-    return null;
-  }
-
-  return (
-    <Styled.UploadList>
-      <li>{file.name}</li>
-    </Styled.UploadList>
-  );
-}
-
-interface UploadStatusProps {
-  state: UploadState;
 }
 
 function useWaitForUpload<T extends FieldValues>(

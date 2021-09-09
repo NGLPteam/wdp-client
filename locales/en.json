@@ -56,12 +56,11 @@
           },
           "add": "Add $t({{ itemLabel }})",
           "remove": "Add $t({{ itemLabel }})"
-
         }
       },
       "contributor": {
         "fields": {
-          "legalName" : "Name",
+          "legalName": "Name",
           "givenName": "First Name",
           "familyName": "Last Name",
           "image": "Image",
