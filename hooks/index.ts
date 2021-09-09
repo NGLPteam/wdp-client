@@ -21,3 +21,4 @@ export { default as useAutoProgress } from "./useAutoProgress";
 export { default as usePageContext } from "./usePageContext";
 export { default as useQueryStateContext } from "./useQueryStateContext";
 export { default as useMaybeFragment } from "./useMaybeFragment";
+export { default as usePrevious } from "./usePrevious";
