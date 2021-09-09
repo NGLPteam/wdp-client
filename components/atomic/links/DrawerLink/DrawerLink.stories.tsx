@@ -19,7 +19,7 @@ const Template: Story<Props> = ({ children, ...args }) => (
   <DrawerLink {...args}>{children}</DrawerLink>
 );
 Template.args = {
-  drawer: "add",
+  drawer: "addPerson",
   passHref: true,
   children: <a>Example Drawer Link</a>,
 };
