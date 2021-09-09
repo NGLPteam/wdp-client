@@ -1,4 +1,5 @@
 import React from "react";
+
 import { OperationType } from "relay-runtime";
 import {
   CommunityListFragment$key,
@@ -6,13 +7,16 @@ import {
 } from "@/relay/CommunityListFragment.graphql";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
-import { useMaybeFragment } from "hooks";
+import { useNotify, useMaybeFragment, useDrawerHelper } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
+  const notify = useNotify();
+  const drawerHelper = useDrawerHelper();
+
   const communities = useMaybeFragment<CommunityListFragment$key>(
     fragment,
     data
@@ -27,14 +31,12 @@ function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
     ModelColumns.UpdatedAtColumn<CommunityNode>(),
   ];
 
-  /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<CommunityNode>) =>
-      console.info(`edit ${row.original.slug}`),
+      drawerHelper.open("editCommunity", { drawerSlug: row.original.slug }),
     handleDelete: ({ row }: ModelTableActionProps<CommunityNode>) =>
-      console.info(`delete ${row.original.slug}`),
+      notify.success(`Delete "${row.original.name}"`),
   };
-  /* eslint-enable no-console */
 
   return (
     <ModelListPage<T, CommunityListFragment, CommunityNode>

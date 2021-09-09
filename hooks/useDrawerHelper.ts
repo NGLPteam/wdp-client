@@ -4,6 +4,8 @@ import ContributorCreatePersonDrawer from "components/composed/contributor/Contr
 import ContributorCreateOrganizationDrawer from "components/composed/contributor/ContributorCreateOrganizationDrawer";
 import ItemContributionEditDrawer from "components/composed/contribution/ItemContributionEditDrawer";
 import CollectionContributionEditDrawer from "components/composed/contribution/CollectionContributionEditDrawer";
+import CommunityCreateDrawer from "components/composed/community/CommunityCreateDrawer";
+import CommunityUpdateDrawer from "components/composed/community/CommunityUpdateDrawer";
 import omitBy from "lodash/omitBy";
 import pickBy from "lodash/pickBy";
 
@@ -12,6 +14,8 @@ const drawerRegistry = {
   addOrganization: ContributorCreateOrganizationDrawer,
   editItemContribution: ItemContributionEditDrawer,
   editCollectionContribution: CollectionContributionEditDrawer,
+  addCommunity: CommunityCreateDrawer,
+  editCommunity: CommunityUpdateDrawer,
 };
 
 export function useDrawerHelper() {
