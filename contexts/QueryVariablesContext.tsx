@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import type { OperationType } from "relay-runtime";
 
 interface VariablesContextType {
@@ -8,6 +8,6 @@ interface VariablesContextType {
   >;
 }
 
-const QueryVariablesContext = React.createContext<VariablesContextType>({});
+const QueryVariablesContext = createContext<VariablesContextType>({});
 
 export default QueryVariablesContext;
