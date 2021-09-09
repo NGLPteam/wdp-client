@@ -10,7 +10,11 @@ export default function CommunityListView() {
   const queryVars = useBaseListQueryVars();
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={queryVars}
+      refetchTags={["communities"]}
+    >
       {({ data }) => <CommunityList<Query> data={data?.communities} />}
     </QueryWrapper>
   );

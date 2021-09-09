@@ -1,7 +1,7 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import toast from "react-hot-toast";
+import { useNotify } from "hooks";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
@@ -13,6 +13,8 @@ import type { ModelTableActionProps } from "react-table";
 function CollectionList<T extends OperationType>({
   data,
 }: CollectionListProps) {
+  const notify = useNotify();
+
   const collections = useFragment<CollectionListFragment$key>(
     fragment,
     data || null
@@ -28,14 +30,12 @@ function CollectionList<T extends OperationType>({
     ModelColumns.UpdatedAtColumn<CollectionNode>(),
   ];
 
-  /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      toast(`edit ${row.original.slug}`),
+      notify.success(`Edit "${row.original.title}"`),
     handleDelete: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      toast(`edit ${row.original.slug}`),
+      notify.success(`Delete "${row.original.title}"`),
   };
-  /* eslint-enable no-console */
 
   return (
     <ModelListPage<T, CollectionListFragment, CollectionNode>

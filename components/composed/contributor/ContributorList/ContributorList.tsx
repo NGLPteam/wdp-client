@@ -8,7 +8,7 @@ import {
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useNotify } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
@@ -19,6 +19,7 @@ function ContributorList<T extends OperationType>({
   data,
 }: ContributorListProps) {
   const { t } = useTranslation();
+  const notify = useNotify();
 
   const contributors = useMaybeFragment(fragment, data);
 
@@ -38,18 +39,16 @@ function ContributorList<T extends OperationType>({
     ModelColumns.UpdatedAtColumn<ContributorNode>(),
   ];
 
-  /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
-      console.info(`edit ${row.original.slug}`);
+      notify.success(`Edit "${getContributorDisplayName(row.original)}"`);
     },
     handleDelete: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
-      console.info(`delete ${row.original.slug}`);
+      notify.success(`Delete "${getContributorDisplayName(row.original)}"`);
     },
   };
-  /* eslint-enable no-console */
 
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.

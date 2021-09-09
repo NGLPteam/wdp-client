@@ -10,6 +10,7 @@
     "manage": "Manage",
     "error": "Error",
     "no_results": "No Results",
+    "not_found": "{{model}} Not Found",
     "options": "Options",
     "edit": "Edit",
     "delete": "Delete",
@@ -25,16 +26,24 @@
       "createPerson.title": "Create New Person",
       "createOrganization.title": "Create New Organization",
       "editItemContribution.title": "Edit Item Contribution",
-      "editCollectionContribution.title": "Edit Collection Contribution"
+      "editCollectionContribution.title": "Edit Collection Contribution",
+      "createCommunity.title": "Create New Community",
+      "editCommunity.title": "Edit Community"
     },
     "actions": {
       "add": "Add $t({{ name }})",
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
       "edit.itemContribution": "Edit Item Contribution",
-      "edit.collectionContribution": "Edit Collection Contribution"
+      "edit.collectionContribution": "Edit Collection Contribution",
+      "create.community": "Create Community",
+      "edit.community": "Edit Community"
+
     },
     "forms": {
+      "common": {
+        "save": "save"
+      },
       "file": {
         "upload": "Upload a file \n or drag and drop here",
         "count": "...and {{count}} more",
@@ -56,6 +65,17 @@
           },
           "add": "Add $t({{ itemLabel }})",
           "remove": "Add $t({{ itemLabel }})"
+        }
+      },
+      "community": {
+        "create": {
+          "success": "Community created."
+        },
+        "update": {
+          "success": "Community updated."
+        },
+        "fields": {
+          "title": "title"
         }
       },
       "contributor": {
