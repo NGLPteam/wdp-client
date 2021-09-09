@@ -9,6 +9,9 @@ import type {
   UnpackNestedValue,
 } from "react-hook-form";
 import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
+import * as Styled from "./MutationForm.styles";
+import { useTranslation } from "react-i18next";
+import { useNotify, usePageContext } from "hooks";
 
 import { Button, ContentTitle } from "components/atomic";
 
@@ -64,7 +67,18 @@ export default function MutationForm<
   M extends MutationParameters,
   T extends FieldValues = FieldValues
 >(props: Props<M, T>) {
-  const { children, defaultValues, name } = props;
+  const {
+    children,
+    defaultValues,
+    name,
+    successNotification,
+    failureNotification,
+    refetchTags = [],
+  } = props;
+  const notify = useNotify();
+  const { t } = useTranslation();
+
+  const { setTriggeredRefetchTags } = usePageContext();
 
   const form = useForm<T>({
     criteriaMode: "all",
@@ -131,11 +145,23 @@ export default function MutationForm<
       if (checkSuccess<M, T>(response, errors, values, isSuccess)) {
         dispatch({ type: "success", response });
 
+        // First, notify
+        if (successNotification) {
+          notify.success(t(successNotification));
+        }
+
+        // Then set mutated query refetchTags
+        setTriggeredRefetchTags(refetchTags);
+
         if (typeof onSuccess === "function") {
           onSuccess({ response, variables, values });
         }
       } else {
         dispatch({ type: "failure", errors });
+
+        if (failureNotification) {
+          notify.error(t(failureNotification));
+        }
 
         console.warn("Failure!");
         /* eslint-disable no-console */
@@ -164,6 +190,12 @@ export default function MutationForm<
       onFailure,
       onSuccess,
       setError,
+      failureNotification,
+      notify,
+      refetchTags,
+      setTriggeredRefetchTags,
+      successNotification,
+      t,
     ]
   );
 
@@ -190,11 +222,11 @@ export default function MutationForm<
         )}
         <GlobalErrors globalErrors={state.globalErrors} />
         {children({ form })}
-        <div className="l-flex l-flex--gap">
+        <Styled.Footer className="l-flex l-flex--gap">
           <Button disabled={submitDisabled} type="submit">
-            Submit
+            {t("forms.common.save")}
           </Button>
-        </div>
+        </Styled.Footer>
       </form>
     </FormProvider>
   );
@@ -278,7 +310,7 @@ interface BaseProps<M extends MutationParameters, T extends FieldValues> {
   onSuccess?: OnSuccessCallback<M, T>;
 
   /**
-   * Optioanlly process the response on a failed mutation. Redirect to another page,
+   * Optionally process the response on a failed mutation. Redirect to another page,
    * pop up a toast notification, etc.
    *
    * "Failure" is determined by the `isSuccess` prop, or by the mutation response having at least one error.
@@ -292,6 +324,25 @@ interface BaseProps<M extends MutationParameters, T extends FieldValues> {
    * in the browser console.
    */
   watchInConsole?: boolean;
+
+  /**
+   * If set, the form will populate a toast notification with this message on success. The
+   * value will be passed through localization first.
+   */
+  successNotification?: string;
+
+  /**
+   * If set, the form will populate a toast notification with this message on failure. The
+   * value will be passed through localization first.
+   */
+  failureNotification?: string;
+
+  /**
+   * Query refetchTags is an array of strings. When a mutation is successful, the mutated property
+   * in the page context will be updated with these refetchTags. The QueryWrapper component can
+   * choose to refresh itself if any of its refetchTags match these refetchTags.
+   */
+  refetchTags?: string[];
 }
 
 type Props<M extends MutationParameters, T extends FieldValues> = BaseProps<

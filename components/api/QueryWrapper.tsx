@@ -6,8 +6,10 @@ import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import { usePageContext } from "hooks";
 import { QueryStateContext } from "contexts";
 import ErrorPage from "next/error";
+import intersection from "lodash/intersection";
+
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
-  const { query, initialVariables, options } = props;
+  const { query, initialVariables, options, refetchTags } = props;
 
   const { variables, setVariables } = useManagedVariables<T>(initialVariables);
 
@@ -16,13 +18,20 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     setVariables,
   ]);
 
-  const { data, error, isLoading } = useAuthenticatedQuery<T>(
+  const { data, error, isLoading, retry } = useAuthenticatedQuery<T>(
     query,
     variables,
     options
   );
 
-  const { setLoading: setPageLoading } = usePageContext();
+  const { setLoading: setPageLoading, triggeredRefetchTags } = usePageContext();
+
+  // If the global refetch tags changed, let's refetch the data. See MutationForm for
+  // the other side of this mechanism.
+  useEffect(() => {
+    if (!intersection(refetchTags, triggeredRefetchTags)) return;
+    retry();
+  }, [triggeredRefetchTags, refetchTags, retry]);
 
   useEffect(() => {
     setPageLoading(isLoading);
@@ -45,10 +54,17 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
 
   return (
     <QueryStateContext.Provider
-      value={{ started: true, loading: isLoading, completed: !isLoading }}
+      value={{
+        started: true,
+        loading: isLoading,
+        completed: !isLoading,
+      }}
     >
       <QueryVariablesContext.Provider
-        value={{ queryVariables: variables, setQueryVariables: setVariables }}
+        value={{
+          queryVariables: variables,
+          setQueryVariables: setVariables,
+        }}
       >
         {children({ data, variables })}
       </QueryVariablesContext.Provider>
@@ -75,6 +91,7 @@ type EmptyRenderer<T extends OperationType> = (
 ) => JSX.Element;
 
 interface Props<T extends OperationType> {
+  refetchTags?: string[];
   query: GraphQLTaggedNode;
   initialVariables?: T["variables"];
   options?: QueryOptions;
