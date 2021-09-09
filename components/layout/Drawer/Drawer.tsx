@@ -2,7 +2,7 @@ import React from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import { DialogProps } from "reakit/Dialog";
-import { ButtonControl, Button } from "components/atomic/buttons/";
+import { ButtonControl } from "components/atomic/buttons/";
 import * as Styled from "./Drawer.styles";
 
 /**
@@ -14,18 +14,12 @@ const Drawer = ({
   label,
   header,
   children,
-  onSave,
   onClose,
   hideOnClickOutside = true,
 }: Props) => {
   const uidLabel = useUID();
   const uidDesc = useUID();
   const { t } = useTranslation();
-
-  const handleSave = () => {
-    if (dialog && dialog.hide) dialog.hide();
-    if (onSave) onSave();
-  };
 
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
@@ -52,12 +46,6 @@ const Drawer = ({
           <Styled.H1 id={uidDesc}>{header}</Styled.H1>
         </Styled.Header>
         <Styled.Content>{dialog.visible && children}</Styled.Content>
-        <Styled.Footer className="l-flex l-flex--gap">
-          {onSave && <Button onClick={handleSave}>{t("save")}</Button>}
-          <Button secondary onClick={handleClose}>
-            {t("cancel")}
-          </Button>
-        </Styled.Footer>
       </Styled.Dialog>
     </Styled.DialogBackdrop>
   );

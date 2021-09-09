@@ -68,7 +68,7 @@ export const Dialog = styled(BaseDialog)`
   `)}
 
   ${noInsetSupport(`
-    top: 0;  
+    top: 0;
     right: 0;
     bottom: 0;
   `)}
