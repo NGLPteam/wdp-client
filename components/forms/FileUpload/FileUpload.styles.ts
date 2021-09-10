@@ -84,10 +84,3 @@ export const RemoveButton = styled.button`
     color: var(--accent-color);
   }
 `;
-
-export const Column = styled.div`
-  display: flex;
-  flex: 1 1 50%;
-  flex-direction: column;
-  align-items: center;
-`;
