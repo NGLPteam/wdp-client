@@ -19,3 +19,4 @@ export { default as ViewList } from "./ViewList";
 export { default as Warning } from "./Warning";
 export { default as Upload } from "./Upload";
 export { default as Toggle } from "./Toggle";
+export { default as File } from "./File";
