@@ -1089,6 +1089,8 @@ type DestroyCollectionPayload implements StandardMutationPayload & DestroyMutati
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1110,6 +1112,8 @@ type DestroyCommunityPayload implements StandardMutationPayload & DestroyMutatio
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1130,6 +1134,8 @@ type DestroyContributionPayload implements StandardMutationPayload & DestroyMuta
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1150,6 +1156,8 @@ type DestroyContributorPayload implements StandardMutationPayload & DestroyMutat
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1171,6 +1179,8 @@ type DestroyItemPayload implements StandardMutationPayload & DestroyMutationPayl
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1182,6 +1192,8 @@ interface DestroyMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
@@ -1202,6 +1214,8 @@ type DestroyOrderingPayload implements StandardMutationPayload & DestroyMutation
   clientMutationId: String
   """Whether or not the model was successfully destroyed. If false, check globalErrors"""
   destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
   disabled: Boolean
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!

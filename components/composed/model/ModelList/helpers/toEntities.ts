@@ -4,9 +4,12 @@ import {
   HasEdgesWithNode,
   HasNodes,
 } from "types/graphql-helpers";
+import has from "lodash/has";
+import reject from "lodash/reject";
+import isNil from "lodash/isNil";
 
 function connectionHasEdges(connection: any): connection is HasEdgesWithNode {
-  return Array.isArray(connection?.edges) && !!connection.edges[0]?.node;
+  return Array.isArray(connection?.edges) && has(connection.edges[0], "node");
 }
 
 function connectionHasNodes(connection: any): connection is HasNodes {
@@ -19,10 +22,15 @@ export function toEntities<
   NodeType extends Record<string, unknown>
 >(connection: ConnectionType | undefined | null): readonly NodeType[] {
   if (!connection) return [];
+  // Remove null nodes. Nodes can become null when they are removed with a @deleteRecord
+  // gql directive,
   if (connectionHasEdges(connection)) {
-    return connection.edges.map(({ node }) => node);
+    return reject<NodeType>(
+      connection.edges.map(({ node }) => node),
+      isNil
+    );
   } else if (connectionHasNodes(connection)) {
-    return connection.nodes;
+    return reject<NodeType>(connection.nodes, isNil);
   } else {
     return [];
   }

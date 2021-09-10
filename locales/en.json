@@ -38,7 +38,9 @@
       "edit.collectionContribution": "Edit Collection Contribution",
       "create.community": "Create Community",
       "edit.community": "Edit Community"
-
+    },
+    "outcomes": {
+      "deleted": "$t({{ name }}) deleted successfully."
     },
     "forms": {
       "common": {
