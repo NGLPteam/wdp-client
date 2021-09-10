@@ -54,7 +54,7 @@ export type ContributorCreatePersonFormMutationResponse = {
             readonly links: ReadonlyArray<{
                 readonly title: string;
                 readonly url: string;
-            } | null>;
+            }>;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;

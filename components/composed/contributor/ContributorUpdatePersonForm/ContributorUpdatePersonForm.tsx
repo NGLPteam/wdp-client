@@ -56,7 +56,7 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
           label="forms.contributor.fields.image"
           name="image"
           image={image?.thumb}
-          existingValue={image !== null}
+          clearName="clearImage"
         />
         <Forms.Input label="Title" {...register("title")} />
         <Forms.Email
