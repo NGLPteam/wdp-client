@@ -35,10 +35,10 @@ fragment CommunityListFragment on CommunityConnection {
   edges {
     node {
       slug
+      id
       createdAt
       updatedAt
       name
-      id
     }
   }
   ...ModelPaginationFragment
@@ -165,6 +165,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "createdAt",
                     "storageKey": null
                   },
@@ -180,13 +187,6 @@ return {
                     "args": null,
                     "kind": "ScalarField",
                     "name": "name",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
                     "storageKey": null
                   }
                 ],
@@ -268,12 +268,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c4ac59d2a466c71710b0a8cda97977b5",
+    "cacheID": "5a80a6c01a47426a947a6aae812dcd3d",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      createdAt\n      updatedAt\n      name\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

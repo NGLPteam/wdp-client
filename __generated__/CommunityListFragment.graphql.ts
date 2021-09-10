@@ -8,6 +8,7 @@ export type CommunityListFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly slug: string;
+            readonly id: string;
             readonly createdAt: string;
             readonly updatedAt: string;
             readonly name: string;
@@ -57,6 +58,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "id",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "createdAt",
               "storageKey": null
             },
@@ -94,5 +102,5 @@ const node: ReaderFragment = {
   "type": "CommunityConnection",
   "abstractKey": null
 };
-(node as any).hash = '9d540a79924c6688a00cdf5716cb7d67';
+(node as any).hash = '5e2fbd0d073a20894f1e84e3ad9188e2';
 export default node;
