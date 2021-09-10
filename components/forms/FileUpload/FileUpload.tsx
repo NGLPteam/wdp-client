@@ -9,8 +9,6 @@ import React, {
 import { useController, useFormContext } from "react-hook-form";
 import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Image } from "components/atomic";
-import { IconFactory } from "components/factories";
 
 import useLazyRef from "hooks/useLazyRef";
 import useLatest from "hooks/useLatest";
@@ -21,8 +19,8 @@ import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
 
 import * as Styled from "./FileUpload.styles";
-import FileUploadStatus from "./FileUploadStatus";
-import FileUploadClear from "./FileUploadClear";
+import FileUploadPreview from "./FileUploadPreview";
+import type { Image as ImageType } from "./FileUploadCurrent";
 import useUploadReducer from "./useUploadReducer";
 
 import type {
@@ -30,6 +28,8 @@ import type {
   ActiveUploadRef,
   State as UploadState,
 } from "./types";
+import FileUploadEmpty from "./FileUploadEmpty";
+import FileUploadCurrent from "./FileUploadCurrent";
 
 /**
  * A file input that integrates with the tus.io endpoint on the API.
@@ -78,7 +78,9 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
     },
   });
 
-  const { state, fileInputRef, selectFile } = useUploadReducer({ uppy });
+  const { state, dispatch, fileInputRef, selectFile } = useUploadReducer({
+    uppy,
+  });
 
   const changeRef = useLatest(field.onChange);
   const setRef = useLatest(field.ref);
@@ -110,65 +112,69 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
     [name, state.upload, setValue]
   );
 
-  function handleClear(value: boolean) {
-    setIsCleared(value);
+  function handleClear() {
+    setIsCleared(true);
+    if (clearName) setValue(clearName, true);
+    if (state.file) dispatch({ type: "deselect" });
   }
 
-  const renderImage = useMemo(() => {
-    return () => {
-      if (!image) return null;
-      const { png } = image;
-      if (!png) return null;
-      const width = 100;
-      const height = 100;
-      const objectFit = "contain";
-      const alt = png.alt ? png.alt : t("forms.file.missingAlt");
-      return (
-        <Image image={{ ...png, alt, width, height }} objectFit={objectFit} />
-      );
-    };
-  }, []);
-
   return (
-    <BaseInputWrapper hideLabel={hideLabel} label={label} name={name}>
-      {({ uid }) => (
-        <Styled.Wrapper>
-          <Styled.FileInput
-            id={uid}
-            name={field.name}
-            ref={setRefs}
-            type="file"
-            onBlur={field.onBlur}
-            onChange={selectFile}
-            multiple={false}
-            {...inputProps}
-          />
-          <IconFactory icon="upload" size="lg" />
-          <Styled.UploadText>{t("forms.file.upload")}</Styled.UploadText>
-          <ProgressBar
-            loading={state.active}
-            percentLoaded={state.percentUploaded}
-          />
-          <FileUploadStatus state={state} />
-          {clearName && (
-            <FileUploadClear name={clearName} onClear={handleClear} />
-          )}
-          {!isCleared && renderImage()}
-        </Styled.Wrapper>
-      )}
-    </BaseInputWrapper>
+    <>
+      <BaseInputWrapper hideLabel={hideLabel} label={label} name={name}>
+        {({ uid }) => (
+          <Styled.Wrapper aria-live="polite">
+            <Styled.Inner>
+              <Styled.FileInput
+                id={uid}
+                name={field.name}
+                ref={setRefs}
+                type="file"
+                onBlur={field.onBlur}
+                onChange={selectFile}
+                multiple={false}
+                {...inputProps}
+              />
+              {image && !isCleared && !state.file ? (
+                <>
+                  <FileUploadCurrent image={image} />
+                  <Styled.RemoveButton onClick={handleClear} type="button">
+                    {t("forms.file.remove")}
+                  </Styled.RemoveButton>
+                  <Styled.UploadText>
+                    {t("forms.file.upload_new")}
+                  </Styled.UploadText>
+                </>
+              ) : state.file ? (
+                <>
+                  <FileUploadPreview
+                    file={state.file}
+                    isLoading={state.active}
+                  />
+                  <Styled.RemoveButton onClick={handleClear} type="button">
+                    {t("forms.file.remove")}
+                  </Styled.RemoveButton>
+                  <Styled.UploadText>
+                    {t("forms.file.upload_new")}
+                  </Styled.UploadText>
+                </>
+              ) : (
+                <>
+                  <FileUploadEmpty />
+                  <Styled.UploadText>
+                    {t("forms.file.upload")}
+                  </Styled.UploadText>
+                </>
+              )}
+            </Styled.Inner>
+            <ProgressBar
+              loading={state.active}
+              percentLoaded={state.percentUploaded}
+            />
+          </Styled.Wrapper>
+        )}
+      </BaseInputWrapper>
+    </>
   );
-}
-
-/* TODO: Get the image definition from the schema
-  instead of redefining it here */
-export interface Png {
-  alt: string;
-  url: string;
-}
-
-export interface Image {
-  png?: Png | null;
 }
 
 export interface Props<T extends FieldValues = FieldValues>
@@ -180,7 +186,8 @@ export interface Props<T extends FieldValues = FieldValues>
   /* Name for hidden clear input */
   clearName?: Path<T>;
   /* Current image */
-  image?: Image | null;
+  image?: ImageType | null;
+  /* Optional upload text */
 }
 
 function useWaitForUpload<T extends FieldValues>(

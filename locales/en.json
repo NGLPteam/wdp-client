@@ -51,9 +51,9 @@
         "save": "save"
       },
       "file": {
-        "upload": "Upload a file \n or drag and drop here",
-        "count": "...and {{count}} more",
-        "missingAlt": "Alt text not provided"
+        "upload": "Upload a file or \n drag and drop here",
+        "upload_new": "or Upload a new file",
+        "remove": "Remove this file"
       },
       "validation": {
         "uploaded": {
