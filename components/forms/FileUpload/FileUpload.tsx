@@ -1,5 +1,11 @@
 /* eslint-disable */
-import React, { useCallback, useEffect, useRef, useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useMemo,
+  useState,
+} from "react";
 import { useController, useFormContext } from "react-hook-form";
 import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -16,6 +22,7 @@ import type InputProps from "../inputType";
 
 import * as Styled from "./FileUpload.styles";
 import FileUploadStatus from "./FileUploadStatus";
+import FileUploadClear from "./FileUploadClear";
 import useUploadReducer from "./useUploadReducer";
 
 import type {
@@ -45,9 +52,11 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
   error,
   required,
   image,
-  existingValue,
+  clearName,
   ...inputProps
 }: Props<T>) {
+  const [isCleared, setIsCleared] = useState(false);
+
   const uppy = useUppy();
 
   const { t } = useTranslation();
@@ -101,6 +110,10 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
     [name, state.upload, setValue]
   );
 
+  function handleClear(value: boolean) {
+    setIsCleared(value);
+  }
+
   const renderImage = useMemo(() => {
     return () => {
       if (!image) return null;
@@ -137,13 +150,18 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
             percentLoaded={state.percentUploaded}
           />
           <FileUploadStatus state={state} />
-          {renderImage()}
+          {clearName && (
+            <FileUploadClear name={clearName} onClear={handleClear} />
+          )}
+          {!isCleared && renderImage()}
         </Styled.Wrapper>
       )}
     </BaseInputWrapper>
   );
 }
 
+/* TODO: Get the image definition from the schema
+  instead of redefining it here */
 export interface Png {
   alt: string;
   url: string;
@@ -155,10 +173,14 @@ export interface Image {
 
 export interface Props<T extends FieldValues = FieldValues>
   extends InputProps<T> {
+  /* Type accepted by file input */
   accept?: string;
+  /* Name for the file input */
   name: Path<T>;
+  /* Name for hidden clear input */
+  clearName?: Path<T>;
+  /* Current image */
   image?: Image | null;
-  existingValue?: Boolean;
 }
 
 function useWaitForUpload<T extends FieldValues>(
