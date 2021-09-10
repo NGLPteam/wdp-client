@@ -7,15 +7,15 @@ import {
 } from "@/relay/CommunityListFragment.graphql";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
-import { useNotify, useMaybeFragment, useDrawerHelper } from "hooks";
+import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
-  const notify = useNotify();
   const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
 
   const communities = useMaybeFragment<CommunityListFragment$key>(
     fragment,
@@ -35,7 +35,7 @@ function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
     handleEdit: ({ row }: ModelTableActionProps<CommunityNode>) =>
       drawerHelper.open("editCommunity", { drawerSlug: row.original.slug }),
     handleDelete: ({ row }: ModelTableActionProps<CommunityNode>) =>
-      notify.success(`Delete "${row.original.name}"`),
+      destroy.community({ communityId: row.original.id }, row.original.name),
   };
 
   return (
@@ -60,6 +60,7 @@ const fragment = graphql`
     edges {
       node {
         slug
+        id
         createdAt
         updatedAt
         name

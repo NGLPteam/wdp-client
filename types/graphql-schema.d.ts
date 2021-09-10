@@ -1097,6 +1097,8 @@ export type DestroyCollectionPayload = StandardMutationPayload & DestroyMutation
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1119,6 +1121,8 @@ export type DestroyCommunityPayload = StandardMutationPayload & DestroyMutationP
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1140,6 +1144,8 @@ export type DestroyContributionPayload = StandardMutationPayload & DestroyMutati
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1161,6 +1167,8 @@ export type DestroyContributorPayload = StandardMutationPayload & DestroyMutatio
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1183,6 +1191,8 @@ export type DestroyItemPayload = StandardMutationPayload & DestroyMutationPayloa
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1194,6 +1204,8 @@ export type DestroyMutationPayload = {
   attributeErrors: Array<MutationAttributeError>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1215,6 +1227,8 @@ export type DestroyOrderingPayload = StandardMutationPayload & DestroyMutationPa
   clientMutationId?: Maybe<Scalars['String']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
   destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
   disabled?: Maybe<Scalars['Boolean']>;
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
@@ -4228,6 +4242,7 @@ export type DestroyCollectionPayloadResolvers<ContextType = any, ParentType exte
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4238,6 +4253,7 @@ export type DestroyCommunityPayloadResolvers<ContextType = any, ParentType exten
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4248,6 +4264,7 @@ export type DestroyContributionPayloadResolvers<ContextType = any, ParentType ex
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4258,6 +4275,7 @@ export type DestroyContributorPayloadResolvers<ContextType = any, ParentType ext
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4268,6 +4286,7 @@ export type DestroyItemPayloadResolvers<ContextType = any, ParentType extends Re
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4278,6 +4297,7 @@ export type DestroyMutationPayloadResolvers<ContextType = any, ParentType extend
   __resolveType: TypeResolveFn<'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload', ParentType, ContextType>;
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4287,6 +4307,7 @@ export type DestroyOrderingPayloadResolvers<ContextType = any, ParentType extend
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   disabled?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
