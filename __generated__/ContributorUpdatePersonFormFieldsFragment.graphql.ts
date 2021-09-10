@@ -22,7 +22,7 @@ export type ContributorUpdatePersonFormFieldsFragment = {
     readonly links?: ReadonlyArray<{
         readonly title: string;
         readonly url: string;
-    } | null>;
+    }>;
     readonly " $refType": "ContributorUpdatePersonFormFieldsFragment";
 };
 export type ContributorUpdatePersonFormFieldsFragment$data = ContributorUpdatePersonFormFieldsFragment;
