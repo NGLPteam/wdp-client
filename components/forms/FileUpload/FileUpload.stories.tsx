@@ -34,8 +34,6 @@ InAForm.args = {
   description: "Descriptive text",
   hideLabel: false,
   required: false,
-  uploadLabel: "",
-  removeLabel: "",
 };
 
 InAForm.argTypes = {

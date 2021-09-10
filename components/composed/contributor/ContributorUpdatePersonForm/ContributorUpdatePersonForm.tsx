@@ -60,7 +60,6 @@ export default function ContributorUpdatePersonForm({
           name="image"
           image={image?.thumb}
           clearName="clearImage"
-          uploadLabel="forms.file.upload_image"
         />
         <Forms.Input label="Title" {...register("title")} />
         <Forms.Email

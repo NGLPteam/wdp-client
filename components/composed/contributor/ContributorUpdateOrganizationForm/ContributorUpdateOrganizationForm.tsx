@@ -57,7 +57,7 @@ export default function ContributorUpdateOrganizationForm({
           label="forms.contributor.fields.image"
           name="image"
           image={image?.thumb}
-          existingValue={image !== null}
+          clearName="clearImage"
         />
         <Forms.Input
           label="forms.contributor.fields.location"
