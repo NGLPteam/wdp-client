@@ -28,7 +28,8 @@
       "editItemContribution.title": "Edit Item Contribution",
       "editCollectionContribution.title": "Edit Collection Contribution",
       "createCommunity.title": "Create New Community",
-      "editCommunity.title": "Edit Community"
+      "editCommunity.title": "Edit Community",
+      "editContributor.title": "Edit Contributor"
     },
     "actions": {
       "add": "Add $t({{ name }})",
@@ -38,7 +39,8 @@
       "edit.collectionContribution": "Edit Collection Contribution",
       "create.community": "Create Community",
       "edit.community": "Edit Community",
-      "edit.collection": "Edit Collection"
+      "edit.collection": "Edit Collection",
+      "edit.contributor": "Edit Contributor"
     },
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully."
@@ -87,6 +89,9 @@
         }
       },
       "contributor": {
+        "update": {
+          "success": "Contributor updated."
+        },
         "fields": {
           "legalName": "Name",
           "givenName": "First Name",

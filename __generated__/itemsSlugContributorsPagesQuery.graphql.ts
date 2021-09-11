@@ -52,11 +52,11 @@ fragment ContributorLayoutFragment on AnyContributor {
   __typename
   ... on OrganizationContributor {
     slug
-    name: legalName
+    legalName
   }
   ... on PersonContributor {
-    firstName: givenName
-    lastName: familyName
+    givenName
+    familyName
   }
 }
 
@@ -349,7 +349,7 @@ return {
             "selections": [
               (v4/*: any*/),
               {
-                "alias": "name",
+                "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "legalName",
@@ -364,14 +364,14 @@ return {
             "kind": "InlineFragment",
             "selections": [
               {
-                "alias": "firstName",
+                "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "givenName",
                 "storageKey": null
               },
               {
-                "alias": "lastName",
+                "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "familyName",
@@ -396,12 +396,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5999f95b62097dfb18c2c6c531a068d6",
+    "cacheID": "bfaa6344d1c742ac16b1ea0e98db15af",
     "id": null,
     "metadata": {},
     "name": "itemsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query itemsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    name: legalName\n  }\n  ... on PersonContributor {\n    firstName: givenName\n    lastName: familyName\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    role\n    item {\n      slug\n      title\n      id\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query itemsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      itemContributions {\n        ...ItemContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    role\n    item {\n      slug\n      title\n      id\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

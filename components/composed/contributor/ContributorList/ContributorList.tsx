@@ -8,7 +8,7 @@ import {
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment, useDestroyer, useNotify } from "hooks";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
@@ -19,8 +19,8 @@ function ContributorList<T extends OperationType>({
   data,
 }: ContributorListProps) {
   const { t } = useTranslation();
-  const notify = useNotify();
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   const contributors = useMaybeFragment(fragment, data);
 
@@ -43,7 +43,7 @@ function ContributorList<T extends OperationType>({
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
-      notify.success(`Edit "${getContributorDisplayName(row.original)}"`);
+      drawerHelper.open("editContributor", { drawerSlug: row.original.slug });
     },
     handleDelete: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
@@ -96,7 +96,7 @@ const fragment = graphql`
       ... on OrganizationContributor {
         id
         slug
-        name: legalName
+        legalName
         createdAt
         updatedAt
         image {
@@ -112,8 +112,8 @@ const fragment = graphql`
       ... on PersonContributor {
         id
         slug
-        firstName: givenName
-        lastName: familyName
+        givenName
+        familyName
         createdAt
         updatedAt
         image {

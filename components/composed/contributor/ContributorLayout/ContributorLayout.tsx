@@ -67,11 +67,11 @@ const fragment = graphql`
     __typename
     ... on OrganizationContributor {
       slug
-      name: legalName
+      legalName
     }
     ... on PersonContributor {
-      firstName: givenName
-      lastName: familyName
+      givenName
+      familyName
     }
   }
 `;

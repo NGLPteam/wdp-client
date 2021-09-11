@@ -9,7 +9,7 @@ export type ContributorListFragment = {
         readonly __typename: "OrganizationContributor";
         readonly id: string;
         readonly slug: string;
-        readonly name: string | null;
+        readonly legalName: string | null;
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly image: {
@@ -25,8 +25,8 @@ export type ContributorListFragment = {
         readonly __typename: "PersonContributor";
         readonly id: string;
         readonly slug: string;
-        readonly firstName: string | null;
-        readonly lastName: string | null;
+        readonly givenName: string | null;
+        readonly familyName: string | null;
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly image: {
@@ -164,7 +164,7 @@ return {
             (v0/*: any*/),
             (v1/*: any*/),
             {
-              "alias": "name",
+              "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "legalName",
@@ -183,14 +183,14 @@ return {
             (v0/*: any*/),
             (v1/*: any*/),
             {
-              "alias": "firstName",
+              "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "givenName",
               "storageKey": null
             },
             {
-              "alias": "lastName",
+              "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "familyName",
@@ -221,5 +221,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '89e6687bac298a98af16d2cb3fd0acee';
+(node as any).hash = '7dadbf4b4e1e3a7b50d85006ff5c695d';
 export default node;

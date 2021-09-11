@@ -18,7 +18,7 @@ export default function ContributorCreatePersonDrawer({
       dialog={dialog}
       hideOnClickOutside={false}
     >
-      <ContributorCreatePersonForm />
+      <ContributorCreatePersonForm onSuccess={dialog.hide} />
     </Drawer>
   );
 }

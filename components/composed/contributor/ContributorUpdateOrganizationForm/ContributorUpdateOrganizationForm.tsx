@@ -14,7 +14,10 @@ import type {
 import type { ContributorUpdateOrganizationFormFieldsFragment$key } from "@/relay/ContributorUpdateOrganizationFormFieldsFragment.graphql";
 import compact from "lodash/compact";
 
-export default function ContributorUpdateOrganizationForm({ data }: Props) {
+export default function ContributorUpdateOrganizationForm({
+  data,
+  onSuccess,
+}: Props) {
   const { contributorId = "", ...fieldsData } = useFragment(fragment, data);
 
   const {
@@ -86,6 +89,8 @@ export default function ContributorUpdateOrganizationForm({ data }: Props) {
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}
+      onSuccess={onSuccess}
+      successNotification="forms.contributor.update.success"
     >
       {renderForm}
     </MutationForm>
@@ -97,7 +102,8 @@ type Fields = Omit<
   "contributorId" | "image"
 >;
 
-interface Props {
+interface Props
+  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
   data: ContributorUpdateOrganizationFormFragment$key;
 }
 

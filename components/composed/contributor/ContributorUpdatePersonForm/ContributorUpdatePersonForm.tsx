@@ -14,7 +14,10 @@ import type {
 import type { ContributorUpdatePersonFormFragment$key } from "@/relay/ContributorUpdatePersonFormFragment.graphql";
 import type { ContributorUpdatePersonFormFieldsFragment$key } from "@/relay/ContributorUpdatePersonFormFieldsFragment.graphql";
 
-export default function ContributorUpdatePersonForm({ data }: Props) {
+export default function ContributorUpdatePersonForm({
+  data,
+  onSuccess,
+}: Props) {
   const {
     contributorId = "",
     ...fieldsData
@@ -88,6 +91,8 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
     <MutationForm<ContributorUpdatePersonFormMutation, Fields>
       name="updatePersonContributor"
       mutation={mutation}
+      onSuccess={onSuccess}
+      successNotification="forms.contributor.update.success"
       toVariables={toVariables}
       defaultValues={defaultValues}
     >
@@ -96,7 +101,8 @@ export default function ContributorUpdatePersonForm({ data }: Props) {
   );
 }
 
-interface Props {
+interface Props
+  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
   data: ContributorUpdatePersonFormFragment$key;
 }
 

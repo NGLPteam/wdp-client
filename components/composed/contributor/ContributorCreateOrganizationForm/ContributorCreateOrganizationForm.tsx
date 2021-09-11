@@ -12,7 +12,9 @@ import type {
   CreateOrganizationContributorInput,
 } from "@/relay/ContributorCreateOrganizationFormMutation.graphql";
 
-export default function ContributorCreateOrganizationForm() {
+export default function ContributorCreateOrganizationForm({
+  onSuccess,
+}: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
@@ -54,11 +56,15 @@ export default function ContributorCreateOrganizationForm() {
     <MutationForm<ContributorCreateOrganizationFormMutation, Fields>
       mutation={mutation}
       name="createOrganizationContributor"
+      onSuccess={onSuccess}
+      successNotification="forms.contributor.create.success"
     >
       {renderForm}
     </MutationForm>
   );
 }
+
+type Props = Pick<React.ComponentProps<typeof MutationForm>, "onSuccess">;
 
 type Fields = Omit<
   CreateOrganizationContributorInput,

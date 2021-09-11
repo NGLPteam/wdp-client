@@ -11,12 +11,6 @@ export default function ContributorCreateOrganizationDrawer({
 }) {
   const { t } = useTranslation();
 
-  // TODO: Pass this in to the form
-  // const onCreate = useCallback(() => {
-  //   if (!dialog?.hide) return;
-  //   dialog.hide();
-  // }, [dialog]);
-
   return (
     <Drawer
       label={t("actions.create.contributor.organization")}
@@ -24,7 +18,7 @@ export default function ContributorCreateOrganizationDrawer({
       dialog={dialog}
       hideOnClickOutside={false}
     >
-      <ContributorCreateOrganizationForm />
+      <ContributorCreateOrganizationForm onSuccess={dialog.hide} />
     </Drawer>
   );
 }
