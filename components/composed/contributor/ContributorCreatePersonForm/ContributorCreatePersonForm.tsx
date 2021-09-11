@@ -12,7 +12,7 @@ import type {
   CreatePersonContributorInput,
 } from "@/relay/ContributorCreatePersonFormMutation.graphql";
 
-export default function ContributorCreatePersonForm() {
+export default function ContributorCreatePersonForm({ onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
@@ -58,11 +58,15 @@ export default function ContributorCreatePersonForm() {
     <MutationForm<ContributorCreatePersonFormMutation, Fields>
       mutation={mutation}
       name="createPersonContributor"
+      onSuccess={onSuccess}
+      successNotification="forms.community.create.success"
     >
       {renderForm}
     </MutationForm>
   );
 }
+
+type Props = Pick<React.ComponentProps<typeof MutationForm>, "onSuccess">;
 
 type Fields = Omit<CreatePersonContributorInput, "clientMutationId" | "image">;
 

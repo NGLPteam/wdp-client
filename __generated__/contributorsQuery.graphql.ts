@@ -37,7 +37,7 @@ fragment ContributorListFragment on AnyContributorConnection {
     ... on OrganizationContributor {
       id
       slug
-      name: legalName
+      legalName
       createdAt
       updatedAt
       image {
@@ -53,8 +53,8 @@ fragment ContributorListFragment on AnyContributorConnection {
     ... on PersonContributor {
       id
       slug
-      firstName: givenName
-      lastName: familyName
+      givenName
+      familyName
       createdAt
       updatedAt
       image {
@@ -272,7 +272,7 @@ return {
                   (v2/*: any*/),
                   (v3/*: any*/),
                   {
-                    "alias": "name",
+                    "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "legalName",
@@ -291,14 +291,14 @@ return {
                   (v2/*: any*/),
                   (v3/*: any*/),
                   {
-                    "alias": "firstName",
+                    "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "givenName",
                     "storageKey": null
                   },
                   {
-                    "alias": "lastName",
+                    "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "familyName",
@@ -395,12 +395,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f6b36032c6a0f5669a8346d1c34a00cb",
+    "cacheID": "992f7b7104b365ffd124fce185580154",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      name: legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      firstName: givenName\n      lastName: familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

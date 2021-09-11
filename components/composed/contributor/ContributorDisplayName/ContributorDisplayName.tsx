@@ -9,23 +9,27 @@ function ContributorDisplayName({ contributor }: Props) {
 
 export function getContributorDisplayName(contributor: AnyContributor): string {
   if (!contributor) return "";
+  if (
+    contributor.__typename !== "OrganizationContributor" &&
+    contributor.__typename !== "PersonContributor"
+  )
+    return otherContributorName(contributor);
   if (contributor.__typename === "OrganizationContributor")
     return organizationContributorName(contributor);
   if (contributor.__typename === "PersonContributor")
     return personContributorName(contributor);
-  if (contributor.__typename === "%other")
-    return otherContributorName(contributor);
+
   return "";
 }
 
 function personContributorName(contributor: PersonContributor): string {
-  return `${contributor.firstName} ${contributor.lastName}`;
+  return `${contributor.givenName} ${contributor.familyName}`;
 }
 
 function organizationContributorName(
   contributor: OrganizationContributor
 ): string {
-  return `${contributor.name}`;
+  return `${contributor.legalName}`;
 }
 
 function otherContributorName(contributorIgnored: OtherContributor): string {
@@ -33,18 +37,18 @@ function otherContributorName(contributorIgnored: OtherContributor): string {
 }
 
 interface OtherContributor {
-  __typename: "%other";
+  __typename: string;
 }
 
 interface OrganizationContributor {
-  __typename: "OrganizationContributor";
-  name?: string | null;
+  __typename: string;
+  legalName?: string | null;
 }
 
 interface PersonContributor {
-  __typename: "PersonContributor";
-  firstName?: string | null;
-  lastName?: string | null;
+  __typename: string;
+  givenName?: string | null;
+  familyName?: string | null;
 }
 
 type AnyContributor =

@@ -7,12 +7,12 @@ import { FragmentRefs } from "relay-runtime";
 export type ContributorLayoutFragment = {
     readonly __typename: "OrganizationContributor";
     readonly slug: string;
-    readonly name: string | null;
+    readonly legalName: string | null;
     readonly " $refType": "ContributorLayoutFragment";
 } | {
     readonly __typename: "PersonContributor";
-    readonly firstName: string | null;
-    readonly lastName: string | null;
+    readonly givenName: string | null;
+    readonly familyName: string | null;
     readonly " $refType": "ContributorLayoutFragment";
 } | {
     /*This will never be '%other', but we need some
@@ -52,7 +52,7 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
-          "alias": "name",
+          "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "legalName",
@@ -66,14 +66,14 @@ const node: ReaderFragment = {
       "kind": "InlineFragment",
       "selections": [
         {
-          "alias": "firstName",
+          "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "givenName",
           "storageKey": null
         },
         {
-          "alias": "lastName",
+          "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "familyName",
@@ -87,5 +87,5 @@ const node: ReaderFragment = {
   "type": "AnyContributor",
   "abstractKey": "__isAnyContributor"
 };
-(node as any).hash = '488d2d99bb9377a0ea2ad0ba9b51627d';
+(node as any).hash = 'b76a4ba0e2cf7b59772be71339028909';
 export default node;

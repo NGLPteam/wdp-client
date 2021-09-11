@@ -4,17 +4,25 @@ import ContributorUpdatePersonForm from "components/composed/contributor/Contrib
 import ContributorUpdateOrganizationForm from "components/composed/contributor/ContributorUpdateOrganizationForm";
 import type { ContributorUpdateFormFragment$key } from "@/relay/ContributorUpdateFormFragment.graphql";
 import { useMaybeFragment } from "hooks";
+import MutationForm from "components/api/MutationForm";
 
-export default function ContributorUpdateForm({ data }: Props) {
+export default function ContributorUpdateForm({ data, onSuccess }: Props) {
   const contributor = useMaybeFragment<ContributorUpdateFormFragment$key>(
     fragment,
     data
   );
 
   if (contributor?.__typename === "PersonContributor")
-    return <ContributorUpdatePersonForm data={contributor} />;
+    return (
+      <ContributorUpdatePersonForm onSuccess={onSuccess} data={contributor} />
+    );
   if (contributor?.__typename === "OrganizationContributor")
-    return <ContributorUpdateOrganizationForm data={contributor} />;
+    return (
+      <ContributorUpdateOrganizationForm
+        onSuccess={onSuccess}
+        data={contributor}
+      />
+    );
 
   return null;
 }
@@ -31,6 +39,7 @@ const fragment = graphql`
   }
 `;
 
-interface Props {
+interface Props
+  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
   data?: ContributorUpdateFormFragment$key | null;
 }
