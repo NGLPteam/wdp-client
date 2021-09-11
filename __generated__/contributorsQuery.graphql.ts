@@ -35,6 +35,7 @@ fragment ContributorListFragment on AnyContributorConnection {
   nodes {
     __typename
     ... on OrganizationContributor {
+      id
       slug
       name: legalName
       createdAt
@@ -50,6 +51,7 @@ fragment ContributorListFragment on AnyContributorConnection {
       }
     }
     ... on PersonContributor {
+      id
       slug
       firstName: givenName
       lastName: familyName
@@ -130,24 +132,31 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "createdAt",
+  "name": "slug",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "updatedAt",
+  "name": "createdAt",
   "storageKey": null
 },
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "AssetPreview",
@@ -261,6 +270,7 @@ return {
                 "kind": "InlineFragment",
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": "name",
                     "args": null,
@@ -268,9 +278,9 @@ return {
                     "name": "legalName",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/)
+                  (v5/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "type": "OrganizationContributor",
                 "abstractKey": null
@@ -279,6 +289,7 @@ return {
                 "kind": "InlineFragment",
                 "selections": [
                   (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": "firstName",
                     "args": null,
@@ -293,9 +304,9 @@ return {
                     "name": "familyName",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/)
+                  (v5/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "type": "PersonContributor",
                 "abstractKey": null
@@ -303,13 +314,7 @@ return {
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  }
+                  (v2/*: any*/)
                 ],
                 "type": "Node",
                 "abstractKey": "__isNode"
@@ -390,12 +395,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "84878b1038b713aa0b14c025266a5f96",
+    "cacheID": "f6b36032c6a0f5669a8346d1c34a00cb",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      slug\n      name: legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      slug\n      firstName: givenName\n      lastName: familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      name: legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      firstName: givenName\n      lastName: familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

@@ -13,7 +13,9 @@ function connectionHasEdges(connection: any): connection is HasEdgesWithNode {
 }
 
 function connectionHasNodes(connection: any): connection is HasNodes {
-  return Array.isArray(connection?.nodes) && !!connection.nodes[0];
+  return (
+    Array.isArray(connection?.nodes) && !!reject(connection.nodes, isNil)[0]
+  );
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 

@@ -7,6 +7,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ContributorListFragment = {
     readonly nodes: ReadonlyArray<{
         readonly __typename: "OrganizationContributor";
+        readonly id: string;
         readonly slug: string;
         readonly name: string | null;
         readonly createdAt: string;
@@ -22,6 +23,7 @@ export type ContributorListFragment = {
         } | null;
     } | {
         readonly __typename: "PersonContributor";
+        readonly id: string;
         readonly slug: string;
         readonly firstName: string | null;
         readonly lastName: string | null;
@@ -57,24 +59,31 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "id",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "createdAt",
+  "name": "slug",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "updatedAt",
+  "name": "createdAt",
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "concreteType": "AssetPreview",
@@ -153,6 +162,7 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": "name",
               "args": null,
@@ -160,9 +170,9 @@ return {
               "name": "legalName",
               "storageKey": null
             },
-            (v1/*: any*/),
             (v2/*: any*/),
-            (v3/*: any*/)
+            (v3/*: any*/),
+            (v4/*: any*/)
           ],
           "type": "OrganizationContributor",
           "abstractKey": null
@@ -171,6 +181,7 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": "firstName",
               "args": null,
@@ -185,9 +196,9 @@ return {
               "name": "familyName",
               "storageKey": null
             },
-            (v1/*: any*/),
             (v2/*: any*/),
-            (v3/*: any*/)
+            (v3/*: any*/),
+            (v4/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
@@ -210,5 +221,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '23e54a52d757d67131095356c360d033';
+(node as any).hash = '89e6687bac298a98af16d2cb3fd0acee';
 export default node;
