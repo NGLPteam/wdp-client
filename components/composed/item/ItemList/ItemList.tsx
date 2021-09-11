@@ -5,7 +5,7 @@ import type {
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 import type { ModelTableActionProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -13,6 +13,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 
 function ItemList<T extends OperationType>({ data }: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
+  const destroy = useDestroyer();
 
   const columns = [
     ModelColumns.ThumbnailColumn<ItemNode>(),
@@ -29,7 +30,10 @@ function ItemList<T extends OperationType>({ data }: ItemListProps) {
     handleEdit: ({ row }: ModelTableActionProps<ItemNode>) =>
       console.info(`edit ${row.original.slug}`),
     handleDelete: ({ row }: ModelTableActionProps<ItemNode>) =>
-      console.info(`delete ${row.original.slug}`),
+      destroy.item(
+        { itemId: row.original.id },
+        row.original.title || "glossary.item"
+      ),
   };
   /* eslint-enable no-console */
 
@@ -53,6 +57,7 @@ type ItemNode = ItemListFragment["nodes"][number];
 const fragment = graphql`
   fragment ItemListFragment on ItemConnection {
     nodes {
+      id
       slug
       createdAt
       updatedAt
