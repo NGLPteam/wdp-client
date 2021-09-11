@@ -4,23 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type manageSlugCommunitiesPagesQueryVariables = {
+export type rolesManageSlugCommunitiesPagesQueryVariables = {
     communitySlug: string;
 };
-export type manageSlugCommunitiesPagesQueryResponse = {
+export type rolesManageSlugCommunitiesPagesQueryResponse = {
     readonly community: {
         readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
     } | null;
 };
-export type manageSlugCommunitiesPagesQuery = {
-    readonly response: manageSlugCommunitiesPagesQueryResponse;
-    readonly variables: manageSlugCommunitiesPagesQueryVariables;
+export type rolesManageSlugCommunitiesPagesQuery = {
+    readonly response: rolesManageSlugCommunitiesPagesQueryResponse;
+    readonly variables: rolesManageSlugCommunitiesPagesQueryVariables;
 };
 
 
 
 /*
-query manageSlugCommunitiesPagesQuery(
+query rolesManageSlugCommunitiesPagesQuery(
   $communitySlug: Slug!
 ) {
   community(slug: $communitySlug) {
@@ -81,7 +81,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "manageSlugCommunitiesPagesQuery",
+    "name": "rolesManageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -107,7 +107,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "manageSlugCommunitiesPagesQuery",
+    "name": "rolesManageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -173,14 +173,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f3373ed82edbe98fab16fe8fa72b37c8",
+    "cacheID": "99907b6a001439282e8d116c9bbe4ce5",
     "id": null,
     "metadata": {},
-    "name": "manageSlugCommunitiesPagesQuery",
+    "name": "rolesManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query manageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query rolesManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1a2e25ece3c9052d025de6b6cb8d055f';
+(node as any).hash = 'b6ef872814865aa26a97792739763628';
 export default node;

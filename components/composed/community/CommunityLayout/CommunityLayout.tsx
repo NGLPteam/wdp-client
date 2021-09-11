@@ -1,18 +1,34 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { graphql } from "react-relay";
 import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
-import { PageHeader } from "components/layout";
-import { useBreadcrumbs, useMaybeFragment } from "hooks";
+import { PageHeader, ContentSidebar } from "components/layout";
+import { useMaybeFragment, useRouteSlug } from "hooks";
+import { useTranslation } from "react-i18next";
+
+import { RouteHelper } from "routes";
+import capitalize from "lodash/capitalize";
 
 export default function CommunityLayout({
   children,
+  showSidebar = false,
   data,
 }: {
   children: ReactNode;
+  showSidebar?: boolean;
   data?: CommunityLayoutFragment$key | null;
 }) {
+  const { t } = useTranslation();
   const community = useMaybeFragment(fragment, data);
-  const breadcrumbs = useBreadcrumbs(community || null);
+  // const breadcrumbs = useBreadcrumbs(community || null);
+  const mainRoute = RouteHelper.findRouteByName("community.manage");
+  const slug = useRouteSlug() || undefined;
+
+  // Get the contributor's child routes with current query
+  const childRoutes = useMemo(() => {
+    return mainRoute?.routes
+      ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
+      : undefined;
+  }, [slug, mainRoute]);
 
   const tabRoutes = [
     {
@@ -25,14 +41,37 @@ export default function CommunityLayout({
     },
   ];
 
+  // Build breadcrumbs
+  const breadcrumbs = useMemo(() => {
+    const parentRoute = RouteHelper.findRouteByName("communities");
+    return parentRoute && mainRoute
+      ? {
+          data: [
+            {
+              href: { pathname: parentRoute.path },
+              label: capitalize(t("glossary.community.label", { count: 2 })),
+            },
+            {
+              href: { pathname: mainRoute.path, query: { slug } },
+              label: community?.name,
+            },
+          ],
+        }
+      : undefined;
+  }, [community, mainRoute, t, slug]);
+
   return (
     <section>
       <PageHeader
         title={community?.name}
-        breadcrumbsProps={{ data: breadcrumbs }}
+        breadcrumbsProps={breadcrumbs}
         tabRoutes={tabRoutes}
       />
-      {children}
+      {showSidebar ? (
+        <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
+      ) : (
+        children
+      )}
     </section>
   );
 }
