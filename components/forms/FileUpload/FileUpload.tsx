@@ -10,6 +10,8 @@ import { useController, useFormContext } from "react-hook-form";
 import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { maybeSetBooleanField } from "helpers/forms";
+
 import useLazyRef from "hooks/useLazyRef";
 import useLatest from "hooks/useLatest";
 import useUppy from "hooks/useUppy";
@@ -30,6 +32,7 @@ import type {
 } from "./types";
 import FileUploadEmpty from "./FileUploadEmpty";
 import FileUploadCurrent from "./FileUploadCurrent";
+import type { BooleanPath } from "types/form-fields";
 
 /**
  * A file input that integrates with the tus.io endpoint on the API.
@@ -114,7 +117,9 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 
   function handleClear() {
     setIsCleared(true);
-    if (clearName) setValue(clearName, true);
+
+    maybeSetBooleanField(setValue, clearName, true);
+
     if (state.file) dispatch({ type: "deselect" });
   }
 
@@ -184,7 +189,7 @@ export interface Props<T extends FieldValues = FieldValues>
   /* Name for the file input */
   name: Path<T>;
   /* Name for hidden clear input */
-  clearName?: Path<T>;
+  clearName?: BooleanPath<T>;
   /* Current image */
   image?: ImageType | null;
   /* Optional upload text */
