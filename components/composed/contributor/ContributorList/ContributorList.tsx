@@ -8,7 +8,7 @@ import {
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment, useNotify } from "hooks";
+import { useMaybeFragment, useDestroyer, useNotify } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
@@ -20,6 +20,7 @@ function ContributorList<T extends OperationType>({
 }: ContributorListProps) {
   const { t } = useTranslation();
   const notify = useNotify();
+  const destroy = useDestroyer();
 
   const contributors = useMaybeFragment(fragment, data);
 
@@ -46,7 +47,10 @@ function ContributorList<T extends OperationType>({
     },
     handleDelete: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
-      notify.success(`Delete "${getContributorDisplayName(row.original)}"`);
+      destroy.contributor(
+        { contributorId: row.original.id },
+        getContributorDisplayName(row.original) || "glossary.collection"
+      );
     },
   };
 
@@ -90,6 +94,7 @@ const fragment = graphql`
     nodes {
       __typename
       ... on OrganizationContributor {
+        id
         slug
         name: legalName
         createdAt
@@ -105,6 +110,7 @@ const fragment = graphql`
         }
       }
       ... on PersonContributor {
+        id
         slug
         firstName: givenName
         lastName: familyName
