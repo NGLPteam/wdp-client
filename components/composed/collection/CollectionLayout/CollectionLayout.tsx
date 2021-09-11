@@ -1,18 +1,48 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { graphql } from "react-relay";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
-import { PageHeader } from "components/layout";
-import { useBreadcrumbs, useMaybeFragment } from "hooks";
+import { ContentSidebar, PageHeader } from "components/layout";
+import { useBreadcrumbs, useMaybeFragment, useRouteSlug } from "hooks";
+import { useTranslation } from "react-i18next";
+import { RouteHelper } from "routes";
+import capitalize from "lodash/capitalize";
+import type { UrlObject } from "url";
 
 export default function CollectionLayout({
   children,
+  showSidebar = false,
   data,
 }: {
   children: ReactNode;
+  showSidebar?: boolean;
   data?: CollectionLayoutFragment$key | null;
 }) {
   const collection = useMaybeFragment(fragment, data);
-  const breadcrumbs = useBreadcrumbs(collection || null);
+  const collectionBreadcrumbs = useBreadcrumbs(collection || null);
+  const { t } = useTranslation();
+  const mainRoute = RouteHelper.findRouteByName("collection.manage");
+  const slug = useRouteSlug() || undefined;
+
+  // Get the collection's child routes with current query
+  const childRoutes = useMemo(() => {
+    return mainRoute?.routes
+      ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
+      : undefined;
+  }, [slug, mainRoute]);
+
+  // Build breadcrumbs
+  const breadcrumbs = useMemo(() => {
+    const parentRoute = RouteHelper.findRouteByName("collections");
+    const crumbs: { href: UrlObject | string; label: string }[] = [];
+    if (parentRoute)
+      crumbs.push({
+        href: { pathname: parentRoute.path },
+        label: capitalize(t("glossary.community.label", { count: 2 })),
+      });
+    return collectionBreadcrumbs
+      ? crumbs.concat(collectionBreadcrumbs)
+      : crumbs;
+  }, [collectionBreadcrumbs, t]);
 
   const tabRoutes = [
     {
@@ -36,7 +66,11 @@ export default function CollectionLayout({
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
       />
-      {children}
+      {showSidebar ? (
+        <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
+      ) : (
+        children
+      )}
     </section>
   );
 }

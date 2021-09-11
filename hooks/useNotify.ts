@@ -29,8 +29,7 @@ export default function useNotify() {
 
   const mutationGlobalError = useCallback(
     (errors: Readonly<MutationGlobalError[]>) => {
-      const msg = errors.map((e) => e.message).join("  ");
-      error(msg);
+      errors.forEach((e) => error(e.message));
     },
     [error]
   );

@@ -4,23 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type manageSlugCollectionsPagesQueryVariables = {
+export type pagesManageSlugCollectionsPagesQueryVariables = {
     collectionSlug: string;
 };
-export type manageSlugCollectionsPagesQueryResponse = {
+export type pagesManageSlugCollectionsPagesQueryResponse = {
     readonly collection: {
         readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutFragment">;
     } | null;
 };
-export type manageSlugCollectionsPagesQuery = {
-    readonly response: manageSlugCollectionsPagesQueryResponse;
-    readonly variables: manageSlugCollectionsPagesQueryVariables;
+export type pagesManageSlugCollectionsPagesQuery = {
+    readonly response: pagesManageSlugCollectionsPagesQueryResponse;
+    readonly variables: pagesManageSlugCollectionsPagesQueryVariables;
 };
 
 
 
 /*
-query manageSlugCollectionsPagesQuery(
+query pagesManageSlugCollectionsPagesQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
@@ -81,7 +81,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "manageSlugCollectionsPagesQuery",
+    "name": "pagesManageSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -107,7 +107,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "manageSlugCollectionsPagesQuery",
+    "name": "pagesManageSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -173,14 +173,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8973e0cfa3972c692586a1bb29bf56a8",
+    "cacheID": "c8b0a8a44395a76c291aeefd09f38320",
     "id": null,
     "metadata": {},
-    "name": "manageSlugCollectionsPagesQuery",
+    "name": "pagesManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query manageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query pagesManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '25c196d35e7a5f66557bf407c01437e7';
+(node as any).hash = 'e4a9f1f9763347ff10e8f19d58cd3b5c';
 export default node;

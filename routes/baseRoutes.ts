@@ -25,6 +25,39 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "collection.manage",
             path: "/collections/[slug]/manage",
+            redirect: "/collections/[slug]/manage/details",
+            routes: [
+              {
+                name: "collections.manage.details",
+                path: "/collections/[slug]/manage/details",
+                label: "details",
+              },
+              {
+                name: "collections.manage.order",
+                path: "/collections/[slug]/manage/order",
+                label: "order",
+              },
+              {
+                name: "collections.manage.links",
+                path: "/collections/[slug]/manage/links",
+                label: "links",
+              },
+              {
+                name: "collections.manage.access",
+                path: "/collections/[slug]/manage/access",
+                label: "access",
+              },
+              {
+                name: "collections.manage.pages",
+                path: "/collections/[slug]/manage/pages",
+                label: "pages",
+              },
+              {
+                name: "collections.manage.contributions",
+                path: "/collections/[slug]/manage/contributions",
+                label: "contributions",
+              },
+            ],
           },
         ],
       },

@@ -42,6 +42,7 @@ query collectionsSlugCommunitiesPagesQuery(
 
 fragment CollectionListFragment on CollectionConnection {
   nodes {
+    id
     createdAt
     updatedAt
     title
@@ -56,7 +57,6 @@ fragment CollectionListFragment on CollectionConnection {
         }
       }
     }
-    id
   }
   ...ModelPaginationFragment
   ...ModelPageCountActionsFragment
@@ -244,6 +244,7 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -326,8 +327,7 @@ return {
                       }
                     ],
                     "storageKey": null
-                  },
-                  (v6/*: any*/)
+                  }
                 ],
                 "storageKey": null
               },
@@ -449,12 +449,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "49032046c5bfc80108231fd6984584d1",
+    "cacheID": "6d5936351fac2f556b3a71e0c441a310",
     "id": null,
     "metadata": {},
     "name": "collectionsSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    createdAt\n    updatedAt\n    title\n    slug\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

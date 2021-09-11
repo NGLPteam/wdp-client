@@ -37,7 +37,8 @@
       "edit.itemContribution": "Edit Item Contribution",
       "edit.collectionContribution": "Edit Collection Contribution",
       "create.community": "Create Community",
-      "edit.community": "Edit Community"
+      "edit.community": "Edit Community",
+      "edit.collection": "Edit Collection"
     },
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully."
@@ -78,6 +79,11 @@
         },
         "fields": {
           "title": "title"
+        }
+      },
+      "collection": {
+        "fields": {
+          "title": "Title"
         }
       },
       "contributor": {

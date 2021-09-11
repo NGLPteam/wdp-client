@@ -17,13 +17,12 @@ export default function CommunityLayout({
   showSidebar?: boolean;
   data?: CommunityLayoutFragment$key | null;
 }) {
-  const { t } = useTranslation();
   const community = useMaybeFragment(fragment, data);
-  // const breadcrumbs = useBreadcrumbs(community || null);
+  const { t } = useTranslation();
   const mainRoute = RouteHelper.findRouteByName("community.manage");
   const slug = useRouteSlug() || undefined;
 
-  // Get the contributor's child routes with current query
+  // Get the community's child routes with current query
   const childRoutes = useMemo(() => {
     return mainRoute?.routes
       ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
