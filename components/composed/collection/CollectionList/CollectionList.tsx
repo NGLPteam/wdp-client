@@ -1,7 +1,7 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { useNotify } from "hooks";
+import { useDestroyer, useDrawerHelper } from "hooks";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
@@ -13,7 +13,8 @@ import type { ModelTableActionProps } from "react-table";
 function CollectionList<T extends OperationType>({
   data,
 }: CollectionListProps) {
-  const notify = useNotify();
+  const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   const collections = useFragment<CollectionListFragment$key>(
     fragment,
@@ -32,9 +33,12 @@ function CollectionList<T extends OperationType>({
 
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      notify.success(`Edit "${row.original.title}"`),
+      drawerHelper.open("editCollection", { drawerSlug: row.original.slug }),
     handleDelete: ({ row }: ModelTableActionProps<CollectionNode>) =>
-      notify.success(`Delete "${row.original.title}"`),
+      destroy.collection(
+        { collectionId: row.original.id },
+        row.original.title || "glossary.collection"
+      ),
   };
 
   return (
@@ -57,6 +61,7 @@ type CollectionNode = CollectionListFragment["nodes"][number];
 const fragment = graphql`
   fragment CollectionListFragment on CollectionConnection {
     nodes {
+      id
       createdAt
       updatedAt
       title

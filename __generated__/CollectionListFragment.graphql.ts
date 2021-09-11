@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionListFragment = {
     readonly nodes: ReadonlyArray<{
+        readonly id: string;
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly title: string | null;
@@ -46,6 +47,13 @@ const node: ReaderFragment = {
       "name": "nodes",
       "plural": true,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -152,5 +160,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '9136bcbd3e273c95b03ac19e03b04072';
+(node as any).hash = '3fff9084a2171f8be1211a89774db2c5';
 export default node;
