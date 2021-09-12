@@ -1,12 +1,12 @@
 import React from "react";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { useDestroyer, useDrawerHelper } from "hooks";
+import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
 } from "@/relay/CollectionListFragment.graphql";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
 
@@ -16,7 +16,7 @@ function CollectionList<T extends OperationType>({
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
 
-  const collections = useFragment<CollectionListFragment$key>(
+  const collections = useMaybeFragment<CollectionListFragment$key>(
     fragment,
     data || null
   );

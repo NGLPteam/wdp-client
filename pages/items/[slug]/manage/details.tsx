@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManageSlugItemsQuery.graphql";
-
+import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import ItemLayout from "components/composed/item/ItemLayout";
 import ErrorPage from "next/error";
 
@@ -19,7 +19,7 @@ function ManageItem() {
     >
       {({ data }) => (
         <ItemLayout data={data?.item} showSidebar>
-          Item Details
+          {data?.item && <ItemUpdateForm data={data?.item} />}
         </ItemLayout>
       )}
     </QueryWrapper>
@@ -30,6 +30,7 @@ const query = graphql`
   query detailsManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
+      ...ItemUpdateFormFragment
     }
   }
 `;

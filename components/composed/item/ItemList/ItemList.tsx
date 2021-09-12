@@ -5,7 +5,7 @@ import type {
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
 import { graphql } from "react-relay";
-import { useMaybeFragment, useDestroyer } from "hooks";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import type { ModelTableActionProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -14,6 +14,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 function ItemList<T extends OperationType>({ data }: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   const columns = [
     ModelColumns.ThumbnailColumn<ItemNode>(),
@@ -28,7 +29,7 @@ function ItemList<T extends OperationType>({ data }: ItemListProps) {
   /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<ItemNode>) =>
-      console.info(`edit ${row.original.slug}`),
+      drawerHelper.open("editItem", { drawerSlug: row.original.slug }),
     handleDelete: ({ row }: ModelTableActionProps<ItemNode>) =>
       destroy.item(
         { itemId: row.original.id },
