@@ -1,12 +1,13 @@
-import React, { ReactNode, useMemo } from "react";
+import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentSidebar, PageHeader } from "components/layout";
-import { useBreadcrumbs, useMaybeFragment, useRouteSlug } from "hooks";
-import { useTranslation } from "react-i18next";
-import { RouteHelper } from "routes";
-import capitalize from "lodash/capitalize";
-import type { UrlObject } from "url";
+import {
+  useBreadcrumbs,
+  useMaybeFragment,
+  useRouteSlug,
+  useChildRouteLinks,
+} from "hooks";
 
 export default function CollectionLayout({
   children,
@@ -18,46 +19,10 @@ export default function CollectionLayout({
   data?: CollectionLayoutFragment$key | null;
 }) {
   const collection = useMaybeFragment(fragment, data);
-  const collectionBreadcrumbs = useBreadcrumbs(collection || null);
-  const { t } = useTranslation();
-  const mainRoute = RouteHelper.findRouteByName("collection.manage");
+  const breadcrumbs = useBreadcrumbs(collection || null);
   const slug = useRouteSlug() || undefined;
-
-  // Get the collection's child routes with current query
-  const childRoutes = useMemo(() => {
-    return mainRoute?.routes
-      ? mainRoute.routes.map((route) => ({ ...route, query: { slug } }))
-      : undefined;
-  }, [slug, mainRoute]);
-
-  // Build breadcrumbs
-  const breadcrumbs = useMemo(() => {
-    const parentRoute = RouteHelper.findRouteByName("collections");
-    const crumbs: { href: UrlObject | string; label: string }[] = [];
-    if (parentRoute)
-      crumbs.push({
-        href: { pathname: parentRoute.path },
-        label: capitalize(t("glossary.community.label", { count: 2 })),
-      });
-    return collectionBreadcrumbs
-      ? crumbs.concat(collectionBreadcrumbs)
-      : crumbs;
-  }, [collectionBreadcrumbs, t]);
-
-  const tabRoutes = [
-    {
-      label: "Child Collections",
-      route: `collection.child.collections`,
-    },
-    {
-      label: "Child Items",
-      route: `collection.child.items`,
-    },
-    {
-      label: "Manage",
-      route: `collection.manage`,
-    },
-  ];
+  const manageRoutes = useChildRouteLinks("collection.manage", { slug });
+  const tabRoutes = useChildRouteLinks("collection", { slug });
 
   return (
     <section>
@@ -67,7 +32,7 @@ export default function CollectionLayout({
         tabRoutes={tabRoutes}
       />
       {showSidebar ? (
-        <ContentSidebar sidebarLinks={childRoutes}>{children}</ContentSidebar>
+        <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
       ) : (
         children
       )}

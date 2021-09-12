@@ -1,30 +1,28 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
-import { useBreadcrumbs, useMaybeFragment } from "hooks";
-
-import { PageHeader } from "components/layout";
+import {
+  useBreadcrumbs,
+  useRouteSlug,
+  useMaybeFragment,
+  useChildRouteLinks,
+} from "hooks";
+import { ContentSidebar, PageHeader } from "components/layout";
 
 export default function ItemLayout({
   children,
+  showSidebar = false,
   data,
 }: {
   children: ReactNode;
+  showSidebar?: boolean;
   data?: ItemLayoutFragment$key | null;
 }) {
   const item = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(item || null);
-
-  const tabRoutes = [
-    {
-      label: "Child Items",
-      route: `item.child.items`,
-    },
-    {
-      label: "Manage",
-      route: `item.manage`,
-    },
-  ];
+  const slug = useRouteSlug() || undefined;
+  const manageRoutes = useChildRouteLinks("item.manage", { slug });
+  const tabRoutes = useChildRouteLinks("item", { slug });
 
   return (
     <section>
@@ -33,8 +31,11 @@ export default function ItemLayout({
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
       />
-
-      {children}
+      {showSidebar ? (
+        <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
+      ) : (
+        children
+      )}
     </section>
   );
 }

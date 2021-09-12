@@ -17,43 +17,46 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "collection.child.collections",
             path: "/collections/[slug]/collections",
+            label: "collections",
           },
           {
             name: "collection.child.items",
             path: "/collections/[slug]/items",
+            label: "items",
           },
           {
             name: "collection.manage",
             path: "/collections/[slug]/manage",
             redirect: "/collections/[slug]/manage/details",
+            label: "manage",
             routes: [
               {
-                name: "collections.manage.details",
+                name: "collection.manage.details",
                 path: "/collections/[slug]/manage/details",
                 label: "details",
               },
               {
-                name: "collections.manage.order",
+                name: "collection.manage.order",
                 path: "/collections/[slug]/manage/order",
                 label: "order",
               },
               {
-                name: "collections.manage.links",
+                name: "collection.manage.links",
                 path: "/collections/[slug]/manage/links",
                 label: "links",
               },
               {
-                name: "collections.manage.access",
+                name: "collection.manage.access",
                 path: "/collections/[slug]/manage/access",
                 label: "access",
               },
               {
-                name: "collections.manage.pages",
+                name: "collection.manage.pages",
                 path: "/collections/[slug]/manage/pages",
                 label: "pages",
               },
               {
-                name: "collections.manage.contributions",
+                name: "collection.manage.contributions",
                 path: "/collections/[slug]/manage/contributions",
                 label: "contributions",
               },
@@ -73,16 +76,52 @@ export const baseRoutes: BaseRoute[] = [
         redirect: "/items/[slug]/items",
         routes: [
           {
-            name: "item.assets.create",
-            path: "/items/[slug]/assets/create",
-          },
-          {
             name: "item.child.items",
             path: "/items/[slug]/items",
+            label: "items",
           },
           {
             name: "item.manage",
             path: "/items/[slug]/manage",
+            redirect: "/items/[slug]/manage/details",
+            label: "manage",
+            routes: [
+              {
+                name: "item.manage.details",
+                path: "/items/[slug]/manage/details",
+                label: "details",
+              },
+              {
+                name: "item.manage.order",
+                path: "/items/[slug]/manage/order",
+                label: "order",
+              },
+              {
+                name: "item.manage.rules",
+                path: "/items/[slug]/manage/rules",
+                label: "rules",
+              },
+              {
+                name: "item.manage.links",
+                path: "/items/[slug]/manage/links",
+                label: "links",
+              },
+              {
+                name: "item.manage.pages",
+                path: "/items/[slug]/manage/pages",
+                label: "pages",
+              },
+              {
+                name: "item.manage.contributions",
+                path: "/items/[slug]/manage/contributions",
+                label: "contributions",
+              },
+              {
+                name: "item.manage.files",
+                path: "/items/[slug]/manage/files",
+                label: "files",
+              },
+            ],
           },
         ],
       },
@@ -100,11 +139,13 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "community.child.collections",
             path: "/communities/[slug]/collections",
+            label: "collections",
           },
           {
             name: "community.manage",
             path: "/communities/[slug]/manage",
             redirect: "/communities/[slug]/manage/details",
+            label: "manage",
             routes: [
               {
                 name: "community.manage.details",

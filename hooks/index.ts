@@ -24,3 +24,4 @@ export { default as useNotify } from "./useNotify";
 export { default as usePrevious } from "./usePrevious";
 export { default as useDrawerHelper } from "./useDrawerHelper";
 export { default as useDestroyer } from "./useDestroyer";
+export { default as useChildRouteLinks } from "./useChildRouteLinks";

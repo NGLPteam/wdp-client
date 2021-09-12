@@ -1,20 +1,20 @@
 import React from "react";
 import * as Styled from "./SidebarNav.styles";
 import { RouteHelper } from "routes";
-import type { Route } from "routes/NextNamedRoutes";
 import { NamedLink } from "components/atomic";
 import { useTranslation } from "react-i18next";
+import { Props as NamedLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 
 const SidebarNav = ({ links, className }: Props) => {
   const { t } = useTranslation();
 
-  const renderLink = ({ name, label = "", query }: SidebarLink) => {
+  const renderLink = ({ route, label = "", query }: Link) => {
     // Check if the individual route link should be active
     const activeRoute = RouteHelper.activeRoute();
-    const active = activeRoute?.name === name;
+    const active = activeRoute?.name === route;
 
     return (
-      <NamedLink route={name} query={query} passHref>
+      <NamedLink route={route} query={query} passHref>
         <Styled.Link active={active}>{t(label)}</Styled.Link>
       </NamedLink>
     );
@@ -32,14 +32,12 @@ const SidebarNav = ({ links, className }: Props) => {
   ) : null;
 };
 
-type Query = { [key: string]: string | number | string[] | undefined };
-
-export interface SidebarLink extends Pick<Route, "name" | "label"> {
-  query?: Query;
+interface Link extends NamedLinkProps {
+  label?: string;
 }
 
 interface Props {
-  links?: SidebarLink[];
+  links?: Link[];
   className?: string;
 }
 

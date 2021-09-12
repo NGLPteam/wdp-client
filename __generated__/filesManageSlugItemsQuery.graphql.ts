@@ -4,23 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type manageSlugItemsPagesQueryVariables = {
+export type filesManageSlugItemsQueryVariables = {
     itemSlug: string;
 };
-export type manageSlugItemsPagesQueryResponse = {
+export type filesManageSlugItemsQueryResponse = {
     readonly item: {
         readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
-export type manageSlugItemsPagesQuery = {
-    readonly response: manageSlugItemsPagesQueryResponse;
-    readonly variables: manageSlugItemsPagesQueryVariables;
+export type filesManageSlugItemsQuery = {
+    readonly response: filesManageSlugItemsQueryResponse;
+    readonly variables: filesManageSlugItemsQueryVariables;
 };
 
 
 
 /*
-query manageSlugItemsPagesQuery(
+query filesManageSlugItemsQuery(
   $itemSlug: Slug!
 ) {
   item(slug: $itemSlug) {
@@ -81,7 +81,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "manageSlugItemsPagesQuery",
+    "name": "filesManageSlugItemsQuery",
     "selections": [
       {
         "alias": null,
@@ -107,7 +107,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "manageSlugItemsPagesQuery",
+    "name": "filesManageSlugItemsQuery",
     "selections": [
       {
         "alias": null,
@@ -173,14 +173,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2220cde45114809ed2e5e6cd629b774d",
+    "cacheID": "1bde449c2bf2d24191655d1402a6db9c",
     "id": null,
     "metadata": {},
-    "name": "manageSlugItemsPagesQuery",
+    "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query manageSlugItemsPagesQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '66acab7b1b9b2f8a178a55c62d87685f';
+(node as any).hash = '33e4a3c7e2532c33cf333f97137d1111';
 export default node;
