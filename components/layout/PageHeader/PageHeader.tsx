@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
 import * as Styled from "./PageHeader.styles";
 import { RouteHelper } from "routes";
-import { useRouter } from "next/router";
 import isNil from "lodash/isNil";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
@@ -13,7 +12,6 @@ type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
  */
 const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
   const activeRoute = RouteHelper.activeRoute();
-  const router = useRouter();
 
   return (
     <Styled.Header>
@@ -25,10 +23,10 @@ const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
       {tabRoutes && (
         <Styled.TabsWrapper>
           <TabNav>
-            {tabRoutes.map(({ route, label }, i) => (
+            {tabRoutes.map(({ label, ...namedLinkProps }, i) => (
               // router and activeRoute may be missing in Storybook
-              <NamedLink key={i} route={route} query={router?.query} passHref>
-                <TabNav.Tab active={activeRoute?.name === route}>
+              <NamedLink key={i} {...namedLinkProps} passHref>
+                <TabNav.Tab active={activeRoute?.name === namedLinkProps.route}>
                   {label}
                 </TabNav.Tab>
               </NamedLink>
@@ -40,13 +38,17 @@ const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
   );
 };
 
+interface Link extends NamedLinkProps {
+  label?: string;
+}
+
 interface Props {
   /** Page title */
   title?: ReactNode;
   /** Breadcrumb props to be passed down to Breadcrumbs component */
   breadcrumbsProps?: BreadcrumbProps;
   /** Child tabs (TabNav) */
-  tabRoutes?: { label: string; route: NamedLinkProps["route"] }[];
+  tabRoutes?: Link[];
   /** Child buttons */
   buttons?: React.ReactNode;
 }

@@ -15,7 +15,7 @@ export default {
 
 const LINKS = [
   {
-    name: "contributor.details",
+    route: "contributor.details",
     path: "/contributors/[slug]/details",
     label: "Details",
     query: {
@@ -23,7 +23,7 @@ const LINKS = [
     },
   },
   {
-    name: "contributor.collections",
+    route: "contributor.collections",
     path: "/contributors/[slug]/collections",
     label: "Collection Contributions",
     query: {
@@ -31,7 +31,7 @@ const LINKS = [
     },
   },
   {
-    name: "contributor.items",
+    route: "contributor.items",
     path: "/contributors/[slug]/items",
     label: "Item Contributions",
     query: {

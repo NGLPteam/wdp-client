@@ -5,15 +5,15 @@ type Props = React.ComponentProps<typeof ContentSidebar>;
 
 const LINKS = [
   {
-    name: "home",
+    route: "home",
     label: "Tab A",
   },
   {
-    name: "home",
+    route: "home",
     label: "Tab B",
   },
   {
-    name: "home",
+    route: "home",
     label: "Tab C",
   },
 ];
