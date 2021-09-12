@@ -8,7 +8,7 @@ import type {
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
 import { useRouter } from "next/router";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 
 import { NamedLink } from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -19,6 +19,7 @@ function CollectionContributionList<T extends OperationType>({
   data,
 }: CollectionContributionListProps) {
   const router = useRouter();
+  const destroy = useDestroyer();
 
   /* eslint-disable max-len */
   const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
@@ -70,6 +71,13 @@ function CollectionContributionList<T extends OperationType>({
         },
       });
     },
+    handleDelete: ({
+      row,
+    }: ModelTableActionProps<CollectionContributionNode>) =>
+      destroy.contribution(
+        { contributionId: row.original.id },
+        "glossary.contribution.label"
+      ),
   };
 
   return (
@@ -96,6 +104,7 @@ type CollectionContributionNode = CollectionContributionListFragment["nodes"][nu
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {
     nodes {
+      id
       slug
       createdAt
       updatedAt

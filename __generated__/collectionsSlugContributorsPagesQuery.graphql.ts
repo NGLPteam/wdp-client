@@ -49,6 +49,7 @@ query collectionsSlugContributorsPagesQuery(
 
 fragment CollectionContributionListFragment on CollectionContributionConnection {
   nodes {
+    id
     slug
     createdAt
     updatedAt
@@ -58,7 +59,6 @@ fragment CollectionContributionListFragment on CollectionContributionConnection 
       slug
       id
     }
-    id
   }
   ...ModelPaginationFragment
   ...ModelPageCountActionsFragment
@@ -169,6 +169,7 @@ v6 = {
       "name": "nodes",
       "plural": true,
       "selections": [
+        (v5/*: any*/),
         (v4/*: any*/),
         {
           "alias": null,
@@ -210,8 +211,7 @@ v6 = {
             (v5/*: any*/)
           ],
           "storageKey": null
-        },
-        (v5/*: any*/)
+        }
       ],
       "storageKey": null
     },
@@ -396,12 +396,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "47f55579f2a6d142b624c567d85baac2",
+    "cacheID": "67c9f36f6a66a3305332403639b61a9e",
     "id": null,
     "metadata": {},
     "name": "collectionsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    slug\n    createdAt\n    updatedAt\n    role\n    collection {\n      title\n      slug\n      id\n    }\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n    totalUnfilteredCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
