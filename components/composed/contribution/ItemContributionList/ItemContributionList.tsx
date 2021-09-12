@@ -8,7 +8,7 @@ import {
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
 import { useRouter } from "next/router";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -24,6 +24,7 @@ function ItemContributionList<T extends OperationType>({
   );
 
   const router = useRouter();
+  const destroy = useDestroyer();
 
   const columns = [
     {
@@ -66,6 +67,11 @@ function ItemContributionList<T extends OperationType>({
         },
       });
     },
+    handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
+      destroy.contribution(
+        { contributionId: row.original.id },
+        "glossary.contribution.label"
+      ),
   };
 
   return (
@@ -88,6 +94,7 @@ type ItemContributionNode = ItemContributionListFragment["nodes"][number];
 const fragment = graphql`
   fragment ItemContributionListFragment on ItemContributionConnection {
     nodes {
+      id
       slug
       createdAt
       updatedAt
