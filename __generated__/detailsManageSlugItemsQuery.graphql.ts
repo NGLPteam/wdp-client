@@ -9,7 +9,7 @@ export type detailsManageSlugItemsQueryVariables = {
 };
 export type detailsManageSlugItemsQueryResponse = {
     readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment" | "ItemUpdateFormFragment">;
     } | null;
 };
 export type detailsManageSlugItemsQuery = {
@@ -25,6 +25,7 @@ query detailsManageSlugItemsQuery(
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutFragment
+    ...ItemUpdateFormFragment
     id
   }
 }
@@ -33,6 +34,16 @@ fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ItemUpdateFormFieldsFragment on Item {
+  title
+}
+
+fragment ItemUpdateFormFragment on Item {
+  itemId: id
+  identifier
+  ...ItemUpdateFormFieldsFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -95,6 +106,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ItemLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemUpdateFormFragment"
           }
         ],
         "storageKey": null
@@ -125,6 +141,20 @@ return {
             "storageKey": null
           },
           (v2/*: any*/),
+          {
+            "alias": "itemId",
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
           (v3/*: any*/),
           {
             "kind": "InlineFragment",
@@ -173,14 +203,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0c58bb79daa85273e3dc7f35744d93db",
+    "cacheID": "35cba7c7df2eb02b8b4060580e46c3b8",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query detailsManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemUpdateFormFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n}\n\nfragment ItemUpdateFormFragment on Item {\n  itemId: id\n  identifier\n  ...ItemUpdateFormFieldsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'bc76d441cb0b46526216959251b8e37e';
+(node as any).hash = 'e40b4866d03444d5256d77cb03a24454';
 export default node;
