@@ -2,12 +2,12 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
-import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
+import type { permissionsManageSlugUsersPagesQuery as Query } from "@/relay/permissionsManageSlugUsersPagesQuery.graphql";
 
 import UserLayout from "components/composed/user/UserLayout";
 import ErrorPage from "next/error";
 
-function UserDetails() {
+function UserPermissions() {
   const queryVars = useBaseListQueryVars();
   const userSlug = useRouteSlug();
   if (!userSlug) return <ErrorPage statusCode={404} />;
@@ -19,7 +19,7 @@ function UserDetails() {
     >
       {({ data }) => (
         <UserLayout showSidebar data={data?.user}>
-          User Details
+          User Permissions
         </UserLayout>
       )}
     </QueryWrapper>
@@ -27,11 +27,11 @@ function UserDetails() {
 }
 
 const query = graphql`
-  query detailsManageSlugUsersPagesQuery($userSlug: Slug!) {
+  query permissionsManageSlugUsersPagesQuery($userSlug: Slug!) {
     user(slug: $userSlug) {
       ...UserLayoutFragment
     }
   }
 `;
 
-export default UserDetails;
+export default UserPermissions;

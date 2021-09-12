@@ -182,6 +182,21 @@ export const baseRoutes: BaseRoute[] = [
             path: "/users/[slug]/details",
             label: "details",
           },
+          {
+            name: "user.permissions",
+            path: "/users/[slug]/permissions",
+            label: "permissions",
+          },
+          {
+            name: "user.collections",
+            path: "/users/[slug]/collections",
+            label: "collections",
+          },
+          {
+            name: "user.items",
+            path: "/users/[slug]/items",
+            label: "items",
+          },
         ],
       },
     ],

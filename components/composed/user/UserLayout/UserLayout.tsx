@@ -7,7 +7,7 @@ import { UserLayoutFragment$key } from "@/relay/UserLayoutFragment.graphql";
 type Props = {
   children: ReactNode;
   showSidebar?: boolean;
-  data?: UserLayoutFragment$key;
+  data?: UserLayoutFragment$key | null;
 };
 
 export default function UserLayout({
@@ -17,7 +17,7 @@ export default function UserLayout({
 }: Props) {
   const user = useMaybeFragment(fragment, data);
   const slug = useRouteSlug() || undefined;
-  const manageRoutes = useChildRouteLinks("user.manage", { slug });
+  const manageRoutes = useChildRouteLinks("user", { slug });
   return (
     <section>
       <PageHeader title={user?.name} />
@@ -33,5 +33,6 @@ export default function UserLayout({
 const fragment = graphql`
   fragment UserLayoutFragment on User {
     name
+    email
   }
 `;
