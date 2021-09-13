@@ -7,12 +7,16 @@ type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
 const ButtonControl = forwardRef(
   ({ children, iconRotate, actions, allowedActions, ...props }: Props, ref) => {
-    const { icon } = props;
+    const { icon, size } = props;
 
     const content = (
       <Styled.ButtonControl ref={ref} {...props}>
         <>
-          {children && <span>{children}</span>}
+          {children && (
+            <Styled.ButtonText size={size} icon={icon}>
+              {children}
+            </Styled.ButtonText>
+          )}
           {icon && <IconFactory icon={icon} rotate={iconRotate} />}
         </>
       </Styled.ButtonControl>
@@ -37,6 +41,7 @@ interface Props extends Omit<AuthorizeProps, "children"> {
   onClick?: React.MouseEventHandler;
   "aria-label"?: string;
   type?: "button" | "submit";
+  size?: "large";
 }
 
 export default ButtonControl;

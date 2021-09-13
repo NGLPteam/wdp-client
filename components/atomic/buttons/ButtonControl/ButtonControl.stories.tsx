@@ -16,6 +16,10 @@ export default {
       options: [null, ...ICON_KEYS],
       control: { type: "select" },
     },
+    size: {
+      options: ["default", "large"],
+      control: { type: "select" },
+    },
   },
 };
 
