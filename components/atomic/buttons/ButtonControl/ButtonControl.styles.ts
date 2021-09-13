@@ -6,7 +6,7 @@ import { aGlow } from "theme/mixins/appearance";
 import BaseButtonControl from "./ButtonControl";
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
 
-export const ButtonControl = styled.button<BaseProps>`
+export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   min-height: ${pxToRem("32px")};
   display: inline-block;
   border: 1px solid transparent;
@@ -22,14 +22,10 @@ export const ButtonControl = styled.button<BaseProps>`
   visibility: var(--button-control-visibility, visible);
 
   ${({ size }) =>
-    size &&
+    size === "large" &&
     css`
-      min-height: ${pxToRem(size)};
+      padding: ${pxToRem("12px")};
     `}
-
-  > span {
-    display: inline-block;
-  }
 
   ${({ icon }) =>
     icon &&
@@ -37,10 +33,6 @@ export const ButtonControl = styled.button<BaseProps>`
       display: inline-flex;
       align-items: center;
       justify-content: space-between;
-
-      > span {
-        padding-inline-end: ${pxToRem("10px")};
-      }
     `}
 
   &:disabled,
@@ -71,7 +63,18 @@ export const ButtonControl = styled.button<BaseProps>`
   }
 `;
 
-export const ButtonControlIcon = styled(ButtonControl)<BaseProps>`
-  padding: ${pxToRem("7px")};
-  min-width: auto;
+export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
+  display: inline-block;
+
+  ${({ size }) =>
+    size === "large" &&
+    css`
+      padding-inline-start: ${pxToRem("4px")};
+    `}
+
+  ${({ icon }) =>
+    icon &&
+    css`
+      padding-inline-end: ${pxToRem("10px")};
+    `}
 `;

@@ -57,7 +57,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
                 remove(index);
               }}
               icon="delete"
-              size="42px"
+              size="large"
             />
           </Fieldset.Actions>
         </Fieldset.Fields>
@@ -66,7 +66,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
         type="button"
         onClick={handleAddField}
         icon="plus"
-        size="42px"
+        size="large"
       >
         {t("forms.inputs.linkRepeater.add", { itemLabel })}
       </ButtonControl>
