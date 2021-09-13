@@ -20,7 +20,11 @@ function ItemChildItems() {
     >
       {({ data }) => (
         <ItemLayout data={data?.item}>
-          <ItemList<Query> data={data?.item?.items} />
+          <ItemList<Query>
+            data={data?.item?.items}
+            headerStyle="secondary"
+            hideHeader
+          />
         </ItemLayout>
       )}
     </QueryWrapper>

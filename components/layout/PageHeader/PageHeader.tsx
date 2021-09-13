@@ -10,14 +10,26 @@ type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 /**
  * Wrapper for page title, breadcrumbs, and child tabs
  */
-const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
+const PageHeader = ({
+  title,
+  breadcrumbsProps,
+  tabRoutes,
+  buttons,
+  headerStyle = "primary",
+  hideHeader = false,
+}: Props) => {
   const activeRoute = RouteHelper.activeRoute();
 
   return (
-    <Styled.Header>
+    <Styled.Header
+      className={hideHeader ? "a-hidden" : ""}
+      headerStyle={headerStyle}
+    >
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <Styled.TitleWrapper>
-        <Styled.H1>{title || "\u00a0"}</Styled.H1>
+        <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
+          {title || "\u00a0"}
+        </Styled.Title>
         {buttons && <Styled.ButtonsWrapper>{buttons}</Styled.ButtonsWrapper>}
       </Styled.TitleWrapper>
       {tabRoutes && (
@@ -53,6 +65,8 @@ interface Props {
   tabRoutes?: Link[];
   /** Child buttons */
   buttons?: React.ReactNode;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 export default PageHeader;

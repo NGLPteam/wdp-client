@@ -22,6 +22,7 @@ function ContributorCollectionContributions() {
         <ContributorLayout data={data?.contributor}>
           <CollectionContributionList<Query>
             data={data?.contributor?.collectionContributions}
+            headerStyle="secondary"
           />
         </ContributorLayout>
       )}

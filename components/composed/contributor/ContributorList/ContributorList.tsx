@@ -17,6 +17,8 @@ import { getContributorDisplayName } from "../ContributorDisplayName";
 
 function ContributorList<T extends OperationType>({
   data,
+  headerStyle,
+  hideHeader,
 }: ContributorListProps) {
   const { t } = useTranslation();
   const destroy = useDestroyer();
@@ -79,12 +81,16 @@ function ContributorList<T extends OperationType>({
       actions={actions}
       viewOptions={[DataViewOptions.table]}
       data={contributors}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
     />
   );
 }
 
 interface ContributorListProps {
   data?: ContributorListFragment$key;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 type ContributorNode = ContributorListFragment["nodes"][number];

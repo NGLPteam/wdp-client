@@ -13,7 +13,11 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
+function CommunityList<T extends OperationType>({
+  data,
+  headerStyle,
+  hideHeader,
+}: CommunityListProps) {
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
@@ -45,12 +49,16 @@ function CommunityList<T extends OperationType>({ data }: CommunityListProps) {
       columns={columns}
       actions={actions}
       data={communities}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
     />
   );
 }
 
 interface CommunityListProps {
   data?: CommunityListFragment$key;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 type CommunityNode = CommunityListFragment["edges"][number]["node"];
