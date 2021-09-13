@@ -23,6 +23,7 @@ const Input = forwardRef(
         label={label}
         hideLabel={hideLabel}
         description={description}
+        required={inputProps.required}
       >
         <Styled.Input type={type} ref={ref} {...inputProps} />
       </BaseInputWrapper>

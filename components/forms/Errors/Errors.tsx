@@ -6,7 +6,7 @@ import useFormErrors from "hooks/useFormErrors";
 
 import MessageList from "./MessageList";
 
-export default function Errors({ name }: Props) {
+export default function Errors({ name, label }: Props) {
   const errors = useFormErrors();
 
   return (
@@ -14,7 +14,11 @@ export default function Errors({ name }: Props) {
       errors={errors}
       name={name}
       render={({ message, messages }) => (
-        <MessageList messages={messages} inlineMessage={message} />
+        <MessageList
+          messages={messages}
+          inlineMessage={message}
+          label={label}
+        />
       )}
     />
   );
@@ -23,4 +27,6 @@ export default function Errors({ name }: Props) {
 interface Props {
   /* eslint-disable-next-line */
   name: Path<any>;
+  /* The label for the erroring field, ie 'First Name' */
+  label: string;
 }

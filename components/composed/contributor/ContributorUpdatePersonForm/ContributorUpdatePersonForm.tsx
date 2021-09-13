@@ -50,10 +50,12 @@ export default function ContributorUpdatePersonForm({
         <Forms.Input
           label="forms.contributor.fields.givenName"
           {...register("givenName")}
+          required
         />
         <Forms.Input
           label="forms.contributor.fields.familyName"
           {...register("familyName")}
+          required
         />
         <Forms.FileUpload
           label="forms.contributor.fields.image"

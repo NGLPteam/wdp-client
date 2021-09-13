@@ -18,7 +18,12 @@ const Textarea = forwardRef(
     ref: Ref<HTMLTextAreaElement>
   ) => {
     return (
-      <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
+      <BaseInputWrapper
+        name={name}
+        hideLabel={hideLabel}
+        label={label}
+        required={textareaProps.required}
+      >
         <Styled.TextareaInput
           name={name}
           ref={ref}

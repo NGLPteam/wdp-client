@@ -10,7 +10,12 @@ const Switch = forwardRef(
     ref: Ref<HTMLInputElement>
   ) => {
     return (
-      <BaseInputWrapper name={name} hideLabel={hideLabel} label={label}>
+      <BaseInputWrapper
+        name={name}
+        hideLabel={hideLabel}
+        label={label}
+        required={inputProps.required}
+      >
         {({ uid }) => (
           <Styled.SwitchWrapper as="label" htmlFor={uid}>
             {text}
