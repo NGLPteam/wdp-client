@@ -7,7 +7,6 @@ import type {
   UserListFragment$key,
 } from "@/relay/UserListFragment.graphql";
 import { CellProps } from "react-table";
-import type { ModelTableActionProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -17,8 +16,6 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
   const users = useMaybeFragment<UserListFragment$key>(fragment, data);
 
   const columns = [
-    ModelColumns.CreatedAtColumn<UserNode>(),
-    ModelColumns.UpdatedAtColumn<UserNode>(),
     ModelColumns.NameColumn<UserNode>({ route: "user", accessor: "name" }),
     {
       Header: "Email",
@@ -34,21 +31,13 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
       Cell: ({ value }: CellProps<UserNode>) =>
         value && value === true ? "Yes" : "No",
     },
+    ModelColumns.CreatedAtColumn<UserNode>(),
   ];
-
-  /* eslint-disable no-console */
-  const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<UserNode>) =>
-      console.info(`edit ${row.original.slug}`),
-  };
-  /* eslint-enable no-console */
 
   return (
     <ModelListPage<T, UserListFragment, UserNode>
       modelName="user"
       columns={columns}
-      actions={actions}
-      selectable
       viewOptions={[DataViewOptions.table]}
       data={users}
     />
