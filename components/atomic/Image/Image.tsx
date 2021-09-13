@@ -10,6 +10,7 @@ function Image(props: Props) {
   const {
     image: { url, alt },
     layout: layoutIgnored,
+    unoptimized,
     ...nextImageProps
   } = props;
 
@@ -24,7 +25,7 @@ function Image(props: Props) {
   } else {
     return (
       <NextImage
-        unoptimized={process.env.NODE_ENV !== "production"}
+        unoptimized={unoptimized || process.env.NODE_ENV !== "production"}
         {...commonNextImageProps}
         layout={props.layout}
         width={props.image.width}
@@ -40,6 +41,7 @@ interface BaseImageProps
     "priority" | "quality" | "sizes" | "objectFit" | "objectPosition"
   > {
   className?: string;
+  unoptimized?: boolean;
 }
 
 interface FillImage {
