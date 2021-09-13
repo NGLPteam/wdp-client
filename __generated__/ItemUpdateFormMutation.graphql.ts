@@ -7,7 +7,6 @@ import { FragmentRefs } from "relay-runtime";
 export type UpdateItemInput = {
     itemId: string;
     title: string;
-    identifier: string;
     clientMutationId?: string | null;
 };
 export type ItemUpdateFormMutationVariables = {

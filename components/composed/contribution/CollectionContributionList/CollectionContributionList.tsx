@@ -7,8 +7,7 @@ import type {
 } from "@/relay/CollectionContributionListFragment.graphql";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { useRouter } from "next/router";
-import { useMaybeFragment, useDestroyer } from "hooks";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import { NamedLink } from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -20,8 +19,8 @@ function CollectionContributionList<T extends OperationType>({
   headerStyle,
   hideHeader,
 }: CollectionContributionListProps) {
-  const router = useRouter();
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   /* eslint-disable max-len */
   const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
@@ -61,18 +60,10 @@ function CollectionContributionList<T extends OperationType>({
   ];
 
   const actions = {
-    handleEdit: ({
-      row,
-    }: ModelTableActionProps<CollectionContributionNode>) => {
-      const pathname = window.location.pathname;
-      router.push({
-        pathname,
-        query: {
-          drawer: "editCollectionContribution",
-          contribution: row.original.slug,
-        },
-      });
-    },
+    handleEdit: ({ row }: ModelTableActionProps<CollectionContributionNode>) =>
+      drawerHelper.open("editCollectionContribution", {
+        drawerSlug: row.original.slug,
+      }),
     handleDelete: ({
       row,
     }: ModelTableActionProps<CollectionContributionNode>) =>

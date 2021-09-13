@@ -7,8 +7,7 @@ import {
 } from "@/relay/ItemContributionListFragment.graphql";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { useRouter } from "next/router";
-import { useMaybeFragment, useDestroyer } from "hooks";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -24,8 +23,7 @@ function ItemContributionList<T extends OperationType>({
     fragment,
     data
   );
-
-  const router = useRouter();
+  const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
   const columns = [
@@ -59,16 +57,10 @@ function ItemContributionList<T extends OperationType>({
   ];
 
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<ItemContributionNode>) => {
-      const pathname = window.location.pathname;
-      router.push({
-        pathname,
-        query: {
-          drawer: "editItemContribution",
-          contribution: row.original.slug,
-        },
-      });
-    },
+    handleEdit: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
+      drawerHelper.open("editItemContribution", {
+        drawerSlug: row.original.slug,
+      }),
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },

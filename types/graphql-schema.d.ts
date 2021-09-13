@@ -881,7 +881,6 @@ export type CreateCollectionInput = {
   /** The parent of the new collection. This can be the encoded ID of a community or another collection. */
   parentId: Scalars['ID'];
   title: Scalars['String'];
-  identifier: Scalars['String'];
   schemaVersionSlug?: Maybe<Scalars['String']>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -930,7 +929,6 @@ export type CreateItemInput = {
   /** The parent of the item. This can be the encoded ID of a collection or another item. */
   parentId: Scalars['ID'];
   title: Scalars['String'];
-  identifier: Scalars['String'];
   schemaVersionSlug?: Maybe<Scalars['String']>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
@@ -2343,6 +2341,8 @@ export type Query = {
   __typename?: 'Query';
   /** Look up a collection by slug */
   collection?: Maybe<Collection>;
+  /** Look up a collection contribution by slug */
+  collectionContribution?: Maybe<CollectionContribution>;
   /** List all communities */
   communities: CommunityConnection;
   /** Look up a community by slug */
@@ -2353,6 +2353,8 @@ export type Query = {
   contributors: AnyContributorConnection;
   /** Look up an item by slug */
   item?: Maybe<Item>;
+  /** Look up an item contribution by slug */
+  itemContribution?: Maybe<ItemContribution>;
   /** Fetches an object given its ID. */
   node?: Maybe<Node>;
   /** Fetches a list of objects given a list of IDs. */
@@ -2378,6 +2380,12 @@ export type Query = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryCollectionArgs = {
+  slug: Scalars['Slug'];
+};
+
+
+/** The entry point for retrieving data from within the WDP API. */
+export type QueryCollectionContributionArgs = {
   slug: Scalars['Slug'];
 };
 
@@ -2423,6 +2431,12 @@ export type QueryContributorsArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryItemArgs = {
+  slug: Scalars['Slug'];
+};
+
+
+/** The entry point for retrieving data from within the WDP API. */
+export type QueryItemContributionArgs = {
   slug: Scalars['Slug'];
 };
 
@@ -2848,8 +2862,6 @@ export type UpdateCollectionInput = {
   collectionId: Scalars['ID'];
   /** Human readable title for the collection */
   title: Scalars['String'];
-  /** Machine readable title for the collection, should be unique within its scope */
-  identifier: Scalars['String'];
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -2921,7 +2933,6 @@ export type UpdateItemInput = {
   /** The item to update */
   itemId: Scalars['ID'];
   title: Scalars['String'];
-  identifier: Scalars['String'];
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -4781,11 +4792,13 @@ export type PreviewImageMapResolvers<ContextType = any, ParentType extends Resol
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   collection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<QueryCollectionArgs, 'slug'>>;
+  collectionContribution?: Resolver<Maybe<ResolversTypes['CollectionContribution']>, ParentType, ContextType, RequireFields<QueryCollectionContributionArgs, 'slug'>>;
   communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<QueryCommunitiesArgs, 'order' | 'pageDirection' | 'perPage'>>;
   community?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityArgs, 'slug'>>;
   contributor?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorArgs, 'slug'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<QueryContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'slug'>>;
+  itemContribution?: Resolver<Maybe<ResolversTypes['ItemContribution']>, ParentType, ContextType, RequireFields<QueryItemContributionArgs, 'slug'>>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'id'>>;
   nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, RequireFields<QueryNodesArgs, 'ids'>>;
   roles?: Resolver<ResolversTypes['RoleConnection'], ParentType, ContextType, RequireFields<QueryRolesArgs, 'order'>>;
