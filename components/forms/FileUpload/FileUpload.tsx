@@ -117,10 +117,14 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 
   function handleClear() {
     setIsCleared(true);
-
     maybeSetBooleanField(setValue, clearName, true);
-
     if (state.file) dispatch({ type: "deselect" });
+  }
+
+  function handleSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    selectFile(e);
+    setIsCleared(false);
+    maybeSetBooleanField(setValue, clearName, false);
   }
 
   return (
@@ -135,7 +139,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
                 ref={setRefs}
                 type="file"
                 onBlur={field.onBlur}
-                onChange={selectFile}
+                onChange={handleSelect}
                 multiple={false}
                 {...inputProps}
               />
