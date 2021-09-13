@@ -30,6 +30,7 @@ const FileUploadPreview = ({ file, isLoading }: UploadStatusProps) => {
             alt: "",
           }}
           objectFit={OBJECT_FIT}
+          unoptimized
         />
       ) : (
         <>
