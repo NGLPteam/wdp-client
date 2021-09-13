@@ -8,9 +8,11 @@ import ContributorDisplayName from "../ContributorDisplayName";
 export default function ContributorLayout({
   children,
   data,
+  subHead,
 }: {
   children: ReactNode;
   data?: ContributorLayoutFragment$key | null;
+  subHead?: boolean;
 }) {
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("contributor", { slug });
@@ -20,6 +22,7 @@ export default function ContributorLayout({
     <section>
       <PageHeader
         title={<ContributorDisplayName contributor={contributor} />}
+        subHead={subHead}
       />
       <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
     </section>

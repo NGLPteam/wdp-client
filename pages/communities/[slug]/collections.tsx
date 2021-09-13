@@ -20,7 +20,7 @@ function CommunityChildCollections() {
     >
       {({ data }) => (
         <CommunityLayout data={data?.community}>
-          <CollectionList<Query> data={data?.community?.collections} />
+          <CollectionList<Query> data={data?.community?.collections} subHead />
         </CommunityLayout>
       )}
     </QueryWrapper>

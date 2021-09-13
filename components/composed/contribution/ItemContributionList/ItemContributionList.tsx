@@ -17,6 +17,7 @@ import { NamedLink } from "components/atomic";
 
 function ItemContributionList<T extends OperationType>({
   data,
+  subHead,
 }: ItemContributionListProps) {
   const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
     fragment,
@@ -81,12 +82,14 @@ function ItemContributionList<T extends OperationType>({
       actions={actions}
       viewOptions={[DataViewOptions.table]}
       data={itemContributions}
+      subHead={subHead}
     />
   );
 }
 
 interface ItemContributionListProps {
   data?: ItemContributionListFragment$key;
+  subHead?: boolean;
 }
 
 type ItemContributionNode = ItemContributionListFragment["nodes"][number];

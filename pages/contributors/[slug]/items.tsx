@@ -22,6 +22,7 @@ function ContributorItemContributions() {
         <ContributorLayout data={data?.contributor}>
           <ItemContributionList<Query>
             data={data?.contributor?.itemContributions}
+            subHead
           />
         </ContributorLayout>
       )}

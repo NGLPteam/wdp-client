@@ -17,6 +17,7 @@ import { getContributorDisplayName } from "../ContributorDisplayName";
 
 function ContributorList<T extends OperationType>({
   data,
+  subHead,
 }: ContributorListProps) {
   const { t } = useTranslation();
   const destroy = useDestroyer();
@@ -79,12 +80,14 @@ function ContributorList<T extends OperationType>({
       actions={actions}
       viewOptions={[DataViewOptions.table]}
       data={contributors}
+      subHead={subHead}
     />
   );
 }
 
 interface ContributorListProps {
   data?: ContributorListFragment$key;
+  subHead?: boolean;
 }
 
 type ContributorNode = ContributorListFragment["nodes"][number];

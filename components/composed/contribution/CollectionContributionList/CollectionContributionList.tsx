@@ -17,6 +17,7 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function CollectionContributionList<T extends OperationType>({
   data,
+  subHead,
 }: CollectionContributionListProps) {
   const router = useRouter();
   const destroy = useDestroyer();
@@ -91,12 +92,14 @@ function CollectionContributionList<T extends OperationType>({
       actions={actions}
       viewOptions={[DataViewOptions.table]}
       data={collectionContributions}
+      subHead={subHead}
     />
   );
 }
 
 interface CollectionContributionListProps {
   data?: CollectionContributionListFragment$key;
+  subHead?: boolean;
 }
 
 type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];

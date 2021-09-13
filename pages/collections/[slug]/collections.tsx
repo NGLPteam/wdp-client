@@ -20,7 +20,7 @@ function CollectionChildCollections() {
     >
       {({ data }) => (
         <CollectionLayout data={data?.collection}>
-          <CollectionList<Query> data={data?.collection?.collections} />
+          <CollectionList<Query> data={data?.collection?.collections} subHead />
         </CollectionLayout>
       )}
     </QueryWrapper>

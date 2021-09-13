@@ -8,19 +8,21 @@ type Props = {
   children: ReactNode;
   showSidebar?: boolean;
   data?: UserLayoutFragment$key | null;
+  subHead?: boolean;
 };
 
 export default function UserLayout({
   children,
   showSidebar = false,
   data,
+  subHead,
 }: Props) {
   const user = useMaybeFragment(fragment, data);
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("user", { slug });
   return (
     <section>
-      <PageHeader title={user?.name} />
+      <PageHeader title={user?.name} subHead={subHead} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
       ) : (

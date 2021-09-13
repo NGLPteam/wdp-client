@@ -13,7 +13,7 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 
-function UserList<T extends OperationType>({ data }: UserListProps) {
+function UserList<T extends OperationType>({ data, subHead }: UserListProps) {
   const users = useMaybeFragment<UserListFragment$key>(fragment, data);
 
   const columns = [
@@ -51,12 +51,14 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
       selectable
       viewOptions={[DataViewOptions.table]}
       data={users}
+      subHead={subHead}
     />
   );
 }
 
 interface UserListProps {
   data?: UserListFragment$key;
+  subHead?: boolean;
 }
 
 type UserNode = UserListFragment["nodes"][number];

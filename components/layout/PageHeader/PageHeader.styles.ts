@@ -41,7 +41,7 @@ export const TitleWrapper = styled.div`
   )}
 `;
 
-export const H1 = styled.h1`
+export const Title = styled.h1`
   ${respond(
     css`
       padding-block-end: ${pxToRem(5)};
