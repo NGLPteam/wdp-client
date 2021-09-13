@@ -26,7 +26,9 @@ const PageHeader = ({ title, breadcrumbsProps, tabRoutes, buttons }: Props) => {
             {tabRoutes.map(({ label, ...namedLinkProps }, i) => (
               // router and activeRoute may be missing in Storybook
               <NamedLink key={i} {...namedLinkProps} passHref>
-                <TabNav.Tab active={activeRoute?.name === namedLinkProps.route}>
+                <TabNav.Tab
+                  active={activeRoute?.name.includes(namedLinkProps.route)}
+                >
                   {label}
                 </TabNav.Tab>
               </NamedLink>
