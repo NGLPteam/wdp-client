@@ -13,12 +13,10 @@ export default function CollectionLayout({
   children,
   showSidebar = false,
   data,
-  subHead,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: CollectionLayoutFragment$key | null;
-  subHead?: boolean;
 }) {
   const collection = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(collection || null);
@@ -32,7 +30,6 @@ export default function CollectionLayout({
         title={collection?.title}
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
-        subHead={subHead}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>

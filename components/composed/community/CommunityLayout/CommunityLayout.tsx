@@ -8,12 +8,10 @@ export default function CommunityLayout({
   children,
   showSidebar = false,
   data,
-  subHead,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: CommunityLayoutFragment$key | null;
-  subHead?: boolean;
 }) {
   const community = useMaybeFragment(fragment, data);
 
@@ -23,11 +21,7 @@ export default function CommunityLayout({
 
   return (
     <section>
-      <PageHeader
-        title={community?.name}
-        tabRoutes={tabRoutes}
-        subHead={subHead}
-      />
+      <PageHeader title={community?.name} tabRoutes={tabRoutes} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
       ) : (

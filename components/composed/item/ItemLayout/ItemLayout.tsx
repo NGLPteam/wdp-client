@@ -13,12 +13,10 @@ export default function ItemLayout({
   children,
   showSidebar = false,
   data,
-  subHead,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: ItemLayoutFragment$key | null;
-  subHead?: boolean;
 }) {
   const item = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(item || null);
@@ -32,7 +30,6 @@ export default function ItemLayout({
         title={item?.title}
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
-        subHead={subHead}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>

@@ -15,14 +15,13 @@ export default function UserLayout({
   children,
   showSidebar = false,
   data,
-  subHead,
 }: Props) {
   const user = useMaybeFragment(fragment, data);
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("user", { slug });
   return (
     <section>
-      <PageHeader title={user?.name} subHead={subHead} />
+      <PageHeader title={user?.name} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
       ) : (
