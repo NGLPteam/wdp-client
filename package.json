@@ -2,6 +2,7 @@
   "name": "wdp-admin-ui",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": false,
   "engines": {
     "npm": ">=7.17.0"
   },
