@@ -21,6 +21,12 @@ export const ButtonControl = styled.button<BaseProps>`
   opacity: var(--button-control-opacity, 1);
   visibility: var(--button-control-visibility, visible);
 
+  ${({ size }) =>
+    size &&
+    css`
+      min-height: ${pxToRem(size)};
+    `}
+
   > span {
     display: inline-block;
   }

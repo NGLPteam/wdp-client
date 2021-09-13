@@ -27,3 +27,5 @@ export const Actions = styled.div`
   flex: 0;
   padding-block-start: ${pxToRem(30)};
 `;
+
+/*NB: remove padding-block-start after adding button size*/
