@@ -21,7 +21,10 @@ const PageHeader = ({
   const activeRoute = RouteHelper.activeRoute();
 
   return (
-    <Styled.Header className={hideHeader ? "a-hidden" : ""}>
+    <Styled.Header
+      className={hideHeader ? "a-hidden" : ""}
+      headerStyle={headerStyle}
+    >
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <Styled.TitleWrapper>
         <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>

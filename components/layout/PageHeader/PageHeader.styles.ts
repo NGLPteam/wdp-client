@@ -3,10 +3,18 @@ import { basePadding } from "theme/mixins/appearance";
 import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 
+import PageHeader from "./PageHeader";
+type Props = React.ComponentProps<typeof PageHeader>;
+
 const MOBILE_BREAK = 40;
 
-export const Header = styled.header`
-  padding-block-start: ${basePadding(6)};
+export const Header = styled.header<Pick<Props, "headerStyle">>`
+  ${({ headerStyle }) =>
+    headerStyle !== "secondary" &&
+    css`
+      padding-block-start: ${basePadding(6)};
+    `}
+
   padding-block-end: ${basePadding(6)};
 `;
 
