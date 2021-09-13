@@ -870,7 +870,6 @@ input CreateCollectionInput {
   """
   parentId: ID!
   title: String!
-  identifier: String!
   schemaVersionSlug: String = "default:collection:latest"
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -920,7 +919,6 @@ input CreateItemInput {
   """
   parentId: ID!
   title: String!
-  identifier: String!
   schemaVersionSlug: String = "default:item:latest"
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
@@ -2273,6 +2271,8 @@ The entry point for retrieving data from within the WDP API.
 type Query {
   """Look up a collection by slug"""
   collection(slug: Slug!): Collection
+  """Look up a collection contribution by slug"""
+  collectionContribution(slug: Slug!): CollectionContribution
   """List all communities"""
   communities(
     order: SimpleOrder = RECENT
@@ -2316,6 +2316,8 @@ type Query {
   ): AnyContributorConnection!
   """Look up an item by slug"""
   item(slug: Slug!): Item
+  """Look up an item contribution by slug"""
+  itemContribution(slug: Slug!): ItemContribution
   """Fetches an object given its ID."""
   node(
     """ID of the object."""
@@ -2740,8 +2742,6 @@ input UpdateCollectionInput {
   collectionId: ID!
   """Human readable title for the collection"""
   title: String!
-  """Machine readable title for the collection, should be unique within its scope"""
-  identifier: String!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -2810,7 +2810,6 @@ input UpdateItemInput {
   """The item to update"""
   itemId: ID!
   title: String!
-  identifier: String!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }

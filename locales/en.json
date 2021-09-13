@@ -89,6 +89,14 @@
           "title": "Title"
         }
       },
+      "contribution": {
+        "fields": {
+          "role": "Role"
+        },
+        "update": {
+          "success": "Contribution updated."
+        }
+      },
       "item": {
         "fields": {
           "title": "Title"

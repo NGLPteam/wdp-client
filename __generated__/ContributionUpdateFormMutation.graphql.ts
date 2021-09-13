@@ -4,44 +4,61 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type UpdateCollectionInput = {
-    collectionId: string;
-    title: string;
+export type UpdateContributionInput = {
+    contributionId: string;
+    role?: string | null;
+    metadata?: ContributionMetadataInput | null;
     clientMutationId?: string | null;
 };
-export type CollectionUpdateFormMutationVariables = {
-    input: UpdateCollectionInput;
+export type ContributionMetadataInput = {
+    title?: string | null;
+    affiliation?: string | null;
+    displayName?: string | null;
+    location?: string | null;
 };
-export type CollectionUpdateFormMutationResponse = {
-    readonly updateCollection: {
-        readonly collection: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
+export type ContributionUpdateFormMutationVariables = {
+    input: UpdateContributionInput;
+};
+export type ContributionUpdateFormMutationResponse = {
+    readonly updateContribution: {
+        readonly contribution: {
+            readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
 };
-export type CollectionUpdateFormMutation = {
-    readonly response: CollectionUpdateFormMutationResponse;
-    readonly variables: CollectionUpdateFormMutationVariables;
+export type ContributionUpdateFormMutation = {
+    readonly response: ContributionUpdateFormMutationResponse;
+    readonly variables: ContributionUpdateFormMutationVariables;
 };
 
 
 
 /*
-mutation CollectionUpdateFormMutation(
-  $input: UpdateCollectionInput!
+mutation ContributionUpdateFormMutation(
+  $input: UpdateContributionInput!
 ) {
-  updateCollection(input: $input) {
-    collection {
-      ...CollectionUpdateFormFieldsFragment
-      id
+  updateContribution(input: $input) {
+    contribution {
+      __typename
+      ...ContributionUpdateFormFieldsFragment
+      ... on Node {
+        __isNode: __typename
+        id
+      }
     }
     ...MutationForm_mutationErrors
   }
 }
 
-fragment CollectionUpdateFormFieldsFragment on Collection {
-  title
+fragment ContributionUpdateFormFieldsFragment on AnyContribution {
+  __isAnyContribution: __typename
+  ... on CollectionContribution {
+    role
+  }
+  ... on ItemContribution {
+    role
+  }
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -142,34 +159,43 @@ v3 = {
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
-};
+},
+v4 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "role",
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CollectionUpdateFormMutation",
+    "name": "ContributionUpdateFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateCollectionPayload",
+        "concreteType": "UpdateContributionPayload",
         "kind": "LinkedField",
-        "name": "updateCollection",
+        "name": "updateContribution",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Collection",
+            "concreteType": null,
             "kind": "LinkedField",
-            "name": "collection",
+            "name": "contribution",
             "plural": false,
             "selections": [
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "CollectionUpdateFormFieldsFragment"
+                "name": "ContributionUpdateFormFieldsFragment"
               }
             ],
             "storageKey": null
@@ -192,37 +218,60 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CollectionUpdateFormMutation",
+    "name": "ContributionUpdateFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateCollectionPayload",
+        "concreteType": "UpdateContributionPayload",
         "kind": "LinkedField",
-        "name": "updateCollection",
+        "name": "updateContribution",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Collection",
+            "concreteType": null,
             "kind": "LinkedField",
-            "name": "collection",
+            "name": "contribution",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "title",
+                "name": "__typename",
                 "storageKey": null
               },
               {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
+                "kind": "TypeDiscriminator",
+                "abstractKey": "__isAnyContribution"
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v4/*: any*/),
+                "type": "CollectionContribution",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v4/*: any*/),
+                "type": "ItemContribution",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  }
+                ],
+                "type": "Node",
+                "abstractKey": "__isNode"
               }
             ],
             "storageKey": null
@@ -234,14 +283,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "71eac5174d6a6f04fccfdd86ffbe0056",
+    "cacheID": "080563eb669a109e9a283b41aaf4ecc4",
     "id": null,
     "metadata": {},
-    "name": "CollectionUpdateFormMutation",
+    "name": "ContributionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributionUpdateFormMutation(\n  $input: UpdateContributionInput!\n) {\n  updateContribution(input: $input) {\n    contribution {\n      __typename\n      ...ContributionUpdateFormFieldsFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    role\n  }\n  ... on ItemContribution {\n    role\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd937c94b97f14b425a444a883d94997f';
+(node as any).hash = '6ecc4931761a40931004f5fb92221a1f';
 export default node;
