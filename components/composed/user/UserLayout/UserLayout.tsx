@@ -8,7 +8,6 @@ type Props = {
   children: ReactNode;
   showSidebar?: boolean;
   data?: UserLayoutFragment$key | null;
-  subHead?: boolean;
 };
 
 export default function UserLayout({

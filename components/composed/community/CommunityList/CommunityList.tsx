@@ -15,7 +15,8 @@ import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function CommunityList<T extends OperationType>({
   data,
-  subHead,
+  headerStyle,
+  hideHeader,
 }: CommunityListProps) {
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
@@ -48,14 +49,16 @@ function CommunityList<T extends OperationType>({
       columns={columns}
       actions={actions}
       data={communities}
-      subHead={subHead}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
     />
   );
 }
 
 interface CommunityListProps {
   data?: CommunityListFragment$key;
-  subHead?: boolean;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 type CommunityNode = CommunityListFragment["edges"][number]["node"];

@@ -11,7 +11,11 @@ import type { ModelTableActionProps } from "react-table";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 
-function ItemList<T extends OperationType>({ data, subHead }: ItemListProps) {
+function ItemList<T extends OperationType>({
+  data,
+  headerStyle,
+  hideHeader,
+}: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
@@ -45,14 +49,16 @@ function ItemList<T extends OperationType>({ data, subHead }: ItemListProps) {
       selectable
       columns={columns}
       data={items}
-      subHead={subHead}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
     />
   );
 }
 
 interface ItemListProps {
   data?: ItemListFragment$key;
-  subHead?: boolean;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 type ItemNode = ItemListFragment["nodes"][number];

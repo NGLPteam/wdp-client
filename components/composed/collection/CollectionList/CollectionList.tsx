@@ -12,7 +12,8 @@ import type { ModelTableActionProps } from "react-table";
 
 function CollectionList<T extends OperationType>({
   data,
-  subHead,
+  headerStyle,
+  hideHeader,
 }: CollectionListProps) {
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
@@ -49,14 +50,16 @@ function CollectionList<T extends OperationType>({
       actions={actions}
       selectable
       data={collections}
-      subHead={subHead}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
     />
   );
 }
 
 interface CollectionListProps {
   data?: CollectionListFragment$key;
-  subHead?: boolean;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 type CollectionNode = CollectionListFragment["nodes"][number];

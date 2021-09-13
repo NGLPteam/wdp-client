@@ -15,15 +15,16 @@ const PageHeader = ({
   breadcrumbsProps,
   tabRoutes,
   buttons,
-  subHead,
+  headerStyle = "primary",
+  hideHeader = false,
 }: Props) => {
   const activeRoute = RouteHelper.activeRoute();
 
   return (
-    <Styled.Header className={subHead ? "a-hidden" : ""}>
+    <Styled.Header className={hideHeader ? "a-hidden" : ""}>
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <Styled.TitleWrapper>
-        <Styled.Title as={subHead ? "h2" : "h1"}>
+        <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
           {title || "\u00a0"}
         </Styled.Title>
         {buttons && <Styled.ButtonsWrapper>{buttons}</Styled.ButtonsWrapper>}
@@ -61,7 +62,8 @@ interface Props {
   tabRoutes?: Link[];
   /** Child buttons */
   buttons?: React.ReactNode;
-  subHead?: boolean;
+  headerStyle?: "primary" | "secondary";
+  hideHeader?: boolean;
 }
 
 export default PageHeader;

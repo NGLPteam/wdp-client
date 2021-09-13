@@ -25,7 +25,8 @@ type ModelListPageProps<
   Pick<ModelListActionsProps, "viewOptions"> & {
     defaultView?: ModelListActionsProps["active"];
     buttons?: ReactNode;
-    subHead?: boolean;
+    headerStyle?: "primary" | "secondary";
+    hideHeader?: boolean;
   };
 
 function ModelListPage<
@@ -37,7 +38,8 @@ function ModelListPage<
   buttons,
   viewOptions,
   defaultView,
-  subHead,
+  headerStyle,
+  hideHeader,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
   const isMobile = useIsMobile();
@@ -52,7 +54,8 @@ function ModelListPage<
       <ModelListHeader
         modelName={modelName}
         buttons={buttons}
-        subHead={subHead}
+        headerStyle={headerStyle}
+        hideHeader={hideHeader}
       />
       <ModelListActions
         viewOptions={viewOptions}

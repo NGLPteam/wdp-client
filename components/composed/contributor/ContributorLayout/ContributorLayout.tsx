@@ -11,7 +11,6 @@ export default function ContributorLayout({
 }: {
   children: ReactNode;
   data?: ContributorLayoutFragment$key | null;
-  subHead?: boolean;
 }) {
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("contributor", { slug });
