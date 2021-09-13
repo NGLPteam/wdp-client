@@ -40,8 +40,6 @@ function UserList<T extends OperationType>({ data }: UserListProps) {
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<UserNode>) =>
       console.info(`edit ${row.original.slug}`),
-    handleDelete: ({ row }: ModelTableActionProps<UserNode>) =>
-      console.info(`delete ${row.original.slug}`),
   };
   /* eslint-enable no-console */
 
