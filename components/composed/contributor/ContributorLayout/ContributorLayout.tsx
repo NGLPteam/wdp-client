@@ -2,6 +2,9 @@ import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
+import { RouteHelper } from "routes";
+import { useTranslation } from "react-i18next";
+
 import { PageHeader, ContentSidebar } from "components/layout";
 import ContributorDisplayName from "../ContributorDisplayName";
 
@@ -13,6 +16,8 @@ export default function ContributorLayout({
   data?: ContributorLayoutFragment$key | null;
 }) {
   const slug = useRouteSlug() || undefined;
+  const activeRoute = RouteHelper.activeRoute();
+  const { t } = useTranslation();
   const manageRoutes = useChildRouteLinks("contributor", { slug });
   const contributor = useMaybeFragment(fragment, data);
 
@@ -21,7 +26,15 @@ export default function ContributorLayout({
       <PageHeader
         title={<ContributorDisplayName contributor={contributor} />}
       />
-      <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
+      <ContentSidebar sidebarLinks={manageRoutes}>
+        {activeRoute && activeRoute.label && (
+          <PageHeader
+            headerStyle="secondary"
+            title={t(`navLabels.${activeRoute.label}`)}
+          />
+        )}
+        {children}
+      </ContentSidebar>
     </section>
   );
 }

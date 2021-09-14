@@ -195,6 +195,23 @@
     "name_plural": "names",
     "title": "title",
     "title_plural": "titles",
-    "details": "Details"
+    "navLabels": {
+      "details": "Details",
+      "collections": "Collections",
+      "items": "Items",
+      "manage": "Manage",
+      "roles": "Roles",
+      "members": "Members",
+      "order": "Orderings",
+      "links": "Links",
+      "access": "Access",
+      "pages": "Pages",
+      "contributions": "Contributions",
+      "rules": "Rules",
+      "files": "Files",
+      "permissions": "Permissions",
+      "collectionContributions": "Collection Contributions",
+      "itemContributions": "Item Contributions"
+    }
   }
 }
