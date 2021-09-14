@@ -2,8 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Skeleton = styled.div`
-  height: 80%;
-  width: 80%;
+  height: 100%;
   background: var(--brand10);
   border-radius: 10px;
   display: flex;
