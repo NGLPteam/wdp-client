@@ -38,7 +38,7 @@ function ItemContributionList<T extends OperationType>({
     Cell: ({ row, value }: CellProps<ItemContributionNode>) => {
       return (
         <NamedLink
-          route="collection"
+          route="item"
           routeParams={{ slug: row.original.item.slug }}
           passHref
         >
