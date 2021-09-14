@@ -5,6 +5,7 @@ import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
 
 import ItemLayout from "components/composed/item/ItemLayout";
+import ItemContributionList from "components/composed/contribution/ItemContributionList";
 import ErrorPage from "next/error";
 
 function ManageItem() {
@@ -19,7 +20,12 @@ function ManageItem() {
     >
       {({ data }) => (
         <ItemLayout data={data?.item} showSidebar>
-          Item Contributions
+          <ItemContributionList<Query>
+            hideHeader={true}
+            nameColumn="contributor"
+            data={data?.item?.contributions}
+            headerStyle="secondary"
+          />{" "}
         </ItemLayout>
       )}
     </QueryWrapper>
@@ -30,6 +36,9 @@ const query = graphql`
   query contributionsManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
+      contributions {
+        ...ItemContributionListFragment
+      }
     }
   }
 `;

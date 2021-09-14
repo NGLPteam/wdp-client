@@ -11,6 +11,20 @@ export type ItemContributionListFragment = {
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly role: string | null;
+        readonly contributor: {
+            readonly __typename: "OrganizationContributor";
+            readonly slug: string;
+            readonly legalName: string | null;
+        } | {
+            readonly __typename: "PersonContributor";
+            readonly slug: string;
+            readonly givenName: string | null;
+            readonly familyName: string | null;
+        } | {
+            /*This will never be '%other', but we need some
+            value in case none of the concrete values match.*/
+            readonly __typename: "%other";
+        };
         readonly item: {
             readonly slug: string;
             readonly title: string | null;
@@ -81,6 +95,61 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "contributor",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__typename",
+              "storageKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "legalName",
+                  "storageKey": null
+                }
+              ],
+              "type": "OrganizationContributor",
+              "abstractKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "givenName",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "familyName",
+                  "storageKey": null
+                }
+              ],
+              "type": "PersonContributor",
+              "abstractKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Item",
           "kind": "LinkedField",
           "name": "item",
@@ -115,5 +184,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cf8edb3894fb6f7a15327d2ea5e4f3f2';
+(node as any).hash = 'b4e8ba7d2a2bfe85dcb267c5364aa76f';
 export default node;

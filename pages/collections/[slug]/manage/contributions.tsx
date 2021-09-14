@@ -5,6 +5,7 @@ import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { contributionsManageSlugCollectionsPagesQuery as Query } from "@/relay/contributionsManageSlugCollectionsPagesQuery.graphql";
 
 import CollectionLayout from "components/composed/collection/CollectionLayout";
+import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
 import ErrorPage from "next/error";
 
 function CollectionContributions() {
@@ -19,7 +20,12 @@ function CollectionContributions() {
     >
       {({ data }) => (
         <CollectionLayout showSidebar data={data?.collection}>
-          Collection Contributions
+          <CollectionContributionList<Query>
+            hideHeader={true}
+            nameColumn="contributor"
+            data={data?.collection?.contributions}
+            headerStyle="secondary"
+          />
         </CollectionLayout>
       )}
     </QueryWrapper>
@@ -30,6 +36,9 @@ const query = graphql`
   query contributionsManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
+      contributions {
+        ...CollectionContributionListFragment
+      }
     }
   }
 `;

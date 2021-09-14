@@ -13,10 +13,12 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { NamedLink } from "components/atomic";
+import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 
 function ItemContributionList<T extends OperationType>({
   data,
   headerStyle,
+  nameColumn = "item",
   hideHeader,
 }: ItemContributionListProps) {
   const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
@@ -26,27 +28,52 @@ function ItemContributionList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
-  const columns = [
-    {
-      Header: "Name",
-      id: "Name",
-      disableSortBy: true,
-      accessor: (row: ItemContributionNode) => {
-        return row?.item?.title;
-      },
-      Cell: ({ row, value }: CellProps<ItemContributionNode>) => {
-        if (!row?.original?.item?.slug) return value;
-        return (
-          <NamedLink
-            route="item"
-            routeParams={{ slug: row.original.item.slug }}
-            passHref
-          >
-            <a className="t-weight-md a-link">{value}</a>
-          </NamedLink>
-        );
-      },
+  const collectionNameColumn = {
+    Header: "Name",
+    id: "Name",
+    disableSortBy: true,
+    accessor: (row: ItemContributionNode) => {
+      return row?.item?.title;
     },
+    Cell: ({ row, value }: CellProps<ItemContributionNode>) => {
+      return (
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: row.original.item.slug }}
+          passHref
+        >
+          <a className="t-weight-md a-link">{value}</a>
+        </NamedLink>
+      );
+    },
+  };
+
+  const contributorNameColumn = {
+    Header: "Name",
+    id: "Name",
+    disableSortBy: true,
+    accessor: (row: ItemContributionNode) => {
+      return row?.contributor;
+    },
+    Cell: ({ row }: CellProps<ItemContributionNode>) => {
+      if (row?.original.contributor.__typename === "%other") return null;
+
+      return (
+        <NamedLink
+          route="contributor"
+          routeParams={{ slug: row.original.contributor.slug }}
+          passHref
+        >
+          <a className="t-weight-md a-link">
+            <GetContributorDisplayName contributor={row.original.contributor} />
+          </a>
+        </NamedLink>
+      );
+    },
+  };
+
+  const columns = [
+    nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
     {
       Header: "Role",
       id: "role",
@@ -84,6 +111,7 @@ function ItemContributionList<T extends OperationType>({
 interface ItemContributionListProps {
   data?: ItemContributionListFragment$key;
   headerStyle?: "primary" | "secondary";
+  nameColumn?: "item" | "contributor";
   hideHeader?: boolean;
 }
 
@@ -97,6 +125,18 @@ const fragment = graphql`
       createdAt
       updatedAt
       role
+      contributor {
+        __typename
+        ... on OrganizationContributor {
+          slug
+          legalName
+        }
+        ... on PersonContributor {
+          slug
+          givenName
+          familyName
+        }
+      }
       item {
         slug
         title

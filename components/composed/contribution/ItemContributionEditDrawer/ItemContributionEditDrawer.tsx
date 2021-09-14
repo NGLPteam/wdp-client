@@ -32,7 +32,7 @@ export default function ItemContributionEditDrawer({
       {({ data }) => (
         <Drawer
           label={t("actions.edit.itemContribution")}
-          header={data?.itemContribution?.item?.title || " "}
+          header={t("drawers.editItemContribution.title")}
           dialog={dialog}
           hideOnClickOutside={false}
         >
