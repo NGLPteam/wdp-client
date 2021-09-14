@@ -2,6 +2,8 @@ import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentSidebar, PageHeader } from "components/layout";
+import { RouteHelper } from "routes";
+import { useTranslation } from "react-i18next";
 import {
   useBreadcrumbs,
   useMaybeFragment,
@@ -20,6 +22,8 @@ export default function CollectionLayout({
 }) {
   const collection = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(collection || null);
+  const activeRoute = RouteHelper.activeRoute();
+  const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("collection.manage", { slug });
   const tabRoutes = useChildRouteLinks("collection", { slug });
@@ -32,7 +36,15 @@ export default function CollectionLayout({
         tabRoutes={tabRoutes}
       />
       {showSidebar ? (
-        <ContentSidebar sidebarLinks={manageRoutes}>{children}</ContentSidebar>
+        <ContentSidebar sidebarLinks={manageRoutes}>
+          {activeRoute && activeRoute.label && (
+            <PageHeader
+              headerStyle="secondary"
+              title={t(`navLabels.${activeRoute.label}`)}
+            />
+          )}
+          {children}
+        </ContentSidebar>
       ) : (
         children
       )}

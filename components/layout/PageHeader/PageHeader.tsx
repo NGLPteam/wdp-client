@@ -3,6 +3,7 @@ import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
 import * as Styled from "./PageHeader.styles";
 import { RouteHelper } from "routes";
 import isNil from "lodash/isNil";
+import { useTranslation } from "react-i18next";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
@@ -19,7 +20,7 @@ const PageHeader = ({
   hideHeader = false,
 }: Props) => {
   const activeRoute = RouteHelper.activeRoute();
-
+  const { t } = useTranslation();
   return (
     <Styled.Header
       className={hideHeader ? "a-hidden" : ""}
@@ -41,7 +42,7 @@ const PageHeader = ({
                 <TabNav.Tab
                   active={activeRoute?.name.includes(namedLinkProps.route)}
                 >
-                  {label}
+                  {t(`navLabels.${label}`)}
                 </TabNav.Tab>
               </NamedLink>
             ))}

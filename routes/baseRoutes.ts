@@ -218,12 +218,12 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "contributor.collections",
             path: "/contributors/[slug]/collections",
-            label: "glossary.collection_contribution.label",
+            label: "collectionContributions",
           },
           {
             name: "contributor.items",
             path: "/contributors/[slug]/items",
-            label: "glossary.item_contribution.label",
+            label: "itemContributions",
           },
         ],
       },
