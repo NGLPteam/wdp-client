@@ -29,6 +29,6 @@ export const Circle = styled.div`
   border-top-color: var(--brand30);
   border-bottom-color: var(--brand70);
   border-left-color: var(--brand70);
-  border-right-color: var(--brand30);
+  border-right-color: var(--brand70);
   animation: ${spin} 3s infinite linear;
 `;
