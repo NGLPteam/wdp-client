@@ -33,11 +33,22 @@ query CollectionUpdateDrawerQuery(
 
 fragment CollectionUpdateFormFieldsFragment on Collection {
   title
+  visibility
+  summary
+  visibleAfterAt
+  visibleUntilAt
+  thumbnail {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment CollectionUpdateFormFragment on Collection {
   collectionId: id
-  identifier
   ...CollectionUpdateFormFieldsFragment
 }
 */
@@ -118,7 +129,75 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "identifier",
+            "name": "visibility",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleAfterAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleUntilAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AssetPreview",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PreviewImageMap",
+                "kind": "LinkedField",
+                "name": "thumb",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImage",
+                    "kind": "LinkedField",
+                    "name": "png",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "alt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           {
@@ -134,12 +213,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4dc7a768b38fd73a344b3aeac7f8c7b0",
+    "cacheID": "6aa9d67b24f45e22d8a7058b53cdf0f9",
     "id": null,
     "metadata": {},
     "name": "CollectionUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query CollectionUpdateDrawerQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    title\n    ...CollectionUpdateFormFragment\n    id\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  identifier\n  ...CollectionUpdateFormFieldsFragment\n}\n"
+    "text": "query CollectionUpdateDrawerQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    title\n    ...CollectionUpdateFormFragment\n    id\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  ...CollectionUpdateFormFieldsFragment\n}\n"
   }
 };
 })();

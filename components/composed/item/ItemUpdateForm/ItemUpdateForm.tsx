@@ -19,10 +19,11 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
     ...fieldsData
   } = useFragment<ItemUpdateFormFragment$key>(fragment, data);
 
-  const values = useFragment<ItemUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData
-  );
+  const {
+    thumbnail,
+    ...values
+  } = useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
+
   const defaultValues = { ...values, title: values.title || undefined };
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>(
@@ -34,6 +35,33 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input label="forms.item.fields.title" {...register("title")} />
+        <Forms.FileUpload
+          label="forms.item.fields.thumbnail"
+          name="image"
+          image={thumbnail?.thumb}
+          clearName="clearThumbnail"
+        />
+        <Forms.Select
+          label="forms.item.fields.visibility"
+          options={[
+            { label: "Visible", value: "VISIBLE" },
+            { label: "Hidden", value: "HIDDEN" },
+            { label: "Limited", value: "LIMITED" },
+          ]}
+          {...register("visibility")}
+        />
+        <Forms.Textarea
+          label="forms.item.fields.summary"
+          {...register("summary")}
+        />
+        <Forms.Datepicker
+          label="forms.item.fields.visibleAfterAt"
+          {...register("visibleAfterAt")}
+        />
+        <Forms.Datepicker
+          label="forms.item.fields.visibleUntilAt"
+          {...register("visibleUntilAt")}
+        />
       </Forms.Grid>
     ),
     []
@@ -63,6 +91,18 @@ type Fields = Omit<UpdateItemInput, "itemId">;
 const fieldsFragment = graphql`
   fragment ItemUpdateFormFieldsFragment on Item {
     title
+    visibility
+    summary
+    visibleAfterAt
+    visibleUntilAt
+    thumbnail {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 `;
 
@@ -80,7 +120,6 @@ const mutation = graphql`
 const fragment = graphql`
   fragment ItemUpdateFormFragment on Item {
     itemId: id
-    identifier
     ...ItemUpdateFormFieldsFragment
   }
 `;

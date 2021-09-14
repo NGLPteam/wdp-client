@@ -4,11 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCommunityInput = {
     communityId: string;
-    title: string;
     position?: number | null;
+    title: string;
+    thumbnail?: UploadedFileInput | null;
+    clearThumbnail?: boolean | null;
     clientMutationId?: string | null;
+};
+export type UploadedFileInput = {
+    id: unknown;
+    storage?: UploadStorage | null;
+    metadata?: UploadedFileMetadataInput | null;
+};
+export type UploadedFileMetadataInput = {
+    filename?: string | null;
+    mimeType?: string | null;
 };
 export type CommunityUpdateFormMutationVariables = {
     input: UpdateCommunityInput;

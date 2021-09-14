@@ -19,10 +19,14 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
     ...fieldsData
   } = useFragment<CollectionUpdateFormFragment$key>(fragment, data);
 
-  const values = useFragment<CollectionUpdateFormFieldsFragment$key>(
+  const {
+    thumbnail,
+    ...values
+  } = useFragment<CollectionUpdateFormFieldsFragment$key>(
     fieldsFragment,
     fieldsData
   );
+
   const defaultValues = { ...values, title: values.title || undefined };
 
   const toVariables = useToVariables<CollectionUpdateFormMutation, Fields>(
@@ -36,6 +40,33 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
         <Forms.Input
           label="forms.collection.fields.title"
           {...register("title")}
+        />
+        <Forms.FileUpload
+          label="forms.collection.fields.thumbnail"
+          name="image"
+          image={thumbnail?.thumb}
+          clearName="clearThumbnail"
+        />
+        <Forms.Select
+          label="forms.collection.fields.visibility"
+          options={[
+            { label: "Visible", value: "VISIBLE" },
+            { label: "Hidden", value: "HIDDEN" },
+            { label: "Limited", value: "LIMITED" },
+          ]}
+          {...register("visibility")}
+        />
+        <Forms.Textarea
+          label="forms.collection.fields.summary"
+          {...register("summary")}
+        />
+        <Forms.Datepicker
+          label="forms.collection.fields.visibleAfterAt"
+          {...register("visibleAfterAt")}
+        />
+        <Forms.Datepicker
+          label="forms.collection.fields.visibleUntilAt"
+          {...register("visibleUntilAt")}
         />
       </Forms.Grid>
     ),
@@ -66,6 +97,18 @@ type Fields = Omit<UpdateCollectionInput, "collectionId">;
 const fieldsFragment = graphql`
   fragment CollectionUpdateFormFieldsFragment on Collection {
     title
+    visibility
+    summary
+    visibleAfterAt
+    visibleUntilAt
+    thumbnail {
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 `;
 
@@ -83,7 +126,6 @@ const mutation = graphql`
 const fragment = graphql`
   fragment CollectionUpdateFormFragment on Collection {
     collectionId: id
-    identifier
     ...CollectionUpdateFormFieldsFragment
   }
 `;
