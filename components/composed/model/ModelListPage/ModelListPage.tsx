@@ -12,6 +12,9 @@ import type { ModelListActionsProps } from "components/composed/model/ModelListA
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
 import { useIsMobile } from "hooks";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 export type PaginatedConnectionish = Connectionish &
   ModelPaginationFragment$key &
@@ -22,11 +25,10 @@ type ModelListPageProps<
   U extends PaginatedConnectionish,
   V extends Record<string, unknown> = Record<string, unknown>
 > = Omit<ModelListProps<T, U, V>, "view"> &
-  Pick<ModelListActionsProps, "viewOptions"> & {
+  Pick<ModelListActionsProps, "viewOptions"> &
+  Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     defaultView?: ModelListActionsProps["active"];
     buttons?: ReactNode;
-    headerStyle?: "primary" | "secondary";
-    hideHeader?: boolean;
   };
 
 function ModelListPage<

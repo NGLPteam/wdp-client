@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import ModelAddButton from "components/composed/model/ModelAddButton";
 
-interface ModelHeaderProps {
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
+
+interface ModelHeaderProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   modelName?: Lowercase<ModelNames>;
   buttons?: React.ReactNode;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 function ModelListHeader({

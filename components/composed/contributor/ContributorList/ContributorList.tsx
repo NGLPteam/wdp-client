@@ -14,6 +14,9 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { DrawerLink, ButtonControl } from "components/atomic";
 import { getContributorDisplayName } from "../ContributorDisplayName";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function ContributorList<T extends OperationType>({
   data,
@@ -87,10 +90,9 @@ function ContributorList<T extends OperationType>({
   );
 }
 
-interface ContributorListProps {
+interface ContributorListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: ContributorListFragment$key;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type ContributorNode = ContributorListFragment["nodes"][number];

@@ -10,6 +10,9 @@ import type { ModelTableActionProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function ItemList<T extends OperationType>({
   data,
@@ -55,10 +58,9 @@ function ItemList<T extends OperationType>({
   );
 }
 
-interface ItemListProps {
+interface ItemListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: ItemListFragment$key;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type ItemNode = ItemListFragment["nodes"][number];
