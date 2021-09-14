@@ -19,9 +19,12 @@ function CollectionContributions() {
       initialVariables={{ ...queryVars, collectionSlug }}
     >
       {({ data }) => (
-        <CollectionLayout showSidebar data={data?.collection}>
+        <CollectionLayout
+          showSidebar
+          data={data?.collection}
+          useRouteHeader={false}
+        >
           <CollectionContributionList<Query>
-            hideHeader={true}
             nameColumn="contributor"
             data={data?.collection?.contributions}
             headerStyle="secondary"

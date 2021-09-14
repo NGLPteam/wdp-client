@@ -6,16 +6,12 @@ type Props = React.ComponentProps<typeof PageHeader>;
 
 const tabRoutes = [
   {
-    route: "home",
-    label: "Tab A",
+    route: "collections",
+    label: "collections",
   },
   {
-    route: "home",
-    label: "Tab B",
-  },
-  {
-    route: "home",
-    label: "Tab C",
+    route: "items",
+    label: "items",
   },
 ];
 
@@ -27,6 +23,12 @@ export default {
       default: "neutral00",
     },
   },
+  argTypes: {
+    headerStyle: {
+      options: ["primary", "secondary"],
+      control: { type: "select" },
+    },
+  },
 };
 
 export const Default: Story<Props> = (args) => (
@@ -35,4 +37,5 @@ export const Default: Story<Props> = (args) => (
 
 Default.args = {
   title: "Page Header",
+  headerStyle: "primary",
 };

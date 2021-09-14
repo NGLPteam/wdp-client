@@ -10,16 +10,18 @@ import {
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 
-import { ContentSidebar, PageHeader } from "components/layout";
+import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 
 export default function ItemLayout({
   children,
   showSidebar = false,
   data,
+  useRouteHeader = true,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: ItemLayoutFragment$key | null;
+  useRouteHeader?: boolean;
 }) {
   const item = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(item || null);
@@ -38,8 +40,8 @@ export default function ItemLayout({
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
-          {activeRoute && activeRoute.label && (
-            <PageHeader
+          {useRouteHeader && activeRoute && activeRoute.label && (
+            <ContentHeader
               headerStyle="secondary"
               title={t(`navLabels.${activeRoute.label}`)}
             />

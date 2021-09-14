@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ContentSidebar, PageHeader } from "components/layout";
+import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { graphql } from "react-relay";
 import { RouteHelper } from "routes";
@@ -10,12 +10,14 @@ type Props = {
   children: ReactNode;
   showSidebar?: boolean;
   data?: UserLayoutFragment$key | null;
+  useRouteHeader?: boolean;
 };
 
 export default function UserLayout({
   children,
   showSidebar = false,
   data,
+  useRouteHeader = true,
 }: Props) {
   const user = useMaybeFragment(fragment, data);
   const slug = useRouteSlug() || undefined;
@@ -28,8 +30,8 @@ export default function UserLayout({
       <PageHeader title={user?.name} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
-          {activeRoute && activeRoute.label && (
-            <PageHeader
+          {useRouteHeader && activeRoute && activeRoute.label && (
+            <ContentHeader
               headerStyle="secondary"
               title={t(`navLabels.${activeRoute.label}`)}
             />

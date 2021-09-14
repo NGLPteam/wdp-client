@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
-import { ContentSidebar, PageHeader } from "components/layout";
+import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,10 +15,12 @@ export default function CollectionLayout({
   children,
   showSidebar = false,
   data,
+  useRouteHeader = true,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: CollectionLayoutFragment$key | null;
+  useRouteHeader?: boolean;
 }) {
   const collection = useMaybeFragment(fragment, data);
   const breadcrumbs = useBreadcrumbs(collection || null);
@@ -37,8 +39,8 @@ export default function CollectionLayout({
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
-          {activeRoute && activeRoute.label && (
-            <PageHeader
+          {useRouteHeader && activeRoute && activeRoute.label && (
+            <ContentHeader
               headerStyle="secondary"
               title={t(`navLabels.${activeRoute.label}`)}
             />

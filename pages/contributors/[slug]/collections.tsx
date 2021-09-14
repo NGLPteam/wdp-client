@@ -21,7 +21,6 @@ function ContributorCollectionContributions() {
       {({ data }) => (
         <ContributorLayout data={data?.contributor}>
           <CollectionContributionList<Query>
-            hideHeader={true}
             data={data?.contributor?.collectionContributions}
             headerStyle="secondary"
           />

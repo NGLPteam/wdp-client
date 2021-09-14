@@ -5,15 +5,17 @@ import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFra
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 
-import { PageHeader, ContentSidebar } from "components/layout";
+import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import ContributorDisplayName from "../ContributorDisplayName";
 
 export default function ContributorLayout({
   children,
   data,
+  useRouteHeader,
 }: {
   children: ReactNode;
   data?: ContributorLayoutFragment$key | null;
+  useRouteHeader?: boolean;
 }) {
   const slug = useRouteSlug() || undefined;
   const activeRoute = RouteHelper.activeRoute();
@@ -27,8 +29,8 @@ export default function ContributorLayout({
         title={<ContributorDisplayName contributor={contributor} />}
       />
       <ContentSidebar sidebarLinks={manageRoutes}>
-        {activeRoute && activeRoute.label && (
-          <PageHeader
+        {useRouteHeader && activeRoute && activeRoute.label && (
+          <ContentHeader
             headerStyle="secondary"
             title={t(`navLabels.${activeRoute.label}`)}
           />

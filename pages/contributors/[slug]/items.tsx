@@ -21,7 +21,6 @@ function ContributorItemContributions() {
       {({ data }) => (
         <ContributorLayout data={data?.contributor}>
           <ItemContributionList<Query>
-            hideHeader={true}
             data={data?.contributor?.itemContributions}
             headerStyle="secondary"
           />

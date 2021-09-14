@@ -1,12 +1,8 @@
 import styled, { css } from "styled-components";
 import { basePadding } from "theme/mixins/appearance";
-import { noFlexGapSupport, respond } from "theme/mixins/base";
-import { pxToRem } from "theme/mixins/functions";
 
 import PageHeader from "./PageHeader";
 type Props = React.ComponentProps<typeof PageHeader>;
-
-const MOBILE_BREAK = 40;
 
 export const Header = styled.header<Pick<Props, "headerStyle">>`
   ${({ headerStyle }) =>
@@ -19,44 +15,5 @@ export const Header = styled.header<Pick<Props, "headerStyle">>`
 `;
 
 export const TabsWrapper = styled.div`
-  padding-block: ${basePadding(5)};
+  padding-block-end: ${basePadding(5)};
 `;
-
-export const TitleWrapper = styled.div`
-  --page-header-gap: ${pxToRem(5)};
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding-block-end: var(--page-header-gap);
-  border-bottom: 2px solid var(--accent-color);
-  gap: var(--page-header-gap);
-
-  ${noFlexGapSupport(`
-    > * + * {
-      margin-inline-start: var(--page-header-gap);
-    }
-  `)}
-
-  ${respond(
-    `
-      --page-header-gap: ${basePadding(5)};
-      flex-direction: column;
-      align-items: stretch;
-      border-bottom: none;
-    `,
-    MOBILE_BREAK
-  )}
-`;
-
-export const Title = styled.h1`
-  ${respond(
-    css`
-      padding-block-end: ${pxToRem(5)};
-      border-bottom: 2px solid var(--accent-color);
-    `,
-    MOBILE_BREAK
-  )}
-`;
-
-export const ButtonsWrapper = styled.div``;
