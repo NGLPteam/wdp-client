@@ -4,10 +4,29 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
+export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCollectionInput = {
     collectionId: string;
     title: string;
+    thumbnail?: UploadedFileInput | null;
+    doi?: string | null;
+    summary?: string | null;
+    publishedOn?: unknown | null;
+    visibility: EntityVisibility;
+    visibleAfterAt?: string | null;
+    visibleUntilAt?: string | null;
+    clearThumbnail?: boolean | null;
     clientMutationId?: string | null;
+};
+export type UploadedFileInput = {
+    id: unknown;
+    storage?: UploadStorage | null;
+    metadata?: UploadedFileMetadataInput | null;
+};
+export type UploadedFileMetadataInput = {
+    filename?: string | null;
+    mimeType?: string | null;
 };
 export type CollectionUpdateFormMutationVariables = {
     input: UpdateCollectionInput;
@@ -42,6 +61,18 @@ mutation CollectionUpdateFormMutation(
 
 fragment CollectionUpdateFormFieldsFragment on Collection {
   title
+  visibility
+  summary
+  visibleAfterAt
+  visibleUntilAt
+  thumbnail {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -221,6 +252,81 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "visibility",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "summary",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "visibleAfterAt",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "visibleUntilAt",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AssetPreview",
+                "kind": "LinkedField",
+                "name": "thumbnail",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImageMap",
+                    "kind": "LinkedField",
+                    "name": "thumb",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "PreviewImage",
+                        "kind": "LinkedField",
+                        "name": "png",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "alt",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "id",
                 "storageKey": null
               }
@@ -234,12 +340,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "71eac5174d6a6f04fccfdd86ffbe0056",
+    "cacheID": "5590c5a981be12c39e295dba7191cc25",
     "id": null,
     "metadata": {},
     "name": "CollectionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

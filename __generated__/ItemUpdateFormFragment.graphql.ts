@@ -6,7 +6,6 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ItemUpdateFormFragment = {
     readonly itemId: string;
-    readonly identifier: string;
     readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFieldsFragment">;
     readonly " $refType": "ItemUpdateFormFragment";
 };
@@ -32,13 +31,6 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "identifier",
-      "storageKey": null
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ItemUpdateFormFieldsFragment"
@@ -47,5 +39,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'd45f3814b23037b66f01d5165aea5147';
+(node as any).hash = 'f2949d9ae34f571f61df0687bf558b17';
 export default node;

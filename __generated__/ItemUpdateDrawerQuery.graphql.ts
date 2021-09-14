@@ -33,11 +33,22 @@ query ItemUpdateDrawerQuery(
 
 fragment ItemUpdateFormFieldsFragment on Item {
   title
+  visibility
+  summary
+  visibleAfterAt
+  visibleUntilAt
+  thumbnail {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment ItemUpdateFormFragment on Item {
   itemId: id
-  identifier
   ...ItemUpdateFormFieldsFragment
 }
 */
@@ -118,7 +129,75 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "identifier",
+            "name": "visibility",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleAfterAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleUntilAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AssetPreview",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PreviewImageMap",
+                "kind": "LinkedField",
+                "name": "thumb",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImage",
+                    "kind": "LinkedField",
+                    "name": "png",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "alt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           {
@@ -134,12 +213,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e1bba7abee8932e3e40b43348518f37e",
+    "cacheID": "29787a8ee74d98c1d48e1689c8c91e9e",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemUpdateDrawerQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    title\n    ...ItemUpdateFormFragment\n    id\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n}\n\nfragment ItemUpdateFormFragment on Item {\n  itemId: id\n  identifier\n  ...ItemUpdateFormFieldsFragment\n}\n"
+    "text": "query ItemUpdateDrawerQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    title\n    ...ItemUpdateFormFragment\n    id\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment ItemUpdateFormFragment on Item {\n  itemId: id\n  ...ItemUpdateFormFieldsFragment\n}\n"
   }
 };
 })();

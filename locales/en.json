@@ -29,7 +29,10 @@
       "editCollectionContribution.title": "Edit Collection Contribution",
       "createCommunity.title": "Create New Community",
       "editCommunity.title": "Edit Community",
-      "editContributor.title": "Edit Contributor"
+      "editCollection.title": "Edit Collection",
+      "editContributor.title": "Edit Contributor",
+      "editCollectionContribution.title": "Edit Collection Contribution",
+      "editItemContributino.title": "Edit Item Contribution"
     },
     "actions": {
       "add": "Add $t({{ name }})",
@@ -86,7 +89,12 @@
       },
       "collection": {
         "fields": {
-          "title": "Title"
+          "title": "Title",
+          "thumbnail": "Thumbnail",
+          "visibility": "Visibility",
+          "summary": "Summary",
+          "visibleAfterAt": "Visible After",
+          "visibleUntilAt": "Visible Until"
         }
       },
       "contribution": {
@@ -99,7 +107,12 @@
       },
       "item": {
         "fields": {
-          "title": "Title"
+          "title": "Title",
+          "thumbnail": "Thumbnail",
+          "visibility": "Visibility",
+          "summary": "Summary",
+          "visibleAfterAt": "Visible After",
+          "visibleUntilAt": "Visible Until"
         }
       },
       "contributor": {

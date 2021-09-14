@@ -3988,11 +3988,39 @@
           },
           {
             "name": "doi",
-            "description": null,
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hiddenAt",
+            "description": "If present, this is the timestamp the entity was hidden at",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4032,7 +4060,7 @@
           },
           {
             "name": "identifier",
-            "description": null,
+            "description": "A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4524,7 +4552,7 @@
           },
           {
             "name": "publishedOn",
-            "description": null,
+            "description": "The date the entity was published on, if present",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4624,7 +4652,7 @@
           },
           {
             "name": "summary",
-            "description": null,
+            "description": "A description of the contents of the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4648,7 +4676,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "A human-readable title for the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4675,8 +4703,52 @@
             "deprecationReason": null
           },
           {
-            "name": "visibleAfterAt",
+            "name": "visibility",
+            "description": "If an entity is available in the frontend",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visible",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -7649,7 +7721,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -7672,6 +7744,94 @@
               "ofType": null
             },
             "defaultValue": "\"default:collection:latest\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "doi",
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "publishedOn",
+            "description": "The date the entity was published",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": "What level of visibility the entity has",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -7825,7 +7985,7 @@
         "inputFields": [
           {
             "name": "title",
-            "description": "A human readable title for the community",
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -7860,6 +8020,18 @@
               "ofType": null
             },
             "defaultValue": "\"default:community:latest\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -8029,7 +8201,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -8052,6 +8224,94 @@
               "ofType": null
             },
             "defaultValue": "\"default:item:latest\"",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "doi",
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "publishedOn",
+            "description": "The date the entity was published",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": "What level of visibility the entity has",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -11728,6 +11988,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "EntityVisibility",
+        "description": "The level of visibility an entity can have",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "VISIBLE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HIDDEN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIMITED",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "ExposesPermissions",
         "description": null,
@@ -12299,7 +12588,7 @@
       {
         "kind": "INTERFACE",
         "name": "HierarchicalEntry",
-        "description": "A hierarchical entry, like a collection or an item.",
+        "description": "A hierarchical entity, like a collection or an item.",
         "fields": [
           {
             "name": "createdAt",
@@ -12319,7 +12608,7 @@
           },
           {
             "name": "doi",
-            "description": null,
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12330,8 +12619,36 @@
             "deprecationReason": null
           },
           {
-            "name": "identifier",
+            "name": "hidden",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hiddenAt",
+            "description": "If present, this is the timestamp the entity was hidden at",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -12363,7 +12680,7 @@
           },
           {
             "name": "publishedOn",
-            "description": null,
+            "description": "The date the entity was published on, if present",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12391,7 +12708,7 @@
           },
           {
             "name": "summary",
-            "description": null,
+            "description": "A description of the contents of the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12403,7 +12720,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "A human-readable title for the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12430,8 +12747,52 @@
             "deprecationReason": null
           },
           {
-            "name": "visibleAfterAt",
+            "name": "visibility",
+            "description": "If an entity is available in the frontend",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visible",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -13178,11 +13539,39 @@
           },
           {
             "name": "doi",
-            "description": null,
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
             "args": [],
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hiddenAt",
+            "description": "If present, this is the timestamp the entity was hidden at",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13222,7 +13611,7 @@
           },
           {
             "name": "identifier",
-            "description": null,
+            "description": "A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -13682,7 +14071,7 @@
           },
           {
             "name": "publishedOn",
-            "description": null,
+            "description": "The date the entity was published on, if present",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -13782,7 +14171,7 @@
           },
           {
             "name": "summary",
-            "description": null,
+            "description": "A description of the contents of the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -13806,7 +14195,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "A human-readable title for the entity",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -13833,8 +14222,52 @@
             "deprecationReason": null
           },
           {
-            "name": "visibleAfterAt",
+            "name": "visibility",
+            "description": "If an entity is available in the frontend",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visible",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -22679,7 +23112,7 @@
           },
           {
             "name": "title",
-            "description": "Human readable title for the collection",
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -22690,6 +23123,106 @@
               }
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "doi",
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "publishedOn",
+            "description": "The date the entity was published",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": "What level of visibility the entity has",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearThumbnail",
+            "description": "If set to true, this will clear the attachment thumbnail on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -22858,8 +23391,20 @@
             "deprecationReason": null
           },
           {
+            "name": "position",
+            "description": "The position the community occupies in the list",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "title",
-            "description": "A human readable title for the community",
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -22874,14 +23419,26 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "The position the community occupies in the list",
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
-              "kind": "SCALAR",
-              "name": "Int",
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
               "ofType": null
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearThumbnail",
+            "description": "If set to true, this will clear the attachment thumbnail on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -23239,7 +23796,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "Human readable title for the entity",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -23250,6 +23807,106 @@
               }
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnail",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "doi",
+            "description": "The Digital Object Identifier for this entity. See https://doi.org",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "publishedOn",
+            "description": "The date the entity was published",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": "What level of visibility the entity has",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibility",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleAfterAt",
+            "description": "If present, this is the timestamp an entity is visible after",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibleUntilAt",
+            "description": "If present, this is the timestamp an entity is visible until",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearThumbnail",
+            "description": "If set to true, this will clear the attachment thumbnail on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },

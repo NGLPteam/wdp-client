@@ -38,11 +38,22 @@ fragment CollectionLayoutFragment on Collection {
 
 fragment CollectionUpdateFormFieldsFragment on Collection {
   title
+  visibility
+  summary
+  visibleAfterAt
+  visibleUntilAt
+  thumbnail {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment CollectionUpdateFormFragment on Collection {
   collectionId: id
-  identifier
   ...CollectionUpdateFormFieldsFragment
 }
 
@@ -152,7 +163,75 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "identifier",
+            "name": "visibility",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleAfterAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleUntilAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AssetPreview",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PreviewImageMap",
+                "kind": "LinkedField",
+                "name": "thumb",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImage",
+                    "kind": "LinkedField",
+                    "name": "png",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "alt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           (v3/*: any*/),
@@ -203,12 +282,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b7a9f4b115230ade7b85cd1fc60f6100",
+    "cacheID": "2a01d34b5fb2d4fc5e88b4753824f644",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...CollectionUpdateFormFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  identifier\n  ...CollectionUpdateFormFieldsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query detailsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...CollectionUpdateFormFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  ...CollectionUpdateFormFieldsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

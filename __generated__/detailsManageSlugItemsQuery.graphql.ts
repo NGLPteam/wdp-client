@@ -38,11 +38,22 @@ fragment ItemLayoutFragment on Item {
 
 fragment ItemUpdateFormFieldsFragment on Item {
   title
+  visibility
+  summary
+  visibleAfterAt
+  visibleUntilAt
+  thumbnail {
+    thumb {
+      png {
+        alt
+        url
+      }
+    }
+  }
 }
 
 fragment ItemUpdateFormFragment on Item {
   itemId: id
-  identifier
   ...ItemUpdateFormFieldsFragment
 }
 
@@ -152,7 +163,75 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "identifier",
+            "name": "visibility",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleAfterAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "visibleUntilAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AssetPreview",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PreviewImageMap",
+                "kind": "LinkedField",
+                "name": "thumb",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImage",
+                    "kind": "LinkedField",
+                    "name": "png",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "alt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           (v3/*: any*/),
@@ -203,12 +282,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "35cba7c7df2eb02b8b4060580e46c3b8",
+    "cacheID": "6b5135e8946849def6549578cbeccf7f",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemUpdateFormFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n}\n\nfragment ItemUpdateFormFragment on Item {\n  itemId: id\n  identifier\n  ...ItemUpdateFormFieldsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query detailsManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemUpdateFormFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment ItemUpdateFormFragment on Item {\n  itemId: id\n  ...ItemUpdateFormFieldsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
