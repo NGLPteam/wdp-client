@@ -67,4 +67,8 @@ export default css`
   .a-link {
     ${aLink()}
   }
+
+  .a-required {
+    color: var(--redaa);
+  }
 `;

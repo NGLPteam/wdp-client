@@ -129,7 +129,12 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 
   return (
     <>
-      <BaseInputWrapper hideLabel={hideLabel} label={label} name={name}>
+      <BaseInputWrapper
+        hideLabel={hideLabel}
+        label={label}
+        name={name}
+        required={required}
+      >
         {({ uid }) => (
           <Styled.Wrapper aria-live="polite">
             <Styled.Inner>

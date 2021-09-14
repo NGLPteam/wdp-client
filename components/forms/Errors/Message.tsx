@@ -19,16 +19,12 @@ export default function Message({ type, result }: Props) {
     message = type;
   }
 
-  if (!message) {
-    return null;
-  }
-
-  return (
+  return message ? (
     <Styled.Error>
       <IconFactory icon="warning" title="Error" />
       <p>{message}</p>
     </Styled.Error>
-  );
+  ) : null;
 }
 
 interface Props {

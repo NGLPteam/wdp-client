@@ -65,6 +65,7 @@ const Typeahead = forwardRef(
         hideLabel={hideLabel}
         label={label}
         labelProps={getLabelProps()}
+        required={required}
       >
         <Styled.InputWrapper {...getComboboxProps()}>
           {/* Hidden input field for react-hook-form or other form control */}

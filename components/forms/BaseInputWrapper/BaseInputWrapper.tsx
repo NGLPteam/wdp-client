@@ -15,6 +15,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   label,
   labelProps,
   name,
+  required,
 }: Props<T>) => {
   const { t } = useTranslation();
   const uid = useUID();
@@ -22,7 +23,12 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   return (
     <Styled.Wrapper>
       <Styled.Label htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
-        {typeof label === "string" ? t(label) : label}
+        {t(label)}{" "}
+        {required && (
+          <span className="a-required">
+            * <span className="a-hidden">required</span>
+          </span>
+        )}
       </Styled.Label>
       {isFunction(children)
         ? children({ uid })
@@ -34,7 +40,10 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
 };
 
 interface Props<T extends FieldValues = FieldValues>
-  extends Pick<InputProps<T>, "name" | "description" | "label" | "hideLabel"> {
+  extends Pick<
+    InputProps<T>,
+    "name" | "description" | "label" | "hideLabel" | "required"
+  > {
   children: JSX.Element | (({ uid }: { uid: string }) => React.ReactNode);
 
   labelProps?: typeof HTMLLabelElement;

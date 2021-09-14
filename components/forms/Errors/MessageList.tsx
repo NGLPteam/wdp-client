@@ -22,11 +22,9 @@ export default function MessageList({ inlineMessage, messages }: Props) {
 }
 
 function renderMessage(type: string, result: ValidateResult) {
-  if (result == null) {
-    return null;
-  }
-
-  return <Message key={type} type={type} result={result} />;
+  return result !== null ? (
+    <Message key={type} type={type} result={result} />
+  ) : null;
 }
 
 interface Props {
