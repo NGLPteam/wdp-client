@@ -1,8 +1,9 @@
 import styled, { keyframes } from "styled-components";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Skeleton = styled.div`
-  height: 600px;
-  width: 400px;
+  height: 80%;
+  width: 80%;
   background: var(--brand10);
   border-radius: 10px;
   display: flex;
@@ -21,8 +22,8 @@ to {
 }
 `;
 export const Circle = styled.div`
-  height: 80px;
-  width: 80px;
+  height: ${pxToRem("80px")};
+  width: ${pxToRem("80px")};
   border-radius: 50%;
   border: 4px solid;
   border-top-color: var(--brand30);

@@ -13,7 +13,13 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => <LoadingCircle {...args} />;
+const Template: Story<Props> = (args) => {
+  return (
+    <div style={{ height: "600px", width: "400px" }}>
+      <LoadingCircle {...args} />
+    </div>
+  );
+};
 
 export const Default: Story<Props> = Template.bind({});
 Default.args = {
