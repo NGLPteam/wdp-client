@@ -31,8 +31,8 @@
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
-      "editCollectionContribution.title": "Edit Collection Contribution",
-      "editItemContributino.title": "Edit Item Contribution"
+      "editCollectionContribution.title": "Collection Contribution",
+      "editItemContribution.title": "Item Contribution"
     },
     "actions": {
       "add": "Add $t({{ name }})",
@@ -99,7 +99,11 @@
       },
       "contribution": {
         "fields": {
-          "role": "Role"
+          "role": "Role",
+          "contributor": "Contributor",
+          "item": "Item",
+          "collection": "Collection",
+          "object": "Contribution on"
         },
         "update": {
           "success": "Contribution updated."

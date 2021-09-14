@@ -6,6 +6,7 @@ interface InputProps<T extends FieldValues = FieldValues> {
   name: Path<T>;
   label: string | ReactNode;
   hideLabel?: boolean;
+  disabled?: boolean;
   description?: string | ReactNode;
   placeholder?: string;
   required?: boolean;
