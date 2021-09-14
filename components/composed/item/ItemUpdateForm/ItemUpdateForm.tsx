@@ -37,7 +37,7 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
         <Forms.Input label="forms.item.fields.title" {...register("title")} />
         <Forms.FileUpload
           label="forms.item.fields.thumbnail"
-          name="image"
+          name="thumbnail"
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />

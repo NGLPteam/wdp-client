@@ -43,7 +43,7 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
         />
         <Forms.FileUpload
           label="forms.collection.fields.thumbnail"
-          name="image"
+          name="thumbnail"
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
