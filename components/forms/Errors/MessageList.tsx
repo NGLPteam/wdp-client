@@ -3,7 +3,7 @@ import type { MultipleFieldErrors, ValidateResult } from "react-hook-form";
 
 import Message from "./Message";
 
-export default function MessageList({ inlineMessage, messages, label }: Props) {
+export default function MessageList({ inlineMessage, messages }: Props) {
   if (!messages) {
     if (inlineMessage) {
       return <Message result={inlineMessage} />;
@@ -15,21 +15,19 @@ export default function MessageList({ inlineMessage, messages, label }: Props) {
   return (
     <>
       {Object.entries(messages).map(([type, result]) =>
-        renderMessage(type, result, label)
+        renderMessage(type, result)
       )}
     </>
   );
 }
 
-function renderMessage(type: string, result: ValidateResult, label: string) {
+function renderMessage(type: string, result: ValidateResult) {
   return result !== null ? (
-    <Message key={type} type={type} result={`${label} ${result}`} />
+    <Message key={type} type={type} result={result} />
   ) : null;
 }
 
 interface Props {
   messages?: MultipleFieldErrors;
   inlineMessage?: string;
-  /* The label for the erroring field, ie 'First Name' */
-  label: string;
 }

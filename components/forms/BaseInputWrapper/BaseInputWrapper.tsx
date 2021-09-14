@@ -34,7 +34,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
         ? children({ uid })
         : React.cloneElement(children, { id: uid })}
       {description && <Styled.Description>{description}</Styled.Description>}
-      <Errors name={name} label={t(label)} />
+      <Errors name={name} />
     </Styled.Wrapper>
   );
 };
