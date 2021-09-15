@@ -8,6 +8,7 @@ module.exports = {
     "@storybook/addon-a11y",
     "storybook-addon-themes",
     "storybook-addon-next-router",
+    "storybook-react-i18next",
   ],
   typescript: {
     check: false,
