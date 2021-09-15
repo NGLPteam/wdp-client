@@ -13,7 +13,8 @@ import * as Styled from "./MutationForm.styles";
 import { useTranslation } from "react-i18next";
 import { useNotify, usePageContext } from "hooks";
 
-import { Button, ContentTitle } from "components/atomic";
+import { Button } from "components/atomic";
+import { ContentHeader } from "components/layout";
 
 import type {
   AcceptsToVariables,
@@ -218,7 +219,7 @@ export default function MutationForm<
 
       <form onSubmit={onSubmit}>
         {props.contentTitle && (
-          <ContentTitle as="h2">{props.contentTitle}</ContentTitle>
+          <ContentHeader headerStyle="secondary" title={props.contentTitle} />
         )}
         <GlobalErrors globalErrors={state.globalErrors} />
         {children({ form })}

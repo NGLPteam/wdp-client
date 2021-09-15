@@ -1,6 +1,7 @@
 import get from "lodash/get";
 import { I18nextProvider } from "react-i18next";
 import { Story } from "@storybook/react";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import * as nextImage from "next/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../theme/globalStyles";
@@ -75,5 +76,18 @@ export const parameters = {
   backgrounds: { disable: true }, // disabled in favor of themes
   nextRouter: {
     Provider: RouterContext.Provider,
+  },
+  viewport: {
+    viewports: {
+      galaxyFold: {
+        name: "Galaxy Fold",
+        styles: {
+          width: "280px",
+          height: "653px",
+        },
+        type: "mobile",
+      },
+      ...INITIAL_VIEWPORTS,
+    },
   },
 };

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
-import { PageHeader, ContentSidebar } from "components/layout";
+import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
@@ -9,10 +9,12 @@ export default function CommunityLayout({
   children,
   showSidebar = false,
   data,
+  useRouteHeader = true,
 }: {
   children: ReactNode;
   showSidebar?: boolean;
   data?: CommunityLayoutFragment$key | null;
+  useRouteHeader?: boolean;
 }) {
   const community = useMaybeFragment(fragment, data);
   const activeRoute = RouteHelper.activeRoute();
@@ -26,8 +28,8 @@ export default function CommunityLayout({
       <PageHeader title={community?.name} tabRoutes={tabRoutes} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
-          {activeRoute && activeRoute.label && (
-            <PageHeader
+          {useRouteHeader && activeRoute && activeRoute.label && (
+            <ContentHeader
               headerStyle="secondary"
               title={t(`navLabels.${activeRoute.label}`)}
             />

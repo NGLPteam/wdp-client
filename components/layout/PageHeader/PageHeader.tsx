@@ -4,12 +4,14 @@ import * as Styled from "./PageHeader.styles";
 import { RouteHelper } from "routes";
 import isNil from "lodash/isNil";
 import { useTranslation } from "react-i18next";
+import { ContentHeader } from "components/layout";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
+type ContentHeaderProps = React.ComponentProps<typeof ContentHeader>;
 
 /**
- * Wrapper for page title, breadcrumbs, and child tabs
+ * Wrapper for content header, breadcrumbs, and child tabs
  */
 const PageHeader = ({
   title,
@@ -27,12 +29,11 @@ const PageHeader = ({
       headerStyle={headerStyle}
     >
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
-      <Styled.TitleWrapper>
-        <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
-          {title || "\u00a0"}
-        </Styled.Title>
-        {buttons && <Styled.ButtonsWrapper>{buttons}</Styled.ButtonsWrapper>}
-      </Styled.TitleWrapper>
+      <ContentHeader
+        headerStyle={headerStyle}
+        title={title}
+        rightSide={buttons}
+      />
       {tabRoutes && (
         <Styled.TabsWrapper>
           <TabNav>
@@ -57,7 +58,7 @@ interface Link extends NamedLinkProps {
   label?: string;
 }
 
-interface Props {
+interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   /** Page title */
   title?: ReactNode;
   /** Breadcrumb props to be passed down to Breadcrumbs component */
@@ -66,7 +67,7 @@ interface Props {
   tabRoutes?: Link[];
   /** Child buttons */
   buttons?: React.ReactNode;
-  headerStyle?: "primary" | "secondary";
+  /** Hides the header visually, leaves header in for screen readers */
   hideHeader?: boolean;
 }
 

@@ -1,4 +1,5 @@
 import { Story } from "@storybook/react";
+import { ContentHeader } from "..";
 import ContentSidebar from "./";
 
 type Props = React.ComponentProps<typeof ContentSidebar>;
@@ -29,7 +30,9 @@ export default {
 };
 
 export const Default: Story<Props> = (args) => (
-  <ContentSidebar {...args}>Content</ContentSidebar>
+  <ContentSidebar {...args}>
+    <ContentHeader title="Example content" headerStyle="secondary" />
+  </ContentSidebar>
 );
 
 Default.args = {

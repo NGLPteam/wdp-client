@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ContentTitle } from "components/atomic";
+import { ContentHeader } from "components/layout";
 import { IconFactory } from "components/factories";
 
 import * as Styled from "./GlobalErrors.styles";
@@ -12,7 +12,7 @@ export default function GlobalErrors({ globalErrors }: Props) {
 
   return (
     <Styled.Wrapper>
-      <ContentTitle as="h4">Something went wrong</ContentTitle>
+      <ContentHeader headerStyle="secondary" title="Something went wrong" />
       {globalErrors.map((message, index) => (
         <Message key={index} message={message} />
       ))}

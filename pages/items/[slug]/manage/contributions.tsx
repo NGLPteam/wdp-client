@@ -19,9 +19,8 @@ function ManageItem() {
       initialVariables={{ ...queryVars, itemSlug }}
     >
       {({ data }) => (
-        <ItemLayout data={data?.item} showSidebar>
+        <ItemLayout data={data?.item} showSidebar useRouteHeader={false}>
           <ItemContributionList<Query>
-            hideHeader={true}
             nameColumn="contributor"
             data={data?.item?.contributions}
             headerStyle="secondary"

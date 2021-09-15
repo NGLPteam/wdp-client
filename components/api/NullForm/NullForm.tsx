@@ -8,7 +8,8 @@ import type {
   UseFormReturn,
 } from "react-hook-form";
 
-import { Button, ContentTitle } from "components/atomic";
+import { Button } from "components/atomic";
+import { ContentHeader } from "components/layout";
 
 /**
  * Our form inputs need a form context to be set.
@@ -51,7 +52,9 @@ export default function NullForm<T extends FieldValues = FieldValues>({
   return (
     <FormProvider {...form}>
       <form onSubmit={onSubmit}>
-        {contentTitle && <ContentTitle as="h2">{contentTitle}</ContentTitle>}
+        {contentTitle && (
+          <ContentHeader headerStyle="secondary" title={contentTitle} />
+        )}
         {children({ form })}
         <div className="l-flex l-flex--gap">
           <Button disabled={submitDisabled} type="submit">
