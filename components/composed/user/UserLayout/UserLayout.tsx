@@ -1,5 +1,10 @@
 import React, { ReactNode } from "react";
-import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
+import {
+  ContentSidebar,
+  ContentHeader,
+  PageHeader,
+  BackToAll,
+} from "components/layout";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { graphql } from "react-relay";
 import { RouteHelper } from "routes";
@@ -27,6 +32,7 @@ export default function UserLayout({
 
   return (
     <section>
+      <BackToAll route="users" />
       <PageHeader title={user?.name} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>

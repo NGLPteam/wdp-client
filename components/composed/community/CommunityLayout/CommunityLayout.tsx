@@ -5,6 +5,7 @@ import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
+
 export default function CommunityLayout({
   children,
   showSidebar = false,
