@@ -4,7 +4,7 @@ import ProgressBar from ".";
 type Props = React.ComponentProps<typeof ProgressBar>;
 
 export default {
-  title: "Components/Atomic/ProgressBar",
+  title: "Components/Atomic/loading/ProgressBar",
   component: ProgressBar,
   parameters: {
     themes: {

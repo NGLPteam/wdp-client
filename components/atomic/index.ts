@@ -7,7 +7,7 @@ export { default as Dropdown } from "./dropdown/Dropdown";
 export { default as T } from "./Translate";
 export { default as DataViewToggle } from "./DataViewToggle";
 export { default as Image } from "./Image";
-export { default as ProgressBar } from "./ProgressBar";
+export { default as ProgressBar } from "./loading/ProgressBar";
 export * from "./buttons";
 export * from "./links";
 export * from "./MessageBlock";

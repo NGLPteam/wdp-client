@@ -4,7 +4,7 @@ import LoadingCircle from ".";
 type Props = React.ComponentProps<typeof LoadingCircle>;
 
 export default {
-  title: "Components/Atomic/LoadingCircle",
+  title: "Components/Atomic/loading/LoadingCircle",
   component: LoadingCircle,
   parameters: {
     themes: {
