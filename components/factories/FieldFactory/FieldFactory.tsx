@@ -3,6 +3,7 @@ import * as Form from "components/forms";
 type InputProps = React.ComponentProps<typeof Form.Input>;
 type SelectProps = React.ComponentProps<typeof Form.Select>;
 type SwitchProps = React.ComponentProps<typeof Form.Switch>;
+type TypeaheadProps = React.ComponentProps<typeof Form.Typeahead>;
 
 export const FIELD_MAP = {
   input: Form.Input,
@@ -12,6 +13,7 @@ export const FIELD_MAP = {
   textarea: Form.Textarea,
   select: Form.Select,
   switch: Form.Switch,
+  typeahead: Form.Typeahead,
 };
 
 export const FIELD_KEYS = Object.keys(FIELD_MAP);
@@ -25,7 +27,7 @@ function FormFactory({ field, ...props }: Props & AnyField) {
   return <FieldComponent {...props} />;
 }
 
-type AnyField = InputProps | SelectProps | SwitchProps;
+type AnyField = InputProps | SelectProps | SwitchProps | TypeaheadProps;
 
 interface Props {
   field: FieldKeys;
