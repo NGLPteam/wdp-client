@@ -11,6 +11,9 @@ import { CellProps } from "react-table";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function UserList<T extends OperationType>({
   data,
@@ -50,10 +53,9 @@ function UserList<T extends OperationType>({
   );
 }
 
-interface UserListProps {
+interface UserListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: UserListFragment$key;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type UserNode = UserListFragment["nodes"][number];

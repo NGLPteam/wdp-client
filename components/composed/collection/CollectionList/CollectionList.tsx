@@ -9,6 +9,9 @@ import {
 import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function CollectionList<T extends OperationType>({
   data,
@@ -56,10 +59,9 @@ function CollectionList<T extends OperationType>({
   );
 }
 
-interface CollectionListProps {
+interface CollectionListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: CollectionListFragment$key;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type CollectionNode = CollectionListFragment["nodes"][number];

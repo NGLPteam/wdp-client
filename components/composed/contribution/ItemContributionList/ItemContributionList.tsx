@@ -14,6 +14,9 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { NamedLink } from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function ItemContributionList<T extends OperationType>({
   data,
@@ -108,11 +111,10 @@ function ItemContributionList<T extends OperationType>({
   );
 }
 
-interface ItemContributionListProps {
+interface ItemContributionListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: ItemContributionListFragment$key;
-  headerStyle?: "primary" | "secondary";
   nameColumn?: "item" | "contributor";
-  hideHeader?: boolean;
 }
 
 type ItemContributionNode = ItemContributionListFragment["nodes"][number];

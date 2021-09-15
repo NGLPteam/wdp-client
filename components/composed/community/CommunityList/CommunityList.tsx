@@ -12,6 +12,9 @@ import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function CommunityList<T extends OperationType>({
   data,
@@ -55,10 +58,9 @@ function CommunityList<T extends OperationType>({
   );
 }
 
-interface CommunityListProps {
+interface CommunityListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: CommunityListFragment$key;
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type CommunityNode = CommunityListFragment["edges"][number]["node"];

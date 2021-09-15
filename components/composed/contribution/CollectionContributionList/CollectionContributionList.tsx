@@ -14,6 +14,9 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
+import PageHeader from "components/layout/PageHeader";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function CollectionContributionList<T extends OperationType>({
   data,
@@ -117,11 +120,10 @@ function CollectionContributionList<T extends OperationType>({
   );
 }
 
-interface CollectionContributionListProps {
+interface CollectionContributionListProps
+  extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: CollectionContributionListFragment$key;
   nameColumn?: "collection" | "contributor";
-  headerStyle?: "primary" | "secondary";
-  hideHeader?: boolean;
 }
 
 type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
