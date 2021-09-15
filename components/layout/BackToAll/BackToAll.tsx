@@ -10,7 +10,7 @@ interface Props {
   route: string;
 }
 
-const BackBar = ({ route }: Props) => {
+const BackToAll = ({ route }: Props) => {
   const { t } = useTranslation();
   if (!route) return null;
 
@@ -29,4 +29,4 @@ const BackBar = ({ route }: Props) => {
   );
 };
 
-export default BackBar;
+export default BackToAll;
