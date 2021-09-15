@@ -79,6 +79,7 @@
     "@storybook/addon-actions": "^6.3.2",
     "@storybook/addon-essentials": "^6.3.2",
     "@storybook/addon-links": "^6.3.2",
+    "@storybook/addon-storysource": "^6.3.8",
     "@storybook/react": "^6.3.2",
     "@types/cookie": "^0.4.1",
     "@types/lodash": "^4.14.171",
