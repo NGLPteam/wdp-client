@@ -8,6 +8,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "collections",
     path: "/collections",
+    label: "glossary.collection.label_plural",
     routes: [
       {
         name: "collection",
@@ -69,6 +70,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "items",
     path: "/items",
+    label: "glossary.item.label_plural",
     routes: [
       {
         name: "item",
@@ -130,6 +132,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "communities",
     path: "/communities",
+    label: "glossary.community.label_plural",
     routes: [
       {
         name: "community",
@@ -171,6 +174,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "users",
     path: "/users",
+    label: "glossary.user.label_plural",
     routes: [
       {
         name: "user",
@@ -204,6 +208,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "contributors",
     path: "/contributors",
+    label: "glossary.contributor.label_plural",
     routes: [
       {
         name: "contributor",

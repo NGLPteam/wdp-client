@@ -29,6 +29,7 @@ export const ICON_MAP = {
 export const ICON_KEYS = Object.keys(ICON_MAP);
 
 export const SIZE_MAP = {
+  xs: 14,
   sm: 16,
   md: 24,
   lg: 32,

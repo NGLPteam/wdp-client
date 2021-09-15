@@ -23,6 +23,7 @@ const PageHeader = ({
 }: Props) => {
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
+
   return (
     <Styled.Header
       className={hideHeader ? "a-hidden" : ""}

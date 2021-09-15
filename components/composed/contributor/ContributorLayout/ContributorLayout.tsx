@@ -5,7 +5,12 @@ import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFra
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 
-import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
+import {
+  PageHeader,
+  ContentSidebar,
+  ContentHeader,
+  BackToAll,
+} from "components/layout";
 import ContributorDisplayName from "../ContributorDisplayName";
 
 export default function ContributorLayout({
@@ -17,14 +22,15 @@ export default function ContributorLayout({
   data?: ContributorLayoutFragment$key | null;
   useRouteHeader?: boolean;
 }) {
+  const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const activeRoute = RouteHelper.activeRoute();
-  const { t } = useTranslation();
   const manageRoutes = useChildRouteLinks("contributor", { slug });
   const contributor = useMaybeFragment(fragment, data);
 
   return (
     <section>
+      <BackToAll route="contributors" />
       <PageHeader
         title={<ContributorDisplayName contributor={contributor} />}
       />
