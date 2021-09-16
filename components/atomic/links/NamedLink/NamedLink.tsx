@@ -30,9 +30,12 @@ const NamedLink = forwardRef(
     // next/link takes both route params and search params and rolls them into 'query'
     const nextQuery = { ...routeParams, ...query };
 
+    // If the route redirects to another route, link to the redirect path.
+    const path = route.redirect ? route.redirect : route.path;
+
     return (
       <Link
-        href={{ pathname: route.path, query: nextQuery }}
+        href={{ pathname: path, query: nextQuery }}
         passHref={passHref}
         {...props}
       >
