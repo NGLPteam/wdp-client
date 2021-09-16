@@ -93,4 +93,11 @@ export const parameters = {
   i18n,
   locale: DEFAULT_LNG,
   locales: SUPPORTED_LOCALES,
+  grid: {
+    gridOn: false,
+    columns: 12,
+    gutter: 0,
+    gap: "16px",
+    maxWidth: "1000px",
+  },
 };
