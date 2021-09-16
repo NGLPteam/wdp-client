@@ -75,7 +75,7 @@
             "title": "title"
           },
           "add": "Add $t({{ itemLabel }})",
-          "remove": "Add $t({{ itemLabel }})"
+          "remove": "Remove $t({{ itemLabel }})"
         }
       },
       "community": {

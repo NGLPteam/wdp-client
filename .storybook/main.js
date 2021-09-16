@@ -11,7 +11,9 @@ module.exports = {
     "storybook-react-i18next",
     "@storybook/addon-storysource",
     "storybook-addon-designs",
-    require.resolve("storybook-addon-grid/preset"),
+    "storybook-addon-grid/preset",
+    "storybook-addon-pseudo-states",
+    "aria-live-storybook-addon",
   ],
   typescript: {
     check: false,
