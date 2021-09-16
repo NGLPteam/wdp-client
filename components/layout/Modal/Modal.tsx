@@ -8,9 +8,7 @@ import { DialogProps } from "reakit/Dialog";
 const Modal = ({
   dialog,
   label,
-  header,
   children,
-  onClose,
   hideOnClickOutside = true,
 }: Props) => {
   const uidLabel = useUID();
@@ -19,22 +17,27 @@ const Modal = ({
 
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
-    if (onClose) onClose();
   };
 
   return (
-    <Styled.DialogBackdrop>
+    <Styled.DialogBackdrop {...dialog}>
       <Styled.Modal
         aria-labelledby={uidLabel}
         aria-describedby={uidDesc}
         hideOnClickOutside={hideOnClickOutside}
+        {...dialog}
       >
-        {label}
-        {header}
-        <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
-          {t("close")}
-        </ButtonControl>
-        {children}
+        <Styled.Header>
+          <Styled.HeaderBar>
+            <div className="t-label-md" id={uidLabel}>
+              {label}
+            </div>
+            <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
+              {t("close")}
+            </ButtonControl>
+          </Styled.HeaderBar>
+        </Styled.Header>
+        <Styled.Content>{dialog.visible && children}</Styled.Content>
       </Styled.Modal>
     </Styled.DialogBackdrop>
   );
@@ -42,16 +45,10 @@ const Modal = ({
 
 interface Props {
   dialog: DialogProps;
-  /** Drawer label, displayed next to the close button */
+  /** Modal label, displayed next to the close button */
   label: string;
-  /** Drawer header */
-  header: string;
-  /** Drawer content */
+  /** Modal content */
   children?: JSX.Element | string | null;
-  /** Adds a Save button to the drawer footer. Function runs on save */
-  onSave?: () => void;
-  /** Function runs on close or cancel */
-  onClose?: () => void;
   /** If false, disables hiding on click outside the drawer */
   hideOnClickOutside: boolean;
 }

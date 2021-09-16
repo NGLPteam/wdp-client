@@ -29,16 +29,39 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 `;
 
 export const Modal = styled(BaseDialog)`
-  --drawer-padding-inline: ${basePadding(12)};
+  --modal-padding-inline: ${basePadding(10)};
   position: fixed;
-  top: 10px;
+  top: 30px;
   left: 40vw;
   display: flex;
   flex-direction: column;
-  width: ${pxToRem(300)};
-  height: 200px;
+  max-width: ${pxToRem(497)};
   overflow: auto;
   border: 1px solid var(--neutral10);
+  border-radius: 6px;
   z-index: var(--z-index-drawer);
   ${aBgLight()}
+`;
+
+export const Header = styled.header`
+  padding-block-start: ${basePadding(10)};
+  padding-inline-start: var(--modal-padding-inline);
+  padding-inline-end: var(--modal-padding-inline);
+  background: var(--background-color);
+`;
+
+export const HeaderBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--accent-color);
+  padding-block-end: ${basePadding(10)};
+`;
+
+export const Content = styled.div`
+  flex: 1 1 auto;
+  padding-block-end: ${basePadding(12)};
+  padding-inline-start: var(--modal-padding-inline);
+  padding-inline-end: var(--modal-padding-inline);
 `;

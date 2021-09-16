@@ -1,7 +1,8 @@
 import Modal from "./Modal";
 import { Story } from "@storybook/react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
-import { ButtonControl } from "components/atomic/buttons";
+import { ButtonControl, Button } from "components/atomic/buttons";
+import { basePadding } from "theme/mixins/appearance";
 
 type Props = React.ComponentProps<typeof Modal>;
 
@@ -11,7 +12,7 @@ export default {
 };
 
 const Template: Story<Props> = (args) => {
-  const dialog = useDialogState({ visible: true, animated: false });
+  const dialog = useDialogState({ visible: true, animated: true });
   console.log(dialog);
 
   return (
@@ -24,9 +25,29 @@ const Template: Story<Props> = (args) => {
   );
 };
 
+const Content = () => (
+  <div>
+    <p className="t-copy-sm">
+      Description text for this modal window appears here, if necessary.
+      Description text for this modal window appears here, if necessary.
+    </p>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        paddingBlockStart: basePadding(10),
+      }}
+    >
+      <Button style={{ paddingInline: basePadding(15) }}>Confirm</Button>
+      <Button secondary style={{ paddingInline: basePadding(17) }}>
+        Cancel
+      </Button>
+    </div>
+  </div>
+);
+
 export const Default = Template.bind({});
 Default.args = {
   label: "Modal title",
-  header: "Modal Header",
-  children: "Content",
+  children: <Content />,
 };
