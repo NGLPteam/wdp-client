@@ -1,37 +1,31 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "types/page";
 
-import CollectionLayout from "components/composed/collection/CollectionLayout";
+import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import ItemList from "components/composed/item/ItemList";
-import ErrorPage from "next/error";
 
-function CollectionChildItems() {
-  const queryVars = useBaseListQueryVars();
-  const collectionSlug = useRouteSlug();
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
+function CollectionChildItems({ data }: Props) {
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, collectionSlug }}
-    >
-      {({ data }) => (
-        <CollectionLayout data={data?.collection}>
-          <ItemList<Query>
-            data={data?.collection?.items}
-            headerStyle="secondary"
-            hideHeader
-          />
-        </CollectionLayout>
-      )}
-    </QueryWrapper>
+    <ItemList<Query>
+      data={data?.collection?.items}
+      headerStyle="secondary"
+      hideHeader
+    />
   );
 }
 
+const getLayout: GetLayout<Props> = (props) => {
+  return <CollectionLayoutQuery<Query, Props> query={query} {...props} />;
+};
+CollectionChildItems.getLayout = getLayout;
+
 export default CollectionChildItems;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query itemsSlugCollectionsPagesQuery(

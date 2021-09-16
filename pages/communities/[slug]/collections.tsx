@@ -1,37 +1,30 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
-
 import CollectionList from "components/composed/collection/CollectionList";
-import CommunityLayout from "components/composed/community/CommunityLayout";
-import ErrorPage from "next/error";
+import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import type { GetLayout } from "types/page";
 
-function CommunityChildCollections() {
-  const queryVars = useBaseListQueryVars();
-  const communitySlug = useRouteSlug();
-  if (!communitySlug) return <ErrorPage statusCode={404} />;
-
+function CommunityChildCollections({ data }: Props) {
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, communitySlug }}
-    >
-      {({ data }) => (
-        <CommunityLayout data={data?.community}>
-          <CollectionList<Query>
-            data={data?.community?.collections}
-            headerStyle="secondary"
-            hideHeader
-          />
-        </CommunityLayout>
-      )}
-    </QueryWrapper>
+    <CollectionList<Query>
+      data={data?.community?.collections}
+      headerStyle="secondary"
+      hideHeader
+    />
   );
 }
 
+const getLayout: GetLayout<Props> = (props) => {
+  return <CommunityLayoutQuery<Query, Props> query={query} {...props} />;
+};
+CommunityChildCollections.getLayout = getLayout;
+
 export default CommunityChildCollections;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query collectionsSlugCommunitiesPagesQuery(

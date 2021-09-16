@@ -1,30 +1,24 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { accessManageSlugCollectionsPagesQuery as Query } from "@/relay/accessManageSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "types/page";
 
-import CollectionLayout from "components/composed/collection/CollectionLayout";
-import ErrorPage from "next/error";
+import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 
-function CollectionAccess() {
-  const queryVars = useBaseListQueryVars();
-  const collectionSlug = useRouteSlug();
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, collectionSlug }}
-    >
-      {({ data }) => (
-        <CollectionLayout showSidebar data={data?.collection}>
-          Collection Access
-        </CollectionLayout>
-      )}
-    </QueryWrapper>
-  );
+function CollectionAccess({ data: dataIgnored }: Props) {
+  return <div>Collection Access</div>;
 }
+const getLayout: GetLayout<Props> = (props) => {
+  return (
+    <CollectionLayoutQuery<Query, Props> showSidebar query={query} {...props} />
+  );
+};
+
+CollectionAccess.getLayout = getLayout;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query accessManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
