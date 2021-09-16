@@ -1,13 +1,20 @@
 import Button from ".";
 import { Story } from "@storybook/react";
+import { withDesign } from "storybook-addon-designs";
 type Props = React.ComponentProps<typeof Button>;
 
 export default {
   title: "Components/Atomic/Buttons/Button",
   component: Button,
+  decorators: [withDesign],
   parameters: {
     themes: {
       default: "neutral00",
+    },
+    design: {
+      type: "figma",
+      url:
+        "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=59%3A50",
     },
   },
 };

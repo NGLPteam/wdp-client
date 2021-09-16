@@ -104,6 +104,7 @@
     "relay-compiler": "^11.0.2",
     "relay-compiler-language-typescript": "^14.0.0",
     "relay-config": "^11.0.2",
+    "storybook-addon-designs": "^6.1.0",
     "storybook-addon-next-router": "^3.0.7",
     "storybook-addon-themes": "^6.1.0",
     "storybook-react-i18next": "^1.0.9",
