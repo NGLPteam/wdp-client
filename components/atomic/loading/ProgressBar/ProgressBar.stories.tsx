@@ -4,7 +4,7 @@ import ProgressBar from ".";
 type Props = React.ComponentProps<typeof ProgressBar>;
 
 export default {
-  title: "Components/Atomic/ProgressBar",
+  title: "Components/Atomic/loading/ProgressBar",
   component: ProgressBar,
   parameters: {
     themes: {
@@ -18,4 +18,5 @@ const Template: Story<Props> = (args) => <ProgressBar {...args} />;
 export const Default: Story<Props> = Template.bind({});
 Default.args = {
   label: "Loading",
+  loading: true,
 };
