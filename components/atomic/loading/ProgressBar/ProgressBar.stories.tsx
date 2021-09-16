@@ -18,4 +18,5 @@ const Template: Story<Props> = (args) => <ProgressBar {...args} />;
 export const Default: Story<Props> = Template.bind({});
 Default.args = {
   label: "Loading",
+  loading: true,
 };
