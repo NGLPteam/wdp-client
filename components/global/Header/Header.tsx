@@ -11,10 +11,13 @@ import HeaderNavLinks from "./HeaderNavLinks";
 import * as Styled from "./Header.styles";
 import HeaderAccount from "./HeaderAccount";
 
-import MobileMenu from "../MobileMenu";
-import MobileMenuToggle from "../MobileMenuToggle";
+import MobileMenu, { MobileMenuList } from "components/layout/MobileMenu";
+import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import ProviderBar from "../ProviderBar";
 import GlobalSearch from "../GlobalSearch";
+import { renderNavLink } from "helpers";
+import SignIn from "components/scaffolding/Auth/SignIn";
+import SignOut from "components/scaffolding/Auth/SignOut";
 
 function Header() {
   const { t } = useTranslation();
@@ -26,7 +29,7 @@ function Header() {
     onDeactivate: useCallback(() => setActive(false), [setActive]),
   });
 
-  const { siteInfo, headerData } = appData;
+  const { siteInfo, headerData, footerData } = appData;
 
   return (
     <header role="banner">
@@ -63,7 +66,28 @@ function Header() {
         id={mobileNavId}
         active={isActive}
         onClose={toggleActive}
-      />
+        showGlobalSearch
+        showProviderBar
+      >
+        {footerData.navigation.map((nav, i) => (
+          <div key={i}>
+            <h3 className="t-label-lg a-color-light">{t(nav.header)}</h3>
+            <MobileMenuList>
+              {nav.children &&
+                nav.children.map((child, i) => renderNavLink(child, i, "li"))}
+            </MobileMenuList>
+          </div>
+        ))}
+        <div>
+          <h3 className="t-label-lg a-color-light">{t("header.account")}</h3>
+          <MobileMenuList>
+            <li>
+              <SignIn />
+              <SignOut />
+            </li>
+          </MobileMenuList>
+        </div>
+      </MobileMenu>
     </header>
   );
 }

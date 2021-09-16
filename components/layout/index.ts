@@ -5,3 +5,4 @@ export { default as Table } from "./Table";
 export { default as PageCountActions } from "./PageCountActions";
 export { default as ContentHeader } from "./ContentHeader";
 export { default as BackToAll } from "./BackToAll";
+export { default as MobileMenu } from "./MobileMenu";
