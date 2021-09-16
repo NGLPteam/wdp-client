@@ -133,3 +133,47 @@ export const aHidden = css`
   overflow: hidden;
   clip: rect(0 0 0 0);
 `;
+
+export function aButton(secondary?: boolean) {
+  return css`
+    --button-focus-border: var(--brand100);
+    --button-background-color: var(--accent-color);
+    --button-text-color: var(--background-color);
+    --button-hover-color: var(--brand70);
+    --button-focus-color: var(--brand50);
+    --button-disabled-opacity: 0.35;
+
+    ${secondary &&
+    css`
+      --button-background-color: var(--button-background);
+      --button-text-color: var(--accent-color);
+      --button-hover-color: var(--brand20);
+      --button-focus-color: var(--brand20);
+      --button-disabled-opacity: 0.4;
+    `}
+
+    border: 1px solid transparent;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    transition: var(--color-transition), var(--border-transition),
+      var(--background-transition), var(--opacity-transition);
+
+    &:hover {
+      --button-background-color: var(--button-hover-color);
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:disabled,
+    [data-disabled="true"] {
+      opacity: var(--button-disabled-opacity);
+    }
+
+    &:focus-visible:not(:hover) {
+      --button-background-color: var(--button-focus-color);
+      border-color: var(--button-focus-border);
+    }
+  `;
+}
