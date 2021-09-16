@@ -1,30 +1,26 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "types/page";
+
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
-import ErrorPage from "next/error";
+import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 
-function CollectionDetails() {
-  const queryVars = useBaseListQueryVars();
-  const collectionSlug = useRouteSlug();
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, collectionSlug }}
-    >
-      {({ data }) => (
-        <CollectionLayout showSidebar data={data?.collection}>
-          {data?.collection && <CollectionUpdateForm data={data?.collection} />}
-        </CollectionLayout>
-      )}
-    </QueryWrapper>
-  );
+function CollectionDetails({ data }: Props) {
+  if (!data || !data.collection) return null;
+  return <CollectionUpdateForm data={data?.collection} />;
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return (
+    <CollectionLayoutQuery<Query, Props> showSidebar query={query} {...props} />
+  );
+};
+CollectionDetails.getLayout = getLayout;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query detailsManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {

@@ -5,7 +5,12 @@ import {
   PageHeader,
   BackToAll,
 } from "components/layout";
-import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
+import {
+  useChildRouteLinks,
+  useMaybeFragment,
+  useRouteSlug,
+  useLatestPresentValue,
+} from "hooks";
 import { graphql } from "react-relay";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
@@ -25,6 +30,7 @@ export default function UserLayout({
   useRouteHeader = true,
 }: Props) {
   const user = useMaybeFragment(fragment, data);
+  const { current: memoizedUser } = useLatestPresentValue(user);
   const slug = useRouteSlug() || undefined;
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
@@ -33,7 +39,7 @@ export default function UserLayout({
   return (
     <section>
       <BackToAll route="users" />
-      <PageHeader title={user?.name} />
+      <PageHeader title={memoizedUser?.name} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (

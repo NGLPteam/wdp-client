@@ -1,34 +1,25 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
+import type { GetLayout } from "types/page";
 
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
+import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
-import ErrorPage from "next/error";
 
-function ContributorDetails() {
-  const queryVars = useBaseListQueryVars();
-  const contributorSlug = useRouteSlug();
-  if (!contributorSlug) return <ErrorPage statusCode={404} />;
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, contributorSlug }}
-    >
-      {({ data }) => (
-        <ContributorLayout data={data?.contributor}>
-          <ContributorUpdateForm data={data?.contributor} />
-        </ContributorLayout>
-      )}
-    </QueryWrapper>
-  );
+function ContributorDetails({ data }: Props) {
+  return <ContributorUpdateForm data={data?.contributor} />;
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return <ContributorLayoutQuery<Query, Props> query={query} {...props} />;
+};
+ContributorDetails.getLayout = getLayout;
 
 export default ContributorDetails;
 
+type Props = {
+  data: Query["response"];
+};
 const query = graphql`
   query detailsSlugContributorsPagesQuery($contributorSlug: Slug!) {
     contributor(slug: $contributorSlug) {

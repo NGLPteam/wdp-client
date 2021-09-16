@@ -1,30 +1,24 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
-import type { detailsManageSlugCommunitiesPagesQuery as Query } from "@/relay/detailsManageSlugCommunitiesPagesQuery.graphql";
+import type { GetLayout } from "types/page";
+import type { membersManageSlugCommunitiesPagesQuery as Query } from "@/relay/membersManageSlugCommunitiesPagesQuery.graphql";
+import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 
-import CommunityLayout from "components/composed/community/CommunityLayout";
-import ErrorPage from "next/error";
-
-function CommunityMembers() {
-  const queryVars = useBaseListQueryVars();
-  const communitySlug = useRouteSlug();
-  if (!communitySlug) return <ErrorPage statusCode={404} />;
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, communitySlug }}
-    >
-      {({ data }) => (
-        <CommunityLayout showSidebar data={data?.community}>
-          Community Members
-        </CommunityLayout>
-      )}
-    </QueryWrapper>
-  );
+function CommunityDetails({ data: dataIgnored }: Props) {
+  return <div>Community Members</div>;
 }
+const getLayout: GetLayout<Props> = (props) => {
+  return (
+    <CommunityLayoutQuery<Query, Props> showSidebar query={query} {...props} />
+  );
+};
+CommunityDetails.getLayout = getLayout;
+
+export default CommunityDetails;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query membersManageSlugCommunitiesPagesQuery($communitySlug: Slug!) {
@@ -33,5 +27,3 @@ const query = graphql`
     }
   }
 `;
-
-export default CommunityMembers;

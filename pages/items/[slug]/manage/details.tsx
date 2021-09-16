@@ -1,30 +1,27 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManageSlugItemsQuery.graphql";
+import type { GetLayout } from "types/page";
+
+import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
-import ItemLayout from "components/composed/item/ItemLayout";
-import ErrorPage from "next/error";
 
-function ManageItem() {
-  const queryVars = useBaseListQueryVars();
-  const itemSlug = useRouteSlug();
-  if (!itemSlug) return <ErrorPage statusCode={404} />;
+function ManageDetails({ data }: Props) {
+  if (!data || !data.item) return null;
 
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, itemSlug }}
-    >
-      {({ data }) => (
-        <ItemLayout data={data?.item} showSidebar>
-          {data?.item && <ItemUpdateForm data={data?.item} />}
-        </ItemLayout>
-      )}
-    </QueryWrapper>
-  );
+  return <ItemUpdateForm data={data?.item} />;
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return <ItemLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+};
+ManageDetails.getLayout = getLayout;
+
+export default ManageDetails;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query detailsManageSlugItemsQuery($itemSlug: Slug!) {
@@ -34,5 +31,3 @@ const query = graphql`
     }
   }
 `;
-
-export default ManageItem;
