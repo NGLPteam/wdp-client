@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, Ref } from "react";
 import * as Form from "components/forms";
 type InputProps = React.ComponentProps<typeof Form.Input>;
 type SelectProps = React.ComponentProps<typeof Form.Select>;
@@ -20,12 +20,19 @@ export const FIELD_KEYS = Object.keys(FIELD_MAP);
 
 export type FieldKeys = keyof typeof FIELD_MAP;
 
-function FormFactory({ field, ...props }: Props & AnyField) {
-  const FieldComponent = FIELD_MAP[field];
-  if (!FieldComponent) return null;
+const FormFactory = forwardRef(
+  ({ field, ...props }: Props & AnyField, ref: InputRef) => {
+    const FieldComponent = FIELD_MAP[field];
+    if (!FieldComponent) return null;
 
-  return <FieldComponent {...props} />;
-}
+    return <FieldComponent {...props} ref={ref} />;
+  }
+);
+
+type InputRef =
+  | Ref<HTMLInputElement>
+  | Ref<HTMLSelectElement>
+  | Ref<HTMLTextAreaElement>;
 
 type AnyField = InputProps | SelectProps | SwitchProps | TypeaheadProps;
 
