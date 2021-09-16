@@ -1,9 +1,7 @@
 import React, { ReactNode } from "react";
 import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
 import * as Styled from "./PageHeader.styles";
-import { RouteHelper } from "routes";
 import isNil from "lodash/isNil";
-import { useTranslation } from "react-i18next";
 import { ContentHeader } from "components/layout";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
@@ -21,9 +19,6 @@ const PageHeader = ({
   headerStyle = "primary",
   hideHeader = false,
 }: Props) => {
-  const activeRoute = RouteHelper.activeRoute();
-  const { t } = useTranslation();
-
   return (
     <Styled.Header
       className={hideHeader ? "a-hidden" : ""}
@@ -37,18 +32,7 @@ const PageHeader = ({
       />
       {tabRoutes && (
         <Styled.TabsWrapper>
-          <TabNav>
-            {tabRoutes.map(({ label, ...namedLinkProps }, i) => (
-              // router and activeRoute may be missing in Storybook
-              <NamedLink key={i} {...namedLinkProps} passHref>
-                <TabNav.Tab
-                  active={activeRoute?.name.includes(namedLinkProps.route)}
-                >
-                  {t(`navLabels.${label}`)}
-                </TabNav.Tab>
-              </NamedLink>
-            ))}
-          </TabNav>
+          <TabNav links={tabRoutes} />
         </Styled.TabsWrapper>
       )}
     </Styled.Header>

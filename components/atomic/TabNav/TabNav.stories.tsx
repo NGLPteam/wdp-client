@@ -7,17 +7,22 @@ export default {
   component: TabNav,
 };
 
-const Template: Story<Props> = (args) => {
-  return (
-    <TabNav {...args}>
-      <TabNav.Tab href="#" active>
-        Tab 1
-      </TabNav.Tab>
-      <TabNav.Tab href="#">Tab 2</TabNav.Tab>
-      <TabNav.Tab href="#">Tab 3</TabNav.Tab>
-    </TabNav>
-  );
-};
+const Template: Story<Props> = (args) => <TabNav {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  links: [
+    {
+      route: "collection.child.collections",
+      label: "glossary.collection.label_plural",
+    },
+    {
+      route: "collection.child.items",
+      label: "glossary.item.label_plural",
+    },
+    {
+      route: "collection.manage",
+      label: "manage",
+    },
+  ],
+};
