@@ -6,7 +6,7 @@ import * as nextImage from "next/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";
-import i18n from "../i18n";
+import i18n, { SUPPORTED_LOCALES, DEFAULT_LNG } from "../i18n";
 
 Object.defineProperty(nextImage, "default", {
   configurable: true,
@@ -44,10 +44,10 @@ Object.defineProperty(nextImage, "default", {
 
 export const decorators = [
   (Story: Story) => (
-    <I18nextProvider i18n={i18n}>
+    <>
       <GlobalStyles />
       <Story />
-    </I18nextProvider>
+    </>
   ),
 ];
 
@@ -89,5 +89,15 @@ export const parameters = {
       },
       ...INITIAL_VIEWPORTS,
     },
+  },
+  i18n,
+  locale: DEFAULT_LNG,
+  locales: SUPPORTED_LOCALES,
+  grid: {
+    gridOn: false,
+    columns: 12,
+    gutter: 0,
+    gap: "16px",
+    maxWidth: "1000px",
   },
 };

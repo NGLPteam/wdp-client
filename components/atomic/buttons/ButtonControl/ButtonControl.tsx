@@ -17,7 +17,9 @@ const ButtonControl = forwardRef(
               {children}
             </Styled.ButtonText>
           )}
-          {icon && <IconFactory icon={icon} rotate={iconRotate} />}
+          {icon && (
+            <IconFactory icon={icon} rotate={iconRotate} role="presentation" />
+          )}
         </>
       </Styled.ButtonControl>
     );

@@ -2,25 +2,32 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import * as resources from "./locales";
+import get from "lodash/get";
 
 export const updateI18n = (lang: string) => {
   i18n.language !== lang && i18n.changeLanguage(lang);
 };
 
-const DEFAULT_LANG = "en";
+export const DEFAULT_LNG = "en";
+
+export const SUPPORTED_LOCALES: Record<string, string> = {};
+
+Object.keys(resources).forEach(
+  (key) => (SUPPORTED_LOCALES[key] = get(resources, `${key}.translation.key`))
+);
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     // debug: true,
-    lng: DEFAULT_LANG,
+    lng: DEFAULT_LNG,
     resources,
     interpolation: {
       escapeValue: false,
     },
     fallbackLng: {
-      default: [DEFAULT_LANG],
+      default: [DEFAULT_LNG],
     },
     react: {
       transSupportBasicHtmlNodes: true,

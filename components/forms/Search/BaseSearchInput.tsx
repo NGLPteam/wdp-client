@@ -2,9 +2,11 @@ import React from "react";
 import { useUID } from "react-uid";
 import CICInput from "@castiron/components-input";
 import { IconFactory } from "components/factories";
+import { useTranslation } from "react-i18next";
 
 function SearchInput({ className, inputRef }: Props) {
   const uid = useUID();
+  const { t } = useTranslation();
 
   const labelProps = {
     className: "a-hidden",
@@ -12,7 +14,7 @@ function SearchInput({ className, inputRef }: Props) {
 
   const inputProps = {
     className: `${className}__input a-focus-dark`,
-    placeholder: "Search",
+    placeholder: t("search"),
     ref: inputRef,
   };
 
@@ -22,7 +24,7 @@ function SearchInput({ className, inputRef }: Props) {
       <CICInput
         type="search"
         inputId={uid}
-        label="Search"
+        label={t("search")}
         inputProps={inputProps}
         labelProps={labelProps}
       />
