@@ -87,27 +87,17 @@ export const SearchBlock = styled.div`
   ${respond(`display: none;`, 60, "min")}
 `;
 
-export const NavBlock = styled.div<NavBlockProps>`
+export const Content = styled.div`
   padding-block-start: ${pxToRem(40)};
+  padding-block-end: ${pxToRem(60)};
   padding-inline-start: ${fluidScale("60px", "16px", 20, 10)};
   padding-inline-end: ${fluidScale("60px", "16px", 20, 10)};
+  flex: 1 0 auto;
 
-  /* :last-of-type doesn't work for classes, so we use a property instead */
-  ${({ isLast }) =>
-    isLast &&
-    `
-      flex: 1 0 auto;
-      padding-block-end: ${pxToRem(60)};
-    `}
-
-  & + & {
+  > * + * {
     padding-block-start: ${pxToRem(50)};
   }
 `;
-
-interface NavBlockProps {
-  isLast?: boolean;
-}
 
 export const List = styled.ul`
   > * {
