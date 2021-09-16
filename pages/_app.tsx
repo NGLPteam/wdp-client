@@ -66,7 +66,15 @@ const NGLPApp = ({
     }
   }
 
-  const getLayout = Component.getLayout || ((page) => page);
+  const defaultLayout = ({
+    PageComponent,
+    pageComponentProps,
+  }: {
+    PageComponent: typeof Component;
+    pageComponentProps: typeof pageProps;
+  }) => <PageComponent {...pageComponentProps} />;
+
+  const getLayout = Component.getLayout || defaultLayout;
 
   return (
     <React.Fragment>
@@ -83,7 +91,10 @@ const NGLPApp = ({
           <AppContextProvider>
             <AppBody>
               <Toaster />
-              {getLayout(<Component {...pageProps} />)}
+              {getLayout({
+                PageComponent: Component,
+                pageComponentProps: pageProps,
+              })}
               <DrawerController />
             </AppBody>
           </AppContextProvider>

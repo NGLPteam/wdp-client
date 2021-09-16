@@ -1,4 +1,4 @@
-import { OperationType } from "relay-runtime";
+import { FragmentRefs, OperationType } from "relay-runtime";
 import type { PageInfo } from "./graphql-schema";
 
 export type PathProxy<TRoot, T> = {
@@ -39,3 +39,7 @@ export type ExtractConnectionType<
 > = ResponseType[ConnectionName] extends Connectionish
   ? ResponseType[ConnectionName]
   : never;
+
+export type HasFragment<FragmentName> = {
+  " $fragmentRefs": FragmentRefs<FragmentName>;
+};
