@@ -217,7 +217,7 @@ export default function MutationForm<
     <FormProvider {...form}>
       {props.watchInConsole && <Watcher<T> control={form.control} />}
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} aria-live="polite">
         {props.contentTitle && (
           <ContentHeader headerStyle="secondary" title={props.contentTitle} />
         )}
