@@ -31,11 +31,12 @@ function HeaderNavLinks({ navigation }: Props) {
 
   const maybeAuthorize = (
     node: AuthorizeProps["children"],
-    item: HeaderNavLink | HeaderNavParent
+    item: HeaderNavLink | HeaderNavParent,
+    index: number
   ) => {
     if (!item.actions) return node;
     return (
-      <Authorize key={item.label} actions={item.actions}>
+      <Authorize key={index} actions={item.actions}>
         {node}
       </Authorize>
     );
@@ -43,11 +44,7 @@ function HeaderNavLinks({ navigation }: Props) {
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
-    const activeRoute = RouteHelper.activeRoute();
-    const childRoutes = item.children.map((item) => item.route);
-    const active = activeRoute
-      ? childRoutes.includes(activeRoute?.name)
-      : false;
+    const active = RouteHelper.isRouteNameFuzzyActive(item.route || "");
 
     return (
       <Dropdown
@@ -64,13 +61,15 @@ function HeaderNavLinks({ navigation }: Props) {
 
   const renderLink = (item: HeaderNavLink) => {
     // Check if the individual route link should be active
-    const activeRoute = RouteHelper.activeRoute();
-    const active = activeRoute?.name === item.route;
+    const route = RouteHelper.findRouteByName(item.route);
+    if (!route) return null;
+
+    const active = RouteHelper.isRouteFuzzyActive(route);
 
     return (
-      <NamedLink route={item.route} passHref>
+      <NamedLink route={route.name} passHref>
         <Styled.Link active={active}>
-          <Styled.LinkText>{t(item.label)}</Styled.LinkText>
+          <Styled.LinkText>{t(route.label || "")}</Styled.LinkText>
         </Styled.Link>
       </NamedLink>
     );
@@ -78,13 +77,14 @@ function HeaderNavLinks({ navigation }: Props) {
 
   return (
     <>
-      {navigation.map((item) =>
+      {navigation.map((item, i) =>
         maybeAuthorize(
-          <Styled.Item key={item.label}>
+          <Styled.Item key={i}>
             {item.children && renderDropdown(item)}
             {item.route && renderLink(item)}
           </Styled.Item>,
-          item
+          item,
+          i
         )
       )}
     </>

@@ -10,9 +10,8 @@ const TabNav = ({ links }: Props) => {
   const { t } = useTranslation();
 
   // Check if the route should be active
-  const activeRoute = RouteHelper.activeRoute();
   function isActiveRoute(routeName: string): boolean | undefined {
-    return activeRoute?.name.includes(routeName);
+    return RouteHelper.isRouteNameFuzzyActive(routeName);
   }
 
   return links ? (

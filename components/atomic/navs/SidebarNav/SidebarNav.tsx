@@ -10,8 +10,7 @@ const SidebarNav = ({ links, className }: Props) => {
 
   const renderLink = ({ route, label = "", query }: Link) => {
     // Check if the individual route link should be active
-    const activeRoute = RouteHelper.activeRoute();
-    const active = activeRoute?.name === route;
+    const active = RouteHelper.isRouteNameFuzzyActive(route);
 
     return (
       <NamedLink route={route} query={query} passHref>

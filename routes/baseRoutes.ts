@@ -31,6 +31,7 @@ export const baseRoutes: BaseRoute[] = [
             path: "/collections/[slug]/manage",
             redirect: "/collections/[slug]/manage/details",
             label: "manage",
+
             routes: [
               {
                 name: "collection.manage.details",
@@ -89,6 +90,7 @@ export const baseRoutes: BaseRoute[] = [
             path: "/items/[slug]/manage",
             redirect: "/items/[slug]/manage/details",
             label: "manage",
+
             routes: [
               {
                 name: "item.manage.details",
@@ -152,6 +154,7 @@ export const baseRoutes: BaseRoute[] = [
             path: "/communities/[slug]/manage",
             redirect: "/communities/[slug]/manage/details",
             label: "manage",
+
             routes: [
               {
                 name: "community.manage.details",
