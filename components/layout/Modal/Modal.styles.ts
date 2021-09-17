@@ -38,6 +38,8 @@ export const Modal = styled(BaseDialog)`
   flex-direction: column;
   width: ${pxToRem(497)};
   max-width: 90%;
+  height: ${pxToRem(312)};
+  max-height: 100%;
   overflow: auto;
   border: 1px solid var(--neutral10);
   border-radius: 6px;
