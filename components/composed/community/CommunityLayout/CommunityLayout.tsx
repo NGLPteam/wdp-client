@@ -32,13 +32,17 @@ export default function CommunityLayout({
 
   return (
     <section>
-      <PageHeader title={memoizedCommunity?.name} tabRoutes={tabRoutes} />
+      <PageHeader
+        title={memoizedCommunity?.name}
+        tabRoutes={tabRoutes}
+        sidebarLinks={manageRoutes}
+      />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
             <ContentHeader
               headerStyle="secondary"
-              title={t(`navLabels.${activeRoute.label}`)}
+              title={t(activeRoute.label)}
             />
           )}
           {children}

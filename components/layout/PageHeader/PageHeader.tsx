@@ -1,5 +1,11 @@
 import React, { ReactNode } from "react";
-import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
+import {
+  Breadcrumbs,
+  NamedLink,
+  TabNav,
+  SidebarNav,
+  MobileSubNav,
+} from "components/atomic";
 import * as Styled from "./PageHeader.styles";
 import isNil from "lodash/isNil";
 import { ContentHeader } from "components/layout";
@@ -7,6 +13,7 @@ import { ContentHeader } from "components/layout";
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type ContentHeaderProps = React.ComponentProps<typeof ContentHeader>;
+type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
 
 /**
  * Wrapper for content header, breadcrumbs, and child tabs
@@ -18,6 +25,7 @@ const PageHeader = ({
   buttons,
   headerStyle = "primary",
   hideHeader = false,
+  sidebarLinks,
 }: Props) => {
   return (
     <Styled.Header
@@ -34,6 +42,11 @@ const PageHeader = ({
         <Styled.TabsWrapper>
           <TabNav links={tabRoutes} />
         </Styled.TabsWrapper>
+      )}
+      {(tabRoutes || sidebarLinks) && (
+        <Styled.MobileNavWrapper>
+          <MobileSubNav tabRoutes={tabRoutes} sidebarLinks={sidebarLinks} />
+        </Styled.MobileNavWrapper>
       )}
     </Styled.Header>
   );
@@ -54,6 +67,8 @@ interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   buttons?: React.ReactNode;
   /** Hides the header visually, leaves header in for screen readers */
   hideHeader?: boolean;
+  /** Sidebar links */
+  sidebarLinks?: SidebarNavProps["links"];
 }
 
 export default PageHeader;

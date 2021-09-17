@@ -39,13 +39,11 @@ export default function ContributorLayout({
       <BackToAll route="contributors" />
       <PageHeader
         title={<ContributorDisplayName contributor={memoizedContributor} />}
+        sidebarLinks={manageRoutes}
       />
       <ContentSidebar sidebarLinks={manageRoutes}>
         {useRouteHeader && activeRoute && activeRoute.label && (
-          <ContentHeader
-            headerStyle="secondary"
-            title={t(`navLabels.${activeRoute.label}`)}
-          />
+          <ContentHeader headerStyle="secondary" title={t(activeRoute.label)} />
         )}
         {children}
       </ContentSidebar>

@@ -116,6 +116,11 @@ export const aLink = (color?: string) => css`
     color: var(--accent-color);
     text-decoration: underline;
   }
+
+  &:active,
+  &[aria-current="true"] {
+    font-weight: var(--font-weight-semibold);
+  }
 `;
 
 // Returns padding at base 4
