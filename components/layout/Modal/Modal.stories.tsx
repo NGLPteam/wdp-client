@@ -3,6 +3,7 @@ import { Story } from "@storybook/react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { ButtonControl, Button } from "components/atomic/buttons";
 import { basePadding } from "theme/mixins/appearance";
+import { useIsMobile } from "hooks";
 
 type Props = React.ComponentProps<typeof Modal>;
 
@@ -25,26 +26,31 @@ const Template: Story<Props> = (args) => {
   );
 };
 
-const Content = () => (
-  <div>
-    <p className="t-copy-sm">
-      Description text for this modal window appears here, if necessary.
-      Description text for this modal window appears here, if necessary.
-    </p>
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        paddingBlockStart: basePadding(10),
-      }}
-    >
-      <Button style={{ paddingInline: basePadding(15) }}>Confirm</Button>
-      <Button secondary style={{ paddingInline: basePadding(17) }}>
-        Cancel
-      </Button>
+const Content = () => {
+  const isMobile = useIsMobile();
+  return (
+    <div>
+      <p className="t-copy-sm">
+        Description text for this modal window appears here, if necessary.
+        Description text for this modal window appears here, if necessary.
+      </p>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          justifyContent: "space-between",
+          paddingBlockStart: basePadding(10),
+          gap: "15px",
+        }}
+      >
+        <Button style={{ paddingInline: basePadding(15) }}>Confirm</Button>
+        <Button secondary style={{ paddingInline: basePadding(17) }}>
+          Cancel
+        </Button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {

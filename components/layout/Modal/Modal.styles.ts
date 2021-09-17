@@ -31,11 +31,13 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 export const Modal = styled(BaseDialog)`
   --modal-padding-inline: ${basePadding(10)};
   position: fixed;
-  top: 30px;
-  left: 40vw;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  max-width: ${pxToRem(497)};
+  width: ${pxToRem(497)};
+  max-width: 90%;
   overflow: auto;
   border: 1px solid var(--neutral10);
   border-radius: 6px;
@@ -44,19 +46,14 @@ export const Modal = styled(BaseDialog)`
 `;
 
 export const Header = styled.header`
-  padding-block-start: ${basePadding(10)};
-  padding-inline-start: var(--modal-padding-inline);
-  padding-inline-end: var(--modal-padding-inline);
+  padding-block: ${basePadding(10)};
+  padding-inline: var(--modal-padding-inline);
   background: var(--background-color);
-`;
-
-export const HeaderBar = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   color: var(--accent-color);
-  padding-block-end: ${basePadding(10)};
 `;
 
 export const Content = styled.div`

@@ -28,16 +28,14 @@ const Modal = ({
         {...dialog}
       >
         <Styled.Header>
-          <Styled.HeaderBar>
-            <div className="t-label-md" id={uidLabel}>
-              {label}
-            </div>
-            <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
-              {t("close")}
-            </ButtonControl>
-          </Styled.HeaderBar>
+          <div className="t-label-md" id={uidLabel}>
+            {label}
+          </div>
+          <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
+            {t("close")}
+          </ButtonControl>
         </Styled.Header>
-        <Styled.Content>{dialog.visible && children}</Styled.Content>
+        <Styled.Content>{children}</Styled.Content>
       </Styled.Modal>
     </Styled.DialogBackdrop>
   );
