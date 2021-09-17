@@ -14,6 +14,7 @@ export type Route = {
   identifiers: string[];
   path: string;
   regex: RegExp;
+  fuzzyRegex: RegExp;
   redirect?: string;
   routes?: BaseRoute[];
 };
@@ -34,13 +35,7 @@ class NextNamedRoutes {
   /**
    * Registers a named route. The path should be the filesystem path corresponding to the route.
    */
-  add(
-    name: string,
-    path: string,
-    redirect?: string,
-    routes?: BaseRoute[],
-    label?: string
-  ): NextNamedRoutes {
+  add({ name, path, redirect, routes, label }: BaseRoute): NextNamedRoutes {
     if (!name || !path) {
       throw new Error(
         `Route requires a name and path. name: ${name}, path: ${path}`
@@ -56,6 +51,7 @@ class NextNamedRoutes {
       identifiers: NextNamedRoutes.identifiersInPath(path),
       path,
       regex: NextNamedRoutes.pathToRegex(path),
+      fuzzyRegex: NextNamedRoutes.fuzzyPathToRegex(path),
       redirect,
       routes,
       label,
@@ -77,6 +73,52 @@ class NextNamedRoutes {
     }
 
     return rn;
+  }
+
+  /**
+   * Returns true if the passed route or child routes are currently active
+   * Uses regex if defined, else checks route name for a match
+   */
+  isRouteActive(route: Route | undefined): boolean {
+    if (!route) return false;
+    const activeRoute = this.activeRoute();
+
+    // Alternatively, we can check if any of the route's children
+    // are the currently active route
+    return route?.regex && route.regex.test(activeRoute?.path || "");
+  }
+
+  /**
+   * Returns true if the passed route or child routes are currently active
+   * Uses regex if defined, else checks route name for a match
+   */
+  isRouteNameActive(name: string): boolean {
+    const route = this.findRouteByName(name);
+    return this.isRouteActive(route);
+  }
+
+  /**
+   * Returns true if the passed route or child routes are currently active
+   * Uses regex if defined, else checks route name for a match
+   */
+  isRouteFuzzyActive(route: Route): boolean {
+    if (!route) return false;
+    const activeRoute = this.activeRoute();
+
+    // Alternatively, we can check if any of the route's children
+    // are the currently active route
+    return route?.fuzzyRegex
+      ? route.fuzzyRegex.test(activeRoute?.path || "")
+      : this.isRouteActive(route);
+  }
+
+  /**
+   * Returns true if the passed route or child routes are currently active
+   * Uses regex if defined, else checks route name for a match
+   */
+  isRouteNameFuzzyActive(name: string): boolean {
+    const route = this.findRouteByName(name);
+    return route ? this.isRouteFuzzyActive(route) : false;
   }
 
   /**
@@ -120,7 +162,7 @@ class NextNamedRoutes {
     }
 
     const addRoute = ({ name, path, redirect, routes, label }: BaseRoute) => {
-      this.add(name, path, redirect, routes, label);
+      this.add({ name, path, redirect, routes, label });
 
       if (routes) {
         routes.forEach(addRoute);
@@ -172,6 +214,19 @@ class NextNamedRoutes {
           return prev.replace(`[${curr}]`, "(?:([^/]+?))");
         }, nextStylePath) +
         "$"
+    );
+  }
+
+  static fuzzyPathToRegex(nextStylePath: string): RegExp {
+    const escapedPath = nextStylePath.replace(/[-{}()*+?.,\\^$|#\s]/g, "\\$&");
+    const identifiers = NextNamedRoutes.identifiersInPath(escapedPath);
+
+    // Create a regex using the identifiers
+    return new RegExp(
+      "^" +
+        identifiers.reduce((prev, curr) => {
+          return prev.replace(`[${curr}]`, "(?:([^/]+?))");
+        }, nextStylePath)
     );
   }
 

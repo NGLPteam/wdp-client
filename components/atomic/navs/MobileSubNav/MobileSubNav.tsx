@@ -24,9 +24,6 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
 
   // Check if the route should be active
   const activeRoute = RouteHelper.activeRoute();
-  function isActiveRoute(routeName: string): boolean | undefined {
-    return activeRoute?.name.includes(routeName);
-  }
 
   return tabRoutes || sidebarLinks ? (
     <Styled.MobileNav>
@@ -46,7 +43,7 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
           {tabRoutes?.map(({ label = "", ...namedLinkProps }, i) => (
             <li key={i}>
               <TabLink
-                active={isActiveRoute(namedLinkProps.route)}
+                active={RouteHelper.isRouteNameActive(namedLinkProps.route)}
                 size="lg"
                 bottomBorder
                 {...namedLinkProps}
