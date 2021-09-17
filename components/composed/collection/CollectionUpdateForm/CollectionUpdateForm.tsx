@@ -12,6 +12,7 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
+import { getDateOnly } from "helpers";
 
 export default function CollectionUpdateForm({ data, onSuccess }: Props) {
   const {
@@ -21,13 +22,20 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
 
   const {
     thumbnail,
+    visibleAfterAt,
+    visibleUntilAt,
     ...values
   } = useFragment<CollectionUpdateFormFieldsFragment$key>(
     fieldsFragment,
     fieldsData
   );
 
-  const defaultValues = { ...values, title: values.title || undefined };
+  const defaultValues = {
+    ...values,
+    title: values.title || undefined,
+    visibleAfterAt: getDateOnly(visibleAfterAt),
+    visibleUntilAt: getDateOnly(visibleUntilAt),
+  };
 
   const toVariables = useToVariables<CollectionUpdateFormMutation, Fields>(
     (data) => ({ input: { ...data, collectionId } }),
@@ -35,7 +43,7 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
   );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+    ({ form: { register, watch } }) => (
       <Forms.Grid>
         <Forms.Input
           label="forms.collection.fields.title"
@@ -47,6 +55,10 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
+        <Forms.Textarea
+          label="forms.collection.fields.summary"
+          {...register("summary")}
+        />
         <Forms.Select
           label="forms.collection.fields.visibility"
           options={[
@@ -56,18 +68,18 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
           ]}
           {...register("visibility")}
         />
-        <Forms.Textarea
-          label="forms.collection.fields.summary"
-          {...register("summary")}
-        />
-        <Forms.Datepicker
-          label="forms.collection.fields.visibleAfterAt"
-          {...register("visibleAfterAt")}
-        />
-        <Forms.Datepicker
-          label="forms.collection.fields.visibleUntilAt"
-          {...register("visibleUntilAt")}
-        />
+        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+          <Forms.Datepicker
+            label="forms.collection.fields.visibleAfterAt"
+            {...register("visibleAfterAt")}
+          />
+        </Forms.HiddenField>
+        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+          <Forms.Datepicker
+            label="forms.collection.fields.visibleUntilAt"
+            {...register("visibleUntilAt")}
+          />
+        </Forms.HiddenField>
       </Forms.Grid>
     ),
     []
