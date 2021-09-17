@@ -14,8 +14,6 @@ export default {
 
 const Template: Story<Props> = (args) => {
   const dialog = useDialogState({ visible: true, animated: true });
-  console.log(dialog);
-
   return (
     <>
       <DialogDisclosure {...dialog}>
@@ -26,7 +24,7 @@ const Template: Story<Props> = (args) => {
   );
 };
 
-const Content = () => {
+const Content = ({ handleClose }: ContentProps) => {
   const isMobile = useIsMobile();
   return (
     <div>
@@ -43,8 +41,17 @@ const Content = () => {
           gap: "15px",
         }}
       >
-        <Button style={{ paddingInline: basePadding(15) }}>Confirm</Button>
-        <Button secondary style={{ paddingInline: basePadding(17) }}>
+        <Button
+          style={{ paddingInline: basePadding(15) }}
+          onClick={handleClose}
+        >
+          Confirm
+        </Button>
+        <Button
+          secondary
+          style={{ paddingInline: basePadding(17) }}
+          onClick={handleClose}
+        >
           Cancel
         </Button>
       </div>
@@ -52,8 +59,12 @@ const Content = () => {
   );
 };
 
+interface ContentProps {
+  handleClose: () => void;
+}
+
 export const Default = Template.bind({});
 Default.args = {
   label: "Modal title",
-  children: <Content />,
+  children: ({ handleClose }) => <Content handleClose={handleClose} />,
 };

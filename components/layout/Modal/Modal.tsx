@@ -35,18 +35,28 @@ const Modal = ({
             {t("close")}
           </ButtonControl>
         </Styled.Header>
-        <Styled.Content>{children}</Styled.Content>
+        <Styled.Content>
+          {typeof children === "function"
+            ? children({ handleClose })
+            : children}
+        </Styled.Content>
       </Styled.Modal>
     </Styled.DialogBackdrop>
   );
 };
+
+type RenderChildProps = {
+  handleClose: () => void;
+};
+
+type RenderChild = (props: RenderChildProps) => JSX.Element;
 
 interface Props {
   dialog: DialogProps;
   /** Modal label, displayed next to the close button */
   label: string;
   /** Modal content */
-  children?: JSX.Element | string | null;
+  children?: RenderChild | React.ReactNode;
   /** If false, disables hiding on click outside the drawer */
   hideOnClickOutside: boolean;
 }
