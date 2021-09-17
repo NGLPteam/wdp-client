@@ -39,13 +39,13 @@ export default function UserLayout({
   return (
     <section>
       <BackToAll route="users" />
-      <PageHeader title={memoizedUser?.name} />
+      <PageHeader title={memoizedUser?.name} sidebarLinks={manageRoutes} />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
             <ContentHeader
               headerStyle="secondary"
-              title={t(`navLabels.${activeRoute.label}`)}
+              title={t(activeRoute.label)}
             />
           )}
           {children}

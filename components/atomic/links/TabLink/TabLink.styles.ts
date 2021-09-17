@@ -1,41 +1,36 @@
 import styled, { css } from "styled-components";
-import { basePadding, aTextGlow } from "theme/mixins/appearance";
-import { tLabel } from "theme/mixins/typography";
-
-export const Nav = styled.nav``;
-
-export const List = styled.ul`
-  box-shadow: inset 0 -1px 0 var(--border-color);
-`;
-
-export const Item = styled.li`
-  & + & {
-    margin-inline-start: ${basePadding(8)};
-  }
-`;
+import { aTextGlow, basePadding } from "theme/mixins/appearance";
+import TabLink from "./TabLink";
+type Props = React.ComponentProps<typeof TabLink>;
 
 const activeState = css`
   color: var(--accent-color);
   border-color: var(--accent-color);
 `;
 
-export const Tab = styled.a<Props>`
+export const Tab = styled.a<Pick<Props, "active" | "bottomBorder">>`
   /* Setting default values lets tabs work with any background */
   --tab-color: inherit;
   --tab-hover-color: var(--color-light);
 
-  display: inline-block;
+  display: block;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid
+    ${({ bottomBorder }) =>
+      bottomBorder ? "var(--color-light)" : "transparent"};
   padding-block-end: ${basePadding(2)};
   color: var(--tab-color);
   transition: var(--border-transition), var(--color-transition);
-  ${tLabel("md")}
 
   .a-bg-neutral00 & {
     /* Specific values for white backgrounds */
     --tab-color: var(--neutral80);
     --tab-hover-color: var(--neutral60);
+  }
+
+  .a-bg-brand100 & {
+    --tab-color: inherit;
+    --tab-hover-color: var(--color-light);
   }
 
   &:hover {
@@ -54,9 +49,3 @@ export const Tab = styled.a<Props>`
 
   ${({ active }) => (active ? activeState : "")}
 `;
-
-interface Props {
-  active?: boolean;
-}
-
-export default Tab;

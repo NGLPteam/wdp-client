@@ -38,13 +38,14 @@ export default function CollectionLayout({
         title={memoizedCollection?.title}
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
+        sidebarLinks={manageRoutes}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
             <ContentHeader
               headerStyle="secondary"
-              title={t(`navLabels.${activeRoute.label}`)}
+              title={t(activeRoute.label)}
             />
           )}
           {children}

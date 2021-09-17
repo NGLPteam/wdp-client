@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import SidebarNav from ".";
+import MobileSubNav from ".";
 
-type Props = React.ComponentProps<typeof SidebarNav>;
+type Props = React.ComponentProps<typeof MobileSubNav>;
 
 export default {
-  title: "Components/Atomic/SidebarNav",
-  component: SidebarNav,
+  title: "Components/Atomic/Navs/MobileSubNav",
+  component: MobileSubNav,
   parameters: {
     themes: {
       default: "neutral00",
@@ -40,8 +40,24 @@ const LINKS = [
   },
 ];
 
-export const Default: Story<Props> = (args) => <SidebarNav {...args} />;
+const TABS = [
+  {
+    route: "collection.child.collections",
+    label: "glossary.collection.label_plural",
+  },
+  {
+    route: "collection.child.items",
+    label: "glossary.item.label_plural",
+  },
+  {
+    route: "collection.manage",
+    label: "manage",
+  },
+];
+
+export const Default: Story<Props> = (args) => <MobileSubNav {...args} />;
 
 Default.args = {
-  links: LINKS,
+  sidebarLinks: LINKS,
+  tabRoutes: TABS,
 };

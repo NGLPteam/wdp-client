@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { globalNavRespond } from "theme/mixins/base";
+import { globalNavRespond, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
+import { aHidden } from "theme/mixins/appearance";
 
 export const Toggle = styled.button`
   display: flex;
@@ -16,4 +17,8 @@ export const Toggle = styled.button`
   > * + * {
     margin-inline-start: ${pxToRem("10px")};
   }
+`;
+
+export const Label = styled.label`
+  ${respond(aHidden, 20)}
 `;

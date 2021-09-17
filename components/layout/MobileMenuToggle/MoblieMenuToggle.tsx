@@ -7,7 +7,7 @@ type IconProps = React.ComponentProps<typeof IconFactory>;
 const MobileMenuToggle = ({ onToggle, label, icon }: Props) => {
   return (
     <Styled.Toggle onClick={onToggle}>
-      <span className="t-label-lg">{label}</span>
+      <Styled.Label className="t-label-lg">{label}</Styled.Label>
       <IconFactory icon={icon} size="lg" />
     </Styled.Toggle>
   );
