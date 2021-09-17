@@ -12,6 +12,7 @@ import type {
 } from "@/relay/ItemUpdateFormMutation.graphql";
 import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
 import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
+import { getDateOnly } from "helpers";
 
 export default function ItemUpdateForm({ data, onSuccess }: Props) {
   const {
@@ -21,10 +22,17 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
 
   const {
     thumbnail,
+    visibleAfterAt,
+    visibleUntilAt,
     ...values
   } = useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
 
-  const defaultValues = { ...values, title: values.title || undefined };
+  const defaultValues = {
+    ...values,
+    title: values.title || undefined,
+    visibleAfterAt: getDateOnly(visibleAfterAt),
+    visibleUntilAt: getDateOnly(visibleUntilAt),
+  };
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>(
     (data) => ({ input: { ...data, itemId } }),
@@ -32,7 +40,7 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
   );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+    ({ form: { register, watch } }) => (
       <Forms.Grid>
         <Forms.Input label="forms.item.fields.title" {...register("title")} />
         <Forms.FileUpload
@@ -40,6 +48,10 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
           name="thumbnail"
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
+        />
+        <Forms.Textarea
+          label="forms.item.fields.summary"
+          {...register("summary")}
         />
         <Forms.Select
           label="forms.item.fields.visibility"
@@ -50,18 +62,18 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
           ]}
           {...register("visibility")}
         />
-        <Forms.Textarea
-          label="forms.item.fields.summary"
-          {...register("summary")}
-        />
-        <Forms.Datepicker
-          label="forms.item.fields.visibleAfterAt"
-          {...register("visibleAfterAt")}
-        />
-        <Forms.Datepicker
-          label="forms.item.fields.visibleUntilAt"
-          {...register("visibleUntilAt")}
-        />
+        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+          <Forms.Datepicker
+            label="forms.item.fields.visibleAfterAt"
+            {...register("visibleAfterAt")}
+          />
+        </Forms.HiddenField>
+        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+          <Forms.Datepicker
+            label="forms.item.fields.visibleUntilAt"
+            {...register("visibleUntilAt")}
+          />
+        </Forms.HiddenField>
       </Forms.Grid>
     ),
     []
