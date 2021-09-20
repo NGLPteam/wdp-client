@@ -12,7 +12,7 @@ import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DataViewOptions } from "components/atomic/DataViewToggle";
-import { DrawerLink, ButtonControl } from "components/atomic";
+import { ButtonControlGroup } from "components/atomic";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 
@@ -62,18 +62,22 @@ function ContributorList<T extends OperationType>({
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
   const buttons = (
-    <div className="l-flex l-flex--gap">
-      <DrawerLink drawer="addPerson" passHref>
-        <ButtonControl as="a" icon="plus">
-          {t("actions.create.contributor.person")}
-        </ButtonControl>
-      </DrawerLink>
-      <DrawerLink drawer="addOrganization" passHref>
-        <ButtonControl as="a" icon="plus">
-          {t("actions.create.contributor.organization")}
-        </ButtonControl>
-      </DrawerLink>
-    </div>
+    <ButtonControlGroup
+      buttons={[
+        {
+          drawer: "addPerson",
+          icon: "plus",
+          children: t("actions.create.contributor.person"),
+        },
+        {
+          drawer: "addOrganization",
+          icon: "plus",
+          children: t("actions.create.contributor.organization"),
+        },
+      ]}
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+    />
   );
 
   return (
