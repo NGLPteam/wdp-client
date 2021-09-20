@@ -58,7 +58,7 @@ interface Props {
   /** Modal content */
   children?: RenderChild | React.ReactNode;
   /** If false, disables hiding on click outside the drawer */
-  hideOnClickOutside: boolean;
+  hideOnClickOutside?: boolean;
 }
 
 export default Modal;
