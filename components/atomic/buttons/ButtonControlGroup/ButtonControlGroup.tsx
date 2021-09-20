@@ -6,8 +6,9 @@ import {
 } from "components/atomic";
 import * as Styled from "./ButtonControlGroup.styles";
 
-type ButtonProps = React.ComponentProps<typeof ButtonControl> &
-  React.ComponentProps<typeof ButtonControlDrawer>;
+type ButtonProps =
+  | React.ComponentProps<typeof ButtonControl>
+  | React.ComponentProps<typeof ButtonControlDrawer>;
 
 function ButtonControlGroup({
   buttons,
@@ -17,10 +18,10 @@ function ButtonControlGroup({
   toggleText,
 }: Props) {
   function renderButton(props: ButtonProps, i: number) {
-    const { children, drawer, ...buttonProps } = props;
+    const { children, ...buttonProps } = props;
 
-    return drawer ? (
-      <ButtonControlDrawer key={i} drawer={drawer} {...buttonProps}>
+    return "drawer" in props ? (
+      <ButtonControlDrawer key={i} drawer={props.drawer} {...buttonProps}>
         {children}
       </ButtonControlDrawer>
     ) : (

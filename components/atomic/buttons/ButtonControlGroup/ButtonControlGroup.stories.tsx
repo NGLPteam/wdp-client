@@ -36,6 +36,11 @@ Default.args = {
   toggleLabel: "Options",
   buttons: [
     {
+      children: "Add",
+      drawer: "addPerson",
+      icon: "plus",
+    },
+    {
       children: "Edit",
       icon: "edit",
     },
@@ -52,16 +57,23 @@ WithAuthActions.args = {
   toggleLabel: "Options",
   buttons: [
     {
+      children: "Add",
+      drawer: "addPerson",
+      icon: "plus",
+      actions: "self.add",
+      allowedActions: ["self.edit", "self.add"],
+    },
+    {
       children: "Edit",
       icon: "edit",
       actions: "self.edit",
-      allowedActions: ["self.edit"],
+      allowedActions: ["self.edit", "self.add"],
     },
     {
       children: "Delete",
       icon: "delete",
       actions: "self.delete",
-      allowedActions: ["self.edit"],
+      allowedActions: ["self.edit", "self.add"],
     },
   ],
 };
