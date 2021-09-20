@@ -44,7 +44,9 @@ function HeaderNavLinks({ navigation }: Props) {
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
-    const active = RouteHelper.isRouteNameFuzzyActive(item.route || "");
+    const active = item?.children?.some((item) => {
+      return RouteHelper.isRouteNameFuzzyActive(item.route);
+    });
 
     return (
       <Dropdown
