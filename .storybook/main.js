@@ -8,6 +8,12 @@ module.exports = {
     "@storybook/addon-a11y",
     "storybook-addon-themes",
     "storybook-addon-next-router",
+    "storybook-react-i18next",
+    "@storybook/addon-storysource",
+    "storybook-addon-designs",
+    "storybook-addon-grid/preset",
+    "storybook-addon-pseudo-states",
+    "aria-live-storybook-addon",
   ],
   typescript: {
     check: false,

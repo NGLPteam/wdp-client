@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import { SidebarNav } from "components/atomic";
+import * as Styled from "./ContentSidebar.styles";
+
 type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
 
 /**
@@ -7,12 +9,14 @@ type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
  */
 const ContentSidebar = ({ sidebarLinks, children }: Props) => {
   return (
-    <div className="l-grid">
+    <Styled.Wrapper className="l-grid">
       {sidebarLinks && (
-        <SidebarNav className="l-grid__item--3" links={sidebarLinks} />
+        <Styled.SidebarWrapper className="l-grid__item--3">
+          <SidebarNav links={sidebarLinks} />
+        </Styled.SidebarWrapper>
       )}
       <div className="l-grid__item--9">{children}</div>
-    </div>
+    </Styled.Wrapper>
   );
 };
 

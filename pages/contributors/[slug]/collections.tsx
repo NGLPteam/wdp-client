@@ -1,36 +1,30 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
+import type { GetLayout } from "types/page";
 
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
+import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
-import ErrorPage from "next/error";
 
-function ContributorCollectionContributions() {
-  const queryVars = useBaseListQueryVars();
-  const contributorSlug = useRouteSlug();
-  if (!contributorSlug) return <ErrorPage statusCode={404} />;
-
+function ContributorCollectionContributions({ data }: Props) {
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, contributorSlug }}
-    >
-      {({ data }) => (
-        <ContributorLayout data={data?.contributor}>
-          <CollectionContributionList<Query>
-            data={data?.contributor?.collectionContributions}
-            headerStyle="secondary"
-          />
-        </ContributorLayout>
-      )}
-    </QueryWrapper>
+    <CollectionContributionList<Query>
+      data={data?.contributor?.collectionContributions}
+      headerStyle="secondary"
+    />
   );
 }
 
+const getLayout: GetLayout<Props> = (props) => {
+  return <ContributorLayoutQuery<Query, Props> query={query} {...props} />;
+};
+ContributorCollectionContributions.getLayout = getLayout;
+
 export default ContributorCollectionContributions;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query collectionsSlugContributorsPagesQuery($contributorSlug: Slug!) {

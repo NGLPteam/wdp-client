@@ -1,15 +1,34 @@
 import ButtonControl from "./ButtonControl";
 import { Story } from "@storybook/react";
 import { ICON_KEYS } from "components/factories/IconFactory";
+import { withDesign } from "storybook-addon-designs";
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 
 export default {
   title: "Components/Atomic/Buttons/ButtonControl",
   component: ButtonControl,
+  decorators: [withDesign],
   parameters: {
     themes: {
       default: "neutral00",
     },
+    design: [
+      {
+        type: "figma",
+        url:
+          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A163",
+      },
+      {
+        type: "figma",
+        url:
+          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A157",
+      },
+      {
+        type: "figma",
+        url:
+          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=38%3A240",
+      },
+    ],
   },
   argTypes: {
     icon: {

@@ -1,14 +1,19 @@
 import React, { ReactNode } from "react";
-import { Breadcrumbs, NamedLink, TabNav } from "components/atomic";
+import {
+  Breadcrumbs,
+  NamedLink,
+  TabNav,
+  SidebarNav,
+  MobileSubNav,
+} from "components/atomic";
 import * as Styled from "./PageHeader.styles";
-import { RouteHelper } from "routes";
 import isNil from "lodash/isNil";
-import { useTranslation } from "react-i18next";
 import { ContentHeader } from "components/layout";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type ContentHeaderProps = React.ComponentProps<typeof ContentHeader>;
+type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
 
 /**
  * Wrapper for content header, breadcrumbs, and child tabs
@@ -20,10 +25,8 @@ const PageHeader = ({
   buttons,
   headerStyle = "primary",
   hideHeader = false,
+  sidebarLinks,
 }: Props) => {
-  const activeRoute = RouteHelper.activeRoute();
-  const { t } = useTranslation();
-
   return (
     <Styled.Header
       className={hideHeader ? "a-hidden" : ""}
@@ -37,19 +40,13 @@ const PageHeader = ({
       />
       {tabRoutes && (
         <Styled.TabsWrapper>
-          <TabNav>
-            {tabRoutes.map(({ label, ...namedLinkProps }, i) => (
-              // router and activeRoute may be missing in Storybook
-              <NamedLink key={i} {...namedLinkProps} passHref>
-                <TabNav.Tab
-                  active={activeRoute?.name.includes(namedLinkProps.route)}
-                >
-                  {t(`navLabels.${label}`)}
-                </TabNav.Tab>
-              </NamedLink>
-            ))}
-          </TabNav>
+          <TabNav links={tabRoutes} />
         </Styled.TabsWrapper>
+      )}
+      {(tabRoutes || sidebarLinks) && (
+        <Styled.MobileNavWrapper>
+          <MobileSubNav tabRoutes={tabRoutes} sidebarLinks={sidebarLinks} />
+        </Styled.MobileNavWrapper>
       )}
     </Styled.Header>
   );
@@ -70,6 +67,8 @@ interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   buttons?: React.ReactNode;
   /** Hides the header visually, leaves header in for screen readers */
   hideHeader?: boolean;
+  /** Sidebar links */
+  sidebarLinks?: SidebarNavProps["links"];
 }
 
 export default PageHeader;

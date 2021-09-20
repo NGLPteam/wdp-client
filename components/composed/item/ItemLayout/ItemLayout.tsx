@@ -6,6 +6,7 @@ import {
   useRouteSlug,
   useMaybeFragment,
   useChildRouteLinks,
+  useLatestPresentValue,
 } from "hooks";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
@@ -24,7 +25,8 @@ export default function ItemLayout({
   useRouteHeader?: boolean;
 }) {
   const item = useMaybeFragment(fragment, data);
-  const breadcrumbs = useBreadcrumbs(item || null);
+  const { current: memoizedItem } = useLatestPresentValue(item);
+  const breadcrumbs = useBreadcrumbs(memoizedItem || null);
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
@@ -34,16 +36,17 @@ export default function ItemLayout({
   return (
     <section>
       <PageHeader
-        title={item?.title}
+        title={memoizedItem?.title}
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
+        sidebarLinks={manageRoutes}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
             <ContentHeader
               headerStyle="secondary"
-              title={t(`navLabels.${activeRoute.label}`)}
+              title={t(activeRoute.label)}
             />
           )}
           {children}

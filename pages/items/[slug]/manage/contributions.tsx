@@ -1,35 +1,38 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
+import type { GetLayout } from "types/page";
 
-import ItemLayout from "components/composed/item/ItemLayout";
+import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
-import ErrorPage from "next/error";
 
-function ManageItem() {
-  const queryVars = useBaseListQueryVars();
-  const itemSlug = useRouteSlug();
-  if (!itemSlug) return <ErrorPage statusCode={404} />;
-
+function ManageContributions({ data }: Props) {
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, itemSlug }}
-    >
-      {({ data }) => (
-        <ItemLayout data={data?.item} showSidebar useRouteHeader={false}>
-          <ItemContributionList<Query>
-            nameColumn="contributor"
-            data={data?.item?.contributions}
-            headerStyle="secondary"
-          />{" "}
-        </ItemLayout>
-      )}
-    </QueryWrapper>
+    <ItemContributionList<Query>
+      nameColumn="contributor"
+      data={data?.item?.contributions}
+      headerStyle="secondary"
+    />
   );
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return (
+    <ItemLayoutQuery<Query, Props>
+      useRouteHeader={false}
+      showSidebar
+      query={query}
+      {...props}
+    />
+  );
+};
+ManageContributions.getLayout = getLayout;
+
+export default ManageContributions;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query contributionsManageSlugItemsQuery($itemSlug: Slug!) {
@@ -41,5 +44,3 @@ const query = graphql`
     }
   }
 `;
-
-export default ManageItem;

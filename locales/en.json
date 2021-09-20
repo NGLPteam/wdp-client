@@ -16,6 +16,7 @@
     "delete": "Delete",
     "loading": "Loading",
     "all": "All",
+    "search": "Search",
     "site": {
       "title": "NGLP",
       "description": "...",
@@ -74,7 +75,7 @@
             "title": "title"
           },
           "add": "Add $t({{ itemLabel }})",
-          "remove": "Add $t({{ itemLabel }})"
+          "remove": "Remove $t({{ itemLabel }})"
         }
       },
       "community": {

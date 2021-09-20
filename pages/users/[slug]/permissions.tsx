@@ -1,30 +1,23 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { permissionsManageSlugUsersPagesQuery as Query } from "@/relay/permissionsManageSlugUsersPagesQuery.graphql";
+import type { GetLayout } from "types/page";
+import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
 
-import UserLayout from "components/composed/user/UserLayout";
-import ErrorPage from "next/error";
-
-function UserPermissions() {
-  const queryVars = useBaseListQueryVars();
-  const userSlug = useRouteSlug();
-  if (!userSlug) return <ErrorPage statusCode={404} />;
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ ...queryVars, userSlug }}
-    >
-      {({ data }) => (
-        <UserLayout showSidebar data={data?.user}>
-          User Permissions
-        </UserLayout>
-      )}
-    </QueryWrapper>
-  );
+function UserPermissions({ data: dataIgnored }: Props) {
+  return <div>User Permissions</div>;
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return <UserLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+};
+UserPermissions.getLayout = getLayout;
+
+export default UserPermissions;
+
+type Props = {
+  data: Query["response"];
+};
 
 const query = graphql`
   query permissionsManageSlugUsersPagesQuery($userSlug: Slug!) {
@@ -33,5 +26,3 @@ const query = graphql`
     }
   }
 `;
-
-export default UserPermissions;

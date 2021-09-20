@@ -9,6 +9,7 @@ import {
   useMaybeFragment,
   useRouteSlug,
   useChildRouteLinks,
+  useLatestPresentValue,
 } from "hooks";
 
 export default function CollectionLayout({
@@ -23,26 +24,28 @@ export default function CollectionLayout({
   useRouteHeader?: boolean;
 }) {
   const collection = useMaybeFragment(fragment, data);
-  const breadcrumbs = useBreadcrumbs(collection || null);
+  const { current: memoizedCollection } = useLatestPresentValue(collection);
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("collection.manage", { slug });
   const tabRoutes = useChildRouteLinks("collection", { slug });
+  const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
 
   return (
     <section>
       <PageHeader
-        title={collection?.title}
+        title={memoizedCollection?.title}
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
+        sidebarLinks={manageRoutes}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
             <ContentHeader
               headerStyle="secondary"
-              title={t(`navLabels.${activeRoute.label}`)}
+              title={t(activeRoute.label)}
             />
           )}
           {children}
