@@ -3,6 +3,7 @@ import Link from "next/link";
 import { NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import i18next from "i18next";
+import { RouteHelper } from "routes";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type LinkProps = React.ComponentProps<typeof Link>;
@@ -39,7 +40,12 @@ const renderNavLink = (
     linkComponent = (
       <Wrapper key={i}>
         <NamedLink route={route} passHref>
-          <a className="t-capitalize a-color-accent">{i18next.t(label)}</a>
+          <a
+            className="t-capitalize a-link"
+            aria-current={RouteHelper.isRouteNameFuzzyActive(route)}
+          >
+            {i18next.t(label)}
+          </a>
         </NamedLink>
       </Wrapper>
     );
@@ -51,7 +57,7 @@ const renderNavLink = (
     linkComponent = (
       <Wrapper key={i}>
         <Link href={href} passHref>
-          <a className="t-capitalize a-color-accent">{i18next.t(label)}</a>
+          <a className="t-capitalize a-link">{i18next.t(label)}</a>
         </Link>
       </Wrapper>
     );
