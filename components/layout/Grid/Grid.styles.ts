@@ -11,7 +11,6 @@ const TABLET_BREAK = 70;
 export const Wrapper = styled.div<Partial<Props>>`
   --checkbox-opacity: 0;
   border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
 
   ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
 
@@ -38,7 +37,7 @@ export const Inner = styled.div`
   ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
 
   ${respond(
-    ` 
+    `
     margin-inline-start: auto;
     margin-inline-end: auto;
   `,
