@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
 import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
+import { pxToRem } from "theme/mixins/functions";
 
 export const ProviderBarBlock = styled.div`
   ${globalNavRespond(`display: none`)}
@@ -86,10 +87,45 @@ export const Link = styled.a<LinkProps>`
     `}
 `;
 
+export const AuthLink = styled.button<LinkProps>`
+  --nav-link-border: 2px solid transparent;
+  display: inline-block;
+  color: var(--accent-light);
+  ${tLabel("md")}
+  text-align: left;
+
+  &:hover {
+    --nav-link-border: 2px solid var(--accent-lighter);
+    color: var(--accent-lighter);
+  }
+
+  &:focus-visible {
+    outline: 0;
+    ${aTextGlow("darkMode")}
+  }
+
+  &:active,
+  &[aria-expanded="true"] {
+    --nav-link-border: 2px solid var(--accent-lighter);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+`;
+
 export const LinkText = styled.span`
   transition: var(--border-transition), var(--color-transition);
   border-bottom: var(--nav-link-border);
   padding-block-end: 1px;
+`;
+
+export const Avatar = styled.div`
+  --avatar-top-margin: ${pxToRem("5px")};
+
+  height: ${pxToRem(30)};
+  width: ${pxToRem(30)};
+  border-radius: 50%;
+  background: var(--accent-color);
+  margin-top: var(--avatar-top-margin);
 `;
 
 interface LinkProps {
