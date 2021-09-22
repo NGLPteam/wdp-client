@@ -44,7 +44,7 @@ function ModelList<
 
   // We can also retrieve `selection` from useModelList if we need it, which we eventually
   // will.
-  const { modelGridOrTableProps } = useModelList<T, U, V>({
+  const { selection, modelGridOrTableProps } = useModelList<T, U, V>({
     queryVariables,
     setQueryVariables,
     columns,
@@ -71,7 +71,7 @@ function ModelList<
   const hasRows = modelGridOrTableProps.rows.length > 0;
   return (
     <>
-      <ModelPageCountActions data={data} />
+      <ModelPageCountActions data={data} selection={selection} />
       {queryState.completed && !hasRows ? (
         <NoResultsMessage />
       ) : (
