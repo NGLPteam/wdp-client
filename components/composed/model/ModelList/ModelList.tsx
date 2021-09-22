@@ -13,6 +13,8 @@ import { OperationType } from "relay-runtime";
 import { useQueryStateContext } from "hooks";
 import { ViewOptions } from "utils/view-options";
 
+import type { MultiselectActions } from "react-table";
+
 export interface ModelListProps<
   T extends OperationType,
   U extends PaginatedConnectionish,
@@ -20,6 +22,7 @@ export interface ModelListProps<
 > extends UseModelListProps<T, U, V> {
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
+  multiselectActions?: MultiselectActions<V>;
 }
 
 function ModelList<
@@ -36,6 +39,7 @@ function ModelList<
   columns,
   actions,
   disableSortBy,
+  multiselectActions,
 }: ModelListProps<T, U, V>) {
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
@@ -44,7 +48,7 @@ function ModelList<
 
   // We can also retrieve `selection` from useModelList if we need it, which we eventually
   // will.
-  const { selection, modelGridOrTableProps } = useModelList<T, U, V>({
+  const { selectedFlatRows, modelGridOrTableProps } = useModelList<T, U, V>({
     queryVariables,
     setQueryVariables,
     columns,
@@ -71,7 +75,11 @@ function ModelList<
   const hasRows = modelGridOrTableProps.rows.length > 0;
   return (
     <>
-      <ModelPageCountActions data={data} selection={selection} />
+      <ModelPageCountActions
+        data={data}
+        selectedFlatRows={selectedFlatRows}
+        multiselectActions={multiselectActions}
+      />
       {queryState.completed && !hasRows ? (
         <NoResultsMessage />
       ) : (

@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo, useEffect } from "react";
-import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 import { useTable, useSortBy, useRowSelect } from "react-table";
+import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 import useRowActions from "./useRowActions";
-import type { Column, ModelTableActionProps } from "react-table";
-import { useNoInitialEffect, useRoutePage } from "hooks";
-import type { OperationType } from "relay-runtime";
+import { useRoutePage } from "hooks";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
 import { toEntities } from "../helpers/toEntities";
+
+import type { Column, ModelTableActionProps } from "react-table";
+import type { OperationType } from "relay-runtime";
 
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
@@ -82,6 +83,7 @@ function useModelList<
     prepareRow,
     state: { selectedRowIds: selection, sortBy },
     getToggleAllRowsSelectedProps,
+    selectedFlatRows,
   } = useTable<V>(
     {
       columns,
@@ -118,14 +120,6 @@ function useModelList<
   }, [sortBy]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  // Respond to selection changes.
-  /* eslint-disable no-console */
-  useNoInitialEffect(() => {
-    console.log("Selection changed: ");
-    console.log(selection);
-  }, [selection]);
-  /* eslint-enable no-console */
-
   // Prepare rows
   rows.forEach((row) => prepareRow(row));
 
@@ -137,6 +131,7 @@ function useModelList<
   // Return props for tables or grids as well as any extras.
   return {
     selection,
+    selectedFlatRows,
     modelGridOrTableProps: {
       getTableProps,
       getTableBodyProps,

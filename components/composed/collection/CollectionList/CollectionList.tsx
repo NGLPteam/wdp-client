@@ -8,7 +8,10 @@ import {
 } from "@/relay/CollectionListFragment.graphql";
 import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
-import type { ModelTableActionProps } from "react-table";
+import type {
+  ModelTableActionProps,
+  ModelTableMultiSelectActionProps,
+} from "react-table";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 
@@ -37,6 +40,7 @@ function CollectionList<T extends OperationType>({
     ModelColumns.UpdatedAtColumn<CollectionNode>(),
   ];
 
+  /** Define the actions for a single collection */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<CollectionNode>) =>
       drawerHelper.open("editCollection", { drawerSlug: row.original.slug }),
@@ -47,11 +51,26 @@ function CollectionList<T extends OperationType>({
       ),
   };
 
+  /** Define the actions for multiple collections */
+  const multiselectActions = {
+    handleDelete: ({
+      rows,
+    }: ModelTableMultiSelectActionProps<CollectionNode>) => {
+      const deleteObj = rows.map(({ original }) => ({
+        id: original.id,
+        title: original.title,
+      }));
+      // TODO: Cycle through each collection OR use multi-delete API (TBD)
+      console.info("handleDelete", deleteObj);
+    },
+  };
+
   return (
     <ModelListPage<T, CollectionListFragment, CollectionNode>
       modelName="collection"
       columns={columns}
       actions={actions}
+      multiselectActions={multiselectActions}
       selectable
       data={collections}
       headerStyle={headerStyle}

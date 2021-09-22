@@ -47,7 +47,7 @@ const PageCountActions = ({
           />
         )}
       </Styled.Count>
-      {multiselectActions && selectedCount ? (
+      {multiselectActions && selectedCount > 1 ? (
         <Styled.Actions>{multiselectActions}</Styled.Actions>
       ) : null}
     </Styled.Wrapper>

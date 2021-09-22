@@ -5,48 +5,63 @@ import { ModelPageCountActionsFragment$key } from "@/relay/ModelPageCountActions
 import { PageCountActions } from "components/layout";
 import { ButtonControlGroup } from "components/atomic";
 
-import type { IdType } from "react-table";
+import { MultiselectActions, Row } from "react-table";
 
 interface ModelPageCountActionsProps<
   T extends ModelPageCountActionsFragment$key,
   V extends Record<string, unknown>
 > {
   data?: T | null;
-  selection?: Record<IdType<V>, boolean>;
+  selectedFlatRows?: Row<V>[];
+  multiselectActions?: MultiselectActions<V>;
 }
 
 function ModelPageCountActions<
   T extends ModelPageCountActionsFragment$key,
   V extends Record<string, unknown>
->({ data, selection }: ModelPageCountActionsProps<T, V>) {
+>({
+  data,
+  selectedFlatRows,
+  multiselectActions,
+}: ModelPageCountActionsProps<T, V>) {
+  const { t } = useTranslation();
+
+  // Get page info data
   const enhancedData = useFragment<ModelPageCountActionsFragment$key>(
     fragment,
     data || null
   );
-  const { t } = useTranslation();
 
-  const deleteSelected = () => {
-    console.info("selection to delete", selection);
-  };
+  // Return either a ButtonControlGroup with multiselect actions OR undefined
+  function renderMultiselectActions() {
+    return multiselectActions && selectedFlatRows ? (
+      <ButtonControlGroup
+        toggleLabel="Selection options"
+        menuLabel="Selection options"
+        buttons={[
+          {
+            ...(multiselectActions.handleDelete && {
+              icon: "delete",
+              children: t("delete"),
+              onClick: () => {
+                // Not sure why we need to check for handleDelete again,
+                // but here we are
+                multiselectActions.handleDelete &&
+                  multiselectActions.handleDelete({ rows: selectedFlatRows });
+              },
+            }),
+          },
+        ]}
+      />
+    ) : undefined;
+  }
 
   // Future multiselect options might include 'merge'
   return (
     <PageCountActions
       pageInfo={enhancedData?.pageInfo}
-      selectedCount={selection && Object.keys(selection).length}
-      multiselectActions={
-        <ButtonControlGroup
-          toggleLabel="Selection options"
-          menuLabel="Selection options"
-          buttons={[
-            {
-              icon: "delete",
-              children: t("delete"),
-              onClick: deleteSelected,
-            },
-          ]}
-        />
-      }
+      selectedCount={selectedFlatRows && selectedFlatRows.length}
+      multiselectActions={renderMultiselectActions()}
     />
   );
 }

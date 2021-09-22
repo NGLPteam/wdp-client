@@ -42,6 +42,16 @@ declare module "react-table" {
     row: Row<D>;
   }
 
+  export interface ModelTableMultiSelectActionProps<
+    D extends Record<string, unknown> = Record<string, unknown>
+  > {
+    rows: Row<D>[];
+  }
+
+  export interface MultiselectActions<T extends Record<string, unknown>> {
+    handleDelete?: (props: ModelTableMultiSelectActionProps<T>) => void;
+  }
+
   export interface ModelTableActionOptions<
     D extends Record<string, unknown> = Record<string, unknown>
   > {
