@@ -92,7 +92,7 @@ export const AuthLink = styled.button<LinkProps>`
   display: inline-block;
   color: var(--accent-light);
   ${tLabel("md")}
-  text-align: left;
+  text-align: start;
 
   &:hover {
     --nav-link-border: 2px solid var(--accent-lighter);
@@ -125,7 +125,7 @@ export const Avatar = styled.div`
   width: ${pxToRem(30)};
   border-radius: 50%;
   background: var(--accent-color);
-  margin-top: var(--avatar-top-margin);
+  margin-block-start: var(--avatar-top-margin);
 `;
 
 interface LinkProps {

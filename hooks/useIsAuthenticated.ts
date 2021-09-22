@@ -34,7 +34,6 @@ export function useVisibleToUnauthenticated(): boolean {
 
 export default function useIsAuthenticated(): boolean | null {
   const { keycloak, initialized } = useKeycloak<KeycloakInstance>();
-  console.log("here");
 
   if (!initialized) {
     // In SSR / loading states we treat null as a specific case
@@ -44,7 +43,7 @@ export default function useIsAuthenticated(): boolean | null {
   return keycloak?.authenticated || false;
 }
 
-export function useSignInOut(): any {
+export function useSignInOut(): SignInOut {
   const { keycloak } = useKeycloak<KeycloakInstance>();
   const isAuthenticated = useIsAuthenticated();
 
@@ -53,5 +52,12 @@ export function useSignInOut(): any {
   }, [keycloak]);
   const signOut = useCallback(() => keycloak?.logout(), [keycloak]);
 
-  return isAuthenticated ? signOut : signIn;
+  const handleSignInOut = isAuthenticated ? signOut : signIn;
+
+  return { handleSignInOut, isAuthenticated };
+}
+
+interface SignInOut {
+  handleSignInOut: () => void;
+  isAuthenticated: boolean | null;
 }
