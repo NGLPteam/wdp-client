@@ -11,7 +11,8 @@ import type { ModelListActionsProps } from "components/composed/model/ModelListA
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
 import PageHeader from "components/layout/PageHeader";
-import { useViewPreference } from "hooks";
+import { useIsMobile, useViewPreference } from "hooks";
+import { ViewOptions } from "utils/view-options";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -45,6 +46,11 @@ function ModelListPage<
     `nglp::${modelName}.listView`
   );
 
+  const isMobile = useIsMobile();
+
+  // Lists should always display as grid on mobile
+  const view = isMobile ? ViewOptions.grid : selectedView;
+
   return (
     <section>
       <ModelListHeader
@@ -65,7 +71,7 @@ function ModelListPage<
             queryVariables={queryVariables}
             setQueryVariables={setQueryVariables}
             modelName={modelName}
-            view={selectedView}
+            view={view}
           />
         )}
       </QueryVariablesContext.Consumer>
