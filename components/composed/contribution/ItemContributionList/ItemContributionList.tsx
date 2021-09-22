@@ -14,6 +14,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import { NamedLink } from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -29,6 +30,7 @@ function ItemContributionList<T extends OperationType>({
   );
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
+  const { t } = useTranslation();
 
   const collectionNameColumn = {
     Header: "Name",
@@ -77,7 +79,7 @@ function ItemContributionList<T extends OperationType>({
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
     ModelColumns.StringColumn<ItemContributionNode>({
-      Header: "Role",
+      Header: <>{t("columns.role")}</>,
       id: "role",
     }),
     ModelColumns.CreatedAtColumn<ItemContributionNode>(),
