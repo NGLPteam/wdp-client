@@ -1,12 +1,10 @@
 import React from "react";
-// import SignIn from "components/scaffolding/Auth/SignIn";
-// import SignOut from "components/scaffolding/Auth/SignOut";
+import SignInOut from "components/auth/SignInOut";
 import * as Styled from "./Header.styles";
 import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { useTranslation } from "react-i18next";
 import { RouteHelper } from "routes";
-import { useSignInOut } from "hooks/useIsAuthenticated";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -36,7 +34,6 @@ interface Props {
 
 const HeaderAccount = ({ accountNav }: Props) => {
   const { t } = useTranslation();
-  const { isAuthenticated, handleSignInOut } = useSignInOut();
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
@@ -52,21 +49,11 @@ const HeaderAccount = ({ accountNav }: Props) => {
             <Styled.Avatar />
           </Styled.Link>
         }
-        menuItems={[...item.children.map(renderLink), renderSignInOut()]}
+        menuItems={[
+          ...item.children.map(renderLink),
+          <SignInOut key={"auth"} />,
+        ]}
       />
-    );
-  };
-
-  // Should this be a component?
-  const renderSignInOut = () => {
-    return (
-      <Styled.AuthLink onClick={handleSignInOut}>
-        <Styled.Link>
-          <Styled.LinkText>
-            {isAuthenticated ? "Signout" : "SignIn"}
-          </Styled.LinkText>
-        </Styled.Link>
-      </Styled.AuthLink>
     );
   };
 

@@ -17,6 +17,8 @@
     "loading": "Loading",
     "all": "All",
     "search": "Search",
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
     "site": {
       "title": "NGLP",
       "description": "...",
