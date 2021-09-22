@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
-import TableSortButton from "./TableSortButton";
+import TableSortIcon from "./TableSortIcon";
 import { Checkbox } from "components/forms";
 import { HeaderGroup, ColumnInstance } from "react-table";
 import { CheckboxProps } from "types/form-fields";
@@ -52,8 +52,11 @@ function TableHeader<T extends Record<string, unknown>>({
                 >
                   <Styled.HeaderCellInner>
                     {column.render("Header")}
-                    {column.isSorted && (
-                      <TableSortButton desc={column.isSortedDesc || null} />
+                    {column.canSort && (
+                      <TableSortIcon
+                        desc={column.isSortedDesc}
+                        isSorted={column.isSorted}
+                      />
                     )}
                   </Styled.HeaderCellInner>
                 </Styled.HeaderCell>
@@ -70,7 +73,7 @@ function TableHeader<T extends Record<string, unknown>>({
 
 type RequiredHeaderProps<T extends Record<string, unknown>> = Pick<
   ColumnInstance<T>,
-  "getHeaderProps" | "render"
+  "getHeaderProps" | "render" | "canSort"
 >;
 
 type OptionalHeaderProps<T extends Record<string, unknown>> = Partial<
