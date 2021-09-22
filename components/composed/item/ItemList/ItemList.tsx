@@ -11,6 +11,7 @@ import type { ModelTableActionProps } from "react-table";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ALL_VIEW_OPTIONS } from "utils/view-options";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -54,6 +55,7 @@ function ItemList<T extends OperationType>({
       data={items}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      viewOptions={ALL_VIEW_OPTIONS}
     />
   );
 }

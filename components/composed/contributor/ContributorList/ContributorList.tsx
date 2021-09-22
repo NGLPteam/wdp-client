@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { ButtonControlGroup } from "components/atomic";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
@@ -86,7 +85,6 @@ function ContributorList<T extends OperationType>({
       buttons={buttons}
       columns={columns}
       actions={actions}
-      viewOptions={[DataViewOptions.table]}
       data={contributors}
       headerStyle={headerStyle}
       hideHeader={hideHeader}

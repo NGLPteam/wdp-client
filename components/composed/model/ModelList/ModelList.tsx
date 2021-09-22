@@ -1,5 +1,4 @@
 import React from "react";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
@@ -12,13 +11,14 @@ import { ModelNames } from "helpers";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
 import { useQueryStateContext } from "hooks";
+import { ViewOptions } from "utils/view-options";
 
 export interface ModelListProps<
   T extends OperationType,
   U extends PaginatedConnectionish,
   V extends Record<string, unknown>
 > extends UseModelListProps<T, U, V> {
-  view: DataViewOptions;
+  view: ViewOptions;
   modelName: Lowercase<ModelNames>;
 }
 
@@ -54,10 +54,10 @@ function ModelList<
 
   let ModelListType;
   switch (view) {
-    case DataViewOptions.table:
+    case ViewOptions.table:
       ModelListType = ModelTable;
       break;
-    case DataViewOptions.grid:
+    case ViewOptions.grid:
       ModelListType = ModelGrid;
       break;
     default:

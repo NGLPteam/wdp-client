@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import type { ReactNode } from "react";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import ModelListHeader from "components/composed/model/ModelListHeader";
 import ModelListActions from "components/composed/model/ModelListActions";
 import { ModelPaginationFragment$key } from "@/relay/ModelPaginationFragment.graphql";
@@ -11,8 +10,8 @@ import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
-import { useIsMobile } from "hooks";
 import PageHeader from "components/layout/PageHeader";
+import { useViewPreference } from "hooks";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -27,7 +26,6 @@ type ModelListPageProps<
 > = Omit<ModelListProps<T, U, V>, "view"> &
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
-    defaultView?: ModelListActionsProps["active"];
     buttons?: ReactNode;
   };
 
@@ -39,17 +37,13 @@ function ModelListPage<
   modelName,
   buttons,
   viewOptions,
-  defaultView,
   headerStyle,
   hideHeader,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
-  const isMobile = useIsMobile();
-  const [view, setView] = useState(defaultView || DataViewOptions.table);
-
-  useEffect(() => {
-    if (isMobile) setView(DataViewOptions.grid);
-  }, [isMobile]);
+  const [selectedView, setView] = useViewPreference(
+    `nglp::${modelName}.listView`
+  );
 
   return (
     <section>
@@ -61,7 +55,7 @@ function ModelListPage<
       />
       <ModelListActions
         viewOptions={viewOptions}
-        active={view}
+        selectedView={selectedView}
         setView={setView}
       />
       <QueryVariablesContext.Consumer>
@@ -71,7 +65,7 @@ function ModelListPage<
             queryVariables={queryVariables}
             setQueryVariables={setQueryVariables}
             modelName={modelName}
-            view={view}
+            view={selectedView}
           />
         )}
       </QueryVariablesContext.Consumer>

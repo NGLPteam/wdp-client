@@ -1,25 +1,26 @@
 import React, { useCallback } from "react";
 import { ButtonControl } from "components/atomic";
+import { ALL_VIEW_OPTIONS, ViewOptions } from "utils/view-options";
 
 const DataViewToggle = ({
-  viewOptions = [DataViewOptions.table, DataViewOptions.grid],
+  viewOptions = ALL_VIEW_OPTIONS,
   selectedView,
   controlsID,
   onClick,
 }: DataViewToggleProps) => {
   const selectGrid = useCallback(() => {
-    onClick(DataViewOptions.grid);
+    onClick(ViewOptions.grid);
   }, [onClick]);
 
   const selectTable = useCallback(() => {
-    onClick(DataViewOptions.table);
+    onClick(ViewOptions.table);
   }, [onClick]);
 
   if (viewOptions.length === 1) return null;
 
   return (
     <div className="l-flex l-flex--gap-sm">
-      {viewOptions.includes(DataViewOptions.grid) && (
+      {viewOptions.includes(ViewOptions.grid) && (
         <ButtonControl
           icon="viewGrid"
           aria-controls={controlsID}
@@ -29,7 +30,7 @@ const DataViewToggle = ({
           onClick={selectGrid}
         />
       )}
-      {viewOptions.includes(DataViewOptions.table) && (
+      {viewOptions.includes(ViewOptions.table) && (
         <ButtonControl
           icon="viewList"
           aria-controls={controlsID}
@@ -43,16 +44,11 @@ const DataViewToggle = ({
   );
 };
 
-export enum DataViewOptions {
-  table = "table",
-  grid = "grid",
-}
-
 export interface DataViewToggleProps {
-  selectedView: DataViewOptions;
+  selectedView: ViewOptions;
   controlsID: string;
-  viewOptions?: DataViewOptions[];
-  onClick: (view: DataViewOptions) => void;
+  viewOptions?: ViewOptions[];
+  onClick: (view: ViewOptions) => void;
 }
 
 export default DataViewToggle;

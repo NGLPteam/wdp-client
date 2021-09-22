@@ -11,7 +11,6 @@ import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import PageHeader from "components/layout/PageHeader";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -48,7 +47,6 @@ function CommunityList<T extends OperationType>({
   return (
     <ModelListPage<T, CommunityListFragment, CommunityNode>
       modelName="community"
-      viewOptions={[DataViewOptions.table]}
       columns={columns}
       actions={actions}
       data={communities}

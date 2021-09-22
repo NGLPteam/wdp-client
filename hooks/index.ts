@@ -26,3 +26,5 @@ export { default as usePrevious } from "./usePrevious";
 export { default as useDrawerHelper } from "./useDrawerHelper";
 export { default as useDestroyer } from "./useDestroyer";
 export { default as useChildRouteLinks } from "./useChildRouteLinks";
+export { default as useLocalStorage } from "./useLocalStorage";
+export { default as useViewPreference } from "./useViewPreference";

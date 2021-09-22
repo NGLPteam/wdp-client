@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { Row } from "react-table";
 import Grid from "components/layout/Grid/Grid";
-// import { DataViewOptions } from "components/atomic/DataViewToggle";
 
 function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
   const actions = useMemo(
