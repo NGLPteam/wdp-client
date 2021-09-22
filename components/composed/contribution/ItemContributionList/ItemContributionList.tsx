@@ -11,7 +11,6 @@ import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { NamedLink } from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
@@ -103,7 +102,6 @@ function ItemContributionList<T extends OperationType>({
       modelName="item_contribution"
       columns={columns}
       actions={actions}
-      viewOptions={[DataViewOptions.table]}
       data={itemContributions}
       headerStyle={headerStyle}
       hideHeader={hideHeader}

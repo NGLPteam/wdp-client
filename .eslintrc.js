@@ -29,7 +29,7 @@ module.exports = {
       },
     ],
     // Allow console.info & .warn
-    "no-console": ["error", { allow: ["info", "warn"] }],
+    "no-console": ["error", { allow: ["info", "warn", "error"] }],
     // The alt attribute on an Image component is in the image object
     // Stop false positives on the Image component
     "jsx-a11y/alt-text": [

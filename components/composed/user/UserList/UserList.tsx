@@ -10,7 +10,6 @@ import { CellProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import PageHeader from "components/layout/PageHeader";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -45,7 +44,6 @@ function UserList<T extends OperationType>({
     <ModelListPage<T, UserListFragment, UserNode>
       modelName="user"
       columns={columns}
-      viewOptions={[DataViewOptions.table]}
       data={users}
       headerStyle={headerStyle}
       hideHeader={hideHeader}

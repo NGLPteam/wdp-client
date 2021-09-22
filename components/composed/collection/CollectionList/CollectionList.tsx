@@ -10,6 +10,7 @@ import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
 import PageHeader from "components/layout/PageHeader";
+import { ALL_VIEW_OPTIONS } from "utils/view-options";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -55,6 +56,7 @@ function CollectionList<T extends OperationType>({
       data={collections}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      viewOptions={ALL_VIEW_OPTIONS}
     />
   );
 }

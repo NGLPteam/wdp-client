@@ -1,21 +1,21 @@
 import React, { useCallback } from "react";
-import { DataViewOptions } from "components/atomic/DataViewToggle";
 import { PageActions } from "components/layout";
 import { Search } from "components/forms";
 import { DataViewToggle } from "components/atomic";
 import { useRouter } from "next/router";
 import useIsMobile from "hooks/useIsMobile";
+import { ViewOptions, DEFAULT_VIEW_OPTIONS } from "utils/view-options";
 
 export interface ModelListActionsProps {
-  active: DataViewOptions;
-  setView: React.Dispatch<React.SetStateAction<DataViewOptions>>;
-  viewOptions?: DataViewOptions[];
+  viewOptions?: ViewOptions[];
+  setView: React.Dispatch<React.SetStateAction<ViewOptions>>;
+  selectedView: ViewOptions;
 }
 
 function ModelListActions({
-  active,
+  viewOptions = DEFAULT_VIEW_OPTIONS,
   setView,
-  viewOptions = [DataViewOptions.table, DataViewOptions.grid],
+  selectedView,
 }: ModelListActionsProps) {
   const router = useRouter();
   const isNotMobile = !useIsMobile();
@@ -39,8 +39,8 @@ function ModelListActions({
       actions={
         (isNotMobile && (
           <DataViewToggle
-            selectedView={active}
             viewOptions={viewOptions}
+            selectedView={selectedView}
             controlsID="id"
             onClick={setView}
           />
