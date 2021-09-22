@@ -166,17 +166,10 @@ export const Row = styled.tr`
   }
 `;
 
-export const SortButton = styled.button`
-  display: inline-flex;
+export const SortIcon = styled.button`
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  ${tLabel("sm")}
-  text-align: start;
-  transition: var(--color-transition);
-
-  > span {
-    padding-inline-end: ${pxToRem("10px")};
-  }
+  padding-inline-start: ${pxToRem("8px")};
 
   &:hover {
     color: var(--accent-light);
