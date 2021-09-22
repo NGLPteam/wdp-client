@@ -24,6 +24,8 @@ export interface UseModelListProps<
   selectable?: boolean;
   queryVariables?: T["variables"];
   setQueryVariables?: React.Dispatch<React.SetStateAction<T["variables"]>>;
+  /** Disable sorting on all columns */
+  disableSortBy?: boolean;
 }
 
 function useModelList<
@@ -37,6 +39,7 @@ function useModelList<
   selectable = false,
   queryVariables,
   setQueryVariables,
+  disableSortBy,
 }: UseModelListProps<T, U, V>) {
   // Extract entities from the connectionish data
   const entities = useMemo(() => toEntities<U, V>(data), [data]);
@@ -88,6 +91,7 @@ function useModelList<
       disableMultiSort: true,
       initialState,
       actions: rowActions,
+      disableSortBy,
     },
     ...tableHooks
   );
