@@ -10,6 +10,7 @@ import type {
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -20,11 +21,13 @@ function UserList<T extends OperationType>({
 }: UserListProps) {
   const users = useMaybeFragment<UserListFragment$key>(fragment, data);
 
+  const { t } = useTranslation();
+
   const columns = [
     ModelColumns.NameColumn<UserNode>({ route: "user", accessor: "name" }),
     ModelColumns.EmailColumn<UserNode>(),
     ModelColumns.BooleanColumn<UserNode>({
-      Header: "Admin?",
+      Header: <>{t("columns.admin")}</>,
       id: "admin",
     }),
     ModelColumns.CreatedAtColumn<UserNode>(),

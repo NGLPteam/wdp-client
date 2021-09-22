@@ -220,6 +220,15 @@
       "permissions": "Permissions",
       "collectionContributions": "Collection Contributions",
       "itemContributions": "Item Contributions"
+    },
+    "columns": {
+      "admin": "Admin?",
+      "createdAt": "Created At",
+      "email": "Email",
+      "name": "Name",
+      "role": "Role",
+      "thumbnail": "Thumbnail",
+      "updatedAt": "Updated At"
     }
   }
 }

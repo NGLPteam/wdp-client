@@ -14,6 +14,7 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,6 +26,7 @@ function CollectionContributionList<T extends OperationType>({
 }: CollectionContributionListProps) {
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
+  const { t } = useTranslation();
 
   /* eslint-disable max-len */
   const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
@@ -80,7 +82,7 @@ function CollectionContributionList<T extends OperationType>({
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
     ModelColumns.StringColumn<CollectionContributionNode>({
-      Header: "Role",
+      Header: <>{t("columns.role")}</>,
       id: "role",
     }),
     ModelColumns.CreatedAtColumn<CollectionContributionNode>(),

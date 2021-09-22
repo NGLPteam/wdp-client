@@ -2,7 +2,7 @@ import { CellProps, Column } from "react-table";
 import { PartialColumnish, Node } from "./types";
 
 type Props<T extends Node> = PartialColumnish<T> & {
-  Header: string;
+  Header: string | React.ReactNode;
   id: string;
 };
 

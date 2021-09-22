@@ -1,13 +1,16 @@
 import { Column } from "react-table";
 import { CreatableNode, PartialColumnish } from "./types";
 import { formatDate } from "helpers";
+import { useTranslation } from "react-i18next";
 
 const CreatedAtColumn = <NodeType extends CreatableNode>(
   props: PartialColumnish<NodeType> = {}
 ): Column<NodeType> => {
+  const { t } = useTranslation();
+
   return {
     align: "left",
-    Header: "Created At",
+    Header: <>{t("columns.createdAt")}</>,
     id: "createdAt",
     disableSortBy: true,
     truncate: true,

@@ -2,6 +2,7 @@ import React from "react";
 import { Column } from "react-table";
 import { PartialColumnish, Node } from "./types";
 import { Image } from "components/atomic";
+import { useTranslation } from "react-i18next";
 
 export interface Png {
   alt: string;
@@ -22,8 +23,10 @@ export interface ThumbnailNode extends Node {
 const ThumbnailColumn = <NodeType extends ThumbnailNode>(
   props: PartialColumnish<NodeType> = {}
 ): Column<NodeType> => {
+  const { t } = useTranslation();
+
   return {
-    Header: <span className="a-hidden">Thumbnail</span>,
+    Header: <span className="a-hidden">{t("columns.thumbnail")}</span>,
     id: "thumbnail",
     accessor: (row: NodeType) => row?.thumbnail?.image,
     disableSortBy: true,
