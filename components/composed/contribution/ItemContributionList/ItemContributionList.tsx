@@ -76,12 +76,10 @@ function ItemContributionList<T extends OperationType>({
 
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
-    {
+    ModelColumns.StringColumn<ItemContributionNode>({
       Header: "Role",
       id: "role",
-      accessor: (originalRow: ItemContributionNode) => originalRow.role,
-      disableSortBy: true,
-    },
+    }),
     ModelColumns.CreatedAtColumn<ItemContributionNode>(),
   ];
 

@@ -79,12 +79,10 @@ function CollectionContributionList<T extends OperationType>({
 
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
-    {
+    ModelColumns.StringColumn<CollectionContributionNode>({
       Header: "Role",
       id: "role",
-      accessor: (originalRow: CollectionContributionNode) => originalRow.role,
-      disableSortBy: true,
-    },
+    }),
     ModelColumns.CreatedAtColumn<CollectionContributionNode>(),
   ];
 

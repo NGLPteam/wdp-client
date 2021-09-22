@@ -6,7 +6,6 @@ import type {
   UserListFragment,
   UserListFragment$key,
 } from "@/relay/UserListFragment.graphql";
-import { CellProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -23,18 +22,11 @@ function UserList<T extends OperationType>({
 
   const columns = [
     ModelColumns.NameColumn<UserNode>({ route: "user", accessor: "name" }),
-    {
-      Header: "Email",
-      id: "email",
-      accessor: (originalRow: UserNode) => originalRow.email,
-    },
-    {
+    ModelColumns.EmailColumn<UserNode>(),
+    ModelColumns.BooleanColumn<UserNode>({
       Header: "Admin?",
       id: "admin",
-      accessor: (originalRow: UserNode) => originalRow.globalAdmin,
-      Cell: ({ value }: CellProps<UserNode>) =>
-        value && value === true ? "Yes" : "No",
-    },
+    }),
     ModelColumns.CreatedAtColumn<UserNode>(),
   ];
 
