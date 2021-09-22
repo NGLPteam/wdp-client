@@ -35,6 +35,7 @@ function ModelList<
   view,
   columns,
   actions,
+  disableSortBy,
 }: ModelListProps<T, U, V>) {
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
@@ -50,6 +51,7 @@ function ModelList<
     actions,
     data,
     selectable,
+    disableSortBy,
   });
 
   let ModelListType;

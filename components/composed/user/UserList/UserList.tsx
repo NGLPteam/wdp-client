@@ -27,13 +27,11 @@ function UserList<T extends OperationType>({
       Header: "Email",
       id: "email",
       accessor: (originalRow: UserNode) => originalRow.email,
-      disableSortBy: true,
     },
     {
       Header: "Admin?",
       id: "admin",
       accessor: (originalRow: UserNode) => originalRow.globalAdmin,
-      disableSortBy: true,
       Cell: ({ value }: CellProps<UserNode>) =>
         value && value === true ? "Yes" : "No",
     },
@@ -47,6 +45,7 @@ function UserList<T extends OperationType>({
       data={users}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      disableSortBy
     />
   );
 }
