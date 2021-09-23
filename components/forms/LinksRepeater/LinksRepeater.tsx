@@ -10,6 +10,7 @@ import type {
 } from "react-hook-form";
 import { Forms } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
+import useIsMobile from "hooks/useIsMobile";
 
 function LinksRepeater<T extends FieldValues = FieldValues>({
   label,
@@ -23,6 +24,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
     control,
     name,
   });
+  const isMobile = useIsMobile();
 
   const handleAddField = () => {
     append({ title: "", url: "" });
@@ -57,8 +59,10 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
                 remove(index);
               }}
               icon="delete"
-              size="large"
-            />
+              size={!isMobile ? "large" : undefined}
+            >
+              {isMobile ? "Delete" : null}
+            </ButtonControl>
           </Fieldset.Actions>
         </Fieldset.Fields>
       ))}
@@ -66,7 +70,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
         type="button"
         onClick={handleAddField}
         icon="plus"
-        size="large"
+        size={!isMobile ? "large" : undefined}
       >
         {t("forms.inputs.linkRepeater.add", { itemLabel })}
       </ButtonControl>
