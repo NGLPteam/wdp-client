@@ -201,6 +201,10 @@
       "link": {
         "label": "link",
         "label_plural": "links"
+      },
+      "ordering": {
+        "label": "ordering",
+        "label_plural": "orderings"
       }
     },
     "name": "name",
