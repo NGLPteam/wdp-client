@@ -35,19 +35,19 @@ function EntityLinksList<T extends OperationType>({
   const columns = [
     ModelColumns.NameColumn<EntityLinksNode>({
       route: "collection",
-      accessor: "source",
+      accessor: "target",
       Cell: ({ row, value }: CellProps<EntityLinksNode>) => {
-        if (!row?.original?.source?.slug) return value.slug;
+        if (!row?.original?.target?.slug) return value.slug;
 
         const route =
-          row?.original?.source?.schemaDefinition?.kind === "COLLECTION"
+          row?.original?.target?.schemaDefinition?.kind === "COLLECTION"
             ? "collection"
             : "item";
 
         return (
           <NamedLink
             route={route}
-            routeParams={{ slug: row.original.source.slug }}
+            routeParams={{ slug: row.original.target.slug }}
             passHref
           >
             <a className="t-weight-md a-link">{value.title}</a>
@@ -57,7 +57,7 @@ function EntityLinksList<T extends OperationType>({
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
       Header: <>{t("columns.schema")}</>,
-      id: "source.schemaDefinition.name",
+      id: "target.schemaDefinition.name",
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
       Header: <>{t("columns.type")}</>,
@@ -91,7 +91,7 @@ const fragment = graphql`
       id
       slug
       operator
-      source {
+      target {
         ... on Item {
           slug
           title
