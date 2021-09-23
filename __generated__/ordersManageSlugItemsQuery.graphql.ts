@@ -9,6 +9,9 @@ export type ordersManageSlugItemsQueryVariables = {
 };
 export type ordersManageSlugItemsQueryResponse = {
     readonly item: {
+        readonly orderings: {
+            readonly " $fragmentRefs": FragmentRefs<"EntityOrderingsListFragment">;
+        };
         readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
@@ -25,14 +28,47 @@ query ordersManageSlugItemsQuery(
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutFragment
+    orderings {
+      ...EntityOrderingsListFragment
+    }
     id
   }
+}
+
+fragment EntityOrderingsListFragment on OrderingConnection {
+  nodes {
+    id
+    name
+    slug
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
 }
 
 fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    perPage
+    hasNextPage
+    hasPreviousPage
+    totalCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+  }
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -92,6 +128,22 @@ return {
         "plural": false,
         "selections": [
           {
+            "alias": null,
+            "args": null,
+            "concreteType": "OrderingConnection",
+            "kind": "LinkedField",
+            "name": "orderings",
+            "plural": false,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "EntityOrderingsListFragment"
+              }
+            ],
+            "storageKey": null
+          },
+          {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ItemLayoutFragment"
@@ -125,6 +177,97 @@ return {
             "storageKey": null
           },
           (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "OrderingConnection",
+            "kind": "LinkedField",
+            "name": "orderings",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Ordering",
+                "kind": "LinkedField",
+                "name": "nodes",
+                "plural": true,
+                "selections": [
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "page",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "pageCount",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "perPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "type": "Paginated",
+                "abstractKey": "__isPaginated"
+              }
+            ],
+            "storageKey": null
+          },
           (v3/*: any*/),
           {
             "kind": "InlineFragment",
@@ -173,14 +316,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "06bb6105d2a33e5847d6a7f5dcf5643b",
+    "cacheID": "516acb14509a18448697892b3a2effae",
     "id": null,
     "metadata": {},
     "name": "ordersManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    orderings {\n      ...EntityOrderingsListFragment\n    }\n    id\n  }\n}\n\nfragment EntityOrderingsListFragment on OrderingConnection {\n  nodes {\n    id\n    name\n    slug\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e9e183488ee123f4cca445f395d583b7';
+(node as any).hash = 'd863139307766ead401e39e20947f928';
 export default node;
