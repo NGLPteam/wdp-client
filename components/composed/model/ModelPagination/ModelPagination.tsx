@@ -14,7 +14,13 @@ function ModelPagination<T extends ModelPaginationFragment$key>({
     fragment,
     data || null
   );
-  if (!enhancedData || !enhancedData.pageInfo) return null;
+  if (
+    !enhancedData ||
+    !enhancedData.pageInfo ||
+    !enhancedData.pageInfo.pageCount ||
+    enhancedData.pageInfo.pageCount === 1
+  )
+    return null;
 
   return (
     <Pagination

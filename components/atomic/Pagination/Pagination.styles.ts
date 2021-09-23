@@ -10,7 +10,8 @@ const Pagination = styled(PaginationWrapper)<Props>`
   --input-padding: 0 0 0 ${basePadding(1)};
   display: flex;
   align-items: center;
-  margin-block-start: ${basePadding(6)};
+  padding-block-start: ${basePadding(6)};
+  border-top: 1px solid var(--border-color);
 
   > * + *,
   &__total {

@@ -27,7 +27,6 @@ export const TableWrapper = styled.div<TableWrapperProps>`
     `}
 
   border-top: var(--table-border);
-  border-bottom: var(--table-border);
 
   ${respond(
     css`
