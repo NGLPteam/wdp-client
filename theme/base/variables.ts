@@ -44,10 +44,10 @@ export const colors = {
 };
 
 export const zIndex = {
-  dropdown: 100,
   drawer: 200,
   "drawer-backdrop": 199,
   modal: 300,
+  dropdown: 400,
 };
 
 // Set color variables from colors object

@@ -7,9 +7,14 @@ import type {
 } from "@/relay/CollectionContributionListFragment.graphql";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
+import {
+  useMaybeFragment,
+  useDestroyer,
+  useDrawerHelper,
+  useRouteSlug,
+} from "hooks";
 
-import { NamedLink } from "components/atomic";
+import { ButtonControlGroup, NamedLink } from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
@@ -26,6 +31,7 @@ function CollectionContributionList<T extends OperationType>({
 }: CollectionContributionListProps) {
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
+  const slug = useRouteSlug();
   const { t } = useTranslation();
 
   /* eslint-disable max-len */
@@ -102,6 +108,25 @@ function CollectionContributionList<T extends OperationType>({
       ),
   };
 
+  const drawerQuery = slug ? { drawerSlug: slug } : undefined;
+
+  // TODO: We need an authorization check here. The contributors.create check doesn't
+  //  exist yet in the API.
+  const buttons = (
+    <ButtonControlGroup
+      buttons={[
+        {
+          drawer: "addContribution",
+          drawerQuery,
+          icon: "plus",
+          children: t("actions.create.contribution"),
+        },
+      ]}
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+    />
+  );
+
   return (
     <ModelListPage<
       T,
@@ -111,6 +136,7 @@ function CollectionContributionList<T extends OperationType>({
       modelName="collection_contribution"
       columns={columns}
       actions={actions}
+      buttons={buttons}
       data={collectionContributions}
       headerStyle={headerStyle}
       hideHeader={hideHeader}

@@ -32,6 +32,7 @@
       "editItemContribution.title": "Edit Item Contribution",
       "editCollectionContribution.title": "Edit Collection Contribution",
       "createCommunity.title": "Create New Community",
+      "createContribution.title": "Create New Contribution",
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
@@ -42,6 +43,7 @@
       "add": "Add $t({{ name }})",
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
+      "create.contribution": "Create Contribution",
       "edit.itemContribution": "Edit Item Contribution",
       "edit.collectionContribution": "Edit Collection Contribution",
       "create.community": "Create Community",
@@ -108,6 +110,9 @@
           "item": "Item",
           "collection": "Collection",
           "object": "Contribution on"
+        },
+        "create": {
+          "success": "Contribution created."
         },
         "update": {
           "success": "Contribution updated."

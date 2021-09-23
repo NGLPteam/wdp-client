@@ -9,6 +9,7 @@ import CommunityUpdateDrawer from "components/composed/community/CommunityUpdate
 import CollectionUpdateDrawer from "components/composed/collection/CollectionUpdateDrawer";
 import ContributorUpdateDrawer from "components/composed/contributor/ContributorUpdateDrawer";
 import ItemUpdateDrawer from "components/composed/item/ItemUpdateDrawer";
+import ContributionCreateDrawer from "components/composed/contribution/CollectionContributionCreateDrawer";
 
 import omitBy from "lodash/omitBy";
 import pickBy from "lodash/pickBy";
@@ -16,6 +17,7 @@ import pickBy from "lodash/pickBy";
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
   addOrganization: ContributorCreateOrganizationDrawer,
+  addContribution: ContributionCreateDrawer,
   editItemContribution: ItemContributionEditDrawer,
   editCollectionContribution: CollectionContributionEditDrawer,
   addCommunity: CommunityCreateDrawer,
@@ -85,7 +87,7 @@ export function useDrawerHelper() {
   };
 }
 
-type DrawerParams = Record<string, string>;
+export type DrawerParams = Record<string, string>;
 export type Drawers = keyof typeof drawerRegistry;
 
 export default useDrawerHelper;

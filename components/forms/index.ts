@@ -11,3 +11,5 @@ export { default as Typeahead } from "./Typeahead";
 export { default as Fieldset } from "./Fieldset";
 export { default as LinksRepeater } from "./LinksRepeater";
 export { default as HiddenField } from "./HiddenField";
+// TODO: Figure out why Forms.ContributorTypeahead does not work locally
+// export { default as ContributorTypeahead } from "./ContributorTypeahead";
