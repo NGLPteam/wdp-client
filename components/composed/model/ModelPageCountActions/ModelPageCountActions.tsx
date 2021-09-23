@@ -1,7 +1,8 @@
 import React from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
 import { ModelPageCountActionsFragment$key } from "@/relay/ModelPageCountActionsFragment.graphql";
 import { PageCountActions } from "components/layout";
+import { useMaybeFragment } from "hooks";
 
 interface ModelPageCountActionsProps<
   T extends ModelPageCountActionsFragment$key
@@ -12,12 +13,14 @@ interface ModelPageCountActionsProps<
 function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
   data,
 }: ModelPageCountActionsProps<T>) {
-  const enhancedData = useFragment<ModelPageCountActionsFragment$key>(
+  const enhancedData = useMaybeFragment<ModelPageCountActionsFragment$key>(
     fragment,
-    data || null
+    data
   );
 
-  return <PageCountActions pageInfo={enhancedData?.pageInfo} />;
+  return enhancedData ? (
+    <PageCountActions pageInfo={enhancedData?.pageInfo} />
+  ) : null;
 }
 
 export default ModelPageCountActions;

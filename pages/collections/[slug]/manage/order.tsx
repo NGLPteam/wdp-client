@@ -1,17 +1,28 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { orderManageSlugCollectionsPagesQuery as Query } from "@/relay/orderManageSlugCollectionsPagesQuery.graphql";
+import type { orderManageSlugOrderingsPagesQuery as Query } from "@/relay/orderManageSlugOrderingsPagesQuery.graphql";
 import type { GetLayout } from "types/page";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
 
-function CollectionOrder({ data: dataIgnored }: Props) {
-  return <div>Collection Order</div>;
+function CollectionOrder({ data }: Props) {
+  return (
+    <EntityOrderingList<Query>
+      data={data?.collection?.orderings}
+      headerStyle="secondary"
+    />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
   return (
-    <CollectionLayoutQuery<Query, Props> showSidebar query={query} {...props} />
+    <CollectionLayoutQuery<Query, Props>
+      showSidebar
+      query={query}
+      useRouteHeader={false}
+      {...props}
+    />
   );
 };
 CollectionOrder.getLayout = getLayout;
@@ -21,9 +32,12 @@ type Props = {
 };
 
 const query = graphql`
-  query orderManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
+  query orderManageSlugOrderingsPagesQuery($collectionSlug: Slug!) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
+      orderings {
+        ...EntityOrderingListFragment
+      }
     }
   }
 `;
