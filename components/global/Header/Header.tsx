@@ -52,7 +52,7 @@ function Header() {
             <GlobalSearch />
           </Styled.SearchBlock>
           <Styled.AccountBlock>
-            <HeaderAccount />
+            <HeaderAccount accountNav={headerData.account} />
           </Styled.AccountBlock>
           <MobileMenuToggle
             onToggle={toggleActive}

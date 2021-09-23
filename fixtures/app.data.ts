@@ -52,6 +52,7 @@ const appData = {
         children: [USERS_LINK, CONTRIBUTORS_LINK],
       },
     ],
+    account: { label: "header.account", children: [] },
   },
   footerData: {
     about: "footer.about.body",

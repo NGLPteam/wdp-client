@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { basePadding, aTextGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
 import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
+import { pxToRem } from "theme/mixins/functions";
 
 export const ProviderBarBlock = styled.div`
   ${globalNavRespond(`display: none`)}
@@ -90,6 +91,16 @@ export const LinkText = styled.span`
   transition: var(--border-transition), var(--color-transition);
   border-bottom: var(--nav-link-border);
   padding-block-end: 1px;
+`;
+
+export const Avatar = styled.div`
+  --avatar-top-margin: ${pxToRem("5px")};
+
+  height: ${pxToRem(30)};
+  width: ${pxToRem(30)};
+  border-radius: 50%;
+  background: var(--accent-color);
+  margin-block-start: var(--avatar-top-margin);
 `;
 
 interface LinkProps {

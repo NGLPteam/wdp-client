@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useKeycloak } from "@react-keycloak/ssr";
 import type { KeycloakInstance } from "keycloak-js";
 
@@ -41,4 +41,23 @@ export default function useIsAuthenticated(): boolean | null {
   }
 
   return keycloak?.authenticated || false;
+}
+
+export function useSignInOut(): SignInOut {
+  const { keycloak } = useKeycloak<KeycloakInstance>();
+  const isAuthenticated = useIsAuthenticated();
+
+  const signIn = useCallback(() => {
+    keycloak?.login();
+  }, [keycloak]);
+  const signOut = useCallback(() => keycloak?.logout(), [keycloak]);
+
+  const handleSignInOut = isAuthenticated ? signOut : signIn;
+
+  return { handleSignInOut, isAuthenticated };
+}
+
+interface SignInOut {
+  handleSignInOut: () => void;
+  isAuthenticated: boolean | null;
 }
