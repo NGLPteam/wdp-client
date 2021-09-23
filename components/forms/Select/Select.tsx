@@ -14,6 +14,7 @@ const Select = forwardRef(
       placeholder,
       options,
       error,
+      multiple,
       ...inputProps
     }: Props,
     ref: Ref<HTMLSelectElement>
@@ -27,7 +28,13 @@ const Select = forwardRef(
       >
         {({ uid }) => (
           <Styled.SelectWrapper>
-            <Styled.SelectInput name={name} id={uid} ref={ref} {...inputProps}>
+            <Styled.SelectInput
+              name={name}
+              id={uid}
+              ref={ref}
+              multiple={multiple}
+              {...inputProps}
+            >
               <option value="">{placeholder}</option>
               {options.map(({ value, label }, i) => (
                 <option key={i} value={value}>
@@ -44,11 +51,12 @@ const Select = forwardRef(
 );
 
 interface Option {
-  label: string;
-  value: string | number;
+  readonly label: string;
+  readonly value: string | number;
 }
 interface Props extends InputProps {
-  options: Option[];
+  options: readonly Option[];
+  multiple?: boolean;
 }
 
 export default Select;
