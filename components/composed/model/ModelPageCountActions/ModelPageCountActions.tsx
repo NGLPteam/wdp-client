@@ -31,7 +31,8 @@ const fragment = graphql`
       hasNextPage
       hasPreviousPage
       totalCount
-      totalUnfilteredCount
+      # This vaulue is currently not used
+      # totalUnfilteredCount
     }
   }
 `;
