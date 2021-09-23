@@ -38,9 +38,15 @@ function EntityLinksList<T extends OperationType>({
       accessor: "source",
       Cell: ({ row, value }: CellProps<EntityLinksNode>) => {
         if (!row?.original?.source?.slug) return value.slug;
+
+        const route =
+          row?.original?.source?.schemaDefinition?.kind === "COLLECTION"
+            ? "collection"
+            : "item";
+
         return (
           <NamedLink
-            route={"collection"}
+            route={route}
             routeParams={{ slug: row.original.source.slug }}
             passHref
           >
