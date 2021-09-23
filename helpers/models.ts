@@ -6,6 +6,7 @@ const MODEL_MAP = {
   CONTRIBUTOR: "contributors",
   COLLECTION_CONTRIBUTION: "collection contributions",
   ITEM_CONTRIBUTION: "item contributions",
+  LINK: "link",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;
