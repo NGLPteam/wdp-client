@@ -11,7 +11,7 @@ export type EntityLinksListFragment = {
         readonly id: string;
         readonly slug: string;
         readonly operator: EntityLinkOperator;
-        readonly source: {
+        readonly target: {
             readonly slug?: string;
             readonly title?: string | null;
             readonly schemaDefinition?: {
@@ -108,7 +108,7 @@ return {
           "args": null,
           "concreteType": null,
           "kind": "LinkedField",
-          "name": "source",
+          "name": "target",
           "plural": false,
           "selections": [
             {
@@ -144,5 +144,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6a60c42b5af33d5f9cceacea438c0820';
+(node as any).hash = 'eb192e09a825f6bcea09ce6ee834c223';
 export default node;
