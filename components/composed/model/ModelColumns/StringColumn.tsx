@@ -1,6 +1,7 @@
 import React from "react";
 import { Column } from "react-table";
 import { PartialColumnish, Node } from "./types";
+import get from "lodash/get";
 
 type Props<T extends Node> = PartialColumnish<T> & {
   Header: string | React.ReactNode;
@@ -15,7 +16,7 @@ const StringColumn = <T extends Node>({
   return {
     Header,
     id,
-    accessor: (originalRow: T) => originalRow[id],
+    accessor: (originalRow: T) => get(originalRow, id),
     disableSortBy: true,
     ...props,
   };

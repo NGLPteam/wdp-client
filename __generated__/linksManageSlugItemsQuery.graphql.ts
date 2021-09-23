@@ -9,6 +9,9 @@ export type linksManageSlugItemsQueryVariables = {
 };
 export type linksManageSlugItemsQueryResponse = {
     readonly item: {
+        readonly links: {
+            readonly " $fragmentRefs": FragmentRefs<"EntityLinksListFragment">;
+        };
         readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
@@ -25,14 +28,72 @@ query linksManageSlugItemsQuery(
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutFragment
+    links {
+      ...EntityLinksListFragment
+    }
     id
   }
+}
+
+fragment EntityLinksListFragment on EntityLinkConnection {
+  nodes {
+    id
+    slug
+    operator
+    source {
+      __typename
+      ... on Item {
+        slug
+        title
+        schemaDefinition {
+          name
+          kind
+          id
+        }
+      }
+      ... on Collection {
+        slug
+        title
+        schemaDefinition {
+          name
+          kind
+          id
+        }
+      }
+      ... on Node {
+        __isNode: __typename
+        id
+      }
+    }
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
 }
 
 fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    perPage
+    hasNextPage
+    hasPreviousPage
+    totalCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+  }
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -66,16 +127,54 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "title",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v6 = [
+  (v3/*: any*/),
+  (v2/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "SchemaDefinition",
+    "kind": "LinkedField",
+    "name": "schemaDefinition",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
+      (v5/*: any*/),
+      (v4/*: any*/)
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -91,6 +190,22 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "EntityLinkConnection",
+            "kind": "LinkedField",
+            "name": "links",
+            "plural": false,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "EntityLinksListFragment"
+              }
+            ],
+            "storageKey": null
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -117,15 +232,138 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "title",
+            "concreteType": "EntityLinkConnection",
+            "kind": "LinkedField",
+            "name": "links",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityLink",
+                "kind": "LinkedField",
+                "name": "nodes",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "operator",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "source",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v6/*: any*/),
+                        "type": "Item",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v6/*: any*/),
+                        "type": "Collection",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v4/*: any*/)
+                        ],
+                        "type": "Node",
+                        "abstractKey": "__isNode"
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "page",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "pageCount",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "perPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "type": "Paginated",
+                "abstractKey": "__isPaginated"
+              }
+            ],
             "storageKey": null
           },
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -151,15 +389,9 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
+                  (v5/*: any*/),
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -173,14 +405,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "52de41ab1cbd6de01b21f94052d9a9bc",
+    "cacheID": "c2a8c2a363d8b76deeae50de206c6f4c",
     "id": null,
     "metadata": {},
     "name": "linksManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query linksManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query linksManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    links {\n      ...EntityLinksListFragment\n    }\n    id\n  }\n}\n\nfragment EntityLinksListFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    source {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '50b76e0f6b6a801ac73d2ee8a5be1265';
+(node as any).hash = '772fccfab0c86b0d579ef7f0cbce2667';
 export default node;

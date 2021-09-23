@@ -197,6 +197,10 @@
         "label_plural": "contributors",
         "person": "Person",
         "org": "Organization"
+      },
+      "link": {
+        "label": "link",
+        "label_plural": "links"
       }
     },
     "name": "name",
@@ -228,7 +232,9 @@
       "name": "Name",
       "role": "Role",
       "thumbnail": "Thumbnail",
-      "updatedAt": "Updated At"
+      "updatedAt": "Updated At",
+      "type": "Type",
+      "schema": "Schema"
     }
   }
 }
