@@ -21,7 +21,12 @@ function ButtonControlGroup({
     const { children, ...buttonProps } = props;
 
     return "drawer" in props ? (
-      <ButtonControlDrawer key={i} drawer={props.drawer} {...buttonProps}>
+      <ButtonControlDrawer
+        key={i}
+        drawer={props.drawer}
+        drawerQuery={props.drawerQuery}
+        {...buttonProps}
+      >
         {children}
       </ButtonControlDrawer>
     ) : (

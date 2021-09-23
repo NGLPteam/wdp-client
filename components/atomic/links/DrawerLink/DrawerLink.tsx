@@ -1,7 +1,8 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
 import { useDrawerHelper } from "hooks";
-import type { Drawers } from "hooks/useDrawerHelper";
+
+import type { DrawerParams, Drawers } from "hooks/useDrawerHelper";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 /**
@@ -15,7 +16,11 @@ const DrawerLink = forwardRef(
     const drawerHelper = useDrawerHelper();
 
     return (
-      <Link href={drawerHelper.href(drawer)} passHref={passHref} {...props}>
+      <Link
+        href={drawerHelper.href(drawer, drawerQuery)}
+        passHref={passHref}
+        {...props}
+      >
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
@@ -27,7 +32,7 @@ export interface Props extends Omit<LinkProps, "href"> {
   /* Drawer to open */
   drawer: Drawers;
   /* parameters that will be passed to the drawer component */
-  drawerQuery?: Record<string, string | number>;
+  drawerQuery?: DrawerParams;
   /* Extra query parameters */
   query?: Record<string, string | number>;
   /* Pass href to child component */
