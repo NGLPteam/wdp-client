@@ -31,7 +31,10 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
           return (
             <div key={i}>
               {cell.column.id !== "title" && cell.column.id !== "name" && (
-                <span>{`${cell.render("Header")}: `}</span>
+                <span>
+                  {cell.render("Header")}
+                  {`: `}
+                </span>
               )}
               {cell.render("Cell")}
             </div>
