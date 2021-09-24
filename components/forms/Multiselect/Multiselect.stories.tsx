@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 import NullForm from "components/api/NullForm";
 
 type FieldValues = {
-  example?: string;
+  example?: string[];
 };
 
 type Props = React.ComponentProps<typeof Multiselect>;
@@ -25,16 +25,24 @@ const ITEMS = Array.from({ length: 50 }, (_, i) => ({
 }));
 
 export const InAForm: Story<Props> = (args) => {
+  function handleSubmit(data: Record<string, string[]>) {
+    console.info(data);
+  }
+
   return (
-    <NullForm<FieldValues>>
+    <NullForm<FieldValues> onSubmit={handleSubmit}>
       {({ form: { control } }) => (
         <Controller<FieldValues>
           name="example"
           control={control}
-          defaultValue={"12,13"}
-          render={({ field }) => {
-            return <Multiselect {...args} {...field} />;
-          }}
+          defaultValue={["1"]}
+          render={({ field: { value, ...field } }) => (
+            <Multiselect
+              value={typeof value === "string" ? [] : value}
+              {...args}
+              {...field}
+            />
+          )}
         />
       )}
     </NullForm>

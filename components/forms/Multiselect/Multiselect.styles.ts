@@ -47,6 +47,7 @@ export const List = styled.ul<ListProps>`
   max-height: 50vh;
   overflow-y: auto;
   transform: translateY(${pxToRem("41px")});
+  z-index: var(--z-index-dropdown);
 
   ${noInsetSupport(`left: 0; right: 0; top: 0;`)}
 

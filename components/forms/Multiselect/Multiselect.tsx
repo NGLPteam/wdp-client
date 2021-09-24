@@ -1,13 +1,14 @@
-import React, { Ref, forwardRef, useState } from "react";
+import React, { Ref, forwardRef, useState, useEffect } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
 import { IconFactory } from "components/factories";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./Multiselect.styles";
 
 import type InputProps from "../inputType";
+import HiddenMultiselect from "./HiddenMultiselect";
 
 /**
- * A typeahead single select.
+ * A typeahead multi select.
  * Uses `downshift` library for accessibility and state management
  */
 const Multiselect = forwardRef(
@@ -24,7 +25,7 @@ const Multiselect = forwardRef(
       value,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLSelectElement>
   ) => {
     const [inputValue, setInputValue] = useState("");
 
@@ -35,9 +36,16 @@ const Multiselect = forwardRef(
       removeSelectedItem,
       selectedItems,
     } = useMultipleSelection({
-      initialSelectedItems: value ? value.split(",") : [],
+      initialSelectedItems: value || [],
     });
 
+    // Pass the selected value back up to react-hook-forms' onChange
+    useEffect(() => {
+      if (onChange) onChange([...selectedItems]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedItems]); // Only run on selectedItems change
+
+    // Filter items by currently selected items
     const getFilteredItems = () =>
       options.filter(
         (item) =>
@@ -45,10 +53,9 @@ const Multiselect = forwardRef(
           item.label.toLowerCase().startsWith(inputValue.toLowerCase())
       );
 
-    const getSelectedItemLabels = () =>
-      options
-        .filter((option) => selectedItems.includes(option.value))
-        .map((item) => item.label);
+    // Return selected item objects for currently selected items list
+    const getSelectedItemObjects = () =>
+      options.filter((option) => selectedItems.includes(option.value));
 
     const {
       isOpen,
@@ -93,12 +100,12 @@ const Multiselect = forwardRef(
         <>
           <Styled.InputWrapper {...getComboboxProps()}>
             {/* Hidden input field for react-hook-form or other form control */}
-            <input
+            <HiddenMultiselect
               ref={ref}
               name={name}
-              type="hidden"
               required={required}
-              defaultValue={value}
+              defaultValue={selectedItems}
+              options={options}
               {...inputProps}
             />
             {/* Visible input field for typeahead functionality */}
@@ -128,19 +135,22 @@ const Multiselect = forwardRef(
           </Styled.InputWrapper>
           {selectedItems && (
             <Styled.SelectedList>
-              {getSelectedItemLabels().map((selectedItem, index) => (
+              {getSelectedItemObjects().map((selectedItem, index) => (
                 <Styled.SelectedItem
                   key={`selected-item-${index}`}
-                  {...getSelectedItemProps({ selectedItem, index })}
+                  {...getSelectedItemProps({
+                    selectedItem: selectedItem.value,
+                    index,
+                  })}
                 >
                   <Styled.SelectedText>
-                    {selectedItem as string}
+                    {selectedItem.label}
                   </Styled.SelectedText>
                   <Styled.RemoveSelectedButton
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      removeSelectedItem(selectedItem);
+                      removeSelectedItem(selectedItem.value);
                     }}
                   >
                     <IconFactory icon="close" />
@@ -162,9 +172,9 @@ interface Option {
 interface Props extends InputProps {
   options: Option[];
   /** Returns the current selected value */
-  onChange?: (value: Option["value"]) => void;
+  onChange?: (value: Option["value"][]) => void;
   /** Default value */
-  value?: Option["value"];
+  value?: Option["value"][];
 }
 
 export default Multiselect;
