@@ -2,13 +2,13 @@ import React, { Ref } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import get from "lodash/get";
-import { QueryWrapper } from "components/api";
-import { Forms } from "components/api/MutationForm";
+import QueryWrapper from "components/api/QueryWrapper";
+import Typeahead from "components/forms/Typeahead";
 
 import type { ContributorTypeaheadQuery as Query } from "__generated__/ContributorTypeaheadQuery.graphql";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
-type TypeaheadProps = React.ComponentProps<typeof Forms.Typeahead>;
+type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const ContributorTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label }: Props<T>,
@@ -34,11 +34,7 @@ const ContributorTypeahead = <T extends FieldValues = FieldValues>(
         <QueryWrapper<Query> query={query}>
           {({ data }) =>
             data?.contributors?.nodes ? (
-              <Forms.Typeahead
-                label={label}
-                options={getOptions(data)}
-                {...field}
-              />
+              <Typeahead label={label} options={getOptions(data)} {...field} />
             ) : null
           }
         </QueryWrapper>
