@@ -11,10 +11,12 @@ import Property from "./SchemaInstanceProperty";
 import Provider from "./SchemaInstanceProvider";
 
 import type { OnSuccessCallback } from "./types";
+type ProviderProps = React.ComponentProps<typeof Provider>;
 
 export default function SchemaInstanceForm({
   onSuccess,
   successNotification,
+  failureNotification,
   ...props
 }: Props) {
   const instance = useFragment(fragment, props.instance);
@@ -25,6 +27,7 @@ export default function SchemaInstanceForm({
       context={instance.context}
       onSuccess={onSuccess}
       successNotification={successNotification}
+      failureNotification={failureNotification}
     >
       <FormGrid>
         {instance.properties.map((prop, index) => (
@@ -37,10 +40,10 @@ export default function SchemaInstanceForm({
   );
 }
 
-interface Props {
+interface Props
+  extends Pick<ProviderProps, "successNotification" | "failureNotification"> {
   instance: SchemaInstanceFormFragment$key;
   onSuccess?: OnSuccessCallback;
-  successNotification?: string;
 }
 
 const fragment = graphql`

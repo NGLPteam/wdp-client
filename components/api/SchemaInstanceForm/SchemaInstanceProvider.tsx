@@ -30,6 +30,7 @@ import type { OnSuccessCallback } from "./types";
 
 export default function SchemaInstanceProvider({
   successNotification,
+  failureNotification,
   ...props
 }: Props) {
   const context = useExtractContext(props);
@@ -85,6 +86,10 @@ export default function SchemaInstanceProvider({
           /* eslint-disable no-console */
           console.error(schemaErrors);
 
+          if (failureNotification) {
+            notify.error(t(failureNotification));
+          }
+
           const errors = convertSchemaErrors(schemaErrors);
 
           for (const { path, error } of errors) {
@@ -100,6 +105,7 @@ export default function SchemaInstanceProvider({
     onSuccess,
     setError,
     successNotification,
+    failureNotification,
     notify,
     t,
   ]);
@@ -126,6 +132,11 @@ interface Props {
    * value will be passed through localization first.
    */
   successNotification?: string;
+  /**
+   * If set, the form will populate a toast notification with this message on failure. The
+   * value will be passed through localization first.
+   */
+  failureNotification?: string;
 }
 
 function useExtractContext(props: Props): State {
