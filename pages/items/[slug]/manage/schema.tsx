@@ -9,7 +9,12 @@ import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 function ManageDetails({ data }: Props) {
   if (!data || !data.item) return null;
 
-  return <SchemaInstanceForm instance={data?.item} />;
+  return (
+    <SchemaInstanceForm
+      instance={data?.item}
+      successNotification="forms.item.update.schemaSuccess"
+    />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {

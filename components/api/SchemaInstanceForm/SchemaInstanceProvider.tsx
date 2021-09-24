@@ -2,6 +2,8 @@ import React, { useEffect, useMemo } from "react";
 import groupBy from "lodash/groupBy";
 import { useFragment, useMutation } from "relay-hooks";
 import { graphql } from "relay-runtime";
+import { useTranslation } from "react-i18next";
+import { useNotify } from "hooks";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
 import type {
   Control,
@@ -26,8 +28,13 @@ import type { State } from "./Context";
 
 import type { OnSuccessCallback } from "./types";
 
-export default function SchemaInstanceProvider(props: Props) {
+export default function SchemaInstanceProvider({
+  successNotification,
+  ...props
+}: Props) {
   const context = useExtractContext(props);
+  const notify = useNotify();
+  const { t } = useTranslation();
 
   const [apply] = useMutation<SchemaInstanceProviderApplyMutation>(
     applyMutation
@@ -64,9 +71,11 @@ export default function SchemaInstanceProvider(props: Props) {
         const { entity, schemaErrors } = response.applySchemaProperties;
 
         if (entity) {
-          /* eslint-disable no-console */
-          console.debug("Applied schema properties");
-          /* eslint-disable no-console */
+          // First, notify
+          if (successNotification) {
+            notify.success(t(successNotification));
+          }
+
           console.dir(entity);
 
           if (typeof onSuccess === "function") {
@@ -84,7 +93,16 @@ export default function SchemaInstanceProvider(props: Props) {
         }
       }
     });
-  }, [apply, entityId, handleSubmit, onSuccess, setError]);
+  }, [
+    apply,
+    entityId,
+    handleSubmit,
+    onSuccess,
+    setError,
+    successNotification,
+    notify,
+    t,
+  ]);
 
   return (
     <Context.Provider value={context}>
@@ -103,6 +121,11 @@ interface Props {
   children: React.ReactNode;
   context: SchemaInstanceProviderFragment$key;
   onSuccess?: OnSuccessCallback;
+  /**
+   * If set, the form will populate a toast notification with this message on success. The
+   * value will be passed through localization first.
+   */
+  successNotification?: string;
 }
 
 function useExtractContext(props: Props): State {

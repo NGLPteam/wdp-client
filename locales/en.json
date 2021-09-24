@@ -134,7 +134,8 @@
           "visibleUntilAt": "Visible Until"
         },
         "update": {
-          "success": "Item updated."
+          "success": "Item updated.",
+          "schemaSuccess": "Item schema updated."
         }
       },
       "contributor": {
