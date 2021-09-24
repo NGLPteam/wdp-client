@@ -130,7 +130,9 @@
         },
         "update": {
           "success": "Item updated.",
-          "schemaSuccess": "Item schema updated."
+          "schemaSuccess": "Item schema updated.",
+          "failure": "Item failed to update.",
+          "schemaFailure": "Item schema failed to update."
         }
       },
       "contributor": {

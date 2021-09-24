@@ -13,6 +13,7 @@ function ManageDetails({ data }: Props) {
     <SchemaInstanceForm
       instance={data?.item}
       successNotification="forms.item.update.schemaSuccess"
+      failureNotification="forms.item.update.schemaFailure"
     />
   );
 }
