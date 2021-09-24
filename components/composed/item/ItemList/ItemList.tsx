@@ -30,6 +30,7 @@ function ItemList<T extends OperationType>({
       route: "item",
       accessor: "title",
     }),
+    ModelColumns.SchemaColumn<ItemNode>(),
     ModelColumns.CreatedAtColumn<ItemNode>(),
     ModelColumns.UpdatedAtColumn<ItemNode>(),
   ];
@@ -75,6 +76,10 @@ const fragment = graphql`
       createdAt
       updatedAt
       title
+      schemaVersion {
+        name
+        number
+      }
       thumbnail {
         image: medium {
           png {

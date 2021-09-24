@@ -33,6 +33,7 @@ function CollectionList<T extends OperationType>({
       route: "collection",
       accessor: "title",
     }),
+    ModelColumns.SchemaColumn<CollectionNode>(),
     ModelColumns.CreatedAtColumn<CollectionNode>(),
     ModelColumns.UpdatedAtColumn<CollectionNode>(),
   ];
@@ -76,6 +77,10 @@ const fragment = graphql`
       updatedAt
       title
       slug
+      schemaVersion {
+        name
+        number
+      }
       thumbnail {
         image: medium {
           png {

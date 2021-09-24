@@ -5,6 +5,7 @@ import NameColumn from "./NameColumn";
 import EmailColumn from "./EmailColumn";
 import StringColumn from "./StringColumn";
 import BooleanColumn from "./BooleanColumn";
+import SchemaColumn from "./SchemaColumn";
 
 const modelColumns = {
   CreatedAtColumn,
@@ -14,6 +15,7 @@ const modelColumns = {
   EmailColumn,
   StringColumn,
   BooleanColumn,
+  SchemaColumn,
 };
 
 export default modelColumns;
