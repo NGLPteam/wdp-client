@@ -271,10 +271,18 @@ export type AssetProperty = ScalarProperty & {
   __typename?: 'AssetProperty';
   asset?: Maybe<AnyAsset>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
+};
+
+/** A select option for a single asset */
+export type AssetSelectOption = {
+  __typename?: 'AssetSelectOption';
+  kind: AssetKind;
+  label: Scalars['String'];
+  value: Scalars['String'];
 };
 
 export type AssetUnknown = Asset & Node & Sluggable & {
@@ -315,9 +323,9 @@ export type AssetsProperty = ScalarProperty & {
   __typename?: 'AssetsProperty';
   assets: Array<AnyAsset>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -346,14 +354,14 @@ export type BooleanProperty = ScalarProperty & {
   checked?: Maybe<Scalars['Boolean']>;
   checkedByDefault?: Maybe<Scalars['Boolean']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
 /** A collection of items */
-export type Collection = Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & Node & Sluggable & {
+export type Collection = Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -363,6 +371,7 @@ export type Collection = Entity & HierarchicalEntry & Contributable & HasSchemaP
   applicableRoles?: Maybe<Array<Role>>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  assignedUsers: UserConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Collection.collections */
@@ -396,6 +405,8 @@ export type Collection = Entity & HierarchicalEntry & Contributable & HasSchemaP
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
+  /** The context for our schema instance. Includes form values and necessary referents. */
+  schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
   schemaVersion: SchemaVersion;
@@ -421,6 +432,19 @@ export type Collection = Entity & HierarchicalEntry & Contributable & HasSchemaP
 export type CollectionAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** A collection of items */
+export type CollectionAssignedUsersArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -592,7 +616,7 @@ export type CollectionEdge = {
 export type CollectionParent = Collection | Community | { __typename?: "%other" };
 
 /** A community of users */
-export type Community = Entity & HasSchemaProperties & Attachable & Node & Sluggable & {
+export type Community = Entity & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Community';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -602,6 +626,7 @@ export type Community = Entity & HasSchemaProperties & Attachable & Node & Slugg
   applicableRoles?: Maybe<Array<Role>>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  assignedUsers: UserConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   collections: CollectionConnection;
@@ -620,6 +645,8 @@ export type Community = Entity & HasSchemaProperties & Attachable & Node & Slugg
   permissions: Array<PermissionGrant>;
   position?: Maybe<Scalars['Int']>;
   schemaDefinition: SchemaDefinition;
+  /** The context for our schema instance. Includes form values and necessary referents. */
+  schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
   schemaVersion: SchemaVersion;
@@ -635,6 +662,19 @@ export type Community = Entity & HasSchemaProperties & Attachable & Node & Slugg
 export type CommunityAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** A community of users */
+export type CommunityAssignedUsersArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -843,19 +883,27 @@ export type ContributorProperty = ScalarProperty & {
   __typename?: 'ContributorProperty';
   contributor?: Maybe<AnyContributor>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
+};
+
+/** A select option for a single contributor */
+export type ContributorSelectOption = {
+  __typename?: 'ContributorSelectOption';
+  kind: ContributorKind;
+  label: Scalars['String'];
+  value: Scalars['String'];
 };
 
 export type ContributorsProperty = ScalarProperty & {
   __typename?: 'ContributorsProperty';
   contributors: Array<AnyContributor>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -1119,9 +1167,9 @@ export type DateProperty = ScalarProperty & {
   date?: Maybe<Scalars['ISO8601Date']>;
   default?: Maybe<Scalars['ISO8601Date']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -1219,6 +1267,30 @@ export type DestroyContributorPayload = StandardMutationPayload & DestroyMutatio
   haltCode?: Maybe<Scalars['String']>;
 };
 
+/** Autogenerated input type of DestroyEntityLink */
+export type DestroyEntityLinkInput = {
+  /** The ID for the EntityLink to destroy */
+  entityLinkId: Scalars['ID'];
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+/** Autogenerated return type of DestroyEntityLink */
+export type DestroyEntityLinkPayload = StandardMutationPayload & DestroyMutationPayload & {
+  __typename?: 'DestroyEntityLinkPayload';
+  attributeErrors: Array<MutationAttributeError>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** Whether or not the model was successfully destroyed. If false, check globalErrors */
+  destroyed?: Maybe<Scalars['Boolean']>;
+  /** The ID of the deleted model */
+  destroyedId?: Maybe<Scalars['ID']>;
+  errors: Array<UserError>;
+  globalErrors: Array<MutationGlobalError>;
+  /** Not presently used */
+  haltCode?: Maybe<Scalars['String']>;
+};
+
 /** Autogenerated input type of DestroyItem */
 export type DestroyItemInput = {
   /** The ID for the item to destroy */
@@ -1290,9 +1362,9 @@ export type EmailProperty = ScalarProperty & {
   address?: Maybe<Scalars['String']>;
   defaultAddress?: Maybe<Scalars['String']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -1304,6 +1376,7 @@ export type Entity = {
   allowedActions: Array<Scalars['String']>;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles?: Maybe<Array<Role>>;
+  assignedUsers: UserConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** The depth of the hierarchical entity, taking into account any parent types */
@@ -1320,6 +1393,19 @@ export type Entity = {
   schemaVersion: SchemaVersion;
   /** A mapping of an entity's preview thumbnail */
   thumbnail?: Maybe<AssetPreview>;
+};
+
+
+/** An entity that exists in the hierarchy. */
+export type EntityAssignedUsersArgs = {
+  order?: Maybe<SimpleOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
 };
 
 
@@ -1462,9 +1548,9 @@ export type FloatProperty = ScalarProperty & {
   defaultFloat?: Maybe<Scalars['Float']>;
   floatValue?: Maybe<Scalars['Float']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -1542,14 +1628,14 @@ export type IntegerProperty = ScalarProperty & {
   defaultInteger?: Maybe<Scalars['Int']>;
   fullPath: Scalars['String'];
   integerValue?: Maybe<Scalars['Int']>;
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
 /** An item that belongs to a collection */
-export type Item = Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & Node & Sluggable & {
+export type Item = Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1559,6 +1645,7 @@ export type Item = Entity & HierarchicalEntry & Contributable & HasSchemaPropert
   applicableRoles?: Maybe<Array<Role>>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  assignedUsers: UserConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Item.items */
@@ -1592,6 +1679,8 @@ export type Item = Entity & HierarchicalEntry & Contributable & HasSchemaPropert
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
+  /** The context for our schema instance. Includes form values and necessary referents. */
+  schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
   schemaVersion: SchemaVersion;
@@ -1617,6 +1706,19 @@ export type Item = Entity & HierarchicalEntry & Contributable & HasSchemaPropert
 export type ItemAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemAssignedUsersArgs = {
+  order?: Maybe<SimpleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1804,9 +1906,9 @@ export type MarkdownProperty = ScalarProperty & {
   content?: Maybe<Scalars['String']>;
   default?: Maybe<Scalars['String']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -1814,10 +1916,10 @@ export type MultiselectProperty = ScalarProperty & OptionableProperty & {
   __typename?: 'MultiselectProperty';
   defaultSelections?: Maybe<Array<Scalars['String']>>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   options: Array<SelectOption>;
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   selections?: Maybe<Array<Scalars['String']>>;
   type: Scalars['String'];
 };
@@ -1854,7 +1956,9 @@ export type Mutation = {
   destroyContribution?: Maybe<DestroyContributionPayload>;
   /** Destroy a contributor by ID. */
   destroyContributor?: Maybe<DestroyContributorPayload>;
-  /** Destroy a item by ID. */
+  /** Destroy an EntityLink by ID. */
+  destroyEntityLink?: Maybe<DestroyEntityLinkPayload>;
+  /** Destroy an item by ID. */
   destroyItem?: Maybe<DestroyItemPayload>;
   /** Destroy (or disable a schema-inherited) ordering. */
   destroyOrdering?: Maybe<DestroyOrderingPayload>;
@@ -1987,6 +2091,12 @@ export type MutationDestroyContributionArgs = {
 /** The entry point for making changes to the data within the WDP API. */
 export type MutationDestroyContributorArgs = {
   input: DestroyContributorInput;
+};
+
+
+/** The entry point for making changes to the data within the WDP API. */
+export type MutationDestroyEntityLinkArgs = {
+  input: DestroyEntityLinkInput;
 };
 
 
@@ -2735,9 +2845,9 @@ export type RoleEdge = {
 
 export type ScalarProperty = {
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
@@ -2773,6 +2883,33 @@ export type SchemaDefinitionEdge = {
   node: SchemaDefinition;
 };
 
+/**
+ * Being an instance that implements a schema version with strongly-typed properties.
+ * Overlaps with Entity, but intended for focused access to just the properties
+ * and the necessary context.
+ */
+export type SchemaInstance = {
+  /** The context for our schema instance. Includes form values and necessary referents. */
+  schemaInstanceContext: SchemaInstanceContext;
+  /** A list of schema properties associated with this instance or version. */
+  schemaProperties: Array<AnySchemaProperty>;
+};
+
+/** A context that describes the current state of the form */
+export type SchemaInstanceContext = {
+  __typename?: 'SchemaInstanceContext';
+  assets: Array<AssetSelectOption>;
+  contributors: Array<ContributorSelectOption>;
+  /** Not yet populated. May be used in the future. */
+  defaultValues: Scalars['JSON'];
+  /** The entity ID for this schema instance. */
+  entityId: Scalars['ID'];
+  /** The values for the schema form on this instance */
+  fieldValues: Scalars['JSON'];
+  /** The slug for the current schema version */
+  schemaVersionSlug: Scalars['String'];
+};
+
 export type SchemaKind =
   | 'COMMUNITY'
   | 'COLLECTION'
@@ -2790,7 +2927,10 @@ export type SchemaProperty = {
 /** An error that stems from trying to apply an invalid schema value. */
 export type SchemaValueError = {
   __typename?: 'SchemaValueError';
-  /** An error with the entire set of values */
+  /**
+   * An error with the entire set of values
+   * @deprecated Not presently used: see globalErrors
+   */
   base: Scalars['Boolean'];
   /** Whether this is a hint */
   hint: Scalars['Boolean'];
@@ -2799,7 +2939,7 @@ export type SchemaValueError = {
   /** Additional metadata attached to the error */
   metadata?: Maybe<Scalars['JSON']>;
   /** Which input value this error came from */
-  path?: Maybe<Scalars['String']>;
+  path: Scalars['String'];
 };
 
 /** A specific version of a schema definition */
@@ -2857,10 +2997,10 @@ export type SelectProperty = ScalarProperty & OptionableProperty & {
   __typename?: 'SelectProperty';
   defaultSelection?: Maybe<Scalars['String']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   options: Array<SelectOption>;
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   selection?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
@@ -2890,18 +3030,18 @@ export type StringProperty = ScalarProperty & {
   content?: Maybe<Scalars['String']>;
   default?: Maybe<Scalars['String']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
 };
 
 export type TagsProperty = ScalarProperty & {
   __typename?: 'TagsProperty';
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   tags: Array<Scalars['String']>;
   type: Scalars['String'];
 };
@@ -2910,9 +3050,9 @@ export type TimestampProperty = ScalarProperty & {
   __typename?: 'TimestampProperty';
   default?: Maybe<Scalars['ISO8601DateTime']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   timestamp?: Maybe<Scalars['ISO8601DateTime']>;
   type: Scalars['String'];
 };
@@ -2931,9 +3071,9 @@ export type UnknownProperty = ScalarProperty & {
   __typename?: 'UnknownProperty';
   default?: Maybe<Scalars['JSON']>;
   fullPath: Scalars['String'];
-  label?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
   path: Scalars['String'];
-  required?: Maybe<Scalars['Boolean']>;
+  required: Scalars['Boolean'];
   type: Scalars['String'];
   unknownValue?: Maybe<Scalars['JSON']>;
 };
@@ -3469,6 +3609,7 @@ export type ResolversTypes = {
   AssetPreview: ResolverTypeWrapper<AssetPreview>;
   AssetProperty: ResolverTypeWrapper<Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  AssetSelectOption: ResolverTypeWrapper<AssetSelectOption>;
   AssetUnknown: ResolverTypeWrapper<Omit<AssetUnknown, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetVideo: ResolverTypeWrapper<Omit<AssetVideo, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetsProperty: ResolverTypeWrapper<Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversTypes['AnyAsset']> }>;
@@ -3494,6 +3635,7 @@ export type ResolversTypes = {
   ContributorLink: ResolverTypeWrapper<ContributorLink>;
   ContributorLinkInput: ContributorLinkInput;
   ContributorProperty: ResolverTypeWrapper<Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<ResolversTypes['AnyContributor']> }>;
+  ContributorSelectOption: ResolverTypeWrapper<ContributorSelectOption>;
   ContributorsProperty: ResolverTypeWrapper<Omit<ContributorsProperty, 'contributors'> & { contributors: Array<ResolversTypes['AnyContributor']> }>;
   CreateAssetInput: CreateAssetInput;
   CreateAssetPayload: ResolverTypeWrapper<Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
@@ -3520,9 +3662,11 @@ export type ResolversTypes = {
   DestroyContributionPayload: ResolverTypeWrapper<DestroyContributionPayload>;
   DestroyContributorInput: DestroyContributorInput;
   DestroyContributorPayload: ResolverTypeWrapper<DestroyContributorPayload>;
+  DestroyEntityLinkInput: DestroyEntityLinkInput;
+  DestroyEntityLinkPayload: ResolverTypeWrapper<DestroyEntityLinkPayload>;
   DestroyItemInput: DestroyItemInput;
   DestroyItemPayload: ResolverTypeWrapper<DestroyItemPayload>;
-  DestroyMutationPayload: ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'];
+  DestroyMutationPayload: ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'];
   DestroyOrderingInput: DestroyOrderingInput;
   DestroyOrderingPayload: ResolverTypeWrapper<DestroyOrderingPayload>;
   Direction: Direction;
@@ -3603,6 +3747,8 @@ export type ResolversTypes = {
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
   SchemaDefinitionEdge: ResolverTypeWrapper<SchemaDefinitionEdge>;
+  SchemaInstance: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  SchemaInstanceContext: ResolverTypeWrapper<SchemaInstanceContext>;
   SchemaKind: SchemaKind;
   SchemaProperty: ResolversTypes['GroupProperty'];
   SchemaValueError: ResolverTypeWrapper<SchemaValueError>;
@@ -3615,7 +3761,7 @@ export type ResolversTypes = {
   SimpleOrder: SimpleOrder;
   Slug: ResolverTypeWrapper<Scalars['Slug']>;
   Sluggable: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'];
-  StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentCollectionPayload'] | ResolversTypes['ReparentItemPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpsertContributionPayload'];
+  StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentCollectionPayload'] | ResolversTypes['ReparentItemPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpsertContributionPayload'];
   StringProperty: ResolverTypeWrapper<StringProperty>;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
   TimestampProperty: ResolverTypeWrapper<TimestampProperty>;
@@ -3679,6 +3825,7 @@ export type ResolversParentTypes = {
   AssetPreview: AssetPreview;
   AssetProperty: Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
   Boolean: Scalars['Boolean'];
+  AssetSelectOption: AssetSelectOption;
   AssetUnknown: Omit<AssetUnknown, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetVideo: Omit<AssetVideo, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetsProperty: Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversParentTypes['AnyAsset']> };
@@ -3702,6 +3849,7 @@ export type ResolversParentTypes = {
   ContributorLink: ContributorLink;
   ContributorLinkInput: ContributorLinkInput;
   ContributorProperty: Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<ResolversParentTypes['AnyContributor']> };
+  ContributorSelectOption: ContributorSelectOption;
   ContributorsProperty: Omit<ContributorsProperty, 'contributors'> & { contributors: Array<ResolversParentTypes['AnyContributor']> };
   CreateAssetInput: CreateAssetInput;
   CreateAssetPayload: Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
@@ -3728,9 +3876,11 @@ export type ResolversParentTypes = {
   DestroyContributionPayload: DestroyContributionPayload;
   DestroyContributorInput: DestroyContributorInput;
   DestroyContributorPayload: DestroyContributorPayload;
+  DestroyEntityLinkInput: DestroyEntityLinkInput;
+  DestroyEntityLinkPayload: DestroyEntityLinkPayload;
   DestroyItemInput: DestroyItemInput;
   DestroyItemPayload: DestroyItemPayload;
-  DestroyMutationPayload: ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'];
+  DestroyMutationPayload: ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'];
   DestroyOrderingInput: DestroyOrderingInput;
   DestroyOrderingPayload: DestroyOrderingPayload;
   EmailProperty: EmailProperty;
@@ -3800,6 +3950,8 @@ export type ResolversParentTypes = {
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
   SchemaDefinitionEdge: SchemaDefinitionEdge;
+  SchemaInstance: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
+  SchemaInstanceContext: SchemaInstanceContext;
   SchemaProperty: ResolversParentTypes['GroupProperty'];
   SchemaValueError: SchemaValueError;
   SchemaVersion: Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
@@ -3809,7 +3961,7 @@ export type ResolversParentTypes = {
   SelectProperty: SelectProperty;
   Slug: Scalars['Slug'];
   Sluggable: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'];
-  StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentCollectionPayload'] | ResolversParentTypes['ReparentItemPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpsertContributionPayload'];
+  StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentCollectionPayload'] | ResolversParentTypes['ReparentItemPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpsertContributionPayload'];
   StringProperty: StringProperty;
   TagsProperty: TagsProperty;
   TimestampProperty: TimestampProperty;
@@ -4022,10 +4174,17 @@ export type AssetPreviewResolvers<ContextType = any, ParentType extends Resolver
 export type AssetPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetProperty'] = ResolversParentTypes['AssetProperty']> = {
   asset?: Resolver<Maybe<ResolversTypes['AnyAsset']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AssetSelectOptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetSelectOption'] = ResolversParentTypes['AssetSelectOption']> = {
+  kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -4064,9 +4223,9 @@ export type AssetVideoResolvers<ContextType = any, ParentType extends ResolversP
 export type AssetsPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetsProperty'] = ResolversParentTypes['AssetsProperty']> = {
   assets?: Resolver<Array<ResolversTypes['AnyAsset']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4080,9 +4239,9 @@ export type BooleanPropertyResolvers<ContextType = any, ParentType extends Resol
   checked?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   checkedByDefault?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4092,6 +4251,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
+  assignedUsers?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -4115,6 +4275,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -4181,6 +4342,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
+  assignedUsers?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<CommunityAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -4194,6 +4356,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -4265,19 +4428,26 @@ export type ContributorLinkResolvers<ContextType = any, ParentType extends Resol
 export type ContributorPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorProperty'] = ResolversParentTypes['ContributorProperty']> = {
   contributor?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ContributorSelectOptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorSelectOption'] = ResolversParentTypes['ContributorSelectOption']> = {
+  kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ContributorsPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorsProperty'] = ResolversParentTypes['ContributorsProperty']> = {
   contributors?: Resolver<Array<ResolversTypes['AnyContributor']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4366,9 +4536,9 @@ export type DatePropertyResolvers<ContextType = any, ParentType extends Resolver
   date?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   default?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4417,6 +4587,17 @@ export type DestroyContributorPayloadResolvers<ContextType = any, ParentType ext
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type DestroyEntityLinkPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DestroyEntityLinkPayload'] = ResolversParentTypes['DestroyEntityLinkPayload']> = {
+  attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
+  haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type DestroyItemPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DestroyItemPayload'] = ResolversParentTypes['DestroyItemPayload']> = {
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -4429,7 +4610,7 @@ export type DestroyItemPayloadResolvers<ContextType = any, ParentType extends Re
 };
 
 export type DestroyMutationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DestroyMutationPayload'] = ResolversParentTypes['DestroyMutationPayload']> = {
-  __resolveType: TypeResolveFn<'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload', ParentType, ContextType>;
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   destroyed?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   destroyedId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
@@ -4454,9 +4635,9 @@ export type EmailPropertyResolvers<ContextType = any, ParentType extends Resolve
   address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   defaultAddress?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4466,6 +4647,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  assignedUsers?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -4529,9 +4711,9 @@ export type FloatPropertyResolvers<ContextType = any, ParentType extends Resolve
   defaultFloat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   floatValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4593,9 +4775,9 @@ export type IntegerPropertyResolvers<ContextType = any, ParentType extends Resol
   defaultInteger?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   integerValue?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4605,6 +4787,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
+  assignedUsers?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemChildrenArgs, never>>;
   collection?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
@@ -4628,6 +4811,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -4707,9 +4891,9 @@ export type MarkdownPropertyResolvers<ContextType = any, ParentType extends Reso
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   default?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -4717,10 +4901,10 @@ export type MarkdownPropertyResolvers<ContextType = any, ParentType extends Reso
 export type MultiselectPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['MultiselectProperty'] = ResolversParentTypes['MultiselectProperty']> = {
   defaultSelections?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   options?: Resolver<Array<ResolversTypes['SelectOption']>, ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   selections?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -4741,6 +4925,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   destroyCommunity?: Resolver<Maybe<ResolversTypes['DestroyCommunityPayload']>, ParentType, ContextType, RequireFields<MutationDestroyCommunityArgs, 'input'>>;
   destroyContribution?: Resolver<Maybe<ResolversTypes['DestroyContributionPayload']>, ParentType, ContextType, RequireFields<MutationDestroyContributionArgs, 'input'>>;
   destroyContributor?: Resolver<Maybe<ResolversTypes['DestroyContributorPayload']>, ParentType, ContextType, RequireFields<MutationDestroyContributorArgs, 'input'>>;
+  destroyEntityLink?: Resolver<Maybe<ResolversTypes['DestroyEntityLinkPayload']>, ParentType, ContextType, RequireFields<MutationDestroyEntityLinkArgs, 'input'>>;
   destroyItem?: Resolver<Maybe<ResolversTypes['DestroyItemPayload']>, ParentType, ContextType, RequireFields<MutationDestroyItemArgs, 'input'>>;
   destroyOrdering?: Resolver<Maybe<ResolversTypes['DestroyOrderingPayload']>, ParentType, ContextType, RequireFields<MutationDestroyOrderingArgs, 'input'>>;
   grantAccess?: Resolver<Maybe<ResolversTypes['GrantAccessPayload']>, ParentType, ContextType, RequireFields<MutationGrantAccessArgs, 'input'>>;
@@ -5014,9 +5199,9 @@ export type RoleEdgeResolvers<ContextType = any, ParentType extends ResolversPar
 export type ScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ScalarProperty'] = ResolversParentTypes['ScalarProperty']> = {
   __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'UnknownProperty', ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
@@ -5045,6 +5230,22 @@ export type SchemaDefinitionEdgeResolvers<ContextType = any, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SchemaInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaInstance'] = ResolversParentTypes['SchemaInstance']> = {
+  __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
+  schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
+  schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+};
+
+export type SchemaInstanceContextResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaInstanceContext'] = ResolversParentTypes['SchemaInstanceContext']> = {
+  assets?: Resolver<Array<ResolversTypes['AssetSelectOption']>, ParentType, ContextType>;
+  contributors?: Resolver<Array<ResolversTypes['ContributorSelectOption']>, ParentType, ContextType>;
+  defaultValues?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  entityId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  fieldValues?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  schemaVersionSlug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SchemaPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaProperty'] = ResolversParentTypes['SchemaProperty']> = {
   __resolveType: TypeResolveFn<'GroupProperty', ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -5057,7 +5258,7 @@ export type SchemaValueErrorResolvers<ContextType = any, ParentType extends Reso
   hint?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
-  path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -5098,10 +5299,10 @@ export type SelectOptionResolvers<ContextType = any, ParentType extends Resolver
 export type SelectPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SelectProperty'] = ResolversParentTypes['SelectProperty']> = {
   defaultSelection?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   options?: Resolver<Array<ResolversTypes['SelectOption']>, ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   selection?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -5117,7 +5318,7 @@ export type SluggableResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type StandardMutationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['StandardMutationPayload'] = ResolversParentTypes['StandardMutationPayload']> = {
-  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'ReparentCollectionPayload' | 'ReparentItemPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpsertContributionPayload', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'ReparentCollectionPayload' | 'ReparentItemPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpsertContributionPayload', ParentType, ContextType>;
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
@@ -5128,18 +5329,18 @@ export type StringPropertyResolvers<ContextType = any, ParentType extends Resolv
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   default?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TagsPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['TagsProperty'] = ResolversParentTypes['TagsProperty']> = {
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -5148,9 +5349,9 @@ export type TagsPropertyResolvers<ContextType = any, ParentType extends Resolver
 export type TimestampPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['TimestampProperty'] = ResolversParentTypes['TimestampProperty']> = {
   default?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -5159,9 +5360,9 @@ export type TimestampPropertyResolvers<ContextType = any, ParentType extends Res
 export type UnknownPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['UnknownProperty'] = ResolversParentTypes['UnknownProperty']> = {
   default?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  required?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   unknownValue?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -5327,6 +5528,7 @@ export type Resolvers<ContextType = any> = {
   AssetPDF?: AssetPdfResolvers<ContextType>;
   AssetPreview?: AssetPreviewResolvers<ContextType>;
   AssetProperty?: AssetPropertyResolvers<ContextType>;
+  AssetSelectOption?: AssetSelectOptionResolvers<ContextType>;
   AssetUnknown?: AssetUnknownResolvers<ContextType>;
   AssetVideo?: AssetVideoResolvers<ContextType>;
   AssetsProperty?: AssetsPropertyResolvers<ContextType>;
@@ -5348,6 +5550,7 @@ export type Resolvers<ContextType = any> = {
   Contributor?: ContributorResolvers<ContextType>;
   ContributorLink?: ContributorLinkResolvers<ContextType>;
   ContributorProperty?: ContributorPropertyResolvers<ContextType>;
+  ContributorSelectOption?: ContributorSelectOptionResolvers<ContextType>;
   ContributorsProperty?: ContributorsPropertyResolvers<ContextType>;
   CreateAssetPayload?: CreateAssetPayloadResolvers<ContextType>;
   CreateCollectionPayload?: CreateCollectionPayloadResolvers<ContextType>;
@@ -5362,6 +5565,7 @@ export type Resolvers<ContextType = any> = {
   DestroyCommunityPayload?: DestroyCommunityPayloadResolvers<ContextType>;
   DestroyContributionPayload?: DestroyContributionPayloadResolvers<ContextType>;
   DestroyContributorPayload?: DestroyContributorPayloadResolvers<ContextType>;
+  DestroyEntityLinkPayload?: DestroyEntityLinkPayloadResolvers<ContextType>;
   DestroyItemPayload?: DestroyItemPayloadResolvers<ContextType>;
   DestroyMutationPayload?: DestroyMutationPayloadResolvers<ContextType>;
   DestroyOrderingPayload?: DestroyOrderingPayloadResolvers<ContextType>;
@@ -5421,6 +5625,8 @@ export type Resolvers<ContextType = any> = {
   SchemaDefinition?: SchemaDefinitionResolvers<ContextType>;
   SchemaDefinitionConnection?: SchemaDefinitionConnectionResolvers<ContextType>;
   SchemaDefinitionEdge?: SchemaDefinitionEdgeResolvers<ContextType>;
+  SchemaInstance?: SchemaInstanceResolvers<ContextType>;
+  SchemaInstanceContext?: SchemaInstanceContextResolvers<ContextType>;
   SchemaProperty?: SchemaPropertyResolvers<ContextType>;
   SchemaValueError?: SchemaValueErrorResolvers<ContextType>;
   SchemaVersion?: SchemaVersionResolvers<ContextType>;

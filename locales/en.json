@@ -226,6 +226,7 @@
       "rules": "Rules",
       "files": "Files",
       "permissions": "Permissions",
+      "schema": "Schema",
       "collectionContributions": "Collection Contributions",
       "itemContributions": "Item Contributions"
     },
