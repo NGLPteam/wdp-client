@@ -1,19 +1,16 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-
-import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";
-
+import { Fieldset } from "components/forms";
 import SchemaProperty from "../SchemaProperty";
 
-import { Fieldset, Legend } from "./GroupProperty.styles";
+import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";
 
 export default function GroupProperty(props: Props) {
   const group = useFragment<GroupPropertyFragment$key>(fragment, props.group);
 
   return (
-    <Fieldset>
-      {group.legend && <Legend>{group.legend}</Legend>}
+    <Fieldset label={group.legend || ""}>
       {group.properties.map((prop, index) => (
         <SchemaProperty field={prop} key={index} />
       ))}
