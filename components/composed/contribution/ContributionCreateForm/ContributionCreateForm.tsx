@@ -5,7 +5,6 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-import ContributorTypeahead from "components/forms/ContributorTypeahead";
 
 import type {
   UpsertContributionInput,
@@ -27,7 +26,7 @@ export default function ContributionCreateForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <ContributorTypeahead<Fields>
+        <Forms.ContributorTypeahead<Fields>
           control={control}
           name="contributorId"
           label="forms.contribution.fields.contributor"
