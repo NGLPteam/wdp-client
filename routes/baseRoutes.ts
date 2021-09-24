@@ -98,6 +98,11 @@ export const baseRoutes: BaseRoute[] = [
                 label: "navLabels.details",
               },
               {
+                name: "item.manage.schema",
+                path: "/items/[slug]/manage/schema",
+                label: "navLabels.schema",
+              },
+              {
                 name: "item.manage.order",
                 path: "/items/[slug]/manage/order",
                 label: "navLabels.order",
@@ -126,11 +131,6 @@ export const baseRoutes: BaseRoute[] = [
                 name: "item.manage.files",
                 path: "/items/[slug]/manage/files",
                 label: "navLabels.files",
-              },
-              {
-                name: "item.manage.schema",
-                path: "/items/[slug]/manage/schema",
-                label: "navLabels.schema",
               },
             ],
           },
