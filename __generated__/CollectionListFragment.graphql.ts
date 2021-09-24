@@ -11,6 +11,10 @@ export type CollectionListFragment = {
         readonly updatedAt: string;
         readonly title: string | null;
         readonly slug: string;
+        readonly schemaVersion: {
+            readonly name: string;
+            readonly number: string;
+        };
         readonly thumbnail: {
             readonly image: {
                 readonly png: {
@@ -80,6 +84,31 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "slug",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaVersion",
+          "kind": "LinkedField",
+          "name": "schemaVersion",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "number",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         },
         {
@@ -160,5 +189,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '3fff9084a2171f8be1211a89774db2c5';
+(node as any).hash = 'b5d60ca2fe4ffb2ff8177c3de599cff2';
 export default node;

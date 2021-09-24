@@ -11,6 +11,10 @@ export type ItemListFragment = {
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly title: string | null;
+        readonly schemaVersion: {
+            readonly name: string;
+            readonly number: string;
+        };
         readonly thumbnail: {
             readonly image: {
                 readonly png: {
@@ -80,6 +84,31 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "title",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaVersion",
+          "kind": "LinkedField",
+          "name": "schemaVersion",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "number",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         },
         {
@@ -160,5 +189,5 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = 'c1d07496e75d762f6266d03f26cf54b9';
+(node as any).hash = 'cabe9372373353e687c85d785c826d11';
 export default node;
