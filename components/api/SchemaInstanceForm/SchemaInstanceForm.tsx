@@ -3,7 +3,6 @@ import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 
 import { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
-import { ContentHeader } from "components/layout";
 import FormGrid from "components/forms/FormGrid";
 
 import Property from "./SchemaInstanceProperty";
@@ -16,7 +15,6 @@ export default function SchemaInstanceForm(props: Props) {
 
   return (
     <Provider context={instance.context} onSuccess={props.onSuccess}>
-      <ContentHeader headerStyle="secondary" title="Schema Properties" />
       <FormGrid>
         {instance.properties.map((prop, index) => (
           <Property property={prop} key={index} />
