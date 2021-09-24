@@ -12,7 +12,6 @@ module.exports = {
     "@storybook/addon-storysource",
     "storybook-addon-designs",
     "storybook-addon-grid/preset",
-    "storybook-addon-pseudo-states",
     "aria-live-storybook-addon",
   ],
   typescript: {
