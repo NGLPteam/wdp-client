@@ -239,10 +239,17 @@ type AssetPreview {
 type AssetProperty implements ScalarProperty {
   asset: AnyAsset
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
+}
+
+"""A select option for a single asset"""
+type AssetSelectOption {
+  kind: AssetKind!
+  label: String!
+  value: String!
 }
 
 type AssetUnknown implements Asset & Node & Sluggable {
@@ -280,9 +287,9 @@ type AssetVideo implements Asset & Node & Sluggable {
 type AssetsProperty implements ScalarProperty {
   assets: [AnyAsset!]!
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -313,14 +320,14 @@ type BooleanProperty implements ScalarProperty {
   checked: Boolean
   checkedByDefault: Boolean
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
 """A collection of items"""
-type Collection implements Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & Node & Sluggable {
+type Collection implements Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A list of allowed actions for the given user on this entity (and its descendants)."""
@@ -346,6 +353,23 @@ type Collection implements Entity & HierarchicalEntry & Contributable & HasSchem
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyAssetConnection!
+  assignedUsers(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): UserConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
@@ -487,6 +511,8 @@ type Collection implements Entity & HierarchicalEntry & Contributable & HasSchem
   publishedOn: ISO8601Date
   root: Boolean!
   schemaDefinition: SchemaDefinition!
+  """The context for our schema instance. Includes form values and necessary referents."""
+  schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
   schemaVersion: SchemaVersion!
@@ -568,7 +594,7 @@ type CollectionEdge {
 union CollectionParent = Collection | Community
 
 """A community of users"""
-type Community implements Entity & HasSchemaProperties & Attachable & Node & Sluggable {
+type Community implements Entity & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A list of allowed actions for the given user on this entity (and its descendants)."""
@@ -594,6 +620,23 @@ type Community implements Entity & HasSchemaProperties & Attachable & Node & Slu
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyAssetConnection!
+  assignedUsers(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): UserConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   collections(
@@ -662,6 +705,8 @@ type Community implements Entity & HasSchemaProperties & Attachable & Node & Slu
   permissions: [PermissionGrant!]!
   position: Int
   schemaDefinition: SchemaDefinition!
+  """The context for our schema instance. Includes form values and necessary referents."""
+  schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
   schemaVersion: SchemaVersion!
@@ -828,18 +873,25 @@ input ContributorLinkInput {
 type ContributorProperty implements ScalarProperty {
   contributor: AnyContributor
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
+}
+
+"""A select option for a single contributor"""
+type ContributorSelectOption {
+  kind: ContributorKind!
+  label: String!
+  value: String!
 }
 
 type ContributorsProperty implements ScalarProperty {
   contributors: [AnyContributor!]!
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -1121,9 +1173,9 @@ type DateProperty implements ScalarProperty {
   date: ISO8601Date
   default: ISO8601Date
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -1217,6 +1269,29 @@ type DestroyContributorPayload implements StandardMutationPayload & DestroyMutat
   haltCode: String
 }
 
+"""Autogenerated input type of DestroyEntityLink"""
+input DestroyEntityLinkInput {
+  """The ID for the EntityLink to destroy"""
+  entityLinkId: ID!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of DestroyEntityLink"""
+type DestroyEntityLinkPayload implements StandardMutationPayload & DestroyMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """Whether or not the model was successfully destroyed. If false, check globalErrors"""
+  destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+}
+
 """Autogenerated input type of DestroyItem"""
 input DestroyItemInput {
   """The ID for the item to destroy"""
@@ -1285,9 +1360,9 @@ type EmailProperty implements ScalarProperty {
   address: String
   defaultAddress: String
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -1299,6 +1374,23 @@ interface Entity {
   allowedActions: [String!]!
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
+  assignedUsers(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): UserConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   """The depth of the hierarchical entity, taking into account any parent types"""
@@ -1452,9 +1544,9 @@ type FloatProperty implements ScalarProperty {
   defaultFloat: Float
   floatValue: Float
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -1533,14 +1625,14 @@ type IntegerProperty implements ScalarProperty {
   defaultInteger: Int
   fullPath: String!
   integerValue: Int
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
 """An item that belongs to a collection"""
-type Item implements Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & Node & Sluggable {
+type Item implements Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A list of allowed actions for the given user on this entity (and its descendants)."""
@@ -1566,6 +1658,23 @@ type Item implements Entity & HierarchicalEntry & Contributable & HasSchemaPrope
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyAssetConnection!
+  assignedUsers(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): UserConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
@@ -1688,6 +1797,8 @@ type Item implements Entity & HierarchicalEntry & Contributable & HasSchemaPrope
   publishedOn: ISO8601Date
   root: Boolean!
   schemaDefinition: SchemaDefinition!
+  """The context for our schema instance. Includes form values and necessary referents."""
+  schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
   schemaVersion: SchemaVersion!
@@ -1800,19 +1911,19 @@ type MarkdownProperty implements ScalarProperty {
   content: String
   default: String
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
 type MultiselectProperty implements ScalarProperty & OptionableProperty {
   defaultSelections: [String!]
   fullPath: String!
-  label: String
+  label: String!
   options: [SelectOption!]!
   path: String!
-  required: Boolean
+  required: Boolean!
   selections: [String!]
   type: String!
 }
@@ -1910,7 +2021,15 @@ type Mutation {
     input: DestroyContributorInput!
   ): DestroyContributorPayload
   """
-  Destroy a item by ID.
+  Destroy an EntityLink by ID.
+  
+  """
+  destroyEntityLink(
+    """Parameters for DestroyEntityLink"""
+    input: DestroyEntityLinkInput!
+  ): DestroyEntityLinkPayload
+  """
+  Destroy an item by ID.
   
   """
   destroyItem(
@@ -2635,9 +2754,9 @@ type RoleEdge {
 
 interface ScalarProperty {
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
@@ -2670,6 +2789,33 @@ type SchemaDefinitionEdge {
   node: SchemaDefinition!
 }
 
+"""
+Being an instance that implements a schema version with strongly-typed properties.
+Overlaps with Entity, but intended for focused access to just the properties
+and the necessary context.
+
+"""
+interface SchemaInstance {
+  """The context for our schema instance. Includes form values and necessary referents."""
+  schemaInstanceContext: SchemaInstanceContext!
+  """A list of schema properties associated with this instance or version."""
+  schemaProperties: [AnySchemaProperty!]!
+}
+
+"""A context that describes the current state of the form"""
+type SchemaInstanceContext {
+  assets: [AssetSelectOption!]!
+  contributors: [ContributorSelectOption!]!
+  """Not yet populated. May be used in the future."""
+  defaultValues: JSON!
+  """The entity ID for this schema instance."""
+  entityId: ID!
+  """The values for the schema form on this instance"""
+  fieldValues: JSON!
+  """The slug for the current schema version"""
+  schemaVersionSlug: String!
+}
+
 enum SchemaKind {
   COMMUNITY
   COLLECTION
@@ -2687,7 +2833,7 @@ interface SchemaProperty {
 """An error that stems from trying to apply an invalid schema value."""
 type SchemaValueError {
   """An error with the entire set of values"""
-  base: Boolean!
+  base: Boolean! @deprecated(reason: "Not presently used: see globalErrors")
   """Whether this is a hint"""
   hint: Boolean!
   """A human-readable description of the error"""
@@ -2695,7 +2841,7 @@ type SchemaValueError {
   """Additional metadata attached to the error"""
   metadata: JSON
   """Which input value this error came from"""
-  path: String
+  path: String!
 }
 
 """A specific version of a schema definition"""
@@ -2748,10 +2894,10 @@ type SelectOption {
 type SelectProperty implements ScalarProperty & OptionableProperty {
   defaultSelection: String
   fullPath: String!
-  label: String
+  label: String!
   options: [SelectOption!]!
   path: String!
-  required: Boolean
+  required: Boolean!
   selection: String
   type: String!
 }
@@ -2782,17 +2928,17 @@ type StringProperty implements ScalarProperty {
   content: String
   default: String
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
 }
 
 type TagsProperty implements ScalarProperty {
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   tags: [String!]!
   type: String!
 }
@@ -2800,9 +2946,9 @@ type TagsProperty implements ScalarProperty {
 type TimestampProperty implements ScalarProperty {
   default: ISO8601DateTime
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   timestamp: ISO8601DateTime
   type: String!
 }
@@ -2820,9 +2966,9 @@ enum TreeNodeFilter {
 type UnknownProperty implements ScalarProperty {
   default: JSON
   fullPath: String!
-  label: String
+  label: String!
   path: String!
-  required: Boolean
+  required: Boolean!
   type: String!
   unknownValue: JSON
 }
