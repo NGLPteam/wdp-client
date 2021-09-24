@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { schemaManageSlugSchemaQuery as Query } from "@/relay/schemaManageSlugSchemaQuery.graphql";
+import type { schemaManageSlugItemsPagesQuery as Query } from "@/relay/schemaManageSlugItemsPagesQuery.graphql";
 import type { GetLayout } from "types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
@@ -30,7 +30,7 @@ type Props = {
 };
 
 const query = graphql`
-  query schemaManageSlugSchemaQuery($itemSlug: Slug!) {
+  query schemaManageSlugItemsPagesQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
       ...SchemaInstanceFormFragment

@@ -106,7 +106,10 @@
           "visibleUntilAt": "Visible Until"
         },
         "update": {
-          "success": "Collection updated."
+          "success": "Collection updated.",
+          "schemaSuccess": "Collection schema updated.",
+          "failure": "Collection failed to update.",
+          "schemaFailure": "Collection schema failed to update."
         }
       },
       "contribution": {
@@ -142,7 +145,8 @@
       },
       "contributor": {
         "update": {
-          "success": "Contributor updated."
+          "success": "Contributor updated.",
+          "failure": "Contributor failed to update."
         },
         "fields": {
           "legalName": "Name",
