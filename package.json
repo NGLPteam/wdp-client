@@ -108,7 +108,6 @@
     "storybook-addon-designs": "^6.1.0",
     "storybook-addon-grid": "^0.0.13",
     "storybook-addon-next-router": "^3.0.7",
-    "storybook-addon-pseudo-states": "^1.0.0",
     "storybook-addon-themes": "^6.1.0",
     "storybook-react-i18next": "^1.0.9",
     "stylelint": "^13.13.1",
