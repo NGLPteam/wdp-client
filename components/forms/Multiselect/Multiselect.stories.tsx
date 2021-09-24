@@ -2,9 +2,11 @@ import Multiselect from ".";
 import { Story } from "@storybook/react";
 import { Controller } from "react-hook-form";
 import NullForm from "components/api/NullForm";
+import Input from "../Input";
 
 type FieldValues = {
   example?: string[];
+  text?: string;
 };
 
 type Props = React.ComponentProps<typeof Multiselect>;
@@ -25,25 +27,28 @@ const ITEMS = Array.from({ length: 50 }, (_, i) => ({
 }));
 
 export const InAForm: Story<Props> = (args) => {
-  function handleSubmit(data: Record<string, string[]>) {
+  function handleSubmit(data: Record<string, string | string[]>) {
     console.info(data);
   }
 
   return (
     <NullForm<FieldValues> onSubmit={handleSubmit}>
-      {({ form: { control } }) => (
-        <Controller<FieldValues>
-          name="example"
-          control={control}
-          defaultValue={["1"]}
-          render={({ field: { value, ...field } }) => (
-            <Multiselect
-              value={typeof value === "string" ? [] : value}
-              {...args}
-              {...field}
-            />
-          )}
-        />
+      {({ form: { control, register } }) => (
+        <>
+          <Controller<FieldValues>
+            name="example"
+            control={control}
+            defaultValue={["1"]}
+            render={({ field: { value, ...field } }) => (
+              <Multiselect
+                value={typeof value === "string" ? [] : value}
+                {...args}
+                {...field}
+              />
+            )}
+          />
+          <Input label="Text Input" {...register("text")} />
+        </>
       )}
     </NullForm>
   );
@@ -57,9 +62,4 @@ InAForm.args = {
   options: ITEMS,
   hideLabel: false,
   required: false,
-};
-
-InAForm.argTypes = {
-  name: { control: { disable: true } },
-  value: { control: { disable: true } },
 };
