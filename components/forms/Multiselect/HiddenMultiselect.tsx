@@ -31,7 +31,7 @@ interface Option {
 
 interface Props extends Omit<InputProps, "label"> {
   options: readonly Option[];
-  value?: any;
+  value?: string[];
 }
 
 export default HiddenMultiselect;
