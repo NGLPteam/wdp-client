@@ -39,6 +39,11 @@ export const baseRoutes: BaseRoute[] = [
                 label: "navLabels.details",
               },
               {
+                name: "collection.manage.schema",
+                path: "/collections/[slug]/manage/schema",
+                label: "navLabels.schema",
+              },
+              {
                 name: "collection.manage.order",
                 path: "/collections/[slug]/manage/order",
                 label: "navLabels.order",
