@@ -1,7 +1,6 @@
 import React, { Ref, forwardRef, useState } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
 import { IconFactory } from "components/factories";
-import isArray from "lodash/isArray";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./Multiselect.styles";
 
@@ -67,7 +66,7 @@ const Multiselect = forwardRef(
       onStateChange: ({ inputValue, type, selectedItem }) => {
         switch (type) {
           case useCombobox.stateChangeTypes.InputChange:
-            setInputValue(inputValue);
+            setInputValue(inputValue || "");
             break;
           case useCombobox.stateChangeTypes.InputKeyDownEnter:
           case useCombobox.stateChangeTypes.ItemClick:
