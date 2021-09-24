@@ -1,9 +1,11 @@
 import React from "react";
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
+import { useTranslation } from "react-i18next";
+import { MessageBlock } from "components/atomic";
+import FormGrid from "components/forms/FormGrid";
 
 import { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
-import FormGrid from "components/forms/FormGrid";
 
 import Property from "./SchemaInstanceProperty";
 import Provider from "./SchemaInstanceProvider";
@@ -12,8 +14,9 @@ import type { OnSuccessCallback } from "./types";
 
 export default function SchemaInstanceForm(props: Props) {
   const instance = useFragment(fragment, props.instance);
+  const { t } = useTranslation();
 
-  return (
+  return instance.properties && instance.properties.length > 0 ? (
     <Provider context={instance.context} onSuccess={props.onSuccess}>
       <FormGrid>
         {instance.properties.map((prop, index) => (
@@ -21,6 +24,8 @@ export default function SchemaInstanceForm(props: Props) {
         ))}
       </FormGrid>
     </Provider>
+  ) : (
+    <MessageBlock type="empty" name={t("forms.schema.noSchema")} />
   );
 }
 

@@ -59,6 +59,9 @@
       "common": {
         "save": "save"
       },
+      "schema": {
+        "noSchema": "No schema defined"
+      },
       "file": {
         "upload": "Upload a file or \n drag and drop here",
         "upload_new": "or Upload a new file",
@@ -101,6 +104,9 @@
           "summary": "Summary",
           "visibleAfterAt": "Visible After",
           "visibleUntilAt": "Visible Until"
+        },
+        "update": {
+          "success": "Collection updated."
         }
       },
       "contribution": {
@@ -126,6 +132,9 @@
           "summary": "Summary",
           "visibleAfterAt": "Visible After",
           "visibleUntilAt": "Visible Until"
+        },
+        "update": {
+          "success": "Item updated."
         }
       },
       "contributor": {
