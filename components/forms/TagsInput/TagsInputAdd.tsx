@@ -1,12 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUID } from "react-uid";
+import BaseInputError from "../BaseInputError";
 import * as Styled from "./TagsInput.styles";
 
 const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
   const uID = useUID();
+  const [error, setError] = useState();
+
+  function isTagValid(tag: string) {
+    return !tag.includes(",");
+  }
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -22,8 +28,14 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
 
   const handleAdd = () => {
     if (onEnter && inputRef?.current?.value) {
-      onEnter(inputRef.current.value);
-      inputRef.current.value = "";
+      const value = inputRef.current.value;
+      if (isTagValid(value)) {
+        onEnter(value);
+        inputRef.current.value = "";
+        setError(undefined);
+      } else {
+        setError(t("forms.tags.noCommas"));
+      }
     }
   };
 
@@ -38,6 +50,8 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
         type="text"
         placeholder={placeholder}
         onKeyDown={handleKeyDown}
+        pattern="[^,]+"
+        title={t("forms.tags.noCommas")}
       />
       <button
         type="button"
@@ -47,6 +61,7 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
       >
         {t("forms.tags.add")}
       </button>
+      {error && <BaseInputError message={error} />}
     </>
   );
 };
