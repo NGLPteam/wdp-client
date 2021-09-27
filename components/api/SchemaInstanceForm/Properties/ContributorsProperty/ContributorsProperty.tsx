@@ -1,8 +1,10 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
+import { Controller } from "react-hook-form";
 
-import Select from "components/forms/Select";
+// import Select from "components/forms/Select";
+import Multiselect from "components/forms/Multiselect";
 
 import { ContributorsPropertyFragment$key } from "@/relay/ContributorsPropertyFragment.graphql";
 
@@ -19,13 +21,18 @@ export default function ContributorsProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
-        <Select
-          label={label}
-          required={required}
-          options={options}
-          multiple
-          {...register}
+      {({ label, required, control, name }) => (
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <Multiselect
+              label={label}
+              required={required}
+              options={options}
+              {...field}
+            />
+          )}
         />
       )}
     </ScalarProperty>
