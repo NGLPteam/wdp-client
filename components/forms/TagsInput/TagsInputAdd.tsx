@@ -8,7 +8,7 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
   const uID = useUID();
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   function isTagValid(tag: string) {
     return !tag.includes(",");
@@ -32,7 +32,7 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
       if (isTagValid(value)) {
         onEnter(value);
         inputRef.current.value = "";
-        setError(undefined);
+        setError("");
       } else {
         setError(t("forms.tags.noCommas"));
       }
