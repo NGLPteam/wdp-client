@@ -1,11 +1,11 @@
 import React, { Ref, forwardRef, useState, useEffect } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
-import { IconFactory } from "components/factories";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./Multiselect.styles";
 
 import type InputProps from "../inputType";
 import HiddenMultiselect from "./HiddenMultiselect";
+import BaseArrayList from "../BaseArrayList";
 
 /**
  * A typeahead multi select.
@@ -134,30 +134,22 @@ const Multiselect = forwardRef(
             </Styled.List>
           </Styled.InputWrapper>
           {selectedItems && (
-            <Styled.SelectedList>
+            <BaseArrayList>
               {getSelectedItemObjects().map((selectedItem, index) => (
-                <Styled.SelectedItem
+                <BaseArrayList.Item
                   key={`selected-item-${index}`}
                   {...getSelectedItemProps({
                     selectedItem: selectedItem.value,
                     index,
                   })}
+                  onRemove={() => {
+                    removeSelectedItem(selectedItem.value);
+                  }}
                 >
-                  <Styled.SelectedText>
-                    {selectedItem.label}
-                  </Styled.SelectedText>
-                  <Styled.RemoveSelectedButton
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeSelectedItem(selectedItem.value);
-                    }}
-                  >
-                    <IconFactory icon="close" />
-                  </Styled.RemoveSelectedButton>
-                </Styled.SelectedItem>
+                  {selectedItem.label}
+                </BaseArrayList.Item>
               ))}
-            </Styled.SelectedList>
+            </BaseArrayList>
           )}
         </>
       </BaseInputWrapper>

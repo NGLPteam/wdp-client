@@ -1,8 +1,9 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
+import { Controller } from "react-hook-form";
 
-import Input from "components/forms/Input";
+import TagsInput from "components/forms/TagsInput";
 import ScalarProperty from "../ScalarProperty";
 import type { TagsPropertyFragment$key } from "@/relay/TagsPropertyFragment.graphql";
 
@@ -15,8 +16,14 @@ export default function TagsProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
-        <Input label={label} required={required} {...register} />
+      {({ label, required, control, name }) => (
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <TagsInput label={label} required={required} {...field} />
+          )}
+        />
       )}
     </ScalarProperty>
   );

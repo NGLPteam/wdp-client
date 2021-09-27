@@ -59,6 +59,11 @@
       "common": {
         "save": "save"
       },
+      "tags": {
+        "add": "Add tag",
+        "enter": "Enter a new tag",
+        "noCommas": "Commas are not allowed in tags"
+      },
       "schema": {
         "noSchema": "No schema defined"
       },
