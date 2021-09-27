@@ -1,10 +1,9 @@
 import React, { Ref, forwardRef, useState, useEffect } from "react";
-import { IconFactory } from "components/factories";
 import BaseInputWrapper from "../BaseInputWrapper";
-import * as Styled from "./TagsInput.styles";
 
 import type InputProps from "../inputType";
 import TagsInputAdd from "./TagsInputAdd";
+import BaseArrayList from "../BaseArrayList";
 
 /**
  * Add and remove tags
@@ -71,22 +70,18 @@ const TagsInput = forwardRef(
             <TagsInputAdd placeholder={placeholder} onEnter={handleAdd} />
           </div>
           {tags && (
-            <Styled.SelectedList>
+            <BaseArrayList>
               {tags.map((tag, index) => (
-                <Styled.SelectedItem key={`selected-item-${index}`}>
-                  <Styled.SelectedText>{tag}</Styled.SelectedText>
-                  <Styled.RemoveSelectedButton
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemove(tag);
-                    }}
-                  >
-                    <IconFactory icon="close" />
-                  </Styled.RemoveSelectedButton>
-                </Styled.SelectedItem>
+                <BaseArrayList.Item
+                  key={`tag-${index}`}
+                  onRemove={() => {
+                    handleRemove(tag);
+                  }}
+                >
+                  {tag}
+                </BaseArrayList.Item>
               ))}
-            </Styled.SelectedList>
+            </BaseArrayList>
           )}
         </>
       </BaseInputWrapper>
