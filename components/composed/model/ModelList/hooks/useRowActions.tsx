@@ -16,6 +16,8 @@ interface ActionDefinition {
   icon: IconFactoryProps["icon"];
   action: string;
   iconRotate: number;
+  modalLabel?: string;
+  modalBody?: string;
 }
 
 type ActionDefinitions = {
@@ -38,6 +40,8 @@ const availableActions: ActionDefinitions = {
     icon: "delete",
     action: "self.delete",
     iconRotate: 0,
+    modalLabel: i18next.t("modals.delete.label"),
+    modalBody: i18next.t("modals.delete.body"),
   },
 };
 
@@ -55,6 +59,8 @@ function getButtonProps<D extends Record<string, unknown>>(
     ...(actionConfig?.handleClick && {
       onClick: () => actionConfig.handleClick({ row }),
     }),
+    modalLabel: actionDefinition.modalLabel ?? null,
+    modalBody: actionDefinition.modalBody ?? null,
   };
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;

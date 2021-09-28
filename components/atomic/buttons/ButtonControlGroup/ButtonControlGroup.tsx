@@ -2,13 +2,15 @@ import React from "react";
 import {
   ButtonControl,
   ButtonControlDrawer,
+  ButtonControlConfirm,
   Dropdown,
 } from "components/atomic";
 import * as Styled from "./ButtonControlGroup.styles";
 
 type ButtonProps =
   | React.ComponentProps<typeof ButtonControl>
-  | React.ComponentProps<typeof ButtonControlDrawer>;
+  | React.ComponentProps<typeof ButtonControlDrawer>
+  | React.ComponentProps<typeof ButtonControlConfirm>;
 
 function ButtonControlGroup({
   buttons,
@@ -19,6 +21,7 @@ function ButtonControlGroup({
 }: Props) {
   function renderButton(props: ButtonProps, i: number) {
     const { children, ...buttonProps } = props;
+    console.log(props);
 
     return "drawer" in props ? (
       <ButtonControlDrawer
@@ -29,6 +32,15 @@ function ButtonControlGroup({
       >
         {children}
       </ButtonControlDrawer>
+    ) : "modalLabel" in props ? (
+      <ButtonControlConfirm
+        key={i}
+        modalBody={props.modalBody}
+        modalLabel={props.modalLabel}
+        {...buttonProps}
+      >
+        {children}
+      </ButtonControlConfirm>
     ) : (
       <ButtonControl key={i} {...buttonProps}>
         {children}

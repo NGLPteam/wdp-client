@@ -26,7 +26,7 @@ const ConfirmModal = ({ body, handleClose, onConfirm }: ConfirmModalProps) => {
 interface ConfirmModalProps {
   body?: string;
   handleClose: () => void;
-  onConfirm: React.MouseEventHandler | undefined;
+  onConfirm: () => void;
 }
 
 export default ConfirmModal;
