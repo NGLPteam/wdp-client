@@ -122,12 +122,28 @@ export function useDestroyer() {
     [commitDestroyContributor, handleResponse]
   );
 
+  /* Destroy a file */
+  // const [commitDestroyFile] = useMutation<useDestroyerDestroyFileMutation>(
+  //   destroyFileMutation
+  // );
+
+  // const file = useCallback(
+  //   async (input: DestroyFileInput, label: string) => {
+  //     const response = await commitDestroyFile({
+  //       variables: { input },
+  //     });
+  //     return handleResponse(response.destroyFile, label);
+  //   },
+  //   [commitDestroyFile, handleResponse]
+  // );
+
   return {
     collection,
     item,
     community,
     contributor,
     contribution,
+    // file,
   };
 }
 export default useDestroyer;
@@ -184,6 +200,15 @@ const destroyCommunityMutation = graphql`
     }
   }
 `;
+
+// const destroyFileMutation = graphql`
+//   mutation useDestroyerDestroyFileMutation($input: DestroyFileInput!) {
+//     destroyAsset(input: $input) {
+//       destroyedId @deleteRecord
+//       ...useDestroyerFragment
+//     }
+//   }
+// `;
 
 const destroyFragment = graphql`
   fragment useDestroyerFragment on DestroyMutationPayload @inline {

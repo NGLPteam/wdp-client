@@ -4,13 +4,21 @@ import type { filesManageSlugItemsQuery as Query } from "@/relay/filesManageSlug
 import type { GetLayout } from "types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import FileList from "components/composed/file/FileList";
 
-function ManageFiles({ data: dataIgnored }: Props) {
-  return <div> Item Files</div>;
+function ManageFiles({ data }: Props) {
+  return <FileList data={data?.item?.assets} headerStyle="secondary" />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+  return (
+    <ItemLayoutQuery<Query, Props>
+      showSidebar
+      query={query}
+      {...props}
+      useRouteHeader={false}
+    />
+  );
 };
 ManageFiles.getLayout = getLayout;
 
@@ -24,6 +32,9 @@ const query = graphql`
   query filesManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
+      assets {
+        ...FileListFragment
+      }
     }
   }
 `;
