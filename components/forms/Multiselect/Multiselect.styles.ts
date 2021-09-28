@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { aBaseInput, basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { IconFactory } from "components/factories";
@@ -56,13 +56,11 @@ export const List = styled.ul<ListProps>`
 
   ${({ $isOpen }) =>
     $isOpen &&
-    css`
+    `
       display: block;
       pointer-events: all;
       z-index: var(--z-index-dropdown);
     `}
-    
-  }
 
   ${noInsetSupport(`left: 0; right: 0; top: 0;`)}
 `;
