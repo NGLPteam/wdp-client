@@ -9,6 +9,9 @@ export type filesManageSlugItemsQueryVariables = {
 };
 export type filesManageSlugItemsQueryResponse = {
     readonly item: {
+        readonly assets: {
+            readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
+        };
         readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
     } | null;
 };
@@ -25,14 +28,67 @@ query filesManageSlugItemsQuery(
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutFragment
+    assets {
+      ...FileListFragment
+    }
     id
   }
+}
+
+fragment FileListFragment on AnyAssetConnection {
+  nodes {
+    __typename
+    ... on Asset {
+      __isAsset: __typename
+      id
+      slug
+      caption
+      kind
+      name
+      preview {
+        medium {
+          webp {
+            alt
+            url
+            height
+            width
+          }
+        }
+      }
+    }
+    ... on Node {
+      __isNode: __typename
+      id
+    }
+  }
+  ...ModelPaginationFragment
+  ...ModelPageCountActionsFragment
 }
 
 fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ModelPageCountActionsFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+    perPage
+    hasNextPage
+    hasPreviousPage
+    totalCount
+  }
+}
+
+fragment ModelPaginationFragment on Paginated {
+  __isPaginated: __typename
+  pageInfo {
+    page
+    pageCount
+  }
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -75,6 +131,13 @@ v3 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -91,6 +154,22 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AnyAssetConnection",
+            "kind": "LinkedField",
+            "name": "assets",
+            "plural": false,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "FileListFragment"
+              }
+            ],
+            "storageKey": null
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -125,6 +204,188 @@ return {
             "storageKey": null
           },
           (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "AnyAssetConnection",
+            "kind": "LinkedField",
+            "name": "assets",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "nodes",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v3/*: any*/),
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "caption",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "AssetPreview",
+                        "kind": "LinkedField",
+                        "name": "preview",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "PreviewImageMap",
+                            "kind": "LinkedField",
+                            "name": "medium",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "PreviewImage",
+                                "kind": "LinkedField",
+                                "name": "webp",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "alt",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "url",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "height",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "width",
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "type": "Asset",
+                    "abstractKey": "__isAsset"
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v3/*: any*/)
+                    ],
+                    "type": "Node",
+                    "abstractKey": "__isNode"
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "page",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "pageCount",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "perPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "type": "Paginated",
+                "abstractKey": "__isPaginated"
+              }
+            ],
+            "storageKey": null
+          },
           (v3/*: any*/),
           {
             "kind": "InlineFragment",
@@ -151,13 +412,7 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/)
                 ],
@@ -173,14 +428,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1bde449c2bf2d24191655d1402a6db9c",
+    "cacheID": "43aaec5be4f15b540d9cb6b07568b3c4",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    assets {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      caption\n      kind\n      name\n      preview {\n        medium {\n          webp {\n            alt\n            url\n            height\n            width\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '33e4a3c7e2532c33cf333f97137d1111';
+(node as any).hash = 'c3bcbf548f2dbc4607abf052f3f2d4a0';
 export default node;

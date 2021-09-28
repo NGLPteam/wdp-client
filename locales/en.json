@@ -231,6 +231,10 @@
       "ordering": {
         "label": "ordering",
         "label_plural": "orderings"
+      },
+      "file": {
+        "label": "file",
+        "label_plural": "files"
       }
     },
     "name": "name",
@@ -265,7 +269,8 @@
       "thumbnail": "Thumbnail",
       "updatedAt": "Updated At",
       "type": "Type",
-      "schema": "Schema"
+      "schema": "Schema",
+      "kind": "Kind"
     }
   }
 }
