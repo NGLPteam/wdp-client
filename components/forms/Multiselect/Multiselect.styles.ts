@@ -35,6 +35,8 @@ export const Button = styled.button`
   ${noInsetSupport(`top: 0; right: 0; bottom: 0;`)}
 `;
 
+// export const List = styled.ul<ListProps>``;
+
 export const List = styled.ul<ListProps>`
   position: absolute;
   background-color: var(--input-focus-background, var(--brand10));
@@ -47,11 +49,18 @@ export const List = styled.ul<ListProps>`
   max-height: 50vh;
   overflow-y: auto;
   transform: translateY(${pxToRem("41px")});
-  z-index: var(--z-index-dropdown);
+
+  display: none;
+  pointer-events: none;
+  z-index: -1;
+
+  &[open] {
+    display: block;
+    pointer-events: all;
+    z-index: var(--z-index-dropdown);
+  }
 
   ${noInsetSupport(`left: 0; right: 0; top: 0;`)}
-
-  ${({ isOpen }) => !isOpen && `opacity: 0;`}
 `;
 
 interface ListProps {
@@ -66,7 +75,9 @@ export const ListItem = styled.li<ListItemProps>`
   padding-block-end: ${basePadding(3)};
   ${tTruncate}
 
-  ${({ highlighted }) => highlighted && `background-color: var(--brand20)`}
+  &[aria-selected="true"] {
+    background-color: var(--brand20);
+  }
 `;
 
 interface ListItemProps {

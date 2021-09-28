@@ -46,7 +46,7 @@ const Multiselect = forwardRef(
     }, [selectedItems]); // Only run on selectedItems change
 
     // Filter items by currently selected items
-    const getFilteredItems = () =>
+    const getFilteredOptions = () =>
       options.filter(
         (item) =>
           selectedItems.indexOf(item.value) < 0 &&
@@ -64,11 +64,10 @@ const Multiselect = forwardRef(
       getMenuProps,
       getInputProps,
       getComboboxProps,
-      highlightedIndex,
       getItemProps,
     } = useCombobox({
       inputValue,
-      items: getFilteredItems(),
+      items: getFilteredOptions(),
       itemToString: (item) => (item ? item.label : ""),
       onStateChange: ({ inputValue, type, selectedItem }) => {
         switch (type) {
@@ -120,17 +119,15 @@ const Multiselect = forwardRef(
             >
               <Styled.Icon icon="chevron" rotate={180} />
             </Styled.Button>
-            <Styled.List {...getMenuProps()} isOpen={isOpen}>
-              {isOpen &&
-                getFilteredItems().map((item, index) => (
-                  <Styled.ListItem
-                    highlighted={highlightedIndex === index}
-                    key={index}
-                    {...getItemProps({ key: item.value, index, item })}
-                  >
-                    {item.label}
-                  </Styled.ListItem>
-                ))}
+            <Styled.List {...getMenuProps()} open={isOpen}>
+              {getFilteredOptions().map((item, index) => (
+                <Styled.ListItem
+                  key={index}
+                  {...getItemProps({ key: item.value, index, item })}
+                >
+                  {item.label}
+                </Styled.ListItem>
+              ))}
             </Styled.List>
           </Styled.InputWrapper>
           {selectedItems && (
