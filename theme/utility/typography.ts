@@ -44,7 +44,9 @@ export default css`
     text-transform: capitalize;
   }
 
-  .t-link 
+  .t-uppercase {
+    text-transform: uppercase;
+  }
 
   /* Rich Text */
   .t-rte {

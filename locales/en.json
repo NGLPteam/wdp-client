@@ -33,6 +33,7 @@
       "editCollectionContribution.title": "Edit Collection Contribution",
       "createCommunity.title": "Create New Community",
       "createContribution.title": "Create New Contribution",
+      "createFile.title": "Create New File",
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
@@ -44,9 +45,10 @@
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
       "create.contribution": "Create Contribution",
+      "create.community": "Create Community",
+      "create.file": "Create File",
       "edit.itemContribution": "Edit Item Contribution",
       "edit.collectionContribution": "Edit Collection Contribution",
-      "create.community": "Create Community",
       "edit.community": "Edit Community",
       "edit.collection": "Edit Collection",
       "edit.contributor": "Edit Contributor",
@@ -70,7 +72,16 @@
       "file": {
         "upload": "Upload a file or \n drag and drop here",
         "upload_new": "or Upload a new file",
-        "remove": "Remove this file"
+        "remove": "Remove this file",
+        "fields": {
+          "name": "Name",
+          "caption": "Caption",
+          "altText": "Alt Text",
+          "attachment": "Attachment"
+        },
+        "create": {
+          "success": "File created."
+        }
       },
       "validation": {
         "uploaded": {
