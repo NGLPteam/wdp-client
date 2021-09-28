@@ -5,7 +5,7 @@ import {
   FileListFragment,
   FileListFragment$key,
 } from "@/relay/FileListFragment.graphql";
-import type { ModelTableActionProps } from "react-table";
+import type { CellProps, ModelTableActionProps } from "react-table";
 import { useMaybeFragment } from "hooks"; // useDestroyer, useDrawerHelper
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -26,14 +26,21 @@ function FileList<T extends OperationType>({
   const { t } = useTranslation();
 
   const columns = [
+    ModelColumns.ThumbnailColumn<FileNode>(),
     ModelColumns.StringColumn<FileNode>({
       Header: <>{t("columns.name")}</>,
       id: "name",
+      Cell: ({ value }: CellProps<T>) => (
+        <div className="a-cell-50">{value}</div>
+      ),
     }),
     ModelColumns.StringColumn<FileNode>({
       Header: <>{t("columns.kind")}</>,
       id: "kind",
       capitalize: true,
+      Cell: ({ value }: CellProps<T>) => (
+        <div className="a-cell-50">{value}</div>
+      ),
     }),
   ];
 
@@ -75,9 +82,9 @@ const fragment = graphql`
         caption
         kind
         name
-        preview {
-          medium {
-            webp {
+        thumbnail: preview {
+          image: medium {
+            png {
               alt
               url
               height

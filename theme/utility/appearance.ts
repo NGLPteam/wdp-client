@@ -71,4 +71,12 @@ export default css`
   .a-required {
     color: var(--redaa);
   }
+
+  .a-cell-50 {
+    width: 50vw;
+  }
+
+  .a-cell-100 {
+    width: 100vw;
+  }
 `;

@@ -12,9 +12,9 @@ export type FileListFragment = {
         readonly caption?: string | null;
         readonly kind?: AssetKind;
         readonly name?: string;
-        readonly preview?: {
-            readonly medium: {
-                readonly webp: {
+        readonly thumbnail?: {
+            readonly image: {
+                readonly png: {
                     readonly alt: string;
                     readonly url: string;
                     readonly height: number;
@@ -87,7 +87,7 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
-              "alias": null,
+              "alias": "thumbnail",
               "args": null,
               "concreteType": "AssetPreview",
               "kind": "LinkedField",
@@ -95,7 +95,7 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
+                  "alias": "image",
                   "args": null,
                   "concreteType": "PreviewImageMap",
                   "kind": "LinkedField",
@@ -107,7 +107,7 @@ const node: ReaderFragment = {
                       "args": null,
                       "concreteType": "PreviewImage",
                       "kind": "LinkedField",
-                      "name": "webp",
+                      "name": "png",
                       "plural": false,
                       "selections": [
                         {
@@ -168,5 +168,5 @@ const node: ReaderFragment = {
   "type": "AnyAssetConnection",
   "abstractKey": null
 };
-(node as any).hash = 'e21a14fcdd54e27dd6fb171b588c13ea';
+(node as any).hash = 'fcac7eb432fa820f4d10cde90abdadea';
 export default node;
