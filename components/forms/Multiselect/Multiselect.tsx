@@ -119,7 +119,7 @@ const Multiselect = forwardRef(
             >
               <Styled.Icon icon="chevron" rotate={180} />
             </Styled.Button>
-            <Styled.List {...getMenuProps()} open={isOpen}>
+            <Styled.List {...getMenuProps()} $isOpen={isOpen}>
               {getFilteredOptions().map((item, index) => (
                 <Styled.ListItem
                   key={index}
