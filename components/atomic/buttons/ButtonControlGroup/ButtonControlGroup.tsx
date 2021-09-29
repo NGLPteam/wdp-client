@@ -18,6 +18,7 @@ function ButtonControlGroup({
   menuLabel,
   toggleLabel,
   toggleText,
+  onOpenModal,
 }: Props) {
   function renderButton(props: ButtonProps, i: number) {
     const { children, ...buttonProps } = props;
@@ -31,11 +32,12 @@ function ButtonControlGroup({
       >
         {children}
       </ButtonControlDrawer>
-    ) : "modalLabel" in props ? (
+    ) : "modalBody" in props ? (
       <ButtonControlConfirm
         key={i}
         modalBody={props.modalBody}
         modalLabel={props.modalLabel}
+        onOpenModal={onOpenModal}
         {...buttonProps}
       >
         {children}
@@ -79,6 +81,7 @@ interface BaseProps {
   menuLabel: string;
   toggleLabel?: string;
   toggleText?: string;
+  onOpenModal?: (e: React.MouseEvent) => void;
 }
 
 interface PropsWithLabel extends BaseProps {

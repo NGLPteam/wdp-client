@@ -29,6 +29,26 @@ function BaseDropdown({ className, disclosure, submenu, label }: Props) {
     hidden: !active,
   };
 
+  const onOpenModal = {
+    onOpenModal: useCallback(
+      (e) => {
+        e.stopPropagation();
+        setActive(false);
+      },
+      [setActive]
+    ),
+  };
+
+  const submenuItems = submenu.props.children;
+  const submenuItemsWithModal = submenuItems.map((item: JSX.Element) => {
+    const buttonControl = item.props.children;
+    const buttonControlWithModal = React.cloneElement(
+      buttonControl,
+      onOpenModal
+    );
+    return React.cloneElement(item, {}, buttonControlWithModal);
+  });
+
   function renderDisclosure(
     disclosure: JSX.Element | ((props: BaseDisclosureProps) => void),
     disclosureProps: BaseDisclosureProps
@@ -40,7 +60,7 @@ function BaseDropdown({ className, disclosure, submenu, label }: Props) {
   return (
     <div ref={wrapperRef} className={className} aria-label={label}>
       {renderDisclosure(disclosure, disclosureProps)}
-      {React.cloneElement(submenu, submenuProps)}
+      {React.cloneElement(submenu, submenuProps, submenuItemsWithModal)}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import * as Styled from "./ConfirmModalBody.styles";
 import { ButtonControlConfirm } from "components/atomic";
+import i18next from "i18next";
 
 type ButtonControlConfirmProps = React.ComponentProps<
   typeof ButtonControlConfirm
@@ -13,13 +14,13 @@ const ConfirmModalBody = ({
 }: ConfirmModalBodyProps) => {
   return (
     <>
-      <p className="t-copy-sm">{body}</p>
+      {body}
       <Styled.ButtonWrapper>
         <Styled.ConfirmButton onClick={onConfirm}>
-          {actionLabel ?? "Confirm"}
+          {actionLabel ?? i18next.t("modals.generic.confirm")}
         </Styled.ConfirmButton>
         <Styled.ConfirmButton secondary onClick={handleClose}>
-          Cancel
+          {i18next.t("modals.generic.cancel")}
         </Styled.ConfirmButton>
       </Styled.ButtonWrapper>
     </>

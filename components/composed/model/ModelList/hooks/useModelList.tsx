@@ -68,7 +68,7 @@ function useModelList<
     () => ({
       ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
       ...(actions.handleDelete && {
-        delete: { handleClick: actions.handleDelete },
+        delete: { handleClick: actions.handleDelete, modalConfirm: true },
       }),
     }),
     [actions]

@@ -54,7 +54,7 @@ type RenderChild = (props: RenderChildProps) => JSX.Element;
 interface Props {
   dialog: DialogProps;
   /** Modal label, displayed next to the close button */
-  label: string;
+  label: string | undefined;
   /** Modal content */
   children?: RenderChild | React.ReactNode;
   /** If false, disables hiding on click outside the drawer */

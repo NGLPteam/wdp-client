@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { ButtonControl } from "components/atomic";
-import { useDialogState, DialogDisclosure } from "reakit/Dialog";
+import { useDialogState } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
 import ConfirmModalBody from "components/composed/ConfirmModalBody";
 
@@ -19,6 +19,7 @@ const ButtonControlConfirm = forwardRef(
       children,
       onClick,
       "aria-label": actionLabel,
+      onOpenModal: closeDropdown,
     }: Props,
     ref
   ) => {
@@ -26,11 +27,19 @@ const ButtonControlConfirm = forwardRef(
 
     return (
       <>
-        <DialogDisclosure {...dialog}>
-          <ButtonControl as="a" icon={icon} ref={ref}>
-            {children}
-          </ButtonControl>
-        </DialogDisclosure>
+        <ButtonControl
+          as="a"
+          icon={icon}
+          ref={ref}
+          onClick={(e) => {
+            if (closeDropdown) {
+              closeDropdown(e);
+            }
+            dialog.show();
+          }}
+        >
+          {children}
+        </ButtonControl>
         <Modal label={modalLabel} dialog={dialog}>
           {({ handleClose }) => (
             <ConfirmModalBody
@@ -47,8 +56,9 @@ const ButtonControlConfirm = forwardRef(
 );
 
 interface Props extends BaseProps {
-  modalLabel: ModalProps["label"];
-  modalBody?: string;
+  modalLabel?: ModalProps["label"];
+  modalBody?: React.ReactNode;
+  onOpenModal?: (e: React.MouseEvent) => void;
 }
 
 export default ButtonControlConfirm;
