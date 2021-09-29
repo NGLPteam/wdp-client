@@ -21,7 +21,6 @@ function ButtonControlGroup({
 }: Props) {
   function renderButton(props: ButtonProps, i: number) {
     const { children, ...buttonProps } = props;
-    console.log(props);
 
     return "drawer" in props ? (
       <ButtonControlDrawer

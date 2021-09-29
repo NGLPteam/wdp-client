@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { ButtonControl } from "components/atomic";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
-import ConfirmModalContent from "components/composed/ConfirmModalContent";
+import ConfirmModalBody from "components/composed/ConfirmModalBody";
 
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 type ModalProps = React.ComponentProps<typeof Modal>;
@@ -11,8 +11,18 @@ type ModalProps = React.ComponentProps<typeof Modal>;
  * A button control that opens a modal
  */
 const ButtonControlConfirm = forwardRef(
-  ({ modalLabel, modalBody, icon, children, onClick }: Props, ref) => {
-    const dialog = useDialogState({ visible: false, animated: false });
+  (
+    {
+      modalLabel,
+      modalBody,
+      icon,
+      children,
+      onClick,
+      "aria-label": actionLabel,
+    }: Props,
+    ref
+  ) => {
+    const dialog = useDialogState({ visible: false, animated: true });
 
     return (
       <>
@@ -23,10 +33,11 @@ const ButtonControlConfirm = forwardRef(
         </DialogDisclosure>
         <Modal label={modalLabel} dialog={dialog}>
           {({ handleClose }) => (
-            <ConfirmModalContent
-              body={modalBody}
-              onConfirm={onClick}
+            <ConfirmModalBody
+              modalBody={modalBody}
+              onClick={onClick}
               handleClose={handleClose}
+              actionLabel={actionLabel}
             />
           )}
         </Modal>
