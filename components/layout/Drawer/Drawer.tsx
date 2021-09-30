@@ -22,7 +22,7 @@ const Drawer = ({
   const uidLabel = useUID();
   const uidDesc = useUID();
   const { t } = useTranslation();
-  const loading = useQueryStateContext().loading;
+  const { loading } = useQueryStateContext();
 
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
