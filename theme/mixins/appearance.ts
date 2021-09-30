@@ -117,7 +117,6 @@ export const aLink = (color?: string) => css`
     text-decoration: underline;
   }
 
-  &:active,
   &[aria-current="true"] {
     font-weight: var(--font-weight-semibold);
   }
