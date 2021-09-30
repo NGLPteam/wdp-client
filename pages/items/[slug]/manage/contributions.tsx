@@ -35,10 +35,10 @@ type Props = {
 };
 
 const query = graphql`
-  query contributionsManageSlugItemsQuery($itemSlug: Slug!) {
+  query contributionsManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
-      contributions {
+      contributions(page: $page, perPage: 20) {
         ...ItemContributionListFragment
       }
     }

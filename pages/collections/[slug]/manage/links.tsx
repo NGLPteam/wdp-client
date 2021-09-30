@@ -32,10 +32,13 @@ type Props = {
 };
 
 const query = graphql`
-  query linksManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
+  query linksManageSlugCollectionsPagesQuery(
+    $collectionSlug: Slug!
+    $page: Int!
+  ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
-      links {
+      links(page: $page, perPage: 20) {
         ...EntityLinksListFragment
       }
     }

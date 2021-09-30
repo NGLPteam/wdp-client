@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type linksManageSlugCollectionsPagesQueryVariables = {
     collectionSlug: string;
+    page: number;
 };
 export type linksManageSlugCollectionsPagesQueryResponse = {
     readonly collection: {
@@ -25,10 +26,11 @@ export type linksManageSlugCollectionsPagesQuery = {
 /*
 query linksManageSlugCollectionsPagesQuery(
   $collectionSlug: Slug!
+  $page: Int!
 ) {
   collection(slug: $collectionSlug) {
     ...CollectionLayoutFragment
-    links {
+    links(page: $page, perPage: 20) {
       ...EntityLinksListFragment
     }
     id
@@ -114,6 +116,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "collectionSlug"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -123,37 +130,49 @@ v1 = [
     "variableName": "collectionSlug"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 20
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "kind",
   "storageKey": null
 },
-v6 = [
+v7 = [
+  (v4/*: any*/),
   (v3/*: any*/),
-  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -169,8 +188,8 @@ v6 = [
         "name": "name",
         "storageKey": null
       },
-      (v5/*: any*/),
-      (v4/*: any*/)
+      (v6/*: any*/),
+      (v5/*: any*/)
     ],
     "storageKey": null
   }
@@ -192,7 +211,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": null,
+            "args": (v2/*: any*/),
             "concreteType": "EntityLinkConnection",
             "kind": "LinkedField",
             "name": "links",
@@ -232,11 +251,11 @@ return {
         "name": "collection",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
-            "args": null,
+            "args": (v2/*: any*/),
             "concreteType": "EntityLinkConnection",
             "kind": "LinkedField",
             "name": "links",
@@ -250,8 +269,8 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
+                  (v5/*: any*/),
                   (v4/*: any*/),
-                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -276,20 +295,20 @@ return {
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v6/*: any*/),
+                        "selections": (v7/*: any*/),
                         "type": "Item",
                         "abstractKey": null
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v6/*: any*/),
+                        "selections": (v7/*: any*/),
                         "type": "Collection",
                         "abstractKey": null
                       },
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v4/*: any*/)
+                          (v5/*: any*/)
                         ],
                         "type": "Node",
                         "abstractKey": "__isNode"
@@ -363,7 +382,7 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -389,9 +408,9 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  (v5/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v6/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -405,14 +424,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9d12b776648e54c1ce3e79d4a20215a2",
+    "cacheID": "08364a381d10ec02ef3bc75c4ecdcc22",
     "id": null,
     "metadata": {},
     "name": "linksManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query linksManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    links {\n      ...EntityLinksListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment EntityLinksListFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query linksManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    links(page: $page, perPage: 20) {\n      ...EntityLinksListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment EntityLinksListFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '93d50ad4d53165cf4facc9c881d3ea39';
+(node as any).hash = '87c54672981054db75449ae7bc7422db';
 export default node;
