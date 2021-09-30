@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type contributionsManageSlugItemsQueryVariables = {
     itemSlug: string;
+    page: number;
 };
 export type contributionsManageSlugItemsQueryResponse = {
     readonly item: {
@@ -25,10 +26,11 @@ export type contributionsManageSlugItemsQuery = {
 /*
 query contributionsManageSlugItemsQuery(
   $itemSlug: Slug!
+  $page: Int!
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutFragment
-    contributions {
+    contributions(page: $page, perPage: 20) {
       ...ItemContributionListFragment
     }
     id
@@ -112,6 +114,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "itemSlug"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -121,21 +128,33 @@ v1 = [
     "variableName": "itemSlug"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 20
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -159,7 +178,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": null,
+            "args": (v2/*: any*/),
             "concreteType": "ItemContributionConnection",
             "kind": "LinkedField",
             "name": "contributions",
@@ -199,11 +218,11 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
-            "args": null,
+            "args": (v2/*: any*/),
             "concreteType": "ItemContributionConnection",
             "kind": "LinkedField",
             "name": "contributions",
@@ -217,8 +236,8 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
+                  (v5/*: any*/),
                   (v4/*: any*/),
-                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -258,7 +277,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v3/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -273,7 +292,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v3/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -295,7 +314,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v4/*: any*/)
+                          (v5/*: any*/)
                         ],
                         "type": "Node",
                         "abstractKey": "__isNode"
@@ -311,9 +330,9 @@ return {
                     "name": "item",
                     "plural": false,
                     "selections": [
+                      (v4/*: any*/),
                       (v3/*: any*/),
-                      (v2/*: any*/),
-                      (v4/*: any*/)
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -383,7 +402,7 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -416,8 +435,8 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -431,14 +450,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ac164a68e4b2a76711eba47c05bdbb3e",
+    "cacheID": "67f6a348ebdc143f2a17307d9a5c96f2",
     "id": null,
     "metadata": {},
     "name": "contributionsManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query contributionsManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    contributions {\n      ...ItemContributionListFragment\n    }\n    id\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      slug\n      title\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query contributionsManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    contributions(page: $page, perPage: 20) {\n      ...ItemContributionListFragment\n    }\n    id\n  }\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      slug\n      title\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a5bf9ec509a5ab0ce2b0c329f2f2d54a';
+(node as any).hash = '1b33bbbfc83657d66dabfb6865039591';
 export default node;

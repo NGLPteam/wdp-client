@@ -33,10 +33,13 @@ const getLayout: GetLayout<Props> = (props) => {
 CollectionContributions.getLayout = getLayout;
 
 const query = graphql`
-  query contributionsManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
+  query contributionsManageSlugCollectionsPagesQuery(
+    $collectionSlug: Slug!
+    $page: Int!
+  ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
-      contributions {
+      contributions(page: $page, perPage: 20) {
         ...CollectionContributionListFragment
       }
     }

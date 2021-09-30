@@ -32,10 +32,13 @@ type Props = {
 };
 
 const query = graphql`
-  query orderManageSlugOrderingsPagesQuery($collectionSlug: Slug!) {
+  query orderManageSlugOrderingsPagesQuery(
+    $collectionSlug: Slug!
+    $page: Int!
+  ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
-      orderings {
+      orderings(page: $page, perPage: 20) {
         ...EntityOrderingListFragment
       }
     }
