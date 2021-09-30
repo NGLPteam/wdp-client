@@ -7,10 +7,15 @@ type DrawerLinkProps = React.ComponentProps<typeof DrawerLink>;
  * A button control that opens a drawer
  */
 const ButtonControlDrawer = forwardRef(
-  ({ drawer, drawerQuery, icon, children }: Props, ref) => {
+  ({ drawer, drawerQuery, icon, children, closeDropdown }: Props, ref) => {
     return (
       <DrawerLink drawer={drawer} drawerQuery={drawerQuery} passHref>
-        <ButtonControl as="a" icon={icon} ref={ref}>
+        <ButtonControl
+          as="a"
+          icon={icon}
+          ref={ref}
+          closeDropdown={closeDropdown}
+        >
           {children}
         </ButtonControl>
       </DrawerLink>

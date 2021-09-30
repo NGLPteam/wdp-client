@@ -10,22 +10,15 @@ import * as Styled from "./Dropdown.styles";
 function Dropdown({ disclosure, menuItems, label }: Props) {
   const [elRef, out] = useIsOutOfViewport<HTMLUListElement>();
 
-  const submenu = (
-    <Styled.List ref={elRef} right={out.right}>
-      {menuItems.map((item, i) => {
-        if (item === null) return null;
-        return <Styled.Item key={i}>{React.cloneElement(item)}</Styled.Item>;
-      })}
-    </Styled.List>
-  );
-
   return (
     <Styled.Wrapper>
       <BaseDropdown
+        ref={elRef}
+        out={out}
         className=""
         label={label}
         disclosure={disclosure}
-        submenu={submenu}
+        menuItems={menuItems}
       />
     </Styled.Wrapper>
   );

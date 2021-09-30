@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { ButtonControl } from "components/atomic";
-import { useDialogState } from "reakit/Dialog";
+import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
 import ConfirmModalBody from "components/composed/ConfirmModalBody";
 
@@ -19,28 +19,28 @@ const ButtonControlConfirm = forwardRef(
       children,
       onClick,
       "aria-label": actionLabel,
-      onOpenModal: closeDropdown,
+      closeDropdown,
     }: Props,
     ref
   ) => {
     const dialog = useDialogState({ visible: false, animated: true });
 
+    const handleClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (closeDropdown) {
+        closeDropdown();
+      }
+      dialog.show();
+    };
+
     return (
       <>
-        <ButtonControl
-          as="a"
-          icon={icon}
-          ref={ref}
-          onClick={(e) => {
-            if (closeDropdown) {
-              closeDropdown(e);
-            }
-            dialog.show();
-          }}
-        >
-          {children}
-        </ButtonControl>
-        <Modal label={modalLabel} dialog={dialog}>
+        <DialogDisclosure {...dialog} onClick={handleClick}>
+          <ButtonControl as="a" icon={icon} ref={ref}>
+            {children}
+          </ButtonControl>
+        </DialogDisclosure>
+        <Modal label={modalLabel} dialog={dialog} hideOnClickOutside={false}>
           {({ handleClose }) => (
             <ConfirmModalBody
               modalBody={modalBody}
@@ -58,7 +58,6 @@ const ButtonControlConfirm = forwardRef(
 interface Props extends BaseProps {
   modalLabel?: ModalProps["label"];
   modalBody?: React.ReactNode;
-  onOpenModal?: (e: React.MouseEvent) => void;
 }
 
 export default ButtonControlConfirm;
