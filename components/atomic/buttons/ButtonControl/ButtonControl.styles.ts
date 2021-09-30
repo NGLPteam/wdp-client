@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { aGlow } from "theme/mixins/appearance";
+import { aGlow, basePadding } from "theme/mixins/appearance";
+import { DialogDisclosure } from "reakit/Dialog";
 
 import BaseButtonControl from "./ButtonControl";
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
@@ -77,4 +78,9 @@ export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
     css`
       padding-inline-end: ${pxToRem("10px")};
     `}
+`;
+
+export const Disclosure = styled(DialogDisclosure)`
+  --dropdown-list-item-padding: ${basePadding(2)}, ${basePadding(6)};
+  --button-background: none;
 `;
