@@ -1,4 +1,4 @@
-import * as Styled from "./ConfirmModalBody.styles";
+import * as Styled from "./ConfirmModal.styles";
 import { ButtonControlConfirm } from "components/atomic";
 import i18next from "i18next";
 
@@ -6,12 +6,12 @@ type ButtonControlConfirmProps = React.ComponentProps<
   typeof ButtonControlConfirm
 >;
 
-const ConfirmModalBody = ({
+const ConfirmModal = ({
   modalBody: body,
   handleClose,
   onClick: onConfirm,
   actionLabel,
-}: ConfirmModalBodyProps) => {
+}: ConfirmModalProps) => {
   return (
     <>
       {body}
@@ -27,7 +27,7 @@ const ConfirmModalBody = ({
   );
 };
 
-type ConfirmModalBodyProps = Pick<
+type ConfirmModalProps = Pick<
   ButtonControlConfirmProps,
   "modalBody" | "onClick"
 > & {
@@ -35,4 +35,4 @@ type ConfirmModalBodyProps = Pick<
   actionLabel?: ButtonControlConfirmProps["aria-label"];
 };
 
-export default ConfirmModalBody;
+export default ConfirmModal;
