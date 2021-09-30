@@ -36,7 +36,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
         <Fieldset.Fields key={field.id}>
           <Fieldset.Field>
             <Forms.Input
-              label="forms.inputs.linkRepeater.fields.title"
+              label="forms.fields.title"
               {...register(`${name}.${index}.title` as Path<Partial<T>>, {
                 required: true,
               })}
@@ -44,7 +44,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
           </Fieldset.Field>
           <Fieldset.Field>
             <Forms.Input
-              label="forms.inputs.linkRepeater.fields.url"
+              label="forms.fields.url"
               type="url"
               {...register(`${name}.${index}.url` as Path<Partial<T>>, {
                 required: true,

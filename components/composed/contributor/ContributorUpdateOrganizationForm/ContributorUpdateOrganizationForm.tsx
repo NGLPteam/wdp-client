@@ -46,35 +46,26 @@ export default function ContributorUpdateOrganizationForm({
     ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.contributor.fields.legalName"
+          label="forms.fields.legalName"
           {...register("legalName")}
         />
         <Forms.Email
-          label="forms.contributor.fields.email"
+          label="forms.fields.email"
           {...register("email")}
           description="Format: example@email.com"
         />
         <Forms.FileUpload
-          label="forms.contributor.fields.image"
+          label="forms.fields.image"
           name="image"
           image={image?.thumb}
           clearName="clearImage"
         />
-        <Forms.Input
-          label="forms.contributor.fields.location"
-          {...register("location")}
-        />
-        <Forms.Textarea
-          label="forms.contributor.fields.bio"
-          {...register("bio")}
-        />
-        <Forms.Input
-          label="forms.contributor.fields.url"
-          {...register("url")}
-        />
+        <Forms.Input label="forms.fields.location" {...register("location")} />
+        <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
+        <Forms.Input label="forms.fields.url" {...register("url")} />
         <Forms.LinksRepeater
-          label="forms.contributor.fields.links"
-          itemLabel="forms.contributor.fields.link"
+          label="forms.fields.links"
+          itemLabel="forms.fields.link"
           name="links"
           register={register}
           control={control}

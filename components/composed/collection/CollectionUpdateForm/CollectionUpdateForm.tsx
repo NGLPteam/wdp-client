@@ -50,23 +50,16 @@ export default function CollectionUpdateForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
-        <Forms.Input
-          label="forms.collection.fields.title"
-          isWide
-          {...register("title")}
-        />
+        <Forms.Input label="forms.fields.title" isWide {...register("title")} />
         <Forms.FileUpload
-          label="forms.collection.fields.thumbnail"
+          label="forms.fields.thumbnail"
           name="thumbnail"
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
-        <Forms.Textarea
-          label="forms.collection.fields.summary"
-          {...register("summary")}
-        />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.Select
-          label="forms.collection.fields.visibility"
+          label="forms.fields.visibility"
           options={[
             { label: "Visible", value: "VISIBLE" },
             { label: "Hidden", value: "HIDDEN" },
@@ -77,13 +70,13 @@ export default function CollectionUpdateForm({
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.collection.fields.visibleAfterAt"
+            label="forms.fields.visibleAfterAt"
             {...register("visibleAfterAt")}
           />
         </Forms.HiddenField>
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.collection.fields.visibleUntilAt"
+            label="forms.fields.visibleUntilAt"
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>

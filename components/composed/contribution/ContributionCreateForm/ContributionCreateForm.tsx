@@ -27,7 +27,7 @@ export default function ContributionCreateForm({
           <>
             <Forms.Input
               name=""
-              label="forms.contribution.fields.contributor"
+              label="forms.fields.contributor"
               disabled
               defaultValue={contributorName}
             />
@@ -41,7 +41,7 @@ export default function ContributionCreateForm({
           <Forms.ContributorTypeahead<Fields>
             control={control}
             name="contributorId"
-            label="forms.contribution.fields.contributor"
+            label="forms.fields.contributor"
             required
           />
         )}
@@ -49,7 +49,7 @@ export default function ContributionCreateForm({
           <>
             <Forms.Input
               name=""
-              label={`forms.contribution.fields.${type}`}
+              label={`forms.fields.${type}`}
               disabled
               defaultValue={contributableName}
             />
@@ -63,22 +63,18 @@ export default function ContributionCreateForm({
           <Forms.ItemTypeahead<Fields>
             control={control}
             name="contributableId"
-            label="forms.contribution.fields.item"
+            label="forms.fields.item"
             required
           />
         ) : (
           <Forms.CollectionTypeahead<Fields>
             control={control}
             name="contributableId"
-            label="forms.contribution.fields.collection"
+            label="forms.fields.collection"
             required
           />
         )}
-        <Forms.Input
-          label="forms.contribution.fields.role"
-          required
-          {...register("role")}
-        />
+        <Forms.Input label="forms.fields.role" required {...register("role")} />
       </Forms.Grid>
     ),
     []

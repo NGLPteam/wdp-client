@@ -16,10 +16,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input
-          label="forms.community.fields.title"
-          {...register("title")}
-        />
+        <Forms.Input label="forms.fields.title" {...register("title")} />
       </Forms.Grid>
     ),
     []
