@@ -30,20 +30,16 @@ export default function ContributionCreateForm({
         <Forms.ContributorTypeahead<Fields>
           control={control}
           name="contributorId"
-          label="forms.contribution.fields.contributor"
+          label="forms.fields.contributor"
           required
         />
         <Forms.Input
           name=""
-          label="forms.contribution.fields.object"
+          label="forms.fields.object"
           disabled
           defaultValue={contributableName}
         />
-        <Forms.Input
-          label="forms.contribution.fields.role"
-          required
-          {...register("role")}
-        />
+        <Forms.Input label="forms.fields.role" required {...register("role")} />
       </Forms.Grid>
     ),
     []

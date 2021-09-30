@@ -26,14 +26,14 @@ export default function ContributionUpdateForm({
   );
 
   let title = "";
-  let objectLabel = "forms.contribution.fields.object";
+  let objectLabel = "forms.fields.object";
   switch (maybeContribution.__typename) {
     case "ItemContribution":
-      objectLabel = "forms.contribution.fields.item";
+      objectLabel = "forms.fields.item";
       title = maybeContribution.item.title || "";
       break;
     case "CollectionContribution":
-      objectLabel = "forms.contribution.fields.collection";
+      objectLabel = "forms.fields.collection";
       title = maybeContribution.collection.title || "";
       break;
   }
@@ -61,7 +61,7 @@ export default function ContributionUpdateForm({
       <Forms.Grid>
         <Forms.Input
           name=""
-          label="forms.contribution.fields.contributor"
+          label="forms.fields.contributor"
           disabled
           defaultValue={getContributorDisplayName(
             maybeContribution.__typename !== "%other"
@@ -75,10 +75,7 @@ export default function ContributionUpdateForm({
           disabled
           defaultValue={title}
         />
-        <Forms.Input
-          label="forms.contribution.fields.role"
-          {...register("role")}
-        />
+        <Forms.Input label="forms.fields.role" {...register("role")} />
       </Forms.Grid>
     ),
     []

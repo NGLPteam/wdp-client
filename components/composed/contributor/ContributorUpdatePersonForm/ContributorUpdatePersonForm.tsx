@@ -49,39 +49,39 @@ export default function ContributorUpdatePersonForm({
     ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.contributor.fields.givenName"
+          label="forms.fields.givenName"
           {...register("givenName")}
           required
         />
         <Forms.Input
-          label="forms.contributor.fields.familyName"
+          label="forms.fields.familyName"
           {...register("familyName")}
           required
         />
         <Forms.Input label="Title" {...register("title")} />
         <Forms.Input
-          label="forms.contributor.fields.affiliation"
+          label="forms.fields.affiliation"
           {...register("affiliation")}
         />
         <Forms.Email
-          label="forms.contributor.fields.email"
+          label="forms.fields.email"
           description="Format: example@email.com"
           {...register("email")}
         />
         <Forms.FileUpload
-          label="forms.contributor.fields.image"
+          label="forms.fields.image"
           name="image"
           image={image?.thumb}
           clearName="clearImage"
         />
         <Forms.Textarea
-          label="forms.contributor.fields.bio"
+          label="forms.fields.bio"
           isWide
           {...register("bio")}
         />
         <Forms.LinksRepeater
-          label="forms.contributor.fields.links"
-          itemLabel="forms.contributor.fields.link"
+          label="forms.fields.links"
+          itemLabel="forms.fields.link"
           name="links"
           register={register}
           control={control}

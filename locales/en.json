@@ -74,6 +74,30 @@
         "cancel": "Cancel",
         "save_and_close": "Save & Close"
       },
+      "fields": {
+        "title": "Title",
+        "thumbnail": "Thumbnail",
+        "visibility": "Visibility",
+        "summary": "Summary",
+        "visibleAfterAt": "Visible After",
+        "visibleUntilAt": "Visible Until",
+        "role": "Role",
+        "contributor": "Contributor",
+        "item": "Item",
+        "collection": "Collection",
+        "object": "Contribution on",
+        "legalName": "Name",
+        "givenName": "First Name",
+        "familyName": "Last Name",
+        "image": "Image",
+        "email": "Email",
+        "affiliation": "Affiliation",
+        "bio": "Bio",
+        "links": "Links",
+        "link": "Link",
+        "location": "Location",
+        "url": "URL"
+      },
       "tags": {
         "add": "Add tag",
         "enter": "Enter a new tag",
@@ -107,10 +131,6 @@
       },
       "inputs": {
         "linkRepeater": {
-          "fields": {
-            "url": "URL",
-            "title": "title"
-          },
           "add": "Add $t({{ itemLabel }})",
           "remove": "Remove $t({{ itemLabel }})"
         }
@@ -121,20 +141,9 @@
         },
         "update": {
           "success": "Community updated."
-        },
-        "fields": {
-          "title": "title"
         }
       },
       "collection": {
-        "fields": {
-          "title": "Title",
-          "thumbnail": "Thumbnail",
-          "visibility": "Visibility",
-          "summary": "Summary",
-          "visibleAfterAt": "Visible After",
-          "visibleUntilAt": "Visible Until"
-        },
         "update": {
           "success": "Collection updated.",
           "schemaSuccess": "Collection schema updated.",
@@ -143,13 +152,6 @@
         }
       },
       "contribution": {
-        "fields": {
-          "role": "Role",
-          "contributor": "Contributor",
-          "item": "Item",
-          "collection": "Collection",
-          "object": "Contribution on"
-        },
         "create": {
           "success": "Contribution created."
         },
@@ -158,14 +160,6 @@
         }
       },
       "item": {
-        "fields": {
-          "title": "Title",
-          "thumbnail": "Thumbnail",
-          "visibility": "Visibility",
-          "summary": "Summary",
-          "visibleAfterAt": "Visible After",
-          "visibleUntilAt": "Visible Until"
-        },
         "update": {
           "success": "Item updated.",
           "schemaSuccess": "Item schema updated.",
@@ -177,20 +171,6 @@
         "update": {
           "success": "Contributor updated.",
           "failure": "Contributor failed to update."
-        },
-        "fields": {
-          "legalName": "Name",
-          "givenName": "First Name",
-          "familyName": "Last Name",
-          "image": "Image",
-          "title": "Title",
-          "email": "Email",
-          "affiliation": "Affiliation",
-          "bio": "Bio",
-          "links": "Links",
-          "link": "Link",
-          "location": "Location",
-          "url": "URL"
         }
       }
     },

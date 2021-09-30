@@ -48,22 +48,19 @@ export default function ItemUpdateForm({
     ({ form: { register, watch } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.item.fields.title"
+          label="forms.fields.title"
           {...register("title")}
           isWide
         />
         <Forms.FileUpload
-          label="forms.item.fields.thumbnail"
+          label="forms.fields.thumbnail"
           name="thumbnail"
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
-        <Forms.Textarea
-          label="forms.item.fields.summary"
-          {...register("summary")}
-        />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.Select
-          label="forms.item.fields.visibility"
+          label="forms.fields.visibility"
           options={[
             { label: "Visible", value: "VISIBLE" },
             { label: "Hidden", value: "HIDDEN" },
@@ -74,13 +71,13 @@ export default function ItemUpdateForm({
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.item.fields.visibleAfterAt"
+            label="forms.fields.visibleAfterAt"
             {...register("visibleAfterAt")}
           />
         </Forms.HiddenField>
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.item.fields.visibleUntilAt"
+            label="forms.fields.visibleUntilAt"
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
