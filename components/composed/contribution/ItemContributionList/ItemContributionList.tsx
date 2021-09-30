@@ -93,7 +93,7 @@ function ItemContributionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution.label"
+        "glossary.contribution"
       ),
   };
 

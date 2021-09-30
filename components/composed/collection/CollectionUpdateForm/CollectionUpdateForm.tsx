@@ -50,11 +50,7 @@ export default function CollectionUpdateForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
-        <Forms.Input
-          label="forms.fields.title"
-          isWide
-          {...register("title")}
-        />
+        <Forms.Input label="forms.fields.title" isWide {...register("title")} />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           name="thumbnail"

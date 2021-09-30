@@ -29,25 +29,24 @@
     "drawers": {
       "createPerson.title": "Create New Person",
       "createOrganization.title": "Create New Organization",
-      "editItemContribution.title": "Edit Item Contribution",
-      "editCollectionContribution.title": "Edit Collection Contribution",
       "createCommunity.title": "Create New Community",
       "createContribution.title": "Create New Contribution",
       "createFile.title": "Create New File",
+      "editItemContribution.title": "Edit Item Contribution",
+      "editCollectionContribution.title": "Edit Collection Contribution",
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
       "editItem.title": "Edit Item",
-      "editCollectionContribution.title": "Collection Contribution",
-      "editItemContribution.title": "Item Contribution"
     },
     "actions": {
-      "add": "Add $t({{ name }})",
+      "create": "Create $t({{ name }})",
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
       "create.contribution": "Create Contribution",
       "create.community": "Create Community",
       "create.file": "Create File",
+      "edit": "Edit $t({{ name }})",
       "edit.itemContribution": "Edit Item Contribution",
       "edit.collectionContribution": "Edit Collection Contribution",
       "edit.community": "Edit Community",
@@ -197,50 +196,28 @@
       }
     },
     "glossary": {
-      "community": {
-        "label": "community",
-        "label_plural": "communities"
-      },
-      "collection": {
-        "label": "collection",
-        "label_plural": "collections"
-      },
-      "collection_contribution": {
-        "label": "collection $t(glossary.contribution.label_plural)"
-      },
-      "contribution": {
-        "label": "contribution",
-        "label_plural": "contributions"
-      },
-      "item": {
-        "label": "item",
-        "label_plural": "items"
-      },
-      "item_contribution": {
-        "label": "item $t(glossary.contribution.label_plural)"
-      },
-      "user": {
-        "label": "user",
-        "label_plural": "users"
-      },
-      "contributor": {
-        "label": "contributor",
-        "label_plural": "contributors",
-        "person": "Person",
-        "org": "Organization"
-      },
-      "link": {
-        "label": "link",
-        "label_plural": "links"
-      },
-      "ordering": {
-        "label": "ordering",
-        "label_plural": "orderings"
-      },
-      "file": {
-        "label": "file",
-        "label_plural": "files"
-      }
+      "community": "community",
+      "community_plural": "communities",
+      "collection": "collection",
+      "collection_plural": "collections",
+      "collection_contribution": "collection $t(glossary.contribution_plural)",
+      "contribution": "contribution",
+      "contribution_plural": "contributions",
+      "item": "item",
+      "item_plural": "items",
+      "item_contribution": "item $t(glossary.contribution_plural)",
+      "user": "user",
+      "user_plural": "users",
+      "contributor": "contributor",
+      "contributor_plural": "contributors",
+      "contributor_person": "Person",
+      "contributor_org": "Organization",
+      "link": "link",
+      "link_plural": "links",
+      "ordering": "ordering",
+      "ordering_plural": "orderings",
+      "file": "file",
+      "file_plural": "files"
     },
     "name": "name",
     "name_plural": "names",

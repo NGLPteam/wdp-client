@@ -55,7 +55,7 @@ function FileList<T extends OperationType>({
   //   handleEdit: ({ row }: ModelTableActionProps<FileNode>) =>
   //     drawerHelper.open("editFile", { drawerSlug: row.original.slug }),
   //   handleDelete: ({ row }: ModelTableActionProps<FileNode>) =>
-  //     destroy.file({ fileId: row.id }, "glossary.file.label"),
+  //     destroy.file({ fileId: row.id }, "glossary.file"),
   // };
 
   // TODO: We need an authorization check here.

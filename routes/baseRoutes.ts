@@ -8,23 +8,23 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "collections",
     path: "/collections",
-    label: "glossary.collection.label_plural",
+    label: "glossary.collection_plural",
     routes: [
       {
         name: "collection",
         path: "/collections/[slug]",
         redirect: "/collections/[slug]/collections",
-        label: "glossary.collection.label",
+        label: "glossary.collection",
         routes: [
           {
             name: "collection.child.collections",
             path: "/collections/[slug]/collections",
-            label: "glossary.collection.label_plural",
+            label: "glossary.collection_plural",
           },
           {
             name: "collection.child.items",
             path: "/collections/[slug]/items",
-            label: "glossary.item.label_plural",
+            label: "glossary.item_plural",
           },
           {
             name: "collection.manage",
@@ -71,18 +71,18 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "items",
     path: "/items",
-    label: "glossary.item.label_plural",
+    label: "glossary.item_plural",
     routes: [
       {
         name: "item",
         path: "/items/[slug]",
         redirect: "/items/[slug]/items",
-        label: "glossary.item.label_plural",
+        label: "glossary.item_plural",
         routes: [
           {
             name: "item.child.items",
             path: "/items/[slug]/items",
-            label: "glossary.item.label_plural",
+            label: "glossary.item_plural",
           },
           {
             name: "item.manage",
@@ -135,18 +135,18 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "communities",
     path: "/communities",
-    label: "glossary.community.label_plural",
+    label: "glossary.community_plural",
     routes: [
       {
         name: "community",
         path: "/communities/[slug]",
         redirect: "/communities/[slug]/collections",
-        label: "glossary.community.label_plural",
+        label: "glossary.community_plural",
         routes: [
           {
             name: "community.child.collections",
             path: "/communities/[slug]/collections",
-            label: "glossary.collection.label_plural",
+            label: "glossary.collection_plural",
           },
           {
             name: "community.manage",
@@ -174,13 +174,13 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "users",
     path: "/users",
-    label: "glossary.user.label_plural",
+    label: "glossary.user_plural",
     routes: [
       {
         name: "user",
         path: "/users/[slug]",
         redirect: "/users/[slug]/details",
-        label: "glossary.user.label_plural",
+        label: "glossary.user_plural",
         routes: [
           {
             name: "user.details",
@@ -209,13 +209,13 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "contributors",
     path: "/contributors",
-    label: "glossary.contributor.label_plural",
+    label: "glossary.contributor_plural",
     routes: [
       {
         name: "contributor",
         path: "/contributors/[slug]",
         redirect: "/contributors/[slug]/details",
-        label: "glossary.contributor.label_plural",
+        label: "glossary.contributor_plural",
         routes: [
           {
             name: "contributor.details",

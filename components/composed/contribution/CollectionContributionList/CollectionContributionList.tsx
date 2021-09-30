@@ -104,7 +104,7 @@ function CollectionContributionList<T extends OperationType>({
     }: ModelTableActionProps<CollectionContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution.label"
+        "glossary.contribution"
       ),
   };
 

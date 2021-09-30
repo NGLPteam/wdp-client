@@ -74,11 +74,7 @@ export default function ContributorUpdatePersonForm({
           image={image?.thumb}
           clearName="clearImage"
         />
-        <Forms.Textarea
-          label="forms.fields.bio"
-          isWide
-          {...register("bio")}
-        />
+        <Forms.Textarea label="forms.fields.bio" isWide {...register("bio")} />
         <Forms.LinksRepeater
           label="forms.fields.links"
           itemLabel="forms.fields.link"
