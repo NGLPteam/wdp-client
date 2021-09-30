@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { DialogProps } from "reakit/Dialog";
 import { ButtonControl } from "components/atomic/buttons/";
 import * as Styled from "./Drawer.styles";
+import { useQueryStateContext } from "hooks";
+import LoadingCircle from "components/atomic/loading/LoadingCircle";
 
 /**
  * A drawer for complex actions, forms.
@@ -20,6 +22,7 @@ const Drawer = ({
   const uidLabel = useUID();
   const uidDesc = useUID();
   const { t } = useTranslation();
+  const { loading } = useQueryStateContext();
 
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
@@ -45,7 +48,13 @@ const Drawer = ({
           </Styled.HeaderBar>
           <Styled.H1 id={uidDesc}>{header}</Styled.H1>
         </Styled.Header>
-        <Styled.Content>{dialog.visible && children}</Styled.Content>
+        {loading ? (
+          <Styled.Content>
+            <LoadingCircle />
+          </Styled.Content>
+        ) : (
+          <Styled.Content>{dialog.visible && children}</Styled.Content>
+        )}
       </Styled.Dialog>
     </Styled.DialogBackdrop>
   );
