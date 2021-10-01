@@ -9,6 +9,7 @@ type Props = React.ComponentProps<typeof BaseInputWrapper>;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  flex-basis: var(--form-grid-flex-basis);
 `;
 
 export const Label = styled.label<Pick<Props, "hideLabel">>`

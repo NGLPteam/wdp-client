@@ -57,24 +57,25 @@ export default function ContributorUpdatePersonForm({
           {...register("familyName")}
           required
         />
+        <Forms.Input label="Title" {...register("title")} />
+        <Forms.Input
+          label="forms.contributor.fields.affiliation"
+          {...register("affiliation")}
+        />
+        <Forms.Email
+          label="forms.contributor.fields.email"
+          description="Format: example@email.com"
+          {...register("email")}
+        />
         <Forms.FileUpload
           label="forms.contributor.fields.image"
           name="image"
           image={image?.thumb}
           clearName="clearImage"
         />
-        <Forms.Input label="Title" {...register("title")} />
-        <Forms.Email
-          label="forms.contributor.fields.email"
-          description="Format: example@email.com"
-          {...register("email")}
-        />
-        <Forms.Input
-          label="forms.contributor.fields.affiliation"
-          {...register("affiliation")}
-        />
         <Forms.Textarea
           label="forms.contributor.fields.bio"
+          isWide
           {...register("bio")}
         />
         <Forms.LinksRepeater

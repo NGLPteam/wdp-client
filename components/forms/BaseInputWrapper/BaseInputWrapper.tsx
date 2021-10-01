@@ -16,12 +16,18 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   labelProps,
   name,
   required,
+  isWide,
 }: Props<T>) => {
   const { t } = useTranslation();
   const uid = useUID();
+  // Setting the width this way creates a small extra class that's applied for wide wrappers
+  // This prevents the Styled.Wrapper CSS from getting duplicated for a single width change
+  const css = isWide && {
+    "flex-basis": "var(--form-grid-flex-basis-wide)",
+  };
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper css={css}>
       <Styled.Label htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
         {t(label)}{" "}
         {required && (
@@ -45,7 +51,7 @@ interface Props<T extends FieldValues = FieldValues>
     "name" | "description" | "label" | "hideLabel" | "required"
   > {
   children: JSX.Element | (({ uid }: { uid: string }) => React.ReactNode);
-
+  isWide?: boolean;
   labelProps?: typeof HTMLLabelElement;
 }
 

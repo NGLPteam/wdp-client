@@ -6,7 +6,16 @@ import type InputProps from "../inputType";
 
 const Switch = forwardRef(
   (
-    { label, name, text, description, hideLabel, error, ...inputProps }: Props,
+    {
+      label,
+      name,
+      text,
+      description,
+      hideLabel,
+      error,
+      isWide,
+      ...inputProps
+    }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
     return (
@@ -15,6 +24,7 @@ const Switch = forwardRef(
         hideLabel={hideLabel}
         label={label}
         required={inputProps.required}
+        isWide={isWide}
       >
         {({ uid }) => (
           <Styled.SwitchWrapper as="label" htmlFor={uid}>

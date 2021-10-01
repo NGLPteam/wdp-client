@@ -21,6 +21,7 @@ const Typeahead = forwardRef(
       required,
       onChange,
       value,
+      isWide,
       ...inputProps
     }: Props,
     ref: Ref<HTMLInputElement>
@@ -66,6 +67,7 @@ const Typeahead = forwardRef(
         label={label}
         labelProps={getLabelProps()}
         required={required}
+        isWide={isWide}
       >
         <Styled.InputWrapper {...getComboboxProps()}>
           {/* Hidden input field for react-hook-form or other form control */}

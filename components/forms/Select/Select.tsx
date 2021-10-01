@@ -15,6 +15,7 @@ const Select = forwardRef(
       options,
       error,
       multiple,
+      isWide,
       ...inputProps
     }: Props,
     ref: Ref<HTMLSelectElement>
@@ -25,6 +26,7 @@ const Select = forwardRef(
         hideLabel={hideLabel}
         label={label}
         required={inputProps.required}
+        isWide={isWide}
       >
         {({ uid }) => (
           <Styled.SelectWrapper>

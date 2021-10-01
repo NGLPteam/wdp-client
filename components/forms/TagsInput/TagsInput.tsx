@@ -19,6 +19,7 @@ const TagsInput = forwardRef(
       required,
       onChange,
       value,
+      isWide,
       ...inputProps
     }: Props,
     ref: Ref<HTMLInputElement>
@@ -54,6 +55,7 @@ const TagsInput = forwardRef(
         hideLabel={hideLabel}
         label={label}
         required={required}
+        isWide={isWide}
       >
         <>
           <div>

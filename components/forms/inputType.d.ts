@@ -13,6 +13,7 @@ interface InputProps<T extends FieldValues = FieldValues> {
   error?: {
     message: string;
   };
+  isWide?: boolean;
 }
 
 export default InputProps;

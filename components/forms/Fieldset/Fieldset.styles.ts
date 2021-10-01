@@ -8,6 +8,7 @@ export const Fieldset = styled.fieldset`
   flex-direction: column;
   gap: var(--fieldset-field-spacing, ${pxToRem(24)});
   padding-block-end: var(--fieldset-field-spacing, ${pxToRem(24)});
+  flex-basis: var(--form-grid-flex-basis-wide);
 `;
 
 export const Legend = styled.legend`

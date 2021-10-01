@@ -1,20 +1,26 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { respond } from "theme/mixins/base";
-import FormGrid from "./FormGrid";
-type FormGridProps = React.ComponentProps<typeof FormGrid>;
 
-export const Grid = styled.div<GridProps>`
-  display: grid;
+export const Grid = styled.div`
+  --form-grid-flex-basis: var(
+    --drawer-form-grid-flex-basis,
+    calc(50% - (var(--form-column-gap) * 0.5))
+  );
+  --form-grid-flex-basis-wide: 100%;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   row-gap: var(--form-row-gap);
   column-gap: var(--form-column-gap);
   padding-block-end: var(--form-group-padding-bottom);
+  justify-content: space-between;
 
-  ${({ twoColumns }) =>
-    twoColumns &&
-    css`
-      /* Set a 12 column grid for desktop views */
-      ${respond(`grid-template-columns: repeat(2, 1fr);`, 70, "min")}
-    `}
+  ${respond(
+    `
+    --form-grid-flex-basis: 100%;
+    flex-direction: column;
+    `,
+    50
+  )}
 `;
-
-type GridProps = Pick<FormGridProps, "twoColumns">;

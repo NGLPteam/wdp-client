@@ -47,6 +47,7 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
       <Forms.Grid>
         <Forms.Input
           label="forms.collection.fields.title"
+          isWide
           {...register("title")}
         />
         <Forms.FileUpload
@@ -66,6 +67,7 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
             { label: "Hidden", value: "HIDDEN" },
             { label: "Limited", value: "LIMITED" },
           ]}
+          isWide
           {...register("visibility")}
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
