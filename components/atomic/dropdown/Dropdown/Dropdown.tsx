@@ -1,33 +1,80 @@
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
+import { useUID } from "react-uid";
+import { useFocusTrap } from "@castiron/hooks/";
 import useIsOutOfViewport from "hooks/useIsOutOfViewport";
-import BaseDropdown from "./BaseDropdown";
+import isFunction from "lodash/isFunction";
 import * as Styled from "./Dropdown.styles";
 
 /**
  * A dropdown for navigation submenus.
  * Adds appropriate aria labels and open/close functionality.
  */
-function Dropdown({ disclosure, menuItems, label }: Props) {
+const Dropdown = ({ className, disclosure, menuItems, label }: Props) => {
+  const uid = useUID();
+  const wrapperRef = useRef(null);
+  const [active, setActive] = useState(false);
   const [elRef, out] = useIsOutOfViewport<HTMLUListElement>();
+
+  const closeDropdown = useCallback(() => setActive(false), [setActive]);
+  useFocusTrap(wrapperRef, active, {
+    onDeactivate: closeDropdown,
+  });
+
+  const submenu = (
+    <Styled.List
+      ref={elRef}
+      right={out.right}
+      id={uid}
+      aria-hidden={!active}
+      hidden={!active}
+    >
+      {menuItems.map((item, i) => {
+        if (item === null) return null;
+        return (
+          <Styled.Item key={i}>
+            {React.cloneElement(item, { closeDropdown: closeDropdown })}
+          </Styled.Item>
+        );
+      })}
+    </Styled.List>
+  );
+
+  const disclosureProps = {
+    "aria-controls": uid,
+    "aria-expanded": active,
+    "aria-label": `Show ${label}`,
+    onClick: () => setActive((prevState) => !prevState),
+  };
+
+  function renderDisclosure(
+    disclosure: JSX.Element | ((props: BaseDisclosureProps) => void),
+    disclosureProps: BaseDisclosureProps
+  ) {
+    if (isFunction(disclosure)) return disclosure(disclosureProps);
+    return React.cloneElement(disclosure, disclosureProps);
+  }
 
   return (
     <Styled.Wrapper>
-      <BaseDropdown
-        ref={elRef}
-        out={out}
-        className=""
-        label={label}
-        disclosure={disclosure}
-        menuItems={menuItems}
-      />
+      <div ref={wrapperRef} className={className} aria-label={label}>
+        {renderDisclosure(disclosure, disclosureProps)}
+        {submenu}
+      </div>
     </Styled.Wrapper>
   );
-}
+};
 
 interface Props {
-  disclosure: JSX.Element;
-  menuItems: (JSX.Element | null)[];
+  className?: string;
+  disclosure: JSX.Element | ((props: BaseDisclosureProps) => void);
   label: string;
+  menuItems: (JSX.Element | null)[];
+}
+export interface BaseDisclosureProps {
+  "aria-controls": string;
+  "aria-expanded": boolean;
+  "aria-label": string;
+  onClick: () => void;
 }
 
 export default React.memo(Dropdown);
