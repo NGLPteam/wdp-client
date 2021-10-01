@@ -5,11 +5,21 @@ import type { GetLayout } from "types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
+import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 
 function ManageDetails({ data }: Props) {
   if (!data || !data.item) return null;
 
-  return <ItemUpdateForm data={data?.item} />;
+  return (
+    <>
+      <ItemUpdateForm data={data?.item} />
+      <SchemaInstanceForm
+        instance={data?.item}
+        successNotification="forms.item.update.schemaSuccess"
+        failureNotification="forms.item.update.schemaFailure"
+      />
+    </>
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -28,6 +38,7 @@ const query = graphql`
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
       ...ItemUpdateFormFragment
+      ...SchemaInstanceFormFragment
     }
   }
 `;
