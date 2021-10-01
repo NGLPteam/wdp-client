@@ -14,7 +14,7 @@ const NameColumn = <NodeType extends Node>({
 
   return {
     Header: <>{t("columns.name")}</>,
-    id: "Name",
+    id: "name",
     disableSortBy: true,
     Cell: ({ row, value }: CellProps<NodeType>) => {
       if (!row?.original?.slug) return value;
