@@ -13,6 +13,7 @@ const Textarea = forwardRef(
       description,
       placeholder,
       error,
+      isWide,
       ...textareaProps
     }: InputProps,
     ref: Ref<HTMLTextAreaElement>
@@ -23,6 +24,7 @@ const Textarea = forwardRef(
         hideLabel={hideLabel}
         label={label}
         required={textareaProps.required}
+        isWide={isWide}
       >
         <Styled.TextareaInput
           name={name}

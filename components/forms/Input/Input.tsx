@@ -13,6 +13,7 @@ const Input = forwardRef(
       hideLabel,
       description,
       error,
+      isWide,
       ...inputProps
     }: Props<T>,
     ref: Ref<HTMLInputElement>
@@ -24,6 +25,7 @@ const Input = forwardRef(
         hideLabel={hideLabel}
         description={description}
         required={inputProps.required}
+        isWide={isWide}
       >
         <Styled.Input type={type} ref={ref} {...inputProps} />
       </BaseInputWrapper>

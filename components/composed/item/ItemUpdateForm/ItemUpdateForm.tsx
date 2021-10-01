@@ -42,7 +42,11 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.item.fields.title" {...register("title")} />
+        <Forms.Input
+          label="forms.item.fields.title"
+          {...register("title")}
+          isWide
+        />
         <Forms.FileUpload
           label="forms.item.fields.thumbnail"
           name="thumbnail"
@@ -60,6 +64,7 @@ export default function ItemUpdateForm({ data, onSuccess }: Props) {
             { label: "Hidden", value: "HIDDEN" },
             { label: "Limited", value: "LIMITED" },
           ]}
+          isWide
           {...register("visibility")}
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">

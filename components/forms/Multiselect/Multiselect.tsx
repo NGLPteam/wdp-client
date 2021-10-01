@@ -23,6 +23,7 @@ const Multiselect = forwardRef(
       required,
       onChange,
       value,
+      isWide,
       ...inputProps
     }: Props,
     ref: Ref<HTMLSelectElement>
@@ -95,6 +96,7 @@ const Multiselect = forwardRef(
         label={label}
         labelProps={getLabelProps()}
         required={required}
+        isWide={isWide}
       >
         <>
           <Styled.InputWrapper {...getComboboxProps()}>
