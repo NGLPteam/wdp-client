@@ -2,10 +2,14 @@ import styled, { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { aGlow, basePadding } from "theme/mixins/appearance";
+import { respond } from "theme/mixins/base";
 import { DialogDisclosure } from "reakit/Dialog";
 
 import BaseButtonControl from "./ButtonControl";
+import ButtonControlConfirm from "./patterns/ButtonControlConfirm";
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
+type ConfirmProps = React.ComponentProps<typeof ButtonControlConfirm>;
+type DisclosureProps = Pick<ConfirmProps, "breakpoint">;
 
 export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   min-height: ${pxToRem("32px")};
@@ -80,7 +84,31 @@ export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
     `}
 `;
 
-export const Disclosure = styled(DialogDisclosure)`
-  --dropdown-list-item-padding: ${basePadding(2)}, ${basePadding(6)};
-  --button-background: none;
+export const Disclosure = styled(DialogDisclosure)<DisclosureProps>`
+  border: 1px solid transparent;
+  border-radius: ${pxToRem("4px")};
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:focus-visible:not(:hover) {
+    background-color: var(--brand20);
+    border-color: var(--brand100);
+    ${aGlow("lightMode")}
+  }
+
+  ${({ breakpoint }) =>
+    breakpoint &&
+    respond(
+      css`
+        --dropdown-list-item-padding: 0;
+
+        > * {
+          padding: ${basePadding(2)} ${basePadding(6)};
+          background: transparent;
+        }
+      `,
+      breakpoint
+    )}
 `;

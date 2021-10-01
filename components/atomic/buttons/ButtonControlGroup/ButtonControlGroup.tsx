@@ -36,6 +36,7 @@ function ButtonControlGroup({
         key={i}
         modalBody={props.modalBody}
         modalLabel={props.modalLabel}
+        breakpoint={breakpoint}
         {...buttonProps}
       >
         {children}
