@@ -10,6 +10,7 @@ import {
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
+import type { ModelTableActionProps } from "react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -35,6 +36,13 @@ function EntityOrderingList<T extends OperationType>({
     }),
   ];
 
+  /* eslint-disable no-console */
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      console.log(`delete ${row.original.id}`),
+  };
+  /* eslint-enable no-console */
+
   return (
     <ModelListPage<T, EntityOrderingListFragment, EntityOrderingNode>
       modelName="ordering"
@@ -42,6 +50,7 @@ function EntityOrderingList<T extends OperationType>({
       data={collectionOrderings}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      actions={actions}
     />
   );
 }
