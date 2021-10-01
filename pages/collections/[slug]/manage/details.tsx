@@ -5,10 +5,21 @@ import type { GetLayout } from "types/page";
 
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 
 function CollectionDetails({ data }: Props) {
   if (!data || !data.collection) return null;
-  return <CollectionUpdateForm data={data?.collection} />;
+
+  return (
+    <>
+      <CollectionUpdateForm data={data?.collection} />
+      <SchemaInstanceForm
+        instance={data?.collection}
+        successNotification="forms.collection.update.schemaSuccess"
+        failureNotification="forms.collection.update.schemaFailure"
+      />
+    </>
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -27,6 +38,7 @@ const query = graphql`
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
       ...CollectionUpdateFormFragment
+      ...SchemaInstanceFormFragment
     }
   }
 `;

@@ -23,7 +23,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   // Setting the width this way creates a small extra class that's applied for wide wrappers
   // This prevents the Styled.Wrapper CSS from getting duplicated for a single width change
   const css = isWide && {
-    "flex-basis": "var(--form-grid-flex-basis-wide)",
+    "flex-basis": "var(--form-grid-item-width-wide)",
   };
 
   return (

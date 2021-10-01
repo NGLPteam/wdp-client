@@ -1,13 +1,13 @@
 import React from "react";
-import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
-import { QueryWrapper } from "components/api";
-import type { CollectionUpdateDrawerQuery as Query } from "__generated__/CollectionUpdateDrawerQuery.graphql";
-
-import { useDrawerHelper } from "hooks";
 import { graphql } from "react-relay";
+import { useDrawerHelper } from "hooks";
+import { QueryWrapper } from "components/api";
+import Drawer from "components/layout/Drawer";
+import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
+
+import type { CollectionUpdateDrawerQuery as Query } from "__generated__/CollectionUpdateDrawerQuery.graphql";
 
 export default function CollectionUpdateDrawer({
   dialog,
@@ -42,6 +42,7 @@ export default function CollectionUpdateDrawer({
             <CollectionUpdateForm
               data={data.collection}
               onSuccess={dialog.hide}
+              onCancel={dialog.hide}
             />
           )}
         </Drawer>

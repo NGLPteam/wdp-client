@@ -48,7 +48,7 @@ export default function SchemaInstanceProvider({
 
   const { entityId } = context;
 
-  const { onSuccess } = props;
+  const { onSuccess, onCancel } = props;
 
   const { handleSubmit, setError } = form;
 
@@ -116,7 +116,7 @@ export default function SchemaInstanceProvider({
         <FormProvider {...form}>
           <Watcher control={form.control} />
           {props.children}
-          <Actions />
+          <Actions onCancel={onCancel} />
         </FormProvider>
       </form>
     </Context.Provider>
@@ -127,6 +127,7 @@ interface Props {
   children: React.ReactNode;
   context: SchemaInstanceProviderFragment$key;
   onSuccess?: OnSuccessCallback;
+  onCancel?: () => void;
   /**
    * If set, the form will populate a toast notification with this message on success. The
    * value will be passed through localization first.

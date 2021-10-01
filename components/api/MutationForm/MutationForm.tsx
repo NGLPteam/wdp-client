@@ -99,7 +99,14 @@ export default function MutationForm<
     [mutationState.error, dispatch]
   );
 
-  const { getErrors, isSuccess, onFailure, onSuccess, toVariables } = props;
+  const {
+    getErrors,
+    isSuccess,
+    onFailure,
+    onSuccess,
+    onCancel,
+    toVariables,
+  } = props;
 
   const castVariables = useCallback<VariableTransformer<M, T>>(
     function (data) {
@@ -227,6 +234,11 @@ export default function MutationForm<
           <Button disabled={submitDisabled} type="submit">
             {t("forms.common.save")}
           </Button>
+          {onCancel && (
+            <Button type="button" onClick={onCancel} secondary>
+              {t("forms.common.cancel")}
+            </Button>
+          )}
         </Styled.Footer>
       </form>
     </FormProvider>
@@ -309,6 +321,14 @@ interface BaseProps<M extends MutationParameters, T extends FieldValues> {
    * @see useOnSuccess to generate type-safely without extra renders
    */
   onSuccess?: OnSuccessCallback<M, T>;
+
+  /**
+   * Optionally pass in a cancel action.
+   * This will render a "Cancel" button at the bottom of the form.
+   *
+   * @see useOnSuccess to generate type-safely without extra renders
+   */
+  onCancel?: () => void;
 
   /**
    * Optionally process the response on a failed mutation. Redirect to another page,
