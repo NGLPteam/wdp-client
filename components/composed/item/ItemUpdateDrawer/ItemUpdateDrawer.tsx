@@ -39,7 +39,11 @@ export default function ItemUpdateDrawer({
           hideOnClickOutside={false}
         >
           {data && data.item && (
-            <ItemUpdateForm data={data.item} onSuccess={dialog.hide} />
+            <ItemUpdateForm
+              data={data.item}
+              onSuccess={dialog.hide}
+              onCancel={dialog.hide}
+            />
           )}
         </Drawer>
       )}
