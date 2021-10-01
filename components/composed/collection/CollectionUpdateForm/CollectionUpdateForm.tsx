@@ -14,7 +14,11 @@ import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateF
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
 import { getDateOnly } from "helpers";
 
-export default function CollectionUpdateForm({ data, onSuccess }: Props) {
+export default function CollectionUpdateForm({
+  data,
+  onSuccess,
+  onCancel,
+}: Props) {
   const {
     collectionId = "",
     ...fieldsData
@@ -91,6 +95,7 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
     <MutationForm<CollectionUpdateFormMutation, Fields>
       name="updateCollection"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.collection.update.success"
       mutation={mutation}
       toVariables={toVariables}
@@ -102,7 +107,10 @@ export default function CollectionUpdateForm({ data, onSuccess }: Props) {
 }
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   data: CollectionUpdateFormFragment$key;
 }
 

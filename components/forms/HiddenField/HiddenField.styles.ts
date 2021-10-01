@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div<WrapperProps>`
-  flex-basis: var(--form-grid-flex-basis);
+  flex-basis: var(--form-grid-item-width);
 
-  ${({ isWide }) => isWide && `flex-basis: var(--form-grid-flex-basis-wide);`}
+  ${({ isWide }) => isWide && `flex-basis: var(--form-grid-item-width-wide);`}
 
   &[aria-hidden="true"] {
     display: none;

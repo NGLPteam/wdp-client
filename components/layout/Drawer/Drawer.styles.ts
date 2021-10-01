@@ -50,7 +50,7 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 
 export const Dialog = styled(BaseDialog)`
   --drawer-padding-inline: ${pxToRem(48)};
-  --drawer-form-grid-flex-basis: 100%;
+  --form-grid-item-width: 100%;
   position: fixed;
   display: flex;
   flex-direction: column;

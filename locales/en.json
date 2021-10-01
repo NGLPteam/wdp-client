@@ -69,7 +69,8 @@
     },
     "forms": {
       "common": {
-        "save": "save"
+        "save": "Save",
+        "cancel": "Cancel"
       },
       "tags": {
         "add": "Add tag",
@@ -77,6 +78,7 @@
         "noCommas": "Commas are not allowed in tags"
       },
       "schema": {
+        "title": "Schema",
         "noSchema": "No schema defined"
       },
       "file": {

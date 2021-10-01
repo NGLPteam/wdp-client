@@ -121,10 +121,12 @@ export default css`
     --base-padding: 4px;
 
     /* forms */
-    --form-column-gap: ${pxToRem(24)};
-    --form-row-gap: ${fluidScale("40px", "16px")};
-    --form-group-padding-top: var(--form-row-gap);
-    --form-group-padding-bottom: ${pxToRem(60)};
+    --form-grid-column-gap: ${pxToRem(24)};
+    --form-grid-row-gap: ${fluidScale("40px", "16px")};
+    --form-grid-padding-top: var(--form-grid-row-gap);
+    --form-grid-padding-bottom: ${pxToRem(60)};
+    --form-grid-item-width: calc(50% - (var(--form-grid-column-gap) * 0.5));
+    --form-grid-item-width-wide: 100%;
 
     /* buttons */
     --button-background: var(--background-light);
