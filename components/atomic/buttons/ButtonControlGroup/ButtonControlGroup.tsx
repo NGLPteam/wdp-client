@@ -18,7 +18,6 @@ function ButtonControlGroup({
   menuLabel,
   toggleLabel,
   toggleText,
-  closeDropdown,
 }: Props) {
   function renderButton(props: ButtonProps, i: number) {
     const { children, ...buttonProps } = props;
@@ -28,7 +27,6 @@ function ButtonControlGroup({
         key={i}
         drawer={props.drawer}
         drawerQuery={props.drawerQuery}
-        closeDropdown={closeDropdown}
         {...buttonProps}
       >
         {children}
@@ -38,13 +36,12 @@ function ButtonControlGroup({
         key={i}
         modalBody={props.modalBody}
         modalLabel={props.modalLabel}
-        closeDropdown={closeDropdown}
         {...buttonProps}
       >
         {children}
       </ButtonControlConfirm>
     ) : (
-      <ButtonControl key={i} closeDropdown={closeDropdown} {...buttonProps}>
+      <ButtonControl key={i} {...buttonProps}>
         {children}
       </ButtonControl>
     );
