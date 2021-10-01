@@ -1,5 +1,8 @@
 import { useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
+import omitBy from "lodash/omitBy";
+import pickBy from "lodash/pickBy";
+
 import ContributorCreatePersonDrawer from "components/composed/contributor/ContributorCreatePersonDrawer";
 import ContributorCreateOrganizationDrawer from "components/composed/contributor/ContributorCreateOrganizationDrawer";
 import ItemContributionEditDrawer from "components/composed/contribution/ItemContributionEditDrawer";
@@ -13,9 +16,9 @@ import CollectionContributionCreateDrawer from "components/composed/contribution
 import ItemContributionCreateDrawer from "components/composed/contribution/ItemContributionCreateDrawer";
 import ContributorContributionCreateDrawer from "components/composed/contribution/ContributorContributionCreateDrawer";
 import FileCreateDrawer from "components/composed/file/FileCreateDrawer";
-
-import omitBy from "lodash/omitBy";
-import pickBy from "lodash/pickBy";
+import CommunityAddMemberDrawer from "components/composed/community/CommunityAddMemberDrawer";
+import CollectionAddAccessDrawer from "components/composed/collection/CollectionAddAccessDrawer";
+import ItemAddAccessDrawer from "components/composed/item/ItemAddAccessDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -31,6 +34,9 @@ const drawerRegistry = {
   editCollection: CollectionUpdateDrawer,
   editContributor: ContributorUpdateDrawer,
   editItem: ItemUpdateDrawer,
+  addCommunityMember: CommunityAddMemberDrawer,
+  addCollectionAccess: CollectionAddAccessDrawer,
+  addItemAccess: ItemAddAccessDrawer,
 };
 
 export function useDrawerHelper() {
@@ -93,7 +99,7 @@ export function useDrawerHelper() {
   };
 }
 
-export type DrawerParams = Record<string, string>;
+export type DrawerParams = Record<string, string | undefined>;
 export type Drawers = keyof typeof drawerRegistry;
 
 export default useDrawerHelper;

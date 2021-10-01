@@ -27,6 +27,10 @@
       "powered_by": "Powered by NGLP–WDP"
     },
     "drawers": {
+      "addMember.title": "Add Member",
+      "addMemberTo.title": "Add Member to {{ name }}",
+      "addAccess.title": "Add Access",
+      "addAccessTo.title": "Add Access to {{ name }}",
       "createPerson.title": "Create New Person",
       "createOrganization.title": "Create New Organization",
       "editItemContribution.title": "Edit Item Contribution",
@@ -34,18 +38,21 @@
       "createCommunity.title": "Create New Community",
       "createContribution.title": "Create New Contribution",
       "createFile.title": "Create New File",
+      "createRole.title": "Create New Role",
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
       "editItem.title": "Edit Item"
     },
     "actions": {
-      "add": "Add $t({{ name }})",
+      "add.community.member": "Add Member",
+      "add.access": "Add Access",
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
       "create.contribution": "Create Contribution",
       "create.community": "Create Community",
       "create.file": "Create File",
+      "create.role": "Create Role",
       "edit.itemContribution": "Edit Item Contribution",
       "edit.collectionContribution": "Edit Collection Contribution",
       "edit.community": "Edit Community",
@@ -95,7 +102,8 @@
         "links": "Links",
         "link": "Link",
         "location": "Location",
-        "url": "URL"
+        "url": "URL",
+        "user": "User"
       },
       "tags": {
         "add": "Add tag",
@@ -184,6 +192,11 @@
           "success": "Contributor updated.",
           "failure": "Contributor failed to update."
         }
+      },
+      "role": {
+        "create": {
+          "success": "Role created."
+        }
       }
     },
     "header": {
@@ -252,6 +265,10 @@
       "file": {
         "label": "file",
         "label_plural": "files"
+      },
+      "role": {
+        "label": "role",
+        "label_plural": "roles"
       }
     },
     "name": "name",
@@ -281,7 +298,7 @@
       "createdAt": "Created At",
       "email": "Email",
       "name": "Name",
-      "role": "Role",
+      "roles": "Roles",
       "thumbnail": "Thumbnail",
       "updatedAt": "Updated At",
       "type": "Type",
