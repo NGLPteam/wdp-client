@@ -7,6 +7,8 @@ import * as Styled from "./Drawer.styles";
 import { useQueryStateContext } from "hooks";
 import LoadingCircle from "components/atomic/loading/LoadingCircle";
 
+import type { BaseRoute } from "routes/NextNamedRoutes";
+
 /**
  * A drawer for complex actions, forms.
  * Add unmountOnExit to destroy the drawer on exit.
@@ -15,6 +17,7 @@ const Drawer = ({
   dialog,
   label,
   header,
+  buttons,
   children,
   onClose,
   hideOnClickOutside = true,
@@ -53,7 +56,10 @@ const Drawer = ({
             <LoadingCircle />
           </Styled.Content>
         ) : (
-          <Styled.Content>{dialog.visible && children}</Styled.Content>
+          <>
+            <Styled.HeaderButtons>{buttons}</Styled.HeaderButtons>
+            <Styled.Content>{dialog.visible && children}</Styled.Content>
+          </>
         )}
       </Styled.Dialog>
     </Styled.DialogBackdrop>
@@ -66,6 +72,8 @@ interface Props {
   label: string;
   /** Drawer header */
   header: string;
+  /** A row of buttons below the header */
+  buttons?: React.ReactNode;
   /** Drawer content */
   children?: JSX.Element | string | null;
   /** Adds a Save button to the drawer footer. Function runs on save */
@@ -74,6 +82,11 @@ interface Props {
   onClose?: () => void;
   /** If false, disables hiding on click outside the drawer */
   hideOnClickOutside: boolean;
+  /** Actions defined here will create a row of buttons below the header */
+  actions?: {
+    routes?: BaseRoute[];
+    handleDelete?: () => void;
+  };
 }
 
 export default Drawer;

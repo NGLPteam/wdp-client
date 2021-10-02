@@ -31,7 +31,6 @@ export const baseRoutes: BaseRoute[] = [
             path: "/collections/[slug]/manage",
             redirect: "/collections/[slug]/manage/details",
             label: "manage",
-
             routes: [
               {
                 name: "collection.manage.details",

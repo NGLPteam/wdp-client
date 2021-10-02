@@ -9,6 +9,7 @@ export type CollectionUpdateDrawerQueryVariables = {
 };
 export type CollectionUpdateDrawerQueryResponse = {
     readonly collection: {
+        readonly id: string;
         readonly title: string | null;
         readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFragment">;
     } | null;
@@ -25,9 +26,9 @@ query CollectionUpdateDrawerQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
+    id
     title
     ...CollectionUpdateFormFragment
-    id
   }
 }
 
@@ -72,6 +73,13 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 };
@@ -91,6 +99,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -118,6 +127,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": "collectionId",
             "args": null,
@@ -199,13 +209,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -213,14 +216,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6aa9d67b24f45e22d8a7058b53cdf0f9",
+    "cacheID": "39fff668760ee1b786719d43caae9990",
     "id": null,
     "metadata": {},
     "name": "CollectionUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query CollectionUpdateDrawerQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    title\n    ...CollectionUpdateFormFragment\n    id\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  ...CollectionUpdateFormFieldsFragment\n}\n"
+    "text": "query CollectionUpdateDrawerQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    id\n    title\n    ...CollectionUpdateFormFragment\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CollectionUpdateFormFragment on Collection {\n  collectionId: id\n  ...CollectionUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'ade70650536d0407f9722c69b5410115';
+(node as any).hash = '9598d3f607f0130eefc4f138567d3e44';
 export default node;
