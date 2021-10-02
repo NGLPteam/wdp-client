@@ -6,7 +6,7 @@ import {
 import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
-import { noInsetSupport } from "theme/mixins/base";
+import { noInsetSupport, noFlexGapSupport } from "theme/mixins/base";
 
 const slideIn = keyframes`
   from {
@@ -102,7 +102,18 @@ export const HeaderBar = styled.div`
 export const H1 = styled.h1``;
 
 export const HeaderButtons = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${pxToRem(10)};
   padding-block-start: ${pxToRem(16)};
+  padding-inline-start: var(--drawer-padding-inline);
+  padding-inline-end: var(--drawer-padding-inline);
+
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: ${pxToRem(10)};
+    }
+  `)}
 `;
 
 export const Content = styled.div`
