@@ -6,6 +6,7 @@ import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
+import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 
 import type {
   CollectionUpdateDrawerQuery as Query,
@@ -72,11 +73,20 @@ export default function CollectionUpdateDrawer({
           buttons={renderButtons(data)}
         >
           {data && data.collection && (
-            <CollectionUpdateForm
-              data={data.collection}
-              onSuccess={dialog.hide}
-              onCancel={dialog.hide}
-            />
+            <>
+              <CollectionUpdateForm
+                data={data.collection}
+                onSaveAndClose={dialog.hide}
+                onCancel={dialog.hide}
+              />
+              <SchemaInstanceForm
+                instance={data?.collection}
+                successNotification="forms.collection.update.schemaSuccess"
+                failureNotification="forms.collection.update.schemaFailure"
+                onSaveAndClose={dialog.hide}
+                onCancel={dialog.hide}
+              />
+            </>
           )}
         </Drawer>
       )}
@@ -90,6 +100,7 @@ const query = graphql`
       id
       title
       ...CollectionUpdateFormFragment
+      ...SchemaInstanceFormFragment
     }
   }
 `;

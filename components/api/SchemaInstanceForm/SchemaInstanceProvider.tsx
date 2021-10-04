@@ -48,12 +48,12 @@ export default function SchemaInstanceProvider({
 
   const { entityId } = context;
 
-  const { onSuccess, onCancel } = props;
+  const { onSuccess, onSaveAndClose, onCancel } = props;
 
   const { handleSubmit, setError } = form;
 
   const onSubmit = useMemo(() => {
-    return handleSubmit(async function (values) {
+    return handleSubmit(async function (values, event) {
       if (!entityId) {
         /* eslint-disable no-console */
         console.warn("No entity ID to apply properties to");
@@ -82,6 +82,13 @@ export default function SchemaInstanceProvider({
           if (typeof onSuccess === "function") {
             onSuccess({ values });
           }
+
+          if (
+            event?.target.dataset.close &&
+            typeof onSaveAndClose === "function"
+          ) {
+            onSaveAndClose();
+          }
         } else if (schemaErrors.length > 0) {
           /* eslint-disable no-console */
           console.error(schemaErrors);
@@ -103,6 +110,7 @@ export default function SchemaInstanceProvider({
     entityId,
     handleSubmit,
     onSuccess,
+    onSaveAndClose,
     setError,
     successNotification,
     failureNotification,
@@ -116,7 +124,10 @@ export default function SchemaInstanceProvider({
         <FormProvider {...form}>
           <Watcher control={form.control} />
           {props.children}
-          <Actions onCancel={onCancel} />
+          <Actions
+            onCancel={onCancel}
+            onSaveAndClose={onSaveAndClose ? onSubmit : undefined}
+          />
         </FormProvider>
       </form>
     </Context.Provider>
@@ -127,6 +138,7 @@ interface Props {
   children: React.ReactNode;
   context: SchemaInstanceProviderFragment$key;
   onSuccess?: OnSuccessCallback;
+  onSaveAndClose?: () => void;
   onCancel?: () => void;
   /**
    * If set, the form will populate a toast notification with this message on success. The

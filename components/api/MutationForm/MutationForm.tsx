@@ -64,6 +64,7 @@ import Watcher from "./Watcher";
  *          name="createAsset"
  *          toVariables={(data) => ({ input: { ...data, entityId: "1234" }})} />;
  */
+
 export default function MutationForm<
   M extends MutationParameters,
   T extends FieldValues = FieldValues
@@ -104,6 +105,7 @@ export default function MutationForm<
     isSuccess,
     onFailure,
     onSuccess,
+    onSaveAndClose,
     onCancel,
     toVariables,
   } = props;
@@ -139,7 +141,7 @@ export default function MutationForm<
   const { setError } = form;
 
   const submitHandler: SubmitHandler<T> = useCallback(
-    async (values) => {
+    async (values, event) => {
       const variables = castVariables(values);
 
       dispatch({ type: "submit", variables, values });
@@ -163,6 +165,13 @@ export default function MutationForm<
 
         if (typeof onSuccess === "function") {
           onSuccess({ response, variables, values });
+        }
+
+        if (
+          event?.target.dataset.close &&
+          typeof onSaveAndClose === "function"
+        ) {
+          onSaveAndClose();
         }
       } else {
         dispatch({ type: "failure", errors });
@@ -197,6 +206,7 @@ export default function MutationForm<
       mutate,
       onFailure,
       onSuccess,
+      onSaveAndClose,
       setError,
       failureNotification,
       notify,
@@ -231,11 +241,26 @@ export default function MutationForm<
         <GlobalErrors globalErrors={state.globalErrors} />
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
-          <Button disabled={submitDisabled} type="submit">
+          <Button type="submit" disabled={submitDisabled}>
             {t("forms.common.save")}
           </Button>
+          {onSaveAndClose && (
+            <Button
+              type="submit"
+              data-close={true}
+              disabled={submitDisabled}
+              onClick={onSubmit}
+            >
+              {t("forms.common.save_and_close")}
+            </Button>
+          )}
           {onCancel && (
-            <Button type="button" onClick={onCancel} secondary>
+            <Button
+              type="button"
+              disabled={submitDisabled}
+              onClick={onCancel}
+              secondary
+            >
               {t("forms.common.cancel")}
             </Button>
           )}
@@ -321,6 +346,13 @@ interface BaseProps<M extends MutationParameters, T extends FieldValues> {
    * @see useOnSuccess to generate type-safely without extra renders
    */
   onSuccess?: OnSuccessCallback<M, T>;
+
+  /**
+   * Optionally pass in a save and close action.
+   * Runs on successful save.
+   * This will render a "Save & Close" button at the bottom of the form.
+   */
+  onSaveAndClose?: () => void;
 
   /**
    * Optionally pass in a cancel action.

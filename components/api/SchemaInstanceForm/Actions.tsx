@@ -6,7 +6,7 @@ import { Button } from "components/atomic";
 
 import * as Styled from "./Actions.styles";
 
-export default function Actions({ onCancel }: Props) {
+export default function Actions({ onCancel, onSaveAndClose }: Props) {
   const { formState } = useFormContext();
 
   const { t } = useTranslation();
@@ -18,8 +18,23 @@ export default function Actions({ onCancel }: Props) {
       <Button disabled={submitDisabled} type="submit">
         {t("forms.common.save")}
       </Button>
+      {onSaveAndClose && (
+        <Button
+          type="submit"
+          disabled={submitDisabled}
+          data-close={true}
+          onClick={onSaveAndClose}
+        >
+          {t("forms.common.save_and_close")}
+        </Button>
+      )}
       {onCancel && (
-        <Button type="button" onClick={onCancel} secondary>
+        <Button
+          type="button"
+          disabled={submitDisabled}
+          onClick={onCancel}
+          secondary
+        >
           {t("forms.common.cancel")}
         </Button>
       )}
@@ -29,4 +44,5 @@ export default function Actions({ onCancel }: Props) {
 
 interface Props {
   onCancel?: () => void;
+  onSaveAndClose?: () => void;
 }

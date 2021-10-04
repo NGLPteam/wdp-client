@@ -70,7 +70,8 @@
     "forms": {
       "common": {
         "save": "Save",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "save_and_close": "Save & Close"
       },
       "tags": {
         "add": "Add tag",
