@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 import {
   EntityOrderingListFragment,
   EntityOrderingListFragment$key,
@@ -20,6 +20,7 @@ function EntityOrderingList<T extends OperationType>({
   hideHeader,
 }: Props) {
   const { t } = useTranslation();
+  const destroy = useDestroyer();
   /* Get the order data */
   /* eslint-disable max-len */
   const collectionOrderings = useMaybeFragment<EntityOrderingListFragment$key>(
@@ -39,7 +40,10 @@ function EntityOrderingList<T extends OperationType>({
   /* eslint-disable no-console */
   const actions = {
     handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
-      console.log(`delete ${row.original.id}`),
+      destroy.ordering(
+        { orderingId: row.original.id },
+        row.original.name || "glossary.ordering"
+      ),
   };
   /* eslint-enable no-console */
 
