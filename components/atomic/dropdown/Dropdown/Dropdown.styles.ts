@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { basePadding, aBgDark } from "theme/mixins/appearance";
+import { aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div`
@@ -12,19 +12,19 @@ export const Wrapper = styled.div`
 `;
 
 export const List = styled.ul<ListProps>`
-  --dropdown-list-item-padding: ${basePadding(2)} ${basePadding(6)};
+  --dropdown-list-item-padding: ${pxToRem(8)} ${pxToRem(24)};
 
   position: absolute;
   display: flex;
   align-items: stretch;
   flex-direction: column;
   max-inline-size: 100vw;
-  border-radius: ${pxToRem("4px")};
-  padding: ${basePadding(4)} 0;
+  border-radius: ${pxToRem(4)};
+  padding: ${pxToRem(16)} 0;
   color: var(--accent-light);
   transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
-  margin-block-start: ${basePadding(1)};
+  margin-block-start: ${pxToRem(4)};
   visibility: visible;
   opacity: 1;
   z-index: var(--z-index-dropdown);

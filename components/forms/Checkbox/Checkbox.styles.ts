@@ -1,6 +1,7 @@
 import { IconFactory } from "components/factories";
 import styled from "styled-components";
-import { basePadding, aGlow } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Label = styled.label`
   display: flex;
@@ -19,7 +20,7 @@ export const LabelText = styled.span`
 export const Icon = styled(IconFactory)`
   cursor: pointer;
   display: inline-block;
-  margin-inline-end: ${basePadding(2)};
+  margin-inline-end: ${pxToRem(8)};
 
   [data-path-name="check"] {
     color: transparent;

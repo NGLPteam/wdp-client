@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { aBgLight, basePadding } from "theme/mixins/appearance";
+import { aBgLight } from "theme/mixins/appearance";
 import { fluidScale, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 import Grid from "./Grid";
@@ -28,10 +28,10 @@ export const Inner = styled.div`
   row-gap: var(--grid-column-gap);
   column-gap: var(--grid-column-gap);
   grid-template-columns: repeat(4, 1fr);
-  margin-inline-start: -${basePadding(4)};
-  margin-inline-end: -${basePadding(4)};
-  padding-block-start: ${basePadding(4)};
-  padding-block-end: ${basePadding(8)};
+  margin-inline-start: -${pxToRem(16)};
+  margin-inline-end: -${pxToRem(16)};
+  padding-block-start: ${pxToRem(16)};
+  padding-block-end: ${pxToRem(32)};
 
   ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
   ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
@@ -52,12 +52,12 @@ export const Item = styled.div`
     "image image" auto
     "children children" 1fr
     / auto 1fr;
-  padding-block-start: ${basePadding(2)};
-  padding-block-end: ${basePadding(4)};
-  padding-inline-start: ${basePadding(4)};
-  padding-inline-end: ${basePadding(2)};
-  border-radius: ${basePadding(2)};
-  gap: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
+  padding-block-end: ${pxToRem(16)};
+  padding-inline-start: ${pxToRem(16)};
+  padding-inline-end: ${pxToRem(8)};
+  border-radius: ${pxToRem(8)};
+  gap: ${pxToRem(8)};
   background-color: transparent;
   transition: var(--background-transition);
 
@@ -69,7 +69,7 @@ export const Item = styled.div`
       padding-inline-start: 0;
       padding-inline-end: 0;
       padding-block-start: 0;
-      gap: ${basePadding(3)};
+      gap: ${pxToRem(12)};
       border-radius: 0;
       border-bottom: 1px solid var(--border-color);
     `,
@@ -94,8 +94,8 @@ export const Item = styled.div`
 export const Checkbox = styled.div`
   grid-area: checkbox;
   opacity: var(--checkbox-opacity, 0);
-  padding-block-start: ${basePadding(2)};
-  padding-block-end: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
+  padding-block-end: ${pxToRem(8)};
 `;
 
 export const Actions = styled.div`
@@ -110,8 +110,8 @@ export const Thumbnail = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-inline-end: ${basePadding(2)};
-  padding-block-end: ${basePadding(2)};
+  padding-inline-end: ${pxToRem(8)};
+  padding-block-end: ${pxToRem(8)};
   height: ${fluidScale("190px", "150px")};
   max-width: 100%;
   aspect-ratio: 1 / 1;
@@ -144,7 +144,7 @@ export const Children = styled.div`
   color: var(--color-light);
 
   > * + * {
-    margin-block-start: ${basePadding(2)};
+    margin-block-start: ${pxToRem(8)};
     font-size: var(--font-size-sm);
   }
 `;

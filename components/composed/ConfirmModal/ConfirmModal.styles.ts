@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
 import Button from "components/atomic/buttons/Button";
+import { pxToRem } from "theme/mixins/functions";
 
 export const ButtonWrapper = styled.div`
   display: flex;
   flex: wrap;
   justify-content: space-between;
-  padding-block-start: ${basePadding(10)};
+  padding-block-start: ${pxToRem(40)};
   gap: 15px;
 `;
 

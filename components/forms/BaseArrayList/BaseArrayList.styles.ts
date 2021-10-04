@@ -1,22 +1,22 @@
 import styled from "styled-components";
-import { aGlow, basePadding } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const List = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  margin-block-start: ${basePadding(3)};
+  margin-block-start: ${pxToRem(12)};
 `;
 
 export const Item = styled.li`
   display: flex;
   align-items: center;
   border: 1px solid transparent;
-  border-radius: ${pxToRem("4px")};
+  border-radius: ${pxToRem(4)};
   background-color: var(--button-background);
-  padding: ${pxToRem("5px")} ${pxToRem("8px")};
-  margin-inline-end: ${basePadding(3)};
-  margin-block-end: ${basePadding(3)};
+  padding: ${pxToRem(5)} ${pxToRem(8)};
+  margin-inline-end: ${pxToRem(12)};
+  margin-block-end: ${pxToRem(12)};
   color: var(--accent-color);
   transition: var(--color-transition), var(--border-transition),
     var(--background-transition), var(--opacity-transition);
@@ -53,7 +53,7 @@ export const Item = styled.li`
 
 export const Text = styled.span`
   display: inline-block;
-  padding-inline-end: ${basePadding(1)};
+  padding-inline-end: ${pxToRem(4)};
 `;
 
 export const Button = styled.button`

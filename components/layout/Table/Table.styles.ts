@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
-import { aBgLight, aTextGlow, basePadding } from "theme/mixins/appearance";
+import { aBgLight, aTextGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { respond } from "theme/mixins/base";
 
 export const TableWrapper = styled.div<TableWrapperProps>`
   --table-border: 1px solid var(--border-color);
-  --table-border-radius: ${pxToRem("6px")};
-  --table-column-gap: ${basePadding(4)};
+  --table-border-radius: ${pxToRem(6)};
+  --table-column-gap: ${pxToRem(16)};
   --table-margin-left: var(--table-column-gap);
   --table-margin-right: var(--table-column-gap);
   --checkbox-opacity: 0;
@@ -16,7 +16,7 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   ${({ withRowSelection }) =>
     withRowSelection &&
     css`
-      --table-margin-left: ${basePadding(13)};
+      --table-margin-left: ${pxToRem(52)};
     `}
 
   ${({ showCheckboxes }) =>
@@ -56,7 +56,7 @@ export const TableBody = styled.tbody`
   &:after {
     content: "";
     display: block;
-    height: ${basePadding(6)};
+    height: ${pxToRem(24)};
   }
 `;
 
@@ -90,26 +90,26 @@ export const HeaderCell = styled.th`
 export const HeaderCellInner = styled.span`
   display: flex;
   align-items: center;
-  padding-block-start: ${pxToRem("7px")};
-  padding-block-end: ${pxToRem("7px")};
+  padding-block-start: ${pxToRem(7)};
+  padding-block-end: ${pxToRem(7)};
   padding-inline-end: var(--table-column-gap);
   ${tLabel("sm")}
   text-align: start;
 
   > * + * {
-    margin-inline-start: ${basePadding(2)};
+    margin-inline-start: ${pxToRem(8)};
   }
 `;
 
 export const FakeRow = styled.div`
   ${aBgLight("brand10")}
-  height: ${pxToRem("32px")};
+  height: ${pxToRem(32)};
   border-radius: var(--table-border-radius);
 `;
 
 export const Cell = styled.td`
-  padding-block-start: ${basePadding(2)};
-  padding-block-end: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
+  padding-block-end: ${pxToRem(8)};
   padding-inline-end: var(--table-column-gap);
   max-width: 15vw;
 
@@ -168,7 +168,7 @@ export const Row = styled.tr`
 export const SortIcon = styled.button`
   display: flex;
   align-items: center;
-  padding-inline-start: ${pxToRem("8px")};
+  padding-inline-start: ${pxToRem(8)};
 
   &:hover {
     color: var(--accent-light);

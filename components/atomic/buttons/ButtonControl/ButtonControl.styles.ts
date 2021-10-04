@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { aGlow, basePadding } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
 import { respond } from "theme/mixins/base";
 import { DialogDisclosure } from "reakit/Dialog";
 
@@ -12,12 +12,12 @@ type ConfirmProps = React.ComponentProps<typeof ButtonControlConfirm>;
 type DisclosureProps = Pick<ConfirmProps, "breakpoint">;
 
 export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
-  min-height: ${pxToRem("32px")};
+  min-height: ${pxToRem(32)};
   display: inline-block;
   border: 1px solid transparent;
-  border-radius: ${pxToRem("4px")};
+  border-radius: ${pxToRem(4)};
   background-color: var(--button-background);
-  padding: ${pxToRem("5px")} ${pxToRem("8px")};
+  padding: ${pxToRem(5)} ${pxToRem(8)};
   ${tLabel("sm")}
   text-align: start;
   color: var(--accent-color);
@@ -29,7 +29,7 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   ${({ size }) =>
     size === "large" &&
     css`
-      padding: ${pxToRem("12px")};
+      padding: ${pxToRem(12)};
     `}
 
   ${({ icon }) =>
@@ -74,19 +74,19 @@ export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
   ${({ size }) =>
     size === "large" &&
     css`
-      padding-inline-start: ${pxToRem("4px")};
+      padding-inline-start: ${pxToRem(4)};
     `}
 
   ${({ icon }) =>
     icon &&
     css`
-      padding-inline-end: ${pxToRem("10px")};
+      padding-inline-end: ${pxToRem(10)};
     `}
 `;
 
 export const Disclosure = styled(DialogDisclosure)<DisclosureProps>`
   border: 1px solid transparent;
-  border-radius: ${pxToRem("4px")};
+  border-radius: ${pxToRem(4)};
 
   &:focus {
     outline: 0;
@@ -105,7 +105,7 @@ export const Disclosure = styled(DialogDisclosure)<DisclosureProps>`
         --dropdown-list-item-padding: 0;
 
         > * {
-          padding: ${basePadding(2)} ${basePadding(6)};
+          padding: ${pxToRem(8)} ${pxToRem(24)};
           background: transparent;
         }
       `,

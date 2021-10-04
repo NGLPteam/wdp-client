@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  min-height: ${basePadding(10)};
-  padding-block-end: ${basePadding(2)};
+  min-height: ${pxToRem(40)};
+  padding-block-end: ${pxToRem(8)};
 `;
 
 export const Count = styled.div`
-  padding-inline-end: ${basePadding(3)};
+  padding-inline-end: ${pxToRem(12)};
 `;
 
 export const Actions = styled.div``;

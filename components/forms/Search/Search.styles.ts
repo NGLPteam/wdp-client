@@ -10,8 +10,8 @@ import { noInsetSupport } from "theme/mixins/base";
 type Props = React.ComponentProps<typeof BaseSearchInput>;
 
 export const SearchInput = styled(BaseSearchInput)<Props>`
-  --search-top-padding: ${pxToRem("7px")};
-  --search-left-padding: ${pxToRem("12px")};
+  --search-top-padding: ${pxToRem(7)};
+  --search-left-padding: ${pxToRem(12)};
   position: relative;
 
   &:focus-within,
@@ -26,7 +26,7 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
     border-radius: var(--border-radius-xlg);
     border: none;
     padding: var(--search-top-padding) var(--search-left-padding)
-      var(--search-top-padding) ${pxToRem("36px")};
+      var(--search-top-padding) ${pxToRem(36)};
     transition: background var(--base-duration) var(--base-timing);
     color: var(--color-dark);
 

@@ -3,7 +3,7 @@ import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
 } from "reakit/Dialog";
-import { aBgLight, basePadding } from "theme/mixins/appearance";
+import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
 import { noInsetSupport } from "theme/mixins/base";
@@ -49,7 +49,7 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 `;
 
 export const Dialog = styled(BaseDialog)`
-  --drawer-padding-inline: ${basePadding(12)};
+  --drawer-padding-inline: ${pxToRem(48)};
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -83,7 +83,7 @@ export const Dialog = styled(BaseDialog)`
 `;
 
 export const Header = styled.header`
-  padding-block-start: ${basePadding(11)};
+  padding-block-start: ${pxToRem(44)};
   padding-inline-start: var(--drawer-padding-inline);
   padding-inline-end: var(--drawer-padding-inline);
   background: var(--background-color);
@@ -95,13 +95,13 @@ export const HeaderBar = styled.div`
   justify-content: space-between;
   align-items: center;
   color: var(--accent-color);
-  padding-block-end: ${basePadding(10)};
+  padding-block-end: ${pxToRem(40)};
 `;
 
 export const H1 = styled.h1``;
 
 export const HeaderButtons = styled.div`
-  padding-block-start: ${basePadding(4)};
+  padding-block-start: ${pxToRem(16)};
 `;
 
 export const Content = styled.div`
@@ -112,8 +112,8 @@ export const Content = styled.div`
 export const Footer = styled.footer`
   position: relative;
   background: var(--background-color);
-  padding-block-start: ${pxToRem("30px")};
-  padding-block-end: ${basePadding(11)};
+  padding-block-start: ${pxToRem(30)};
+  padding-block-end: ${pxToRem(44)};
   padding-inline-start: var(--drawer-padding-inline);
   padding-inline-end: var(--drawer-padding-inline);
 

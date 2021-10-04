@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { basePadding } from "./appearance";
+import { pxToRem } from "./functions";
 
 export function tLabel(size: "sm" | "md" | "lg") {
   return css`
@@ -14,7 +14,7 @@ export function tLabel(size: "sm" | "md" | "lg") {
 // Base list styling
 export const tList = css`
   padding: 0;
-  margin-inline-start: ${basePadding(2)};
+  margin-inline-start: ${pxToRem(8)};
 `;
 
 // Remove list styling

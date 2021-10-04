@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { basePadding, aGlow } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 import { IconFactory } from "components/factories";
 
 export const SwitchWrapper = styled.div`
@@ -8,8 +9,8 @@ export const SwitchWrapper = styled.div`
   justify-content: space-between;
   cursor: pointer;
   border-bottom: 1px solid var(--color-lighter);
-  padding-block-start: ${basePadding(2)};
-  padding-block-end: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
+  padding-block-end: ${pxToRem(8)};
 
   &:hover {
     border-bottom-color: var(--accent-color);

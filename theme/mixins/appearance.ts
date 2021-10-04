@@ -4,22 +4,22 @@ import { pxToRem } from "./functions";
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
     ? css`
-        text-shadow: 0 0 ${pxToRem("6px")} var(--light-glow-color);
+        text-shadow: 0 0 ${pxToRem(6)} var(--light-glow-color);
       `
     : css`
-        text-shadow: 0 0 ${pxToRem("8px")} var(--brand30);
+        text-shadow: 0 0 ${pxToRem(8)} var(--brand30);
       `;
 }
 
 export function aGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
     ? css`
-        box-shadow: 0 0 ${pxToRem("6px")} var(--light-glow-color);
+        box-shadow: 0 0 ${pxToRem(6)} var(--light-glow-color);
         outline: 0;
         transition: box-shadow var(--base-duration) var(--base-timing);
       `
     : css`
-        box-shadow: 0 0 ${pxToRem("8px")} var(--brand30);
+        box-shadow: 0 0 ${pxToRem(8)} var(--brand30);
         outline: 0;
         transition: box-shadow var(--base-duration) var(--base-timing);
       `;
@@ -121,12 +121,6 @@ export const aLink = (color?: string) => css`
     font-weight: var(--font-weight-semibold);
   }
 `;
-
-// Returns padding at base 4
-// size 1 = 4px, size 2 = 8px, etc
-export function basePadding(size: number) {
-  return pxToRem(size * 4);
-}
 
 export const aHidden = css`
   position: absolute;

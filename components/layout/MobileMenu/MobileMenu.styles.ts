@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
 import {
@@ -69,10 +68,10 @@ export const Header = styled.div`
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--grid-column-gap);
-  padding-inline-start: ${basePadding(4)};
-  padding-inline-end: ${basePadding(4)};
-  padding-block-start: ${basePadding(5)};
-  padding-block-end: ${basePadding(5)};
+  padding-inline-start: ${pxToRem(16)};
+  padding-inline-end: ${pxToRem(16)};
+  padding-block-start: ${pxToRem(20)};
+  padding-block-end: ${pxToRem(20)};
 
   ${noFlexGapSupport(`
     > * + * {
@@ -101,6 +100,6 @@ export const Content = styled.div`
 
 export const List = styled.ul`
   > * {
-    padding-block-start: ${basePadding(5)};
+    padding-block-start: ${pxToRem(20)};
   }
 `;

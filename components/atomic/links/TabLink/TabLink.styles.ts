@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { aTextGlow, basePadding } from "theme/mixins/appearance";
+import { aTextGlow } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 import TabLink from "./TabLink";
 type Props = React.ComponentProps<typeof TabLink>;
 
@@ -18,7 +19,7 @@ export const Tab = styled.a<Pick<Props, "active" | "bottomBorder">>`
   border-bottom: 2px solid
     ${({ bottomBorder }) =>
       bottomBorder ? "var(--color-light)" : "transparent"};
-  padding-block-end: ${basePadding(2)};
+  padding-block-end: ${pxToRem(8)};
   color: var(--tab-color);
   transition: var(--border-transition), var(--color-transition);
 

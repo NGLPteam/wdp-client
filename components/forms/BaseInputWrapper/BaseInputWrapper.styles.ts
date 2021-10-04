@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { aHidden, basePadding } from "theme/mixins/appearance";
+import { aHidden } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import BaseInputWrapper from "./BaseInputWrapper";
@@ -17,7 +17,7 @@ export const Label = styled.label<Pick<Props, "hideLabel">>`
       ? aHidden
       : css`
           ${tLabel("sm")};
-          padding-block-end: ${pxToRem("6px")};
+          padding-block-end: ${pxToRem(6)};
           color: var(--color-light);
         `}
 `;
@@ -26,5 +26,5 @@ export const Description = styled.div`
   font-size: var(--font-size-sm);
   color: var(--color-light);
   font-style: italic;
-  padding-block-start: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
 `;

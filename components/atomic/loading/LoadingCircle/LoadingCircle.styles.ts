@@ -21,8 +21,8 @@ to {
 }
 `;
 export const Circle = styled.div`
-  height: ${pxToRem("80px")};
-  width: ${pxToRem("80px")};
+  height: ${pxToRem(80)};
+  width: ${pxToRem(80)};
   border-radius: 50%;
   border: 4px solid;
   border-top-color: var(--brand30);

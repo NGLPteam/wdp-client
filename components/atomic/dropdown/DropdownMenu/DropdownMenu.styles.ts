@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { basePadding, aBgLight, aBgDark } from "theme/mixins/appearance";
+import { aBgLight, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { Menu as BaseMenu, MenuItem } from "reakit/Menu";
@@ -19,7 +19,7 @@ export const Menu = styled.div<StyledMenuProps>`
           --menu-align-items: flex-start;
           --menu-item-border: 2px solid transparent;
           --menu-item-hover-border: 2px solid white;
-          --menu-item-margin: ${basePadding(2)} ${basePadding(6)};
+          --menu-item-margin: ${pxToRem(8)} ${pxToRem(24)};
           ${aBgDark("brand90")}
           /* Buttons have the same background as the menu */
           --button-background: var(--brand90);
@@ -29,7 +29,7 @@ export const Menu = styled.div<StyledMenuProps>`
           --menu-item-border: 0;
           --menu-item-border-hover: 0;
           --menu-item-hover-background: var(--brand100);
-          --menu-item-padding: ${basePadding(2)} ${basePadding(6)};
+          --menu-item-padding: ${pxToRem(8)} ${pxToRem(24)};
           ${aBgLight("brand10")}
           /* Buttons have the same background as the menu */
           --button-background: var(--brand10);
@@ -38,12 +38,12 @@ export const Menu = styled.div<StyledMenuProps>`
   display: flex;
   align-items: var(--menu-align-items);
   flex-direction: column;
-  border-radius: ${pxToRem("4px")};
-  padding: ${basePadding(4)} 0;
+  border-radius: ${pxToRem(4)};
+  padding: ${pxToRem(16)} 0;
   color: var(--accent-light);
   transition: opacity 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
-  margin-block-start: ${basePadding(1)};
+  margin-block-start: ${pxToRem(4)};
 `;
 
 interface StyledMenuProps {
