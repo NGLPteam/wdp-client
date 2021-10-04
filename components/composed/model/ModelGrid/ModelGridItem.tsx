@@ -25,17 +25,21 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
     >
       <>
         {row.cells.map((cell, i) => {
-          if (cell.column.id === "actions" || cell.column.id === "thumbnail")
+          if (
+            cell.column.id.toLowerCase() === "actions" ||
+            cell.column.id.toLowerCase() === "thumbnail"
+          )
             return;
 
           return (
             <div key={i}>
-              {cell.column.id !== "title" && cell.column.id !== "name" && (
-                <span>
-                  {cell.render("Header")}
-                  {`: `}
-                </span>
-              )}
+              {cell.column.id.toLowerCase() !== "title" &&
+                cell.column.id.toLowerCase() !== "name" && (
+                  <span>
+                    {cell.render("Header")}
+                    {`: `}
+                  </span>
+                )}
               {cell.render("Cell")}
             </div>
           );
