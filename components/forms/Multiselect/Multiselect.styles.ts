@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { aBaseInput, basePadding } from "theme/mixins/appearance";
+import { aBaseInput } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { IconFactory } from "components/factories";
 import { noInsetSupport } from "theme/mixins/base";
@@ -12,8 +12,8 @@ export const InputWrapper = styled.div`
 `;
 
 export const Input = styled.input`
-  --input-min-height: ${pxToRem("42px")};
-  --input-padding: 0 ${basePadding(4)};
+  --input-min-height: ${pxToRem(42)};
+  --input-padding: 0 ${pxToRem(16)};
   --input-focus-background: var(--brand10);
   width: 100%;
   ${aBaseInput()}
@@ -29,8 +29,8 @@ export const Button = styled.button`
   inset-inline-end: 0;
   inset-block-start: 0;
   inset-block-end: 0;
-  padding-inline-start: ${basePadding(4)};
-  padding-inline-end: ${basePadding(4)};
+  padding-inline-start: ${pxToRem(16)};
+  padding-inline-end: ${pxToRem(16)};
 
   ${noInsetSupport(`top: 0; right: 0; bottom: 0;`)}
 `;
@@ -48,7 +48,7 @@ export const List = styled.ul<ListProps>`
   inset-block-start: 0;
   max-height: 50vh;
   overflow-y: auto;
-  transform: translateY(${pxToRem("41px")});
+  transform: translateY(${pxToRem(41)});
 
   display: none;
   pointer-events: none;
@@ -69,10 +69,10 @@ interface ListProps {
 
 export const ListItem = styled.li<ListItemProps>`
   cursor: pointer;
-  padding-inline-start: ${basePadding(4)};
-  padding-inline-end: ${basePadding(4)};
-  padding-block-start: ${basePadding(3)};
-  padding-block-end: ${basePadding(3)};
+  padding-inline-start: ${pxToRem(16)};
+  padding-inline-end: ${pxToRem(16)};
+  padding-block-start: ${pxToRem(12)};
+  padding-block-end: ${pxToRem(12)};
   ${tTruncate}
 
   &[aria-selected="true"] {

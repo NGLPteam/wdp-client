@@ -2,7 +2,7 @@ import Modal from "./Modal";
 import { Story } from "@storybook/react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { ButtonControl, Button } from "components/atomic/buttons";
-import { basePadding } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 import { useIsMobile } from "hooks";
 
 type Props = React.ComponentProps<typeof Modal>;
@@ -37,19 +37,16 @@ const Content = ({ handleClose }: ContentProps) => {
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          paddingBlockStart: basePadding(10),
+          paddingBlockStart: pxToRem(40),
           gap: "15px",
         }}
       >
-        <Button
-          style={{ paddingInline: basePadding(15) }}
-          onClick={handleClose}
-        >
+        <Button style={{ paddingInline: pxToRem(60) }} onClick={handleClose}>
           Confirm
         </Button>
         <Button
           secondary
-          style={{ paddingInline: basePadding(17) }}
+          style={{ paddingInline: pxToRem(68) }}
           onClick={handleClose}
         >
           Cancel
@@ -92,19 +89,16 @@ const ScrollContent = ({ handleClose }: ContentProps) => {
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          paddingBlockStart: basePadding(10),
+          paddingBlockStart: pxToRem(40),
           gap: "15px",
         }}
       >
-        <Button
-          style={{ paddingInline: basePadding(15) }}
-          onClick={handleClose}
-        >
+        <Button style={{ paddingInline: pxToRem(60) }} onClick={handleClose}>
           Confirm
         </Button>
         <Button
           secondary
-          style={{ paddingInline: basePadding(17) }}
+          style={{ paddingInline: pxToRem(68) }}
           onClick={handleClose}
         >
           Cancel

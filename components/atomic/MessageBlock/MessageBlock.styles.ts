@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import MessageBlock from "./MessageBlock";
 type BaseProps = React.ComponentProps<typeof MessageBlock>;
@@ -17,8 +16,8 @@ export const Wrapper = styled.div<Partial<BaseProps>>`
         `}
 
   border-radius: ${pxToRem(10)};
-  padding: ${basePadding(15)};
-  padding-block-end: ${basePadding(16)};
+  padding: ${pxToRem(60)};
+  padding-block-end: ${pxToRem(64)};
 `;
 
 export const Inner = styled.div`
@@ -28,13 +27,13 @@ export const Inner = styled.div`
 `;
 
 export const Header = styled.h3`
-  padding-block-start: ${basePadding(5)};
+  padding-block-start: ${pxToRem(20)};
 `;
 
 export const Message = styled.div`
-  padding-block-start: ${basePadding(4)};
+  padding-block-start: ${pxToRem(16)};
 `;
 
 export const ButtonWrapper = styled.div`
-  padding-block-start: ${basePadding(9)};
+  padding-block-start: ${pxToRem(36)};
 `;

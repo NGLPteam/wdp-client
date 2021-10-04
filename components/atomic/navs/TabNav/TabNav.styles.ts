@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Nav = styled.nav``;
 
@@ -9,6 +9,6 @@ export const List = styled.ul`
 
 export const Item = styled.li`
   & + & {
-    margin-inline-start: ${basePadding(8)};
+    margin-inline-start: ${pxToRem(32)};
   }
 `;

@@ -10,7 +10,6 @@ import {
   setZIndexVars,
 } from "../base/variables";
 import { hexToHSLA } from "../mixins/colors";
-import { basePadding } from "theme/mixins/appearance";
 import { fluidScale } from "theme/mixins/base";
 
 const { duration, timing } = transition.colorMode;
@@ -37,26 +36,26 @@ export default css`
 
     /* font sizes */
     --font-size-base: 1rem;
-    --line-height-base: ${pxToRem("20px")};
-    --font-size-sm: ${pxToRem("14px")};
+    --line-height-base: ${pxToRem(20)};
+    --font-size-sm: ${pxToRem(14)};
 
     /* label font sizes */
-    --font-size-label-lg: ${pxToRem("15px")};
-    --line-height-label-lg: ${pxToRem("24px")};
-    --font-size-label-md: ${pxToRem("14px")};
-    --line-height-label-md: ${pxToRem("20px")};
-    --font-size-label-sm: ${pxToRem("13px")};
-    --line-height-label-sm: ${pxToRem("20px")};
+    --font-size-label-lg: ${pxToRem(15)};
+    --line-height-label-lg: ${pxToRem(24)};
+    --font-size-label-md: ${pxToRem(14)};
+    --line-height-label-md: ${pxToRem(20)};
+    --font-size-label-sm: ${pxToRem(13)};
+    --line-height-label-sm: ${pxToRem(20)};
 
     /* header font sizes */
-    --font-size-h1: ${pxToRem("30px")};
-    --line-height-h1: ${pxToRem("36px")};
+    --font-size-h1: ${pxToRem(30)};
+    --line-height-h1: ${pxToRem(36)};
     --font-weight-h1: var(--font-weight-medium);
-    --font-size-h2: ${pxToRem("22px")};
-    --line-height-h2: ${pxToRem("28px")};
+    --font-size-h2: ${pxToRem(22)};
+    --line-height-h2: ${pxToRem(28)};
     --font-weight-h2: var(--font-weight-semibold);
-    --font-size-h3: ${pxToRem("18px")};
-    --line-height-h3: ${pxToRem("24px")};
+    --font-size-h3: ${pxToRem(18)};
+    --line-height-h3: ${pxToRem(24)};
     --font-weight-h3: var(--font-weight-medium);
     --font-size-h4: var(--font-size-base);
     --line-height-h4: var(--line-height-header);
@@ -93,14 +92,14 @@ export default css`
     --light-glow-color: ${hexToHSLA(colors.brand[100], 0.2)};
 
     /* layout sizes and margins */
-    --container-max: 1000px;
-    --container-column-margin: ${pxToRem("20px")};
+    --container-max: ${pxToRem(1000)};
+    --container-column-margin: ${pxToRem(20)};
 
     /* layout grid */
-    --grid-row-gap: ${pxToRem("16px")};
-    --grid-column-gap: ${pxToRem("16px")};
-    --grid-row-gap-sm: ${pxToRem("10px")};
-    --grid-column-gap-sm: ${pxToRem("10px")};
+    --grid-row-gap: ${pxToRem(16)};
+    --grid-column-gap: ${pxToRem(16)};
+    --grid-row-gap-sm: ${pxToRem(10)};
+    --grid-column-gap-sm: ${pxToRem(10)};
 
     /* transitions */
     --base-duration: ${duration}s;
@@ -112,20 +111,20 @@ export default css`
 
     /* borders */
     --border-color: var(--neutral40);
-    --border-radius-xs: ${pxToRem("4px")};
-    --border-radius-sm: ${pxToRem("6px")};
-    --border-radius-rg: ${pxToRem("8px")};
-    --border-radius-lg: ${pxToRem("10px")};
-    --border-radius-xlg: ${pxToRem("40px")};
+    --border-radius-xs: ${pxToRem(4)};
+    --border-radius-sm: ${pxToRem(6)};
+    --border-radius-rg: ${pxToRem(8)};
+    --border-radius-lg: ${pxToRem(10)};
+    --border-radius-xlg: ${pxToRem(40)};
 
     /* padding */
     --base-padding: 4px;
 
     /* forms */
-    --form-column-gap: ${basePadding(6)};
+    --form-column-gap: ${pxToRem(24)};
     --form-row-gap: ${fluidScale("40px", "16px")};
     --form-group-padding-top: var(--form-row-gap);
-    --form-group-padding-bottom: ${basePadding(15)};
+    --form-group-padding-bottom: ${pxToRem(60)};
 
     /* buttons */
     --button-background: var(--background-light);
@@ -137,7 +136,7 @@ export default css`
     --input-border-radius: 0;
     --input-focus-background: var(--brand10);
     --input-placeholder-color: var(--color-light);
-    --input-padding: 0 ${basePadding(2)};
-    --input-min-height: ${basePadding(8)};
+    --input-padding: 0 ${pxToRem(8)};
+    --input-min-height: ${pxToRem(32)};
   }
 `;

@@ -1,17 +1,17 @@
 import styled, { css } from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
+
 import { respond } from "theme/mixins/base";
 
 export const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
-  gap: var(--fieldset-field-spacing, ${basePadding(6)});
-  padding-block-end: var(--fieldset-field-spacing, ${basePadding(6)});
+  gap: var(--fieldset-field-spacing, ${pxToRem(24)});
+  padding-block-end: var(--fieldset-field-spacing, ${pxToRem(24)});
 `;
 
 export const Legend = styled.legend`
-  padding-block-end: var(--fieldset-field-spacing, ${basePadding(6)});
+  padding-block-end: var(--fieldset-field-spacing, ${pxToRem(24)});
 `;
 
 export const Fields = styled.div`
@@ -19,7 +19,7 @@ export const Fields = styled.div`
 
   display: flex;
   flex-direction: row;
-  gap: var(--fieldset-field-spacing, ${basePadding(6)});
+  gap: var(--fieldset-field-spacing, ${pxToRem(24)});
   align-items: start;
 
   ${respond(
@@ -42,7 +42,7 @@ export const Field = styled.div`
 `;
 
 export const Actions = styled.div`
-  --fieldset-actions-column-spacing: ${basePadding(6)};
+  --fieldset-actions-column-spacing: ${pxToRem(24)};
   flex: 0;
   padding-block-start: ${pxToRem(25)};
 

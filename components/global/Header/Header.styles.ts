@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { basePadding, aTextGlow } from "theme/mixins/appearance";
+import { aTextGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
 import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
@@ -19,7 +19,7 @@ export const Inner = styled.div`
   gap: var(--grid-column-gap);
   margin: 0 auto;
   max-width: var(--container-max);
-  padding: ${basePadding(5)} 0;
+  padding: ${pxToRem(20)} 0;
 
   ${noFlexGapSupport(`
     > * + * {
@@ -51,7 +51,7 @@ export const MobileNavBlock = styled.div`
 
 export const Item = styled.li`
   & + & {
-    margin-inline-start: ${basePadding(7)};
+    margin-inline-start: ${pxToRem(28)};
   }
 `;
 
@@ -94,7 +94,7 @@ export const LinkText = styled.span`
 `;
 
 export const Avatar = styled.div`
-  --avatar-top-margin: ${pxToRem("5px")};
+  --avatar-top-margin: ${pxToRem(5)};
 
   height: ${pxToRem(30)};
   width: ${pxToRem(30)};

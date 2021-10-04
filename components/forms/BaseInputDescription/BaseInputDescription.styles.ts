@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Description = styled.div`
   font-size: var(--font-size-sm);
   color: var(--color-light);
   font-style: italic;
-  padding-block-start: ${basePadding(2)};
+  padding-block-start: ${pxToRem(8)};
 `;

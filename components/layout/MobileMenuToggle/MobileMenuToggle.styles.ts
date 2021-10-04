@@ -15,7 +15,7 @@ export const Toggle = styled.button`
   }
 
   > * + * {
-    margin-inline-start: ${pxToRem("10px")};
+    margin-inline-start: ${pxToRem(10)};
   }
 `;
 

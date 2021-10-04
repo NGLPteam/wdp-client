@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { aBaseInput, basePadding } from "theme/mixins/appearance";
+import { aBaseInput } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 
 export const TextareaInput = styled.textarea`
-  --input-min-height: ${basePadding(40)};
-  --input-padding: ${basePadding(3)} ${basePadding(4)};
+  --input-min-height: ${pxToRem(160)};
+  --input-padding: ${pxToRem(12)} ${pxToRem(16)};
   --input-focus-background: var(--brand10);
   ${aBaseInput()}
 `;

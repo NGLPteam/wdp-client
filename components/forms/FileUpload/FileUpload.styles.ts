@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { aGlow, basePadding } from "theme/mixins/appearance";
+import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import FileUploadPreview from "./FileUploadPreview";
 type FileUploadPreviewProps = React.ComponentProps<typeof FileUploadPreview>;
@@ -28,7 +28,7 @@ export const Inner = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${basePadding(4)};
+  padding: ${pxToRem(16)};
   flex: 1 1 auto;
 `;
 
@@ -66,7 +66,7 @@ export const UploadPreview = styled.div<
   justify-content: flex-end;
   color: var(--color-lighter);
   font-size: var(--font-size-sm);
-  padding: ${basePadding(2)};
+  padding: ${pxToRem(8)};
   transition: var(--opacity-transition);
 
   ${({ isLoading }) => isLoading && `opacity: .7;`}

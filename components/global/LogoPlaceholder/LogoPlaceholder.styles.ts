@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { basePadding } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const LogoLink = styled.a`
@@ -18,10 +17,10 @@ export const LogoLink = styled.a`
   display: inline-block;
   border-radius: var(--logo-border-radius, var(--border-radius-xlg));
   background-color: var(--logo-background);
-  padding: 0 ${basePadding(4)};
+  padding: 0 ${pxToRem(16)};
   color: var(--logo-color);
   transition: var(--background-transition), var(--color-transition);
-  line-height: ${pxToRem("34px")};
+  line-height: ${pxToRem(34)};
 
   &:hover {
     background-color: var(--logo-background-hover);

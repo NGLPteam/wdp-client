@@ -1,17 +1,18 @@
 import styled, { css } from "styled-components";
-import { basePadding, aTextGlow } from "theme/mixins/appearance";
+import { aTextGlow } from "theme/mixins/appearance";
+import { pxToRem } from "theme/mixins/functions";
 import { tHeading } from "theme/mixins/typography";
 
 export const Nav = styled.nav`
-  padding-block: ${basePadding(1)};
-  padding-inline-end: ${basePadding(7)};
+  padding-block: ${pxToRem(4)};
+  padding-inline-end: ${pxToRem(28)};
 `;
 
 export const List = styled.ul``;
 
 export const ListItem = styled.li`
   & + & {
-    padding-block-start: ${basePadding(5)};
+    padding-block-start: ${pxToRem(20)};
   }
 `;
 

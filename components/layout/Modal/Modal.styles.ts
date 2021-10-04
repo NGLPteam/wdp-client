@@ -4,7 +4,7 @@ import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
 } from "reakit/Dialog";
-import { aBgLight, basePadding } from "theme/mixins/appearance";
+import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const DialogBackdrop = styled(BaseDialogBackdrop)`
@@ -29,7 +29,7 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 `;
 
 export const Modal = styled(BaseDialog)`
-  --modal-padding-inline: ${basePadding(10)};
+  --modal-padding-inline: ${pxToRem(40)};
   position: fixed;
   inset-block-start: 50%;
   inset-inline-start: 50%;
@@ -48,7 +48,7 @@ export const Modal = styled(BaseDialog)`
 `;
 
 export const Header = styled.header`
-  padding-block: ${basePadding(10)};
+  padding-block: ${pxToRem(40)};
   padding-inline: var(--modal-padding-inline);
   background: var(--background-color);
   display: flex;
@@ -60,7 +60,7 @@ export const Header = styled.header`
 
 export const Content = styled.div`
   flex: 1 1 auto;
-  padding-block-end: ${basePadding(12)};
+  padding-block-end: ${pxToRem(48)};
   padding-inline-start: var(--modal-padding-inline);
   padding-inline-end: var(--modal-padding-inline);
 `;

@@ -9,11 +9,11 @@ type WrapperProps = Pick<BaseProps, "breakpoint">;
 
 export const ButtonWrapper = styled.div<WrapperProps>`
   display: inline-flex;
-  gap: ${pxToRem("10px")};
+  gap: ${pxToRem(10)};
 
   ${noFlexGapSupport(`
     > * + * {
-      margin-inline-start: ${pxToRem("10px")};
+      margin-inline-start: ${pxToRem(10)};
     }
   `)}
 
