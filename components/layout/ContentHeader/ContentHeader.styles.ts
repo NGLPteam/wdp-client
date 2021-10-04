@@ -13,6 +13,10 @@ export const Wrapper = styled.div<Pick<Props, "headerStyle">>`
   gap: ${pxToRem(5)};
   margin-block-end: 20px;
 
+  form + & {
+    padding-block-start: ${pxToRem(40)};
+  }
+
   ${({ headerStyle = "primary" }) =>
     headerStyle === "primary" &&
     css`
