@@ -210,6 +210,16 @@ const destroyCommunityMutation = graphql`
 //   }
 // `;
 
+const destroyOrderingMutation = graphql`
+  mutation useDestroyerDestroyOrderingMutation($input: DestroyOrderingInput!) {
+    destroyOrdering(input: $input) {
+      destroyedId @deleteRecord
+      disabled
+      ...useDestroyerFragment
+    }
+  }
+`;
+
 const destroyFragment = graphql`
   fragment useDestroyerFragment on DestroyMutationPayload @inline {
     destroyed # can be boolean or nil, basically just a truthy check
