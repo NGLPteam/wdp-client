@@ -17,6 +17,7 @@ import { getDateOnly } from "helpers";
 export default function CollectionUpdateForm({
   data,
   onSuccess,
+  onSaveAndClose,
   onCancel,
 }: Props) {
   const {
@@ -95,6 +96,7 @@ export default function CollectionUpdateForm({
     <MutationForm<CollectionUpdateFormMutation, Fields>
       name="updateCollection"
       onSuccess={onSuccess}
+      onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
       successNotification="forms.collection.update.success"
       mutation={mutation}
@@ -109,7 +111,7 @@ export default function CollectionUpdateForm({
 interface Props
   extends Pick<
     React.ComponentProps<typeof MutationForm>,
-    "onSuccess" | "onCancel"
+    "onSuccess" | "onSaveAndClose" | "onCancel"
   > {
   data: CollectionUpdateFormFragment$key;
 }

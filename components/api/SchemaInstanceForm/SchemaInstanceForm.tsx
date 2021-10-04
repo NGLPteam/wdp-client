@@ -16,6 +16,7 @@ type ProviderProps = React.ComponentProps<typeof Provider>;
 
 export default function SchemaInstanceForm({
   onSuccess,
+  onSaveAndClose,
   onCancel,
   successNotification,
   failureNotification,
@@ -30,6 +31,7 @@ export default function SchemaInstanceForm({
       <Provider
         context={instance.context}
         onSuccess={onSuccess}
+        onSaveAndClose={onSaveAndClose}
         onCancel={onCancel}
         successNotification={successNotification}
         failureNotification={failureNotification}
@@ -58,6 +60,7 @@ interface Props
   instance: SchemaInstanceFormFragment$key;
   onSuccess?: OnSuccessCallback;
   onCancel?: () => void;
+  onSaveAndClose?: () => void;
   title?: string;
 }
 
