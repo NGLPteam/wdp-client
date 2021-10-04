@@ -54,6 +54,16 @@
       "edit.contributor": "Edit Contributor",
       "edit.item": "Edit Item"
     },
+    "modals": {
+      "generic": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      },
+      "delete": {
+        "label": "Confirm Delete",
+        "body": "Are you sure you want to delete this record?"
+      }
+    },
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully."
     },

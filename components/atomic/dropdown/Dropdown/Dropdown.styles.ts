@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
 `;
 
 export const List = styled.ul<ListProps>`
+  --dropdown-list-item-padding: ${basePadding(2)} ${basePadding(6)};
+
   position: absolute;
   display: flex;
   align-items: stretch;
@@ -57,7 +59,7 @@ export const Item = styled.li`
 
   > * {
     width: 100%;
-    padding: ${basePadding(2)} ${basePadding(6)};
+    padding: var(--dropdown-list-item-padding);
     border-radius: none;
     background: transparent;
   }

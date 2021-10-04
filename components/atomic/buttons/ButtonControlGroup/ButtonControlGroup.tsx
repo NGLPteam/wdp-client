@@ -2,13 +2,15 @@ import React from "react";
 import {
   ButtonControl,
   ButtonControlDrawer,
+  ButtonControlConfirm,
   Dropdown,
 } from "components/atomic";
 import * as Styled from "./ButtonControlGroup.styles";
 
 type ButtonProps =
   | React.ComponentProps<typeof ButtonControl>
-  | React.ComponentProps<typeof ButtonControlDrawer>;
+  | React.ComponentProps<typeof ButtonControlDrawer>
+  | React.ComponentProps<typeof ButtonControlConfirm>;
 
 function ButtonControlGroup({
   buttons,
@@ -29,6 +31,16 @@ function ButtonControlGroup({
       >
         {children}
       </ButtonControlDrawer>
+    ) : "modalBody" in props ? (
+      <ButtonControlConfirm
+        key={i}
+        modalBody={props.modalBody}
+        modalLabel={props.modalLabel}
+        breakpoint={breakpoint}
+        {...buttonProps}
+      >
+        {children}
+      </ButtonControlConfirm>
     ) : (
       <ButtonControl key={i} {...buttonProps}>
         {children}
@@ -68,6 +80,7 @@ interface BaseProps {
   menuLabel: string;
   toggleLabel?: string;
   toggleText?: string;
+  closeDropdown?: () => void;
 }
 
 interface PropsWithLabel extends BaseProps {

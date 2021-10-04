@@ -7,6 +7,7 @@ type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
 type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
+  modalConfirm?: boolean;
 };
 
 type ActionKeys = "edit" | "delete";
@@ -16,6 +17,8 @@ interface ActionDefinition {
   icon: IconFactoryProps["icon"];
   action: string;
   iconRotate: number;
+  modalLabel?: string;
+  modalBody?: React.ReactNode;
 }
 
 type ActionDefinitions = {
@@ -38,6 +41,8 @@ const availableActions: ActionDefinitions = {
     icon: "delete",
     action: "self.delete",
     iconRotate: 0,
+    modalLabel: i18next.t("modals.delete.label"),
+    modalBody: <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>,
   },
 };
 
@@ -48,14 +53,25 @@ function getButtonProps<D extends Record<string, unknown>>(
 ) {
   const actionDefinition = availableActions[action];
 
-  const buttonProps = {
-    "aria-label": actionDefinition.label,
-    icon: actionDefinition.icon,
-    iconRotate: actionDefinition.iconRotate || 0,
-    ...(actionConfig?.handleClick && {
-      onClick: () => actionConfig.handleClick({ row }),
-    }),
-  };
+  const buttonProps = actionConfig?.modalConfirm
+    ? {
+        "aria-label": actionDefinition.label,
+        icon: actionDefinition.icon,
+        iconRotate: actionDefinition.iconRotate || 0,
+        ...(actionConfig?.handleClick && {
+          onClick: () => actionConfig.handleClick({ row }),
+        }),
+        modalLabel: actionDefinition.modalLabel ?? null,
+        modalBody: actionDefinition.modalBody ?? null,
+      }
+    : {
+        "aria-label": actionDefinition.label,
+        icon: actionDefinition.icon,
+        iconRotate: actionDefinition.iconRotate || 0,
+        ...(actionConfig?.handleClick && {
+          onClick: () => actionConfig.handleClick({ row }),
+        }),
+      };
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
 
