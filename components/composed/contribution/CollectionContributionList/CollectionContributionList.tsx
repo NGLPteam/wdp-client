@@ -108,24 +108,27 @@ function CollectionContributionList<T extends OperationType>({
       ),
   };
 
-  const drawerQuery = slug ? { drawerSlug: slug } : undefined;
+  // Only pass the slug if we're in Collection details
+  const drawerQuery =
+    slug && nameColumn === "contributor" ? { drawerSlug: slug } : undefined;
 
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
-  const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer: "addContribution",
-          drawerQuery,
-          icon: "plus",
-          children: t("actions.create.contribution"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
-  );
+  const buttons =
+    nameColumn === "contributor" ? (
+      <ButtonControlGroup
+        buttons={[
+          {
+            drawer: "addContribution",
+            drawerQuery,
+            icon: "plus",
+            children: t("actions.create.contribution"),
+          },
+        ]}
+        toggleLabel={t("options")}
+        menuLabel={t("options")}
+      />
+    ) : undefined;
 
   return (
     <ModelListPage<
