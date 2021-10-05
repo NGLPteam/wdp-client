@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ButtonControl, ButtonControlRoute } from "components/atomic";
+import { ButtonControlRoute, ButtonControlConfirm } from "components/atomic";
 
 import type { BaseRoute } from "routes/NextNamedRoutes";
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
@@ -19,9 +19,14 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
           {t(label || "")}
         </ButtonControlRoute>
       ))}
-      <ButtonControl icon="delete" onClick={handleClick}>
+      <ButtonControlConfirm
+        icon="delete"
+        modalLabel={t("modals.delete.label")}
+        modalBody={t("modals.delete.body")}
+        onClick={handleClick}
+      >
         {t("delete")}
-      </ButtonControl>
+      </ButtonControlConfirm>
     </>
   );
 };
