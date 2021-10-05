@@ -12,7 +12,10 @@ import type {
   CreatePersonContributorInput,
 } from "@/relay/ContributorCreatePersonFormMutation.graphql";
 
-export default function ContributorCreatePersonForm({ onSuccess }: Props) {
+export default function ContributorCreatePersonForm({
+  onSuccess,
+  onCancel,
+}: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
@@ -59,6 +62,7 @@ export default function ContributorCreatePersonForm({ onSuccess }: Props) {
       mutation={mutation}
       name="createPersonContributor"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.community.create.success"
     >
       {renderForm}
@@ -66,7 +70,10 @@ export default function ContributorCreatePersonForm({ onSuccess }: Props) {
   );
 }
 
-type Props = Pick<React.ComponentProps<typeof MutationForm>, "onSuccess">;
+type Props = Pick<
+  React.ComponentProps<typeof MutationForm>,
+  "onSuccess" | "onCancel"
+>;
 
 type Fields = Omit<CreatePersonContributorInput, "clientMutationId" | "image">;
 

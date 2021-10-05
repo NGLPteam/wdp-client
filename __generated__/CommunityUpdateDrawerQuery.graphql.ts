@@ -9,6 +9,7 @@ export type CommunityUpdateDrawerQueryVariables = {
 };
 export type CommunityUpdateDrawerQueryResponse = {
     readonly community: {
+        readonly id: string;
         readonly title: string;
         readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFragment">;
     } | null;
@@ -25,9 +26,9 @@ query CommunityUpdateDrawerQuery(
   $communitySlug: Slug!
 ) {
   community(slug: $communitySlug) {
+    id
     title
     ...CommunityUpdateFormFragment
-    id
   }
 }
 
@@ -60,6 +61,13 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 };
@@ -79,6 +87,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -106,15 +115,9 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": "communityId",
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "id",
@@ -126,14 +129,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4acd991998c56cfd40cfa9568b35e4f7",
+    "cacheID": "377cd3d3fd8fa1de3f26e98b760fc08f",
     "id": null,
     "metadata": {},
     "name": "CommunityUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query CommunityUpdateDrawerQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    title\n    ...CommunityUpdateFormFragment\n    id\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
+    "text": "query CommunityUpdateDrawerQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    id\n    title\n    ...CommunityUpdateFormFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'c3914acdaedff46c6f247910893c0faa';
+(node as any).hash = '1b5f38fbcff9c6f4e2ee768add6218c8';
 export default node;

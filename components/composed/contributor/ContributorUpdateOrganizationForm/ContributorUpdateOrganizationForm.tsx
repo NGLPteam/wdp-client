@@ -17,6 +17,7 @@ import compact from "lodash/compact";
 export default function ContributorUpdateOrganizationForm({
   data,
   onSuccess,
+  onCancel,
 }: Props) {
   const { contributorId = "", ...fieldsData } = useFragment(fragment, data);
 
@@ -90,6 +91,7 @@ export default function ContributorUpdateOrganizationForm({
       toVariables={toVariables}
       defaultValues={defaultValues}
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.contributor.update.success"
     >
       {renderForm}
@@ -103,7 +105,10 @@ type Fields = Omit<
 >;
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   data: ContributorUpdateOrganizationFormFragment$key;
 }
 

@@ -17,6 +17,7 @@ import type { ContributorUpdatePersonFormFieldsFragment$key } from "@/relay/Cont
 export default function ContributorUpdatePersonForm({
   data,
   onSuccess,
+  onCancel,
 }: Props) {
   const {
     contributorId = "",
@@ -95,6 +96,7 @@ export default function ContributorUpdatePersonForm({
       name="updatePersonContributor"
       mutation={mutation}
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.contributor.update.success"
       toVariables={toVariables}
       defaultValues={defaultValues}
@@ -105,7 +107,10 @@ export default function ContributorUpdatePersonForm({
 }
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   data: ContributorUpdatePersonFormFragment$key;
 }
 
