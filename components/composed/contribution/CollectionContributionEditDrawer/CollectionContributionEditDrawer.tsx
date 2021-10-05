@@ -1,11 +1,15 @@
 import React from "react";
-import Drawer from "components/layout/Drawer";
 import { useTranslation } from "react-i18next";
-import { useDrawerHelper } from "hooks";
+import { useDestroyer, useDrawerHelper } from "hooks";
 import { DialogProps } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
-import type { CollectionContributionEditDrawerQuery as Query } from "__generated__/CollectionContributionEditDrawerQuery.graphql";
+import Drawer from "components/layout/Drawer";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
+import type {
+  CollectionContributionEditDrawerQuery as Query,
+  CollectionContributionEditDrawerQueryResponse as Response,
+} from "__generated__/CollectionContributionEditDrawerQuery.graphql";
 import ContributionUpdateForm from "components/composed/contribution/ContributionUpdateForm";
 
 export default function CollectionContributionEditDrawer({
@@ -17,6 +21,7 @@ export default function CollectionContributionEditDrawer({
 }) {
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
 
   if (!Object.prototype.hasOwnProperty.call(params, "drawerSlug")) {
     drawerHelper.close();
@@ -24,6 +29,25 @@ export default function CollectionContributionEditDrawer({
   }
 
   const { drawerSlug } = params;
+
+  /* Render delete button */
+  function renderButtons(data?: Response | null) {
+    if (!data) return;
+
+    /* Delete button */
+    const handleDelete = () => {
+      if (data.collectionContribution?.id) {
+        destroy.contribution(
+          { contributionId: data.collectionContribution.id },
+          t("glossary.contribution.label")
+        );
+      }
+      if (dialog?.hide) dialog.hide();
+    };
+
+    return <DrawerActions handleDelete={handleDelete} />;
+  }
+
   return (
     <QueryWrapper<Query>
       query={query}
@@ -35,11 +59,13 @@ export default function CollectionContributionEditDrawer({
           header={t("drawers.editCollectionContribution.title")}
           dialog={dialog}
           hideOnClickOutside={false}
+          buttons={renderButtons(data)}
         >
           {data && data.collectionContribution && (
             <ContributionUpdateForm
               data={data.collectionContribution}
               onSuccess={dialog.hide}
+              onCancel={dialog.hide}
             />
           )}
         </Drawer>
@@ -53,6 +79,7 @@ const query = graphql`
   ) {
     collectionContribution(slug: $collectionContributionSlug) {
       ...ContributionUpdateFormFragment
+      id
       role
       collection {
         title

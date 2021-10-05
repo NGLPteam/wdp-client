@@ -13,7 +13,11 @@ import type {
 import type { CommunityUpdateFormFragment$key } from "@/relay/CommunityUpdateFormFragment.graphql";
 import type { CommunityUpdateFormFieldsFragment$key } from "@/relay/CommunityUpdateFormFieldsFragment.graphql";
 
-export default function CommunityUpdateForm({ data, onSuccess }: Props) {
+export default function CommunityUpdateForm({
+  data,
+  onSuccess,
+  onCancel,
+}: Props) {
   const {
     communityId = "",
     ...fieldsData
@@ -45,6 +49,7 @@ export default function CommunityUpdateForm({ data, onSuccess }: Props) {
     <MutationForm<CommunityUpdateFormMutation, Fields>
       name="updateCommunity"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.community.update.success"
       mutation={mutation}
       toVariables={toVariables}
@@ -56,7 +61,10 @@ export default function CommunityUpdateForm({ data, onSuccess }: Props) {
 }
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   data: CommunityUpdateFormFragment$key;
 }
 

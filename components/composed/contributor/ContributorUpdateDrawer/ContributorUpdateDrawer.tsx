@@ -1,14 +1,19 @@
 import React from "react";
-import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
+import { graphql } from "react-relay";
+import { useDrawerHelper, useDestroyer } from "hooks";
+import { RouteHelper } from "routes";
 import { QueryWrapper } from "components/api";
-import type { ContributorUpdateDrawerQuery as Query } from "__generated__/ContributorUpdateDrawerQuery.graphql";
+import Drawer from "components/layout/Drawer";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
+import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 
-import { useDrawerHelper } from "hooks";
-import { graphql } from "react-relay";
+import type {
+  ContributorUpdateDrawerQuery as Query,
+  ContributorUpdateDrawerQueryResponse as Response,
+} from "__generated__/ContributorUpdateDrawerQuery.graphql";
 
 export default function ContributorUpdateDrawer({
   dialog,
@@ -19,6 +24,8 @@ export default function ContributorUpdateDrawer({
 }) {
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
+  const detailsRoute = RouteHelper.findRouteByName("contributor.details");
 
   if (!Object.prototype.hasOwnProperty.call(params, "drawerSlug")) {
     drawerHelper.close();
@@ -26,6 +33,38 @@ export default function ContributorUpdateDrawer({
   }
 
   const { drawerSlug } = params;
+
+  /* Render route and delete buttons */
+  function renderButtons(data?: Response | null) {
+    if (!data) return;
+
+    /* Child routes - Collections, items, manage */
+    const routes = detailsRoute
+      ? [
+          {
+            route: detailsRoute.name,
+            label: detailsRoute.label,
+            query: { slug: drawerSlug },
+          },
+        ]
+      : undefined;
+
+    /* Delete button */
+    const handleDelete = () => {
+      if (data.contributor?.id) {
+        destroy.contributor(
+          { contributorId: data.contributor.id },
+          data?.contributor?.legalName ||
+            (data?.contributor?.givenName
+              ? `${data?.contributor?.givenName} ${data?.contributor?.familyName}`
+              : t("glossary.contributor.label"))
+        );
+      }
+      if (dialog?.hide) dialog.hide();
+    };
+
+    return <DrawerActions routes={routes} handleDelete={handleDelete} />;
+  }
 
   return (
     <QueryWrapper<Query>
@@ -44,11 +83,13 @@ export default function ContributorUpdateDrawer({
             }
             dialog={dialog}
             hideOnClickOutside={false}
+            buttons={renderButtons(data)}
           >
             {data && data.contributor && (
               <ContributorUpdateForm
                 data={data.contributor}
                 onSuccess={dialog.hide}
+                onCancel={dialog.hide}
               />
             )}
           </Drawer>
@@ -63,10 +104,12 @@ const query = graphql`
     contributor(slug: $contributorSlug) {
       __typename
       ... on OrganizationContributor {
+        id
         slug
         legalName
       }
       ... on PersonContributor {
+        id
         slug
         givenName
         familyName

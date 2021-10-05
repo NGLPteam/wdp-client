@@ -15,7 +15,11 @@ import type {
 import type { ContributionUpdateFormFragment$key } from "@/relay/ContributionUpdateFormFragment.graphql";
 import type { ContributionUpdateFormFieldsFragment$key } from "@/relay/ContributionUpdateFormFieldsFragment.graphql";
 
-export default function ContributionUpdateForm({ data, onSuccess }: Props) {
+export default function ContributionUpdateForm({
+  data,
+  onSuccess,
+  onCancel,
+}: Props) {
   const maybeContribution = useFragment<ContributionUpdateFormFragment$key>(
     fragment,
     data
@@ -84,6 +88,7 @@ export default function ContributionUpdateForm({ data, onSuccess }: Props) {
     <MutationForm<ContributionUpdateFormMutation, Fields>
       name="updateContribution"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.contribution.update.success"
       mutation={mutation}
       toVariables={toVariables}
@@ -95,7 +100,10 @@ export default function ContributionUpdateForm({ data, onSuccess }: Props) {
 }
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   data: ContributionUpdateFormFragment$key;
 }
 

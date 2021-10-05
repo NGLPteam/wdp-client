@@ -38,6 +38,7 @@ export default function CollectionContributionCreateDrawer({
           >
             <ContributionCreateForm
               onSuccess={dialog.hide}
+              onCancel={dialog.hide}
               contributableId={data.collection.id}
               contributableName={data.collection.title}
             />

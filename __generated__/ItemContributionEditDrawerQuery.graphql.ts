@@ -9,6 +9,7 @@ export type ItemContributionEditDrawerQueryVariables = {
 };
 export type ItemContributionEditDrawerQueryResponse = {
     readonly itemContribution: {
+        readonly id: string;
         readonly role: string | null;
         readonly item: {
             readonly title: string | null;
@@ -29,12 +30,12 @@ query ItemContributionEditDrawerQuery(
 ) {
   itemContribution(slug: $itemContributionSlug) {
     ...ContributionUpdateFormFragment
+    id
     role
     item {
       title
       id
     }
-    id
   }
 }
 
@@ -122,26 +123,26 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "role",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "role",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "title",
   "storageKey": null
 },
 v5 = [
-  (v3/*: any*/),
-  (v4/*: any*/)
+  (v4/*: any*/),
+  (v2/*: any*/)
 ],
 v6 = {
   "alias": null,
@@ -213,7 +214,7 @@ v9 = {
     {
       "kind": "InlineFragment",
       "selections": [
-        (v4/*: any*/)
+        (v2/*: any*/)
       ],
       "type": "Node",
       "abstractKey": "__isNode"
@@ -237,6 +238,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -245,7 +247,7 @@ return {
             "name": "item",
             "plural": false,
             "selections": [
-              (v3/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -276,6 +278,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -286,7 +289,6 @@ return {
             "selections": (v5/*: any*/),
             "storageKey": null
           },
-          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -315,7 +317,7 @@ return {
                 "selections": [
                   (v7/*: any*/),
                   (v9/*: any*/),
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "type": "ItemContribution",
                 "abstractKey": null
@@ -330,14 +332,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fcf35e5e8e2c74566516b5e237d0da3c",
+    "cacheID": "5c6e1f54f7670a13c4c81e953be84091",
     "id": null,
     "metadata": {},
     "name": "ItemContributionEditDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemContributionEditDrawerQuery(\n  $itemContributionSlug: Slug!\n) {\n  itemContribution(slug: $itemContributionSlug) {\n    ...ContributionUpdateFormFragment\n    role\n    item {\n      title\n      id\n    }\n    id\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    role\n  }\n  ... on ItemContribution {\n    role\n  }\n}\n\nfragment ContributionUpdateFormFragment on AnyContribution {\n  __isAnyContribution: __typename\n  __typename\n  ... on CollectionContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      id\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n  ... on ItemContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      title\n      id\n    }\n    title\n    ...ContributionUpdateFormFieldsFragment\n  }\n}\n"
+    "text": "query ItemContributionEditDrawerQuery(\n  $itemContributionSlug: Slug!\n) {\n  itemContribution(slug: $itemContributionSlug) {\n    ...ContributionUpdateFormFragment\n    id\n    role\n    item {\n      title\n      id\n    }\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    role\n  }\n  ... on ItemContribution {\n    role\n  }\n}\n\nfragment ContributionUpdateFormFragment on AnyContribution {\n  __isAnyContribution: __typename\n  __typename\n  ... on CollectionContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      id\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n  ... on ItemContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      title\n      id\n    }\n    title\n    ...ContributionUpdateFormFieldsFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a10feb461954ac21ed84d789a148b4ba';
+(node as any).hash = 'ae71602af58a7cd4f8c1cace914f12d9';
 export default node;

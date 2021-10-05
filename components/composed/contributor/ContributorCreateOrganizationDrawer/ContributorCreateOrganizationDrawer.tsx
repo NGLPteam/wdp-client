@@ -18,7 +18,10 @@ export default function ContributorCreateOrganizationDrawer({
       dialog={dialog}
       hideOnClickOutside={false}
     >
-      <ContributorCreateOrganizationForm onSuccess={dialog.hide} />
+      <ContributorCreateOrganizationForm
+        onSuccess={dialog.hide}
+        onCancel={dialog.hide}
+      />
     </Drawer>
   );
 }

@@ -14,6 +14,7 @@ import type {
 
 export default function ContributorCreateOrganizationForm({
   onSuccess,
+  onCancel,
 }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
@@ -57,6 +58,7 @@ export default function ContributorCreateOrganizationForm({
       mutation={mutation}
       name="createOrganizationContributor"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.contributor.create.success"
     >
       {renderForm}
@@ -64,7 +66,10 @@ export default function ContributorCreateOrganizationForm({
   );
 }
 
-type Props = Pick<React.ComponentProps<typeof MutationForm>, "onSuccess">;
+type Props = Pick<
+  React.ComponentProps<typeof MutationForm>,
+  "onSuccess" | "onCancel"
+>;
 
 type Fields = Omit<
   CreateOrganizationContributorInput,

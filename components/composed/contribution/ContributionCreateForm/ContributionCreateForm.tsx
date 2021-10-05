@@ -15,6 +15,7 @@ export default function ContributionCreateForm({
   contributableId,
   contributableName,
   onSuccess,
+  onCancel,
 }: Props) {
   /** Convert values to variables */
   const toVariables = useToVariables<ContributionCreateFormMutation, Fields>(
@@ -53,6 +54,7 @@ export default function ContributionCreateForm({
     <MutationForm<ContributionCreateFormMutation, Fields>
       name="upsertContribution"
       onSuccess={onSuccess}
+      onCancel={onCancel}
       successNotification="forms.contribution.create.success"
       mutation={mutation}
       toVariables={toVariables}
@@ -63,7 +65,10 @@ export default function ContributionCreateForm({
 }
 
 interface Props
-  extends Pick<React.ComponentProps<typeof MutationForm>, "onSuccess"> {
+  extends Pick<
+    React.ComponentProps<typeof MutationForm>,
+    "onSuccess" | "onCancel"
+  > {
   /** The entity that should own the contribution */
   contributableId: string;
   contributableName: string;
