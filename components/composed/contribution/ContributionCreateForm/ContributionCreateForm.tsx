@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
-  useToVariables,
   Forms,
 } from "components/api/MutationForm";
 
@@ -17,12 +16,6 @@ export default function ContributionCreateForm({
   onSuccess,
   onCancel,
 }: Props) {
-  /** Convert values to variables */
-  const toVariables = useToVariables<ContributionCreateFormMutation, Fields>(
-    (data) => ({ input: { ...data, contributableId } }),
-    [contributableId]
-  );
-
   /** Render the form */
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
@@ -44,6 +37,9 @@ export default function ContributionCreateForm({
           required
           {...register("role")}
         />
+        {contributableId && (
+          <input type="hidden" {...register("contributableId")} />
+        )}
       </Forms.Grid>
     ),
     []
@@ -57,7 +53,6 @@ export default function ContributionCreateForm({
       onCancel={onCancel}
       successNotification="forms.contribution.create.success"
       mutation={mutation}
-      toVariables={toVariables}
     >
       {renderForm}
     </MutationForm>
@@ -70,11 +65,11 @@ interface Props
     "onSuccess" | "onCancel"
   > {
   /** The entity that should own the contribution */
-  contributableId: string;
+  contributableId?: string;
   contributableName: string;
 }
 
-type Fields = Omit<UpsertContributionInput, "contributableId">;
+type Fields = UpsertContributionInput;
 
 const mutation = graphql`
   mutation ContributionCreateFormMutation($input: UpsertContributionInput!) {

@@ -119,7 +119,7 @@ function CollectionContributionList<T extends OperationType>({
       <ButtonControlGroup
         buttons={[
           {
-            drawer: "addContribution",
+            drawer: "addCollectionContribution",
             drawerQuery,
             icon: "plus",
             children: t("actions.create.contribution"),
