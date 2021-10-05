@@ -104,26 +104,30 @@ function ItemContributionList<T extends OperationType>({
   };
 
   // Only pass the slug if we're in Item details
-  const drawerQuery =
-    slug && nameColumn === "contributor" ? { drawerSlug: slug } : undefined;
+  const drawerQuery = {
+    drawerSlug: slug || "",
+    drawerContributionType: "item",
+  };
 
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
-  const buttons =
-    nameColumn === "contributor" ? (
-      <ButtonControlGroup
-        buttons={[
-          {
-            drawer: "addItemContribution",
-            drawerQuery,
-            icon: "plus",
-            children: t("actions.create.contribution"),
-          },
-        ]}
-        toggleLabel={t("options")}
-        menuLabel={t("options")}
-      />
-    ) : undefined;
+  const buttons = (
+    <ButtonControlGroup
+      buttons={[
+        {
+          drawer:
+            nameColumn === "contributor"
+              ? "addItemContribution"
+              : "addContributorContribution",
+          drawerQuery,
+          icon: "plus",
+          children: t("actions.create.contribution"),
+        },
+      ]}
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+    />
+  );
 
   return (
     <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>

@@ -12,3 +12,5 @@ export { default as Fieldset } from "./Fieldset";
 export { default as LinksRepeater } from "./LinksRepeater";
 export { default as HiddenField } from "./HiddenField";
 export { default as ContributorTypeahead } from "./ContributorTypeahead";
+export { default as CollectionTypeahead } from "./CollectionTypeahead";
+export { default as ItemTypeahead } from "./ItemTypeahead";

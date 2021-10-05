@@ -11,6 +11,7 @@ import ContributorUpdateDrawer from "components/composed/contributor/Contributor
 import ItemUpdateDrawer from "components/composed/item/ItemUpdateDrawer";
 import CollectionContributionCreateDrawer from "components/composed/contribution/CollectionContributionCreateDrawer";
 import ItemContributionCreateDrawer from "components/composed/contribution/ItemContributionCreateDrawer";
+import ContributorContributionCreateDrawer from "components/composed/contribution/ContributorContributionCreateDrawer";
 import FileCreateDrawer from "components/composed/file/FileCreateDrawer";
 
 import omitBy from "lodash/omitBy";
@@ -21,6 +22,7 @@ const drawerRegistry = {
   addOrganization: ContributorCreateOrganizationDrawer,
   addCollectionContribution: CollectionContributionCreateDrawer,
   addItemContribution: ItemContributionCreateDrawer,
+  addContributorContribution: ContributorContributionCreateDrawer,
   addFile: FileCreateDrawer,
   editItemContribution: ItemContributionEditDrawer,
   editCollectionContribution: CollectionContributionEditDrawer,
