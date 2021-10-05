@@ -102,6 +102,8 @@ export function aBaseInput() {
     &:disabled,
     [aria-disabled="true"] {
       opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
     }
   `;
 }
