@@ -14,7 +14,12 @@ import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.
 import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
 import { getDateOnly } from "helpers";
 
-export default function ItemUpdateForm({ data, onSuccess, onCancel }: Props) {
+export default function ItemUpdateForm({
+  data,
+  onSuccess,
+  onCancel,
+  onSaveAndClose,
+}: Props) {
   const {
     itemId = "",
     ...fieldsData
@@ -88,6 +93,7 @@ export default function ItemUpdateForm({ data, onSuccess, onCancel }: Props) {
     <MutationForm<ItemUpdateFormMutation, Fields>
       name="updateItem"
       onSuccess={onSuccess}
+      onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
       successNotification="forms.item.update.success"
       mutation={mutation}
@@ -102,7 +108,7 @@ export default function ItemUpdateForm({ data, onSuccess, onCancel }: Props) {
 interface Props
   extends Pick<
     React.ComponentProps<typeof MutationForm>,
-    "onSuccess" | "onCancel"
+    "onSuccess" | "onCancel" | "onSaveAndClose"
   > {
   data: ItemUpdateFormFragment$key;
 }
