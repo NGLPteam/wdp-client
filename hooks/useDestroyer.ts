@@ -26,26 +26,25 @@ import type {
 import type {
   DestroyOrderingInput,
   useDestroyerDestroyOrderingMutation,
+  useDestroyerDestroyOrderingMutationResponse,
 } from "@/relay/useDestroyerDestroyOrderingMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
+
+type DestroyOrdering = useDestroyerDestroyOrderingMutationResponse["destroyOrdering"];
 
 export function useDestroyer() {
   const notify = useNotify();
   const { t } = useTranslation();
 
   const handleResponse = useCallback(
-    (
-      data: useDestroyerFragment$key | null,
-      name: string,
-      disabled?: boolean | null
-    ) => {
+    (data: useDestroyerFragment$key | DestroyOrdering | null, name: string) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment>(
         destroyFragment,
         data
       );
-      if (disabled) {
+      if ("disabled" in data && data.disabled) {
         notify.success(t("outcomes.disabled", { name }));
       } else if (results.destroyed) {
         notify.success(t("outcomes.deleted", { name }));
@@ -156,11 +155,7 @@ export function useDestroyer() {
       const response = await commitDisableOrDestroyOrdering({
         variables: { input },
       });
-      return handleResponse(
-        response.destroyOrdering,
-        label,
-        response.destroyOrdering?.disabled
-      );
+      return handleResponse(response.destroyOrdering, label);
     },
     [commitDisableOrDestroyOrdering, handleResponse]
   );
