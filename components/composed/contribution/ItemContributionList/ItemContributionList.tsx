@@ -7,11 +7,16 @@ import {
 } from "@/relay/ItemContributionListFragment.graphql";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
-import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
+import {
+  useMaybeFragment,
+  useDestroyer,
+  useDrawerHelper,
+  useRouteSlug,
+} from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { NamedLink } from "components/atomic";
+import { ButtonControlGroup, NamedLink } from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
@@ -30,6 +35,7 @@ function ItemContributionList<T extends OperationType>({
   );
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
+  const slug = useRouteSlug();
   const { t } = useTranslation();
 
   const collectionNameColumn = {
@@ -97,11 +103,34 @@ function ItemContributionList<T extends OperationType>({
       ),
   };
 
+  // Only pass the slug if we're in Item details
+  const drawerQuery =
+    slug && nameColumn === "contributor" ? { drawerSlug: slug } : undefined;
+
+  // TODO: We need an authorization check here. The contributors.create check doesn't
+  //  exist yet in the API.
+  const buttons =
+    nameColumn === "contributor" ? (
+      <ButtonControlGroup
+        buttons={[
+          {
+            drawer: "addItemContribution",
+            drawerQuery,
+            icon: "plus",
+            children: t("actions.create.contribution"),
+          },
+        ]}
+        toggleLabel={t("options")}
+        menuLabel={t("options")}
+      />
+    ) : undefined;
+
   return (
     <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>
       modelName="item_contribution"
       columns={columns}
       actions={actions}
+      buttons={buttons}
       data={itemContributions}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
