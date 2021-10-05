@@ -2,8 +2,9 @@ import React from "react";
 import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import { QueryWrapper } from "components/api";
+import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
+import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 import type { ItemUpdateDrawerQuery as Query } from "__generated__/ItemUpdateDrawerQuery.graphql";
 
 import { useDrawerHelper } from "hooks";
@@ -39,11 +40,20 @@ export default function ItemUpdateDrawer({
           hideOnClickOutside={false}
         >
           {data && data.item && (
-            <ItemUpdateForm
-              data={data.item}
-              onSuccess={dialog.hide}
-              onCancel={dialog.hide}
-            />
+            <>
+              <ItemUpdateForm
+                data={data.item}
+                onSaveAndClose={dialog.hide}
+                onCancel={dialog.hide}
+              />
+              <SchemaInstanceForm
+                instance={data?.item}
+                successNotification="forms.item.update.schemaSuccess"
+                failureNotification="forms.item.update.schemaFailure"
+                onSaveAndClose={dialog.hide}
+                onCancel={dialog.hide}
+              />
+            </>
           )}
         </Drawer>
       )}
@@ -56,6 +66,7 @@ const query = graphql`
     item(slug: $itemSlug) {
       title
       ...ItemUpdateFormFragment
+      ...SchemaInstanceFormFragment
     }
   }
 `;
