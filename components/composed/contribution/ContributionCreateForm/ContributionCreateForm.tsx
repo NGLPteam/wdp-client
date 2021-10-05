@@ -11,35 +11,74 @@ import type {
 } from "@/relay/ContributionCreateFormMutation.graphql";
 
 export default function ContributionCreateForm({
+  contributorId,
+  contributorName,
   contributableId,
   contributableName,
   onSuccess,
   onCancel,
+  type,
 }: Props) {
   /** Render the form */
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.ContributorTypeahead<Fields>
-          control={control}
-          name="contributorId"
-          label="forms.contribution.fields.contributor"
-          required
-        />
-        <Forms.Input
-          name=""
-          label="forms.contribution.fields.object"
-          disabled
-          defaultValue={contributableName}
-        />
+        {contributorId ? (
+          <>
+            <Forms.Input
+              name=""
+              label="forms.contribution.fields.contributor"
+              disabled
+              defaultValue={contributorName}
+            />
+            <input
+              type="hidden"
+              {...register("contributorId")}
+              defaultValue={contributorId}
+            />
+          </>
+        ) : (
+          <Forms.ContributorTypeahead<Fields>
+            control={control}
+            name="contributorId"
+            label="forms.contribution.fields.contributor"
+            required
+          />
+        )}
+        {contributableId ? (
+          <>
+            <Forms.Input
+              name=""
+              label="forms.contribution.fields.object"
+              disabled
+              defaultValue={contributableName}
+            />
+            <input
+              type="hidden"
+              {...register("contributableId")}
+              defaultValue={contributableId}
+            />
+          </>
+        ) : type === "item" ? (
+          <Forms.ItemTypeahead<Fields>
+            control={control}
+            name="contributableId"
+            label="forms.contribution.fields.object"
+            required
+          />
+        ) : (
+          <Forms.CollectionTypeahead<Fields>
+            control={control}
+            name="contributableId"
+            label="forms.contribution.fields.object"
+            required
+          />
+        )}
         <Forms.Input
           label="forms.contribution.fields.role"
           required
           {...register("role")}
         />
-        {contributableId && (
-          <input type="hidden" {...register("contributableId")} />
-        )}
       </Forms.Grid>
     ),
     []
@@ -64,9 +103,14 @@ interface Props
     React.ComponentProps<typeof MutationForm>,
     "onSuccess" | "onCancel"
   > {
+  /** The contributor */
+  contributorId?: string;
+  contributorName?: string;
   /** The entity that should own the contribution */
   contributableId?: string;
-  contributableName: string;
+  contributableName?: string;
+  /** The type of entity */
+  type?: "item" | "collection" | string;
 }
 
 type Fields = UpsertContributionInput;
