@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
-import { ButtonControlGroup } from "components/atomic";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 
@@ -61,22 +61,14 @@ function ContributorList<T extends OperationType>({
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
   const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer: "addPerson",
-          icon: "plus",
-          children: t("actions.create.contributor.person"),
-        },
-        {
-          drawer: "addOrganization",
-          icon: "plus",
-          children: t("actions.create.contributor.organization"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer drawer="addPerson" icon="plus">
+        {t("actions.create.contributor.person")}
+      </ButtonControlDrawer>
+      <ButtonControlDrawer drawer="addOrganization" icon="plus">
+        {t("actions.create.contributor.organization")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
   );
 
   return (

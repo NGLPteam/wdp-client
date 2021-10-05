@@ -13,73 +13,40 @@ type ButtonProps =
   | React.ComponentProps<typeof ButtonControlConfirm>;
 
 function ButtonControlGroup({
-  buttons,
   breakpoint = 40,
+  children,
   menuLabel,
-  toggleLabel,
   toggleText,
+  toggleLabel,
 }: Props) {
-  function renderButton(props: ButtonProps, i: number) {
-    const { children, ...buttonProps } = props;
-
-    return "drawer" in props ? (
-      <ButtonControlDrawer
-        key={i}
-        drawer={props.drawer}
-        drawerQuery={props.drawerQuery}
-        {...buttonProps}
-      >
-        {children}
-      </ButtonControlDrawer>
-    ) : "modalBody" in props ? (
-      <ButtonControlConfirm
-        key={i}
-        modalBody={props.modalBody}
-        modalLabel={props.modalLabel}
-        {...buttonProps}
-      >
-        {children}
-      </ButtonControlConfirm>
-    ) : (
-      <ButtonControl key={i} {...buttonProps}>
-        {children}
-      </ButtonControl>
-    );
-  }
-
-  function renderDropdown(buttons: ButtonProps[]) {
-    return (
-      <Dropdown
-        label={menuLabel}
-        disclosure={
-          <ButtonControl icon="ellipses" aria-label={toggleLabel}>
-            {toggleText}
-          </ButtonControl>
-        }
-        menuItems={buttons.map(renderButton)}
-      />
-    );
-  }
-
   return (
     <>
       <Styled.ButtonWrapper breakpoint={breakpoint}>
-        {buttons.map(renderButton)}
+        {children}
       </Styled.ButtonWrapper>
       <Styled.DropdownWrapper breakpoint={breakpoint}>
-        {renderDropdown(buttons)}
+        <Dropdown
+          label={menuLabel}
+          disclosure={
+            <ButtonControl icon="ellipses" aria-label={toggleLabel}>
+              {toggleText}
+            </ButtonControl>
+          }
+          menuItems={Array.isArray(children) ? children : [children]}
+        />
       </Styled.DropdownWrapper>
     </>
   );
 }
 
 interface BaseProps {
-  buttons: ButtonProps[];
+  buttons?: ButtonProps[];
   breakpoint?: string | number;
   menuLabel: string;
   toggleLabel?: string;
   toggleText?: string;
   closeDropdown?: () => void;
+  children: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
 }
 
 interface PropsWithLabel extends BaseProps {

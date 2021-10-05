@@ -32,7 +32,7 @@ const Dropdown = ({ className, disclosure, menuItems, label }: Props) => {
         if (item === null) return null;
         return (
           <Styled.Item key={i}>
-            {React.cloneElement(item, { closeDropdown: closeDropdown })}
+            {item && React.cloneElement(item, { closeDropdown: closeDropdown })}
           </Styled.Item>
         );
       })}
