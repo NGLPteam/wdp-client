@@ -50,7 +50,7 @@ export default function ItemUpdateDrawer({
       if (data.item) {
         destroy.item(
           { itemId: data.item.id },
-          data?.item?.title || t("glossary.collection.label")
+          data?.item?.title || t("glossary.item.label")
         );
       }
       if (dialog?.hide) dialog.hide();
