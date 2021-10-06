@@ -13,9 +13,11 @@ import type {
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
 import { getDateOnly } from "helpers";
+import { SchemaSelectorFragment$key } from "@/relay/SchemaSelectorFragment.graphql";
 
 export default function CollectionUpdateForm({
   data,
+  schemaData,
   onSuccess,
   onSaveAndClose,
   onCancel,
@@ -87,6 +89,12 @@ export default function CollectionUpdateForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.SchemaSelector
+          data={schemaData}
+          kind="COLLECTION"
+          schemaVersion={defaultValues.schemaVersion}
+          entityId={collectionId}
+        />
       </Forms.Grid>
     ),
     []
@@ -114,6 +122,7 @@ interface Props
     "onSuccess" | "onSaveAndClose" | "onCancel"
   > {
   data: CollectionUpdateFormFragment$key;
+  schemaData: SchemaSelectorFragment$key;
 }
 
 type Fields = Omit<UpdateCollectionInput, "collectionId">;
@@ -132,6 +141,11 @@ const fieldsFragment = graphql`
           url
         }
       }
+    }
+    schemaVersion {
+      name
+      number
+      slug
     }
   }
 `;

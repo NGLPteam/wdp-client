@@ -73,6 +73,12 @@ fragment CollectionUpdateFormFieldsFragment on Collection {
       }
     }
   }
+  schemaVersion {
+    name
+    number
+    slug
+    id
+  }
 }
 
 fragment MutationForm_mutationErrors on StandardMutationPayload {
@@ -173,6 +179,13 @@ v3 = {
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -326,10 +339,37 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "id",
+                "concreteType": "SchemaVersion",
+                "kind": "LinkedField",
+                "name": "schemaVersion",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "number",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
+                  (v4/*: any*/)
+                ],
                 "storageKey": null
-              }
+              },
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -340,12 +380,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5590c5a981be12c39e295dba7191cc25",
+    "cacheID": "16e4e8eb9173ecb39e3b6f906d42226b",
     "id": null,
     "metadata": {},
     "name": "CollectionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  schemaVersion {\n    name\n    number\n    slug\n    id\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

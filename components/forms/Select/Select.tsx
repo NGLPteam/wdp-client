@@ -27,6 +27,7 @@ const Select = forwardRef(
         label={label}
         required={inputProps.required}
         isWide={isWide}
+        description={description}
       >
         {({ uid }) => (
           <Styled.SelectWrapper>

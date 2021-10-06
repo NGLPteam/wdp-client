@@ -14,3 +14,4 @@ export { default as HiddenField } from "./HiddenField";
 export { default as ContributorTypeahead } from "./ContributorTypeahead";
 export { default as CollectionTypeahead } from "./CollectionTypeahead";
 export { default as ItemTypeahead } from "./ItemTypeahead";
+export { default as SchemaSelector } from "./SchemaSelector";

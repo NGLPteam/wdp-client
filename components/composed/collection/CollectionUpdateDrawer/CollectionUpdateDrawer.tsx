@@ -76,11 +76,12 @@ export default function CollectionUpdateDrawer({
             <>
               <CollectionUpdateForm
                 data={data.collection}
+                schemaData={data.schemaVersions}
                 onSaveAndClose={dialog.hide}
                 onCancel={dialog.hide}
               />
               <SchemaInstanceForm
-                instance={data?.collection}
+                instance={data.collection}
                 successNotification="forms.collection.update.schemaSuccess"
                 failureNotification="forms.collection.update.schemaFailure"
                 onSaveAndClose={dialog.hide}
@@ -101,6 +102,9 @@ const query = graphql`
       title
       ...CollectionUpdateFormFragment
       ...SchemaInstanceFormFragment
+    }
+    schemaVersions {
+      ...SchemaSelectorFragment
     }
   }
 `;
