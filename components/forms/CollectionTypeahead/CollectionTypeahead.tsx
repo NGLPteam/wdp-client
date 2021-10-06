@@ -9,7 +9,7 @@ import type { FieldValues, Control, Path } from "react-hook-form";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
-  { control, name, label }: Props<T>,
+  { control, name, label, disabled }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
@@ -34,7 +34,12 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
         <QueryWrapper<Query> query={query}>
           {({ data }) =>
             data?.viewer?.collections?.nodes ? (
-              <Typeahead label={label} options={getOptions(data)} {...field} />
+              <Typeahead
+                label={label}
+                options={getOptions(data)}
+                disabled={disabled}
+                {...field}
+              />
             ) : null
           }
         </QueryWrapper>
