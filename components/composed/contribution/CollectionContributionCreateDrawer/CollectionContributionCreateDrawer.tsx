@@ -41,6 +41,7 @@ export default function CollectionContributionCreateDrawer({
               onCancel={dialog.hide}
               contributableId={data.collection.id}
               contributableName={data.collection.title}
+              type="collection"
             />
           </Drawer>
         ) : null
