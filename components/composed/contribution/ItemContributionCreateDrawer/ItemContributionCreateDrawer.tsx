@@ -41,6 +41,7 @@ export default function ItemContributionCreateDrawer({
               onCancel={dialog.hide}
               contributableId={data.item.id}
               contributableName={data.item.title}
+              type="item"
             />
           </Drawer>
         ) : null

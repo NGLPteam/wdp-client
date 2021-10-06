@@ -49,7 +49,7 @@ export default function ContributionCreateForm({
           <>
             <Forms.Input
               name=""
-              label="forms.contribution.fields.object"
+              label={`forms.contribution.fields.${type}`}
               disabled
               defaultValue={contributableName}
             />
@@ -63,14 +63,14 @@ export default function ContributionCreateForm({
           <Forms.ItemTypeahead<Fields>
             control={control}
             name="contributableId"
-            label="forms.contribution.fields.object"
+            label="forms.contribution.fields.item"
             required
           />
         ) : (
           <Forms.CollectionTypeahead<Fields>
             control={control}
             name="contributableId"
-            label="forms.contribution.fields.object"
+            label="forms.contribution.fields.collection"
             required
           />
         )}
@@ -110,7 +110,7 @@ interface Props
   contributableId?: string;
   contributableName?: string;
   /** The type of entity */
-  type?: "item" | "collection" | string;
+  type: "item" | "collection" | string;
 }
 
 type Fields = UpsertContributionInput;
