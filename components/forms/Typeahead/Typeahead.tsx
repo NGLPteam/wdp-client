@@ -39,6 +39,9 @@ const Typeahead = forwardRef(
       getItemProps,
     } = useCombobox({
       items: inputOptions,
+      initialSelectedItem: inputOptions.find(
+        (option) => option.value === value
+      ),
       itemToString: (item) => (item ? item.label : ""),
       onInputValueChange: ({ inputValue }) => {
         // If no value is provided, reset options to default
@@ -80,11 +83,16 @@ const Typeahead = forwardRef(
             {...inputProps}
           />
           {/* Visible input field for typeahead functionality */}
-          <Styled.Input {...getInputProps()} required={required} />
+          <Styled.Input
+            {...getInputProps()}
+            required={required}
+            disabled={inputProps.disabled}
+          />
           <Styled.Button
             type="button"
             {...getToggleButtonProps()}
             aria-label="toggle menu"
+            disabled={inputProps.disabled}
           >
             <Styled.Icon icon="chevron" rotate={180} />
           </Styled.Button>
