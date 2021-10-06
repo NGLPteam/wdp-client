@@ -46,7 +46,7 @@ export default function ContributorContributionCreateDrawer({
               contributorId={data.contributor.id}
               contributorName={
                 data.contributor.legalName ||
-                `${data.contributor.givenName} ${data.contributor.legalName}`
+                `${data.contributor.givenName} ${data.contributor.familyName}`
               }
               type={drawerContributionType}
             />
