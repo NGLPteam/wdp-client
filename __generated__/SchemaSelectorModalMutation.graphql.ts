@@ -10,23 +10,23 @@ export type AlterSchemaVersionInput = {
     propertyValues: unknown;
     clientMutationId?: string | null;
 };
-export type SchemaSelectorMutationVariables = {
+export type SchemaSelectorModalMutationVariables = {
     input: AlterSchemaVersionInput;
 };
-export type SchemaSelectorMutationResponse = {
+export type SchemaSelectorModalMutationResponse = {
     readonly alterSchemaVersion: {
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
 };
-export type SchemaSelectorMutation = {
-    readonly response: SchemaSelectorMutationResponse;
-    readonly variables: SchemaSelectorMutationVariables;
+export type SchemaSelectorModalMutation = {
+    readonly response: SchemaSelectorModalMutationResponse;
+    readonly variables: SchemaSelectorModalMutationVariables;
 };
 
 
 
 /*
-mutation SchemaSelectorMutation(
+mutation SchemaSelectorModalMutation(
   $input: AlterSchemaVersionInput!
 ) {
   alterSchemaVersion(input: $input) {
@@ -140,7 +140,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SchemaSelectorMutation",
+    "name": "SchemaSelectorModalMutation",
     "selections": [
       {
         "alias": null,
@@ -166,7 +166,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SchemaSelectorMutation",
+    "name": "SchemaSelectorModalMutation",
     "selections": [
       {
         "alias": null,
@@ -181,14 +181,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fe9b3bd696295f3319c13b72c2719e30",
+    "cacheID": "df9382f9421d4905a7efd921d869777e",
     "id": null,
     "metadata": {},
-    "name": "SchemaSelectorMutation",
+    "name": "SchemaSelectorModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SchemaSelectorMutation(\n  $input: AlterSchemaVersionInput!\n) {\n  alterSchemaVersion(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation SchemaSelectorModalMutation(\n  $input: AlterSchemaVersionInput!\n) {\n  alterSchemaVersion(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8ca35385d552c564257e3db3c33ccae7';
+(node as any).hash = 'a88eeaf9617dc75e9fac83cab2badf3c';
 export default node;

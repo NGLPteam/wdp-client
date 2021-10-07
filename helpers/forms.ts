@@ -34,3 +34,16 @@ export function maybeSetBooleanField<T extends FieldValues>(
     setValue(path, value, options);
   }
 }
+
+/**
+ * Return undefined if a date value is an empty string
+ * https://github.com/react-hook-form/react-hook-form/issues/656
+ *
+ * @param value
+ * @returns string | undefined
+ */
+export function sanitizeDateField(
+  value: string | null | undefined
+): string | undefined {
+  return value && value.length > 0 ? value : undefined;
+}

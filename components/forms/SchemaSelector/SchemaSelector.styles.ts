@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
 export const FieldWrapper = styled.div`
+  flex: 1 1 var(--form-grid-item-width-wide);
+`;
+
+export const Field = styled.div`
   display: flex;
   align-items: stretch;
   justify-content: space-between;

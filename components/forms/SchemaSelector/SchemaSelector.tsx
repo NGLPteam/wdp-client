@@ -1,111 +1,63 @@
-import React, { useMemo } from "react";
-import { graphql, useFragment } from "react-relay";
+import React from "react";
+import { graphql } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
+import { useTranslation } from "react-i18next";
+import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
-import BaseInputWrapper from "components/forms/BaseInputWrapper";
-import { SchemaSelectorFragment$key } from "@/relay/SchemaSelectorFragment.graphql";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
-import Modal from "components/layout/Modal";
-import {
-  AlterSchemaVersionInput,
-  SchemaSelectorMutation,
-} from "@/relay/SchemaSelectorMutation.graphql";
-import MutationForm, {
-  useRenderForm,
-  useToVariables,
-} from "components/api/MutationForm";
+
+import { SchemaSelectorOptionsFragment$key } from "@/relay/SchemaSelectorOptionsFragment.graphql";
+import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
+import { SchemaKind } from "types/graphql-schema";
+
 import * as Styled from "./SchemaSelector.styles";
+import SchemaSelectorModal from "./SchemaSelectorModal";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
-const SchemaSelector = ({ data, kind, schemaVersion, entityId }: Props) => {
-  const definitions = useFragment(fragment, data);
-
+const SchemaSelector = ({ schemaOptions, schemaKind, schemaData }: Props) => {
+  const optionsData = useMaybeFragment(optionsFragment, schemaOptions);
+  const data = useMaybeFragment(dataFragment, schemaData);
   const dialog = useDialogState({ visible: false, animated: true });
+  const { t } = useTranslation();
 
-  const options = useMemo(
-    () =>
-      definitions?.edges
-        ?.filter((item) => item.node.kind === kind)
-        .map((item) => ({
-          label: `${item.node.name} ${item.node.number}`,
-          value: item.node.slug,
-        })),
-    [definitions, kind]
-  );
-
-  const defaultValues = {
-    schemaVersionSlug: schemaVersion.slug,
-  };
-
-  const toVariables = useToVariables<SchemaSelectorMutation, Fields>(
-    (data) => ({ input: { ...data, entityId } }),
-    []
-  );
-
-  const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
-      <Select
-        options={options}
-        label="New Schema"
-        {...register("schemaVersionSlug")}
-        description="Changing the schema will permanently alter this model's properties."
-      />
-    ),
-    []
-  );
-
-  return (
+  return optionsData && schemaKind && data?.schemaVersion && data?.entityId ? (
     <>
-      <BaseInputWrapper label="Schema" name="schema">
-        <Styled.FieldWrapper>
-          {schemaVersion && (
-            <Styled.VersionText>{`${schemaVersion.name} ${schemaVersion.number}`}</Styled.VersionText>
+      <Styled.FieldWrapper>
+        <BaseInputLabel as="span">
+          {t("forms.schema.selector.current_label")}
+        </BaseInputLabel>
+        <Styled.Field>
+          {data?.schemaVersion && (
+            <Styled.VersionText>{`${data.schemaVersion.name} ${data.schemaVersion.number}`}</Styled.VersionText>
           )}
           <DialogDisclosure as={ButtonControl} {...dialog}>
-            Change
+            {t("forms.schema.selector.button")}
           </DialogDisclosure>
-        </Styled.FieldWrapper>
-      </BaseInputWrapper>
-      <Modal label="Change Schema" dialog={dialog} hideOnClickOutside={false}>
-        {({ handleClose }) => (
-          <Styled.ModalContent className="t-rte">
-            <p>Are you sure you want to change this schema?</p>
-            <MutationForm<SchemaSelectorMutation, Fields>
-              name="alterSchemaVersion"
-              mutation={mutation}
-              successNotification="Successfully updated schema"
-              toVariables={toVariables}
-              defaultValues={defaultValues}
-              onSuccess={handleClose}
-              onCancel={handleClose}
-            >
-              {renderForm}
-            </MutationForm>
-          </Styled.ModalContent>
-        )}
-      </Modal>
+        </Styled.Field>
+      </Styled.FieldWrapper>
+      <SchemaSelectorModal
+        dialog={dialog}
+        optionsData={optionsData}
+        entityId={data?.entityId}
+        schemaVersionSlug={data?.schemaVersion?.slug}
+        schemaKind={schemaKind}
+      />
     </>
-  );
+  ) : null;
 };
 
 interface Props extends Pick<SelectProps, "defaultValue"> {
-  data: SchemaSelectorFragment$key;
-  kind: "ITEM" | "COLLECTION";
-  schemaVersion: {
-    name: string;
-    number: string;
-    slug: string;
-  };
-  entityId: string;
+  schemaOptions?: SchemaSelectorOptionsFragment$key;
+  schemaData?: SchemaSelectorDataFragment$key;
+  schemaKind?: SchemaKind;
 }
-
-type Fields = AlterSchemaVersionInput;
 
 export default SchemaSelector;
 
-const fragment = graphql`
-  fragment SchemaSelectorFragment on SchemaVersionConnection {
+const optionsFragment = graphql`
+  fragment SchemaSelectorOptionsFragment on SchemaVersionConnection {
     edges {
       node {
         name
@@ -119,10 +71,23 @@ const fragment = graphql`
   }
 `;
 
-const mutation = graphql`
-  mutation SchemaSelectorMutation($input: AlterSchemaVersionInput!) {
-    alterSchemaVersion(input: $input) {
-      ...MutationForm_mutationErrors
+const dataFragment = graphql`
+  fragment SchemaSelectorDataFragment on AnyEntity {
+    ... on Collection {
+      entityId: id
+      schemaVersion {
+        name
+        number
+        slug
+      }
+    }
+    ... on Item {
+      entityId: id
+      schemaVersion {
+        name
+        number
+        slug
+      }
     }
   }
 `;

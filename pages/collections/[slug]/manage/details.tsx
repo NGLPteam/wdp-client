@@ -12,12 +12,12 @@ function CollectionDetails({ data }: Props) {
 
   return (
     <>
-      <CollectionUpdateForm
-        data={data?.collection}
-        schemaData={data?.schemaVersions}
-      />
+      <CollectionUpdateForm data={data?.collection} />
       <SchemaInstanceForm
         instance={data?.collection}
+        schemaData={data?.collection}
+        schemaOptions={data?.schemaVersions}
+        schemaKind="COLLECTION"
         successNotification="forms.collection.update.schemaSuccess"
         failureNotification="forms.collection.update.schemaFailure"
       />
@@ -42,9 +42,10 @@ const query = graphql`
       ...CollectionLayoutFragment
       ...CollectionUpdateFormFragment
       ...SchemaInstanceFormFragment
+      ...SchemaSelectorDataFragment
     }
     schemaVersions {
-      ...SchemaSelectorFragment
+      ...SchemaSelectorOptionsFragment
     }
   }
 `;

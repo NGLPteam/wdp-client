@@ -37,9 +37,7 @@
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
-      "editItem.title": "Edit Item",
-      "editCollectionContribution.title": "Collection Contribution",
-      "editItemContribution.title": "Item Contribution"
+      "editItem.title": "Edit Item"
     },
     "actions": {
       "add": "Add $t({{ name }})",
@@ -81,7 +79,20 @@
       },
       "schema": {
         "title": "Schema",
-        "noSchema": "No schema defined"
+        "noSchema": "No schema defined",
+        "selector": {
+          "current_label": "Current Schema",
+          "new_label": "New Schema",
+          "button": "Change",
+          "warning": "Changing the schema will permanently alter this model's properties.",
+          "modal": {
+            "label": "Change Schema",
+            "message": "Are you sure you want to change this schema?"
+          }
+        },
+        "update": {
+          "success": "Successfully updated schema"
+        }
       },
       "file": {
         "upload": "Upload a file or \n drag and drop here",

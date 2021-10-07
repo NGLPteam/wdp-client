@@ -19,11 +19,6 @@ export type CollectionUpdateFormFieldsFragment = {
             } | null;
         };
     } | null;
-    readonly schemaVersion: {
-        readonly name: string;
-        readonly number: string;
-        readonly slug: string;
-    };
     readonly " $refType": "CollectionUpdateFormFieldsFragment";
 };
 export type CollectionUpdateFormFieldsFragment$data = CollectionUpdateFormFieldsFragment;
@@ -121,42 +116,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "SchemaVersion",
-      "kind": "LinkedField",
-      "name": "schemaVersion",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "number",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '3e5effe9647023df91edf958ed4e0c24';
+(node as any).hash = '87ba9ce56ddec7646805eca4d324a1d3';
 export default node;

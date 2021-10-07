@@ -12,12 +12,10 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import { getDateOnly } from "helpers";
-import { SchemaSelectorFragment$key } from "@/relay/SchemaSelectorFragment.graphql";
+import { getDateOnly, sanitizeDateField } from "helpers";
 
 export default function CollectionUpdateForm({
   data,
-  schemaData,
   onSuccess,
   onSaveAndClose,
   onCancel,
@@ -45,7 +43,14 @@ export default function CollectionUpdateForm({
   };
 
   const toVariables = useToVariables<CollectionUpdateFormMutation, Fields>(
-    (data) => ({ input: { ...data, collectionId } }),
+    (data) => ({
+      input: {
+        ...data,
+        collectionId,
+        visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
+        visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
+      },
+    }),
     []
   );
 
@@ -89,12 +94,6 @@ export default function CollectionUpdateForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
-        <Forms.SchemaSelector
-          data={schemaData}
-          kind="COLLECTION"
-          schemaVersion={defaultValues.schemaVersion}
-          entityId={collectionId}
-        />
       </Forms.Grid>
     ),
     []
@@ -122,7 +121,6 @@ interface Props
     "onSuccess" | "onSaveAndClose" | "onCancel"
   > {
   data: CollectionUpdateFormFragment$key;
-  schemaData: SchemaSelectorFragment$key;
 }
 
 type Fields = Omit<UpdateCollectionInput, "collectionId">;
@@ -141,11 +139,6 @@ const fieldsFragment = graphql`
           url
         }
       }
-    }
-    schemaVersion {
-      name
-      number
-      slug
     }
   }
 `;

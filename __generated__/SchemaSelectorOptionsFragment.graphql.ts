@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
-export type SchemaSelectorFragment = {
+export type SchemaSelectorOptionsFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly name: string;
@@ -16,12 +16,12 @@ export type SchemaSelectorFragment = {
             readonly number: string;
         };
     }>;
-    readonly " $refType": "SchemaSelectorFragment";
+    readonly " $refType": "SchemaSelectorOptionsFragment";
 };
-export type SchemaSelectorFragment$data = SchemaSelectorFragment;
-export type SchemaSelectorFragment$key = {
-    readonly " $data"?: SchemaSelectorFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorFragment">;
+export type SchemaSelectorOptionsFragment$data = SchemaSelectorOptionsFragment;
+export type SchemaSelectorOptionsFragment$key = {
+    readonly " $data"?: SchemaSelectorOptionsFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorOptionsFragment">;
 };
 
 
@@ -30,7 +30,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SchemaSelectorFragment",
+  "name": "SchemaSelectorOptionsFragment",
   "selections": [
     {
       "alias": null,
@@ -100,5 +100,5 @@ const node: ReaderFragment = {
   "type": "SchemaVersionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'e05aac11a144b74ea7d90e461510d1ea';
+(node as any).hash = '27020fa52a7192daad5ee15b339586d0';
 export default node;
