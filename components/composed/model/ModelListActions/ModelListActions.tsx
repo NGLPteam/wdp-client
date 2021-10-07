@@ -10,12 +10,14 @@ export interface ModelListActionsProps {
   viewOptions?: ViewOptions[];
   setView: React.Dispatch<React.SetStateAction<ViewOptions>>;
   selectedView: ViewOptions;
+  listId: string;
 }
 
 function ModelListActions({
   viewOptions = DEFAULT_VIEW_OPTIONS,
   setView,
   selectedView,
+  listId,
 }: ModelListActionsProps) {
   const router = useRouter();
   const isNotMobile = !useIsMobile();
@@ -41,7 +43,7 @@ function ModelListActions({
           <DataViewToggle
             viewOptions={viewOptions}
             selectedView={selectedView}
-            controlsID="id"
+            controlsID={listId}
             onClick={setView}
           />
         )) ||

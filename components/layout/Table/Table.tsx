@@ -11,12 +11,14 @@ const Table = ({
   "aria-label": ariaLabel,
   withRowSelection = false,
   showCheckboxes = false,
+  id,
   ...tableProps
 }: Props) => {
   const [columnCount, setColumnCount] = useState(0);
   return (
     <TableContext.Provider value={{ columnCount, setColumnCount }}>
       <Styled.TableWrapper
+        id={id}
         withRowSelection={withRowSelection}
         showCheckboxes={showCheckboxes}
       >
@@ -33,6 +35,7 @@ interface Props {
   "aria-label": string;
   withRowSelection?: boolean;
   showCheckboxes?: boolean;
+  id?: string;
 }
 
 Table.Body = TableBody;

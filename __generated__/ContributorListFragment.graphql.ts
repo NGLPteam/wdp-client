@@ -17,6 +17,7 @@ export type ContributorListFragment = {
             readonly thumb: {
                 readonly dimensions: ReadonlyArray<number>;
                 readonly png: {
+                    readonly alt: string;
                     readonly url: string;
                 } | null;
             };
@@ -34,6 +35,7 @@ export type ContributorListFragment = {
             readonly thumb: {
                 readonly dimensions: ReadonlyArray<number>;
                 readonly png: {
+                    readonly alt: string;
                     readonly url: string;
                 } | null;
             };
@@ -86,18 +88,19 @@ v3 = {
 v4 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
   "concreteType": "AssetPreview",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
+    (v4/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -121,6 +124,7 @@ v4 = {
           "name": "png",
           "plural": false,
           "selections": [
+            (v4/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -172,7 +176,7 @@ return {
             },
             (v2/*: any*/),
             (v3/*: any*/),
-            (v4/*: any*/)
+            (v5/*: any*/)
           ],
           "type": "OrganizationContributor",
           "abstractKey": null
@@ -198,7 +202,7 @@ return {
             },
             (v2/*: any*/),
             (v3/*: any*/),
-            (v4/*: any*/)
+            (v5/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
@@ -221,5 +225,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7dadbf4b4e1e3a7b50d85006ff5c695d';
+(node as any).hash = 'e7fb99fb4702a02b9ed56d57c6270dd4';
 export default node;
