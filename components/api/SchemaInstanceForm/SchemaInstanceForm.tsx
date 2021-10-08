@@ -6,6 +6,7 @@ import FormGrid from "components/forms/FormGrid";
 import { ContentHeader } from "components/layout";
 import SchemaSelector from "components/forms/SchemaSelector";
 import { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
+import { SchemaInstanceFormSchemaOptionsFragment$key } from "@/relay/SchemaInstanceFormSchemaOptionsFragment.graphql";
 
 import Property from "./SchemaInstanceProperty";
 import Provider from "./SchemaInstanceProvider";
@@ -22,11 +23,14 @@ export default function SchemaInstanceForm({
   failureNotification,
   title = "forms.schema.title",
   schemaData,
-  schemaOptions,
+  data,
   schemaKind,
   ...props
 }: Props) {
   const instance = useFragment(fragment, props.instance);
+  const dataWithOptions = useFragment(schemaOptionsFragment, data);
+  const schemaOptions = dataWithOptions?.schemaVersions;
+
   const { t } = useTranslation();
 
   function renderForm() {
@@ -78,11 +82,20 @@ type SchemaTypes = Partial<
 
 interface Props extends ProviderTypes, SchemaTypes {
   instance: SchemaInstanceFormFragment$key;
+  data: SchemaInstanceFormSchemaOptionsFragment$key;
   onSuccess?: OnSuccessCallback;
   onCancel?: () => void;
   onSaveAndClose?: () => void;
   title?: string;
 }
+
+const schemaOptionsFragment = graphql`
+  fragment SchemaInstanceFormSchemaOptionsFragment on Query {
+    schemaVersions {
+      ...SchemaSelectorOptionsFragment
+    }
+  }
+`;
 
 const fragment = graphql`
   fragment SchemaInstanceFormFragment on SchemaInstance {
