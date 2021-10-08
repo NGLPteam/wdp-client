@@ -14,7 +14,11 @@ import {
   useRouteSlug,
 } from "hooks";
 
-import { ButtonControlGroup, NamedLink } from "components/atomic";
+import {
+  ButtonControlGroup,
+  NamedLink,
+  ButtonControlDrawer,
+} from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
@@ -113,25 +117,23 @@ function CollectionContributionList<T extends OperationType>({
     drawerSlug: slug || "",
     drawerContributionType: "collection",
   };
+  const drawer =
+    nameColumn === "contributor"
+      ? "addCollectionContribution"
+      : "addContributorContribution";
 
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
   const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer:
-            nameColumn === "contributor"
-              ? "addCollectionContribution"
-              : "addContributorContribution",
-          drawerQuery,
-          icon: "plus",
-          children: t("actions.create.contribution"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        icon="plus"
+        drawer={drawer}
+        drawerQuery={drawerQuery}
+      >
+        {t("actions.create.contribution")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
   );
 
   return (

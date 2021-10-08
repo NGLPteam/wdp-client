@@ -1,6 +1,10 @@
 import React from "react";
 import i18next from "i18next";
-import { ButtonControlGroup } from "components/atomic/buttons";
+import {
+  ButtonControlGroup,
+  ButtonControl,
+  ButtonControlConfirm,
+} from "components/atomic/buttons";
 import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
@@ -46,38 +50,43 @@ const availableActions: ActionDefinitions = {
   },
 };
 
-function getButtonProps<D extends Record<string, unknown>>(
+function getButtonControlChildren<D extends Record<string, unknown>>(
   row: Row<D>,
   action: ActionKeys,
   actionConfig?: ActionConfig<D>
 ) {
   const actionDefinition = availableActions[action];
 
-  const buttonProps = actionConfig?.modalConfirm
-    ? {
-        "aria-label": actionDefinition.label,
-        icon: actionDefinition.icon,
-        iconRotate: actionDefinition.iconRotate || 0,
-        ...(actionConfig?.handleClick && {
-          onClick: () => actionConfig.handleClick({ row }),
-        }),
-        modalLabel: actionDefinition.modalLabel ?? null,
-        modalBody: actionDefinition.modalBody ?? null,
-      }
-    : {
-        "aria-label": actionDefinition.label,
-        icon: actionDefinition.icon,
-        iconRotate: actionDefinition.iconRotate || 0,
-        ...(actionConfig?.handleClick && {
-          onClick: () => actionConfig.handleClick({ row }),
-        }),
-      };
+  const buttonControl = actionConfig?.modalConfirm ? (
+    <ButtonControlConfirm
+      aria-label={actionDefinition.label}
+      icon={actionDefinition.icon}
+      iconRotate={actionDefinition.iconRotate || 0}
+      {...(actionConfig?.handleClick && {
+        onClick: () => actionConfig.handleClick({ row }),
+      })}
+      modalLabel={actionDefinition.modalLabel}
+      modalBody={actionDefinition.modalBody ?? null}
+    ></ButtonControlConfirm>
+  ) : (
+    <ButtonControl
+      aria-label={actionDefinition.label}
+      icon={actionDefinition.icon}
+      iconRotate={actionDefinition.iconRotate || 0}
+      {...(actionConfig?.handleClick && {
+        onClick: () => actionConfig.handleClick({ row }),
+      })}
+    ></ButtonControl>
+  );
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
 
-  if (!allowedActions) return buttonProps;
+  if (!allowedActions) return buttonControl;
 
-  return { ...buttonProps, actions: actionDefinition.action, allowedActions };
+  return React.cloneElement(buttonControl, {
+    actions: actionDefinition.action,
+    allowedActions,
+  });
 }
 
 function renderActions<D extends Record<string, unknown>>(
@@ -94,7 +103,7 @@ function renderActions<D extends Record<string, unknown>>(
     .map((action) => {
       // Map actions to button props
       const actionConfig = configuration[action];
-      return getButtonProps<D>(row, action, actionConfig);
+      return getButtonControlChildren<D>(row, action, actionConfig);
     });
 
   return buttons ? (
@@ -102,8 +111,9 @@ function renderActions<D extends Record<string, unknown>>(
       toggleLabel={i18next.t("options")}
       menuLabel={"Options list"}
       breakpoint={70}
-      buttons={buttons}
-    />
+    >
+      {buttons}
+    </ButtonControlGroup>
   ) : null;
 }
 
