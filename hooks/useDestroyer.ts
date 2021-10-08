@@ -23,22 +23,30 @@ import type {
   DestroyContributionInput,
   useDestroyerDestroyContributionMutation,
 } from "@/relay/useDestroyerDestroyContributionMutation.graphql";
-
+import type {
+  DestroyOrderingInput,
+  useDestroyerDestroyOrderingMutation,
+  useDestroyerDestroyOrderingMutationResponse,
+} from "@/relay/useDestroyerDestroyOrderingMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
+
+type DestroyOrdering = useDestroyerDestroyOrderingMutationResponse["destroyOrdering"];
 
 export function useDestroyer() {
   const notify = useNotify();
   const { t } = useTranslation();
 
   const handleResponse = useCallback(
-    (data: useDestroyerFragment$key | null, name: string) => {
+    (data: useDestroyerFragment$key | DestroyOrdering | null, name: string) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment>(
         destroyFragment,
         data
       );
-      if (results.destroyed) {
+      if ("disabled" in data && data.disabled) {
+        notify.success(t("outcomes.disabled", { name }));
+      } else if (results.destroyed) {
         notify.success(t("outcomes.deleted", { name }));
       } else if (results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
@@ -137,6 +145,21 @@ export function useDestroyer() {
   //   [commitDestroyFile, handleResponse]
   // );
 
+  /* Disable or destroy an ordering */
+  const [
+    commitDisableOrDestroyOrdering,
+  ] = useMutation<useDestroyerDestroyOrderingMutation>(destroyOrderingMutation);
+
+  const ordering = useCallback(
+    async (input: DestroyOrderingInput, label: string) => {
+      const response = await commitDisableOrDestroyOrdering({
+        variables: { input },
+      });
+      return handleResponse(response.destroyOrdering, label);
+    },
+    [commitDisableOrDestroyOrdering, handleResponse]
+  );
+
   return {
     collection,
     item,
@@ -144,6 +167,7 @@ export function useDestroyer() {
     contributor,
     contribution,
     // file,
+    ordering,
   };
 }
 export default useDestroyer;
@@ -209,6 +233,16 @@ const destroyCommunityMutation = graphql`
 //     }
 //   }
 // `;
+
+const destroyOrderingMutation = graphql`
+  mutation useDestroyerDestroyOrderingMutation($input: DestroyOrderingInput!) {
+    destroyOrdering(input: $input) {
+      destroyedId @deleteRecord
+      disabled
+      ...useDestroyerFragment
+    }
+  }
+`;
 
 const destroyFragment = graphql`
   fragment useDestroyerFragment on DestroyMutationPayload @inline {
