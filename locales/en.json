@@ -67,7 +67,7 @@
     },
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully.",
-      "disabled": "$t(Default ordering {{ name }}) disabled successfully."
+      "disabled": "Default ordering $t({{ name }}) disabled successfully."
     },
     "forms": {
       "common": {
