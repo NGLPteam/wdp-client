@@ -41,6 +41,7 @@ module.exports = {
         'input[type="image"]': ["InputImage"],
       },
     ],
+    "relay/must-colocate-fragment-spreads": "warn",
   },
   overrides: [
     {
@@ -51,9 +52,6 @@ module.exports = {
         "jsx-a11y/no-static-element-interactions": 0,
         "no-console": 0,
         "import/no-anonymous-default-export": 0,
-        "relay/must-colocate-fragment-spreads": "warn",
-        "relay/graphql-syntax": "error",
-        "relay/graphql-naming": "error",
       },
     },
   ],
