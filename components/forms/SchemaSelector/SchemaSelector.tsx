@@ -7,7 +7,6 @@ import Select from "components/forms/Select";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
 
-import { SchemaSelectorOptionsFragment$key } from "@/relay/SchemaSelectorOptionsFragment.graphql";
 import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
 import { SchemaKind } from "types/graphql-schema";
 
@@ -16,13 +15,12 @@ import SchemaSelectorModal from "./SchemaSelectorModal";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
-const SchemaSelector = ({ schemaOptions, schemaKind, schemaData }: Props) => {
-  const optionsData = useMaybeFragment(optionsFragment, schemaOptions);
+const SchemaSelector = ({ schemaKind, schemaData }: Props) => {
   const data = useMaybeFragment(dataFragment, schemaData);
   const dialog = useDialogState({ visible: false, animated: true });
   const { t } = useTranslation();
 
-  return optionsData && schemaKind && data?.schemaVersion && data?.entityId ? (
+  return schemaKind && data?.schemaVersion && data?.entityId ? (
     <>
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">
@@ -39,7 +37,6 @@ const SchemaSelector = ({ schemaOptions, schemaKind, schemaData }: Props) => {
       </Styled.FieldWrapper>
       <SchemaSelectorModal
         dialog={dialog}
-        optionsData={optionsData}
         entityId={data?.entityId}
         schemaVersionSlug={data?.schemaVersion?.slug}
         schemaKind={schemaKind}
@@ -49,27 +46,11 @@ const SchemaSelector = ({ schemaOptions, schemaKind, schemaData }: Props) => {
 };
 
 interface Props extends Pick<SelectProps, "defaultValue"> {
-  schemaOptions?: SchemaSelectorOptionsFragment$key;
   schemaData?: SchemaSelectorDataFragment$key;
   schemaKind?: SchemaKind;
 }
 
 export default SchemaSelector;
-
-const optionsFragment = graphql`
-  fragment SchemaSelectorOptionsFragment on SchemaVersionConnection {
-    edges {
-      node {
-        name
-        namespace
-        identifier
-        kind
-        slug
-        number
-      }
-    }
-  }
-`;
 
 const dataFragment = graphql`
   fragment SchemaSelectorDataFragment on AnyEntity {

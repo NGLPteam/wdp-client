@@ -15,7 +15,6 @@ function ManageDetails({ data }: Props) {
       <ItemUpdateForm data={data?.item} />
       <SchemaInstanceForm
         instance={data?.item}
-        data={data}
         schemaKind="ITEM"
         successNotification="forms.item.update.schemaSuccess"
         failureNotification="forms.item.update.schemaFailure"
@@ -42,6 +41,5 @@ const query = graphql`
       ...ItemUpdateFormFragment
       ...SchemaInstanceFormFragment
     }
-    ...SchemaInstanceFormSchemaOptionsFragment
   }
 `;

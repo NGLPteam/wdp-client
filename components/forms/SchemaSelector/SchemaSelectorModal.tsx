@@ -1,26 +1,30 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import Select from "components/forms/Select";
 import Modal from "components/layout/Modal";
+// These API components must use default imports to work
+import QueryWrapper from "components/api/QueryWrapper";
+import MutationForm, {
+  Forms,
+  useRenderForm,
+  useToVariables,
+} from "components/api/MutationForm";
 
 import {
   AlterSchemaVersionInput,
   SchemaSelectorModalMutation,
 } from "@/relay/SchemaSelectorModalMutation.graphql";
-import MutationForm, {
-  useRenderForm,
-  useToVariables,
-} from "components/api/MutationForm";
-import { SchemaSelectorOptionsFragment$data } from "@/relay/SchemaSelectorOptionsFragment.graphql";
+import {
+  SchemaSelectorModalOptionsQuery as Query,
+  SchemaSelectorModalOptionsQueryResponse as Response,
+} from "@/relay/SchemaSelectorModalOptionsQuery.graphql";
 import { SchemaKind } from "types/graphql-schema";
 
 import * as Styled from "./SchemaSelector.styles";
 
 const SchemaSelectorModal = ({
   dialog,
-  optionsData,
   entityId,
   schemaVersionSlug,
   schemaKind,
@@ -38,25 +42,28 @@ const SchemaSelectorModal = ({
     []
   );
 
-  const options = useMemo(
-    () =>
-      optionsData?.edges
-        ?.filter((item) => item.node.kind === schemaKind)
-        .map((item) => ({
-          label: `${item.node.name} ${item.node.number}`,
-          value: item.node.slug,
-        })) || [],
-    [optionsData, schemaKind]
-  );
+  const getOptions = (data: Response | null | undefined) =>
+    data?.schemaVersions?.edges
+      ?.filter((item) => item.node.kind === schemaKind)
+      .map((item) => ({
+        label: `${item.node.name} ${item.node.number}`,
+        value: item.node.slug,
+      })) || [];
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
-      <Select
-        options={options}
-        label={t("forms.schema.selector.new_label")}
-        {...register("schemaVersionSlug")}
-        description={t("forms.schema.selector.warning")}
-      />
+      <QueryWrapper<Query> query={query}>
+        {({ data }) =>
+          data?.schemaVersions?.edges ? (
+            <Forms.Select
+              options={getOptions(data)}
+              label={t("forms.schema.selector.new_label")}
+              description={t("forms.schema.selector.warning")}
+              {...register("schemaVersionSlug")}
+            />
+          ) : null
+        }
+      </QueryWrapper>
     ),
     []
   );
@@ -93,11 +100,27 @@ type Fields = AlterSchemaVersionInput;
 
 interface Props {
   dialog: DialogState;
-  optionsData: SchemaSelectorOptionsFragment$data;
   entityId: string;
   schemaVersionSlug: string;
   schemaKind: SchemaKind;
 }
+
+const query = graphql`
+  query SchemaSelectorModalOptionsQuery {
+    schemaVersions {
+      edges {
+        node {
+          name
+          namespace
+          identifier
+          kind
+          slug
+          number
+        }
+      }
+    }
+  }
+`;
 
 const mutation = graphql`
   mutation SchemaSelectorModalMutation($input: AlterSchemaVersionInput!) {
