@@ -57,58 +57,72 @@ const fragment = graphql`
     __typename
 
     ... on AssetProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...AssetPropertyFragment
     }
 
     ... on AssetsProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...AssetsPropertyFragment
     }
 
     ... on BooleanProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...BooleanPropertyFragment
     }
 
     ... on ContributorProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...ContributorPropertyFragment
     }
 
     ... on ContributorsProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...ContributorsPropertyFragment
     }
 
     ... on DateProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...DatePropertyFragment
     }
 
     ... on EmailProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...EmailPropertyFragment
     }
 
     ... on FloatProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...FloatPropertyFragment
     }
 
     ... on IntegerProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...IntegerPropertyFragment
     }
 
     ... on MarkdownProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...MarkdownPropertyFragment
     }
 
     ... on MultiselectProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...MultiselectPropertyFragment
     }
 
     ... on SelectProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...SelectPropertyFragment
     }
 
     ... on StringProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...StringPropertyFragment
     }
 
     ... on TagsProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...TagsPropertyFragment
     }
   }
