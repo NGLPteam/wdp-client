@@ -45,6 +45,7 @@ fragment ContributorListFragment on AnyContributorConnection {
         thumb {
           dimensions
           png {
+            alt
             url
           }
         }
@@ -62,6 +63,7 @@ fragment ContributorListFragment on AnyContributorConnection {
         thumb {
           dimensions
           png {
+            alt
             url
           }
         }
@@ -158,18 +160,19 @@ v5 = {
 v6 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
   "concreteType": "AssetPreview",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
+    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -193,6 +196,7 @@ v6 = {
           "name": "png",
           "plural": false,
           "selections": [
+            (v6/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -279,7 +283,7 @@ return {
                   },
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "type": "OrganizationContributor",
                 "abstractKey": null
@@ -305,7 +309,7 @@ return {
                   },
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "type": "PersonContributor",
                 "abstractKey": null
@@ -387,12 +391,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c10dca36934a694b7328be7eefab29ee",
+    "cacheID": "3cf6261dc44e1bb9ce77db9569f07ff6",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          dimensions\n          png {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

@@ -58,18 +58,11 @@ export const Item = styled.li`
   }
 
   > * {
+    display: flex;
+    white-space: nowrap;
     width: 100%;
     padding: var(--dropdown-list-item-padding);
     border-radius: none;
     background: transparent;
-  }
-
-  > a {
-    display: block;
-    white-space: nowrap;
-
-    &:focus {
-      outline: none;
-    }
   }
 `;

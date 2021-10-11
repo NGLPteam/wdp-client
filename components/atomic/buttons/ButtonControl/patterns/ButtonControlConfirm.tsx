@@ -1,9 +1,8 @@
 import React, { forwardRef } from "react";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
-import { useDialogState } from "reakit/Dialog";
+import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
 import ConfirmModal from "components/composed/ConfirmModal";
-import * as Styled from "../ButtonControl.styles";
 
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 type ModalProps = React.ComponentProps<typeof Modal>;
@@ -22,7 +21,6 @@ const ButtonControlConfirm = forwardRef(
       onClick,
       "aria-label": actionLabel,
       closeDropdown,
-      breakpoint,
     }: Props,
     ref
   ) => {
@@ -38,15 +36,16 @@ const ButtonControlConfirm = forwardRef(
 
     return (
       <>
-        <Styled.Disclosure
+        <DialogDisclosure
+          as={ButtonControl}
+          icon={icon}
+          ref={ref}
           {...dialog}
           onClick={handleClick}
-          breakpoint={breakpoint}
+          aria-label={actionLabel}
         >
-          <ButtonControl as="span" icon={icon} ref={ref}>
-            {children}
-          </ButtonControl>
-        </Styled.Disclosure>
+          {children}
+        </DialogDisclosure>
         <Modal label={modalLabel} dialog={dialog} hideOnClickOutside={false}>
           {({ handleClose }) => (
             <ConfirmModal

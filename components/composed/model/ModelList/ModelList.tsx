@@ -20,6 +20,7 @@ export interface ModelListProps<
 > extends UseModelListProps<T, U, V> {
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
+  listId?: string;
 }
 
 function ModelList<
@@ -36,6 +37,7 @@ function ModelList<
   columns,
   actions,
   disableSortBy,
+  listId,
 }: ModelListProps<T, U, V>) {
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
@@ -79,6 +81,7 @@ function ModelList<
           <ModelListType<V>
             title={title}
             selectable={selectable}
+            listId={listId}
             {...modelGridOrTableProps}
           />
           <ModelPagination data={data || null} />

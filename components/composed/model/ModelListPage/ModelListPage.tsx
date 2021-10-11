@@ -13,6 +13,7 @@ import { OperationType } from "relay-runtime";
 import PageHeader from "components/layout/PageHeader";
 import { useIsMobile, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
+import { useUID } from "react-uid";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -51,6 +52,9 @@ function ModelListPage<
   // Lists should always display as grid on mobile
   const view = isMobile ? ViewOptions.grid : selectedView;
 
+  // List ID needed for view controls to reference table or grid area
+  const listId = useUID();
+
   return (
     <section>
       <ModelListHeader
@@ -63,6 +67,7 @@ function ModelListPage<
         viewOptions={viewOptions}
         selectedView={selectedView}
         setView={setView}
+        listId={listId}
       />
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (
@@ -72,6 +77,7 @@ function ModelListPage<
             setQueryVariables={setQueryVariables}
             modelName={modelName}
             view={view}
+            listId={listId}
           />
         )}
       </QueryVariablesContext.Consumer>

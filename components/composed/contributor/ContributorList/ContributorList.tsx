@@ -114,6 +114,7 @@ const fragment = graphql`
           thumb {
             dimensions
             png {
+              alt
               url
             }
           }
@@ -131,6 +132,7 @@ const fragment = graphql`
           thumb {
             dimensions
             png {
+              alt
               url
             }
           }

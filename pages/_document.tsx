@@ -90,7 +90,7 @@ export default class AppDocument extends Document<Props> {
 
   render() {
     return (
-      <Html>
+      <Html lang="en-US">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           {FONTS.map((font) => (

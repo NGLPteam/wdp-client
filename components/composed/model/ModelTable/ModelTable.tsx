@@ -16,6 +16,7 @@ type ModelTableProps<U extends Record<string, unknown>> = Pick<
     title: string;
     selectable: boolean;
     hasSelection: boolean;
+    listId?: string;
   };
 
 function ModelTable<U extends Record<string, unknown>>({
@@ -27,6 +28,7 @@ function ModelTable<U extends Record<string, unknown>>({
   getTableBodyProps,
   getTableProps,
   rows,
+  listId,
 }: ModelTableProps<U>) {
   const queryState = useQueryStateContext();
   const checkboxProps =
@@ -34,6 +36,7 @@ function ModelTable<U extends Record<string, unknown>>({
 
   return (
     <Table
+      id={listId}
       aria-label={title}
       withRowSelection={selectable}
       showCheckboxes={hasSelection}

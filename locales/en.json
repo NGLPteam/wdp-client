@@ -287,6 +287,11 @@
       "type": "Type",
       "schema": "Schema",
       "kind": "Kind"
+    },
+    "sort": {
+      "label": "Sort",
+      "ascending": "Sort ascending",
+      "descending": "Sort descending"
     }
   }
 }
