@@ -12,7 +12,7 @@ import type {
 } from "@/relay/ItemUpdateFormMutation.graphql";
 import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
 import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
-import { getDateOnly } from "helpers";
+import { getDateOnly, sanitizeDateField } from "helpers";
 
 export default function ItemUpdateForm({
   data,
@@ -40,7 +40,14 @@ export default function ItemUpdateForm({
   };
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>(
-    (data) => ({ input: { ...data, itemId } }),
+    (data) => ({
+      input: {
+        ...data,
+        itemId,
+        visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
+        visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
+      },
+    }),
     []
   );
 

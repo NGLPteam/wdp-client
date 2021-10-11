@@ -80,7 +80,8 @@ export default function CollectionUpdateDrawer({
                 onCancel={dialog.hide}
               />
               <SchemaInstanceForm
-                instance={data?.collection}
+                instance={data.collection}
+                schemaKind="COLLECTION"
                 successNotification="forms.collection.update.schemaSuccess"
                 failureNotification="forms.collection.update.schemaFailure"
                 onSaveAndClose={dialog.hide}

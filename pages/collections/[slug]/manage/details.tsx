@@ -15,6 +15,7 @@ function CollectionDetails({ data }: Props) {
       <CollectionUpdateForm data={data?.collection} />
       <SchemaInstanceForm
         instance={data?.collection}
+        schemaKind="COLLECTION"
         successNotification="forms.collection.update.schemaSuccess"
         failureNotification="forms.collection.update.schemaFailure"
       />

@@ -12,7 +12,7 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import { getDateOnly } from "helpers";
+import { getDateOnly, sanitizeDateField } from "helpers";
 
 export default function CollectionUpdateForm({
   data,
@@ -43,7 +43,14 @@ export default function CollectionUpdateForm({
   };
 
   const toVariables = useToVariables<CollectionUpdateFormMutation, Fields>(
-    (data) => ({ input: { ...data, collectionId } }),
+    (data) => ({
+      input: {
+        ...data,
+        collectionId,
+        visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
+        visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
+      },
+    }),
     []
   );
 

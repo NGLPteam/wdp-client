@@ -7,6 +7,7 @@ import type InputProps from "../inputType";
 import { useTranslation } from "react-i18next";
 
 import Errors from "components/forms/Errors";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,
@@ -28,14 +29,14 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
 
   return (
     <Styled.Wrapper css={css}>
-      <Styled.Label htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
+      <BaseInputLabel htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
         {t(label)}{" "}
         {required && (
           <span className="a-required">
             * <span className="a-hidden">required</span>
           </span>
         )}
-      </Styled.Label>
+      </BaseInputLabel>
       {isFunction(children)
         ? children({ uid })
         : React.cloneElement(children, { id: uid })}

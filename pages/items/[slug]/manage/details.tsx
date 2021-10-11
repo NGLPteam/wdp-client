@@ -15,6 +15,7 @@ function ManageDetails({ data }: Props) {
       <ItemUpdateForm data={data?.item} />
       <SchemaInstanceForm
         instance={data?.item}
+        schemaKind="ITEM"
         successNotification="forms.item.update.schemaSuccess"
         failureNotification="forms.item.update.schemaFailure"
       />

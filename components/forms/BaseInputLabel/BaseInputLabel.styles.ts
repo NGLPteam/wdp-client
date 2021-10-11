@@ -9,6 +9,7 @@ export const Label = styled.label<Props>`
       ? aHidden
       : css`
           ${tLabel("sm")};
+          display: inline-block;
           padding-block-end: ${pxToRem(6)};
           color: var(--color-light);
         `}

@@ -81,6 +81,7 @@ export default function ItemUpdateDrawer({
               />
               <SchemaInstanceForm
                 instance={data?.item}
+                schemaKind="ITEM"
                 successNotification="forms.item.update.schemaSuccess"
                 failureNotification="forms.item.update.schemaFailure"
                 onSaveAndClose={dialog.hide}
@@ -100,6 +101,7 @@ const query = graphql`
       id
       title
       ...ItemUpdateFormFragment
+      ...SchemaInstanceFormFragment
       ...SchemaInstanceFormFragment
     }
   }

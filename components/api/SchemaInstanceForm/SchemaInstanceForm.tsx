@@ -2,17 +2,17 @@ import React from "react";
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { MessageBlock } from "components/atomic";
 import FormGrid from "components/forms/FormGrid";
-
+import { ContentHeader } from "components/layout";
+import SchemaSelector from "components/forms/SchemaSelector";
 import { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 
 import Property from "./SchemaInstanceProperty";
 import Provider from "./SchemaInstanceProvider";
 
 import type { OnSuccessCallback } from "./types";
-import { ContentHeader } from "components/layout";
 type ProviderProps = React.ComponentProps<typeof Provider>;
+type SchemaSelectorProps = React.ComponentProps<typeof SchemaSelector>;
 
 export default function SchemaInstanceForm({
   onSuccess,
@@ -21,9 +21,11 @@ export default function SchemaInstanceForm({
   successNotification,
   failureNotification,
   title = "forms.schema.title",
+  schemaKind,
   ...props
 }: Props) {
   const instance = useFragment(fragment, props.instance);
+
   const { t } = useTranslation();
 
   function renderForm() {
@@ -37,13 +39,14 @@ export default function SchemaInstanceForm({
         failureNotification={failureNotification}
       >
         <FormGrid>
+          <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
           {instance.properties.map((prop, index) => (
             <Property property={prop} key={index} />
           ))}
         </FormGrid>
       </Provider>
     ) : (
-      <MessageBlock type="empty" name={t("forms.schema.noSchema")} />
+      <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
     );
   }
 
@@ -55,8 +58,14 @@ export default function SchemaInstanceForm({
   );
 }
 
-interface Props
-  extends Pick<ProviderProps, "successNotification" | "failureNotification"> {
+type ProviderTypes = Pick<
+  ProviderProps,
+  "successNotification" | "failureNotification"
+>;
+
+type SchemaTypes = Partial<Pick<SchemaSelectorProps, "schemaKind">>;
+
+interface Props extends ProviderTypes, SchemaTypes {
   instance: SchemaInstanceFormFragment$key;
   onSuccess?: OnSuccessCallback;
   onCancel?: () => void;
@@ -73,5 +82,7 @@ const fragment = graphql`
     properties: schemaProperties {
       ...SchemaInstancePropertyFragment
     }
+
+    ...SchemaSelectorDataFragment
   }
 `;

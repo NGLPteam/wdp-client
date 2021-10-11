@@ -14,6 +14,7 @@ export const SelectInput = styled.select`
   --input-min-height: ${pxToRem(42)};
   --input-padding: 0 ${pxToRem(16)};
   --input-focus-background: var(--brand10);
+  --input-border-radius: ${pxToRem(4)};
   ${aBaseInput()}
   width: 100%;
 `;
