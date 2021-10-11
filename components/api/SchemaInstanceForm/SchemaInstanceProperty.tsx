@@ -29,9 +29,11 @@ const fragment = graphql`
     __typename
 
     ... on GroupProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...GroupPropertyFragment
     }
 
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...SchemaPropertyFragment
   }
 `;

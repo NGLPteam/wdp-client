@@ -54,6 +54,12 @@ module.exports = {
         "import/no-anonymous-default-export": 0,
       },
     },
+    {
+      files: ["pages/**"],
+      rules: {
+        "relay/must-colocate-fragment-spreads": 0,
+      },
+    },
   ],
   plugins: ["@typescript-eslint", "relay"],
   extends: ["next", "@castiron", "plugin:@typescript-eslint/recommended"],
