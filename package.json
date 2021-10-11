@@ -98,6 +98,7 @@
     "babel-plugin-relay": "^11.0.2",
     "babel-plugin-styled-components": "^1.13.1",
     "eslint-config-next": "^11.0.0",
+    "eslint-plugin-relay": "^1.8.2",
     "graphql": "^15.5.1",
     "install": "^0.13.0",
     "npm": "^7.23.0",
