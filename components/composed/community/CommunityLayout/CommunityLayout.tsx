@@ -58,6 +58,5 @@ const fragment = graphql`
   fragment CommunityLayoutFragment on Community {
     name
     slug
-    ...useBreadcrumbsFragment
   }
 `;

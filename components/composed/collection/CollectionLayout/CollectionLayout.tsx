@@ -5,12 +5,12 @@ import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 import {
-  useBreadcrumbs,
   useMaybeFragment,
   useRouteSlug,
   useChildRouteLinks,
   useLatestPresentValue,
 } from "hooks";
+import useBreadcrumbs from "hooks/useBreadcrumbs";
 
 export default function CollectionLayout({
   children,

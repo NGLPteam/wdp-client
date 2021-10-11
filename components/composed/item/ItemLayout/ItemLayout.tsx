@@ -2,12 +2,12 @@ import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
 import {
-  useBreadcrumbs,
   useRouteSlug,
   useMaybeFragment,
   useChildRouteLinks,
   useLatestPresentValue,
 } from "hooks";
+import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 
