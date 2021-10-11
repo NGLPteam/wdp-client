@@ -81,7 +81,6 @@ export default function CollectionUpdateDrawer({
               />
               <SchemaInstanceForm
                 instance={data.collection}
-                schemaData={data?.collection}
                 data={data}
                 schemaKind="COLLECTION"
                 successNotification="forms.collection.update.schemaSuccess"
@@ -104,7 +103,6 @@ const query = graphql`
       title
       ...CollectionUpdateFormFragment
       ...SchemaInstanceFormFragment
-      ...SchemaSelectorDataFragment
     }
     ...SchemaInstanceFormSchemaOptionsFragment
   }

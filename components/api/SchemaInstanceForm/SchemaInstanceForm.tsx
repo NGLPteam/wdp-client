@@ -22,7 +22,6 @@ export default function SchemaInstanceForm({
   successNotification,
   failureNotification,
   title = "forms.schema.title",
-  schemaData,
   data,
   schemaKind,
   ...props
@@ -46,7 +45,7 @@ export default function SchemaInstanceForm({
         <FormGrid>
           <SchemaSelector
             schemaOptions={schemaOptions}
-            schemaData={schemaData}
+            schemaData={instance}
             schemaKind={schemaKind}
           />
           {instance.properties.map((prop, index) => (
@@ -57,7 +56,7 @@ export default function SchemaInstanceForm({
     ) : (
       <SchemaSelector
         schemaOptions={schemaOptions}
-        schemaData={schemaData}
+        schemaData={instance}
         schemaKind={schemaKind}
       />
     );
@@ -77,7 +76,7 @@ type ProviderTypes = Pick<
 >;
 
 type SchemaTypes = Partial<
-  Pick<SchemaSelectorProps, "schemaKind" | "schemaData" | "schemaOptions">
+  Pick<SchemaSelectorProps, "schemaKind" | "schemaOptions">
 >;
 
 interface Props extends ProviderTypes, SchemaTypes {
@@ -106,5 +105,7 @@ const fragment = graphql`
     properties: schemaProperties {
       ...SchemaInstancePropertyFragment
     }
+
+    ...SchemaSelectorDataFragment
   }
 `;

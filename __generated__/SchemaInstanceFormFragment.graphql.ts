@@ -11,6 +11,7 @@ export type SchemaInstanceFormFragment = {
     readonly properties: ReadonlyArray<{
         readonly " $fragmentRefs": FragmentRefs<"SchemaInstancePropertyFragment">;
     }>;
+    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorDataFragment">;
     readonly " $refType": "SchemaInstanceFormFragment";
 };
 export type SchemaInstanceFormFragment$data = SchemaInstanceFormFragment;
@@ -58,10 +59,15 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaSelectorDataFragment"
     }
   ],
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '75d320588ff7ddf0d247469236ad48ba';
+(node as any).hash = '04c779d4e56e0fe204b8088634bbf8d1';
 export default node;
