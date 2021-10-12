@@ -20,7 +20,7 @@ export type EntityLinksListFragment = {
             };
         };
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "EntityLinksListFragment";
 };
 export type EntityLinksListFragment$data = EntityLinksListFragment;
@@ -132,17 +132,12 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "EntityLinkConnection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'eb192e09a825f6bcea09ce6ee834c223';
+(node as any).hash = 'ab6b123fdef64fa5255fdf1c12d176bc';
 export default node;

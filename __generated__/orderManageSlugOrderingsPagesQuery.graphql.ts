@@ -49,8 +49,13 @@ fragment EntityOrderingListFragment on OrderingConnection {
     name
     slug
   }
-  ...ModelPaginationFragment
+  ...ModelListPageFragment
+}
+
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
   ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -335,12 +340,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e4b79a0485dfb24808750a76022bf11c",
+    "cacheID": "ef914eeaff6495fa3c3e80e265f9f94c",
     "id": null,
     "metadata": {},
     "name": "orderManageSlugOrderingsPagesQuery",
     "operationKind": "query",
-    "text": "query orderManageSlugOrderingsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    orderings(page: $page, perPage: 20) {\n      ...EntityOrderingListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment EntityOrderingListFragment on OrderingConnection {\n  nodes {\n    id\n    name\n    slug\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query orderManageSlugOrderingsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    orderings(page: $page, perPage: 20) {\n      ...EntityOrderingListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment EntityOrderingListFragment on OrderingConnection {\n  nodes {\n    id\n    name\n    slug\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

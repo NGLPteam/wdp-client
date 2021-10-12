@@ -26,7 +26,7 @@ export type CollectionListFragment = {
             };
         } | null;
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionListFragment";
 };
 export type CollectionListFragment$data = CollectionListFragment;
@@ -178,16 +178,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'b5d60ca2fe4ffb2ff8177c3de599cff2';
+(node as any).hash = 'f362576946415f8cfd13a1906ba3c234';
 export default node;

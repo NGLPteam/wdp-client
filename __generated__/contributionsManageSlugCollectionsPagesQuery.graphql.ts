@@ -66,14 +66,19 @@ fragment CollectionContributionListFragment on CollectionContributionConnection 
       id
     }
   }
-  ...ModelPaginationFragment
-  ...ModelPageCountActionsFragment
+  ...ModelListPageFragment
 }
 
 fragment CollectionLayoutFragment on Collection {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
+  ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -450,12 +455,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "48bd70f5fe666719a9775533904c6288",
+    "cacheID": "3dbee09a99e07e344bf3217e9cd8c61e",
     "id": null,
     "metadata": {},
     "name": "contributionsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query contributionsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    contributions(page: $page, perPage: 20) {\n      ...CollectionContributionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query contributionsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    contributions(page: $page, perPage: 20) {\n      ...CollectionContributionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

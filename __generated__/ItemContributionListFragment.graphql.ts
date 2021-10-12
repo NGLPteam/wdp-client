@@ -30,7 +30,7 @@ export type ItemContributionListFragment = {
             readonly title: string | null;
         };
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ItemContributionListFragment";
 };
 export type ItemContributionListFragment$data = ItemContributionListFragment;
@@ -172,17 +172,12 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b4e8ba7d2a2bfe85dcb267c5364aa76f';
+(node as any).hash = '59f9f05fc62a0547b8ddae35457082bb';
 export default node;

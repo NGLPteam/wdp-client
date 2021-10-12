@@ -69,8 +69,13 @@ fragment ItemListFragment on ItemConnection {
       }
     }
   }
-  ...ModelPaginationFragment
+  ...ModelListPageFragment
+}
+
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
   ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -467,12 +472,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "666151746d7367a4278ebd6e88ebb029",
+    "cacheID": "b214d73e836a0721c30dda16b8816a3e",
     "id": null,
     "metadata": {},
     "name": "itemsSlugItemsPagesQuery",
     "operationKind": "query",
-    "text": "query itemsSlugItemsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query itemsSlugItemsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

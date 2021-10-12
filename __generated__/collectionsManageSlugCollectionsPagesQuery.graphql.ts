@@ -69,8 +69,13 @@ fragment CollectionListFragment on CollectionConnection {
       }
     }
   }
-  ...ModelPaginationFragment
+  ...ModelListPageFragment
+}
+
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
   ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -467,12 +472,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "391d1e2f7a4257f063f6cb116dfe630c",
+    "cacheID": "3a519563aec17bf53e73b31b5a02460e",
     "id": null,
     "metadata": {},
     "name": "collectionsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
