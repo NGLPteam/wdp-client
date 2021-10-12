@@ -23,7 +23,7 @@ type Props = {
 const query = graphql`
   query membersManageSlugCommunitiesPagesQuery($communitySlug: Slug!) {
     community(slug: $communitySlug) {
-      ...CommunityLayoutFragment
+      ...CommunityLayoutQueryFragment
     }
   }
 `;

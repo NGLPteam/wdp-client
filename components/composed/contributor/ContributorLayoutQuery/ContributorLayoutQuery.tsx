@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
-import { QueryWrapper } from "components/api";
+import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
+import type { ContributorLayoutQueryFragment$key } from "@/relay/ContributorLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
 import ContributorLayout from "../ContributorLayout";
+import { graphql } from "react-relay";
 
 function ContributorLayoutQuery<
   Query extends ContributorQuery,
@@ -26,9 +28,16 @@ function ContributorLayoutQuery<
       initialVariables={{ ...queryVars, contributorSlug }}
     >
       {({ data }) => (
-        <ContributorLayout {...layoutProps} data={data?.contributor}>
-          <PageComponent data={data} {...pageComponentProps} />
-        </ContributorLayout>
+        <FragmentWrapper<ContributorLayoutQueryFragment$key>
+          data={data?.contributor}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <ContributorLayout {...layoutProps} data={enhancedData}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </ContributorLayout>
+          )}
+        </FragmentWrapper>
       )}
     </QueryWrapper>
   );
@@ -36,9 +45,15 @@ function ContributorLayoutQuery<
 
 type ContributorQuery = {
   readonly response: {
-    contributor: HasFragment<"ContributorLayoutFragment"> | null;
+    contributor: HasFragment<"ContributorLayoutQueryFragment"> | null;
   };
   readonly variables: { contributorSlug: string };
 };
+
+const fragment = graphql`
+  fragment ContributorLayoutQueryFragment on Contributor {
+    ...ContributorLayoutFragment
+  }
+`;
 
 export default ContributorLayoutQuery;

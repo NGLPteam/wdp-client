@@ -34,7 +34,7 @@ const query = graphql`
     $itemSlug: Slug!
   ) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }

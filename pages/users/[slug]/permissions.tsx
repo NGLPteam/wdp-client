@@ -22,7 +22,7 @@ type Props = {
 const query = graphql`
   query permissionsManageSlugUsersPagesQuery($userSlug: Slug!) {
     user(slug: $userSlug) {
-      ...UserLayoutFragment
+      ...UserLayoutQueryFragment
     }
   }
 `;

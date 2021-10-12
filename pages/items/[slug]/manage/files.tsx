@@ -31,7 +31,7 @@ type Props = {
 const query = graphql`
   query filesManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
       assets(page: $page, perPage: 20) {
         ...FileListFragment
       }

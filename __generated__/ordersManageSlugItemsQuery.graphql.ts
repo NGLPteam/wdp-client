@@ -13,7 +13,7 @@ export type ordersManageSlugItemsQueryResponse = {
         readonly orderings: {
             readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
     } | null;
 };
 export type ordersManageSlugItemsQuery = {
@@ -29,7 +29,7 @@ query ordersManageSlugItemsQuery(
   $page: Int!
 ) {
   item(slug: $itemSlug) {
-    ...ItemLayoutFragment
+    ...ItemLayoutQueryFragment
     orderings(page: $page, perPage: 20) {
       ...EntityOrderingListFragment
     }
@@ -50,6 +50,10 @@ fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ItemLayoutQueryFragment on Item {
+  ...ItemLayoutFragment
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -170,7 +174,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
+            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -340,14 +344,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b39ab30e3000fa2f41fa6b4b15ee872b",
+    "cacheID": "8530528bf8731d39d985aeeaa22a2639",
     "id": null,
     "metadata": {},
     "name": "ordersManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    orderings(page: $page, perPage: 20) {\n      ...EntityOrderingListFragment\n    }\n    id\n  }\n}\n\nfragment EntityOrderingListFragment on OrderingConnection {\n  nodes {\n    id\n    name\n    slug\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    orderings(page: $page, perPage: 20) {\n      ...EntityOrderingListFragment\n    }\n    id\n  }\n}\n\nfragment EntityOrderingListFragment on OrderingConnection {\n  nodes {\n    id\n    name\n    slug\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '163c2f26ff52ac4b196acab3dbb694b4';
+(node as any).hash = 'd14f434298483b38bfd136cbc42687f2';
 export default node;

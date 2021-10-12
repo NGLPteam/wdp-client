@@ -15,7 +15,7 @@ export type collectionsSlugCommunitiesPagesQueryResponse = {
         readonly collections: {
             readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
     } | null;
 };
 export type collectionsSlugCommunitiesPagesQuery = {
@@ -32,7 +32,7 @@ query collectionsSlugCommunitiesPagesQuery(
   $communitySlug: Slug!
 ) {
   community(slug: $communitySlug) {
-    ...CommunityLayoutFragment
+    ...CommunityLayoutQueryFragment
     collections(order: $order, page: $page, perPage: 20) {
       ...CollectionListFragment
     }
@@ -69,6 +69,10 @@ fragment CollectionListFragment on CollectionConnection {
 fragment CommunityLayoutFragment on Community {
   name
   slug
+}
+
+fragment CommunityLayoutQueryFragment on Community {
+  ...CommunityLayoutFragment
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -197,7 +201,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "CommunityLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -419,14 +423,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "828c76653a89fc1e5ef206be755a3fb2",
+    "cacheID": "a4a0b22c7bcde36b4a333448737bcf01",
     "id": null,
     "metadata": {},
     "name": "collectionsSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'df4462a91ff5e4d247d42103011004d3';
+(node as any).hash = 'f7b37a764f4867813ad25a31858f4787';
 export default node;

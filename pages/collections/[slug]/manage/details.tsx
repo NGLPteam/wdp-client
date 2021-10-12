@@ -37,7 +37,7 @@ type Props = {
 const query = graphql`
   query detailsManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+      ...CollectionLayoutQueryFragment
       ...CollectionUpdateFormFragment
       ...SchemaInstanceFormFragment
     }

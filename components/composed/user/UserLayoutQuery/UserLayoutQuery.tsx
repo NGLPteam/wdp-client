@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
-import { QueryWrapper } from "components/api";
+import { FragmentWrapper, QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
+import type { UserLayoutQueryFragment$key } from "@/relay/UserLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
 import UserLayout from "../UserLayout";
+import { graphql } from "react-relay";
 
 function UserLayoutQuery<
   Query extends UserQuery,
@@ -26,9 +28,16 @@ function UserLayoutQuery<
       initialVariables={{ ...queryVars, userSlug }}
     >
       {({ data }) => (
-        <UserLayout {...layoutProps} data={data?.user}>
-          <PageComponent data={data} {...pageComponentProps} />
-        </UserLayout>
+        <FragmentWrapper<UserLayoutQueryFragment$key>
+          data={data?.user}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <UserLayout {...layoutProps} data={enhancedData}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </UserLayout>
+          )}
+        </FragmentWrapper>
       )}
     </QueryWrapper>
   );
@@ -36,9 +45,15 @@ function UserLayoutQuery<
 
 type UserQuery = {
   readonly response: {
-    user: HasFragment<"UserLayoutFragment"> | null;
+    user: HasFragment<"UserLayoutQueryFragment"> | null;
   };
   readonly variables: { userSlug: string };
 };
+
+const fragment = graphql`
+  fragment UserLayoutQueryFragment on User {
+    ...UserLayoutFragment
+  }
+`;
 
 export default UserLayoutQuery;

@@ -33,7 +33,7 @@ const query = graphql`
     $communitySlug: Slug!
   ) {
     community(slug: $communitySlug) {
-      ...CommunityLayoutFragment
+      ...CommunityLayoutQueryFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }

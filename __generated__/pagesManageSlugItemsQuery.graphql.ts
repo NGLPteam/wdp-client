@@ -9,7 +9,7 @@ export type pagesManageSlugItemsQueryVariables = {
 };
 export type pagesManageSlugItemsQueryResponse = {
     readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
     } | null;
 };
 export type pagesManageSlugItemsQuery = {
@@ -24,7 +24,7 @@ query pagesManageSlugItemsQuery(
   $itemSlug: Slug!
 ) {
   item(slug: $itemSlug) {
-    ...ItemLayoutFragment
+    ...ItemLayoutQueryFragment
     id
   }
 }
@@ -33,6 +33,10 @@ fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ItemLayoutQueryFragment on Item {
+  ...ItemLayoutFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -94,7 +98,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
+            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -173,14 +177,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "96db1ed5c83e5ff1c68b7322feb9f644",
+    "cacheID": "d443a98b9b385499500ea77da0d73900",
     "id": null,
     "metadata": {},
     "name": "pagesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query pagesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query pagesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'b0938654dde835700f1337eacbf2c821';
+(node as any).hash = '137511274dc40a2d90c85d96a155ac32';
 export default node;

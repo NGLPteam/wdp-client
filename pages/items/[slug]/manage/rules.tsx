@@ -23,7 +23,7 @@ type Props = {
 const query = graphql`
   query rulesManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
     }
   }
 `;

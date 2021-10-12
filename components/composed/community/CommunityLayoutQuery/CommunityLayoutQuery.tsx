@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
-import { QueryWrapper } from "components/api";
+import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
+import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
 import CommunityLayout from "../CommunityLayout";
+import { graphql } from "react-relay";
 
 function CommunityLayoutQuery<
   Query extends CommunityQuery,
@@ -26,9 +28,16 @@ function CommunityLayoutQuery<
       initialVariables={{ ...queryVars, communitySlug }}
     >
       {({ data }) => (
-        <CommunityLayout {...layoutProps} data={data?.community}>
-          <PageComponent data={data} {...pageComponentProps} />
-        </CommunityLayout>
+        <FragmentWrapper<CommunityLayoutQueryFragment$key>
+          data={data?.community}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <CommunityLayout {...layoutProps} data={enhancedData}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </CommunityLayout>
+          )}
+        </FragmentWrapper>
       )}
     </QueryWrapper>
   );
@@ -36,9 +45,15 @@ function CommunityLayoutQuery<
 
 type CommunityQuery = {
   readonly response: {
-    community: HasFragment<"CommunityLayoutFragment"> | null;
+    community: HasFragment<"CommunityLayoutQueryFragment"> | null;
   };
   readonly variables: { communitySlug: string };
 };
+
+const fragment = graphql`
+  fragment CommunityLayoutQueryFragment on Community {
+    ...CommunityLayoutFragment
+  }
+`;
 
 export default CommunityLayoutQuery;

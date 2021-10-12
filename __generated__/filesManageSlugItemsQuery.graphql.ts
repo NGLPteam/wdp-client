@@ -13,7 +13,7 @@ export type filesManageSlugItemsQueryResponse = {
         readonly assets: {
             readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
     } | null;
 };
 export type filesManageSlugItemsQuery = {
@@ -29,7 +29,7 @@ query filesManageSlugItemsQuery(
   $page: Int!
 ) {
   item(slug: $itemSlug) {
-    ...ItemLayoutFragment
+    ...ItemLayoutQueryFragment
     assets(page: $page, perPage: 20) {
       ...FileListFragment
     }
@@ -69,6 +69,10 @@ fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ItemLayoutQueryFragment on Item {
+  ...ItemLayoutFragment
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -196,7 +200,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
+            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -444,14 +448,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e5e7b5ddf1b481bc848b86a2bed58770",
+    "cacheID": "4cef7fcb4ec1658e9aa10a9bbfa8a8d2",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      thumbnail: preview {\n        image: medium {\n          png {\n            alt\n            url\n            height\n            width\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      thumbnail: preview {\n        image: medium {\n          png {\n            alt\n            url\n            height\n            width\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a0489ea3fafaece3effa2a8abd16e4a2';
+(node as any).hash = '884182a94fa26b29061c6edd8f0f1d29';
 export default node;
