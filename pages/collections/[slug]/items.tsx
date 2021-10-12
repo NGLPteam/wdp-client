@@ -34,7 +34,7 @@ const query = graphql`
     $collectionSlug: Slug!
   ) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+      ...CollectionLayoutQueryFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }

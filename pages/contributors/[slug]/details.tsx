@@ -24,7 +24,7 @@ const query = graphql`
   query detailsSlugContributorsPagesQuery($contributorSlug: Slug!) {
     contributor(slug: $contributorSlug) {
       ...ContributorUpdateFormFragment
-      ...ContributorLayoutFragment
+      ...ContributorLayoutQueryFragment
     }
   }
 `;

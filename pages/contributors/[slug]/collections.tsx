@@ -30,7 +30,7 @@ const query = graphql`
   query collectionsSlugContributorsPagesQuery($contributorSlug: Slug!) {
     contributor(slug: $contributorSlug) {
       __typename
-      ...ContributorLayoutFragment
+      ...ContributorLayoutQueryFragment
       ... on OrganizationContributor {
         collectionContributions {
           ...CollectionContributionListFragment

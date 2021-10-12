@@ -13,7 +13,7 @@ export type collectionsSlugContributorsPagesQueryResponse = {
         readonly collectionContributions?: {
             readonly " $fragmentRefs": FragmentRefs<"CollectionContributionListFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutQueryFragment">;
     } | null;
 };
 export type collectionsSlugContributorsPagesQuery = {
@@ -29,7 +29,7 @@ query collectionsSlugContributorsPagesQuery(
 ) {
   contributor(slug: $contributorSlug) {
     __typename
-    ...ContributorLayoutFragment
+    ...ContributorLayoutQueryFragment
     ... on OrganizationContributor {
       collectionContributions {
         ...CollectionContributionListFragment
@@ -90,6 +90,11 @@ fragment ContributorLayoutFragment on AnyContributor {
     givenName
     familyName
   }
+}
+
+fragment ContributorLayoutQueryFragment on Contributor {
+  __isContributor: __typename
+  ...ContributorLayoutFragment
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -167,198 +172,200 @@ v4 = {
   "storageKey": null
 },
 v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "legalName",
-  "storageKey": null
+  "kind": "InlineFragment",
+  "selections": [
+    (v4/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "legalName",
+      "storageKey": null
+    }
+  ],
+  "type": "OrganizationContributor",
+  "abstractKey": null
 },
 v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "givenName",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "familyName",
   "storageKey": null
 },
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v9 = {
   "kind": "InlineFragment",
   "selections": [
-    (v6/*: any*/)
+    (v8/*: any*/)
   ],
   "type": "Node",
   "abstractKey": "__isNode"
 },
-v10 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "CollectionContributionConnection",
-  "kind": "LinkedField",
-  "name": "collectionContributions",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "CollectionContribution",
-      "kind": "LinkedField",
-      "name": "nodes",
-      "plural": true,
-      "selections": [
-        (v6/*: any*/),
-        (v4/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "createdAt",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "updatedAt",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "role",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "contributor",
-          "plural": false,
-          "selections": [
-            (v2/*: any*/),
-            {
-              "kind": "InlineFragment",
-              "selections": [
-                (v4/*: any*/),
-                (v5/*: any*/)
-              ],
-              "type": "OrganizationContributor",
-              "abstractKey": null
-            },
-            {
-              "kind": "InlineFragment",
-              "selections": [
-                (v4/*: any*/),
-                (v7/*: any*/),
-                (v8/*: any*/)
-              ],
-              "type": "PersonContributor",
-              "abstractKey": null
-            },
-            (v9/*: any*/)
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "collection",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
-            (v4/*: any*/),
-            (v6/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "page",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "pageCount",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "perPage",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "hasNextPage",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "hasPreviousPage",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "totalCount",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "Paginated",
-      "abstractKey": "__isPaginated"
-    }
-  ],
-  "storageKey": null
-};
+v10 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "CollectionContributionConnection",
+    "kind": "LinkedField",
+    "name": "collectionContributions",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "CollectionContribution",
+        "kind": "LinkedField",
+        "name": "nodes",
+        "plural": true,
+        "selections": [
+          (v8/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "createdAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "updatedAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "role",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "contributor",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v5/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v4/*: any*/),
+                  (v6/*: any*/),
+                  (v7/*: any*/)
+                ],
+                "type": "PersonContributor",
+                "abstractKey": null
+              },
+              (v9/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Collection",
+            "kind": "LinkedField",
+            "name": "collection",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              },
+              (v4/*: any*/),
+              (v8/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "kind": "InlineFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "page",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "pageCount",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "perPage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hasPreviousPage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "totalCount",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "type": "Paginated",
+        "abstractKey": "__isPaginated"
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -378,7 +385,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ContributorLayoutFragment"
+            "name": "ContributorLayoutQueryFragment"
           },
           {
             "kind": "InlineFragment",
@@ -415,26 +422,38 @@ return {
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "TypeDiscriminator",
-            "abstractKey": "__isAnyContributor"
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v5/*: any*/),
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v6/*: any*/),
+                      (v7/*: any*/)
+                    ],
+                    "type": "PersonContributor",
+                    "abstractKey": null
+                  }
+                ],
+                "type": "AnyContributor",
+                "abstractKey": "__isAnyContributor"
+              }
+            ],
+            "type": "Contributor",
+            "abstractKey": "__isContributor"
           },
           {
             "kind": "InlineFragment",
-            "selections": [
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v10/*: any*/)
-            ],
+            "selections": (v10/*: any*/),
             "type": "OrganizationContributor",
             "abstractKey": null
           },
           {
             "kind": "InlineFragment",
-            "selections": [
-              (v7/*: any*/),
-              (v8/*: any*/),
-              (v10/*: any*/)
-            ],
+            "selections": (v10/*: any*/),
             "type": "PersonContributor",
             "abstractKey": null
           },
@@ -445,14 +464,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "abe03bf7ce10a8173c62ed5e6e68b60b",
+    "cacheID": "b688186685ff2e8fa2db0f35112e9305",
     "id": null,
     "metadata": {},
     "name": "collectionsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on OrganizationContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsSlugContributorsPagesQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ...ContributorLayoutQueryFragment\n    ... on OrganizationContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on PersonContributor {\n      collectionContributions {\n        ...CollectionContributionListFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ContributorLayoutQueryFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e3ebafe6deee356b89f540d305817830';
+(node as any).hash = 'b9c8b7b522df6a20caae4c67457ffd6e';
 export default node;

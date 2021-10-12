@@ -29,7 +29,7 @@ const query = graphql`
   query detailsManageSlugCommunitiesPagesQuery($communitySlug: Slug!) {
     community(slug: $communitySlug) {
       ...CommunityUpdateFormFragment
-      ...CommunityLayoutFragment
+      ...CommunityLayoutQueryFragment
     }
   }
 `;

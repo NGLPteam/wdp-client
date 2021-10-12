@@ -37,7 +37,7 @@ const query = graphql`
     $page: Int!
   ) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+      ...CollectionLayoutQueryFragment
       links(page: $page, perPage: 20) {
         ...EntityLinksListFragment
       }

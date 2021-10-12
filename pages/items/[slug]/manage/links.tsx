@@ -33,7 +33,7 @@ type Props = {
 const query = graphql`
   query linksManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
       links(page: $page, perPage: 20) {
         ...EntityLinksListFragment
       }

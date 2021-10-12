@@ -23,7 +23,7 @@ type Props = {
 const query = graphql`
   query accessManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+      ...CollectionLayoutQueryFragment
     }
   }
 `;

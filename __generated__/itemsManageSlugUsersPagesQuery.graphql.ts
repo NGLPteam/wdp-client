@@ -9,7 +9,7 @@ export type itemsManageSlugUsersPagesQueryVariables = {
 };
 export type itemsManageSlugUsersPagesQueryResponse = {
     readonly user: {
-        readonly " $fragmentRefs": FragmentRefs<"UserLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
     } | null;
 };
 export type itemsManageSlugUsersPagesQuery = {
@@ -24,7 +24,7 @@ query itemsManageSlugUsersPagesQuery(
   $userSlug: Slug!
 ) {
   user(slug: $userSlug) {
-    ...UserLayoutFragment
+    ...UserLayoutQueryFragment
     id
   }
 }
@@ -32,6 +32,10 @@ query itemsManageSlugUsersPagesQuery(
 fragment UserLayoutFragment on User {
   name
   email
+}
+
+fragment UserLayoutQueryFragment on User {
+  ...UserLayoutFragment
 }
 */
 
@@ -68,7 +72,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "UserLayoutFragment"
+            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -118,14 +122,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "777cb0172fc739c2c254ba5de80bf907",
+    "cacheID": "f57ef671bf6bb4696dffe69a28d059b1",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'bd5aa81d118d17dd503b6679be914b48';
+(node as any).hash = '8ee9c2e00faacaaf1feeaab4a27a4468';
 export default node;
