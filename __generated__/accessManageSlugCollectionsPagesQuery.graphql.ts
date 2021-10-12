@@ -9,7 +9,7 @@ export type accessManageSlugCollectionsPagesQueryVariables = {
 };
 export type accessManageSlugCollectionsPagesQueryResponse = {
     readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
     } | null;
 };
 export type accessManageSlugCollectionsPagesQuery = {
@@ -24,7 +24,7 @@ query accessManageSlugCollectionsPagesQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
-    ...CollectionLayoutFragment
+    ...CollectionLayoutQueryFragment
     id
   }
 }
@@ -33,6 +33,10 @@ fragment CollectionLayoutFragment on Collection {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment CollectionLayoutQueryFragment on Collection {
+  ...CollectionLayoutFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -94,7 +98,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CollectionLayoutFragment"
+            "name": "CollectionLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -173,14 +177,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c47c6ad0e956cb3a7622bcb0f0a15f5c",
+    "cacheID": "60d55a35c9a5b2611f4218e921081376",
     "id": null,
     "metadata": {},
     "name": "accessManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8d35c564c09eae279ae0d7b79e98ee49';
+(node as any).hash = '5824cb958f258756e0af0806a8c325d8';
 export default node;

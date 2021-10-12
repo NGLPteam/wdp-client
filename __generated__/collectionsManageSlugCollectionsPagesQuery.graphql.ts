@@ -15,7 +15,7 @@ export type collectionsManageSlugCollectionsPagesQueryResponse = {
         readonly collections: {
             readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
     } | null;
 };
 export type collectionsManageSlugCollectionsPagesQuery = {
@@ -32,7 +32,7 @@ query collectionsManageSlugCollectionsPagesQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
-    ...CollectionLayoutFragment
+    ...CollectionLayoutQueryFragment
     collections(order: $order, page: $page, perPage: 20) {
       ...CollectionListFragment
     }
@@ -44,6 +44,10 @@ fragment CollectionLayoutFragment on Collection {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment CollectionLayoutQueryFragment on Collection {
+  ...CollectionLayoutFragment
 }
 
 fragment CollectionListFragment on CollectionConnection {
@@ -209,7 +213,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CollectionLayoutFragment"
+            "name": "CollectionLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -472,14 +476,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3a519563aec17bf53e73b31b5a02460e",
+    "cacheID": "a96131eb66cedc76033b8e06438f2790",
     "id": null,
     "metadata": {},
     "name": "collectionsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '7dc91709001ac5e87762a078274cab39';
+(node as any).hash = 'c0f0a7faac0f0f57987e680fccc44ed6';
 export default node;

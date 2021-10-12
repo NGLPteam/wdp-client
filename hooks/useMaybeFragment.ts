@@ -1,12 +1,8 @@
 import { useFragment } from "react-relay";
 import type { GraphQLTaggedNode } from "react-relay";
+import type { KeyType } from "react-relay/relay-hooks/helpers";
 
-type Fragment = Readonly<{
-  " $data"?: unknown;
-  " $fragmentRefs": unknown;
-}>;
-
-export default function useMaybeFragment<TKey extends Fragment>(
+export default function useMaybeFragment<TKey extends KeyType>(
   fragmentInput: GraphQLTaggedNode,
   fragmentRef?: TKey | null
 ) {

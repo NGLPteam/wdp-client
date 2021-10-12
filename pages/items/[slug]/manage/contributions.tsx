@@ -37,7 +37,7 @@ type Props = {
 const query = graphql`
   query contributionsManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
       contributions(page: $page, perPage: 20) {
         ...ItemContributionListFragment
       }

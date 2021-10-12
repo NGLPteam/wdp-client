@@ -9,7 +9,7 @@ export type membersManageSlugCommunitiesPagesQueryVariables = {
 };
 export type membersManageSlugCommunitiesPagesQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
     } | null;
 };
 export type membersManageSlugCommunitiesPagesQuery = {
@@ -24,7 +24,7 @@ query membersManageSlugCommunitiesPagesQuery(
   $communitySlug: Slug!
 ) {
   community(slug: $communitySlug) {
-    ...CommunityLayoutFragment
+    ...CommunityLayoutQueryFragment
     id
   }
 }
@@ -32,6 +32,10 @@ query membersManageSlugCommunitiesPagesQuery(
 fragment CommunityLayoutFragment on Community {
   name
   slug
+}
+
+fragment CommunityLayoutQueryFragment on Community {
+  ...CommunityLayoutFragment
 }
 */
 
@@ -68,7 +72,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "CommunityLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -118,14 +122,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5e1943d2ef489560c124560eae39a2fb",
+    "cacheID": "8068808f5fdffc2f9b975b26b05950fd",
     "id": null,
     "metadata": {},
     "name": "membersManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query membersManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n"
+    "text": "query membersManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n"
   }
 };
 })();
-(node as any).hash = '3e2ba7f83b77464d32bce28b9ccae003';
+(node as any).hash = '9f23ce5096a7aad7248403da39d97020';
 export default node;

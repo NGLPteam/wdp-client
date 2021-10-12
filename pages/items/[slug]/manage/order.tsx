@@ -36,7 +36,7 @@ type Props = {
 const query = graphql`
   query ordersManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutFragment
+      ...ItemLayoutQueryFragment
       orderings(page: $page, perPage: 20) {
         ...EntityOrderingListFragment
       }

@@ -9,7 +9,7 @@ export type detailsManageSlugCommunitiesPagesQueryVariables = {
 };
 export type detailsManageSlugCommunitiesPagesQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFragment" | "CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFragment" | "CommunityLayoutQueryFragment">;
     } | null;
 };
 export type detailsManageSlugCommunitiesPagesQuery = {
@@ -25,7 +25,7 @@ query detailsManageSlugCommunitiesPagesQuery(
 ) {
   community(slug: $communitySlug) {
     ...CommunityUpdateFormFragment
-    ...CommunityLayoutFragment
+    ...CommunityLayoutQueryFragment
     id
   }
 }
@@ -33,6 +33,10 @@ query detailsManageSlugCommunitiesPagesQuery(
 fragment CommunityLayoutFragment on Community {
   name
   slug
+}
+
+fragment CommunityLayoutQueryFragment on Community {
+  ...CommunityLayoutFragment
 }
 
 fragment CommunityUpdateFormFieldsFragment on Community {
@@ -83,7 +87,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "CommunityLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -147,14 +151,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7843193a7f8dad9587bee495b9cfbf17",
+    "cacheID": "4b8cacdefcdb1f6a15fcdbdb9b720e19",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityUpdateFormFragment\n    ...CommunityLayoutFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
+    "text": "query detailsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityUpdateFormFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'cd88b181c4bef56a6faa735b1a733cde';
+(node as any).hash = '6b3473b656ebf665259ef3e6d22e5e4d';
 export default node;

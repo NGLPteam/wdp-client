@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
-import { QueryWrapper } from "components/api";
+import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
+import type { ItemLayoutQueryFragment$key } from "@/relay/ItemLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
 import ItemLayout from "../ItemLayout";
+import { graphql } from "react-relay";
 
 function ItemLayoutQuery<
   Query extends ItemQuery,
@@ -26,9 +28,16 @@ function ItemLayoutQuery<
       initialVariables={{ ...queryVars, itemSlug }}
     >
       {({ data }) => (
-        <ItemLayout {...layoutProps} data={data?.item}>
-          <PageComponent data={data} {...pageComponentProps} />
-        </ItemLayout>
+        <FragmentWrapper<ItemLayoutQueryFragment$key>
+          data={data?.item}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <ItemLayout {...layoutProps} data={enhancedData}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </ItemLayout>
+          )}
+        </FragmentWrapper>
       )}
     </QueryWrapper>
   );
@@ -36,9 +45,15 @@ function ItemLayoutQuery<
 
 type ItemQuery = {
   readonly response: {
-    item: HasFragment<"ItemLayoutFragment"> | null;
+    item: HasFragment<"ItemLayoutQueryFragment"> | null;
   };
   readonly variables: { itemSlug: string };
 };
+
+const fragment = graphql`
+  fragment ItemLayoutQueryFragment on Item {
+    ...ItemLayoutFragment
+  }
+`;
 
 export default ItemLayoutQuery;

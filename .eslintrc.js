@@ -57,7 +57,7 @@ module.exports = {
     {
       files: ["pages/**"],
       rules: {
-        "relay/must-colocate-fragment-spreads": 0,
+        "relay/must-colocate-fragment-spreads": 1,
       },
     },
   ],

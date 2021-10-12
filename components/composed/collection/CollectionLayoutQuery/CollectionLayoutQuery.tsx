@@ -1,11 +1,13 @@
 import React, { ComponentProps } from "react";
-import { QueryWrapper } from "components/api";
+import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
 
 import ErrorPage from "next/error";
 import CollectionLayout from "../CollectionLayout";
+import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
+import { graphql } from "react-relay";
 
 function CollectionLayoutQuery<
   Query extends CollectionQuery,
@@ -26,9 +28,16 @@ function CollectionLayoutQuery<
       initialVariables={{ ...queryVars, collectionSlug }}
     >
       {({ data }) => (
-        <CollectionLayout {...layoutProps} data={data?.collection}>
-          <PageComponent data={data} {...pageComponentProps} />
-        </CollectionLayout>
+        <FragmentWrapper<CollectionLayoutQueryFragment$key>
+          data={data?.collection}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <CollectionLayout {...layoutProps} data={enhancedData}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </CollectionLayout>
+          )}
+        </FragmentWrapper>
       )}
     </QueryWrapper>
   );
@@ -36,9 +45,15 @@ function CollectionLayoutQuery<
 
 type CollectionQuery = {
   readonly response: {
-    collection: HasFragment<"CollectionLayoutFragment"> | null;
+    collection: HasFragment<"CollectionLayoutQueryFragment"> | null;
   };
   readonly variables: { collectionSlug: string };
 };
+
+const fragment = graphql`
+  fragment CollectionLayoutQueryFragment on Collection {
+    ...CollectionLayoutFragment
+  }
+`;
 
 export default CollectionLayoutQuery;
