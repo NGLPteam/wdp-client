@@ -31,6 +31,12 @@ query usersQuery(
   }
 }
 
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
+  ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
+}
+
 fragment ModelPageCountActionsFragment on Paginated {
   __isPaginated: __typename
   pageInfo {
@@ -61,8 +67,7 @@ fragment UserListFragment on UserConnection {
     updatedAt
     id
   }
-  ...ModelPaginationFragment
-  ...ModelPageCountActionsFragment
+  ...ModelListPageFragment
 }
 */
 
@@ -263,12 +268,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8684cd9882b468991c996ee892aa2c78",
+    "cacheID": "e38427a6e5167be32419e952d2db0074",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    id\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n"
+    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    id\n  }\n  ...ModelListPageFragment\n}\n"
   }
 };
 })();

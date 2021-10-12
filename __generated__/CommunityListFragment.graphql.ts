@@ -14,7 +14,7 @@ export type CommunityListFragment = {
             readonly name: string;
         };
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CommunityListFragment";
 };
 export type CommunityListFragment$data = CommunityListFragment;
@@ -91,16 +91,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "CommunityConnection",
   "abstractKey": null
 };
-(node as any).hash = '5e2fbd0d073a20894f1e84e3ad9188e2';
+(node as any).hash = 'd316be12ac000a0da818ea6d24a7462f';
 export default node;

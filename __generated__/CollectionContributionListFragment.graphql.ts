@@ -30,7 +30,7 @@ export type CollectionContributionListFragment = {
             readonly slug: string;
         };
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionContributionListFragment";
 };
 export type CollectionContributionListFragment$data = CollectionContributionListFragment;
@@ -172,17 +172,12 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "CollectionContributionConnection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '6fb6f3ea33e9b077f56f3ba91037d5b0';
+(node as any).hash = '18df0e816018f1d55df9e46cc9185c23';
 export default node;

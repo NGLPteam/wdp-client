@@ -45,7 +45,7 @@ export type ContributorListFragment = {
         value in case none of the concrete values match.*/
         readonly __typename: "%other";
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ContributorListFragment";
 };
 export type ContributorListFragment$data = ContributorListFragment;
@@ -213,17 +213,12 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "AnyContributorConnection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e7fb99fb4702a02b9ed56d57c6270dd4';
+(node as any).hash = 'e5c8a50380297ceb9bace02a3d5e8f2f';
 export default node;

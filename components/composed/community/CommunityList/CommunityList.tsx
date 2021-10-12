@@ -74,8 +74,7 @@ const fragment = graphql`
         name
       }
     }
-    ...ModelPaginationFragment
-    ...ModelPageCountActionsFragment
+    ...ModelListPageFragment
   }
 `;
 

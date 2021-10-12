@@ -2,8 +2,6 @@ import React from "react";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
-import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
-import ModelPagination from "components/composed/model/ModelPagination";
 import type { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 import useModelList from "components/composed/model/ModelList/hooks/useModelList";
 import type { UseModelListProps } from "components/composed/model/ModelList/hooks/useModelList";
@@ -73,7 +71,6 @@ function ModelList<
   const hasRows = modelGridOrTableProps.rows.length > 0;
   return (
     <>
-      <ModelPageCountActions data={data} />
       {queryState.completed && !hasRows ? (
         <NoResultsMessage />
       ) : (
@@ -84,7 +81,6 @@ function ModelList<
             listId={listId}
             {...modelGridOrTableProps}
           />
-          <ModelPagination data={data || null} />
         </>
       )}
     </>

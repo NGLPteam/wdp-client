@@ -175,8 +175,7 @@ const fragment = graphql`
         title
       }
     }
-    ...ModelPaginationFragment
-    ...ModelPageCountActionsFragment
+    ...ModelListPageFragment
   }
 `;
 

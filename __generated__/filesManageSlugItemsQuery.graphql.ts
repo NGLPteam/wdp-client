@@ -62,14 +62,19 @@ fragment FileListFragment on AnyAssetConnection {
       id
     }
   }
-  ...ModelPaginationFragment
-  ...ModelPageCountActionsFragment
+  ...ModelListPageFragment
 }
 
 fragment ItemLayoutFragment on Item {
   title
   slug
   ...useBreadcrumbsFragment
+}
+
+fragment ModelListPageFragment on Paginated {
+  __isPaginated: __typename
+  ...ModelPageCountActionsFragment
+  ...ModelPaginationFragment
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -439,12 +444,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f1ab99071597c8c9435d66ae46293f76",
+    "cacheID": "e5e7b5ddf1b481bc848b86a2bed58770",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      thumbnail: preview {\n        image: medium {\n          png {\n            alt\n            url\n            height\n            width\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelPaginationFragment\n  ...ModelPageCountActionsFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      thumbnail: preview {\n        image: medium {\n          png {\n            alt\n            url\n            height\n            width\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

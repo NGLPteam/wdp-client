@@ -1,25 +1,25 @@
 import React from "react";
+import { graphql } from "react-relay";
 import type { ReactNode } from "react";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
 import ModelListHeader from "components/composed/model/ModelListHeader";
 import ModelListActions from "components/composed/model/ModelListActions";
-import { ModelPaginationFragment$key } from "@/relay/ModelPaginationFragment.graphql";
-import { ModelPageCountActionsFragment$key } from "@/relay/ModelPageCountActionsFragment.graphql";
 import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
 import PageHeader from "components/layout/PageHeader";
-import { useIsMobile, useViewPreference } from "hooks";
+import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
 import { useUID } from "react-uid";
+import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
+import ModelPageCountActions from "../ModelPageCountActions";
+import ModelPagination from "../ModelPagination";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-export type PaginatedConnectionish = Connectionish &
-  ModelPaginationFragment$key &
-  ModelPageCountActionsFragment$key;
+export type PaginatedConnectionish = Connectionish & ModelListPageFragment$key;
 
 type ModelListPageProps<
   T extends OperationType,
@@ -43,6 +43,8 @@ function ModelListPage<
   hideHeader,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
+  const instance = useMaybeFragment<U>(fragment, modelListProps.data);
+
   const [selectedView, setView] = useViewPreference(
     `nglp::${modelName}.listView`
   );
@@ -71,14 +73,19 @@ function ModelListPage<
       />
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (
-          <ModelList<T, U, V>
-            {...modelListProps}
-            queryVariables={queryVariables}
-            setQueryVariables={setQueryVariables}
-            modelName={modelName}
-            view={view}
-            listId={listId}
-          />
+          <>
+            <ModelPageCountActions data={instance} />
+            <ModelList<T, U, V>
+              {...modelListProps}
+              data={modelListProps.data}
+              queryVariables={queryVariables}
+              setQueryVariables={setQueryVariables}
+              modelName={modelName}
+              view={view}
+              listId={listId}
+            />
+            <ModelPagination data={instance} />
+          </>
         )}
       </QueryVariablesContext.Consumer>
     </section>
@@ -86,3 +93,10 @@ function ModelListPage<
 }
 
 export default ModelListPage;
+
+const fragment = graphql`
+  fragment ModelListPageFragment on Paginated {
+    ...ModelPageCountActionsFragment
+    ...ModelPaginationFragment
+  }
+`;

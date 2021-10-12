@@ -10,7 +10,7 @@ export type EntityOrderingListFragment = {
         readonly name: string | null;
         readonly slug: string;
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "EntityOrderingListFragment";
 };
 export type EntityOrderingListFragment$data = EntityOrderingListFragment;
@@ -62,16 +62,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "OrderingConnection",
   "abstractKey": null
 };
-(node as any).hash = 'df75783148a731546af443cf3af5a2d7';
+(node as any).hash = 'b4f313b88b62ee74fd83326623c22c11';
 export default node;

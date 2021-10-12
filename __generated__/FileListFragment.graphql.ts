@@ -22,7 +22,7 @@ export type FileListFragment = {
             };
         } | null;
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPaginationFragment" | "ModelPageCountActionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "FileListFragment";
 };
 export type FileListFragment$data = FileListFragment;
@@ -149,16 +149,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ModelPaginationFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelPageCountActionsFragment"
+      "name": "ModelListPageFragment"
     }
   ],
   "type": "AnyAssetConnection",
   "abstractKey": null
 };
-(node as any).hash = '6b58fdf67f6620d65918e782c4ff9282';
+(node as any).hash = 'ed1e6e490cdb402cd2cc0fbb9266197d';
 export default node;
