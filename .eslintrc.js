@@ -42,6 +42,8 @@ module.exports = {
       },
     ],
     "relay/must-colocate-fragment-spreads": "warn",
+    "relay/no-future-added-value": 0,
+    "relay/unused-fields": 0,
   },
   overrides: [
     {
