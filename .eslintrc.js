@@ -42,6 +42,8 @@ module.exports = {
       },
     ],
     "relay/must-colocate-fragment-spreads": "warn",
+    "relay/no-future-added-value": 0,
+    "relay/unused-fields": 0,
   },
   overrides: [
     {
@@ -54,13 +56,12 @@ module.exports = {
         "import/no-anonymous-default-export": 0,
       },
     },
-    {
-      files: ["pages/**"],
-      rules: {
-        "relay/must-colocate-fragment-spreads": 1,
-      },
-    },
   ],
   plugins: ["@typescript-eslint", "relay"],
-  extends: ["next", "@castiron", "plugin:@typescript-eslint/recommended"],
+  extends: [
+    "next",
+    "@castiron",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:relay/recommended",
+  ],
 };

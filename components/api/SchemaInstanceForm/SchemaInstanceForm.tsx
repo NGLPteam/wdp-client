@@ -5,11 +5,11 @@ import { useTranslation } from "react-i18next";
 import FormGrid from "components/forms/FormGrid";
 import { ContentHeader } from "components/layout";
 import SchemaSelector from "components/forms/SchemaSelector";
-import { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 
 import Property from "./SchemaInstanceProperty";
 import Provider from "./SchemaInstanceProvider";
 
+import type { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 import type { OnSuccessCallback } from "./types";
 type ProviderProps = React.ComponentProps<typeof Provider>;
 type SchemaSelectorProps = React.ComponentProps<typeof SchemaSelector>;
