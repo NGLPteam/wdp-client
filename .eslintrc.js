@@ -56,5 +56,10 @@ module.exports = {
     },
   ],
   plugins: ["@typescript-eslint", "relay"],
-  extends: ["next", "@castiron", "plugin:@typescript-eslint/recommended"],
+  extends: [
+    "next",
+    "@castiron",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:relay/recommended",
+  ],
 };
