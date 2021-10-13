@@ -1,6 +1,6 @@
 import React from "react";
-
 import { OperationType } from "relay-runtime";
+import { useTranslation } from "react-i18next";
 import {
   CommunityListFragment$key,
   CommunityListFragment,
@@ -12,6 +12,7 @@ import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -20,6 +21,7 @@ function CommunityList<T extends OperationType>({
   headerStyle,
   hideHeader,
 }: CommunityListProps) {
+  const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
@@ -44,6 +46,20 @@ function CommunityList<T extends OperationType>({
       destroy.community({ communityId: row.original.id }, row.original.name),
   };
 
+  const buttons = (
+    <ButtonControlGroup
+      buttons={[
+        {
+          drawer: "addCommunity",
+          icon: "plus",
+          children: t("actions.create.community"),
+        },
+      ]}
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+    />
+  );
+
   return (
     <ModelListPage<T, CommunityListFragment, CommunityNode>
       modelName="community"
@@ -52,6 +68,7 @@ function CommunityList<T extends OperationType>({
       data={communities}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      buttons={buttons}
     />
   );
 }

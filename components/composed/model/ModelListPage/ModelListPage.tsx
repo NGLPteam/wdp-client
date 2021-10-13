@@ -1,15 +1,16 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { ReactNode } from "react";
+import startCase from "lodash/startCase";
+import { useTranslation } from "react-i18next";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
-import ModelListHeader from "components/composed/model/ModelListHeader";
 import ModelListActions from "components/composed/model/ModelListActions";
 import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { QueryVariablesContext } from "contexts";
 import { OperationType } from "relay-runtime";
-import PageHeader from "components/layout/PageHeader";
+import { PageHeader } from "components/layout";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
 import { useUID } from "react-uid";
@@ -29,6 +30,7 @@ type ModelListPageProps<
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: ReactNode;
+    header?: string;
   };
 
 function ModelListPage<
@@ -41,8 +43,11 @@ function ModelListPage<
   viewOptions,
   headerStyle,
   hideHeader,
+  header,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
+  const { t } = useTranslation();
+
   const instance = useMaybeFragment<U>(fragment, modelListProps.data);
 
   const [selectedView, setView] = useViewPreference(
@@ -57,10 +62,14 @@ function ModelListPage<
   // List ID needed for view controls to reference table or grid area
   const listId = useUID();
 
+  const pageHeader = modelName
+    ? startCase(t(`glossary.${modelName}.label`, { count: 2 }))
+    : "";
+
   return (
     <section>
-      <ModelListHeader
-        modelName={modelName}
+      <PageHeader
+        title={header || pageHeader}
         buttons={buttons}
         headerStyle={headerStyle}
         hideHeader={hideHeader}
