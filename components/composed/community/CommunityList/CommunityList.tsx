@@ -12,7 +12,7 @@ import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ButtonControlGroup } from "components/atomic";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -47,17 +47,11 @@ function CommunityList<T extends OperationType>({
   };
 
   const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer: "addCommunity",
-          icon: "plus",
-          children: t("actions.create.community"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer drawer="addCommunity" icon="plus">
+        {t("actions.create.community")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
   );
 
   return (

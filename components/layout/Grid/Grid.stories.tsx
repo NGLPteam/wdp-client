@@ -1,5 +1,5 @@
 import { Story } from "@storybook/react";
-import { ButtonControlGroup, Image } from "components/atomic";
+import { ButtonControlGroup, Image, ButtonControl } from "components/atomic";
 import Grid from "./";
 
 type Props = React.ComponentProps<typeof Grid>;
@@ -103,11 +103,10 @@ export const WithActions: Story<Props> = ({ showCheckboxes }) => (
             <ButtonControlGroup
               toggleLabel="Options"
               menuLabel="Toggle options"
-              buttons={[
-                { icon: "edit", "aria-label": "Edit item" },
-                { icon: "delete", "aria-label": "Delete item" },
-              ]}
-            />
+            >
+              <ButtonControl icon="edit" aria-label="Edit item" />
+              <ButtonControl icon="delete" aria-label="Delete item" />
+            </ButtonControlGroup>
           }
           thumbnail={renderRandImage()}
         >

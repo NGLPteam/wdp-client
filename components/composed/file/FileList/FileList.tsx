@@ -12,7 +12,7 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
-import { ButtonControlGroup } from "components/atomic";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -61,18 +61,15 @@ function FileList<T extends OperationType>({
   // TODO: We need an authorization check here.
   // There are currently no allowedActions around assets.
   const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer: "addFile",
-          drawerQuery: { drawerSlug: slug || "" },
-          icon: "plus",
-          children: t("actions.create.file"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        icon="plus"
+        drawer="addFile"
+        drawerQuery={{ drawerSlug: slug || "" }}
+      >
+        {t("actions.create.file")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
   );
 
   return (

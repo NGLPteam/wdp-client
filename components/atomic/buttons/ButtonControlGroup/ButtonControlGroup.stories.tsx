@@ -1,6 +1,12 @@
 import ButtonControlGroup from "./ButtonControlGroup";
+import ButtonControl, {
+  ButtonControlDrawer,
+  ButtonControlConfirm,
+} from "components/atomic/buttons/ButtonControl";
 import { Story } from "@storybook/react";
 import { breakpoints } from "theme/base/variables";
+import i18next from "i18next";
+
 type Props = React.ComponentProps<typeof ButtonControlGroup>;
 
 export default {
@@ -26,7 +32,21 @@ const Template: Story<Props> = (args) => (
       width.
     </p>
     <br />
-    <ButtonControlGroup {...args} />
+    <ButtonControlGroup {...args}>
+      <ButtonControlDrawer drawer="addPerson" icon="plus">
+        {"Add"}
+      </ButtonControlDrawer>
+      <ButtonControl icon="edit">{"Edit"}</ButtonControl>
+      <ButtonControlConfirm
+        icon="delete"
+        modalLabel={i18next.t("modals.delete.label")}
+        modalBody={
+          <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>
+        }
+      >
+        {"Delete"}
+      </ButtonControlConfirm>
+    </ButtonControlGroup>
   </>
 );
 
@@ -34,46 +54,46 @@ export const Default: Story<Props> = Template.bind({});
 
 Default.args = {
   toggleLabel: "Options",
-  buttons: [
-    {
-      children: "Add",
-      drawer: "addPerson",
-      icon: "plus",
-    },
-    {
-      children: "Edit",
-      icon: "edit",
-    },
-    {
-      children: "Delete",
-      icon: "delete",
-    },
-  ],
 };
 
-export const WithAuthActions: Story<Props> = Template.bind({});
+export const WithAuthActions: Story<Props> = (args) => (
+  <>
+    <p>
+      Actions collapse into a dropdown when browser width is &lt; breakpoint
+      width.
+    </p>
+    <br />
+    <ButtonControlGroup {...args}>
+      <ButtonControlDrawer
+        drawer="addPerson"
+        icon="plus"
+        actions="self.add"
+        allowedActions={["self.edit", "self.add"]}
+      >
+        {"Add"}
+      </ButtonControlDrawer>
+      <ButtonControl
+        icon="edit"
+        actions="self.edit"
+        allowedActions={["self.edit", "self.add"]}
+      >
+        {"Edit"}
+      </ButtonControl>
+      <ButtonControlConfirm
+        icon="delete"
+        modalLabel={i18next.t("modals.delete.label")}
+        modalBody={
+          <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>
+        }
+        actions="self.delete"
+        allowedActions={["self.edit", "self.add"]}
+      >
+        {"Delete"}
+      </ButtonControlConfirm>
+    </ButtonControlGroup>
+  </>
+);
 
 WithAuthActions.args = {
   toggleLabel: "Options",
-  buttons: [
-    {
-      children: "Add",
-      drawer: "addPerson",
-      icon: "plus",
-      actions: "self.add",
-      allowedActions: ["self.edit", "self.add"],
-    },
-    {
-      children: "Edit",
-      icon: "edit",
-      actions: "self.edit",
-      allowedActions: ["self.edit", "self.add"],
-    },
-    {
-      children: "Delete",
-      icon: "delete",
-      actions: "self.delete",
-      allowedActions: ["self.edit", "self.add"],
-    },
-  ],
 };

@@ -16,7 +16,11 @@ import {
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { ButtonControlGroup, NamedLink } from "components/atomic";
+import {
+  ButtonControlGroup,
+  NamedLink,
+  ButtonControlDrawer,
+} from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
@@ -109,24 +113,23 @@ function ItemContributionList<T extends OperationType>({
     drawerContributionType: "item",
   };
 
+  const drawer =
+    nameColumn === "contributor"
+      ? "addItemContribution"
+      : "addContributorContribution";
+
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
   const buttons = (
-    <ButtonControlGroup
-      buttons={[
-        {
-          drawer:
-            nameColumn === "contributor"
-              ? "addItemContribution"
-              : "addContributorContribution",
-          drawerQuery,
-          icon: "plus",
-          children: t("actions.create.contribution"),
-        },
-      ]}
-      toggleLabel={t("options")}
-      menuLabel={t("options")}
-    />
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        icon="plus"
+        drawer={drawer}
+        drawerQuery={drawerQuery}
+      >
+        {t("actions.create.contribution")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
   );
 
   return (
