@@ -4,7 +4,7 @@ import { useFragment } from "relay-hooks";
 
 import Select from "components/forms/Select";
 
-import { AssetsPropertyFragment$key } from "@/relay/AssetsPropertyFragment.graphql";
+import type { AssetsPropertyFragment$key } from "@/relay/AssetsPropertyFragment.graphql";
 
 import { useSchemaFormContext } from "../../Context";
 import ScalarProperty from "../ScalarProperty";

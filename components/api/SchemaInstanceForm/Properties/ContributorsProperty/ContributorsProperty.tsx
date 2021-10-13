@@ -6,7 +6,7 @@ import { Controller } from "react-hook-form";
 // import Select from "components/forms/Select";
 import Multiselect from "components/forms/Multiselect";
 
-import { ContributorsPropertyFragment$key } from "@/relay/ContributorsPropertyFragment.graphql";
+import type { ContributorsPropertyFragment$key } from "@/relay/ContributorsPropertyFragment.graphql";
 
 import { useSchemaFormContext } from "../../Context";
 import ScalarProperty from "../ScalarProperty";

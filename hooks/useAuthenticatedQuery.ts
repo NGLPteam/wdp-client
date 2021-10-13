@@ -14,5 +14,6 @@ export default function useAuthenticatedQuery<
 
   const proxiedOptions: QueryOptions = { fetchKey, ...options };
 
+  // eslint-disable-next-line relay/generated-flow-types
   return useQuery<T>(gqlQuery, variables, proxiedOptions);
 }

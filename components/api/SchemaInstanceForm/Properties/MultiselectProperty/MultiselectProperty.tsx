@@ -4,7 +4,7 @@ import { useFragment } from "relay-hooks";
 
 import Select from "components/forms/Select";
 
-import { MultiselectPropertyFragment$key } from "@/relay/MultiselectPropertyFragment.graphql";
+import type { MultiselectPropertyFragment$key } from "@/relay/MultiselectPropertyFragment.graphql";
 
 import ScalarProperty from "../ScalarProperty";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 
-import { SchemaPropertyFragment$key } from "@/relay/SchemaPropertyFragment.graphql";
+import type { SchemaPropertyFragment$key } from "@/relay/SchemaPropertyFragment.graphql";
 
 import * as Properties from "../../Properties";
 
