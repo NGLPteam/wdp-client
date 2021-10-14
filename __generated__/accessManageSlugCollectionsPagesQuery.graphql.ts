@@ -10,7 +10,7 @@ export type accessManageSlugCollectionsPagesQueryVariables = {
 };
 export type accessManageSlugCollectionsPagesQueryResponse = {
     readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "CollectionAccessListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "RoleAccessListFragment">;
     } | null;
 };
 export type accessManageSlugCollectionsPagesQuery = {
@@ -27,34 +27,8 @@ query accessManageSlugCollectionsPagesQuery(
 ) {
   collection(slug: $collectionSlug) {
     ...CollectionLayoutQueryFragment
-    ...CollectionAccessListFragment
+    ...RoleAccessListFragment
     id
-  }
-}
-
-fragment CollectionAccessListDataFragment on ContextualPermissionConnection {
-  edges {
-    node {
-      id
-      roles {
-        name
-        id
-      }
-      user {
-        name
-        email
-        id
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment CollectionAccessListFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
-    ...CollectionAccessListDataFragment
   }
 }
 
@@ -91,6 +65,32 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment RoleAccessListDataFragment on ContextualPermissionConnection {
+  edges {
+    node {
+      id
+      roles {
+        name
+        id
+      }
+      user {
+        name
+        email
+        id
+      }
+    }
+  }
+  ...ModelListPageFragment
+}
+
+fragment RoleAccessListFragment on Entity {
+  __isEntity: __typename
+  allowedActions
+  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
+    ...RoleAccessListDataFragment
   }
 }
 
@@ -170,7 +170,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CollectionAccessListFragment"
+            "name": "RoleAccessListFragment"
           }
         ],
         "storageKey": null
@@ -399,14 +399,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5706b3bbf5cb4c11a0c2b24bc87f0229",
+    "cacheID": "2354ca361545fbc7cc731b9c9419d42f",
     "id": null,
     "metadata": {},
     "name": "accessManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...CollectionAccessListFragment\n    id\n  }\n}\n\nfragment CollectionAccessListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        name\n        email\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CollectionAccessListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {\n    ...CollectionAccessListDataFragment\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        name\n        email\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {\n    ...RoleAccessListDataFragment\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'dfd73689df617903adf9d54c9fb71bf9';
+(node as any).hash = 'cda611b77609cdefafdc60796ae1e223';
 export default node;

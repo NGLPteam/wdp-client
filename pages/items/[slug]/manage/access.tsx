@@ -4,10 +4,16 @@ import type { accessManageSlugItemsPagesQuery as Query } from "@/relay/accessMan
 import type { GetLayout } from "types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
-import ItemAccessList from "components/composed/item/ItemAccessList";
+import RoleAccessList from "components/composed/role/RoleAccessList";
 
 function ItemAccess({ data }: Props) {
-  return <ItemAccessList<Query> data={data?.item} headerStyle="secondary" />;
+  return (
+    <RoleAccessList<Query>
+      data={data?.item}
+      headerStyle="secondary"
+      entityType="item"
+    />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -31,7 +37,7 @@ const query = graphql`
   query accessManageSlugItemsPagesQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
-      ...ItemAccessListFragment
+      ...RoleAccessListFragment
     }
   }
 `;

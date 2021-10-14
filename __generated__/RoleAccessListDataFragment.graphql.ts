@@ -4,7 +4,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type RoleListFragment = {
+export type RoleAccessListDataFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id: string;
@@ -18,12 +18,12 @@ export type RoleListFragment = {
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "RoleListFragment";
+    readonly " $refType": "RoleAccessListDataFragment";
 };
-export type RoleListFragment$data = RoleListFragment;
-export type RoleListFragment$key = {
-    readonly " $data"?: RoleListFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"RoleListFragment">;
+export type RoleAccessListDataFragment$data = RoleAccessListDataFragment;
+export type RoleAccessListDataFragment$key = {
+    readonly " $data"?: RoleAccessListDataFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"RoleAccessListDataFragment">;
 };
 
 
@@ -40,7 +40,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RoleListFragment",
+  "name": "RoleAccessListDataFragment",
   "selections": [
     {
       "alias": null,
@@ -112,5 +112,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cdcd65dfa33c974d2a2f78d01d10c5ff';
+(node as any).hash = '4fbc87144415fd8b13e9710400f0e4f3';
 export default node;

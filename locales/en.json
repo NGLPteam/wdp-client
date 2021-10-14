@@ -28,9 +28,9 @@
     },
     "drawers": {
       "addMember.title": "Add Member",
-      "addMemberTo.title": "Add Member to {{ name }}",
+      "addMember.to.title": "Add Member to {{ name }}",
       "addAccess.title": "Add Access",
-      "addAccessTo.title": "Add Access to {{ name }}",
+      "addAccess.to.title": "Add Access to {{ name }}",
       "createPerson.title": "Create New Person",
       "createOrganization.title": "Create New Organization",
       "editItemContribution.title": "Edit Item Contribution",

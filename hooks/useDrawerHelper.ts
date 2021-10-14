@@ -16,9 +16,7 @@ import CollectionContributionCreateDrawer from "components/composed/contribution
 import ItemContributionCreateDrawer from "components/composed/contribution/ItemContributionCreateDrawer";
 import ContributorContributionCreateDrawer from "components/composed/contribution/ContributorContributionCreateDrawer";
 import FileCreateDrawer from "components/composed/file/FileCreateDrawer";
-import CommunityAddMemberDrawer from "components/composed/community/CommunityAddMemberDrawer";
-import CollectionAddAccessDrawer from "components/composed/collection/CollectionAddAccessDrawer";
-import ItemAddAccessDrawer from "components/composed/item/ItemAddAccessDrawer";
+import RoleGrantAccessDrawer from "components/composed/role/RoleGrantAccessDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -34,9 +32,7 @@ const drawerRegistry = {
   editCollection: CollectionUpdateDrawer,
   editContributor: ContributorUpdateDrawer,
   editItem: ItemUpdateDrawer,
-  addCommunityMember: CommunityAddMemberDrawer,
-  addCollectionAccess: CollectionAddAccessDrawer,
-  addItemAccess: ItemAddAccessDrawer,
+  addRoleAccess: RoleGrantAccessDrawer,
 };
 
 export function useDrawerHelper() {

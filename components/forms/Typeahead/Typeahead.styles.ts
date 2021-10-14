@@ -18,6 +18,11 @@ export const Input = styled.input`
   --input-border-radius: ${pxToRem(4)};
   width: 100%;
   ${aBaseInput()}
+
+  [aria-expanded="true"] > & {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 `;
 
 export const Icon = styled(IconFactory)``;
@@ -49,10 +54,13 @@ export const List = styled.ul<ListProps>`
   overflow-y: auto;
   transform: translateY(${pxToRem(41)});
   z-index: var(--z-index-dropdown);
+  opacity: 0;
 
   ${noInsetSupport(`left: 0; right: 0; top: 0;`)}
 
-  ${({ isOpen }) => !isOpen && `opacity: 0;`}
+  &[open] {
+    opacity: 1;
+  }
 `;
 
 interface ListProps {
@@ -67,7 +75,9 @@ export const ListItem = styled.li<ListItemProps>`
   padding-block-end: ${pxToRem(12)};
   ${tTruncate}
 
-  ${({ highlighted }) => highlighted && `background-color: var(--brand20)`}
+  &[aria-selected="true"] {
+    background-color: var(--brand20);
+  }
 `;
 
 interface ListItemProps {

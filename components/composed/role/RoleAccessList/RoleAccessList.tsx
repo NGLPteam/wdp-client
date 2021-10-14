@@ -2,7 +2,7 @@ import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useMaybeFragment, useRouteSlug } from "hooks";
-import { ItemAccessListFragment$key } from "@/relay/ItemAccessListFragment.graphql";
+import { RoleAccessListFragment$key } from "@/relay/RoleAccessListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -11,23 +11,24 @@ import { useTranslation } from "react-i18next";
 import { CellProps } from "react-table";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import {
-  ItemAccessListDataFragment,
-  ItemAccessListDataFragment$key,
-} from "@/relay/ItemAccessListDataFragment.graphql";
+  RoleAccessListDataFragment,
+  RoleAccessListDataFragment$key,
+} from "@/relay/RoleAccessListDataFragment.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ItemAccessList<T extends OperationType>({
+function RoleAccessList<T extends OperationType>({
   data,
   headerStyle,
   hideHeader,
   header = "navLabels.access",
-}: ItemAccessListProps) {
-  const community = useMaybeFragment<ItemAccessListFragment$key>(
+  entityType,
+}: RoleAccessListProps) {
+  const community = useMaybeFragment<RoleAccessListFragment$key>(
     fragment,
     data
   );
-  const roles = useMaybeFragment<ItemAccessListDataFragment$key>(
+  const roles = useMaybeFragment<RoleAccessListDataFragment$key>(
     listDataFragment,
     community?.assignedUsers
   );
@@ -55,24 +56,30 @@ function ItemAccessList<T extends OperationType>({
 
   // TODO: Check allowedActions here to see if the user can add a member
   // Currently there are no permissions around roles
-  const buttons = slug ? (
-    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        drawer="addItemAccess"
-        drawerQuery={{
-          drawerSlug: slug,
-        }}
-        icon="plus"
-      >
-        {t("actions.add.access")}
-      </ButtonControlDrawer>
-    </ButtonControlGroup>
-  ) : null;
+  const buttons =
+    slug && entityType ? (
+      <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+        <ButtonControlDrawer
+          drawer={"addRoleAccess"}
+          drawerQuery={{
+            drawerSlug: slug,
+            drawerEntity: entityType,
+          }}
+          icon="plus"
+        >
+          {t(
+            entityType === "community"
+              ? "actions.add.community.member"
+              : "actions.add.access"
+          )}
+        </ButtonControlDrawer>
+      </ButtonControlGroup>
+    ) : null;
 
   // TODO: We need an authorization check here.
   // There are currently no allowedActions around roles.
   return (
-    <ModelListPage<T, ItemAccessListDataFragment, Node>
+    <ModelListPage<T, RoleAccessListDataFragment, Node>
       modelName="role"
       columns={columns}
       data={roles}
@@ -84,25 +91,26 @@ function ItemAccessList<T extends OperationType>({
   );
 }
 
-interface ItemAccessListProps
+interface RoleAccessListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: ItemAccessListFragment$key | null;
+  data?: RoleAccessListFragment$key | null;
   header?: string;
+  entityType?: "community" | "collection" | "item";
 }
 
-type Node = ItemAccessListDataFragment["edges"][number]["node"];
+type Node = RoleAccessListDataFragment["edges"][number]["node"];
 
 const fragment = graphql`
-  fragment ItemAccessListFragment on Entity {
+  fragment RoleAccessListFragment on Entity {
     allowedActions
     assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
-      ...ItemAccessListDataFragment
+      ...RoleAccessListDataFragment
     }
   }
 `;
 
 const listDataFragment = graphql`
-  fragment ItemAccessListDataFragment on ContextualPermissionConnection {
+  fragment RoleAccessListDataFragment on ContextualPermissionConnection {
     edges {
       node {
         id
@@ -119,4 +127,4 @@ const listDataFragment = graphql`
   }
 `;
 
-export default ItemAccessList;
+export default RoleAccessList;

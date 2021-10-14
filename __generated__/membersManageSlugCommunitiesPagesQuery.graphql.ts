@@ -10,7 +10,7 @@ export type membersManageSlugCommunitiesPagesQueryVariables = {
 };
 export type membersManageSlugCommunitiesPagesQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment" | "CommunityMemberListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment" | "RoleAccessListFragment">;
     } | null;
 };
 export type membersManageSlugCommunitiesPagesQuery = {
@@ -27,7 +27,7 @@ query membersManageSlugCommunitiesPagesQuery(
 ) {
   community(slug: $communitySlug) {
     ...CommunityLayoutQueryFragment
-    ...CommunityMemberListFragment
+    ...RoleAccessListFragment
     id
   }
 }
@@ -39,32 +39,6 @@ fragment CommunityLayoutFragment on Community {
 
 fragment CommunityLayoutQueryFragment on Community {
   ...CommunityLayoutFragment
-}
-
-fragment CommunityMemberListDataFragment on ContextualPermissionConnection {
-  edges {
-    node {
-      id
-      roles {
-        name
-        id
-      }
-      user {
-        name
-        email
-        id
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment CommunityMemberListFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
-    ...CommunityMemberListDataFragment
-  }
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -90,6 +64,32 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment RoleAccessListDataFragment on ContextualPermissionConnection {
+  edges {
+    node {
+      id
+      roles {
+        name
+        id
+      }
+      user {
+        name
+        email
+        id
+      }
+    }
+  }
+  ...ModelListPageFragment
+}
+
+fragment RoleAccessListFragment on Entity {
+  __isEntity: __typename
+  allowedActions
+  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
+    ...RoleAccessListDataFragment
   }
 }
 */
@@ -151,7 +151,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityMemberListFragment"
+            "name": "RoleAccessListFragment"
           }
         ],
         "storageKey": null
@@ -346,14 +346,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "41cc411b55b28fba8ea7f9997c728709",
+    "cacheID": "6b5c7785264e33aa5c63926f58f64f56",
     "id": null,
     "metadata": {},
     "name": "membersManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query membersManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    ...CommunityMemberListFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment CommunityMemberListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        name\n        email\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityMemberListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {\n    ...CommunityMemberListDataFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query membersManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        name\n        email\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {\n    ...RoleAccessListDataFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'da391c071c94b85fd0f4589ffa346799';
+(node as any).hash = 'f7a42b904fedffdb0a85ad7b65bea97c';
 export default node;

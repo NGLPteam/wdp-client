@@ -3,14 +3,15 @@ import { graphql } from "react-relay";
 import type { GetLayout } from "types/page";
 import type { membersManageSlugCommunitiesPagesQuery as Query } from "@/relay/membersManageSlugCommunitiesPagesQuery.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
-import CommunityMemberList from "components/composed/community/CommunityMemberList/CommunityMemberList";
+import RoleAccessList from "components/composed/role/RoleAccessList";
 
 function CommunityDetails({ data }: Props) {
   return (
-    <CommunityMemberList<Query>
+    <RoleAccessList<Query>
       data={data?.community}
       headerStyle="secondary"
       header="navLabels.members"
+      entityType="community"
     />
   );
 }
@@ -39,7 +40,7 @@ const query = graphql`
   ) {
     community(slug: $communitySlug) {
       ...CommunityLayoutQueryFragment
-      ...CommunityMemberListFragment
+      ...RoleAccessListFragment
     }
   }
 `;
