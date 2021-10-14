@@ -4,23 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type permissionsManageSlugUsersPagesQueryVariables = {
+export type communitiesManageSlugUsersPagesQueryVariables = {
     userSlug: string;
 };
-export type permissionsManageSlugUsersPagesQueryResponse = {
+export type communitiesManageSlugUsersPagesQueryResponse = {
     readonly user: {
         readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
     } | null;
 };
-export type permissionsManageSlugUsersPagesQuery = {
-    readonly response: permissionsManageSlugUsersPagesQueryResponse;
-    readonly variables: permissionsManageSlugUsersPagesQueryVariables;
+export type communitiesManageSlugUsersPagesQuery = {
+    readonly response: communitiesManageSlugUsersPagesQueryResponse;
+    readonly variables: communitiesManageSlugUsersPagesQueryVariables;
 };
 
 
 
 /*
-query permissionsManageSlugUsersPagesQuery(
+query communitiesManageSlugUsersPagesQuery(
   $userSlug: Slug!
 ) {
   user(slug: $userSlug) {
@@ -59,7 +59,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "permissionsManageSlugUsersPagesQuery",
+    "name": "communitiesManageSlugUsersPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -85,7 +85,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "permissionsManageSlugUsersPagesQuery",
+    "name": "communitiesManageSlugUsersPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -122,14 +122,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c91aca42fed5d2cc91bb30805071011f",
+    "cacheID": "d9e63a331e13fab23a557e5a38c0c7b4",
     "id": null,
     "metadata": {},
-    "name": "permissionsManageSlugUsersPagesQuery",
+    "name": "communitiesManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query permissionsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'b5d068cb9dea2281f017f9f5f5a18af3';
+(node as any).hash = 'cf131e4d02157ec3b936264229224128';
 export default node;

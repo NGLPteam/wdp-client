@@ -260,6 +260,7 @@
     "title_plural": "titles",
     "navLabels": {
       "details": "Details",
+      "communities": "Communities",
       "collections": "Collections",
       "items": "Items",
       "manage": "Manage",
@@ -272,7 +273,6 @@
       "contributions": "Contributions",
       "rules": "Rules",
       "files": "Files",
-      "permissions": "Permissions",
       "collectionContributions": "Collection Contributions",
       "itemContributions": "Item Contributions"
     },
