@@ -1,65 +1,61 @@
-import React, { Ref } from "react";
+import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
-import QueryWrapper from "components/api/QueryWrapper";
 import Typeahead from "components/forms/Typeahead";
 
-import type { CollectionTypeaheadQuery as Query } from "__generated__/CollectionTypeaheadQuery.graphql";
+import type {
+  CollectionTypeaheadFragment$data,
+  CollectionTypeaheadFragment$key,
+} from "__generated__/CollectionTypeaheadFragment.graphql";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
-  { control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  function getOptions(data: Query["response"]) {
-    const options = data.viewer.collections.nodes.map(
-      (node: CollectionNode) => {
-        return {
-          label: node.title || "",
-          value: node.id,
-        };
-      }
-    );
+  const optionsData = useMaybeFragment(fragment, data);
 
-    return options;
-  }
+  const options = useMemo(() => {
+    return optionsData?.viewer.collections.nodes.map((node: CollectionNode) => {
+      return {
+        label: node.title || "",
+        value: node.id,
+      };
+    });
+  }, [optionsData]);
 
-  return (
+  return options ? (
     <Controller<T>
       name={name}
       control={control}
       render={({ field }) => (
-        <QueryWrapper<Query> query={query}>
-          {({ data }) =>
-            data?.viewer?.collections?.nodes ? (
-              <Typeahead
-                label={label}
-                options={getOptions(data)}
-                disabled={disabled}
-                {...field}
-              />
-            ) : null
-          }
-        </QueryWrapper>
+        <Typeahead
+          label={label}
+          options={options}
+          disabled={disabled}
+          {...field}
+        />
       )}
     />
-  );
+  ) : null;
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+  data?: CollectionTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
 
-type CollectionNode = Query["response"]["viewer"]["collections"]["nodes"][number];
+type CollectionNode = CollectionTypeaheadFragment$data["viewer"]["collections"]["nodes"][number];
 
 export default CollectionTypeahead;
 
 // Currently limited to 50 collections per query
-const query = graphql`
-  query CollectionTypeaheadQuery {
+const fragment = graphql`
+  fragment CollectionTypeaheadFragment on Query {
     viewer {
       collections {
         nodes {
