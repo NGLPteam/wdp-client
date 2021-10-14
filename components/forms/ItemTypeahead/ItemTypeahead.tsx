@@ -1,20 +1,25 @@
-import React, { Ref } from "react";
+import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
-import QueryWrapper from "components/api/QueryWrapper";
 import Typeahead from "components/forms/Typeahead";
 
-import type { ItemTypeaheadQuery as Query } from "__generated__/ItemTypeaheadQuery.graphql";
+import type {
+  ItemTypeaheadFragment$data,
+  ItemTypeaheadFragment$key,
+} from "__generated__/ItemTypeaheadFragment.graphql";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const ItemTypeahead = <T extends FieldValues = FieldValues>(
-  { control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  function getOptions(data: Query["response"]) {
-    const options = data.viewer.items.nodes.map((node: ItemNode) => {
+  const optionsData = useMaybeFragment(fragment, data);
+
+  const options = useMemo(() => {
+    const options = optionsData?.viewer.items.nodes.map((node: ItemNode) => {
       return {
         label: node.title || "",
         value: node.id,
@@ -22,42 +27,37 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
     });
 
     return options;
-  }
+  }, [optionsData]);
 
-  return (
+  return options ? (
     <Controller<T>
       name={name}
       control={control}
       render={({ field }) => (
-        <QueryWrapper<Query> query={query}>
-          {({ data }) =>
-            data?.viewer?.items?.nodes ? (
-              <Typeahead
-                label={label}
-                options={getOptions(data)}
-                disabled={disabled}
-                {...field}
-              />
-            ) : null
-          }
-        </QueryWrapper>
+        <Typeahead
+          label={label}
+          options={options}
+          disabled={disabled}
+          {...field}
+        />
       )}
     />
-  );
+  ) : null;
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+  data?: ItemTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
 
-type ItemNode = Query["response"]["viewer"]["items"]["nodes"][number];
+type ItemNode = ItemTypeaheadFragment$data["viewer"]["items"]["nodes"][number];
 
 export default ItemTypeahead;
 
 // Currently limited to 50 items per query
-const query = graphql`
-  query ItemTypeaheadQuery {
+const fragment = graphql`
+  fragment ItemTypeaheadFragment on Query {
     viewer {
       items {
         nodes {

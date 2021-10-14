@@ -9,8 +9,11 @@ import type {
   UpsertContributionInput,
   ContributionCreateFormMutation,
 } from "@/relay/ContributionCreateFormMutation.graphql";
+import { useMaybeFragment } from "hooks";
+import { ContributionCreateFormFragment$key } from "@/relay/ContributionCreateFormFragment.graphql";
 
 export default function ContributionCreateForm({
+  data,
   contributorId,
   contributorName,
   contributableId,
@@ -19,6 +22,8 @@ export default function ContributionCreateForm({
   onCancel,
   type,
 }: Props) {
+  const formData = useMaybeFragment(fragment, data);
+
   /** Render the form */
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
@@ -43,6 +48,7 @@ export default function ContributionCreateForm({
             name="contributorId"
             label="forms.fields.contributor"
             required
+            data={formData}
           />
         )}
         {contributableId ? (
@@ -65,6 +71,7 @@ export default function ContributionCreateForm({
             name="contributableId"
             label="forms.fields.item"
             required
+            data={formData}
           />
         ) : (
           <Forms.CollectionTypeahead<Fields>
@@ -72,6 +79,7 @@ export default function ContributionCreateForm({
             name="contributableId"
             label="forms.fields.collection"
             required
+            data={formData}
           />
         )}
         <Forms.Input label="forms.fields.role" required {...register("role")} />
@@ -99,6 +107,7 @@ interface Props
     React.ComponentProps<typeof MutationForm>,
     "onSuccess" | "onCancel"
   > {
+  data: ContributionCreateFormFragment$key;
   /** The contributor */
   contributorId?: string;
   contributorName?: string;
@@ -110,6 +119,17 @@ interface Props
 }
 
 type Fields = UpsertContributionInput;
+
+const fragment = graphql`
+  fragment ContributionCreateFormFragment on Query {
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...ItemTypeaheadFragment
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...CollectionTypeaheadFragment
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...ContributorTypeaheadFragment
+  }
+`;
 
 const mutation = graphql`
   mutation ContributionCreateFormMutation($input: UpsertContributionInput!) {
