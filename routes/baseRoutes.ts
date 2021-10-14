@@ -188,9 +188,9 @@ export const baseRoutes: BaseRoute[] = [
             label: "navLabels.details",
           },
           {
-            name: "user.permissions",
-            path: "/users/[slug]/permissions",
-            label: "navLabels.permissions",
+            name: "user.communities",
+            path: "/users/[slug]/communities",
+            label: "navLabels.communities",
           },
           {
             name: "user.collections",
