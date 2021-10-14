@@ -1,5 +1,5 @@
-import TabNav from "./TabNav";
 import { Story } from "@storybook/react";
+import TabNav from "./TabNav";
 type Props = React.ComponentProps<typeof TabNav>;
 
 export default {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Story } from "@storybook/react";
 // import { withNextRouter } from "storybook-addon-next-router";
-import DrawerLink from "./DrawerLink";
 import { ButtonControl } from "components/atomic";
+import DrawerLink from "./DrawerLink";
 
 type Props = React.ComponentProps<typeof DrawerLink>;
 

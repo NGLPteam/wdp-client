@@ -1,9 +1,9 @@
 import React from "react";
 import { Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
-import * as Styled from "./Header.styles";
 import { useTranslation } from "react-i18next";
 import { RouteHelper } from "routes";
+import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 

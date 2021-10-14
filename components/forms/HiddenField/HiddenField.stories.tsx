@@ -1,7 +1,7 @@
-import HiddenField from ".";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
 import { Input, Select, Switch } from "components/forms";
+import HiddenField from ".";
 
 type FieldValues = {
   hidden?: string;

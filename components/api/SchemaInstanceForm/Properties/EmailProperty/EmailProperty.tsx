@@ -3,8 +3,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
 import { Email } from "components/forms/Input";
-import ScalarProperty from "../ScalarProperty";
 import type { EmailPropertyFragment$key } from "@/relay/EmailPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function EmailProperty(props: Props) {
   const field = useFragment<EmailPropertyFragment$key>(fragment, props.field);

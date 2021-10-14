@@ -2,12 +2,12 @@ import React from "react";
 import type { FieldValues } from "react-hook-form";
 import { useUID } from "react-uid";
 import isFunction from "lodash/isFunction";
-import * as Styled from "./BaseInputWrapper.styles";
-import type InputProps from "../inputType";
 import { useTranslation } from "react-i18next";
 
 import Errors from "components/forms/Errors";
 import BaseInputLabel from "components/forms/BaseInputLabel";
+import type InputProps from "../inputType";
+import * as Styled from "./BaseInputWrapper.styles";
 
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,

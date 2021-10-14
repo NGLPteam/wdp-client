@@ -1,7 +1,7 @@
 import { Column } from "react-table";
-import { UpdatableNode, PartialColumnish } from "./types";
 import { formatDate } from "helpers";
 import { useTranslation } from "react-i18next";
+import { UpdatableNode, PartialColumnish } from "./types";
 
 const UpdatedAtColumn = <NodeType extends UpdatableNode>(
   props: PartialColumnish<NodeType> = {}

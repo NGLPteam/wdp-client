@@ -1,5 +1,5 @@
-import Breadcrumbs from "./Breadcrumbs";
 import { Story } from "@storybook/react";
+import Breadcrumbs from "./Breadcrumbs";
 // import { withNextRouter } from "storybook-addon-next-router";
 
 type Props = React.ComponentProps<typeof Breadcrumbs>;

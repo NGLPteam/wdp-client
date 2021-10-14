@@ -1,5 +1,5 @@
-import Props from "./iconType";
 import { encodeSvg } from "helpers";
+import Props from "./iconType";
 
 export function encodedIconClose(props: Props): string {
   return encodeSvg(<IconClose {...props} />);

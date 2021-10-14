@@ -5,9 +5,9 @@ import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
 
 import ErrorPage from "next/error";
-import CollectionLayout from "../CollectionLayout";
 import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
 import { graphql } from "react-relay";
+import CollectionLayout from "../CollectionLayout";
 
 function CollectionLayoutQuery<
   Query extends CollectionQuery,

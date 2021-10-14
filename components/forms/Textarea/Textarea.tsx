@@ -1,8 +1,7 @@
 import React, { Ref, forwardRef } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
-import * as Styled from "./Textarea.styles";
-
 import type InputProps from "../inputType";
+import * as Styled from "./Textarea.styles";
 
 const Textarea = forwardRef(
   (

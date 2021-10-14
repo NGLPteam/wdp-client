@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Image } from "components/atomic";
+import { IconFactory } from "components/factories";
 import type { State as UploadState } from "./types";
 import * as Styled from "./FileUpload.styles";
-import { IconFactory } from "components/factories";
 
 const WIDTH = 150;
 const HEIGHT = 150;

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
+import { UrlObject } from "url";
 import { graphql } from "relay-runtime";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 import { RouteHelper } from "routes";
-import { UrlObject } from "url";
 import { useMaybeFragment } from "hooks";
 
 declare type Url = string | UrlObject;

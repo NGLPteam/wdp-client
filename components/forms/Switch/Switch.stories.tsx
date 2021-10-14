@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import Switch from "./Switch";
 import NullForm from "components/api/NullForm";
+import Switch from "./Switch";
 
 type FieldValues = {
   example?: string;

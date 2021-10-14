@@ -1,5 +1,5 @@
-import { NextPage } from "next";
 import { ComponentType, ReactNode } from "react";
+import { NextPage } from "next";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
 export interface GetLayoutProps<P = Record<string, unknown>> {

@@ -3,8 +3,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
 import Input from "components/forms/Input";
-import ScalarProperty from "../ScalarProperty";
 import type { FloatPropertyFragment$key } from "@/relay/FloatPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function FloatProperty(props: Props) {
   const field = useFragment<FloatPropertyFragment$key>(fragment, props.field);

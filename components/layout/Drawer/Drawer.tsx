@@ -3,11 +3,11 @@ import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import { DialogProps } from "reakit/Dialog";
 import { ButtonControl } from "components/atomic/buttons/";
-import * as Styled from "./Drawer.styles";
 import { useQueryStateContext } from "hooks";
 import LoadingCircle from "components/atomic/loading/LoadingCircle";
 
 import type { BaseRoute } from "routes/NextNamedRoutes";
+import * as Styled from "./Drawer.styles";
 
 /**
  * A drawer for complex actions, forms.

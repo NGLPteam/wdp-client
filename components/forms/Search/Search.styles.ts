@@ -5,8 +5,8 @@ import { pxToRem } from "theme/mixins/functions";
 import { aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 
-import BaseSearchInput from "./BaseSearchInput";
 import { noInsetSupport } from "theme/mixins/base";
+import BaseSearchInput from "./BaseSearchInput";
 type Props = React.ComponentProps<typeof BaseSearchInput>;
 
 export const SearchInput = styled(BaseSearchInput)<Props>`

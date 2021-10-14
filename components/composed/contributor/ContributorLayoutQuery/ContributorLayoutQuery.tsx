@@ -6,8 +6,8 @@ import { HasFragment } from "types/graphql-helpers";
 import type { ContributorLayoutQueryFragment$key } from "@/relay/ContributorLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
-import ContributorLayout from "../ContributorLayout";
 import { graphql } from "react-relay";
+import ContributorLayout from "../ContributorLayout";
 
 function ContributorLayoutQuery<
   Query extends ContributorQuery,

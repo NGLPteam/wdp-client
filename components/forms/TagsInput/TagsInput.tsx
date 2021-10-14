@@ -2,8 +2,8 @@ import React, { Ref, forwardRef, useState, useEffect } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
 
 import type InputProps from "../inputType";
-import TagsInputAdd from "./TagsInputAdd";
 import BaseArrayList from "../BaseArrayList";
+import TagsInputAdd from "./TagsInputAdd";
 
 /**
  * Add and remove tags

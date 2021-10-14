@@ -1,6 +1,6 @@
 import { Column } from "react-table";
-import { PartialColumnish, SchemaVersionableNode } from "./types";
 import { useTranslation } from "react-i18next";
+import { PartialColumnish, SchemaVersionableNode } from "./types";
 
 const UpdatedAtColumn = <NodeType extends SchemaVersionableNode>(
   props: PartialColumnish<NodeType> = {}

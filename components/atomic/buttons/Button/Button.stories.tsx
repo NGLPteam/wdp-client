@@ -1,6 +1,6 @@
-import Button from ".";
 import { Story } from "@storybook/react";
 import { withDesign } from "storybook-addon-designs";
+import Button from ".";
 type Props = React.ComponentProps<typeof Button>;
 
 export default {

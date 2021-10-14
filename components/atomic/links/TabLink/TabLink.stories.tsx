@@ -1,5 +1,5 @@
-import TabLink from "./TabLink";
 import { Story } from "@storybook/react";
+import TabLink from "./TabLink";
 type Props = React.ComponentProps<typeof TabLink>;
 
 export default {

@@ -1,7 +1,7 @@
-import FileUpload, { Props } from "./FileUpload";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
 import type { UploadedFileInput } from "types/graphql-schema";
+import FileUpload, { Props } from "./FileUpload";
 
 type FormValues = {
   example?: UploadedFileInput;

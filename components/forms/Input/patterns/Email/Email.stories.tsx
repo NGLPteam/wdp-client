@@ -1,6 +1,6 @@
-import Email from "./Email";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
+import Email from "./Email";
 
 type FieldValues = {
   example?: string;

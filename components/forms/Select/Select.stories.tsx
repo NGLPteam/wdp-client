@@ -1,6 +1,6 @@
-import Select from ".";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
+import Select from ".";
 
 type FieldValues = {
   example?: string;

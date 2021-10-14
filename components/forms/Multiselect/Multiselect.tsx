@@ -1,11 +1,11 @@
 import React, { Ref, forwardRef, useState, useEffect } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
+import type InputProps from "../inputType";
+import BaseArrayList from "../BaseArrayList";
 import * as Styled from "./Multiselect.styles";
 
-import type InputProps from "../inputType";
 import HiddenMultiselect from "./HiddenMultiselect";
-import BaseArrayList from "../BaseArrayList";
 
 /**
  * A typeahead multi select.

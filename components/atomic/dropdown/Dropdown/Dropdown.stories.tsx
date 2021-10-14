@@ -1,7 +1,7 @@
-import Dropdown, { BaseDisclosureProps } from "./Dropdown";
 import { Story } from "@storybook/react";
 import { ButtonControl } from "components/atomic/buttons";
 import { IconFactory } from "components/factories";
+import Dropdown, { BaseDisclosureProps } from "./Dropdown";
 
 type Props = React.ComponentProps<typeof Dropdown>;
 

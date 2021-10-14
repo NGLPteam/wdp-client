@@ -1,6 +1,6 @@
-import Authorize from "./Authorize";
 import { Story } from "@storybook/react";
 import { ViewerContext } from "contexts";
+import Authorize from "./Authorize";
 
 type Props = React.ComponentProps<typeof Authorize>;
 

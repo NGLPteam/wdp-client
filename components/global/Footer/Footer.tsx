@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import appData from "fixtures/app.data";
 import { LogoPlaceholder } from "components/global";
-import * as Styled from "./Footer.styles";
 import { renderNavLink } from "helpers";
+import * as Styled from "./Footer.styles";
 
 function Footer() {
   const { footerData } = appData;

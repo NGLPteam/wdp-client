@@ -1,7 +1,7 @@
-import ButtonControl from "./ButtonControl";
 import { Story } from "@storybook/react";
 import { ICON_KEYS } from "components/factories/IconFactory";
 import { withDesign } from "storybook-addon-designs";
+import ButtonControl from "./ButtonControl";
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 
 export default {

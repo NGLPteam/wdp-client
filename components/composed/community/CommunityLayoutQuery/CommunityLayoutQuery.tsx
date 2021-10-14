@@ -6,8 +6,8 @@ import { HasFragment } from "types/graphql-helpers";
 import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
-import CommunityLayout from "../CommunityLayout";
 import { graphql } from "react-relay";
+import CommunityLayout from "../CommunityLayout";
 
 function CommunityLayoutQuery<
   Query extends CommunityQuery,
