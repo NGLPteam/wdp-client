@@ -46,7 +46,8 @@
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
-      "editItem.title": "Edit Item"
+      "editItem.title": "Edit Item",
+      "addLink.title": "Add Link"
     },
     "actions": {
       "add.access": "Add Access",

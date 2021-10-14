@@ -7,6 +7,7 @@ import { useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 import type {
   EntityLinksListFragment,
@@ -66,6 +67,14 @@ function EntityLinksList<T extends OperationType>({
     }),
   ];
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer drawer="addPerson" icon="plus">
+        {t("actions.create.link")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return (
     <ModelListPage<T, EntityLinksListFragment, EntityLinksNode>
       modelName={"link"}
@@ -74,6 +83,7 @@ function EntityLinksList<T extends OperationType>({
       data={collectionContributions}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      buttons={buttons}
     />
   );
 }
