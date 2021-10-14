@@ -12,8 +12,8 @@ import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
+import { getContributorDisplayName } from "../ContributorDisplayName";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

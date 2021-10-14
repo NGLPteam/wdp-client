@@ -4,8 +4,8 @@ import { useFragment } from "relay-hooks";
 import { Controller } from "react-hook-form";
 
 import TagsInput from "components/forms/TagsInput";
-import ScalarProperty from "../ScalarProperty";
 import type { TagsPropertyFragment$key } from "@/relay/TagsPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 /**
  * @todo This needs to be an actual tags input—allowing a user to input an arbitrary

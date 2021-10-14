@@ -1,6 +1,6 @@
-import ProviderBar from "./";
 import { Story } from "@storybook/react";
 import { ViewerContext } from "contexts";
+import ProviderBar from "./";
 type Props = React.ComponentProps<typeof ProviderBar>;
 
 export default {

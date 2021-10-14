@@ -1,7 +1,7 @@
 import React from "react";
 import { Column } from "react-table";
-import { PartialColumnish, Node } from "./types";
 import get from "lodash/get";
+import { PartialColumnish, Node } from "./types";
 
 type Props<T extends Node> = PartialColumnish<T> & {
   Header: string | React.ReactNode;

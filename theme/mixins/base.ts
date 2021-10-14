@@ -1,6 +1,6 @@
 import { respondBase, fluidScaleBase } from "@castiron/style-mixins";
-import { breakpoints } from "../base/variables";
 import get from "lodash/get";
+import { breakpoints } from "../base/variables";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CssContent = string | any; // TODO: Get the return type of styled-compoonents css function

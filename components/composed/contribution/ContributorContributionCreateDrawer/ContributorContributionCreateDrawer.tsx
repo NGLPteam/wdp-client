@@ -5,9 +5,8 @@ import { DialogProps } from "reakit/Dialog";
 import { useDrawerHelper } from "hooks";
 import { Drawer } from "components/layout";
 import { QueryWrapper } from "components/api";
-import ContributionCreateForm from "../ContributionCreateForm";
-
 import type { ContributorContributionCreateDrawerQuery as Query } from "__generated__/ContributorContributionCreateDrawerQuery.graphql";
+import ContributionCreateForm from "../ContributionCreateForm";
 
 export default function ContributorContributionCreateDrawer({
   dialog,

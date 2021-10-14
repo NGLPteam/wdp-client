@@ -8,12 +8,11 @@ import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
-import { getContributorDisplayName } from "../ContributorDisplayName";
-
 import type {
   ContributorUpdateDrawerQuery as Query,
   ContributorUpdateDrawerQueryResponse as Response,
 } from "__generated__/ContributorUpdateDrawerQuery.graphql";
+import { getContributorDisplayName } from "../ContributorDisplayName";
 
 export default function ContributorUpdateDrawer({
   dialog,

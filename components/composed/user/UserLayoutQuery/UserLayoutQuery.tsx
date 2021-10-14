@@ -6,8 +6,8 @@ import { HasFragment } from "types/graphql-helpers";
 import type { UserLayoutQueryFragment$key } from "@/relay/UserLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
-import UserLayout from "../UserLayout";
 import { graphql } from "react-relay";
+import UserLayout from "../UserLayout";
 
 function UserLayoutQuery<
   Query extends UserQuery,

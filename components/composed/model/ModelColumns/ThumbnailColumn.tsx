@@ -1,8 +1,8 @@
 import React from "react";
 import { Column } from "react-table";
-import { PartialColumnish, Node } from "./types";
 import { Image } from "components/atomic";
 import { useTranslation } from "react-i18next";
+import { PartialColumnish, Node } from "./types";
 
 export interface Png {
   alt: string;

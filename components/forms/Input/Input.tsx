@@ -1,9 +1,8 @@
 import React, { Ref, forwardRef } from "react";
 import type { FieldValues } from "react-hook-form";
 import BaseInputWrapper from "../BaseInputWrapper";
-import * as Styled from "./Input.styles";
-
 import type InputProps from "../inputType";
+import * as Styled from "./Input.styles";
 
 const Input = forwardRef(
   <T extends FieldValues = FieldValues>(

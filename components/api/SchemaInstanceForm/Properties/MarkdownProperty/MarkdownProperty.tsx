@@ -3,8 +3,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
 import Textarea from "components/forms/Textarea";
-import ScalarProperty from "../ScalarProperty";
 import type { MarkdownPropertyFragment$key } from "@/relay/MarkdownPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 /**
  * @todo This should be an actual markdown editor. I don't believe that we've

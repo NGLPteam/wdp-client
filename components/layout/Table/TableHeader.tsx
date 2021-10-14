@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import TableHeaderRow from "./TableHeaderRow";
-import * as Styled from "./Table.styles";
-import TableSortIcon from "./TableSortIcon";
 import { Checkbox } from "components/forms";
 import { HeaderGroup, ColumnInstance } from "react-table";
 import { CheckboxProps } from "types/form-fields";
+import TableHeaderRow from "./TableHeaderRow";
+import * as Styled from "./Table.styles";
+import TableSortIcon from "./TableSortIcon";
 import useTableContext from "./hooks/useTableContext";
 
 function TableHeader<T extends Record<string, unknown>>({

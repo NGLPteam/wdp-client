@@ -1,6 +1,6 @@
+import isArray from "lodash/isArray";
 import { RouteHelper } from "./RouteHelper";
 import { baseRoutes } from "./baseRoutes";
-import isArray from "lodash/isArray";
 
 function routeQueryArrayToString(item?: string | string[]): string {
   if (!item) return "";

@@ -1,6 +1,6 @@
-import Footer from "./";
 import { Story } from "@storybook/react";
 import { ViewerContext } from "contexts";
+import Footer from "./";
 type Props = React.ComponentProps<typeof Footer>;
 
 export default {

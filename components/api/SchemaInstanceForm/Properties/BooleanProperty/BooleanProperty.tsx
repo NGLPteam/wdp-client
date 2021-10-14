@@ -3,8 +3,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
 import Switch from "components/forms/Switch";
-import ScalarProperty from "../ScalarProperty";
 import type { BooleanPropertyFragment$key } from "@/relay/BooleanPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 /**
  * A simple boolean switch.

@@ -7,17 +7,16 @@ import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
 import { LogoPlaceholder } from "components/global";
 
-import HeaderNavLinks from "./HeaderNavLinks";
-import * as Styled from "./Header.styles";
-import HeaderAccount from "./HeaderAccount";
-
 import MobileMenu, { MobileMenuList } from "components/layout/MobileMenu";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
-import ProviderBar from "../ProviderBar";
-import GlobalSearch from "../GlobalSearch";
 import { renderNavLink } from "helpers";
 import SignIn from "components/scaffolding/Auth/SignIn";
 import SignOut from "components/scaffolding/Auth/SignOut";
+import GlobalSearch from "../GlobalSearch";
+import ProviderBar from "../ProviderBar";
+import HeaderAccount from "./HeaderAccount";
+import * as Styled from "./Header.styles";
+import HeaderNavLinks from "./HeaderNavLinks";
 
 function Header() {
   const { t } = useTranslation();

@@ -1,8 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
-import * as Styled from "./Switch.styles";
-
 import type InputProps from "../inputType";
+import * as Styled from "./Switch.styles";
 
 const Switch = forwardRef(
   (

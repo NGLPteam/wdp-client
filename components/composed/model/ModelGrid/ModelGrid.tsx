@@ -1,11 +1,10 @@
 import React from "react";
 import Grid from "components/layout/Grid/Grid";
-import ModelGridItem from "./ModelGridItem";
-
 import type {
   UseTableInstanceProps,
   UseRowSelectInstanceProps,
 } from "react-table";
+import ModelGridItem from "./ModelGridItem";
 
 type ModelGridProps<U extends Record<string, unknown>> = Pick<
   UseTableInstanceProps<U>,

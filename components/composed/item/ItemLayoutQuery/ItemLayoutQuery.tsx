@@ -6,8 +6,8 @@ import { HasFragment } from "types/graphql-helpers";
 import type { ItemLayoutQueryFragment$key } from "@/relay/ItemLayoutQueryFragment.graphql";
 
 import ErrorPage from "next/error";
-import ItemLayout from "../ItemLayout";
 import { graphql } from "react-relay";
+import ItemLayout from "../ItemLayout";
 
 function ItemLayoutQuery<
   Query extends ItemQuery,

@@ -1,6 +1,6 @@
-import Header from "./";
 import { Story } from "@storybook/react";
 import { ViewerContext } from "contexts";
+import Header from "./";
 type Props = React.ComponentProps<typeof Header>;
 
 export default {

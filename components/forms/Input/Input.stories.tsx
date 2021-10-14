@@ -1,6 +1,6 @@
-import Input from ".";
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
+import Input from ".";
 
 type FieldValues = {
   example?: string;

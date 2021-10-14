@@ -1,6 +1,6 @@
 import React from "react";
-import { graphql } from "react-relay";
 import type { ReactNode } from "react";
+import { graphql } from "react-relay";
 import startCase from "lodash/startCase";
 import { useTranslation } from "react-i18next";
 import { Connectionish } from "types/graphql-helpers";

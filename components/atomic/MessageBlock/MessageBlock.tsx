@@ -1,7 +1,7 @@
 import React from "react";
+import { UrlObject } from "url";
 import Link from "next/link";
 import { Button } from "components/atomic";
-import { UrlObject } from "url";
 import { IconFactory } from "components/factories";
 import * as Styled from "./MessageBlock.styles";
 declare type Url = string | UrlObject;

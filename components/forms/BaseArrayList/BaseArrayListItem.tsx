@@ -1,5 +1,5 @@
-import { IconFactory } from "components/factories";
 import React, { forwardRef, Ref } from "react";
+import { IconFactory } from "components/factories";
 import * as Styled from "./BaseArrayList.styles";
 
 const BaseArrayListItem = forwardRef(

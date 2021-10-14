@@ -1,5 +1,5 @@
-import * as Icons from "components/svgs/icons";
 import React from "react";
+import * as Icons from "components/svgs/icons";
 
 export const ICON_MAP = {
   arrow: Icons.Arrow,

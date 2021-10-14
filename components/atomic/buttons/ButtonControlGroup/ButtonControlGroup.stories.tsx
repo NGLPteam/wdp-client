@@ -1,4 +1,3 @@
-import ButtonControlGroup from "./ButtonControlGroup";
 import ButtonControl, {
   ButtonControlDrawer,
   ButtonControlConfirm,
@@ -6,6 +5,7 @@ import ButtonControl, {
 import { Story } from "@storybook/react";
 import { breakpoints } from "theme/base/variables";
 import i18next from "i18next";
+import ButtonControlGroup from "./ButtonControlGroup";
 
 type Props = React.ComponentProps<typeof ButtonControlGroup>;
 

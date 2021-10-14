@@ -3,8 +3,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
 import { DatePicker } from "components/forms/Input";
-import ScalarProperty from "../ScalarProperty";
 import type { DatePropertyFragment$key } from "@/relay/DatePropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function DateProperty(props: Props) {
   const field = useFragment<DatePropertyFragment$key>(fragment, props.field);

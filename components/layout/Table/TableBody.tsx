@@ -1,10 +1,10 @@
 import React from "react";
-import * as Styled from "./Table.styles";
-import TableRow from "./TableRow";
 import { Checkbox } from "components/forms";
 import type { Row, Cell } from "react-table";
-import useTableContext from "./hooks/useTableContext";
 import times from "lodash/times";
+import * as Styled from "./Table.styles";
+import TableRow from "./TableRow";
+import useTableContext from "./hooks/useTableContext";
 
 function TableBody<T extends Record<string, unknown>>({
   loading = false,

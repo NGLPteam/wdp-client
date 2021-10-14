@@ -2,6 +2,7 @@
 // --------------------
 // Trying out HSL values for NGLP - these can easily be reverted back to HEX
 import { css } from "styled-components";
+import { fluidScale } from "theme/mixins/base";
 import { pxToRem } from "../mixins/functions";
 import {
   transition,
@@ -10,7 +11,6 @@ import {
   setZIndexVars,
 } from "../base/variables";
 import { hexToHSLA } from "../mixins/colors";
-import { fluidScale } from "theme/mixins/base";
 
 const { duration, timing } = transition.colorMode;
 

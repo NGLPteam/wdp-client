@@ -1,8 +1,8 @@
-import Multiselect from ".";
 import { Story } from "@storybook/react";
 import { Controller } from "react-hook-form";
 import NullForm from "components/api/NullForm";
 import Input from "../Input";
+import Multiselect from ".";
 
 type FieldValues = {
   example?: string[];
