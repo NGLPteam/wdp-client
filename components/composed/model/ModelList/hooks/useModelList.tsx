@@ -49,8 +49,9 @@ function useModelList<
   if (selectable) tableHooks.push(useRowSelect);
 
   // Setup callbacks
+  // If no slug exists, use the model's id
   const getRowId = useCallback((row) => {
-    return row?.slug;
+    return row?.slug || row?.id;
   }, []);
 
   // Setup initial order
