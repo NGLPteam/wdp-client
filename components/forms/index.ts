@@ -17,3 +17,4 @@ export { default as ItemTypeahead } from "./ItemTypeahead";
 export { default as SchemaSelector } from "./SchemaSelector";
 export { default as UserTypeahead } from "./UserTypeahead";
 export { default as RoleSelect } from "./RoleSelect";
+export { default as CommunitySelect } from "./CommunitySelect";

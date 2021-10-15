@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useRouteSlug } from "hooks";
 import {
   UserCollectionsListFragment,
   UserCollectionsListFragment$data,
@@ -10,7 +10,11 @@ import {
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { NamedLink } from "components/atomic";
+import {
+  ButtonControlDrawer,
+  ButtonControlGroup,
+  NamedLink,
+} from "components/atomic";
 import type { CellProps } from "react-table";
 
 const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
@@ -20,6 +24,8 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   );
 
   const { t } = useTranslation();
+
+  const slug = useRouteSlug();
 
   const columns = [
     ModelColumns.ThumbnailColumn<Node>({
@@ -52,13 +58,27 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
     }),
   ];
 
+  const buttons = slug && (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addUserCollectionAccess"
+        drawerQuery={{ drawerSlug: slug }}
+        icon="plus"
+      >
+        {t("actions.add.collection")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return communities ? (
     <ModelListPage<T, UserCollectionsListFragment, Node>
       modelName="collection"
       columns={columns}
       data={communities}
       headerStyle="secondary"
+      header="Managed Collections"
       disableSortBy
+      buttons={buttons}
     />
   ) : null;
 };

@@ -24,13 +24,10 @@ function RoleAccessList<T extends OperationType>({
   header = "navLabels.access",
   entityType,
 }: RoleAccessListProps) {
-  const community = useMaybeFragment<RoleAccessListFragment$key>(
-    fragment,
-    data
-  );
+  const entity = useMaybeFragment<RoleAccessListFragment$key>(fragment, data);
   const roles = useMaybeFragment<RoleAccessListDataFragment$key>(
     listDataFragment,
-    community?.assignedUsers
+    entity?.assignedUsers
   );
 
   const slug = useRouteSlug();
@@ -54,8 +51,6 @@ function RoleAccessList<T extends OperationType>({
     }),
   ];
 
-  // TODO: Check allowedActions here to see if the user can add a member
-  // Currently there are no permissions around roles
   const buttons =
     slug && entityType ? (
       <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
@@ -66,18 +61,24 @@ function RoleAccessList<T extends OperationType>({
             drawerEntity: entityType,
           }}
           icon="plus"
+          actions={
+            entityType === "community"
+              ? "communities.manage_access"
+              : entityType === "collection"
+              ? "collections.manage_access"
+              : "items.manage_access"
+          }
+          allowedActions={entity?.allowedActions}
         >
           {t(
             entityType === "community"
-              ? "actions.add.community.member"
+              ? "actions.add.community_member"
               : "actions.add.access"
           )}
         </ButtonControlDrawer>
       </ButtonControlGroup>
     ) : null;
 
-  // TODO: We need an authorization check here.
-  // There are currently no allowedActions around roles.
   return (
     <ModelListPage<T, RoleAccessListDataFragment, Node>
       modelName="role"
