@@ -3,13 +3,23 @@ import { graphql } from "react-relay";
 import type { communitiesManageSlugUsersPagesQuery as Query } from "@/relay/communitiesManageSlugUsersPagesQuery.graphql";
 import type { GetLayout } from "types/page";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
+import UserCommunitiesList from "components/composed/user/UserCommunitiesList";
 
-function UserCommunities({ data: dataIgnored }: Props) {
-  return <div>User Communities</div>;
+function UserCommunities({ data }: Props) {
+  return (
+    <UserCommunitiesList<Query> data={data?.user?.communityAccessGrants} />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <UserLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+  return (
+    <UserLayoutQuery<Query, Props>
+      showSidebar
+      query={query}
+      {...props}
+      useRouteHeader={false}
+    />
+  );
 };
 UserCommunities.getLayout = getLayout;
 
@@ -20,9 +30,16 @@ type Props = {
 };
 
 const query = graphql`
-  query communitiesManageSlugUsersPagesQuery($userSlug: Slug!) {
+  query communitiesManageSlugUsersPagesQuery(
+    $userSlug: Slug!
+    $order: SimpleOrder!
+    $page: Int!
+  ) {
     user(slug: $userSlug) {
       ...UserLayoutQueryFragment
+      communityAccessGrants(order: $order, page: $page, perPage: 20) {
+        ...UserCommunitiesListFragment
+      }
     }
   }
 `;
