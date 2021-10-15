@@ -2,23 +2,60 @@ import * as React from "react";
 import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import CommunityCreateForm from "components/composed/community/CommunityCreateForm";
+import EntityLinksAddForm from "components/composed/links/EntityLinksAddForm";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
 
-export default function EntityLinkAddDrawer({
+import type { EntityLinksAddDrawerQuery as Query } from "__generated__/EntityLinksAddDrawerQuery.graphql";
+
+export default function EntityLinksAddDrawer({
   dialog,
+  params,
 }: {
   dialog: DialogProps;
+  params: Record<string, string>;
 }) {
   const { t } = useTranslation();
 
+  const { drawerSlug } = params;
+
   return (
-    <Drawer
-      label={t("actions.create.link")}
-      header={t("drawers.addLink.title")}
-      dialog={dialog}
-      hideOnClickOutside={false}
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ entitySlug: drawerSlug }}
     >
-      <CommunityCreateForm onSuccess={dialog.hide} />
-    </Drawer>
+      {({ data }) => {
+        const entity = data ? data.item ?? data.collection : undefined;
+        return (
+          <Drawer
+            label={t("actions.create.link")}
+            header={entity?.title || t("drawers.addLink.title")}
+            dialog={dialog}
+            hideOnClickOutside={false}
+          >
+            {entity && (
+              <EntityLinksAddForm
+                data={entity}
+                onSuccess={dialog.hide}
+                onCancel={dialog.hide}
+              />
+            )}
+          </Drawer>
+        );
+      }}
+    </QueryWrapper>
   );
 }
+
+const query = graphql`
+  query EntityLinksAddDrawerQuery($entitySlug: Slug!) {
+    item(slug: $entitySlug) {
+      title
+      ...EntityLinksAddFormFragment
+    }
+    collection(slug: $entitySlug) {
+      title
+      ...EntityLinksAddFormFragment
+    }
+  }
+`;

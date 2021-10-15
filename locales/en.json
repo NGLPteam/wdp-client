@@ -122,6 +122,8 @@
         "location": "Location",
         "url": "URL",
         "user": "User"
+        "target": "Collection or Item",
+        "linktype": "Link Type"
       },
       "tags": {
         "add": "Add tag",
@@ -214,6 +216,12 @@
       "role": {
         "create": {
           "success": "Role created."
+        }
+      },
+      "link": {
+        "add": {
+          "success": "Link added.",
+          "failure": "Link could not be added."
         }
       }
     },

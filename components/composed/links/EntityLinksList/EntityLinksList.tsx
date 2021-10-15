@@ -7,14 +7,18 @@ import { useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import {
+  ButtonControlDrawer,
+  ButtonControlGroup,
+  NamedLink,
+} from "components/atomic";
 
 import type {
   EntityLinksListFragment,
   EntityLinksListFragment$key,
 } from "@/relay/EntityLinksListFragment.graphql";
 import { CellProps } from "react-table";
-import { NamedLink } from "components/atomic";
+
 import { capitalize } from "lodash";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -26,7 +30,7 @@ function EntityLinksList<T extends OperationType>({
   const { t } = useTranslation();
 
   /* eslint-disable max-len */
-  const collectionContributions = useMaybeFragment<EntityLinksListFragment$key>(
+  const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
     data
   );
@@ -69,7 +73,11 @@ function EntityLinksList<T extends OperationType>({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer drawer="addPerson" icon="plus">
+      <ButtonControlDrawer
+        drawer="addLink"
+        drawerQuery={{ drawerSlug: sourceEntity.slug ? sourceEntity.slug : "" }}
+        icon="plus"
+      >
         {t("actions.create.link")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
@@ -80,7 +88,7 @@ function EntityLinksList<T extends OperationType>({
       modelName={"link"}
       columns={columns}
       actions={{}}
-      data={collectionContributions}
+      data={sourceEntity?.links}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       buttons={buttons}
@@ -90,37 +98,71 @@ function EntityLinksList<T extends OperationType>({
 
 interface EntityLinksListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: EntityLinksListFragment$key;
+  data: EntityLinksListFragment$key | null;
 }
 
-type EntityLinksNode = EntityLinksListFragment["nodes"][number];
+type EntityLinksNode = EntityLinksListFragment["links"]["nodes"][number];
 
 const fragment = graphql`
-  fragment EntityLinksListFragment on EntityLinkConnection {
-    nodes {
-      id
+  fragment EntityLinksListFragment on AnyEntity {
+    ... on Item {
       slug
-      operator
-      target {
-        ... on Item {
+      links {
+        nodes {
+          id
           slug
-          title
-          schemaDefinition {
-            name
-            kind
+          operator
+          target {
+            ... on Item {
+              slug
+              title
+              schemaDefinition {
+                name
+                kind
+              }
+            }
+            ... on Collection {
+              slug
+              title
+              schemaDefinition {
+                name
+                kind
+              }
+            }
           }
         }
-        ... on Collection {
-          slug
-          title
-          schemaDefinition {
-            name
-            kind
-          }
-        }
+        ...ModelListPageFragment
       }
     }
-    ...ModelListPageFragment
+    ... on Collection {
+      slug
+      links {
+        nodes {
+          id
+          slug
+          operator
+          target {
+            ... on Item {
+              slug
+              title
+              schemaDefinition {
+                name
+                kind
+              }
+            }
+            ... on Collection {
+              slug
+              title
+              schemaDefinition {
+                name
+                kind
+              }
+            }
+          }
+        }
+        ...ModelListPageFragment
+      }
+    }
   }
 `;
 

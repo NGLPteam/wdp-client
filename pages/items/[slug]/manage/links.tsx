@@ -7,9 +7,7 @@ import EntityLinksList from "components/composed/links/EntityLinksList";
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 
 function ManageLinks({ data }: Props) {
-  return (
-    <EntityLinksList<Query> data={data?.item?.links} headerStyle="secondary" />
-  );
+  return <EntityLinksList<Query> data={data?.item} headerStyle="secondary" />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -31,12 +29,10 @@ type Props = {
 };
 
 const query = graphql`
-  query linksManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
+  query linksManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
-      links(page: $page, perPage: 20) {
-        ...EntityLinksListFragment
-      }
+      ...EntityLinksListFragment
     }
   }
 `;

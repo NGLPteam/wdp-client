@@ -1,9 +1,8 @@
 import React from "react";
-
-import { graphql } from "react-relay";
-
+import { graphql, useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
+  useToVariables,
   Forms,
 } from "components/api/MutationForm";
 
@@ -11,54 +10,84 @@ import type {
   EntityLinksAddFormMutation,
   LinkEntityInput,
 } from "@/relay/EntityLinksAddFormMutation.graphql";
+import type { EntityLinksAddFormFragment$key } from "@/relay/EntityLinksAddFormFragment.graphql";
 
-export default function EntityLinksAddForm({ onSuccess }: Props) {
+export default function EntityLinksAddForm({
+  data,
+  onSuccess,
+  onCancel,
+}: Props) {
+  const sourceEntity = useFragment<EntityLinksAddFormFragment$key>(
+    fragment,
+    data
+  );
+
+  const toVariables = useToVariables<EntityLinksAddFormMutation, Fields>(
+    (data) => ({ input: { ...data, sourceId: sourceEntity.entityId || "" } }),
+    []
+  );
+
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+    ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.targetId" {...register("targetId")} />
-        <Forms.Select />
+        <Forms.ItemTypeahead<Fields>
+          control={control}
+          name="targetId"
+          label="forms.fields.target"
+        />
+        <Forms.Select
+          label="forms.fields.linktype"
+          options={[
+            { value: "CONTAINS", label: "contains" },
+            { value: "REFERENCES", label: "references" },
+          ]}
+          {...register("operator")}
+        />
       </Forms.Grid>
     ),
     []
   );
 
-  return null;
-  // <MutationForm<EntityLinksAddFormMutation, Fields>
-  //   mutation={mutation}
-  //   onSuccess={onSuccess}
-  //   successNotification="forms.community.create.success"
-  //   name="createCommunity"
-  //   refetchTags={["communities"]}
-  // >
-  //   {renderForm}
-  // </MutationForm>
+  return (
+    <MutationForm<EntityLinksAddFormMutation, Fields>
+      mutation={mutation}
+      onSuccess={onSuccess}
+      onCancel={onCancel}
+      successNotification="forms.link.add.success"
+      failureNotification="forms.link.add.failure"
+      name="linkEntity"
+      refetchTags={["nodes"]}
+      toVariables={toVariables}
+    >
+      {renderForm}
+    </MutationForm>
+  );
 }
 
-type Props = Pick<React.ComponentProps<typeof MutationForm>, "onSuccess">;
+type Props = Pick<
+  React.ComponentProps<typeof MutationForm>,
+  "onSuccess" | "onCancel"
+> & { data: EntityLinksAddFormFragment$key };
 
 type Fields = Omit<LinkEntityInput, "clientMutationId">;
+
+const fragment = graphql`
+  fragment EntityLinksAddFormFragment on AnyEntity {
+    ... on Collection {
+      entityId: id
+    }
+    ... on Item {
+      entityId: id
+    }
+  }
+`;
 
 const mutation = graphql`
   mutation EntityLinksAddFormMutation($input: LinkEntityInput!) {
     linkEntity(input: $input) {
       link {
-        source {
-          ... on Item {
-            title
-          }
-          ... on Community {
-            title
-          }
-          ... on Collection {
-            title
-          }
-        }
         target {
           ... on Item {
-            title
-          }
-          ... on Community {
             title
           }
           ... on Collection {

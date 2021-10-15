@@ -8,10 +8,7 @@ import CollectionLayoutQuery from "components/composed/collection/CollectionLayo
 
 function CollectionLinks({ data }: Props) {
   return (
-    <EntityLinksList<Query>
-      data={data?.collection?.links}
-      headerStyle="secondary"
-    />
+    <EntityLinksList<Query> data={data?.collection} headerStyle="secondary" />
   );
 }
 
@@ -32,15 +29,10 @@ type Props = {
 };
 
 const query = graphql`
-  query linksManageSlugCollectionsPagesQuery(
-    $collectionSlug: Slug!
-    $page: Int!
-  ) {
+  query linksManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
-      links(page: $page, perPage: 20) {
-        ...EntityLinksListFragment
-      }
+      ...EntityLinksListFragment
     }
   }
 `;
