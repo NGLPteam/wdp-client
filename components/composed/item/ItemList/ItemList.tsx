@@ -51,7 +51,6 @@ function ItemList<T extends OperationType>({
     <ModelListPage<T, ItemListFragment, ItemNode>
       modelName="item"
       actions={actions}
-      selectable
       columns={columns}
       data={items}
       headerStyle={headerStyle}

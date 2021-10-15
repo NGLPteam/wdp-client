@@ -4,12 +4,7 @@ import * as Styled from "./Grid.styles";
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>;
 
-const GridItem = ({
-  children,
-  checkboxProps = {},
-  actions,
-  thumbnail,
-}: Props) => {
+const GridItem = ({ children, checkboxProps, actions, thumbnail }: Props) => {
   return (
     <Styled.Item>
       {checkboxProps && (
