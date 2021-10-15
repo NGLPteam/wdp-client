@@ -30,21 +30,23 @@ export default function SchemaInstanceForm({
 
   function renderForm() {
     return instance.properties && instance.properties.length > 0 ? (
-      <Provider
-        context={instance.context}
-        onSuccess={onSuccess}
-        onSaveAndClose={onSaveAndClose}
-        onCancel={onCancel}
-        successNotification={successNotification}
-        failureNotification={failureNotification}
-      >
-        <FormGrid>
-          <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
-          {instance.properties.map((prop, index) => (
-            <Property property={prop} key={index} />
-          ))}
-        </FormGrid>
-      </Provider>
+      <>
+        <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
+        <Provider
+          context={instance.context}
+          onSuccess={onSuccess}
+          onSaveAndClose={onSaveAndClose}
+          onCancel={onCancel}
+          successNotification={successNotification}
+          failureNotification={failureNotification}
+        >
+          <FormGrid>
+            {instance.properties.map((prop, index) => (
+              <Property property={prop} key={index} />
+            ))}
+          </FormGrid>
+        </Provider>
+      </>
     ) : (
       <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
     );
