@@ -17,4 +17,8 @@ export const Grid = styled.div`
     `,
     50
   )}
+
+  fieldset & {
+    padding-block-end: 0;
+  }
 `;
