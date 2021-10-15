@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
+// The SchemaSelector is currently a stand alone form,
+// and should be outside of any form provider
 export const FieldWrapper = styled.div`
-  flex: 1 1 var(--form-grid-item-width-wide);
+  padding-block-end: var(--form-grid-row-gap);
 `;
 
 export const Field = styled.div`
