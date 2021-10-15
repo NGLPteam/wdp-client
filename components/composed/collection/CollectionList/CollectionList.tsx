@@ -53,7 +53,6 @@ function CollectionList<T extends OperationType>({
       modelName="collection"
       columns={columns}
       actions={actions}
-      selectable
       data={collections}
       headerStyle={headerStyle}
       hideHeader={hideHeader}

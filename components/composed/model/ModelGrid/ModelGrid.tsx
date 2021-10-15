@@ -21,6 +21,7 @@ type ModelGridProps<U extends Record<string, unknown>> = Pick<
 
 function ModelGrid<U extends Record<string, unknown>>({
   rows,
+  selectable,
   hasSelection,
   listId,
 }: ModelGridProps<U>) {
@@ -28,7 +29,7 @@ function ModelGrid<U extends Record<string, unknown>>({
     <Grid showCheckboxes={hasSelection} id={listId}>
       <>
         {rows.map((row, i) => (
-          <ModelGridItem key={i} row={row} />
+          <ModelGridItem key={i} row={row} selectable={selectable} />
         ))}
       </>
     </Grid>

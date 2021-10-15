@@ -2,7 +2,10 @@ import React, { useMemo } from "react";
 import { Row } from "react-table";
 import Grid from "components/layout/Grid/Grid";
 
-function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
+function ModelGridItem<T extends Record<string, unknown>>({
+  row,
+  selectable,
+}: Props<T>) {
   const actions = useMemo(
     () => row.cells.find((cell) => cell.column.id === "actions"),
     [row]
@@ -51,6 +54,7 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
 
 interface Props<T extends Record<string, unknown>> {
   row: Row<T>;
+  selectable?: boolean;
 }
 
 export default ModelGridItem;
