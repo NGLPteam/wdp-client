@@ -7,11 +7,11 @@ import { FragmentRefs } from "relay-runtime";
 export type RoleAccessListDataFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly id: string;
-            readonly roles: ReadonlyArray<{
+            readonly id?: string;
+            readonly role?: {
                 readonly name: string;
-            }>;
-            readonly user: {
+            };
+            readonly user?: {
                 readonly name: string | null;
                 readonly email: string | null;
             };
@@ -35,7 +35,47 @@ var v0 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-};
+},
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "Role",
+    "kind": "LinkedField",
+    "name": "role",
+    "plural": false,
+    "selections": [
+      (v0/*: any*/)
+    ],
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "User",
+    "kind": "LinkedField",
+    "name": "user",
+    "plural": false,
+    "selections": [
+      (v0/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "email",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -45,7 +85,7 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "ContextualPermissionEdge",
+      "concreteType": "AnyAccessGrantEdge",
       "kind": "LinkedField",
       "name": "edges",
       "plural": true,
@@ -53,48 +93,28 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "ContextualPermission",
+          "concreteType": null,
           "kind": "LinkedField",
           "name": "node",
           "plural": false,
           "selections": [
             {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
+              "kind": "InlineFragment",
+              "selections": (v1/*: any*/),
+              "type": "UserCollectionAccessGrant",
+              "abstractKey": null
             },
             {
-              "alias": null,
-              "args": null,
-              "concreteType": "Role",
-              "kind": "LinkedField",
-              "name": "roles",
-              "plural": true,
-              "selections": [
-                (v0/*: any*/)
-              ],
-              "storageKey": null
+              "kind": "InlineFragment",
+              "selections": (v1/*: any*/),
+              "type": "UserItemAccessGrant",
+              "abstractKey": null
             },
             {
-              "alias": null,
-              "args": null,
-              "concreteType": "User",
-              "kind": "LinkedField",
-              "name": "user",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "email",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "InlineFragment",
+              "selections": (v1/*: any*/),
+              "type": "UserCommunityAccessGrant",
+              "abstractKey": null
             }
           ],
           "storageKey": null
@@ -108,9 +128,9 @@ return {
       "name": "ModelListPageFragment"
     }
   ],
-  "type": "ContextualPermissionConnection",
+  "type": "AnyAccessGrantConnection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '4fbc87144415fd8b13e9710400f0e4f3';
+(node as any).hash = '5f6b35090aa46ae8fa0df3e3b7ee9b00';
 export default node;

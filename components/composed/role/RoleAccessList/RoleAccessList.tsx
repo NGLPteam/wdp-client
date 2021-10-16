@@ -17,6 +17,8 @@ import {
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
+// Lists user access on any type of entity
+// entityType must be collection, item, or community for proper labelling
 function RoleAccessList<T extends OperationType>({
   data,
   headerStyle,
@@ -27,7 +29,7 @@ function RoleAccessList<T extends OperationType>({
   const entity = useMaybeFragment<RoleAccessListFragment$key>(fragment, data);
   const roles = useMaybeFragment<RoleAccessListDataFragment$key>(
     listDataFragment,
-    entity?.assignedUsers
+    entity?.allAccessGrants
   );
 
   const slug = useRouteSlug();
@@ -44,10 +46,9 @@ function RoleAccessList<T extends OperationType>({
       id: "user.email",
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.roles")}</>,
-      id: "roles",
-      Cell: ({ value }: CellProps<T>) =>
-        value.map(({ name }: { name: string }) => name).join(", "),
+      Header: <>{t("columns.role")}</>,
+      id: "role",
+      Cell: ({ value }: CellProps<T>) => value?.name || "",
     }),
   ];
 
@@ -96,6 +97,7 @@ interface RoleAccessListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: RoleAccessListFragment$key | null;
   header?: string;
+  // Used to set specific labels on the drawer and form
   entityType?: "community" | "collection" | "item";
 }
 
@@ -104,23 +106,45 @@ type Node = RoleAccessListDataFragment["edges"][number]["node"];
 const fragment = graphql`
   fragment RoleAccessListFragment on Entity {
     allowedActions
-    assignedUsers(order: USER_NAME_ASC, page: $page, perPage: 20) {
+    allAccessGrants(page: $page, perPage: 20) {
       ...RoleAccessListDataFragment
     }
   }
 `;
 
 const listDataFragment = graphql`
-  fragment RoleAccessListDataFragment on ContextualPermissionConnection {
+  fragment RoleAccessListDataFragment on AnyAccessGrantConnection {
     edges {
       node {
-        id
-        roles {
-          name
+        ... on UserCollectionAccessGrant {
+          id
+          role {
+            name
+          }
+          user {
+            name
+            email
+          }
         }
-        user {
-          name
-          email
+        ... on UserItemAccessGrant {
+          id
+          role {
+            name
+          }
+          user {
+            name
+            email
+          }
+        }
+        ... on UserCommunityAccessGrant {
+          id
+          role {
+            name
+          }
+          user {
+            name
+            email
+          }
         }
       }
     }
