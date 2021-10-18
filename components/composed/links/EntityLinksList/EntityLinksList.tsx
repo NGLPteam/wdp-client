@@ -75,7 +75,9 @@ function EntityLinksList<T extends OperationType>({
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
         drawer="addLink"
-        drawerQuery={{ drawerSlug: sourceEntity.slug ? sourceEntity.slug : "" }}
+        drawerQuery={{
+          drawerSlug: sourceEntity?.slug ? sourceEntity.slug : "",
+        }}
         icon="plus"
       >
         {t("actions.create.link")}
@@ -84,7 +86,7 @@ function EntityLinksList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityLinksListFragment, EntityLinksNode>
+    <ModelListPage<T, EntityLinks, EntityLinksNode>
       modelName={"link"}
       columns={columns}
       actions={{}}
@@ -98,10 +100,12 @@ function EntityLinksList<T extends OperationType>({
 
 interface EntityLinksListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data: EntityLinksListFragment$key | null;
+  data?: EntityLinksListFragment$key;
 }
 
-type EntityLinksNode = EntityLinksListFragment["links"]["nodes"][number];
+type EntityLinks = EntityLinksListFragment["links"];
+
+type EntityLinksNode = EntityLinks["nodes"][number];
 
 const fragment = graphql`
   fragment EntityLinksListFragment on AnyEntity {
