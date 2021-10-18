@@ -81,6 +81,7 @@ fragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {
       }
       user {
         id
+        slug
       }
     }
   }
@@ -149,6 +150,13 @@ v6 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
   "storageKey": null
 };
 return {
@@ -265,13 +273,7 @@ return {
                             "name": "title",
                             "storageKey": null
                           },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "slug",
-                            "storageKey": null
-                          }
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -296,7 +298,8 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/)
+                          (v6/*: any*/),
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -376,12 +379,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7a9dcce3c09af7df7146473f149e35d6",
+    "cacheID": "3e25d247899b6ac50df2230a15d82dbb",
     "id": null,
     "metadata": {},
     "name": "communitiesManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();

@@ -1,7 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useDestroyer, useMaybeFragment, useRouteSlug } from "hooks";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useRouteSlug,
+} from "hooks";
 import {
   UserItemsListFragment,
   UserItemsListFragment$data,
@@ -25,6 +30,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
 
   const { t } = useTranslation();
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
   const slug = useRouteSlug();
 
   const columns = [
@@ -57,6 +63,13 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
   ];
 
   const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editRoleAccess", {
+        drawerSlug: row.original.item?.slug || "",
+        drawerUserSlug: row.original.user?.slug || "",
+        drawerEntity: "item",
+        drawerRoleId: row.original.role?.id,
+      }),
     handleDelete: ({ row }: ModelTableActionProps<Node>) => {
       const { item, role, user } = row.original;
 
@@ -133,6 +146,7 @@ const fragment = graphql`
         }
         user {
           id
+          slug
         }
       }
     }

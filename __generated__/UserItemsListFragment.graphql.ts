@@ -29,6 +29,7 @@ export type UserItemsListFragment = {
             };
             readonly user: {
                 readonly id: string;
+                readonly slug: string;
             };
         };
     }>;
@@ -49,6 +50,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
   "storageKey": null
 };
 return {
@@ -90,13 +98,7 @@ return {
                   "name": "title",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -188,7 +190,8 @@ return {
               "name": "user",
               "plural": false,
               "selections": [
-                (v0/*: any*/)
+                (v0/*: any*/),
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -208,5 +211,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e17d6205980623f1edc396f73189f1ae';
+(node as any).hash = 'f08166d95a351c5567b08380159ff26a';
 export default node;

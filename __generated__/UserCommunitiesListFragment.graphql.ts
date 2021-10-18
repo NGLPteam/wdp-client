@@ -19,6 +19,7 @@ export type UserCommunitiesListFragment = {
             };
             readonly user: {
                 readonly id: string;
+                readonly slug: string;
             };
         };
     }>;
@@ -39,6 +40,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
   "storageKey": null
 };
 return {
@@ -80,13 +88,7 @@ return {
                   "name": "title",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                }
+                (v1/*: any*/)
               ],
               "storageKey": null
             },
@@ -117,7 +119,8 @@ return {
               "name": "user",
               "plural": false,
               "selections": [
-                (v0/*: any*/)
+                (v0/*: any*/),
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -137,5 +140,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'd7c936a4326c73f60eb6bc8d37748449';
+(node as any).hash = '4e2314d5412cceedd4ba9d2e3cd11b71';
 export default node;
