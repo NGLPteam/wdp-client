@@ -6,9 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type RoleAccessListFragment = {
     readonly allowedActions: ReadonlyArray<string>;
-    readonly allAccessGrants: {
-        readonly " $fragmentRefs": FragmentRefs<"RoleAccessListDataFragment">;
-    };
+    readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListFragment" | "RoleAssignedUsersListFragment">;
     readonly " $refType": "RoleAccessListFragment";
 };
 export type RoleAccessListFragment$data = RoleAccessListFragment;
@@ -20,12 +18,7 @@ export type RoleAccessListFragment$key = {
 
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "kind": "RootArgument",
-      "name": "page"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "RoleAccessListFragment",
@@ -38,35 +31,18 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Variable",
-          "name": "page",
-          "variableName": "page"
-        },
-        {
-          "kind": "Literal",
-          "name": "perPage",
-          "value": 20
-        }
-      ],
-      "concreteType": "AnyAccessGrantConnection",
-      "kind": "LinkedField",
-      "name": "allAccessGrants",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "RoleAccessListDataFragment"
-        }
-      ],
-      "storageKey": null
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "RoleAccessGrantsListFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "RoleAssignedUsersListFragment"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '02339c79a3378df27121d7cb0aa1362c';
+(node as any).hash = '3d5d0afee6cb3c72832ec4d23426660a';
 export default node;
