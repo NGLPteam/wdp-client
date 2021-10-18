@@ -35,10 +35,13 @@ function RoleAccessList<T extends OperationType>({
   header = "navLabels.access",
   entityType,
 }: RoleAccessListProps) {
-  const entity = useMaybeFragment<RoleAccessListFragment$key>(fragment, data);
+  const queryData = useMaybeFragment<RoleAccessListFragment$key>(
+    fragment,
+    data
+  );
   const roles = useMaybeFragment<RoleAccessListDataFragment$key>(
     listDataFragment,
-    entity?.allAccessGrants
+    queryData?.allAccessGrants
   );
 
   const slug = useRouteSlug();
@@ -117,7 +120,7 @@ function RoleAccessList<T extends OperationType>({
               : "items.manage_access"
           }
           allowedActions={
-            entityType !== "community" ? entity?.allowedActions : undefined
+            entityType !== "community" ? queryData?.allowedActions : undefined
           }
         >
           {t(
