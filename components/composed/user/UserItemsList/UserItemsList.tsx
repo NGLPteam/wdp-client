@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useMaybeFragment, useRouteSlug } from "hooks";
+import { useDestroyer, useMaybeFragment, useRouteSlug } from "hooks";
 import {
   UserItemsListFragment,
   UserItemsListFragment$data,
@@ -15,7 +15,7 @@ import {
   ButtonControlGroup,
   NamedLink,
 } from "components/atomic";
-import type { CellProps } from "react-table";
+import type { CellProps, ModelTableActionProps } from "react-table";
 
 const UserItemsList = <T extends OperationType>({ data }: Props) => {
   const communities = useMaybeFragment<UserItemsListFragment$key>(
@@ -24,7 +24,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
   );
 
   const { t } = useTranslation();
-
+  const destroy = useDestroyer();
   const slug = useRouteSlug();
 
   const columns = [
@@ -56,6 +56,25 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
     }),
   ];
 
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<Node>) => {
+      const { item, role, user } = row.original;
+
+      if (item && role && user) {
+        return destroy.access(
+          {
+            entityId: item.id,
+            roleId: role.id,
+            userId: user.id,
+          },
+          "glossary.access.label"
+        );
+      }
+
+      console.warn("No entity, role or user defined.");
+    },
+  };
+
   const buttons = slug && (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
@@ -77,6 +96,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
       header="Managed Items"
       disableSortBy
       buttons={buttons}
+      actions={actions}
     />
   ) : null;
 };
@@ -93,6 +113,7 @@ const fragment = graphql`
       node {
         id
         item {
+          id
           title
           slug
           thumbnail {
@@ -107,7 +128,11 @@ const fragment = graphql`
           }
         }
         role {
+          id
           name
+        }
+        user {
+          id
         }
       }
     }

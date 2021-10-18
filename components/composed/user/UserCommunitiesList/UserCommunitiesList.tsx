@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useMaybeFragment, useRouteSlug } from "hooks";
+import { useDestroyer, useMaybeFragment, useRouteSlug } from "hooks";
 import {
   UserCommunitiesListFragment,
   UserCommunitiesListFragment$data,
@@ -15,7 +15,7 @@ import {
   ButtonControlGroup,
   NamedLink,
 } from "components/atomic";
-import type { CellProps } from "react-table";
+import type { CellProps, ModelTableActionProps } from "react-table";
 
 const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
   const communities = useMaybeFragment<UserCommunitiesListFragment$key>(
@@ -24,7 +24,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
   );
 
   const { t } = useTranslation();
-
+  const destroy = useDestroyer();
   const slug = useRouteSlug();
 
   const columns = [
@@ -53,6 +53,25 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
     }),
   ];
 
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<Node>) => {
+      const { community, role, user } = row.original;
+
+      if (community && role && user) {
+        return destroy.access(
+          {
+            entityId: community.id,
+            roleId: role.id,
+            userId: user.id,
+          },
+          "glossary.access.label"
+        );
+      }
+
+      console.warn("No entity, role or user defined.");
+    },
+  };
+
   const buttons = slug && (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
@@ -74,6 +93,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
       header="Community Memberships"
       disableSortBy
       buttons={buttons}
+      actions={actions}
     />
   ) : null;
 };
@@ -90,11 +110,16 @@ const fragment = graphql`
       node {
         id
         community {
+          id
           title
           slug
         }
         role {
+          id
           name
+        }
+        user {
+          id
         }
       }
     }
