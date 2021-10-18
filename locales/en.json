@@ -81,7 +81,9 @@
     },
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully.",
-      "disabled": "Default ordering $t({{ name }}) disabled successfully."
+      "disabled": "Default ordering $t({{ name }}) disabled successfully.",
+      "revoked": "$t({{ name }}) revoked successfully.",
+      "users.access": "{{ name }}'s access"
     },
     "forms": {
       "common": {

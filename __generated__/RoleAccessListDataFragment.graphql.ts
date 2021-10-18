@@ -14,9 +14,13 @@ export type RoleAccessListDataFragment = {
                 readonly name: string;
             };
             readonly user?: {
+                readonly id: string;
                 readonly slug: string;
                 readonly name: string | null;
                 readonly email: string | null;
+            };
+            readonly entity?: {
+                readonly id: string;
             };
         };
     }>;
@@ -53,42 +57,42 @@ v2 = {
   "name": "name",
   "storageKey": null
 },
-v3 = [
-  (v0/*: any*/),
-  (v1/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "Role",
-    "kind": "LinkedField",
-    "name": "role",
-    "plural": false,
-    "selections": [
-      (v0/*: any*/),
-      (v2/*: any*/)
-    ],
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "User",
-    "kind": "LinkedField",
-    "name": "user",
-    "plural": false,
-    "selections": [
-      (v1/*: any*/),
-      (v2/*: any*/),
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "email",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Role",
+  "kind": "LinkedField",
+  "name": "role",
+  "plural": false,
+  "selections": [
+    (v0/*: any*/),
+    (v2/*: any*/)
+  ],
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "User",
+  "kind": "LinkedField",
+  "name": "user",
+  "plural": false,
+  "selections": [
+    (v0/*: any*/),
+    (v1/*: any*/),
+    (v2/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "email",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v5 = [
+  (v0/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -114,19 +118,64 @@ return {
           "selections": [
             {
               "kind": "InlineFragment",
-              "selections": (v3/*: any*/),
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/),
+                (v3/*: any*/),
+                (v4/*: any*/),
+                {
+                  "alias": "entity",
+                  "args": null,
+                  "concreteType": "Collection",
+                  "kind": "LinkedField",
+                  "name": "collection",
+                  "plural": false,
+                  "selections": (v5/*: any*/),
+                  "storageKey": null
+                }
+              ],
               "type": "UserCollectionAccessGrant",
               "abstractKey": null
             },
             {
               "kind": "InlineFragment",
-              "selections": (v3/*: any*/),
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/),
+                (v3/*: any*/),
+                (v4/*: any*/),
+                {
+                  "alias": "entity",
+                  "args": null,
+                  "concreteType": "Item",
+                  "kind": "LinkedField",
+                  "name": "item",
+                  "plural": false,
+                  "selections": (v5/*: any*/),
+                  "storageKey": null
+                }
+              ],
               "type": "UserItemAccessGrant",
               "abstractKey": null
             },
             {
               "kind": "InlineFragment",
-              "selections": (v3/*: any*/),
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/),
+                (v3/*: any*/),
+                (v4/*: any*/),
+                {
+                  "alias": "entity",
+                  "args": null,
+                  "concreteType": "Community",
+                  "kind": "LinkedField",
+                  "name": "community",
+                  "plural": false,
+                  "selections": (v5/*: any*/),
+                  "storageKey": null
+                }
+              ],
               "type": "UserCommunityAccessGrant",
               "abstractKey": null
             }
@@ -146,5 +195,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ccb9d372f5735a0fccb70f4fb0dc210f';
+(node as any).hash = 'aa61c556e1264aeb329f852501c547fe';
 export default node;

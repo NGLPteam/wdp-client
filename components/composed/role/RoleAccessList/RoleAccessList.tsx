@@ -1,7 +1,12 @@
 import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import { useDrawerHelper, useMaybeFragment, useRouteSlug } from "hooks";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useRouteSlug,
+} from "hooks";
 import { RoleAccessListFragment$key } from "@/relay/RoleAccessListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -39,6 +44,7 @@ function RoleAccessList<T extends OperationType>({
   const slug = useRouteSlug();
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
 
   const columns = [
     ModelColumns.NameColumn<Node>({
@@ -75,6 +81,22 @@ function RoleAccessList<T extends OperationType>({
         drawerEntity: entityType,
         drawerRoleId: row.original.role?.id,
       }),
+    handleDelete: ({ row }: ModelTableActionProps<Node>) => {
+      const { entity, role, user } = row.original;
+
+      if (entity && role && user) {
+        return destroy.access(
+          {
+            entityId: entity.id,
+            roleId: role.id,
+            userId: user.id,
+          },
+          t("outcomes.users.access", { name: user.name })
+        );
+      }
+
+      console.warn("No entity, role or user defined.");
+    },
   };
 
   const buttons =
@@ -152,9 +174,13 @@ const listDataFragment = graphql`
             name
           }
           user {
+            id
             slug
             name
             email
+          }
+          entity: collection {
+            id
           }
         }
         ... on UserItemAccessGrant {
@@ -165,9 +191,13 @@ const listDataFragment = graphql`
             name
           }
           user {
+            id
             slug
             name
             email
+          }
+          entity: item {
+            id
           }
         }
         ... on UserCommunityAccessGrant {
@@ -178,9 +208,13 @@ const listDataFragment = graphql`
             name
           }
           user {
+            id
             slug
             name
             email
+          }
+          entity: community {
+            id
           }
         }
       }

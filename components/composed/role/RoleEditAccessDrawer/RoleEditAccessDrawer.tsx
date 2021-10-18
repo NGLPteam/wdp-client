@@ -10,11 +10,14 @@ import {
   RoleEditAccessDrawerQuery as Query,
   RoleEditAccessDrawerQueryResponse as Response,
 } from "@/relay/RoleEditAccessDrawerQuery.graphql";
+import { useDestroyer } from "hooks";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"
 export default function RoleEditAccessDrawer({ dialog, params }: Props) {
   const { t } = useTranslation();
+  const destroy = useDestroyer();
 
   const { drawerSlug, drawerUserSlug, drawerEntity, drawerRoleId } = params;
 
@@ -47,6 +50,35 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
       : data?.item?.id;
   }
 
+  /* Render route and delete buttons */
+  function renderButtons(data?: Response | null) {
+    if (!data) return;
+
+    const entityId =
+      drawerEntity === "community"
+        ? data?.community?.id
+        : drawerEntity === "collection"
+        ? data?.collection?.id
+        : data?.item?.id;
+
+    const userId = data?.user?.id;
+
+    /* Delete button */
+    if (!entityId || !userId || !drawerRoleId) return;
+
+    const handleDelete = () => {
+      if (data.collection) {
+        destroy.access(
+          { entityId, roleId: drawerRoleId, userId },
+          data?.collection?.title || t("glossary.collection.label")
+        );
+      }
+      if (dialog?.hide) dialog.hide();
+    };
+
+    return <DrawerActions handleDelete={handleDelete} />;
+  }
+
   return drawerSlug && drawerUserSlug && drawerEntity && drawerRoleId ? (
     <QueryWrapper<Query>
       query={query}
@@ -68,6 +100,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
           header={getDrawerHeader(data)}
           dialog={dialog}
           hideOnClickOutside={false}
+          buttons={renderButtons(data)}
         >
           <RoleEditAccessForm
             onSuccess={dialog.hide}

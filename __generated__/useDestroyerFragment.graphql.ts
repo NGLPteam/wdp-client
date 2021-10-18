@@ -5,11 +5,13 @@
 import { ReaderInlineDataFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type useDestroyerFragment = {
-    readonly destroyed: boolean | null;
-    readonly globalErrors: ReadonlyArray<{
+    readonly destroyed?: boolean | null;
+    readonly globalErrors?: ReadonlyArray<{
         readonly message: string;
         readonly type: string;
     }>;
+    readonly revoked?: boolean | null;
+    readonly disabled?: boolean | null;
     readonly " $refType": "useDestroyerFragment";
 };
 export type useDestroyerFragment$data = useDestroyerFragment;
@@ -24,5 +26,5 @@ const node: ReaderInlineDataFragment = {
   "kind": "InlineDataFragment",
   "name": "useDestroyerFragment"
 };
-(node as any).hash = '6747fde3b910db3c320f13be497e1017';
+(node as any).hash = 'fde776a3a4a19ebefb1b262474b47125';
 export default node;
