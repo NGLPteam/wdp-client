@@ -5,22 +5,24 @@ import type { DialogProps } from "reakit/Dialog";
 
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
-import RoleGrantAccessForm from "components/composed/role/RoleGrantAccessForm";
+import RoleEditAccessForm from "components/composed/role/RoleEditAccessForm";
 import {
-  RoleGrantAccessDrawerQuery as Query,
-  RoleGrantAccessDrawerQueryResponse as Response,
-} from "@/relay/RoleGrantAccessDrawerQuery.graphql";
+  RoleEditAccessDrawerQuery as Query,
+  RoleEditAccessDrawerQueryResponse as Response,
+} from "@/relay/RoleEditAccessDrawerQuery.graphql";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"
-export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
+export default function RoleEditAccessDrawer({ dialog, params }: Props) {
   const { t } = useTranslation();
 
-  const { drawerSlug, drawerEntity } = params;
+  const { drawerSlug, drawerUserSlug, drawerEntity, drawerRoleId } = params;
 
   function getDrawerHeader(data?: Response | null) {
     const i18nKey =
-      drawerEntity === "community" ? "drawers.addMember" : "drawers.addAccess";
+      drawerEntity === "community"
+        ? "drawers.editMember"
+        : "drawers.editAccess";
 
     const header =
       drawerEntity === "community"
@@ -32,6 +34,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
     return header
       ? t(`${i18nKey}.to.title`, {
           name: header,
+          user: data?.user?.name,
         })
       : t(`${i18nKey}.title`);
   }
@@ -44,11 +47,12 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
       : data?.item?.id;
   }
 
-  return drawerSlug && drawerEntity ? (
+  return drawerSlug && drawerUserSlug && drawerEntity && drawerRoleId ? (
     <QueryWrapper<Query>
       query={query}
       initialVariables={{
         slug: drawerSlug,
+        userSlug: drawerUserSlug,
         onCommunity: drawerEntity === "community",
         onCollection: drawerEntity === "collection",
         onItem: drawerEntity === "item",
@@ -58,17 +62,19 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
         <Drawer
           label={t(
             drawerEntity === "community"
-              ? "actions.add.member"
-              : "actions.add.access"
+              ? "actions.edit.member"
+              : "actions.edit.access"
           )}
           header={getDrawerHeader(data)}
           dialog={dialog}
           hideOnClickOutside={false}
         >
-          <RoleGrantAccessForm
+          <RoleEditAccessForm
             onSuccess={dialog.hide}
             onCancel={dialog.hide}
             entityId={getEntityId(data)}
+            roleId={drawerRoleId}
+            userId={data?.user?.id}
             data={data}
           />
         </Drawer>
@@ -84,8 +90,9 @@ interface Props {
 
 // This fun little query gets the right id and title depending on the entity type.
 const query = graphql`
-  query RoleGrantAccessDrawerQuery(
+  query RoleEditAccessDrawerQuery(
     $slug: Slug!
+    $userSlug: Slug!
     $onCommunity: Boolean!
     $onCollection: Boolean!
     $onItem: Boolean!
@@ -102,6 +109,10 @@ const query = graphql`
       id
       title
     }
-    ...RoleGrantAccessFormFragment
+    user(slug: $userSlug) {
+      id
+      name
+    }
+    ...RoleEditAccessFormFragment
   }
 `;

@@ -8,10 +8,13 @@ export type RoleAccessListDataFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly id?: string;
+            readonly slug?: string;
             readonly role?: {
+                readonly id: string;
                 readonly name: string;
             };
             readonly user?: {
+                readonly slug: string;
                 readonly name: string | null;
                 readonly email: string | null;
             };
@@ -33,17 +36,26 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v1 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "id",
-    "storageKey": null
-  },
+v3 = [
+  (v0/*: any*/),
+  (v1/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -52,7 +64,8 @@ v1 = [
     "name": "role",
     "plural": false,
     "selections": [
-      (v0/*: any*/)
+      (v0/*: any*/),
+      (v2/*: any*/)
     ],
     "storageKey": null
   },
@@ -64,7 +77,8 @@ v1 = [
     "name": "user",
     "plural": false,
     "selections": [
-      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -100,19 +114,19 @@ return {
           "selections": [
             {
               "kind": "InlineFragment",
-              "selections": (v1/*: any*/),
+              "selections": (v3/*: any*/),
               "type": "UserCollectionAccessGrant",
               "abstractKey": null
             },
             {
               "kind": "InlineFragment",
-              "selections": (v1/*: any*/),
+              "selections": (v3/*: any*/),
               "type": "UserItemAccessGrant",
               "abstractKey": null
             },
             {
               "kind": "InlineFragment",
-              "selections": (v1/*: any*/),
+              "selections": (v3/*: any*/),
               "type": "UserCommunityAccessGrant",
               "abstractKey": null
             }
@@ -132,5 +146,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5f6b35090aa46ae8fa0df3e3b7ee9b00';
+(node as any).hash = 'ccb9d372f5735a0fccb70f4fb0dc210f';
 export default node;

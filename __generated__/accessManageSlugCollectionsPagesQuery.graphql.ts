@@ -74,11 +74,13 @@ fragment RoleAccessListDataFragment on AnyAccessGrantConnection {
       __typename
       ... on UserCollectionAccessGrant {
         id
+        slug
         role {
-          name
           id
+          name
         }
         user {
+          slug
           name
           email
           id
@@ -86,11 +88,13 @@ fragment RoleAccessListDataFragment on AnyAccessGrantConnection {
       }
       ... on UserItemAccessGrant {
         id
+        slug
         role {
-          name
           id
+          name
         }
         user {
+          slug
           name
           email
           id
@@ -98,11 +102,13 @@ fragment RoleAccessListDataFragment on AnyAccessGrantConnection {
       }
       ... on UserCommunityAccessGrant {
         id
+        slug
         role {
-          name
           id
+          name
         }
         user {
+          slug
           name
           email
           id
@@ -180,6 +186,7 @@ v4 = {
 },
 v5 = [
   (v3/*: any*/),
+  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -188,8 +195,8 @@ v5 = [
     "name": "role",
     "plural": false,
     "selections": [
-      (v4/*: any*/),
-      (v3/*: any*/)
+      (v3/*: any*/),
+      (v4/*: any*/)
     ],
     "storageKey": null
   },
@@ -201,6 +208,7 @@ v5 = [
     "name": "user",
     "plural": false,
     "selections": [
+      (v2/*: any*/),
       (v4/*: any*/),
       {
         "alias": null,
@@ -460,12 +468,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ddcead53d62b685892326baadd98a39b",
+    "cacheID": "81faed7c79d7df9a100764190aa588b0",
     "id": null,
     "metadata": {},
     "name": "accessManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        role {\n          name\n          id\n        }\n        user {\n          name\n          email\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        role {\n          name\n          id\n        }\n        user {\n          name\n          email\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        role {\n          name\n          id\n        }\n        user {\n          name\n          email\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessListDataFragment\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          slug\n          name\n          email\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          slug\n          name\n          email\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          slug\n          name\n          email\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessListDataFragment\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

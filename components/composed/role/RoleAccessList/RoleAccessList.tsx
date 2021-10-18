@@ -1,15 +1,19 @@
 import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import { useMaybeFragment, useRouteSlug } from "hooks";
+import { useDrawerHelper, useMaybeFragment, useRouteSlug } from "hooks";
 import { RoleAccessListFragment$key } from "@/relay/RoleAccessListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
-import { CellProps } from "react-table";
-import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import { CellProps, ModelTableActionProps } from "react-table";
+import {
+  ButtonControlDrawer,
+  ButtonControlGroup,
+  NamedLink,
+} from "components/atomic";
 import {
   RoleAccessListDataFragment,
   RoleAccessListDataFragment$key,
@@ -34,12 +38,23 @@ function RoleAccessList<T extends OperationType>({
 
   const slug = useRouteSlug();
   const { t } = useTranslation();
+  const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<Node>(),
-    ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.name")}</>,
-      id: "user.name",
+    ModelColumns.NameColumn<Node>({
+      route: "user",
+      accessor: "user",
+      Cell: ({ row }: CellProps<Node>) => {
+        return (
+          <NamedLink
+            route={"user"}
+            routeParams={{ slug: row.original.user?.slug || "" }}
+            passHref
+          >
+            <a className="t-weight-md a-link">{row.original.user?.name}</a>
+          </NamedLink>
+        );
+      },
     }),
     ModelColumns.StringColumn<Node>({
       Header: <>{t("columns.email")}</>,
@@ -51,6 +66,16 @@ function RoleAccessList<T extends OperationType>({
       Cell: ({ value }: CellProps<T>) => value?.name || "",
     }),
   ];
+
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editRoleAccess", {
+        drawerSlug: slug || "",
+        drawerUserSlug: row.original.user?.slug || "",
+        drawerEntity: entityType,
+        drawerRoleId: row.original.role?.id,
+      }),
+  };
 
   const buttons =
     slug && entityType ? (
@@ -69,11 +94,13 @@ function RoleAccessList<T extends OperationType>({
               ? "collections.manage_access"
               : "items.manage_access"
           }
-          allowedActions={entity?.allowedActions}
+          allowedActions={
+            entityType !== "community" ? entity?.allowedActions : undefined
+          }
         >
           {t(
             entityType === "community"
-              ? "actions.add.community_member"
+              ? "actions.add.member"
               : "actions.add.access"
           )}
         </ButtonControlDrawer>
@@ -89,6 +116,7 @@ function RoleAccessList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       buttons={buttons}
+      actions={actions}
     />
   );
 }
@@ -118,30 +146,39 @@ const listDataFragment = graphql`
       node {
         ... on UserCollectionAccessGrant {
           id
+          slug
           role {
+            id
             name
           }
           user {
+            slug
             name
             email
           }
         }
         ... on UserItemAccessGrant {
           id
+          slug
           role {
+            id
             name
           }
           user {
+            slug
             name
             email
           }
         }
         ... on UserCommunityAccessGrant {
           id
+          slug
           role {
+            id
             name
           }
           user {
+            slug
             name
             email
           }

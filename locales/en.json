@@ -35,6 +35,10 @@
       "createOrganization.title": "Create New Organization",
       "editItemContribution.title": "Edit Item Contribution",
       "editCollectionContribution.title": "Edit Collection Contribution",
+      "editAccess.title": "Edit Access",
+      "editAccess.to.title": "Edit {{ user }}'s Access to {{ name }}",
+      "editMember.title": "Edit Member",
+      "editMember.to.title": "Edit {{ user }}'s Membership to {{ name }}",
       "createCommunity.title": "Create New Community",
       "createContribution.title": "Create New Contribution",
       "createFile.title": "Create New File",
@@ -47,7 +51,7 @@
     "actions": {
       "add.access": "Add Access",
       "add.community": "Add Community",
-      "add.community_member": "Add Member",
+      "add.member": "Add Member",
       "add.collection": "Add Collection",
       "add.item": "Add Item",
       "create.contributor.person": "Create Person",
@@ -61,7 +65,9 @@
       "edit.community": "Edit Community",
       "edit.collection": "Edit Collection",
       "edit.contributor": "Edit Contributor",
-      "edit.item": "Edit Item"
+      "edit.item": "Edit Item",
+      "edit.access": "Edit Access",
+      "edit.member": "Edit Member"
     },
     "modals": {
       "generic": {
