@@ -59,7 +59,7 @@ function RoleAssignedUsersList<T extends OperationType>({
       Header: <>{t("columns.roles")}</>,
       id: "roles",
       Cell: ({ value }: CellProps<T>) =>
-        value?.map((item) => item.name).join(",") || "",
+        value?.map(({ name }: { name: string }) => name).join(",") || "",
     }),
   ];
 
