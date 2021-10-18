@@ -82,8 +82,7 @@
     "outcomes": {
       "deleted": "$t({{ name }}) deleted successfully.",
       "disabled": "Default ordering $t({{ name }}) disabled successfully.",
-      "revoked": "$t({{ name }}) revoked successfully.",
-      "users.access": "{{ name }}'s access"
+      "revoked": "$t({{ name }}) revoked successfully."
     },
     "forms": {
       "common": {
@@ -281,6 +280,10 @@
       "role": {
         "label": "role",
         "label_plural": "roles"
+      },
+      "access": {
+        "label": "access",
+        "label_plural": "access"
       }
     },
     "name": "name",

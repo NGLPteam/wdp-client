@@ -70,7 +70,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
       if (data.collection) {
         destroy.access(
           { entityId, roleId: drawerRoleId, userId },
-          data?.collection?.title || t("glossary.collection.label")
+          data?.user?.name || t("glossary.user.label")
         );
       }
       if (dialog?.hide) dialog.hide();

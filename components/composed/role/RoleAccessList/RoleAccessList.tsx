@@ -91,7 +91,7 @@ function RoleAccessList<T extends OperationType>({
             roleId: role.id,
             userId: user.id,
           },
-          t("outcomes.users.access", { name: user.name })
+          "glossary.access.label"
         );
       }
 
