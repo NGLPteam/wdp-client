@@ -104,7 +104,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
 
   return communities ? (
     <ModelListPage<T, UserCollectionsListFragment, Node>
-      modelName="collection"
+      modelName="role"
       columns={columns}
       data={communities}
       headerStyle="secondary"

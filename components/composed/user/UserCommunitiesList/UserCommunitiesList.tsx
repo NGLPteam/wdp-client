@@ -99,7 +99,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
 
   return communities ? (
     <ModelListPage<T, UserCommunitiesListFragment, Node>
-      modelName="community"
+      modelName="role"
       columns={columns}
       data={communities}
       headerStyle="secondary"
