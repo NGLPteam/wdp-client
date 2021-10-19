@@ -33,7 +33,7 @@ const ButtonControl = forwardRef(
       </Styled.ButtonControl>
     );
 
-    return actions || allowedActions ? (
+    return actions ? (
       <Authorize actions={actions} allowedActions={allowedActions}>
         {content}
       </Authorize>

@@ -34,7 +34,6 @@ const Typeahead = forwardRef(
       getMenuProps,
       getInputProps,
       getComboboxProps,
-      highlightedIndex,
       getItemProps,
     } = useCombobox({
       items: inputOptions,
@@ -95,11 +94,10 @@ const Typeahead = forwardRef(
           >
             <Styled.Icon icon="chevron" rotate={180} />
           </Styled.Button>
-          <Styled.List {...getMenuProps()} isOpen={isOpen}>
+          <Styled.List {...getMenuProps()} open={isOpen}>
             {isOpen &&
               inputOptions.map((item, index) => (
                 <Styled.ListItem
-                  highlighted={highlightedIndex === index}
                   key={index}
                   {...getItemProps({ key: item.value, index, item })}
                 >

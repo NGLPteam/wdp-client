@@ -1,7 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "hooks";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useRouteSlug,
+} from "hooks";
 import {
   UserItemsListFragment,
   UserItemsListFragment$data,
@@ -10,8 +15,12 @@ import {
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
-import { NamedLink } from "components/atomic";
-import type { CellProps } from "react-table";
+import {
+  ButtonControlDrawer,
+  ButtonControlGroup,
+  NamedLink,
+} from "components/atomic";
+import type { CellProps, ModelTableActionProps } from "react-table";
 
 const UserItemsList = <T extends OperationType>({ data }: Props) => {
   const communities = useMaybeFragment<UserItemsListFragment$key>(
@@ -20,6 +29,9 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
   );
 
   const { t } = useTranslation();
+  const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
+  const slug = useRouteSlug();
 
   const columns = [
     ModelColumns.ThumbnailColumn<Node>({
@@ -50,13 +62,54 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
     }),
   ];
 
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editRoleAccess", {
+        drawerSlug: row.original.item?.slug || "",
+        drawerUserSlug: row.original.user?.slug || "",
+        drawerEntity: "item",
+        drawerRoleId: row.original.role?.id,
+      }),
+    handleDelete: ({ row }: ModelTableActionProps<Node>) => {
+      const { item, role, user } = row.original;
+
+      if (item && role && user) {
+        return destroy.access(
+          {
+            entityId: item.id,
+            roleId: role.id,
+            userId: user.id,
+          },
+          "glossary.access.label"
+        );
+      }
+
+      console.warn("No entity, role or user defined.");
+    },
+  };
+
+  const buttons = slug && (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addUserItemAccess"
+        drawerQuery={{ drawerSlug: slug, drawerEntity: "item" }}
+        icon="plus"
+      >
+        {t("actions.add.item")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return communities ? (
     <ModelListPage<T, UserItemsListFragment, Node>
-      modelName="item"
+      modelName="role"
       columns={columns}
       data={communities}
       headerStyle="secondary"
+      header={t("glossary.item.label_plural")}
       disableSortBy
+      buttons={buttons}
+      actions={actions}
     />
   ) : null;
 };
@@ -73,6 +126,7 @@ const fragment = graphql`
       node {
         id
         item {
+          id
           title
           slug
           thumbnail {
@@ -87,7 +141,12 @@ const fragment = graphql`
           }
         }
         role {
+          id
           name
+        }
+        user {
+          id
+          slug
         }
       }
     }

@@ -1,5 +1,8 @@
 import { useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
+import omitBy from "lodash/omitBy";
+import pickBy from "lodash/pickBy";
+
 import ContributorCreatePersonDrawer from "components/composed/contributor/ContributorCreatePersonDrawer";
 import ContributorCreateOrganizationDrawer from "components/composed/contributor/ContributorCreateOrganizationDrawer";
 import ItemContributionEditDrawer from "components/composed/contribution/ItemContributionEditDrawer";
@@ -13,9 +16,11 @@ import CollectionContributionCreateDrawer from "components/composed/contribution
 import ItemContributionCreateDrawer from "components/composed/contribution/ItemContributionCreateDrawer";
 import ContributorContributionCreateDrawer from "components/composed/contribution/ContributorContributionCreateDrawer";
 import FileCreateDrawer from "components/composed/file/FileCreateDrawer";
-
-import omitBy from "lodash/omitBy";
-import pickBy from "lodash/pickBy";
+import RoleGrantAccessDrawer from "components/composed/role/RoleGrantAccessDrawer";
+import UserGrantCollectionAccessDrawer from "components/composed/user/UserGrantCollectionAccessDrawer";
+import UserGrantItemAccessDrawer from "components/composed/user/UserGrantItemAccessDrawer";
+import UserGrantCommunityAccessDrawer from "components/composed/user/UserGrantCommunityAccessDrawer";
+import RoleEditAccessDrawer from "components/composed/role/RoleEditAccessDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -31,6 +36,11 @@ const drawerRegistry = {
   editCollection: CollectionUpdateDrawer,
   editContributor: ContributorUpdateDrawer,
   editItem: ItemUpdateDrawer,
+  addRoleAccess: RoleGrantAccessDrawer,
+  addUserCollectionAccess: UserGrantCollectionAccessDrawer,
+  addUserItemAccess: UserGrantItemAccessDrawer,
+  addUserCommunityAccess: UserGrantCommunityAccessDrawer,
+  editRoleAccess: RoleEditAccessDrawer,
 };
 
 export function useDrawerHelper() {
@@ -93,7 +103,7 @@ export function useDrawerHelper() {
   };
 }
 
-export type DrawerParams = Record<string, string>;
+export type DrawerParams = Record<string, string | undefined>;
 export type Drawers = keyof typeof drawerRegistry;
 
 export default useDrawerHelper;

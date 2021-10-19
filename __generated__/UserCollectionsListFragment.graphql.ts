@@ -9,6 +9,7 @@ export type UserCollectionsListFragment = {
         readonly node: {
             readonly id: string;
             readonly collection: {
+                readonly id: string;
                 readonly title: string | null;
                 readonly slug: string;
                 readonly thumbnail: {
@@ -23,7 +24,12 @@ export type UserCollectionsListFragment = {
                 } | null;
             };
             readonly role: {
+                readonly id: string;
                 readonly name: string;
+            };
+            readonly user: {
+                readonly id: string;
+                readonly slug: string;
             };
         };
     }>;
@@ -38,7 +44,22 @@ export type UserCollectionsListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -60,13 +81,7 @@ const node: ReaderFragment = {
           "name": "node",
           "plural": false,
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -75,6 +90,7 @@ const node: ReaderFragment = {
               "name": "collection",
               "plural": false,
               "selections": [
+                (v0/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -82,13 +98,7 @@ const node: ReaderFragment = {
                   "name": "title",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -161,6 +171,7 @@ const node: ReaderFragment = {
               "name": "role",
               "plural": false,
               "selections": [
+                (v0/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -168,6 +179,19 @@ const node: ReaderFragment = {
                   "name": "name",
                   "storageKey": null
                 }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "User",
+              "kind": "LinkedField",
+              "name": "user",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -186,5 +210,6 @@ const node: ReaderFragment = {
   "type": "UserCollectionAccessGrantConnection",
   "abstractKey": null
 };
-(node as any).hash = '21ab0cd132fc92cdb7f8a0be6194c107';
+})();
+(node as any).hash = 'ae59e2182614967cf5677e80fe920cea';
 export default node;

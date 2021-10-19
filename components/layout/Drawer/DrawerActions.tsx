@@ -8,7 +8,7 @@ type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
 const DrawerActions = ({ routes, handleDelete }: Props) => {
   const { t } = useTranslation();
 
-  function handleClick() {
+  function handleDeleteClick() {
     if (handleDelete) handleDelete();
   }
 
@@ -19,14 +19,16 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
           {t(label || "")}
         </ButtonControlRoute>
       ))}
-      <ButtonControlConfirm
-        icon="delete"
-        modalLabel={t("modals.delete.label")}
-        modalBody={t("modals.delete.body")}
-        onClick={handleClick}
-      >
-        {t("delete")}
-      </ButtonControlConfirm>
+      {handleDelete && (
+        <ButtonControlConfirm
+          icon="delete"
+          modalLabel={t("modals.delete.label")}
+          modalBody={t("modals.delete.body")}
+          onClick={handleDeleteClick}
+        >
+          {t("delete")}
+        </ButtonControlConfirm>
+      )}
     </>
   );
 };

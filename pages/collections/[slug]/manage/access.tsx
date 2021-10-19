@@ -4,13 +4,26 @@ import type { accessManageSlugCollectionsPagesQuery as Query } from "@/relay/acc
 import type { GetLayout } from "types/page";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import RoleAccessList from "components/composed/role/RoleAccessList";
 
-function CollectionAccess({ data: dataIgnored }: Props) {
-  return <div>Collection Access</div>;
+function CollectionAccess({ data }: Props) {
+  return (
+    <RoleAccessList<Query>
+      data={data?.collection}
+      headerStyle="secondary"
+      entityType="collection"
+    />
+  );
 }
+
 const getLayout: GetLayout<Props> = (props) => {
   return (
-    <CollectionLayoutQuery<Query, Props> showSidebar query={query} {...props} />
+    <CollectionLayoutQuery<Query, Props>
+      showSidebar
+      query={query}
+      {...props}
+      useRouteHeader={false}
+    />
   );
 };
 
@@ -21,9 +34,13 @@ type Props = {
 };
 
 const query = graphql`
-  query accessManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
+  query accessManageSlugCollectionsPagesQuery(
+    $collectionSlug: Slug!
+    $page: Int!
+  ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
+      ...RoleAccessListFragment
     }
   }
 `;

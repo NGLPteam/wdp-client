@@ -26,29 +26,30 @@ import type {
 import type {
   DestroyOrderingInput,
   useDestroyerDestroyOrderingMutation,
-  useDestroyerDestroyOrderingMutationResponse,
 } from "@/relay/useDestroyerDestroyOrderingMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
-
-type DestroyOrdering = useDestroyerDestroyOrderingMutationResponse["destroyOrdering"];
+import { RevokeAccessInput } from "types/graphql-schema";
+import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 
 export function useDestroyer() {
   const notify = useNotify();
   const { t } = useTranslation();
 
   const handleResponse = useCallback(
-    (data: useDestroyerFragment$key | DestroyOrdering | null, name: string) => {
+    (data: useDestroyerFragment$key | null, name: string) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment>(
         destroyFragment,
         data
       );
-      if ("disabled" in data && data.disabled) {
+      if (results.revoked) {
+        notify.success(t("outcomes.revoked", { name }));
+      } else if (results.disabled) {
         notify.success(t("outcomes.disabled", { name }));
       } else if (results.destroyed) {
         notify.success(t("outcomes.deleted", { name }));
-      } else if (results.globalErrors.length > 0) {
+      } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
       }
     },
@@ -160,6 +161,19 @@ export function useDestroyer() {
     [commitDisableOrDestroyOrdering, handleResponse]
   );
 
+  /* Revoke access */
+  const [commitRevokeAccess] = useMutation<useDestroyerRevokeAccessMutation>(
+    revokeAccessMutation
+  );
+
+  const access = useCallback(
+    async (input: RevokeAccessInput, label: string) => {
+      const response = await commitRevokeAccess({ variables: { input } });
+      return handleResponse(response.revokeAccess, label);
+    },
+    [commitRevokeAccess, handleResponse]
+  );
+
   return {
     collection,
     item,
@@ -168,6 +182,7 @@ export function useDestroyer() {
     contribution,
     // file,
     ordering,
+    access,
   };
 }
 export default useDestroyer;
@@ -238,18 +253,42 @@ const destroyOrderingMutation = graphql`
   mutation useDestroyerDestroyOrderingMutation($input: DestroyOrderingInput!) {
     destroyOrdering(input: $input) {
       destroyedId @deleteRecord
-      disabled
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+// TODO: Return access id
+const revokeAccessMutation = graphql`
+  mutation useDestroyerRevokeAccessMutation($input: RevokeAccessInput!) {
+    revokeAccess(input: $input) {
       ...useDestroyerFragment
     }
   }
 `;
 
 const destroyFragment = graphql`
-  fragment useDestroyerFragment on DestroyMutationPayload @inline {
-    destroyed # can be boolean or nil, basically just a truthy check
-    globalErrors {
-      message
-      type
+  fragment useDestroyerFragment on StandardMutationPayload @inline {
+    ... on DestroyMutationPayload {
+      destroyed
+      globalErrors {
+        message
+        type
+      }
+    }
+    ... on RevokeAccessPayload {
+      revoked
+      globalErrors {
+        message
+        type
+      }
+    }
+    ... on DestroyOrderingPayload {
+      disabled
+      globalErrors {
+        message
+        type
+      }
     }
   }
 `;

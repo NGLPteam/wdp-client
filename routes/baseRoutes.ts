@@ -112,6 +112,11 @@ export const baseRoutes: BaseRoute[] = [
                 label: "navLabels.links",
               },
               {
+                name: "item.manage.access",
+                path: "/items/[slug]/manage/access",
+                label: "navLabels.access",
+              },
+              {
                 name: "item.manage.pages",
                 path: "/items/[slug]/manage/pages",
                 label: "navLabels.pages",

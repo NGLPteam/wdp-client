@@ -71,13 +71,17 @@ fragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {
     node {
       id
       community {
+        id
         title
         slug
-        id
       }
       role {
-        name
         id
+        name
+      }
+      user {
+        id
+        slug
       }
     }
   }
@@ -146,6 +150,13 @@ v6 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
   "storageKey": null
 };
 return {
@@ -254,6 +265,7 @@ return {
                         "name": "community",
                         "plural": false,
                         "selections": [
+                          (v6/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -261,14 +273,7 @@ return {
                             "name": "title",
                             "storageKey": null
                           },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "slug",
-                            "storageKey": null
-                          },
-                          (v6/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -280,8 +285,21 @@ return {
                         "name": "role",
                         "plural": false,
                         "selections": [
-                          (v5/*: any*/),
-                          (v6/*: any*/)
+                          (v6/*: any*/),
+                          (v5/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "User",
+                        "kind": "LinkedField",
+                        "name": "user",
+                        "plural": false,
+                        "selections": [
+                          (v6/*: any*/),
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -361,12 +379,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "70f7fe25b5a6a4a0dc0b3257268a8755",
+    "cacheID": "3e25d247899b6ac50df2230a15d82dbb",
     "id": null,
     "metadata": {},
     "name": "communitiesManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        title\n        slug\n        id\n      }\n      role {\n        name\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();
