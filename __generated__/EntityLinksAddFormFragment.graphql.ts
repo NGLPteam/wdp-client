@@ -5,7 +5,8 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityLinksAddFormFragment = {
-    readonly entityId?: string;
+    readonly id?: string;
+    readonly title?: string | null;
     readonly " $refType": "EntityLinksAddFormFragment";
 };
 export type EntityLinksAddFormFragment$data = EntityLinksAddFormFragment;
@@ -19,10 +20,17 @@ export type EntityLinksAddFormFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "alias": "entityId",
+    "alias": null,
     "args": null,
     "kind": "ScalarField",
     "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "title",
     "storageKey": null
   }
 ];
@@ -49,5 +57,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'f4059854edd4080bfd7eab9b697fd2ff';
+(node as any).hash = '75113dd7a9fa1cef6c342e1cd0e6430c';
 export default node;

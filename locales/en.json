@@ -121,9 +121,12 @@
         "link": "Link",
         "location": "Location",
         "url": "URL",
-        "user": "User"
-        "target": "Collection or Item",
-        "linktype": "Link Type"
+        "user": "User",
+        "target": "To Collection or Item",
+        "linktype": {
+          "label": "Link Type",
+          "description": "Contained items or collections are descendants of $t({{ name }}). References are not descendants."
+        }
       },
       "tags": {
         "add": "Add tag",

@@ -7,7 +7,8 @@ import EntityLinksList from "components/composed/links/EntityLinksList";
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 
 function ManageLinks({ data }: Props) {
-  return <EntityLinksList<Query> data={data?.item} headerStyle="secondary" />;
+  if (!data || !data.item) return null;
+  return <EntityLinksList<Query> data={data.item} headerStyle="secondary" />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {

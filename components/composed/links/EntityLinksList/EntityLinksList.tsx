@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -13,11 +13,13 @@ import {
   NamedLink,
 } from "components/atomic";
 
+import type { EntityLinksListFragment$key } from "@/relay/EntityLinksListFragment.graphql";
 import type {
-  EntityLinksListFragment,
-  EntityLinksListFragment$key,
-} from "@/relay/EntityLinksListFragment.graphql";
-import { CellProps } from "react-table";
+  EntityLinksListDataFragment,
+  EntityLinksListDataFragment$key,
+} from "@/relay/EntityLinksListDataFragment.graphql";
+
+import { CellProps, ModelTableActionProps } from "react-table";
 
 import { capitalize } from "lodash";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -28,11 +30,16 @@ function EntityLinksList<T extends OperationType>({
   hideHeader,
 }: EntityLinksListProps) {
   const { t } = useTranslation();
+  const destroy = useDestroyer();
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
     data
+  );
+  const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
+    linksFragment,
+    sourceEntity?.links
   );
   /* eslint-enable max-len */
 
@@ -85,12 +92,20 @@ function EntityLinksList<T extends OperationType>({
     </ButtonControlGroup>
   );
 
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
+      destroy.link(
+        { entityLinkId: row.original.id },
+        row.original.target.title || "glossary.link"
+      ),
+  };
+
   return (
-    <ModelListPage<T, EntityLinks, EntityLinksNode>
+    <ModelListPage<T, EntityLinksListDataFragment, EntityLinksNode>
       modelName={"link"}
       columns={columns}
-      actions={{}}
-      data={sourceEntity?.links}
+      actions={actions}
+      data={linksData}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       buttons={buttons}
@@ -103,68 +118,49 @@ interface EntityLinksListProps
   data?: EntityLinksListFragment$key;
 }
 
-type EntityLinks = EntityLinksListFragment["links"];
+type EntityLinksNode = EntityLinksListDataFragment["nodes"][number];
 
-type EntityLinksNode = EntityLinks["nodes"][number];
+const linksFragment = graphql`
+  fragment EntityLinksListDataFragment on EntityLinkConnection {
+    nodes {
+      id
+      slug
+      operator
+      target {
+        ... on Item {
+          slug
+          title
+          schemaDefinition {
+            name
+            kind
+          }
+        }
+        ... on Collection {
+          slug
+          title
+          schemaDefinition {
+            name
+            kind
+          }
+        }
+      }
+    }
+    ...ModelListPageFragment
+  }
+`;
 
 const fragment = graphql`
   fragment EntityLinksListFragment on AnyEntity {
     ... on Item {
       slug
       links {
-        nodes {
-          id
-          slug
-          operator
-          target {
-            ... on Item {
-              slug
-              title
-              schemaDefinition {
-                name
-                kind
-              }
-            }
-            ... on Collection {
-              slug
-              title
-              schemaDefinition {
-                name
-                kind
-              }
-            }
-          }
-        }
-        ...ModelListPageFragment
+        ...EntityLinksListDataFragment
       }
     }
     ... on Collection {
       slug
       links {
-        nodes {
-          id
-          slug
-          operator
-          target {
-            ... on Item {
-              slug
-              title
-              schemaDefinition {
-                name
-                kind
-              }
-            }
-            ... on Collection {
-              slug
-              title
-              schemaDefinition {
-                name
-                kind
-              }
-            }
-          }
-        }
-        ...ModelListPageFragment
+        ...EntityLinksListDataFragment
       }
     }
   }

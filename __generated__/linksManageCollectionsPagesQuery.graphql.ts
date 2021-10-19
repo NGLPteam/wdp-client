@@ -4,23 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type linksManageSlugCollectionsPagesQueryVariables = {
+export type linksManageCollectionsPagesQueryVariables = {
     collectionSlug: string;
 };
-export type linksManageSlugCollectionsPagesQueryResponse = {
+export type linksManageCollectionsPagesQueryResponse = {
     readonly collection: {
         readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "EntityLinksListFragment">;
     } | null;
 };
-export type linksManageSlugCollectionsPagesQuery = {
-    readonly response: linksManageSlugCollectionsPagesQueryResponse;
-    readonly variables: linksManageSlugCollectionsPagesQueryVariables;
+export type linksManageCollectionsPagesQuery = {
+    readonly response: linksManageCollectionsPagesQueryResponse;
+    readonly variables: linksManageCollectionsPagesQueryVariables;
 };
 
 
 
 /*
-query linksManageSlugCollectionsPagesQuery(
+query linksManageCollectionsPagesQuery(
   $collectionSlug: Slug!
 ) {
   collection(slug: $collectionSlug) {
@@ -40,78 +40,52 @@ fragment CollectionLayoutQueryFragment on Collection {
   ...CollectionLayoutFragment
 }
 
+fragment EntityLinksListDataFragment on EntityLinkConnection {
+  nodes {
+    id
+    slug
+    operator
+    target {
+      __typename
+      ... on Item {
+        slug
+        title
+        schemaDefinition {
+          name
+          kind
+          id
+        }
+      }
+      ... on Collection {
+        slug
+        title
+        schemaDefinition {
+          name
+          kind
+          id
+        }
+      }
+      ... on Node {
+        __isNode: __typename
+        id
+      }
+    }
+  }
+  ...ModelListPageFragment
+}
+
 fragment EntityLinksListFragment on AnyEntity {
   __isAnyEntity: __typename
   ... on Item {
     slug
     links {
-      nodes {
-        id
-        slug
-        operator
-        target {
-          __typename
-          ... on Item {
-            slug
-            title
-            schemaDefinition {
-              name
-              kind
-              id
-            }
-          }
-          ... on Collection {
-            slug
-            title
-            schemaDefinition {
-              name
-              kind
-              id
-            }
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-      }
-      ...ModelListPageFragment
+      ...EntityLinksListDataFragment
     }
   }
   ... on Collection {
     slug
     links {
-      nodes {
-        id
-        slug
-        operator
-        target {
-          __typename
-          ... on Item {
-            slug
-            title
-            schemaDefinition {
-              name
-              kind
-              id
-            }
-          }
-          ... on Collection {
-            slug
-            title
-            schemaDefinition {
-              name
-              kind
-              id
-            }
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-      }
-      ...ModelListPageFragment
+      ...EntityLinksListDataFragment
     }
   }
 }
@@ -357,7 +331,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "linksManageSlugCollectionsPagesQuery",
+    "name": "linksManageCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -388,7 +362,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "linksManageSlugCollectionsPagesQuery",
+    "name": "linksManageCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
@@ -461,14 +435,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "633c735c4e03fa90e100d6341b673cf1",
+    "cacheID": "c08c9f2d77cf2168a0eec741e9f135ae",
     "id": null,
     "metadata": {},
-    "name": "linksManageSlugCollectionsPagesQuery",
+    "name": "linksManageCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query linksManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links {\n      nodes {\n        id\n        slug\n        operator\n        target {\n          __typename\n          ... on Item {\n            slug\n            title\n            schemaDefinition {\n              name\n              kind\n              id\n            }\n          }\n          ... on Collection {\n            slug\n            title\n            schemaDefinition {\n              name\n              kind\n              id\n            }\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n      ...ModelListPageFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links {\n      nodes {\n        id\n        slug\n        operator\n        target {\n          __typename\n          ... on Item {\n            slug\n            title\n            schemaDefinition {\n              name\n              kind\n              id\n            }\n          }\n          ... on Collection {\n            slug\n            title\n            schemaDefinition {\n              name\n              kind\n              id\n            }\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n      ...ModelListPageFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query linksManageCollectionsPagesQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment EntityLinksListDataFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links {\n      ...EntityLinksListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links {\n      ...EntityLinksListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6cba7055b39b2475493cfa5b07c3b2ef';
+(node as any).hash = '3f3b8eabe4f4cd8fd3583a992ef9ffe0';
 export default node;

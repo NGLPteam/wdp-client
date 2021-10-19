@@ -9,11 +9,9 @@ export type EntityLinksAddDrawerQueryVariables = {
 };
 export type EntityLinksAddDrawerQueryResponse = {
     readonly item: {
-        readonly title: string | null;
         readonly " $fragmentRefs": FragmentRefs<"EntityLinksAddFormFragment">;
     } | null;
     readonly collection: {
-        readonly title: string | null;
         readonly " $fragmentRefs": FragmentRefs<"EntityLinksAddFormFragment">;
     } | null;
 };
@@ -29,12 +27,10 @@ query EntityLinksAddDrawerQuery(
   $entitySlug: Slug!
 ) {
   item(slug: $entitySlug) {
-    title
     ...EntityLinksAddFormFragment
     id
   }
   collection(slug: $entitySlug) {
-    title
     ...EntityLinksAddFormFragment
     id
   }
@@ -43,10 +39,12 @@ query EntityLinksAddDrawerQuery(
 fragment EntityLinksAddFormFragment on AnyEntity {
   __isAnyEntity: __typename
   ... on Collection {
-    entityId: id
+    id
+    title
   }
   ... on Item {
-    entityId: id
+    id
+    title
   }
 }
 */
@@ -66,32 +64,23 @@ v1 = [
     "variableName": "entitySlug"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v3 = [
-  (v2/*: any*/),
+v2 = [
   {
     "args": null,
     "kind": "FragmentSpread",
     "name": "EntityLinksAddFormFragment"
   }
 ],
-v4 = [
+v3 = [
   {
-    "alias": "entityId",
+    "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "id",
+    "name": "title",
     "storageKey": null
   }
 ],
-v5 = [
-  (v2/*: any*/),
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -104,13 +93,13 @@ v5 = [
     "selections": [
       {
         "kind": "InlineFragment",
-        "selections": (v4/*: any*/),
+        "selections": (v3/*: any*/),
         "type": "Collection",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v4/*: any*/),
+        "selections": (v3/*: any*/),
         "type": "Item",
         "abstractKey": null
       }
@@ -133,7 +122,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v2/*: any*/),
         "storageKey": null
       },
       {
@@ -143,7 +132,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v2/*: any*/),
         "storageKey": null
       }
     ],
@@ -163,7 +152,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v4/*: any*/),
         "storageKey": null
       },
       {
@@ -173,20 +162,20 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v4/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "70c27dd1bead0f50f79c07be78688c77",
+    "cacheID": "8f91d240b987854a9c97b0f6beed9883",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    title\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    title\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    entityId: id\n  }\n  ... on Item {\n    entityId: id\n  }\n}\n"
+    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n  }\n  ... on Item {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c21b36cd8e5be5f562a08ddf392ba840';
+(node as any).hash = '20ba05759bbf69c7c7a9176ced9abf33';
 export default node;

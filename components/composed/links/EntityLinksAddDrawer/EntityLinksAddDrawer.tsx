@@ -29,7 +29,7 @@ export default function EntityLinksAddDrawer({
         return (
           <Drawer
             label={t("actions.create.link")}
-            header={entity?.title || t("drawers.addLink.title")}
+            header={t("drawers.addLink.title")}
             dialog={dialog}
             hideOnClickOutside={false}
           >
@@ -50,11 +50,9 @@ export default function EntityLinksAddDrawer({
 const query = graphql`
   query EntityLinksAddDrawerQuery($entitySlug: Slug!) {
     item(slug: $entitySlug) {
-      title
       ...EntityLinksAddFormFragment
     }
     collection(slug: $entitySlug) {
-      title
       ...EntityLinksAddFormFragment
     }
   }

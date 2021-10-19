@@ -5,6 +5,7 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { useTranslation } from "react-i18next";
 
 import type {
   EntityLinksAddFormMutation,
@@ -17,13 +18,15 @@ export default function EntityLinksAddForm({
   onSuccess,
   onCancel,
 }: Props) {
+  const { t } = useTranslation();
+
   const sourceEntity = useFragment<EntityLinksAddFormFragment$key>(
     fragment,
     data
   );
 
   const toVariables = useToVariables<EntityLinksAddFormMutation, Fields>(
-    (data) => ({ input: { ...data, sourceId: sourceEntity.entityId || "" } }),
+    (data) => ({ input: { ...data, sourceId: sourceEntity.id || "" } }),
     []
   );
 
@@ -36,11 +39,14 @@ export default function EntityLinksAddForm({
           label="forms.fields.target"
         />
         <Forms.Select
-          label="forms.fields.linktype"
+          label="forms.fields.linktype.label"
           options={[
             { value: "CONTAINS", label: "contains" },
             { value: "REFERENCES", label: "references" },
           ]}
+          description={t("forms.fields.linktype.description", {
+            name: sourceEntity.title,
+          })}
           {...register("operator")}
         />
       </Forms.Grid>
@@ -74,10 +80,12 @@ type Fields = Omit<LinkEntityInput, "clientMutationId">;
 const fragment = graphql`
   fragment EntityLinksAddFormFragment on AnyEntity {
     ... on Collection {
-      entityId: id
+      id
+      title
     }
     ... on Item {
-      entityId: id
+      id
+      title
     }
   }
 `;
