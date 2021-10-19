@@ -33,13 +33,14 @@ const ThumbnailColumn = <NodeType extends Node>({
     id: "thumbnail",
     accessor: (row: ThumbnailColumn<NodeType>) => row?.thumbnail?.image,
     disableSortBy: true,
+    cellType: "thumbnail",
     Cell: ({ grid = false, value, row }: CellProps<NodeType>) => {
       if (!value || !value?.png) return null;
       const { png } = value;
       const width = grid ? 180 : 50;
       const height = grid ? 180 : 50;
       const objectFit = "contain";
-      const objectPosition = grid ? undefined : "center";
+      const objectPosition = grid ? undefined : "top right";
 
       return png && row.original.slug && route ? (
         <NamedLink

@@ -9,11 +9,10 @@ const UpdatedAtColumn = <NodeType extends UpdatableNode>(
   const { t } = useTranslation();
 
   return {
-    align: "left",
     Header: <>{t("columns.updatedAt")}</>,
     id: "updatedAt",
     disableSortBy: false,
-    truncate: true,
+    className: "t-truncate",
     accessor: (originalRow: NodeType) => {
       if (!originalRow.updatedAt) return null;
       return formatDate(originalRow.updatedAt);

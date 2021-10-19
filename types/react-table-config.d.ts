@@ -70,8 +70,9 @@ declare module "react-table" {
   export interface ColumnInterface<
     D extends Record<string, unknown> = Record<string, unknown>
   > extends UseSortByColumnOptions<D> {
-    truncate?: boolean;
-    align?: "left" | "center" | "right";
+    className?: string;
+    // Maps to different cell styles
+    cellType?: "thumbnail" | "name" | "actions" | string;
   }
 
   export interface ColumnInstance<

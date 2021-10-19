@@ -8,6 +8,7 @@ type NameColumn<T extends Node> = RequiredColumnish<T> & { route: string };
 
 const NameColumn = <NodeType extends Node>({
   route,
+  cellType,
   ...props
 }: NameColumn<NodeType>): Column<NodeType> => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ const NameColumn = <NodeType extends Node>({
     Header: <>{t("columns.name")}</>,
     id: "name",
     disableSortBy: true,
+    cellType: cellType || "name",
     Cell: ({ row, value }: CellProps<NodeType>) => {
       if (!row?.original?.slug) return value;
       return (

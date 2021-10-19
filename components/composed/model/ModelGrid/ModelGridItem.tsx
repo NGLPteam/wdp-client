@@ -2,7 +2,10 @@ import React, { useMemo } from "react";
 import { Row } from "react-table";
 import Grid from "components/layout/Grid/Grid";
 
-function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
+function ModelGridItem<T extends Record<string, unknown>>({
+  row,
+  selectable,
+}: Props<T>) {
   const actions = useMemo(
     () => row.cells.find((cell) => cell.column.id === "actions"),
     [row]
@@ -19,7 +22,7 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
 
   return (
     <Grid.Item
-      checkboxProps={checkboxProps}
+      checkboxProps={selectable ? checkboxProps : undefined}
       actions={actions && actions.render("Cell")}
       thumbnail={thumbnail && thumbnail.render("Cell", { grid: true })}
     >

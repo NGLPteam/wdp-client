@@ -124,6 +124,8 @@ function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {
     const actionColumn = {
       Header: () => null,
       id: "actions",
+      align: "right",
+      cellType: "actions",
       Cell: ({ row }: { row: Row<D> }) => {
         return renderActions<D>(row, actions);
       },
