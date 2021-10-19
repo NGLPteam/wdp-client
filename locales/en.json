@@ -1,87 +1,174 @@
 {
   "translation": {
     "key": "English",
-    "showing.count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
-    "selected.count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
-    "breadcrumb.dropdown.label": "Show parent collections",
-    "save": "Save",
-    "cancel": "Cancel",
-    "close": "Close",
-    "manage": "Manage",
-    "error": "Error",
-    "no_results": "No Results",
-    "not_found": "{{model}} Not Found",
-    "options": "Options",
-    "edit": "Edit",
-    "delete": "Delete",
-    "loading": "Loading",
-    "all": "All",
-    "search": "Search",
-    "sign_in": "Sign In",
-    "sign_out": "Sign Out",
-    "site": {
+    "app": {
       "title": "NGLP",
       "description": "...",
       "provider": "Service Provider Name",
       "institution": "Institution Name",
-      "powered_by": "Powered by NGLP–WDP"
+      "powered_by": "Powered by NGLP–WDP",
+      "copyright": "Copyright {{year}} Institution Name and other necessary data. More legal details can be found here.",
+      "about": {
+        "header": "About",
+        "body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
+      }
+    },
+    "common": {
+      "all": "All",
+      "cancel": "Cancel",
+      "close": "Close",
+      "confirm": "Confirm",
+      "edit": "Edit",
+      "error": "Error",
+      "delete": "Delete",
+      "loading": "Loading",
+      "manage": "Manage",
+      "options": "Options",
+      "save": "Save",
+      "save_and_close": "Save & Close",
+      "search": "Search"
+    },
+    "glossary": {
+      "community": "community",
+      "community_plural": "communities",
+      "collection": "collection",
+      "collection_plural": "collections",
+      "collection_contribution": "collection $t(glossary.contribution)",
+      "contribution": "contribution",
+      "contribution_plural": "contributions",
+      "item": "item",
+      "item_plural": "items",
+      "item_contribution": "item $t(glossary.contribution)",
+      "user": "user",
+      "user_plural": "users",
+      "contributor": "contributor",
+      "contributor_plural": "contributors",
+      "contributor_person": "person",
+      "contributor_org": "organization",
+      "link": "link",
+      "link_plural": "links",
+      "ordering": "ordering",
+      "ordering_plural": "orderings",
+      "file": "file",
+      "file_plural": "files",
+      "role": "role",
+      "role_plural": "roles",
+      "access": "access",
+      "access_plural": "access"
+    },
+    "lists": {
+      "columns": {
+        "admin": "Admin?",
+        "created_at": "Created At",
+        "email": "Email",
+        "kind": "Kind",
+        "name": "Name",
+        "role": "Role",
+        "roles": "Roles",
+        "schema": "Schema",
+        "thumbnail": "Thumbnail",
+        "type": "Type",
+        "updated_at": "Updated At"
+      },
+      "no_results": "No Results",
+      "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
+      "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
+      "sort": {
+        "label": "Sort",
+        "ascending": "Sort ascending",
+        "descending": "Sort descending"
+      }
+    },
+    "nav": {
+      "headers": {
+        "manage": "Manage",
+        "learn": "Learn",
+        "account": "Account"
+      },
+      "breadcrumbs": {
+        "dropdown_label": "Show parent collections"
+      },
+      "sign_in": "Sign In",
+      "sign_out": "Sign Out",
+      "details": "Details",
+      "communities": "Communities",
+      "collections": "Collections",
+      "items": "Items",
+      "manage": "Manage",
+      "roles": "Roles",
+      "members": "Members",
+      "order": "Orderings",
+      "links": "Links",
+      "access": "Access",
+      "pages": "Pages",
+      "contributions": "Contributions",
+      "rules": "Rules",
+      "files": "Files",
+      "collection_contributions": "Collection Contributions",
+      "item_contributions": "Item Contributions",
+      "menu_toggle": "Menu",
+      "features": "Features",
+      "partners": "Partners",
+      "in_use": "In Use",
+      "help": "Help",
+      "contact": "Contact"
     },
     "drawers": {
-      "addMember.title": "Add Member",
-      "addMember.to.title": "Add Member to {{ name }}",
-      "addAccess.title": "Add Access",
-      "addAccess.to.title": "Add Access to {{ name }}",
-      "createPerson.title": "Create New Person",
-      "createOrganization.title": "Create New Organization",
-      "editItemContribution.title": "Edit Item Contribution",
-      "editCollectionContribution.title": "Edit Collection Contribution",
-      "editAccess.title": "Edit Access",
-      "editAccess.to.title": "Edit {{ user }}'s Access to {{ name }}",
-      "editMember.title": "Edit Member",
-      "editMember.to.title": "Edit {{ user }}'s Membership to {{ name }}",
-      "createCommunity.title": "Create New Community",
-      "createContribution.title": "Create New Contribution",
-      "createFile.title": "Create New File",
-      "createRole.title": "Create New Role",
-      "editCommunity.title": "Edit Community",
-      "editCollection.title": "Edit Collection",
-      "editContributor.title": "Edit Contributor",
-      "editItem.title": "Edit Item",
-      "addLink.title": "Add Link"
+      "add_member.title": "Add Member",
+      "add_member_to.title": "Add Member to {{ name }}",
+      "add_access.title": "Add Access",
+      "add_access_to.title": "Add Access to {{ name }}",
+      "create_person.title": "Create New Person",
+      "create_organization.title": "Create New Organization",
+      "edit_item_contribution.title": "Edit Item Contribution",
+      "edit_collection_contribution.title": "Edit Collection Contribution",
+      "edit_access.title": "Edit Access",
+      "edit_access.to.title": "Edit {{ user }}'s Access to {{ name }}",
+      "edit_member.title": "Edit Member",
+      "edit_member.to.title": "Edit {{ user }}'s Membership to {{ name }}",
+      "create_community.title": "Create New Community",
+      "create_contribution.title": "Create New Contribution",
+      "create_file.title": "Create New File",
+      "create_role.title": "Create New Role",
+      "edit_community.title": "Edit Community",
+      "edit_collection.title": "Edit Collection",
+      "edit_contributor.title": "Edit Contributor",
+      "edit_item.title": "Edit Item"
     },
     "actions": {
-      "add.access": "Add Access",
-      "add.community": "Add Community",
-      "add.member": "Add Member",
-      "add.collection": "Add Collection",
-      "add.item": "Add Item",
-      "add.link": "Add Link",
-      "create.contributor.person": "Create Person",
-      "create.contributor.organization": "Create Organization",
-      "create.contribution": "Create Contribution",
-      "create.community": "Create Community",
-      "create.file": "Create File",
-      "create.role": "Create Role",
-      "edit.itemContribution": "Edit Item Contribution",
-      "edit.collectionContribution": "Edit Collection Contribution",
-      "edit.community": "Edit Community",
-      "edit.collection": "Edit Collection",
-      "edit.contributor": "Edit Contributor",
-      "edit.item": "Edit Item",
-      "edit.access": "Edit Access",
-      "edit.member": "Edit Member",
+      "add": {
+        "access": "Add Access",
+        "community": "Add Community",
+        "member": "Add Member",
+        "collection": "Add Collection",
+        "item": "Add Item"
+      },
+      "create": {
+        "contributor_person": "Create Person",
+        "contributor.organization": "Create Organization",
+        "contribution": "Create Contribution",
+        "community": "Create Community",
+        "file": "Create File",
+        "role": "Create Role"
+      },
+      "edit": {
+        "item_contribution": "Edit Item Contribution",
+        "collection_contribution": "Edit Collection Contribution",
+        "community": "Edit Community",
+        "collection": "Edit Collection",
+        "contributor": "Edit Contributor",
+        "item": "Edit Item",
+        "access": "Edit Access",
+        "member": "Edit Member"
+      },
       "hide": {
-        "inherited.roles": "Hide Inherited Roles"
+        "inherited_roles": "Hide Inherited Roles"
       },
       "show": {
-        "inherited.roles": "Show Inherited Roles"
+        "inherited_roles": "Show Inherited Roles"
       }
     },
     "modals": {
-      "generic": {
-        "confirm": "Confirm",
-        "cancel": "Cancel"
-      },
       "delete": {
         "label": "Confirm Delete",
         "body": "Are you sure you want to delete this record?"
@@ -93,11 +180,6 @@
       "revoked": "$t({{ name }}) revoked successfully."
     },
     "forms": {
-      "common": {
-        "save": "Save",
-        "cancel": "Cancel",
-        "save_and_close": "Save & Close"
-      },
       "fields": {
         "title": "Title",
         "thumbnail": "Thumbnail",
@@ -228,122 +310,6 @@
           "failure": "Link could not be added."
         }
       }
-    },
-    "header": {
-      "manage": "Manage",
-      "learn": "Learn",
-      "account": "Account",
-      "toggle_nav_menu": "Menu"
-    },
-    "footer": {
-      "about": {
-        "header": "About",
-        "body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
-      },
-      "copyright": "Copyright 2021 Institution Name and other necessary data. More legal details can be found here.",
-      "manage": "Manage",
-      "learn": "Learn",
-      "nav": {
-        "features": "Features",
-        "partners": "Partners",
-        "in_use": "In Use",
-        "help": "Help",
-        "contact": "Contact"
-      }
-    },
-    "glossary": {
-      "community": {
-        "label": "community",
-        "label_plural": "communities"
-      },
-      "collection": {
-        "label": "collection",
-        "label_plural": "collections"
-      },
-      "collection_contribution": {
-        "label": "collection $t(glossary.contribution.label_plural)"
-      },
-      "contribution": {
-        "label": "contribution",
-        "label_plural": "contributions"
-      },
-      "item": {
-        "label": "item",
-        "label_plural": "items"
-      },
-      "item_contribution": {
-        "label": "item $t(glossary.contribution.label_plural)"
-      },
-      "user": {
-        "label": "user",
-        "label_plural": "users"
-      },
-      "contributor": {
-        "label": "contributor",
-        "label_plural": "contributors",
-        "person": "Person",
-        "org": "Organization"
-      },
-      "link": {
-        "label": "link",
-        "label_plural": "links"
-      },
-      "ordering": {
-        "label": "ordering",
-        "label_plural": "orderings"
-      },
-      "file": {
-        "label": "file",
-        "label_plural": "files"
-      },
-      "role": {
-        "label": "role",
-        "label_plural": "roles"
-      },
-      "access": {
-        "label": "access",
-        "label_plural": "access"
-      }
-    },
-    "name": "name",
-    "name_plural": "names",
-    "title": "title",
-    "title_plural": "titles",
-    "navLabels": {
-      "details": "Details",
-      "communities": "Communities",
-      "collections": "Collections",
-      "items": "Items",
-      "manage": "Manage",
-      "roles": "Roles",
-      "members": "Members",
-      "order": "Orderings",
-      "links": "Links",
-      "access": "Access",
-      "pages": "Pages",
-      "contributions": "Contributions",
-      "rules": "Rules",
-      "files": "Files",
-      "collectionContributions": "Collection Contributions",
-      "itemContributions": "Item Contributions"
-    },
-    "columns": {
-      "admin": "Admin?",
-      "createdAt": "Created At",
-      "email": "Email",
-      "name": "Name",
-      "roles": "Roles",
-      "role": "Role",
-      "thumbnail": "Thumbnail",
-      "updatedAt": "Updated At",
-      "type": "Type",
-      "schema": "Schema",
-      "kind": "Kind"
-    },
-    "sort": {
-      "label": "Sort",
-      "ascending": "Sort ascending",
-      "descending": "Sort descending"
     }
   }
 }
