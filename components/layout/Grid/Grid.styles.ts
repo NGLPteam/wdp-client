@@ -64,14 +64,20 @@ export const Item = styled.div`
   ${respond(
     `
       grid-template:
-        "checkbox image children actions" 1fr
-        / auto auto 1fr auto;
+        "image children actions" 1fr
+        / auto 1fr auto;
       padding-inline-start: 0;
       padding-inline-end: 0;
       padding-block-start: 0;
       gap: ${pxToRem(12)};
       border-radius: 0;
       border-bottom: 1px solid var(--border-color);
+
+      &[data-has-checkbox="true"] {
+        grid-template:
+          "checkbox image children actions" 1fr
+          / auto auto 1fr auto;
+      }
     `,
     MOBILE_BREAK
   )}

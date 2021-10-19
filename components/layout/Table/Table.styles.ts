@@ -2,14 +2,13 @@ import styled, { css } from "styled-components";
 import { aBgLight, aTextGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { respond } from "theme/mixins/base";
 
 export const TableWrapper = styled.div<TableWrapperProps>`
   --table-border: 1px solid var(--border-color);
   --table-border-radius: ${pxToRem(6)};
   --table-column-gap: ${pxToRem(16)};
-  --table-margin-left: var(--table-column-gap);
-  --table-margin-right: var(--table-column-gap);
+  --table-margin-left: ${pxToRem(8)};
+  --table-margin-right: ${pxToRem(8)};
   --checkbox-opacity: 0;
   --checkbox-visibility: 0;
 
@@ -27,17 +26,6 @@ export const TableWrapper = styled.div<TableWrapperProps>`
     `}
 
   border-top: var(--table-border);
-
-  ${respond(
-    css`
-      --table-margin-left: 0px;
-      --table-margin-right: 0px;
-      &[data-multiselect="true"] {
-        --table-margin-left: 0px;
-      }
-    `,
-    110
-  )}
 `;
 
 interface TableWrapperProps {
@@ -49,6 +37,7 @@ export const Table = styled.table`
   margin-inline-start: calc(var(--table-margin-left) * -1);
   margin-inline-end: calc(var(--table-margin-right) * -1);
   width: calc(100% + var(--table-margin-left) + var(--table-margin-right));
+  border-collapse: collapse;
 `;
 
 export const TableBody = styled.tbody`
@@ -63,6 +52,7 @@ export const TableBody = styled.tbody`
 export const HeaderCell = styled.th`
   cursor: default;
   border-bottom: var(--table-border);
+  white-space: nowrap;
 
   &[aria-sort] {
     cursor: pointer;
@@ -70,21 +60,12 @@ export const HeaderCell = styled.th`
 
   &[data-select-cell="true"] {
     padding-inline-start: var(--table-column-gap);
+    border-bottom: 0;
   }
 
-  ${respond(
-    css`
-      &[data-select-cell="true"] {
-        border-bottom: 0;
-      }
-
-      &[role="presentation"] {
-        border-bottom: 0;
-      }
-    `,
-    110,
-    "min"
-  )}
+  &[role="presentation"] {
+    border-bottom: 0;
+  }
 `;
 
 export const HeaderCellInner = styled.span`
@@ -108,27 +89,44 @@ export const FakeRow = styled.div`
 `;
 
 export const Cell = styled.td`
-  padding-block-start: ${pxToRem(8)};
-  padding-block-end: ${pxToRem(8)};
+  padding-block-start: ${pxToRem(14)};
+  padding-block-end: ${pxToRem(14)};
   padding-inline-end: var(--table-column-gap);
   max-width: 15vw;
 
-  ${({ align }) =>
-    align &&
-    css`
-      text-align: ${align};
-    `}
+  &[data-cell-type="name"] {
+    width: 35%;
+  }
+
+  &[data-cell-type="thumbnail"] {
+    padding-block-start: ${pxToRem(8)};
+    padding-block-end: ${pxToRem(2)};
+    /* First number should be the size of the thumbnail (50px) */
+    width: ${50 + 8 * 2}px;
+    min-width: ${40 + 8 * 2}px;
+  }
+
+  &[data-cell-type="actions"] {
+    padding-block-start: ${pxToRem(8)};
+    padding-block-end: ${pxToRem(8)};
+    padding-inline-end: 0;
+    text-align: end;
+  }
 
   &:first-child {
     border-top-left-radius: var(--table-border-radius);
     border-bottom-left-radius: var(--table-border-radius);
     width: var(--table-margin-left);
+    min-width: var(--table-margin-left);
+    padding: 0;
   }
 
   &:last-child {
     border-top-right-radius: var(--table-border-radius);
     border-bottom-right-radius: var(--table-border-radius);
     width: var(--table-margin-right);
+    min-width: var(--table-margin-right);
+    padding: 0;
   }
 `;
 
@@ -151,6 +149,7 @@ export const LoadingRow = styled.tr``;
 export const Row = styled.tr`
   --button-control-opacity: 0;
   --button-control-visibility: 0;
+  vertical-align: top;
 
   &:hover,
   &:focus,

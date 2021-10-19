@@ -54,9 +54,9 @@ function TableBody<T extends Record<string, unknown>>({
                 };
                 return (
                   <Styled.Cell
-                    align={cell?.column?.align}
                     {...cellProps}
-                    className={cell.column?.truncate ? "t-truncate" : undefined}
+                    data-cell-type={cell.column?.cellType}
+                    className={cell.column?.className}
                   >
                     {cell.render("Cell")}
                   </Styled.Cell>

@@ -9,11 +9,10 @@ const CreatedAtColumn = <NodeType extends CreatableNode>(
   const { t } = useTranslation();
 
   return {
-    align: "left",
     Header: <>{t("columns.createdAt")}</>,
     id: "createdAt",
     disableSortBy: true,
-    truncate: true,
+    className: "t-truncate",
     accessor: (originalRow: NodeType) => {
       if (!originalRow.createdAt) return null;
       return formatDate(originalRow.createdAt);

@@ -4,7 +4,7 @@ import GridItem from "./GridItem";
 
 const Grid = ({ children, showCheckboxes, id }: Props) => {
   return (
-    <Styled.Wrapper id={id} showCheckboxes={showCheckboxes}>
+    <Styled.Wrapper id={id} data-grid-checkboxes={showCheckboxes}>
       <Styled.Inner>{children}</Styled.Inner>
     </Styled.Wrapper>
   );
