@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useMaybeFragment, useRouteSlug } from "hooks";
@@ -8,6 +8,8 @@ import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import { ButtonControl } from "components/atomic/buttons/ButtonControl/ButtonControl.styles";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import RoleAccessGrantsList from "../RoleAccessGrantsList";
 import RoleAssignedUsersList from "../RoleAssignedUsersList";
 
@@ -26,11 +28,7 @@ function RoleAccessList<T extends OperationType>({
 
   const slug = useRouteSlug();
   const { t } = useTranslation();
-  const [showInherited, setShowInherited] = useState(false);
-
-  const handleShowToggle = () => {
-    setShowInherited(!showInherited);
-  };
+  const router = useRouter();
 
   const buttons =
     slug && entityType ? (
@@ -59,9 +57,19 @@ function RoleAccessList<T extends OperationType>({
               : "actions.add.access"
           )}
         </ButtonControlDrawer>
-        <ButtonControl onClick={handleShowToggle}>
-          {showInherited ? "Hide Inherited Roles" : "Show Inherited Roles"}
-        </ButtonControl>
+        <Link
+          href={{
+            pathname: router.pathname,
+            query: router.query.inherited
+              ? { slug }
+              : { slug, inherited: true },
+          }}
+          passHref
+        >
+          <ButtonControl as="a">
+            {router.query.inherited ? "Hide" : "Show"} Inherited Roles
+          </ButtonControl>
+        </Link>
       </ButtonControlGroup>
     ) : null;
 
@@ -73,10 +81,10 @@ function RoleAccessList<T extends OperationType>({
         headerStyle={headerStyle}
         hideHeader={hideHeader}
       />
-      {showInherited ? (
-        <RoleAssignedUsersList data={entity} hideHeader={true} />
+      {router.query.inherited ? (
+        <RoleAssignedUsersList<T> data={entity} hideHeader={true} />
       ) : (
-        <RoleAccessGrantsList
+        <RoleAccessGrantsList<T>
           data={entity}
           entityType={entityType}
           hideHeader={true}

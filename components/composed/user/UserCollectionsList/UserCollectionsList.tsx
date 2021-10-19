@@ -108,7 +108,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header="Managed Collections"
+      header={t("glossary.collection.label_plural")}
       disableSortBy
       buttons={buttons}
       actions={actions}

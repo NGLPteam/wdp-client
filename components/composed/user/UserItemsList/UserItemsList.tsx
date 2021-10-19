@@ -106,7 +106,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header="Managed Items"
+      header={t("glossary.item.label_plural")}
       disableSortBy
       buttons={buttons}
       actions={actions}
