@@ -28,7 +28,7 @@ function FileList<T extends OperationType>({
   const { t } = useTranslation();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<FileNode>(),
+    ModelColumns.ThumbnailColumn<FileNode>({}),
     ModelColumns.StringColumn<FileNode>({
       Header: <>{t("columns.name")}</>,
       id: "name",

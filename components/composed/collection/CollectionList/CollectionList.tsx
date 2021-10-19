@@ -28,7 +28,7 @@ function CollectionList<T extends OperationType>({
   );
 
   const columns = [
-    ModelColumns.ThumbnailColumn<CollectionNode>(),
+    ModelColumns.ThumbnailColumn<CollectionNode>({ route: "collection" }),
     ModelColumns.NameColumn<CollectionNode>({
       route: "collection",
       accessor: "title",

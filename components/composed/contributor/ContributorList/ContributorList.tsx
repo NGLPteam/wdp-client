@@ -34,6 +34,7 @@ function ContributorList<T extends OperationType>({
         if (row.__typename === "%other") return null;
         return row?.image?.thumb;
       },
+      route: "contributor",
     }),
     ModelColumns.NameColumn<ContributorNode>({
       route: "contributor",

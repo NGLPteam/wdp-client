@@ -24,6 +24,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   const columns = [
     ModelColumns.ThumbnailColumn<Node>({
       accessor: (row: Node) => row?.collection?.thumbnail?.image,
+      route: "collection",
     }),
     ModelColumns.NameColumn<Node>({
       route: "collection",
