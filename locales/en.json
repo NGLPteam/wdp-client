@@ -67,7 +67,13 @@
       "edit.contributor": "Edit Contributor",
       "edit.item": "Edit Item",
       "edit.access": "Edit Access",
-      "edit.member": "Edit Member"
+      "edit.member": "Edit Member",
+      "hide": {
+        "inherited.roles": "Hide Inherited Roles"
+      },
+      "show": {
+        "inherited.roles": "Show Inherited Roles"
+      }
     },
     "modals": {
       "generic": {

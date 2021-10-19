@@ -67,7 +67,11 @@ function RoleAccessList<T extends OperationType>({
           passHref
         >
           <ButtonControl as="a">
-            {router.query.inherited ? "Hide" : "Show"} Inherited Roles
+            {t(
+              `actions.${
+                router.query.inherited ? "hide" : "show"
+              }.inherited.roles`
+            )}
           </ButtonControl>
         </Link>
       </ButtonControlGroup>
