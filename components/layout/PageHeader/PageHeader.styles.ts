@@ -14,7 +14,7 @@ export const Header = styled.header<Pick<Props, "headerStyle">>`
 `;
 
 export const TabsWrapper = styled.div`
-  margin-block-end: ${pxToRem(65)};
+  margin-block-end: ${pxToRem(24)};
 
   ${respond(`display: none`, 70)}
 `;
