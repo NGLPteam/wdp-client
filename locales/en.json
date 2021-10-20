@@ -54,22 +54,22 @@
       "role": "role",
       "role_plural": "roles",
       "access": "access",
-      "access_plural": "access"
+      "access_plural": "access",
+      "schema": "Schema",
+      "schema_plural": "Schemas"
     },
-    "lists": {
-      "columns": {
-        "admin": "Admin?",
-        "created_at": "Created At",
-        "email": "Email",
-        "kind": "Kind",
-        "name": "Name",
-        "role": "Role",
-        "roles": "Roles",
-        "schema": "Schema",
-        "thumbnail": "Thumbnail",
-        "type": "Type",
-        "updated_at": "Updated At"
-      },
+    "list": {
+      "admin_column": "Admin?",
+      "created_at_column": "Created At",
+      "email_column": "Email",
+      "kind_column": "Kind",
+      "name_column": "Name",
+      "role_column": "Role",
+      "roles_column": "Roles",
+      "schema_column": "Schema",
+      "thumbnail_column": "Thumbnail",
+      "type_column": "Type",
+      "updated_at_column": "Updated At",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
@@ -80,14 +80,11 @@
       }
     },
     "nav": {
-      "headers": {
-        "manage": "Manage",
-        "learn": "Learn",
-        "account": "Account"
-      },
-      "breadcrumbs": {
-        "dropdown_label": "Show parent collections"
-      },
+      "manage_header": "Manage",
+      "learn_header": "Learn",
+      "account_header": "Account",
+      "breadcrumb_dropdown_label": "Show parent collections",
+      "menu_toggle": "Menu",
       "sign_in": "Sign In",
       "sign_out": "Sign Out",
       "details": "Details",
@@ -106,50 +103,68 @@
       "files": "Files",
       "collection_contributions": "Collection Contributions",
       "item_contributions": "Item Contributions",
-      "menu_toggle": "Menu",
       "features": "Features",
       "partners": "Partners",
       "in_use": "In Use",
       "help": "Help",
       "contact": "Contact"
     },
-    "drawers": {
-      "add_member.title": "Add Member",
-      "add_member_to.title": "Add Member to {{ name }}",
-      "add_access.title": "Add Access",
-      "add_access_to.title": "Add Access to {{ name }}",
-      "create_person.title": "Create New Person",
-      "create_organization.title": "Create New Organization",
-      "edit_item_contribution.title": "Edit Item Contribution",
-      "edit_collection_contribution.title": "Edit Collection Contribution",
-      "edit_access.title": "Edit Access",
-      "edit_access.to.title": "Edit {{ user }}'s Access to {{ name }}",
-      "edit_member.title": "Edit Member",
-      "edit_member.to.title": "Edit {{ user }}'s Membership to {{ name }}",
-      "create_community.title": "Create New Community",
-      "create_contribution.title": "Create New Contribution",
-      "create_file.title": "Create New File",
-      "create_role.title": "Create New Role",
-      "edit_community.title": "Edit Community",
-      "edit_collection.title": "Edit Collection",
-      "edit_contributor.title": "Edit Contributor",
-      "edit_item.title": "Edit Item"
+    "messages": {
+      "update": {
+        "success": "$t({{ name }}) updated successfully.",
+        "failure": "Failed to update $t({{ name }}).",
+        "collection_success": "Collection updated successfully.",
+        "collection_failure": "Failed to update collection."
+      },
+      "create": {
+        "success": "$t({{ name }}) created successfully.",
+        "failure": "Failed to create $t({{ name }}).",
+        "collection_success": "Collection created successfully.",
+        "collection_failure": "Failed to create collection."
+      },
+      "delete": {
+        "success": "$t({{ name }}) deleted successfully.",
+        "failure": "Failed to delete $t({{ name }}).",
+        "collection_success": "Collection deleted successfully.",
+        "collection_failure": "Failed to delete collection."
+      },
+      "disable": {
+        "confirm": "Are you sure you want to disable $t({{ name }})?",
+        "success": "$t({{ name }}) disabled successfully.",
+        "failure": "Failed to disable $t({{ name }}).",
+        "ordering_success": "Ordering disabled successfully.",
+        "ordering_failure": "Failed to disable ordering."
+      },
+      "revoke": {
+        "success": "$t({{ name }}) revoked successfully.",
+        "failure": "Failed to revoke $t({{ name }}).",
+        "access_success": "Access revoked successfully.",
+        "access_failure": "Failed to revoke access."
+      }
     },
     "actions": {
       "add": {
         "access": "Add Access",
+        "access_to": "Add Access to {{ name }}",
         "community": "Add Community",
         "member": "Add Member",
+        "member_to": "Add Member to {{ name }}",
         "collection": "Add Collection",
         "item": "Add Item"
       },
       "create": {
         "contributor_person": "Create Person",
-        "contributor.organization": "Create Organization",
+        "new_contributor_person": "Create New Person",
+        "contributor_organization": "Create Organization",
+        "new_contributor_organization": "Create New Organization",
         "contribution": "Create Contribution",
+        "new_contribution": "Create New Contribution",
         "community": "Create Community",
+        "new_community": "Create New Community",
         "file": "Create File",
-        "role": "Create Role"
+        "new_file": "Create New File",
+        "role": "Create Role",
+        "new_role": "Create New Role"
       },
       "edit": {
         "item_contribution": "Edit Item Contribution",
@@ -159,7 +174,9 @@
         "contributor": "Edit Contributor",
         "item": "Edit Item",
         "access": "Edit Access",
-        "member": "Edit Member"
+        "member": "Edit Member",
+        "users_access_to": "Edit {{ user }}'s Access to {{ name }}",
+        "users_membership_to": "Edit {{ user }}'s Membership to {{ name }}"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -169,18 +186,13 @@
       }
     },
     "modals": {
-      "delete": {
-        "label": "Confirm Delete",
-        "body": "Are you sure you want to delete this record?"
+      "confirm": {
+        "delete_label": "Confirm Delete",
+        "delete_body": "Are you sure you want to delete this record?"
       }
     },
-    "outcomes": {
-      "deleted": "$t({{ name }}) deleted successfully.",
-      "disabled": "Default ordering $t({{ name }}) disabled successfully.",
-      "revoked": "$t({{ name }}) revoked successfully."
-    },
-    "forms": {
-      "fields": {
+    "form": {
+      "field": {
         "title": "Title",
         "thumbnail": "Thumbnail",
         "visibility": "Visibility",
@@ -192,10 +204,10 @@
         "community": "Community",
         "contributor": "Contributor",
         "item": "Item",
-        "object": "Contribution on",
-        "legalName": "Name",
-        "givenName": "First Name",
-        "familyName": "Last Name",
+        "contribution_on": "Contribution on",
+        "legal_name": "Name",
+        "given_name": "First Name",
+        "family_name": "Last Name",
         "image": "Image",
         "email": "Email",
         "affiliation": "Affiliation",
@@ -205,110 +217,37 @@
         "location": "Location",
         "url": "URL",
         "user": "User",
-        "target": "To Collection or Item",
-        "linktype": {
-          "label": "Link Type",
-          "description": "Contained items or collections are descendants of $t({{ name }}). References are not descendants."
-        }
+        "caption": "Caption",
+        "altText": "Alt Text",
+        "attachment": "Attachment"
       },
       "tags": {
+        "label": "Tags",
         "add": "Add tag",
         "enter": "Enter a new tag",
         "noCommas": "Commas are not allowed in tags"
       },
       "schema": {
-        "title": "Schema",
-        "noSchema": "No schema defined",
-        "selector": {
-          "current_label": "Current Schema",
-          "new_label": "New Schema",
-          "button": "Change",
-          "warning": "Changing the schema will permanently alter this model's properties.",
-          "modal": {
-            "label": "Change Schema",
-            "message": "Are you sure you want to change this schema?"
-          }
-        },
-        "update": {
-          "success": "Successfully updated schema"
-        }
+        "label": "Schema",
+        "none": "No schema defined",
+        "current": "Current Schema",
+        "new": "New Schema",
+        "warning": "Changing the schema will permanently alter this model's properties.",
+        "change_button": "Change",
+        "change_title": "Change Schema",
+        "change_message": "Are you sure you want to change this schema?"
       },
       "file": {
         "upload": "Upload a file or \n drag and drop here",
         "upload_new": "or Upload a new file",
         "remove": "Remove this file",
-        "fields": {
-          "name": "Name",
-          "caption": "Caption",
-          "altText": "Alt Text",
-          "attachment": "Attachment"
-        },
-        "create": {
-          "success": "File created."
-        }
+        "required": "Please specify a file",
+        "upload_failed": "Upload failed (please check console for now)",
+        "server_error": "Something went wrong"
       },
-      "validation": {
-        "uploaded": {
-          "failed": "Upload failed (please check console for now)",
-          "required": "Please specify a file",
-          "server_error": "Something went wrong"
-        },
-        "required": "This is required"
-      },
-      "inputs": {
-        "linkRepeater": {
-          "add": "Add $t({{ itemLabel }})",
-          "remove": "Remove $t({{ itemLabel }})"
-        }
-      },
-      "community": {
-        "create": {
-          "success": "Community created."
-        },
-        "update": {
-          "success": "Community updated."
-        }
-      },
-      "collection": {
-        "update": {
-          "success": "Collection updated.",
-          "schemaSuccess": "Collection schema updated.",
-          "failure": "Collection failed to update.",
-          "schemaFailure": "Collection schema failed to update."
-        }
-      },
-      "contribution": {
-        "create": {
-          "success": "Contribution created."
-        },
-        "update": {
-          "success": "Contribution updated."
-        }
-      },
-      "item": {
-        "update": {
-          "success": "Item updated.",
-          "schemaSuccess": "Item schema updated.",
-          "failure": "Item failed to update.",
-          "schemaFailure": "Item schema failed to update."
-        }
-      },
-      "contributor": {
-        "update": {
-          "success": "Contributor updated.",
-          "failure": "Contributor failed to update."
-        }
-      },
-      "role": {
-        "create": {
-          "success": "Role created."
-        }
-      },
-      "link": {
-        "add": {
-          "success": "Link added.",
-          "failure": "Link could not be added."
-        }
+      "linkRepeater": {
+        "add": "Add $t({{ name }})",
+        "remove": "Remove $t({{ name }})"
       }
     }
   }
