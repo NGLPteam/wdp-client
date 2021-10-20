@@ -1,7 +1,26 @@
+const jsEslint = {
+  files: ["**/*.js"],
+  parser: "@babel/eslint-parser",
+  parserOptions: {
+    sourceType: "module",
+    requireConfigFile: false,
+    babelOptions: {
+      plugins: [
+        "babel-plugin-styled-components",
+        "@babel/plugin-transform-react-jsx",
+        "@babel/plugin-proposal-class-properties",
+      ],
+    },
+  },
+  env: {
+    browser: true,
+  },
+  extends: ["@castiron", "next"],
+};
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
-  ignorePatterns: ["components/scaffolding/**"],
   rules: {
     // "unused-imports/no-unused-imports": 2,
     // Turned off for this project
@@ -16,8 +35,6 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": 0,
     // next/link handles the href, so anchors without href are still interactive
     "jsx-a11y/no-noninteractive-tabindex": ["error", { tags: ["a"] }],
-    // Remove once fixed
-    camelcase: 1,
     // Sometimes I want to keep a var around.
     "@typescript-eslint/no-unused-vars": [
       1,
@@ -59,9 +76,18 @@ module.exports = {
     "relay/no-future-added-value": 0,
     "relay/unused-fields": 0,
   },
+  // Special plugins and extensions for ts
+  plugins: ["@typescript-eslint", "relay"],
+  extends: [
+    "@castiron",
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:relay/recommended",
+  ],
   overrides: [
     {
       files: ["**/*.stories.tsx"],
+      parser: "@typescript-eslint/parser",
       rules: {
         "jsx-a11y/click-events-have-key-events": 0,
         "jsx-a11y/no-noninteractive-tabindex": 0,
@@ -70,12 +96,6 @@ module.exports = {
         "import/no-anonymous-default-export": 0,
       },
     },
-  ],
-  plugins: ["@typescript-eslint", "relay"],
-  extends: [
-    "next",
-    "@castiron",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:relay/recommended",
+    jsEslint,
   ],
 };
