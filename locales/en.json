@@ -58,7 +58,7 @@
       "schema": "Schema",
       "schema_plural": "Schemas"
     },
-    "list": {
+    "lists": {
       "admin_column": "Admin?",
       "created_at_column": "Created At",
       "email_column": "Email",
@@ -123,6 +123,8 @@
         "collection_failure": "Failed to create collection."
       },
       "delete": {
+        "confirm_label": "Confirm Delete",
+        "confirm_body": "Are you sure you want to delete this record?",
         "success": "$t({{ name }}) deleted successfully.",
         "failure": "Failed to delete $t({{ name }}).",
         "collection_success": "Collection deleted successfully.",
@@ -183,12 +185,6 @@
       },
       "show": {
         "inherited_roles": "Show Inherited Roles"
-      }
-    },
-    "modals": {
-      "confirm": {
-        "delete_label": "Confirm Delete",
-        "delete_body": "Are you sure you want to delete this record?"
       }
     },
     "form": {
