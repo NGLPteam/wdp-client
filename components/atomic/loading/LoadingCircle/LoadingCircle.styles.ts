@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Skeleton = styled.div`
+  --loading-circle-size: ${pxToRem(80)};
   height: 100%;
   background: var(--brand10);
   border-radius: 10px;
@@ -9,6 +10,8 @@ export const Skeleton = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-block-start: var(--loading-circle-size);
+  padding-block-end: var(--loading-circle-size);
 `;
 
 const spin = keyframes`
@@ -21,8 +24,8 @@ to {
 }
 `;
 export const Circle = styled.div`
-  height: ${pxToRem(80)};
-  width: ${pxToRem(80)};
+  height: var(--loading-circle-size);
+  width: var(--loading-circle-size);
   border-radius: 50%;
   border: 4px solid;
   border-top-color: var(--brand30);

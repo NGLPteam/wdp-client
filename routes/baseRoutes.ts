@@ -13,7 +13,6 @@ export const baseRoutes: BaseRoute[] = [
       {
         name: "collection",
         path: "/collections/[slug]",
-        redirect: "/collections/[slug]/collections",
         label: "glossary.collection.label",
         routes: [
           {
