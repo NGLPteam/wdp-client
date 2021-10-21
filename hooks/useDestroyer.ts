@@ -27,6 +27,10 @@ import type {
   DestroyOrderingInput,
   useDestroyerDestroyOrderingMutation,
 } from "@/relay/useDestroyerDestroyOrderingMutation.graphql";
+import type {
+  DestroyEntityLinkInput,
+  useDestroyerDestroyEntityLinkMutation,
+} from "@/relay/useDestroyerDestroyEntityLinkMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
 import { RevokeAccessInput } from "types/graphql-schema";
@@ -174,6 +178,21 @@ export function useDestroyer() {
     [commitRevokeAccess, handleResponse]
   );
 
+  /* Destroy a link */
+  const [
+    commitDestroyLink,
+  ] = useMutation<useDestroyerDestroyEntityLinkMutation>(
+    destroyEntityLinkMutation
+  );
+
+  const link = useCallback(
+    async (input: DestroyEntityLinkInput, label: string) => {
+      const response = await commitDestroyLink({ variables: { input } });
+      return handleResponse(response.destroyEntityLink, label);
+    },
+    [commitDestroyLink, handleResponse]
+  );
+
   return {
     collection,
     item,
@@ -183,6 +202,7 @@ export function useDestroyer() {
     // file,
     ordering,
     access,
+    link,
   };
 }
 export default useDestroyer;
@@ -262,6 +282,17 @@ const destroyOrderingMutation = graphql`
 const revokeAccessMutation = graphql`
   mutation useDestroyerRevokeAccessMutation($input: RevokeAccessInput!) {
     revokeAccess(input: $input) {
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyEntityLinkMutation = graphql`
+  mutation useDestroyerDestroyEntityLinkMutation(
+    $input: DestroyEntityLinkInput!
+  ) {
+    destroyEntityLink(input: $input) {
+      destroyedId @deleteRecord
       ...useDestroyerFragment
     }
   }

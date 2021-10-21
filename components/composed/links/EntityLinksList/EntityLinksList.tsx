@@ -2,18 +2,25 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "hooks";
+import { useMaybeFragment, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import {
+  ButtonControlDrawer,
+  ButtonControlGroup,
+  NamedLink,
+} from "components/atomic";
 
+import type { EntityLinksListFragment$key } from "@/relay/EntityLinksListFragment.graphql";
 import type {
-  EntityLinksListFragment,
-  EntityLinksListFragment$key,
-} from "@/relay/EntityLinksListFragment.graphql";
-import { CellProps } from "react-table";
-import { NamedLink } from "components/atomic";
+  EntityLinksListDataFragment,
+  EntityLinksListDataFragment$key,
+} from "@/relay/EntityLinksListDataFragment.graphql";
+
+import { CellProps, ModelTableActionProps } from "react-table";
+
 import { capitalize } from "lodash";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -23,11 +30,16 @@ function EntityLinksList<T extends OperationType>({
   hideHeader,
 }: EntityLinksListProps) {
   const { t } = useTranslation();
+  const destroy = useDestroyer();
 
   /* eslint-disable max-len */
-  const collectionContributions = useMaybeFragment<EntityLinksListFragment$key>(
+  const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
     data
+  );
+  const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
+    linksFragment,
+    sourceEntity?.links
   );
   /* eslint-enable max-len */
 
@@ -66,14 +78,37 @@ function EntityLinksList<T extends OperationType>({
     }),
   ];
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addLink"
+        drawerQuery={{
+          drawerSlug: sourceEntity?.slug ? sourceEntity.slug : "",
+        }}
+        icon="plus"
+      >
+        {t("actions.create.link")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
+      destroy.link(
+        { entityLinkId: row.original.id },
+        row.original.target.title || "glossary.link"
+      ),
+  };
+
   return (
-    <ModelListPage<T, EntityLinksListFragment, EntityLinksNode>
+    <ModelListPage<T, EntityLinksListDataFragment, EntityLinksNode>
       modelName={"link"}
       columns={columns}
-      actions={{}}
-      data={collectionContributions}
+      actions={actions}
+      data={linksData}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      buttons={buttons}
     />
   );
 }
@@ -83,10 +118,10 @@ interface EntityLinksListProps
   data?: EntityLinksListFragment$key;
 }
 
-type EntityLinksNode = EntityLinksListFragment["nodes"][number];
+type EntityLinksNode = EntityLinksListDataFragment["nodes"][number];
 
-const fragment = graphql`
-  fragment EntityLinksListFragment on EntityLinkConnection {
+const linksFragment = graphql`
+  fragment EntityLinksListDataFragment on EntityLinkConnection {
     nodes {
       id
       slug
@@ -111,6 +146,23 @@ const fragment = graphql`
       }
     }
     ...ModelListPageFragment
+  }
+`;
+
+const fragment = graphql`
+  fragment EntityLinksListFragment on AnyEntity {
+    ... on Item {
+      slug
+      links {
+        ...EntityLinksListDataFragment
+      }
+    }
+    ... on Collection {
+      slug
+      links {
+        ...EntityLinksListDataFragment
+      }
+    }
   }
 `;
 

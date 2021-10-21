@@ -46,7 +46,8 @@
       "editCommunity.title": "Edit Community",
       "editCollection.title": "Edit Collection",
       "editContributor.title": "Edit Contributor",
-      "editItem.title": "Edit Item"
+      "editItem.title": "Edit Item",
+      "addLink.title": "Add Link"
     },
     "actions": {
       "add.access": "Add Access",
@@ -54,6 +55,7 @@
       "add.member": "Add Member",
       "add.collection": "Add Collection",
       "add.item": "Add Item",
+      "add.link": "Add Link",
       "create.contributor.person": "Create Person",
       "create.contributor.organization": "Create Organization",
       "create.contribution": "Create Contribution",
@@ -120,7 +122,12 @@
         "link": "Link",
         "location": "Location",
         "url": "URL",
-        "user": "User"
+        "user": "User",
+        "target": "To Collection or Item",
+        "linktype": {
+          "label": "Link Type",
+          "description": "Contained items or collections are descendants of $t({{ name }}). References are not descendants."
+        }
       },
       "tags": {
         "add": "Add tag",
@@ -213,6 +220,12 @@
       "role": {
         "create": {
           "success": "Role created."
+        }
+      },
+      "link": {
+        "add": {
+          "success": "Link added.",
+          "failure": "Link could not be added."
         }
       }
     },
