@@ -57,8 +57,6 @@ fragment EntityLinksAddFormFragment on AnyEntity {
 fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
   edges {
     node {
-      kind
-      title
       targetId
       target {
         __typename
@@ -144,14 +142,6 @@ v6 = [
             "name": "node",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "kind",
-                "storageKey": null
-              },
-              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -290,12 +280,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ce85665c767d0748bf855ecf2594f808",
+    "cacheID": "50c47354117dcd12937c5c71e52f0cc3",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n  ... on Item {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      kind\n      title\n      targetId\n      target {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Item {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n  ... on Item {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Item {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

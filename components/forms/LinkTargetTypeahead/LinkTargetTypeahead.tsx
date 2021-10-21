@@ -67,8 +67,6 @@ const fragment = graphql`
   fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
     edges {
       node {
-        kind
-        title
         targetId
         target {
           __typename

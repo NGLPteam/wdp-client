@@ -4,12 +4,9 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type LinkTargetCandidateKind = "COLLECTION" | "ITEM" | "%future added value";
 export type LinkTargetTypeaheadFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly kind: LinkTargetCandidateKind;
-            readonly title: string;
             readonly targetId: string;
             readonly target: {
                 readonly __typename: "Collection";
@@ -35,15 +32,14 @@ export type LinkTargetTypeaheadFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v1 = [
-  (v0/*: any*/)
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "title",
+    "storageKey": null
+  }
 ];
 return {
   "argumentDefinitions": [],
@@ -71,14 +67,6 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "kind",
-              "storageKey": null
-            },
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "targetId",
               "storageKey": null
             },
@@ -99,13 +87,13 @@ return {
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v1/*: any*/),
+                  "selections": (v0/*: any*/),
                   "type": "Collection",
                   "abstractKey": null
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v1/*: any*/),
+                  "selections": (v0/*: any*/),
                   "type": "Item",
                   "abstractKey": null
                 }
@@ -123,5 +111,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '726522b63b0c7f5190f6a17765b574ec';
+(node as any).hash = 'e467703a74b65caadb97eda0a8e9bcc2';
 export default node;

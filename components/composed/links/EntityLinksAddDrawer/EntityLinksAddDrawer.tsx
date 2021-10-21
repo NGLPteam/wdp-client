@@ -28,7 +28,7 @@ export default function EntityLinksAddDrawer({
         const entity = data ? data.item ?? data.collection : undefined;
         return (
           <Drawer
-            label={t("actions.create.link")}
+            label={t("actions.add.link")}
             header={t("drawers.addLink.title")}
             dialog={dialog}
             hideOnClickOutside={false}
