@@ -11,8 +11,13 @@ export default function DateProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
-        <DatePicker label={label} required={required} {...register} />
+      {({ label, required, register, isWide }) => (
+        <DatePicker
+          label={label}
+          required={required}
+          isWide={isWide}
+          {...register}
+        />
       )}
     </ScalarProperty>
   );

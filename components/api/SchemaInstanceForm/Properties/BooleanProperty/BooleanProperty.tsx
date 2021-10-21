@@ -14,12 +14,13 @@ export default function BooleanProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
+      {({ label, required, register, isWide }) => (
         <Switch
           label={label}
           hideLabel
           text={label}
           required={required}
+          isWide={isWide}
           {...register}
         />
       )}

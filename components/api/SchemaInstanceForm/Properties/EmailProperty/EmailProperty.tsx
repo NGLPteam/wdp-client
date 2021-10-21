@@ -11,8 +11,13 @@ export default function EmailProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
-        <Email label={label} required={required} {...register} />
+      {({ label, required, register, isWide }) => (
+        <Email
+          label={label}
+          required={required}
+          isWide={isWide}
+          {...register}
+        />
       )}
     </ScalarProperty>
   );
