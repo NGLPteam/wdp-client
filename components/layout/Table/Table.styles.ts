@@ -82,12 +82,6 @@ export const HeaderCellInner = styled.span`
   }
 `;
 
-export const FakeRow = styled.div`
-  ${aBgLight("brand10")}
-  height: ${pxToRem(32)};
-  border-radius: var(--table-border-radius);
-`;
-
 export const Cell = styled.td`
   padding-block-start: ${pxToRem(14)};
   padding-block-end: ${pxToRem(14)};
@@ -145,6 +139,12 @@ export const SelectCellInner = styled.div`
 `;
 
 export const LoadingRow = styled.tr``;
+
+export const LoadingCell = styled.td`
+  padding-block-end: ${pxToRem(16)};
+  height: ${pxToRem(32 + 16)};
+  --loading-border-radius: var(--table-border-radius);
+`;
 
 export const Row = styled.tr`
   --button-control-opacity: 0;

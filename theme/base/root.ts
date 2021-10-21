@@ -140,5 +140,8 @@ export default css`
     --input-placeholder-color: var(--color-light);
     --input-padding: 0 ${pxToRem(8)};
     --input-min-height: ${pxToRem(32)};
+
+    /* loading */
+    --loading-border-radius: ${pxToRem(10)};
   }
 `;
