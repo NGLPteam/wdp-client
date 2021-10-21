@@ -33,10 +33,11 @@ export default function EntityLinksAddForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.ItemTypeahead<Fields>
+        <Forms.LinkTargetTypeahead<Fields>
           control={control}
           name="targetId"
           label="forms.fields.target"
+          data={sourceEntity?.linkTargetCandidates}
         />
         <Forms.Select
           label="forms.fields.linktype.label"
@@ -82,10 +83,16 @@ const fragment = graphql`
     ... on Collection {
       id
       title
+      linkTargetCandidates {
+        ...LinkTargetTypeaheadFragment
+      }
     }
     ... on Item {
       id
       title
+      linkTargetCandidates {
+        ...LinkTargetTypeaheadFragment
+      }
     }
   }
 `;

@@ -7,6 +7,9 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityLinksAddFormFragment = {
     readonly id?: string;
     readonly title?: string | null;
+    readonly linkTargetCandidates?: {
+        readonly " $fragmentRefs": FragmentRefs<"LinkTargetTypeaheadFragment">;
+    };
     readonly " $refType": "EntityLinksAddFormFragment";
 };
 export type EntityLinksAddFormFragment$data = EntityLinksAddFormFragment;
@@ -31,6 +34,22 @@ var v0 = [
     "args": null,
     "kind": "ScalarField",
     "name": "title",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "LinkTargetCandidateConnection",
+    "kind": "LinkedField",
+    "name": "linkTargetCandidates",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "LinkTargetTypeaheadFragment"
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -57,5 +76,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '75113dd7a9fa1cef6c342e1cd0e6430c';
+(node as any).hash = '239222c6d0d3918f50b4145ed10b1088';
 export default node;
