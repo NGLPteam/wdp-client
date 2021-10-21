@@ -13,11 +13,12 @@ export default function SelectProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
+      {({ label, required, register, isWide }) => (
         <Select
           label={label}
           required={required}
           options={field.options}
+          isWide={isWide}
           {...register}
         />
       )}

@@ -17,6 +17,7 @@ export default function ScalarProperty(props: Props) {
     required,
     path,
     type,
+    isWide,
   } = useFragment<ScalarPropertyFragment$key>(fragment, props.field);
 
   const { register, control } = useFormContext();
@@ -31,6 +32,7 @@ export default function ScalarProperty(props: Props) {
     type,
     register: register(name, { required }),
     control,
+    isWide,
   };
 
   return props.children(childProps);
@@ -49,6 +51,7 @@ interface RenderScalarProps {
   type: string;
   register: UseFormRegisterReturn;
   control: Control;
+  isWide?: boolean;
 }
 
 type RenderScalarProperty = (props: RenderScalarProps) => JSX.Element;
@@ -60,5 +63,6 @@ const fragment = graphql`
     path
     required
     type
+    isWide
   }
 `;

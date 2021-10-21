@@ -246,6 +246,9 @@ type AnyContributorEdge {
 """A hierarchical entity type"""
 union AnyEntity = Collection | Community | Item
 
+"""Used by a LinkTargetCandidate, this describes any type of model that can act as a target for an EntityLink"""
+union AnyLinkTarget = Collection | Item
+
 """The various types an OrderingEntry can refer to"""
 union AnyOrderingEntry = Collection | Community | EntityLink | Item
 
@@ -444,6 +447,7 @@ type AssetPreview {
 type AssetProperty implements ScalarProperty {
   asset: AnyAsset
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -492,6 +496,7 @@ type AssetVideo implements Asset & Node & Sluggable {
 type AssetsProperty implements ScalarProperty {
   assets: [AnyAsset!]!
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -525,6 +530,7 @@ type BooleanProperty implements ScalarProperty {
   checked: Boolean
   checkedByDefault: Boolean
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -711,6 +717,25 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     perPage: Int! = 25
   ): ItemConnection!
   leaf: Boolean!
+  """Available link targets for this entity"""
+  linkTargetCandidates(
+    kind: LinkTargetCandidateFilter = ALL
+    title: String = ""
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
@@ -747,6 +772,24 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): OrderingConnection!
+  """Look up a page for this entity by slug"""
+  page(slug: String!): Page
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): PageConnection!
   parent: CollectionParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
@@ -980,6 +1023,25 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
+  """Available link targets for this entity"""
+  linkTargetCandidates(
+    kind: LinkTargetCandidateFilter = ALL
+    title: String = ""
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
@@ -1018,6 +1080,24 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): OrderingConnection!
+  """Look up a page for this entity by slug"""
+  page(slug: String!): Page
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): PageConnection!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   position: Int
@@ -1275,6 +1355,7 @@ input ContributorLinkInput {
 type ContributorProperty implements ScalarProperty {
   contributor: AnyContributor
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -1291,6 +1372,7 @@ type ContributorSelectOption {
 type ContributorsProperty implements ScalarProperty {
   contributors: [AnyContributor!]!
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -1516,6 +1598,34 @@ type CreateOrganizationContributorPayload implements StandardMutationPayload {
   haltCode: String
 }
 
+"""Autogenerated input type of CreatePage"""
+input CreatePageInput {
+  entityId: ID!
+  title: String!
+  slug: String!
+  position: Int
+  body: String!
+  """
+  The hero image to represent the page.
+  
+  """
+  heroImage: UploadedFileInput
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of CreatePage"""
+type CreatePagePayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  page: Page
+}
+
 """Autogenerated input type of CreatePersonContributor"""
 input CreatePersonContributorInput {
   """An email associated with the contributor"""
@@ -1575,10 +1685,34 @@ type DateProperty implements ScalarProperty {
   date: ISO8601Date
   default: ISO8601Date
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
   type: String!
+}
+
+"""Autogenerated input type of DestroyAsset"""
+input DestroyAssetInput {
+  """The ID for the asset to destroy"""
+  assetId: ID!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of DestroyAsset"""
+type DestroyAssetPayload implements StandardMutationPayload & DestroyMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """Whether or not the model was successfully destroyed. If false, check globalErrors"""
+  destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
 }
 
 """Autogenerated input type of DestroyCollection"""
@@ -1753,6 +1887,28 @@ type DestroyOrderingPayload implements StandardMutationPayload & DestroyMutation
   haltCode: String
 }
 
+"""Autogenerated input type of DestroyPage"""
+input DestroyPageInput {
+  pageId: ID!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of DestroyPage"""
+type DestroyPagePayload implements StandardMutationPayload & DestroyMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """Whether or not the model was successfully destroyed. If false, check globalErrors"""
+  destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+}
+
 enum Direction {
   ASCENDING
   DESCENDING
@@ -1762,6 +1918,7 @@ type EmailProperty implements ScalarProperty {
   address: String
   defaultAddress: String
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -1817,6 +1974,25 @@ interface Entity {
   breadcrumbs: [EntityBreadcrumb!]!
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
+  """Available link targets for this entity"""
+  linkTargetCandidates(
+    kind: LinkTargetCandidateFilter = ALL
+    title: String = ""
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
@@ -1853,6 +2029,24 @@ interface Entity {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): OrderingConnection!
+  """Look up a page for this entity by slug"""
+  page(slug: String!): Page
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): PageConnection!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   schemaDefinition: SchemaDefinition!
@@ -1966,6 +2160,7 @@ type FloatProperty implements ScalarProperty {
   defaultFloat: Float
   floatValue: Float
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -2047,6 +2242,7 @@ type IntegerProperty implements ScalarProperty {
   defaultInteger: Int
   fullPath: String!
   integerValue: Int
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -2214,6 +2410,25 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     perPage: Int! = 25
   ): ItemConnection!
   leaf: Boolean!
+  """Available link targets for this entity"""
+  linkTargetCandidates(
+    kind: LinkTargetCandidateFilter = ALL
+    title: String = ""
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
@@ -2250,6 +2465,24 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): OrderingConnection!
+  """Look up a page for this entity by slug"""
+  page(slug: String!): Page
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): PageConnection!
   parent: ItemParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
@@ -2403,10 +2636,61 @@ type LinkEntityPayload implements StandardMutationPayload {
   link: EntityLink
 }
 
+"""A candidate for a link target, scoped to a parent source"""
+type LinkTargetCandidate implements Node {
+  createdAt: ISO8601DateTime!
+  """How deeply nested the candidate entity is"""
+  depth: Int!
+  id: ID!
+  kind: LinkTargetCandidateKind!
+  """The actual target"""
+  target: AnyLinkTarget!
+  """The targetID to provide to linkEntity"""
+  targetId: ID!
+  """The target entity's title"""
+  title: String!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for LinkTargetCandidate."""
+type LinkTargetCandidateConnection implements Paginated {
+  """A list of edges."""
+  edges: [LinkTargetCandidateEdge!]!
+  """A list of nodes."""
+  nodes: [LinkTargetCandidate!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type LinkTargetCandidateEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: LinkTargetCandidate!
+}
+
+"""Filter the available candidates for a link target"""
+enum LinkTargetCandidateFilter {
+  """Show all possible link target candidate types"""
+  ALL
+  """Limit to collection candidates"""
+  COLLECTION
+  """Limit to item candidates"""
+  ITEM
+}
+
+"""The kind of link target candidate"""
+enum LinkTargetCandidateKind {
+  COLLECTION
+  ITEM
+}
+
 type MarkdownProperty implements ScalarProperty {
   content: String
   default: String
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -2416,6 +2700,7 @@ type MarkdownProperty implements ScalarProperty {
 type MultiselectProperty implements ScalarProperty & OptionableProperty {
   defaultSelections: [String!]
   fullPath: String!
+  isWide: Boolean!
   label: String!
   options: [SelectOption!]!
   path: String!
@@ -2470,6 +2755,14 @@ type Mutation {
     """Parameters for CreateOrganizationContributor"""
     input: CreateOrganizationContributorInput!
   ): CreateOrganizationContributorPayload
+  """
+  Create a page on an entity.
+  
+  """
+  createPage(
+    """Parameters for CreatePage"""
+    input: CreatePageInput!
+  ): CreatePagePayload
   """Create a contributor"""
   createPersonContributor(
     """Parameters for CreatePersonContributor"""
@@ -2484,6 +2777,14 @@ type Mutation {
     """Parameters for CreateRole"""
     input: CreateRoleInput!
   ): CreateRolePayload
+  """
+  Destroy an asset by ID.
+  
+  """
+  destroyAsset(
+    """Parameters for DestroyAsset"""
+    input: DestroyAssetInput!
+  ): DestroyAssetPayload
   """
   Destroy a collection by ID.
   
@@ -2540,6 +2841,14 @@ type Mutation {
     """Parameters for DestroyOrdering"""
     input: DestroyOrderingInput!
   ): DestroyOrderingPayload
+  """
+  Destroy a page by ID.
+  
+  """
+  destroyPage(
+    """Parameters for DestroyPage"""
+    input: DestroyPageInput!
+  ): DestroyPagePayload
   """Grant access to a specific hierarchical entity"""
   grantAccess(
     """Parameters for GrantAccess"""
@@ -2618,6 +2927,14 @@ type Mutation {
     """Parameters for UpdateOrganizationContributor"""
     input: UpdateOrganizationContributorInput!
   ): UpdateOrganizationContributorPayload
+  """
+  Update a page.
+  
+  """
+  updatePage(
+    """Parameters for UpdatePage"""
+    input: UpdatePageInput!
+  ): UpdatePagePayload
   """Update a person contributor"""
   updatePersonContributor(
     """Parameters for UpdatePersonContributor"""
@@ -2631,6 +2948,22 @@ type Mutation {
     """Parameters for UpdateRole"""
     input: UpdateRoleInput!
   ): UpdateRolePayload
+  """
+  Update a user.
+  
+  """
+  updateUser(
+    """Parameters for UpdateUser"""
+    input: UpdateUserInput!
+  ): UpdateUserPayload
+  """
+  Update the current viewer (i.e. you).
+  
+  """
+  updateViewerSettings(
+    """Parameters for UpdateViewerSettings"""
+    input: UpdateViewerSettingsInput!
+  ): UpdateViewerSettingsPayload
   """
   Upsert a Contribution by contributable & contributor ID. It will override any
   existing contributions for the same contributor on the same entity.
@@ -2849,10 +3182,42 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   url: String
 }
 
+"""A page of arbitrary content for an entity"""
+type Page implements Node {
+  body: String!
+  createdAt: ISO8601DateTime!
+  entity: AnyEntity!
+  """The hero image for a page"""
+  heroImage: AssetPreview
+  id: ID!
+  position: Int
+  slug: String!
+  title: String!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for Page."""
+type PageConnection implements Paginated {
+  """A list of edges."""
+  edges: [PageEdge!]!
+  """A list of nodes."""
+  nodes: [Page!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
 """Determines the direction that page-number based pagination should flow"""
 enum PageDirection {
   FORWARDS
   BACKWARDS
+}
+
+"""An edge in a connection."""
+type PageEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: Page!
 }
 
 """Information about pagination in a connection."""
@@ -3280,6 +3645,7 @@ type RoleEdge {
 
 interface ScalarProperty {
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -3441,6 +3807,7 @@ type SelectOption {
 type SelectProperty implements ScalarProperty & OptionableProperty {
   defaultSelection: String
   fullPath: String!
+  isWide: Boolean!
   label: String!
   options: [SelectOption!]!
   path: String!
@@ -3475,6 +3842,7 @@ type StringProperty implements ScalarProperty {
   content: String
   default: String
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -3483,6 +3851,7 @@ type StringProperty implements ScalarProperty {
 
 type TagsProperty implements ScalarProperty {
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -3493,6 +3862,7 @@ type TagsProperty implements ScalarProperty {
 type TimestampProperty implements ScalarProperty {
   default: ISO8601DateTime
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -3513,6 +3883,7 @@ enum TreeNodeFilter {
 type UnknownProperty implements ScalarProperty {
   default: JSON
   fullPath: String!
+  isWide: Boolean!
   label: String!
   path: String!
   required: Boolean!
@@ -3739,6 +4110,39 @@ type UpdateOrganizationContributorPayload implements StandardMutationPayload {
   haltCode: String
 }
 
+"""Autogenerated input type of UpdatePage"""
+input UpdatePageInput {
+  pageId: ID!
+  title: String!
+  slug: String!
+  position: Int
+  body: String!
+  """
+  The hero image to represent the page.
+  
+  """
+  heroImage: UploadedFileInput
+  """
+  If set to true, this will clear the attachment hero_image on this model.
+  
+  """
+  clearHeroImage: Boolean = false
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdatePage"""
+type UpdatePagePayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  page: Page
+}
+
 """Autogenerated input type of UpdatePersonContributor"""
 input UpdatePersonContributorInput {
   """An email associated with the contributor"""
@@ -3799,6 +4203,73 @@ type UpdateRolePayload implements StandardMutationPayload {
   """Not presently used"""
   haltCode: String
   role: Role
+}
+
+"""Autogenerated input type of UpdateUser"""
+input UpdateUserInput {
+  userId: ID!
+  """
+  An avatar to represent your user in the WDP.
+  
+  """
+  avatar: UploadedFileInput
+  """
+  If set to true, this will clear the attachment avatar on this model.
+  
+  """
+  clearAvatar: Boolean = false
+  """
+  Attributes for the user that correspond to attributes in Keycloak.
+  
+  """
+  profile: UserProfileInput!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateUser"""
+type UpdateUserPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  user: User
+}
+
+"""Autogenerated input type of UpdateViewerSettings"""
+input UpdateViewerSettingsInput {
+  """
+  An avatar to represent your user in the WDP.
+  
+  """
+  avatar: UploadedFileInput
+  """
+  If set to true, this will clear the attachment avatar on this model.
+  
+  """
+  clearAvatar: Boolean = false
+  """
+  Attributes for the user that correspond to attributes in Keycloak.
+  
+  """
+  profile: UserProfileInput!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateViewerSettings"""
+type UpdateViewerSettingsPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  user: User
 }
 
 """An upload ID is used to refer to an upload within the tus infrastructure outside of the GraphQL API"""
@@ -3900,6 +4371,8 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   allowedActions: [String!]!
   """Is this an anonymous / unauthenticated user?"""
   anonymous: Boolean!
+  """A user's avatar"""
+  avatar: AssetPreview
   """All access grants for this user on a collection"""
   collectionAccessGrants(
     order: SimpleOrder = RECENT
@@ -3985,6 +4458,10 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   email: String
   """Has this user's email been verified to work through Keycloak?"""
   emailVerified: Boolean!
+  """The user's family (last) name. Depending on the upstream provider, this may not be set."""
+  familyName: String
+  """The user's given (first) name. Depending on the upstream provider, this may not be set."""
+  givenName: String
   """Does this user have access to administer the entire instance?"""
   globalAdmin: Boolean!
   id: ID!
@@ -4451,4 +4928,15 @@ type UserItemAccessGrantEdge {
   cursor: String!
   """The item at the end of the edge."""
   node: UserItemAccessGrant!
+}
+
+"""
+A mapping of attributes for a user to update in the authentication provider.
+
+"""
+input UserProfileInput {
+  givenName: String!
+  familyName: String!
+  email: String!
+  username: String!
 }

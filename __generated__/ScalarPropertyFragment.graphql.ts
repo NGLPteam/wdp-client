@@ -10,6 +10,7 @@ export type ScalarPropertyFragment = {
     readonly path: string;
     readonly required: boolean;
     readonly type: string;
+    readonly isWide: boolean;
     readonly " $refType": "ScalarPropertyFragment";
 };
 export type ScalarPropertyFragment$data = ScalarPropertyFragment;
@@ -60,10 +61,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "type",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "isWide",
+      "storageKey": null
     }
   ],
   "type": "ScalarProperty",
   "abstractKey": "__isScalarProperty"
 };
-(node as any).hash = 'bea525bdc10c373a22b791ca4bcd0d3b';
+(node as any).hash = '65f7000b4ae93eb94615fe255a31c6e6';
 export default node;

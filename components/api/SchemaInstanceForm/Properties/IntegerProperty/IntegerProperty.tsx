@@ -11,8 +11,14 @@ export default function IntegerProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register }) => (
-        <Input label={label} required={required} type="number" {...register} />
+      {({ label, required, register, isWide }) => (
+        <Input
+          label={label}
+          required={required}
+          type="number"
+          isWide={isWide}
+          {...register}
+        />
       )}
     </ScalarProperty>
   );

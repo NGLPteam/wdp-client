@@ -16,12 +16,17 @@ export default function TagsProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, control, name }) => (
+      {({ label, required, control, name, isWide }) => (
         <Controller
           name={name}
           control={control}
           render={({ field }) => (
-            <TagsInput label={label} required={required} {...field} />
+            <TagsInput
+              label={label}
+              required={required}
+              isWide={isWide}
+              {...field}
+            />
           )}
         />
       )}
