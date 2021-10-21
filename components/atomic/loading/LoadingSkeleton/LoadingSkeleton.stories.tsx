@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import LoadingCircle from ".";
+import LoadingSkeleton from ".";
 
-type Props = React.ComponentProps<typeof LoadingCircle>;
+type Props = React.ComponentProps<typeof LoadingSkeleton>;
 
 export default {
-  title: "Components/Atomic/Loading/LoadingCircle",
-  component: LoadingCircle,
+  title: "Components/Atomic/Loading/LoadingSkeleton",
+  component: LoadingSkeleton,
   parameters: {
     themes: {
       default: "neutral00",
@@ -15,8 +15,8 @@ export default {
 
 const Template: Story<Props> = (args) => {
   return (
-    <div style={{ height: "600px", width: "400px" }}>
-      <LoadingCircle {...args} />
+    <div style={{ height: "40px", width: "400px" }}>
+      <LoadingSkeleton {...args} />
     </div>
   );
 };

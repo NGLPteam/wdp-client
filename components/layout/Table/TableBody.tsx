@@ -2,6 +2,7 @@ import React from "react";
 import { Checkbox } from "components/forms";
 import type { Row, Cell } from "react-table";
 import times from "lodash/times";
+import { LoadingSkeleton } from "components/atomic";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
 import useTableContext from "./hooks/useTableContext";
@@ -30,13 +31,13 @@ function TableBody<T extends Record<string, unknown>>({
   return (
     <Styled.TableBody role="rowgroup">
       {loading
-        ? times(10, (i) => {
+        ? times(20, (i) => {
             return (
               <Styled.LoadingRow key={i}>
                 <Styled.Cell role="presentation" />
-                <Styled.Cell colSpan={columnCount}>
-                  <Styled.FakeRow />
-                </Styled.Cell>
+                <Styled.LoadingCell colSpan={columnCount}>
+                  <LoadingSkeleton />
+                </Styled.LoadingCell>
                 <Styled.Cell role="presentation" />
               </Styled.LoadingRow>
             );
