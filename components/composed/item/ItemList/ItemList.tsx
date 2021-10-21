@@ -25,7 +25,7 @@ function ItemList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<ItemNode>(),
+    ModelColumns.ThumbnailColumn<ItemNode>({ route: "item" }),
     ModelColumns.NameColumn<ItemNode>({
       route: "item",
       accessor: "title",

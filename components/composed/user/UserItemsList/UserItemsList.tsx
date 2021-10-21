@@ -36,6 +36,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
   const columns = [
     ModelColumns.ThumbnailColumn<Node>({
       accessor: (row: Node) => row?.item?.thumbnail?.image,
+      route: "item",
     }),
     ModelColumns.NameColumn<Node>({
       route: "item",
