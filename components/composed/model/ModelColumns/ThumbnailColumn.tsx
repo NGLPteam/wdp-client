@@ -31,7 +31,7 @@ const ThumbnailColumn = <NodeType extends Node>({
   return {
     Header: <span className="a-hidden">{t("columns.thumbnail")}</span>,
     id: "thumbnail",
-    accessor: (thumbnail: NodeType) => thumbnail?.image,
+    accessor: (row: ThumbnailColumn<NodeType>) => row?.thumbnail?.image,
     disableSortBy: true,
     Cell: ({ grid = false, value, row }: CellProps<NodeType>) => {
       if (!value || !value?.png) return null;
