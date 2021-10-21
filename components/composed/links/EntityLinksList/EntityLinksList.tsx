@@ -87,7 +87,7 @@ function EntityLinksList<T extends OperationType>({
         }}
         icon="plus"
       >
-        {t("actions.create.link")}
+        {t("actions.add.link")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
   );
