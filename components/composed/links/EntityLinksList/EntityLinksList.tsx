@@ -153,13 +153,13 @@ const fragment = graphql`
   fragment EntityLinksListFragment on AnyEntity {
     ... on Item {
       slug
-      links {
+      links(page: $page) {
         ...EntityLinksListDataFragment
       }
     }
     ... on Collection {
       slug
-      links {
+      links(page: $page) {
         ...EntityLinksListDataFragment
       }
     }

@@ -30,7 +30,13 @@ var v0 = [
   },
   {
     "alias": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page"
+      }
+    ],
     "concreteType": "EntityLinkConnection",
     "kind": "LinkedField",
     "name": "links",
@@ -46,7 +52,12 @@ var v0 = [
   }
 ];
 return {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "EntityLinksListFragment",
@@ -68,5 +79,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '6602b9e8c2e706cef493f2db8df3d904';
+(node as any).hash = 'ccd84ab7c43918048aa6b09cc32b0fd9';
 export default node;
