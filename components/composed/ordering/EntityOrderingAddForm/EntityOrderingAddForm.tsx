@@ -50,6 +50,9 @@ export default function EntityOrderingAddForm({
           disabled
           name="filter" /* Not the correct input arg */
         />
+        <Forms.Fieldset label={t("forms.fields.include")}>
+          <></>
+        </Forms.Fieldset>
       </Forms.Grid>
     ),
     []
