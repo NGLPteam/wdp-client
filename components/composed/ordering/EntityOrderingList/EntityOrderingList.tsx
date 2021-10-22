@@ -58,7 +58,7 @@ function EntityOrderingList<T extends OperationType>({
       <ButtonControlDrawer
         drawer="addOrdering"
         drawerQuery={{
-          drawerSlug: "",
+          drawerSlug: sourceEntity?.slug,
         }}
         icon="plus"
       >
