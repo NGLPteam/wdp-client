@@ -1,16 +1,16 @@
 import { Story } from "@storybook/react";
 import NullForm from "components/api/NullForm";
-import Radio from "./Radio";
+import RadioGroup from "./RadioGroup";
 
 type FieldValues = {
   example?: string;
 };
 
-type Props = React.ComponentProps<typeof Radio>;
+type Props = React.ComponentProps<typeof RadioGroup>;
 
 export default {
-  title: "Components/Forms/Radio",
-  component: Radio,
+  title: "Components/Forms/RadioGroup",
+  component: RadioGroup,
   parameters: {
     themes: {
       default: "neutral00",
@@ -22,7 +22,7 @@ export const InAForm: Story<Props> = (args) => {
   return (
     <NullForm<FieldValues>>
       {({ form: { register } }) => (
-        <Radio
+        <RadioGroup
           {...args}
           {...register("example", { required: args.required })}
         />
@@ -32,10 +32,10 @@ export const InAForm: Story<Props> = (args) => {
 };
 
 InAForm.args = {
-  label: "Radio",
+  groupLabel: "Radio Group",
+  "aria-label": "radio group",
   options: ["Option 1", "Option 2", "Option 3"],
   description: "Description text",
-  hideLabel: false,
   required: false,
 };
 
