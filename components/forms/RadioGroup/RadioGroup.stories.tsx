@@ -19,8 +19,10 @@ export default {
 };
 
 export const InAForm: Story<Props> = (args) => {
+  const handleSubmit = (data: Record<string, string>) => console.info(data);
+
   return (
-    <NullForm<FieldValues>>
+    <NullForm<FieldValues> onSubmit={handleSubmit}>
       {({ form: { register } }) => (
         <RadioGroup
           {...args}
@@ -34,9 +36,13 @@ export const InAForm: Story<Props> = (args) => {
 InAForm.args = {
   groupLabel: "Radio Group",
   "aria-label": "radio group",
-  options: ["Option 1", "Option 2", "Option 3"],
+  options: [
+    { label: "Option 1", value: "1" },
+    { label: "Option 2", value: "2" },
+    { label: "Option 3", value: "3" },
+  ],
   description: "Description text",
-  required: false,
+  required: true,
 };
 
 InAForm.argTypes = {
