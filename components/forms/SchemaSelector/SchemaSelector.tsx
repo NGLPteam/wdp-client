@@ -24,14 +24,14 @@ const SchemaSelector = ({ schemaKind, schemaData }: Props) => {
     <>
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">
-          {t("forms.schema.selector.current_label")}
+          {t("forms.schema.current_label")}
         </BaseInputLabel>
         <Styled.Field>
           {data?.schemaVersion && (
             <Styled.VersionText>{`${data.schemaVersion.name} ${data.schemaVersion.number}`}</Styled.VersionText>
           )}
           <DialogDisclosure as={ButtonControl} {...dialog}>
-            {t("forms.schema.selector.button")}
+            {t("forms.schema.change_button")}
           </DialogDisclosure>
         </Styled.Field>
       </Styled.FieldWrapper>

@@ -32,7 +32,7 @@ function EntityOrderingList<T extends OperationType>({
   /* Set the table columns */
   const columns = [
     ModelColumns.StringColumn<EntityOrderingNode>({
-      Header: <>{t("columns.name")}</>,
+      Header: <>{t("lists.name_column")}</>,
       id: "name",
     }),
   ];

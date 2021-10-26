@@ -13,8 +13,8 @@ export default function ContributorCreateOrganizationDrawer({
 
   return (
     <Drawer
-      label={t("actions.create.contributor.organization")}
-      header={t("drawers.createOrganization.title")}
+      label={t("actions.create.contributor_organization")}
+      header={t("actions.create.contributor_organization_header")}
       dialog={dialog}
       hideOnClickOutside={false}
     >

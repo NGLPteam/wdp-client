@@ -21,7 +21,7 @@ function RoleAccessList<T extends OperationType>({
   data,
   headerStyle,
   hideHeader,
-  header = "navLabels.access",
+  header = "nav.access",
   entityType,
 }: RoleAccessListProps) {
   const entity = useMaybeFragment<RoleAccessListFragment$key>(fragment, data);
@@ -70,7 +70,7 @@ function RoleAccessList<T extends OperationType>({
             {t(
               `actions.${
                 router.query.inherited ? "hide" : "show"
-              }.inherited.roles`
+              }.inherited_roles`
             )}
           </ButtonControl>
         </Link>

@@ -29,7 +29,7 @@ const ThumbnailColumn = <NodeType extends Node>({
   const { t } = useTranslation();
 
   return {
-    Header: <span className="a-hidden">{t("columns.thumbnail")}</span>,
+    Header: <span className="a-hidden">{t("lists.thumbnail")}</span>,
     id: "thumbnail",
     accessor: (row: ThumbnailColumn<NodeType>) => row?.thumbnail?.image,
     disableSortBy: true,

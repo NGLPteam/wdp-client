@@ -63,7 +63,7 @@ function ModelListPage<
   const listId = useUID();
 
   const pageHeader = modelName
-    ? startCase(t(`glossary.${modelName}.label`, { count: 2 }))
+    ? startCase(t(`glossary.${modelName}`, { count: 2 }))
     : "";
 
   return (

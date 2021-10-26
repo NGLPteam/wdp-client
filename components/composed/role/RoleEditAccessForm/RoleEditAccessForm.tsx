@@ -32,7 +32,7 @@ const RoleEditAccessForm = ({
       name="grantAccess"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.role.create.success"
+      successNotification="messages.update.access_success"
       defaultValues={defaultValues}
     >
       {({ form: { register } }) => (

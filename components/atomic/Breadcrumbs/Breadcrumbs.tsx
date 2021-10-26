@@ -55,7 +55,7 @@ const BreadcrumbsWrapper = ({
     breadcrumbItems.push(
       <Dropdown
         key={1}
-        label={t("breadcrumb.dropdown.label")}
+        label={t("nav.breadcrumb_dropdown_label")}
         disclosure={<button>...</button>}
         menuItems={dropdownItems}
       />

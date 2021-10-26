@@ -1,31 +1,31 @@
 const COMMUNITIES_LINK = {
-  label: "glossary.community.label_plural",
+  label: "glossary.community_plural",
   route: "communities",
   actions: "communities.read",
   model: "communities",
 };
 
 const COLLECTIONS_LINK = {
-  label: "glossary.collection.label_plural",
+  label: "glossary.collection_plural",
   route: "collections",
   model: "collections",
 };
 
 const ITEMS_LINK = {
-  label: "glossary.item.label_plural",
+  label: "glossary.item_plural",
   route: "items",
   model: "items",
 };
 
 const USERS_LINK = {
-  label: "glossary.user.label_plural",
+  label: "glossary.user_plural",
   route: "users",
   actions: "users.read",
   model: "users",
 };
 
 const CONTRIBUTORS_LINK = {
-  label: "glossary.contributor.label_plural",
+  label: "glossary.contributor_plural",
   route: "contributors",
   actions: "contributors.read",
   model: "contributors",
@@ -36,10 +36,10 @@ const CONTRIBUTORS_LINK = {
  */
 const appData = {
   siteInfo: {
-    title: "site.title",
-    description: "site.description",
-    provider: "site.provider",
-    institution: "site.institution",
+    title: "app.title",
+    description: "app.description",
+    provider: "app.provider",
+    institution: "app.institution",
   },
   headerData: {
     navigation: [
@@ -47,19 +47,22 @@ const appData = {
       COLLECTIONS_LINK,
       ITEMS_LINK,
       {
-        label: "header.manage",
+        label: "nav.manage_header",
         actions: ["users.read", "contributors.read"],
         children: [USERS_LINK, CONTRIBUTORS_LINK],
       },
     ],
-    account: { label: "header.account", children: [] },
+    account: { label: "nav.account_header", children: [] },
   },
   footerData: {
-    about: "footer.about.body",
-    copyright: "footer.copyright",
+    about: {
+      header: "app.about_header",
+      body: "app.about_body",
+    },
+    copyright: "app.copyright",
     navigation: [
       {
-        header: "footer.manage",
+        header: "nav.manage_header",
         children: [
           COMMUNITIES_LINK,
           COLLECTIONS_LINK,
@@ -69,26 +72,26 @@ const appData = {
         ],
       },
       {
-        header: "footer.learn",
+        header: "nav.learn_header",
         children: [
           {
-            label: "footer.nav.features",
+            label: "nav.features",
             href: "#",
           },
           {
-            label: "footer.nav.partners",
+            label: "nav.partners",
             href: "#",
           },
           {
-            label: "footer.nav.in_use",
+            label: "nav.in_use",
             href: "#",
           },
           {
-            label: "footer.nav.help",
+            label: "nav.help",
             href: "#",
           },
           {
-            label: "footer.nav.contact",
+            label: "nav.contact",
             href: "#",
           },
         ],

@@ -10,7 +10,7 @@ function CommunityDetails({ data }: Props) {
     <RoleAccessList<Query>
       data={data?.community}
       headerStyle="secondary"
-      header="navLabels.members"
+      header="nav.members"
       entityType="community"
     />
   );

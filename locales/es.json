@@ -1,27 +1,23 @@
 {
   "translation": {
     "key": "Español",
-    "search": "Buscar",
-    "site": {
+    "app": {
       "title": "NGLP",
       "description": "...",
       "provider": "Nombre del proveedor de servicios",
       "institution": "Nombre de la Institución",
       "powered_by": "Energizado por NGLP–WDP"
     },
+    "common": {
+      "search": "Buscar"
+    },
     "glossary": {
-      "community": {
-        "label": "comunidad",
-        "label_plural": "comunidades"
-      },
-      "collection": {
-        "label": "colección",
-        "label_plural": "colecciones"
-      },
-      "item": {
-        "label": "artículo",
-        "label_plural": "elementos"
-      }
+      "community": "comunidad",
+      "community_plural": "comunidades",
+      "collection": "colección",
+      "collection_plural": "colecciones",
+      "item": "artículo",
+      "item_plural": "elementos"
     }
   }
 }

@@ -27,7 +27,7 @@ function RoleAccessGrantsList<T extends OperationType>({
   data,
   headerStyle,
   hideHeader,
-  header = "navLabels.access",
+  header = "nav.access",
   entityType,
 }: RoleAccessGrantsListProps) {
   const entity = useMaybeFragment<RoleAccessGrantsListFragment$key>(
@@ -60,12 +60,12 @@ function RoleAccessGrantsList<T extends OperationType>({
         );
       },
     }),
-    ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.email")}</>,
+    ModelColumns.EmailColumn<Node>({
       id: "user.email",
+      accessor: ({ user }: Node) => user?.email,
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.role")}</>,
+      Header: <>{t("lists.role_column")}</>,
       id: "role",
       Cell: ({ value }: CellProps<T>) => value?.name || "",
     }),
@@ -89,7 +89,7 @@ function RoleAccessGrantsList<T extends OperationType>({
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access.label"
+          "glossary.access"
         );
       }
 

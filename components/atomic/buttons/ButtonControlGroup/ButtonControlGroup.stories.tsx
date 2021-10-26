@@ -39,9 +39,11 @@ const Template: Story<Props> = (args) => (
       <ButtonControl icon="edit">{"Edit"}</ButtonControl>
       <ButtonControlConfirm
         icon="delete"
-        modalLabel={i18next.t("modals.delete.label")}
+        modalLabel={i18next.t("messages.delete.confirm_label")}
         modalBody={
-          <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>
+          <p className="t-copy-sm">
+            {i18next.t("messages.delete.confirm_body")}
+          </p>
         }
       >
         {"Delete"}
@@ -81,9 +83,11 @@ export const WithAuthActions: Story<Props> = (args) => (
       </ButtonControl>
       <ButtonControlConfirm
         icon="delete"
-        modalLabel={i18next.t("modals.delete.label")}
+        modalLabel={i18next.t("messages.delete.confirm_label")}
         modalBody={
-          <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>
+          <p className="t-copy-sm">
+            {i18next.t("messages.delete.confirm_body")}
+          </p>
         }
         actions="self.delete"
         allowedActions={["self.edit", "self.add"]}

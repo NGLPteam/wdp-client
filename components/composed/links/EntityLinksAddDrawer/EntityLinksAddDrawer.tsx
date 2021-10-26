@@ -29,7 +29,7 @@ export default function EntityLinksAddDrawer({
         return (
           <Drawer
             label={t("actions.add.link")}
-            header={t("drawers.addLink.title")}
+            header={t("actions.add.link_header")}
             dialog={dialog}
             hideOnClickOutside={false}
           >

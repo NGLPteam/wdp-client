@@ -9,7 +9,7 @@ const UpdatedAtColumn = <NodeType extends UpdatableNode>(
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("columns.updatedAt")}</>,
+    Header: <>{t("lists.updated_at_column")}</>,
     id: "updatedAt",
     disableSortBy: false,
     className: "t-truncate",

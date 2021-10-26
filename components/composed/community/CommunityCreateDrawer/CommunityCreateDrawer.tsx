@@ -14,7 +14,7 @@ export default function CommunityCreateDrawer({
   return (
     <Drawer
       label={t("actions.create.community")}
-      header={t("drawers.createCommunity.title")}
+      header={t("actions.create.community_header")}
       dialog={dialog}
       hideOnClickOutside={false}
     >

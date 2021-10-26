@@ -45,8 +45,10 @@ const availableActions: ActionDefinitions = {
     icon: "delete",
     action: "self.delete",
     iconRotate: 0,
-    modalLabel: i18next.t("modals.delete.label"),
-    modalBody: <p className="t-copy-sm">{i18next.t("modals.delete.body")}</p>,
+    modalLabel: i18next.t("messages.delete.confirm_label"),
+    modalBody: (
+      <p className="t-copy-sm">{i18next.t("messages.delete.confirm_body")}</p>
+    ),
   },
 };
 

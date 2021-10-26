@@ -17,10 +17,10 @@ const ConfirmModal = ({
       {body}
       <Styled.ButtonWrapper>
         <Styled.ConfirmButton onClick={onConfirm}>
-          {actionLabel ?? i18next.t("modals.generic.confirm")}
+          {actionLabel ?? i18next.t("common.confirm")}
         </Styled.ConfirmButton>
         <Styled.ConfirmButton secondary onClick={handleClose}>
-          {i18next.t("modals.generic.cancel")}
+          {i18next.t("common.cancel")}
         </Styled.ConfirmButton>
       </Styled.ButtonWrapper>
     </>

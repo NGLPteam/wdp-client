@@ -50,7 +50,7 @@ export default function CollectionUpdateDrawer({
       if (data.collection) {
         destroy.collection(
           { collectionId: data.collection.id },
-          data?.collection?.title || t("glossary.collection.label")
+          data?.collection?.title || t("glossary.collection")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -67,7 +67,7 @@ export default function CollectionUpdateDrawer({
       {({ data }) => (
         <Drawer
           label={t("actions.edit.collection")}
-          header={data?.collection?.title || t("drawers.editCollection.title")}
+          header={data?.collection?.title || t("actions.edit.collection")}
           dialog={dialog}
           hideOnClickOutside={false}
           buttons={renderButtons(data)}

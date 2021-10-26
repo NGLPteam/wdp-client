@@ -77,13 +77,13 @@ export default function CollectionUpdateForm({
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.fields.visibleAfterAt"
+            label="forms.fields.visible_after"
             {...register("visibleAfterAt")}
           />
         </Forms.HiddenField>
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.fields.visibleUntilAt"
+            label="forms.fields.visible_until"
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
@@ -98,7 +98,7 @@ export default function CollectionUpdateForm({
       onSuccess={onSuccess}
       onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
-      successNotification="forms.collection.update.success"
+      successNotification="messages.update.collection_success"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}

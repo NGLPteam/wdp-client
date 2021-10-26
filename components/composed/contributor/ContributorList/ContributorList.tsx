@@ -64,10 +64,10 @@ function ContributorList<T extends OperationType>({
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer drawer="addPerson" icon="plus">
-        {t("actions.create.contributor.person")}
+        {t("actions.create.contributor_person")}
       </ButtonControlDrawer>
       <ButtonControlDrawer drawer="addOrganization" icon="plus">
-        {t("actions.create.contributor.organization")}
+        {t("actions.create.contributor_organization")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
   );

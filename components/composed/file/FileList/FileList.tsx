@@ -30,14 +30,14 @@ function FileList<T extends OperationType>({
   const columns = [
     ModelColumns.ThumbnailColumn<FileNode>({}),
     ModelColumns.StringColumn<FileNode>({
-      Header: <>{t("columns.name")}</>,
+      Header: <>{t("lists.name_column")}</>,
       id: "name",
       Cell: ({ value }: CellProps<T>) => (
         <div className="a-cell-50">{value}</div>
       ),
     }),
     ModelColumns.StringColumn<FileNode>({
-      Header: <>{t("columns.kind")}</>,
+      Header: <>{t("lists.kind_column")}</>,
       id: "kind",
       Cell: ({ value }: CellProps<T>) => (
         <div
@@ -55,7 +55,7 @@ function FileList<T extends OperationType>({
   //   handleEdit: ({ row }: ModelTableActionProps<FileNode>) =>
   //     drawerHelper.open("editFile", { drawerSlug: row.original.slug }),
   //   handleDelete: ({ row }: ModelTableActionProps<FileNode>) =>
-  //     destroy.file({ fileId: row.id }, "glossary.file.label"),
+  //     destroy.file({ fileId: row.id }, "glossary.file"),
   // };
 
   // TODO: We need an authorization check here.

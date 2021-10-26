@@ -13,7 +13,7 @@ function Footer() {
     <Styled.Wrapper>
       <Styled.Nav className="l-grid">
         <div className="l-grid__item l-grid__item--4">
-          <LogoPlaceholder>{t("site.powered_by")}</LogoPlaceholder>
+          <LogoPlaceholder>{t("app.powered_by")}</LogoPlaceholder>
         </div>
         {footerData.navigation.map((nav, i) => (
           <div className="l-grid__item l-grid__item--2" key={i}>
@@ -28,8 +28,8 @@ function Footer() {
         ))}
         {footerData.about && (
           <div className="l-grid__item l-grid__item--4">
-            <Styled.Header>{t("footer.about.header")}</Styled.Header>
-            <span className="t-rte">{t(footerData.about)}</span>
+            <Styled.Header>{t(footerData.about.header)}</Styled.Header>
+            <span className="t-rte">{t(footerData.about.body)}</span>
           </div>
         )}
       </Styled.Nav>

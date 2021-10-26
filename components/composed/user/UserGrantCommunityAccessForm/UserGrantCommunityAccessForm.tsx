@@ -28,7 +28,7 @@ const UserGrantCommunityAccessForm = ({
       name="grantAccess"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.role.create.success"
+      successNotification="messages.add.member_success"
       defaultValues={defaultValues}
     >
       {({ form: { register } }) => (

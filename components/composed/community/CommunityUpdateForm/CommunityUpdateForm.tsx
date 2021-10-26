@@ -47,7 +47,7 @@ export default function CommunityUpdateForm({
       name="updateCommunity"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.community.update.success"
+      successNotification="messages.update.community_success"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}

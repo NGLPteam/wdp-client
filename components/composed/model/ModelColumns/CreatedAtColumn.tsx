@@ -9,7 +9,7 @@ const CreatedAtColumn = <NodeType extends CreatableNode>(
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("columns.createdAt")}</>,
+    Header: <>{t("lists.created_at_column")}</>,
     id: "createdAt",
     disableSortBy: true,
     className: "t-truncate",

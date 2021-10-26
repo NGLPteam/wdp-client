@@ -50,7 +50,7 @@ export default function ItemUpdateDrawer({
       if (data.item) {
         destroy.item(
           { itemId: data.item.id },
-          data?.item?.title || t("glossary.item.label")
+          data?.item?.title || t("glossary.item")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -67,7 +67,7 @@ export default function ItemUpdateDrawer({
       {({ data }) => (
         <Drawer
           label={t("actions.edit.item")}
-          header={data?.item?.title || t("drawers.editItem.title")}
+          header={data?.item?.title || t("actions.edit.item")}
           dialog={dialog}
           hideOnClickOutside={false}
           buttons={renderButtons(data)}
