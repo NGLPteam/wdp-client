@@ -20,7 +20,7 @@ export default function SchemaInstanceForm({
   onCancel,
   successNotification,
   failureNotification,
-  title = "forms.schema.title",
+  title = "forms.schema.label",
   schemaKind,
   ...props
 }: Props) {

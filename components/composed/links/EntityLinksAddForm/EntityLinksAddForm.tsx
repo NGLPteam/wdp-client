@@ -36,16 +36,16 @@ export default function EntityLinksAddForm({
         <Forms.LinkTargetTypeahead<Fields>
           control={control}
           name="targetId"
-          label="forms.fields.target"
+          label="forms.fields.link_target"
           data={sourceEntity?.linkTargetCandidates}
         />
         <Forms.Select
-          label="forms.fields.linktype.label"
+          label="forms.fields.link_type"
           options={[
             { value: "CONTAINS", label: "contains" },
             { value: "REFERENCES", label: "references" },
           ]}
-          description={t("forms.fields.linktype.description", {
+          description={t("forms.fields.link_type_description", {
             name: sourceEntity.title,
           })}
           {...register("operator")}
@@ -60,8 +60,8 @@ export default function EntityLinksAddForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.link.add.success"
-      failureNotification="forms.link.add.failure"
+      successNotification="messages.add.link_success"
+      failureNotification="messages.add.link_failure"
       name="linkEntity"
       refetchTags={["nodes"]}
       toVariables={toVariables}

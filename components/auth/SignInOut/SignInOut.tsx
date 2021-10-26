@@ -9,7 +9,7 @@ const SignInOut = () => {
   return (
     <Styled.AuthLink onClick={handleSignInOut}>
       <Styled.Text>
-        {isAuthenticated ? t("sign_out") : t("sign_in")}
+        {isAuthenticated ? t("common.sign_out") : t("common.sign_in")}
       </Styled.Text>
     </Styled.AuthLink>
   );

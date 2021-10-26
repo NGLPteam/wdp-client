@@ -83,7 +83,7 @@ export default function ContributorUpdateOrganizationForm({
       defaultValues={defaultValues}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.contributor.update.success"
+      successNotification="messages.update.contributor_success"
     >
       {renderForm}
     </MutationForm>

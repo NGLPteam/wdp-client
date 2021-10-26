@@ -13,8 +13,8 @@ export default function ContributorCreatePersonDrawer({
 
   return (
     <Drawer
-      label={t("actions.create.contributor.person")}
-      header={t("drawers.createPerson.title")}
+      label={t("actions.create.contributor_person")}
+      header={t("actions.create.contributor_person_header")}
       dialog={dialog}
       hideOnClickOutside={false}
     >

@@ -89,7 +89,7 @@ function ItemContributionList<T extends OperationType>({
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
     ModelColumns.StringColumn<ItemContributionNode>({
-      Header: <>{t("columns.role")}</>,
+      Header: <>{t("lists.role_column")}</>,
       id: "role",
     }),
     ModelColumns.CreatedAtColumn<ItemContributionNode>(),
@@ -103,7 +103,7 @@ function ItemContributionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution.label"
+        "glossary.contribution"
       ),
   };
 

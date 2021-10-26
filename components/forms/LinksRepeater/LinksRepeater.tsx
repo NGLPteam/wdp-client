@@ -54,7 +54,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
           <Fieldset.Actions>
             <ButtonControl
               type="button"
-              aria-label={t("forms.inputs.linkRepeater.remove", { itemLabel })}
+              aria-label={t("forms.link_repeater.remove", { name: itemLabel })}
               onClick={() => {
                 remove(index);
               }}
@@ -72,7 +72,7 @@ function LinksRepeater<T extends FieldValues = FieldValues>({
         icon="plus"
         size={!isMobile ? "large" : undefined}
       >
-        {t("forms.inputs.linkRepeater.add", { itemLabel })}
+        {t("forms.link_repeater.add", { name: itemLabel })}
       </ButtonControl>
     </Fieldset>
   );

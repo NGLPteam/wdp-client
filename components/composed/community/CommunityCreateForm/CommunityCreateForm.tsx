@@ -26,7 +26,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
     <MutationForm<CommunityCreateFormMutation, Fields>
       mutation={mutation}
       onSuccess={onSuccess}
-      successNotification="forms.community.create.success"
+      successNotification="messages.create.community_success"
       name="createCommunity"
       refetchTags={["communities"]}
     >

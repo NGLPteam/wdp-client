@@ -68,11 +68,11 @@ function EntityLinksList<T extends OperationType>({
       },
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
-      Header: <>{t("columns.schema")}</>,
+      Header: <>{t("lists.schema_column")}</>,
       id: "target.schemaDefinition.name",
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
-      Header: <>{t("columns.type")}</>,
+      Header: <>{t("lists.type_column")}</>,
       id: "operator",
       Cell: ({ value }: CellProps<EntityLinksNode>) => capitalize(value),
     }),

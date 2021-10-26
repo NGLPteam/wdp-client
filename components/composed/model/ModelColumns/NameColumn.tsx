@@ -14,7 +14,7 @@ const NameColumn = <NodeType extends Node>({
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("columns.name")}</>,
+    Header: <>{t("lists.name_column")}</>,
     id: "name",
     disableSortBy: true,
     cellType: cellType || "name",

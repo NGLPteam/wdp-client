@@ -86,7 +86,7 @@ export default function ContributionUpdateForm({
       name="updateContribution"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.contribution.update.success"
+      successNotification="messages.update.contribution_success"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues || {}}

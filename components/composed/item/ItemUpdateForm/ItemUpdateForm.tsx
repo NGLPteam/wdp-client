@@ -74,13 +74,13 @@ export default function ItemUpdateForm({
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.fields.visibleAfterAt"
+            label="forms.fields.visible_after"
             {...register("visibleAfterAt")}
           />
         </Forms.HiddenField>
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
-            label="forms.fields.visibleUntilAt"
+            label="forms.fields.visible_until"
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
@@ -95,7 +95,7 @@ export default function ItemUpdateForm({
       onSuccess={onSuccess}
       onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
-      successNotification="forms.item.update.success"
+      successNotification="messages.update.item_success"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}

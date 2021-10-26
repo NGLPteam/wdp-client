@@ -94,7 +94,7 @@ export default function ContributionCreateForm({
       name="upsertContribution"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.contribution.create.success"
+      successNotification="messages.create.contribution_success"
       mutation={mutation}
     >
       {renderForm}

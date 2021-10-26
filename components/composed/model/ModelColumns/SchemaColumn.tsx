@@ -8,7 +8,7 @@ const UpdatedAtColumn = <NodeType extends SchemaVersionableNode>(
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("columns.schema")}</>,
+    Header: <>{t("lists.schema_column")}</>,
     id: "schema",
     disableSortBy: true,
     className: "t-truncate",

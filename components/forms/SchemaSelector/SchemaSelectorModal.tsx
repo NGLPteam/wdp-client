@@ -57,8 +57,8 @@ const SchemaSelectorModal = ({
           data?.schemaVersions?.edges ? (
             <Forms.Select
               options={getOptions(data)}
-              label={t("forms.schema.selector.new_label")}
-              description={t("forms.schema.selector.warning")}
+              label={t("forms.schema.new_label")}
+              description={t("forms.schema.change_warning")}
               {...register("schemaVersionSlug")}
             />
           ) : null
@@ -70,17 +70,17 @@ const SchemaSelectorModal = ({
 
   return (
     <Modal
-      label={t("forms.schema.selector.modal.label")}
+      label={t("forms.schema.change_label")}
       dialog={dialog}
       hideOnClickOutside={false}
     >
       {({ handleClose }) => (
         <Styled.ModalContent className="t-rte">
-          <p>{t("forms.schema.selector.modal.message")}</p>
+          <p>{t("forms.schema.change_message")}</p>
           <MutationForm<SchemaSelectorModalMutation, Fields>
             name="alterSchemaVersion"
             mutation={mutation}
-            successNotification={t("forms.schema.update.success")}
+            successNotification={t("messages.update.schema_success")}
             toVariables={toVariables}
             onSuccess={handleClose}
             onCancel={handleClose}

@@ -49,7 +49,7 @@ export default function CommunityUpdateDrawer({
       if (data.community) {
         destroy.community(
           { communityId: data.community.id },
-          data?.community?.title || t("glossary.community.label")
+          data?.community?.title || t("glossary.community")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -66,7 +66,7 @@ export default function CommunityUpdateDrawer({
       {({ data }) => (
         <Drawer
           label={t("actions.edit.community")}
-          header={data?.community?.title || t("drawers.editCommunity.title")}
+          header={data?.community?.title || t("actions.edit.community")}
           dialog={dialog}
           hideOnClickOutside={false}
           buttons={renderButtons(data)}

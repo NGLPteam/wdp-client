@@ -37,7 +37,7 @@ export default function ItemContributionEditDrawer({
       if (data.itemContribution?.id) {
         destroy.contribution(
           { contributionId: data.itemContribution.id },
-          t("glossary.contribution.label")
+          t("glossary.contribution")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -54,8 +54,8 @@ export default function ItemContributionEditDrawer({
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.edit.itemContribution")}
-          header={t("drawers.editItemContribution.title")}
+          label={t("actions.edit.item_contribution")}
+          header={t("actions.edit.item_contribution")}
           dialog={dialog}
           hideOnClickOutside={false}
           buttons={renderButtons()}

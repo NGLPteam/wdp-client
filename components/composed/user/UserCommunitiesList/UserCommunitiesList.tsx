@@ -51,7 +51,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
       },
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.role")}</>,
+      Header: <>{t("lists.role_column")}</>,
       id: "role",
       accessor: (row: Node) => {
         return row?.role.name;
@@ -77,7 +77,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access.label"
+          "glossary.access"
         );
       }
 
@@ -103,7 +103,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.community.label_plural")}
+      header={t("glossary.community_plural")}
       disableSortBy
       buttons={buttons}
       actions={actions}

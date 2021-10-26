@@ -24,8 +24,8 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
   function getDrawerHeader(data?: Response | null) {
     const i18nKey =
       drawerEntity === "community"
-        ? "drawers.editMember"
-        : "drawers.editAccess";
+        ? "actions.edit.member"
+        : "actions.edit.access";
 
     const header =
       drawerEntity === "community"
@@ -70,7 +70,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
       if (data.collection) {
         destroy.access(
           { entityId, roleId: drawerRoleId, userId },
-          data?.user?.name || t("glossary.user.label")
+          data?.user?.name || t("glossary.user")
         );
       }
       if (dialog?.hide) dialog.hide();

@@ -8,10 +8,8 @@
       "institution": "Institution Name",
       "powered_by": "Powered by NGLP–WDP",
       "copyright": "Copyright {{year}} Institution Name and other necessary data. More legal details can be found here.",
-      "about": {
-        "header": "About",
-        "body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
-      }
+      "about_header": "About",
+      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
     },
     "common": {
       "all": "All",
@@ -26,7 +24,9 @@
       "options": "Options",
       "save": "Save",
       "save_and_close": "Save & Close",
-      "search": "Search"
+      "search": "Search",
+      "sign_in": "Sign In",
+      "sign_out": "Sign Out"
     },
     "glossary": {
       "community": "community",
@@ -85,8 +85,6 @@
       "account_header": "Account",
       "breadcrumb_dropdown_label": "Show parent collections",
       "menu_toggle": "Menu",
-      "sign_in": "Sign In",
-      "sign_out": "Sign Out",
       "details": "Details",
       "communities": "Communities",
       "collections": "Collections",
@@ -110,17 +108,32 @@
       "contact": "Contact"
     },
     "messages": {
+      "add": {
+        "success": "$t({{ name }}) added successfully",
+        "link_success": "Link added successfully",
+        "link_failure": "Failed to add link",
+        "access_success": "Access added successfully",
+        "member_success": "Member added successfully"
+      },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
         "failure": "Failed to update $t({{ name }}).",
         "collection_success": "Collection updated successfully.",
-        "collection_failure": "Failed to update collection."
+        "community_success": "Community updated successfully.",
+        "contribution_success": "Contribution updated successfully.",
+        "contributor_success": "Contributor updated successfully.",
+        "item_success": "Item updated successfully",
+        "access_success": "Access updated successfully",
+        "schema_success": "Schema updated successfully"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
         "failure": "Failed to create $t({{ name }}).",
         "collection_success": "Collection created successfully.",
-        "collection_failure": "Failed to create collection."
+        "community_success": "Community created successfully.",
+        "contribution_success": "Contribution created successfully.",
+        "contributor_success": "Contributor created successfully.",
+        "file_success": "File created successfully."
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -147,26 +160,28 @@
     "actions": {
       "add": {
         "access": "Add Access",
-        "access_to": "Add Access to {{ name }}",
+        "access_header": "Add Access to {{ name }}",
         "community": "Add Community",
         "member": "Add Member",
-        "member_to": "Add Member to {{ name }}",
+        "member_header": "Add Member to {{ name }}",
         "collection": "Add Collection",
-        "item": "Add Item"
+        "collection_header": "Add New Collection",
+        "item": "Add Item",
+        "item_header": "Add New Item",
+        "link": "Add Link",
+        "link_header": "Add New Link"
       },
       "create": {
         "contributor_person": "Create Person",
-        "new_contributor_person": "Create New Person",
+        "contributor_person_header": "Create New Person",
         "contributor_organization": "Create Organization",
-        "new_contributor_organization": "Create New Organization",
+        "contributor_organization_header": "Create New Organization",
         "contribution": "Create Contribution",
-        "new_contribution": "Create New Contribution",
+        "contribution_header": "Create New Contribution",
         "community": "Create Community",
-        "new_community": "Create New Community",
+        "community_header": "Create New Community",
         "file": "Create File",
-        "new_file": "Create New File",
-        "role": "Create Role",
-        "new_role": "Create New Role"
+        "file_header": "Create New File"
       },
       "edit": {
         "item_contribution": "Edit Item Contribution",
@@ -187,20 +202,21 @@
         "inherited_roles": "Show Inherited Roles"
       }
     },
-    "form": {
-      "field": {
+    "forms": {
+      "fields": {
         "title": "Title",
         "thumbnail": "Thumbnail",
         "visibility": "Visibility",
         "summary": "Summary",
-        "visibleAfterAt": "Visible After",
-        "visibleUntilAt": "Visible Until",
+        "visible_after": "Visible After",
+        "visible_until": "Visible Until",
         "role": "Role",
         "collection": "Collection",
         "community": "Community",
         "contributor": "Contributor",
         "item": "Item",
         "contribution_on": "Contribution on",
+        "name": "Name",
         "legal_name": "Name",
         "given_name": "First Name",
         "family_name": "Last Name",
@@ -210,12 +226,16 @@
         "bio": "Bio",
         "links": "Links",
         "link": "Link",
+        "link_target": "Collection or Item",
+        "link_type": "Link Type",
+        "link_type_description": "Contained items or collections are descendants of $t({{ name }}). References are not descendants.",
         "location": "Location",
         "url": "URL",
         "user": "User",
         "caption": "Caption",
         "altText": "Alt Text",
-        "attachment": "Attachment"
+        "attachment": "Attachment",
+        "alt_text": "Alt Text"
       },
       "tags": {
         "label": "Tags",
@@ -226,11 +246,11 @@
       "schema": {
         "label": "Schema",
         "none": "No schema defined",
-        "current": "Current Schema",
-        "new": "New Schema",
-        "warning": "Changing the schema will permanently alter this model's properties.",
+        "current_label": "Current Schema",
+        "new_label": "New Schema",
+        "change_warning": "Changing the schema will permanently alter this model's properties.",
         "change_button": "Change",
-        "change_title": "Change Schema",
+        "change_label": "Change Schema",
         "change_message": "Are you sure you want to change this schema?"
       },
       "file": {
@@ -241,7 +261,7 @@
         "upload_failed": "Upload failed (please check console for now)",
         "server_error": "Something went wrong"
       },
-      "linkRepeater": {
+      "link_repeater": {
         "add": "Add $t({{ name }})",
         "remove": "Remove $t({{ name }})"
       }

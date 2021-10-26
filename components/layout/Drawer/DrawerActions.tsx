@@ -22,8 +22,8 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
       {handleDelete && (
         <ButtonControlConfirm
           icon="delete"
-          modalLabel={t("modals.delete.label")}
-          modalBody={t("modals.delete.body")}
+          modalLabel={t("messages.delete.confirm_label")}
+          modalBody={t("messages.delete.confirm_body")}
           onClick={handleDeleteClick}
         >
           {t("delete")}

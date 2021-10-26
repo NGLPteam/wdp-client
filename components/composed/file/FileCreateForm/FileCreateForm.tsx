@@ -24,19 +24,10 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.file.fields.name" {...register("name")} />
-        <Forms.FileUpload
-          label="forms.file.fields.attachment"
-          name="attachment"
-        />
-        <Forms.Input
-          label="forms.file.fields.altText"
-          {...register("altText")}
-        />
-        <Forms.Textarea
-          label="forms.file.fields.caption"
-          {...register("caption")}
-        />
+        <Forms.Input label="forms.fields.name" {...register("name")} />
+        <Forms.FileUpload label="forms.fields.attachment" name="attachment" />
+        <Forms.Input label="forms.fields.alt_text" {...register("altText")} />
+        <Forms.Textarea label="forms.fields.caption" {...register("caption")} />
       </Forms.Grid>
     ),
     []
@@ -47,7 +38,7 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
       name="createAsset"
       mutation={mutation}
       onSuccess={onSuccess}
-      successNotification="forms.file.create.success"
+      successNotification="messages.create.file_success"
       toVariables={toVariables}
     >
       {renderForm}

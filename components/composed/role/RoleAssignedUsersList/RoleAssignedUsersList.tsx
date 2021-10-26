@@ -22,7 +22,7 @@ function RoleAssignedUsersList<T extends OperationType>({
   data,
   headerStyle,
   hideHeader,
-  header = "navLabels.access",
+  header = "nav.access",
 }: RoleAssignedUsersListProps) {
   const entity = useMaybeFragment<RoleAssignedUsersListFragment$key>(
     fragment,
@@ -51,12 +51,12 @@ function RoleAssignedUsersList<T extends OperationType>({
         );
       },
     }),
-    ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.email")}</>,
+    ModelColumns.EmailColumn<Node>({
       id: "user.email",
+      accessor: ({ user }: Node) => user?.email,
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("columns.roles")}</>,
+      Header: <>{t("lists.roles_column")}</>,
       id: "roles",
       Cell: ({ value }: CellProps<T>) =>
         value?.map(({ name }: { name: string }) => name).join(",") || "",

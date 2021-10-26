@@ -29,7 +29,7 @@ const RoleGrantAccessForm = ({
       name="grantAccess"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.role.create.success"
+      successNotification="messages.add.access_success"
       defaultValues={defaultValues}
     >
       {({ form: { register, control } }) => (

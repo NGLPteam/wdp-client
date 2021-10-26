@@ -27,7 +27,7 @@ function UserList<T extends OperationType>({
     ModelColumns.NameColumn<UserNode>({ route: "user", accessor: "name" }),
     ModelColumns.EmailColumn<UserNode>(),
     ModelColumns.BooleanColumn<UserNode>({
-      Header: <>{t("columns.admin")}</>,
+      Header: <>{t("lists.admin_column")}</>,
       id: "admin",
     }),
     ModelColumns.CreatedAtColumn<UserNode>(),

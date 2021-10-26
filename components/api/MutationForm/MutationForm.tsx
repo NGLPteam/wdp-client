@@ -242,7 +242,7 @@ export default function MutationForm<
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
           <Button type="submit" disabled={submitDisabled}>
-            {t("forms.common.save")}
+            {t("common.save")}
           </Button>
           {onSaveAndClose && (
             <Button
@@ -251,7 +251,7 @@ export default function MutationForm<
               disabled={submitDisabled}
               onClick={onSubmit}
             >
-              {t("forms.common.save_and_close")}
+              {t("common.save_and_close")}
             </Button>
           )}
           {onCancel && (
@@ -261,7 +261,7 @@ export default function MutationForm<
               onClick={onCancel}
               secondary
             >
-              {t("forms.common.cancel")}
+              {t("common.cancel")}
             </Button>
           )}
         </Styled.Footer>

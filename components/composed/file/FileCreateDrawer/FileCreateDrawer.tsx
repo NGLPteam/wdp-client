@@ -32,7 +32,7 @@ export default function FileCreateDrawer({
         data?.item?.id ? (
           <Drawer
             label={t("actions.create.file")}
-            header={t("drawers.createFile.title")}
+            header={t("actions.create.file_header")}
             dialog={dialog}
             hideOnClickOutside={false}
           >

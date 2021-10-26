@@ -16,7 +16,7 @@ export default function Actions({ onCancel, onSaveAndClose }: Props) {
   return (
     <Styled.Footer className="l-flex l-flex--gap">
       <Button disabled={submitDisabled} type="submit">
-        {t("forms.common.save")}
+        {t("common.save")}
       </Button>
       {onSaveAndClose && (
         <Button
@@ -25,7 +25,7 @@ export default function Actions({ onCancel, onSaveAndClose }: Props) {
           data-close={true}
           onClick={onSaveAndClose}
         >
-          {t("forms.common.save_and_close")}
+          {t("common.save_and_close")}
         </Button>
       )}
       {onCancel && (
@@ -35,7 +35,7 @@ export default function Actions({ onCancel, onSaveAndClose }: Props) {
           onClick={onCancel}
           secondary
         >
-          {t("forms.common.cancel")}
+          {t("common.cancel")}
         </Button>
       )}
     </Styled.Footer>

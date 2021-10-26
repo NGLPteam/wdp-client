@@ -56,7 +56,7 @@ export default function ContributorUpdateDrawer({
           data?.contributor?.legalName ||
             (data?.contributor?.givenName
               ? `${data?.contributor?.givenName} ${data?.contributor?.familyName}`
-              : t("glossary.contributor.label"))
+              : t("glossary.contributor"))
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -77,8 +77,8 @@ export default function ContributorUpdateDrawer({
             header={
               data?.contributor?.__typename === "PersonContributor"
                 ? getContributorDisplayName(data?.contributor) ||
-                  t("drawers.editContributor.title")
-                : t("drawers.editContributor.title")
+                  t("actions.edit.contributor")
+                : t("actions.edit.contributor")
             }
             dialog={dialog}
             hideOnClickOutside={false}

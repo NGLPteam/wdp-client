@@ -28,7 +28,7 @@ const PageCountActions = ({
       <Styled.Count className="t-label-md a-color-light">
         {hasSelected ? (
           <Trans
-            i18nKey="selected.count"
+            i18nKey="lists.selected_count"
             values={{
               count: selectedCount,
               total: totalCount.toLocaleString("en-US"),
@@ -37,7 +37,7 @@ const PageCountActions = ({
           />
         ) : (
           <Trans
-            i18nKey="showing.count"
+            i18nKey="lists.showing_count"
             values={{
               start: start.toLocaleString("en-US"),
               end: end.toLocaleString("en-US"),

@@ -8,10 +8,11 @@ const EmailColumn = <NodeType extends Node>(
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("columns.email")}</>,
+    Header: <>{t("lists.email_column")}</>,
     id: "email",
     accessor: (originalRow: NodeType) => originalRow.email,
     disableSortBy: true,
+    className: "t-truncate",
     ...props,
   };
 };

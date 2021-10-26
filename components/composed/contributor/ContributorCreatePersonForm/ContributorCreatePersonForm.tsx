@@ -20,11 +20,11 @@ export default function ContributorCreatePersonForm({
     ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.fields.givenName"
+          label="forms.fields.given_name"
           {...register("givenName")}
         />
         <Forms.Input
-          label="forms.fields.familyName"
+          label="forms.fields.family_name"
           {...register("familyName")}
         />
         <Forms.FileUpload label="forms.fields.image" name="image" />
@@ -57,7 +57,7 @@ export default function ContributorCreatePersonForm({
       name="createPersonContributor"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.community.create.success"
+      successNotification="messages.create.contributor_success"
     >
       {renderForm}
     </MutationForm>

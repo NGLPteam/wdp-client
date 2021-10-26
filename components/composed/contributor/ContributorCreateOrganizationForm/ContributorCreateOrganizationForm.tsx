@@ -50,7 +50,7 @@ export default function ContributorCreateOrganizationForm({
       name="createOrganizationContributor"
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.contributor.create.success"
+      successNotification="messages.create.contributor_success"
     >
       {renderForm}
     </MutationForm>

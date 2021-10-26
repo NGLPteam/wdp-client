@@ -49,12 +49,12 @@ export default function ContributorUpdatePersonForm({
     ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.fields.givenName"
+          label="forms.fields.given_name"
           {...register("givenName")}
           required
         />
         <Forms.Input
-          label="forms.fields.familyName"
+          label="forms.fields.family_name"
           {...register("familyName")}
           required
         />
@@ -93,7 +93,7 @@ export default function ContributorUpdatePersonForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.contributor.update.success"
+      successNotification="messages.update.contributor_success"
       toVariables={toVariables}
       defaultValues={defaultValues}
     >
