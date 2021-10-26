@@ -6,7 +6,7 @@ import * as Styled from "./RadioGroup.styles";
 
 const RadioGroup = forwardRef(
   (
-    { groupLabel, name, description, options, ...props }: Props,
+    { label, name, description, options, hideLabel, ...props }: Props,
     ref: React.Ref<HTMLDivElement>
   ) => {
     const [selected, setSelected] = useState<string>("");
@@ -32,9 +32,7 @@ const RadioGroup = forwardRef(
         aria-label={props["aria-label"] || undefined}
         ref={ref}
       >
-        {groupLabel && (
-          <BaseInputLabel hideLabel={!groupLabel}>{groupLabel}</BaseInputLabel>
-        )}
+        <BaseInputLabel hideLabel={hideLabel}>{label}</BaseInputLabel>
         {description && <Styled.Description>{description}</Styled.Description>}
         {radios}
       </Styled.Group>
@@ -47,8 +45,10 @@ interface Props
       React.InputHTMLAttributes<HTMLInputElement>,
       "aria-label" | "id"
     >,
-    Pick<InputProps, "name" | "description" | "required"> {
-  groupLabel?: string;
+    Pick<
+      InputProps,
+      "name" | "description" | "required" | "hideLabel" | "label"
+    > {
   options: { value: string; label: string }[];
 }
 

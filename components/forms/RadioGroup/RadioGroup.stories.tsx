@@ -34,7 +34,7 @@ export const InAForm: Story<Props> = (args) => {
 };
 
 InAForm.args = {
-  groupLabel: "Radio Group",
+  label: "Radio Group",
   "aria-label": "radio group",
   options: [
     { label: "Option 1", value: "1" },
