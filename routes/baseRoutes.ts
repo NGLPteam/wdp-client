@@ -59,7 +59,7 @@ export const baseRoutes: BaseRoute[] = [
               {
                 name: "collection.manage.contributions",
                 path: "/collections/[slug]/manage/contributions",
-                label: "nav.contributions",
+                label: "glossary.contribution_plural",
               },
             ],
           },
@@ -87,8 +87,7 @@ export const baseRoutes: BaseRoute[] = [
             name: "item.manage",
             path: "/items/[slug]/manage",
             redirect: "/items/[slug]/manage/details",
-            label: "manage",
-
+            label: "nav.manage",
             routes: [
               {
                 name: "item.manage.details",
@@ -123,7 +122,7 @@ export const baseRoutes: BaseRoute[] = [
               {
                 name: "item.manage.contributions",
                 path: "/items/[slug]/manage/contributions",
-                label: "nav.contributions",
+                label: "glossary.contribution_plural",
               },
               {
                 name: "item.manage.files",
@@ -156,7 +155,7 @@ export const baseRoutes: BaseRoute[] = [
             name: "community.manage",
             path: "/communities/[slug]/manage",
             redirect: "/communities/[slug]/manage/details",
-            label: "manage",
+            label: "nav.manage",
 
             routes: [
               {
@@ -194,17 +193,17 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "user.communities",
             path: "/users/[slug]/communities",
-            label: "nav.communities",
+            label: "glossary.community_plural",
           },
           {
             name: "user.collections",
             path: "/users/[slug]/collections",
-            label: "nav.collections",
+            label: "glossary.collection_plural",
           },
           {
             name: "user.items",
             path: "/users/[slug]/items",
-            label: "nav.items",
+            label: "glossary.item_plural",
           },
         ],
       },
@@ -229,12 +228,12 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "contributor.collections",
             path: "/contributors/[slug]/collections",
-            label: "nav.collectionContributions",
+            label: "nav.collection_contributions",
           },
           {
             name: "contributor.items",
             path: "/contributors/[slug]/items",
-            label: "nav.itemContributions",
+            label: "nav.item_contributions",
           },
         ],
       },
