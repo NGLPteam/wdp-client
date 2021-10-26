@@ -1,9 +1,12 @@
 import React from "react";
 import SignInOut from "components/auth/SignInOut";
-import { Dropdown, NamedLink } from "components/atomic";
+import { DrawerLink, Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { useTranslation } from "react-i18next";
 import { RouteHelper } from "routes";
+import useIsAuthenticated from "hooks/useIsAuthenticated";
+import { useViewerContext } from "hooks";
+import Avatar from "components/atomic/Avatar";
 import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
@@ -34,6 +37,14 @@ interface Props {
 
 const HeaderAccount = ({ accountNav }: Props) => {
   const { t } = useTranslation();
+  const isAuthenticated = useIsAuthenticated();
+  const { avatarUrl } = useViewerContext();
+
+  const renderSignInOut = () => (
+    <Styled.Link key="auth" as="span">
+      <Styled.LinkText as={SignInOut} />
+    </Styled.Link>
+  );
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
@@ -45,14 +56,20 @@ const HeaderAccount = ({ accountNav }: Props) => {
       <Dropdown
         label={t(item.label)}
         disclosure={
-          <Styled.Link as="button" active={active}>
-            <Styled.Avatar />
-          </Styled.Link>
+          <Styled.AvatarLink as="button" active={active}>
+            <Avatar url={avatarUrl} />
+          </Styled.AvatarLink>
         }
         menuItems={[
           ...item.children.map(renderLink),
-          <SignInOut key={"auth"} />,
+          <DrawerLink key="profile" drawer="editProfile" passHref>
+            <Styled.Link>
+              <Styled.LinkText>{t("nav.edit_profile")}</Styled.LinkText>
+            </Styled.Link>
+          </DrawerLink>,
+          renderSignInOut(),
         ]}
+        alignRight
       />
     );
   };
@@ -73,7 +90,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
     );
   };
 
-  return <>{renderDropdown(accountNav)}</>;
+  return isAuthenticated ? renderDropdown(accountNav) : renderSignInOut();
 };
 
 export default HeaderAccount;

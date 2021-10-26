@@ -70,12 +70,24 @@ fragment RoleSelectFragment on Query {
   }
 }
 
+fragment UserAvatarFragment on User {
+  avatar {
+    small {
+      png {
+        url
+        alt
+      }
+    }
+  }
+}
+
 fragment UserTypeaheadFragment on Query {
   users {
     edges {
       node {
         id
         name
+        ...UserAvatarFragment
       }
     }
   }
@@ -178,16 +190,13 @@ v9 = {
     }
   ]
 },
-v10 = [
-  (v5/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "name",
-    "storageKey": null
-  }
-];
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -246,7 +255,57 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": (v10/*: any*/),
+                "selections": [
+                  (v5/*: any*/),
+                  (v10/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "AssetPreview",
+                    "kind": "LinkedField",
+                    "name": "avatar",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "PreviewImageMap",
+                        "kind": "LinkedField",
+                        "name": "small",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "PreviewImage",
+                            "kind": "LinkedField",
+                            "name": "png",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "url",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "alt",
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
             ],
@@ -278,7 +337,10 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": (v10/*: any*/),
+                "selections": [
+                  (v5/*: any*/),
+                  (v10/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -293,12 +355,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0f39ab49be4cfb924faab4ad4e15fdcb",
+    "cacheID": "e9a7dde4b8ccefd10db2b2943db4942b",
     "id": null,
     "metadata": {},
     "name": "RoleGrantAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n  }\n  ...RoleGrantAccessFormFragment\n}\n\nfragment RoleGrantAccessFormFragment on Query {\n  ...UserTypeaheadFragment\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserTypeaheadFragment on Query {\n  users {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n  }\n  ...RoleGrantAccessFormFragment\n}\n\nfragment RoleGrantAccessFormFragment on Query {\n  ...UserTypeaheadFragment\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserTypeaheadFragment on Query {\n  users {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

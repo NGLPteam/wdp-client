@@ -70,6 +70,7 @@
       "thumbnail_column": "Thumbnail",
       "type_column": "Type",
       "updated_at_column": "Updated At",
+      "avatar_column": "Avatar",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
@@ -105,7 +106,8 @@
       "partners": "Partners",
       "in_use": "In Use",
       "help": "Help",
-      "contact": "Contact"
+      "contact": "Contact",
+      "edit_profile": "Edit Profile"
     },
     "messages": {
       "add": {
@@ -124,7 +126,8 @@
         "contributor_success": "Contributor updated successfully.",
         "item_success": "Item updated successfully",
         "access_success": "Access updated successfully",
-        "schema_success": "Schema updated successfully"
+        "schema_success": "Schema updated successfully",
+        "profile_success": "Profile updated successfully"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -191,9 +194,11 @@
         "contributor": "Edit Contributor",
         "item": "Edit Item",
         "access": "Edit Access",
+        "access_title": "Edit {{ user }}'s Access to {{ name }}",
         "member": "Edit Member",
-        "users_access_to": "Edit {{ user }}'s Access to {{ name }}",
-        "users_membership_to": "Edit {{ user }}'s Membership to {{ name }}"
+        "member_title": "Edit {{ user }}'s Membership to {{ name }}",
+        "profile": "Edit Profile",
+        "profile_header": "Edit Your Profile"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -235,7 +240,9 @@
         "caption": "Caption",
         "altText": "Alt Text",
         "attachment": "Attachment",
-        "alt_text": "Alt Text"
+        "alt_text": "Alt Text",
+        "username": "Username",
+        "avatar": "Avatar"
       },
       "tags": {
         "label": "Tags",

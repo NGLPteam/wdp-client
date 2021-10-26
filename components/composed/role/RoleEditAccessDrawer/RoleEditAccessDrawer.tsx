@@ -35,11 +35,11 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
         : data?.item?.title;
 
     return header
-      ? t(`${i18nKey}.to.title`, {
+      ? t(`${i18nKey}_title`, {
           name: header,
           user: data?.user?.name,
         })
-      : t(`${i18nKey}.title`);
+      : t(i18nKey);
   }
 
   function getEntityId(data?: Response | null) {

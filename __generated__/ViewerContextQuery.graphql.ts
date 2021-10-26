@@ -10,6 +10,14 @@ export type ViewerContextQueryResponse = {
         readonly allowedActions: ReadonlyArray<string>;
         readonly uploadAccess: boolean;
         readonly uploadToken: string | null;
+        readonly avatar: {
+            readonly small: {
+                readonly png: {
+                    readonly url: string;
+                    readonly alt: string;
+                } | null;
+            };
+        } | null;
     };
 };
 export type ViewerContextQuery = {
@@ -26,6 +34,14 @@ query ViewerContextQuery {
     allowedActions
     uploadAccess
     uploadToken
+    avatar {
+      small {
+        png {
+          url
+          alt
+        }
+      }
+    }
     id
   }
 }
@@ -59,6 +75,53 @@ v3 = {
   "kind": "ScalarField",
   "name": "uploadToken",
   "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "AssetPreview",
+  "kind": "LinkedField",
+  "name": "avatar",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PreviewImageMap",
+      "kind": "LinkedField",
+      "name": "small",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PreviewImage",
+          "kind": "LinkedField",
+          "name": "png",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "alt",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -78,7 +141,8 @@ return {
           (v0/*: any*/),
           (v1/*: any*/),
           (v2/*: any*/),
-          (v3/*: any*/)
+          (v3/*: any*/),
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
@@ -104,6 +168,7 @@ return {
           (v1/*: any*/),
           (v2/*: any*/),
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -117,14 +182,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0c28a60ea66b6b15e82684a74f804765",
+    "cacheID": "e79ed5cc85e653dd6a664e1a060a8b4d",
     "id": null,
     "metadata": {},
     "name": "ViewerContextQuery",
     "operationKind": "query",
-    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    id\n  }\n}\n"
+    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '882d0f7d47464d05453b02e0f5965f0b';
+(node as any).hash = '528925913ab97b03fca19eba9afa867b';
 export default node;

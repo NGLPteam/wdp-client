@@ -14,11 +14,11 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
 import { CellProps, ModelTableActionProps } from "react-table";
-import { NamedLink } from "components/atomic";
 import {
   RoleAccessGrantsListDataFragment,
   RoleAccessGrantsListDataFragment$key,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
+import UserNameColumnCell from "components/composed/user/UserNameColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -48,17 +48,9 @@ function RoleAccessGrantsList<T extends OperationType>({
     ModelColumns.NameColumn<Node>({
       route: "user",
       accessor: "user",
-      Cell: ({ row }: CellProps<Node>) => {
-        return (
-          <NamedLink
-            route={"user"}
-            routeParams={{ slug: row.original.user?.slug || "" }}
-            passHref
-          >
-            <a className="t-weight-md a-link">{row.original.user?.name}</a>
-          </NamedLink>
-        );
-      },
+      Cell: ({ row }: CellProps<Node>) => (
+        <UserNameColumnCell data={row.original.user} />
+      ),
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
@@ -143,6 +135,7 @@ const listDataFragment = graphql`
             slug
             name
             email
+            ...UserNameColumnCellFragment
           }
           entity: collection {
             id
@@ -160,6 +153,7 @@ const listDataFragment = graphql`
             slug
             name
             email
+            ...UserNameColumnCellFragment
           }
           entity: item {
             id
@@ -177,6 +171,7 @@ const listDataFragment = graphql`
             slug
             name
             email
+            ...UserNameColumnCellFragment
           }
           entity: community {
             id

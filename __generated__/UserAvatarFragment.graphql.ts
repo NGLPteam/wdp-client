@@ -4,22 +4,21 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type UserTypeaheadFragment = {
-    readonly users: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly name: string | null;
-                readonly " $fragmentRefs": FragmentRefs<"UserAvatarFragment">;
-            };
-        }>;
-    };
-    readonly " $refType": "UserTypeaheadFragment";
+export type UserAvatarFragment = {
+    readonly avatar: {
+        readonly small: {
+            readonly png: {
+                readonly url: string;
+                readonly alt: string;
+            } | null;
+        };
+    } | null;
+    readonly " $refType": "UserAvatarFragment";
 };
-export type UserTypeaheadFragment$data = UserTypeaheadFragment;
-export type UserTypeaheadFragment$key = {
-    readonly " $data"?: UserTypeaheadFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"UserTypeaheadFragment">;
+export type UserAvatarFragment$data = UserAvatarFragment;
+export type UserAvatarFragment$key = {
+    readonly " $data"?: UserAvatarFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"UserAvatarFragment">;
 };
 
 
@@ -28,50 +27,45 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "UserTypeaheadFragment",
+  "name": "UserAvatarFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
-      "concreteType": "UserConnection",
+      "concreteType": "AssetPreview",
       "kind": "LinkedField",
-      "name": "users",
+      "name": "avatar",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "UserEdge",
+          "concreteType": "PreviewImageMap",
           "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
+          "name": "small",
+          "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "User",
+              "concreteType": "PreviewImage",
               "kind": "LinkedField",
-              "name": "node",
+              "name": "png",
               "plural": false,
               "selections": [
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "id",
+                  "name": "url",
                   "storageKey": null
                 },
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
-                  "name": "name",
+                  "name": "alt",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "UserAvatarFragment"
                 }
               ],
               "storageKey": null
@@ -83,8 +77,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '396b5e812cd13d3651770726fe718b1d';
+(node as any).hash = '9b5adcd81205a7b1d01d9366b4619187';
 export default node;

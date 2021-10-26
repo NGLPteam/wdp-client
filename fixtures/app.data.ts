@@ -52,7 +52,15 @@ const appData = {
         children: [USERS_LINK, CONTRIBUTORS_LINK],
       },
     ],
-    account: { label: "nav.account_header", children: [] },
+    account: {
+      label: "nav.account_header",
+      children: [
+        {
+          label: "nav.profile",
+          route: "profile",
+        },
+      ],
+    },
   },
   footerData: {
     about: {

@@ -12,6 +12,7 @@ export type UserListFragment = {
         readonly slug: string;
         readonly createdAt: string;
         readonly updatedAt: string;
+        readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "UserListFragment";
@@ -79,6 +80,11 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "updatedAt",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "UserNameColumnCellFragment"
         }
       ],
       "storageKey": null
@@ -92,5 +98,5 @@ const node: ReaderFragment = {
   "type": "UserConnection",
   "abstractKey": null
 };
-(node as any).hash = '8ce383e7b75128478a5cd3b44fdbb43b';
+(node as any).hash = 'aa16d3350e312cfe95738d703fdc1577';
 export default node;

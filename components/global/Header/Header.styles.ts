@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { aTextGlow } from "theme/mixins/appearance";
+import { aTextGlow, aGlow } from "theme/mixins/appearance";
 import { tLabel } from "theme/mixins/typography";
 import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
@@ -59,7 +59,6 @@ export const Link = styled.a<LinkProps>`
   --nav-link-border: 2px solid transparent;
   display: inline-block;
   color: var(--accent-light);
-  ${tLabel("md")}
 
   &:hover {
     --nav-link-border: 2px solid var(--accent-lighter);
@@ -87,20 +86,30 @@ export const Link = styled.a<LinkProps>`
     `}
 `;
 
+export const AvatarLink = styled(Link)`
+  margin-block-start: ${pxToRem(5)};
+  border-radius: 50%;
+
+  &:focus-visible {
+    outline: 0;
+    ${aGlow("darkMode")}
+  }
+
+  &[aria-expanded="true"] {
+    ${aGlow("darkMode")}
+  }
+`;
+
 export const LinkText = styled.span`
   transition: var(--border-transition), var(--color-transition);
   border-bottom: var(--nav-link-border);
   padding-block-end: 1px;
-`;
+  ${tLabel("md")}
 
-export const Avatar = styled.div`
-  --avatar-top-margin: ${pxToRem(5)};
-
-  height: ${pxToRem(30)};
-  width: ${pxToRem(30)};
-  border-radius: 50%;
-  background: var(--accent-color);
-  margin-block-start: var(--avatar-top-margin);
+  &:focus-visible {
+    outline: 0;
+    ${aTextGlow("darkMode")}
+  }
 `;
 
 interface LinkProps {

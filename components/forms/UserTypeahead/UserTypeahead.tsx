@@ -9,6 +9,7 @@ import {
   UserTypeaheadFragment$key,
 } from "@/relay/UserTypeaheadFragment.graphql";
 import { useMaybeFragment } from "hooks";
+import UserAvatar from "components/composed/user/UserAvatar";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const UserTypeahead = <T extends FieldValues = FieldValues>(
@@ -23,6 +24,12 @@ const UserTypeahead = <T extends FieldValues = FieldValues>(
       return {
         label: node.name || "",
         value: node.id,
+        node: (
+          <span className="l-flex l-flex--align-center l-flex--gap-sm">
+            <UserAvatar data={node} />
+            {node.name}
+          </span>
+        ),
       };
     });
   }, [optionsData]);
@@ -60,6 +67,7 @@ const fragment = graphql`
         node {
           id
           name
+          ...UserAvatarFragment
         }
       }
     }

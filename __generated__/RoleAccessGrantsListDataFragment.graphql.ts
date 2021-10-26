@@ -18,6 +18,7 @@ export type RoleAccessGrantsListDataFragment = {
                 readonly slug: string;
                 readonly name: string | null;
                 readonly email: string | null;
+                readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
             };
             readonly entity?: {
                 readonly id: string;
@@ -87,6 +88,11 @@ v4 = {
       "kind": "ScalarField",
       "name": "email",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "UserNameColumnCellFragment"
     }
   ],
   "storageKey": null
@@ -195,5 +201,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bdb9dcd2e3b7da0e8da90305f2946c47';
+(node as any).hash = '6b6bc226c90a71fea1183a7be23ba70b';
 export default node;
