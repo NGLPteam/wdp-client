@@ -3,10 +3,16 @@ import { graphql } from "react-relay";
 import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import ItemAddForm from "components/composed/item/ItemAddForm";
+import ItemAddForm, {
+  MainItemsPageAddForm,
+} from "components/composed/item/ItemAddForm";
 import QueryWrapper from "components/api/QueryWrapper";
 
-import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
+import type {
+  ItemAddDrawerQuery as Query,
+  ItemAddDrawerQueryResponse,
+} from "@/relay/ItemAddDrawerQuery.graphql";
+import type { ItemAddDrawerMainPageQuery as MainPageQuery } from "@/relay/ItemAddDrawerMainPageQuery.graphql";
 
 export default function ItemAddDrawer({
   dialog,
@@ -18,28 +24,35 @@ export default function ItemAddDrawer({
   const { t } = useTranslation();
   const { drawerSource, drawerSlug } = params;
 
-  return (
+  const FormComponent =
+    drawerSource === "main" ? MainItemsPageAddForm : ItemAddForm;
+  const renderDrawer = ({ data }) => (
+    <Drawer
+      label={t("actions.add.item")}
+      header={t("actions.add.item_header")}
+      dialog={dialog}
+      hideOnClickOutside={false}
+    >
+      {data && (
+        <FormComponent
+          onSuccess={dialog.hide}
+          onCancel={dialog.hide}
+          data={data}
+        />
+      )}
+    </Drawer>
+  );
+
+  return drawerSource === "main" ? (
+    <QueryWrapper<MainPageQuery> query={mainItemsPageQuery}>
+      {renderDrawer}
+    </QueryWrapper>
+  ) : (
     <QueryWrapper<Query>
       query={query}
       initialVariables={{ entitySlug: drawerSlug }}
     >
-      {({ data }) => (
-        <Drawer
-          label={t("actions.add.item")}
-          header={t("actions.add.item_header")}
-          dialog={dialog}
-          hideOnClickOutside={false}
-        >
-          {data && (
-            <ItemAddForm
-              onSuccess={dialog.hide}
-              onCancel={dialog.hide}
-              data={data}
-              main={!!drawerSource}
-            />
-          )}
-        </Drawer>
-      )}
+      {renderDrawer}
     </QueryWrapper>
   );
 }
@@ -47,5 +60,11 @@ export default function ItemAddDrawer({
 const query = graphql`
   query ItemAddDrawerQuery($entitySlug: Slug!) {
     ...ItemAddFormFragment
+  }
+`;
+
+const mainItemsPageQuery = graphql`
+  query ItemAddDrawerMainPageQuery {
+    ...MainItemsPageAddFormFragment
   }
 `;

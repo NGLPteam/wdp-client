@@ -12,8 +12,8 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
-// import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
-// import { useTranslation } from "react-i18next";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,7 +25,7 @@ function ItemList<T extends OperationType>({
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const columns = [
     ModelColumns.ThumbnailColumn<ItemNode>({ route: "item" }),
@@ -50,7 +50,7 @@ function ItemList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
-  /* Waiting for Collection or Item Typeahead to add this in. LD
+  /* Waiting for Collection or Item Typeahead to add this in. LD */
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
@@ -63,7 +63,7 @@ function ItemList<T extends OperationType>({
         {t("actions.add.item")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
-  ); */
+  );
 
   return (
     <ModelListPage<T, ItemListFragment, ItemNode>
@@ -74,6 +74,7 @@ function ItemList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
+      buttons={buttons}
     />
   );
 }

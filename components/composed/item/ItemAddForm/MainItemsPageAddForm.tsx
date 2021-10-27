@@ -7,22 +7,24 @@ import MutationForm, {
 } from "components/api/MutationForm";
 
 import type {
-  ItemAddFormMutation,
+  MainItemsPageAddFormMutation,
   CreateItemInput,
-} from "@/relay/ItemAddFormMutation.graphql";
-import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphql";
+} from "@/relay/MainItemsPageAddFormMutation.graphql";
+import type { MainItemsPageAddFormFragment$key } from "@/relay/MainItemsPageAddFormFragment.graphql";
 import { sanitizeDateField } from "helpers";
 
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
-  const formData = useFragment<ItemAddFormFragment$key>(fragment, data);
+  const schemaOptions = useFragment<MainItemsPageAddFormFragment$key>(
+    fragment,
+    data
+  );
 
-  const toVariables = useToVariables<ItemAddFormMutation, Fields>(
+  const toVariables = useToVariables<MainItemsPageAddFormMutation, Fields>(
     (data) => ({
       input: {
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        parentId: formData.item?.id ?? formData.collection?.id ?? "",
       },
     }),
     []
@@ -36,9 +38,15 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           required
           {...register("title")}
         />
-        {formData && (
+        <Forms.Input
+          label="forms.fields.parent"
+          required
+          placeholder="Placeholder input until typeahead is ready"
+          {...register("parentId")}
+        />
+        {schemaOptions && (
           <Forms.Select
-            options={formData.schemaVersionOptions.map((option) => ({
+            options={schemaOptions.schemaVersionOptions.map((option) => ({
               label: option.label,
               value: option.value,
             }))}
@@ -87,7 +95,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
     []
   );
   return (
-    <MutationForm<ItemAddFormMutation, Fields>
+    <MutationForm<MainItemsPageAddFormMutation, Fields>
       mutation={mutation}
       onSuccess={onSuccess}
       successNotification="messages.add.item_success"
@@ -107,26 +115,20 @@ type Props = Pick<
   React.ComponentProps<typeof MutationForm>,
   "onSuccess" | "onCancel"
 > & {
-  data: ItemAddFormFragment$key;
+  data: MainItemsPageAddFormFragment$key;
 };
 
 const fragment = graphql`
-  fragment ItemAddFormFragment on Query {
+  fragment MainItemsPageAddFormFragment on Query {
     schemaVersionOptions(kind: ITEM) {
       label
       value
-    }
-    item(slug: $entitySlug) {
-      id
-    }
-    collection(slug: $entitySlug) {
-      id
     }
   }
 `;
 
 const mutation = graphql`
-  mutation ItemAddFormMutation($input: CreateItemInput!) {
+  mutation MainItemsPageAddFormMutation($input: CreateItemInput!) {
     createItem(input: $input) {
       item {
         title
