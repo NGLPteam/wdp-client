@@ -28,9 +28,7 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
   return tabRoutes || sidebarLinks ? (
     <Styled.MobileNav>
       <Styled.NavButton aria-controls={menuId} onClick={toggleActive}>
-        <span>
-          {capitalize(t(activeRoute?.label || "header.toggle_nav_menu"))}
-        </span>
+        <span>{capitalize(t(activeRoute?.label || "nav.menu_toggle"))}</span>
         <IconFactory icon="menu" rotate={180} />
       </Styled.NavButton>
       <MobileMenu

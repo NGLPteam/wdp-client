@@ -55,7 +55,7 @@ function Header() {
           </Styled.AccountBlock>
           <MobileMenuToggle
             onToggle={toggleActive}
-            label={t("header.toggle_nav_menu")}
+            label={t("nav.menu_toggle")}
             icon="menu"
           />
         </Styled.Inner>
@@ -78,7 +78,9 @@ function Header() {
           </div>
         ))}
         <div>
-          <h3 className="t-label-lg a-color-light">{t("header.account")}</h3>
+          <h3 className="t-label-lg a-color-light">
+            {t("nav.account_header")}
+          </h3>
           <MobileMenuList>
             <li>
               <SignIn />
