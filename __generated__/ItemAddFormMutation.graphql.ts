@@ -35,6 +35,7 @@ export type ItemAddFormMutationResponse = {
     readonly createItem: {
         readonly item: {
             readonly title: string | null;
+            readonly slug: string;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -53,6 +54,7 @@ mutation ItemAddFormMutation(
   createItem(input: $input) {
     item {
       title
+      slug
       id
     }
     ...MutationForm_mutationErrors
@@ -97,7 +99,14 @@ v2 = {
   "name": "title",
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -106,7 +115,7 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = {
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -148,7 +157,7 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
@@ -158,7 +167,7 @@ v4 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     }
   ],
@@ -188,7 +197,8 @@ return {
             "name": "item",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
@@ -196,7 +206,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v5/*: any*/)
             ]
           }
         ],
@@ -229,6 +239,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -239,21 +250,21 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ef38589881941125c0c2bba807583363",
+    "cacheID": "38fb0b548bd8c3ccb85285cb617287a1",
     "id": null,
     "metadata": {},
     "name": "ItemAddFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemAddFormMutation(\n  $input: CreateItemInput!\n) {\n  createItem(input: $input) {\n    item {\n      title\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ItemAddFormMutation(\n  $input: CreateItemInput!\n) {\n  createItem(input: $input) {\n    item {\n      title\n      slug\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0a8ba1329773c324446752d91df6bb3e';
+(node as any).hash = '9ea55b3e3aee29f4d3f5d1b4fc914724';
 export default node;

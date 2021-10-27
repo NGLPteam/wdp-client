@@ -13,6 +13,7 @@ const Switch = forwardRef(
       hideLabel,
       error,
       isWide,
+      onChange,
       ...inputProps
     }: Props,
     ref: Ref<HTMLInputElement>
@@ -35,6 +36,7 @@ const Switch = forwardRef(
               ref={ref}
               className="a-hidden"
               name={name}
+              onChange={onChange}
               {...inputProps}
             />
             <Styled.Icon icon="toggle" />
@@ -47,6 +49,7 @@ const Switch = forwardRef(
 
 interface Props extends InputProps {
   text: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default Switch;
