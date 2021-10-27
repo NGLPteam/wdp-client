@@ -16,5 +16,6 @@ module.exports = {
   customScalars: {
     Slug: "String",
     ISO8601DateTime: "String",
+    ISO8601Date: "String",
   },
 };

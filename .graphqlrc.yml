@@ -22,6 +22,8 @@ extensions:
             JSON: any
             Slug: string
             UploadID: string
+            ISO8601Date: string
+            ISO8601DateTime: string
           useTypeImports: true
         plugins:
           - typescript
