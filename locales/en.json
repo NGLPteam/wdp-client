@@ -246,6 +246,7 @@
         "avatar": "Avatar",
         "publication_date": "Publication Date",
         "doi": "DOI",
+        "parent": "Parent Collection or Item",
         "year": "Year",
         "month": "Month",
         "day": "Day"

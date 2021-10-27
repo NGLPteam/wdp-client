@@ -4,9 +4,11 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type ItemAddDrawerQueryVariables = {};
+export type ItemAddDrawerQueryVariables = {
+    entitySlug: string;
+};
 export type ItemAddDrawerQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"ItemAddFormSchemaOptionsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ItemAddFormFragment">;
 };
 export type ItemAddDrawerQuery = {
     readonly response: ItemAddDrawerQueryResponse;
@@ -16,21 +18,53 @@ export type ItemAddDrawerQuery = {
 
 
 /*
-query ItemAddDrawerQuery {
-  ...ItemAddFormSchemaOptionsFragment
+query ItemAddDrawerQuery(
+  $entitySlug: Slug!
+) {
+  ...ItemAddFormFragment
 }
 
-fragment ItemAddFormSchemaOptionsFragment on Query {
+fragment ItemAddFormFragment on Query {
   schemaVersionOptions(kind: ITEM) {
     label
     value
   }
+  item(slug: $entitySlug) {
+    id
+  }
+  collection(slug: $entitySlug) {
+    id
+  }
 }
 */
 
-const node: ConcreteRequest = {
+const node: ConcreteRequest = (function(){
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "entitySlug"
+  }
+],
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "entitySlug"
+  }
+],
+v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  }
+];
+return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ItemAddDrawerQuery",
@@ -38,7 +72,7 @@ const node: ConcreteRequest = {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "ItemAddFormSchemaOptionsFragment"
+        "name": "ItemAddFormFragment"
       }
     ],
     "type": "Query",
@@ -46,7 +80,7 @@ const node: ConcreteRequest = {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ItemAddDrawerQuery",
     "selections": [
@@ -80,17 +114,38 @@ const node: ConcreteRequest = {
           }
         ],
         "storageKey": "schemaVersionOptions(kind:\"ITEM\")"
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "item",
+        "plural": false,
+        "selections": (v2/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v2/*: any*/),
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4375955e625c2090efc8ee58c32a56a0",
+    "cacheID": "391a368e17b3188318b584d35d0beb7a",
     "id": null,
     "metadata": {},
     "name": "ItemAddDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemAddDrawerQuery {\n  ...ItemAddFormSchemaOptionsFragment\n}\n\nfragment ItemAddFormSchemaOptionsFragment on Query {\n  schemaVersionOptions(kind: ITEM) {\n    label\n    value\n  }\n}\n"
+    "text": "query ItemAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...ItemAddFormFragment\n}\n\nfragment ItemAddFormFragment on Query {\n  schemaVersionOptions(kind: ITEM) {\n    label\n    value\n  }\n  item(slug: $entitySlug) {\n    id\n  }\n  collection(slug: $entitySlug) {\n    id\n  }\n}\n"
   }
 };
-(node as any).hash = 'e4dcf12a8143e83077e2728c32c78179';
+})();
+(node as any).hash = '48b13b369c533b110e3e03d973e503e1';
 export default node;

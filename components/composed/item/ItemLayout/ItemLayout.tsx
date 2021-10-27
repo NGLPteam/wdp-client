@@ -10,7 +10,7 @@ import {
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
-
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 
 export default function ItemLayout({
@@ -33,6 +33,20 @@ export default function ItemLayout({
   const manageRoutes = useChildRouteLinks("item.manage", { slug });
   const tabRoutes = useChildRouteLinks("item", { slug });
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addItem"
+        drawerQuery={{
+          drawerSlug: slug,
+        }}
+        icon="plus"
+      >
+        {t("actions.add.item")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return (
     <section>
       <PageHeader
@@ -40,6 +54,7 @@ export default function ItemLayout({
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
+        buttons={buttons}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>

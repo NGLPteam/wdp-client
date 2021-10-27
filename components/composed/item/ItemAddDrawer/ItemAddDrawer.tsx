@@ -8,11 +8,21 @@ import QueryWrapper from "components/api/QueryWrapper";
 
 import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
 
-export default function ItemAddDrawer({ dialog }: { dialog: DialogProps }) {
+export default function ItemAddDrawer({
+  dialog,
+  params,
+}: {
+  dialog: DialogProps;
+  params: Record<string, string>;
+}) {
   const { t } = useTranslation();
+  const { drawerSource, drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query> query={query}>
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ entitySlug: drawerSlug }}
+    >
       {({ data }) => (
         <Drawer
           label={t("actions.add.item")}
@@ -20,11 +30,14 @@ export default function ItemAddDrawer({ dialog }: { dialog: DialogProps }) {
           dialog={dialog}
           hideOnClickOutside={false}
         >
-          <ItemAddForm
-            onSuccess={dialog.hide}
-            onCancel={dialog.hide}
-            data={data || undefined}
-          />
+          {data && (
+            <ItemAddForm
+              onSuccess={dialog.hide}
+              onCancel={dialog.hide}
+              data={data}
+              main={!!drawerSource}
+            />
+          )}
         </Drawer>
       )}
     </QueryWrapper>
@@ -32,7 +45,7 @@ export default function ItemAddDrawer({ dialog }: { dialog: DialogProps }) {
 }
 
 const query = graphql`
-  query ItemAddDrawerQuery {
-    ...ItemAddFormSchemaOptionsFragment
+  query ItemAddDrawerQuery($entitySlug: Slug!) {
+    ...ItemAddFormFragment
   }
 `;
