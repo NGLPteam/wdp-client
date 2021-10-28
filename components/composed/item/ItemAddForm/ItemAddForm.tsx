@@ -1,10 +1,12 @@
-import * as React from "react";
+import React, { useState, useCallback } from "react";
 import { graphql, useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { RouteHelper } from "routes";
+import { useRouter } from "next/router";
 
 import type {
   ItemAddFormMutation,
@@ -14,6 +16,38 @@ import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphq
 import { sanitizeDateField } from "helpers";
 
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(true);
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setRedirectOnSuccess(e.target.checked);
+
+  const router = useRouter();
+  const redirect = useCallback(
+    (slug: string, routeName: string) => {
+      const newRoute = RouteHelper.findRouteByName(routeName);
+
+      router.replace({
+        pathname: newRoute?.path,
+        query: { slug },
+      });
+    },
+    [router]
+  );
+
+  const onSuccessWithRedirect = ({
+    response,
+    variables,
+    values,
+  }: {
+    response: ItemAddFormMutation["response"];
+    variables: ItemAddFormMutation["variables"];
+    values: Fields;
+  }) => {
+    if (onSuccess) onSuccess({ response, variables, values });
+    const routeName = "item.manage.details";
+    if (response?.createItem?.item)
+      redirect(response.createItem.item.slug, routeName);
+  };
+
   const formData = useFragment<ItemAddFormFragment$key>(fragment, data);
 
   const toVariables = useToVariables<ItemAddFormMutation, Fields>(
@@ -22,9 +56,6 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        schemaVersionSlug: data.schemaVersionSlug || undefined,
-        summary: data.summary || undefined,
-        doi: data.doi || undefined,
         parentId: formData.item?.id ?? formData.collection?.id ?? "",
       },
     }),
@@ -45,6 +76,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
               label: option.label,
               value: option.value,
             }))}
+            required
             label="forms.schema.label"
             {...register("schemaVersionSlug")}
           />
@@ -78,7 +110,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
-        <Forms.Checkbox defaultChecked name="redirect">
+        <Forms.Checkbox defaultChecked name="redirect" onChange={handleCheck}>
           Open new item on create
         </Forms.Checkbox>
       </Forms.Grid>
@@ -88,11 +120,11 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   return (
     <MutationForm<ItemAddFormMutation, Fields>
       mutation={mutation}
-      onSuccess={onSuccess}
+      onSuccess={redirectOnSuccess ? onSuccessWithRedirect : onSuccess}
       successNotification="messages.add.item_success"
       onCancel={onCancel}
       name="createItem"
-      refetchTags={["items"]}
+      refetchTags={redirectOnSuccess ? undefined : ["items"]}
       toVariables={toVariables}
     >
       {renderForm}
