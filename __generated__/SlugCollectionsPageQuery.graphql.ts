@@ -9,12 +9,7 @@ export type SlugCollectionsPageQueryVariables = {
 };
 export type SlugCollectionsPageQueryResponse = {
     readonly collection: {
-        readonly collections: {
-            readonly pageInfo: {
-                readonly totalCount: number;
-            };
-        };
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "CollectionSlugRedirectFragment">;
     } | null;
 };
 export type SlugCollectionsPageQuery = {
@@ -30,11 +25,7 @@ query SlugCollectionsPageQuery(
 ) {
   collection(slug: $collectionSlug) {
     ...CollectionLayoutQueryFragment
-    collections {
-      pageInfo {
-        totalCount
-      }
-    }
+    ...CollectionSlugRedirectFragment
     id
   }
 }
@@ -47,6 +38,15 @@ fragment CollectionLayoutFragment on Collection {
 
 fragment CollectionLayoutQueryFragment on Collection {
   ...CollectionLayoutFragment
+}
+
+fragment CollectionSlugRedirectFragment on Collection {
+  slug
+  collections {
+    pageInfo {
+      totalCount
+    }
+  }
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -79,40 +79,11 @@ v1 = [
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "CollectionConnection",
-  "kind": "LinkedField",
-  "name": "collections",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PageInfo",
-      "kind": "LinkedField",
-      "name": "pageInfo",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "totalCount",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -134,11 +105,15 @@ return {
         "name": "collection",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "CollectionLayoutQueryFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CollectionSlugRedirectFragment"
           }
         ],
         "storageKey": null
@@ -168,9 +143,37 @@ return {
             "name": "title",
             "storageKey": null
           },
-          (v3/*: any*/),
           (v2/*: any*/),
-          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CollectionConnection",
+            "kind": "LinkedField",
+            "name": "collections",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v3/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -203,8 +206,8 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v2/*: any*/),
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -218,14 +221,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f7e832f1c599c18ab4c9afe36007b521",
+    "cacheID": "dc0f1a359a3cc174f469ae4709321d72",
     "id": null,
     "metadata": {},
     "name": "SlugCollectionsPageQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    collections {\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '230cb03deb2b1369938d308ce7f2badc';
+(node as any).hash = 'b9287cef6d9ecada81b655f075721888';
 export default node;
