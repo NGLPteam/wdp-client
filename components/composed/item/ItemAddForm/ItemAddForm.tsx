@@ -47,10 +47,6 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           />
         )}
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
-        <Forms.DatePicker
-          label="forms.fields.publication_date"
-          {...register("publishedOn")}
-        />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           {...register("thumbnail")}
@@ -64,8 +60,8 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             { label: "Limited", value: "LIMITED" },
           ]}
           isWide
-          required
           {...register("visibility")}
+          required
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.Datepicker
@@ -79,7 +75,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
-        <Forms.Checkbox checked name="redirect">
+        <Forms.Checkbox defaultChecked name="redirect">
           Open new item on create
         </Forms.Checkbox>
       </Forms.Grid>

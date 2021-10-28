@@ -38,12 +38,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           required
           {...register("title")}
         />
-        <Forms.Input
-          label="forms.fields.parent"
-          required
-          placeholder="Placeholder input until typeahead is ready"
-          {...register("parentId")}
-        />
+        {/* Typeahead for Collection or Item goes here when ready. (parentId) */}
         {schemaOptions && (
           <Forms.Select
             options={schemaOptions.schemaVersionOptions.map((option) => ({
@@ -55,10 +50,6 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           />
         )}
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
-        <Forms.DatePicker
-          label="forms.fields.publication_date"
-          {...register("publishedOn")}
-        />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           {...register("thumbnail")}

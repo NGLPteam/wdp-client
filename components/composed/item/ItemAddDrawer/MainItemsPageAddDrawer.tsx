@@ -3,26 +3,20 @@ import { graphql } from "react-relay";
 import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import ItemAddForm from "components/composed/item/ItemAddForm";
+import { MainItemsPageAddForm } from "components/composed/item/ItemAddForm";
 import QueryWrapper from "components/api/QueryWrapper";
 
-import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
+import type { MainItemsPageAddDrawerQuery as Query } from "@/relay/MainItemsPageAddDrawerQuery.graphql";
 
-export default function ItemAddDrawer({
+export default function MainItemsPageAddDrawer({
   dialog,
-  params,
 }: {
   dialog: DialogProps;
-  params: Record<string, string>;
 }) {
   const { t } = useTranslation();
-  const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
-    >
+    <QueryWrapper<Query> query={query}>
       {({ data }) => (
         <Drawer
           label={t("actions.add.item")}
@@ -31,7 +25,7 @@ export default function ItemAddDrawer({
           hideOnClickOutside={false}
         >
           {data && (
-            <ItemAddForm
+            <MainItemsPageAddForm
               onSuccess={dialog.hide}
               onCancel={dialog.hide}
               data={data}
@@ -44,7 +38,7 @@ export default function ItemAddDrawer({
 }
 
 const query = graphql`
-  query ItemAddDrawerQuery($entitySlug: Slug!) {
-    ...ItemAddFormFragment
+  query MainItemsPageAddDrawerQuery {
+    ...MainItemsPageAddFormFragment
   }
 `;

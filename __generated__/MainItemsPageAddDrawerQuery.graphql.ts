@@ -4,19 +4,19 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type ItemAddDrawerMainPageQueryVariables = {};
-export type ItemAddDrawerMainPageQueryResponse = {
+export type MainItemsPageAddDrawerQueryVariables = {};
+export type MainItemsPageAddDrawerQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"MainItemsPageAddFormFragment">;
 };
-export type ItemAddDrawerMainPageQuery = {
-    readonly response: ItemAddDrawerMainPageQueryResponse;
-    readonly variables: ItemAddDrawerMainPageQueryVariables;
+export type MainItemsPageAddDrawerQuery = {
+    readonly response: MainItemsPageAddDrawerQueryResponse;
+    readonly variables: MainItemsPageAddDrawerQueryVariables;
 };
 
 
 
 /*
-query ItemAddDrawerMainPageQuery {
+query MainItemsPageAddDrawerQuery {
   ...MainItemsPageAddFormFragment
 }
 
@@ -33,7 +33,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ItemAddDrawerMainPageQuery",
+    "name": "MainItemsPageAddDrawerQuery",
     "selections": [
       {
         "args": null,
@@ -48,7 +48,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ItemAddDrawerMainPageQuery",
+    "name": "MainItemsPageAddDrawerQuery",
     "selections": [
       {
         "alias": null,
@@ -84,13 +84,13 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "6719fc1b0244ec1d929b4b174236e95b",
+    "cacheID": "2f560f85745eb351bdc9dca622481355",
     "id": null,
     "metadata": {},
-    "name": "ItemAddDrawerMainPageQuery",
+    "name": "MainItemsPageAddDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemAddDrawerMainPageQuery {\n  ...MainItemsPageAddFormFragment\n}\n\nfragment MainItemsPageAddFormFragment on Query {\n  schemaVersionOptions(kind: ITEM) {\n    label\n    value\n  }\n}\n"
+    "text": "query MainItemsPageAddDrawerQuery {\n  ...MainItemsPageAddFormFragment\n}\n\nfragment MainItemsPageAddFormFragment on Query {\n  schemaVersionOptions(kind: ITEM) {\n    label\n    value\n  }\n}\n"
   }
 };
-(node as any).hash = 'b7b234a3b4658db28cdd759ef5b6eef4';
+(node as any).hash = '7592a8918c2e5fe6ad18ed7c9307975a';
 export default node;
