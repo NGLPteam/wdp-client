@@ -7,6 +7,7 @@ const initialState: ViewerContextProps = {
   allowedActions: [],
   uploadAccess: false,
   uploadToken: null,
+  avatarUrl: undefined,
 };
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
@@ -14,9 +15,16 @@ const ViewerContext = createContext<ViewerContextProps>(initialState);
 function ViewerContextProvider({ children }: Props) {
   const { data } = useAuthenticatedQuery<ViewerContextQuery>(query);
 
-  const viewer = useMemo(() => (data?.viewer ? data?.viewer : initialState), [
-    data,
-  ]);
+  const viewer = useMemo(() => {
+    if (data?.viewer) {
+      const { avatar, ...viewerProps } = data.viewer;
+      const avatarUrl = avatar?.small.png?.url;
+
+      return { avatarUrl, ...viewerProps };
+    }
+
+    return initialState;
+  }, [data]);
 
   return (
     <ViewerContext.Provider value={viewer}>{children}</ViewerContext.Provider>
@@ -28,6 +36,7 @@ interface ViewerContextProps {
   allowedActions: readonly string[];
   uploadAccess?: boolean;
   uploadToken?: string | null;
+  avatarUrl?: string;
 }
 
 interface Props {
@@ -45,6 +54,14 @@ const query = graphql`
       allowedActions
       uploadAccess
       uploadToken
+      avatar {
+        small {
+          png {
+            url
+            alt
+          }
+        }
+      }
     }
   }
 `;

@@ -9,11 +9,11 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { useTranslation } from "react-i18next";
 import { CellProps } from "react-table";
-import { NamedLink } from "components/atomic";
 import {
   RoleAssignedUsersListDataFragment,
   RoleAssignedUsersListDataFragment$key,
 } from "@/relay/RoleAssignedUsersListDataFragment.graphql";
+import UserNameColumnCell from "components/composed/user/UserNameColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -39,17 +39,9 @@ function RoleAssignedUsersList<T extends OperationType>({
     ModelColumns.NameColumn<Node>({
       route: "user",
       accessor: "user",
-      Cell: ({ row }: CellProps<Node>) => {
-        return (
-          <NamedLink
-            route={"user"}
-            routeParams={{ slug: row.original.user?.slug || "" }}
-            passHref
-          >
-            <a className="t-weight-md a-link">{row.original.user?.name}</a>
-          </NamedLink>
-        );
-      },
+      Cell: ({ row }: CellProps<Node>) => (
+        <UserNameColumnCell data={row.original.user} />
+      ),
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
@@ -104,6 +96,7 @@ const listDataFragment = graphql`
           name
           email
           slug
+          ...UserNameColumnCellFragment
         }
       }
     }

@@ -101,7 +101,7 @@ const Typeahead = forwardRef(
                   key={index}
                   {...getItemProps({ key: item.value, index, item })}
                 >
-                  {item.label}
+                  {item.node ? item.node : item.label}
                 </Styled.ListItem>
               ))}
           </Styled.List>
@@ -113,6 +113,7 @@ const Typeahead = forwardRef(
 
 interface Option {
   label: string;
+  node?: React.ReactNode;
   value: string | number;
 }
 interface Props extends InputProps {

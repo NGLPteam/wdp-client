@@ -22,6 +22,7 @@ import UserGrantItemAccessDrawer from "components/composed/user/UserGrantItemAcc
 import UserGrantCommunityAccessDrawer from "components/composed/user/UserGrantCommunityAccessDrawer";
 import RoleEditAccessDrawer from "components/composed/role/RoleEditAccessDrawer";
 import EntityLinksAddDrawer from "components/composed/links/EntityLinksAddDrawer";
+import UserProfileUpdateDrawer from "components/composed/user/UserProfileUpdateDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -43,6 +44,7 @@ const drawerRegistry = {
   addUserCommunityAccess: UserGrantCommunityAccessDrawer,
   editRoleAccess: RoleEditAccessDrawer,
   addLink: EntityLinksAddDrawer,
+  editProfile: UserProfileUpdateDrawer,
 };
 
 export function useDrawerHelper() {

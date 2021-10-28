@@ -9,7 +9,13 @@ import * as Styled from "./Dropdown.styles";
  * A dropdown for navigation submenus.
  * Adds appropriate aria labels and open/close functionality.
  */
-const Dropdown = ({ className, disclosure, menuItems, label }: Props) => {
+const Dropdown = ({
+  className,
+  disclosure,
+  menuItems,
+  label,
+  alignRight = false,
+}: Props) => {
   const uid = useUID();
   const wrapperRef = useRef(null);
   const [active, setActive] = useState(false);
@@ -23,7 +29,7 @@ const Dropdown = ({ className, disclosure, menuItems, label }: Props) => {
   const submenu = (
     <Styled.List
       ref={elRef}
-      right={out.right}
+      right={alignRight || out.right}
       id={uid}
       aria-hidden={!active}
       hidden={!active}
@@ -69,6 +75,7 @@ interface Props {
   disclosure: JSX.Element | ((props: BaseDisclosureProps) => void);
   label: string;
   menuItems: (JSX.Element | null)[];
+  alignRight?: boolean;
 }
 export interface BaseDisclosureProps {
   "aria-controls": string;

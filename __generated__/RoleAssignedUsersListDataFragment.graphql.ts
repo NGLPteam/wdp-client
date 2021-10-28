@@ -16,6 +16,7 @@ export type RoleAssignedUsersListDataFragment = {
                 readonly name: string | null;
                 readonly email: string | null;
                 readonly slug: string;
+                readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
             };
         };
     }>;
@@ -103,6 +104,11 @@ return {
                   "kind": "ScalarField",
                   "name": "slug",
                   "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "UserNameColumnCellFragment"
                 }
               ],
               "storageKey": null
@@ -123,5 +129,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '71ebfcb2ccd3e7764fcdcf95f35d09b5';
+(node as any).hash = '609af6240c66886ad65b65a6f33a0aca';
 export default node;

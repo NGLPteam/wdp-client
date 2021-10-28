@@ -10,8 +10,8 @@ import { LogoPlaceholder } from "components/global";
 import MobileMenu, { MobileMenuList } from "components/layout/MobileMenu";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
-import SignIn from "components/auth/SignIn";
-import SignOut from "components/auth/SignOut";
+import SignInOut from "components/auth/SignInOut";
+import { DrawerLink } from "components/atomic";
 import GlobalSearch from "../GlobalSearch";
 import ProviderBar from "../ProviderBar";
 import HeaderAccount from "./HeaderAccount";
@@ -83,8 +83,12 @@ function Header() {
           </h3>
           <MobileMenuList>
             <li>
-              <SignIn />
-              <SignOut />
+              <DrawerLink drawer="editProfile">
+                {t("nav.edit_profile")}
+              </DrawerLink>
+            </li>
+            <li>
+              <SignInOut />
             </li>
           </MobileMenuList>
         </div>
