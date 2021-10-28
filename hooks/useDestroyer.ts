@@ -48,11 +48,11 @@ export function useDestroyer() {
         data
       );
       if (results.revoked) {
-        notify.success(t("outcomes.revoked", { name }));
+        notify.success(t("messages.revoke.success", { name }));
       } else if (results.disabled) {
-        notify.success(t("outcomes.disabled", { name }));
+        notify.success(t("messages.disable.success", { name }));
       } else if (results.destroyed) {
-        notify.success(t("outcomes.deleted", { name }));
+        notify.success(t("messages.delete.success", { name }));
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
       }
