@@ -25,6 +25,9 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
+        schemaVersionSlug: data.schemaVersionSlug || undefined,
+        summary: data.summary || undefined,
+        doi: data.doi || undefined,
       },
     }),
     []
@@ -78,7 +81,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
-        <Forms.Checkbox checked name="redirect">
+        <Forms.Checkbox defaultChecked name="redirect">
           Open new item on create
         </Forms.Checkbox>
       </Forms.Grid>
