@@ -82,8 +82,12 @@ export default function ItemUpdateDrawer({
               <SchemaInstanceForm
                 instance={data?.item}
                 schemaKind="ITEM"
-                successNotification="forms.item.update.schemaSuccess"
-                failureNotification="forms.item.update.schemaFailure"
+                successNotification={t("messages.update.success", {
+                  name: data?.item?.title,
+                })}
+                failureNotification={t("messages.update.failure", {
+                  name: data?.item?.title,
+                })}
                 onSaveAndClose={dialog.hide}
                 onCancel={dialog.hide}
               />
