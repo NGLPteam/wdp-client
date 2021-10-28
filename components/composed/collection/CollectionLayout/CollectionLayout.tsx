@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
 import {
@@ -43,6 +44,15 @@ export default function CollectionLayout({
         icon="plus"
       >
         {t("actions.add.item")}
+      </ButtonControlDrawer>
+      <ButtonControlDrawer
+        drawer="addCollection"
+        drawerQuery={{
+          drawerSlug: slug,
+        }}
+        icon="plus"
+      >
+        {t("actions.add.collection")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
   );
