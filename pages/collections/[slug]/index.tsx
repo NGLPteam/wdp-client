@@ -21,12 +21,12 @@ function CollectionSlug({ data }: Props) {
   const total = data?.collection?.collections?.pageInfo?.totalCount;
 
   if (total && total > 0 && collectionRoute) {
-    router.push({
+    router.replace({
       pathname: collectionRoute.path,
       query: { slug },
     });
   } else if (total === 0 && itemRoute) {
-    router.push({
+    router.replace({
       pathname: itemRoute.path,
       query: { slug },
     });
