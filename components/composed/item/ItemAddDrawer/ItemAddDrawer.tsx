@@ -8,10 +8,7 @@ import ItemAddForm, {
 } from "components/composed/item/ItemAddForm";
 import QueryWrapper from "components/api/QueryWrapper";
 
-import type {
-  ItemAddDrawerQuery as Query,
-  ItemAddDrawerQueryResponse,
-} from "@/relay/ItemAddDrawerQuery.graphql";
+import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
 import type { ItemAddDrawerMainPageQuery as MainPageQuery } from "@/relay/ItemAddDrawerMainPageQuery.graphql";
 
 export default function ItemAddDrawer({
@@ -26,7 +23,11 @@ export default function ItemAddDrawer({
 
   const FormComponent =
     drawerSource === "main" ? MainItemsPageAddForm : ItemAddForm;
-  const renderDrawer = ({ data }) => (
+  const renderDrawer = ({
+    data,
+  }: {
+    data: Pick<React.ComponentProps<typeof FormComponent>, "data">;
+  }) => (
     <Drawer
       label={t("actions.add.item")}
       header={t("actions.add.item_header")}
