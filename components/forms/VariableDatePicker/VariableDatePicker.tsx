@@ -15,7 +15,7 @@ import * as Styled from "./VariableDatePicker.styles";
 
 const VariableDatePicker = forwardRef(
   (
-    { label, defaultValue, onChange }: Props,
+    { label, defaultValue, value, onChange, required }: Props,
     // The ref is passed in from Control, but isn't needed for this input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: Ref<HTMLInputElement>
@@ -24,6 +24,8 @@ const VariableDatePicker = forwardRef(
     const yearRef = useRef<HTMLInputElement>(null);
     const monthRef = useRef<HTMLInputElement>(null);
     const dayRef = useRef<HTMLInputElement>(null);
+    const defaultPrecision = value?.precision || defaultValue?.precision;
+    const defaultDate = value?.value || defaultValue?.value;
 
     const getValues = useCallback(() => {
       if (!yearRef?.current || !monthRef?.current || !dayRef.current)
@@ -79,16 +81,17 @@ const VariableDatePicker = forwardRef(
           <Input
             name="year"
             type="number"
-            label="Year"
+            label={t("forms.fields.year")}
             pattern="\d{4}"
             onBlur={handleOnBlur}
             ref={yearRef}
-            defaultValue={getYear(defaultValue?.value)}
+            defaultValue={getYear(defaultDate)}
+            required={required}
           />
           <Input
             name="month"
             type="number"
-            label="Month"
+            label={t("forms.fields.month")}
             pattern="\d{2}"
             min="1"
             max="12"
@@ -96,24 +99,21 @@ const VariableDatePicker = forwardRef(
             ref={monthRef}
             disabled={!yearRef?.current?.value}
             defaultValue={
-              defaultValue?.precision !== "YEAR"
-                ? getMonth(defaultValue?.value)
-                : undefined
+              defaultPrecision !== "YEAR" ? getMonth(defaultDate) : undefined
             }
           />
           <Input
             name="day"
             type="number"
-            label="Day"
+            label={t("forms.fields.day")}
             onBlur={handleOnBlur}
             ref={dayRef}
             min="1"
             max={`${maxDays()}`}
             disabled={!monthRef?.current?.value}
             defaultValue={
-              defaultValue?.precision !== "YEAR" &&
-              defaultValue?.precision !== "MONTH"
-                ? getDay(defaultValue?.value)
+              defaultPrecision !== "YEAR" && defaultPrecision !== "MONTH"
+                ? getDay(defaultDate)
                 : undefined
             }
           />
