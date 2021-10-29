@@ -1,11 +1,14 @@
-import * as React from "react";
+import React, { useState, useCallback } from "react";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
+  useOnSuccess,
 } from "components/api/MutationForm";
 import { graphql, useFragment } from "react-relay";
 import { sanitizeDateField } from "helpers";
+import { useRouter } from "next/router";
+import { RouteHelper } from "routes";
 
 import type { CollectionAddFormFragment$key } from "@/relay/CollectionAddFormFragment.graphql";
 import type {
@@ -18,6 +21,41 @@ export default function AddCollectionForm({
   onCancel,
   data,
 }: Props) {
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(true);
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setRedirectOnSuccess(e.target.checked);
+
+  const router = useRouter();
+  const redirect = useCallback(
+    (slug: string, routeName: string) => {
+      const newRoute = RouteHelper.findRouteByName(routeName);
+
+      router.replace({
+        pathname: newRoute?.path,
+        query: { slug },
+      });
+    },
+    [router]
+  );
+
+  const onSuccessWithRedirect = useOnSuccess<CollectionAddFormMutation, Fields>(
+    ({
+      response,
+      variables,
+      values,
+    }: {
+      response: CollectionAddFormMutation["response"];
+      variables: CollectionAddFormMutation["variables"];
+      values: Fields;
+    }) => {
+      if (onSuccess) onSuccess({ response, variables, values });
+      const routeName = "collection.manage.details";
+      if (response?.createCollection?.collection)
+        redirect(response.createCollection.collection.slug, routeName);
+    },
+    [onSuccess, redirect]
+  );
+
   const formData = useFragment<CollectionAddFormFragment$key>(fragment, data);
 
   const toVariables = useToVariables<CollectionAddFormMutation, Fields>(
@@ -79,6 +117,9 @@ export default function AddCollectionForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.Checkbox name="redirect" onChange={handleCheck} defaultChecked>
+          Open new collection on save
+        </Forms.Checkbox>
       </Forms.Grid>
     ),
     []
@@ -87,7 +128,7 @@ export default function AddCollectionForm({
   return (
     <MutationForm<CollectionAddFormMutation, Fields>
       mutation={mutation}
-      onSuccess={onSuccess}
+      onSuccess={redirectOnSuccess ? onSuccessWithRedirect : onSuccess}
       successNotification="messages.create.collection_success"
       onCancel={onCancel}
       name="createCollection"
