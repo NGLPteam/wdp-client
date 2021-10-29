@@ -4,6 +4,7 @@ import {
   ButtonControlGroup,
   ButtonControl,
   ButtonControlConfirm,
+  ButtonControlDownload,
 } from "components/atomic/buttons";
 import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
@@ -12,9 +13,10 @@ type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
   modalConfirm?: boolean;
+  handleLink?: ({ row }: { row: Row<D> }) => string;
 };
 
-type ActionKeys = "edit" | "delete";
+type ActionKeys = "edit" | "delete" | "download";
 
 interface ActionDefinition {
   label: string;
@@ -50,6 +52,12 @@ const availableActions: ActionDefinitions = {
       <p className="t-copy-sm">{i18next.t("messages.delete.confirm_body")}</p>
     ),
   },
+  download: {
+    label: i18next.t("download"),
+    icon: "arrow",
+    iconRotate: 180,
+    action: "",
+  },
 };
 
 function getButtonControlChildren<D extends Record<string, unknown>>(
@@ -70,6 +78,13 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}
     ></ButtonControlConfirm>
+  ) : action === "download" && actionConfig?.handleLink ? (
+    <ButtonControlDownload
+      aria-label={actionDefinition.label}
+      {...(actionConfig?.handleLink && {
+        href: actionConfig.handleLink({ row }),
+      })}
+    ></ButtonControlDownload>
   ) : (
     <ButtonControl
       aria-label={actionDefinition.label}

@@ -5,8 +5,8 @@ import {
   FileListFragment,
   FileListFragment$key,
 } from "@/relay/FileListFragment.graphql";
-import type { CellProps } from "react-table"; // ModelTableActionProps
-import { useMaybeFragment, useRouteSlug } from "hooks"; // useDestroyer, useDrawerHelper
+import type { CellProps, ModelTableActionProps } from "react-table";
+import { useMaybeFragment, useRouteSlug } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -23,8 +23,6 @@ function FileList<T extends OperationType>({
 }: FileListProps) {
   const files = useMaybeFragment<FileListFragment$key>(fragment, data);
   const slug = useRouteSlug();
-  // const drawerHelper = useDrawerHelper();
-  // const destroy = useDestroyer();
   const { t } = useTranslation();
 
   const columns = [
@@ -51,12 +49,10 @@ function FileList<T extends OperationType>({
     }),
   ];
 
-  // const actions = {
-  //   handleEdit: ({ row }: ModelTableActionProps<FileNode>) =>
-  //     drawerHelper.open("editFile", { drawerSlug: row.original.slug }),
-  //   handleDelete: ({ row }: ModelTableActionProps<FileNode>) =>
-  //     destroy.file({ fileId: row.id }, "glossary.file"),
-  // };
+  const actions = {
+    handleDownload: ({ row }: ModelTableActionProps<FileNode>) =>
+      row.original.downloadUrl ? row.original.downloadUrl : null,
+  };
 
   // TODO: We need an authorization check here.
   // There are currently no allowedActions around assets.
@@ -80,6 +76,7 @@ function FileList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       buttons={buttons}
+      actions={actions}
     />
   );
 }
@@ -99,6 +96,7 @@ const fragment = graphql`
         slug
         kind
         name
+        downloadUrl
         thumbnail: preview {
           image: medium {
             png {
