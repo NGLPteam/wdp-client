@@ -1,76 +1,123 @@
 import React, { Ref, forwardRef, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "components/forms/Input";
-import Select from "components/forms/Select";
 import Fieldset from "components/forms/Fieldset";
-import FormGrid from "components/forms/FormGrid";
 import type { DatePrecision } from "types/graphql-schema";
 import type InputProps from "components/forms/inputType";
+import {
+  getDaysInMonth,
+  getYear,
+  getMonth,
+  getDay,
+  dateLeadingZero,
+} from "helpers/dates";
+import * as Styled from "./VariableDatePicker.styles";
 
 const VariableDatePicker = forwardRef(
   (
-    { label, name, value, defaultValue, onChange, ...props }: Props,
+    { label, defaultValue, onChange }: Props,
     // The ref is passed in from Control, but isn't needed for this input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: Ref<HTMLInputElement>
   ) => {
     const { t } = useTranslation();
-    const selectRef = useRef<HTMLSelectElement>(null);
-    const dateRef = useRef<HTMLInputElement>(null);
+    const yearRef = useRef<HTMLInputElement>(null);
+    const monthRef = useRef<HTMLInputElement>(null);
+    const dayRef = useRef<HTMLInputElement>(null);
 
-    const options = [
-      {
-        label: "None",
-        value: "NONE",
-      },
-      {
-        label: "Year",
-        value: "YEAR",
-      },
-      {
-        label: "Month",
-        value: "MONTH",
-      },
-      {
-        label: "Day",
-        value: "DAY",
-      },
-    ];
+    const getValues = useCallback(() => {
+      if (!yearRef?.current || !monthRef?.current || !dayRef.current)
+        return null;
 
-    const handleChange = useCallback(() => {
-      const dateType = selectRef?.current?.value;
-      const dateValue = dateRef?.current?.value;
+      const year = parseInt(yearRef.current.value || "");
+      let month = parseInt(monthRef.current.value || "");
+      let day = parseInt(dayRef.current.value || "");
+
+      if (!month || !year) {
+        dayRef.current.value = "";
+        day = 0;
+      }
+
+      if (!year) {
+        monthRef.current.value = "";
+        month = 0;
+      }
+
+      return { year, month, day };
+    }, [yearRef, monthRef, dayRef]);
+
+    const handleOnBlur = useCallback(() => {
+      const values = getValues();
+      if (!values) return;
+
+      const { year, month, day } = values;
+      const precision = day ? "DAY" : month ? "MONTH" : year ? "YEAR" : "NONE";
+
+      const value = year
+        ? `${year}-${dateLeadingZero(month)}-${dateLeadingZero(day)}`
+        : undefined;
 
       if (onChange) {
         onChange({
-          precision: dateType as DatePrecision,
-          value: dateValue,
+          precision,
+          value,
         });
       }
-    }, [selectRef, dateRef, onChange]);
+    }, [getValues, onChange]);
+
+    function maxDays() {
+      const year = yearRef?.current?.value;
+      const month = monthRef?.current?.value;
+      if (!year || !month) return;
+
+      return getDaysInMonth(parseInt(month, 10), parseInt(year, 10));
+    }
 
     return (
       <Fieldset label={t(label)}>
-        <FormGrid>
+        <Styled.Wrapper>
           <Input
-            name="value"
-            type="date"
-            label="date"
-            defaultValue={defaultValue?.value}
-            onChange={handleChange}
-            ref={dateRef}
-            {...props}
+            name="year"
+            type="number"
+            label="Year"
+            pattern="\d{4}"
+            onBlur={handleOnBlur}
+            ref={yearRef}
+            defaultValue={getYear(defaultValue?.value)}
           />
-          <Select
-            name="precision"
-            label="precision"
-            options={options}
-            defaultValue={defaultValue?.precision}
-            onChange={handleChange}
-            ref={selectRef}
-            {...props}
+          <Input
+            name="month"
+            type="number"
+            label="Month"
+            pattern="\d{2}"
+            min="1"
+            max="12"
+            onBlur={handleOnBlur}
+            ref={monthRef}
+            disabled={!yearRef?.current?.value}
+            defaultValue={
+              defaultValue?.precision !== "YEAR"
+                ? getMonth(defaultValue?.value)
+                : undefined
+            }
           />
-        </FormGrid>
+          <Input
+            name="day"
+            type="number"
+            label="Day"
+            onBlur={handleOnBlur}
+            ref={dayRef}
+            min="1"
+            max={`${maxDays()}`}
+            disabled={!monthRef?.current?.value}
+            defaultValue={
+              defaultValue?.precision !== "YEAR" &&
+              defaultValue?.precision !== "MONTH"
+                ? getDay(defaultValue?.value)
+                : undefined
+            }
+          />
+        </Styled.Wrapper>
       </Fieldset>
     );
   }
