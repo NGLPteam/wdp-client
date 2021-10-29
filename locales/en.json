@@ -242,7 +242,13 @@
         "attachment": "Attachment",
         "alt_text": "Alt Text",
         "username": "Username",
-        "avatar": "Avatar"
+        "avatar": "Avatar",
+        "year": "Year",
+        "month": "Month",
+        "day": "Day"
+      },
+      "validation": {
+        "year": "Must be a four digit year"
       },
       "tags": {
         "label": "Tags",

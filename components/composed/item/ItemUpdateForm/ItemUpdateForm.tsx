@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -20,6 +21,8 @@ export default function ItemUpdateForm({
   onCancel,
   onSaveAndClose,
 }: Props) {
+  const { t } = useTranslation();
+
   const {
     itemId = "",
     ...fieldsData
@@ -95,7 +98,9 @@ export default function ItemUpdateForm({
       onSuccess={onSuccess}
       onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
-      successNotification="messages.update.item_success"
+      successNotification={t("messages.update.item_success", {
+        name: values.title,
+      })}
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}

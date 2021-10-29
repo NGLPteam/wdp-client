@@ -18,3 +18,30 @@ export function formatDate(dateString: string, formatString?: string) {
 export function getDateOnly(dateString: string | null | undefined) {
   return dateString ? formatDate(dateString, "yyyy-MM-dd") : undefined;
 }
+
+export function getYear(dateString: string | null | undefined) {
+  return dateString ? formatDate(dateString, "yyyy") : undefined;
+}
+
+export function getMonth(dateString: string | null | undefined) {
+  return dateString ? formatDate(dateString, "M") : undefined;
+}
+
+export function getDay(dateString: string | null | undefined) {
+  return dateString ? formatDate(dateString, "d") : undefined;
+}
+
+export function getMonthName(month: number) {
+  const date = new Date();
+  date.setMonth(month);
+  return format(new Date(date), "MMMM");
+}
+
+export function getDaysInMonth(month: number, year: number) {
+  return new Date(year, month, 0).getDate();
+}
+
+export function dateLeadingZero(date?: number) {
+  // Return value with a leading zero, or return 01
+  return date ? date.toString().padStart(2, "0") : "01";
+}

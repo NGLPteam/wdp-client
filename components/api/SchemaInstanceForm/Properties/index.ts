@@ -13,3 +13,4 @@ export { default as Select } from "./SelectProperty";
 export { default as String } from "./StringProperty";
 export { default as Tags } from "./TagsProperty";
 export { default as FullText } from "./FullTextProperty";
+export { default as VariableDate } from "./VariableDateProperty";

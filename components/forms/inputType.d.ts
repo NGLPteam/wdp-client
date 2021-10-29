@@ -14,6 +14,7 @@ interface InputProps<T extends FieldValues = FieldValues> {
   };
   isWide?: boolean;
   onChange?: (e: React.ChangeEvent<Element>) => void;
+  onBlur?: (e: React.ChangeEvent<Element>) => void;
 }
 
 export default InputProps;

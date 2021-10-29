@@ -65,6 +65,10 @@ export type SchemaPropertyFragment = {
     readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
     readonly " $refType": "SchemaPropertyFragment";
 } | {
+    readonly __typename: "VariableDateProperty";
+    readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
+    readonly " $refType": "SchemaPropertyFragment";
+} | {
     /*This will never be '%other', but we need some
     value in case none of the concrete values match.*/
     readonly __typename: "%other";
@@ -270,10 +274,22 @@ const node: ReaderFragment = {
       ],
       "type": "FullTextProperty",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "VariableDatePropertyFragment"
+        }
+      ],
+      "type": "VariableDateProperty",
+      "abstractKey": null
     }
   ],
   "type": "AnyScalarProperty",
   "abstractKey": "__isAnyScalarProperty"
 };
-(node as any).hash = 'd0a359712af2ebc5ee2ee1d1c21420f6';
+(node as any).hash = '729cb89148606cf7cb0f680491aaa207';
 export default node;
