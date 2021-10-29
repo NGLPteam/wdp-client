@@ -49,7 +49,7 @@ export default function ItemLayout({
       );
       router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
     }
-  }, [memoizedItem, breadcrumbs]);
+  }, [memoizedItem, breadcrumbs, destroy, router]);
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
