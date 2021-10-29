@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const InAForm: Story<Props> = (args) => {
+export const InAForm: Story<Props> = ({ defaultValue, ...args }) => {
   function handleSubmit(data: Record<string, string | string[]>) {
     console.info(data);
   }
@@ -30,7 +30,7 @@ export const InAForm: Story<Props> = (args) => {
         <Controller<FieldValues>
           name="example"
           control={control}
-          defaultValue=""
+          defaultValue={defaultValue}
           render={({ field }) => {
             return <FullTextInput {...args} {...field} />;
           }}
@@ -42,6 +42,11 @@ export const InAForm: Story<Props> = (args) => {
 
 InAForm.args = {
   label: "Full Text Input",
+  defaultValue: {
+    content: "Some content",
+    kind: "TEXT",
+    lang: "en",
+  },
   required: false,
 };
 

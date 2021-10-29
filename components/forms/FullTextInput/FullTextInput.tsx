@@ -9,7 +9,7 @@ import type InputProps from "components/forms/inputType";
 
 const FullTextInput = forwardRef(
   (
-    { label, name, defaultValue, onChange, ...props }: Props,
+    { label, name, defaultValue, value, onChange, ...props }: Props,
     // The ref is passed in from Control, but isn't needed for this input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: Ref<HTMLInputElement>
@@ -22,9 +22,10 @@ const FullTextInput = forwardRef(
     const handleChange = useCallback(() => {
       const content = contentRef?.current?.value;
       const kind = kindRef?.current?.value;
+      const lang = langRef?.current?.value;
 
       if (onChange) {
-        onChange({ content, kind });
+        onChange({ content, kind, lang });
       }
     }, [contentRef, kindRef, onChange]);
 
@@ -48,28 +49,28 @@ const FullTextInput = forwardRef(
         <FormGrid>
           <Select
             name="kind"
-            label="Content Type"
+            label={t("form.full_text.kind_label")}
             options={options}
-            defaultValue={defaultValue?.kind}
+            defaultValue={value?.kind || defaultValue?.kind}
             onChange={handleChange}
-            ref={kindRef}
             {...props}
+            ref={kindRef}
           />
           <Input
             name="lang"
-            label="Language"
-            defaultValue={defaultValue?.lang}
+            label={t("form.full_text.lang_label")}
             onChange={handleChange}
+            defaultValue={value?.lang || defaultValue?.lang}
             ref={langRef}
             {...props}
           />
         </FormGrid>
         <Textarea
           name="content"
-          label="Content"
+          label={t("form.full_text.content_label")}
           onChange={handleChange}
+          defaultValue={value?.content || defaultValue?.content}
           ref={contentRef}
-          defaultValue={defaultValue?.content}
           {...props}
         />
       </Fieldset>
@@ -80,6 +81,7 @@ const FullTextInput = forwardRef(
 type Value = {
   content?: string;
   kind?: string;
+  lang?: string;
 };
 
 interface Props
