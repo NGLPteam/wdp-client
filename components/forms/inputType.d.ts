@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import type { FieldValues, Path, DefaultValue } from "react-hook-form";
 
-interface InputProps<T extends FieldValues = FieldValues> {
+type InputTypes = Partial<Pick<HTMLInputElement, "onChange">>;
+interface InputProps<T extends FieldValues = FieldValues> extends InputTypes {
   defaultValue?: DefaultValue;
   name: Path<T>;
   label: string;
