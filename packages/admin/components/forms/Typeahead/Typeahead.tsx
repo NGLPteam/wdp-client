@@ -19,6 +19,7 @@ const Typeahead = forwardRef(
       options,
       required,
       onChange,
+      onInputChange,
       value,
       isWide,
       ...inputProps
@@ -54,6 +55,8 @@ const Typeahead = forwardRef(
             item.label.toLowerCase().includes(inputValue.toLowerCase())
           )
         );
+
+        if (onInputChange) onInputChange(inputValue);
       },
       onSelectedItemChange: ({ selectedItem }) => {
         // Send the current value to the parent onChange function
@@ -120,6 +123,8 @@ interface Props extends Omit<InputProps, "onChange"> {
   options: Option[];
   /** Returns the current selected value */
   onChange?: (value: Option["value"]) => void;
+  /** Returns the current input value */
+  onInputChange?: (value: string) => void;
   /** Default value */
   value?: Option["value"];
 }
