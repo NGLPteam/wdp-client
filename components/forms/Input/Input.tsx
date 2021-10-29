@@ -32,10 +32,14 @@ const Input = forwardRef(
   }
 );
 
-interface Props<T extends FieldValues = FieldValues>
-  extends InputProps<T>,
-    Partial<Pick<HTMLInputElement, "min" | "max" | "pattern">> {
-  type?: string;
-}
+type FormTypes = Partial<Pick<HTMLFormElement, "onInvalid" | "onInput">>;
+
+type InputTypes = Partial<
+  Pick<HTMLInputElement, "min" | "max" | "pattern" | "type">
+>;
+
+type Props<T extends FieldValues = FieldValues> = InputProps<T> &
+  FormTypes &
+  InputTypes;
 
 export default Input;

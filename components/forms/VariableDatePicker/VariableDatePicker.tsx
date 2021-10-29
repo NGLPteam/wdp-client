@@ -75,6 +75,18 @@ const VariableDatePicker = forwardRef(
       return getDaysInMonth(parseInt(month, 10), parseInt(year, 10));
     }
 
+    function onYearInvalid({ target }: { target: HTMLFormElement }) {
+      if (!target) return;
+
+      target.setCustomValidity(t("forms.validation.year"));
+    }
+
+    function resetYearInvalid({ target }: { target: HTMLFormElement }) {
+      if (!target) return;
+
+      target.setCustomValidity("");
+    }
+
     return (
       <Fieldset label={t(label)}>
         <Styled.Wrapper>
@@ -82,17 +94,19 @@ const VariableDatePicker = forwardRef(
             name="year"
             type="number"
             label={t("forms.fields.year")}
-            pattern="\d{4}"
             onChange={handleOnChange}
             ref={yearRef}
             defaultValue={getYear(defaultDate)}
             required={required}
+            min="1000"
+            max="9999"
+            onInvalid={onYearInvalid}
+            onInput={resetYearInvalid}
           />
           <Input
             name="month"
             type="number"
             label={t("forms.fields.month")}
-            pattern="\d{2}"
             min="1"
             max="12"
             onChange={handleOnChange}

@@ -247,6 +247,9 @@
         "month": "Month",
         "day": "Day"
       },
+      "validation": {
+        "year": "Must be a four digit year"
+      },
       "tags": {
         "label": "Tags",
         "add": "Add tag",
