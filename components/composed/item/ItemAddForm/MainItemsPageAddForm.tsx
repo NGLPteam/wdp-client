@@ -4,6 +4,7 @@ import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
+  useOnSuccess,
 } from "components/api/MutationForm";
 import { RouteHelper } from "routes";
 import { useRouter } from "next/router";
@@ -33,20 +34,26 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
     [router]
   );
 
-  const onSuccessWithRedirect = ({
-    response,
-    variables,
-    values,
-  }: {
-    response: MainItemsPageAddFormMutation["response"];
-    variables: MainItemsPageAddFormMutation["variables"];
-    values: Fields;
-  }) => {
-    if (onSuccess) onSuccess({ response, variables, values });
-    const routeName = "item.manage.details";
-    if (response?.createItem?.item)
-      redirect(response.createItem.item.slug, routeName);
-  };
+  const onSuccessWithRedirect = useOnSuccess<
+    MainItemsPageAddFormMutation,
+    Fields
+  >(
+    ({
+      response,
+      variables,
+      values,
+    }: {
+      response: MainItemsPageAddFormMutation["response"];
+      variables: MainItemsPageAddFormMutation["variables"];
+      values: Fields;
+    }) => {
+      if (onSuccess) onSuccess({ response, variables, values });
+      const routeName = "item.manage.details";
+      if (response?.createItem?.item)
+        redirect(response.createItem.item.slug, routeName);
+    },
+    [onSuccess, redirect]
+  );
 
   const schemaOptions = useFragment<MainItemsPageAddFormFragment$key>(
     fragment,
@@ -113,7 +120,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           />
         </Forms.HiddenField>
         <Forms.Checkbox defaultChecked name="redirect" onChange={handleCheck}>
-          Open new item on create
+          Open new item on save
         </Forms.Checkbox>
       </Forms.Grid>
     ),
@@ -126,7 +133,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
       successNotification="messages.add.item_success"
       onCancel={onCancel}
       name="createItem"
-      refetchTags={redirectOnSuccess ? undefined : ["items"]}
+      refetchTags={["items"]}
       toVariables={toVariables}
     >
       {renderForm}
