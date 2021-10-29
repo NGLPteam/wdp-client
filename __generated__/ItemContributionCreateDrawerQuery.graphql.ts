@@ -10,7 +10,7 @@ export type ItemContributionCreateDrawerQueryVariables = {
 export type ItemContributionCreateDrawerQueryResponse = {
     readonly item: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ContributionCreateFormFragment">;
 };

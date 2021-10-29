@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type ItemUpdateFormFieldsFragment = {
-    readonly title: string | null;
+    readonly title: string;
     readonly visibility: EntityVisibility;
     readonly summary: string | null;
     readonly visibleAfterAt: string | null;

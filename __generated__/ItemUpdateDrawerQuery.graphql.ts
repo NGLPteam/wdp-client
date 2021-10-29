@@ -10,7 +10,7 @@ export type ItemUpdateDrawerQueryVariables = {
 export type ItemUpdateDrawerQueryResponse = {
     readonly item: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
         readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFragment" | "SchemaInstanceFormFragment">;
     } | null;
 };

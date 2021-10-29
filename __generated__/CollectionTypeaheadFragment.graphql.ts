@@ -9,7 +9,7 @@ export type CollectionTypeaheadFragment = {
         readonly collections: {
             readonly nodes: ReadonlyArray<{
                 readonly id: string;
-                readonly title: string | null;
+                readonly title: string;
             }>;
         };
     };

@@ -18,11 +18,11 @@ export type RoleEditAccessDrawerQueryResponse = {
     } | null;
     readonly collection?: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
     } | null;
     readonly item?: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
     } | null;
     readonly user: {
         readonly id: string;

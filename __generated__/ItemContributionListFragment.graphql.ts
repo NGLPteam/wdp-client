@@ -27,7 +27,7 @@ export type ItemContributionListFragment = {
         };
         readonly item: {
             readonly slug: string;
-            readonly title: string | null;
+            readonly title: string;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;

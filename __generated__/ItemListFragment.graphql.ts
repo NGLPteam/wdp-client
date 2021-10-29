@@ -10,7 +10,7 @@ export type ItemListFragment = {
         readonly slug: string;
         readonly createdAt: string;
         readonly updatedAt: string;
-        readonly title: string | null;
+        readonly title: string;
         readonly schemaVersion: {
             readonly name: string;
             readonly number: string;

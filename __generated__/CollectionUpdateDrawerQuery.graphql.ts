@@ -10,7 +10,7 @@ export type CollectionUpdateDrawerQueryVariables = {
 export type CollectionUpdateDrawerQueryResponse = {
     readonly collection: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
         readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFragment" | "SchemaInstanceFormFragment">;
     } | null;
 };

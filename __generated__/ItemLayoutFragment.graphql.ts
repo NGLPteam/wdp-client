@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ItemLayoutFragment = {
-    readonly title: string | null;
+    readonly title: string;
     readonly slug: string;
     readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
     readonly " $refType": "ItemLayoutFragment";
