@@ -192,7 +192,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 }
 
 export interface Props<T extends FieldValues = FieldValues>
-  extends InputProps<T> {
+  extends Omit<InputProps<T>, "onChange"> {
   /* Type accepted by file input */
   accept?: string;
   /* Name for the file input */

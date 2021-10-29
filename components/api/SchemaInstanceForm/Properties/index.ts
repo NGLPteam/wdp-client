@@ -12,3 +12,4 @@ export { default as Multiselect } from "./MultiselectProperty";
 export { default as Select } from "./SelectProperty";
 export { default as String } from "./StringProperty";
 export { default as Tags } from "./TagsProperty";
+export { default as FullText } from "./FullTextProperty";
