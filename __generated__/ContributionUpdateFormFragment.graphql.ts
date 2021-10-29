@@ -22,7 +22,7 @@ export type ContributionUpdateFormFragment = {
         readonly __typename: "%other";
     };
     readonly collection: {
-        readonly title: string | null;
+        readonly title: string;
     };
     readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
     readonly " $refType": "ContributionUpdateFormFragment";
@@ -44,7 +44,7 @@ export type ContributionUpdateFormFragment = {
         readonly __typename: "%other";
     };
     readonly item: {
-        readonly title: string | null;
+        readonly title: string;
     };
     readonly title: string | null;
     readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;

@@ -42,6 +42,8 @@ export default function SchemaProperty(props: Props) {
       return <Properties.String field={field} />;
     case "TagsProperty":
       return <Properties.Tags field={field} />;
+    case "FullTextProperty":
+      return <Properties.FullText field={field} />;
     default:
       console.warn("Got unknown schema property type: %s", field.__typename);
       return null;
@@ -124,6 +126,11 @@ const fragment = graphql`
     ... on TagsProperty {
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...TagsPropertyFragment
+    }
+
+    ... on FullTextProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
+      ...FullTextPropertyFragment
     }
   }
 `;

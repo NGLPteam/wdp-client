@@ -160,7 +160,7 @@ interface Option {
   label: string;
   value: string;
 }
-interface Props extends InputProps {
+interface Props extends Omit<InputProps, "onChange"> {
   options: Option[];
   /** Returns the current selected value */
   onChange?: (value: Option["value"][]) => void;

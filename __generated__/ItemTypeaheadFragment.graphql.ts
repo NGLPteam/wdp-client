@@ -9,7 +9,7 @@ export type ItemTypeaheadFragment = {
         readonly items: {
             readonly nodes: ReadonlyArray<{
                 readonly id: string;
-                readonly title: string | null;
+                readonly title: string;
             }>;
         };
     };

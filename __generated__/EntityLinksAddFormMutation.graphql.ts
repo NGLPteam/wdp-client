@@ -18,7 +18,7 @@ export type EntityLinksAddFormMutationResponse = {
     readonly linkEntity: {
         readonly link: {
             readonly target: {
-                readonly title?: string | null;
+                readonly title?: string;
             };
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;

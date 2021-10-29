@@ -13,7 +13,7 @@ export type EntityLinksListDataFragment = {
         readonly operator: EntityLinkOperator;
         readonly target: {
             readonly slug?: string;
-            readonly title?: string | null;
+            readonly title?: string;
             readonly schemaDefinition?: {
                 readonly name: string;
                 readonly kind: SchemaKind;

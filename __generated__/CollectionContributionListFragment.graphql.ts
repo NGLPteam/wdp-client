@@ -26,7 +26,7 @@ export type CollectionContributionListFragment = {
             readonly __typename: "%other";
         };
         readonly collection: {
-            readonly title: string | null;
+            readonly title: string;
             readonly slug: string;
         };
     }>;

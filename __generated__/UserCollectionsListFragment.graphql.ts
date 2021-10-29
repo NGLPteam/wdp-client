@@ -10,7 +10,7 @@ export type UserCollectionsListFragment = {
             readonly id: string;
             readonly collection: {
                 readonly id: string;
-                readonly title: string | null;
+                readonly title: string;
                 readonly slug: string;
                 readonly thumbnail: {
                     readonly image: {

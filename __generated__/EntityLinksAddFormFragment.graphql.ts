@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityLinksAddFormFragment = {
     readonly id?: string;
-    readonly title?: string | null;
+    readonly title?: string;
     readonly linkTargetCandidates?: {
         readonly " $fragmentRefs": FragmentRefs<"LinkTargetTypeaheadFragment">;
     };

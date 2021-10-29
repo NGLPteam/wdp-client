@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import capitalize from "lodash/capitalize";
+import startCase from "lodash/startCase";
 import * as Styled from "./ContentHeader.styles";
 
 /**
@@ -13,7 +13,7 @@ const ContentHeader = ({
   return (
     <Styled.Wrapper>
       <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
-        {typeof title === "string" ? capitalize(title) : title}
+        {typeof title === "string" ? startCase(title) : title}
       </Styled.Title>
       {rightSide && <Styled.RightSide>{rightSide}</Styled.RightSide>}
     </Styled.Wrapper>

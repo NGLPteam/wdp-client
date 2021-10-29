@@ -10,10 +10,10 @@ export type LinkTargetTypeaheadFragment = {
             readonly targetId: string;
             readonly target: {
                 readonly __typename: "Collection";
-                readonly title: string | null;
+                readonly title: string;
             } | {
                 readonly __typename: "Item";
-                readonly title: string | null;
+                readonly title: string;
             } | {
                 /*This will never be '%other', but we need some
                 value in case none of the concrete values match.*/

@@ -252,9 +252,9 @@ union AnyLinkTarget = Collection | Item
 """The various types an OrderingEntry can refer to"""
 union AnyOrderingEntry = Collection | Community | EntityLink | Item
 
-union AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UnknownProperty
+union AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
 
-union AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UnknownProperty
+union AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
 
 """
 Encompasses any access grant for a specific user.
@@ -559,6 +559,8 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyCollectionAccessGrantConnection!
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDate!
   """A polymorphic connection for access grants from an entity"""
   allAccessGrants(
     subject: AccessGrantSubjectFilter = ALL
@@ -619,6 +621,8 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): ContextualPermissionConnection!
+  """The date this entity was made available"""
+  available: VariablePrecisionDate!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
@@ -685,9 +689,14 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
+  """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """The Digital Object Identifier for this entity. See https://doi.org"""
   doi: String
+  """Whether this collection has any child collections"""
+  hasCollections: Boolean!
+  """Whether this collection has any child items"""
+  hasItems: Boolean!
   hidden: Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
@@ -696,6 +705,8 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """The date this entity was issued"""
+  issued: VariablePrecisionDate!
   items(
     order: SimpleOrder = RECENT
     schema: [String!]
@@ -793,8 +804,9 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   parent: CollectionParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
-  """The date the entity was published on, if present"""
-  publishedOn: ISO8601Date
+  """The date this entity was published"""
+  published: VariablePrecisionDate!
+  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
   root: Boolean!
   schemaDefinition: SchemaDefinition!
   """The context for our schema instance. Includes form values and necessary referents."""
@@ -808,7 +820,8 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
   """A human-readable title for the entity"""
-  title: String
+  title: String!
+  """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """Access grants for specific users"""
   userAccessGrants(
@@ -1681,6 +1694,14 @@ type CreateRolePayload implements StandardMutationPayload {
   role: Role
 }
 
+"""This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity."""
+enum DatePrecision {
+  NONE
+  YEAR
+  MONTH
+  DAY
+}
+
 type DateProperty implements ScalarProperty {
   date: ISO8601Date
   default: ISO8601Date
@@ -2167,6 +2188,33 @@ type FloatProperty implements ScalarProperty {
   type: String!
 }
 
+"""A full-text searchable value for an entity"""
+type FullText {
+  """The full-text searchable value itself"""
+  content: String
+  """The content type for the text, if any"""
+  kind: FullTextKind
+  """The ISO-639 language code of this content, if any"""
+  lang: String
+}
+
+"""It is necessary for the system to know what kind the content is in order to properly index it"""
+enum FullTextKind {
+  HTML
+  MARKDOWN
+  TEXT
+}
+
+type FullTextProperty implements ScalarProperty {
+  fullPath: String!
+  fullText: FullText
+  isWide: Boolean!
+  label: String!
+  path: String!
+  required: Boolean!
+  type: String!
+}
+
 """Autogenerated input type of GrantAccess"""
 input GrantAccessInput {
   entityId: ID!
@@ -2206,6 +2254,11 @@ interface HasSchemaProperties {
 
 """A hierarchical entity, like a collection or an item."""
 interface HierarchicalEntry {
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDate!
+  """The date this entity was made available"""
+  available: VariablePrecisionDate!
+  """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """The Digital Object Identifier for this entity. See https://doi.org"""
   doi: String
@@ -2214,14 +2267,18 @@ interface HierarchicalEntry {
   hiddenAt: ISO8601DateTime
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """The date this entity was issued"""
+  issued: VariablePrecisionDate!
   leaf: Boolean!
-  """The date the entity was published on, if present"""
-  publishedOn: ISO8601Date
+  """The date this entity was published"""
+  published: VariablePrecisionDate!
+  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
   root: Boolean!
   """A description of the contents of the entity"""
   summary: String
   """A human-readable title for the entity"""
-  title: String
+  title: String!
+  """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """If an entity is available in the frontend"""
   visibility: EntityVisibility!
@@ -2271,6 +2328,8 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyCollectionAccessGrantConnection!
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDate!
   """A polymorphic connection for access grants from an entity"""
   allAccessGrants(
     subject: AccessGrantSubjectFilter = ALL
@@ -2331,6 +2390,8 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): ContextualPermissionConnection!
+  """The date this entity was made available"""
+  available: VariablePrecisionDate!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   children(
@@ -2381,9 +2442,12 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
+  """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """The Digital Object Identifier for this entity. See https://doi.org"""
   doi: String
+  """Whether this item has any child items"""
+  hasItems: Boolean!
   hidden: Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
@@ -2392,6 +2456,8 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """The date this entity was issued"""
+  issued: VariablePrecisionDate!
   items(
     order: SimpleOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
@@ -2486,8 +2552,9 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   parent: ItemParent
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
-  """The date the entity was published on, if present"""
-  publishedOn: ISO8601Date
+  """The date this entity was published"""
+  published: VariablePrecisionDate!
+  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
   root: Boolean!
   schemaDefinition: SchemaDefinition!
   """The context for our schema instance. Includes form values and necessary referents."""
@@ -2501,7 +2568,8 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
   """A human-readable title for the entity"""
-  title: String
+  title: String!
+  """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """Access grants for specific users"""
   userAccessGrants(
@@ -3880,6 +3948,27 @@ enum TreeNodeFilter {
   LEAVES_ONLY
 }
 
+"""A schematic reference to a URL, with href, label, and optional title"""
+type URLProperty implements ScalarProperty {
+  fullPath: String!
+  isWide: Boolean!
+  label: String!
+  path: String!
+  required: Boolean!
+  type: String!
+  url: URLReference
+}
+
+"""A representation of a URL suitable for creating anchor tags"""
+type URLReference {
+  """The actual URL"""
+  href: String
+  """A label to display within the text content of the anchor tag"""
+  label: String
+  """A title to display when mousing over the URL"""
+  title: String
+}
+
 type UnknownProperty implements ScalarProperty {
   default: JSON
   fullPath: String!
@@ -4939,4 +5028,26 @@ input UserProfileInput {
   familyName: String!
   email: String!
   username: String!
+}
+
+type VariableDateProperty implements ScalarProperty {
+  dateWithPrecision: VariablePrecisionDate
+  fullPath: String!
+  isWide: Boolean!
+  label: String!
+  path: String!
+  required: Boolean!
+  type: String!
+}
+
+"""
+A wrapper around a date that allows us to describe a level of precision to apply to it,
+which can be used in the frontend to affect its display.
+
+"""
+type VariablePrecisionDate {
+  """The level of precision: the frontend can make decisions about how to format the associated value based on this"""
+  precision: DatePrecision!
+  """The actual date, encoded in ISO8601 format (if available)"""
+  value: ISO8601Date
 }

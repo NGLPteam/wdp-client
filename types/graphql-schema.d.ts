@@ -275,9 +275,9 @@ export type AnyLinkTarget = Collection | Item | { __typename?: "%other" };
 /** The various types an OrderingEntry can refer to */
 export type AnyOrderingEntry = Collection | Community | EntityLink | Item | { __typename?: "%other" };
 
-export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UnknownProperty | { __typename?: "%other" };
+export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
-export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UnknownProperty | { __typename?: "%other" };
+export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
 /** Encompasses any access grant for a specific user. */
 export type AnyUserAccessGrant = UserCollectionAccessGrant | UserCommunityAccessGrant | UserItemAccessGrant | { __typename?: "%other" };
@@ -572,6 +572,8 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
   accessGrants: AnyCollectionAccessGrantConnection;
+  /** The date this entity was added to its parent */
+  accessioned: VariablePrecisionDate;
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
@@ -582,6 +584,8 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   assets: AnyAssetConnection;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
+  /** The date this entity was made available */
+  available: VariablePrecisionDate;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Collection.collections */
@@ -591,9 +595,14 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   contributions: CollectionContributionConnection;
   /** Contributors to this element */
   contributors: AnyContributorConnection;
+  /** The date this entity was added to the WDP */
   createdAt: Scalars['ISO8601DateTime'];
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+  /** Whether this collection has any child collections */
+  hasCollections: Scalars['Boolean'];
+  /** Whether this collection has any child items */
+  hasItems: Scalars['Boolean'];
   hidden: Scalars['Boolean'];
   /** If present, this is the timestamp the entity was hidden at */
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
@@ -602,6 +611,8 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The date this entity was issued */
+  issued: VariablePrecisionDate;
   items: ItemConnection;
   leaf: Scalars['Boolean'];
   /** Available link targets for this entity */
@@ -616,7 +627,9 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   parent?: Maybe<CollectionParent>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  /** The date the entity was published on, if present */
+  /** The date this entity was published */
+  published: VariablePrecisionDate;
+  /** @deprecated Use the variable-precision 'published' field instead */
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
@@ -631,7 +644,8 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   /** A mapping of an entity's preview thumbnail */
   thumbnail?: Maybe<AssetPreview>;
   /** A human-readable title for the entity */
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  /** The date this entity was last updated within the WDP */
   updatedAt: Scalars['ISO8601DateTime'];
   /** Access grants for specific users */
   userAccessGrants: UserCollectionAccessGrantConnection;
@@ -1646,6 +1660,14 @@ export type CreateRolePayload = StandardMutationPayload & {
   role?: Maybe<Role>;
 };
 
+/** This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity. */
+export type DatePrecision =
+  | 'NONE'
+  | 'YEAR'
+  | 'MONTH'
+  | 'DAY'
+  | '%future added value';
+
 export type DateProperty = ScalarProperty & {
   __typename?: 'DateProperty';
   date?: Maybe<Scalars['ISO8601Date']>;
@@ -2142,6 +2164,35 @@ export type FloatProperty = ScalarProperty & {
   type: Scalars['String'];
 };
 
+/** A full-text searchable value for an entity */
+export type FullText = {
+  __typename?: 'FullText';
+  /** The full-text searchable value itself */
+  content?: Maybe<Scalars['String']>;
+  /** The content type for the text, if any */
+  kind?: Maybe<FullTextKind>;
+  /** The ISO-639 language code of this content, if any */
+  lang?: Maybe<Scalars['String']>;
+};
+
+/** It is necessary for the system to know what kind the content is in order to properly index it */
+export type FullTextKind =
+  | 'HTML'
+  | 'MARKDOWN'
+  | 'TEXT'
+  | '%future added value';
+
+export type FullTextProperty = ScalarProperty & {
+  __typename?: 'FullTextProperty';
+  fullPath: Scalars['String'];
+  fullText?: Maybe<FullText>;
+  isWide: Scalars['Boolean'];
+  label: Scalars['String'];
+  path: Scalars['String'];
+  required: Scalars['Boolean'];
+  type: Scalars['String'];
+};
+
 /** Autogenerated input type of GrantAccess */
 export type GrantAccessInput = {
   entityId: Scalars['ID'];
@@ -2183,6 +2234,11 @@ export type HasSchemaProperties = {
 
 /** A hierarchical entity, like a collection or an item. */
 export type HierarchicalEntry = {
+  /** The date this entity was added to its parent */
+  accessioned: VariablePrecisionDate;
+  /** The date this entity was made available */
+  available: VariablePrecisionDate;
+  /** The date this entity was added to the WDP */
   createdAt: Scalars['ISO8601DateTime'];
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
@@ -2191,14 +2247,19 @@ export type HierarchicalEntry = {
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The date this entity was issued */
+  issued: VariablePrecisionDate;
   leaf: Scalars['Boolean'];
-  /** The date the entity was published on, if present */
+  /** The date this entity was published */
+  published: VariablePrecisionDate;
+  /** @deprecated Use the variable-precision 'published' field instead */
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
   root: Scalars['Boolean'];
   /** A description of the contents of the entity */
   summary?: Maybe<Scalars['String']>;
   /** A human-readable title for the entity */
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  /** The date this entity was last updated within the WDP */
   updatedAt: Scalars['ISO8601DateTime'];
   /** If an entity is available in the frontend */
   visibility: EntityVisibility;
@@ -2229,6 +2290,8 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
   accessGrants: AnyCollectionAccessGrantConnection;
+  /** The date this entity was added to its parent */
+  accessioned: VariablePrecisionDate;
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
@@ -2239,6 +2302,8 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   assets: AnyAssetConnection;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
+  /** The date this entity was made available */
+  available: VariablePrecisionDate;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Item.items */
@@ -2248,9 +2313,12 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   contributions: ItemContributionConnection;
   /** Contributors to this element */
   contributors: AnyContributorConnection;
+  /** The date this entity was added to the WDP */
   createdAt: Scalars['ISO8601DateTime'];
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+  /** Whether this item has any child items */
+  hasItems: Scalars['Boolean'];
   hidden: Scalars['Boolean'];
   /** If present, this is the timestamp the entity was hidden at */
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
@@ -2259,6 +2327,8 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The date this entity was issued */
+  issued: VariablePrecisionDate;
   items: ItemConnection;
   leaf: Scalars['Boolean'];
   /** Available link targets for this entity */
@@ -2273,7 +2343,9 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   parent?: Maybe<ItemParent>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  /** The date the entity was published on, if present */
+  /** The date this entity was published */
+  published: VariablePrecisionDate;
+  /** @deprecated Use the variable-precision 'published' field instead */
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
@@ -2288,7 +2360,8 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   /** A mapping of an entity's preview thumbnail */
   thumbnail?: Maybe<AssetPreview>;
   /** A human-readable title for the entity */
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  /** The date this entity was last updated within the WDP */
   updatedAt: Scalars['ISO8601DateTime'];
   /** Access grants for specific users */
   userAccessGrants: UserCollectionAccessGrantConnection;
@@ -3955,6 +4028,29 @@ export type TreeNodeFilter =
   | 'LEAVES_ONLY'
   | '%future added value';
 
+/** A schematic reference to a URL, with href, label, and optional title */
+export type UrlProperty = ScalarProperty & {
+  __typename?: 'URLProperty';
+  fullPath: Scalars['String'];
+  isWide: Scalars['Boolean'];
+  label: Scalars['String'];
+  path: Scalars['String'];
+  required: Scalars['Boolean'];
+  type: Scalars['String'];
+  url?: Maybe<UrlReference>;
+};
+
+/** A representation of a URL suitable for creating anchor tags */
+export type UrlReference = {
+  __typename?: 'URLReference';
+  /** The actual URL */
+  href?: Maybe<Scalars['String']>;
+  /** A label to display within the text content of the anchor tag */
+  label?: Maybe<Scalars['String']>;
+  /** A title to display when mousing over the URL */
+  title?: Maybe<Scalars['String']>;
+};
+
 export type UnknownProperty = ScalarProperty & {
   __typename?: 'UnknownProperty';
   default?: Maybe<Scalars['JSON']>;
@@ -4920,6 +5016,29 @@ export type UserProfileInput = {
   username: Scalars['String'];
 };
 
+export type VariableDateProperty = ScalarProperty & {
+  __typename?: 'VariableDateProperty';
+  dateWithPrecision?: Maybe<VariablePrecisionDate>;
+  fullPath: Scalars['String'];
+  isWide: Scalars['Boolean'];
+  label: Scalars['String'];
+  path: Scalars['String'];
+  required: Scalars['Boolean'];
+  type: Scalars['String'];
+};
+
+/**
+ * A wrapper around a date that allows us to describe a level of precision to apply to it,
+ * which can be used in the frontend to affect its display.
+ */
+export type VariablePrecisionDate = {
+  __typename?: 'VariablePrecisionDate';
+  /** The level of precision: the frontend can make decisions about how to format the associated value based on this */
+  precision: DatePrecision;
+  /** The actual date, encoded in ISO8601 format (if available) */
+  value?: Maybe<Scalars['ISO8601Date']>;
+};
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -5029,8 +5148,8 @@ export type ResolversTypes = {
   AnyEntity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   AnyLinkTarget: ResolversTypes['Collection'] | ResolversTypes['Item'];
   AnyOrderingEntry: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'];
-  AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['UnknownProperty'];
-  AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['UnknownProperty'];
+  AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: ResolverTypeWrapper<Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyUserAccessGrant']> }>;
   AnyUserAccessGrantEdge: ResolverTypeWrapper<Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyUserAccessGrant'] }>;
@@ -5099,6 +5218,7 @@ export type ResolversTypes = {
   CreatePersonContributorPayload: ResolverTypeWrapper<CreatePersonContributorPayload>;
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: ResolverTypeWrapper<CreateRolePayload>;
+  DatePrecision: DatePrecision;
   DateProperty: ResolverTypeWrapper<DateProperty>;
   DestroyAssetInput: DestroyAssetInput;
   DestroyAssetPayload: ResolverTypeWrapper<DestroyAssetPayload>;
@@ -5134,6 +5254,9 @@ export type ResolversTypes = {
   ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  FullText: ResolverTypeWrapper<FullText>;
+  FullTextKind: FullTextKind;
+  FullTextProperty: ResolverTypeWrapper<FullTextProperty>;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
@@ -5202,7 +5325,7 @@ export type ResolversTypes = {
   Role: ResolverTypeWrapper<Role>;
   RoleConnection: ResolverTypeWrapper<RoleConnection>;
   RoleEdge: ResolverTypeWrapper<RoleEdge>;
-  ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['UnknownProperty'];
+  ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
   SchemaDefinitionEdge: ResolverTypeWrapper<SchemaDefinitionEdge>;
@@ -5227,6 +5350,8 @@ export type ResolversTypes = {
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
   TimestampProperty: ResolverTypeWrapper<TimestampProperty>;
   TreeNodeFilter: TreeNodeFilter;
+  URLProperty: ResolverTypeWrapper<UrlProperty>;
+  URLReference: ResolverTypeWrapper<UrlReference>;
   UnknownProperty: ResolverTypeWrapper<UnknownProperty>;
   UpdateCollectionInput: UpdateCollectionInput;
   UpdateCollectionPayload: ResolverTypeWrapper<UpdateCollectionPayload>;
@@ -5282,6 +5407,8 @@ export type ResolversTypes = {
   UserItemAccessGrantConnection: ResolverTypeWrapper<UserItemAccessGrantConnection>;
   UserItemAccessGrantEdge: ResolverTypeWrapper<UserItemAccessGrantEdge>;
   UserProfileInput: UserProfileInput;
+  VariableDateProperty: ResolverTypeWrapper<VariableDateProperty>;
+  VariablePrecisionDate: ResolverTypeWrapper<VariablePrecisionDate>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -5315,8 +5442,8 @@ export type ResolversParentTypes = {
   AnyEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   AnyLinkTarget: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   AnyOrderingEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'];
-  AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['UnknownProperty'];
-  AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['UnknownProperty'];
+  AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyUserAccessGrant']> };
   AnyUserAccessGrantEdge: Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyUserAccessGrant'] };
@@ -5409,6 +5536,8 @@ export type ResolversParentTypes = {
   ExposesPermissions: ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['User'];
   FloatProperty: FloatProperty;
   Float: Scalars['Float'];
+  FullText: FullText;
+  FullTextProperty: FullTextProperty;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
@@ -5469,7 +5598,7 @@ export type ResolversParentTypes = {
   Role: Role;
   RoleConnection: RoleConnection;
   RoleEdge: RoleEdge;
-  ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['UnknownProperty'];
+  ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
   SchemaDefinitionEdge: SchemaDefinitionEdge;
@@ -5490,6 +5619,8 @@ export type ResolversParentTypes = {
   StringProperty: StringProperty;
   TagsProperty: TagsProperty;
   TimestampProperty: TimestampProperty;
+  URLProperty: UrlProperty;
+  URLReference: UrlReference;
   UnknownProperty: UnknownProperty;
   UpdateCollectionInput: UpdateCollectionInput;
   UpdateCollectionPayload: UpdateCollectionPayload;
@@ -5544,6 +5675,8 @@ export type ResolversParentTypes = {
   UserItemAccessGrantConnection: UserItemAccessGrantConnection;
   UserItemAccessGrantEdge: UserItemAccessGrantEdge;
   UserProfileInput: UserProfileInput;
+  VariableDateProperty: VariableDateProperty;
+  VariablePrecisionDate: VariablePrecisionDate;
 };
 
 export type AccessControlListResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessControlList'] = ResolversParentTypes['AccessControlList']> = {
@@ -5688,11 +5821,11 @@ export type AnyOrderingEntryResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type AnyScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyScalarProperty'] = ResolversParentTypes['AnyScalarProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'UnknownProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
 };
 
 export type AnySchemaPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnySchemaProperty'] = ResolversParentTypes['AnySchemaProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'UnknownProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
 };
 
 export type AnyUserAccessGrantResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyUserAccessGrant'] = ResolversParentTypes['AnyUserAccessGrant']> = {
@@ -5911,11 +6044,13 @@ export type BooleanPropertyResolvers<ContextType = any, ParentType extends Resol
 export type CollectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Collection'] = ResolversParentTypes['Collection']> = {
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
   accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
+  accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -5924,11 +6059,14 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CollectionLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
@@ -5939,6 +6077,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CollectionPagesArgs, 'pageDirection' | 'perPage'>>;
   parent?: Resolver<Maybe<ResolversTypes['CollectionParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
@@ -5948,7 +6087,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   userAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionUserAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   userGroupAccessGrants?: Resolver<ResolversTypes['UserGroupCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionUserGroupAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6462,6 +6601,24 @@ export type FloatPropertyResolvers<ContextType = any, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type FullTextResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullText'] = ResolversParentTypes['FullText']> = {
+  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kind?: Resolver<Maybe<ResolversTypes['FullTextKind']>, ParentType, ContextType>;
+  lang?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FullTextPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['FullTextProperty'] = ResolversParentTypes['FullTextProperty']> = {
+  fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fullText?: Resolver<Maybe<ResolversTypes['FullText']>, ParentType, ContextType>;
+  isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type GrantAccessPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['GrantAccessPayload'] = ResolversParentTypes['GrantAccessPayload']> = {
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6490,16 +6647,20 @@ export type HasSchemaPropertiesResolvers<ContextType = any, ParentType extends R
 
 export type HierarchicalEntryResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalEntry'] = ResolversParentTypes['HierarchicalEntry']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
+  accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -6530,11 +6691,13 @@ export type IntegerPropertyResolvers<ContextType = any, ParentType extends Resol
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
   accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
+  accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemChildrenArgs, never>>;
   collection?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
@@ -6543,11 +6706,13 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ItemContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ItemLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
@@ -6558,6 +6723,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ItemPagesArgs, 'pageDirection' | 'perPage'>>;
   parent?: Resolver<Maybe<ResolversTypes['ItemParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
@@ -6567,7 +6733,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   userAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemUserAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   userGroupAccessGrants?: Resolver<ResolversTypes['UserGroupCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemUserGroupAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -7010,7 +7176,7 @@ export type RoleEdgeResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ScalarProperty'] = ResolversParentTypes['ScalarProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'UnknownProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -7192,6 +7358,24 @@ export type TimestampPropertyResolvers<ContextType = any, ParentType extends Res
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UrlPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['URLProperty'] = ResolversParentTypes['URLProperty']> = {
+  fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['URLReference']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UrlReferenceResolvers<ContextType = any, ParentType extends ResolversParentTypes['URLReference'] = ResolversParentTypes['URLReference']> = {
+  href?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -7570,6 +7754,23 @@ export type UserItemAccessGrantEdgeResolvers<ContextType = any, ParentType exten
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type VariableDatePropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['VariableDateProperty'] = ResolversParentTypes['VariableDateProperty']> = {
+  dateWithPrecision?: Resolver<Maybe<ResolversTypes['VariablePrecisionDate']>, ParentType, ContextType>;
+  fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type VariablePrecisionDateResolvers<ContextType = any, ParentType extends ResolversParentTypes['VariablePrecisionDate'] = ResolversParentTypes['VariablePrecisionDate']> = {
+  precision?: Resolver<ResolversTypes['DatePrecision'], ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
   AccessControlList?: AccessControlListResolvers<ContextType>;
   AccessGrant?: AccessGrantResolvers<ContextType>;
@@ -7667,6 +7868,8 @@ export type Resolvers<ContextType = any> = {
   EntityLinkEdge?: EntityLinkEdgeResolvers<ContextType>;
   ExposesPermissions?: ExposesPermissionsResolvers<ContextType>;
   FloatProperty?: FloatPropertyResolvers<ContextType>;
+  FullText?: FullTextResolvers<ContextType>;
+  FullTextProperty?: FullTextPropertyResolvers<ContextType>;
   GrantAccessPayload?: GrantAccessPayloadResolvers<ContextType>;
   GroupProperty?: GroupPropertyResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
@@ -7738,6 +7941,8 @@ export type Resolvers<ContextType = any> = {
   StringProperty?: StringPropertyResolvers<ContextType>;
   TagsProperty?: TagsPropertyResolvers<ContextType>;
   TimestampProperty?: TimestampPropertyResolvers<ContextType>;
+  URLProperty?: UrlPropertyResolvers<ContextType>;
+  URLReference?: UrlReferenceResolvers<ContextType>;
   UnknownProperty?: UnknownPropertyResolvers<ContextType>;
   UpdateCollectionPayload?: UpdateCollectionPayloadResolvers<ContextType>;
   UpdateCommunityPayload?: UpdateCommunityPayloadResolvers<ContextType>;
@@ -7777,6 +7982,8 @@ export type Resolvers<ContextType = any> = {
   UserItemAccessGrant?: UserItemAccessGrantResolvers<ContextType>;
   UserItemAccessGrantConnection?: UserItemAccessGrantConnectionResolvers<ContextType>;
   UserItemAccessGrantEdge?: UserItemAccessGrantEdgeResolvers<ContextType>;
+  VariableDateProperty?: VariableDatePropertyResolvers<ContextType>;
+  VariablePrecisionDate?: VariablePrecisionDateResolvers<ContextType>;
 };
 
 

@@ -12,7 +12,7 @@ export type CollectionContributionEditDrawerQueryResponse = {
         readonly id: string;
         readonly role: string | null;
         readonly collection: {
-            readonly title: string | null;
+            readonly title: string;
         };
         readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFragment">;
     } | null;

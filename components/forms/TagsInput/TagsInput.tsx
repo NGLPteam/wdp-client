@@ -93,7 +93,7 @@ const TagsInput = forwardRef(
 
 type Tags = string[] | undefined;
 
-interface Props extends InputProps {
+interface Props extends Omit<InputProps, "onChange"> {
   /** Returns the current selected value */
   onChange?: (value: Tags) => void;
   /** Default value */

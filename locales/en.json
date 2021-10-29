@@ -271,6 +271,11 @@
       "link_repeater": {
         "add": "Add $t({{ name }})",
         "remove": "Remove $t({{ name }})"
+      },
+      "full_text": {
+        "content_label": "Content",
+        "kind_label": "Content Type",
+        "lang_label": "Language"
       }
     }
   }

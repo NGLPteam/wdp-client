@@ -17,11 +17,11 @@ export type RoleGrantAccessDrawerQueryResponse = {
     } | null;
     readonly collection?: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
     } | null;
     readonly item?: {
         readonly id: string;
-        readonly title: string | null;
+        readonly title: string;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormFragment">;
 };
