@@ -49,7 +49,7 @@ const FullTextInput = forwardRef(
         <FormGrid>
           <Select
             name="kind"
-            label={t("form.full_text.kind_label")}
+            label={t("forms.full_text.kind_label")}
             options={options}
             defaultValue={value?.kind || defaultValue?.kind}
             onChange={handleChange}
@@ -58,7 +58,7 @@ const FullTextInput = forwardRef(
           />
           <Input
             name="lang"
-            label={t("form.full_text.lang_label")}
+            label={t("forms.full_text.lang_label")}
             onChange={handleChange}
             defaultValue={value?.lang || defaultValue?.lang}
             ref={langRef}
@@ -67,7 +67,7 @@ const FullTextInput = forwardRef(
         </FormGrid>
         <Textarea
           name="content"
-          label={t("form.full_text.content_label")}
+          label={t("forms.full_text.content_label")}
           onChange={handleChange}
           defaultValue={value?.content || defaultValue?.content}
           ref={contentRef}
