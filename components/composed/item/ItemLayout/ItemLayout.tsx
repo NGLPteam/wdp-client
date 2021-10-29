@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { graphql } from "react-relay";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
 import {
@@ -6,11 +6,17 @@ import {
   useMaybeFragment,
   useChildRouteLinks,
   useLatestPresentValue,
+  useDestroyer,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import {
+  ButtonControlGroup,
+  ButtonControlDrawer,
+  ButtonControlConfirm,
+} from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 
 export default function ItemLayout({
@@ -32,6 +38,18 @@ export default function ItemLayout({
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("item.manage", { slug });
   const tabRoutes = useChildRouteLinks("item", { slug });
+  const destroy = useDestroyer();
+  const router = useRouter();
+
+  const handleDelete = useCallback(() => {
+    if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
+      destroy.item(
+        { itemId: memoizedItem.id ?? "" },
+        memoizedItem.title || "glossary.item"
+      );
+      router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
+    }
+  }, [memoizedItem, breadcrumbs]);
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
@@ -44,6 +62,14 @@ export default function ItemLayout({
       >
         {t("actions.add.item")}
       </ButtonControlDrawer>
+      <ButtonControlConfirm
+        modalLabel={t("messages.delete.confirm_label")}
+        modalBody={t("messages.delete.confirm_body")}
+        icon="delete"
+        onClick={handleDelete}
+      >
+        {t("common.delete")}
+      </ButtonControlConfirm>
     </ButtonControlGroup>
   );
 
@@ -77,6 +103,7 @@ const fragment = graphql`
   fragment ItemLayoutFragment on Item {
     title
     slug
+    id
     ...useBreadcrumbsFragment
   }
 `;

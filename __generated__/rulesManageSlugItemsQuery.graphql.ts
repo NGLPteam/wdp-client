@@ -32,6 +32,7 @@ query rulesManageSlugItemsQuery(
 fragment ItemLayoutFragment on Item {
   title
   slug
+  id
   ...useBreadcrumbsFragment
 }
 
@@ -177,12 +178,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "920a78d35f1e4ef3050d5099cc13118f",
+    "cacheID": "eca93a1a0555a313709c8aaaac6bb736",
     "id": null,
     "metadata": {},
     "name": "rulesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
