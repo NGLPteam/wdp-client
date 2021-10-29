@@ -48,7 +48,7 @@ const VariableDatePicker = forwardRef(
       return { year, month, day };
     }, [yearRef, monthRef, dayRef]);
 
-    const handleOnBlur = useCallback(() => {
+    const handleOnChange = useCallback(() => {
       const values = getValues();
       if (!values) return;
 
@@ -83,7 +83,7 @@ const VariableDatePicker = forwardRef(
             type="number"
             label={t("forms.fields.year")}
             pattern="\d{4}"
-            onBlur={handleOnBlur}
+            onChange={handleOnChange}
             ref={yearRef}
             defaultValue={getYear(defaultDate)}
             required={required}
@@ -95,7 +95,7 @@ const VariableDatePicker = forwardRef(
             pattern="\d{2}"
             min="1"
             max="12"
-            onBlur={handleOnBlur}
+            onChange={handleOnChange}
             ref={monthRef}
             disabled={!yearRef?.current?.value}
             defaultValue={
@@ -106,7 +106,7 @@ const VariableDatePicker = forwardRef(
             name="day"
             type="number"
             label={t("forms.fields.day")}
-            onBlur={handleOnBlur}
+            onChange={handleOnChange}
             ref={dayRef}
             min="1"
             max={`${maxDays()}`}
