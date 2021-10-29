@@ -11,6 +11,7 @@ export type FileListFragment = {
         readonly slug?: string;
         readonly kind?: AssetKind;
         readonly name?: string;
+        readonly downloadUrl?: string | null;
         readonly thumbnail?: {
             readonly image: {
                 readonly png: {
@@ -76,6 +77,13 @@ const node: ReaderFragment = {
               "args": null,
               "kind": "ScalarField",
               "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "downloadUrl",
               "storageKey": null
             },
             {
@@ -155,5 +163,5 @@ const node: ReaderFragment = {
   "type": "AnyAssetConnection",
   "abstractKey": null
 };
-(node as any).hash = 'ed1e6e490cdb402cd2cc0fbb9266197d';
+(node as any).hash = '7bb2990dd20324be63f31117e99a37a7';
 export default node;

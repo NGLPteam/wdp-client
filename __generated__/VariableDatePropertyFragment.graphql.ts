@@ -8,7 +8,7 @@ export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added v
 export type VariableDatePropertyFragment = {
     readonly dateWithPrecision: {
         readonly precision: DatePrecision;
-        readonly value: unknown | null;
+        readonly value: string | null;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
     readonly " $refType": "VariableDatePropertyFragment";

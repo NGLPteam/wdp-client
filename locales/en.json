@@ -187,6 +187,9 @@
         "file": "Create File",
         "file_header": "Create New File"
       },
+      "download": {
+        "file": "Download file"
+      },
       "edit": {
         "item_contribution": "Edit Item Contribution",
         "collection_contribution": "Edit Collection Contribution",
