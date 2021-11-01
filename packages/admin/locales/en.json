@@ -56,7 +56,9 @@
       "access": "access",
       "access_plural": "access",
       "schema": "Schema",
-      "schema_plural": "Schemas"
+      "schema_plural": "Schemas",
+      "page": "Page",
+      "page_plural": "Pages"
     },
     "lists": {
       "admin_column": "Admin?",

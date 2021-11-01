@@ -10,6 +10,7 @@ const MODEL_MAP = {
   ORDERING: "ordering",
   FILE: "file",
   ROLE: "role",
+  PAGE: "page",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;

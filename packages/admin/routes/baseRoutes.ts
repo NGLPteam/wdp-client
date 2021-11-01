@@ -173,6 +173,11 @@ export const baseRoutes: BaseRoute[] = [
                 path: "/communities/[slug]/manage/members",
                 label: "nav.members",
               },
+              {
+                name: "community.manage.pages",
+                path: "/communities/[slug]/manage/pages",
+                label: "nav.pages",
+              },
             ],
           },
         ],
