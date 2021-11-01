@@ -12,6 +12,7 @@ import type {
   LinkEntityInput,
 } from "@/relay/EntityLinksAddFormMutation.graphql";
 import type { EntityLinksAddFormFragment$key } from "@/relay/EntityLinksAddFormFragment.graphql";
+import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 
 export default function EntityLinksAddForm({
   data,
@@ -33,11 +34,12 @@ export default function EntityLinksAddForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Forms.LinkTargetTypeahead<Fields>
+        <LinkTargetTypeahead<Fields>
           control={control}
           name="targetId"
           label="forms.fields.link_target"
-          data={sourceEntity?.linkTargetCandidates}
+          slug={sourceEntity?.slug || ""}
+          required
         />
         <Forms.Select
           label="forms.fields.link_type"
@@ -48,6 +50,7 @@ export default function EntityLinksAddForm({
           description={t("forms.fields.link_type_description", {
             name: sourceEntity.title,
           })}
+          required
           {...register("operator")}
         />
       </Forms.Grid>
@@ -83,16 +86,12 @@ const fragment = graphql`
     ... on Collection {
       id
       title
-      linkTargetCandidates {
-        ...LinkTargetTypeaheadFragment
-      }
+      slug
     }
     ... on Item {
       id
       title
-      linkTargetCandidates {
-        ...LinkTargetTypeaheadFragment
-      }
+      slug
     }
   }
 `;

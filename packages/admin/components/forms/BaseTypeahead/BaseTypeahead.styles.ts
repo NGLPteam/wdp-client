@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { aBaseInput } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-import { IconFactory } from "components/factories";
 import { noInsetSupport } from "theme/mixins/base";
 import { tTruncate } from "theme/mixins/typography";
+import BaseLoadingIcon from "components/atomic/loading/LoadingIcon";
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -24,8 +24,6 @@ export const Input = styled.input`
     border-bottom-right-radius: 0;
   }
 `;
-
-export const Icon = styled(IconFactory)``;
 
 export const Button = styled.button`
   position: absolute;
@@ -83,3 +81,7 @@ export const ListItem = styled.li<ListItemProps>`
 interface ListItemProps {
   highlighted?: boolean;
 }
+
+export const LoadingIcon = styled(BaseLoadingIcon)`
+  margin-inline-end: ${pxToRem(10)};
+`;

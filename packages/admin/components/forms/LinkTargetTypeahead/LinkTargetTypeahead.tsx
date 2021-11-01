@@ -1,30 +1,36 @@
-import React, { useMemo } from "react";
-import { Controller } from "react-hook-form";
+import React, { useMemo, useState } from "react";
 import { graphql } from "react-relay";
-import Typeahead from "components/forms/Typeahead";
-
-import type {
+import { debounce } from "lodash";
+import type { FieldValues, Control, Path } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { useAuthenticatedQuery, useMaybeFragment } from "hooks";
+import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
+import {
   LinkTargetTypeaheadFragment$data,
   LinkTargetTypeaheadFragment$key,
-} from "__generated__/LinkTargetTypeaheadFragment.graphql";
-import type { FieldValues, Control, Path } from "react-hook-form";
-import { useMaybeFragment } from "hooks";
-type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
+} from "@/relay/LinkTargetTypeaheadFragment.graphql";
+import BaseTypeahead from "components/forms/BaseTypeahead";
+type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
+type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
 
 const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
-  data,
-  control,
+  slug,
   name,
+  control,
   label,
   disabled,
+  required,
 }: Props<T>) => {
+  const [variables, setVariables] = useState({ slug, title: "" });
+  const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables);
+
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment,
-    data
+    data?.collection?.linkTargetCandidates
   );
 
   const options = useMemo(() => {
-    const options = optionsData?.edges?.map((edge: LinkTargetEdge) => {
+    const options = optionsData?.edges?.map((edge: Edge) => {
       const targetId = edge.node.targetId;
       const title =
         edge.node.target.__typename !== "%other" && edge.node.target.title;
@@ -37,31 +43,54 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
     return options;
   }, [optionsData]);
 
-  return options ? (
-    <Controller<T>
-      name={name}
-      control={control}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          {...field}
-        />
-      )}
-    />
-  ) : null;
+  const handleChange = debounce((value) => {
+    setVariables({ ...variables, title: value });
+  }, 300);
+
+  return (
+    <>
+      <Controller<T>
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <BaseTypeahead
+            label={label}
+            options={options}
+            disabled={disabled}
+            onInputChange={handleChange}
+            isLoading={isLoading}
+            required={required}
+            {...field}
+          />
+        )}
+      />
+    </>
+  );
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
   data?: LinkTargetTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
+  slug: string;
 }
 
-type LinkTargetEdge = LinkTargetTypeaheadFragment$data["edges"][number];
-
 export default LinkTargetTypeahead;
+
+const query = graphql`
+  query LinkTargetTypeaheadQuery($slug: Slug!, $title: String) {
+    collection(slug: $slug) {
+      linkTargetCandidates(title: $title) {
+        ...LinkTargetTypeaheadFragment
+      }
+    }
+    item(slug: $slug) {
+      linkTargetCandidates(title: $title) {
+        ...LinkTargetTypeaheadFragment
+      }
+    }
+  }
+`;
 
 const fragment = graphql`
   fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
