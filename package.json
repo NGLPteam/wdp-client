@@ -1,71 +1,24 @@
 {
-  "name": "wdp-admin-ui",
-  "version": "0.1.0",
-  "private": true,
-  "sideEffects": false,
-  "engines": {
-    "npm": ">=7.17.0"
-  },
+  "name": "wdp-client",
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "1.0.0",
+  "description": "NGLP Web Delivery Platform client application",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "relay": "relay-compiler",
-    "schema": "graphql-codegen",
-    "storybook": "start-storybook -s ./public -p 6006",
-    "build-storybook": "build-storybook -s ./public -o ./build/storybook",
-    "lint": "npm-run-all lint:*",
-    "lint:js": "eslint -c .eslintrc.js \"**/*.{js,ts,tsx}\"",
-    "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
-    "fix": "npm-run-all fix:*",
-    "fix:js": "eslint --cache -c .eslintrc.js \"**/*.{js,ts,tsx}\" --fix",
-    "types": "npx tsc --strict -w",
-    "preinstall": "npx npm-force-resolutions"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@bedrock-layout/use-stateful-ref": "^1.1.2",
-    "@castiron/components-breadcrumbs": "^1.0.0-alpha.0",
-    "@castiron/components-input": "^1.0.0-alpha.2",
-    "@castiron/components-pagination": "^1.0.1",
-    "@castiron/hooks": "^1.0.0-alpha.6",
-    "@castiron/style-mixins": "^1.0.0",
-    "@hookform/error-message": "^2.0.0",
-    "@react-keycloak/ssr": "^3.3.0",
-    "@react-keycloak/web": "^3.4.0",
-    "@react-stately/table": "^3.0.0-beta.1",
-    "@uppy/core": "^1.20.1",
-    "@uppy/drag-drop": "^1.4.31",
-    "@uppy/drop-target": "^0.2.4",
-    "@uppy/file-input": "^1.5.2",
-    "@uppy/react": "^1.12.2",
-    "@uppy/tus": "^1.9.2",
-    "cookie": "^0.4.1",
-    "date-fns": "^2.25.0",
-    "downshift": "^6.1.7",
-    "i18next": "^20.3.1",
-    "i18next-browser-languagedetector": "^6.1.1",
-    "keycloak-js": "^12.0.4",
-    "lodash": "^4.17.21",
-    "next": "^11.1.0",
-    "next-i18next": "^8.5.1",
-    "npm-run-all": "^4.1.5",
-    "react": "^17.0.2",
-    "react-confirm": "^0.1.23",
-    "react-dom": "^17.0.2",
-    "react-hook-form": "^7.12.2",
-    "react-hot-toast": "^2.1.1",
-    "react-i18next": "^11.11.0",
-    "react-relay": "^11.0.2",
-    "react-relay-network-modern": "^6.0.0",
-    "react-relay-network-modern-ssr": "^1.4.0",
-    "react-table": "^7.7.0",
-    "react-transition-group": "^4.4.2",
-    "react-uid": "^2.3.1",
-    "reakit": "^1.3.8",
-    "relay-hooks": "^4.2.0",
-    "relay-runtime": "^11.0.2",
-    "styled-components": "^5.3.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nglpteam/wdp-client.git"
   },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nglpteam/wdp-client/issues"
+  },
+  "homepage": "https://github.com/nglpteam/wdp-client#readme",
   "devDependencies": {
     "@castiron/eslint-config": "0.0.1",
     "@graphql-codegen/cli": "^1.21.6",
@@ -116,8 +69,6 @@
     "stylelint-use-logical": "^1.1.0",
     "tslib": "^2.3.1",
     "typescript": "^4.3.5"
-  },
-  "resolutions": {
-    "**/react": "^17.0.0"
   }
 }
+
