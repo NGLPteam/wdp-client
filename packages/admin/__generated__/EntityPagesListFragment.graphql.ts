@@ -35,6 +35,11 @@ var v0 = [
         "kind": "Variable",
         "name": "page",
         "variableName": "page"
+      },
+      {
+        "kind": "Literal",
+        "name": "perPage",
+        "value": 20
       }
     ],
     "concreteType": "PageConnection",
@@ -85,5 +90,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'cbe8ae56e31bf7c9c8f19c4dcf7abd40';
+(node as any).hash = '9342dd1e810ef085767d99753475f816';
 export default node;

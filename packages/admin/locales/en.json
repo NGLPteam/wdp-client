@@ -73,6 +73,7 @@
       "type_column": "Type",
       "updated_at_column": "Updated At",
       "avatar_column": "Avatar",
+      "slug_column": "Slug",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
@@ -175,7 +176,9 @@
         "item": "Add Item",
         "item_header": "Add New Item",
         "link": "Add Link",
-        "link_header": "Add New Link"
+        "link_header": "Add New Link",
+        "page": "Add Page",
+        "page_header": "Add New Page"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -254,7 +257,10 @@
         "parent": "Parent Collection or Item",
         "year": "Year",
         "month": "Month",
-        "day": "Day"
+        "day": "Day",
+        "slug": "Slug",
+        "body": "Body",
+        "heroImage": "Hero Image"
       },
       "validation": {
         "year": "Must be a four digit year"
