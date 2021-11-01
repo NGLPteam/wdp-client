@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["@nglp-wdp"],
+  extends: ["@nglp-wdp/eslint-config"],
 };

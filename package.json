@@ -40,12 +40,7 @@
     "aria-live-storybook-addon": "^0.0.6",
     "install": "^0.13.0",
     "npm": "^7.23.0",
-    "npm-force-resolutions": "^0.0.10",
-    "stylelint": "^13.13.1",
-    "stylelint-config-recommended": "^5.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0",
-    "stylelint-use-logical": "^1.1.0"
+    "npm-force-resolutions": "^0.0.10"
   },
   "resolutions": {
     "**/react": "^17.0.0"
