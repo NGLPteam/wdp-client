@@ -35,7 +35,6 @@ function ItemList<T extends OperationType>({
     ModelColumns.UpdatedAtColumn<ItemNode>(),
   ];
 
-  /* eslint-disable no-console */
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<ItemNode>) =>
       drawerHelper.open("editItem", { drawerSlug: row.original.slug }),
@@ -45,7 +44,6 @@ function ItemList<T extends OperationType>({
         row.original.title || "glossary.item"
       ),
   };
-  /* eslint-enable no-console */
 
   return (
     <ModelListPage<T, ItemListFragment, ItemNode>
