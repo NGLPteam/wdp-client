@@ -11,6 +11,7 @@ import type {
   EntityPagesListDataFragment,
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -35,10 +36,28 @@ function EntityPagesList<T extends OperationType>({
   /** Columns */
   const columns = [
     ModelColumns.StringColumn<Node>({
+      Header: <>{t("lists.name_column")}</>,
+      id: "title",
+    }),
+    ModelColumns.StringColumn<Node>({
       Header: <>{t("lists.slug_column")}</>,
       id: "slug",
     }),
   ];
+
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addPage"
+        drawerQuery={{
+          drawerSlug: sourceEntity?.slug ? sourceEntity.slug : "",
+        }}
+        icon="plus"
+      >
+        {t("actions.add.page")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
 
   return (
     <ModelListPage<T, EntityPagesListDataFragment, Node>
@@ -47,6 +66,7 @@ function EntityPagesList<T extends OperationType>({
       data={pagesData}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      buttons={buttons}
     />
   );
 }
@@ -62,6 +82,7 @@ const linksFragment = graphql`
   fragment EntityPagesListDataFragment on PageConnection {
     edges {
       node {
+        title
         slug
       }
     }
@@ -73,19 +94,19 @@ const fragment = graphql`
   fragment EntityPagesListFragment on AnyEntity {
     ... on Community {
       slug
-      pages(page: $page) {
+      pages(page: $page, perPage: 20) {
         ...EntityPagesListDataFragment
       }
     }
     ... on Collection {
       slug
-      pages(page: $page) {
+      pages(page: $page, perPage: 20) {
         ...EntityPagesListDataFragment
       }
     }
     ... on Item {
       slug
-      pages(page: $page) {
+      pages(page: $page, perPage: 20) {
         ...EntityPagesListDataFragment
       }
     }
