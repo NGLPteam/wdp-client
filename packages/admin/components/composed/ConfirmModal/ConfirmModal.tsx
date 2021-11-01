@@ -1,10 +1,14 @@
-import { ButtonControlConfirm } from "components/atomic";
+import { ButtonControlConfirm, Button } from "components/atomic";
 import i18next from "i18next";
 import * as Styled from "./ConfirmModal.styles";
 
 type ButtonControlConfirmProps = React.ComponentProps<
   typeof ButtonControlConfirm
 >;
+
+// ConfirmButton extends Button, so we need to define our onClick
+// handler type to match Button
+type ButtonProps = React.ComponentProps<typeof Button>;
 
 const ConfirmModal = ({
   modalBody: body,
@@ -27,12 +31,10 @@ const ConfirmModal = ({
   );
 };
 
-type ConfirmModalProps = Pick<
-  ButtonControlConfirmProps,
-  "modalBody" | "onClick"
-> & {
-  handleClose: () => void;
-  actionLabel?: ButtonControlConfirmProps["aria-label"];
-};
+type ConfirmModalProps = Pick<ButtonControlConfirmProps, "modalBody"> &
+  Pick<ButtonProps, "onClick"> & {
+    handleClose: () => void;
+    actionLabel?: ButtonControlConfirmProps["aria-label"];
+  };
 
 export default ConfirmModal;

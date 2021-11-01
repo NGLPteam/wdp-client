@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
-import { DialogDisclosure, useDialogState } from "reakit/Dialog";
+import { DialogDisclosure, DialogActions, useDialogState } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
 import ConfirmModal from "components/composed/ConfirmModal";
 
@@ -18,7 +18,7 @@ const ButtonControlConfirm = forwardRef(
       modalBody,
       icon,
       children,
-      onClick,
+      onClick: onConfirm,
       "aria-label": actionLabel,
       closeDropdown,
     }: Props,
@@ -32,6 +32,10 @@ const ButtonControlConfirm = forwardRef(
         closeDropdown();
       }
       dialog.show();
+    };
+
+    const handleConfirm = () => {
+      if (onConfirm) onConfirm(dialog.hide);
     };
 
     return (
@@ -50,7 +54,7 @@ const ButtonControlConfirm = forwardRef(
           {({ handleClose }) => (
             <ConfirmModal
               modalBody={modalBody}
-              onClick={onClick}
+              onClick={handleConfirm}
               handleClose={handleClose}
               actionLabel={actionLabel}
             />
@@ -62,9 +66,10 @@ const ButtonControlConfirm = forwardRef(
 );
 
 type Props = Pick<GroupProps, "breakpoint"> &
-  BaseProps & {
+  Omit<BaseProps, "onClick"> & {
     modalLabel?: ModalProps["label"];
     modalBody?: React.ReactNode;
+    onClick?: (hideDialog: DialogActions["hide"]) => void;
   };
 
 export default ButtonControlConfirm;

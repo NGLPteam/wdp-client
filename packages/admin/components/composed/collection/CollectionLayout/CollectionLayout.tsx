@@ -41,15 +41,19 @@ export default function CollectionLayout({
   const destroy = useDestroyer();
   const router = useRouter();
 
-  const handleDelete = useCallback(() => {
-    if (memoizedCollection && breadcrumbs && breadcrumbs.length > 0) {
-      destroy.collection(
-        { collectionId: memoizedCollection.id },
-        memoizedCollection.title || "glossary.item"
-      );
-      router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
-    }
-  }, [memoizedCollection, breadcrumbs, destroy, router]);
+  const handleDelete = useCallback(
+    (hideDialog) => {
+      if (memoizedCollection && breadcrumbs && breadcrumbs.length > 0) {
+        destroy.collection(
+          { collectionId: memoizedCollection.id },
+          memoizedCollection.title || "glossary.item"
+        );
+        hideDialog();
+        router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
+      }
+    },
+    [memoizedCollection, breadcrumbs, destroy, router]
+  );
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>

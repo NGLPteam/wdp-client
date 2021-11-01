@@ -41,15 +41,19 @@ export default function ItemLayout({
   const destroy = useDestroyer();
   const router = useRouter();
 
-  const handleDelete = useCallback(() => {
-    if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
-      destroy.item(
-        { itemId: memoizedItem.id },
-        memoizedItem.title || "glossary.item"
-      );
-      router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
-    }
-  }, [memoizedItem, breadcrumbs, destroy, router]);
+  const handleDelete = useCallback(
+    (hideDialog) => {
+      if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
+        destroy.item(
+          { itemId: memoizedItem.id },
+          memoizedItem.title || "glossary.item"
+        );
+        hideDialog();
+        router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
+      }
+    },
+    [memoizedItem, breadcrumbs, destroy, router]
+  );
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
