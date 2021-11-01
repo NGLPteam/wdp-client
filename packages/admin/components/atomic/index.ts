@@ -11,6 +11,7 @@ export { default as Image } from "./Image";
 export { default as ProgressBar } from "./loading/ProgressBar";
 export { default as LoadingCircle } from "./loading/LoadingCircle";
 export { default as LoadingSkeleton } from "./loading/LoadingSkeleton";
+export { default as LoadingIcon } from "./loading/LoadingIcon";
 export * from "./buttons";
 export * from "./links";
 export * from "./MessageBlock";

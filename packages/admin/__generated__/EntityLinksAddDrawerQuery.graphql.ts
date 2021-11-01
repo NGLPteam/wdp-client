@@ -41,38 +41,12 @@ fragment EntityLinksAddFormFragment on AnyEntity {
   ... on Collection {
     id
     title
-    linkTargetCandidates {
-      ...LinkTargetTypeaheadFragment
-    }
+    slug
   }
   ... on Item {
     id
     title
-    linkTargetCandidates {
-      ...LinkTargetTypeaheadFragment
-    }
-  }
-}
-
-fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
-  edges {
-    node {
-      targetId
-      target {
-        __typename
-        ... on Collection {
-          title
-        }
-        ... on Item {
-          title
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-      id
-    }
+    slug
   }
 }
 */
@@ -99,119 +73,42 @@ v2 = [
     "name": "EntityLinksAddFormFragment"
   }
 ],
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v5 = [
-  (v4/*: any*/)
-],
-v6 = [
-  (v4/*: any*/),
+v3 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "LinkTargetCandidateConnection",
-    "kind": "LinkedField",
-    "name": "linkTargetCandidates",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "LinkTargetCandidateEdge",
-        "kind": "LinkedField",
-        "name": "edges",
-        "plural": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "LinkTargetCandidate",
-            "kind": "LinkedField",
-            "name": "node",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "targetId",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": null,
-                "kind": "LinkedField",
-                "name": "target",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": (v5/*: any*/),
-                    "type": "Collection",
-                    "abstractKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": (v5/*: any*/),
-                    "type": "Item",
-                    "abstractKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      (v3/*: any*/)
-                    ],
-                    "type": "Node",
-                    "abstractKey": "__isNode"
-                  }
-                ],
-                "storageKey": null
-              },
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
+    "kind": "ScalarField",
+    "name": "title",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
     "storageKey": null
   }
 ],
-v7 = [
-  (v3/*: any*/),
+v4 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
   {
     "kind": "InlineFragment",
     "selections": [
       {
         "kind": "InlineFragment",
-        "selections": (v6/*: any*/),
+        "selections": (v3/*: any*/),
         "type": "Collection",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v6/*: any*/),
+        "selections": (v3/*: any*/),
         "type": "Item",
         "abstractKey": null
       }
@@ -264,7 +161,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v7/*: any*/),
+        "selections": (v4/*: any*/),
         "storageKey": null
       },
       {
@@ -274,18 +171,18 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v7/*: any*/),
+        "selections": (v4/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "50c47354117dcd12937c5c71e52f0cc3",
+    "cacheID": "57bf8a4ded79302b45326fbb8886ef42",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n  ... on Item {\n    id\n    title\n    linkTargetCandidates {\n      ...LinkTargetTypeaheadFragment\n    }\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Item {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    slug\n  }\n  ... on Item {\n    id\n    title\n    slug\n  }\n}\n"
   }
 };
 })();
