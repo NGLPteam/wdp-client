@@ -115,7 +115,8 @@
         "link_success": "Link added successfully",
         "link_failure": "Failed to add link",
         "access_success": "Access added successfully",
-        "member_success": "Member added successfully"
+        "member_success": "Member added successfully",
+        "item_success": "Item added successfully"
       },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
@@ -243,6 +244,9 @@
         "alt_text": "Alt Text",
         "username": "Username",
         "avatar": "Avatar",
+        "publication_date": "Publication Date",
+        "doi": "DOI",
+        "parent": "Parent Collection or Item",
         "year": "Year",
         "month": "Month",
         "day": "Day"

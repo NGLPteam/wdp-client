@@ -11,6 +11,7 @@ import {
   useLatestPresentValue,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 
 export default function CollectionLayout({
   children,
@@ -32,6 +33,20 @@ export default function CollectionLayout({
   const tabRoutes = useChildRouteLinks("collection", { slug });
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addItem"
+        drawerQuery={{
+          drawerSlug: slug,
+        }}
+        icon="plus"
+      >
+        {t("actions.add.item")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return (
     <section>
       <PageHeader
@@ -39,6 +54,7 @@ export default function CollectionLayout({
         breadcrumbsProps={{ data: breadcrumbs }}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
+        buttons={buttons}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>

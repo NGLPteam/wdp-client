@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type DatePropertyFragment = {
-    readonly date: unknown | null;
+    readonly date: string | null;
     readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
     readonly " $refType": "DatePropertyFragment";
 };

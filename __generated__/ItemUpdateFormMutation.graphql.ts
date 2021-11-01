@@ -12,7 +12,7 @@ export type UpdateItemInput = {
     thumbnail?: UploadedFileInput | null;
     doi?: string | null;
     summary?: string | null;
-    publishedOn?: unknown | null;
+    publishedOn?: string | null;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null;
     visibleUntilAt?: string | null;
