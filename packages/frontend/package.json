@@ -1,0 +1,24 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start",
+    "relay": "relay-compiler",
+    "schema": "graphql-codegen",
+    "storybook": "start-storybook -s ./public -p 6007",
+    "build-storybook": "build-storybook -s ./public -o ./build/storybook",
+    "lint": "npm-run-all lint:*",
+    "lint:js": "eslint -c .eslintrc.js \"**/*.{js,ts,tsx}\"",
+    "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
+    "fix": "npm-run-all fix:*",
+    "fix:js": "eslint --cache -c .eslintrc.js \"**/*.{js,ts,tsx}\" --fix",
+    "types": "npx tsc --strict -w"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
