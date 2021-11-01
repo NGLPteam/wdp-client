@@ -5,13 +5,14 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
-export type CreatePageInput = {
-    entityId: string;
+export type UpdatePageInput = {
+    pageId: string;
     title: string;
     slug: string;
     position?: number | null;
     body: string;
     heroImage?: UploadedFileInput | null;
+    clearHeroImage?: boolean | null;
     clientMutationId?: string | null;
 };
 export type UploadedFileInput = {
@@ -23,17 +24,17 @@ export type UploadedFileMetadataInput = {
     filename?: string | null;
     mimeType?: string | null;
 };
-export type EntityPageAddFormMutationVariables = {
-    input: CreatePageInput;
+export type EntityPageUpdateFormMutationVariables = {
+    input: UpdatePageInput;
 };
-export type EntityPageAddFormMutationResponse = {
-    readonly createPage: {
+export type EntityPageUpdateFormMutationResponse = {
+    readonly updatePage: {
         readonly page: {
             readonly id: string;
             readonly title: string;
             readonly slug: string;
-            readonly thumbnail: {
-                readonly image: {
+            readonly heroImage: {
+                readonly medium: {
                     readonly png: {
                         readonly url: string;
                         readonly height: number;
@@ -46,24 +47,24 @@ export type EntityPageAddFormMutationResponse = {
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
 };
-export type EntityPageAddFormMutation = {
-    readonly response: EntityPageAddFormMutationResponse;
-    readonly variables: EntityPageAddFormMutationVariables;
+export type EntityPageUpdateFormMutation = {
+    readonly response: EntityPageUpdateFormMutationResponse;
+    readonly variables: EntityPageUpdateFormMutationVariables;
 };
 
 
 
 /*
-mutation EntityPageAddFormMutation(
-  $input: CreatePageInput!
+mutation EntityPageUpdateFormMutation(
+  $input: UpdatePageInput!
 ) {
-  createPage(input: $input) {
+  updatePage(input: $input) {
     page {
       id
       title
       slug
-      thumbnail: heroImage {
-        image: medium {
+      heroImage {
+        medium {
           png {
             url
             height
@@ -138,7 +139,7 @@ v2 = {
       "storageKey": null
     },
     {
-      "alias": "thumbnail",
+      "alias": null,
       "args": null,
       "concreteType": "AssetPreview",
       "kind": "LinkedField",
@@ -146,7 +147,7 @@ v2 = {
       "plural": false,
       "selections": [
         {
-          "alias": "image",
+          "alias": null,
           "args": null,
           "concreteType": "PreviewImageMap",
           "kind": "LinkedField",
@@ -274,14 +275,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "EntityPageAddFormMutation",
+    "name": "EntityPageUpdateFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreatePagePayload",
+        "concreteType": "UpdatePagePayload",
         "kind": "LinkedField",
-        "name": "createPage",
+        "name": "updatePage",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -303,14 +304,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "EntityPageAddFormMutation",
+    "name": "EntityPageUpdateFormMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreatePagePayload",
+        "concreteType": "UpdatePagePayload",
         "kind": "LinkedField",
-        "name": "createPage",
+        "name": "updatePage",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -321,14 +322,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0fe16815ef8aa28100a44c3450e09d04",
+    "cacheID": "e9c78584f3b2d4215119a56c73ec9049",
     "id": null,
     "metadata": {},
-    "name": "EntityPageAddFormMutation",
+    "name": "EntityPageUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityPageAddFormMutation(\n  $input: CreatePageInput!\n) {\n  createPage(input: $input) {\n    page {\n      id\n      title\n      slug\n      thumbnail: heroImage {\n        image: medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2b17412d4a36777be7fdfdce93f37401';
+(node as any).hash = '1eabb22d5df446c9853f7f8c29af0f08';
 export default node;

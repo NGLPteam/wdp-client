@@ -10,6 +10,16 @@ export type EntityPagesListDataFragment = {
             readonly id: string;
             readonly title: string;
             readonly slug: string;
+            readonly thumbnail: {
+                readonly image: {
+                    readonly png: {
+                        readonly url: string;
+                        readonly height: number;
+                        readonly width: number;
+                        readonly alt: string;
+                    } | null;
+                };
+            } | null;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -65,6 +75,67 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "slug",
               "storageKey": null
+            },
+            {
+              "alias": "thumbnail",
+              "args": null,
+              "concreteType": "AssetPreview",
+              "kind": "LinkedField",
+              "name": "heroImage",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": "image",
+                  "args": null,
+                  "concreteType": "PreviewImageMap",
+                  "kind": "LinkedField",
+                  "name": "medium",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "PreviewImage",
+                      "kind": "LinkedField",
+                      "name": "png",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "url",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "height",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "width",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "alt",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -81,5 +152,5 @@ const node: ReaderFragment = {
   "type": "PageConnection",
   "abstractKey": null
 };
-(node as any).hash = 'a3b6584d0df021da890431a1553d9472';
+(node as any).hash = '154a416f612c814c486dd6a47997c2fc';
 export default node;

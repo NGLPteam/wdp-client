@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { graphql, useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
@@ -11,44 +11,82 @@ import type {
   CreatePageInput,
 } from "@/relay/EntityPageAddFormMutation.graphql";
 import type { EntityPageAddFormFragment$key } from "@/relay/EntityPageAddFormFragment.graphql";
+import { convertToSlug } from "helpers";
 
 export default function EntityPageAddForm({
   data,
   onSuccess,
   onCancel,
 }: Props) {
+  const slugRef = useRef<HTMLInputElement | null>(null);
+
   const sourceEntity = useFragment<EntityPageAddFormFragment$key>(
     fragment,
     data
   );
 
+  // Sets the slug to the title if no slug is provided
   const toVariables = useToVariables<EntityPageAddFormMutation, Fields>(
-    (data) => ({ input: { ...data, entityId: sourceEntity.id || "" } }),
+    (data) => {
+      return {
+        input: {
+          ...data,
+          entityId: sourceEntity.id || "",
+          slug: data.slug || convertToSlug(data.title),
+        },
+      };
+    },
     []
   );
 
-  const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+  const renderForm = useRenderForm<Fields>(({ form: { register } }) => {
+    const { onChange, ...registerTitle } = register("title");
+    const { ref, ...registerSlug } = register("slug");
+
+    // Set the slug field's default value when the title changes
+    // Setting default value allows the user to change the slug if they need to
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (slugRef.current)
+        slugRef.current.defaultValue = convertToSlug(e.target.value);
+    };
+
+    return (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.title" {...register("title")} />
-        <Forms.Input label="forms.fields.slug" {...register("slug")} />
-        <Forms.FileUpload
-          label="forms.fields.heroImage"
-          {...register("heroImage")}
+        <Forms.Input
+          label="forms.fields.title"
+          required
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange(e);
+            handleTitleChange(e);
+          }}
+          {...registerTitle}
         />
-        <Forms.Textarea label="forms.fields.body" {...register("body")} />
+        <Forms.Slug
+          label="forms.fields.slug"
+          required
+          ref={(e) => {
+            ref(e);
+            slugRef.current = e;
+          }}
+          {...registerSlug}
+        />
+        <Forms.FileUpload label="forms.fields.heroImage" name="heroImage" />
+        <Forms.Textarea
+          label="forms.fields.body"
+          required
+          {...register("body")}
+        />
       </Forms.Grid>
-    ),
-    []
-  );
+    );
+  }, []);
 
   return (
     <MutationForm<EntityPageAddFormMutation, Fields>
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="messages.add.link_success"
-      failureNotification="messages.add.link_failure"
+      successNotification="messages.add.page_success"
+      failureNotification="messages.add.page_failure"
       name="createPage"
       refetchTags={["edges"]}
       toVariables={toVariables}
@@ -83,8 +121,19 @@ const mutation = graphql`
   mutation EntityPageAddFormMutation($input: CreatePageInput!) {
     createPage(input: $input) {
       page {
+        id
         title
         slug
+        thumbnail: heroImage {
+          image: medium {
+            png {
+              url
+              height
+              width
+              alt
+            }
+          }
+        }
       }
       ...MutationForm_mutationErrors
     }

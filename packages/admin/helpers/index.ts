@@ -4,3 +4,4 @@ export * from "./dates";
 export * from "./arrays";
 export * from "./models";
 export * from "./forms";
+export * from "./strings";
