@@ -6,6 +6,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type linksManageSlugItemsQueryVariables = {
     itemSlug: string;
+    page: number;
 };
 export type linksManageSlugItemsQueryResponse = {
     readonly item: {
@@ -22,6 +23,7 @@ export type linksManageSlugItemsQuery = {
 /*
 query linksManageSlugItemsQuery(
   $itemSlug: Slug!
+  $page: Int!
 ) {
   item(slug: $itemSlug) {
     ...ItemLayoutQueryFragment
@@ -68,13 +70,13 @@ fragment EntityLinksListFragment on AnyEntity {
   __isAnyEntity: __typename
   ... on Item {
     slug
-    links {
+    links(page: $page) {
       ...EntityLinksListDataFragment
     }
   }
   ... on Collection {
     slug
-    links {
+    links(page: $page) {
       ...EntityLinksListDataFragment
     }
   }
@@ -135,6 +137,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "itemSlug"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "page"
   }
 ],
 v1 = [
@@ -199,7 +206,13 @@ v6 = [
 v7 = [
   {
     "alias": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page"
+      }
+    ],
     "concreteType": "EntityLinkConnection",
     "kind": "LinkedField",
     "name": "links",
@@ -436,14 +449,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "04db8dbec2bc09ab02fc47e176ac3567",
+    "cacheID": "69e6c081316c3d40e8cc9190cca02a71",
     "id": null,
     "metadata": {},
     "name": "linksManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query linksManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment EntityLinksListDataFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links {\n      ...EntityLinksListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links {\n      ...EntityLinksListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query linksManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment EntityLinksListDataFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4674e752dd6eccb0aa7976c2f0dce24c';
+(node as any).hash = '74998a4489892da4c4ae9cc65cbbea8c';
 export default node;

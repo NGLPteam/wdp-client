@@ -12,7 +12,7 @@ import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import type { ModelTableActionProps } from "react-table";
-import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+// import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -53,7 +53,7 @@ function EntityOrderingList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
-  const buttons = (
+  /* const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
         drawer="addOrdering"
@@ -65,7 +65,7 @@ function EntityOrderingList<T extends OperationType>({
         {t("actions.add.ordering")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
-  );
+  ); */
 
   return (
     <ModelListPage<T, EntityOrderingListDataFragment, EntityOrderingNode>
@@ -75,7 +75,6 @@ function EntityOrderingList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       actions={actions}
-      buttons={buttons}
     />
   );
 }

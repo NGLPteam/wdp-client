@@ -8,12 +8,7 @@ export type EntityOrderingAddDrawerQueryVariables = {
     entitySlug: string;
 };
 export type EntityOrderingAddDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
-    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
 };
 export type EntityOrderingAddDrawerQuery = {
     readonly response: EntityOrderingAddDrawerQueryResponse;
@@ -26,23 +21,24 @@ export type EntityOrderingAddDrawerQuery = {
 query EntityOrderingAddDrawerQuery(
   $entitySlug: Slug!
 ) {
-  item(slug: $entitySlug) {
-    ...EntityOrderingAddFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityOrderingAddFormFragment
-    id
-  }
+  ...EntityOrderingAddFormFragment
 }
 
-fragment EntityOrderingAddFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Collection {
+fragment EntityOrderingAddFormFragment on Query {
+  collection(slug: $entitySlug) {
     id
   }
-  ... on Item {
+  item(slug: $entitySlug) {
     id
+  }
+  schemaVersions {
+    edges {
+      node {
+        kind
+        identifier
+        id
+      }
+    }
   }
 }
 */
@@ -62,25 +58,15 @@ v1 = [
     "variableName": "entitySlug"
   }
 ],
-v2 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "EntityOrderingAddFormFragment"
-  }
-],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "id",
-    "storageKey": null
-  },
-  {
-    "kind": "TypeDiscriminator",
-    "abstractKey": "__isAnyEntity"
-  }
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
@@ -90,24 +76,9 @@ return {
     "name": "EntityOrderingAddDrawerQuery",
     "selections": [
       {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Item",
-        "kind": "LinkedField",
-        "name": "item",
-        "plural": false,
-        "selections": (v2/*: any*/),
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Collection",
-        "kind": "LinkedField",
-        "name": "collection",
-        "plural": false,
-        "selections": (v2/*: any*/),
-        "storageKey": null
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "EntityOrderingAddFormFragment"
       }
     ],
     "type": "Query",
@@ -122,6 +93,16 @@ return {
       {
         "alias": null,
         "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v3/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
@@ -131,25 +112,63 @@ return {
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Collection",
+        "args": null,
+        "concreteType": "SchemaVersionConnection",
         "kind": "LinkedField",
-        "name": "collection",
+        "name": "schemaVersions",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SchemaVersionEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SchemaVersion",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "identifier",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3b1cfc8bde15825c3d98bc7cb9c16bec",
+    "cacheID": "2fb3aaa25933b3d3418c6e07b4d7ad0d",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityOrderingAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityOrderingAddFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n  }\n  ... on Item {\n    id\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n  }\n  item(slug: $entitySlug) {\n    id\n  }\n  schemaVersions {\n    edges {\n      node {\n        kind\n        identifier\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '63974536c78c00d25987d4a1d1b8644e';
+(node as any).hash = '82d6c209e97187ee5e84408c1a2cc853';
 export default node;

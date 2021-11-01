@@ -24,7 +24,6 @@ export default function EntityOrderingAddDrawer({
       initialVariables={{ entitySlug: drawerSlug }}
     >
       {({ data }) => {
-        const entity = data ? data.item ?? data.collection : undefined;
         return (
           <Drawer
             label={t("actions.add.ordering")}
@@ -32,9 +31,9 @@ export default function EntityOrderingAddDrawer({
             dialog={dialog}
             hideOnClickOutside={false}
           >
-            {entity && (
+            {data && (
               <EntityOrderingAddForm
-                data={entity}
+                data={data}
                 onSuccess={dialog.hide}
                 onCancel={dialog.hide}
               />
@@ -48,11 +47,6 @@ export default function EntityOrderingAddDrawer({
 
 const query = graphql`
   query EntityOrderingAddDrawerQuery($entitySlug: Slug!) {
-    item(slug: $entitySlug) {
-      ...EntityOrderingAddFormFragment
-    }
-    collection(slug: $entitySlug) {
-      ...EntityOrderingAddFormFragment
-    }
+    ...EntityOrderingAddFormFragment
   }
 `;
