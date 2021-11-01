@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "hooks";
+import { useDestroyer, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -12,6 +12,7 @@ import type {
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import { ModelTableActionProps } from "react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -21,6 +22,7 @@ function EntityPagesList<T extends OperationType>({
   hideHeader,
 }: EntityPagesListProps) {
   const { t } = useTranslation();
+  const destroy = useDestroyer();
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
@@ -45,6 +47,14 @@ function EntityPagesList<T extends OperationType>({
     }),
   ];
 
+  const actions = {
+    handleDelete: ({ row }: ModelTableActionProps<Node>) =>
+      destroy.page(
+        { pageId: row.original.id },
+        row.original.title || "glossary.page"
+      ),
+  };
+
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
@@ -67,6 +77,7 @@ function EntityPagesList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       buttons={buttons}
+      actions={actions}
     />
   );
 }
@@ -82,6 +93,7 @@ const linksFragment = graphql`
   fragment EntityPagesListDataFragment on PageConnection {
     edges {
       node {
+        id
         title
         slug
       }

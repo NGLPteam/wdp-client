@@ -31,6 +31,10 @@ import type {
   DestroyEntityLinkInput,
   useDestroyerDestroyEntityLinkMutation,
 } from "@/relay/useDestroyerDestroyEntityLinkMutation.graphql";
+import type {
+  DestroyPageInput,
+  useDestroyerDestroyPageMutation,
+} from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
 import { RevokeAccessInput } from "types/graphql-schema";
@@ -197,6 +201,19 @@ export function useDestroyer() {
     [commitDestroyLink, handleResponse]
   );
 
+  /* Destroy a page */
+  const [commitDestroyPage] = useMutation<useDestroyerDestroyPageMutation>(
+    destroyPageMutation
+  );
+
+  const page = useCallback(
+    async (input: DestroyPageInput, label: string) => {
+      const response = await commitDestroyPage({ variables: { input } });
+      return handleResponse(response.destroyPage, label);
+    },
+    [commitDestroyPage, handleResponse]
+  );
+
   return {
     collection,
     item,
@@ -207,6 +224,7 @@ export function useDestroyer() {
     ordering,
     access,
     link,
+    page,
   };
 }
 export default useDestroyer;
@@ -296,6 +314,15 @@ const destroyEntityLinkMutation = graphql`
     $input: DestroyEntityLinkInput!
   ) {
     destroyEntityLink(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyPageMutation = graphql`
+  mutation useDestroyerDestroyPageMutation($input: DestroyPageInput!) {
+    destroyPage(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }

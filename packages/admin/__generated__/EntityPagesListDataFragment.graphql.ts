@@ -7,6 +7,7 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityPagesListDataFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
+            readonly id: string;
             readonly title: string;
             readonly slug: string;
         };
@@ -48,6 +49,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "id",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "title",
               "storageKey": null
             },
@@ -73,5 +81,5 @@ const node: ReaderFragment = {
   "type": "PageConnection",
   "abstractKey": null
 };
-(node as any).hash = 'c9cad694e788028844c1de866adf6a79';
+(node as any).hash = 'a3b6584d0df021da890431a1553d9472';
 export default node;
