@@ -62,6 +62,9 @@ const ButtonControlConfirm = forwardRef(
 );
 
 type Props = Pick<GroupProps, "breakpoint"> &
-  BaseProps & { modalLabel?: ModalProps["label"]; modalBody?: React.ReactNode };
+  BaseProps & {
+    modalLabel?: ModalProps["label"];
+    modalBody?: React.ReactNode;
+  };
 
 export default ButtonControlConfirm;

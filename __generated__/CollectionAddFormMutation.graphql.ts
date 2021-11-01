@@ -13,7 +13,7 @@ export type CreateCollectionInput = {
     thumbnail?: UploadedFileInput | null;
     doi?: string | null;
     summary?: string | null;
-    publishedOn?: unknown | null;
+    publishedOn?: string | null;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null;
     visibleUntilAt?: string | null;
@@ -34,7 +34,7 @@ export type CollectionAddFormMutationVariables = {
 export type CollectionAddFormMutationResponse = {
     readonly createCollection: {
         readonly collection: {
-            readonly title: string | null;
+            readonly title: string;
             readonly slug: string;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;

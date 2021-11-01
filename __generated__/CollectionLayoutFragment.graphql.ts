@@ -7,6 +7,7 @@ import { FragmentRefs } from "relay-runtime";
 export type CollectionLayoutFragment = {
     readonly title: string;
     readonly slug: string;
+    readonly id: string;
     readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
     readonly " $refType": "CollectionLayoutFragment";
 };
@@ -39,6 +40,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
@@ -47,5 +55,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'affa9b32c541f2e241d17797e72f29b5';
+(node as any).hash = '1e5febe31e3ea422317a39e4e140beb0';
 export default node;
