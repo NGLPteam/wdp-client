@@ -5,12 +5,10 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string | null;
-        readonly slug: string;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
+    readonly slug?: string;
+    readonly orderings?: {
+        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
+    };
     readonly " $refType": "EntityOrderingListFragment";
 };
 export type EntityOrderingListFragment$data = EntityOrderingListFragment;
@@ -21,52 +19,65 @@ export type EntityOrderingListFragment$key = {
 
 
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page"
+      }
+    ],
+    "concreteType": "OrderingConnection",
+    "kind": "LinkedField",
+    "name": "orderings",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "EntityOrderingListDataFragment"
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "EntityOrderingListFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "concreteType": "Ordering",
-      "kind": "LinkedField",
-      "name": "nodes",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "Item",
+      "abstractKey": null
     },
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ModelListPageFragment"
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "Collection",
+      "abstractKey": null
     }
   ],
-  "type": "OrderingConnection",
-  "abstractKey": null
+  "type": "AnyEntity",
+  "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = 'b4f313b88b62ee74fd83326623c22c11';
+})();
+(node as any).hash = '8af1724791b39b3c39573c748a33e425';
 export default node;

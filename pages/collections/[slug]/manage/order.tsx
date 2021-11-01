@@ -7,11 +7,9 @@ import CollectionLayoutQuery from "components/composed/collection/CollectionLayo
 import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
 
 function CollectionOrder({ data }: Props) {
+  if (!data || !data.collection) return null;
   return (
-    <EntityOrderingList<Query>
-      data={data?.collection?.orderings}
-      headerStyle="secondary"
-    />
+    <EntityOrderingList<Query> data={data.collection} headerStyle="secondary" />
   );
 }
 
@@ -38,9 +36,7 @@ const query = graphql`
   ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
-      orderings(page: $page, perPage: 20) {
-        ...EntityOrderingListFragment
-      }
+      ...EntityOrderingListFragment
     }
   }
 `;

@@ -23,6 +23,7 @@ const RadioGroup = forwardRef(
         label={option.label}
         onChange={handleTabIndex}
         selected={selected}
+        checked={option.default}
         {...props}
       />
     ));
@@ -49,7 +50,7 @@ interface Props
       InputProps,
       "name" | "description" | "required" | "hideLabel" | "label"
     > {
-  options: { value: string; label: string }[];
+  options: { value: string; label: string; default?: boolean }[];
 }
 
 export default RadioGroup;

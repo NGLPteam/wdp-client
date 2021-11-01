@@ -7,12 +7,8 @@ import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
 
 function ManageOrder({ data }: Props) {
-  return (
-    <EntityOrderingList<Query>
-      data={data?.item?.orderings}
-      headerStyle="secondary"
-    />
-  );
+  if (!data || !data.item) return null;
+  return <EntityOrderingList<Query> data={data.item} headerStyle="secondary" />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -37,9 +33,7 @@ const query = graphql`
   query ordersManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
-      orderings(page: $page, perPage: 20) {
-        ...EntityOrderingListFragment
-      }
+      ...EntityOrderingListFragment
     }
   }
 `;
