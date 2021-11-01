@@ -20,7 +20,7 @@ export default function ContributorCreateOrganizationForm({
     ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.fields.legalName"
+          label="forms.fields.legal_name"
           {...register("legalName")}
         />
         <Forms.Email
