@@ -34,7 +34,7 @@ export type ItemAddFormMutationVariables = {
 export type ItemAddFormMutationResponse = {
     readonly createItem: {
         readonly item: {
-            readonly title: string | null;
+            readonly title: string;
             readonly slug: string;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;

@@ -47,16 +47,6 @@ function ItemList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
-  /* Waiting for Collection or Item Typeahead to add this in.
-   * const buttons = (
-   *    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-   *    <ButtonControlDrawer drawer="addItemMain" icon="plus">
-   *      {t("actions.add.item")}
-   *    </ButtonControlDrawer>
-   *  </ButtonControlGroup>
-   * );
-   */
-
   return (
     <ModelListPage<T, ItemListFragment, ItemNode>
       modelName="item"
