@@ -69,6 +69,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
 
   const buttonControl = actionConfig?.modalConfirm ? (
     <ButtonControlConfirm
+      key={action}
       aria-label={actionDefinition.label}
       icon={actionDefinition.icon}
       iconRotate={actionDefinition.iconRotate || 0}
@@ -80,6 +81,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
     ></ButtonControlConfirm>
   ) : action === "download" && actionConfig?.handleLink ? (
     <ButtonControlDownload
+      key="download"
       aria-label={actionDefinition.label}
       {...(actionConfig?.handleLink && {
         href: actionConfig.handleLink({ row }),
@@ -87,6 +89,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
     ></ButtonControlDownload>
   ) : (
     <ButtonControl
+      key={action}
       aria-label={actionDefinition.label}
       icon={actionDefinition.icon}
       iconRotate={actionDefinition.iconRotate || 0}
