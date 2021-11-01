@@ -1,0 +1,16 @@
+{
+  "name": "@nglp-wdp/eslint-config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "7.28.0",
+    "@castiron/eslint-config": "0.0.1",
+    "eslint-config-next": "^11.0.0",
+    "eslint-plugin-relay": "^1.8.2"
+  }
+}
