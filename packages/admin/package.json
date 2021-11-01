@@ -1,11 +1,8 @@
 {
-  "name": "wdp-admin-ui",
+  "name": "@nglp-wdp/admin",
   "version": "0.1.0",
   "private": true,
   "sideEffects": false,
-  "engines": {
-    "npm": ">=7.17.0"
-  },
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
@@ -66,7 +63,6 @@
     "date-fns": "^2.25.0"
   },
   "devDependencies": {
-    "typescript": "^4.3.5",
     "@graphql-codegen/cli": "^1.21.6",
     "@graphql-codegen/introspection": "^1.18.2",
     "@graphql-codegen/schema-ast": "^1.18.3",
@@ -104,6 +100,7 @@
     "storybook-addon-themes": "^6.1.0",
     "storybook-react-i18next": "^1.0.9",
     "tslib": "^2.3.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "aria-live-storybook-addon": "^0.0.6"
   }
 }

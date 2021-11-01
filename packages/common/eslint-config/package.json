@@ -1,12 +1,13 @@
 {
   "name": "@nglp-wdp/eslint-config",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "NGLP WDP ESLint Config",
   "main": "index.js",
   "scripts": {
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Cast Iron Coding, Inc.",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "7.28.0",
     "@castiron/eslint-config": "0.0.1",

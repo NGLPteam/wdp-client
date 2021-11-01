@@ -1,11 +1,12 @@
 {
   "name": "@nglp-wdp/stylelint-config",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "NGLP WDP StyleLint Config",
   "main": "index.js",
   "scripts": {
   },
-  "author": "",
+  "author": "Cast Iron Coding, Inc.",
   "license": "MIT",
   "devDependencies": {
     "stylelint": "^13.13.1",
