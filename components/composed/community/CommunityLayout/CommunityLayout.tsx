@@ -10,6 +10,7 @@ import {
 } from "hooks";
 import { RouteHelper } from "routes";
 import { useTranslation } from "react-i18next";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 
 export default function CommunityLayout({
   children,
@@ -30,12 +31,25 @@ export default function CommunityLayout({
   const manageRoutes = useChildRouteLinks("community.manage", { slug });
   const tabRoutes = useChildRouteLinks("community", { slug });
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer
+        drawer="addCollection"
+        drawerQuery={{ drawerSlug: slug }}
+        icon="plus"
+      >
+        {t("actions.add.collection")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
   return (
     <section>
       <PageHeader
         title={memoizedCommunity?.name}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
+        buttons={buttons}
       />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
