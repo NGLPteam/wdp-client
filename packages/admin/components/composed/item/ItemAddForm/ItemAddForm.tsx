@@ -103,13 +103,13 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           required
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.Datepicker
+          <Forms.DatePicker
             label="forms.fields.visible_after"
             {...register("visibleAfterAt")}
           />
         </Forms.HiddenField>
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.Datepicker
+          <Forms.DatePicker
             label="forms.fields.visible_until"
             {...register("visibleUntilAt")}
           />

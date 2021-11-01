@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useDestroyer, useMaybeFragment } from "hooks";
+import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -23,6 +23,7 @@ function EntityPagesList<T extends OperationType>({
 }: EntityPagesListProps) {
   const { t } = useTranslation();
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
@@ -37,6 +38,7 @@ function EntityPagesList<T extends OperationType>({
 
   /** Columns */
   const columns = [
+    ModelColumns.ThumbnailColumn<Node>({}),
     ModelColumns.StringColumn<Node>({
       Header: <>{t("lists.name_column")}</>,
       id: "title",
@@ -48,6 +50,11 @@ function EntityPagesList<T extends OperationType>({
   ];
 
   const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editPage", {
+        drawerSlug: sourceEntity?.slug,
+        drawerPageSlug: row.original.slug,
+      }),
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.page(
         { pageId: row.original.id },
@@ -96,6 +103,16 @@ const linksFragment = graphql`
         id
         title
         slug
+        thumbnail: heroImage {
+          image: medium {
+            png {
+              url
+              height
+              width
+              alt
+            }
+          }
+        }
       }
     }
     ...ModelListPageFragment

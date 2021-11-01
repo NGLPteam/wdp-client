@@ -119,7 +119,9 @@
         "link_failure": "Failed to add link",
         "access_success": "Access added successfully",
         "member_success": "Member added successfully",
-        "item_success": "Item added successfully"
+        "item_success": "Item added successfully",
+        "page_success": "Page added successfully",
+        "page_failure": "Failed to add page"
       },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
@@ -207,7 +209,9 @@
         "member": "Edit Member",
         "member_title": "Edit {{ user }}'s Membership to {{ name }}",
         "profile": "Edit Profile",
-        "profile_header": "Edit Your Profile"
+        "profile_header": "Edit Your Profile",
+        "page": "Edit Page",
+        "page_header": "Edit Page"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -259,6 +263,7 @@
         "month": "Month",
         "day": "Day",
         "slug": "Slug",
+        "slug_description": "Slug must be lower case, no special characters or spaces.",
         "body": "Body",
         "heroImage": "Hero Image"
       },

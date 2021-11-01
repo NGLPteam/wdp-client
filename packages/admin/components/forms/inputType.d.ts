@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import type { FieldValues, Path, DefaultValue } from "react-hook-form";
-interface InputProps<T extends FieldValues = FieldValues> {
+
+type FormTypes = Partial<Pick<HTMLFormElement, "onChange" | "onBlur">>;
+interface InputProps<T extends FieldValues = FieldValues> extends FormTypes {
   defaultValue?: DefaultValue;
   name: Path<T>;
   label: string;
@@ -13,8 +15,6 @@ interface InputProps<T extends FieldValues = FieldValues> {
     message: string;
   };
   isWide?: boolean;
-  onChange?: (e: React.ChangeEvent<Element>) => void;
-  onBlur?: (e: React.ChangeEvent<Element>) => void;
 }
 
 export default InputProps;
