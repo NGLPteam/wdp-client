@@ -4,13 +4,21 @@ import type { pagesManageSlugItemsQuery as Query } from "@/relay/pagesManageSlug
 import type { GetLayout } from "types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import EntityPagesList from "components/composed/pages/EntityPagesList";
 
-function ManagePages({ data: dataIgnored }: Props) {
-  return <div>Item Pages</div>;
+function ManagePages({ data }: Props) {
+  return <EntityPagesList<Query> data={data?.item} headerStyle="secondary" />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+  return (
+    <ItemLayoutQuery<Query, Props>
+      showSidebar
+      query={query}
+      useRouteHeader={false}
+      {...props}
+    />
+  );
 };
 ManagePages.getLayout = getLayout;
 
@@ -21,8 +29,9 @@ type Props = {
 };
 
 const query = graphql`
-  query pagesManageSlugItemsQuery($itemSlug: Slug!) {
+  query pagesManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
+      ...EntityPagesListFragment
       ...ItemLayoutQueryFragment
     }
   }

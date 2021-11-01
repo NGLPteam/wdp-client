@@ -4,32 +4,41 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type pagesManageSlugItemsQueryVariables = {
-    itemSlug: string;
+export type pagesManageSlugCommunityPagesQueryVariables = {
+    communitySlug: string;
     page: number;
 };
-export type pagesManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPagesListFragment" | "ItemLayoutQueryFragment">;
+export type pagesManageSlugCommunityPagesQueryResponse = {
+    readonly community: {
+        readonly " $fragmentRefs": FragmentRefs<"EntityPagesListFragment" | "CommunityLayoutQueryFragment">;
     } | null;
 };
-export type pagesManageSlugItemsQuery = {
-    readonly response: pagesManageSlugItemsQueryResponse;
-    readonly variables: pagesManageSlugItemsQueryVariables;
+export type pagesManageSlugCommunityPagesQuery = {
+    readonly response: pagesManageSlugCommunityPagesQueryResponse;
+    readonly variables: pagesManageSlugCommunityPagesQueryVariables;
 };
 
 
 
 /*
-query pagesManageSlugItemsQuery(
-  $itemSlug: Slug!
+query pagesManageSlugCommunityPagesQuery(
+  $communitySlug: Slug!
   $page: Int!
 ) {
-  item(slug: $itemSlug) {
+  community(slug: $communitySlug) {
     ...EntityPagesListFragment
-    ...ItemLayoutQueryFragment
+    ...CommunityLayoutQueryFragment
     id
   }
+}
+
+fragment CommunityLayoutFragment on Community {
+  name
+  slug
+}
+
+fragment CommunityLayoutQueryFragment on Community {
+  ...CommunityLayoutFragment
 }
 
 fragment EntityPagesListDataFragment on PageConnection {
@@ -64,17 +73,6 @@ fragment EntityPagesListFragment on AnyEntity {
   }
 }
 
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-}
-
 fragment ModelListPageFragment on Paginated {
   __isPaginated: __typename
   ...ModelPageCountActionsFragment
@@ -100,17 +98,6 @@ fragment ModelPaginationFragment on Paginated {
     pageCount
   }
 }
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-}
 */
 
 const node: ConcreteRequest = (function(){
@@ -118,7 +105,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "itemSlug"
+    "name": "communitySlug"
   },
   {
     "defaultValue": null,
@@ -130,7 +117,7 @@ v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "itemSlug"
+    "variableName": "communitySlug"
   }
 ],
 v2 = {
@@ -255,14 +242,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "pagesManageSlugItemsQuery",
+    "name": "pagesManageSlugCommunityPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
           {
@@ -273,7 +260,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
+            "name": "CommunityLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -286,21 +273,21 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "pagesManageSlugItemsQuery",
+    "name": "pagesManageSlugCommunityPagesQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "title",
+            "name": "name",
             "storageKey": null
           },
           (v2/*: any*/),
@@ -329,47 +316,6 @@ return {
             ],
             "type": "AnyEntity",
             "abstractKey": "__isAnyEntity"
-          },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "EntityBreadcrumb",
-                "kind": "LinkedField",
-                "name": "breadcrumbs",
-                "plural": true,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "depth",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "label",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
           }
         ],
         "storageKey": null
@@ -377,14 +323,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d9b001b90d08b5b5db9e86836e54cf9a",
+    "cacheID": "4e7ff86edd4a573115a7960f68ba17ea",
     "id": null,
     "metadata": {},
-    "name": "pagesManageSlugItemsQuery",
+    "name": "pagesManageSlugCommunityPagesQuery",
     "operationKind": "query",
-    "text": "query pagesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...EntityPagesListFragment\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query pagesManageSlugCommunityPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityPagesListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c4d21928dfad2a2be117d97dda264948';
+(node as any).hash = '7d4a8bbc1d33bc9e1c4c6253eb536bd1';
 export default node;
