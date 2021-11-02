@@ -3,9 +3,12 @@ import { graphql } from "react-relay";
 import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
 import type { GetLayout } from "types/page";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
+import UserUpdateForm from "components/composed/user/UserUpdateForm";
 
-function UserDetails({ data: dataIgnored }: Props) {
-  return <div>User Details</div>;
+function UserDetails({ data }: Props) {
+  if (!data || !data.user) return null;
+
+  return <UserUpdateForm data={data.user} />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -22,6 +25,7 @@ type Props = {
 const query = graphql`
   query detailsManageSlugUsersPagesQuery($userSlug: Slug!) {
     user(slug: $userSlug) {
+      ...UserUpdateFormFragment
       ...UserLayoutQueryFragment
     }
   }

@@ -1,8 +1,8 @@
 import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import { CellProps } from "react-table";
-import { useMaybeFragment } from "hooks";
+import { CellProps, ModelTableActionProps } from "react-table";
+import { useDrawerHelper, useMaybeFragment } from "hooks";
 import type {
   UserListFragment,
   UserListFragment$key,
@@ -24,6 +24,7 @@ function UserList<T extends OperationType>({
   const users = useMaybeFragment<UserListFragment$key>(fragment, data);
 
   const { t } = useTranslation();
+  const drawerHelper = useDrawerHelper();
 
   const columns = [
     ModelColumns.NameColumn<UserNode>({
@@ -41,6 +42,12 @@ function UserList<T extends OperationType>({
     ModelColumns.CreatedAtColumn<UserNode>(),
   ];
 
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<UserNode>) => {
+      drawerHelper.open("editUser", { drawerSlug: row.original.slug });
+    },
+  };
+
   return (
     <ModelListPage<T, UserListFragment, UserNode>
       modelName="user"
@@ -48,6 +55,7 @@ function UserList<T extends OperationType>({
       data={users}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      actions={actions}
       disableSortBy
     />
   );
