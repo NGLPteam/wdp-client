@@ -65,6 +65,7 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
 
 export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
   display: inline-block;
+  white-space: nowrap;
 
   ${({ size }) =>
     size === "large" &&

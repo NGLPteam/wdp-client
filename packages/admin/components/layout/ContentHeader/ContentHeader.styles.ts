@@ -1,17 +1,22 @@
 import styled, { css } from "styled-components";
-import { noFlexGapSupport } from "theme/mixins/base";
+import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
+import { tLineClamp } from "theme/mixins/typography";
 import ContentHeader from "./ContentHeader";
 type Props = React.ComponentProps<typeof ContentHeader>;
+
+const HEADER_WRAP_BREAK = 60;
 
 export const Wrapper = styled.div<Pick<Props, "headerStyle">>`
   border-bottom: 2px solid var(--accent-color);
   display: flex;
-  flex-wrap: wrap;
-  align-content: center;
   justify-content: space-between;
-  gap: ${pxToRem(5)};
   margin-block-end: 20px;
+  gap: ${pxToRem(6)};
+
+  ${respond(`flex-wrap: wrap;`, HEADER_WRAP_BREAK)}
+
+  ${respond(`flex-wrap: nowrap;`, 30)}
 
   form + & {
     padding-block-start: ${pxToRem(40)};
@@ -30,6 +35,12 @@ export const Wrapper = styled.div<Pick<Props, "headerStyle">>`
   `)}
 `;
 
-export const Title = styled.h1``;
+export const Title = styled.h1`
+  align-self: flex-end;
+  ${respond(tLineClamp(2), HEADER_WRAP_BREAK, "min")}
+`;
 
-export const RightSide = styled.div``;
+export const RightSide = styled.div`
+  margin-inline-start: auto;
+  align-self: flex-end;
+`;
