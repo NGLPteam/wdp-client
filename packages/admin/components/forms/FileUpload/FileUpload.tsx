@@ -56,6 +56,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
   required,
   image,
   clearName,
+  isWide,
   ...inputProps
 }: Props<T>) {
   const [isCleared, setIsCleared] = useState(false);
@@ -134,6 +135,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
         label={label}
         name={name}
         required={required}
+        isWide={isWide}
       >
         {({ uid }) => (
           <Styled.Wrapper aria-live="polite">

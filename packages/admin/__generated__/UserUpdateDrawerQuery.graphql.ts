@@ -4,39 +4,31 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type detailsManageSlugUsersPagesQueryVariables = {
+export type UserUpdateDrawerQueryVariables = {
     userSlug: string;
 };
-export type detailsManageSlugUsersPagesQueryResponse = {
+export type UserUpdateDrawerQueryResponse = {
     readonly user: {
-        readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment" | "UserLayoutQueryFragment">;
+        readonly name: string | null;
+        readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment">;
     } | null;
 };
-export type detailsManageSlugUsersPagesQuery = {
-    readonly response: detailsManageSlugUsersPagesQueryResponse;
-    readonly variables: detailsManageSlugUsersPagesQueryVariables;
+export type UserUpdateDrawerQuery = {
+    readonly response: UserUpdateDrawerQueryResponse;
+    readonly variables: UserUpdateDrawerQueryVariables;
 };
 
 
 
 /*
-query detailsManageSlugUsersPagesQuery(
+query UserUpdateDrawerQuery(
   $userSlug: Slug!
 ) {
   user(slug: $userSlug) {
+    name
     ...UserUpdateFormFragment
-    ...UserLayoutQueryFragment
     id
   }
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
 }
 
 fragment UserUpdateFormFragment on User {
@@ -72,13 +64,20 @@ v1 = [
     "name": "slug",
     "variableName": "userSlug"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "detailsManageSlugUsersPagesQuery",
+    "name": "UserUpdateDrawerQuery",
     "selections": [
       {
         "alias": null,
@@ -88,15 +87,11 @@ return {
         "name": "user",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "UserUpdateFormFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -109,7 +104,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "detailsManageSlugUsersPagesQuery",
+    "name": "UserUpdateDrawerQuery",
     "selections": [
       {
         "alias": null,
@@ -119,6 +114,7 @@ return {
         "name": "user",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -214,13 +210,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -228,14 +217,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "efb21b10b495df57bc3662749446b7ab",
+    "cacheID": "8d90da5d58ffd202dfb37c453478b34e",
     "id": null,
     "metadata": {},
-    "name": "detailsManageSlugUsersPagesQuery",
+    "name": "UserUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
+    "text": "query UserUpdateDrawerQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    name\n    ...UserUpdateFormFragment\n    id\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e4ba1bba5cf1d5bc10f33b9595fa2b63';
+(node as any).hash = '00f52570524b1f973dddc9640f107977';
 export default node;

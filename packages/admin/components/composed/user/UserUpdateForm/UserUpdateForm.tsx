@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
-import { UserProfileUpdateFormFragment$key } from "@/relay/UserProfileUpdateFormFragment.graphql";
+import { UserUpdateFormFragment$key } from "@/relay/UserUpdateFormFragment.graphql";
 import type {
-  UpdateViewerSettingsInput as Input,
-  UserProfileUpdateFormMutation as Mutation,
-} from "@/relay/UserProfileUpdateFormMutation.graphql";
+  UpdateUserInput as Input,
+  UserUpdateFormMutation as Mutation,
+} from "@/relay/UserUpdateFormMutation.graphql";
 import type { UserProfileInput } from "types/graphql-schema";
 import MutationForm, {
   Forms,
@@ -12,19 +12,18 @@ import MutationForm, {
   useToVariables,
 } from "components/api/MutationForm";
 
-type Fields = Omit<Input, "profile"> & UserProfileInput;
+type Fields = Omit<Input, "profile" | "id" | "username"> & UserProfileInput;
+
 type MutationFormProps = React.ComponentProps<typeof MutationForm>;
 
-const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
+const UserUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
   // eslint-disable-next-line relay/generated-flow-types
-  const fieldData = useFragment<UserProfileUpdateFormFragment$key>(
-    fragment,
-    data
-  );
+  const fieldData = useFragment<UserUpdateFormFragment$key>(fragment, data);
 
   const toVariables = useToVariables<Mutation, Fields>(
-    ({ username, givenName, familyName, email, ...data }) => ({
+    ({ userId, username, givenName, familyName, email, ...data }) => ({
       input: {
+        userId: fieldData?.id || "",
         profile: {
           username: fieldData?.username || "",
           givenName,
@@ -42,13 +41,11 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
       <Forms.Grid>
         <Forms.Input
           label="forms.fields.given_name"
-          isWide
           required
           {...register("givenName")}
         />
         <Forms.Input
           label="forms.fields.family_name"
-          isWide
           required
           {...register("familyName")}
         />
@@ -63,6 +60,7 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
           name="avatar"
           image={fieldData?.avatar?.small}
           clearName="clearAvatar"
+          isWide
         />
       </Forms.Grid>
     ),
@@ -77,8 +75,8 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
 
   return (
     <MutationForm<Mutation, Fields>
-      name="updateViewerSettings"
-      successNotification="messages.update.profile_success"
+      name="updateUser"
+      successNotification="messages.update.user_success"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}
@@ -91,16 +89,16 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
 };
 
 interface Props extends Pick<MutationFormProps, "onSuccess" | "onCancel"> {
-  data: UserProfileUpdateFormFragment$key;
+  data: UserUpdateFormFragment$key;
 }
 
-export default UserProfileUpdateForm;
+export default UserUpdateForm;
 
 const mutation = graphql`
-  mutation UserProfileUpdateFormMutation($input: UpdateViewerSettingsInput!) {
-    updateViewerSettings(input: $input) {
+  mutation UserUpdateFormMutation($input: UpdateUserInput!) {
+    updateUser(input: $input) {
       user {
-        ...UserProfileUpdateFormFragment
+        ...UserUpdateFormFragment
       }
       ...MutationForm_mutationErrors
     }
@@ -108,7 +106,8 @@ const mutation = graphql`
 `;
 
 const fragment = graphql`
-  fragment UserProfileUpdateFormFragment on User {
+  fragment UserUpdateFormFragment on User {
+    id
     givenName
     familyName
     email

@@ -133,7 +133,8 @@
         "item_success": "Item updated successfully",
         "access_success": "Access updated successfully",
         "schema_success": "Schema updated successfully",
-        "profile_success": "Profile updated successfully"
+        "profile_success": "Profile updated successfully",
+        "user_success": "User updated successfully"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -211,7 +212,9 @@
         "profile": "Edit Profile",
         "profile_header": "Edit Your Profile",
         "page": "Edit Page",
-        "page_header": "Edit Page"
+        "page_header": "Edit Page",
+        "user": "Edit User",
+        "user_header": "Edit User"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -265,7 +268,8 @@
         "slug": "Slug",
         "slug_description": "Slug must be lower case, no special characters or spaces.",
         "body": "Body",
-        "heroImage": "Hero Image"
+        "heroImage": "Hero Image",
+        "profile": "Profile"
       },
       "validation": {
         "year": "Must be a four digit year"
