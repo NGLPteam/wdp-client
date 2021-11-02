@@ -6,7 +6,7 @@ import {
   FileListFragment$key,
 } from "@/relay/FileListFragment.graphql";
 import type { CellProps, ModelTableActionProps } from "react-table";
-import { useMaybeFragment, useRouteSlug } from "hooks";
+import { useDestroyer, useMaybeFragment, useRouteSlug } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -24,6 +24,7 @@ function FileList<T extends OperationType>({
   const files = useMaybeFragment<FileListFragment$key>(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
+  const destroy = useDestroyer();
 
   const columns = [
     ModelColumns.ThumbnailColumn<FileNode>({}),
@@ -52,6 +53,13 @@ function FileList<T extends OperationType>({
   const actions = {
     handleDownload: ({ row }: ModelTableActionProps<FileNode>) =>
       row.original.downloadUrl ? row.original.downloadUrl : null,
+    handleDelete: ({ row }: ModelTableActionProps<FileNode>) => {
+      if (!row.original.id) return;
+      destroy.file(
+        { assetId: row.original.id },
+        row.original.name || "glossary.file"
+      );
+    },
   };
 
   // TODO: We need an authorization check here.

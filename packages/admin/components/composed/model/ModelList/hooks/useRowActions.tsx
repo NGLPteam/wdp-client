@@ -16,7 +16,7 @@ type ActionConfig<D extends Record<string, unknown>> = {
   handleLink?: ({ row }: { row: Row<D> }) => string;
 };
 
-type ActionKeys = "edit" | "delete" | "download";
+type ActionKeys = "download" | "edit" | "delete";
 
 interface ActionDefinition {
   label: string;
@@ -36,6 +36,12 @@ type ActionConfigurations<D extends Record<string, unknown>> = {
 };
 
 const availableActions: ActionDefinitions = {
+  download: {
+    label: i18next.t("download"),
+    icon: "arrow",
+    iconRotate: 180,
+    action: "",
+  },
   edit: {
     label: i18next.t("edit"),
     icon: "edit",
@@ -51,12 +57,6 @@ const availableActions: ActionDefinitions = {
     modalBody: (
       <p className="t-copy-sm">{i18next.t("messages.delete.confirm_body")}</p>
     ),
-  },
-  download: {
-    label: i18next.t("download"),
-    icon: "arrow",
-    iconRotate: 180,
-    action: "",
   },
 };
 
@@ -114,7 +114,12 @@ function renderActions<D extends Record<string, unknown>>(
   configuration: ActionConfigurations<D>
 ) {
   const keys = Object.keys(configuration) as Array<ActionKeys>;
+
   const buttons = keys
+    .sort((actionA) => {
+      // Delete button should be last
+      return actionA === "delete" ? 1 : -1;
+    })
     .filter((action) => {
       // Filter out any actions that are not configured
       const actionConfig = configuration[action];
@@ -144,7 +149,6 @@ function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {
     const actionColumn = {
       Header: () => null,
       id: "actions",
-      align: "right",
       cellType: "actions",
       Cell: ({ row }: { row: Row<D> }) => {
         return renderActions<D>(row, actions);

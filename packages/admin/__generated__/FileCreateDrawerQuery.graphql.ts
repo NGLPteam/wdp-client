@@ -10,6 +10,9 @@ export type FileCreateDrawerQueryResponse = {
     readonly item: {
         readonly id: string;
     } | null;
+    readonly collection: {
+        readonly id: string;
+    } | null;
 };
 export type FileCreateDrawerQuery = {
     readonly response: FileCreateDrawerQueryResponse;
@@ -25,6 +28,9 @@ query FileCreateDrawerQuery(
   item(slug: $slug) {
     id
   }
+  collection(slug: $slug) {
+    id
+  }
 }
 */
 
@@ -38,27 +44,39 @@ var v0 = [
 ],
 v1 = [
   {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
+  }
+],
+v2 = [
+  {
     "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "slug"
-      }
-    ],
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  }
+],
+v3 = [
+  {
+    "alias": null,
+    "args": (v1/*: any*/),
     "concreteType": "Item",
     "kind": "LinkedField",
     "name": "item",
     "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      }
-    ],
+    "selections": (v2/*: any*/),
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": (v1/*: any*/),
+    "concreteType": "Collection",
+    "kind": "LinkedField",
+    "name": "collection",
+    "plural": false,
+    "selections": (v2/*: any*/),
     "storageKey": null
   }
 ];
@@ -68,7 +86,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "FileCreateDrawerQuery",
-    "selections": (v1/*: any*/),
+    "selections": (v3/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -77,17 +95,17 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "FileCreateDrawerQuery",
-    "selections": (v1/*: any*/)
+    "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "29e3b7943b72d27fb4f4d182be09a4ad",
+    "cacheID": "3f2cac92556194b9e872f996da02bc46",
     "id": null,
     "metadata": {},
     "name": "FileCreateDrawerQuery",
     "operationKind": "query",
-    "text": "query FileCreateDrawerQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    id\n  }\n}\n"
+    "text": "query FileCreateDrawerQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    id\n  }\n  collection(slug: $slug) {\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c5b410a495441e974842d818405ee6cd';
+(node as any).hash = '9752d344218f1191ce58c334088084fc';
 export default node;
