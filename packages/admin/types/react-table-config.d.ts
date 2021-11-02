@@ -51,6 +51,7 @@ declare module "react-table" {
   export interface ModelTableActions<
     D extends Record<string, unknown> = Record<string, unknown>
   > {
+    download?: ModelTableActionOptions<D>;
     edit?: ModelTableActionOptions<D>;
     delete?: ModelTableActionOptions<D>;
   }

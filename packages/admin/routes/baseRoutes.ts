@@ -61,6 +61,11 @@ export const baseRoutes: BaseRoute[] = [
                 path: "/collections/[slug]/manage/contributions",
                 label: "glossary.contribution_plural",
               },
+              {
+                name: "collection.manage.files",
+                path: "/collections/[slug]/manage/files",
+                label: "nav.files",
+              },
             ],
           },
         ],

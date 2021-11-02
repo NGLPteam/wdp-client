@@ -29,14 +29,17 @@ export default function FileCreateDrawer({
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug: drawerSlug }}>
       {({ data }) =>
-        data?.item?.id ? (
+        data?.item?.id || data?.collection?.id ? (
           <Drawer
             label={t("actions.create.file")}
             header={t("actions.create.file_header")}
             dialog={dialog}
             hideOnClickOutside={false}
           >
-            <FileCreateForm entityId={data?.item?.id} onSuccess={dialog.hide} />
+            <FileCreateForm
+              entityId={data.item?.id || data.collection?.id || ""}
+              onSuccess={dialog.hide}
+            />
           </Drawer>
         ) : null
       }
@@ -47,6 +50,9 @@ export default function FileCreateDrawer({
 const query = graphql`
   query FileCreateDrawerQuery($slug: Slug!) {
     item(slug: $slug) {
+      id
+    }
+    collection(slug: $slug) {
       id
     }
   }

@@ -35,6 +35,10 @@ import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.grap
 import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
 import { RevokeAccessInput } from "types/graphql-schema";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
+import {
+  DestroyAssetInput,
+  useDestroyerDestroyAssetMutation,
+} from "@/relay/useDestroyerDestroyAssetMutation.graphql";
 
 export function useDestroyer() {
   const notify = useNotify();
@@ -136,19 +140,19 @@ export function useDestroyer() {
   );
 
   /* Destroy a file */
-  // const [commitDestroyFile] = useMutation<useDestroyerDestroyFileMutation>(
-  //   destroyFileMutation
-  // );
+  const [commitDestroyAsset] = useMutation<useDestroyerDestroyAssetMutation>(
+    destroyFileMutation
+  );
 
-  // const file = useCallback(
-  //   async (input: DestroyFileInput, label: string) => {
-  //     const response = await commitDestroyFile({
-  //       variables: { input },
-  //     });
-  //     return handleResponse(response.destroyFile, label);
-  //   },
-  //   [commitDestroyFile, handleResponse]
-  // );
+  const file = useCallback(
+    async (input: DestroyAssetInput, label: string) => {
+      const response = await commitDestroyAsset({
+        variables: { input },
+      });
+      return handleResponse(response.destroyAsset, label);
+    },
+    [commitDestroyAsset, handleResponse]
+  );
 
   /* Disable or destroy an ordering */
   const [
@@ -199,7 +203,7 @@ export function useDestroyer() {
     community,
     contributor,
     contribution,
-    // file,
+    file,
     ordering,
     access,
     link,
@@ -260,14 +264,14 @@ const destroyCommunityMutation = graphql`
   }
 `;
 
-// const destroyFileMutation = graphql`
-//   mutation useDestroyerDestroyFileMutation($input: DestroyFileInput!) {
-//     destroyAsset(input: $input) {
-//       destroyedId @deleteRecord
-//       ...useDestroyerFragment
-//     }
-//   }
-// `;
+const destroyFileMutation = graphql`
+  mutation useDestroyerDestroyAssetMutation($input: DestroyAssetInput!) {
+    destroyAsset(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
 
 const destroyOrderingMutation = graphql`
   mutation useDestroyerDestroyOrderingMutation($input: DestroyOrderingInput!) {
