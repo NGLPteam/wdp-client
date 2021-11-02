@@ -28,22 +28,14 @@ function FileList<T extends OperationType>({
 
   const columns = [
     ModelColumns.ThumbnailColumn<FileNode>({}),
-    ModelColumns.StringColumn<FileNode>({
-      Header: <>{t("lists.name_column")}</>,
-      id: "name",
-      Cell: ({ value }: CellProps<T>) => (
-        <div className="a-cell-50">{value}</div>
-      ),
+    ModelColumns.NameColumn<FileNode>({
+      accessor: "name",
     }),
     ModelColumns.StringColumn<FileNode>({
       Header: <>{t("lists.kind_column")}</>,
       id: "kind",
       Cell: ({ value }: CellProps<T>) => (
-        <div
-          className={`a-cell-50 ${
-            value === "pdf" ? "t-uppercase" : "t-capitalize"
-          }`}
-        >
+        <div className={value === "pdf" ? "t-uppercase" : "t-capitalize"}>
           {value}
         </div>
       ),
