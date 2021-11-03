@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
 import { DialogDisclosure, DialogActions, useDialogState } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
-import ConfirmModal from "components/composed/ConfirmModal";
+import ConfirmModal from "components/layout/ConfirmModal";
 
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 type ModalProps = React.ComponentProps<typeof Modal>;

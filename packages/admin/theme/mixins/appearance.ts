@@ -78,6 +78,14 @@ export function aBaseInput() {
     background-color: var(--input-background-color);
     border: 1px solid var(--input-border-color);
     border-radius: var(--input-border-radius);
+    border-top-right-radius: var(
+      --input-border-top-right-radius,
+      var(--input-border-radius)
+    );
+    border-bottom-right-radius: var(
+      --input-border-bottom-right-radius,
+      var(--input-border-radius)
+    );
     padding: var(--input-padding);
     color: var(--color);
     text-align: var(--input-text-align, left);

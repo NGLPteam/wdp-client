@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
-import Select from "components/forms/Select";
+import AssetPropertySelect from "components/forms/AssetPropertySelect";
 
 import type { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
 
@@ -17,7 +17,7 @@ export default function AssetProperty(props: Props) {
   return (
     <ScalarProperty field={field}>
       {({ label, required, register, isWide }) => (
-        <Select
+        <AssetPropertySelect
           label={label}
           required={required}
           options={options}
