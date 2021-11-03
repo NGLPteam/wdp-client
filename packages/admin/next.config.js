@@ -10,6 +10,10 @@ const imageDomains = [
 ];
 
 module.exports = {
+  reactStrictMode: true,
+  experimental: {
+    externalDir: true,
+  },
   images: {
     domains: imageDomains,
     reactStrictMode: true,

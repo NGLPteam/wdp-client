@@ -9,9 +9,5 @@
   "author": "Cast Iron Coding, Inc.",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "7.28.0",
-    "@castiron/eslint-config": "0.0.1",
-    "eslint-config-next": "^11.0.0",
-    "eslint-plugin-relay": "^1.8.2"
   }
 }
