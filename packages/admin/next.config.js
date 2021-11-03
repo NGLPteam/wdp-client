@@ -14,6 +14,9 @@ module.exports = {
   experimental: {
     externalDir: true,
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: imageDomains,
     reactStrictMode: true,
