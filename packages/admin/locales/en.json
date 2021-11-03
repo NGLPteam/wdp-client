@@ -74,6 +74,7 @@
       "updated_at_column": "Updated At",
       "avatar_column": "Avatar",
       "slug_column": "Slug",
+      "inherited_from_schema_column": "From Schema",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",

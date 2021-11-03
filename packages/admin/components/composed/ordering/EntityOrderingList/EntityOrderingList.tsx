@@ -41,6 +41,11 @@ function EntityOrderingList<T extends OperationType>({
       Header: <>{t("lists.name_column")}</>,
       id: "name",
     }),
+    ModelColumns.StringColumn<EntityOrderingNode>({
+      Header: <>{t("lists.inherited_from_schema_column")}</>,
+      id: "inheritedFromSchema",
+    }),
+    ModelColumns.CreatedAtColumn<EntityOrderingNode>(),
   ];
 
   /* eslint-disable no-console */
@@ -93,6 +98,8 @@ const orderingsfragment = graphql`
       id
       name
       slug
+      inheritedFromSchema
+      createdAt
     }
     ...ModelListPageFragment
   }
