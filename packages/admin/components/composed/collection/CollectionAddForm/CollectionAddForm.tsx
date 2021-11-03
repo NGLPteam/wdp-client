@@ -20,6 +20,7 @@ export default function AddCollectionForm({
   onSuccess,
   onCancel,
   data,
+  parentId,
 }: Props) {
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(true);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -48,10 +49,12 @@ export default function AddCollectionForm({
       variables: CollectionAddFormMutation["variables"];
       values: Fields;
     }) => {
-      if (onSuccess) onSuccess({ response, variables, values });
-      const routeName = "collection.manage.details";
-      if (response?.createCollection?.collection)
-        redirect(response.createCollection.collection.slug, routeName);
+      if (onSuccess) {
+        onSuccess({ response, variables, values });
+        const routeName = "collection.manage.details";
+        if (response?.createCollection?.collection)
+          redirect(response.createCollection.collection.slug, routeName);
+      }
     },
     [onSuccess, redirect]
   );
@@ -64,7 +67,7 @@ export default function AddCollectionForm({
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        parentId: formData.community?.id ?? formData.collection?.id ?? "",
+        parentId: parentId || data.parentId || "",
       },
     }),
     []
@@ -73,17 +76,21 @@ export default function AddCollectionForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
+        {!parentId && (
+          <Forms.CommunitySelect
+            label="forms.fields.community"
+            data={formData}
+            required
+            {...register("parentId")}
+          />
+        )}
         <Forms.Input
           label="forms.fields.title"
           required
           {...register("title")}
         />
         {formData && (
-          <Forms.Select
-            options={formData.schemaVersionOptions.map((option) => ({
-              label: option.label,
-              value: option.value,
-            }))}
+          <Forms.SchemaSelect
             label="forms.schema.label"
             required
             {...register("schemaVersionSlug")}
@@ -101,8 +108,8 @@ export default function AddCollectionForm({
             { label: "Hidden", value: "HIDDEN" },
             { label: "Limited", value: "LIMITED" },
           ]}
-          required
           label="forms.fields.visibility"
+          required
           {...register("visibility")}
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
@@ -145,22 +152,17 @@ type Props = Pick<
   "onSuccess" | "onCancel"
 > & {
   data: CollectionAddFormFragment$key;
+  parentId?: string;
 };
 
 type Fields = Omit<CreateCollectionInput, "clientMutationId">;
 
 const fragment = graphql`
   fragment CollectionAddFormFragment on Query {
-    schemaVersionOptions(kind: COLLECTION) {
-      label
-      value
-    }
-    collection(slug: $parentSlug) {
-      id
-    }
-    community(slug: $parentSlug) {
-      id
-    }
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...SchemaSelectFragment
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...CommunitySelectFragment
   }
 `;
 

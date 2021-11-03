@@ -11,6 +11,8 @@ import {
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -21,6 +23,7 @@ function CollectionList<T extends OperationType>({
 }: CollectionListProps) {
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
+  const { t } = useTranslation();
 
   const collections = useMaybeFragment<CollectionListFragment$key>(
     fragment,
@@ -48,6 +51,14 @@ function CollectionList<T extends OperationType>({
       ),
   };
 
+  const buttons = !hideHeader ? (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer drawer="addCollection" icon="plus">
+        {t("actions.add.collection")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  ) : undefined;
+
   return (
     <ModelListPage<T, CollectionListFragment, CollectionNode>
       modelName="collection"
@@ -57,6 +68,7 @@ function CollectionList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
+      buttons={buttons}
     />
   );
 }
