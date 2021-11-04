@@ -52,6 +52,16 @@ export default css`
     ${aBaseInput()}
   }
 
+  .a-pagination-input {
+    max-width: 30px;
+    -moz-appearance: textfield;
+    text-align: left;
+    &:hover,
+    &:focus {
+      -moz-appearance: auto;
+    }
+  }
+
   .a-color-accent {
     color: var(--accent-color);
   }

@@ -7,7 +7,7 @@ import { Maybe } from "types/graphql-schema";
 const PaginationWrapper = ({ className, ...props }: Props) => {
   const inputClassname = `${className}__input-wrapper`;
   const inputClasses = {
-    input: `a-input`,
+    input: `a-input a-pagination-input`,
     label: "a-hidden",
     submit: `a-hidden`,
     total: `${className}__total`,
