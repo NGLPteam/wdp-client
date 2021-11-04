@@ -41,7 +41,7 @@ function EntityOrderingList<T extends OperationType>({
       Header: <>{t("lists.name_column")}</>,
       id: "name",
     }),
-    ModelColumns.StringColumn<EntityOrderingNode>({
+    ModelColumns.BooleanColumn<EntityOrderingNode>({
       Header: <>{t("lists.inherited_from_schema_column")}</>,
       id: "inheritedFromSchema",
     }),
