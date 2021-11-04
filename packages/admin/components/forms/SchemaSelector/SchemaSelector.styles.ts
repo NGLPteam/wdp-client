@@ -14,8 +14,7 @@ export const Field = styled.div`
   min-height: ${pxToRem(42)};
   background-color: var(--input-background-color);
 
-  /* TODO: Create FormFieldButton or something to cover these slightly different buttons... */
-  > button {
+  > *:last-child {
     border-color: var(--input-border-color);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;

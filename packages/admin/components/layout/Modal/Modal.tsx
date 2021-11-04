@@ -21,26 +21,28 @@ const Modal = ({
 
   return (
     <Styled.DialogBackdrop {...dialog}>
-      <Styled.Modal
-        aria-labelledby={uidLabel}
-        aria-describedby={uidDesc}
-        hideOnClickOutside={hideOnClickOutside}
-        {...dialog}
-      >
-        <Styled.Header>
-          <div className="t-label-md" id={uidLabel}>
-            {label}
-          </div>
-          <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
-            {t("close")}
-          </ButtonControl>
-        </Styled.Header>
-        <Styled.Content>
-          {typeof children === "function"
-            ? children({ handleClose })
-            : children}
-        </Styled.Content>
-      </Styled.Modal>
+      <Styled.DialogWrapper>
+        <Styled.Modal
+          aria-labelledby={uidLabel}
+          aria-describedby={uidDesc}
+          hideOnClickOutside={hideOnClickOutside}
+          {...dialog}
+        >
+          <Styled.Header>
+            <div className="t-label-md t-truncate" id={uidLabel}>
+              {label}
+            </div>
+            <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
+              {t("close")}
+            </ButtonControl>
+          </Styled.Header>
+          <Styled.Content>
+            {typeof children === "function"
+              ? children({ handleClose })
+              : children}
+          </Styled.Content>
+        </Styled.Modal>
+      </Styled.DialogWrapper>
     </Styled.DialogBackdrop>
   );
 };

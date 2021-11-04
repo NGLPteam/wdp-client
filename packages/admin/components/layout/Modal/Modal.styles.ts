@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { noInsetSupport } from "theme/mixins/base";
+import { fluidScale, noInsetSupport, respond } from "theme/mixins/base";
 import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
@@ -9,12 +9,15 @@ import { pxToRem } from "theme/mixins/functions";
 
 export const DialogBackdrop = styled(BaseDialogBackdrop)`
   position: fixed;
-  background: var(--dialog-backdrop-background);
+  /* Center align short modals on the x-axis */
+  display: flex;
+  align-items: center;
   transition: opacity 0.1s var(--base-timing);
   opacity: 0;
   inset-block: 0;
   inset-inline: 0;
   z-index: var(--z-index-drawer-backdrop);
+  background: var(--dialog-backdrop-background);
 
   ${noInsetSupport(`
     top: 0;
@@ -28,31 +31,45 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
   }
 `;
 
-export const Modal = styled(BaseDialog)`
-  --modal-padding-inline: ${pxToRem(40)};
-  position: fixed;
-  inset-block-start: 50%;
+export const DialogWrapper = styled.div`
+  position: absolute;
   inset-inline-start: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  z-index: var(--z-index-drawer);
+  /* Center align modals on the y-axis */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  /* Scrolling should happen inside this container */
+  overflow: auto;
+  /* Padding so modal doesn't bump up against browser window */
+  padding-block-start: ${fluidScale("24px", "12px")};
+  padding-block-end: ${fluidScale("24px", "12px")};
+  padding-inline-start: ${fluidScale("24px", "12px")};
+  padding-inline-end: ${fluidScale("24px", "12px")};
+`;
+
+export const Modal = styled(BaseDialog)`
+  --modal-padding-inline: ${fluidScale("40px", "24px")};
+  --form-grid-item-width: 100%;
   display: flex;
   flex-direction: column;
   width: ${pxToRem(497)};
-  max-width: 90%;
-  max-height: 100%;
-  overflow: auto;
   border: 1px solid var(--neutral10);
   border-radius: 6px;
-  z-index: var(--z-index-drawer);
-  ${aBgLight()}
   transition: opacity 0.1s var(--base-timing);
+  ${aBgLight()}
+
+  ${respond(`width: 100%;`, 50)}
 `;
 
 export const Header = styled.header`
-  padding-block: ${pxToRem(40)};
-  padding-inline: var(--modal-padding-inline);
+  padding: var(--modal-padding-inline);
   background: var(--background-color);
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   color: var(--accent-color);
@@ -60,7 +77,7 @@ export const Header = styled.header`
 
 export const Content = styled.div`
   flex: 1 1 auto;
-  padding-block-end: ${pxToRem(48)};
+  padding-block-end: var(--modal-padding-inline);
   padding-inline-start: var(--modal-padding-inline);
   padding-inline-end: var(--modal-padding-inline);
 `;

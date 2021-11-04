@@ -307,6 +307,10 @@
         "content_label": "Content",
         "kind_label": "Content Type",
         "lang_label": "Language"
+      },
+      "asset_property_select": {
+        "add_file": "Add File",
+        "placeholder": "Select a file"
       }
     }
   }
