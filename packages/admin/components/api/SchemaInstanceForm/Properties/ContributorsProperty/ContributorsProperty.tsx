@@ -4,12 +4,11 @@ import { useFragment } from "relay-hooks";
 import { Controller } from "react-hook-form";
 
 // import Select from "components/forms/Select";
+import { useSchemaFormContext } from "../../Context";
+import ScalarProperty from "../ScalarProperty";
 import Multiselect from "components/forms/Multiselect";
 
 import type { ContributorsPropertyFragment$key } from "@/relay/ContributorsPropertyFragment.graphql";
-
-import { useSchemaFormContext } from "../../Context";
-import ScalarProperty from "../ScalarProperty";
 
 export default function ContributorsProperty(props: Props) {
   const { contributors: options } = useSchemaFormContext();

@@ -51,8 +51,8 @@ export default function useUploadReducer({
           });
 
           dispatch({ type: "start", fileID });
-        } catch (err) {
-          if (err.isRestriction) {
+        } catch (err: any) {
+          if (err?.isRestriction) {
             // handle restrictions
             console.warn("Restriction error:");
             console.error(err);

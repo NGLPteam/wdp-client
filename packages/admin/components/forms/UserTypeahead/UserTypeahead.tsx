@@ -1,9 +1,9 @@
 import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
+import type { FieldValues, Control, Path } from "react-hook-form";
 import Typeahead from "components/forms/Typeahead";
 
-import type { FieldValues, Control, Path } from "react-hook-form";
 import {
   UserTypeaheadFragment$data,
   UserTypeaheadFragment$key,

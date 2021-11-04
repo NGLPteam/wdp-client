@@ -1,7 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { DialogState } from "reakit/Dialog";
+import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import * as Styled from "./SchemaSelector.styles";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
 import QueryWrapper from "components/api/QueryWrapper";
@@ -20,8 +21,6 @@ import {
   SchemaSelectorModalOptionsQueryResponse as Response,
 } from "@/relay/SchemaSelectorModalOptionsQuery.graphql";
 import { SchemaKind } from "types/graphql-schema";
-
-import * as Styled from "./SchemaSelector.styles";
 
 const SchemaSelectorModal = ({
   dialog,

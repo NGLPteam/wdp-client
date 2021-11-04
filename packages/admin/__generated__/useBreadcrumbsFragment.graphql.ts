@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type useBreadcrumbsFragment = {
@@ -16,7 +17,7 @@ export type useBreadcrumbsFragment = {
 };
 export type useBreadcrumbsFragment$data = useBreadcrumbsFragment;
 export type useBreadcrumbsFragment$key = {
-    readonly " $data"?: useBreadcrumbsFragment$data;
+    readonly " $data"?: useBreadcrumbsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
 };
 

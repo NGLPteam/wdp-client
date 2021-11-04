@@ -1,4 +1,6 @@
 import React, { ReactNode } from "react";
+import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import {
   ContentSidebar,
   ContentHeader,
@@ -11,9 +13,7 @@ import {
   useRouteSlug,
   useLatestPresentValue,
 } from "hooks";
-import { graphql } from "react-relay";
 import { RouteHelper } from "routes";
-import { useTranslation } from "react-i18next";
 import { UserLayoutFragment$key } from "@/relay/UserLayoutFragment.graphql";
 
 type Props = {

@@ -3,20 +3,21 @@
 // @ts-nocheck
 
 import { ReaderInlineDataFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type useDestroyerFragment = {
-    readonly destroyed?: boolean | null;
+    readonly destroyed?: boolean | null | undefined;
     readonly globalErrors?: ReadonlyArray<{
         readonly message: string;
         readonly type: string;
-    }>;
-    readonly revoked?: boolean | null;
-    readonly disabled?: boolean | null;
+    }> | undefined;
+    readonly revoked?: boolean | null | undefined;
+    readonly disabled?: boolean | null | undefined;
     readonly " $refType": "useDestroyerFragment";
 };
 export type useDestroyerFragment$data = useDestroyerFragment;
 export type useDestroyerFragment$key = {
-    readonly " $data"?: useDestroyerFragment$data;
+    readonly " $data"?: useDestroyerFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"useDestroyerFragment">;
 };
 

@@ -1,4 +1,4 @@
 module.exports = {
-  extends: "@nglp-wdp/stylelint-config",
+  extends: "@wdp/stylelint-config",
   ignoreFiles: ["helpers/models.ts"],
 };

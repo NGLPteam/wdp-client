@@ -1,8 +1,8 @@
 import * as React from "react";
 import { graphql } from "react-relay";
-import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import Drawer from "components/layout/Drawer";
 import ItemAddForm from "components/composed/item/ItemAddForm";
 import QueryWrapper from "components/api/QueryWrapper";
 

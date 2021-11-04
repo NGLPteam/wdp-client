@@ -1,6 +1,4 @@
 import React from "react";
-import { ButtonControl } from "components/atomic";
-import { Fieldset } from "components/forms";
 import { useFieldArray } from "react-hook-form";
 import type {
   Path,
@@ -8,8 +6,10 @@ import type {
   Control,
   UseFormRegister,
 } from "react-hook-form";
-import { Forms } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
+import { ButtonControl } from "components/atomic";
+import { Fieldset } from "components/forms";
+import { Forms } from "components/api/MutationForm";
 import useIsMobile from "hooks/useIsMobile";
 
 function LinksRepeater<T extends FieldValues = FieldValues>({

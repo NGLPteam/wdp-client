@@ -3,19 +3,20 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateOrganizationContributorInput = {
-    email?: string | null;
-    url?: string | null;
-    bio?: string | null;
-    links?: Array<ContributorLinkInput> | null;
-    image?: UploadedFileInput | null;
-    legalName?: string | null;
-    location?: string | null;
+    email?: string | null | undefined;
+    url?: string | null | undefined;
+    bio?: string | null | undefined;
+    links?: Array<ContributorLinkInput> | null | undefined;
+    image?: UploadedFileInput | null | undefined;
+    legalName?: string | null | undefined;
+    location?: string | null | undefined;
     contributorId: string;
-    clearImage?: boolean | null;
-    clientMutationId?: string | null;
+    clearImage?: boolean | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type ContributorLinkInput = {
     title: string;
@@ -23,12 +24,12 @@ export type ContributorLinkInput = {
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type ContributorUpdateOrganizationFormMutationVariables = {
     input: UpdateOrganizationContributorInput;

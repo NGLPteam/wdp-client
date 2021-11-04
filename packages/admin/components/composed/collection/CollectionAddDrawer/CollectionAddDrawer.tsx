@@ -1,11 +1,11 @@
 import * as React from "react";
-import Drawer from "components/layout/Drawer";
-import CollectionAddForm from "components/composed/collection/CollectionAddForm";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import type { DialogProps } from "reakit/Dialog";
+import Drawer from "components/layout/Drawer";
+import CollectionAddForm from "components/composed/collection/CollectionAddForm";
 import QueryWrapper from "components/api/QueryWrapper";
 
-import type { DialogProps } from "reakit/Dialog";
 import type { CollectionAddDrawerQuery as Query } from "@/relay/CollectionAddDrawerQuery.graphql";
 
 export default function CollectionAddDrawer({

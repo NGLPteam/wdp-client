@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type DatePropertyFragment = {
     readonly date: string | null;
@@ -11,7 +12,7 @@ export type DatePropertyFragment = {
 };
 export type DatePropertyFragment$data = DatePropertyFragment;
 export type DatePropertyFragment$key = {
-    readonly " $data"?: DatePropertyFragment$data;
+    readonly " $data"?: DatePropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"DatePropertyFragment">;
 };
 

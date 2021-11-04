@@ -3,10 +3,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type LinkTargetTypeaheadQueryVariables = {
     slug: string;
-    title?: string | null;
+    title?: string | null | undefined;
 };
 export type LinkTargetTypeaheadQueryResponse = {
     readonly collection: {

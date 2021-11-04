@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import NullForm from "components/api/NullForm";
 import LinksRepeater from "./LinksRepeater";
+import NullForm from "components/api/NullForm";
 
 type Props = React.ComponentProps<typeof LinksRepeater>;
 

@@ -23,17 +23,11 @@ export default function ItemUpdateForm({
 }: Props) {
   const { t } = useTranslation();
 
-  const {
-    itemId = "",
-    ...fieldsData
-  } = useFragment<ItemUpdateFormFragment$key>(fragment, data);
+  const { itemId = "", ...fieldsData } =
+    useFragment<ItemUpdateFormFragment$key>(fragment, data);
 
-  const {
-    thumbnail,
-    visibleAfterAt,
-    visibleUntilAt,
-    ...values
-  } = useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
+  const { thumbnail, visibleAfterAt, visibleUntilAt, ...values } =
+    useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
 
   const defaultValues = {
     ...values,

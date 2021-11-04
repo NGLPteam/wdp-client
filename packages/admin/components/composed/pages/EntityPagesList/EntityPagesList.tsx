@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
+import { ModelTableActionProps } from "react-table";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -12,7 +13,6 @@ import type {
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
-import { ModelTableActionProps } from "react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

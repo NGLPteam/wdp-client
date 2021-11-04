@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useDestroyer, useDrawerHelper } from "hooks";
-import { DialogProps } from "reakit/Dialog";
+import type { DialogProps } from "reakit/Dialog";
 import { graphql } from "react-relay";
+import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";

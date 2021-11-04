@@ -1,8 +1,8 @@
 import React from "react";
 import { useUID } from "react-uid";
 import CICInput from "@castiron/components-input";
-import { IconFactory } from "components/factories";
 import { useTranslation } from "react-i18next";
+import { IconFactory } from "components/factories";
 
 function SearchInput({ className, inputRef }: Props) {
   const uid = useUID();

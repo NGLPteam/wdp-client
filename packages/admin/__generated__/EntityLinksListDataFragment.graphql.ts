@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityLinkOperator = "CONTAINS" | "REFERENCES" | "%future added value";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
@@ -12,12 +13,12 @@ export type EntityLinksListDataFragment = {
         readonly slug: string;
         readonly operator: EntityLinkOperator;
         readonly target: {
-            readonly slug?: string;
-            readonly title?: string;
+            readonly slug?: string | undefined;
+            readonly title?: string | undefined;
             readonly schemaDefinition?: {
                 readonly name: string;
                 readonly kind: SchemaKind;
-            };
+            } | undefined;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -25,7 +26,7 @@ export type EntityLinksListDataFragment = {
 };
 export type EntityLinksListDataFragment$data = EntityLinksListDataFragment;
 export type EntityLinksListDataFragment$key = {
-    readonly " $data"?: EntityLinksListDataFragment$data;
+    readonly " $data"?: EntityLinksListDataFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityLinksListDataFragment">;
 };
 

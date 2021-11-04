@@ -2,9 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ValidateResult } from "react-hook-form";
 
-import { IconFactory } from "components/factories";
-
 import * as Styled from "./Message.styles";
+import { IconFactory } from "components/factories";
 
 export default function Message({ type, result }: Props) {
   const { t } = useTranslation();

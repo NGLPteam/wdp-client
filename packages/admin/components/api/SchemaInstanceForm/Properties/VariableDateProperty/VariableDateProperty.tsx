@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import type { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
-import VariableDatePicker from "components/forms/VariableDatePicker";
 import { Controller } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
+import type { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
+import VariableDatePicker from "components/forms/VariableDatePicker";
 
 export default function VariableDateProperty(props: Props) {
   const field = useFragment<VariableDatePropertyFragment$key>(

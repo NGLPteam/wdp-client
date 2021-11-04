@@ -1,6 +1,6 @@
 import React from "react";
-import Avatar from "components/atomic/Avatar";
 import { graphql } from "react-relay";
+import Avatar from "components/atomic/Avatar";
 import { UserAvatarFragment$key } from "@/relay/UserAvatarFragment.graphql";
 import { useMaybeFragment } from "hooks";
 

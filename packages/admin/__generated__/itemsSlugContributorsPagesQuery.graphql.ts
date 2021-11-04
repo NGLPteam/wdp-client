@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type itemsSlugContributorsPagesQueryVariables = {
     contributorSlug: string;
@@ -12,7 +13,7 @@ export type itemsSlugContributorsPagesQueryResponse = {
         readonly __typename: string;
         readonly itemContributions?: {
             readonly " $fragmentRefs": FragmentRefs<"ItemContributionListFragment">;
-        };
+        } | undefined;
         readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutQueryFragment">;
     } | null;
 };

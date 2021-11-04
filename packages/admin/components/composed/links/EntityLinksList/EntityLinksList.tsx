@@ -2,6 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
+import { CellProps, ModelTableActionProps } from "react-table";
+import { capitalize } from "lodash";
 import { useMaybeFragment, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -19,9 +21,6 @@ import type {
   EntityLinksListDataFragment$key,
 } from "@/relay/EntityLinksListDataFragment.graphql";
 
-import { CellProps, ModelTableActionProps } from "react-table";
-
-import { capitalize } from "lodash";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function EntityLinksList<T extends OperationType>({

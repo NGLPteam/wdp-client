@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import type { Props as NamedLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import { RouteHelper } from "../routes";
+import type { Props as NamedLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 
 interface Link extends NamedLinkProps {
   label?: string;

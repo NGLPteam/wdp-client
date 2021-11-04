@@ -1,9 +1,9 @@
 import * as React from "react";
-import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import EntityLinksAddForm from "components/composed/links/EntityLinksAddForm";
 import { graphql } from "react-relay";
+import EntityLinksAddForm from "components/composed/links/EntityLinksAddForm";
+import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
 import type { EntityLinksAddDrawerQuery as Query } from "__generated__/EntityLinksAddDrawerQuery.graphql";

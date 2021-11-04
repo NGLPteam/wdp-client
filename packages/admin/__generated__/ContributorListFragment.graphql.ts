@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorListFragment = {
     readonly nodes: ReadonlyArray<{
@@ -50,7 +51,7 @@ export type ContributorListFragment = {
 };
 export type ContributorListFragment$data = ContributorListFragment;
 export type ContributorListFragment$key = {
-    readonly " $data"?: ContributorListFragment$data;
+    readonly " $data"?: ContributorListFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorListFragment">;
 };
 

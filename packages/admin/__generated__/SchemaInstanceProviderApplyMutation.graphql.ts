@@ -3,10 +3,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type ApplySchemaPropertiesInput = {
     entityId: string;
     propertyValues: unknown;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type SchemaInstanceProviderApplyMutationVariables = {
     input: ApplySchemaPropertiesInput;
@@ -14,7 +15,7 @@ export type SchemaInstanceProviderApplyMutationVariables = {
 export type SchemaInstanceProviderApplyMutationResponse = {
     readonly applySchemaProperties: {
         readonly entity: {
-            readonly id?: string;
+            readonly id?: string | undefined;
         } | null;
         readonly schemaErrors: ReadonlyArray<{
             readonly hint: boolean;

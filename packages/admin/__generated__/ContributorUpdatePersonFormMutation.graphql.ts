@@ -3,21 +3,22 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdatePersonContributorInput = {
-    email?: string | null;
-    url?: string | null;
-    bio?: string | null;
-    links?: Array<ContributorLinkInput> | null;
-    image?: UploadedFileInput | null;
-    givenName?: string | null;
-    familyName?: string | null;
-    title?: string | null;
-    affiliation?: string | null;
+    email?: string | null | undefined;
+    url?: string | null | undefined;
+    bio?: string | null | undefined;
+    links?: Array<ContributorLinkInput> | null | undefined;
+    image?: UploadedFileInput | null | undefined;
+    givenName?: string | null | undefined;
+    familyName?: string | null | undefined;
+    title?: string | null | undefined;
+    affiliation?: string | null | undefined;
     contributorId: string;
-    clearImage?: boolean | null;
-    clientMutationId?: string | null;
+    clearImage?: boolean | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type ContributorLinkInput = {
     title: string;
@@ -25,12 +26,12 @@ export type ContributorLinkInput = {
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type ContributorUpdatePersonFormMutationVariables = {
     input: UpdatePersonContributorInput;

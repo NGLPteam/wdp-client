@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type GroupPropertyFragment = {
     readonly legend: string | null;
@@ -14,7 +15,7 @@ export type GroupPropertyFragment = {
 };
 export type GroupPropertyFragment$data = GroupPropertyFragment;
 export type GroupPropertyFragment$key = {
-    readonly " $data"?: GroupPropertyFragment$data;
+    readonly " $data"?: GroupPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"GroupPropertyFragment">;
 };
 

@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UserAvatarFragment = {
     readonly avatar: {
@@ -17,7 +18,7 @@ export type UserAvatarFragment = {
 };
 export type UserAvatarFragment$data = UserAvatarFragment;
 export type UserAvatarFragment$key = {
-    readonly " $data"?: UserAvatarFragment$data;
+    readonly " $data"?: UserAvatarFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"UserAvatarFragment">;
 };
 

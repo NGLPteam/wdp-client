@@ -2,12 +2,11 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
+import { useSchemaFormContext } from "../../Context";
+import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 
 import type { AssetsPropertyFragment$key } from "@/relay/AssetsPropertyFragment.graphql";
-
-import { useSchemaFormContext } from "../../Context";
-import ScalarProperty from "../ScalarProperty";
 
 export default function AssetsProperty(props: Props) {
   const { assets: options } = useSchemaFormContext();

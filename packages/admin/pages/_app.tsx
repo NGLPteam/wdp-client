@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
-import { AppContextProvider } from "contexts";
 import { Toaster } from "react-hot-toast";
 import {
   SSRKeycloakProvider,
@@ -11,19 +10,20 @@ import { RelayEnvironmentProvider } from "relay-hooks";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
+import { appWithTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import { AppContextProvider } from "contexts";
 import type { Page } from "types/page";
 
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import useLatest from "hooks/useLatest";
 import { useSetLocale } from "hooks/useSetLocale";
-import { appWithTranslation } from "next-i18next";
 
 import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 
-import { useRouter } from "next/router";
 import { RouteHelper } from "routes";
 
 const NGLPApp = ({
@@ -107,6 +107,7 @@ const NGLPApp = ({
 NGLPApp.getInitialProps = async (context: AppContext) => {
   return {
     cookies: parseCookies(context?.ctx?.req) || {},
+    pageProps: {},
   };
 };
 

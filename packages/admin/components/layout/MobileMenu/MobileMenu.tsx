@@ -1,9 +1,9 @@
 import React, { forwardRef, Ref, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import { GlobalSearch, ProviderBar } from "components/global";
 import MobileMenuToggle from "../MobileMenuToggle";
 import * as Styled from "./MobileMenu.styles";
+import { GlobalSearch, ProviderBar } from "components/global";
 
 const MobileMenu = forwardRef(
   (

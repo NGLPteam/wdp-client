@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateDrawerQueryVariables = {
     contributorSlug: string;
@@ -10,11 +11,11 @@ export type ContributorUpdateDrawerQueryVariables = {
 export type ContributorUpdateDrawerQueryResponse = {
     readonly contributor: {
         readonly __typename: string;
-        readonly id?: string;
-        readonly slug?: string;
-        readonly legalName?: string | null;
-        readonly givenName?: string | null;
-        readonly familyName?: string | null;
+        readonly id?: string | undefined;
+        readonly slug?: string | undefined;
+        readonly legalName?: string | null | undefined;
+        readonly givenName?: string | null | undefined;
+        readonly familyName?: string | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateFormFragment">;
     } | null;
 };

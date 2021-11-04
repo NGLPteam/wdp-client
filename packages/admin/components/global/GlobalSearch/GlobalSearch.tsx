@@ -1,6 +1,6 @@
 import React from "react";
-import { Search } from "components/forms";
 import { useRouter } from "next/router";
+import { Search } from "components/forms";
 
 const GlobalSearch = () => {
   const router = useRouter();

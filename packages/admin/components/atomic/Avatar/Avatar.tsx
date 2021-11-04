@@ -1,6 +1,6 @@
 import React from "react";
-import { Image } from "components/atomic";
 import * as Styled from "./Avatar.styles";
+import { Image } from "components/atomic";
 
 const Avatar = ({ url, alt = "", size = 30 }: Props) => {
   return url ? (

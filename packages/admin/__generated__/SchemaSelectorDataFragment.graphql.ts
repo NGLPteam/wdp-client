@@ -3,19 +3,20 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SchemaSelectorDataFragment = {
-    readonly entityId?: string;
+    readonly entityId?: string | undefined;
     readonly schemaVersion?: {
         readonly name: string;
         readonly number: string;
         readonly slug: string;
-    };
+    } | undefined;
     readonly " $refType": "SchemaSelectorDataFragment";
 };
 export type SchemaSelectorDataFragment$data = SchemaSelectorDataFragment;
 export type SchemaSelectorDataFragment$key = {
-    readonly " $data"?: SchemaSelectorDataFragment$data;
+    readonly " $data"?: SchemaSelectorDataFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorDataFragment">;
 };
 

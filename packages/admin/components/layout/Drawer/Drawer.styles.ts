@@ -3,9 +3,9 @@ import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
 } from "reakit/Dialog";
+import { reducedMotion } from "@castiron/style-mixins";
 import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-import { reducedMotion } from "@castiron/style-mixins";
 import { noInsetSupport, noFlexGapSupport } from "theme/mixins/base";
 
 const slideIn = keyframes`

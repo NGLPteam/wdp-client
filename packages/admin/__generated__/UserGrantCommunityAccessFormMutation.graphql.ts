@@ -3,12 +3,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type GrantAccessInput = {
     entityId: string;
     roleId: string;
     userId: string;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type UserGrantCommunityAccessFormMutationVariables = {
     input: GrantAccessInput;

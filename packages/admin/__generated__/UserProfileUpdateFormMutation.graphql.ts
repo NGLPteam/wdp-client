@@ -3,22 +3,23 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateViewerSettingsInput = {
-    avatar?: UploadedFileInput | null;
-    clearAvatar?: boolean | null;
+    avatar?: UploadedFileInput | null | undefined;
+    clearAvatar?: boolean | null | undefined;
     profile: UserProfileInput;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type UserProfileInput = {
     givenName: string;

@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SelectPropertyFragment = {
     readonly options: ReadonlyArray<{
@@ -14,7 +15,7 @@ export type SelectPropertyFragment = {
 };
 export type SelectPropertyFragment$data = SelectPropertyFragment;
 export type SelectPropertyFragment$key = {
-    readonly " $data"?: SelectPropertyFragment$data;
+    readonly " $data"?: SelectPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SelectPropertyFragment">;
 };
 

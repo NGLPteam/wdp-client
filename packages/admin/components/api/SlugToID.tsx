@@ -3,11 +3,10 @@ import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
+import QueryWrapper from "./QueryWrapper";
 import { SlugToIDCommunityQuery as CommunityQuery } from "@/relay/SlugToIDCommunityQuery.graphql";
 import { SlugToIDCollectionQuery as CollectionQuery } from "@/relay/SlugToIDCollectionQuery.graphql";
 import { SlugToIDItemQuery as ItemQuery } from "@/relay/SlugToIDItemQuery.graphql";
-
-import QueryWrapper from "./QueryWrapper";
 
 /**
  * A component that will accept a community slug and extract its node id.

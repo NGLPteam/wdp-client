@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { breakpoints } from "theme/base/variables";
 import { useWindowSize } from "./index";
+import { breakpoints } from "theme/base/variables";
 
 const useIsMobile = () => {
   const size = useWindowSize();

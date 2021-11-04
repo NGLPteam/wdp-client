@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
+import PageActions from "./";
 import { ButtonControl } from "components/atomic/buttons";
 import { Search } from "components/forms";
-import PageActions from "./";
 
 type Props = React.ComponentProps<typeof PageActions>;
 

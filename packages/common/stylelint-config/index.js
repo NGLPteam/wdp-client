@@ -5,7 +5,5 @@ module.exports = {
     "stylelint-config-recommended",
     "stylelint-config-styled-components",
   ],
-  rules: {
-    "csstools/use-logical": "always",
-  },
+  rules: {},
 };

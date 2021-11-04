@@ -1,6 +1,6 @@
 import React from "react";
-import { Pagination } from "components/atomic";
 import { graphql, useFragment } from "react-relay";
+import { Pagination } from "components/atomic";
 import type { ModelPaginationFragment$key } from "@/relay/ModelPaginationFragment.graphql";
 
 interface ModelPaginationProps<T extends ModelPaginationFragment$key> {

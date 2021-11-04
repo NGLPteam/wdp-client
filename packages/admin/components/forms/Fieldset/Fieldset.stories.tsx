@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
+import Fieldset from ".";
 import NullForm from "components/api/NullForm";
 import { Input } from "components/forms";
-import Fieldset from ".";
 
 type FieldValues = {
   example?: string;

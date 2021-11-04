@@ -2,6 +2,8 @@ import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { CellProps, ModelTableActionProps } from "react-table";
+import { useTranslation } from "react-i18next";
+import UserNameColumnCell from "../UserNameColumnCell";
 import { useDrawerHelper, useMaybeFragment } from "hooks";
 import type {
   UserListFragment,
@@ -11,8 +13,6 @@ import type {
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { useTranslation } from "react-i18next";
-import UserNameColumnCell from "../UserNameColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

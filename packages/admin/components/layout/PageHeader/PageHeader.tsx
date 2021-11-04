@@ -1,4 +1,6 @@
 import React, { ReactNode } from "react";
+import isNil from "lodash/isNil";
+import * as Styled from "./PageHeader.styles";
 import {
   Breadcrumbs,
   NamedLink,
@@ -6,9 +8,7 @@ import {
   SidebarNav,
   MobileSubNav,
 } from "components/atomic";
-import isNil from "lodash/isNil";
 import { ContentHeader } from "components/layout";
-import * as Styled from "./PageHeader.styles";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;

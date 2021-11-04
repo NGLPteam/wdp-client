@@ -4,10 +4,10 @@ import { useUID } from "react-uid";
 import isFunction from "lodash/isFunction";
 import { useTranslation } from "react-i18next";
 
-import Errors from "components/forms/Errors";
-import BaseInputLabel from "components/forms/BaseInputLabel";
 import type InputProps from "../inputType";
 import * as Styled from "./BaseInputWrapper.styles";
+import Errors from "components/forms/Errors";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,

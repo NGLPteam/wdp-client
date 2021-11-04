@@ -38,10 +38,10 @@ export default function NullForm<T extends FieldValues = FieldValues>({
     [onSubmitCallback]
   );
 
-  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
-    handleSubmit,
-    submitHandler,
-  ]);
+  const onSubmit = useMemo(
+    () => handleSubmit(submitHandler),
+    [handleSubmit, submitHandler]
+  );
 
   const {
     formState: { isSubmitting, isValidating },

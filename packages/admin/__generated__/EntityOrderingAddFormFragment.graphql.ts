@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
 export type EntityOrderingAddFormFragment = {
@@ -24,7 +25,7 @@ export type EntityOrderingAddFormFragment = {
 };
 export type EntityOrderingAddFormFragment$data = EntityOrderingAddFormFragment;
 export type EntityOrderingAddFormFragment$key = {
-    readonly " $data"?: EntityOrderingAddFormFragment$data;
+    readonly " $data"?: EntityOrderingAddFormFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
 };
 

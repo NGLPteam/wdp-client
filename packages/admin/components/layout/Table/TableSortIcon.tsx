@@ -1,7 +1,7 @@
 import React from "react";
-import { IconFactory } from "components/factories";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Table.styles";
+import { IconFactory } from "components/factories";
 
 const TableSortIcon = ({ desc, isSorted, ...buttonProps }: Props) => {
   const { t } = useTranslation();

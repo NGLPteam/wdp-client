@@ -1,5 +1,5 @@
-import { useSignInOut } from "hooks/useIsAuthenticated";
 import { useTranslation } from "react-i18next";
+import { useSignInOut } from "hooks/useIsAuthenticated";
 
 const SignInOut = ({ className }: Props) => {
   const { isAuthenticated, handleSignInOut } = useSignInOut();

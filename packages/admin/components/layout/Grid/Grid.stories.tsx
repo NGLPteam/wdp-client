@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { ButtonControlGroup, Image, ButtonControl } from "components/atomic";
 import Grid from "./";
+import { ButtonControlGroup, Image, ButtonControl } from "components/atomic";
 
 type Props = React.ComponentProps<typeof Grid>;
 

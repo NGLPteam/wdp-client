@@ -1,7 +1,7 @@
 import React from "react";
 import { Trans } from "react-i18next";
-import { PageInfo } from "types/graphql-schema";
 import * as Styled from "./PageCountActions.styles";
+import { PageInfo } from "types/graphql-schema";
 
 /**
  * Shows number of items or number of selected items.

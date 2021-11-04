@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type RoleGrantAccessDrawerQueryVariables = {
     slug: string;
@@ -14,15 +15,15 @@ export type RoleGrantAccessDrawerQueryResponse = {
     readonly community?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly collection?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly item?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormFragment">;
 };
 export type RoleGrantAccessDrawerQuery = {

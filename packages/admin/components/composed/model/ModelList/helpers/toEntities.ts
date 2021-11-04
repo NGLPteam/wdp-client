@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import has from "lodash/has";
+import reject from "lodash/reject";
+import isNil from "lodash/isNil";
 import {
   Connectionish,
   HasEdgesWithNode,
   HasNodes,
 } from "types/graphql-helpers";
-import has from "lodash/has";
-import reject from "lodash/reject";
-import isNil from "lodash/isNil";
 
 function connectionHasEdges(connection: any): connection is HasEdgesWithNode {
   return Array.isArray(connection?.edges) && has(connection.edges[0], "node");

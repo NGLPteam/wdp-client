@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorLayoutQueryFragment = {
     readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutFragment">;
@@ -10,7 +11,7 @@ export type ContributorLayoutQueryFragment = {
 };
 export type ContributorLayoutQueryFragment$data = ContributorLayoutQueryFragment;
 export type ContributorLayoutQueryFragment$key = {
-    readonly " $data"?: ContributorLayoutQueryFragment$data;
+    readonly " $data"?: ContributorLayoutQueryFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutQueryFragment">;
 };
 

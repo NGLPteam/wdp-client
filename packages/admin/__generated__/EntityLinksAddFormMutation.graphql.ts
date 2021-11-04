@@ -3,13 +3,14 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityLinkOperator = "CONTAINS" | "REFERENCES" | "%future added value";
 export type LinkEntityInput = {
     sourceId: string;
     targetId: string;
     operator: EntityLinkOperator;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type EntityLinksAddFormMutationVariables = {
     input: LinkEntityInput;
@@ -18,7 +19,7 @@ export type EntityLinksAddFormMutationResponse = {
     readonly linkEntity: {
         readonly link: {
             readonly target: {
-                readonly title?: string;
+                readonly title?: string | undefined;
             };
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;

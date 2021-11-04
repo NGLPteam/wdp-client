@@ -1,8 +1,8 @@
 import React, { Ref, forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import Input from "components/forms/Input";
 
 import type InputProps from "components/forms/inputType";
-import { useTranslation } from "react-i18next";
 
 const Slug = forwardRef(
   ({ description, ...props }: InputProps, ref: Ref<HTMLInputElement>) => {

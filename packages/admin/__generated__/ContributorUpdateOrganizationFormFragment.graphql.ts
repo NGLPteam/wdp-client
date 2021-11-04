@@ -3,15 +3,16 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateOrganizationFormFragment = {
-    readonly contributorId?: string;
+    readonly contributorId?: string | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
     readonly " $refType": "ContributorUpdateOrganizationFormFragment";
 };
 export type ContributorUpdateOrganizationFormFragment$data = ContributorUpdateOrganizationFormFragment;
 export type ContributorUpdateOrganizationFormFragment$key = {
-    readonly " $data"?: ContributorUpdateOrganizationFormFragment$data;
+    readonly " $data"?: ContributorUpdateOrganizationFormFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFragment">;
 };
 

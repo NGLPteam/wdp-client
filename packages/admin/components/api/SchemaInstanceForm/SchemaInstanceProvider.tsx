@@ -3,7 +3,6 @@ import groupBy from "lodash/groupBy";
 import { useFragment, useMutation } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useNotify } from "hooks";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
 import type {
   Control,
@@ -12,21 +11,21 @@ import type {
   Path,
 } from "react-hook-form";
 
-import type {
-  SchemaInstanceProviderFragment$key,
-  SchemaInstanceProviderFragment,
-} from "@/relay/SchemaInstanceProviderFragment.graphql";
-import type {
-  SchemaInstanceProviderApplyMutation,
-  SchemaInstanceProviderApplyMutationResponse as MutationResponse,
-  ApplySchemaPropertiesInput,
-} from "@/relay/SchemaInstanceProviderApplyMutation.graphql";
-
 import Actions from "./Actions";
 import Context from "./Context";
 import type { State } from "./Context";
 
 import type { OnSuccessCallback } from "./types";
+import type {
+  SchemaInstanceProviderApplyMutation,
+  SchemaInstanceProviderApplyMutationResponse as MutationResponse,
+  ApplySchemaPropertiesInput,
+} from "@/relay/SchemaInstanceProviderApplyMutation.graphql";
+import type {
+  SchemaInstanceProviderFragment$key,
+  SchemaInstanceProviderFragment,
+} from "@/relay/SchemaInstanceProviderFragment.graphql";
+import { useNotify } from "hooks";
 
 export default function SchemaInstanceProvider({
   successNotification,
@@ -37,9 +36,8 @@ export default function SchemaInstanceProvider({
   const notify = useNotify();
   const { t } = useTranslation();
 
-  const [apply] = useMutation<SchemaInstanceProviderApplyMutation>(
-    applyMutation
-  );
+  const [apply] =
+    useMutation<SchemaInstanceProviderApplyMutation>(applyMutation);
 
   const form = useForm({
     defaultValues: context.fieldValues,

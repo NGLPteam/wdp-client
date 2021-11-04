@@ -1,5 +1,6 @@
 import React, { Ref, forwardRef, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import * as Styled from "./VariableDatePicker.styles";
 import Input from "components/forms/Input";
 import Fieldset from "components/forms/Fieldset";
 import type { DatePrecision } from "types/graphql-schema";
@@ -11,7 +12,6 @@ import {
   getDay,
   dateLeadingZero,
 } from "helpers/dates";
-import * as Styled from "./VariableDatePicker.styles";
 
 const VariableDatePicker = forwardRef(
   (

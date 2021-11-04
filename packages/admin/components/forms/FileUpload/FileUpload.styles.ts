@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import FileUploadPreview from "./FileUploadPreview";
 import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-import FileUploadPreview from "./FileUploadPreview";
 type FileUploadPreviewProps = React.ComponentProps<typeof FileUploadPreview>;
 
 export const Wrapper = styled.div`

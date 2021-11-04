@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
-import { ButtonControl } from "components/atomic/buttons";
 import Drawer from "./Drawer";
+import { ButtonControl } from "components/atomic/buttons";
 
 type Props = React.ComponentProps<typeof Drawer>;
 

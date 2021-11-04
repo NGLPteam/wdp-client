@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type RoleEditAccessDrawerQueryVariables = {
     slug: string;
@@ -15,15 +16,15 @@ export type RoleEditAccessDrawerQueryResponse = {
     readonly community?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly collection?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly item?: {
         readonly id: string;
         readonly title: string;
-    } | null;
+    } | null | undefined;
     readonly user: {
         readonly id: string;
         readonly name: string | null;

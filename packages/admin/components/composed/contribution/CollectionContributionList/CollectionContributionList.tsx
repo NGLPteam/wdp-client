@@ -1,12 +1,13 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
+import type { ModelTableActionProps } from "react-table";
+import { CellProps } from "react-table";
+import { useTranslation } from "react-i18next";
 import type {
   CollectionContributionListFragment,
   CollectionContributionListFragment$key,
 } from "@/relay/CollectionContributionListFragment.graphql";
-import type { ModelTableActionProps } from "react-table";
-import { CellProps } from "react-table";
 import {
   useMaybeFragment,
   useDestroyer,
@@ -23,7 +24,6 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
-import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -39,10 +39,8 @@ function CollectionContributionList<T extends OperationType>({
   const { t } = useTranslation();
 
   /* eslint-disable max-len */
-  const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
-    fragment,
-    data
-  );
+  const collectionContributions =
+    useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
@@ -159,7 +157,8 @@ interface CollectionContributionListProps
   nameColumn?: "collection" | "contributor";
 }
 
-type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
+type CollectionContributionNode =
+  CollectionContributionListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {

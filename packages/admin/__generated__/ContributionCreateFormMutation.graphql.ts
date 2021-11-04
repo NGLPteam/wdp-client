@@ -3,19 +3,20 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UpsertContributionInput = {
     contributableId: string;
     contributorId: string;
-    role?: string | null;
-    metadata?: ContributionMetadataInput | null;
-    clientMutationId?: string | null;
+    role?: string | null | undefined;
+    metadata?: ContributionMetadataInput | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type ContributionMetadataInput = {
-    title?: string | null;
-    affiliation?: string | null;
-    displayName?: string | null;
-    location?: string | null;
+    title?: string | null | undefined;
+    affiliation?: string | null | undefined;
+    displayName?: string | null | undefined;
+    location?: string | null | undefined;
 };
 export type ContributionCreateFormMutationVariables = {
     input: UpsertContributionInput;
@@ -23,7 +24,7 @@ export type ContributionCreateFormMutationVariables = {
 export type ContributionCreateFormMutationResponse = {
     readonly upsertContribution: {
         readonly contribution: {
-            readonly role?: string | null;
+            readonly role?: string | null | undefined;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;

@@ -73,9 +73,8 @@ export type MutationName<M extends MutationParameters> = {
     : never;
 }[keyof M["response"]];
 
-export type PayloadWithErrors<
-  M extends MutationParameters
-> = M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
+export type PayloadWithErrors<M extends MutationParameters> =
+  M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
 
 interface PayloadFragments {
   __fragments?: {
@@ -83,9 +82,8 @@ interface PayloadFragments {
   };
 }
 
-export type PayloadWithFragments<
-  M extends MutationParameters
-> = M["response"][MutationName<M>] & PayloadFragments;
+export type PayloadWithFragments<M extends MutationParameters> =
+  M["response"][MutationName<M>] & PayloadFragments;
 
 interface RemappedAttributeError<T> {
   path: Path<T>;

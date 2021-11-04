@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SchemaInstanceFormFragment = {
     readonly context: {
@@ -16,7 +17,7 @@ export type SchemaInstanceFormFragment = {
 };
 export type SchemaInstanceFormFragment$data = SchemaInstanceFormFragment;
 export type SchemaInstanceFormFragment$key = {
-    readonly " $data"?: SchemaInstanceFormFragment$data;
+    readonly " $data"?: SchemaInstanceFormFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaInstanceFormFragment">;
 };
 

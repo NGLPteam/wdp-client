@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CommunityUpdateFormFieldsFragment = {
     readonly title: string;
@@ -10,7 +11,7 @@ export type CommunityUpdateFormFieldsFragment = {
 };
 export type CommunityUpdateFormFieldsFragment$data = CommunityUpdateFormFieldsFragment;
 export type CommunityUpdateFormFieldsFragment$key = {
-    readonly " $data"?: CommunityUpdateFormFieldsFragment$data;
+    readonly " $data"?: CommunityUpdateFormFieldsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
 };
 

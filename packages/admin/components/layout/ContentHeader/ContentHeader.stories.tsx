@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { ButtonControl } from "components/atomic";
 import ContentHeader from ".";
+import { ButtonControl } from "components/atomic";
 type Props = React.ComponentProps<typeof ContentHeader>;
 
 export default {

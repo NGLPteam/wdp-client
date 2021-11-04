@@ -1,6 +1,12 @@
+// See https://www.npmjs.com/package/@rushstack/eslint-patch
+require("@rushstack/eslint-patch/modern-module-resolution");
+
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
+  },
   rules: {
     // "unused-imports/no-unused-imports": 2,
     // Turned off for this project

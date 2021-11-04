@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { ViewOptions } from "utils/view-options";
 import DataViewToggle from ".";
+import { ViewOptions } from "utils/view-options";
 type Props = React.ComponentProps<typeof DataViewToggle>;
 
 export default {

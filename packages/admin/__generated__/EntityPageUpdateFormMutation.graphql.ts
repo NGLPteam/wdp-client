@@ -3,26 +3,27 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdatePageInput = {
     pageId: string;
     title: string;
     slug: string;
-    position?: number | null;
+    position?: number | null | undefined;
     body: string;
-    heroImage?: UploadedFileInput | null;
-    clearHeroImage?: boolean | null;
-    clientMutationId?: string | null;
+    heroImage?: UploadedFileInput | null | undefined;
+    clearHeroImage?: boolean | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type EntityPageUpdateFormMutationVariables = {
     input: UpdatePageInput;

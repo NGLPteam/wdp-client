@@ -1,12 +1,12 @@
 import React from "react";
 import i18next from "i18next";
+import type { Hooks, Row } from "react-table";
 import {
   ButtonControlGroup,
   ButtonControl,
   ButtonControlConfirm,
   ButtonControlDownload,
 } from "components/atomic/buttons";
-import type { Hooks, Row } from "react-table";
 import IconFactory from "components/factories/IconFactory";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 

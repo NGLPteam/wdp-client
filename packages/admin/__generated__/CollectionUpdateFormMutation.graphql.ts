@@ -3,30 +3,31 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCollectionInput = {
     collectionId: string;
     title: string;
-    thumbnail?: UploadedFileInput | null;
-    doi?: string | null;
-    summary?: string | null;
-    publishedOn?: string | null;
+    thumbnail?: UploadedFileInput | null | undefined;
+    doi?: string | null | undefined;
+    summary?: string | null | undefined;
+    publishedOn?: string | null | undefined;
     visibility: EntityVisibility;
-    visibleAfterAt?: string | null;
-    visibleUntilAt?: string | null;
-    clearThumbnail?: boolean | null;
-    clientMutationId?: string | null;
+    visibleAfterAt?: string | null | undefined;
+    visibleUntilAt?: string | null | undefined;
+    clearThumbnail?: boolean | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type CollectionUpdateFormMutationVariables = {
     input: UpdateCollectionInput;

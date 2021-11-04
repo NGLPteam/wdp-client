@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
@@ -10,19 +11,19 @@ export type CreateAssetInput = {
     entityId: string;
     attachment: UploadedFileInput;
     name: string;
-    position?: number | null;
-    altText?: string | null;
-    caption?: string | null;
-    clientMutationId?: string | null;
+    position?: number | null | undefined;
+    altText?: string | null | undefined;
+    caption?: string | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type AssetCreateFormMutationVariables = {
     input: CreateAssetInput;
@@ -31,10 +32,10 @@ export type AssetCreateFormMutationResponse = {
     readonly createAsset: {
         readonly asset: {
             readonly __typename: string;
-            readonly id?: string;
-            readonly kind?: AssetKind;
-            readonly name?: string;
-            readonly slug?: string;
+            readonly id?: string | undefined;
+            readonly kind?: AssetKind | undefined;
+            readonly name?: string | undefined;
+            readonly slug?: string | undefined;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;

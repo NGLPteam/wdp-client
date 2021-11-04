@@ -3,13 +3,14 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateOrganizationFormFieldsFragment = {
-    readonly legalName?: string | null;
-    readonly email?: string | null;
-    readonly location?: string | null;
-    readonly bio?: string | null;
-    readonly url?: string | null;
+    readonly legalName?: string | null | undefined;
+    readonly email?: string | null | undefined;
+    readonly location?: string | null | undefined;
+    readonly bio?: string | null | undefined;
+    readonly url?: string | null | undefined;
     readonly image?: {
         readonly thumb: {
             readonly png: {
@@ -17,16 +18,16 @@ export type ContributorUpdateOrganizationFormFieldsFragment = {
                 readonly url: string;
             } | null;
         };
-    } | null;
+    } | null | undefined;
     readonly links?: ReadonlyArray<{
         readonly title: string;
         readonly url: string;
-    }>;
+    }> | undefined;
     readonly " $refType": "ContributorUpdateOrganizationFormFieldsFragment";
 };
 export type ContributorUpdateOrganizationFormFieldsFragment$data = ContributorUpdateOrganizationFormFieldsFragment;
 export type ContributorUpdateOrganizationFormFieldsFragment$key = {
-    readonly " $data"?: ContributorUpdateOrganizationFormFieldsFragment$data;
+    readonly " $data"?: ContributorUpdateOrganizationFormFieldsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
 };
 

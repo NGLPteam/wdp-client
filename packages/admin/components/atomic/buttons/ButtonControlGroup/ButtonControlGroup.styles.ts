@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
+import ButtonControlGroup from "./ButtonControlGroup";
 import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
-import ButtonControlGroup from "./ButtonControlGroup";
 
 type BaseProps = React.ComponentProps<typeof ButtonControlGroup>;
 

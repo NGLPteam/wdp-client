@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type StringPropertyFragment = {
     readonly content: string | null;
@@ -12,7 +13,7 @@ export type StringPropertyFragment = {
 };
 export type StringPropertyFragment$data = StringPropertyFragment;
 export type StringPropertyFragment$key = {
-    readonly " $data"?: StringPropertyFragment$data;
+    readonly " $data"?: StringPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
 };
 

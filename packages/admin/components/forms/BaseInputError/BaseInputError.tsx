@@ -1,6 +1,6 @@
 import React from "react";
-import { IconFactory } from "components/factories";
 import * as Styled from "./BaseInputError.styles";
+import { IconFactory } from "components/factories";
 
 const BaseInputError = ({ message }: Props) => {
   return (

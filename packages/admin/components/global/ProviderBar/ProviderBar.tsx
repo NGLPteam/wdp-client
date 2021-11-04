@@ -1,7 +1,7 @@
 import React from "react";
-import appData from "fixtures/app.data";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./ProviderBar.styles";
+import appData from "fixtures/app.data";
 
 const ProviderBar = () => {
   const { siteInfo } = appData;

@@ -1,5 +1,5 @@
-import { ViewOptions } from "utils/view-options";
 import useLocalStorage from "./useLocalStorage";
+import { ViewOptions } from "utils/view-options";
 
 /**
  * Get and set list view preferences

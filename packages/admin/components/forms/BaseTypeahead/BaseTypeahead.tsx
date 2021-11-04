@@ -1,9 +1,9 @@
 import React, { Ref, forwardRef } from "react";
 import { useCombobox } from "downshift";
-import { IconFactory } from "components/factories";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
 import * as Styled from "./BaseTypeahead.styles";
+import { IconFactory } from "components/factories";
 
 /**
  * A typeahead single select.

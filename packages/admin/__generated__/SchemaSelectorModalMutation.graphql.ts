@@ -3,14 +3,15 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type PropertyApplicationStrategy = "APPLY" | "SKIP" | "%future added value";
 export type AlterSchemaVersionInput = {
     entityId: string;
     schemaVersionSlug: string;
     propertyValues: unknown;
-    strategy?: PropertyApplicationStrategy | null;
-    clientMutationId?: string | null;
+    strategy?: PropertyApplicationStrategy | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type SchemaSelectorModalMutationVariables = {
     input: AlterSchemaVersionInput;

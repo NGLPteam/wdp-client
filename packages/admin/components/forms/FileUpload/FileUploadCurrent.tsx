@@ -1,6 +1,6 @@
 import React from "react";
-import { Image } from "components/atomic";
 import * as Styled from "./FileUpload.styles";
+import { Image } from "components/atomic";
 
 const WIDTH = 150;
 const HEIGHT = 150;

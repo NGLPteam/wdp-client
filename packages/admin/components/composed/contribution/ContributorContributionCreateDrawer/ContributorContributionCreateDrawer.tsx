@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { DialogProps } from "reakit/Dialog";
+import type { DialogProps } from "reakit/Dialog";
+import ContributionCreateForm from "../ContributionCreateForm";
 import { useDrawerHelper } from "hooks";
 import { Drawer } from "components/layout";
 import { QueryWrapper } from "components/api";
 import type { ContributorContributionCreateDrawerQuery as Query } from "__generated__/ContributorContributionCreateDrawerQuery.graphql";
-import ContributionCreateForm from "../ContributionCreateForm";
 
 export default function ContributorContributionCreateDrawer({
   dialog,

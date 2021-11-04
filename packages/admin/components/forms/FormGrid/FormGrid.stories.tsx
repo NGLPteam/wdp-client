@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import { Input, DatePicker, Email } from "components/forms";
-import NullForm from "components/api/NullForm";
-import type { UploadedFileInput } from "types/graphql-schema";
 import Switch from "../Switch";
 import Textarea from "../Textarea";
 import FileUpload from "../FileUpload";
 import FormGrid from ".";
+import type { UploadedFileInput } from "types/graphql-schema";
+import NullForm from "components/api/NullForm";
+import { Input, DatePicker, Email } from "components/forms";
 
 type Props = Omit<React.ComponentProps<typeof FormGrid>, "children">;
 

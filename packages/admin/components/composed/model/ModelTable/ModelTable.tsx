@@ -1,9 +1,9 @@
 import React from "react";
-import { Table } from "components/layout";
 import type {
   UseTableInstanceProps,
   UseRowSelectInstanceProps,
 } from "react-table";
+import { Table } from "components/layout";
 import { useQueryStateContext } from "hooks";
 
 type ModelTableProps<U extends Record<string, unknown>> = Pick<

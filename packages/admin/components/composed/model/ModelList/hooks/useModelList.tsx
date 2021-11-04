@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useEffect } from "react";
-import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 import { useTable, useSortBy, useRowSelect } from "react-table";
 import type { Column, ModelTableActionProps } from "react-table";
-import { useNoInitialEffect, useRoutePage } from "hooks";
 import type { OperationType } from "relay-runtime";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
 import { toEntities } from "../helpers/toEntities";
 import useRowActions from "./useRowActions";
+import { useNoInitialEffect, useRoutePage } from "hooks";
+import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;

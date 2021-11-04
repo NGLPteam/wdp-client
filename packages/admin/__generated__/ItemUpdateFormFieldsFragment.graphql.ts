@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type ItemUpdateFormFieldsFragment = {
@@ -23,7 +24,7 @@ export type ItemUpdateFormFieldsFragment = {
 };
 export type ItemUpdateFormFieldsFragment$data = ItemUpdateFormFieldsFragment;
 export type ItemUpdateFormFieldsFragment$key = {
-    readonly " $data"?: ItemUpdateFormFieldsFragment$data;
+    readonly " $data"?: ItemUpdateFormFieldsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFieldsFragment">;
 };
 

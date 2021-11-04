@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UserTypeaheadFragment = {
     readonly users: {
@@ -18,7 +19,7 @@ export type UserTypeaheadFragment = {
 };
 export type UserTypeaheadFragment$data = UserTypeaheadFragment;
 export type UserTypeaheadFragment$key = {
-    readonly " $data"?: UserTypeaheadFragment$data;
+    readonly " $data"?: UserTypeaheadFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"UserTypeaheadFragment">;
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
-import Drawer from "components/layout/Drawer";
 import { useTranslation } from "react-i18next";
-import { DialogProps } from "reakit/Dialog";
+import type { DialogProps } from "reakit/Dialog";
 import ContributorCreatePersonForm from "../ContributorCreatePersonForm";
+import Drawer from "components/layout/Drawer";
 
 export default function ContributorCreatePersonDrawer({
   dialog,

@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
+import * as Styled from "./UserNameColumnCell.styles";
 import { useMaybeFragment } from "hooks";
 import { NamedLink } from "components/atomic";
 import UserAvatar from "components/composed/user/UserAvatar";
 import { UserNameColumnCellFragment$key } from "@/relay/UserNameColumnCellFragment.graphql";
-import * as Styled from "./UserNameColumnCell.styles";
 
 const UserNameColumnCell = ({ data }: Props) => {
   const userData = useMaybeFragment(fragment, data);
