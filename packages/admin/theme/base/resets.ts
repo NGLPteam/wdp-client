@@ -66,7 +66,8 @@ export default css`
   input,
   button,
   textarea,
-  select {
+  select,
+  option {
     font: inherit;
     letter-spacing: inherit;
     text-rendering: inherit;
