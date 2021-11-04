@@ -32,9 +32,11 @@ export default function EntityOrderingAddForm({
   const entity = formData.item ?? formData.collection;
 
   const getFilter = (
-    items: string,
-    collections: string
+    items: string = "CHILDREN",
+    collections: string = "CHILDREN"
   ): OrderingFilterDefinitionInput["schemas"] => {
+    console.log(collections);
+    console.log(items);
     if (items !== "NONE" && collections !== "NONE") return null;
     if (items === "NONE")
       return schemaOptions.edges
@@ -46,16 +48,39 @@ export default function EntityOrderingAddForm({
         .map((node) => node.node.identifier);
   };
 
+  const getOrder = (
+    property: string,
+    direction: string
+  ): OrderDefinitionInput[] => {
+    const directionValue = direction === "asc" ? "ASCENDING" : "DESCENDING";
+
+    interface PathOptions extends Record<string, string> {
+      name: string;
+      updatedAt: string;
+      published: string;
+    }
+    const pathOptions: PathOptions = {
+      name: "entity.title",
+      updatedAt: "entity.updated_at",
+      published: "entity.published_on",
+    };
+    const path = pathOptions[property];
+
+    console.log([{ path: path, direction: directionValue }]);
+    return [{ path: path, direction: directionValue }];
+  };
+
   const toVariables = useToVariables<EntityOrderingAddFormMutation, Fields>(
     (data) => ({
       input: {
-        ...data,
         entityId: entity?.id || "",
+        name: data.name,
         identifier: data.name ? convertToSlug(data.name) : "",
         filter: {
-          schemas: getFilter(data.directItems, data.directCollections),
+          schemas: getFilter(data.items, data.collections),
         },
-        // order: [{direction: data.sortby[1], path:}]
+        select: { direct: data.collections },
+        order: getOrder(data.sortby.split(",")[0], data.sortby.split(",")[1]),
       },
     }),
     []
@@ -85,19 +110,18 @@ export default function EntityOrderingAddForm({
               label: "Publication date, descending",
             },
           ]}
-          name="sortby"
+          {...register("sortby")}
         />
         <Forms.Fieldset label={t("forms.fields.include")} noGap>
           <Forms.Description>
-            For each available type of entity, select which descendants should
-            be included in the ordering. Select Direct Descendants to select
-            only immediate children, for example journal issues but not their
-            articles. Descendants must be included for at least one type of
-            entity.
+            Select descendants to be included in the ordering. Use Direct
+            Descendants to select only immediate children, for example journal
+            issues but not their articles. Descendants must be included for at
+            least one type of entity.
           </Forms.Description>
           <Forms.RadioGroup
             label="glossary.collection_plural"
-            name="directCollections"
+            {...register("collections")}
             options={[
               { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
@@ -106,7 +130,7 @@ export default function EntityOrderingAddForm({
           />
           <Forms.RadioGroup
             label="glossary.item_plural"
-            name="directItems"
+            {...register("items")}
             options={[
               { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
@@ -143,9 +167,9 @@ type Props = Pick<
 type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
-    directCollections: string;
-    directItems: string;
-    sortby: string[];
+    collections: string;
+    items: string;
+    sortby: string;
   };
 
 const fragment = graphql`
