@@ -39,6 +39,7 @@ InAForm.args = {
   options: [
     { label: "One", value: 1 },
     { label: "Two", value: 2 },
+    { label: "Three: Lorem ipsum dolor sit amet", value: 3 },
   ],
   hideLabel: false,
   required: false,
