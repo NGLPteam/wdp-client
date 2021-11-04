@@ -11,19 +11,11 @@ export default function useNotify() {
     toast(msg);
   }, []);
 
-  const warn = useCallback((msg) => {
-    toast(msg);
-  }, []);
-
   const success = useCallback((msg) => {
     toast.success(msg);
   }, []);
 
   const error = useCallback((msg) => {
-    toast.error(msg);
-  }, []);
-
-  const fatal = useCallback((msg) => {
     toast.error(msg);
   }, []);
 
@@ -34,5 +26,11 @@ export default function useNotify() {
     [error]
   );
 
-  return { debug, info, warn, success, error, fatal, mutationGlobalError };
+  return {
+    debug,
+    info,
+    success,
+    error,
+    mutationGlobalError,
+  };
 }

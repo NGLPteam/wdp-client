@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Head from "next/head";
-import { Toaster } from "react-hot-toast";
+import { AppContextProvider } from "contexts";
 import {
   SSRKeycloakProvider,
   SSRCookies,
@@ -12,7 +12,6 @@ import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
 import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { AppContextProvider } from "contexts";
 import type { Page } from "types/page";
 
 import GlobalStyles from "theme";
@@ -25,6 +24,8 @@ import keycloakConfig from "utils/keycloak";
 import parseCookies from "utils/parseCookies";
 
 import { RouteHelper } from "routes";
+
+import { Toast } from "components/atomic";
 
 const NGLPApp = ({
   Component,
@@ -90,7 +91,7 @@ const NGLPApp = ({
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
             <AppBody>
-              <Toaster />
+              <Toast />
               {getLayout({
                 PageComponent: Component,
                 pageComponentProps: pageProps,
