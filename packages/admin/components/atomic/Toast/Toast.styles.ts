@@ -1,28 +1,14 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
+import {
+  fadeIn,
+  fadeOut,
+  fadeInScale,
+  fadeOutScale,
+} from "theme/base/animations";
 
-const fadeIn = keyframes`
-  0% {
-    transform: scale(.9); 
-    opacity:0;
-  }
-  100% {
-    transform: scale(1); 
-    opacity:1;
-  }
-`;
-
-const fadeOut = keyframes`
-  0% {
-    transform: scale(1); 
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(.9); 
-    opacity: 0;
-  }
-`;
+const EASE_FUNCTION = "cubic-bezier(0.83, 0, 0.17, 1)";
+const TIMING = "350ms";
 
 export const BaseToast = styled.div`
   display: flex;
@@ -38,11 +24,19 @@ export const BaseToast = styled.div`
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
 
   &[data-visible="true"] {
-    animation: ${fadeIn} 350ms cubic-bezier(0.83, 0, 0.17, 1) forwards;
+    animation: ${fadeInScale} ${TIMING} ${EASE_FUNCTION} forwards;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: ${fadeIn} ${TIMING} ${EASE_FUNCTION} forwards;
+    }
   }
 
   &[data-visible="false"] {
-    animation: ${fadeOut} 350ms cubic-bezier(0.83, 0, 0.17, 1) forwards;
+    animation: ${fadeOutScale} ${TIMING} ${EASE_FUNCTION} forwards;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: ${fadeOut} ${TIMING} ${EASE_FUNCTION} forwards;
+    }
   }
 
   &[data-type="success"] {

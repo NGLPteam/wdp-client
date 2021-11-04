@@ -1,15 +1,6 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
-
-const spin = keyframes`
-from {
-  transform: rotate(0deg);
-}
-
-to {
-  transform: rotate(360deg);
-}
-`;
+import { spin } from "theme/base/animations";
 
 const Circle = styled.div<{ size?: number }>`
   height: ${({ size = 16 }) => pxToRem(size)};
