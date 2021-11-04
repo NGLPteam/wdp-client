@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type MarkdownPropertyFragment = {
     readonly content: string | null;
@@ -12,7 +13,7 @@ export type MarkdownPropertyFragment = {
 };
 export type MarkdownPropertyFragment$data = MarkdownPropertyFragment;
 export type MarkdownPropertyFragment$key = {
-    readonly " $data"?: MarkdownPropertyFragment$data;
+    readonly " $data"?: MarkdownPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"MarkdownPropertyFragment">;
 };
 

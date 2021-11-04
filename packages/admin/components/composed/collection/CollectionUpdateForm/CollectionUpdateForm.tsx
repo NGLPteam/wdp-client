@@ -20,20 +20,14 @@ export default function CollectionUpdateForm({
   onSaveAndClose,
   onCancel,
 }: Props) {
-  const {
-    collectionId = "",
-    ...fieldsData
-  } = useFragment<CollectionUpdateFormFragment$key>(fragment, data);
+  const { collectionId = "", ...fieldsData } =
+    useFragment<CollectionUpdateFormFragment$key>(fragment, data);
 
-  const {
-    thumbnail,
-    visibleAfterAt,
-    visibleUntilAt,
-    ...values
-  } = useFragment<CollectionUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData
-  );
+  const { thumbnail, visibleAfterAt, visibleUntilAt, ...values } =
+    useFragment<CollectionUpdateFormFieldsFragment$key>(
+      fieldsFragment,
+      fieldsData
+    );
 
   const defaultValues = {
     ...values,

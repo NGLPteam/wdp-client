@@ -1,12 +1,12 @@
 import React from "react";
 import { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
+import { graphql } from "react-relay";
+import type { ModelTableActionProps } from "react-table";
 import {
   CommunityListFragment$key,
   CommunityListFragment,
 } from "@/relay/CommunityListFragment.graphql";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
 import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";

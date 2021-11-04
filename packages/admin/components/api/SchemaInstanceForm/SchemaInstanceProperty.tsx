@@ -2,9 +2,8 @@ import React from "react";
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 
-import type { SchemaInstancePropertyFragment$key } from "@/relay/SchemaInstancePropertyFragment.graphql";
-
 import * as Factories from "./Factories";
+import type { SchemaInstancePropertyFragment$key } from "@/relay/SchemaInstancePropertyFragment.graphql";
 
 /**
  * A component that renders either a single property or a group of properties

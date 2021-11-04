@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { useMutation } from "relay-hooks";
-import { useNotify } from "hooks";
 import { useTranslation } from "react-i18next";
 import { graphql, readInlineData } from "react-relay";
+import { useNotify } from "hooks";
 import type {
   DestroyCommunityInput,
   useDestroyerDestroyCommunityMutation,
@@ -36,7 +36,6 @@ import type {
   useDestroyerDestroyPageMutation,
 } from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
-import { useDestroyerFragment } from "@/relay/useDestroyerFragment.graphql";
 import { RevokeAccessInput } from "types/graphql-schema";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
@@ -51,7 +50,7 @@ export function useDestroyer() {
   const handleResponse = useCallback(
     (data: useDestroyerFragment$key | null, name: string) => {
       if (!data) return;
-      const results = readInlineData<useDestroyerFragment>(
+      const results = readInlineData<useDestroyerFragment$key>(
         destroyFragment,
         data
       );
@@ -69,11 +68,10 @@ export function useDestroyer() {
   );
 
   /* Destroy a collection */
-  const [
-    commitDestroyCollection,
-  ] = useMutation<useDestroyerDestroyCollectionMutation>(
-    destroyCollectionMutation
-  );
+  const [commitDestroyCollection] =
+    useMutation<useDestroyerDestroyCollectionMutation>(
+      destroyCollectionMutation
+    );
 
   const collection = useCallback(
     async (input: DestroyCollectionInput, label: string) => {
@@ -84,9 +82,8 @@ export function useDestroyer() {
   );
 
   /* Destroy a item */
-  const [commitDestroyItem] = useMutation<useDestroyerDestroyItemMutation>(
-    destroyItemMutation
-  );
+  const [commitDestroyItem] =
+    useMutation<useDestroyerDestroyItemMutation>(destroyItemMutation);
 
   const item = useCallback(
     async (input: DestroyItemInput, label: string) => {
@@ -97,11 +94,10 @@ export function useDestroyer() {
   );
 
   /* Destroy a contribution */
-  const [
-    commitDestroyContribution,
-  ] = useMutation<useDestroyerDestroyContributionMutation>(
-    destroyContributionMutation
-  );
+  const [commitDestroyContribution] =
+    useMutation<useDestroyerDestroyContributionMutation>(
+      destroyContributionMutation
+    );
 
   const contribution = useCallback(
     async (input: DestroyContributionInput, label: string) => {
@@ -114,11 +110,8 @@ export function useDestroyer() {
   );
 
   /* Destroy a community */
-  const [
-    commitDestroyCommunity,
-  ] = useMutation<useDestroyerDestroyCommunityMutation>(
-    destroyCommunityMutation
-  );
+  const [commitDestroyCommunity] =
+    useMutation<useDestroyerDestroyCommunityMutation>(destroyCommunityMutation);
 
   const community = useCallback(
     async (input: DestroyCommunityInput, label: string) => {
@@ -129,11 +122,10 @@ export function useDestroyer() {
   );
 
   /* Destroy a contributor */
-  const [
-    commitDestroyContributor,
-  ] = useMutation<useDestroyerDestroyContributorMutation>(
-    destroyContributorMutation
-  );
+  const [commitDestroyContributor] =
+    useMutation<useDestroyerDestroyContributorMutation>(
+      destroyContributorMutation
+    );
 
   const contributor = useCallback(
     async (input: DestroyContributorInput, label: string) => {
@@ -144,9 +136,8 @@ export function useDestroyer() {
   );
 
   /* Destroy a file */
-  const [commitDestroyAsset] = useMutation<useDestroyerDestroyAssetMutation>(
-    destroyFileMutation
-  );
+  const [commitDestroyAsset] =
+    useMutation<useDestroyerDestroyAssetMutation>(destroyFileMutation);
 
   const file = useCallback(
     async (input: DestroyAssetInput, label: string) => {
@@ -159,9 +150,8 @@ export function useDestroyer() {
   );
 
   /* Disable or destroy an ordering */
-  const [
-    commitDisableOrDestroyOrdering,
-  ] = useMutation<useDestroyerDestroyOrderingMutation>(destroyOrderingMutation);
+  const [commitDisableOrDestroyOrdering] =
+    useMutation<useDestroyerDestroyOrderingMutation>(destroyOrderingMutation);
 
   const ordering = useCallback(
     async (input: DestroyOrderingInput, label: string) => {
@@ -174,9 +164,8 @@ export function useDestroyer() {
   );
 
   /* Revoke access */
-  const [commitRevokeAccess] = useMutation<useDestroyerRevokeAccessMutation>(
-    revokeAccessMutation
-  );
+  const [commitRevokeAccess] =
+    useMutation<useDestroyerRevokeAccessMutation>(revokeAccessMutation);
 
   const access = useCallback(
     async (input: RevokeAccessInput, label: string) => {
@@ -187,11 +176,10 @@ export function useDestroyer() {
   );
 
   /* Destroy a link */
-  const [
-    commitDestroyLink,
-  ] = useMutation<useDestroyerDestroyEntityLinkMutation>(
-    destroyEntityLinkMutation
-  );
+  const [commitDestroyLink] =
+    useMutation<useDestroyerDestroyEntityLinkMutation>(
+      destroyEntityLinkMutation
+    );
 
   const link = useCallback(
     async (input: DestroyEntityLinkInput, label: string) => {
@@ -202,9 +190,8 @@ export function useDestroyer() {
   );
 
   /* Destroy a page */
-  const [commitDestroyPage] = useMutation<useDestroyerDestroyPageMutation>(
-    destroyPageMutation
-  );
+  const [commitDestroyPage] =
+    useMutation<useDestroyerDestroyPageMutation>(destroyPageMutation);
 
   const page = useCallback(
     async (input: DestroyPageInput, label: string) => {

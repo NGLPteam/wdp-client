@@ -1,6 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
+import { OperationType } from "relay-runtime";
+import type { CellProps, ModelTableActionProps } from "react-table";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -14,13 +16,11 @@ import {
 } from "@/relay/UserCollectionsListFragment.graphql";
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
-import { OperationType } from "relay-runtime";
 import {
   ButtonControlDrawer,
   ButtonControlGroup,
   NamedLink,
 } from "components/atomic";
-import type { CellProps, ModelTableActionProps } from "react-table";
 
 const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   const communities = useMaybeFragment<UserCollectionsListFragment$key>(

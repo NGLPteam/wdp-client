@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
 export type FullTextPropertyFragment = {
@@ -16,7 +17,7 @@ export type FullTextPropertyFragment = {
 };
 export type FullTextPropertyFragment$data = FullTextPropertyFragment;
 export type FullTextPropertyFragment$key = {
-    readonly " $data"?: FullTextPropertyFragment$data;
+    readonly " $data"?: FullTextPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
 };
 

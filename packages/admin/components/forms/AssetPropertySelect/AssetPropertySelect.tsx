@@ -1,12 +1,12 @@
 import React, { forwardRef, Ref } from "react";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { ButtonControl } from "components/atomic/buttons/ButtonControl/ButtonControl.styles";
-import Select from "components/forms/Select";
-import FileCreateModal from "components/composed/file/FileCreateModal";
 import BaseInputWrapper from "../BaseInputWrapper";
 import BaseSelect from "../BaseSelect";
 import * as Styled from "./AssetPropertySelect.styles";
+import { ButtonControl } from "components/atomic/buttons/ButtonControl/ButtonControl.styles";
+import Select from "components/forms/Select";
+import FileCreateModal from "components/composed/file/FileCreateModal";
 
 type BaseProps = React.ComponentProps<typeof Select>;
 

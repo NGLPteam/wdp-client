@@ -2,11 +2,10 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
+import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 
 import type { MultiselectPropertyFragment$key } from "@/relay/MultiselectPropertyFragment.graphql";
-
-import ScalarProperty from "../ScalarProperty";
 
 export default function MultiselectProperty(props: Props) {
   const field = useFragment<MultiselectPropertyFragment$key>(

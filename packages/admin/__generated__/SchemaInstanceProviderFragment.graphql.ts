@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type ContributorKind = "organization" | "person" | "%future added value";
@@ -25,7 +26,7 @@ export type SchemaInstanceProviderFragment = {
 };
 export type SchemaInstanceProviderFragment$data = SchemaInstanceProviderFragment;
 export type SchemaInstanceProviderFragment$key = {
-    readonly " $data"?: SchemaInstanceProviderFragment$data;
+    readonly " $data"?: SchemaInstanceProviderFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaInstanceProviderFragment">;
 };
 

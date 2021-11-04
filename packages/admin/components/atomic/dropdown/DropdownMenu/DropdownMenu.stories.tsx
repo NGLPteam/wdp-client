@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { ButtonControl, Button } from "components/atomic";
 import DropdownMenu from ".";
+import { ButtonControl, Button } from "components/atomic";
 
 type Props = React.ComponentProps<typeof DropdownMenu>;
 

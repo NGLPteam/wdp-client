@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
+import { Menu as BaseMenu, MenuItem } from "reakit/Menu";
 import { aBgLight, aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
-import { Menu as BaseMenu, MenuItem } from "reakit/Menu";
 
 export const MenuWrapper = styled(BaseMenu)`
   z-index: var(--z-index-dropdown);

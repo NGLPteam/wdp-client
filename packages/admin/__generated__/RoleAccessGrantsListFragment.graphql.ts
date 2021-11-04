@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type RoleAccessGrantsListFragment = {
     readonly allAccessGrants: {
@@ -12,7 +13,7 @@ export type RoleAccessGrantsListFragment = {
 };
 export type RoleAccessGrantsListFragment$data = RoleAccessGrantsListFragment;
 export type RoleAccessGrantsListFragment$key = {
-    readonly " $data"?: RoleAccessGrantsListFragment$data;
+    readonly " $data"?: RoleAccessGrantsListFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListFragment">;
 };
 

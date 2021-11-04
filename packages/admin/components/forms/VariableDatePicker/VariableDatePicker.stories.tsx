@@ -1,8 +1,8 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import { Story } from "@storybook/react";
-import NullForm from "components/api/NullForm";
 import VariableDatePicker from "./VariableDatePicker";
+import NullForm from "components/api/NullForm";
 
 type FieldValues = {
   example?: string;

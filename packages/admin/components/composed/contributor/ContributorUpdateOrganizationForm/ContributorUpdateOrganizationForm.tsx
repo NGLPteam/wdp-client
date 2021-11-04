@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
+import compact from "lodash/compact";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -12,7 +13,6 @@ import type {
   ContributorUpdateOrganizationFormMutation,
 } from "@/relay/ContributorUpdateOrganizationFormMutation.graphql";
 import type { ContributorUpdateOrganizationFormFieldsFragment$key } from "@/relay/ContributorUpdateOrganizationFormFieldsFragment.graphql";
-import compact from "lodash/compact";
 
 export default function ContributorUpdateOrganizationForm({
   data,
@@ -21,14 +21,11 @@ export default function ContributorUpdateOrganizationForm({
 }: Props) {
   const { contributorId = "", ...fieldsData } = useFragment(fragment, data);
 
-  const {
-    image,
-    links,
-    ...otherValues
-  } = useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData
-  );
+  const { image, links, ...otherValues } =
+    useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
+      fieldsFragment,
+      fieldsData
+    );
 
   // We need to transform the links value to a mutable value and remove nulls to satisfy
   // our type checker.

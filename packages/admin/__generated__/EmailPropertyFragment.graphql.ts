@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EmailPropertyFragment = {
     readonly address: string | null;
@@ -12,7 +13,7 @@ export type EmailPropertyFragment = {
 };
 export type EmailPropertyFragment$data = EmailPropertyFragment;
 export type EmailPropertyFragment$key = {
-    readonly " $data"?: EmailPropertyFragment$data;
+    readonly " $data"?: EmailPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EmailPropertyFragment">;
 };
 

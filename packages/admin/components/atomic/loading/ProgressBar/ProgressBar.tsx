@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useAutoProgress } from "hooks";
 import isNumber from "lodash/isNumber";
 import * as Styled from "./ProgressBar.styles";
+import { useAutoProgress } from "hooks";
 
 /* Exported progress bar - determines if bar should show and if auto progress should be used */
 const ProgressBar = ({ label, loading = false, percentLoaded }: Props) => {

@@ -1,7 +1,7 @@
 import React from "react";
-import Drawer from "components/layout/Drawer";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import Drawer from "components/layout/Drawer";
 import CommunityCreateForm from "components/composed/community/CommunityCreateForm";
 
 export default function CommunityCreateDrawer({

@@ -1,6 +1,8 @@
 import { Environment, RecordSource, Store } from "relay-runtime";
 import "regenerator-runtime/runtime";
+/* eslint-disable @next/next/no-document-import-in-page */
 import { DocumentContext } from "next/document";
+/* eslint-enable @next/next/no-document-import-in-page */
 import {
   authMiddleware,
   RelayNetworkLayer,
@@ -22,7 +24,8 @@ export default function buildInitialEnvironment(
     (next) => async (req) => {
       try {
         return await next(req);
-      } catch (err) {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+      } catch (err: any) {
         if (err?.res?.status === 401) {
           ctx?.res?.writeHead(302, { Location: "/sign_in" });
           ctx?.res?.end();
@@ -31,6 +34,7 @@ export default function buildInitialEnvironment(
           throw err;
         }
       }
+      /* eslint-enable @typescript-eslint/no-explicit-any */
     },
     urlMiddleware({
       url: process.env.NEXT_PUBLIC_API_URL || "",

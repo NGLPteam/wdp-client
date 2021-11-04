@@ -1,9 +1,9 @@
 import React from "react";
 import { UrlObject } from "url";
 import Link from "next/link";
-import { Button } from "components/atomic";
-import { IconFactory } from "components/factories";
 import * as Styled from "./MessageBlock.styles";
+import { Button } from "components/atomic";
+import IconFactory from "components/factories/IconFactory";
 declare type Url = string | UrlObject;
 
 const MessageBlock = ({ type = "error", name, message, link }: Props) => {

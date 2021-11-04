@@ -3,24 +3,25 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCommunityInput = {
     communityId: string;
-    position?: number | null;
+    position?: number | null | undefined;
     title: string;
-    thumbnail?: UploadedFileInput | null;
-    clearThumbnail?: boolean | null;
-    clientMutationId?: string | null;
+    thumbnail?: UploadedFileInput | null | undefined;
+    clearThumbnail?: boolean | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type CommunityUpdateFormMutationVariables = {
     input: UpdateCommunityInput;

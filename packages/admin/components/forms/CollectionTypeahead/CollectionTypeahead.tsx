@@ -1,13 +1,13 @@
 import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
+import type { FieldValues, Control, Path } from "react-hook-form";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
   CollectionTypeaheadFragment$data,
   CollectionTypeaheadFragment$key,
 } from "__generated__/CollectionTypeaheadFragment.graphql";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
@@ -49,7 +49,8 @@ interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
   name: Path<T>;
 }
 
-type CollectionNode = CollectionTypeaheadFragment$data["viewer"]["collections"]["nodes"][number];
+type CollectionNode =
+  CollectionTypeaheadFragment$data["viewer"]["collections"]["nodes"][number];
 
 export default CollectionTypeahead;
 

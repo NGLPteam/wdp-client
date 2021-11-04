@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import i18next from "i18next";
 import { NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
-import i18next from "i18next";
 import { RouteHelper } from "routes";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;

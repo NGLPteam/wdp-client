@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { SidebarNav } from "components/atomic";
 import * as Styled from "./ContentSidebar.styles";
+import { SidebarNav } from "components/atomic";
 
 type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
 

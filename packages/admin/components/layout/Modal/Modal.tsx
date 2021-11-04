@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
-import { ButtonControl } from "components/atomic/buttons";
-import { DialogProps } from "reakit/Dialog";
+import type { DialogProps } from "reakit/Dialog";
 import * as Styled from "./Modal.styles";
+import { ButtonControl } from "components/atomic/buttons";
 
 const Modal = ({
   dialog,

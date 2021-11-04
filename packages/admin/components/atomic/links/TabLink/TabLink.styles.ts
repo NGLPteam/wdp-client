@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
+import TabLink from "./TabLink";
 import { aTextGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-import TabLink from "./TabLink";
 type Props = React.ComponentProps<typeof TabLink>;
 
 const activeState = css`

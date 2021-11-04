@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
 
+import GlobalSearch from "../GlobalSearch";
+import ProviderBar from "../ProviderBar";
+import HeaderAccount from "./HeaderAccount";
+import * as Styled from "./Header.styles";
+import HeaderNavLinks from "./HeaderNavLinks";
 import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
 import { LogoPlaceholder } from "components/global";
@@ -12,11 +17,6 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
-import GlobalSearch from "../GlobalSearch";
-import ProviderBar from "../ProviderBar";
-import HeaderAccount from "./HeaderAccount";
-import * as Styled from "./Header.styles";
-import HeaderNavLinks from "./HeaderNavLinks";
 
 function Header() {
   const { t } = useTranslation();

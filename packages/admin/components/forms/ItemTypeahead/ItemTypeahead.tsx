@@ -1,13 +1,13 @@
 import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
+import type { FieldValues, Control, Path } from "react-hook-form";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
   ItemTypeaheadFragment$data,
   ItemTypeaheadFragment$key,
 } from "__generated__/ItemTypeaheadFragment.graphql";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 

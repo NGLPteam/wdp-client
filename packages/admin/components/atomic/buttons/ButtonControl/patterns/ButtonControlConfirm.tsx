@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
+import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
-import { DialogDisclosure, DialogActions, useDialogState } from "reakit/Dialog";
 import Modal from "components/layout/Modal";
 import ConfirmModal from "components/layout/ConfirmModal";
 
@@ -69,7 +69,7 @@ type Props = Pick<GroupProps, "breakpoint"> &
   Omit<BaseProps, "onClick"> & {
     modalLabel?: ModalProps["label"];
     modalBody?: React.ReactNode;
-    onClick?: (hideDialog: DialogActions["hide"]) => void;
+    onClick?: (hideDialog: () => void) => void;
   };
 
 export default ButtonControlConfirm;

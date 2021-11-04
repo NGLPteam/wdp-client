@@ -2,13 +2,13 @@ import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import get from "lodash/get";
+import type { FieldValues, Control, Path } from "react-hook-form";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
   ContributorTypeaheadFragment$key,
   ContributorTypeaheadFragment$data,
 } from "__generated__/ContributorTypeaheadFragment.graphql";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
 import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
@@ -51,7 +51,8 @@ interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
   name: Path<T>;
 }
 
-type ContributorNode = ContributorTypeaheadFragment$data["contributors"]["nodes"][number];
+type ContributorNode =
+  ContributorTypeaheadFragment$data["contributors"]["nodes"][number];
 
 export default ContributorTypeahead;
 

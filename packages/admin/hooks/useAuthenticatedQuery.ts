@@ -1,4 +1,5 @@
-import { QueryOptions, useQuery } from "relay-hooks";
+import { useQuery } from "relay-hooks";
+import type { QueryOptions } from "relay-hooks";
 
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import useAuthenticatedFetchKey from "./useAuthenticatedFetchKey";

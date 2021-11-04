@@ -39,10 +39,11 @@ export default function ContributionUpdateForm({
   }
 
   /* eslint-disable max-len */
-  const defaultValues = useMaybeFragment<ContributionUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    maybeContribution.__typename !== "%other" ? maybeContribution : null
-  );
+  const defaultValues =
+    useMaybeFragment<ContributionUpdateFormFieldsFragment$key>(
+      fieldsFragment,
+      maybeContribution.__typename !== "%other" ? maybeContribution : null
+    );
   /* eslint-enable max-len */
 
   const toVariables = useToVariables<ContributionUpdateFormMutation, Fields>(

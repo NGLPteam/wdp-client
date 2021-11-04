@@ -1,8 +1,8 @@
 import React, { useState, forwardRef } from "react";
-import BaseInputLabel from "components/forms/BaseInputLabel";
 import type InputProps from "../inputType";
 import Radio from "./Radio";
 import * as Styled from "./RadioGroup.styles";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 
 const RadioGroup = forwardRef(
   (

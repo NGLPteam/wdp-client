@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useDrawerHelper } from "hooks";
 import { useDialogState } from "reakit/Dialog";
 import get from "lodash/get";
+import { useDrawerHelper } from "hooks";
 
 /**
  * Controls opening & closing the global dialog

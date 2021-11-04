@@ -18,10 +18,8 @@ export default function CommunityUpdateForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const {
-    communityId = "",
-    ...fieldsData
-  } = useFragment<CommunityUpdateFormFragment$key>(fragment, data);
+  const { communityId = "", ...fieldsData } =
+    useFragment<CommunityUpdateFormFragment$key>(fragment, data);
 
   const defaultValues = useFragment<CommunityUpdateFormFieldsFragment$key>(
     fieldsFragment,

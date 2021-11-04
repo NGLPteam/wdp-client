@@ -3,14 +3,15 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityPageAddFormFragment = {
-    readonly id?: string;
+    readonly id?: string | undefined;
     readonly " $refType": "EntityPageAddFormFragment";
 };
 export type EntityPageAddFormFragment$data = EntityPageAddFormFragment;
 export type EntityPageAddFormFragment$key = {
-    readonly " $data"?: EntityPageAddFormFragment$data;
+    readonly " $data"?: EntityPageAddFormFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityPageAddFormFragment">;
 };
 

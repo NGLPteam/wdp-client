@@ -1,6 +1,6 @@
 import React from "react";
-import { NamedLink } from "components/atomic";
 import * as Styled from "./TabLink.styles";
+import { NamedLink } from "components/atomic";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 

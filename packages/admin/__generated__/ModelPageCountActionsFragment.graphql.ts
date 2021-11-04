@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ModelPageCountActionsFragment = {
     readonly pageInfo: {
@@ -17,7 +18,7 @@ export type ModelPageCountActionsFragment = {
 };
 export type ModelPageCountActionsFragment$data = ModelPageCountActionsFragment;
 export type ModelPageCountActionsFragment$key = {
-    readonly " $data"?: ModelPageCountActionsFragment$data;
+    readonly " $data"?: ModelPageCountActionsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ModelPageCountActionsFragment">;
 };
 

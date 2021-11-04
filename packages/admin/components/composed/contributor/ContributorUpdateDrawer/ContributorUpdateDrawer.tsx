@@ -2,6 +2,7 @@ import React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
+import { getContributorDisplayName } from "../ContributorDisplayName";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
 import { QueryWrapper } from "components/api";
@@ -12,7 +13,6 @@ import type {
   ContributorUpdateDrawerQuery as Query,
   ContributorUpdateDrawerQueryResponse as Response,
 } from "__generated__/ContributorUpdateDrawerQuery.graphql";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 
 export default function ContributorUpdateDrawer({
   dialog,

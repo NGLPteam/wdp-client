@@ -1,6 +1,8 @@
 import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { CellProps, ModelTableActionProps } from "react-table";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -12,8 +14,6 @@ import { RoleAccessGrantsListFragment$key } from "@/relay/RoleAccessGrantsListFr
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { useTranslation } from "react-i18next";
-import { CellProps, ModelTableActionProps } from "react-table";
 import {
   RoleAccessGrantsListDataFragment,
   RoleAccessGrantsListDataFragment$key,

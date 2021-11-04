@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
-import { useMaybeFragment, useRouteSlug } from "hooks";
 import { graphql } from "react-relay";
-import { LoadingCircle } from "components/atomic";
 import { useRouter } from "next/router";
+import { useMaybeFragment, useRouteSlug } from "hooks";
+import { LoadingCircle } from "components/atomic";
 import { RouteHelper } from "routes";
 import { CollectionSlugRedirectFragment$key } from "@/relay/CollectionSlugRedirectFragment.graphql";
 

@@ -3,26 +3,27 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type RoleAccessGrantsListDataFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly id?: string;
-            readonly slug?: string;
+            readonly id?: string | undefined;
+            readonly slug?: string | undefined;
             readonly role?: {
                 readonly id: string;
                 readonly name: string;
-            };
+            } | undefined;
             readonly user?: {
                 readonly id: string;
                 readonly slug: string;
                 readonly name: string | null;
                 readonly email: string | null;
                 readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
-            };
+            } | undefined;
             readonly entity?: {
                 readonly id: string;
-            };
+            } | undefined;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -30,7 +31,7 @@ export type RoleAccessGrantsListDataFragment = {
 };
 export type RoleAccessGrantsListDataFragment$data = RoleAccessGrantsListDataFragment;
 export type RoleAccessGrantsListDataFragment$key = {
-    readonly " $data"?: RoleAccessGrantsListDataFragment$data;
+    readonly " $data"?: RoleAccessGrantsListDataFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListDataFragment">;
 };
 

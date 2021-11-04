@@ -1,11 +1,11 @@
 import React from "react";
-import { Checkbox } from "components/forms";
 import type { Row, Cell } from "react-table";
 import times from "lodash/times";
-import { LoadingSkeleton } from "components/atomic";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
 import useTableContext from "./hooks/useTableContext";
+import { LoadingSkeleton } from "components/atomic";
+import { Checkbox } from "components/forms";
 
 function TableBody<T extends Record<string, unknown>>({
   loading = false,

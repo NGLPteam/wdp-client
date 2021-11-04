@@ -1,19 +1,19 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
+import { graphql } from "react-relay";
+import type { ModelTableActionProps } from "react-table";
+import { useTranslation } from "react-i18next";
+import { getContributorDisplayName } from "../ContributorDisplayName";
+import ModelListPage from "components/composed/model/ModelListPage";
 import {
   ContributorListFragment,
   ContributorListFragment$key,
 } from "@/relay/ContributorListFragment.graphql";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
-import { useTranslation } from "react-i18next";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

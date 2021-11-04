@@ -1,12 +1,12 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { DialogProps } from "reakit/Dialog";
+import type { DialogProps } from "reakit/Dialog";
+import FileCreateForm from "../FileCreateForm";
 import { useDrawerHelper } from "hooks";
 import type { FileCreateDrawerQuery as Query } from "__generated__/FileCreateDrawerQuery.graphql";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
-import FileCreateForm from "../FileCreateForm";
 
 export default function FileCreateDrawer({
   dialog,

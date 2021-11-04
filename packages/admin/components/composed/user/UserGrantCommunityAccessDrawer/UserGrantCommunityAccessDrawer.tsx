@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
+import UserGrantCommunityAccessForm from "../UserGrantCommunityAccessForm";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import { UserGrantCommunityAccessDrawerQuery as Query } from "@/relay/UserGrantCommunityAccessDrawerQuery.graphql";
-import UserGrantCommunityAccessForm from "../UserGrantCommunityAccessForm";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"

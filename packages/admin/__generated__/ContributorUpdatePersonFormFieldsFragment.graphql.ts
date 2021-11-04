@@ -3,14 +3,15 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdatePersonFormFieldsFragment = {
-    readonly givenName?: string | null;
-    readonly familyName?: string | null;
-    readonly title?: string | null;
-    readonly email?: string | null;
-    readonly affiliation?: string | null;
-    readonly bio?: string | null;
+    readonly givenName?: string | null | undefined;
+    readonly familyName?: string | null | undefined;
+    readonly title?: string | null | undefined;
+    readonly email?: string | null | undefined;
+    readonly affiliation?: string | null | undefined;
+    readonly bio?: string | null | undefined;
     readonly image?: {
         readonly thumb: {
             readonly png: {
@@ -18,16 +19,16 @@ export type ContributorUpdatePersonFormFieldsFragment = {
                 readonly url: string;
             } | null;
         };
-    } | null;
+    } | null | undefined;
     readonly links?: ReadonlyArray<{
         readonly title: string;
         readonly url: string;
-    }>;
+    }> | undefined;
     readonly " $refType": "ContributorUpdatePersonFormFieldsFragment";
 };
 export type ContributorUpdatePersonFormFieldsFragment$data = ContributorUpdatePersonFormFieldsFragment;
 export type ContributorUpdatePersonFormFieldsFragment$key = {
-    readonly " $data"?: ContributorUpdatePersonFormFieldsFragment$data;
+    readonly " $data"?: ContributorUpdatePersonFormFieldsFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorUpdatePersonFormFieldsFragment">;
 };
 

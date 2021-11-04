@@ -1,9 +1,9 @@
 import { Story } from "@storybook/react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
+import Modal from "./Modal";
 import { ButtonControl, Button } from "components/atomic/buttons";
 import { pxToRem } from "theme/mixins/functions";
 import { useIsMobile } from "hooks";
-import Modal from "./Modal";
 
 type Props = React.ComponentProps<typeof Modal>;
 

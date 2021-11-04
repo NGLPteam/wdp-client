@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorUpdateFormFragment = {
     readonly __typename: "PersonContributor";
@@ -20,7 +21,7 @@ export type ContributorUpdateFormFragment = {
 };
 export type ContributorUpdateFormFragment$data = ContributorUpdateFormFragment;
 export type ContributorUpdateFormFragment$key = {
-    readonly " $data"?: ContributorUpdateFormFragment$data;
+    readonly " $data"?: ContributorUpdateFormFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateFormFragment">;
 };
 

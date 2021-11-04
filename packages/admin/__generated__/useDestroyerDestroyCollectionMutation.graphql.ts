@@ -3,10 +3,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type DestroyCollectionInput = {
     collectionId: string;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type useDestroyerDestroyCollectionMutationVariables = {
     input: DestroyCollectionInput;

@@ -3,18 +3,19 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UpdateContributionInput = {
     contributionId: string;
-    role?: string | null;
-    metadata?: ContributionMetadataInput | null;
-    clientMutationId?: string | null;
+    role?: string | null | undefined;
+    metadata?: ContributionMetadataInput | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type ContributionMetadataInput = {
-    title?: string | null;
-    affiliation?: string | null;
-    displayName?: string | null;
-    location?: string | null;
+    title?: string | null | undefined;
+    affiliation?: string | null | undefined;
+    displayName?: string | null | undefined;
+    location?: string | null | undefined;
 };
 export type ContributionUpdateFormMutationVariables = {
     input: UpdateContributionInput;

@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ContributorPropertyFragment = {
     readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
@@ -10,7 +11,7 @@ export type ContributorPropertyFragment = {
 };
 export type ContributorPropertyFragment$data = ContributorPropertyFragment;
 export type ContributorPropertyFragment$key = {
-    readonly " $data"?: ContributorPropertyFragment$data;
+    readonly " $data"?: ContributorPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ContributorPropertyFragment">;
 };
 

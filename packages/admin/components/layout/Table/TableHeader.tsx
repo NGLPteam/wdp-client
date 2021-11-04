@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Checkbox } from "components/forms";
 import { HeaderGroup, ColumnInstance } from "react-table";
-import { CheckboxProps } from "types/form-fields";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortIcon from "./TableSortIcon";
 import useTableContext from "./hooks/useTableContext";
+import { CheckboxProps } from "types/form-fields";
+import { Checkbox } from "components/forms";
 
 function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],

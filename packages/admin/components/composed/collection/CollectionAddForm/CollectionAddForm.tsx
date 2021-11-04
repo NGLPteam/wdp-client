@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
+import { graphql, useFragment } from "react-relay";
+import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
   useOnSuccess,
 } from "components/api/MutationForm";
-import { graphql, useFragment } from "react-relay";
 import { sanitizeDateField } from "helpers";
-import { useRouter } from "next/router";
 import { RouteHelper } from "routes";
 
 import type { CollectionAddFormFragment$key } from "@/relay/CollectionAddFormFragment.graphql";

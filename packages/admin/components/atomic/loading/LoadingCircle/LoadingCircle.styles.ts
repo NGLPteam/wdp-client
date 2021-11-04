@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
-import { pxToRem } from "theme/mixins/functions";
 import LoadingSkeleton from "../LoadingSkeleton";
+import { pxToRem } from "theme/mixins/functions";
 const CIRCLE_SIZE = pxToRem(80);
 
 const spin = keyframes`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { pxToRem } from "theme/mixins/functions";
 import PaginationWrapper from "./PaginationWrapper";
+import { pxToRem } from "theme/mixins/functions";
 type Props = React.ComponentProps<typeof PaginationWrapper>;
 
 const Pagination = styled(PaginationWrapper)<Props>`

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
-import useIsOutOfViewport from "hooks/useIsOutOfViewport";
 import isFunction from "lodash/isFunction";
 import * as Styled from "./Dropdown.styles";
+import useIsOutOfViewport from "hooks/useIsOutOfViewport";
 
 /**
  * A dropdown for navigation submenus.

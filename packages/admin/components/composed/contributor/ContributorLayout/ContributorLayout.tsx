@@ -1,5 +1,7 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import ContributorDisplayName from "../ContributorDisplayName";
 import {
   useChildRouteLinks,
   useMaybeFragment,
@@ -8,7 +10,6 @@ import {
 } from "hooks";
 import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
 import { RouteHelper } from "routes";
-import { useTranslation } from "react-i18next";
 
 import {
   PageHeader,
@@ -16,7 +17,6 @@ import {
   ContentHeader,
   BackToAll,
 } from "components/layout";
-import ContributorDisplayName from "../ContributorDisplayName";
 
 export default function ContributorLayout({
   children,

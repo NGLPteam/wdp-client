@@ -18,22 +18,30 @@ module.exports = {
     check: false,
     checkOptions: {},
     reactDocgen: "react-docgen",
-    // reactDocgen: "react-docgen-typescript",
-    // reactDocgenTypescriptOptions: {
-    //   shouldExtractLiteralValuesFromEnum: true,
-    //   propFilter: (prop) =>
-    //     prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
-    // },
   },
+
   webpackFinal: async (config) => {
-    config.resolve.modules = [path.resolve(__dirname, ".."), "node_modules"];
-
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@/components": path.resolve(__dirname, "../components"),
-      "@/theme": path.resolve(__dirname, "../theme"),
-    };
-
+    config.resolve.modules = [
+      path.resolve(__dirname, ".."),
+      "../../node_modules",
+    ];
+    config.resolve.alias["@/components"] = path.resolve(
+      __dirname,
+      "../components"
+    );
+    config.resolve.alias["@/theme"] = path.resolve(__dirname, "../theme");
     return config;
   },
+  //
+  // webpackFinal: async (config) => {
+  //   config.resolve.modules = [path.resolve(__dirname, ".."), "node_modules"];
+  //
+  //   config.resolve.alias = {
+  //     ...config.resolve.alias,
+  //     "@/components": path.resolve(__dirname, "../components"),
+  //     "@/theme": path.resolve(__dirname, "../theme"),
+  //   };
+  //
+  //   return config;
+  // },
 };

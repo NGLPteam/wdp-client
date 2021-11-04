@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
 import { Controller } from "react-hook-form";
-import NullForm from "components/api/NullForm";
 import TagsInput from ".";
+import NullForm from "components/api/NullForm";
 
 type FieldValues = {
   example?: string[];

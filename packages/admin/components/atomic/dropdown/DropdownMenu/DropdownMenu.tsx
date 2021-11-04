@@ -1,10 +1,7 @@
 import React from "react";
-import {
-  useMenuState,
-  MenuButton,
-  MenuSeparator,
-  MenuHTMLProps,
-} from "reakit/Menu";
+import { useMenuState, MenuButton, MenuSeparator } from "reakit/Menu";
+import type { MenuHTMLProps } from "reakit/Menu";
+
 import * as Styled from "./DropdownMenu.styles";
 type ButtonProps = Partial<React.ComponentProps<typeof MenuButton>>;
 

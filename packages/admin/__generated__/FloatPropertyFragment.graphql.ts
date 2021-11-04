@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type FloatPropertyFragment = {
     readonly floatValue: number | null;
@@ -12,7 +13,7 @@ export type FloatPropertyFragment = {
 };
 export type FloatPropertyFragment$data = FloatPropertyFragment;
 export type FloatPropertyFragment$key = {
-    readonly " $data"?: FloatPropertyFragment$data;
+    readonly " $data"?: FloatPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"FloatPropertyFragment">;
 };
 

@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
-import { pxToRem } from "theme/mixins/functions";
 import { reducedMotion } from "@castiron/style-mixins";
+import { pxToRem } from "theme/mixins/functions";
 import {
   fluidScale,
   noFlexGapSupport,

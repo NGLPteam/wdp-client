@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SchemaInstancePropertyFragment = {
     readonly __typename: string;
@@ -11,7 +12,7 @@ export type SchemaInstancePropertyFragment = {
 };
 export type SchemaInstancePropertyFragment$data = SchemaInstancePropertyFragment;
 export type SchemaInstancePropertyFragment$key = {
-    readonly " $data"?: SchemaInstancePropertyFragment$data;
+    readonly " $data"?: SchemaInstancePropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaInstancePropertyFragment">;
 };
 

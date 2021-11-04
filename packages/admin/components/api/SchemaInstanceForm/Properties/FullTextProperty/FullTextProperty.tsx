@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import type { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";
-import FullTextInput from "components/forms/FullTextInput";
 import { Controller } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
+import type { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";
+import FullTextInput from "components/forms/FullTextInput";
 
 export default function FullTextProperty(props: Props) {
   const field = useFragment<FullTextPropertyFragment$key>(

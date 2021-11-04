@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type BooleanPropertyFragment = {
     readonly checked: boolean | null;
@@ -12,7 +13,7 @@ export type BooleanPropertyFragment = {
 };
 export type BooleanPropertyFragment$data = BooleanPropertyFragment;
 export type BooleanPropertyFragment$key = {
-    readonly " $data"?: BooleanPropertyFragment$data;
+    readonly " $data"?: BooleanPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"BooleanPropertyFragment">;
 };
 

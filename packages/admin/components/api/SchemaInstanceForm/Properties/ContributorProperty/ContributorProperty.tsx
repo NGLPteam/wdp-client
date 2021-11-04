@@ -2,12 +2,11 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
+import { useSchemaFormContext } from "../../Context";
+import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 
 import type { ContributorPropertyFragment$key } from "@/relay/ContributorPropertyFragment.graphql";
-
-import { useSchemaFormContext } from "../../Context";
-import ScalarProperty from "../ScalarProperty";
 
 export default function ContributorProperty(props: Props) {
   const { contributors: options } = useSchemaFormContext();

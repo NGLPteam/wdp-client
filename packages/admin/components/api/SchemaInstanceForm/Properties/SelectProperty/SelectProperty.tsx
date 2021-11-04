@@ -2,11 +2,10 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 
+import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 
 import type { SelectPropertyFragment$key } from "@/relay/SelectPropertyFragment.graphql";
-
-import ScalarProperty from "../ScalarProperty";
 
 export default function SelectProperty(props: Props) {
   const field = useFragment<SelectPropertyFragment$key>(fragment, props.field);

@@ -1,3 +1,6 @@
+require("@rushstack/eslint-patch/modern-module-resolution");
+
 module.exports = {
-  extends: ["@nglp-wdp"],
+  extends: ["@wdp"],
+  parserOptions: { tsconfigRootDir: __dirname },
 };

@@ -3,23 +3,24 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateCommunityInput = {
     title: string;
-    position?: number | null;
-    schemaVersionSlug?: string | null;
-    thumbnail?: UploadedFileInput | null;
-    clientMutationId?: string | null;
+    position?: number | null | undefined;
+    schemaVersionSlug?: string | null | undefined;
+    thumbnail?: UploadedFileInput | null | undefined;
+    clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
     id: unknown;
-    storage?: UploadStorage | null;
-    metadata?: UploadedFileMetadataInput | null;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    filename?: string | null;
-    mimeType?: string | null;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
 };
 export type CommunityCreateFormMutationVariables = {
     input: CreateCommunityInput;

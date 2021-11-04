@@ -1,5 +1,4 @@
 import get from "lodash/get";
-import { I18nextProvider } from "react-i18next";
 import { Story } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import * as nextImage from "next/image";

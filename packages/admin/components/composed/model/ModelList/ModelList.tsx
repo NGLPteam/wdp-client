@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { OperationType } from "relay-runtime";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
@@ -6,8 +8,6 @@ import type { PaginatedConnectionish } from "components/composed/model/ModelList
 import useModelList from "components/composed/model/ModelList/hooks/useModelList";
 import type { UseModelListProps } from "components/composed/model/ModelList/hooks/useModelList";
 import { ModelNames } from "helpers";
-import { useTranslation } from "react-i18next";
-import { OperationType } from "relay-runtime";
 import { useQueryStateContext } from "hooks";
 import { ViewOptions } from "utils/view-options";
 

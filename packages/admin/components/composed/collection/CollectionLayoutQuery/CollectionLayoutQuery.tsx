@@ -1,13 +1,13 @@
 import React, { ComponentProps } from "react";
+import ErrorPage from "next/error";
+import { graphql } from "react-relay";
+import CollectionLayout from "../CollectionLayout";
 import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
 import { HasFragment } from "types/graphql-helpers";
 
-import ErrorPage from "next/error";
 import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
-import { graphql } from "react-relay";
-import CollectionLayout from "../CollectionLayout";
 
 function CollectionLayoutQuery<
   Query extends CollectionQuery,

@@ -1,6 +1,6 @@
-import { ButtonControlConfirm, Button } from "components/atomic";
 import i18next from "i18next";
 import * as Styled from "./ConfirmModal.styles";
+import { ButtonControlConfirm, Button } from "components/atomic";
 
 type ButtonControlConfirmProps = React.ComponentProps<
   typeof ButtonControlConfirm

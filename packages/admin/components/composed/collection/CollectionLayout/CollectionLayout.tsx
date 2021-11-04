@@ -1,5 +1,7 @@
 import React, { ReactNode, useCallback } from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import {
@@ -8,7 +10,6 @@ import {
   ButtonControlConfirm,
 } from "components/atomic";
 import { RouteHelper } from "routes";
-import { useTranslation } from "react-i18next";
 import {
   useMaybeFragment,
   useRouteSlug,
@@ -17,7 +18,6 @@ import {
   useDestroyer,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
-import { useRouter } from "next/router";
 
 export default function CollectionLayout({
   children,

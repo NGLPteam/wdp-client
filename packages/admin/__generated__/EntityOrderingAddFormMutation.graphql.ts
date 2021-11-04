@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type NullOrderPriority = "FIRST" | "LAST" | "%future added value";
@@ -10,29 +11,29 @@ export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%fu
 export type CreateOrderingInput = {
     entityId: string;
     identifier: string;
-    name?: string | null;
-    header?: string | null;
-    footer?: string | null;
-    filter?: OrderingFilterDefinitionInput | null;
-    select?: OrderingSelectDefinitionInput | null;
+    name?: string | null | undefined;
+    header?: string | null | undefined;
+    footer?: string | null | undefined;
+    filter?: OrderingFilterDefinitionInput | null | undefined;
+    select?: OrderingSelectDefinitionInput | null | undefined;
     order: Array<OrderDefinitionInput>;
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
 };
 export type OrderingFilterDefinitionInput = {
-    schemas?: Array<string> | null;
+    schemas?: Array<string> | null | undefined;
 };
 export type OrderingSelectDefinitionInput = {
-    direct?: OrderingDirectSelection | null;
-    links?: OrderingSelectLinkDefinitionInput | null;
+    direct?: OrderingDirectSelection | null | undefined;
+    links?: OrderingSelectLinkDefinitionInput | null | undefined;
 };
 export type OrderingSelectLinkDefinitionInput = {
-    contains?: boolean | null;
-    references?: boolean | null;
+    contains?: boolean | null | undefined;
+    references?: boolean | null | undefined;
 };
 export type OrderDefinitionInput = {
     path: string;
-    direction?: Direction | null;
-    nulls?: NullOrderPriority | null;
+    direction?: Direction | null | undefined;
+    nulls?: NullOrderPriority | null | undefined;
 };
 export type EntityOrderingAddFormMutationVariables = {
     input: CreateOrderingInput;

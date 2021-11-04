@@ -1,28 +1,48 @@
 {
-  "name": "wdp-client",
+  "name": "wdp",
   "workspaces": [
     "packages/admin",
     "packages/frontend",
     "packages/common/*"
   ],
+  "private": "true",
   "version": "1.0.0",
   "description": "NGLP Web Delivery Platform client application",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:frontend": "npm run dev --workspace=packages/frontend",
-    "dev:admin": "npm run dev --workspace=packages/admin",
-    "build": "npm-run-all --parallel build:*",
-    "build:frontend": "npm run build --workspace=packages/frontend",
-    "build:admin": "npm run build --workspace=packages/admin",
-    "start": "npm-run-all --parallel start:*",
-    "start:frontend": "npm run start --workspace=packages/frontend",
-    "start:admin": "npm run start --workspace=packages/admin",
-    "lint": "npm run lint --workspaces --if-present",
-    "lint:js": "npm run lint --workspaces --if-present",
-    "lint:css": "npm run lint --workspaces --if-present",
-    "fix": "npm run fix --workspaces --if-present"
+    "dev": "npm-run-all -l --parallel dev:*",
+    "dev:frontend": "yarn workspace @wdp/frontend run dev",
+    "dev:admin": "yarn workspace @wdp/admin run dev",
+    "build": "npm-run-all -l --parallel build:*",
+    "build:frontend": "yarn workspace @wdp/frontend run build",
+    "build:admin": "yarn workspace @wdp/admin run build",
+    "start": "npm-run-all -l --parallel start:*",
+    "start:frontend": "yarn workspace @wdp/frontend run start",
+    "start:admin": "yarn workspace @wdp/admin run start",
+    "lint": "npm-run-all -l --parallel lint:js lint:css",
+    "lint:js": "npm-run-all -l --parallel lint:js:*",
+    "lint:js:frontend": "yarn workspace @wdp/frontend run lint:js",
+    "lint:js:admin": "yarn workspace @wdp/admin run lint:js",
+    "lint:css": "npm-run-all -l --parallel lint:css:*",
+    "lint:css:frontend": "yarn workspace @wdp/frontend run lint:css",
+    "lint:css:admin": "yarn workspace @wdp/admin run lint:css",
+    "fix": "npm-run-all -l --parallel fix:*",
+    "fix:frontend": "yarn workspace @wdp/frontend run fix",
+    "fix:admin": "yarn workspace @wdp/admin run fix",
+    "schema": "npm-run-all -l --parallel schema:*",
+    "schema:frontend": "yarn workspace @wdp/frontend run schema",
+    "schema:admin": "yarn workspace @wdp/admin run schema",
+    "relay": "npm-run-all -l --parallel relay:*",
+    "relay:frontend": "yarn workspace @wdp/frontend run relay",
+    "relay:admin": "yarn workspace @wdp/admin run relay",
+    "storybook": "npm-run-all -l --parallel storybook:run:*",
+    "storybook:run:frontend": "yarn workspace @wdp/frontend run storybook:run",
+    "storybook:run:admin": "yarn workspace @wdp/admin run storybook:run",
+    "storybook:build": "npm-run-all -l --parallel storybook:build:*",
+    "storybook:build:frontend": "yarn workspace @wdp/frontend run storybook:build",
+    "storybook:build:admin": "yarn workspace @wdp/admin run storybook:build",
+    "types:frontend": "yarn workspace @wdp/frontend run types",
+    "types:admin": "yarn workspace @wdp/admin run types"
   },
   "repository": {
     "type": "git",
@@ -38,13 +58,8 @@
     "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
-    "aria-live-storybook-addon": "^0.0.6",
-    "install": "^0.13.0",
-    "npm": "^7.23.0",
-    "npm-force-resolutions": "^0.0.10"
-  },
-  "resolutions": {
-    "**/react": "^17.0.0"
+
+    "install": "^0.13.0"
   }
 }
 

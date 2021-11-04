@@ -1,8 +1,8 @@
 import React from "react";
 import { Column, CellProps } from "react-table";
-import { Image, NamedLink } from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { PartialColumnish, Node } from "./types";
+import { Image, NamedLink } from "components/atomic";
 
 export interface Png {
   alt: string;

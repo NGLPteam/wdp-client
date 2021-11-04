@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import {
@@ -9,7 +10,6 @@ import {
   useLatestPresentValue,
 } from "hooks";
 import { RouteHelper } from "routes";
-import { useTranslation } from "react-i18next";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 
 export default function CommunityLayout({

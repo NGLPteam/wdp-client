@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UserNameColumnCellFragment = {
     readonly name: string | null;
@@ -12,7 +13,7 @@ export type UserNameColumnCellFragment = {
 };
 export type UserNameColumnCellFragment$data = UserNameColumnCellFragment;
 export type UserNameColumnCellFragment$key = {
-    readonly " $data"?: UserNameColumnCellFragment$data;
+    readonly " $data"?: UserNameColumnCellFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
 };
 

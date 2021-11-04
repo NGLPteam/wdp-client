@@ -1,5 +1,5 @@
-import { IconFactory } from "components/factories";
 import styled from "styled-components";
+import { IconFactory } from "components/factories";
 import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 

@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 
 function ContributorDisplayName({ contributor }: Props) {
-  const displayName = useMemo(() => getContributorDisplayName(contributor), [
-    contributor,
-  ]);
+  const displayName = useMemo(
+    () => getContributorDisplayName(contributor),
+    [contributor]
+  );
   return <span>{displayName}</span>;
 }
 

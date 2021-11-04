@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type IntegerPropertyFragment = {
     readonly integerValue: number | null;
@@ -12,7 +13,7 @@ export type IntegerPropertyFragment = {
 };
 export type IntegerPropertyFragment$data = IntegerPropertyFragment;
 export type IntegerPropertyFragment$key = {
-    readonly " $data"?: IntegerPropertyFragment$data;
+    readonly " $data"?: IntegerPropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"IntegerPropertyFragment">;
 };
 

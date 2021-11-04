@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from "react";
-import { IconFactory } from "components/factories";
 import * as Styled from "./BaseArrayList.styles";
+import { IconFactory } from "components/factories";
 
 const BaseArrayListItem = forwardRef(
   ({ children, onRemove, ...itemProps }: Props, ref: Ref<HTMLLIElement>) => {

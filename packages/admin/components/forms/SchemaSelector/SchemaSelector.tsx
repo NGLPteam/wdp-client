@@ -2,6 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import * as Styled from "./SchemaSelector.styles";
+import SchemaSelectorModal from "./SchemaSelectorModal";
 import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
 import BaseInputLabel from "components/forms/BaseInputLabel";
@@ -9,9 +11,6 @@ import { ButtonControl } from "components/atomic";
 
 import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
 import { SchemaKind } from "types/graphql-schema";
-
-import * as Styled from "./SchemaSelector.styles";
-import SchemaSelectorModal from "./SchemaSelectorModal";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 

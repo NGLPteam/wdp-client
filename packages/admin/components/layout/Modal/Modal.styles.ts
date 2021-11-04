@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { fluidScale, noInsetSupport, respond } from "theme/mixins/base";
 import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
 } from "reakit/Dialog";
+import { fluidScale, noInsetSupport, respond } from "theme/mixins/base";
 import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 

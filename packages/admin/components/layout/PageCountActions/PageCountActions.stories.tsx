@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { ButtonControl } from "components/atomic/buttons";
 import PageCountActions from "./";
+import { ButtonControl } from "components/atomic/buttons";
 
 type Props = React.ComponentProps<typeof PageCountActions>;
 

@@ -1,12 +1,12 @@
 import React from "react";
 import type { OperationType } from "relay-runtime";
+import { graphql } from "react-relay";
+import type { ModelTableActionProps } from "react-table";
 import type {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
-import { graphql } from "react-relay";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
-import type { ModelTableActionProps } from "react-table";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";

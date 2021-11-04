@@ -2,9 +2,8 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "components/atomic";
-
 import * as Styled from "./Actions.styles";
+import { Button } from "components/atomic";
 
 export default function Actions({ onCancel, onSaveAndClose }: Props) {
   const { formState } = useFormContext();

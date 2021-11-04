@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
+import { useRouter } from "next/router";
 import { PageActions } from "components/layout";
 import { Search } from "components/forms";
 import { DataViewToggle } from "components/atomic";
-import { useRouter } from "next/router";
 import useIsMobile from "hooks/useIsMobile";
 import { ViewOptions, DEFAULT_VIEW_OPTIONS } from "utils/view-options";
 

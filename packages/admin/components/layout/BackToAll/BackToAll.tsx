@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { IconFactory } from "components/factories";
-import { RouteHelper } from "routes";
 import { capitalize } from "lodash";
 import { NamedLink } from "../../atomic";
 import * as Styled from "./BackToAll.styles";
+import { RouteHelper } from "routes";
+import { IconFactory } from "components/factories";
 
 interface Props {
   route: string;

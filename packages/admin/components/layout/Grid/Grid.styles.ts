@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
+import Grid from "./Grid";
 import { aBgLight } from "theme/mixins/appearance";
 import { fluidScale, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
-import Grid from "./Grid";
 type Props = React.ComponentProps<typeof Grid>;
 
 const MOBILE_BREAK = "tableBreak";

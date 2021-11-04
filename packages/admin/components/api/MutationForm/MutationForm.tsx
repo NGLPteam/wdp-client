@@ -10,10 +10,7 @@ import type {
 } from "react-hook-form";
 import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { useNotify, usePageContext } from "hooks";
 
-import { Button } from "components/atomic";
-import { ContentHeader } from "components/layout";
 import * as Styled from "./MutationForm.styles";
 
 import type {
@@ -37,6 +34,9 @@ import GlobalErrors from "./GlobalErrors";
 import useMutationFormState from "./useMutationFormState";
 
 import Watcher from "./Watcher";
+import { ContentHeader } from "components/layout";
+import { Button } from "components/atomic";
+import { useNotify, usePageContext } from "hooks";
 
 /**
  * An attempt at drying up submitting mutations with a collection
@@ -219,10 +219,10 @@ export default function MutationForm<
 
   const { handleSubmit } = form;
 
-  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
-    handleSubmit,
-    submitHandler,
-  ]);
+  const onSubmit = useMemo(
+    () => handleSubmit(submitHandler),
+    [handleSubmit, submitHandler]
+  );
 
   const {
     formState: { isSubmitting, isValidating },

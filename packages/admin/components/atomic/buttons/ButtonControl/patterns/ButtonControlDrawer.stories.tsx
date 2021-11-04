@@ -1,7 +1,7 @@
 import { Story } from "@storybook/react";
-import { ICON_KEYS } from "components/factories/IconFactory";
 import { withDesign } from "storybook-addon-designs";
 import ButtonControlDrawer from "./ButtonControlDrawer";
+import { ICON_KEYS } from "components/factories/IconFactory";
 type BaseProps = React.ComponentProps<typeof ButtonControlDrawer>;
 
 export default {
@@ -15,18 +15,15 @@ export default {
     design: [
       {
         type: "figma",
-        url:
-          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A163",
+        url: "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A163",
       },
       {
         type: "figma",
-        url:
-          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A157",
+        url: "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=29%3A157",
       },
       {
         type: "figma",
-        url:
-          "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=38%3A240",
+        url: "https://www.figma.com/file/EeaBT8NWvguKGhMQ7pgpry/NGLP-Admin-UI-Design?node-id=38%3A240",
       },
     ],
   },

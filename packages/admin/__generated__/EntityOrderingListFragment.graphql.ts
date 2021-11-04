@@ -3,17 +3,18 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingListFragment = {
-    readonly slug?: string;
+    readonly slug?: string | undefined;
     readonly orderings?: {
         readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
-    };
+    } | undefined;
     readonly " $refType": "EntityOrderingListFragment";
 };
 export type EntityOrderingListFragment$data = EntityOrderingListFragment;
 export type EntityOrderingListFragment$key = {
-    readonly " $data"?: EntityOrderingListFragment$data;
+    readonly " $data"?: EntityOrderingListFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListFragment">;
 };
 

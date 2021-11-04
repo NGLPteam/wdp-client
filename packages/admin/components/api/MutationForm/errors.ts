@@ -6,19 +6,21 @@ import { readInlineData } from "react-relay";
 import type { FieldValues, Path } from "react-hook-form";
 import type { GraphQLTaggedNode } from "relay-runtime";
 
-import { MutationForm_mutationErrors } from "@/relay/MutationForm_mutationErrors.graphql";
-
 import type {
   ErrorMap,
   HasErrorFragment,
   RemappedAttributeError,
 } from "./types";
+import {
+  MutationForm_mutationErrors,
+  MutationForm_mutationErrors$key,
+} from "@/relay/MutationForm_mutationErrors.graphql";
 
 export function extractErrors<T extends FieldValues = FieldValues>(
   fragment: GraphQLTaggedNode,
   errorResponse: HasErrorFragment | null
 ): ErrorMap<T> {
-  const errors = readInlineData<MutationForm_mutationErrors>(
+  const errors = readInlineData<MutationForm_mutationErrors$key>(
     fragment,
     errorResponse
   );

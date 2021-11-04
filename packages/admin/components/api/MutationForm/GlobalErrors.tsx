@@ -1,9 +1,8 @@
 import React from "react";
 
+import * as Styled from "./GlobalErrors.styles";
 import { ContentHeader } from "components/layout";
 import { IconFactory } from "components/factories";
-
-import * as Styled from "./GlobalErrors.styles";
 
 export default function GlobalErrors({ globalErrors }: Props) {
   if (globalErrors.length === 0) {

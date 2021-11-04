@@ -3,15 +3,16 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type FileListFragment = {
     readonly nodes: ReadonlyArray<{
-        readonly id?: string;
-        readonly slug?: string;
-        readonly kind?: AssetKind;
-        readonly name?: string;
-        readonly downloadUrl?: string | null;
+        readonly id?: string | undefined;
+        readonly slug?: string | undefined;
+        readonly kind?: AssetKind | undefined;
+        readonly name?: string | undefined;
+        readonly downloadUrl?: string | null | undefined;
         readonly thumbnail?: {
             readonly image: {
                 readonly png: {
@@ -21,14 +22,14 @@ export type FileListFragment = {
                     readonly width: number;
                 } | null;
             };
-        } | null;
+        } | null | undefined;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "FileListFragment";
 };
 export type FileListFragment$data = FileListFragment;
 export type FileListFragment$key = {
-    readonly " $data"?: FileListFragment$data;
+    readonly " $data"?: FileListFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { CellProps, Column } from "react-table";
-import { NamedLink } from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { RequiredColumnish, Node } from "./types";
+import { NamedLink } from "components/atomic";
 
 type NameColumn<T extends Node> = RequiredColumnish<T> & { route?: string };
 

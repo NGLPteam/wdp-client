@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type VariableDatePropertyFragment = {
@@ -15,7 +16,7 @@ export type VariableDatePropertyFragment = {
 };
 export type VariableDatePropertyFragment$data = VariableDatePropertyFragment;
 export type VariableDatePropertyFragment$key = {
-    readonly " $data"?: VariableDatePropertyFragment$data;
+    readonly " $data"?: VariableDatePropertyFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
 };
 

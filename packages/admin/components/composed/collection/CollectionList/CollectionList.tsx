@@ -1,14 +1,14 @@
 import React from "react";
-import ModelListPage from "components/composed/model/ModelListPage";
 import { OperationType } from "relay-runtime";
+import { graphql } from "react-relay";
+import type { ModelTableActionProps } from "react-table";
+import ModelListPage from "components/composed/model/ModelListPage";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
 } from "@/relay/CollectionListFragment.graphql";
-import { graphql } from "react-relay";
 import ModelColumns from "components/composed/model/ModelColumns";
-import type { ModelTableActionProps } from "react-table";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 

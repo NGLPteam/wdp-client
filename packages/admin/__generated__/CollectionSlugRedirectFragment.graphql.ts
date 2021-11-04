@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CollectionSlugRedirectFragment = {
     readonly slug: string;
@@ -15,7 +16,7 @@ export type CollectionSlugRedirectFragment = {
 };
 export type CollectionSlugRedirectFragment$data = CollectionSlugRedirectFragment;
 export type CollectionSlugRedirectFragment$key = {
-    readonly " $data"?: CollectionSlugRedirectFragment$data;
+    readonly " $data"?: CollectionSlugRedirectFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"CollectionSlugRedirectFragment">;
 };
 
