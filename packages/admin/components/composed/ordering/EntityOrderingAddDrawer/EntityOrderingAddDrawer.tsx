@@ -27,7 +27,7 @@ export default function EntityOrderingAddDrawer({
         return (
           <Drawer
             label={t("actions.add.ordering")}
-            header={t("drawers.addOrdering.title")}
+            header={t("actions.add.ordering_header")}
             dialog={dialog}
             hideOnClickOutside={false}
           >

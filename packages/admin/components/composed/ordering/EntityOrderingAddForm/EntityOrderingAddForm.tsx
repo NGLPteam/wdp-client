@@ -1,11 +1,12 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
-import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { useTranslation } from "react-i18next";
+import { convertToSlug } from "helpers";
 
 import type {
   EntityOrderingAddFormMutation,
@@ -50,11 +51,11 @@ export default function EntityOrderingAddForm({
       input: {
         ...data,
         entityId: entity?.id || "",
-        /* placeholder */
-        identifier: data?.name?.toLowerCase() || "",
+        identifier: data.name ? convertToSlug(data.name) : "",
         filter: {
           schemas: getFilter(data.directItems, data.directCollections),
         },
+        // order: [{direction: data.sortby[1], path:}]
       },
     }),
     []
@@ -64,55 +65,50 @@ export default function EntityOrderingAddForm({
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.fields.displayname"
+          label={"forms.fields.displayname"}
           required
           {...register("name")}
         />
         <Forms.Select
-          label="forms.fields.orderby"
-          /* Placeholder options */
+          label="forms.fields.sortby"
           options={[
-            { value: "ALPHA", label: "Alphabetical" },
-            { value: "TOC", label: "Table of Contents" },
+            { value: ["name", "asc"], label: "Name, ascending" },
+            { value: ["name", "desc"], label: "Name, descending" },
+            { value: ["updatedAt", "asc"], label: "Updated at, ascending" },
+            { value: ["updatedAt", "desc"], label: "Updated at, descending" },
+            {
+              value: ["publication", "asc"],
+              label: "Publication date, ascending",
+            },
+            {
+              value: ["publication", "desc"],
+              label: "Publication date, descending",
+            },
           ]}
-          {...register("path")}
+          name="sortby"
         />
-        <Forms.RadioGroup
-          label="forms.fields.direction"
-          hideLabel
-          {...register("direction")}
-          options={[
-            { value: "ASCENDING", label: "Ascending" },
-            { value: "DESCENDING", label: "descending" },
-          ]}
-        />
-        <Forms.Switch
-          text={t("forms.fields.manualtoggle.text")}
-          label=""
-          disabled
-          name="manual" /* Not the correct input arg */
-        />
-        <Forms.Fieldset label={t("forms.fields.include")}>
+        <Forms.Fieldset label={t("forms.fields.include")} noGap>
           <Forms.Description>
-            For each type of entity, select with descendants should be included
-            in the ordering. Select Direct Descendants to select only immediate
-            children, for example journal issues but not their articles.
-            Descendants must be included for at least one type of entity.
+            For each available type of entity, select which descendants should
+            be included in the ordering. Select Direct Descendants to select
+            only immediate children, for example journal issues but not their
+            articles. Descendants must be included for at least one type of
+            entity.
           </Forms.Description>
           <Forms.RadioGroup
-            label="glossary.collections"
+            label="glossary.collection_plural"
             name="directCollections"
             options={[
-              { value: "NONE", label: "No Descendants" },
+              { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
               { value: "DESCENDANTS", label: "All Descendants" },
             ]}
           />
           <Forms.RadioGroup
-            label="glossary.collections"
+            label="glossary.item_plural"
             name="directItems"
             options={[
-              { value: "NONE", label: "No Descendants" },
+              { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
               { value: "DESCENDANTS", label: "All Descendants" },
             ]}
@@ -149,6 +145,7 @@ type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
   OrderingSelectDefinitionInput & {
     directCollections: string;
     directItems: string;
+    sortby: string[];
   };
 
 const fragment = graphql`

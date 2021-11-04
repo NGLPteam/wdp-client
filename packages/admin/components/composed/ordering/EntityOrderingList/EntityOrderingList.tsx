@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
-import type { ModelTableActionProps } from "react-table";
 import { useMaybeFragment, useDestroyer } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
 import {
@@ -12,7 +11,8 @@ import {
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-// import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import type { ModelTableActionProps } from "react-table";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -29,11 +29,10 @@ function EntityOrderingList<T extends OperationType>({
     fragment,
     data
   );
-  const collectionOrderings =
-    useMaybeFragment<EntityOrderingListDataFragment$key>(
-      orderingsfragment,
-      sourceEntity?.orderings
-    );
+  const collectionOrderings = useMaybeFragment<EntityOrderingListDataFragment$key>(
+    orderingsfragment,
+    sourceEntity?.orderings
+  );
   /* eslint-enable max-len */
 
   /* Set the table columns */
@@ -59,7 +58,7 @@ function EntityOrderingList<T extends OperationType>({
   };
   /* eslint-enable no-console */
 
-  /* const buttons = (
+  const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
         drawer="addOrdering"
@@ -71,7 +70,7 @@ function EntityOrderingList<T extends OperationType>({
         {t("actions.add.ordering")}
       </ButtonControlDrawer>
     </ButtonControlGroup>
-  ); */
+  );
 
   return (
     <ModelListPage<T, EntityOrderingListDataFragment, EntityOrderingNode>
@@ -81,6 +80,7 @@ function EntityOrderingList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       actions={actions}
+      buttons={buttons}
     />
   );
 }

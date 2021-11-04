@@ -43,13 +43,8 @@ const Select = forwardRef(
   }
 );
 
-interface Option {
-  readonly label: string;
-  readonly value: string | number;
-}
-interface Props extends InputProps {
-  options: readonly Option[];
-  multiple?: boolean;
-}
+type Props = React.ComponentProps<typeof BaseSelect> & {
+  label: InputProps["label"];
+};
 
 export default Select;
