@@ -3,20 +3,23 @@ import { pxToRem } from "theme/mixins/functions";
 
 const fadeIn = keyframes`
   0% {
-    opacity: 0;
+    transform: scale(.9); 
+    opacity:0;
   }
-
   100% {
-    opacity: 1;
+    transform: scale(1); 
+    opacity:1;
   }
 `;
 
 const fadeOut = keyframes`
   0% {
+    transform: scale(1); 
     opacity: 1;
   }
 
   100% {
+    transform: scale(.9); 
     opacity: 0;
   }
 `;
