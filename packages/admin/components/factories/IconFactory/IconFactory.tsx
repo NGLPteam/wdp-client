@@ -24,6 +24,9 @@ export const ICON_MAP = {
   upload: Icons.Upload,
   toggle: Icons.Toggle,
   file: Icons.File,
+  statusCheck: Icons.StatusCheck,
+  statusAlert: Icons.StatusAlert,
+  statusWarning: Icons.StatusWarning,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

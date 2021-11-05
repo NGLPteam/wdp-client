@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import {
   Dialog as BaseDialog,
   DialogBackdrop as BaseDialogBackdrop,
@@ -7,25 +7,7 @@ import { reducedMotion } from "@castiron/style-mixins";
 import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 import { noInsetSupport, noFlexGapSupport } from "theme/mixins/base";
-
-const slideIn = keyframes`
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-`;
-const slideOut = keyframes`
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
-`;
+import { slideDrawerIn, slideDrawerOut } from "theme/base/animations";
 
 export const DialogBackdrop = styled(BaseDialogBackdrop)`
   position: fixed;
@@ -75,11 +57,15 @@ export const Dialog = styled(BaseDialog)`
   `)}
 
   &[data-enter] {
-    animation: ${slideIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+    animation: ${slideDrawerIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+
+    ${reducedMotion(`animation: none;`)}
   }
 
   &[data-leave] {
-    animation: ${slideOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+    animation: ${slideDrawerOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+
+    ${reducedMotion(`animation: none;`)}
   }
 `;
 

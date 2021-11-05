@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { reducedMotion } from "@castiron/style-mixins";
 import { pxToRem } from "theme/mixins/functions";
 import {
@@ -7,25 +7,7 @@ import {
   noInsetSupport,
   respond,
 } from "theme/mixins/base";
-
-const slideIn = keyframes`
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
-`;
-const slideOut = keyframes`
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(100%);
-  }
-`;
+import { slideDrawerIn, slideDrawerOut } from "theme/base/animations";
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -50,13 +32,18 @@ export const Wrapper = styled.div`
   `)}
 
   &[data-leave="true"] {
-    animation: ${slideOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+    animation: ${slideDrawerOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+
+    ${reducedMotion(`
+      animation: none;
+    `)}
   }
 
   &[data-enter="true"] {
-    animation: ${slideIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+    animation: ${slideDrawerIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
 
     ${reducedMotion(`
+      animation: none;
       transform: translateX(0); 
       opacity: 1;
     `)}

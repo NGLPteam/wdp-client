@@ -17,6 +17,7 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
+import HeaderWrapper from "./HeaderWrapper";
 
 function Header() {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ function Header() {
   const { siteInfo, headerData, footerData } = appData;
 
   return (
-    <header role="banner">
+    <HeaderWrapper>
       <Styled.ProviderBarBlock>
         <ProviderBar />
       </Styled.ProviderBarBlock>
@@ -93,7 +94,7 @@ function Header() {
           </MobileMenuList>
         </div>
       </MobileMenu>
-    </header>
+    </HeaderWrapper>
   );
 }
 

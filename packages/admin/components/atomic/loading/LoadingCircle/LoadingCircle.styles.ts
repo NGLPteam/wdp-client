@@ -1,17 +1,9 @@
-import styled, { keyframes } from "styled-components";
-import LoadingSkeleton from "../LoadingSkeleton";
+import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
+import { spin } from "theme/base/animations";
+import LoadingSkeleton from "../LoadingSkeleton";
+
 const CIRCLE_SIZE = pxToRem(80);
-
-const spin = keyframes`
-from {
-  transform: rotate(0deg);
-}
-
-to {
-  transform: rotate(360deg);
-}
-`;
 
 export const Skeleton = styled(LoadingSkeleton)`
   padding-block-start: ${CIRCLE_SIZE};

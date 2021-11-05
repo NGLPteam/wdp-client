@@ -72,11 +72,10 @@ export default css`
     text-rendering: inherit;
   }
 
-  /* Remove all animations for people that prefer not to see them */
+  /* Change scroll behavior if reduce motion is on */
   /* stylelint-disable scss/media-feature-value-dollar-variable, declaration-no-important */
   @media (prefers-reduced-motion: reduce) {
     * {
-      animation: none !important;
       scroll-behavior: auto !important;
     }
   }

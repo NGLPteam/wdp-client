@@ -17,7 +17,7 @@ export default function AssetsProperty(props: Props) {
     <ScalarProperty field={field}>
       {({ label, required, register, isWide }) => (
         <Select
-          label={`AssetsProperty ${label}`}
+          label={label}
           required={required}
           options={options}
           isWide={isWide}

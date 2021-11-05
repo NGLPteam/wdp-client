@@ -1,18 +1,5 @@
-import styled, { css, keyframes } from "styled-components";
-
-const fade = keyframes`
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: .8;
-  }
-
-  100% {
-    opacity: 1;
-  }
-`;
+import styled, { css } from "styled-components";
+import { pulse } from "theme/base/animations";
 
 const LoadingSkeleton = styled.div<Props>`
   display: flex;
@@ -25,7 +12,7 @@ const LoadingSkeleton = styled.div<Props>`
   ${({ noShimmer }) =>
     !noShimmer &&
     css`
-      animation: ${fade} 2s infinite cubic-bezier(0.83, 0, 0.17, 1);
+      animation: ${pulse} 2s infinite cubic-bezier(0.83, 0, 0.17, 1);
     `};
 `;
 
