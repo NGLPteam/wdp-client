@@ -97,6 +97,10 @@ export const Item = styled.div`
   }
 `;
 
+export const LoadingItem = styled.div`
+  height: ${pxToRem(320)};
+`;
+
 export const Checkbox = styled.div`
   grid-area: checkbox;
   opacity: var(--checkbox-opacity, 0);
