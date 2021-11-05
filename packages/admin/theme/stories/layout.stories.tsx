@@ -6,7 +6,7 @@ import {
   Primary,
   ArgsTable,
   Stories,
-} from "@storybook/addon-docs/blocks";
+} from "@storybook/addon-docs";
 
 export default {
   title: "Styles/Layout",
