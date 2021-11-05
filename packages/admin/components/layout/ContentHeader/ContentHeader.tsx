@@ -1,20 +1,27 @@
 import React, { ReactNode } from "react";
 import startCase from "lodash/startCase";
 import * as Styled from "./ContentHeader.styles";
+import { LoadingSkeleton } from "components/atomic";
 
 /**
  * Wrapper for content title and right side content
  */
 const ContentHeader = ({
-  title = "\u00a0",
+  title,
   rightSide,
   headerStyle = "primary",
 }: Props) => {
   return (
     <Styled.Wrapper>
-      <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
-        {typeof title === "string" ? startCase(title) : title}
-      </Styled.Title>
+      {title ? (
+        <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
+          {typeof title === "string" ? startCase(title) : title}
+        </Styled.Title>
+      ) : (
+        <div style={{ height: "36px", width: "400px" }}>
+          <LoadingSkeleton />
+        </div>
+      )}
       {rightSide && <Styled.RightSide>{rightSide}</Styled.RightSide>}
     </Styled.Wrapper>
   );

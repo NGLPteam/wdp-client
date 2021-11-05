@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { capitalize } from "lodash";
+import startCase from "lodash/startCase";
 import { NamedLink } from "../../atomic";
 import * as Styled from "./BackToAll.styles";
 import { RouteHelper } from "routes";
@@ -15,14 +15,14 @@ const BackToAll = ({ route }: Props) => {
   if (!route) return null;
 
   const routeObj = RouteHelper.findRouteByName(route);
-  const name = capitalize(t(routeObj?.label || ""));
+  const name = t(routeObj?.label || "");
 
   return (
     <Styled.NavWrapper>
       <NamedLink route={route} passHref>
         <Styled.LinkWrapper as="a" className="a-link">
           <IconFactory icon="arrow" rotate={270} size="xs" />
-          <span>{`${t("all")} ${t(name)}`}</span>
+          <span>{startCase(`${t("all")} ${t(name)}`)}</span>
         </Styled.LinkWrapper>
       </NamedLink>
     </Styled.NavWrapper>
