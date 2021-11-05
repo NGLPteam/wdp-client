@@ -52,6 +52,10 @@ export default css`
     ${aBaseInput()}
   }
 
+  .a-pagination-input {
+    max-width: 30px;
+  }
+
   .a-color-accent {
     color: var(--accent-color);
   }
