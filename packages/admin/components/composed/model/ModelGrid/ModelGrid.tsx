@@ -5,6 +5,7 @@ import type {
 } from "react-table";
 import ModelGridItem from "./ModelGridItem";
 import Grid from "components/layout/Grid/Grid";
+import { useQueryStateContext } from "hooks";
 
 type ModelGridProps<U extends Record<string, unknown>> = Pick<
   UseTableInstanceProps<U>,
@@ -25,8 +26,10 @@ function ModelGrid<U extends Record<string, unknown>>({
   hasSelection,
   listId,
 }: ModelGridProps<U>) {
+  const { loading } = useQueryStateContext();
+
   return (
-    <Grid showCheckboxes={hasSelection} id={listId}>
+    <Grid showCheckboxes={hasSelection} id={listId} loading={loading}>
       <>
         {rows.map((row, i) => (
           <ModelGridItem key={i} row={row} selectable={selectable} />

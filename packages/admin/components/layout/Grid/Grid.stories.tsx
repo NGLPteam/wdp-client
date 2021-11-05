@@ -49,8 +49,8 @@ function renderGridContent(i: number) {
 
 const gridArray = Array.from(Array(20), (x, i) => i);
 
-export const Default: Story<Props> = () => (
-  <Grid>
+export const Default: Story<Props> = (args) => (
+  <Grid {...args}>
     <>
       {gridArray.map((i) => (
         <Grid.Item key={i}>{renderGridContent(i)}</Grid.Item>
@@ -118,4 +118,10 @@ export const WithActions: Story<Props> = ({ showCheckboxes }) => (
 );
 WithActions.args = {
   showCheckboxes: false,
+};
+
+export const WithLoadingState = Default.bind({});
+WithLoadingState.args = {
+  ...Default.args,
+  loading: true,
 };

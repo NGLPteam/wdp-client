@@ -85,6 +85,7 @@ const selectableRows = rows.map((row) => ({
 export const Default: Story<Props & Partial<BodyProps>> = ({
   withRowSelection,
   rows = [],
+  loading,
   ...args
 }) => {
   return (
@@ -97,7 +98,7 @@ export const Default: Story<Props & Partial<BodyProps>> = ({
           withCheckbox={withRowSelection}
           headerGroups={headerGroups}
         />
-        <Table.Body rows={rows} />
+        <Table.Body rows={rows} loading={loading} />
       </Table>
     </div>
   );
@@ -113,5 +114,12 @@ export const WithMultiselect = Default.bind({});
 WithMultiselect.args = {
   "aria-label": "Example plain table",
   withRowSelection: true,
+  rows: selectableRows,
+};
+
+export const WithLoadingState = Default.bind({});
+WithLoadingState.args = {
+  "aria-label": "Example plain table",
+  loading: true,
   rows: selectableRows,
 };
