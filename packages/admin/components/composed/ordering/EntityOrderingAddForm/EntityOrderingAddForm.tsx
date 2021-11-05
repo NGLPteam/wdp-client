@@ -1,12 +1,12 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useUID } from "react-uid";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-import { useTranslation } from "react-i18next";
-import { convertToSlug } from "helpers";
 
 import type {
   EntityOrderingAddFormMutation,
@@ -28,6 +28,7 @@ export default function EntityOrderingAddForm({
   onCancel,
 }: Props) {
   const { t } = useTranslation();
+  const uid = useUID();
 
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
@@ -77,11 +78,16 @@ export default function EntityOrderingAddForm({
       input: {
         entityId: entity?.id || "",
         name: data.name,
-        identifier: data.name ? convertToSlug(data.name) : "",
+        /* Identifier should be `${convertToSlug(data.name)}-${uid} but the api errors if non-alpha characters are included.` */
+        identifier: data.name
+          ? data.name.toLowerCase().split(" ").join("")
+          : "",
         filter: {
           schemas: getFilter(data.items, data.collections),
         },
-        select: { direct: data.collections },
+        select: {
+          direct: data.collections !== "NONE" ? data.collections : data.items,
+        },
         order: getOrder(data.sortby.split(",")[0], data.sortby.split(",")[1]),
       },
     }),

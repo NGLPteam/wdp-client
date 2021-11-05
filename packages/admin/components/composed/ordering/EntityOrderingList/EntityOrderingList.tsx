@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
+import type { ModelTableActionProps } from "react-table";
 import { useMaybeFragment, useDestroyer } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
 import {
@@ -11,7 +12,6 @@ import {
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import type { ModelTableActionProps } from "react-table";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -24,16 +24,15 @@ function EntityOrderingList<T extends OperationType>({
   const { t } = useTranslation();
   const destroy = useDestroyer();
   /* Get the order data */
-  /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
     fragment,
     data
   );
-  const collectionOrderings = useMaybeFragment<EntityOrderingListDataFragment$key>(
-    orderingsfragment,
-    sourceEntity?.orderings
-  );
-  /* eslint-enable max-len */
+  const collectionOrderings =
+    useMaybeFragment<EntityOrderingListDataFragment$key>(
+      orderingsfragment,
+      sourceEntity?.orderings
+    );
 
   /* Set the table columns */
   const columns = [
