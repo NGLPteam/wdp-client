@@ -6,11 +6,10 @@ import type { GetLayout } from "types/page";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import SchemaInstanceForm from "components/api/SchemaInstanceForm";
+import { LoadingCircle } from "components/atomic";
 
 function CollectionDetails({ data }: Props) {
-  if (!data || !data.collection) return null;
-
-  return (
+  return data && data.collection ? (
     <>
       <CollectionUpdateForm data={data?.collection} />
       <SchemaInstanceForm
@@ -20,6 +19,8 @@ function CollectionDetails({ data }: Props) {
         failureNotification="forms.collection.update.schemaFailure"
       />
     </>
+  ) : (
+    <LoadingCircle />
   );
 }
 

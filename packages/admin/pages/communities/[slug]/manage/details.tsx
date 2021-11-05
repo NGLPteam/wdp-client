@@ -5,11 +5,14 @@ import type { GetLayout } from "types/page";
 
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { LoadingCircle } from "components/atomic";
 
 function CommunityDetails({ data }: Props) {
-  if (!data || !data.community) return null;
-
-  return <CommunityUpdateForm data={data?.community} />;
+  return data && data.community ? (
+    <CommunityUpdateForm data={data?.community} />
+  ) : (
+    <LoadingCircle />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
