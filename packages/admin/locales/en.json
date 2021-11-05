@@ -20,6 +20,7 @@
       "error": "Error",
       "delete": "Delete",
       "loading": "Loading",
+      "loading_ellipsis": "Loading...",
       "manage": "Manage",
       "options": "Options",
       "save": "Save",
