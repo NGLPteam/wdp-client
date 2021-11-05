@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
-
 import { respond } from "theme/mixins/base";
+import BaseInputDescription from "../BaseInputDescription";
 
 export const Fieldset = styled.fieldset`
   display: flex;
@@ -62,4 +62,8 @@ export const Actions = styled.div`
     `,
     50
   )}
+`;
+
+export const Description = styled(BaseInputDescription)`
+  padding-block-start: 0;
 `;

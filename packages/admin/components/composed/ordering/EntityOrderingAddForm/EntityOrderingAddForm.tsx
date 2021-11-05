@@ -17,6 +17,11 @@ import type {
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
+const description = `Select descendants to be included in the ordering. Use Direct
+Descendants to select only immediate children, for example journal
+issues but not their articles. Descendants must be included for at
+least one type of entity.`;
+
 export default function EntityOrderingAddForm({
   data,
   onSuccess,
@@ -32,11 +37,9 @@ export default function EntityOrderingAddForm({
   const entity = formData.item ?? formData.collection;
 
   const getFilter = (
-    items: string = "CHILDREN",
-    collections: string = "CHILDREN"
+    items: OrderingSelectDefinitionInput["direct"] = "CHILDREN",
+    collections: OrderingSelectDefinitionInput["direct"] = "CHILDREN"
   ): OrderingFilterDefinitionInput["schemas"] => {
-    console.log(collections);
-    console.log(items);
     if (items !== "NONE" && collections !== "NONE") return null;
     if (items === "NONE")
       return schemaOptions.edges
@@ -66,7 +69,6 @@ export default function EntityOrderingAddForm({
     };
     const path = pathOptions[property];
 
-    console.log([{ path: path, direction: directionValue }]);
     return [{ path: path, direction: directionValue }];
   };
 
@@ -97,28 +99,26 @@ export default function EntityOrderingAddForm({
         <Forms.Select
           label="forms.fields.sortby"
           options={[
-            { value: ["name", "asc"], label: "Name, ascending" },
-            { value: ["name", "desc"], label: "Name, descending" },
-            { value: ["updatedAt", "asc"], label: "Updated at, ascending" },
-            { value: ["updatedAt", "desc"], label: "Updated at, descending" },
+            { value: "name, asc", label: "Name, ascending" },
+            { value: "name, desc", label: "Name, descending" },
+            { value: "updatedAt, asc", label: "Updated at, ascending" },
+            { value: "updatedAt, desc", label: "Updated at, descending" },
             {
-              value: ["publication", "asc"],
+              value: "published, asc",
               label: "Publication date, ascending",
             },
             {
-              value: ["publication", "desc"],
+              value: "published, desc",
               label: "Publication date, descending",
             },
           ]}
           {...register("sortby")}
         />
-        <Forms.Fieldset label={t("forms.fields.include")} noGap>
-          <Forms.Description>
-            Select descendants to be included in the ordering. Use Direct
-            Descendants to select only immediate children, for example journal
-            issues but not their articles. Descendants must be included for at
-            least one type of entity.
-          </Forms.Description>
+        <Forms.Fieldset
+          label={t("forms.fields.include")}
+          noGap
+          description={description}
+        >
           <Forms.RadioGroup
             label="glossary.collection_plural"
             {...register("collections")}
@@ -148,8 +148,8 @@ export default function EntityOrderingAddForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.order.create.success"
-      failureNotification="forms.order.create.failure"
+      successNotification="messages.add.ordering_success"
+      failureNotification="messages.add.ordering_failure"
       name="createOrdering"
       refetchTags={["nodes"]}
       toVariables={toVariables}
@@ -167,8 +167,8 @@ type Props = Pick<
 type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
-    collections: string;
-    items: string;
+    collections: OrderingSelectDefinitionInput["direct"];
+    items: OrderingSelectDefinitionInput["direct"];
     sortby: string;
   };
 
