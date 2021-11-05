@@ -1111,10 +1111,10 @@
   resolved "https://registry.yarnpkg.com/@bedrock-layout/use-stateful-ref/-/use-stateful-ref-1.1.10.tgz#cfa39a251ae6249c3c8d97d83d8b50f23ab79964"
   integrity sha512-bpEfSON1TCiOXC2J+wFmuA57ewHhvEQ5Fc8OXXfXYi+waQ4CuK76tmYCTC3iXr5TE7NsJQFKsFCQNj48c1niZg==
 
-"@castiron/components-breadcrumbs@^1.0.0-alpha.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@castiron/components-breadcrumbs/-/components-breadcrumbs-1.0.0.tgz#a5aa94938d7ab6b073316715426509e8e970603b"
-  integrity sha512-927V8Zf8obddDq2QlPysc4PtCZVQ3nngN8gmOvupTW20nS2rrLEWS2HkolCKaZa4tjy4Vku31UJQipM1YkGtBw==
+"@castiron/components-breadcrumbs@1.0.0-alpha.0":
+  version "1.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@castiron/components-breadcrumbs/-/components-breadcrumbs-1.0.0-alpha.0.tgz#d8c38fd2cd82c720c52f3a1620ab2be236f69cc2"
+  integrity sha512-KTj5paQbEeg3DrkDRPOqLbSkp/3BrHVjZ2Wxjm+67qsE1IByST5usseBC4HDDga0YeX845hlGRdNH4s2Vv1Saw==
   dependencies:
     react "^17.0.1"
     react-dom "^17.0.1"

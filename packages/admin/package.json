@@ -22,7 +22,7 @@
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@bedrock-layout/use-stateful-ref": "^1.1.2",
-    "@castiron/components-breadcrumbs": "^1.0.0-alpha.0",
+    "@castiron/components-breadcrumbs": "1.0.0-alpha.0",
     "@castiron/components-input": "1.0.0-alpha.2",
     "@castiron/components-pagination": "^1.0.1",
     "@castiron/hooks": "^1.0.0-alpha.6",

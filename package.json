@@ -36,11 +36,11 @@
     "relay:frontend": "yarn workspace @wdp/frontend run relay",
     "relay:admin": "yarn workspace @wdp/admin run relay",
     "storybook": "npm-run-all -l --parallel storybook:run:*",
-    "storybook:run:frontend": "yarn workspace @wdp/frontend run storybook:run",
-    "storybook:run:admin": "yarn workspace @wdp/admin run storybook:run",
+    "storybook:run:frontend": "yarn workspace @wdp/frontend run storybook",
+    "storybook:run:admin": "yarn workspace @wdp/admin run storybook",
     "storybook:build": "npm-run-all -l --parallel storybook:build:*",
-    "storybook:build:frontend": "yarn workspace @wdp/frontend run storybook:build",
-    "storybook:build:admin": "yarn workspace @wdp/admin run storybook:build",
+    "storybook:build:frontend": "yarn workspace @wdp/frontend run build-storybook",
+    "storybook:build:admin": "yarn workspace @wdp/admin run build-storybook",
     "types:frontend": "yarn workspace @wdp/frontend run types",
     "types:admin": "yarn workspace @wdp/admin run types"
   },
@@ -58,8 +58,6 @@
     "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
-
     "install": "^0.13.0"
   }
 }
-
