@@ -1,8 +1,8 @@
 import React from "react";
 import { Story } from "@storybook/react";
-import { useNotify } from "hooks";
 import ButtonControl from "../buttons/ButtonControl";
 import Toast from "./";
+import { useNotify } from "hooks";
 
 export default {
   title: "Components/Atomic/Toast",

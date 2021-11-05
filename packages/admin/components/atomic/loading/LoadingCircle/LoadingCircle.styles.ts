@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import LoadingSkeleton from "../LoadingSkeleton";
 import { pxToRem } from "theme/mixins/functions";
 import { spin } from "theme/base/animations";
-import LoadingSkeleton from "../LoadingSkeleton";
 
 const CIRCLE_SIZE = pxToRem(80);
 
