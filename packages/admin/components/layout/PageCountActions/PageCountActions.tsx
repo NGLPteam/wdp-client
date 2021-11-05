@@ -1,5 +1,5 @@
 import React from "react";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import * as Styled from "./PageCountActions.styles";
 import { PageInfo } from "types/graphql-schema";
 
@@ -12,7 +12,9 @@ const PageCountActions = ({
   pageInfo,
   selectedCount = 0,
   multiselectActions,
+  loading,
 }: Props) => {
+  const { t } = useTranslation();
   const hasSelected = selectedCount > 1;
   const page = pageInfo?.page || 1;
   const perPage = pageInfo?.perPage || 10;
@@ -26,7 +28,9 @@ const PageCountActions = ({
   return (
     <Styled.Wrapper>
       <Styled.Count className="t-label-md a-color-light">
-        {hasSelected ? (
+        {loading ? (
+          t("common.loading_ellipsis")
+        ) : hasSelected ? (
           <Trans
             i18nKey="lists.selected_count"
             values={{
@@ -61,6 +65,8 @@ interface Props {
   selectedCount?: number;
   /** Multiselect multiselectActions, an array of buttons */
   multiselectActions?: JSX.Element | JSX.Element[];
+  /** Loading state */
+  loading?: boolean;
 }
 
 export default PageCountActions;

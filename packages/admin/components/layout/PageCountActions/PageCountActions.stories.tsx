@@ -1,6 +1,5 @@
 import { Story } from "@storybook/react";
 import PageCountActions from "./";
-import { ButtonControl } from "components/atomic/buttons";
 
 type Props = React.ComponentProps<typeof PageCountActions>;
 
@@ -14,16 +13,7 @@ export default {
   },
 };
 
-export const Default: Story<Props> = (args) => (
-  <PageCountActions
-    {...args}
-    multiselectActions={[
-      <ButtonControl key="delete" icon="delete">
-        Delete
-      </ButtonControl>,
-    ]}
-  />
-);
+export const Default: Story<Props> = (args) => <PageCountActions {...args} />;
 
 Default.args = {
   pageInfo: {
@@ -46,3 +36,11 @@ WithSelectedCount.args = {
   },
   selectedCount: 3,
 };
+
+export const WithNoData = Default.bind({});
+
+WithNoData.args = {};
+
+export const WithLoadingState = Default.bind({});
+
+WithLoadingState.args = { loading: true };
