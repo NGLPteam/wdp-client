@@ -122,7 +122,9 @@
         "member_success": "Member added successfully",
         "item_success": "Item added successfully",
         "page_success": "Page added successfully",
-        "page_failure": "Failed to add page"
+        "page_failure": "Failed to add page",
+        "ordering_success": "Ordering added successfully",
+        "ordering_failure": "Failed to add ordering"
       },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
@@ -182,7 +184,9 @@
         "link": "Add Link",
         "link_header": "Add New Link",
         "page": "Add Page",
-        "page_header": "Add New Page"
+        "page_header": "Add New Page",
+        "ordering": "Add Ordering",
+        "ordering_header": "Add New Ordering"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -270,7 +274,10 @@
         "slug_description": "Slug must be lower case, no special characters or spaces.",
         "body": "Body",
         "heroImage": "Hero Image",
-        "profile": "Profile"
+        "profile": "Profile",
+        "displayname": "Display Name",
+        "sortby": "Sort By",
+        "include": "Records to Include"
       },
       "validation": {
         "year": "Must be a four digit year",

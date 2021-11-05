@@ -1,4 +1,5 @@
 import React, { useState, forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import type InputProps from "../inputType";
 import Radio from "./Radio";
 import * as Styled from "./RadioGroup.styles";
@@ -12,6 +13,8 @@ const RadioGroup = forwardRef(
     const [selected, setSelected] = useState<string>("");
     const handleTabIndex = (e: React.ChangeEvent<HTMLInputElement>) =>
       setSelected(e.target.value);
+
+    const { t } = useTranslation();
 
     const radios = options.map((option, i) => (
       <Radio
@@ -33,7 +36,7 @@ const RadioGroup = forwardRef(
         aria-label={props["aria-label"] || undefined}
         ref={ref}
       >
-        <BaseInputLabel hideLabel={hideLabel}>{label}</BaseInputLabel>
+        <BaseInputLabel hideLabel={hideLabel}>{t(label)}</BaseInputLabel>
         {description && <Styled.Description>{description}</Styled.Description>}
         {radios}
       </Styled.Group>

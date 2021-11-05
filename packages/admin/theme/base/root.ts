@@ -128,6 +128,9 @@ export default css`
     --form-grid-item-width: calc(50% - (var(--form-grid-column-gap) * 0.5));
     --form-grid-item-width-wide: 100%;
 
+    /* fieldset */
+    --fieldset-field-spacing: ${pxToRem(24)};
+
     /* buttons */
     --button-background: var(--background-light);
 

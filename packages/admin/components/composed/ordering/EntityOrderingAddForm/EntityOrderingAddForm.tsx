@@ -16,6 +16,11 @@ import type {
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
+const description = `Select descendants to be included in the ordering. Use Direct
+Descendants to select only immediate children, for example journal
+issues but not their articles. Descendants must be included for at
+least one type of entity.`;
+
 export default function EntityOrderingAddForm({
   data,
   onSuccess,
@@ -31,8 +36,8 @@ export default function EntityOrderingAddForm({
   const entity = formData.item ?? formData.collection;
 
   const getFilter = (
-    items: string,
-    collections: string
+    items: OrderingSelectDefinitionInput["direct"] = "CHILDREN",
+    collections: OrderingSelectDefinitionInput["direct"] = "CHILDREN"
   ): OrderingFilterDefinitionInput["schemas"] => {
     if (items !== "NONE" && collections !== "NONE") return null;
     if (items === "NONE")
@@ -45,16 +50,41 @@ export default function EntityOrderingAddForm({
         .map((node) => node.node.identifier);
   };
 
+  const getOrder = (sortby: string): OrderDefinitionInput[] => {
+    const [property, direction] = sortby.split(",");
+    const directionValue = direction === "asc" ? "ASCENDING" : "DESCENDING";
+
+    interface PathOptions extends Record<string, string> {
+      name: string;
+      updatedAt: string;
+      published: string;
+    }
+    const pathOptions: PathOptions = {
+      name: "entity.title",
+      updatedAt: "entity.updated_at",
+      published: "entity.published_on",
+    };
+    const path = pathOptions[property];
+
+    return [{ path: path, direction: directionValue }];
+  };
+
   const toVariables = useToVariables<EntityOrderingAddFormMutation, Fields>(
     (data) => ({
       input: {
-        ...data,
         entityId: entity?.id || "",
-        /* placeholder */
-        identifier: data?.name?.toLowerCase() || "",
+        name: data.name,
+        /* Identifier should be `${convertToSlug(data.name)}-${uid} but the api errors if non-alpha characters are included.` */
+        identifier: data.name
+          ? data.name.toLowerCase().split(" ").join("")
+          : "",
         filter: {
-          schemas: getFilter(data.directItems, data.directCollections),
+          schemas: getFilter(data.items, data.collections),
         },
+        select: {
+          direct: data.collections !== "NONE" ? data.collections : data.items,
+        },
+        order: getOrder(data.sortby),
       },
     }),
     []
@@ -64,55 +94,46 @@ export default function EntityOrderingAddForm({
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input
-          label="forms.fields.displayname"
+          label={"forms.fields.displayname"}
           required
           {...register("name")}
         />
         <Forms.Select
-          label="forms.fields.orderby"
-          /* Placeholder options */
+          label="forms.fields.sortby"
           options={[
-            { value: "ALPHA", label: "Alphabetical" },
-            { value: "TOC", label: "Table of Contents" },
+            { value: "name, asc", label: "Name, ascending" },
+            { value: "name, desc", label: "Name, descending" },
+            { value: "updatedAt, asc", label: "Updated at, ascending" },
+            { value: "updatedAt, desc", label: "Updated at, descending" },
+            {
+              value: "published, asc",
+              label: "Publication date, ascending",
+            },
+            {
+              value: "published, desc",
+              label: "Publication date, descending",
+            },
           ]}
-          {...register("path")}
+          {...register("sortby")}
         />
-        <Forms.RadioGroup
-          label="forms.fields.direction"
-          hideLabel
-          {...register("direction")}
-          options={[
-            { value: "ASCENDING", label: "Ascending" },
-            { value: "DESCENDING", label: "descending" },
-          ]}
-        />
-        <Forms.Switch
-          text={t("forms.fields.manualtoggle.text")}
-          label=""
-          disabled
-          name="manual" /* Not the correct input arg */
-        />
-        <Forms.Fieldset label={t("forms.fields.include")}>
-          <Forms.Description>
-            For each type of entity, select with descendants should be included
-            in the ordering. Select Direct Descendants to select only immediate
-            children, for example journal issues but not their articles.
-            Descendants must be included for at least one type of entity.
-          </Forms.Description>
+        <Forms.Fieldset
+          label={t("forms.fields.include")}
+          description={description}
+        >
           <Forms.RadioGroup
-            label="glossary.collections"
-            name="directCollections"
+            label="glossary.collection_plural"
+            {...register("collections")}
             options={[
-              { value: "NONE", label: "No Descendants" },
+              { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
               { value: "DESCENDANTS", label: "All Descendants" },
             ]}
           />
           <Forms.RadioGroup
-            label="glossary.collections"
-            name="directItems"
+            label="glossary.item_plural"
+            {...register("items")}
             options={[
-              { value: "NONE", label: "No Descendants" },
+              { value: "NONE", label: "None" },
               { value: "CHILDREN", label: "Direct Descendants", default: true },
               { value: "DESCENDANTS", label: "All Descendants" },
             ]}
@@ -128,8 +149,8 @@ export default function EntityOrderingAddForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="forms.order.create.success"
-      failureNotification="forms.order.create.failure"
+      successNotification="messages.add.ordering_success"
+      failureNotification="messages.add.ordering_failure"
       name="createOrdering"
       refetchTags={["nodes"]}
       toVariables={toVariables}
@@ -147,8 +168,9 @@ type Props = Pick<
 type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
-    directCollections: string;
-    directItems: string;
+    collections: OrderingSelectDefinitionInput["direct"];
+    items: OrderingSelectDefinitionInput["direct"];
+    sortby: string;
   };
 
 const fragment = graphql`
