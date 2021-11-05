@@ -75,7 +75,7 @@ interface Props {
   /** A row of buttons below the header */
   buttons?: React.ReactNode;
   /** Drawer content */
-  children?: JSX.Element | string | null;
+  children?: React.ReactNode;
   /** Adds a Save button to the drawer footer. Function runs on save */
   onSave?: () => void;
   /** Function runs on close or cancel */

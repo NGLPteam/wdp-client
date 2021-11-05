@@ -7,6 +7,7 @@ import CollectionAddForm from "components/composed/collection/CollectionAddForm"
 import QueryWrapper from "components/api/QueryWrapper";
 
 import type { CollectionAddDrawerQuery as Query } from "@/relay/CollectionAddDrawerQuery.graphql";
+import { CollectionAddDrawerRootQuery as RootQuery } from "@/relay/CollectionAddDrawerRootQuery.graphql";
 
 export default function CollectionAddDrawer({
   dialog,
@@ -18,10 +19,33 @@ export default function CollectionAddDrawer({
   const { drawerSlug } = params;
   const { t } = useTranslation();
 
-  return (
+  return drawerSlug ? (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ parentSlug: drawerSlug }}
+      initialVariables={{ parentSlug: drawerSlug, schemaKind: "COLLECTION" }}
+    >
+      {({ data }) => (
+        <Drawer
+          dialog={dialog}
+          hideOnClickOutside={false}
+          label={t("actions.add.collection")}
+          header={t("actions.add.collection_header")}
+        >
+          {data && (
+            <CollectionAddForm
+              data={data}
+              onSuccess={dialog.hide}
+              onCancel={dialog.hide}
+              parentId={data?.collection?.id ?? data?.community?.id}
+            />
+          )}
+        </Drawer>
+      )}
+    </QueryWrapper>
+  ) : (
+    <QueryWrapper<RootQuery>
+      query={rootQuery}
+      initialVariables={{ schemaKind: "COLLECTION" }}
     >
       {({ data }) => (
         <Drawer
@@ -44,7 +68,19 @@ export default function CollectionAddDrawer({
 }
 
 const query = graphql`
-  query CollectionAddDrawerQuery($parentSlug: Slug!) {
+  query CollectionAddDrawerQuery($parentSlug: Slug!, $schemaKind: SchemaKind!) {
+    collection(slug: $parentSlug) {
+      id
+    }
+    community(slug: $parentSlug) {
+      id
+    }
+    ...CollectionAddFormFragment
+  }
+`;
+
+const rootQuery = graphql`
+  query CollectionAddDrawerRootQuery($schemaKind: SchemaKind!) {
     ...CollectionAddFormFragment
   }
 `;

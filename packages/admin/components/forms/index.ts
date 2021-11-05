@@ -20,3 +20,4 @@ export { default as CommunitySelect } from "./CommunitySelect";
 export { default as LinkTargetTypeahead } from "./LinkTargetTypeahead";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as Description } from "./BaseInputDescription";
+export { default as SchemaSelect } from "./SchemaSelect";
