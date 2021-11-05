@@ -11,14 +11,9 @@ export const Fieldset = styled.fieldset`
   flex-basis: var(--form-grid-item-width-wide);
 `;
 
-export const Legend = styled.legend<LegendProps>`
-  --fieldset-field-spacing: ${({ $noGap }) => ($noGap ? 0 : pxToRem(24))};
-  padding-block-end: var(--fieldset-field-spacing);
+export const Legend = styled.legend`
+  padding-block-end: var(--fieldset-legend-padding);
 `;
-
-type LegendProps = {
-  $noGap: boolean;
-};
 
 export const Fields = styled.div`
   --table-border: 1px solid var(--border-color);

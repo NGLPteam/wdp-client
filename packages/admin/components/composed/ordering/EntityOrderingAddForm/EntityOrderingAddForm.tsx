@@ -52,10 +52,8 @@ export default function EntityOrderingAddForm({
         .map((node) => node.node.identifier);
   };
 
-  const getOrder = (
-    property: string,
-    direction: string
-  ): OrderDefinitionInput[] => {
+  const getOrder = (sortby: string): OrderDefinitionInput[] => {
+    const [property, direction] = sortby.split(",");
     const directionValue = direction === "asc" ? "ASCENDING" : "DESCENDING";
 
     interface PathOptions extends Record<string, string> {
@@ -88,7 +86,7 @@ export default function EntityOrderingAddForm({
         select: {
           direct: data.collections !== "NONE" ? data.collections : data.items,
         },
-        order: getOrder(data.sortby.split(",")[0], data.sortby.split(",")[1]),
+        order: getOrder(data.sortby),
       },
     }),
     []
@@ -122,8 +120,8 @@ export default function EntityOrderingAddForm({
         />
         <Forms.Fieldset
           label={t("forms.fields.include")}
-          noGap
           description={description}
+          style={{ "--fieldset-legend-padding": 0 }}
         >
           <Forms.RadioGroup
             label="glossary.collection_plural"

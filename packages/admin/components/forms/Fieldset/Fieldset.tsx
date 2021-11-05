@@ -1,10 +1,10 @@
 import React from "react";
 import * as Styled from "./Fieldset.styles";
 
-const Fieldset = ({ label, children, noGap = false, description }: Props) => {
+const Fieldset = ({ label, children, description, style }: Props) => {
   return (
-    <Styled.Fieldset>
-      <Styled.Legend $noGap={noGap} className="t-label-lg a-color-accent">
+    <Styled.Fieldset style={style}>
+      <Styled.Legend className="t-label-lg a-color-accent">
         {label}
       </Styled.Legend>
       {description && <Styled.Description>{description}</Styled.Description>}
@@ -13,11 +13,13 @@ const Fieldset = ({ label, children, noGap = false, description }: Props) => {
   );
 };
 
+type CSSwithVars = React.CSSProperties & Record<`--${string}`, number | string>;
+
 interface Props {
   label: string;
   children: React.ReactNode;
-  noGap?: boolean;
   description?: string;
+  style?: CSSwithVars;
 }
 
 export default Fieldset;
