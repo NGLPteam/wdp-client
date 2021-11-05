@@ -1,7 +1,6 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useUID } from "react-uid";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -28,7 +27,6 @@ export default function EntityOrderingAddForm({
   onCancel,
 }: Props) {
   const { t } = useTranslation();
-  const uid = useUID();
 
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
@@ -121,7 +119,6 @@ export default function EntityOrderingAddForm({
         <Forms.Fieldset
           label={t("forms.fields.include")}
           description={description}
-          style={{ "--fieldset-legend-padding": 0 }}
         >
           <Forms.RadioGroup
             label="glossary.collection_plural"

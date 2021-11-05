@@ -130,7 +130,6 @@ export default css`
 
     /* fieldset */
     --fieldset-field-spacing: ${pxToRem(24)};
-    --fieldset-legend-padding: ${pxToRem(24)};
 
     /* buttons */
     --button-background: var(--background-light);

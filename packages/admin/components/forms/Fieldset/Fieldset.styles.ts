@@ -4,15 +4,17 @@ import { pxToRem } from "theme/mixins/functions";
 import { respond } from "theme/mixins/base";
 
 export const Fieldset = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  gap: var(--fieldset-field-spacing, ${pxToRem(24)});
-  padding-block-end: var(--fieldset-field-spacing, ${pxToRem(24)});
+  padding-block-end: var(--fieldset-field-spacing);
   flex-basis: var(--form-grid-item-width-wide);
 `;
 
-export const Legend = styled.legend`
-  padding-block-end: var(--fieldset-legend-padding);
+export const Legend = styled.legend``;
+
+export const FieldsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--fieldset-field-spacing);
+  padding-block-start: var(--fieldset-field-spacing);
 `;
 
 export const Fields = styled.div`
@@ -20,7 +22,7 @@ export const Fields = styled.div`
 
   display: flex;
   flex-direction: row;
-  gap: var(--fieldset-field-spacing, ${pxToRem(24)});
+  gap: var(--fieldset-field-spacing);
   align-items: start;
 
   ${respond(

@@ -8,7 +8,7 @@ const Fieldset = ({ label, children, description, style }: Props) => {
         {label}
       </Styled.Legend>
       {description && <Styled.Description>{description}</Styled.Description>}
-      {children}
+      <Styled.FieldsWrapper>{children}</Styled.FieldsWrapper>
     </Styled.Fieldset>
   );
 };
