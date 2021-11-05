@@ -2,6 +2,7 @@ import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
+import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import {
@@ -12,7 +13,6 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
-import { useTranslation } from "react-i18next";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

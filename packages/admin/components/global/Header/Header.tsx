@@ -8,6 +8,7 @@ import ProviderBar from "../ProviderBar";
 import HeaderAccount from "./HeaderAccount";
 import * as Styled from "./Header.styles";
 import HeaderNavLinks from "./HeaderNavLinks";
+import HeaderWrapper from "./HeaderWrapper";
 import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
 import { LogoPlaceholder } from "components/global";
@@ -17,7 +18,6 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
-import HeaderWrapper from "./HeaderWrapper";
 
 function Header() {
   const { t } = useTranslation();
