@@ -1,6 +1,9 @@
 import { Story } from "@storybook/react";
 import Header from "./";
 import { ViewerContext } from "contexts";
+import { Toast, ButtonControl } from "components/atomic";
+import { useNotify } from "hooks";
+
 type Props = React.ComponentProps<typeof Header>;
 
 export default {
@@ -33,3 +36,17 @@ export const WithAllPermissions: Story<Props> = () => (
     <Header />
   </ViewerContext.Provider>
 );
+
+export const WithToasts: Story<Props> = () => {
+  const notify = useNotify();
+
+  return (
+    <ViewerContext.Provider value={{ allowedActions: [] }}>
+      <Header />
+      <ButtonControl onClick={() => notify.info("A toast!")}>
+        Show a toast message
+      </ButtonControl>
+      <Toast />
+    </ViewerContext.Provider>
+  );
+};

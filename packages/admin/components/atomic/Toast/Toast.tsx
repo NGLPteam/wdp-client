@@ -9,7 +9,14 @@ function Toast({ ...toastProps }: Props) {
   }
 
   return (
-    <Toaster toastOptions={{ duration: 4000 }} {...toastProps}>
+    <Toaster
+      gutter={20}
+      toastOptions={{ duration: 4000 }}
+      containerStyle={{
+        marginBlockStart: "calc(var(--global-header-height) + 20px)",
+      }}
+      {...toastProps}
+    >
       {(t) => (
         <Styled.BaseToast data-visible={t.visible} data-type={t.type}>
           {t.type !== "blank" && (
