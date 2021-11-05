@@ -5,9 +5,14 @@ import type { GetLayout } from "types/page";
 
 import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
+import { LoadingCircle } from "components/atomic";
 
 function ContributorDetails({ data }: Props) {
-  return <ContributorUpdateForm data={data?.contributor} />;
+  return data && data.contributor ? (
+    <ContributorUpdateForm data={data.contributor} />
+  ) : (
+    <LoadingCircle />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {

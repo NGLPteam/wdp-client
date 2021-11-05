@@ -4,11 +4,14 @@ import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsM
 import type { GetLayout } from "types/page";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
 import UserUpdateForm from "components/composed/user/UserUpdateForm";
+import { LoadingCircle } from "components/atomic";
 
 function UserDetails({ data }: Props) {
-  if (!data || !data.user) return null;
-
-  return <UserUpdateForm data={data.user} />;
+  return data && data.user ? (
+    <UserUpdateForm data={data.user} />
+  ) : (
+    <LoadingCircle />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
