@@ -26,7 +26,8 @@
       "save_and_close": "Save & Close",
       "search": "Search",
       "sign_in": "Sign In",
-      "sign_out": "Sign Out"
+      "sign_out": "Sign Out",
+      "and_x_more": ", and {{count}} more"
     },
     "glossary": {
       "community": "community",
@@ -75,6 +76,8 @@
       "avatar_column": "Avatar",
       "slug_column": "Slug",
       "inherited_from_schema_column": "From Schema?",
+      "items_column": "Items",
+      "contributors_column": "Contributors",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
