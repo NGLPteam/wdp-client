@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type SchemaSelectFragment = {
     readonly schemaVersionOptions: ReadonlyArray<{
@@ -13,7 +14,7 @@ export type SchemaSelectFragment = {
 };
 export type SchemaSelectFragment$data = SchemaSelectFragment;
 export type SchemaSelectFragment$key = {
-    readonly " $data"?: SchemaSelectFragment$data;
+    readonly " $data"?: SchemaSelectFragment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaSelectFragment">;
 };
 

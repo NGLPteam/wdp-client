@@ -2,16 +2,15 @@ import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
+import { ALL_VIEW_OPTIONS } from "utils/view-options";
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import PageHeader from "components/layout/PageHeader";
 import type {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
-import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
-
-import ModelListPage from "components/composed/model/ModelListPage";
-import ModelColumns from "components/composed/model/ModelColumns";
-import PageHeader from "components/layout/PageHeader";
-import { ALL_VIEW_OPTIONS } from "utils/view-options";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -30,8 +29,8 @@ function ItemList<T extends OperationType>({
       route: "item",
       accessor: "title",
     }),
+    ModelColumns.ContributorsColumn<ItemNode>(),
     ModelColumns.SchemaColumn<ItemNode>(),
-    ModelColumns.CreatedAtColumn<ItemNode>(),
     ModelColumns.UpdatedAtColumn<ItemNode>(),
   ];
 
@@ -87,6 +86,13 @@ const fragment = graphql`
           }
         }
       }
+      items {
+        pageInfo {
+          totalCount
+        }
+      }
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
+      ...ContributorsColumnFragment
     }
     ...ModelListPageFragment
   }

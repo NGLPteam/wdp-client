@@ -26,6 +26,12 @@ export type ItemListFragment = {
                 } | null;
             };
         } | null;
+        readonly items: {
+            readonly pageInfo: {
+                readonly totalCount: number;
+            };
+        };
+        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ItemListFragment";
@@ -172,6 +178,40 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ItemConnection",
+          "kind": "LinkedField",
+          "name": "items",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PageInfo",
+              "kind": "LinkedField",
+              "name": "pageInfo",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "totalCount",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorsColumnFragment"
         }
       ],
       "storageKey": null
@@ -185,5 +225,5 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = 'd2dc5a680da5497caefc7027eb190fc8';
+(node as any).hash = 'f2d6c39c2fc02c692e1a65f0c5a2f660';
 export default node;
