@@ -16,7 +16,6 @@ const Typeahead = forwardRef(
       placeholder,
       options,
       required,
-      onChange,
       onInputChange,
       value,
       isWide,
