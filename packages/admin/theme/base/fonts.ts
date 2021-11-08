@@ -1,21 +1,12 @@
-import { embedFonts } from "@castiron/style-mixins";
+import { css } from "styled-components";
+import { embedFont } from "@wdp/theme/mixins";
 
-const fontsList = [
-  { name: "Karla", fileName: "Karla-Regular", style: "normal", weight: 400 },
-  { name: "Karla", fileName: "Karla-Italic", style: "italic", weight: 400 },
-  { name: "Karla", fileName: "Karla-Bold", style: "normal", weight: 700 },
-  {
-    name: "Karla",
-    fileName: "Karla-Bold-Italic",
-    style: "italic",
-    weight: 700,
-  },
-  { name: "Karla", fileName: "Karla-Medium", style: "normal", weight: 500 },
-  { name: "Karla", fileName: "Karla-SemiBold", style: "normal", weight: 600 },
-];
-
-const fonts = `
-  ${embedFonts(fontsList)}
+export default css`
+  ${embedFont("Karla", "Karla-Regular", "normal", 400)}
+  ${embedFont("Karla", "Karla-Italic", "italic", 400)}
+  ${embedFont("Karla", "Karla-Bold", "normal", 700)}
+  ${embedFont("Karla", "Karla-Bold-Italic", "italic", 700)}
+  ${embedFont("Karla", "Karla-Medium", "normal", 500)}
+  ${embedFont("Karla", "Karla-SemiBold", "normal", 600)}
+  ${embedFont("Karla", "Karla-SemiBold", "normal", 600)}
 `;
-
-export default fonts;

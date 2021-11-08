@@ -25,7 +25,7 @@ export default css`
     /* system colors */
 
     /* fonts */
-    --font-face-base: "Karla", serif;
+    --font-face-base: "Karla", sans-serif;
     --font-weight-base: 400;
 
     /* font weights */
