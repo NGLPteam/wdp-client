@@ -1,29 +1,21 @@
-import { css } from "styled-components";
+import { embedFonts } from "@castiron/style-mixins";
 
-function fontFace(
-  name: string,
-  filename: string,
-  style = "normal",
-  weight = 400
-) {
-  return `
-    @font-face {
-      font-family: ${name};
-      font-style: ${style};
-      font-weight: ${weight};
-      font-display: block;
-      src: url("/fonts/${filename}.woff2") format("woff2"),
-        url("/fonts/${filename}.woff") format("woff");
-    }
-  `;
-}
+const fontsList = [
+  { name: "Karla", fileName: "Karla-Regular", style: "normal", weight: 400 },
+  { name: "Karla", fileName: "Karla-Italic", style: "italic", weight: 400 },
+  { name: "Karla", fileName: "Karla-Bold", style: "normal", weight: 700 },
+  {
+    name: "Karla",
+    fileName: "Karla-Bold-Italic",
+    style: "italic",
+    weight: 700,
+  },
+  { name: "Karla", fileName: "Karla-Medium", style: "normal", weight: 500 },
+  { name: "Karla", fileName: "Karla-SemiBold", style: "normal", weight: 600 },
+];
 
-export default css`
-  ${fontFace("Karla", "Karla-Regular", "normal", 400)}
-  ${fontFace("Karla", "Karla-Italic", "italic", 400)}
-  ${fontFace("Karla", "Karla-Bold", "normal", 700)}
-  ${fontFace("Karla", "Karla-Bold-Italic", "italic", 700)}
-  ${fontFace("Karla", "Karla-Medium", "normal", 500)}
-  ${fontFace("Karla", "Karla-SemiBold", "normal", 600)}
-  ${fontFace("Karla", "Karla-SemiBold", "normal", 600)}
+const fonts = `
+  ${embedFonts(fontsList)}
 `;
+
+export default fonts;

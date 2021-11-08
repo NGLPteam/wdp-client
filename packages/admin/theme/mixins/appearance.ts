@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
+export { aHidden } from "@wdp/theme/mixins";
 
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"
@@ -130,16 +131,6 @@ export const aLink = (color?: string) => css`
   &[aria-current="true"] {
     font-weight: var(--font-weight-semibold);
   }
-`;
-
-export const aHidden = css`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
 `;
 
 export function aButton(secondary?: boolean) {

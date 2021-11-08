@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./AppBody.styles";
 import { usePageContext } from "hooks";
-import checkFlexGap from "theme/checkFlexGap";
+import checkFlexGap from "helpers/checkFlexGap";
 import { Header, Footer } from "components/global";
 import { ProgressBar } from "components/atomic";
 

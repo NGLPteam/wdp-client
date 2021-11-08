@@ -55,6 +55,11 @@ export default css`
     list-style: none;
   }
 
+  ul,
+  ol {
+    list-style-position: inside;
+  }
+
   /* Make images easier to work with */
   img,
   picture {
@@ -100,6 +105,7 @@ export default css`
   a {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
   }
 
   /* Remove table styling */
