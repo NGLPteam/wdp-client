@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
+export { tTruncate, tLineClamp } from "@wdp/theme/mixins";
 
 export function tLabel(size: "sm" | "md" | "lg") {
   return css`
@@ -30,20 +31,5 @@ export function tHeading(size: 1 | 2 | 3 | 4 | 5 | 6) {
     font-size: var(${`--font-size-h${size}`});
     font-weight: var(${`--font-weight-h${size}`});
     line-height: var(${`--line-height-h${size}`});
-  `;
-}
-
-export const tTruncate = `
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-export function tLineClamp(lines: number) {
-  return `
-    display: -webkit-box;
-    -webkit-line-clamp: ${lines};
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   `;
 }

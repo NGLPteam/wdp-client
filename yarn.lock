@@ -57,7 +57,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@>=7.9.0", "@babel/core@^7.1.0", "@babel/core@^7.12.10", "@babel/core@^7.12.3", "@babel/core@^7.13.10", "@babel/core@^7.14.0", "@babel/core@^7.7.5", "@babel/core@^7.9.6":
+"@babel/core@>=7.9.0", "@babel/core@^7.1.0", "@babel/core@^7.12.10", "@babel/core@^7.12.3", "@babel/core@^7.13.10", "@babel/core@^7.14.0", "@babel/core@^7.16.0", "@babel/core@^7.7.5", "@babel/core@^7.9.6":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.16.0.tgz#c4ff44046f5fe310525cc9eb4ef5147f0c5374d4"
   integrity sha512-mYZEvshBRHGsIAiyH5PzCFTCfbWfoYbO/jcSdXQSUQu1/pW0xDZAUP7KEc32heqWTAfAHhV9j1vH8Sav7l+JNQ==
@@ -1166,7 +1166,7 @@
   dependencies:
     focus-trap "^6.6.0"
 
-"@castiron/style-mixins@^1.0.0":
+"@castiron/style-mixins@^1.0.0", "@castiron/style-mixins@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@castiron/style-mixins/-/style-mixins-1.0.6.tgz#b22673bc2ee4aa8a1fe66e129f3bdcfe43b81053"
   integrity sha512-7+xwX1AMpwtjhwgmakxyhheXxdjQnm/+zD1Cq46KoPOPxelMN40mD3DuR7gM1XqcHSdJU/QexYBOTOW3O+uUsg==
@@ -3289,7 +3289,7 @@
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha512-K5K+yml8LTo9bWJI/rECfIPrGgxdpeNbj+d53lwN4QjW1MCwlkhUms+gtdzigTeUyBr09+u8BwOIY3MXvHdcsA==
 
-"@types/styled-components@^5.1.11":
+"@types/styled-components@^5.1.11", "@types/styled-components@^5.1.15":
   version "5.1.15"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.15.tgz#30855b40aa80b3b4e4c0e43a4af366e7c246d148"
   integrity sha512-4evch8BRI3AKgb0GAZ/sn+mSeB+Dq7meYtMi7J/0Mg98Dt1+r8fySOek7Sjw1W+Wskyjc93565o5xWAT/FdY0Q==
