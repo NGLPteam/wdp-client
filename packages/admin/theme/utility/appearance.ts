@@ -53,7 +53,8 @@ export default css`
   }
 
   .a-pagination-input {
-    max-width: 30px;
+    width: var(--pagination-input-width);
+    text-align: center;
   }
 
   .a-color-accent {
