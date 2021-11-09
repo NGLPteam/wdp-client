@@ -146,5 +146,8 @@ export default css`
 
     /* loading */
     --loading-border-radius: ${pxToRem(10)};
+
+    /* pagination */
+    --pagination-input-width: ${pxToRem(50)};
   }
 `;
