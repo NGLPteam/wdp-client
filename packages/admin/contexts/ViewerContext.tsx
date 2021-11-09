@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from "react";
 import { graphql } from "react-relay";
 import { ViewerContextQuery } from "__generated__/ViewerContextQuery.graphql";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
+import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],

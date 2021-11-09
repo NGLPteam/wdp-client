@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
-export { tTruncate, tLineClamp } from "@wdp/theme/mixins";
+export { tTruncate, tLineClamp } from "@wdp/lib/theme/mixins";
 
 export function tLabel(size: "sm" | "md" | "lg") {
   return css`

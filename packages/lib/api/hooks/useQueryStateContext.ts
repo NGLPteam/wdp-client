@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext } from "react";
-import { QueryStateContext } from "contexts";
+import { QueryStateContext } from "../contexts";
 
 /**
  * Access the QueryWatcher state context.

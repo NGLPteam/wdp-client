@@ -4,7 +4,7 @@ import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import Drawer from "components/layout/Drawer";
 import ItemAddForm from "components/composed/item/ItemAddForm";
-import QueryWrapper from "components/api/QueryWrapper";
+import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 
 import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
 

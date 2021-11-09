@@ -1,6 +1,9 @@
+export {
+  useMaybeFragment,
+  usePageContext,
+  useQueryStateContext,
+} from "@wdp/lib/api/hooks";
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
-export { default as useAuthenticatedQuery } from "./useAuthenticatedQuery";
-export { default as useAuthenticatedFetchKey } from "./useAuthenticatedFetchKey";
 export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
@@ -18,9 +21,6 @@ export { default as useRouteSlug } from "./useRouteSlug";
 export { default as useRoutePage } from "./useRoutePage";
 export { default as useIsMobile } from "./useIsMobile";
 export { default as useAutoProgress } from "./useAutoProgress";
-export { default as usePageContext } from "./usePageContext";
-export { default as useQueryStateContext } from "./useQueryStateContext";
-export { default as useMaybeFragment } from "./useMaybeFragment";
 export { default as useNotify } from "./useNotify";
 export { default as usePrevious } from "./usePrevious";
 export { default as useDrawerHelper } from "./useDrawerHelper";

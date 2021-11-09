@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { baseResets } from "@wdp/theme";
+import { baseResets } from "@wdp/lib/theme";
 import baseFonts from "./base/fonts";
 import baseRoot from "./base/root";
 import baseTypography from "./base/typography";

@@ -3,6 +3,7 @@
   "workspaces": [
     "packages/admin",
     "packages/frontend",
+    "packages/lib",
     "packages/common/*"
   ],
   "private": "true",

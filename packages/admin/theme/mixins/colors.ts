@@ -1,1 +1,1 @@
-export { hexToHSLA } from "@wdp/theme/functions";
+export { hexToHSLA } from "@wdp/lib/theme/functions";
