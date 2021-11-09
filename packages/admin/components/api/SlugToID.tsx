@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
-import QueryWrapper from "@wdp/api/components/QueryWrapper";
+import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import { SlugToIDCommunityQuery as CommunityQuery } from "@/relay/SlugToIDCommunityQuery.graphql";
 import { SlugToIDCollectionQuery as CollectionQuery } from "@/relay/SlugToIDCollectionQuery.graphql";
 import { SlugToIDItemQuery as ItemQuery } from "@/relay/SlugToIDItemQuery.graphql";

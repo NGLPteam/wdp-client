@@ -1,1 +1,1 @@
-export { pxToRem } from "@wdp/theme/functions";
+export { pxToRem } from "@wdp/lib/theme/functions";

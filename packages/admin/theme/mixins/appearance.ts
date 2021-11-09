@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "./functions";
-export { aHidden } from "@wdp/theme/mixins";
+export { aHidden } from "@wdp/lib/theme/mixins";
 
 export function aTextGlow(type: "darkMode" | "lightMode") {
   return type === "lightMode"

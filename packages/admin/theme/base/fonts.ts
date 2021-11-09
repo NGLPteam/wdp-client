@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { embedFont } from "@wdp/theme/mixins";
+import { embedFont } from "@wdp/lib/theme/mixins";
 
 export default css`
   ${embedFont("Karla", "Karla-Regular", "normal", 400)}

@@ -2,7 +2,7 @@ export {
   useMaybeFragment,
   usePageContext,
   useQueryStateContext,
-} from "@wdp/api/hooks";
+} from "@wdp/lib/api/hooks";
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";

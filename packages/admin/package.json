@@ -37,7 +37,7 @@
     "@uppy/file-input": "^1.5.2",
     "@uppy/react": "^1.12.2",
     "@uppy/tus": "^1.9.2",
-    "@wdp/theme": "1.0.0",
+    "@wdp/lib": "1.0.0",
     "babel-loader": "^8.0.0",
     "cookie": "^0.4.1",
     "csstype": "^2.6.2",

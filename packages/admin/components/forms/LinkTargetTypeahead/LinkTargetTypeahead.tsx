@@ -4,7 +4,7 @@ import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { useMaybeFragment } from "hooks";
-import useAuthenticatedQuery from "@wdp/api/hooks/useAuthenticatedQuery";
+import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,

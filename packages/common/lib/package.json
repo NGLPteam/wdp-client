@@ -1,8 +1,8 @@
 {
-  "name": "@wdp/api",
+  "name": "@wdp/lib",
   "version": "1.0.0",
   "private": "true",
-  "description": "Shared api components, contexts, and hooks",
+  "description": "Shared components, contexts, and hooks",
   "main": "index.ts",
   "scripts": {
     "lint": "npm-run-all lint:*",
@@ -19,11 +19,18 @@
       "next/babel"
     ],
     "plugins": [
-      "relay"
+      "relay",
+      [
+        "babel-plugin-styled-components",
+        {
+          "ssr": false
+        }
+      ]
     ]
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
+    "@castiron/style-mixins": "^1.0.6",
     "graphql": "^15.5.1",
     "react": "17.0.2",
     "react-confirm": "^0.1.23",
@@ -37,6 +44,7 @@
     "relay-config": "^12.0.0",
     "relay-hooks": "^6.0.0",
     "relay-runtime": "^12.0.0",
+    "styled-components": "^5.3.0",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
@@ -49,7 +57,9 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-relay": "^11.0.2",
     "@types/relay-runtime": "^12.0.0",
+    "@types/styled-components": "^5.1.15",
     "babel-plugin-relay": "^12.0.0",
+    "babel-plugin-styled-components": "^1.13.1",
     "npm-run-all": "^4.1.5"
   }
 }
