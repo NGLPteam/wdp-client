@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext } from "react";
-import PageContext from "contexts/PageContext";
+import PageContext from "../contexts/PageContext";
 
 /**
  * Access the page context

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import * as Styled from "./SchemaSelector.styles";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
-import QueryWrapper from "components/api/QueryWrapper";
+import QueryWrapper from "@wdp/api/components/QueryWrapper";
 import MutationForm, {
   Forms,
   useRenderForm,

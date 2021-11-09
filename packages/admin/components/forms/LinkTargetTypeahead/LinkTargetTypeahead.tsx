@@ -3,7 +3,8 @@ import { graphql } from "react-relay";
 import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import { useAuthenticatedQuery, useMaybeFragment } from "hooks";
+import { useMaybeFragment } from "hooks";
+import useAuthenticatedQuery from "@wdp/api/hooks/useAuthenticatedQuery";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,
@@ -26,7 +27,7 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment,
-    data?.collection?.linkTargetCandidates
+    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
   );
 
   const options = useMemo(() => {

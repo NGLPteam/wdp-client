@@ -3,20 +3,18 @@ import type { QueryOptions } from "relay-hooks";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import ErrorPage from "next/error";
 import intersection from "lodash/intersection";
-import QueryVariablesContext from "contexts/QueryVariablesContext";
-import useAuthenticatedQuery from "hooks/useAuthenticatedQuery";
-import { usePageContext } from "hooks";
-import { QueryStateContext } from "contexts";
+import { useAuthenticatedQuery, usePageContext } from "../hooks";
+import { QueryStateContext, QueryVariablesContext } from "../contexts";
 
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options, refetchTags } = props;
 
   const { variables, setVariables } = useManagedVariables<T>(initialVariables);
 
-  useEffect(
-    () => initialVariables && setVariables(initialVariables),
-    [initialVariables, setVariables]
-  );
+  useEffect(() => initialVariables && setVariables(initialVariables), [
+    initialVariables,
+    setVariables,
+  ]);
 
   const { data, error, isLoading, retry } = useAuthenticatedQuery<T>(
     query,
