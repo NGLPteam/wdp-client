@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import FooBar from "@wdp/foobar";
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +15,6 @@ const Home: NextPage = () => {
         <h1>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <FooBar />
 
         <div>
           <a href="https://nextjs.org/docs">

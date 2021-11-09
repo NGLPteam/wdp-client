@@ -1,10 +1,8 @@
 import React from "react";
-import FooBar from "@wdp/foobar";
 import { MessageBlock } from "components/atomic";
 export default function Home() {
   const content = (
     <div>
-      <FooBar />
       <p>
         Welcome to the WDP Admin Interface, a tool that allows non-technical
         users to manage content stored in the WDP API. This tool is under active
