@@ -1,0 +1,31 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+
+<Meta title="Styles/Layout" />
+
+# Layout
+
+## Containers
+
+export const ContainerTest = ({ className }) => (
+  <div className="a-bg-custom10">
+    <div className={className}>
+      <h4>.{className}</h4>
+      <hr />
+      <p>
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus. Interdum sed eu
+        venenatis facilisi eget. Id cursus ipsum, faucibus urna, dolor lacus
+        nulla interdum posuere. Sit in et quam in magna egestas. Nisi, nibh duis
+        id condimentum. Sed gravida aliquam malesuada volutpat, risus. Non
+        faucibus pharetra.
+      </p>
+    </div>
+  </div>
+);
+
+<Canvas>
+  <Story name="Containers">
+    <ContainerTest className="l-container-max" />
+    <ContainerTest className="l-container-wide" />
+  </Story>
+</Canvas>

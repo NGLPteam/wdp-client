@@ -1,49 +1,145 @@
-import { Meta, Canvas } from "@storybook/addon-docs";
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 <Meta title="Styles/Typography" />
 
 # Typography
 
-Base typography styles
+Change the typography styles using the font style dropdown above.
 
-## Headers
+## Header text
 
 <Canvas>
-  <div>
-    <h1>H1 style</h1>
-    <h2>H2 style</h2>
-    <h3>H3 style</h3>
-  </div>
+  <Story name="Headers">
+    <div className="t-rte">
+      <h1>H1. Gravida sed aliquam.</h1>
+      <h2>H2. Gravida sed aliquam malesuada volutpat.</h2>
+      <h3>
+        H3. Gravida sed aliquam malesuada volutpat, risus. Non faucibus
+        pharetra.
+      </h3>
+      <h4>
+        H4. Gravida sed aliquam malesuada volutpat, risus. Non faucibus
+        pharetra, maecenas ut purus.
+      </h4>
+      <h4 style={{ fontStyle: "italic" }}>
+        H4 Italic. Gravida sed aliquam malesuada volutpat, risus. Non faucibus
+        pharetra, maecenas ut purus.
+      </h4>
+    </div>
+  </Story>
 </Canvas>
 
-## Body Text
+## Body text
 
 <Canvas>
-  <div>
-    <p>Paragraph text.</p>
-    <p>
-      <strong>Strong paragraph text.</strong>
-    </p>
-    <p>
-      <em>Emphasized paragraph text.</em>
-    </p>
-    <ul>
-      <li>List text</li>
-      <li>List text</li>
-      <li>List text</li>
-    </ul>
-    <ol>
-      <li>Ordered list text</li>
-      <li>Ordered list text</li>
-      <li>Ordered list text</li>
-    </ol>
-  </div>
+  <Story name="Body">
+    <div className="t-rte">
+      <p>
+        Body Regular <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus. Interdum sed eu venenatis facilisi
+        eget. Id cursus ipsum, faucibus urna, dolor lacus nulla interdum posuere.
+        Sit in et quam in magna egestas. Nisi, nibh duis id condimentum. Sed gravida
+        aliquam malesuada volutpat, risus. Non faucibus pharetra.
+      </p>
+      <p style={{ fontStyle: "italic" }}>
+        Body Regular Italic
+        <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus. Interdum sed eu
+        venenatis facilisi eget. Id cursus ipsum, faucibus urna, dolor lacus
+        nulla interdum posuere. Sit in et quam in magna egestas. Nisi, nibh duis
+        id condimentum. Sed gravida aliquam malesuada volutpat, risus. Non
+        faucibus pharetra.
+      </p>
+      <p style={{ fontWeight: "var(--font-weight-medium)" }}>
+        Body Medium <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p
+        style={{
+          fontStyle: "italic",
+          fontWeight: "var(--font-weight-medium)",
+        }}
+      >
+        Body Medium Italic <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p>
+        <a href="#">Body Link</a>
+      </p>
+    </div>
+  </Story>
 </Canvas>
 
-## Link Text
+## Body text, small
 
 <Canvas>
-  <div>
-    <a href="#">Link text</a>
-  </div>
+  <Story name="Body Small">
+    <div className="t-copy-sm t-rte">
+      <p>
+        Body Small <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus. Interdum sed eu venenatis facilisi
+        eget. Id cursus ipsum, faucibus urna, dolor lacus nulla interdum posuere.
+        Sit in et quam in magna egestas. Nisi, nibh duis id condimentum. Sed gravida
+        aliquam malesuada volutpat, risus. Non faucibus pharetra.
+      </p>
+      <p style={{ fontStyle: "italic" }}>
+        Body Small Italic
+        <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus. Interdum sed eu
+        venenatis facilisi eget. Id cursus ipsum, faucibus urna, dolor lacus
+        nulla interdum posuere. Sit in et quam in magna egestas. Nisi, nibh duis
+        id condimentum. Sed gravida aliquam malesuada volutpat, risus. Non
+        faucibus pharetra.
+      </p>
+      <p style={{ fontWeight: "var(--font-weight-medium)" }}>
+        Body Small, Medium <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p
+        style={{
+          fontStyle: "italic",
+          fontWeight: "var(--font-weight-medium)",
+        }}
+      >
+        Body Small, Medium Italic <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat, risus.
+        Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p>
+        <a href="#">Body Link</a>
+      </p>
+    </div>
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Labels">
+    <div className="t-rte">
+      <p className="t-label-lg">
+        Label Large All-Caps
+        <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p className="t-label-sm">
+        Label Small All-Caps
+        <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus.
+      </p>
+      <p className="t-label-mix">
+        Label Small Mixed-Case
+        <br />
+        Nisi, nibh duis id condimentum. Sed gravida aliquam malesuada volutpat,
+        risus. Non faucibus pharetra, maecenas ut purus.
+      </p>
+    </div>
+  </Story>
 </Canvas>

@@ -30,7 +30,7 @@ export function aBgDark(bgColor = "brand100") {
   return css`
     --background-color: var(--${bgColor});
     --background-light: var(--brand90);
-    --color: var(--brand20);
+    --color-base: var(--brand20);
     --color-light: var(--brand20); /* Passes AA */
     --color-lighter: var(
       --brand30
@@ -44,7 +44,7 @@ export function aBgDark(bgColor = "brand100") {
     --color-error: var(--neutral00);
 
     background-color: var(--background-color);
-    color: var(--color);
+    color: var(--color-base);
   `;
 }
 
@@ -54,7 +54,7 @@ export function aBgLight(bgColor = "neutral00") {
     --background-light: var(
       --${bgColor === "neutral00" ? "brand10" : "brand20"}
     );
-    --color: var(--neutral90);
+    --color-base: var(--neutral90);
     --color-light: var(--neutral70); /* Passes AA */
     --color-lighter: var(
       --neutral60
@@ -67,7 +67,7 @@ export function aBgLight(bgColor = "neutral00") {
     --button-background: var(--background-light);
 
     background-color: var(--background-color);
-    color: var(--color);
+    color: var(--color-base);
   `;
 }
 
@@ -88,7 +88,7 @@ export function aBaseInput() {
       var(--input-border-radius)
     );
     padding: var(--input-padding);
-    color: var(--color);
+    color: var(--color-base);
     text-align: var(--input-text-align, left);
     transition: var(--background-transition), var(--color-transition),
       var(--border-transition), var(--opacity-transition);

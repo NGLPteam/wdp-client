@@ -3,8 +3,8 @@ import { graphql } from "react-relay";
 import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import { useMaybeFragment } from "hooks";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
+import { useMaybeFragment } from "hooks";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,

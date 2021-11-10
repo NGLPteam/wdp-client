@@ -68,7 +68,7 @@ export default css`
     --font-weight-h6: var(--font-weight-regular);
 
     /* font colors */
-    --color: var(--neutral90);
+    --color-base: var(--neutral90);
     --color-light: var(--neutral70); /* Passes AA */
     --color-lighter: var(
       --neutral60

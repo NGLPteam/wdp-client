@@ -45,8 +45,10 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.0.9",
+    "@storybook/addon-a11y": "^6.3.12",
     "@storybook/addon-docs": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/react": "^6.3.12"
+    "@storybook/react": "^6.3.12",
+    "storybook-addon-themes": "^6.1.0"
   }
 }

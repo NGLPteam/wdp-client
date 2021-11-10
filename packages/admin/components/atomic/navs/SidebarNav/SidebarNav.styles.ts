@@ -31,7 +31,7 @@ export const Link = styled.a<LinkProps>`
       !active &&
       css`
         color: inherit;
-        box-shadow: inset 0 -1px 0 var(--color);
+        box-shadow: inset 0 -1px 0 var(--color-base);
       `}
   }
 

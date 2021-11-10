@@ -1,9 +1,29 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/addon-docs";
+import { Meta, ColorPalette, ColorItem, Canvas } from "@storybook/addon-docs";
+import { baseColors, customColors } from "../base/variables";
+import { getColorsByKey } from "../base/functions";
 
 <Meta title="Styles/Colors" />
 
-# Colors
+# Base Colors
+
+export const neutral = getColorsByKey("neutral", baseColors);
+export const red = getColorsByKey("red", baseColors);
+export const green = getColorsByKey("green", baseColors);
+export const blue = getColorsByKey("blue", baseColors);
 
 <ColorPalette>
-  <ColorItem title="Neutral" colors={["#FFF", "#000"]} />
+  <ColorItem title={"Neutral"} colors={neutral} />
+  <ColorItem title={"Red"} colors={red} />
+  <ColorItem title={"Green"} colors={green} />
+  <ColorItem title={"Blue"} colors={blue} />
+</ColorPalette>
+
+# Custom Colors
+
+export const customCream = getColorsByKey("cream", customColors);
+export const customBlue = getColorsByKey("blue", customColors);
+
+<ColorPalette>
+  <ColorItem title={"Cream"} colors={customCream} />
+  <ColorItem title={"Blue"} colors={customBlue} />
 </ColorPalette>

@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import * as Styled from "./SchemaSelector.styles";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import MutationForm, {
   Forms,
   useRenderForm,
