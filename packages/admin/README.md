@@ -2,19 +2,6 @@
 
 ## Development Environment
 
-```sh
-npm install
-npm run dev # to start dev client
-```
-
-That's it! Now go to http://localhost:3000/
-
-### Storybook
-
-```sh
-npm run storybook
-```
-
 ### Client architecture
 
 - `/pages` — a single component that dynamically generates static pages for all routes.
@@ -33,7 +20,6 @@ The components are separated out into these folders:
 - `/factories/` - Mapped components with shared props, such as icons
 - `/layout/` - Small reusable layout components such as grids and cards
 - `/global/` - Composed, app wide components, that are visible on every page
-- `/scaffolding/` - A temp folder for the original scaffolding components
 - `/views/` - Composed components specific to routes. These components can fetch data.
 - `/svgs/` - Svgs, such as icons and logos
 
@@ -48,13 +34,3 @@ Header.tsx // Defines the component
 Header.stories.tsx // Storybook file
 styles.ts // Styled components
 ```
-
-### Browser support
-
-We fully support the current release of all evergreen browsers (defined in `browserslist` property in `client/package.json`).
-
-- Edge (Chromium latest)
-- Firefox (Windows and OSX)
-- Chrome (Windows and OSX)
-- Safari
-- Latest release of Safari on iOS and Chrome on Android
