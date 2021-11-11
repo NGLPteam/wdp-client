@@ -43,7 +43,7 @@ export default css`
 
   .a-bg-brand90 {
     --background-color: var(--brand90);
-    --color: var(--brand10);
+    --color-base: var(--brand10);
     --color-light: var(--brand10);
     --color-lighter: var(--brand20);
   }

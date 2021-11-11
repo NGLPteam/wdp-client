@@ -46,7 +46,7 @@ interface ListProps {
 export const Item = styled.li`
   transition: var(--color-transition), var(--background-transition);
   text-align: start;
-  color: var(--color);
+  color: var(--color-base);
 
   &:hover,
   &:focus-within:not(:hover) {
