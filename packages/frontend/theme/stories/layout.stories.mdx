@@ -6,8 +6,10 @@ import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
 ## Containers
 
+Container wrapper class with inline padding and a max width
+
 export const ContainerTest = ({ className }) => (
-  <div className="a-bg-custom10">
+  <div className="a-bg-custom20">
     <div className={className}>
       <h4>.{className}</h4>
       <hr />
@@ -27,5 +29,78 @@ export const ContainerTest = ({ className }) => (
   <Story name="Containers">
     <ContainerTest className="l-container-max" />
     <ContainerTest className="l-container-wide" />
+  </Story>
+</Canvas>
+
+## Grid
+
+A general grid class to help with quick layout building. 12 columns in total.
+
+export const paddingStyle = { padding: "2rem" };
+
+<Canvas>
+  <Story name="Grid">
+    <div className="l-container-max">
+      <p style={{ paddingBottom: "1rem" }}>.l-grid (12 columns)</p>
+      <div className="l-grid">
+        {[...Array(2).keys()].map((i) => (
+          <div
+            className="l-grid__item l-grid__item--6 a-bg-custom20"
+            key={i}
+            style={paddingStyle}
+          >
+            .l-grid__item
+            <br /> .l-grid__item--6
+          </div>
+        ))}
+        {[...Array(3).keys()].map((i) => (
+          <div
+            className="l-grid__item l-grid__item--4 a-bg-custom20"
+            key={i}
+            style={paddingStyle}
+          >
+            .l-grid__item
+            <br /> .l-grid__item--4
+          </div>
+        ))}
+        {[...Array(4).keys()].map((i) => (
+          <div
+            className="l-grid__item l-grid__item--3 a-bg-custom20"
+            key={i}
+            style={paddingStyle}
+          >
+            .l-grid__item
+            <br /> .l-grid__item--3
+          </div>
+        ))}
+      </div>
+    </div>
+  </Story>
+</Canvas>
+
+## Flex
+
+A general flex class to help with quick layout building.
+
+<Canvas>
+  <Story name="Flex">
+    <div className="l-container-max">
+      <p style={{ paddingBottom: "1rem" }}>.l-flex</p>
+      <div className="l-flex">
+        {[...Array(3).keys()].map((i) => (
+          <div className="a-bg-custom20" key={i} style={paddingStyle}>
+            {i}
+          </div>
+        ))}
+      </div>
+      <p style={{ padding: "1rem 0" }}>.l-flex .l-flex--gap</p>
+      <div className="l-flex l-flex--gap">
+        {[...Array(3).keys()].map((i) => (
+          <div className="a-bg-custom20" key={i} style={paddingStyle}>
+            {i}
+          </div>
+        ))}
+      </div>
+    </div>
   </Story>
 </Canvas>
