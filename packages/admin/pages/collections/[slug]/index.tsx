@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { SlugCollectionsPageQuery as Query } from "@/relay/SlugCollectionsPageQuery.graphql";
-import { GetLayout } from "types/page";
+import { GetLayout } from "@wdp/lib/types/page";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
 

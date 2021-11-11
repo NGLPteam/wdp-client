@@ -1,9 +1,9 @@
 import React from "react";
-import * as Styled from "./AppBody.styles";
 import { usePageContext } from "hooks";
-import checkFlexGap from "helpers/checkFlexGap";
+import { checkFlexGap } from "helpers";
 import { Header, Footer } from "components/global";
 import { ProgressBar } from "components/atomic";
+import * as Styled from "./AppBody.styles";
 
 function AppBody({ children }: Props) {
   const isFlexGapSupported = checkFlexGap();

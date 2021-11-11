@@ -4,7 +4,10 @@ import { graphql } from "react-relay";
 import CommunityLayout from "../CommunityLayout";
 import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
-import type { QueryLayoutProps, QueryPageComponentProps } from "types/page";
+import type {
+  QueryLayoutProps,
+  QueryPageComponentProps,
+} from "@wdp/lib/types/page";
 import { HasFragment } from "types/graphql-helpers";
 import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
 

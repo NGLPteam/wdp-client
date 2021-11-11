@@ -7,7 +7,7 @@ export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
-export { default as useLatest } from "./useLatest";
+export { default as useLatest } from "@wdp/lib/hooks/useLatest";
 export { default as useLatestPresentValue } from "./useLatestPresentValue";
 export { default as useMustBeAuthenticated } from "./useMustBeAuthenticated";
 export { useSetLocale } from "./useSetLocale";

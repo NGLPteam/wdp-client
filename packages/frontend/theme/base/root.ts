@@ -86,7 +86,7 @@ export default css`
   :root {
     /* custom theme color */
     ${({ theme }) =>
-      theme.colorStyle
+      theme && theme.colorStyle
         ? setCustomColors(theme.colorStyle)
         : setCustomColors("cream")}
 
@@ -94,8 +94,10 @@ export default css`
     ${baseFontStyles}
 
     /* theme font styles */
-    ${({ theme: { fontStyle } }) => {
-      switch (fontStyle) {
+    ${({ theme }) => {
+      if (!theme) return fontStyle1;
+
+      switch (theme.fontStyle) {
         case "fontStyle2":
           return fontStyle2;
 

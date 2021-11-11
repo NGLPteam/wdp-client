@@ -16,8 +16,7 @@ import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import AppBody from "components/global/AppBody";
 
-import initialEnvironment from "relay/initialEnvironment";
-import parseCookies from "utils/parseCookies";
+import { parseCookies, initialEnvironment } from "@wdp/lib/app";
 
 const FONTS = [
   "Karla-Regular",

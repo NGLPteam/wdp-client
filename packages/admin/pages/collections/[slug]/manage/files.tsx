@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { filesManageSlugCollectionQuery as Query } from "@/relay/filesManageSlugCollectionQuery.graphql";
-import type { GetLayout } from "types/page";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import FileList from "components/composed/file/FileList";

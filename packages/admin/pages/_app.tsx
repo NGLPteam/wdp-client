@@ -1,28 +1,25 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Head from "next/head";
-import {
-  SSRKeycloakProvider,
-  SSRCookies,
-  useKeycloak,
-} from "@react-keycloak/ssr";
-import { RelayEnvironmentProvider } from "relay-hooks";
+import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { AppProps, AppContext } from "next/app";
-import type { KeycloakInitOptions, KeycloakInstance } from "keycloak-js";
+import type { KeycloakInitOptions } from "keycloak-js";
 import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { AppContextProvider } from "contexts";
-import type { Page } from "types/page";
+import type { Page } from "@wdp/lib/types/page";
+import { KeycloakRelayProvider } from "@wdp/lib/keycloak";
 
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
-import useLatest from "hooks/useLatest";
 import { useSetLocale } from "hooks/useSetLocale";
+import {
+  parseCookies,
+  useRemoveServerInjectedCSS,
+  useDeserializeRecords,
+} from "@wdp/lib/app";
 
-import environment from "relay/environment";
 import keycloakConfig from "utils/keycloak";
-import parseCookies from "utils/parseCookies";
-
 import { RouteHelper } from "routes";
 
 import { Toast } from "components/atomic";
@@ -111,65 +108,12 @@ NGLPApp.getInitialProps = async (context: AppContext) => {
     pageProps: {},
   };
 };
-
-type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
-
 interface InitialProps {
   cookies?: Record<string, string>;
   records?: RecordMap;
   Component: Page;
 }
 
-interface KeycloakRelayProps {
-  children: React.ReactNode;
-  records?: RecordMap;
-}
-
-function KeycloakRelayProvider({ children, records }: KeycloakRelayProps) {
-  const { keycloak } = useKeycloak<KeycloakInstance>();
-
-  const keycloakRef = useLatest(keycloak);
-
-  const env = useMemo(() => {
-    return environment(keycloakRef, records);
-  }, [keycloakRef, records]);
-
-  return (
-    <RelayEnvironmentProvider environment={env}>
-      {children}
-    </RelayEnvironmentProvider>
-  );
-}
-
-function useRemoveServerInjectedCSS() {
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-
-    if (jssStyles) {
-      jssStyles?.parentElement?.removeChild(jssStyles);
-    }
-  }, []);
-}
-
-function useDeserializeRecords(r: RecordMap | null | undefined): RecordMap {
-  return useMemo<RecordMap>(() => {
-    if (r) return r;
-
-    if (typeof document !== "undefined") {
-      const recordsData = document.getElementById("relay-data")?.innerHTML;
-
-      if (recordsData) {
-        const records: RecordMap = JSON.parse(
-          Buffer.from(recordsData, "base64").toString()
-        );
-
-        return records;
-      }
-    }
-
-    return {} as RecordMap;
-  }, [r]);
-}
+type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 
 export default appWithTranslation(NGLPApp);
