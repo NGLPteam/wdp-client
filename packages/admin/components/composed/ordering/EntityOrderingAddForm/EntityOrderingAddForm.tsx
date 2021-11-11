@@ -13,6 +13,7 @@ import type {
   CreateOrderingInput,
   OrderDefinitionInput,
   OrderingSelectDefinitionInput,
+  OrderingDirectSelection,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
@@ -80,7 +81,7 @@ export default function EntityOrderingAddForm({
           name: data.name,
           identifier: `${convertToSlug(data?.name ?? undefined)}-${uid}`,
           order: getOrder(data.sortby),
-          select: { direct: data.selectDirect },
+          select: { direct: data.selectDirect as OrderingDirectSelection },
         },
       };
     },
@@ -90,9 +91,6 @@ export default function EntityOrderingAddForm({
   const defaultValues = {
     // Flatten select object into separate fields
     selectDirect: "CHILDREN",
-    entityId: undefined,
-    identifier: undefined,
-    order: { path: undefined, direction: undefined },
   };
 
   const renderForm = useRenderForm<Fields>(({ form: { register, watch } }) => {
