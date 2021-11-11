@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import type InputProps from "../inputType";
 import Radio from "./Radio";
@@ -8,14 +8,10 @@ import BaseInputLabel from "components/forms/BaseInputLabel";
 const RadioGroup = forwardRef(
   (
     { label, name, description, options, hideLabel, ...props }: Props,
-    ref: React.Ref<HTMLDivElement>
+    // ref is passed to radio button input
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ref: React.Ref<HTMLInputElement>
   ) => {
-    const defaultValue = options.filter((option) => option.default)[0]?.value;
-    const [selected, setSelected] = useState<string>(defaultValue ?? "");
-    const handleTabIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSelected(e.target.value);
-    };
-
     const { t } = useTranslation();
 
     const radios = options.map((option, i) => (
@@ -26,17 +22,15 @@ const RadioGroup = forwardRef(
         order={i + 1}
         name={name}
         label={option.label}
-        onClick={handleTabIndex}
-        selected={selected}
-        checked={option.default}
+        ref={ref}
         {...props}
       />
     ));
+
     return (
       <Styled.Group
         role="radiogroup"
         aria-label={props["aria-label"] || undefined}
-        ref={ref}
       >
         <BaseInputLabel hideLabel={hideLabel}>{t(label)}</BaseInputLabel>
         {description && <Styled.Description>{description}</Styled.Description>}

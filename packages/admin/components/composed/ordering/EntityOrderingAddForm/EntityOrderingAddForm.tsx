@@ -1,19 +1,19 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
-import { useTranslation } from "react-i18next";
+import { useUID } from "react-uid";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
 import { convertToSlug } from "helpers";
-import { useUID } from "react-uid";
 
 import type {
   EntityOrderingAddFormMutation,
   CreateOrderingInput,
   OrderDefinitionInput,
   OrderingSelectDefinitionInput,
+  OrderingDirectSelection,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
@@ -81,6 +81,7 @@ export default function EntityOrderingAddForm({
           name: data.name,
           identifier: `${convertToSlug(data?.name ?? undefined)}-${uid}`,
           order: getOrder(data.sortby),
+          select: { direct: data.selectDirect as OrderingDirectSelection },
         },
       };
     },
@@ -88,55 +89,49 @@ export default function EntityOrderingAddForm({
   );
 
   const defaultValues = {
-    select: { direct: "CHILDREN" },
-    entityId: undefined,
-    identifier: undefined,
-    order: { path: undefined, direction: undefined },
+    // Flatten select object into separate fields
+    selectDirect: "CHILDREN",
   };
 
-  const renderForm = useRenderForm<Fields>(
-    ({ form: { register, getValues } }) => {
-      console.log(getValues());
-      return (
-        <Forms.Grid>
-          <Forms.Input
-            label={"forms.fields.displayname"}
-            required
-            {...register("name")}
-          />
-          <Forms.Select
-            label="forms.fields.sortby"
-            options={[
-              { value: "name, asc", label: "Name, ascending" },
-              { value: "name, desc", label: "Name, descending" },
-              { value: "updatedAt, asc", label: "Updated at, ascending" },
-              { value: "updatedAt, desc", label: "Updated at, descending" },
-              {
-                value: "published, asc",
-                label: "Publication date, ascending",
-              },
-              {
-                value: "published, desc",
-                label: "Publication date, descending",
-              },
-            ]}
-            {...register("sortby")}
-          />
-          <Forms.RadioGroup
-            label="forms.fields.include"
-            description={description}
-            {...register("select.direct")}
-            options={[
-              { value: "NONE", label: "None" },
-              { value: "CHILDREN", label: "Direct Descendants", default: true },
-              { value: "DESCENDANTS", label: "All Descendants" },
-            ]}
-          />
-        </Forms.Grid>
-      );
-    },
-    []
-  );
+  const renderForm = useRenderForm<Fields>(({ form: { register, watch } }) => {
+    console.log(watch("selectDirect"));
+    return (
+      <Forms.Grid>
+        <Forms.Input
+          label={"forms.fields.displayname"}
+          required
+          {...register("name")}
+        />
+        <Forms.Select
+          label="forms.fields.sortby"
+          options={[
+            { value: "name, asc", label: "Name, ascending" },
+            { value: "name, desc", label: "Name, descending" },
+            { value: "updatedAt, asc", label: "Updated at, ascending" },
+            { value: "updatedAt, desc", label: "Updated at, descending" },
+            {
+              value: "published, asc",
+              label: "Publication date, ascending",
+            },
+            {
+              value: "published, desc",
+              label: "Publication date, descending",
+            },
+          ]}
+          {...register("sortby")}
+        />
+        <Forms.RadioGroup
+          label="forms.fields.include"
+          description={description}
+          options={[
+            { value: "CHILDREN", label: "Direct Descendants" },
+            { value: "DESCENDANTS", label: "All Descendants" },
+          ]}
+          {...register("selectDirect")}
+        />
+      </Forms.Grid>
+    );
+  }, []);
 
   return (
     <MutationForm<EntityOrderingAddFormMutation, Fields>
@@ -160,10 +155,11 @@ type Props = Pick<
   "onSuccess" | "onCancel"
 > & { data: EntityOrderingAddFormFragment$key };
 
-type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
+type Fields = Omit<CreateOrderingInput, "clientMutationId" | "select"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
     sortby: string;
+    selectDirect: string;
   };
 
 const fragment = graphql`
