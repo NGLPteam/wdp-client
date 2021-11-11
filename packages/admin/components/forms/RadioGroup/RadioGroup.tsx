@@ -10,9 +10,11 @@ const RadioGroup = forwardRef(
     { label, name, description, options, hideLabel, ...props }: Props,
     ref: React.Ref<HTMLDivElement>
   ) => {
-    const [selected, setSelected] = useState<string>("");
-    const handleTabIndex = (e: React.ChangeEvent<HTMLInputElement>) =>
+    const defaultValue = options.filter((option) => option.default)[0]?.value;
+    const [selected, setSelected] = useState<string>(defaultValue ?? "");
+    const handleTabIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSelected(e.target.value);
+    };
 
     const { t } = useTranslation();
 
@@ -24,7 +26,7 @@ const RadioGroup = forwardRef(
         order={i + 1}
         name={name}
         label={option.label}
-        onChange={handleTabIndex}
+        onClick={handleTabIndex}
         selected={selected}
         checked={option.default}
         {...props}

@@ -281,7 +281,7 @@
         "profile": "Profile",
         "displayname": "Display Name",
         "sortby": "Sort By",
-        "include": "Records to Include"
+        "include": "Entities to Include"
       },
       "validation": {
         "year": "Must be a four digit year",
