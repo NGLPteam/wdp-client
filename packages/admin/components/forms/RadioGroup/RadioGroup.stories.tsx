@@ -19,7 +19,9 @@ export default {
 };
 
 export const InAForm: Story<Props> = (args) => {
-  const handleSubmit = (data: Record<string, string>) => console.info(data);
+  const handleSubmit = (data: Record<string, string>) => {
+    console.info(data);
+  };
 
   return (
     <NullForm<FieldValues> onSubmit={handleSubmit}>

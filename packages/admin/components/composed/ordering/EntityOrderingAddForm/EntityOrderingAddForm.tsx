@@ -1,54 +1,35 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
-import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { convertToSlug } from "helpers";
 
 import type {
   EntityOrderingAddFormMutation,
   CreateOrderingInput,
   OrderDefinitionInput,
   OrderingSelectDefinitionInput,
-  OrderingFilterDefinitionInput,
+  OrderingDirectSelection,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
 const description = `Select descendants to be included in the ordering. Use Direct
 Descendants to select only immediate children, for example journal
-issues but not their articles. Descendants must be included for at
-least one type of entity.`;
+issues but not their articles.`;
 
 export default function EntityOrderingAddForm({
   data,
   onSuccess,
   onCancel,
 }: Props) {
-  const { t } = useTranslation();
-
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
     data
   );
-  const schemaOptions = formData.schemaVersions;
   const entity = formData.item ?? formData.collection;
-
-  const getFilter = (
-    items: OrderingSelectDefinitionInput["direct"] = "CHILDREN",
-    collections: OrderingSelectDefinitionInput["direct"] = "CHILDREN"
-  ): OrderingFilterDefinitionInput["schemas"] => {
-    if (items !== "NONE" && collections !== "NONE") return null;
-    if (items === "NONE")
-      return schemaOptions.edges
-        .filter((node) => node.node.kind === "ITEM")
-        .map((node) => node.node.identifier);
-    if (collections === "NONE")
-      return schemaOptions.edges
-        .filter((node) => node.node.kind === "COLLECTION")
-        .map((node) => node.node.identifier);
-  };
 
   const getOrder = (sortby: string): OrderDefinitionInput[] => {
     const [property, direction] = sortby.split(",");
@@ -70,28 +51,26 @@ export default function EntityOrderingAddForm({
   };
 
   const toVariables = useToVariables<EntityOrderingAddFormMutation, Fields>(
-    (data) => ({
-      input: {
+    (data) => {
+      const input = {
         entityId: entity?.id || "",
         name: data.name,
-        /* Identifier should be `${convertToSlug(data.name)}-${uid} but the api errors if non-alpha characters are included.` */
-        identifier: data.name
-          ? data.name.toLowerCase().split(" ").join("")
-          : "",
-        filter: {
-          schemas: getFilter(data.items, data.collections),
-        },
-        select: {
-          direct: data.collections !== "NONE" ? data.collections : data.items,
-        },
+        identifier: convertToSlug(data.name ?? undefined),
         order: getOrder(data.sortby),
-      },
-    }),
+        select: { direct: data.selectDirect },
+      };
+      return { input: input };
+    },
     []
   );
 
-  const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+  const defaultValues = {
+    // Flatten select object into separate fields
+    selectDirect: "CHILDREN" as OrderingDirectSelection,
+  };
+
+  const renderForm = useRenderForm<Fields>(({ form: { register } }) => {
+    return (
       <Forms.Grid>
         <Forms.Input
           label={"forms.fields.displayname"}
@@ -116,33 +95,18 @@ export default function EntityOrderingAddForm({
           ]}
           {...register("sortby")}
         />
-        <Forms.Fieldset
-          label={t("forms.fields.include")}
+        <Forms.RadioGroup
+          label="forms.fields.include"
           description={description}
-        >
-          <Forms.RadioGroup
-            label="glossary.collection_plural"
-            {...register("collections")}
-            options={[
-              { value: "NONE", label: "None" },
-              { value: "CHILDREN", label: "Direct Descendants", default: true },
-              { value: "DESCENDANTS", label: "All Descendants" },
-            ]}
-          />
-          <Forms.RadioGroup
-            label="glossary.item_plural"
-            {...register("items")}
-            options={[
-              { value: "NONE", label: "None" },
-              { value: "CHILDREN", label: "Direct Descendants", default: true },
-              { value: "DESCENDANTS", label: "All Descendants" },
-            ]}
-          />
-        </Forms.Fieldset>
+          options={[
+            { value: "CHILDREN", label: "Direct Descendants" },
+            { value: "DESCENDANTS", label: "All Descendants" },
+          ]}
+          {...register("selectDirect")}
+        />
       </Forms.Grid>
-    ),
-    []
-  );
+    );
+  }, []);
 
   return (
     <MutationForm<EntityOrderingAddFormMutation, Fields>
@@ -154,6 +118,7 @@ export default function EntityOrderingAddForm({
       name="createOrdering"
       refetchTags={["nodes"]}
       toVariables={toVariables}
+      defaultValues={defaultValues}
     >
       {renderForm}
     </MutationForm>
@@ -165,12 +130,11 @@ type Props = Pick<
   "onSuccess" | "onCancel"
 > & { data: EntityOrderingAddFormFragment$key };
 
-type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
+type Fields = Omit<CreateOrderingInput, "clientMutationId" | "select"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
-    collections: OrderingSelectDefinitionInput["direct"];
-    items: OrderingSelectDefinitionInput["direct"];
     sortby: string;
+    selectDirect: OrderingDirectSelection;
   };
 
 const fragment = graphql`
@@ -180,14 +144,6 @@ const fragment = graphql`
     }
     item(slug: $entitySlug) {
       id
-    }
-    schemaVersions {
-      edges {
-        node {
-          kind
-          identifier
-        }
-      }
     }
   }
 `;

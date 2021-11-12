@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
 export type EntityOrderingAddFormFragment = {
     readonly collection: {
         readonly id: string;
@@ -13,14 +12,6 @@ export type EntityOrderingAddFormFragment = {
     readonly item: {
         readonly id: string;
     } | null;
-    readonly schemaVersions: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly kind: SchemaKind;
-                readonly identifier: string;
-            };
-        }>;
-    };
     readonly " $refType": "EntityOrderingAddFormFragment";
 };
 export type EntityOrderingAddFormFragment$data = EntityOrderingAddFormFragment;
@@ -78,58 +69,11 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "SchemaVersionConnection",
-      "kind": "LinkedField",
-      "name": "schemaVersions",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "SchemaVersionEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "SchemaVersion",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "kind",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bd6ba5f08157f7253dcfc483ab3bb775';
+(node as any).hash = '5875191369b27f342a694e3cdc3ebb20';
 export default node;
