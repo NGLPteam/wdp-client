@@ -38,4 +38,9 @@ export default css`
   .a-button-secondary {
     ${aButton("secondary")}
   }
+
+  .a-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;

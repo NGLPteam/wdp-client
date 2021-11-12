@@ -7,7 +7,7 @@ import { ButtonControl } from "components/atomic/buttons/";
 import { useQueryStateContext } from "hooks";
 import LoadingCircle from "components/atomic/loading/LoadingCircle";
 
-import type { BaseRoute } from "routes/NextNamedRoutes";
+import type { BaseRoute } from "@wdp/lib/routes";
 
 /**
  * A drawer for complex actions, forms.

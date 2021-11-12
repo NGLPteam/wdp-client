@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonControlRoute, ButtonControlConfirm } from "components/atomic";
 
-import type { BaseRoute } from "routes/NextNamedRoutes";
+import type { BaseRoute } from "@wdp/lib/routes";
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
 
 const DrawerActions = ({ routes, handleDelete }: Props) => {
