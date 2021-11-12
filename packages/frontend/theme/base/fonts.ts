@@ -17,8 +17,6 @@ export default css`
   /* Style 3 */
   ${embedFont("Sentient", "Sentient-Regular", "normal", 400)}
   ${embedFont("Sentient", "Sentient-Italic", "italic", 400)}
-  ${embedFont("Sentient", "Sentient-Medium", "normal", 500)}
-  ${embedFont("Sentient", "Sentient-MediumItalic", "italic", 500)}
   ${embedFont("Libre Franklin", "Libre-Franklin-Regular", "normal", 400)}
   ${embedFont("Libre Franklin", "Libre-Franklin-Italic", "italic", 400)}
   ${embedFont("Libre Franklin", "Libre-Franklin-600", "normal", 500)}

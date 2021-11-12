@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
-import type { GetLayout } from "types/page";
+import type { GetLayout } from "@wdp/lib/types/page";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
 import UserUpdateForm from "components/composed/user/UserUpdateForm";
 import { LoadingCircle } from "components/atomic";

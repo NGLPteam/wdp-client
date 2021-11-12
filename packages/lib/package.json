@@ -14,20 +14,6 @@
   },
   "author": "",
   "license": "MIT",
-  "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      "relay",
-      [
-        "babel-plugin-styled-components",
-        {
-          "ssr": false
-        }
-      ]
-    ]
-  },
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@castiron/style-mixins": "^1.0.6",

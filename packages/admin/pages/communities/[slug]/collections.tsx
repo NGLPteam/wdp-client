@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
-import type { GetLayout } from "types/page";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityChildCollections({ data }: Props) {
   return (

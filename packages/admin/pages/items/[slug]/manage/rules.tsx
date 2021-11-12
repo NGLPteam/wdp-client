@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { rulesManageSlugItemsQuery as Query } from "@/relay/rulesManageSlugItemsQuery.graphql";
-import type { GetLayout } from "types/page";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 

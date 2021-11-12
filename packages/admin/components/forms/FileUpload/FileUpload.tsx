@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { maybeSetBooleanField } from "helpers/forms";
 
 import useLazyRef from "hooks/useLazyRef";
-import useLatest from "hooks/useLatest";
+import useLatest from "@wdp/lib/hooks/useLatest";
 import useUppy from "hooks/useUppy";
 
 import { ProgressBar } from "components/atomic";

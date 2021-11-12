@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
-import type { GetLayout } from "types/page";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import ItemList from "components/composed/item/ItemList";
