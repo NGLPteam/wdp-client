@@ -10,7 +10,6 @@ export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useLatest } from "@wdp/lib/hooks/useLatest";
 export { default as useLatestPresentValue } from "./useLatestPresentValue";
 export { default as useMustBeAuthenticated } from "./useMustBeAuthenticated";
-export { useSetLocale } from "./useSetLocale";
 export { default as useLockBodyScroll } from "./useLockBodyScroll";
 export { default as useViewerContext } from "./useViewerContext";
 export { default as useIsAuthorized } from "./useIsAuthorized";

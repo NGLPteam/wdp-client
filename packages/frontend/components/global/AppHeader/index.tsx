@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function AppHeader() {
-  return <header>Header tag</header>;
+  const { t } = useTranslation();
+
+  return <header>{t("app.installation_name")}</header>;
 }
 
 export default AppHeader;

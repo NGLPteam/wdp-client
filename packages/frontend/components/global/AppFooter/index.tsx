@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function AppFooter() {
-  return <footer>Footer tag</footer>;
+  const { t } = useTranslation();
+
+  return <footer>{t("app.copyright")}</footer>;
 }
 
 export default AppFooter;

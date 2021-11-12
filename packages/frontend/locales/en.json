@@ -1,0 +1,34 @@
+{
+  "translation": {
+    "key": "English",
+    "app": {
+      "copyright": "© {{year}} Vitae pharetra et rutrum maecenas amet eu luctus convallis. Feugiat pulvinar eleifend eu fames accumsan, ipsum diam.",
+      "cookies_statement": "Cookies are delicious. Vitae pharetra et rutrum maecenas amet eu luctus convallis. Feugiat pulvinar eleifend eu fames accumsan, ipsum diam.",
+      "installation_name": "WDP Installation Name"
+    },
+    "common": {
+      "accept": "Accept",
+      "close": "Close",
+      "welcome_to": "Welcome to {{name}}."
+    },
+    "glossary": {
+      "community": "community",
+      "community_plural": "communities",
+      "contribution": "contribution",
+      "contribution_plural": "contributions",
+      "contributor": "contributor",
+      "contributor_plural": "contributors"
+    },
+    "nav": {
+      "about": "About",
+      "accessibility": "VPAT and Accessibility",
+      "admin": "Admin Login",
+      "categories": "Categories",
+      "communities": "$t(community_plural)",
+      "contact": "Contact",
+      "explore": "Explore",
+      "privacy": "Privacy Statement",
+      "terms": "Terms of Service"
+    }
+  }
+}

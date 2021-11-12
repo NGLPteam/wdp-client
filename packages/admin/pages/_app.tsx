@@ -9,20 +9,17 @@ import { useRouter } from "next/router";
 import { AppContextProvider } from "contexts";
 import type { Page } from "@wdp/lib/types/page";
 import { KeycloakRelayProvider } from "@wdp/lib/keycloak";
-
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
-import { useSetLocale } from "hooks/useSetLocale";
 import {
   parseCookies,
   useRemoveServerInjectedCSS,
   useDeserializeRecords,
 } from "@wdp/lib/app";
-
 import keycloakConfig from "utils/keycloak";
 import { RouteHelper } from "routes";
-
 import { Toast } from "components/atomic";
+import { updateI18n } from "../i18n";
 
 const NGLPApp = ({
   Component,
@@ -30,7 +27,7 @@ const NGLPApp = ({
   cookies = {},
   records: r,
 }: AppProps & InitialProps) => {
-  useSetLocale("en");
+  updateI18n("en");
 
   useRemoveServerInjectedCSS();
   const records = useDeserializeRecords(r);
