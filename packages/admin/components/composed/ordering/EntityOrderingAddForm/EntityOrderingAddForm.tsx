@@ -29,25 +29,7 @@ export default function EntityOrderingAddForm({
     fragment,
     data
   );
-  // const schemaOptions = formData.schemaVersions;
   const entity = formData.item ?? formData.collection;
-
-  /*
-   *  const getFilter = (
-   *    items: OrderingSelectDefinitionInput["direct"] = "CHILDREN",
-   *    collections: OrderingSelectDefinitionInput["direct"] = "CHILDREN"
-   *  ): OrderingFilterDefinitionInput["schemas"] => {
-   *    if (items !== "NONE" && collections !== "NONE") return null;
-   *    if (items === "NONE")
-   *      return schemaOptions.edges
-   *        .filter((node) => node.node.kind === "ITEM")
-   *        .map((node) => node.node.identifier);
-   *    if (collections === "NONE")
-   *      return schemaOptions.edges
-   *        .filter((node) => node.node.kind === "COLLECTION")
-   *        .map((node) => node.node.identifier);
-   *  };
-   */
 
   const getOrder = (sortby: string): OrderDefinitionInput[] => {
     const [property, direction] = sortby.split(",");
@@ -162,14 +144,6 @@ const fragment = graphql`
     }
     item(slug: $entitySlug) {
       id
-    }
-    schemaVersions {
-      edges {
-        node {
-          kind
-          identifier
-        }
-      }
     }
   }
 `;
