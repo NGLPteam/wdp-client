@@ -8,7 +8,7 @@ import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { AppContextProvider } from "contexts";
 import type { Page } from "@wdp/lib/types/page";
-import { KeycloakRelayProvider } from "@wdp/lib/keycloak";
+import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import {
@@ -16,7 +16,6 @@ import {
   useRemoveServerInjectedCSS,
   useDeserializeRecords,
 } from "@wdp/lib/app";
-import keycloakConfig from "utils/keycloak";
 import { RouteHelper } from "routes";
 import { Toast } from "components/atomic";
 import { updateI18n } from "../i18n";

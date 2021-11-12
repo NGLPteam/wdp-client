@@ -1,14 +1,14 @@
-import { useMemo } from "react";
-import type { AppProps } from "next/app";
+import type { AppProps, AppContext } from "next/app";
 import { ThemeProvider } from "styled-components";
-import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-// If using Keycloak, replace RelayEnvironmentProvider with KeycloakRelayProvider
-import { RelayEnvironmentProvider } from "relay-hooks";
+import type { KeycloakInitOptions } from "keycloak-js";
+import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import {
+  parseCookies,
   useRemoveServerInjectedCSS,
   useDeserializeRecords,
-  environment,
 } from "@wdp/lib/app";
+import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
+import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
 import { RouterContextProvider } from "@wdp/lib/routes";
 import { AppHtmlHead, AppBody } from "../components/global";
@@ -16,16 +16,23 @@ import GlobalStyles from "../theme";
 import { updateI18n } from "../i18n";
 import { baseRoutes } from "../routes/baseRoutes";
 
-function App({ Component, pageProps, records: r }: AppProps & InitialProps) {
+function App({
+  Component,
+  pageProps,
+  cookies = {},
+  records: r,
+}: AppProps & InitialProps) {
   useRemoveServerInjectedCSS();
 
   updateI18n("en");
 
   const records = useDeserializeRecords(r);
 
-  const env = useMemo(() => {
-    return environment(records);
-  }, [records]);
+  const persistor = SSRCookies(cookies);
+
+  const initOptions: KeycloakInitOptions = {
+    onLoad: "check-sso",
+  };
 
   const defaultLayout = ({
     PageComponent,
@@ -42,21 +49,34 @@ function App({ Component, pageProps, records: r }: AppProps & InitialProps) {
       <AppHtmlHead />
       <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
         <GlobalStyles />
-        <RelayEnvironmentProvider environment={env}>
-          <RouterContextProvider baseRoutes={baseRoutes}>
-            <AppBody>
-              {getLayout({
-                PageComponent: Component,
-                pageComponentProps: pageProps,
-              })}
-            </AppBody>
-          </RouterContextProvider>
-        </RelayEnvironmentProvider>
+        <SSRKeycloakProvider
+          initOptions={initOptions}
+          keycloakConfig={keycloakConfig}
+          persistor={persistor}
+        >
+          <KeycloakRelayProvider records={records}>
+            <RouterContextProvider baseRoutes={baseRoutes}>
+              <AppBody>
+                {getLayout({
+                  PageComponent: Component,
+                  pageComponentProps: pageProps,
+                })}
+              </AppBody>
+            </RouterContextProvider>
+          </KeycloakRelayProvider>
+        </SSRKeycloakProvider>
       </ThemeProvider>
     </>
   );
 }
 export default App;
+
+App.getInitialProps = async (context: AppContext) => {
+  return {
+    cookies: parseCookies(context?.ctx?.req) || {},
+    pageProps: {},
+  };
+};
 
 interface InitialProps {
   cookies?: Record<string, string>;
