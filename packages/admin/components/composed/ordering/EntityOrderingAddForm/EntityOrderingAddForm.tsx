@@ -1,6 +1,5 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
-import { useUID } from "react-uid";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -26,8 +25,6 @@ export default function EntityOrderingAddForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const uid = useUID();
-
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
     data
@@ -73,28 +70,24 @@ export default function EntityOrderingAddForm({
 
   const toVariables = useToVariables<EntityOrderingAddFormMutation, Fields>(
     (data) => {
-      console.log(data);
-      console.log(`${convertToSlug(data?.name ?? undefined)}-${uid}`);
-      return {
-        input: {
-          entityId: entity?.id || "",
-          name: data.name,
-          identifier: `${convertToSlug(data?.name ?? undefined)}-${uid}`,
-          order: getOrder(data.sortby),
-          select: { direct: data.selectDirect as OrderingDirectSelection },
-        },
+      const input = {
+        entityId: entity?.id || "",
+        name: data.name,
+        identifier: convertToSlug(data.name ?? undefined),
+        order: getOrder(data.sortby),
+        select: { direct: data.selectDirect },
       };
+      return { input: input };
     },
     []
   );
 
   const defaultValues = {
     // Flatten select object into separate fields
-    selectDirect: "CHILDREN",
+    selectDirect: "CHILDREN" as OrderingDirectSelection,
   };
 
-  const renderForm = useRenderForm<Fields>(({ form: { register, watch } }) => {
-    console.log(watch("selectDirect"));
+  const renderForm = useRenderForm<Fields>(({ form: { register } }) => {
     return (
       <Forms.Grid>
         <Forms.Input
@@ -159,7 +152,7 @@ type Fields = Omit<CreateOrderingInput, "clientMutationId" | "select"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
     sortby: string;
-    selectDirect: string;
+    selectDirect: OrderingDirectSelection;
   };
 
 const fragment = graphql`
