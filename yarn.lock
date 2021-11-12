@@ -2225,7 +2225,7 @@
     core-js "^3.8.2"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-docs@6.3.12", "@storybook/addon-docs@^6.3.12":
+"@storybook/addon-docs@6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-6.3.12.tgz#2ec73b4f231d9f190d5c89295bc47bea6a95c6d1"
   integrity sha512-iUrqJBMTOn2PgN8AWNQkfxfIPkh8pEg27t8UndMgfOpeGK/VWGw2UEifnA82flvntcilT4McxmVbRHkeBY9K5A==
@@ -11794,17 +11794,6 @@ react-relay-network-modern@^6.0.0:
     core-js "^3.0.0"
     extract-files "^9.0.0"
 
-react-relay@^11.0.2:
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-11.0.2.tgz#5f77e30e0d592f19c641e5dcc42f5d828bd16da5"
-  integrity sha512-RxtLBl8nxbaP26RcNDtKMrUBuJB5kFCCI4aZxnZByoncgovDgtewAsMiwcI8aDA8FjmXWRAtAAckh8DkMsMp7Q==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    fbjs "^3.0.0"
-    invariant "^2.2.4"
-    nullthrows "^1.1.1"
-    relay-runtime "11.0.2"
-
 react-relay@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-12.0.0.tgz#1b4d9429253b3d7c4d1dff5de7337a1de8b896e5"
@@ -12133,14 +12122,6 @@ relay-config@^12.0.0:
   dependencies:
     cosmiconfig "^5.0.5"
 
-relay-hooks@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/relay-hooks/-/relay-hooks-4.2.0.tgz#a36ab620276e6af8a3c76d4a2c6d1e266ec1625f"
-  integrity sha512-TqBLysdah2300IRYETyBbgLVM/bXHqG7KP00JqQQDy9DBmJ3XCeZoDxHGlkFOv8MBqBpXXApRarjMH0T63y2aw==
-  dependencies:
-    "@restart/hooks" "^0.3.1"
-    fbjs "^3.0.0"
-
 relay-hooks@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/relay-hooks/-/relay-hooks-6.0.0.tgz#9bcc4ba1a878f6748dedf3cff94344f433c0cfea"
@@ -12148,15 +12129,6 @@ relay-hooks@^6.0.0:
   dependencies:
     "@restart/hooks" "^0.3.1"
     fbjs "^3.0.0"
-
-relay-runtime@11.0.2, relay-runtime@^11.0.2:
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-11.0.2.tgz#c3650477d45665b9628b852b35f203e361ad55e8"
-  integrity sha512-xxZkIRnL8kNE1cxmwDXX8P+wSeWLR+0ACFyAiAhvfWWAyjXb+bhjJ2FSsRGlNYfkqaTNEuDqpnodQV1/fF7Idw==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    fbjs "^3.0.0"
-    invariant "^2.2.4"
 
 relay-runtime@12.0.0, relay-runtime@^12.0.0:
   version "12.0.0"
