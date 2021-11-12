@@ -1,7 +1,7 @@
 import React from "react";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
-import * as Styled from "./styles";
+import * as Styled from "./AppBody.styles";
 
 function AppBody({ children }: Props) {
   return (
