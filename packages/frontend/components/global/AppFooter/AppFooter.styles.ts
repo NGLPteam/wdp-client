@@ -3,32 +3,35 @@ import styled from "styled-components";
 export const FooterWrapper = styled.footer`
   padding-block-start: var(--container-padding-xlg);
   padding-block-end: var(--container-padding-sm);
-  --grid-row-gap: 40px;
 `;
 
-export const FooterInner = styled.footer``;
+export const FooterInner = styled.div`
+  display: grid;
+  grid-template:
+    "community . search" auto
+    "about . nav" auto
+    "copyright copyright copyright" auto
+    / minmax(auto, 473px) 1fr minmax(auto, 376px);
+  gap: 40px var(--grid-column-gap);
+`;
 
 export const CommunityNameWrapper = styled.div`
-  grid-column: 1 / span 5;
-  grid-row: 1;
+  grid-area: community;
 `;
 
 export const SearchWrapper = styled.div`
-  grid-column: 9 / span 4;
-  grid-row: 1;
+  grid-area: search;
 `;
 
 export const AboutText = styled.p`
-  grid-column: 1 / span 5;
-  grid-row: 2;
+  grid-area: about;
 `;
 
 export const NavWrapper = styled.nav`
-  grid-column: 9 / span 4;
+  grid-area: nav;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--grid-column-gap);
-  grid-row: 2;
 `;
 
 export const NavListItem = styled.li`
@@ -36,6 +39,6 @@ export const NavListItem = styled.li`
 `;
 
 export const CopyrightText = styled.p`
-  grid-column: 1 / span 12;
+  grid-area: copyright;
   padding-block-start: ${95 - 40}px;
 `;

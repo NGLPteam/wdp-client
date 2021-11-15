@@ -30,7 +30,7 @@ function AppFooter() {
 
   return (
     <Styled.FooterWrapper className="a-bg-custom10">
-      <Styled.FooterInner className="l-container-wide l-grid">
+      <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
           <CommunityName />
         </Styled.CommunityNameWrapper>
