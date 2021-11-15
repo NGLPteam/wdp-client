@@ -20,6 +20,7 @@ export function tLabel(style: "sm" | "lg" | "mix") {
   return css`
     text-transform: ${style === "mix" ? "none" : "uppercase"};
     font-size: var(--font-size-label-${style});
+    font-weight: var(--font-weight-label-${style});
     letter-spacing: var(--letter-spacing-label-${style});
     line-height: var(--line-height-label-${style});
   `;

@@ -28,10 +28,13 @@ export const baseFontStyles = css`
   --font-size-base-sm: 14px;
   --line-height-base-sm: 20px;
   --font-size-label-lg: 14px;
+  --font-weight-label-lg: 500;
   --line-height-label-lg: 22px;
   --font-size-label-sm: 12px;
+  --font-weight-label-sm: 500;
   --line-height-label-sm: 18px;
   --font-size-label-mix: 13px;
+  --font-weight-label-mix: 500;
   --line-height-label-mix: 17px;
 `;
 
@@ -111,7 +114,8 @@ export default css`
 
     /* text color */
     --color-base: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral70};
+    --color-light: ${baseColors.neutral80};
+    --color-lighter: ${baseColors.neutral70};
 
     /* font weights */
     --font-weight-regular: 400;
@@ -131,5 +135,9 @@ export default css`
     --button-primary-text-color: ${baseColors.neutral00};
     --button-secondary-bg-color: var(--color-custom10);
     --button-secondary-text-color: ${baseColors.neutral90};
+
+    /* container */
+    --container-padding-xlg: 120px;
+    --container-padding-sm: 36px;
   }
 `;
