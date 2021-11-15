@@ -1,4 +1,4 @@
-import type { BaseRoute } from "./NextNamedRoutes";
+import type { BaseRoute } from "@wdp/lib/routes";
 
 export const baseRoutes: BaseRoute[] = [
   {

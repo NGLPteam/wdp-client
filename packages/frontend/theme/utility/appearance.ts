@@ -46,4 +46,9 @@ export default css`
       ${aButton("secondary", "sm")}
     }
   }
+
+  .a-link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
