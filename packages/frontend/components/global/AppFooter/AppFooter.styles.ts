@@ -8,7 +8,7 @@ export const FooterWrapper = styled.footer`
 
 export const FooterInner = styled.footer``;
 
-export const CommunityName = styled.div`
+export const CommunityNameWrapper = styled.div`
   grid-column: 1 / span 5;
   grid-row: 1;
 `;

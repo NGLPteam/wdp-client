@@ -4,6 +4,7 @@ import startCase from "lodash/startCase";
 import Link from "next/link";
 import { useRouterContext } from "@wdp/lib/routes";
 import appData from "../../../fixtures/app.data";
+import CommunityName from "../../atomic/CommunityName";
 import * as Styled from "./AppFooter.styles";
 
 // Note: About text and community name will come from backend data
@@ -29,9 +30,9 @@ function AppFooter() {
   return (
     <Styled.FooterWrapper className="a-bg-custom10">
       <Styled.FooterInner className="l-container-wide l-grid">
-        <Styled.CommunityName>
-          <h4>Community Name</h4>
-        </Styled.CommunityName>
+        <Styled.CommunityNameWrapper>
+          <CommunityName />
+        </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>search placeholder</Styled.SearchWrapper>
         <Styled.AboutText className="t-copy-sm t-copy-lighter">
           A brief overview of this WDP instance. Arcu nisl ullamcorper vulputate
