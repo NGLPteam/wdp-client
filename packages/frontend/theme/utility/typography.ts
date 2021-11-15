@@ -25,6 +25,16 @@ export default css`
     color: var(--color-light);
   }
 
+  .t-copy-lighter {
+    color: var(--color-lighter);
+  }
+
+  .t-unstyled-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
   /* Rich Text */
   .t-rte {
     a {

@@ -9,7 +9,8 @@
     "common": {
       "accept": "Accept",
       "close": "Close",
-      "welcome_to": "Welcome to {{name}}."
+      "welcome_to": "Welcome to {{name}}.",
+      "search": "Search"
     },
     "glossary": {
       "community": "community",
@@ -20,11 +21,13 @@
       "contributor_plural": "contributors"
     },
     "nav": {
+      "home": "Home",
       "about": "About",
       "accessibility": "VPAT and Accessibility",
-      "admin": "Admin Login",
+      "admin": "Admin",
       "categories": "Categories",
-      "communities": "$t(community_plural)",
+      "community": "$t(glossary.community)",
+      "communities": "$t(glossary.community_plural)",
       "contact": "Contact",
       "explore": "Explore",
       "privacy": "Privacy Statement",

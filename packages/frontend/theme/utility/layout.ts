@@ -41,8 +41,8 @@ export default css`
 
   .l-grid {
     display: grid;
-    row-gap: var(--grid-column-gap);
-    column-gap: var(--grid-row-gap);
+    row-gap: var(--grid-row-gap);
+    column-gap: var(--grid-column-gap);
     grid-template-columns: repeat(${COLUMNS}, 1fr);
 
     &--center {
