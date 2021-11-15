@@ -3,13 +3,13 @@ import * as Styled from "./CookiesBanner.styles";
 
 export default function CookiesBanner({ onAccept, onClose }: Props) {
   return (
-    <Styled.Banner className="l-container-max a-bg-custom20" role="alert">
+    <Styled.Banner className="a-bg-custom20" role="alert">
       <Styled.Content className="l-container-wide">
         <p className="t-copy-sm">
           Cookies are delicious. Vitae pharetra maecenas amet eu luctus
           convallis. Feugiat pulvinar eleifend eu fames accumsan, ipsum diam.
         </p>
-        <Styled.Buttons className="l-flex l-flex--gap">
+        <Styled.Buttons className="l-flex">
           <button className="a-button-primary--sm" onClick={onAccept}>
             Accept
           </button>
