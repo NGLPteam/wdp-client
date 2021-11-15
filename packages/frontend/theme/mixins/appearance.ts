@@ -63,14 +63,14 @@ export function aBgNeutral90() {
   `;
 }
 
-export function aButton(style: "primary" | "secondary") {
+export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
   return css`
     background-color: var(--button-${style}-bg-color);
     color: var(--button-${style}-text-color);
     border-radius: ${borderRadius.xlg};
-    padding-block-start: 14px;
-    padding-block-end: 17px;
-    padding-inline: 30px;
+    padding-block-start: ${size === "sm" ? "6px" : "14px"};
+    padding-block-end: ${size === "sm" ? "9px" : "17px"};
+    padding-inline: ${size === "sm" ? "16px" : "30px"};
     ${tLabel("mix")}
   `;
 }
