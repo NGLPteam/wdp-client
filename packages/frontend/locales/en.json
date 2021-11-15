@@ -9,7 +9,8 @@
     "common": {
       "accept": "Accept",
       "close": "Close",
-      "welcome_to": "Welcome to {{name}}."
+      "welcome_to": "Welcome to {{name}}.",
+      "search": "Search"
     },
     "glossary": {
       "community": "community",

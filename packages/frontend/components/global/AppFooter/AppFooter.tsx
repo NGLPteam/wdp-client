@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouterContext } from "@wdp/lib/routes";
 import appData from "../../../fixtures/app.data";
 import CommunityName from "../../atomic/CommunityName";
+import AppFooterSearch from "../AppFooterSearch";
 import * as Styled from "./AppFooter.styles";
 
 // Note: About text and community name will come from backend data
@@ -33,7 +34,9 @@ function AppFooter() {
         <Styled.CommunityNameWrapper>
           <CommunityName />
         </Styled.CommunityNameWrapper>
-        <Styled.SearchWrapper>search placeholder</Styled.SearchWrapper>
+        <Styled.SearchWrapper>
+          <AppFooterSearch />
+        </Styled.SearchWrapper>
         <Styled.AboutText className="t-copy-sm t-copy-lighter">
           A brief overview of this WDP instance. Arcu nisl ullamcorper vulputate
           sed urna dolor. Tristique morbi integer in morbi morbi scelerisque
