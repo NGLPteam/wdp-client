@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { baseColors, customColors } from "./variables";
+import { baseColors, customColors, zIndex } from "./variables";
 import { getColorsByKey } from "./functions";
 
 function setCustomColors(colorName: string) {
@@ -10,6 +10,12 @@ function setCustomColors(colorName: string) {
       ([key, value]) => `--${key.replace(colorName, "color-custom")}: ${value};`
     );
   }
+}
+
+function setBaseColors() {
+  return Object.entries(baseColors).map(
+    ([key, value]) => `--color-base-${key}: ${value};`
+  );
 }
 
 export const baseFontStyles = css`
@@ -87,6 +93,8 @@ export const fontStyle3 = css`
 
 export default css`
   :root {
+    ${setBaseColors()}
+
     /* custom theme color */
     ${({ theme }) =>
       theme && theme.colorStyle
@@ -139,5 +147,9 @@ export default css`
     /* container */
     --container-padding-xlg: 120px;
     --container-padding-sm: 36px;
+
+    /* dropdown */
+    --dropdown-background: ${baseColors.neutral00};
+    --z-index-dropdown: ${zIndex.dropdown};
   }
 `;
