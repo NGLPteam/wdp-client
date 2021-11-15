@@ -32,10 +32,18 @@ export default css`
   }
 
   .a-button-primary {
-    ${aButton("primary")}
+    ${aButton("primary", "lg")}
+
+    &--sm {
+      ${aButton("primary", "sm")}
+    }
   }
 
   .a-button-secondary {
-    ${aButton("secondary")}
+    ${aButton("secondary", "lg")}
+
+    &--sm {
+      ${aButton("secondary", "sm")}
+    }
   }
 `;
