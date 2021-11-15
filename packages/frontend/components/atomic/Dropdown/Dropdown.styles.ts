@@ -17,7 +17,6 @@ export const List = styled.ul<ListProps>`
   top: 0;
   left: 100%;
   margin-inline-start: ${pxToRem(8)};
-  display: flex;
   align-items: stretch;
   flex-direction: column;
   max-inline-size: 100vw;
@@ -60,7 +59,7 @@ export const Item = styled.li`
   }
 
   > * {
-    display: flex;
+    display: block;
     white-space: nowrap;
     width: 100%;
     padding: var(--dropdown-list-item-padding);
