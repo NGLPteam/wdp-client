@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Button } from "../../atomic";
 import * as Styled from "./CookiesBanner.styles";
 
 export default function CookiesBanner({ onAccept, onClose }: Props) {
@@ -10,12 +11,12 @@ export default function CookiesBanner({ onAccept, onClose }: Props) {
           convallis. Feugiat pulvinar eleifend eu fames accumsan, ipsum diam.
         </p>
         <Styled.Buttons className="l-flex">
-          <button className="a-button-primary--sm" onClick={onAccept}>
+          <Button size="sm" onClick={onAccept}>
             Accept
-          </button>
-          <button className="a-button-secondary--sm" onClick={onClose}>
+          </Button>
+          <Button size="sm" secondary icon="close" onClick={onClose}>
             Close
-          </button>
+          </Button>
         </Styled.Buttons>
       </Styled.Content>
     </Styled.Banner>

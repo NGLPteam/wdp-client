@@ -4,6 +4,7 @@ import * as Icons from "../../svgs/icons";
 export const ICON_MAP = {
   arrowRight: Icons.ArrowRight,
   search: Icons.Search,
+  close: Icons.Close,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

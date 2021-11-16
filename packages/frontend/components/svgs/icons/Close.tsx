@@ -1,18 +1,19 @@
 import Props from "./iconType";
 
-export function ArrowRight({ title, ...props }: Props) {
+function Close({ title, ...props }: Props) {
   return (
     <svg
+      viewBox="0 0 16 16"
       width="16"
       height="16"
-      viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
       {...props}
     >
       {title && <title>{title}</title>}
       <path
-        d="M7.35 2l-.684.761 5.252 4.737H2v1.003h9.922l-5.24 4.739.684.76 6.636-6-6.653-6z"
+        d="M11.904 12.61l.707-.707-3.89-3.889 3.889-3.888-.707-.707-3.89 3.888L4.126 3.42l-.707.707 3.889 3.888-3.89 3.89.707.707 3.89-3.89 3.89 3.89z"
         fill="currentColor"
         stroke="currentColor"
         strokeWidth=".5"
@@ -20,3 +21,5 @@ export function ArrowRight({ title, ...props }: Props) {
     </svg>
   );
 }
+
+export default Close;
