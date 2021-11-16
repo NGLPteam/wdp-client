@@ -33,18 +33,19 @@ export default css`
 
   .a-button-primary {
     ${aButton("primary", "lg")}
+  }
 
-    &--sm {
-      ${aButton("primary", "sm")}
-    }
+  /* Because the aButton mixin returns all properties for a button, the small button gets its own class */
+  .a-button-primary-sm {
+    ${aButton("primary", "sm")}
   }
 
   .a-button-secondary {
     ${aButton("secondary", "lg")}
+  }
 
-    &--sm {
-      ${aButton("secondary", "sm")}
-    }
+  .a-button-secondary-sm {
+    ${aButton("secondary", "sm")}
   }
 
   .a-link {

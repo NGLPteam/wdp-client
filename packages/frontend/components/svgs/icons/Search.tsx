@@ -11,6 +11,7 @@ function Search({ title, ...props }: Props) {
       role="img"
       {...props}
     >
+      {title && <title>{title}</title>}
       <path
         fillRule="evenodd"
         clipRule="evenodd"
