@@ -6,7 +6,7 @@ export default function AppFooterSearch({ placeholder = "common.search" }) {
   const { t } = useTranslation();
 
   return (
-    <div className="a-button-secondary a-button-secondary--sm l-flex l-flex--gap l-flex--align-center">
+    <div className="a-button-secondary-sm l-flex l-flex--gap l-flex--align-center">
       <IconFactory icon="search" />
       <span className="t-copy-lighter">{t(placeholder)}</span>
     </div>

@@ -23,8 +23,11 @@ export const SearchWrapper = styled.div`
   grid-area: search;
 `;
 
-export const AboutText = styled.p`
+export const AboutWrapper = styled.div`
   grid-area: about;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const NavWrapper = styled.nav`
