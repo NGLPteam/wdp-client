@@ -33,6 +33,10 @@ function App({
     onLoad: "check-sso",
   };
 
+  if (typeof window !== "undefined" && window?.location?.origin) {
+    initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/silent-sso.html`;
+  }
+
   const defaultLayout = ({
     PageComponent,
     pageComponentProps,
