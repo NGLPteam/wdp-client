@@ -1,8 +1,8 @@
 import React from "react";
-import { useViewerContext } from "contexts";
+import { useViewerContext } from "hooks";
 import { Avatar } from "components/atomic";
-import * as Styled from "./AccountDropdown.styles";
 import { useIsAuthenticated } from "@wdp/lib/api/hooks";
+import * as Styled from "./AccountDropdown.styles";
 
 function AccountDropdown() {
   const { avatarUrl, name } = useViewerContext();
