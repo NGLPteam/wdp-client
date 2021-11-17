@@ -32,10 +32,6 @@ fragment AppFooterFragment on Query {
 
 fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
-  viewer {
-    name
-    id
-  }
 }
 
 fragment BaseLayoutFragment on Query {
@@ -59,15 +55,7 @@ fragment InstallationNameFragment on Query {
 }
 */
 
-const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
+const node: ConcreteRequest = {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -127,7 +115,13 @@ return {
                     "name": "title",
                     "storageKey": null
                   },
-                  (v0/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               }
@@ -136,37 +130,17 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
-          (v0/*: any*/)
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "967dcad7b2ed97f45c8f6459565878f5",
+    "cacheID": "87f8309ac140aec9796e79a743bbf1af",
     "id": null,
     "metadata": {},
     "name": "pagesQuery",
     "operationKind": "query",
-    "text": "query pagesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n  viewer {\n    name\n    id\n  }\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query pagesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
-})();
 (node as any).hash = 'cb8f0702addd4e5915b6c31ec622a1a4';
 export default node;

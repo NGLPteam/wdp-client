@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useIsAuthenticated, useMaybeFragment } from "@wdp/lib/api/hooks";
 import InstallationName from "../InstallationName";
+import AccountDropdown from "./AccountDropdown";
 import * as Styled from "./AppHeader.styles";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
@@ -11,13 +12,18 @@ function AppHeader({ data }: Props) {
 
   return (
     <Styled.Header className="a-bg-custom20">
-      <div className="l-container-wide">
+      <Styled.HeaderInner className="l-container-wide">
         {appData && (
-          <>
+          <Styled.LeftSide>
             <InstallationName data={appData} />
-          </>
+          </Styled.LeftSide>
         )}
-      </div>
+        {isAuthenticated && (
+          <Styled.RightSide>
+            <AccountDropdown />
+          </Styled.RightSide>
+        )}
+      </Styled.HeaderInner>
     </Styled.Header>
   );
 }
@@ -31,8 +37,5 @@ export default AppHeader;
 const fragment = graphql`
   fragment AppHeaderFragment on Query {
     ...InstallationNameFragment
-    viewer {
-      name
-    }
   }
 `;

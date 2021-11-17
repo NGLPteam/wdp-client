@@ -3,8 +3,8 @@ import React from "react";
 import { Provider as ReakitSSRProvider } from "reakit";
 import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
 import { RouterContextProvider } from "@wdp/lib/routes";
-import { ViewerContextProvider } from "contexts";
 import { baseRoutes } from "routes/baseRoutes";
+import { ViewerContextProvider } from "./ViewerContext";
 
 /** Wraps the app with all necessary providers
  * ReakitSSRProvider - Reakit SSR support
@@ -15,11 +15,11 @@ import { baseRoutes } from "routes/baseRoutes";
 const AppContextProvider = ({ children }: Props) => {
   return (
     <ReakitSSRProvider>
-      <ViewerContextProvider>
-        <RouterContextProvider baseRoutes={baseRoutes}>
+      <RouterContextProvider baseRoutes={baseRoutes}>
+        <ViewerContextProvider>
           <PageContextProvider>{children}</PageContextProvider>
-        </RouterContextProvider>
-      </ViewerContextProvider>
+        </ViewerContextProvider>
+      </RouterContextProvider>
     </ReakitSSRProvider>
   );
 };

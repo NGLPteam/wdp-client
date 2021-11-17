@@ -36,7 +36,7 @@ function AppFooter({ data, nameComponent }: Props) {
     <Styled.FooterWrapper className="a-bg-custom10">
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
-          {nameComponent || <h4>Installation Name</h4>}
+          {nameComponent}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
           <AppFooterSearch />

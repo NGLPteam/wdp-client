@@ -43,10 +43,6 @@ fragment AppFooterFragment on Query {
 
 fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
-  viewer {
-    name
-    id
-  }
 }
 
 fragment CommunityLayoutFragment on Query {
@@ -198,35 +194,16 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
-          (v3/*: any*/)
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b424a814bfa0985e8201fba3b8759e54",
+    "cacheID": "c0d490223fe1d89db9c42d4801cc673e",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n  viewer {\n    name\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

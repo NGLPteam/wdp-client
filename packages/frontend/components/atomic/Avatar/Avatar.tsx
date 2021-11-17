@@ -8,7 +8,7 @@ const Avatar = ({ url, alt = "", size = "sm" }: Props) => {
 
   return url ? (
     <Styled.Wrapper style={style}>
-      <Image src={url} alt={alt} width={size} height={size} />
+      <Image src={url} alt={alt} width={imageSize} height={imageSize} />
     </Styled.Wrapper>
   ) : null;
 };
