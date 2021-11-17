@@ -2,8 +2,8 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
-import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
 import * as Styled from "./CommunityName.styles";
+import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
 
 function CommunityTempLogo() {
   return (
