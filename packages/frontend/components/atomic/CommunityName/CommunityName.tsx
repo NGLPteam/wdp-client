@@ -1,4 +1,8 @@
 import React from "react";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { NamedLink } from "@wdp/lib/routes";
+import { graphql } from "react-relay";
+import { CommunityNameFragment$key } from "../../../__generated__/CommunityNameFragment.graphql";
 import * as Styled from "./CommunityName.styles";
 
 function CommunityTempLogo() {
@@ -20,11 +24,32 @@ function CommunityTempLogo() {
   );
 }
 
-export default function CommunityName() {
-  return (
+export default function CommunityName({ data }: Props) {
+  const communityData = useMaybeFragment(fragment, data);
+
+  return communityData ? (
     <span className="l-flex l-flex--gap l-flex--align-center">
       <CommunityTempLogo />
-      <Styled.Header as="h4">Community Name</Styled.Header>
+      <Styled.Header as="h4">
+        <NamedLink
+          route="community"
+          routeParams={{ slug: communityData.slug }}
+          passHref
+        >
+          <a>{communityData.title}</a>
+        </NamedLink>
+      </Styled.Header>
     </span>
-  );
+  ) : null;
 }
+
+interface Props {
+  data?: CommunityNameFragment$key | null;
+}
+
+const fragment = graphql`
+  fragment CommunityNameFragment on Community {
+    title
+    slug
+  }
+`;

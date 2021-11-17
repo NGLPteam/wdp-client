@@ -7,13 +7,12 @@ import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppFooterFragment$key } from "../../../__generated__/AppFooterFragment.graphql";
 import appData from "../../../fixtures/app.data";
-import { CommunityName } from "../../atomic";
 import InstallationName from "../InstallationName";
 import AppFooterSearch from "../AppFooterSearch";
 import * as Styled from "./AppFooter.styles";
 
 // Note: About text and community name will come from backend data
-function AppFooter({ data }: Props) {
+function AppFooter({ data, nameComponent }: Props) {
   const { t } = useTranslation();
   const today = new Date();
   const { footerData } = appData;
@@ -37,7 +36,7 @@ function AppFooter({ data }: Props) {
     <Styled.FooterWrapper className="a-bg-custom10">
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
-          <CommunityName />
+          {nameComponent || <h4>Installation Name</h4>}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
           <AppFooterSearch />
@@ -72,6 +71,7 @@ function AppFooter({ data }: Props) {
 
 interface Props {
   data?: AppFooterFragment$key | null;
+  nameComponent?: React.ReactNode;
 }
 
 export default AppFooter;

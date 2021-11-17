@@ -1,10 +1,23 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import InstallationName from "../InstallationName";
+import { AppHeaderFragment$key } from "../../../__generated__/AppHeaderFragment.graphql";
 
-function AppHeader() {
-  const { t } = useTranslation();
+function AppHeader({ data }: Props) {
+  const appData = useMaybeFragment(fragment, data);
 
-  return <header>{t("app.installation_name")}</header>;
+  return <header>{appData && <InstallationName data={appData} />}</header>;
+}
+
+interface Props {
+  data?: AppHeaderFragment$key | null;
 }
 
 export default AppHeader;
+
+const fragment = graphql`
+  fragment AppHeaderFragment on Query {
+    ...InstallationNameFragment
+  }
+`;

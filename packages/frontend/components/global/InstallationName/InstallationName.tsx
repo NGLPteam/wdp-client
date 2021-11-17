@@ -10,7 +10,7 @@ export default function InstallationName({ data }: Props) {
 
   return (
     <Styled.Wrapper className="l-flex l-flex--gap">
-      <Styled.Name className="t-copy-sm">Installation Name</Styled.Name>
+      <Styled.Name className="t-copy-sm">WDP Installation Name</Styled.Name>
       <CommunityPicker data={apiData} />
     </Styled.Wrapper>
   );

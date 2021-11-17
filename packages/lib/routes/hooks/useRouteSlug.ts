@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { routeQueryArrayToString } from "routes";
+import routeQueryArrayToString from "../helpers/routeQueryArrayToString";
 
 export function useRouteSlug(): string | undefined | null {
   const router = useRouter();

@@ -5,24 +5,37 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AppBodyQueryVariables = {};
-export type AppBodyQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"AppFooterFragment">;
+export type communitiesQueryVariables = {};
+export type communitiesQueryResponse = {
+    readonly " $fragmentRefs": FragmentRefs<"BaseLayoutFragment">;
 };
-export type AppBodyQuery = {
-    readonly response: AppBodyQueryResponse;
-    readonly variables: AppBodyQueryVariables;
+export type communitiesQuery = {
+    readonly response: communitiesQueryResponse;
+    readonly variables: communitiesQueryVariables;
 };
 
 
 
 /*
-query AppBodyQuery {
+query communitiesQuery {
+  ...BaseLayoutFragment
+}
+
+fragment AppBodyFragment on Query {
+  ...AppHeaderFragment
   ...AppFooterFragment
 }
 
 fragment AppFooterFragment on Query {
   ...InstallationNameFragment
+}
+
+fragment AppHeaderFragment on Query {
+  ...InstallationNameFragment
+}
+
+fragment BaseLayoutFragment on Query {
+  ...AppBodyFragment
 }
 
 fragment CommunityPickerFragment on Query {
@@ -47,12 +60,12 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppBodyQuery",
+    "name": "communitiesQuery",
     "selections": [
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "AppFooterFragment"
+        "name": "BaseLayoutFragment"
       }
     ],
     "type": "Query",
@@ -62,7 +75,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "AppBodyQuery",
+    "name": "communitiesQuery",
     "selections": [
       {
         "alias": null,
@@ -121,13 +134,13 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "32bd20b4517543425fc2fd4bf8c2083f",
+    "cacheID": "8fd0970c5f6bc3d8e705538fecef2c4f",
     "id": null,
     "metadata": {},
-    "name": "AppBodyQuery",
+    "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query AppBodyQuery {\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
-(node as any).hash = '242322ae8818c67eba4152ed88e5d7a1';
+(node as any).hash = '0cf5c758637bfb6b250320f179f94ffd';
 export default node;

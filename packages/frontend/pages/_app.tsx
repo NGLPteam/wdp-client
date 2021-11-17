@@ -11,7 +11,7 @@ import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
 import { RouterContextProvider } from "@wdp/lib/routes";
-import { AppHtmlHead, AppBody } from "../components/global";
+import { AppHtmlHead } from "../components/global";
 import GlobalStyles from "../theme";
 import { updateI18n } from "../i18n";
 import { baseRoutes } from "../routes/baseRoutes";
@@ -56,12 +56,10 @@ function App({
         >
           <KeycloakRelayProvider records={records}>
             <RouterContextProvider baseRoutes={baseRoutes}>
-              <AppBody>
-                {getLayout({
-                  PageComponent: Component,
-                  pageComponentProps: pageProps,
-                })}
-              </AppBody>
+              {getLayout({
+                PageComponent: Component,
+                pageComponentProps: pageProps,
+              })}
             </RouterContextProvider>
           </KeycloakRelayProvider>
         </SSRKeycloakProvider>

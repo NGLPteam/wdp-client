@@ -3,6 +3,7 @@ export {
   usePageContext,
   useQueryStateContext,
 } from "@wdp/lib/api/hooks";
+export { useRouteSlug } from "@wdp/lib/routes/hooks/useRouteSlug";
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";
@@ -16,7 +17,6 @@ export { default as useIsAuthorized } from "./useIsAuthorized";
 export { default as useWindowSize } from "./useWindowSize";
 export { default as useToggle } from "./useToggle";
 export { default as useNoInitialEffect } from "./useNoInitialEffect";
-export { default as useRouteSlug } from "./useRouteSlug";
 export { default as useRoutePage } from "./useRoutePage";
 export { default as useIsMobile } from "./useIsMobile";
 export { default as useAutoProgress } from "./useAutoProgress";
