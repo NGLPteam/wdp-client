@@ -1,9 +1,9 @@
 import * as React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { InstallationNameFragment$key } from "../../../__generated__/InstallationNameFragment.graphql";
 import CommunityPicker from "./CommunityPicker";
 import * as Styled from "./InstallationName.styles";
+import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 
 export default function InstallationName({ data }: Props) {
   const apiData = useMaybeFragment(fragment, data);

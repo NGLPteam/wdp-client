@@ -1,6 +1,5 @@
 import get from "lodash/get";
-import GlobalStyles from "../theme/globalStyles";
-import { customColors } from "../theme/base/variables";
+import GlobalStyles from "theme/globalStyles";
 import { ThemeProvider } from "styled-components";
 
 export const decorators = [

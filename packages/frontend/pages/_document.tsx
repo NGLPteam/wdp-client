@@ -15,7 +15,7 @@ import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
 import { parseCookies, initialEnvironment } from "@wdp/lib/app";
-import AppBody from "../components/global/AppBody";
+import AppBody from "components/global/AppBody";
 
 const FONTS = [
   "Ilisarniq-Regular",

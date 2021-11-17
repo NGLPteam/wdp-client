@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import InstallationName from "../InstallationName";
-import { AppHeaderFragment$key } from "../../../__generated__/AppHeaderFragment.graphql";
+import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
 function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);

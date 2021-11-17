@@ -12,10 +12,10 @@ import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
 import { RouterContextProvider } from "@wdp/lib/routes";
-import { AppHtmlHead } from "../components/global";
-import GlobalStyles from "../theme";
-import { updateI18n } from "../i18n";
-import { baseRoutes } from "../routes/baseRoutes";
+import { AppHtmlHead } from "components/global";
+import { updateI18n } from "i18n";
+import { baseRoutes } from "routes/baseRoutes";
+import GlobalStyles from "theme";
 
 function App({
   Component,

@@ -3,8 +3,8 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
-import CommunityLayout from "../../../components/composed/community/CommunityLayout";
-import { SlugCommunityQuery as Query } from "../../../__generated__/SlugCommunityQuery.graphql";
+import CommunityLayout from "components/composed/community/CommunityLayout";
+import { SlugCommunityQuery as Query } from "@/relay/SlugCommunityQuery.graphql";
 
 export default function CommunityPage() {
   const slug = useRouteSlug();

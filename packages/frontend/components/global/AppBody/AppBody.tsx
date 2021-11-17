@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { AppBodyFragment$key } from "../../../__generated__/AppBodyFragment.graphql";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import * as Styled from "./AppBody.styles";
+import { AppBodyFragment$key } from "@/relay/AppBodyFragment.graphql";
 
 function AppBody({ children, data, nameComponent }: Props) {
   const appData = useMaybeFragment(fragment, data);
