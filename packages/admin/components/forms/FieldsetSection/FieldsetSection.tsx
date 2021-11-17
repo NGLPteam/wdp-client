@@ -1,11 +1,10 @@
 import React from "react";
-import BaseInputLabel from "../BaseInputLabel";
-import * as Styled from "./Fieldset.styles";
+import * as Styled from "./FieldsetSection.styles";
 
-const Fieldset = ({ label, children, description, style }: Props) => {
+const GroupFieldset = ({ label, children, description, style }: Props) => {
   return (
     <Styled.Fieldset style={style}>
-      <BaseInputLabel>{label}</BaseInputLabel>
+      <Styled.Legend>{label}</Styled.Legend>
       {description && <Styled.Description>{description}</Styled.Description>}
       <Styled.FieldsWrapper>{children}</Styled.FieldsWrapper>
     </Styled.Fieldset>
@@ -21,8 +20,4 @@ interface Props {
   style?: CSSwithVars;
 }
 
-export default Fieldset;
-
-Fieldset.Fields = Styled.Fields;
-Fieldset.Field = Styled.Field;
-Fieldset.Actions = Styled.Actions;
+export default GroupFieldset;

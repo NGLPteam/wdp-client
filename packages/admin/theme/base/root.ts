@@ -129,7 +129,7 @@ export default css`
     --form-grid-item-width-wide: 100%;
 
     /* fieldset */
-    --fieldset-field-spacing: ${pxToRem(24)};
+    --fieldset-field-spacing: ${pxToRem(20)};
 
     /* buttons */
     --button-background: var(--background-light);
