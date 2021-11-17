@@ -26,7 +26,7 @@ function ContributorsColumnCell({
     const totalString =
       total && total > 1 ? t("common.and_x_more", { count: total - 1 }) : null;
 
-    return totalString ? `${names} ${totalString}` : names;
+    return totalString ? `${names}${totalString}` : names;
   }
 
   return fragmentData ? (
