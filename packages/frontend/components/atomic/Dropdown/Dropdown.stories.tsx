@@ -4,7 +4,7 @@ import Dropdown from "./Dropdown";
 type Props = React.ComponentProps<typeof Dropdown>;
 
 export default {
-  title: "Components/Atomic/Dropdowns/Dropdown",
+  title: "Components/Atomic/Dropdown",
   component: Dropdown,
 };
 
@@ -20,7 +20,12 @@ const MENU_ITEMS = [
   </a>,
 ];
 
-const Template: Story<Props> = (args) => <Dropdown {...args} />;
+const Template: Story<Props> = (args) => (
+  <>
+    <Dropdown {...args} />
+    <Dropdown {...args} />
+  </>
+);
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink } from "@wdp/lib/routes";
 import { Button, Dropdown } from "../../../atomic";
@@ -7,16 +7,15 @@ import { CommunityPickerFragment$key } from "../../../../__generated__/Community
 
 export default function CommunityPicker({ data }: Props) {
   const communityData = useMaybeFragment(fragment, data);
-
-  const disclosure = (
-    <Button secondary icon="arrowRight" size="sm">
-      Community Picker
-    </Button>
-  );
+  const { t } = useTranslation();
 
   return communityData && communityData.communities ? (
     <Dropdown
-      disclosure={disclosure}
+      disclosure={
+        <Button secondary icon="arrowRight" size="sm">
+          Community Picker
+        </Button>
+      }
       menuItems={communityData.communities.edges.map(({ node }) => {
         return (
           <NamedLink
@@ -29,7 +28,7 @@ export default function CommunityPicker({ data }: Props) {
           </NamedLink>
         );
       })}
-      label="nav.communities"
+      label={t("nav.communities")}
     />
   ) : null;
 }
