@@ -15,6 +15,7 @@ import { updateI18n } from "i18n";
 import GlobalStyles from "theme";
 import { AppContextProvider } from "contexts";
 
+type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 function App({
   Component,
   pageProps,
@@ -37,6 +38,12 @@ function App({
     initOptions.silentCheckSsoRedirectUri = `${window.location.origin}/silent-sso.html`;
   }
 
+  const ssrProps: KeycloakProviderProps = {
+    initOptions,
+    keycloakConfig,
+    persistor,
+  };
+
   const defaultLayout = ({
     PageComponent,
     pageComponentProps,
@@ -52,11 +59,7 @@ function App({
       <AppHtmlHead />
       <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
         <GlobalStyles />
-        <SSRKeycloakProvider
-          initOptions={initOptions}
-          keycloakConfig={keycloakConfig}
-          persistor={persistor}
-        >
+        <SSRKeycloakProvider {...ssrProps}>
           <KeycloakRelayProvider records={records}>
             <AppContextProvider>
               {getLayout({

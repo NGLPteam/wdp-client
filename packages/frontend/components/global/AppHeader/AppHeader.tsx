@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useIsAuthenticated, useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import InstallationName from "../InstallationName";
 import AccountDropdown from "./AccountDropdown";
 import * as Styled from "./AppHeader.styles";
@@ -8,7 +8,6 @@ import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
 function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);
-  const isAuthenticated = useIsAuthenticated();
 
   return (
     <Styled.Header className="a-bg-custom20">
@@ -18,11 +17,9 @@ function AppHeader({ data }: Props) {
             <InstallationName data={appData} />
           </Styled.LeftSide>
         )}
-        {isAuthenticated && (
-          <Styled.RightSide>
-            <AccountDropdown />
-          </Styled.RightSide>
-        )}
+        <Styled.RightSide>
+          <AccountDropdown />
+        </Styled.RightSide>
       </Styled.HeaderInner>
     </Styled.Header>
   );
