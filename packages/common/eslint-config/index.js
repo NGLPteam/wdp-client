@@ -58,7 +58,8 @@ module.exports = {
         'input[type="image"]': ["InputImage"],
       },
     ],
-    "relay/must-colocate-fragment-spreads": "warn",
+    // Can only handle direct imports
+    "relay/must-colocate-fragment-spreads": 0,
     "relay/no-future-added-value": 0,
     "relay/unused-fields": 0,
   },

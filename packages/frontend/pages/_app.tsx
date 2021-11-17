@@ -1,4 +1,5 @@
 import type { AppProps, AppContext } from "next/app";
+import { Provider as ReakitSSRProvider } from "reakit";
 import { ThemeProvider } from "styled-components";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
@@ -11,7 +12,7 @@ import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
 import { RouterContextProvider } from "@wdp/lib/routes";
-import { AppHtmlHead, AppBody } from "../components/global";
+import { AppHtmlHead } from "../components/global";
 import GlobalStyles from "../theme";
 import { updateI18n } from "../i18n";
 import { baseRoutes } from "../routes/baseRoutes";
@@ -49,22 +50,22 @@ function App({
       <AppHtmlHead />
       <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
         <GlobalStyles />
-        <SSRKeycloakProvider
-          initOptions={initOptions}
-          keycloakConfig={keycloakConfig}
-          persistor={persistor}
-        >
-          <KeycloakRelayProvider records={records}>
-            <RouterContextProvider baseRoutes={baseRoutes}>
-              <AppBody>
+        <ReakitSSRProvider>
+          <SSRKeycloakProvider
+            initOptions={initOptions}
+            keycloakConfig={keycloakConfig}
+            persistor={persistor}
+          >
+            <KeycloakRelayProvider records={records}>
+              <RouterContextProvider baseRoutes={baseRoutes}>
                 {getLayout({
                   PageComponent: Component,
                   pageComponentProps: pageProps,
                 })}
-              </AppBody>
-            </RouterContextProvider>
-          </KeycloakRelayProvider>
-        </SSRKeycloakProvider>
+              </RouterContextProvider>
+            </KeycloakRelayProvider>
+          </SSRKeycloakProvider>
+        </ReakitSSRProvider>
       </ThemeProvider>
     </>
   );

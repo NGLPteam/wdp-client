@@ -1,4 +1,5 @@
 import { css } from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { baseColors, customColors, zIndex } from "./variables";
 import { getColorsByKey } from "./functions";
 
@@ -151,5 +152,12 @@ export default css`
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};
     --z-index-dropdown: ${zIndex.dropdown};
+
+    /* padding */
+    --padding-lg: ${pxToRem(32)};
+    --padding-md: ${pxToRem(24)};
+    --padding-rg: ${pxToRem(16)};
+    --padding-sm: ${pxToRem(8)};
+    --padding-xs: ${pxToRem(6)};
   }
 `;
