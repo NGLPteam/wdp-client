@@ -1,4 +1,5 @@
 import type { AppProps, AppContext } from "next/app";
+import { Provider as ReakitSSRProvider } from "reakit";
 import { ThemeProvider } from "styled-components";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
@@ -49,20 +50,22 @@ function App({
       <AppHtmlHead />
       <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
         <GlobalStyles />
-        <SSRKeycloakProvider
-          initOptions={initOptions}
-          keycloakConfig={keycloakConfig}
-          persistor={persistor}
-        >
-          <KeycloakRelayProvider records={records}>
-            <RouterContextProvider baseRoutes={baseRoutes}>
-              {getLayout({
-                PageComponent: Component,
-                pageComponentProps: pageProps,
-              })}
-            </RouterContextProvider>
-          </KeycloakRelayProvider>
-        </SSRKeycloakProvider>
+        <ReakitSSRProvider>
+          <SSRKeycloakProvider
+            initOptions={initOptions}
+            keycloakConfig={keycloakConfig}
+            persistor={persistor}
+          >
+            <KeycloakRelayProvider records={records}>
+              <RouterContextProvider baseRoutes={baseRoutes}>
+                {getLayout({
+                  PageComponent: Component,
+                  pageComponentProps: pageProps,
+                })}
+              </RouterContextProvider>
+            </KeycloakRelayProvider>
+          </SSRKeycloakProvider>
+        </ReakitSSRProvider>
       </ThemeProvider>
     </>
   );

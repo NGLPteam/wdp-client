@@ -34,6 +34,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
           hideOnClickOutside={hideOnClickOutside}
           {...popoverState}
           role={undefined}
+          aria-label={label}
         >
           {children}
         </Popover>
