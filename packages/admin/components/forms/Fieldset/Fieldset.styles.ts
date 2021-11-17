@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
-import BaseInputDescription from "../BaseInputDescription";
 import { pxToRem } from "theme/mixins/functions";
 import { respond } from "theme/mixins/base";
+import BaseInputDescription from "../BaseInputDescription";
 
 export const Fieldset = styled.fieldset`
-  padding-block-end: var(--fieldset-field-spacing);
   flex-basis: var(--form-grid-item-width-wide);
+  --form-grid-row-gap: 20px;
 `;
 
 export const Legend = styled.legend``;
@@ -14,7 +14,10 @@ export const FieldsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--fieldset-field-spacing);
-  padding-block-start: var(--fieldset-field-spacing);
+  border: 1px solid var(--neutral60);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--neutral05);
+  padding: ${pxToRem(20)};
 `;
 
 export const Fields = styled.div`

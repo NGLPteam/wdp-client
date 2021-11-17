@@ -8,6 +8,7 @@ export { default as Select } from "./Select";
 export { default as Switch } from "./Switch";
 export { default as Typeahead } from "./Typeahead";
 export { default as Fieldset } from "./Fieldset";
+export { default as FieldsetSection } from "./FieldsetSection";
 export { default as LinksRepeater } from "./LinksRepeater";
 export { default as HiddenField } from "./HiddenField";
 export { default as ContributorTypeahead } from "./ContributorTypeahead";
