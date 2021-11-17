@@ -147,6 +147,7 @@ export default css`
 
     /* container */
     --container-padding-xlg: 120px;
+    --container-padding-lg: 61px;
     --container-padding-sm: 36px;
 
     /* dropdown */
