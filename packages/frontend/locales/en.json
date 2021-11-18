@@ -18,7 +18,8 @@
       "label": "Search",
       "placeholder": "Search",
       "search_area_label": "Search area:",
-      "community_option": "$t(glossary.community)"
+      "community_option": "$t(glossary.community)",
+      "submit": "$t(common.submit)"
     },
     "glossary": {
       "community": "community",
