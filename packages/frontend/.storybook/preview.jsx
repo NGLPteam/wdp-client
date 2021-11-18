@@ -2,6 +2,7 @@ import GlobalStyles from "theme/globalStyles";
 import { baseColors, customColors } from "theme/base/variables";
 import * as nextImage from "next/image";
 import { ThemeProvider } from "styled-components";
+import i18n, { SUPPORTED_LOCALES, DEFAULT_LNG } from "../i18n";
 
 Object.defineProperty(nextImage, "default", {
   configurable: true,
@@ -99,4 +100,7 @@ export const parameters = {
     ],
   },
   backgrounds: { disable: true }, // disabled in favor of themes
+  i18n,
+  locale: DEFAULT_LNG,
+  locales: SUPPORTED_LOCALES,
 };

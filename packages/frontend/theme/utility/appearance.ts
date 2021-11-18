@@ -57,4 +57,16 @@ export default css`
     text-decoration: underline;
     cursor: pointer;
   }
+
+  .a-color {
+    color: var(--color-base);
+  }
+
+  .a-color-light {
+    color: var(--color-light);
+  }
+
+  .a-color-lighter {
+    color: var(--color-lighter);
+  }
 `;

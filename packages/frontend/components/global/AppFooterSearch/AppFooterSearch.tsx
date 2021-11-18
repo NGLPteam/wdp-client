@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconFactory } from "../../factories";
 
-export default function AppFooterSearch({ placeholder = "common.search" }) {
+export default function AppFooterSearch({ placeholder = "search.label" }) {
   const { t } = useTranslation();
 
   return (
