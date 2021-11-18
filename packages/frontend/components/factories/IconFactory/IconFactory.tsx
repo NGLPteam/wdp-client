@@ -3,8 +3,15 @@ import * as Icons from "../../svgs/icons";
 
 export const ICON_MAP = {
   arrowRight: Icons.ArrowRight,
+  arrowDown: Icons.ArrowDown,
+  arrowLeft: Icons.ArrowLeft,
+  arrowUp: Icons.ArrowUp,
   search: Icons.Search,
   close: Icons.Close,
+  chevronDown: Icons.ChevronDown,
+  chevronLeft: Icons.ChevronLeft,
+  chevronRight: Icons.ChevronRight,
+  chevronUp: Icons.ChevronUp,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
