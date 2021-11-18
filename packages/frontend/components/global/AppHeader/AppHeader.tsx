@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import InstallationName from "../InstallationName";
-import AccountDropdown from "./AccountDropdown";
+import InstallationName from "../../composed/instance/InstallationName";
 import * as Styled from "./AppHeader.styles";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
+import AccountDropdown from "components/composed/viewer/AccountDropdown";
 
 function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);

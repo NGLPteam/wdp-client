@@ -15,6 +15,13 @@ export const baseRoutes: BaseRoute[] = [
     name: "community",
     path: "/communities/[slug]",
     label: "nav.community",
+    routes: [
+      {
+        name: "community.about",
+        path: "/communities/[slug]/about",
+        label: "nav.about",
+      },
+    ],
   },
   {
     name: "about",

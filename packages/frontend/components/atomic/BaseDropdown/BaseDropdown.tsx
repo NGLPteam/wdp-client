@@ -14,7 +14,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
       disclosure,
       children,
       label,
-      gutter = 4,
+      gutter = 8,
       hideOnEsc = true,
       hideOnClickOutside = true,
       isModal = false,
