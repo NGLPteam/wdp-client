@@ -1,5 +1,6 @@
 // Utility appearance classes
 // --------------------
+import { aHidden } from "@wdp/lib/theme/mixins";
 import { css } from "styled-components";
 import {
   aBgNeutral00,
@@ -11,6 +12,10 @@ import {
 } from "../mixins/appearance";
 
 export default css`
+  .a-hidden {
+    ${aHidden}
+  }
+
   .a-bg-neutral00 {
     ${aBgNeutral00()}
   }

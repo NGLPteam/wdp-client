@@ -3,8 +3,8 @@ import React from "react";
 import { Provider as ReakitSSRProvider } from "reakit";
 import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
 import { RouterContextProvider } from "@wdp/lib/routes";
-import { baseRoutes } from "routes/baseRoutes";
 import { ViewerContextProvider } from "./ViewerContext";
+import { baseRoutes } from "routes/baseRoutes";
 
 /** Wraps the app with all necessary providers
  * ReakitSSRProvider - Reakit SSR support

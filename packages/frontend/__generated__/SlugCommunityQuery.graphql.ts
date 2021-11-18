@@ -52,6 +52,7 @@ fragment CommunityHeroFragment on Community {
 fragment CommunityLayoutFragment on Query {
   community(slug: $slug) {
     ...CommunityNameFragment
+    ...CommunityNavFragment
     id
   }
   ...AppBodyFragment
@@ -60,6 +61,10 @@ fragment CommunityLayoutFragment on Query {
 fragment CommunityNameFragment on Community {
   title
   slug
+}
+
+fragment CommunityNavFragment on Community {
+  ...CommunityNameFragment
 }
 
 fragment CommunityPickerFragment on Query {
@@ -206,12 +211,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a912de0ed800d9a5e591f026c0225910",
+    "cacheID": "1af59ebd651a153a1098224016516fc0",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityHeroFragment\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityHeroFragment\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    ...CommunityNavFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavFragment on Community {\n  ...CommunityNameFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
