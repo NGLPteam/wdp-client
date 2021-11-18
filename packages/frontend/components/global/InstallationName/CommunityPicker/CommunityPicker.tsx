@@ -2,7 +2,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink } from "@wdp/lib/routes";
-import { Button, Dropdown } from "../../../atomic";
+import { Button, Dropdown } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 
 export default function CommunityPicker({ data }: Props) {
@@ -12,7 +12,7 @@ export default function CommunityPicker({ data }: Props) {
   return communityData && communityData.communities ? (
     <Dropdown
       disclosure={
-        <Button secondary icon="arrowRight" size="sm">
+        <Button secondary icon="chevronDown" size="sm">
           Community Picker
         </Button>
       }
