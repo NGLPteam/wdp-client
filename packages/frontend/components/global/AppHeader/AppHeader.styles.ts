@@ -7,16 +7,18 @@ export const Header = styled.header`
 `;
 
 export const HeaderInner = styled.div`
-  display: grid;
-  grid-template:
-    "left . right" auto
-    / auto 1fr auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-export const LeftSide = styled.div`
-  grid-area: left;
-`;
+export const LeftSide = styled.div``;
 
 export const RightSide = styled.div`
-  grid-area: right;
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-inline-start: ${pxToRem(28)};
+  }
 `;

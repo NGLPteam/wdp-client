@@ -134,6 +134,7 @@ export default css`
 
     /* grid */
     --grid-column-gap: 16px;
+    --grid-column-gap-sm: 8px;
     --grid-row-gap: 16px;
 
     /* borders */

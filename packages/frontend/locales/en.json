@@ -28,6 +28,8 @@
       "categories": "Categories",
       "community": "$t(glossary.community)",
       "communities": "$t(glossary.community_plural)",
+      "community_picker": "$t(glossary.community) Picker",
+      "browse_all": "Browse All",
       "contact": "Contact",
       "explore": "Explore",
       "privacy": "Privacy Statement",

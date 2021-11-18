@@ -86,5 +86,15 @@ export default css`
         }
       `)}
     }
+
+    &--gap-sm {
+      gap: var(--grid-column-gap-sm);
+
+      ${noFlexGapSupport(`
+        > * + * {
+          margin-inline-start: var(--grid-column-gap-sm);
+        }
+      `)}
+    }
   }
 `;
