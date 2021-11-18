@@ -5,17 +5,17 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type CommunityLayoutFragment = {
+export type CommunityChildLayoutFragment = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityNameFragment" | "CommunityNavBarFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityNameFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"AppBodyFragment">;
-    readonly " $refType": "CommunityLayoutFragment";
+    readonly " $fragmentRefs": FragmentRefs<"CommunityCondensedNavFragment" | "AppBodyFragment">;
+    readonly " $refType": "CommunityChildLayoutFragment";
 };
-export type CommunityLayoutFragment$data = CommunityLayoutFragment;
-export type CommunityLayoutFragment$key = {
-    readonly " $data"?: CommunityLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+export type CommunityChildLayoutFragment$data = CommunityChildLayoutFragment;
+export type CommunityChildLayoutFragment$key = {
+    readonly " $data"?: CommunityChildLayoutFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutFragment">;
 };
 
 
@@ -29,7 +29,7 @@ const node: ReaderFragment = {
   ],
   "kind": "Fragment",
   "metadata": null,
-  "name": "CommunityLayoutFragment",
+  "name": "CommunityChildLayoutFragment",
   "selections": [
     {
       "alias": null,
@@ -49,14 +49,14 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "FragmentSpread",
           "name": "CommunityNameFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "CommunityNavBarFragment"
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityCondensedNavFragment"
     },
     {
       "args": null,
@@ -67,5 +67,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '6251d393a8584d80bce16ac9d0a03c05';
+(node as any).hash = 'b03fbe1f654fbab3804b30cd5ea83e9a';
 export default node;

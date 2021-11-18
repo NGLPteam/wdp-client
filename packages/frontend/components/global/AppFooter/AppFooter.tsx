@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
-import InstallationName from "../InstallationName";
+import InstallationName from "../../composed/instance/InstallationName";
 import AppFooterSearch from "../AppFooterSearch";
 import * as Styled from "./AppFooter.styles";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";

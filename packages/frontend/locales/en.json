@@ -10,7 +10,9 @@
       "accept": "Accept",
       "close": "Close",
       "welcome_to": "Welcome to {{name}}.",
-      "search": "Search"
+      "search": "Search",
+      "sign_in": "Sign In",
+      "sign_out": "Sign Out"
     },
     "glossary": {
       "community": "community",
@@ -30,6 +32,7 @@
       "communities": "$t(glossary.community_plural)",
       "community_picker": "$t(glossary.community) Picker",
       "browse_all": "Browse All",
+      "account": "Account",
       "contact": "Contact",
       "explore": "Explore",
       "privacy": "Privacy Statement",
