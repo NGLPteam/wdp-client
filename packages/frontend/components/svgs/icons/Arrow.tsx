@@ -20,3 +20,15 @@ export function ArrowRight({ title, ...props }: Props) {
     </svg>
   );
 }
+
+export function ArrowLeft(props: Props) {
+  return <ArrowRight style={{ transform: "rotate(180deg)" }} {...props} />;
+}
+
+export function ArrowUp(props: Props) {
+  return <ArrowRight style={{ transform: "rotate(270deg)" }} {...props} />;
+}
+
+export function ArrowDown(props: Props) {
+  return <ArrowRight style={{ transform: "rotate(90deg)" }} {...props} />;
+}
