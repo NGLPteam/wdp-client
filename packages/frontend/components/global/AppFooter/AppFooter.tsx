@@ -5,11 +5,11 @@ import startCase from "lodash/startCase";
 import Link from "next/link";
 import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { AppFooterFragment$key } from "../../../__generated__/AppFooterFragment.graphql";
 import appData from "../../../fixtures/app.data";
 import InstallationName from "../InstallationName";
 import AppFooterSearch from "../AppFooterSearch";
 import * as Styled from "./AppFooter.styles";
+import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
 // Note: About text and community name will come from backend data
 function AppFooter({ data, nameComponent }: Props) {
@@ -36,7 +36,7 @@ function AppFooter({ data, nameComponent }: Props) {
     <Styled.FooterWrapper className="a-bg-custom10">
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
-          {nameComponent || <h4>Installation Name</h4>}
+          {nameComponent}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
           <AppFooterSearch />

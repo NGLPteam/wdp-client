@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink } from "@wdp/lib/routes";
 import { Button, Dropdown } from "../../../atomic";
-import { CommunityPickerFragment$key } from "../../../../__generated__/CommunityPickerFragment.graphql";
+import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 
 export default function CommunityPicker({ data }: Props) {
   const communityData = useMaybeFragment(fragment, data);

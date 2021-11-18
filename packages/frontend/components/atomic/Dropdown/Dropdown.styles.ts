@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { borderRadius, boxShadow } from "../../../theme/base/variables";
+import { borderRadius, boxShadow } from "theme/base/variables";
 
 export const DropdownWrapper = styled.div`
   background-color: var(--dropdown-background);

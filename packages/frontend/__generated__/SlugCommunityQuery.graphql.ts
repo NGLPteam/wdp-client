@@ -10,7 +10,7 @@ export type SlugCommunityQueryVariables = {
 };
 export type SlugCommunityQueryResponse = {
     readonly community: {
-        readonly title: string;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
 };
@@ -26,7 +26,7 @@ query SlugCommunityQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
-    title
+    ...CommunityHeroFragment
     id
   }
   ...CommunityLayoutFragment
@@ -43,6 +43,10 @@ fragment AppFooterFragment on Query {
 
 fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
+}
+
+fragment CommunityHeroFragment on Community {
+  title
 }
 
 fragment CommunityLayoutFragment on Query {
@@ -126,7 +130,11 @@ return {
         "name": "community",
         "plural": false,
         "selections": [
-          (v2/*: any*/)
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CommunityHeroFragment"
+          }
         ],
         "storageKey": null
       },
@@ -198,14 +206,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c0d490223fe1d89db9c42d4801cc673e",
+    "cacheID": "a912de0ed800d9a5e591f026c0225910",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityHeroFragment\n    id\n  }\n  ...CommunityLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLayoutFragment on Query {\n  community(slug: $slug) {\n    ...CommunityNameFragment\n    id\n  }\n  ...AppBodyFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'f3e09dc7ed344077a5ef188558e99e8c';
+(node as any).hash = '78f472571ea384f1575ad21af436b6d6';
 export default node;

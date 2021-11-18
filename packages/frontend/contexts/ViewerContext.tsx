@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from "react";
 import { graphql } from "react-relay";
-import { ViewerContextQuery } from "__generated__/ViewerContextQuery.graphql";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
+import { ViewerContextQuery } from "@/relay/ViewerContextQuery.graphql";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],
@@ -51,6 +51,9 @@ const query = graphql`
   query ViewerContextQuery {
     viewer {
       name
+      allowedActions
+      uploadAccess
+      uploadToken
       avatar {
         small {
           png {

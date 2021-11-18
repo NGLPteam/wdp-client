@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "../../../global";
-import { CommunityName } from "../../../atomic";
-import { CommunityLayoutFragment$key } from "../../../../__generated__/CommunityLayoutFragment.graphql";
+import CommunityName from "../CommunityName";
+import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 
 export default function CommunityLayout({ children, data }: Props) {
   const appData = useMaybeFragment(fragment, data);
