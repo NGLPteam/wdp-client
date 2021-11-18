@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "../../../global";
 import CommunityName from "../CommunityName";
+import CommunityNav from "../CommunityNav";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 
 export default function CommunityLayout({ children, data }: Props) {
@@ -15,6 +16,7 @@ export default function CommunityLayout({ children, data }: Props) {
         appData ? <CommunityName data={appData.community} /> : undefined
       }
     >
+      {appData && <CommunityNav data={appData.community} />}
       {children}
     </AppBody>
   );
@@ -29,6 +31,7 @@ const fragment = graphql`
   fragment CommunityLayoutFragment on Query {
     community(slug: $slug) {
       ...CommunityNameFragment
+      ...CommunityNavFragment
     }
     ...AppBodyFragment
   }

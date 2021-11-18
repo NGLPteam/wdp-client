@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { IconFactory } from "../../factories";
 import * as Styles from "./Button.styles";
+import type { MaybeButtonRef } from "types/ref";
 type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
 /**
@@ -9,7 +10,7 @@ type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 const Button = forwardRef(
   (
     { children, icon, size = "lg", secondary, ...props }: Props & ButtonProps,
-    ref
+    ref: MaybeButtonRef
   ) => {
     let className = `a-button-${secondary ? "secondary" : "primary"}`;
     if (size !== "lg") className += `-${size}`;
