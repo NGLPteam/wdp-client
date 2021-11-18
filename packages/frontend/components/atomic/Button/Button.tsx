@@ -18,7 +18,9 @@ const Button = forwardRef(
     return (
       <Styles.ButtonStyles ref={ref} className={className} {...props}>
         {children && <span>{children}</span>}
-        {icon && <IconFactory icon={icon} />}
+        {icon && (
+          <IconFactory icon={icon} role={children ? "presentation" : "img"} />
+        )}
       </Styles.ButtonStyles>
     );
   }

@@ -1,4 +1,5 @@
 import GlobalStyles from "theme/globalStyles";
+import { baseColors, customColors } from "theme/base/variables";
 import * as nextImage from "next/image";
 import { ThemeProvider } from "styled-components";
 
@@ -66,4 +67,36 @@ export const globalTypes = {
   },
 };
 
-export const parameters = {};
+export const parameters = {
+  themes: {
+    default: "neutral00",
+    list: [
+      {
+        name: "neutral00",
+        class: "a-bg-neutral00",
+        color: `var(--color-base-neutral00, ${baseColors.neutral00})`,
+      },
+      {
+        name: "custom10",
+        class: "a-bg-custom10",
+        color: `var(--color-custom10, ${customColors.cream10})`,
+      },
+      {
+        name: "custom20",
+        class: "a-bg-custom20",
+        color: `var(--color-custom20, ${customColors.cream20})`,
+      },
+      {
+        name: "neutral80",
+        class: "a-bg-neutral80",
+        color: `var(--color-base-neutral80, ${baseColors.neutral80})`,
+      },
+      {
+        name: "neutral90",
+        class: "a-bg-neutral90",
+        color: `var(--color-base-neutral90, ${baseColors.neutral90})`,
+      },
+    ],
+  },
+  backgrounds: { disable: true }, // disabled in favor of themes
+};
