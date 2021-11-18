@@ -10,9 +10,15 @@
       "accept": "Accept",
       "close": "Close",
       "welcome_to": "Welcome to {{name}}.",
-      "search": "Search",
       "sign_in": "Sign In",
-      "sign_out": "Sign Out"
+      "sign_out": "Sign Out",
+      "submit": "Submit"
+    },
+    "search": {
+      "label": "Search",
+      "placeholder": "Search",
+      "search_area_label": "Search area:",
+      "community_option": "$t(glossary.community)"
     },
     "glossary": {
       "community": "community",

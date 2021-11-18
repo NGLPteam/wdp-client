@@ -7,3 +7,10 @@ export const aHidden = `
   overflow: hidden;
   clip: rect(0 0 0 0);
 `;
+
+export const aInputReset = `
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+`;
