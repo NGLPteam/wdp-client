@@ -62,6 +62,7 @@ function FileList<T extends OperationType>({
         icon="plus"
         drawer="addFile"
         drawerQuery={{ drawerSlug: slug || "" }}
+        actions="self.assets.create"
       >
         {t("actions.create.file")}
       </ButtonControlDrawer>

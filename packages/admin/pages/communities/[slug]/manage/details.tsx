@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { detailsManageSlugCommunitiesPagesQuery as Query } from "@/relay/detailsManageSlugCommunitiesPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import type { detailsManageSlugCommunitiesPagesQuery as Query } from "@/relay/detailsManageSlugCommunitiesPagesQuery.graphql";
 
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";

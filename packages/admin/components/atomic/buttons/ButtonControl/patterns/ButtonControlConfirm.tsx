@@ -1,8 +1,9 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
 import Modal from "components/layout/Modal";
 import ConfirmModal from "components/layout/ConfirmModal";
+import { Authorize } from "components/auth";
 
 type BaseProps = React.ComponentProps<typeof ButtonControl>;
 type ModalProps = React.ComponentProps<typeof Modal>;
@@ -11,42 +12,41 @@ type GroupProps = React.ComponentProps<typeof ButtonControlGroup>;
 /**
  * A button control that opens a modal
  */
-const ButtonControlConfirm = forwardRef(
-  (
-    {
-      modalLabel,
-      modalBody,
-      icon,
-      children,
-      onClick: onConfirm,
-      "aria-label": actionLabel,
-      closeDropdown,
-    }: Props,
-    ref
-  ) => {
-    const dialog = useDialogState({ visible: false, animated: true });
+const ButtonControlConfirm = ({
+  modalLabel,
+  modalBody,
+  icon,
+  children,
+  onClick: onConfirm,
+  "aria-label": actionLabel,
+  closeDropdown,
+  actions,
+  allowedActions,
+}: Props) => {
+  const dialog = useDialogState({ visible: false, animated: true });
 
-    const handleClick = (e: React.MouseEvent) => {
-      e.preventDefault();
-      if (closeDropdown) {
-        closeDropdown();
-      }
-      dialog.show();
-    };
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (closeDropdown) {
+      closeDropdown();
+    }
+    dialog.show();
+  };
 
-    const handleConfirm = () => {
-      if (onConfirm) onConfirm(dialog.hide);
-    };
+  const handleConfirm = () => {
+    if (onConfirm) onConfirm(dialog.hide);
+  };
 
-    return (
+  // We need to check if the user is authorized to view this button before creating the DialogDisclosure
+  return (
+    <Authorize actions={actions} allowedActions={allowedActions}>
       <>
         <DialogDisclosure
           as={ButtonControl}
           icon={icon}
-          ref={ref}
-          {...dialog}
           onClick={handleClick}
           aria-label={actionLabel}
+          {...dialog}
         >
           {children}
         </DialogDisclosure>
@@ -61,9 +61,9 @@ const ButtonControlConfirm = forwardRef(
           )}
         </Modal>
       </>
-    );
-  }
-);
+    </Authorize>
+  );
+};
 
 type Props = Pick<GroupProps, "breakpoint"> &
   Omit<BaseProps, "onClick"> & {

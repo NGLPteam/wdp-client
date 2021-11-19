@@ -1,6 +1,6 @@
 import React from "react";
-import { ErrorMessage } from "components/atomic";
 import { Page } from "@wdp/lib/types/page";
+import { ErrorMessage } from "components/atomic";
 
 interface Props {
   statusCode?: number;

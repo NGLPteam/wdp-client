@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import BaseInputDescription from "../BaseInputDescription";
 import { pxToRem } from "theme/mixins/functions";
 import { tHeading } from "theme/mixins/typography";
-import BaseInputDescription from "../BaseInputDescription";
 
 export const Fieldset = styled.fieldset`
   flex-basis: var(--form-grid-item-width-wide);

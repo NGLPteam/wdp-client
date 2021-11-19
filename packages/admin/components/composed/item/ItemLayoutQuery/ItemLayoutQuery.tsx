@@ -1,15 +1,16 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "react-relay";
-import ItemLayout from "../ItemLayout";
-import { QueryWrapper, FragmentWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
 } from "@wdp/lib/types/page";
+import ItemLayout from "../ItemLayout";
+import { QueryWrapper, FragmentWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 import type { ItemLayoutQueryFragment$key } from "@/relay/ItemLayoutQueryFragment.graphql";
+import { AuthContextProvider } from "contexts/AuthContext";
 
 function ItemLayoutQuery<
   Query extends ItemQuery,
@@ -35,9 +36,11 @@ function ItemLayoutQuery<
           fragment={fragment}
         >
           {({ enhancedData }) => (
-            <ItemLayout {...layoutProps} data={enhancedData}>
-              <PageComponent data={data} {...pageComponentProps} />
-            </ItemLayout>
+            <AuthContextProvider data={enhancedData}>
+              <ItemLayout {...layoutProps} data={enhancedData}>
+                <PageComponent data={data} {...pageComponentProps} />
+              </ItemLayout>
+            </AuthContextProvider>
           )}
         </FragmentWrapper>
       )}
@@ -55,6 +58,7 @@ type ItemQuery = {
 const fragment = graphql`
   fragment ItemLayoutQueryFragment on Item {
     ...ItemLayoutFragment
+    ...AuthContextFragment
   }
 `;
 
