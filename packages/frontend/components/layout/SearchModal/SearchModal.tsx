@@ -2,6 +2,7 @@ import * as React from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
+import { useRouterContext } from "@wdp/lib/routes";
 import Modal from "../BaseModal";
 import * as Styled from "./SearchModal.styles";
 import { IconFactory } from "components/factories";
@@ -13,10 +14,12 @@ export default function SearchModal({ dialog }: Pick<ModalProps, "dialog">) {
   const selectId = useUID();
   const searchId = useUID();
   const { t } = useTranslation();
+  const { findRouteByName } = useRouterContext();
+  const searchRoute = findRouteByName("search");
 
   return (
-    <Modal dialog={dialog}>
-      <Styled.Form>
+    <Modal dialog={dialog} label={t("search.label")}>
+      <Styled.Form action={searchRoute?.path}>
         <Styled.SearchWrapper>
           <Styled.SearchIconLabel htmlFor={searchId}>
             <IconFactory icon="search" role="presentation" />
@@ -24,6 +27,7 @@ export default function SearchModal({ dialog }: Pick<ModalProps, "dialog">) {
           </Styled.SearchIconLabel>
           <Styled.SearchInput
             type="search"
+            name="q"
             id={searchId}
             placeholder={t("search.placeholder")}
           />

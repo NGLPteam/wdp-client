@@ -20,8 +20,8 @@ export default {
 
 const Template: Story<Props> = ({ ...args }) => <SearchButton {...args} />;
 
-export const Playground: Story<Props> = Template.bind({});
+export const Default: Story<Props> = Template.bind({});
 
-Playground.args = {
+Default.args = {
   size: "lg",
 };

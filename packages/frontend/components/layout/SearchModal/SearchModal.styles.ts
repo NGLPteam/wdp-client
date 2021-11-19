@@ -26,6 +26,7 @@ export const SearchInput = styled.input`
   width: 100%;
   border: none;
   background: transparent;
+  padding-inline-end: var(--padding-sm);
 `;
 
 export const SearchIconLabel = styled.label`

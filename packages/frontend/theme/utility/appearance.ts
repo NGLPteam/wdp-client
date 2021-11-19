@@ -10,6 +10,8 @@ import {
   aBgNeutral90,
   aButton,
 } from "../mixins/appearance";
+import { encodedIconClose } from "components/svgs/icons/Close";
+import { baseColors } from "theme/base/variables";
 
 export default css`
   .a-hidden {
@@ -68,5 +70,16 @@ export default css`
 
   .a-color-lighter {
     color: var(--color-lighter);
+  }
+
+  input::-webkit-search-cancel-button {
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    background: url(${encodedIconClose({ fill: baseColors.neutral70 })}) center
+      no-repeat;
+    background-size: cover;
   }
 `;
