@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
 
 export const Wrapper = styled.div`
   align-items: center;
 `;
 
 export const Name = styled.p`
-  padding-block-end: 7px;
+  padding-block-end: ${pxToRem(3)};
 `;
