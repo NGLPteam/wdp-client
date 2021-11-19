@@ -53,4 +53,9 @@ export const baseRoutes: BaseRoute[] = [
     path: "https://wdp-admin-client-cast-iron.vercel.app/",
     label: "nav.admin",
   },
+  {
+    name: "search",
+    path: "/search",
+    label: "search.label",
+  },
 ];

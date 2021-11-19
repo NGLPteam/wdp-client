@@ -17,6 +17,7 @@
     "search": {
       "label": "Search",
       "placeholder": "Search",
+      "community_placeholder": "What are you looking for?",
       "search_area_label": "Search area:",
       "community_option": "$t(glossary.community)",
       "submit": "$t(common.submit)"

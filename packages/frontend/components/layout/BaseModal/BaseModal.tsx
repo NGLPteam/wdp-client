@@ -8,6 +8,7 @@ const Modal = ({
   children,
   footer,
   hideOnClickOutside = true,
+  label,
 }: Props) => {
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
@@ -16,7 +17,11 @@ const Modal = ({
   return (
     <Styled.Backdrop {...dialog}>
       <Styled.Wrapper>
-        <Styled.Modal hideOnClickOutside={hideOnClickOutside} {...dialog}>
+        <Styled.Modal
+          hideOnClickOutside={hideOnClickOutside}
+          aria-label={label}
+          {...dialog}
+        >
           {header && <Styled.Header>{header}</Styled.Header>}
           <Styled.Content>
             {typeof children === "function"

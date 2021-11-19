@@ -22,9 +22,9 @@ const Template: Story<Props> = ({ children, ...args }) => (
   <Button {...args}>{children}</Button>
 );
 
-export const Playground: Story<Props> = Template.bind({});
+export const Default: Story<Props> = Template.bind({});
 
-Playground.args = {
+Default.args = {
   children: "A Button!",
   secondary: false,
   size: "lg",

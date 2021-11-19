@@ -1,6 +1,11 @@
+import { encodeSvg } from "@wdp/lib/helpers";
 import Props from "./iconType";
 
-function Close({ title, ...props }: Props) {
+export function encodedIconClose(props: Props): string {
+  return encodeSvg(<Close {...props} />);
+}
+
+function Close({ title, fill, ...props }: Props) {
   return (
     <svg
       viewBox="0 0 16 16"
@@ -14,8 +19,8 @@ function Close({ title, ...props }: Props) {
       {title && <title>{title}</title>}
       <path
         d="M11.904 12.61l.707-.707-3.89-3.889 3.889-3.888-.707-.707-3.89 3.888L4.126 3.42l-.707.707 3.889 3.888-3.89 3.89.707.707 3.89-3.89 3.89 3.89z"
-        fill="currentColor"
-        stroke="currentColor"
+        fill={fill || "currentColor"}
+        stroke={fill || "currentColor"}
         strokeWidth=".5"
       />
     </svg>

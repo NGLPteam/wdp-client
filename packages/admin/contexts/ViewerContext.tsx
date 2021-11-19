@@ -51,6 +51,9 @@ const query = graphql`
   query ViewerContextQuery {
     viewer {
       name
+      allowedActions
+      uploadAccess
+      uploadToken
       avatar {
         small {
           png {

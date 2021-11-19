@@ -11,13 +11,13 @@ export default {
 };
 
 const Template: Story<Props> = (args) => {
-  const dialog = useDialogState({ visible: true, animated: true });
+  const dialog = useDialogState({ animated: true });
   return (
     <>
-      <DialogDisclosure {...dialog}>
-        <Button>Toggle Modal</Button>
+      <DialogDisclosure as={Button} {...dialog}>
+        Toggle Modal
       </DialogDisclosure>
-      <BaseModal {...args} dialog={dialog} />
+      <BaseModal {...args} dialog={dialog} label="Modal" />
     </>
   );
 };

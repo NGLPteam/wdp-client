@@ -1,5 +1,5 @@
+import { encodeSvg } from "@wdp/lib/helpers";
 import Props from "./iconType";
-import { encodeSvg } from "helpers";
 
 export function encodedIconClose(props: Props): string {
   return encodeSvg(<IconClose {...props} />);

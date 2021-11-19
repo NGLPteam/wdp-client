@@ -16,14 +16,12 @@ export default function SearchButton({ size = "sm" }: Props) {
 
   return (
     <>
-      <DialogDisclosure {...dialog}>
-        <Styled.ButtonWrapper type="button" style={style}>
-          <IconFactory
-            icon={size === "sm" ? "search" : "search32"}
-            role="presentation"
-          />
-          <span className="a-hidden">{t("search.label")}</span>
-        </Styled.ButtonWrapper>
+      <DialogDisclosure as={Styled.ButtonWrapper} style={style} {...dialog}>
+        <IconFactory
+          icon={size === "sm" ? "search" : "search32"}
+          role="presentation"
+        />
+        <span className="a-hidden">{t("search.label")}</span>
       </DialogDisclosure>
       <SearchModal dialog={dialog} />
     </>

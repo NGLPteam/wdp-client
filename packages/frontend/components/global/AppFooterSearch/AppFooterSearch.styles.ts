@@ -2,7 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 
-export const SearchForm = styled.div`
+export const SearchForm = styled.form`
   align-items: stretch;
   padding-block: 0;
   height: ${pxToRem(32)};
