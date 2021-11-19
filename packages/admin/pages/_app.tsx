@@ -6,19 +6,19 @@ import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import { AppContextProvider } from "contexts";
 import type { Page } from "@wdp/lib/types/page";
 import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
-import GlobalStyles from "theme";
-import { AppBody, DrawerController } from "components/global";
 import {
   parseCookies,
   useRemoveServerInjectedCSS,
   useDeserializeRecords,
 } from "@wdp/lib/app";
+import { updateI18n } from "../i18n";
+import { AppContextProvider } from "contexts";
+import GlobalStyles from "theme";
+import { AppBody, DrawerController } from "components/global";
 import { RouteHelper } from "routes";
 import { Toast } from "components/atomic";
-import { updateI18n } from "../i18n";
 
 const NGLPApp = ({
   Component,

@@ -86,10 +86,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           />
         )}
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
-        <Forms.FileUpload
-          label="forms.fields.thumbnail"
-          {...register("thumbnail")}
-        />
+        <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.Select
           label="forms.fields.visibility"

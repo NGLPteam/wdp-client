@@ -5,6 +5,7 @@ import React, {
   useRef,
   useMemo,
   useState,
+  forwardRef,
 } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import type { FieldValues, Path, PathValue, Validate } from "react-hook-form";

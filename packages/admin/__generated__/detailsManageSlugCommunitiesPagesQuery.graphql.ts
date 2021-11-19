@@ -31,6 +31,11 @@ query detailsManageSlugCommunitiesPagesQuery(
   }
 }
 
+fragment AuthContextFragment on Entity {
+  __isEntity: __typename
+  allowedActions
+}
+
 fragment CommunityLayoutFragment on Community {
   name
   slug
@@ -38,6 +43,7 @@ fragment CommunityLayoutFragment on Community {
 
 fragment CommunityLayoutQueryFragment on Community {
   ...CommunityLayoutFragment
+  ...AuthContextFragment
 }
 
 fragment CommunityUpdateFormFieldsFragment on Community {
@@ -145,6 +151,20 @@ return {
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "allowedActions",
+                "storageKey": null
+              }
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
           }
         ],
         "storageKey": null
@@ -152,12 +172,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4b8cacdefcdb1f6a15fcdbdb9b720e19",
+    "cacheID": "ea3fb2ebbd04a1d3e73aa9f099e9439b",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityUpdateFormFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
+    "text": "query detailsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityUpdateFormFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
   }
 };
 })();

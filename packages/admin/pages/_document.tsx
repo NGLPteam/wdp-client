@@ -14,9 +14,8 @@ import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
-import AppBody from "components/global/AppBody";
-
 import { parseCookies, initialEnvironment } from "@wdp/lib/app";
+import AppBody from "components/global/AppBody";
 
 const FONTS = [
   "Karla-Regular",

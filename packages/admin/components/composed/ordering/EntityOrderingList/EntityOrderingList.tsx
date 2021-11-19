@@ -28,6 +28,7 @@ function EntityOrderingList<T extends OperationType>({
     fragment,
     data
   );
+
   const collectionOrderings =
     useMaybeFragment<EntityOrderingListDataFragment$key>(
       orderingsfragment,
@@ -65,6 +66,7 @@ function EntityOrderingList<T extends OperationType>({
           drawerSlug: sourceEntity?.slug,
         }}
         icon="plus"
+        actions="self.update"
       >
         {t("actions.add.ordering")}
       </ButtonControlDrawer>

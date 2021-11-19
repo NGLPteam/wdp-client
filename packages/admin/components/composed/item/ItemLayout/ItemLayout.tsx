@@ -2,6 +2,7 @@ import React, { ReactNode, useCallback } from "react";
 import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import ItemCreateButton from "../ItemCreateButton";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
 import {
   useRouteSlug,
@@ -12,11 +13,7 @@ import {
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
-import {
-  ButtonControlGroup,
-  ButtonControlDrawer,
-  ButtonControlConfirm,
-} from "components/atomic";
+import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 
 export default function ItemLayout({
@@ -57,20 +54,13 @@ export default function ItemLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        drawer="addItem"
-        drawerQuery={{
-          drawerSlug: slug,
-        }}
-        icon="plus"
-      >
-        {t("actions.add.item")}
-      </ButtonControlDrawer>
+      <ItemCreateButton parentSlug={slug} />
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}
         icon="delete"
         onClick={handleDelete}
+        actions="self.delete"
       >
         {t("common.delete")}
       </ButtonControlConfirm>

@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
+import type { GetLayout } from "@wdp/lib/types/page";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
-import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityChildCollections({ data }: Props) {
   return (

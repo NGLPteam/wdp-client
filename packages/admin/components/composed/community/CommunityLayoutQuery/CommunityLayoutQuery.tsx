@@ -1,15 +1,16 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "react-relay";
-import CommunityLayout from "../CommunityLayout";
-import { QueryWrapper, FragmentWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
 } from "@wdp/lib/types/page";
+import CommunityLayout from "../CommunityLayout";
+import { QueryWrapper, FragmentWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
+import { AuthContextProvider } from "contexts/AuthContext";
 
 function CommunityLayoutQuery<
   Query extends CommunityQuery,
@@ -35,9 +36,11 @@ function CommunityLayoutQuery<
           fragment={fragment}
         >
           {({ enhancedData }) => (
-            <CommunityLayout {...layoutProps} data={enhancedData}>
-              <PageComponent data={data} {...pageComponentProps} />
-            </CommunityLayout>
+            <AuthContextProvider data={enhancedData}>
+              <CommunityLayout {...layoutProps} data={enhancedData}>
+                <PageComponent data={data} {...pageComponentProps} />
+              </CommunityLayout>
+            </AuthContextProvider>
           )}
         </FragmentWrapper>
       )}
@@ -55,6 +58,7 @@ type CommunityQuery = {
 const fragment = graphql`
   fragment CommunityLayoutQueryFragment on Community {
     ...CommunityLayoutFragment
+    ...AuthContextFragment
   }
 `;
 

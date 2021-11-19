@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import useAuthContext from "./useAuthContext";
 import { useViewerContext } from "hooks";
 import { normalizeArray } from "helpers";
 
@@ -13,14 +14,20 @@ export const useIsAuthorized = ({
   actions,
   allowedActions,
 }: useIsAuthorizedProps) => {
+  // Global viewer permissions
   const { allowedActions: viewerAllowedActions } = useViewerContext();
+  // Entity level permissions
+  const { allowedActions: entityAllowedActions } = useAuthContext();
 
   return useMemo(() => {
     const checkActions = normalizeArray(actions);
-    const actionsList = allowedActions || viewerAllowedActions;
+    const permissions = entityAllowedActions
+      ? [...viewerAllowedActions, ...entityAllowedActions]
+      : viewerAllowedActions;
+    const actionsList = allowedActions || permissions;
 
     return actionsList?.some((action) => checkActions.includes(action));
-  }, [viewerAllowedActions, allowedActions, actions]);
+  }, [viewerAllowedActions, entityAllowedActions, allowedActions, actions]);
 };
 
 export interface useIsAuthorizedProps {

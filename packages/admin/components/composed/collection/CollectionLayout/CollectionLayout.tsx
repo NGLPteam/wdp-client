@@ -2,13 +2,10 @@ import React, { ReactNode, useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
+import CollectionCreateButton from "../CollectionCreateButton";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
-import {
-  ButtonControlGroup,
-  ButtonControlDrawer,
-  ButtonControlConfirm,
-} from "components/atomic";
+import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { RouteHelper } from "routes";
 import {
   useMaybeFragment,
@@ -18,6 +15,7 @@ import {
   useDestroyer,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
+import ItemCreateButton from "components/composed/item/ItemCreateButton";
 
 export default function CollectionLayout({
   children,
@@ -57,29 +55,14 @@ export default function CollectionLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        drawer="addItem"
-        drawerQuery={{
-          drawerSlug: slug,
-        }}
-        icon="plus"
-      >
-        {t("actions.add.item")}
-      </ButtonControlDrawer>
-      <ButtonControlDrawer
-        drawer="addCollection"
-        drawerQuery={{
-          drawerSlug: slug,
-        }}
-        icon="plus"
-      >
-        {t("actions.add.collection")}
-      </ButtonControlDrawer>
+      <ItemCreateButton parentSlug={slug} />
+      <CollectionCreateButton parentSlug={slug} />
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}
         icon="delete"
         onClick={handleDelete}
+        actions="self.delete"
       >
         {t("common.delete")}
       </ButtonControlConfirm>

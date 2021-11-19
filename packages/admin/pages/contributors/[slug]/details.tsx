@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 
 import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";

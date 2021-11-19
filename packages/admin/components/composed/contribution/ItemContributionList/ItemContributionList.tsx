@@ -4,6 +4,7 @@ import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { CellProps } from "react-table";
 import { useTranslation } from "react-i18next";
+import CreateContributionButton from "../CreateContributionButton";
 import {
   ItemContributionListFragment,
   ItemContributionListFragment$key,
@@ -17,11 +18,7 @@ import {
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import {
-  ButtonControlGroup,
-  NamedLink,
-  ButtonControlDrawer,
-} from "components/atomic";
+import { ButtonControlGroup, NamedLink } from "components/atomic";
 import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 
@@ -107,28 +104,15 @@ function ItemContributionList<T extends OperationType>({
       ),
   };
 
-  // Only pass the slug if we're in Item details
-  const drawerQuery = {
-    drawerSlug: slug || "",
-    drawerContributionType: "item",
-  };
-
-  const drawer =
-    nameColumn === "contributor"
-      ? "addItemContribution"
-      : "addContributorContribution";
-
   // TODO: We need an authorization check here. The contributors.create check doesn't
   //  exist yet in the API.
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        icon="plus"
-        drawer={drawer}
-        drawerQuery={drawerQuery}
-      >
-        {t("actions.create.contribution")}
-      </ButtonControlDrawer>
+      <CreateContributionButton
+        type="item"
+        parentSlug={slug}
+        onContributor={nameColumn !== "contributor"}
+      />
     </ButtonControlGroup>
   );
 

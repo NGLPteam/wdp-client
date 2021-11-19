@@ -85,6 +85,7 @@ function EntityLinksList<T extends OperationType>({
           drawerSlug: sourceEntity?.slug ? sourceEntity.slug : "",
         }}
         icon="plus"
+        actions="self.update"
       >
         {t("actions.add.link")}
       </ButtonControlDrawer>

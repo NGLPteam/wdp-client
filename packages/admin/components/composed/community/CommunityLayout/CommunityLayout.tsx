@@ -10,7 +10,8 @@ import {
   useLatestPresentValue,
 } from "hooks";
 import { RouteHelper } from "routes";
-import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import { ButtonControlGroup } from "components/atomic";
+import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
 
 export default function CommunityLayout({
   children,
@@ -33,13 +34,7 @@ export default function CommunityLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        drawer="addCollection"
-        drawerQuery={{ drawerSlug: slug }}
-        icon="plus"
-      >
-        {t("actions.add.collection")}
-      </ButtonControlDrawer>
+      <CollectionCreateButton parentSlug={slug} />
     </ButtonControlGroup>
   );
 

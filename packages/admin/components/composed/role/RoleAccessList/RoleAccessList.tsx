@@ -34,22 +34,13 @@ function RoleAccessList<T extends OperationType>({
     slug && entityType ? (
       <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
         <ButtonControlDrawer
-          drawer={"addRoleAccess"}
+          drawer="addRoleAccess"
           drawerQuery={{
             drawerSlug: slug,
             drawerEntity: entityType,
           }}
           icon="plus"
-          actions={
-            entityType === "community"
-              ? "communities.manage_access"
-              : entityType === "collection"
-              ? "collections.manage_access"
-              : "items.manage_access"
-          }
-          allowedActions={
-            entityType !== "community" ? entity?.allowedActions : undefined
-          }
+          actions="self.manage_access"
         >
           {t(
             entityType === "community"
@@ -108,7 +99,6 @@ interface RoleAccessListProps
 
 const fragment = graphql`
   fragment RoleAccessListFragment on Entity {
-    allowedActions
     ...RoleAccessGrantsListFragment
     ...RoleAssignedUsersListFragment
   }

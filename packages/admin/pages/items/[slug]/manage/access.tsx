@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { accessManageSlugItemsPagesQuery as Query } from "@/relay/accessManageSlugItemsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import type { accessManageSlugItemsPagesQuery as Query } from "@/relay/accessManageSlugItemsPagesQuery.graphql";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import RoleAccessList from "components/composed/role/RoleAccessList";

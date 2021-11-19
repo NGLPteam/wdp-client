@@ -30,6 +30,11 @@ query rulesManageSlugItemsQuery(
   }
 }
 
+fragment AuthContextFragment on Entity {
+  __isEntity: __typename
+  allowedActions
+}
+
 fragment ItemLayoutFragment on Item {
   title
   slug
@@ -39,6 +44,7 @@ fragment ItemLayoutFragment on Item {
 
 fragment ItemLayoutQueryFragment on Item {
   ...ItemLayoutFragment
+  ...AuthContextFragment
 }
 
 fragment useBreadcrumbsFragment on Entity {
@@ -168,6 +174,13 @@ return {
                   (v3/*: any*/)
                 ],
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "allowedActions",
+                "storageKey": null
               }
             ],
             "type": "Entity",
@@ -179,12 +192,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eca93a1a0555a313709c8aaaac6bb736",
+    "cacheID": "0c3b04cee2f1f3320cb1b18ebffdcc1f",
     "id": null,
     "metadata": {},
     "name": "rulesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { filesManageSlugItemsQuery as Query } from "@/relay/filesManageSlugItemsQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import type { filesManageSlugItemsQuery as Query } from "@/relay/filesManageSlugItemsQuery.graphql";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import FileList from "components/composed/file/FileList";

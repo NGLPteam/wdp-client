@@ -2,10 +2,9 @@ import * as React from "react";
 import { graphql } from "react-relay";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
+import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import Drawer from "components/layout/Drawer";
 import ItemAddForm from "components/composed/item/ItemAddForm";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-
 import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
 
 export default function ItemAddDrawer({

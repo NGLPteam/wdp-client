@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import { FieldsetSection, FormGrid } from "components/forms";
 import SchemaProperty from "../SchemaProperty";
+import { FieldsetSection, FormGrid } from "components/forms";
 import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";
 
 export default function GroupProperty(props: Props) {

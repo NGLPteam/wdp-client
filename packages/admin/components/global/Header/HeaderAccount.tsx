@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import * as Styled from "./Header.styles";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink, Dropdown, NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useViewerContext, useIsAuthenticated } from "hooks";
 import Avatar from "components/atomic/Avatar";
-import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 

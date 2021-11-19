@@ -1,16 +1,17 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "react-relay";
-import CollectionLayout from "../CollectionLayout";
-import { QueryWrapper, FragmentWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
 } from "@wdp/lib/types/page";
+import CollectionLayout from "../CollectionLayout";
+import { QueryWrapper, FragmentWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 
 import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
+import { AuthContextProvider } from "contexts/AuthContext";
 
 function CollectionLayoutQuery<
   Query extends CollectionQuery,
@@ -36,9 +37,11 @@ function CollectionLayoutQuery<
           fragment={fragment}
         >
           {({ enhancedData }) => (
-            <CollectionLayout {...layoutProps} data={enhancedData}>
-              <PageComponent data={data} {...pageComponentProps} />
-            </CollectionLayout>
+            <AuthContextProvider data={enhancedData}>
+              <CollectionLayout {...layoutProps} data={enhancedData}>
+                <PageComponent data={data} {...pageComponentProps} />
+              </CollectionLayout>
+            </AuthContextProvider>
           )}
         </FragmentWrapper>
       )}
@@ -56,6 +59,7 @@ type CollectionQuery = {
 const fragment = graphql`
   fragment CollectionLayoutQueryFragment on Collection {
     ...CollectionLayoutFragment
+    ...AuthContextFragment
   }
 `;
 

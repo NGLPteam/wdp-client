@@ -1,8 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import type { BaseRoute } from "@wdp/lib/routes";
 import { ButtonControlRoute, ButtonControlConfirm } from "components/atomic";
 
-import type { BaseRoute } from "@wdp/lib/routes";
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
 
 const DrawerActions = ({ routes, handleDelete }: Props) => {
@@ -25,6 +25,7 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
           modalLabel={t("messages.delete.confirm_label")}
           modalBody={t("messages.delete.confirm_body")}
           onClick={handleDeleteClick}
+          actions="self.delete"
         >
           {t("delete")}
         </ButtonControlConfirm>

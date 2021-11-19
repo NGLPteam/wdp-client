@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
 
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
