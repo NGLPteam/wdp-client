@@ -5,8 +5,8 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useUID } from "react-uid";
 import { useRouterContext } from "@wdp/lib/routes";
 import * as Styled from "./CommunityHero.styles";
-import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
 import { IconFactory } from "components/factories";
+import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
 
 export default function CommunityHero({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
