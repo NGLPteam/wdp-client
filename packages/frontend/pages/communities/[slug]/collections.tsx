@@ -8,7 +8,7 @@ import { collectionsQuery as Query } from "@/relay/collectionsQuery.graphql";
 export default function CommunitiesPage() {
   const slug = useRouteSlug();
 
-  return (
+  return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.community}>
@@ -16,6 +16,8 @@ export default function CommunitiesPage() {
         </CommunityChildLayout>
       )}
     </QueryWrapper>
+  ) : (
+    <></>
   );
 }
 

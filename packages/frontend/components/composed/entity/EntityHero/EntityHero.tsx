@@ -17,7 +17,7 @@ export default function EntityHero({ data }: Props) {
 }
 
 interface Props {
-  data?: EntityHeroFragment$key;
+  data?: EntityHeroFragment$key | null;
 }
 
 const fragment = graphql`

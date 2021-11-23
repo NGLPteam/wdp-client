@@ -7,6 +7,7 @@ import * as Styled from "./CommunityCondensedNav.styles";
 import InstallationName from "components/composed/instance/InstallationName";
 import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNavFragment.graphql";
 import { SearchButton } from "components/atomic";
+import { CommunityCondensedNavAppFragment$key } from "@/relay/CommunityCondensedNavAppFragment.graphql";
 
 function CommunityCondensedNav({ data, communityData }: Props) {
   const appData = useMaybeFragment(appFragment, data);
