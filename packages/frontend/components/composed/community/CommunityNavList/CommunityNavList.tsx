@@ -37,22 +37,6 @@ export default function CommunityNavList({ condensed }: Props) {
           ]}
         />
       </li>
-      <li>
-        <Dropdown
-          label={t("nav.categories")}
-          disclosure={getDisclosure("nav.categories")}
-          menuItems={[
-            <a
-              key={1}
-              className="l-flex l-flex--gap-sm l-flex--align-center"
-              href="#"
-            >
-              <span>{t("nav.browse_all")}</span>
-              <IconFactory icon="arrowRight" />
-            </a>,
-          ]}
-        />
-      </li>
       {slug && (
         <li>
           <NamedLink route="community.about" routeParams={{ slug }} passHref>
