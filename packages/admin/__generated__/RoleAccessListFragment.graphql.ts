@@ -6,7 +6,6 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type RoleAccessListFragment = {
-    readonly allowedActions: ReadonlyArray<string>;
     readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListFragment" | "RoleAssignedUsersListFragment">;
     readonly " $refType": "RoleAccessListFragment";
 };
@@ -25,13 +24,6 @@ const node: ReaderFragment = {
   "name": "RoleAccessListFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "allowedActions",
-      "storageKey": null
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "RoleAccessGrantsListFragment"
@@ -45,5 +37,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '3d5d0afee6cb3c72832ec4d23426660a';
+(node as any).hash = '222c3ee0b7e4d01121342b555bf00571';
 export default node;

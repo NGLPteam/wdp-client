@@ -5,28 +5,34 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type aboutCommunityQueryVariables = {
+export type SlugItemQueryVariables = {
     slug: string;
 };
-export type aboutCommunityQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutFragment">;
+export type SlugItemQueryResponse = {
+    readonly item: {
+        readonly community: {
+            readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment" | "CommunityChildLayoutFragment">;
+        };
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutAppFragment">;
 };
-export type aboutCommunityQuery = {
-    readonly response: aboutCommunityQueryResponse;
-    readonly variables: aboutCommunityQueryVariables;
+export type SlugItemQuery = {
+    readonly response: SlugItemQueryResponse;
+    readonly variables: SlugItemQueryVariables;
 };
 
 
 
 /*
-query aboutCommunityQuery(
+query SlugItemQuery(
   $slug: Slug!
 ) {
-  community(slug: $slug) {
-    ...CommunityChildLayoutFragment
+  item(slug: $slug) {
+    community {
+      ...CommunityHeroFragment
+      ...CommunityChildLayoutFragment
+      id
+    }
     id
   }
   ...CommunityChildLayoutAppFragment
@@ -56,6 +62,10 @@ fragment CommunityChildLayoutFragment on Community {
 
 fragment CommunityCondensedNavFragment on Query {
   ...InstallationNameFragment
+}
+
+fragment CommunityHeroFragment on Community {
+  title
 }
 
 fragment CommunityNameFragment on Community {
@@ -121,20 +131,36 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "aboutCommunityQuery",
+    "name": "SlugItemQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Community",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "community",
+        "name": "item",
         "plural": false,
         "selections": [
           {
+            "alias": null,
             "args": null,
-            "kind": "FragmentSpread",
-            "name": "CommunityChildLayoutFragment"
+            "concreteType": "Community",
+            "kind": "LinkedField",
+            "name": "community",
+            "plural": false,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CommunityHeroFragment"
+              },
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CommunityChildLayoutFragment"
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -152,18 +178,30 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "aboutCommunityQuery",
+    "name": "SlugItemQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Community",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "community",
+        "name": "item",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Community",
+            "kind": "LinkedField",
+            "name": "community",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          },
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -207,14 +245,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f91d93066b42905180e6361f8173a516",
+    "cacheID": "e188a1d2fd75bb0c0fb6acb96ec31416",
     "id": null,
     "metadata": {},
-    "name": "aboutCommunityQuery",
+    "name": "SlugItemQuery",
     "operationKind": "query",
-    "text": "query aboutCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityChildLayoutFragment\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    community {\n      ...CommunityHeroFragment\n      ...CommunityChildLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
-(node as any).hash = '49076d56072337e307e151ab38b25487';
+(node as any).hash = '29fd4d4728d9975a9faa5b8f3a53c6ca';
 export default node;
