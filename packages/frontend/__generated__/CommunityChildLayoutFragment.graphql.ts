@@ -6,10 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityChildLayoutFragment = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityNameFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityCondensedNavFragment" | "AppBodyFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityNameFragment" | "CommunityCondensedNavFragment">;
     readonly " $refType": "CommunityChildLayoutFragment";
 };
 export type CommunityChildLayoutFragment$data = CommunityChildLayoutFragment;
@@ -21,51 +18,24 @@ export type CommunityChildLayoutFragment$key = {
 
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "kind": "RootArgument",
-      "name": "slug"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CommunityChildLayoutFragment",
   "selections": [
     {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Variable",
-          "name": "slug",
-          "variableName": "slug"
-        }
-      ],
-      "concreteType": "Community",
-      "kind": "LinkedField",
-      "name": "community",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "CommunityNameFragment"
-        }
-      ],
-      "storageKey": null
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityNameFragment"
     },
     {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CommunityCondensedNavFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "AppBodyFragment"
     }
   ],
-  "type": "Query",
+  "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'b03fbe1f654fbab3804b30cd5ea83e9a';
+(node as any).hash = 'd63ae7ee11e29cb4fff8ef60458f22de';
 export default node;

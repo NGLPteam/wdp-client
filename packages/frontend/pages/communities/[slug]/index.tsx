@@ -12,7 +12,7 @@ export default function CommunityPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <CommunityLayout data={data}>
+        <CommunityLayout data={data} communityData={data?.community}>
           {data?.community && <CommunityHero data={data.community} />}
         </CommunityLayout>
       )}
@@ -26,7 +26,8 @@ const query = graphql`
   query SlugCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
       ...CommunityHeroFragment
+      ...CommunityLayoutFragment
     }
-    ...CommunityLayoutFragment
+    ...CommunityLayoutAppFragment
   }
 `;

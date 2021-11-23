@@ -5,18 +5,24 @@ import { AppBody } from "../../../global";
 import CommunityName from "../CommunityName";
 import CommunityCondensedNav from "../CommunityCondensedNav";
 import { CommunityChildLayoutFragment$key } from "@/relay/CommunityChildLayoutFragment.graphql";
+import { CommunityChildLayoutAppFragment$key } from "@/relay/CommunityChildLayoutAppFragment.graphql";
 
-export default function CommunityChildLayout({ children, data }: Props) {
-  const appData = useMaybeFragment(fragment, data);
+export default function CommunityChildLayout({
+  children,
+  data,
+  communityData,
+}: Props) {
+  const app = useMaybeFragment(appFragment, data);
+  const community = useMaybeFragment(fragment, communityData);
 
   return (
     <AppBody
-      data={appData}
-      nameComponent={
-        appData ? <CommunityName data={appData.community} /> : undefined
-      }
+      data={app}
+      nameComponent={community ? <CommunityName data={community} /> : undefined}
       headerNavComponent={
-        appData ? <CommunityCondensedNav data={appData} /> : undefined
+        app ? (
+          <CommunityCondensedNav data={app} communityData={community} />
+        ) : undefined
       }
     >
       {children}
@@ -26,15 +32,20 @@ export default function CommunityChildLayout({ children, data }: Props) {
 
 interface Props {
   children: React.ReactNode;
-  data?: CommunityChildLayoutFragment$key | null;
+  data?: CommunityChildLayoutAppFragment$key | null;
+  communityData?: CommunityChildLayoutFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment CommunityChildLayoutFragment on Query {
-    community(slug: $slug) {
-      ...CommunityNameFragment
-    }
+  fragment CommunityChildLayoutFragment on Community {
+    ...CommunityNameFragment
     ...CommunityCondensedNavFragment
+  }
+`;
+
+const appFragment = graphql`
+  fragment CommunityChildLayoutAppFragment on Query {
+    ...CommunityCondensedNavAppFragment
     ...AppBodyFragment
   }
 `;
