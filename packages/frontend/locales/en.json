@@ -28,7 +28,11 @@
       "contribution": "contribution",
       "contribution_plural": "contributions",
       "contributor": "contributor",
-      "contributor_plural": "contributors"
+      "contributor_plural": "contributors",
+      "collection": "collection",
+      "collection_plural": "collections",
+      "item": "item",
+      "item_plural": "items"
     },
     "nav": {
       "home": "Home",
@@ -36,7 +40,6 @@
       "accessibility": "VPAT and Accessibility",
       "admin": "Admin",
       "categories": "Categories",
-      "community": "$t(glossary.community)",
       "communities": "$t(glossary.community_plural)",
       "community_picker": "$t(glossary.community) Picker",
       "browse_all": "Browse All",

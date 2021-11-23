@@ -14,14 +14,28 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "community",
     path: "/communities/[slug]",
-    label: "nav.community",
     routes: [
       {
         name: "community.page",
         path: "/communities/[slug]/[page]",
-        label: "",
+      },
+      {
+        name: "community.collections",
+        path: "/communities/[slug]/collections",
+      },
+      {
+        name: "community.items",
+        path: "/communities/[slug]/items",
       },
     ],
+  },
+  {
+    name: "collection",
+    path: "/collections/[slug]",
+  },
+  {
+    name: "item",
+    path: "/items/[slug]",
   },
   {
     name: "about",
