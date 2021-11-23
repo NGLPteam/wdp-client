@@ -4,6 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "../../../global";
 import CommunityName from "../CommunityName";
 import CommunityCondensedNav from "../CommunityCondensedNav";
+import CommunityHTMLHead from "../CommunityHTMLHead";
 import { CommunityChildLayoutFragment$key } from "@/relay/CommunityChildLayoutFragment.graphql";
 import { CommunityChildLayoutAppFragment$key } from "@/relay/CommunityChildLayoutAppFragment.graphql";
 
@@ -25,6 +26,7 @@ export default function CommunityChildLayout({
         ) : undefined
       }
     >
+      {community && <CommunityHTMLHead data={community} />}
       {children}
     </AppBody>
   );
@@ -38,6 +40,7 @@ interface Props {
 
 const fragment = graphql`
   fragment CommunityChildLayoutFragment on Community {
+    ...CommunityHTMLHeadFragment
     ...CommunityNameFragment
     ...CommunityCondensedNavFragment
   }

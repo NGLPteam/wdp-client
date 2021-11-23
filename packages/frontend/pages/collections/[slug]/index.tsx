@@ -4,7 +4,7 @@ import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
 import { SlugCollectionQuery as Query } from "@/relay/SlugCollectionQuery.graphql";
-import EntityHero from "components/composed/entity/EntityHero";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 
 export default function CommunityPage() {
   const slug = useRouteSlug();
@@ -16,7 +16,7 @@ export default function CommunityPage() {
           data={data}
           communityData={data?.collection?.community}
         >
-          <EntityHero data={data?.collection} />
+          <EntityLayoutFactory data={data?.collection} />
         </CommunityChildLayout>
       )}
     </QueryWrapper>
@@ -28,7 +28,7 @@ export default function CommunityPage() {
 const query = graphql`
   query SlugCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
-      ...EntityHeroFragment
+      ...EntityLayoutFactoryFragment
       community {
         ...CommunityHeroFragment
         ...CommunityChildLayoutFragment

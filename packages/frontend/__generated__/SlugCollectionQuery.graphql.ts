@@ -13,7 +13,7 @@ export type SlugCollectionQueryResponse = {
         readonly community: {
             readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment" | "CommunityChildLayoutFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"EntityHeroFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutAppFragment">;
 };
@@ -29,7 +29,7 @@ query SlugCollectionQuery(
   $slug: Slug!
 ) {
   collection(slug: $slug) {
-    ...EntityHeroFragment
+    ...EntityLayoutFactoryFragment
     community {
       ...CommunityHeroFragment
       ...CommunityChildLayoutFragment
@@ -59,6 +59,7 @@ fragment CommunityChildLayoutAppFragment on Query {
 }
 
 fragment CommunityChildLayoutFragment on Community {
+  ...CommunityHTMLHeadFragment
   ...CommunityNameFragment
   ...CommunityCondensedNavFragment
 }
@@ -69,6 +70,10 @@ fragment CommunityCondensedNavAppFragment on Query {
 
 fragment CommunityCondensedNavFragment on Community {
   ...CommunityNavListFragment
+}
+
+fragment CommunityHTMLHeadFragment on Community {
+  title
 }
 
 fragment CommunityHeroFragment on Community {
@@ -117,8 +122,42 @@ fragment EntityHeroFragment on AnyEntity {
   }
 }
 
+fragment EntityLayoutFactoryFragment on AnyEntity {
+  __isAnyEntity: __typename
+  ... on Collection {
+    schemaDefinition {
+      identifier
+      id
+    }
+    ...EntityLayoutFragment
+    ...JournalLayoutFragment
+    ...IssueLayoutFragment
+  }
+}
+
+fragment EntityLayoutFragment on Collection {
+  ...EntityHeroFragment
+}
+
 fragment InstallationNameFragment on Query {
   ...CommunityPickerFragment
+}
+
+fragment IssueHeroFragment on Collection {
+  title
+  summary
+}
+
+fragment IssueLayoutFragment on Collection {
+  ...IssueHeroFragment
+}
+
+fragment JournalHeroFragment on Collection {
+  title
+}
+
+fragment JournalLayoutFragment on Collection {
+  ...JournalHeroFragment
 }
 */
 
@@ -162,9 +201,6 @@ v5 = [
   (v3/*: any*/),
   (v2/*: any*/),
   (v4/*: any*/)
-],
-v6 = [
-  (v2/*: any*/)
 ];
 return {
   "fragment": {
@@ -205,7 +241,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "EntityHeroFragment"
+            "name": "EntityLayoutFactoryFragment"
           }
         ],
         "storageKey": null
@@ -285,20 +321,36 @@ return {
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v6/*: any*/),
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SchemaDefinition",
+                    "kind": "LinkedField",
+                    "name": "schemaDefinition",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "identifier",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "summary",
+                    "storageKey": null
+                  }
+                ],
                 "type": "Collection",
-                "abstractKey": null
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v6/*: any*/),
-                "type": "Community",
-                "abstractKey": null
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": (v6/*: any*/),
-                "type": "Item",
                 "abstractKey": null
               }
             ],
@@ -343,14 +395,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3cd465d09787ad4f51c7a1b9e5223a31",
+    "cacheID": "c134457b9b2f77edc783353382b44dac",
     "id": null,
     "metadata": {},
     "name": "SlugCollectionQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...EntityHeroFragment\n    community {\n      ...CommunityHeroFragment\n      ...CommunityChildLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...EntityLayoutFactoryFragment\n    community {\n      ...CommunityHeroFragment\n      ...CommunityChildLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment EntityLayoutFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFragment\n    ...JournalLayoutFragment\n    ...IssueLayoutFragment\n  }\n}\n\nfragment EntityLayoutFragment on Collection {\n  ...EntityHeroFragment\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment IssueHeroFragment on Collection {\n  title\n  summary\n}\n\nfragment IssueLayoutFragment on Collection {\n  ...IssueHeroFragment\n}\n\nfragment JournalHeroFragment on Collection {\n  title\n}\n\nfragment JournalLayoutFragment on Collection {\n  ...JournalHeroFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'a62f59ba7e2168f478ec0301220eba5f';
+(node as any).hash = '495db99e5bba5226114a50fcbb7b1f87';
 export default node;
