@@ -54,16 +54,21 @@ fragment AppHeaderFragment on Query {
 }
 
 fragment CommunityChildLayoutAppFragment on Query {
-  ...CommunityCondensedNavFragment
+  ...CommunityCondensedNavAppFragment
   ...AppBodyFragment
 }
 
 fragment CommunityChildLayoutFragment on Community {
   ...CommunityNameFragment
+  ...CommunityCondensedNavFragment
 }
 
-fragment CommunityCondensedNavFragment on Query {
+fragment CommunityCondensedNavAppFragment on Query {
   ...InstallationNameFragment
+}
+
+fragment CommunityCondensedNavFragment on Community {
+  ...CommunityNavListFragment
 }
 
 fragment CommunityHeroFragment on Community {
@@ -73,6 +78,18 @@ fragment CommunityHeroFragment on Community {
 fragment CommunityNameFragment on Community {
   title
   slug
+}
+
+fragment CommunityNavListFragment on Community {
+  pages {
+    edges {
+      node {
+        slug
+        title
+        id
+      }
+    }
+  }
 }
 
 fragment CommunityPickerFragment on Query {
@@ -142,6 +159,11 @@ v4 = {
   "storageKey": null
 },
 v5 = [
+  (v3/*: any*/),
+  (v2/*: any*/),
+  (v4/*: any*/)
+],
+v6 = [
   (v2/*: any*/)
 ];
 return {
@@ -221,6 +243,38 @@ return {
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageConnection",
+                "kind": "LinkedField",
+                "name": "pages",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Page",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": (v5/*: any*/),
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
               (v4/*: any*/)
             ],
             "storageKey": null
@@ -231,19 +285,19 @@ return {
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v5/*: any*/),
+                "selections": (v6/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               }
@@ -277,11 +331,7 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": [
-                  (v3/*: any*/),
-                  (v2/*: any*/),
-                  (v4/*: any*/)
-                ],
+                "selections": (v5/*: any*/),
                 "storageKey": null
               }
             ],
@@ -293,12 +343,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5f6819e7682cd700bd2232b6dd7f5c11",
+    "cacheID": "3cd465d09787ad4f51c7a1b9e5223a31",
     "id": null,
     "metadata": {},
     "name": "SlugCollectionQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...EntityHeroFragment\n    community {\n      ...CommunityHeroFragment\n      ...CommunityChildLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...EntityHeroFragment\n    community {\n      ...CommunityHeroFragment\n      ...CommunityChildLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

@@ -17,7 +17,7 @@ export default function CommunityNavBar({ data }: Props) {
           <CommunityName data={community} />
         </Styled.LeftSide>
         <Styled.RightSide>
-          <CommunityNavList />
+          <CommunityNavList data={community} />
           <SearchButton size="lg" />
         </Styled.RightSide>
       </Styled.Nav>
@@ -32,5 +32,6 @@ interface Props {
 const fragment = graphql`
   fragment CommunityNavBarFragment on Community {
     ...CommunityNameFragment
+    ...CommunityNavListFragment
   }
 `;

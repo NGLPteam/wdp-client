@@ -20,7 +20,9 @@ export default function CommunityChildLayout({
       data={app}
       nameComponent={community ? <CommunityName data={community} /> : undefined}
       headerNavComponent={
-        app ? <CommunityCondensedNav data={app} /> : undefined
+        app ? (
+          <CommunityCondensedNav data={app} communityData={community} />
+        ) : undefined
       }
     >
       {children}
@@ -37,12 +39,13 @@ interface Props {
 const fragment = graphql`
   fragment CommunityChildLayoutFragment on Community {
     ...CommunityNameFragment
+    ...CommunityCondensedNavFragment
   }
 `;
 
 const appFragment = graphql`
   fragment CommunityChildLayoutAppFragment on Query {
-    ...CommunityCondensedNavFragment
+    ...CommunityCondensedNavAppFragment
     ...AppBodyFragment
   }
 `;

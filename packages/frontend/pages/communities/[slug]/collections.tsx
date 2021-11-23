@@ -3,28 +3,24 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
-import { aboutCommunityQuery as Query } from "@/relay/aboutCommunityQuery.graphql";
+import { collectionsQuery as Query } from "@/relay/collectionsQuery.graphql";
 
-export default function CommunityAboutPage() {
+export default function CommunitiesPage() {
   const slug = useRouteSlug();
 
-  return slug ? (
+  return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.community}>
-          <div className="l-container-wide">
-            <h1>Example sub page</h1>
-          </div>
+          <></>
         </CommunityChildLayout>
       )}
     </QueryWrapper>
-  ) : (
-    <></>
   );
 }
 
 const query = graphql`
-  query aboutCommunityQuery($slug: Slug!) {
+  query collectionsQuery($slug: Slug!) {
     community(slug: $slug) {
       ...CommunityChildLayoutFragment
     }

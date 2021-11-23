@@ -8,8 +8,9 @@ import InstallationName from "components/composed/instance/InstallationName";
 import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNavFragment.graphql";
 import { SearchButton } from "components/atomic";
 
-function CommunityCondensedNav({ data }: Props) {
-  const appData = useMaybeFragment(fragment, data);
+function CommunityCondensedNav({ data, communityData }: Props) {
+  const appData = useMaybeFragment(appFragment, data);
+  const community = useMaybeFragment(fragment, communityData);
 
   return (
     <Styled.Header className="a-bg-custom20">
@@ -20,7 +21,7 @@ function CommunityCondensedNav({ data }: Props) {
           </Styled.LeftSide>
         )}
         <Styled.RightSide>
-          <CommunityNavList condensed />
+          {community && <CommunityNavList data={community} condensed />}
           <SearchButton size="sm" />
           <AccountDropdown condensed />
         </Styled.RightSide>
@@ -30,13 +31,20 @@ function CommunityCondensedNav({ data }: Props) {
 }
 
 interface Props {
-  data?: CommunityCondensedNavFragment$key | null;
+  data?: CommunityCondensedNavAppFragment$key | null;
+  communityData?: CommunityCondensedNavFragment$key | null;
 }
 
 export default CommunityCondensedNav;
 
-const fragment = graphql`
-  fragment CommunityCondensedNavFragment on Query {
+const appFragment = graphql`
+  fragment CommunityCondensedNavAppFragment on Query {
     ...InstallationNameFragment
+  }
+`;
+
+const fragment = graphql`
+  fragment CommunityCondensedNavFragment on Community {
+    ...CommunityNavListFragment
   }
 `;

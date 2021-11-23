@@ -5,32 +5,31 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SlugCommunityQueryVariables = {
+export type collectionsQueryVariables = {
     slug: string;
 };
-export type SlugCommunityQueryResponse = {
+export type collectionsQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment" | "CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutAppFragment">;
 };
-export type SlugCommunityQuery = {
-    readonly response: SlugCommunityQueryResponse;
-    readonly variables: SlugCommunityQueryVariables;
+export type collectionsQuery = {
+    readonly response: collectionsQueryResponse;
+    readonly variables: collectionsQueryVariables;
 };
 
 
 
 /*
-query SlugCommunityQuery(
+query collectionsQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
-    ...CommunityHeroFragment
-    ...CommunityLayoutFragment
+    ...CommunityChildLayoutFragment
     id
   }
-  ...CommunityLayoutAppFragment
+  ...CommunityChildLayoutAppFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -46,27 +45,27 @@ fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
 }
 
-fragment CommunityHeroFragment on Community {
-  title
-}
-
-fragment CommunityLayoutAppFragment on Query {
+fragment CommunityChildLayoutAppFragment on Query {
+  ...CommunityCondensedNavAppFragment
   ...AppBodyFragment
 }
 
-fragment CommunityLayoutFragment on Community {
+fragment CommunityChildLayoutFragment on Community {
   ...CommunityNameFragment
-  ...CommunityNavBarFragment
+  ...CommunityCondensedNavFragment
+}
+
+fragment CommunityCondensedNavAppFragment on Query {
+  ...InstallationNameFragment
+}
+
+fragment CommunityCondensedNavFragment on Community {
+  ...CommunityNavListFragment
 }
 
 fragment CommunityNameFragment on Community {
   title
   slug
-}
-
-fragment CommunityNavBarFragment on Community {
-  ...CommunityNameFragment
-  ...CommunityNavListFragment
 }
 
 fragment CommunityNavListFragment on Community {
@@ -144,7 +143,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SlugCommunityQuery",
+    "name": "collectionsQuery",
     "selections": [
       {
         "alias": null,
@@ -157,12 +156,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityHeroFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "CommunityChildLayoutFragment"
           }
         ],
         "storageKey": null
@@ -170,7 +164,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CommunityLayoutAppFragment"
+        "name": "CommunityChildLayoutAppFragment"
       }
     ],
     "type": "Query",
@@ -180,7 +174,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SlugCommunityQuery",
+    "name": "collectionsQuery",
     "selections": [
       {
         "alias": null,
@@ -263,14 +257,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a22dbaab8b19c46afff85bf3a5566fd2",
+    "cacheID": "30424a0da36c9b493dbc5dbc47b9a449",
     "id": null,
     "metadata": {},
-    "name": "SlugCommunityQuery",
+    "name": "collectionsQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityHeroFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query collectionsQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityChildLayoutFragment\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'fd93d26df0364e75c0f194046d1af705';
+(node as any).hash = 'cc539b703795551fe22194d23fc8cadf';
 export default node;
