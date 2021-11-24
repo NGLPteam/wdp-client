@@ -44,5 +44,15 @@ export default css`
     > * + * {
       margin-block-start: 1.3em;
     }
+
+    ul,
+    ol {
+      padding-inline-start: 1rem;
+    }
+
+    blockquote {
+      border-inline-start: 3px solid var(--color-custom60);
+      padding-inline-start: 1rem;
+    }
   }
 `;

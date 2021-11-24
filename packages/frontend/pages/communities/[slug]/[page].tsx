@@ -3,7 +3,8 @@ import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
-import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
+import CommunityLayout from "components/composed/community/CommunityLayout";
+import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 
 export default function CommunityAboutPage() {
@@ -14,15 +15,9 @@ export default function CommunityAboutPage() {
   return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
-        <CommunityChildLayout data={data} communityData={data?.community}>
-          {data?.community?.page && (
-            <div className="a-bg-custom10">
-              <div className="l-container-wide">
-                <h1>{data.community.page.title}</h1>
-              </div>
-            </div>
-          )}
-        </CommunityChildLayout>
+        <CommunityLayout data={data} communityData={data?.community}>
+          <CommunityPageLayout data={data?.community?.page} />
+        </CommunityLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -34,10 +29,10 @@ const query = graphql`
   query PageCommunityQuery($slug: Slug!, $pageSlug: String!) {
     community(slug: $slug) {
       page(slug: $pageSlug) {
-        title
+        ...CommunityPageLayoutFragment
       }
-      ...CommunityChildLayoutFragment
+      ...CommunityLayoutFragment
     }
-    ...CommunityChildLayoutAppFragment
+    ...CommunityLayoutAppFragment
   }
 `;

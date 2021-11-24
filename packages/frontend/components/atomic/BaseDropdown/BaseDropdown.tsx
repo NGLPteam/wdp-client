@@ -1,5 +1,6 @@
 import React from "react";
-import { usePopoverState, PopoverDisclosure, Popover } from "reakit/Popover";
+import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
+import * as Styled from "./BaseDropdown.styles";
 
 type ButtonProps = Partial<React.ComponentProps<typeof PopoverDisclosure>>;
 
@@ -29,7 +30,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
         <PopoverDisclosure ref={ref} {...popoverState} {...props}>
           {(disclosureProps) => React.cloneElement(disclosure, disclosureProps)}
         </PopoverDisclosure>
-        <Popover
+        <Styled.Popover
           hideOnEsc={hideOnEsc}
           hideOnClickOutside={hideOnClickOutside}
           {...popoverState}
@@ -37,7 +38,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
           aria-label={label}
         >
           {children}
-        </Popover>
+        </Styled.Popover>
       </>
     );
   }
