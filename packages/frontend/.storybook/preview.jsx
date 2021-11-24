@@ -63,6 +63,7 @@ export const globalTypes = {
       items: [
         { value: "cream", title: "Cream" },
         { value: "blue", title: "Blue" },
+        { value: "gray", title: "Gray" },
       ],
     },
   },

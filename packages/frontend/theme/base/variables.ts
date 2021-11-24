@@ -36,6 +36,11 @@ export const customColors = {
   blue60: "#6B7794",
   blue20: "#D6D9E0",
   blue10: "#EAEDF5",
+  gray80: "#454547",
+  gray70: "#606063",
+  gray60: "#7E7E82",
+  gray20: "#E1E1E5",
+  gray10: "#F2F2F7",
 };
 
 // Fonts
