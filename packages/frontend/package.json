@@ -49,6 +49,7 @@
     "react-hook-form": "^7.12.2",
     "react-i18next": "^11.11.0",
     "react-is": ">= 16.8.0",
+    "react-markdown": "^7.1.0",
     "react-relay": "^12.0.0",
     "react-relay-network-modern": "^6.0.0",
     "react-relay-network-modern-ssr": "^1.4.0",

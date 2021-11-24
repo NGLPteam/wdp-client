@@ -1,10 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
-import Image from "next/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./JournalHero.styles";
+import HeroImage from "components/atomic/HeroImage";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
-import { baseColors } from "theme/base/variables";
 
 export default function JournalHero({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
@@ -17,18 +16,7 @@ export default function JournalHero({ data }: Props) {
           <div className="t-label-sm">ISSN</div>
         </Styled.HeroInner>
       </section>
-      <div
-        className="a-bg-custom20"
-        style={{ position: "relative", height: "300px" }}
-      >
-        <Image
-          src={`https://via.placeholder.com/2880x600/${baseColors.neutral20}`}
-          layout="fill"
-          objectFit="cover"
-          width={1440}
-          height={300}
-        />
-      </div>
+      <HeroImage data={journal.thumbnail} />
     </>
   ) : null;
 }
@@ -40,5 +28,8 @@ interface Props {
 const fragment = graphql`
   fragment JournalHeroFragment on Collection {
     title
+    thumbnail {
+      ...HeroImageFragment
+    }
   }
 `;

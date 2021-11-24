@@ -5,17 +5,18 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type JournalHeroFragment = {
+export type CommunityPageLayoutFragment = {
     readonly title: string;
-    readonly thumbnail: {
+    readonly body: string;
+    readonly heroImage: {
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
     } | null;
-    readonly " $refType": "JournalHeroFragment";
+    readonly " $refType": "CommunityPageLayoutFragment";
 };
-export type JournalHeroFragment$data = JournalHeroFragment;
-export type JournalHeroFragment$key = {
-    readonly " $data"?: JournalHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalHeroFragment">;
+export type CommunityPageLayoutFragment$data = CommunityPageLayoutFragment;
+export type CommunityPageLayoutFragment$key = {
+    readonly " $data"?: CommunityPageLayoutFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityPageLayoutFragment">;
 };
 
 
@@ -24,7 +25,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "JournalHeroFragment",
+  "name": "CommunityPageLayoutFragment",
   "selections": [
     {
       "alias": null,
@@ -36,9 +37,16 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "body",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "AssetPreview",
       "kind": "LinkedField",
-      "name": "thumbnail",
+      "name": "heroImage",
       "plural": false,
       "selections": [
         {
@@ -50,8 +58,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Collection",
+  "type": "Page",
   "abstractKey": null
 };
-(node as any).hash = '2b8190e14056b987acf74739101c275e';
+(node as any).hash = 'a90b6f515245a32e8f581339c18d0470';
 export default node;

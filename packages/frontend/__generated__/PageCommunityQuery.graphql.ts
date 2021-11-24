@@ -12,11 +12,11 @@ export type PageCommunityQueryVariables = {
 export type PageCommunityQueryResponse = {
     readonly community: {
         readonly page: {
-            readonly title: string;
+            readonly " $fragmentRefs": FragmentRefs<"CommunityPageLayoutFragment">;
         } | null;
-        readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
 };
 export type PageCommunityQuery = {
     readonly response: PageCommunityQueryResponse;
@@ -32,13 +32,13 @@ query PageCommunityQuery(
 ) {
   community(slug: $slug) {
     page(slug: $pageSlug) {
-      title
+      ...CommunityPageLayoutFragment
       id
     }
-    ...CommunityChildLayoutFragment
+    ...CommunityLayoutFragment
     id
   }
-  ...CommunityChildLayoutAppFragment
+  ...CommunityLayoutAppFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -54,32 +54,28 @@ fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
 }
 
-fragment CommunityChildLayoutAppFragment on Query {
-  ...CommunityCondensedNavAppFragment
+fragment CommunityHTMLHeadFragment on Community {
+  title
+}
+
+fragment CommunityLayoutAppFragment on Query {
   ...AppBodyFragment
 }
 
-fragment CommunityChildLayoutFragment on Community {
+fragment CommunityLayoutFragment on Community {
   ...CommunityHTMLHeadFragment
   ...CommunityNameFragment
-  ...CommunityCondensedNavFragment
-}
-
-fragment CommunityCondensedNavAppFragment on Query {
-  ...InstallationNameFragment
-}
-
-fragment CommunityCondensedNavFragment on Community {
-  ...CommunityNavListFragment
-}
-
-fragment CommunityHTMLHeadFragment on Community {
-  title
+  ...CommunityNavBarFragment
 }
 
 fragment CommunityNameFragment on Community {
   title
   slug
+}
+
+fragment CommunityNavBarFragment on Community {
+  ...CommunityNameFragment
+  ...CommunityNavListFragment
 }
 
 fragment CommunityNavListFragment on Community {
@@ -94,6 +90,14 @@ fragment CommunityNavListFragment on Community {
   }
 }
 
+fragment CommunityPageLayoutFragment on Page {
+  title
+  body
+  heroImage {
+    ...HeroImageFragment
+  }
+}
+
 fragment CommunityPickerFragment on Query {
   communities {
     edges {
@@ -102,6 +106,15 @@ fragment CommunityPickerFragment on Query {
         title
         id
       }
+    }
+  }
+}
+
+fragment HeroImageFragment on AssetPreview {
+  alt
+  large {
+    webp {
+      url
     }
   }
 }
@@ -188,14 +201,18 @@ return {
             "name": "page",
             "plural": false,
             "selections": [
-              (v4/*: any*/)
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "CommunityPageLayoutFragment"
+              }
             ],
             "storageKey": null
           },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityChildLayoutFragment"
+            "name": "CommunityLayoutFragment"
           }
         ],
         "storageKey": null
@@ -203,7 +220,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CommunityChildLayoutAppFragment"
+        "name": "CommunityLayoutAppFragment"
       }
     ],
     "type": "Query",
@@ -235,6 +252,60 @@ return {
             "plural": false,
             "selections": [
               (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "body",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "AssetPreview",
+                "kind": "LinkedField",
+                "name": "heroImage",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "alt",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PreviewImageMap",
+                    "kind": "LinkedField",
+                    "name": "large",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "PreviewImage",
+                        "kind": "LinkedField",
+                        "name": "webp",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "url",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
               (v5/*: any*/)
             ],
             "storageKey": null
@@ -312,14 +383,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "841124e0111e76d56794b089fcfc4b5d",
+    "cacheID": "8842aa9b9946389ddee0401421120464",
     "id": null,
     "metadata": {},
     "name": "PageCommunityQuery",
     "operationKind": "query",
-    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      title\n      id\n    }\n    ...CommunityChildLayoutFragment\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...HeroImageFragment\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment HeroImageFragment on AssetPreview {\n  alt\n  large {\n    webp {\n      url\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'f6580609636db42ede9cb1691145e0a7';
+(node as any).hash = '356ccabced1a2d157c05b6d1b62fdffb';
 export default node;
