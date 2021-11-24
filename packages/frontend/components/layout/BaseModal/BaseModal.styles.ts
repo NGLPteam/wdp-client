@@ -11,8 +11,6 @@ export const Backdrop = styled(BaseDialogBackdrop)`
   /* Center align short modals on the x-axis */
   display: flex;
   align-items: center;
-  transition: opacity 0.1s var(--base-timing);
-  opacity: 0;
   inset-block: 0;
   inset-inline: 0;
   z-index: var(--z-index-drawer-backdrop);
@@ -24,14 +22,6 @@ export const Backdrop = styled(BaseDialogBackdrop)`
     bottom: 0;
     left: 0;
   `)}
-
-  &[data-enter] {
-    opacity: 1;
-  }
-
-  &[data-leave] {
-    z-index: -1;
-  }
 `;
 
 export const Wrapper = styled.div`

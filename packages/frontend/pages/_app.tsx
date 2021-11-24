@@ -57,9 +57,9 @@ function App({
   return (
     <>
       <AppHtmlHead />
-      <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
-        <GlobalStyles />
-        <SSRKeycloakProvider {...ssrProps}>
+      <SSRKeycloakProvider {...ssrProps}>
+        <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
+          <GlobalStyles />
           <KeycloakRelayProvider records={records}>
             <AppContextProvider>
               {getLayout({
@@ -68,8 +68,8 @@ function App({
               })}
             </AppContextProvider>
           </KeycloakRelayProvider>
-        </SSRKeycloakProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </SSRKeycloakProvider>
     </>
   );
 }

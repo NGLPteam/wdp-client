@@ -12,7 +12,7 @@ export default function SearchButton({ size = "sm" }: Props) {
   const style = {
     "--search-button-size": `${pxToRem(imageSize)}`,
   } as React.CSSProperties;
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState({ modal: true });
 
   return (
     <>
