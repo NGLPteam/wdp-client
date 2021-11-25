@@ -33,8 +33,6 @@ export function HeroImageBase({ alt, url }: BaseProps) {
       <Image
         alt={alt}
         src={url}
-        width={1440}
-        height={300}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
