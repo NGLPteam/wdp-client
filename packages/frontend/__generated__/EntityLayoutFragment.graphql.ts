@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"EntityHeroFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "EntityHeroFragment">;
     readonly " $refType": "EntityLayoutFragment";
 };
 export type EntityLayoutFragment$data = EntityLayoutFragment;
@@ -26,11 +26,16 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "BreadcrumbsBarFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "EntityHeroFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'c998993bf868f79e7542d8ca64fdec5c';
+(node as any).hash = 'cd7ce517cc7a9cf2d1ac16fa874b87dd';
 export default node;

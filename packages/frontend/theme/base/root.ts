@@ -150,6 +150,7 @@ export default css`
     --container-padding-xlg: 120px;
     --container-padding-lg: 60px;
     --container-padding-sm: 36px;
+    --container-padding-xs: 24px;
 
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};

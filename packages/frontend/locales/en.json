@@ -12,7 +12,8 @@
       "welcome_to": "Welcome to {{name}}.",
       "sign_in": "Sign In",
       "sign_out": "Sign Out",
-      "submit": "Submit"
+      "submit": "Submit",
+      "show_more": "Show More"
     },
     "search": {
       "label": "Search",
@@ -47,7 +48,8 @@
       "contact": "Contact",
       "explore": "Explore",
       "privacy": "Privacy Statement",
-      "terms": "Terms of Service"
+      "terms": "Terms of Service",
+      "breadcrumbs_dropdown_label": "$t(common.show_more)"
     }
   }
 }

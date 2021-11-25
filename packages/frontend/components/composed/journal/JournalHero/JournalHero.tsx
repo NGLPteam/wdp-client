@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./JournalHero.styles";
-import HeroImage from "components/atomic/HeroImage";
+import { HeroImage } from "components/atomic";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
@@ -10,12 +10,12 @@ export default function JournalHero({ data }: Props) {
 
   return journal ? (
     <>
-      <section className="a-bg-custom10">
+      <header className="a-bg-custom10">
         <Styled.HeroInner className="l-container-wide">
           <h2>{journal.title}</h2>
           <div className="t-label-sm">ISSN</div>
         </Styled.HeroInner>
-      </section>
+      </header>
       <HeroImage data={journal.thumbnail} />
     </>
   ) : null;
