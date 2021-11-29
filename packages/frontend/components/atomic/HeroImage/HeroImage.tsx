@@ -7,7 +7,7 @@ import { HeroImageFragment$key } from "@/relay/HeroImageFragment.graphql";
 
 export default function HeroImage({ data }: Props) {
   const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.large.webp;
+  const image = imageData?.image.webp;
 
   return image ? <HeroImageBase alt={imageData.alt} url={image.url} /> : null;
 }
@@ -19,7 +19,7 @@ interface Props {
 const fragment = graphql`
   fragment HeroImageFragment on AssetPreview {
     alt
-    large {
+    image: large {
       webp {
         url
       }
