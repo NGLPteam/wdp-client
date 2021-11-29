@@ -5,7 +5,6 @@ import { tHeading } from "theme/mixins/typography";
 
 export const Fieldset = styled.fieldset`
   flex-basis: var(--form-grid-item-width-wide);
-  padding-block-end: var(--fieldset-field-spacing);
 `;
 
 export const Legend = styled.legend`
