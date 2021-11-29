@@ -5,7 +5,8 @@ import { respond } from "theme/mixins/base";
 
 export const Fieldset = styled.fieldset`
   flex-basis: var(--form-grid-item-width-wide);
-  --form-grid-row-gap: 20px;
+  --form-grid-row-gap: ${pxToRem(16)};
+  --form-grid-column-gap: ${pxToRem(20)};
 `;
 
 export const Legend = styled.legend``;
@@ -17,7 +18,10 @@ export const FieldsWrapper = styled.div`
   border: 1px solid var(--neutral60);
   border-radius: var(--border-radius-sm);
   background-color: var(--neutral05);
-  padding: ${pxToRem(20)};
+  padding-block-start: ${pxToRem(16)};
+  padding-block-end: ${pxToRem(20)};
+  padding-inline-start: ${pxToRem(20)};
+  padding-inline-end: ${pxToRem(20)};
 `;
 
 export const Fields = styled.div`
