@@ -41,5 +41,12 @@ const fragment = graphql`
       ...JournalLayoutFragment
       ...IssueLayoutFragment
     }
+    ... on Item {
+      schemaDefinition {
+        identifier
+      }
+
+      ...EntityLayoutFragment
+    }
   }
 `;
