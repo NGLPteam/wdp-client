@@ -20,7 +20,31 @@ export type EntityLayoutFactoryFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SchemaDefinition",
+  "kind": "LinkedField",
+  "name": "schemaDefinition",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "identifier",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v1 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "EntityLayoutFragment"
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -29,29 +53,8 @@ const node: ReaderFragment = {
     {
       "kind": "InlineFragment",
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "SchemaDefinition",
-          "kind": "LinkedField",
-          "name": "schemaDefinition",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "identifier",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityLayoutFragment"
-        },
+        (v0/*: any*/),
+        (v1/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -65,10 +68,20 @@ const node: ReaderFragment = {
       ],
       "type": "Collection",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "type": "Item",
+      "abstractKey": null
     }
   ],
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = '4a990d9b4ad9966908849f05d3707034';
+})();
+(node as any).hash = '5cce835f02fd527604056a2d65ed68b0';
 export default node;

@@ -21,8 +21,14 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityLayoutFragment on Collection {
-    ...BreadcrumbsBarFragment
-    ...EntityHeroFragment
+  fragment EntityLayoutFragment on AnyEntity {
+    ... on Collection {
+      ...BreadcrumbsBarFragment
+      ...EntityHeroFragment
+    }
+    ... on Item {
+      ...BreadcrumbsBarFragment
+      ...EntityHeroFragment
+    }
   }
 `;
