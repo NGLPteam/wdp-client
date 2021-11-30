@@ -44,7 +44,7 @@ export default function CommunityHero({ data }: Props) {
 }
 
 interface Props {
-  data?: CommunityHeroFragment$key;
+  data?: CommunityHeroFragment$key | null;
 }
 
 const fragment = graphql`

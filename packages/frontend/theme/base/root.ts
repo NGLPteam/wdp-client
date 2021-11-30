@@ -147,10 +147,10 @@ export default css`
     --button-secondary-text-color: ${baseColors.neutral90};
 
     /* container */
-    --container-padding-xlg: 120px;
-    --container-padding-lg: 60px;
-    --container-padding-sm: 36px;
-    --container-padding-xs: 24px;
+    --container-padding-xlg: ${pxToRem(120)};
+    --container-padding-lg: ${pxToRem(60)};
+    --container-padding-sm: ${pxToRem(36)};
+    --container-padding-xs: ${pxToRem(24)};
 
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};

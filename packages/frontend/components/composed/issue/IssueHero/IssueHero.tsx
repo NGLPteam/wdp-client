@@ -12,7 +12,7 @@ export default function IssueHero({ data }: Props) {
     <header>
       <div className="a-bg-custom10">
         <Styled.HeroInner className="l-container-wide">
-          <CoverImage data={issue.thumbnail} maxWidth={225} />
+          <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
           <h3>{issue.title}</h3>
           {issue.summary && <p>{issue.summary}</p>}
           <div className="t-label-sm">ISSN</div>
