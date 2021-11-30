@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { getDateOnly } from "@wdp/lib/helpers";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -13,7 +14,7 @@ import type {
 } from "@/relay/ItemUpdateFormMutation.graphql";
 import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
 import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
-import { getDateOnly, sanitizeDateField } from "helpers";
+import { sanitizeDateField } from "helpers";
 
 export default function ItemUpdateForm({
   data,

@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import {
@@ -8,9 +9,10 @@ import {
   useMaybeFragment,
   useRouteSlug,
   useLatestPresentValue,
+  useDestroyer,
 } from "hooks";
 import { RouteHelper } from "routes";
-import { ButtonControlGroup } from "components/atomic";
+import { ButtonControlConfirm, ButtonControlGroup } from "components/atomic";
 import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
 
 export default function CommunityLayout({
@@ -31,10 +33,35 @@ export default function CommunityLayout({
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("community.manage", { slug });
   const tabRoutes = useChildRouteLinks("community", { slug });
+  const router = useRouter();
+  const destroy = useDestroyer();
+
+  const handleDelete = useCallback(
+    (hideDialog) => {
+      if (community) {
+        destroy.community(
+          { communityId: community.id },
+          community.name || "glossary.community"
+        );
+        hideDialog();
+        router.back();
+      }
+    },
+    [community, destroy, router]
+  );
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <CollectionCreateButton parentSlug={slug} />
+      <ButtonControlConfirm
+        modalLabel={t("messages.delete.confirm_label")}
+        modalBody={t("messages.delete.confirm_body")}
+        icon="delete"
+        onClick={handleDelete}
+        actions="communities.delete"
+      >
+        {t("common.delete")}
+      </ButtonControlConfirm>
     </ButtonControlGroup>
   );
 
@@ -65,6 +92,7 @@ export default function CommunityLayout({
 
 const fragment = graphql`
   fragment CommunityLayoutFragment on Community {
+    id
     name
     slug
   }

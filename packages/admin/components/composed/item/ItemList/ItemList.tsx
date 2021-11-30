@@ -91,6 +91,7 @@ const fragment = graphql`
           totalCount
         }
       }
+      allowedActions
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...ContributorsColumnFragment
     }

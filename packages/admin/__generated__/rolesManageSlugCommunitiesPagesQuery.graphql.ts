@@ -36,6 +36,7 @@ fragment AuthContextFragment on Entity {
 }
 
 fragment CommunityLayoutFragment on Community {
+  id
   name
   slug
 }
@@ -106,6 +107,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "name",
             "storageKey": null
           },
@@ -114,13 +122,6 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "slug",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
             "storageKey": null
           },
           {
@@ -143,12 +144,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a5fb503591b5f7a03d9aeded745b664d",
+    "cacheID": "770e4eb1d8ad8f93e0cfe9eacdd6ab8a",
     "id": null,
     "metadata": {},
     "name": "rolesManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query rolesManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n"
+    "text": "query rolesManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n"
   }
 };
 })();
