@@ -102,6 +102,7 @@ const fragment = graphql`
           }
         }
       }
+      allowedActions
     }
     ...ModelListPageFragment
   }

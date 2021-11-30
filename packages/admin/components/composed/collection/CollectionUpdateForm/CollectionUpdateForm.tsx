@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
+import { getDateOnly } from "@wdp/lib/helpers";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -12,7 +13,7 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import { getDateOnly, sanitizeDateField } from "helpers";
+import { sanitizeDateField } from "helpers";
 
 export default function CollectionUpdateForm({
   data,

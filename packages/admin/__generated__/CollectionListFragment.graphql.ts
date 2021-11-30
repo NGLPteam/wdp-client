@@ -26,6 +26,7 @@ export type CollectionListFragment = {
                 } | null;
             };
         } | null;
+        readonly allowedActions: ReadonlyArray<string>;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionListFragment";
@@ -172,6 +173,13 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "allowedActions",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -185,5 +193,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'f362576946415f8cfd13a1906ba3c234';
+(node as any).hash = '2028b06d1aab8def401a655b2f441e05';
 export default node;

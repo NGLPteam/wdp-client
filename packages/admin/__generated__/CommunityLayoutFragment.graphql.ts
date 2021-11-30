@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLayoutFragment = {
+    readonly id: string;
     readonly name: string;
     readonly slug: string;
     readonly " $refType": "CommunityLayoutFragment";
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "name",
       "storageKey": null
     },
@@ -42,5 +50,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '0b881967f69faa987449e466bf201d07';
+(node as any).hash = '7f3c6a819cbf5080f1e75ae84d855fb1';
 export default node;

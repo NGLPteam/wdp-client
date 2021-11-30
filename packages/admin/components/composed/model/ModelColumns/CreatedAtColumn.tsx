@@ -1,7 +1,7 @@
 import { Column } from "react-table";
 import { useTranslation } from "react-i18next";
+import { formatDate } from "@wdp/lib/helpers";
 import { CreatableNode, PartialColumnish } from "./types";
-import { formatDate } from "helpers";
 
 const CreatedAtColumn = <NodeType extends CreatableNode>(
   props: PartialColumnish<NodeType> = {}
