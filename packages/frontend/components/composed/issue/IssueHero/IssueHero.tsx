@@ -11,12 +11,32 @@ export default function IssueHero({ data }: Props) {
   return issue ? (
     <header>
       <div className="a-bg-custom10">
-        <Styled.HeroInner className="l-container-wide">
-          <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
-          <h3>{issue.title}</h3>
-          {issue.summary && <p>{issue.summary}</p>}
-          <div className="t-label-sm">ISSN</div>
-          <div className="t-label-sm">DOI</div>
+        <Styled.HeroInner className="l-container-wide l-flex">
+          <Styled.Title>Parent Journal</Styled.Title>
+          <Styled.JournalMeta>
+            <div>Journal subtitle goes here</div>
+            <div className="t-label-sm">
+              ISSN: <Styled.Number>0000-0000</Styled.Number>
+            </div>
+          </Styled.JournalMeta>
+          <Styled.IssueWrapper className="l-flex">
+            <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
+            <Styled.IssueMeta className="l-flex">
+              <Styled.Issue>
+                {issue.title}
+                <Styled.Volume>Volume X</Styled.Volume>
+              </Styled.Issue>
+              {issue.summary && (
+                <Styled.Description>{issue.summary}</Styled.Description>
+              )}
+              <div className="t-label-sm">
+                ISSN: <Styled.Number>0000-0000</Styled.Number>
+              </div>
+              <Styled.DOI className="t-label-sm">
+                DOI: <Styled.Number>http://dx.doi.org/XXXX/XXXX</Styled.Number>
+              </Styled.DOI>
+            </Styled.IssueMeta>
+          </Styled.IssueWrapper>
         </Styled.HeroInner>
       </div>
     </header>
