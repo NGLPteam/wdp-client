@@ -6,6 +6,9 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type JournalLayoutFragment = {
+    readonly links: {
+        readonly " $fragmentRefs": FragmentRefs<"RelatedEntitiesFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"JournalHeroFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
@@ -24,6 +27,33 @@ const node: ReaderFragment = {
   "name": "JournalLayoutFragment",
   "selections": [
     {
+      "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "RECENT"
+        },
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 4
+        }
+      ],
+      "concreteType": "EntityLinkConnection",
+      "kind": "LinkedField",
+      "name": "links",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "RelatedEntitiesFragment"
+        }
+      ],
+      "storageKey": "links(order:\"RECENT\",perPage:4)"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "JournalHeroFragment"
@@ -37,5 +67,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '55d2963878861301b4abc10e08ac47b1';
+(node as any).hash = 'a07b33aa7086c31932065ce4fe0b5354';
 export default node;

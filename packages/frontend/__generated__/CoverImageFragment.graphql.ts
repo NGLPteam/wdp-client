@@ -10,6 +10,7 @@ export type CoverImageFragment = {
     readonly image: {
         readonly webp: {
             readonly url: string;
+            readonly alt: string;
             readonly width: number;
             readonly height: number;
         } | null;
@@ -24,19 +25,21 @@ export type CoverImageFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CoverImageFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": "image",
       "args": null,
@@ -60,6 +63,7 @@ const node: ReaderFragment = {
               "name": "url",
               "storageKey": null
             },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -84,5 +88,6 @@ const node: ReaderFragment = {
   "type": "AssetPreview",
   "abstractKey": null
 };
-(node as any).hash = '74fe328c91be9b9500914e74fa3853d6';
+})();
+(node as any).hash = '5ad5f8b15dec3da6f3d5bd43ebbaebd7';
 export default node;

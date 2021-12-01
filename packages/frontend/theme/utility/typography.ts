@@ -1,7 +1,7 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tCopySmall, tLabel } from "../mixins/typography";
+import { tCopy, tCopySmall, tLabel } from "../mixins/typography";
 
 export default css`
   /* Labels */
@@ -17,8 +17,16 @@ export default css`
     ${tLabel("mix")}
   }
 
+  .t-copy {
+    ${tCopy}
+  }
+
   .t-copy-sm {
     ${tCopySmall}
+  }
+
+  .t-copy-medium {
+    font-weight: var(--font-weight-medium);
   }
 
   .t-copy-light {
@@ -33,6 +41,10 @@ export default css`
     padding: 0;
     margin: 0;
     list-style: none;
+  }
+
+  .t-capitalize {
+    text-transform: capitalize;
   }
 
   /* Rich Text */

@@ -10,6 +10,13 @@ export function tHeading(size: 1 | 2 | 3 | 4 | 5 | 6) {
   `;
 }
 
+export const tCopy = css`
+  font-family: var(--font-face-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+`;
+
 export const tCopySmall = css`
   font-size: var(--font-size-base-sm);
   line-height: var(--line-height-base-sm);

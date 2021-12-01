@@ -7,13 +7,7 @@ import Dropdown from "../Dropdown";
 import * as Styled from "./Breadcrumbs.styles";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
 import { EntityKind } from "types/graphql-schema";
-
-const KIND_MAP = {
-  COMMUNITY: "community",
-  COLLECTION: "collection",
-  ITEM: "item",
-  "%future added value": null,
-};
+import { getRouteByEntityKind } from "helpers";
 
 export default function BreadCrumbs({ data }: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
@@ -29,7 +23,7 @@ export default function BreadCrumbs({ data }: Props) {
       { kind, label, slug }: { kind: EntityKind; label: string; slug: string },
       i: number
     ) => {
-      const routeName = KIND_MAP[kind];
+      const routeName = getRouteByEntityKind(kind);
 
       return routeName ? (
         <NamedLink key={i} route={routeName} routeParams={{ slug }}>
