@@ -13,15 +13,14 @@ export const TitleBlock = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin-block-end: ${pxToRem(16)};
+  margin-block-end: var(--padding-rg);
 `;
 
 export const Subtitle = styled.h3`
-  margin-block-end: ${pxToRem(16)};
+  margin-block-end: var(--padding-xl);
 `;
 
 export const ISSN = styled.div`
-  margin-block-start: ${pxToRem(24)};
   color: var(--color-base-neutral80);
 `;
 
