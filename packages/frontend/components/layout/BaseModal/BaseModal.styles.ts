@@ -13,7 +13,7 @@ export const Backdrop = styled(BaseDialogBackdrop)`
   align-items: center;
   inset-block: 0;
   inset-inline: 0;
-  z-index: var(--z-index-drawer-backdrop);
+  z-index: var(--z-index-modal);
   background: rgba(0, 0, 0, 0.7);
 
   ${noInsetSupport(`
@@ -28,7 +28,6 @@ export const Wrapper = styled.div`
   position: absolute;
   inset-inline-start: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-index-drawer);
   /* Center align modals on the y-axis */
   display: flex;
   flex-direction: column;

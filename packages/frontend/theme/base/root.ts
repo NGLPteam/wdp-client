@@ -154,7 +154,11 @@ export default css`
 
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};
-    --z-index-dropdown: ${zIndex.dropdown};
+    ${Object.entries(zIndex).map(
+      ([key, value]) => `
+      --z-index-${key}: ${value};
+    `
+    )}
 
     /* padding */
     --padding-lg: ${pxToRem(32)};
