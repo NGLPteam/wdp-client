@@ -21,6 +21,7 @@
     "search": {
       "label": "Search",
       "placeholder": "Search",
+      "journal_placeholder": "Search {{name}}",
       "community_placeholder": "What are you looking for?",
       "search_area_label": "Search area:",
       "community_option": "$t(glossary.community)",
@@ -57,6 +58,7 @@
       "communities": "$t(glossary.community_plural)",
       "community_picker": "$t(glossary.community) Picker",
       "browse_all": "Browse All",
+      "browse": "Browse",
       "account": "Account",
       "contact": "Contact",
       "explore": "Explore",
