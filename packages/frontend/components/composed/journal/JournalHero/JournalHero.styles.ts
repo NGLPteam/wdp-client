@@ -7,8 +7,6 @@ export const HeroInner = styled.div`
 `;
 
 export const TitleBlock = styled.div`
-  display: flex;
-  flex-direction: column;
   max-width: ${pxToRem(670)};
 `;
 
