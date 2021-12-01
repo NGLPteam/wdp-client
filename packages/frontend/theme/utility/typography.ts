@@ -37,6 +37,10 @@ export default css`
     color: var(--color-lighter);
   }
 
+  .t-copy-italic {
+    font-style: italic;
+  }
+
   .t-unstyled-list {
     padding: 0;
     margin: 0;

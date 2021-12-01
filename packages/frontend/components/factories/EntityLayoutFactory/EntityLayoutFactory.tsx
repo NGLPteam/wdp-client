@@ -4,6 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import IssueLayout from "components/composed/issue/IssueLayout";
+import ArticleLayout from "components/composed/article/ArticleLayout";
 import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
 
 export default function EntityLayoutFactory({ data }: Props) {
@@ -18,6 +19,10 @@ export default function EntityLayoutFactory({ data }: Props) {
 
     case "journal_issue":
       return <IssueLayout data={entity} />;
+      break;
+
+    case "journal_article":
+      return <ArticleLayout data={entity} />;
       break;
 
     default:
@@ -47,6 +52,7 @@ const fragment = graphql`
       }
 
       ...EntityLayoutFragment
+      ...ArticleLayoutFragment
     }
   }
 `;

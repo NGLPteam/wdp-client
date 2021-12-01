@@ -3,3 +3,4 @@ export { ChevronDown, ChevronRight, ChevronLeft, ChevronUp } from "./Chevron";
 export { default as Search } from "./Search";
 export { default as Search32 } from "./Search32";
 export { default as Close } from "./Close";
+export { default as Download } from "./Download";

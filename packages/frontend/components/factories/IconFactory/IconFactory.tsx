@@ -13,6 +13,7 @@ export const ICON_MAP = {
   chevronLeft: Icons.ChevronLeft,
   chevronRight: Icons.ChevronRight,
   chevronUp: Icons.ChevronUp,
+  download: Icons.Download,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
