@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type IssueHeroFragment = {
     readonly title: string;
     readonly summary: string | null;
+    readonly doi: string | null;
     readonly thumbnail: {
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     } | null;
@@ -44,6 +45,13 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "doi",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "AssetPreview",
       "kind": "LinkedField",
       "name": "thumbnail",
@@ -61,5 +69,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'eb137384f8ae3c679912f4ed712e56e3';
+(node as any).hash = '5618fd0b848cf910368957e9a30b1016';
 export default node;
