@@ -21,8 +21,8 @@ export default function IssueHero({ data }: Props) {
           </Styled.JournalMeta>
           <Styled.IssueWrapper className="l-flex">
             <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
-            <Styled.IssueMeta className="l-flex">
-              <Styled.Issue>
+            <Styled.IssueMeta>
+              <Styled.Issue className="l-flex">
                 {issue.title}
                 <Styled.Volume>Volume X</Styled.Volume>
               </Styled.Issue>
@@ -32,9 +32,11 @@ export default function IssueHero({ data }: Props) {
               <div className="t-label-sm">
                 ISSN: <Styled.Number>0000-0000</Styled.Number>
               </div>
-              <Styled.DOI className="t-label-sm">
-                DOI: <Styled.Number>http://dx.doi.org/XXXX/XXXX</Styled.Number>
-              </Styled.DOI>
+              {issue.doi && (
+                <Styled.DOI className="t-label-sm">
+                  DOI: <Styled.Number>{issue.doi}</Styled.Number>
+                </Styled.DOI>
+              )}
             </Styled.IssueMeta>
           </Styled.IssueWrapper>
         </Styled.HeroInner>
@@ -51,6 +53,7 @@ const fragment = graphql`
   fragment IssueHeroFragment on Collection {
     title
     summary
+    doi
     thumbnail {
       ...CoverImageFragment
     }

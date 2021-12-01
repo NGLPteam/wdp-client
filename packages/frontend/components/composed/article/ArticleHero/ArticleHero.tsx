@@ -54,7 +54,8 @@ interface Props {
   data?: ArticleHeroFragment$key | null;
 }
 
-type ContributionNode = ArticleHeroFragment$data["contributions"]["edges"][number];
+type ContributionNode =
+  ArticleHeroFragment$data["contributions"]["edges"][number];
 
 const fragment = graphql`
   fragment ArticleHeroFragment on Item {
