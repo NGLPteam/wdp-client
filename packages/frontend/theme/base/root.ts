@@ -161,6 +161,7 @@ export default css`
     )}
 
     /* padding */
+    --padding-xl: ${pxToRem(40)};
     --padding-lg: ${pxToRem(32)};
     --padding-md: ${pxToRem(24)};
     --padding-rg: ${pxToRem(16)};
