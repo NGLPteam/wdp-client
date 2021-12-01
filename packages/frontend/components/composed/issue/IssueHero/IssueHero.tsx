@@ -11,9 +11,9 @@ export default function IssueHero({ data }: Props) {
   return issue ? (
     <header>
       <div className="a-bg-custom10">
-        <Styled.HeroInner className="l-container-wide l-flex">
+        <Styled.HeroInner className="l-container-wide">
           <Styled.Title>Parent Journal</Styled.Title>
-          <Styled.JournalMeta>
+          <Styled.JournalMeta className="l-flex">
             <div>Journal subtitle goes here</div>
             <div className="t-label-sm">
               ISSN: <Styled.Number>0000-0000</Styled.Number>

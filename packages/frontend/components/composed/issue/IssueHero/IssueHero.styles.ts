@@ -2,19 +2,17 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 
 export const HeroInner = styled.div`
-  flex-direction: column;
   padding-block-start: var(--container-padding-sm);
   padding-block-end: var(--container-padding-lg);
 `;
 
 export const Title = styled.h2`
-  margin-block-end: ${pxToRem(16)};
+  margin-block-end: var(--padding-rg);
 `;
 
 export const JournalMeta = styled.div`
-  display: flex;
   justify-content: space-between;
-  padding-block-end: ${pxToRem(16)};
+  padding-block-end: var(--padding-rg);
   border-bottom: 1px solid var(--color-base-neutral70);
 `;
 
@@ -33,24 +31,23 @@ export const IssueWrapper = styled.div`
 `;
 
 export const IssueMeta = styled.div`
-  flex-direction: column;
   max-width: ${pxToRem(596)};
   margin-inline-start: ${pxToRem(42)};
 `;
 
 export const Issue = styled.h3`
-  margin-block-end: ${pxToRem(16)};
+  margin-block-end: var(--padding-rg);
 `;
 
 export const Volume = styled.span`
   color: var(--color-base-neutral70);
-  padding-inline-start: ${pxToRem(24)};
+  padding-inline-start: var(--padding-md);
 `;
 
 export const Description = styled.div`
-  margin-block-end: ${pxToRem(24)};
+  margin-block-end: var(--padding-md);
 `;
 
 export const DOI = styled.div`
-  margin-block-start: ${pxToRem(8)};
+  margin-block-start: var(--padding-sm);
 `;
