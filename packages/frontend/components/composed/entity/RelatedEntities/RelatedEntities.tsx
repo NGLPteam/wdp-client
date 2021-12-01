@@ -10,7 +10,8 @@ import {
   RelatedEntitiesFragment$data,
   RelatedEntitiesFragment$key,
 } from "@/relay/RelatedEntitiesFragment.graphql";
-import { getPrecisionDateDisplay, getRouteByEntityType } from "helpers";
+import { getRouteByEntityType } from "helpers";
+import PrecisionDate from "components/atomic/PrecisionDate";
 
 export default function RelatedEntities({
   data,
@@ -52,18 +53,11 @@ export default function RelatedEntities({
                   <Styled.ItemText>
                     <h4>{node.target.title}</h4>
                     <div className="t-copy-sm a-color-lighter">
-                      {node.target.published.precision &&
-                        node.target.published.value && (
-                          <p>
-                            <span className="a-hidden">
-                              {t("common.published")}
-                            </span>
-                            {getPrecisionDateDisplay(
-                              node.target.published.precision,
-                              node.target.published.value
-                            )}
-                          </p>
-                        )}
+                      {node.target.published && (
+                        <p>
+                          <PrecisionDate data={node.target.published} />
+                        </p>
+                      )}
                     </div>
                   </Styled.ItemText>
                 </Styled.ItemLink>
@@ -110,8 +104,7 @@ const fragment = graphql`
             title
             slug
             published {
-              precision
-              value
+              ...PrecisionDateFragment
             }
             thumbnail {
               ...CoverImageFragment
@@ -122,8 +115,7 @@ const fragment = graphql`
             title
             slug
             published {
-              precision
-              value
+              ...PrecisionDateFragment
             }
             thumbnail {
               ...CoverImageFragment

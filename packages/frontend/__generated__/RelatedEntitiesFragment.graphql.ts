@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type RelatedEntitiesFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -14,8 +13,7 @@ export type RelatedEntitiesFragment = {
                 readonly title: string;
                 readonly slug: string;
                 readonly published: {
-                    readonly precision: DatePrecision;
-                    readonly value: string | null;
+                    readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
                 };
                 readonly thumbnail: {
                     readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
@@ -25,8 +23,7 @@ export type RelatedEntitiesFragment = {
                 readonly title: string;
                 readonly slug: string;
                 readonly published: {
-                    readonly precision: DatePrecision;
-                    readonly value: string | null;
+                    readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
                 };
                 readonly thumbnail: {
                     readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
@@ -80,18 +77,9 @@ var v0 = [
     "plural": false,
     "selections": [
       {
-        "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "precision",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "value",
-        "storageKey": null
+        "kind": "FragmentSpread",
+        "name": "PrecisionDateFragment"
       }
     ],
     "storageKey": null
@@ -169,5 +157,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'faaeacc5c1622ae2f3ac063793bf4faf';
+(node as any).hash = 'a913b8d2afbd30a971771a3e0b4493e3';
 export default node;
