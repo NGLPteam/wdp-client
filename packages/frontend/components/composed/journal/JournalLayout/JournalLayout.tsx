@@ -6,6 +6,7 @@ import JournalHero from "../JournalHero";
 import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedEntities from "components/composed/entity/RelatedEntities";
+import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 
 export default function JournalLayout({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
@@ -15,6 +16,7 @@ export default function JournalLayout({ data }: Props) {
     <>
       <BreadcrumbsBar data={journal} />
       <JournalHero data={journal} />
+      <FeaturedIssues data={journal?.issues} />
       <RelatedEntities
         data={journal?.links}
         headerText={t("layouts.related_journals_header")}
@@ -41,6 +43,9 @@ const fragment = graphql`
     ...BreadcrumbsBarFragment
     links(order: RECENT, perPage: 4) {
       ...RelatedEntitiesFragment
+    }
+    issues: collections(order: PUBLISHED_ASCENDING, perPage: 4) {
+      ...FeaturedIssuesFragment
     }
   }
 `;

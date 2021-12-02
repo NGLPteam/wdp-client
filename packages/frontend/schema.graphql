@@ -582,6 +582,15 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """
+  Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+  so it will first check the parent, then the grandparent, and so on.
+  
+  """
+  ancestorOfType(
+    """A fully-qualified name of a schema to look for."""
+    schema: String!
+  ): AnyEntity
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
   """Assets owned by this entity"""
@@ -636,7 +645,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     last: Int
   ): CollectionConnection! @deprecated(reason: "Use Collection.collections")
   collections(
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -654,7 +663,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   ): CollectionConnection!
   community: Community!
   contributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -672,7 +681,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   ): CollectionContributionConnection!
   """Contributors to this element"""
   contributors(
-    order: SimpleOrder = RECENT
+    order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -708,7 +717,8 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   items(
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
     schema: [String!]
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
@@ -813,6 +823,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
   """A description of the contents of the entity"""
@@ -1013,7 +1024,8 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   collections(
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
     schema: [String!]
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
@@ -1119,6 +1131,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
   """A mapping of an entity's preview thumbnail"""
@@ -1234,7 +1247,7 @@ enum ContextualPermissionOrder {
 interface Contributable {
   """Contributors to this element"""
   contributors(
-    order: SimpleOrder = RECENT
+    order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -1294,11 +1307,25 @@ input ContributionMetadataInput {
   location: String
 }
 
+"""Sort contributions by various properties and directions"""
+enum ContributionOrder {
+  """Sort contributors by newest created date"""
+  RECENT
+  """Sort contributors by oldest created date"""
+  OLDEST
+  """Sort contributors by their target's title A-Z"""
+  TARGET_TITLE_ASCENDING
+  """Sort contributors by their target's title Z-A"""
+  TARGET_TITLE_DESCENDING
+}
+
 """A contributor who has made a contribution"""
 interface Contributor {
   bio: String
+  """The total number of collection contributions from this contributor"""
+  collectionContributionCount: Int!
   collectionContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1314,12 +1341,16 @@ interface Contributor {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CollectionContributionConnection!
+  """The total number of contributions (item + collection) from this contributor"""
+  contributionCount: Int!
   email: String
   identifier: String!
   """An optional image associated with the contributor"""
   image: AssetPreview
+  """The total number of item contributions from this contributor"""
+  itemContributionCount: Int!
   itemContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1337,6 +1368,8 @@ interface Contributor {
   ): ItemContributionConnection!
   kind: ContributorKind!
   links: [ContributorLink!]!
+  """A display name, independent of the type of contributor"""
+  name: String!
   prefix: String
   suffix: String
   url: String
@@ -1363,6 +1396,26 @@ type ContributorLink {
 input ContributorLinkInput {
   title: String!
   url: String!
+}
+
+"""Sort contributors by various properties and directions"""
+enum ContributorOrder {
+  """Sort contributors by newest created date"""
+  RECENT
+  """Sort contributors by oldest created date"""
+  OLDEST
+  """Sort contributors by most contributions, then fall back to name A-Z"""
+  MOST_CONTRIBUTIONS
+  """Sort contributors by least contributions, then fall back to name A-Z"""
+  LEAST_CONTRIBUTIONS
+  """Sort contributors by name A-Z. For people, this currently uses western naming order (family name, given name)."""
+  NAME_ASCENDING
+  """Sort contributors by name Z-A. For people, this currently uses western naming order (family name, given name)."""
+  NAME_DESCENDING
+  """Sort contributors by affiliation A-Z, then fall back to name A-Z"""
+  AFFILIATION_ASCENDING
+  """Sort contributors by affiliation Z-A, then fall back to name A-Z"""
+  AFFILIATION_DESCENDING
 }
 
 type ContributorProperty implements ScalarProperty {
@@ -1711,6 +1764,22 @@ type DateProperty implements ScalarProperty {
   path: String!
   required: Boolean!
   type: String!
+}
+
+"""
+An interface used to describe a schema definition, whether for a discrete
+type or in some aggregate.
+
+"""
+interface DescribesSchema {
+  """A unique (per-namespace) value that names the schema within the system."""
+  identifier: String!
+  """The kind of entity this schema applies to"""
+  kind: SchemaKind!
+  """A human-readable name for the schema"""
+  name: String!
+  """A unique namespace the schema lives in"""
+  namespace: String!
 }
 
 """Autogenerated input type of DestroyAsset"""
@@ -2073,6 +2142,7 @@ interface Entity {
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """A mapping of an entity's preview thumbnail"""
   thumbnail: AssetPreview
@@ -2156,6 +2226,26 @@ enum EntityLinkScope {
   ITEM_LINKED_COLLECTION
   """A link to an item from another item"""
   ITEM_LINKED_ITEM
+}
+
+"""Sort entities by a specific property and order"""
+enum EntityOrder {
+  """Sort entities by newest created date"""
+  RECENT
+  """Sort entities by oldest created date"""
+  OLDEST
+  """Sort entities by oldest published date (or OLDEST for communities)"""
+  PUBLISHED_ASCENDING
+  """Sort entities by newest published date (or RECENT for communities)"""
+  PUBLISHED_DESCENDING
+  """Sort entities by title A-Z"""
+  TITLE_ASCENDING
+  """Sort entities by title Z-A"""
+  TITLE_DESCENDING
+  """Sort entities by the name of their schema A-Z"""
+  SCHEMA_NAME_ASCENDING
+  """Sort entities by the name of their schema Z-A"""
+  SCHEMA_NAME_DESCENDING
 }
 
 enum EntityPermissionFilter {
@@ -2256,6 +2346,15 @@ interface HasSchemaProperties {
 interface HierarchicalEntry {
   """The date this entity was added to its parent"""
   accessioned: VariablePrecisionDate!
+  """
+  Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+  so it will first check the parent, then the grandparent, and so on.
+  
+  """
+  ancestorOfType(
+    """A fully-qualified name of a schema to look for."""
+    schema: String!
+  ): AnyEntity
   """The date this entity was made available"""
   available: VariablePrecisionDate!
   """The date this entity was added to the WDP"""
@@ -2287,6 +2386,64 @@ interface HierarchicalEntry {
   visibleAfterAt: ISO8601DateTime
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
+}
+
+"""
+A ranking of a schema from a certain point in the hierarchy. This can be used to generate
+navigation or calculate statistics about what various entities contain.
+
+"""
+type HierarchicalSchemaRank implements Node & DescribesSchema {
+  """The number of entities that implement this schema from this point in the hierarchy."""
+  count: Int!
+  """A count of distinct versions of this specific schema type from this point of the hierarchy."""
+  distinctVersionCount: Int!
+  id: ID!
+  """A unique (per-namespace) value that names the schema within the system."""
+  identifier: String!
+  """The kind of entity this schema applies to"""
+  kind: SchemaKind!
+  """A human-readable name for the schema"""
+  name: String!
+  """A unique namespace the schema lives in"""
+  namespace: String!
+  """The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent."""
+  rank: Int!
+  """A reference to the discrete schema definition"""
+  schemaDefinition: SchemaDefinition!
+  """A fully-qualified unique value that can be used to refer to this schema within the system"""
+  slug: String!
+  """A reference to the schema versions from this ranking"""
+  versionRanks: [HierarchicalSchemaVersionRank!]!
+}
+
+"""
+A ranking of a schema version from a certain point in the hierarchy. This can be used to generate
+navigation or calculate statistics about what versions of a schema various entities contain.
+
+"""
+type HierarchicalSchemaVersionRank implements Node & DescribesSchema {
+  """The number of entities that implement this schema from this point in the hierarchy."""
+  count: Int!
+  id: ID!
+  """A unique (per-namespace) value that names the schema within the system."""
+  identifier: String!
+  """The kind of entity this schema applies to"""
+  kind: SchemaKind!
+  """A human-readable name for the schema"""
+  name: String!
+  """A unique namespace the schema lives in"""
+  namespace: String!
+  """The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent."""
+  rank: Int!
+  """A reference to the discrete schema definition"""
+  schemaDefinition: SchemaDefinition!
+  """A reference to the discrete schema version"""
+  schemaVersion: SchemaVersion!
+  """A fully-qualified unique value that can be used to refer to this schema within the system"""
+  slug: String!
+  """A semantic version associated with the schema"""
+  versionNumber: String!
 }
 
 """An ISO 8601-encoded date"""
@@ -2351,6 +2508,15 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """
+  Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+  so it will first check the parent, then the grandparent, and so on.
+  
+  """
+  ancestorOfType(
+    """A fully-qualified name of a schema to look for."""
+    schema: String!
+  ): AnyEntity
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]
   """Assets owned by this entity"""
@@ -2407,7 +2573,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   collection: Collection!
   community: Community!
   contributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2425,7 +2591,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   ): ItemContributionConnection!
   """Contributors to this element"""
   contributors(
-    order: SimpleOrder = RECENT
+    order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -2459,7 +2625,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   items(
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2561,6 +2727,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
   """A description of the contents of the entity"""
@@ -3199,8 +3366,10 @@ input OrderingSelectLinkDefinitionInput {
 """An organization that has made contributions"""
 type OrganizationContributor implements Contributor & Node & Sluggable {
   bio: String
+  """The total number of collection contributions from this contributor"""
+  collectionContributionCount: Int!
   collectionContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3216,14 +3385,18 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CollectionContributionConnection!
+  """The total number of contributions (item + collection) from this contributor"""
+  contributionCount: Int!
   createdAt: ISO8601DateTime!
   email: String
   id: ID!
   identifier: String!
   """An optional image associated with the contributor"""
   image: AssetPreview
+  """The total number of item contributions from this contributor"""
+  itemContributionCount: Int!
   itemContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3243,6 +3416,8 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   legalName: String
   links: [ContributorLink!]!
   location: String
+  """A display name, independent of the type of contributor"""
+  name: String!
   prefix: String
   slug: Slug!
   suffix: String
@@ -3327,8 +3502,10 @@ type PermissionGrant {
 type PersonContributor implements Contributor & Node & Sluggable {
   affiliation: String
   bio: String
+  """The total number of collection contributions from this contributor"""
+  collectionContributionCount: Int!
   collectionContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3344,6 +3521,8 @@ type PersonContributor implements Contributor & Node & Sluggable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): CollectionContributionConnection!
+  """The total number of contributions (item + collection) from this contributor"""
+  contributionCount: Int!
   createdAt: ISO8601DateTime!
   email: String
   familyName: String
@@ -3352,8 +3531,10 @@ type PersonContributor implements Contributor & Node & Sluggable {
   identifier: String!
   """An optional image associated with the contributor"""
   image: AssetPreview
+  """The total number of item contributions from this contributor"""
+  itemContributionCount: Int!
   itemContributions(
-    order: SimpleOrder = RECENT
+    order: ContributionOrder = TARGET_TITLE_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3371,6 +3552,8 @@ type PersonContributor implements Contributor & Node & Sluggable {
   ): ItemContributionConnection!
   kind: ContributorKind!
   links: [ContributorLink!]!
+  """A display name, independent of the type of contributor"""
+  name: String!
   prefix: String
   slug: Slug!
   suffix: String
@@ -3441,7 +3624,7 @@ type Query {
   collectionContribution(slug: Slug!): CollectionContribution
   """List all communities"""
   communities(
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3463,7 +3646,7 @@ type Query {
   contributor(slug: Slug!): AnyContributor
   """A list of all contributors in the system"""
   contributors(
-    order: SimpleOrder = RECENT
+    order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -3496,7 +3679,7 @@ type Query {
   ): [Node]!
   """List all roles"""
   roles(
-    order: SimpleOrder = RECENT
+    order: RoleOrder = NAME_ASCENDING
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3554,7 +3737,7 @@ type Query {
   user(slug: Slug!): User
   """A list of all users in the system"""
   users(
-    order: SimpleOrder = RECENT
+    order: UserOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3711,6 +3894,18 @@ type RoleEdge {
   node: Role!
 }
 
+"""Sort roles by a specific property and order"""
+enum RoleOrder {
+  """Sort roles by newest created date"""
+  RECENT
+  """Sort roles by oldest created date"""
+  OLDEST
+  """Sort roles by their name A-Z"""
+  NAME_ASCENDING
+  """Sort roles by their name Z-A"""
+  NAME_DESCENDING
+}
+
 interface ScalarProperty {
   fullPath: String!
   isWide: Boolean!
@@ -3813,13 +4008,18 @@ type SchemaValueError {
 }
 
 """A specific version of a schema definition"""
-type SchemaVersion implements HasSchemaProperties & Node & Sluggable {
+type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
+  """A unique (per-namespace) value that names the schema within the system."""
   identifier: String!
+  """The kind of entity this schema applies to"""
   kind: SchemaKind!
+  """A human-readable name for the schema"""
   name: String!
+  """A unique namespace the schema lives in"""
   namespace: String!
+  """A semantic version for the schema"""
   number: String!
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
@@ -3884,8 +4084,11 @@ type SelectProperty implements ScalarProperty & OptionableProperty {
   type: String!
 }
 
+"""A generic enum for sorting models that don't have anything more specific implemented"""
 enum SimpleOrder {
+  """Sort models by newest created date"""
   RECENT
+  """Sort models by oldest created date"""
   OLDEST
 }
 
@@ -4483,7 +4686,8 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   """Query the collections this user has access to"""
   collections(
     access: EntityPermissionFilter = READ_ONLY
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
     schema: [String!]
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
@@ -4505,7 +4709,8 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   """Query the communities this user has access to"""
   communities(
     access: EntityPermissionFilter = READ_ONLY
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
     schema: [String!]
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
@@ -4575,7 +4780,8 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   """Query the items this user has access to"""
   items(
     access: EntityPermissionFilter = READ_ONLY
-    order: SimpleOrder = RECENT
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
     schema: [String!]
     """Select the classification of nodes to retrieve: see TreeNodeFilter for a more thorough explanation"""
     nodeFilter: TreeNodeFilter = ROOTS_ONLY
@@ -4833,7 +5039,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
   slug: Slug!
   updatedAt: ISO8601DateTime!
   users(
-    order: SimpleOrder = RECENT
+    order: UserOrder = RECENT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -5017,6 +5223,26 @@ type UserItemAccessGrantEdge {
   cursor: String!
   """The item at the end of the edge."""
   node: UserItemAccessGrant!
+}
+
+"""Sort users by a specific property and order"""
+enum UserOrder {
+  """Sort users by newest created date"""
+  RECENT
+  """Sort users by oldest created date"""
+  OLDEST
+  """Sort users with admins pushed to the top, followed by name A-Z"""
+  ADMINS_FIRST
+  """Sort users with admins pushed to the top, followed by recent"""
+  ADMINS_RECENT
+  """Sort users by their name A-Z"""
+  NAME_ASCENDING
+  """Sort users by their name Z-A"""
+  NAME_DESCENDING
+  """Sort users by their email A-Z"""
+  EMAIL_ASCENDING
+  """Sort users by their email Z-A"""
+  EMAIL_DESCENDING
 }
 
 """

@@ -55,7 +55,10 @@ export default function RelatedEntities({
                     <div className="t-copy-sm a-color-lighter">
                       {node.target.published && (
                         <p>
-                          <PrecisionDate data={node.target.published} />
+                          <PrecisionDate
+                            data={node.target.published}
+                            label="common.published"
+                          />
                         </p>
                       )}
                     </div>
