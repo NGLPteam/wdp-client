@@ -17,4 +17,8 @@ export const SearchLabel = styled.label`
 export const SearchInput = styled.input`
   ${aInputReset}
   flex: 1 1 auto;
+
+  ::placeholder {
+    text-overflow: ellipsis;
+  }
 `;
