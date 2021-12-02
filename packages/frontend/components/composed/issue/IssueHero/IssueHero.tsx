@@ -73,6 +73,5 @@ const fragment = graphql`
         title
       }
     }
-    # TODO: How do we get the issue's parent journal?
   }
 `;
