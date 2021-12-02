@@ -30,7 +30,12 @@ export default function ArticleHero({ data }: Props) {
               )
             )}
             <p className="t-copy-lighter">
-              {article.published && <PrecisionDate data={article.published} />}
+              {article.published && (
+                <PrecisionDate
+                  data={article.published}
+                  label="common.published"
+                />
+              )}
             </p>
           </Styled.DataBlock>
           {article.summary && (

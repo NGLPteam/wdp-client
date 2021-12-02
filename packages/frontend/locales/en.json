@@ -14,6 +14,7 @@
       "sign_out": "Sign Out",
       "submit": "Submit",
       "show_more": "Show More",
+      "read_more": "Read More",
       "last_updated": "Last Updated {{value}}",
       "published": "Published"
     },
@@ -37,11 +38,15 @@
       "item": "item",
       "item_plural": "items",
       "journal": "journal",
-      "journal_plural": "journals"
+      "journal_plural": "journals",
+      "issue": "issue",
+      "issue_plural": "issues"
     },
     "layouts": {
       "related_journals_header": "Related $t(glossary.journal_plural)",
-      "see_all_journals": "See All $t(glossary.journal_plural)"
+      "see_all_journals": "See All $t(glossary.journal_plural)",
+      "featured_issues_header": "Featured $t(glossary.issue_plural)",
+      "see_all_issues": "See All $t(glossary.issue_plural)"
     },
     "nav": {
       "home": "Home",

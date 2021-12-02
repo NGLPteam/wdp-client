@@ -9,6 +9,9 @@ export type JournalLayoutFragment = {
     readonly links: {
         readonly " $fragmentRefs": FragmentRefs<"RelatedEntitiesFragment">;
     };
+    readonly issues: {
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"JournalHeroFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
@@ -20,7 +23,13 @@ export type JournalLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "kind": "Literal",
+  "name": "perPage",
+  "value": 4
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -34,11 +43,7 @@ const node: ReaderFragment = {
           "name": "order",
           "value": "RECENT"
         },
-        {
-          "kind": "Literal",
-          "name": "perPage",
-          "value": 4
-        }
+        (v0/*: any*/)
       ],
       "concreteType": "EntityLinkConnection",
       "kind": "LinkedField",
@@ -54,6 +59,29 @@ const node: ReaderFragment = {
       "storageKey": "links(order:\"RECENT\",perPage:4)"
     },
     {
+      "alias": "issues",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "PUBLISHED_ASCENDING"
+        },
+        (v0/*: any*/)
+      ],
+      "concreteType": "CollectionConnection",
+      "kind": "LinkedField",
+      "name": "collections",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FeaturedIssuesFragment"
+        }
+      ],
+      "storageKey": "collections(order:\"PUBLISHED_ASCENDING\",perPage:4)"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "JournalHeroFragment"
@@ -67,5 +95,6 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'a07b33aa7086c31932065ce4fe0b5354';
+})();
+(node as any).hash = '86409cfec726cbbfc89e6075d759689b';
 export default node;
