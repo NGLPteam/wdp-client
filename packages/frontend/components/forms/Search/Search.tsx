@@ -2,9 +2,9 @@ import React from "react";
 import { useRouterContext } from "@wdp/lib/routes";
 import { useTranslation } from "react-i18next";
 import { IconFactory } from "../../factories";
-import * as Styled from "./AppFooterSearch.styles";
+import * as Styled from "./Search.styles";
 
-export default function AppFooterSearch() {
+export default function Search({ placeholder, queryParams }: Props) {
   const { t } = useTranslation();
   const { findRouteByName } = useRouterContext();
   const searchRoute = findRouteByName("search");
@@ -14,17 +14,28 @@ export default function AppFooterSearch() {
       action={searchRoute?.path}
       className="a-button-secondary-sm l-flex l-flex--gap"
     >
-      <Styled.SearchLabel htmlFor="footerSearch">
-        <span className="a-hidden">{t("search.label")}</span>
+      <Styled.SearchLabel htmlFor="navSearch">
+        <span className="a-hidden">
+          {placeholder ? placeholder : t("search.label")}
+        </span>
         <IconFactory icon="search" role="presentation" />
       </Styled.SearchLabel>
+      {queryParams &&
+        Object.keys(queryParams).map((key) => (
+          <input key={key} type="hidden" name={key} value={queryParams[key]} />
+        ))}
       <Styled.SearchInput
-        id="footerSearch"
+        id="navSearch"
         type="search"
         name="q"
-        placeholder={t("search.placeholder")}
+        placeholder={placeholder ? placeholder : t("search.label")}
       />
       <button className="a-hidden">{t("search.submit")}</button>
     </Styled.SearchForm>
   );
 }
+
+type Props = {
+  placeholder?: () => string;
+  queryParams?: { collectionID: string };
+};

@@ -7,7 +7,7 @@ import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
 import InstallationName from "../../composed/instance/InstallationName";
-import AppFooterSearch from "../AppFooterSearch";
+import { Search } from "components/forms";
 import * as Styled from "./AppFooter.styles";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
@@ -39,7 +39,7 @@ function AppFooter({ data, nameComponent }: Props) {
           {nameComponent}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
-          <AppFooterSearch />
+          <Search />
         </Styled.SearchWrapper>
         <Styled.AboutWrapper>
           <p className="t-copy-sm t-copy-lighter">
