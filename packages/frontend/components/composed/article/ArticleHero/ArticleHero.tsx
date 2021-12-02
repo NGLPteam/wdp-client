@@ -13,12 +13,12 @@ export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   return article ? (
-    <header className="a-bg-custom10">
-      <Styled.HeroInner className="l-container-wide">
-        <Styled.LeftSide className="l-grid__item">
+    <div className="a-bg-custom10">
+      <Styled.HeroInner as="header" className="l-container-wide">
+        <Styled.LeftSide>
           <Styled.TitleBlock>
             <h2>{article.title}</h2>
-            {/* <h4 className="t-copy-italic">Subtitle</h4> */}
+            <h4 className="t-copy-italic">Article Subtitle Goes Here</h4>
           </Styled.TitleBlock>
           <Styled.DataBlock>
             {article.contributions.edges.map(
@@ -45,13 +45,13 @@ export default function ArticleHero({ data }: Props) {
             Download PDF
           </Button>
         </Styled.LeftSide>
-        <Styled.RightSide className="l-grid__item t-label-sm">
+        <Styled.RightSide className="t-label-sm">
           <div>
             DOI: <span className="t-copy-light">{article.doi}</span>
           </div>
         </Styled.RightSide>
       </Styled.HeroInner>
-    </header>
+    </div>
   ) : null;
 }
 
@@ -59,8 +59,7 @@ interface Props {
   data?: ArticleHeroFragment$key | null;
 }
 
-type ContributionNode =
-  ArticleHeroFragment$data["contributions"]["edges"][number];
+type ContributionNode = ArticleHeroFragment$data["contributions"]["edges"][number];
 
 const fragment = graphql`
   fragment ArticleHeroFragment on Item {

@@ -1,9 +1,14 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tCopy, tCopySmall, tLabel } from "../mixins/typography";
+import { tCopy, tCopySmall, tLabel, tHeading } from "../mixins/typography";
 
 export default css`
+  /* Headings - only add if needed */
+  .t-h3 {
+    ${tHeading(3)}
+  }
+
   /* Labels */
   .t-label-lg {
     ${tLabel("lg")}
@@ -17,6 +22,7 @@ export default css`
     ${tLabel("mix")}
   }
 
+  /* Body copy */
   .t-copy {
     ${tCopy}
   }
