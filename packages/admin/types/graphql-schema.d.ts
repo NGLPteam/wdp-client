@@ -578,6 +578,11 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  /**
+   * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+   * so it will first check the parent, then the grandparent, and so on.
+   */
+  ancestorOfType?: Maybe<AnyEntity>;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles?: Maybe<Array<Role>>;
   /** Assets owned by this entity */
@@ -637,6 +642,7 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
+  schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   slug: Scalars['Slug'];
   /** A description of the contents of the entity */
@@ -690,6 +696,12 @@ export type CollectionAllAccessGrantsArgs = {
 
 
 /** A collection of items */
+export type CollectionAncestorOfTypeArgs = {
+  schema: Scalars['String'];
+};
+
+
+/** A collection of items */
 export type CollectionAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
@@ -727,7 +739,7 @@ export type CollectionChildrenArgs = {
 
 /** A collection of items */
 export type CollectionCollectionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -740,7 +752,7 @@ export type CollectionCollectionsArgs = {
 
 /** A collection of items */
 export type CollectionContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -753,7 +765,7 @@ export type CollectionContributionsArgs = {
 
 /** A collection of items */
 export type CollectionContributorsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -767,7 +779,7 @@ export type CollectionContributorsArgs = {
 
 /** A collection of items */
 export type CollectionItemsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -977,6 +989,7 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
+  schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   slug: Scalars['Slug'];
   /** A mapping of an entity's preview thumbnail */
@@ -1047,7 +1060,7 @@ export type CommunityAssignedUsersArgs = {
 
 /** A community of users */
 export type CommunityCollectionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -1230,7 +1243,7 @@ export type Contributable = {
 
 /** Something that can be contributed to */
 export type ContributableContributorsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -1283,17 +1296,37 @@ export type ContributionMetadataInput = {
   location?: Maybe<Scalars['String']>;
 };
 
+/** Sort contributions by various properties and directions */
+export type ContributionOrder =
+  /** Sort contributors by newest created date */
+  | 'RECENT'
+  /** Sort contributors by oldest created date */
+  | 'OLDEST'
+  /** Sort contributors by their target's title A-Z */
+  | 'TARGET_TITLE_ASCENDING'
+  /** Sort contributors by their target's title Z-A */
+  | 'TARGET_TITLE_DESCENDING'
+  | '%future added value';
+
 /** A contributor who has made a contribution */
 export type Contributor = {
   bio?: Maybe<Scalars['String']>;
+  /** The total number of collection contributions from this contributor */
+  collectionContributionCount: Scalars['Int'];
   collectionContributions: CollectionContributionConnection;
+  /** The total number of contributions (item + collection) from this contributor */
+  contributionCount: Scalars['Int'];
   email?: Maybe<Scalars['String']>;
   identifier: Scalars['String'];
   /** An optional image associated with the contributor */
   image?: Maybe<AssetPreview>;
+  /** The total number of item contributions from this contributor */
+  itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
   links: Array<ContributorLink>;
+  /** A display name, independent of the type of contributor */
+  name: Scalars['String'];
   prefix?: Maybe<Scalars['String']>;
   suffix?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
@@ -1302,7 +1335,7 @@ export type Contributor = {
 
 /** A contributor who has made a contribution */
 export type ContributorCollectionContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1315,7 +1348,7 @@ export type ContributorCollectionContributionsArgs = {
 
 /** A contributor who has made a contribution */
 export type ContributorItemContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1348,6 +1381,26 @@ export type ContributorLinkInput = {
   title: Scalars['String'];
   url: Scalars['String'];
 };
+
+/** Sort contributors by various properties and directions */
+export type ContributorOrder =
+  /** Sort contributors by newest created date */
+  | 'RECENT'
+  /** Sort contributors by oldest created date */
+  | 'OLDEST'
+  /** Sort contributors by most contributions, then fall back to name A-Z */
+  | 'MOST_CONTRIBUTIONS'
+  /** Sort contributors by least contributions, then fall back to name A-Z */
+  | 'LEAST_CONTRIBUTIONS'
+  /** Sort contributors by name A-Z. For people, this currently uses western naming order (family name, given name). */
+  | 'NAME_ASCENDING'
+  /** Sort contributors by name Z-A. For people, this currently uses western naming order (family name, given name). */
+  | 'NAME_DESCENDING'
+  /** Sort contributors by affiliation A-Z, then fall back to name A-Z */
+  | 'AFFILIATION_ASCENDING'
+  /** Sort contributors by affiliation Z-A, then fall back to name A-Z */
+  | 'AFFILIATION_DESCENDING'
+  | '%future added value';
 
 export type ContributorProperty = ScalarProperty & {
   __typename?: 'ContributorProperty';
@@ -1680,6 +1733,21 @@ export type DateProperty = ScalarProperty & {
   type: Scalars['String'];
 };
 
+/**
+ * An interface used to describe a schema definition, whether for a discrete
+ * type or in some aggregate.
+ */
+export type DescribesSchema = {
+  /** A unique (per-namespace) value that names the schema within the system. */
+  identifier: Scalars['String'];
+  /** The kind of entity this schema applies to */
+  kind: SchemaKind;
+  /** A human-readable name for the schema */
+  name: Scalars['String'];
+  /** A unique namespace the schema lives in */
+  namespace: Scalars['String'];
+};
+
 /** Autogenerated input type of DestroyAsset */
 export type DestroyAssetInput = {
   /** The ID for the asset to destroy */
@@ -1953,6 +2021,7 @@ export type Entity = {
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
+  schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   /** A mapping of an entity's preview thumbnail */
   thumbnail?: Maybe<AssetPreview>;
@@ -2133,6 +2202,26 @@ export type EntityLinkScope =
   | 'ITEM_LINKED_ITEM'
   | '%future added value';
 
+/** Sort entities by a specific property and order */
+export type EntityOrder =
+  /** Sort entities by newest created date */
+  | 'RECENT'
+  /** Sort entities by oldest created date */
+  | 'OLDEST'
+  /** Sort entities by oldest published date (or OLDEST for communities) */
+  | 'PUBLISHED_ASCENDING'
+  /** Sort entities by newest published date (or RECENT for communities) */
+  | 'PUBLISHED_DESCENDING'
+  /** Sort entities by title A-Z */
+  | 'TITLE_ASCENDING'
+  /** Sort entities by title Z-A */
+  | 'TITLE_DESCENDING'
+  /** Sort entities by the name of their schema A-Z */
+  | 'SCHEMA_NAME_ASCENDING'
+  /** Sort entities by the name of their schema Z-A */
+  | 'SCHEMA_NAME_DESCENDING'
+  | '%future added value';
+
 export type EntityPermissionFilter =
   | 'READ_ONLY'
   | 'CRUD'
@@ -2236,6 +2325,11 @@ export type HasSchemaProperties = {
 export type HierarchicalEntry = {
   /** The date this entity was added to its parent */
   accessioned: VariablePrecisionDate;
+  /**
+   * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+   * so it will first check the parent, then the grandparent, and so on.
+   */
+  ancestorOfType?: Maybe<AnyEntity>;
   /** The date this entity was made available */
   available: VariablePrecisionDate;
   /** The date this entity was added to the WDP */
@@ -2271,6 +2365,70 @@ export type HierarchicalEntry = {
 };
 
 
+/** A hierarchical entity, like a collection or an item. */
+export type HierarchicalEntryAncestorOfTypeArgs = {
+  schema: Scalars['String'];
+};
+
+/**
+ * A ranking of a schema from a certain point in the hierarchy. This can be used to generate
+ * navigation or calculate statistics about what various entities contain.
+ */
+export type HierarchicalSchemaRank = Node & DescribesSchema & {
+  __typename?: 'HierarchicalSchemaRank';
+  /** The number of entities that implement this schema from this point in the hierarchy. */
+  count: Scalars['Int'];
+  /** A count of distinct versions of this specific schema type from this point of the hierarchy. */
+  distinctVersionCount: Scalars['Int'];
+  id: Scalars['ID'];
+  /** A unique (per-namespace) value that names the schema within the system. */
+  identifier: Scalars['String'];
+  /** The kind of entity this schema applies to */
+  kind: SchemaKind;
+  /** A human-readable name for the schema */
+  name: Scalars['String'];
+  /** A unique namespace the schema lives in */
+  namespace: Scalars['String'];
+  /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
+  rank: Scalars['Int'];
+  /** A reference to the discrete schema definition */
+  schemaDefinition: SchemaDefinition;
+  /** A fully-qualified unique value that can be used to refer to this schema within the system */
+  slug: Scalars['String'];
+  /** A reference to the schema versions from this ranking */
+  versionRanks: Array<HierarchicalSchemaVersionRank>;
+};
+
+/**
+ * A ranking of a schema version from a certain point in the hierarchy. This can be used to generate
+ * navigation or calculate statistics about what versions of a schema various entities contain.
+ */
+export type HierarchicalSchemaVersionRank = Node & DescribesSchema & {
+  __typename?: 'HierarchicalSchemaVersionRank';
+  /** The number of entities that implement this schema from this point in the hierarchy. */
+  count: Scalars['Int'];
+  id: Scalars['ID'];
+  /** A unique (per-namespace) value that names the schema within the system. */
+  identifier: Scalars['String'];
+  /** The kind of entity this schema applies to */
+  kind: SchemaKind;
+  /** A human-readable name for the schema */
+  name: Scalars['String'];
+  /** A unique namespace the schema lives in */
+  namespace: Scalars['String'];
+  /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
+  rank: Scalars['Int'];
+  /** A reference to the discrete schema definition */
+  schemaDefinition: SchemaDefinition;
+  /** A reference to the discrete schema version */
+  schemaVersion: SchemaVersion;
+  /** A fully-qualified unique value that can be used to refer to this schema within the system */
+  slug: Scalars['String'];
+  /** A semantic version associated with the schema */
+  versionNumber: Scalars['String'];
+};
+
+
 
 export type IntegerProperty = ScalarProperty & {
   __typename?: 'IntegerProperty';
@@ -2296,6 +2454,11 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  /**
+   * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+   * so it will first check the parent, then the grandparent, and so on.
+   */
+  ancestorOfType?: Maybe<AnyEntity>;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles?: Maybe<Array<Role>>;
   /** Assets owned by this entity */
@@ -2353,6 +2516,7 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
+  schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   slug: Scalars['Slug'];
   /** A description of the contents of the entity */
@@ -2406,6 +2570,12 @@ export type ItemAllAccessGrantsArgs = {
 
 
 /** An item that belongs to a collection */
+export type ItemAncestorOfTypeArgs = {
+  schema: Scalars['String'];
+};
+
+
+/** An item that belongs to a collection */
 export type ItemAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
@@ -2443,7 +2613,7 @@ export type ItemChildrenArgs = {
 
 /** An item that belongs to a collection */
 export type ItemContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2456,7 +2626,7 @@ export type ItemContributionsArgs = {
 
 /** An item that belongs to a collection */
 export type ItemContributorsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -2470,7 +2640,7 @@ export type ItemContributorsArgs = {
 
 /** An item that belongs to a collection */
 export type ItemItemsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3227,18 +3397,26 @@ export type OrderingSelectLinkDefinitionInput = {
 export type OrganizationContributor = Contributor & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
   bio?: Maybe<Scalars['String']>;
+  /** The total number of collection contributions from this contributor */
+  collectionContributionCount: Scalars['Int'];
   collectionContributions: CollectionContributionConnection;
+  /** The total number of contributions (item + collection) from this contributor */
+  contributionCount: Scalars['Int'];
   createdAt: Scalars['ISO8601DateTime'];
   email?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   identifier: Scalars['String'];
   /** An optional image associated with the contributor */
   image?: Maybe<AssetPreview>;
+  /** The total number of item contributions from this contributor */
+  itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
   legalName?: Maybe<Scalars['String']>;
   links: Array<ContributorLink>;
   location?: Maybe<Scalars['String']>;
+  /** A display name, independent of the type of contributor */
+  name: Scalars['String'];
   prefix?: Maybe<Scalars['String']>;
   slug: Scalars['Slug'];
   suffix?: Maybe<Scalars['String']>;
@@ -3249,7 +3427,7 @@ export type OrganizationContributor = Contributor & Node & Sluggable & {
 
 /** An organization that has made contributions */
 export type OrganizationContributorCollectionContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3262,7 +3440,7 @@ export type OrganizationContributorCollectionContributionsArgs = {
 
 /** An organization that has made contributions */
 export type OrganizationContributorItemContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3355,7 +3533,11 @@ export type PersonContributor = Contributor & Node & Sluggable & {
   __typename?: 'PersonContributor';
   affiliation?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
+  /** The total number of collection contributions from this contributor */
+  collectionContributionCount: Scalars['Int'];
   collectionContributions: CollectionContributionConnection;
+  /** The total number of contributions (item + collection) from this contributor */
+  contributionCount: Scalars['Int'];
   createdAt: Scalars['ISO8601DateTime'];
   email?: Maybe<Scalars['String']>;
   familyName?: Maybe<Scalars['String']>;
@@ -3364,9 +3546,13 @@ export type PersonContributor = Contributor & Node & Sluggable & {
   identifier: Scalars['String'];
   /** An optional image associated with the contributor */
   image?: Maybe<AssetPreview>;
+  /** The total number of item contributions from this contributor */
+  itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
   links: Array<ContributorLink>;
+  /** A display name, independent of the type of contributor */
+  name: Scalars['String'];
   prefix?: Maybe<Scalars['String']>;
   slug: Scalars['Slug'];
   suffix?: Maybe<Scalars['String']>;
@@ -3378,7 +3564,7 @@ export type PersonContributor = Contributor & Node & Sluggable & {
 
 /** A person that has made contributions */
 export type PersonContributorCollectionContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3391,7 +3577,7 @@ export type PersonContributorCollectionContributionsArgs = {
 
 /** A person that has made contributions */
 export type PersonContributorItemContributionsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributionOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3509,7 +3695,7 @@ export type QueryCollectionContributionArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryCommunitiesArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3534,7 +3720,7 @@ export type QueryContributorArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryContributorsArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -3572,7 +3758,7 @@ export type QueryNodesArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryRolesArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<RoleOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3635,7 +3821,7 @@ export type QueryUserArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryUsersArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<UserOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3776,6 +3962,18 @@ export type RoleEdge = {
   node: Role;
 };
 
+/** Sort roles by a specific property and order */
+export type RoleOrder =
+  /** Sort roles by newest created date */
+  | 'RECENT'
+  /** Sort roles by oldest created date */
+  | 'OLDEST'
+  /** Sort roles by their name A-Z */
+  | 'NAME_ASCENDING'
+  /** Sort roles by their name Z-A */
+  | 'NAME_DESCENDING'
+  | '%future added value';
+
 export type ScalarProperty = {
   fullPath: Scalars['String'];
   isWide: Scalars['Boolean'];
@@ -3886,14 +4084,19 @@ export type SchemaValueError = {
 };
 
 /** A specific version of a schema definition */
-export type SchemaVersion = HasSchemaProperties & Node & Sluggable & {
+export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Sluggable & {
   __typename?: 'SchemaVersion';
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
+  /** A unique (per-namespace) value that names the schema within the system. */
   identifier: Scalars['String'];
+  /** The kind of entity this schema applies to */
   kind: SchemaKind;
+  /** A human-readable name for the schema */
   name: Scalars['String'];
+  /** A unique namespace the schema lives in */
   namespace: Scalars['String'];
+  /** A semantic version for the schema */
   number: Scalars['String'];
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
@@ -3963,8 +4166,11 @@ export type SelectProperty = ScalarProperty & OptionableProperty & {
   type: Scalars['String'];
 };
 
+/** A generic enum for sorting models that don't have anything more specific implemented */
 export type SimpleOrder =
+  /** Sort models by newest created date */
   | 'RECENT'
+  /** Sort models by oldest created date */
   | 'OLDEST'
   | '%future added value';
 
@@ -4544,7 +4750,7 @@ export type UserCollectionAccessGrantsArgs = {
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCollectionsArgs = {
   access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -4560,7 +4766,7 @@ export type UserCollectionsArgs = {
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCommunitiesArgs = {
   access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -4602,7 +4808,7 @@ export type UserItemAccessGrantsArgs = {
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserItemsArgs = {
   access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
@@ -4830,7 +5036,7 @@ export type UserGroupItemAccessGrantsArgs = {
 
 /** Not presently exposed through the API. */
 export type UserGroupUsersArgs = {
-  order?: Maybe<SimpleOrder>;
+  order?: Maybe<UserOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -5008,6 +5214,26 @@ export type UserItemAccessGrantEdge = {
   node: UserItemAccessGrant;
 };
 
+/** Sort users by a specific property and order */
+export type UserOrder =
+  /** Sort users by newest created date */
+  | 'RECENT'
+  /** Sort users by oldest created date */
+  | 'OLDEST'
+  /** Sort users with admins pushed to the top, followed by name A-Z */
+  | 'ADMINS_FIRST'
+  /** Sort users with admins pushed to the top, followed by recent */
+  | 'ADMINS_RECENT'
+  /** Sort users by their name A-Z */
+  | 'NAME_ASCENDING'
+  /** Sort users by their name Z-A */
+  | 'NAME_DESCENDING'
+  /** Sort users by their email A-Z */
+  | 'EMAIL_ASCENDING'
+  /** Sort users by their email Z-A */
+  | 'EMAIL_DESCENDING'
+  | '%future added value';
+
 /** A mapping of attributes for a user to update in the authentication provider. */
 export type UserProfileInput = {
   givenName: Scalars['String'];
@@ -5044,6 +5270,10 @@ export type VariablePrecisionDate = {
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
+export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -5056,6 +5286,7 @@ export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
   | ResolverFn<TResult, TParent, TContext, TArgs>
+  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
   | StitchingResolver<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
@@ -5174,7 +5405,7 @@ export type ResolversTypes = {
   AssetsProperty: ResolverTypeWrapper<Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversTypes['AnyAsset']> }>;
   Attachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   BooleanProperty: ResolverTypeWrapper<BooleanProperty>;
-  Collection: ResolverTypeWrapper<Omit<Collection, 'parent' | 'schemaProperties'> & { parent?: Maybe<ResolversTypes['CollectionParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
+  Collection: ResolverTypeWrapper<Omit<Collection, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['CollectionParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
   CollectionConnection: ResolverTypeWrapper<CollectionConnection>;
   CollectionContribution: ResolverTypeWrapper<Omit<CollectionContribution, 'contributor'> & { contributor: ResolversTypes['AnyContributor'] }>;
   CollectionContributionConnection: ResolverTypeWrapper<CollectionContributionConnection>;
@@ -5192,11 +5423,13 @@ export type ResolversTypes = {
   Contribution: ResolversTypes['CollectionContribution'] | ResolversTypes['ItemContribution'];
   ContributionMetadata: ResolverTypeWrapper<ContributionMetadata>;
   ContributionMetadataInput: ContributionMetadataInput;
+  ContributionOrder: ContributionOrder;
   Contributor: ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'];
   ContributorFilterKind: ContributorFilterKind;
   ContributorKind: ContributorKind;
   ContributorLink: ResolverTypeWrapper<ContributorLink>;
   ContributorLinkInput: ContributorLinkInput;
+  ContributorOrder: ContributorOrder;
   ContributorProperty: ResolverTypeWrapper<Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<ResolversTypes['AnyContributor']> }>;
   ContributorSelectOption: ResolverTypeWrapper<ContributorSelectOption>;
   ContributorsProperty: ResolverTypeWrapper<Omit<ContributorsProperty, 'contributors'> & { contributors: Array<ResolversTypes['AnyContributor']> }>;
@@ -5220,6 +5453,7 @@ export type ResolversTypes = {
   CreateRolePayload: ResolverTypeWrapper<CreateRolePayload>;
   DatePrecision: DatePrecision;
   DateProperty: ResolverTypeWrapper<DateProperty>;
+  DescribesSchema: ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['SchemaVersion'];
   DestroyAssetInput: DestroyAssetInput;
   DestroyAssetPayload: ResolverTypeWrapper<DestroyAssetPayload>;
   DestroyCollectionInput: DestroyCollectionInput;
@@ -5249,6 +5483,7 @@ export type ResolversTypes = {
   EntityLinkEdge: ResolverTypeWrapper<EntityLinkEdge>;
   EntityLinkOperator: EntityLinkOperator;
   EntityLinkScope: EntityLinkScope;
+  EntityOrder: EntityOrder;
   EntityPermissionFilter: EntityPermissionFilter;
   EntityVisibility: EntityVisibility;
   ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
@@ -5262,10 +5497,12 @@ export type ResolversTypes = {
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
   HierarchicalEntry: ResolversTypes['Collection'] | ResolversTypes['Item'];
+  HierarchicalSchemaRank: ResolverTypeWrapper<HierarchicalSchemaRank>;
+  HierarchicalSchemaVersionRank: ResolverTypeWrapper<HierarchicalSchemaVersionRank>;
   ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
   ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']>;
   IntegerProperty: ResolverTypeWrapper<IntegerProperty>;
-  Item: ResolverTypeWrapper<Omit<Item, 'parent' | 'schemaProperties'> & { parent?: Maybe<ResolversTypes['ItemParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
+  Item: ResolverTypeWrapper<Omit<Item, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['ItemParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
   ItemConnection: ResolverTypeWrapper<ItemConnection>;
   ItemContribution: ResolverTypeWrapper<Omit<ItemContribution, 'contributor'> & { contributor: ResolversTypes['AnyContributor'] }>;
   ItemContributionConnection: ResolverTypeWrapper<ItemContributionConnection>;
@@ -5286,7 +5523,7 @@ export type ResolversTypes = {
   MutationAttributeError: ResolverTypeWrapper<MutationAttributeError>;
   MutationErrorScope: MutationErrorScope;
   MutationGlobalError: ResolverTypeWrapper<MutationGlobalError>;
-  Node: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  Node: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   NullOrderPriority: NullOrderPriority;
   OptionableProperty: ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'];
   OrderDefinitionInput: OrderDefinitionInput;
@@ -5325,6 +5562,7 @@ export type ResolversTypes = {
   Role: ResolverTypeWrapper<Role>;
   RoleConnection: ResolverTypeWrapper<RoleConnection>;
   RoleEdge: ResolverTypeWrapper<RoleEdge>;
+  RoleOrder: RoleOrder;
   ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
@@ -5406,6 +5644,7 @@ export type ResolversTypes = {
   UserItemAccessGrant: ResolverTypeWrapper<Omit<UserItemAccessGrant, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   UserItemAccessGrantConnection: ResolverTypeWrapper<UserItemAccessGrantConnection>;
   UserItemAccessGrantEdge: ResolverTypeWrapper<UserItemAccessGrantEdge>;
+  UserOrder: UserOrder;
   UserProfileInput: UserProfileInput;
   VariableDateProperty: ResolverTypeWrapper<VariableDateProperty>;
   VariablePrecisionDate: ResolverTypeWrapper<VariablePrecisionDate>;
@@ -5466,7 +5705,7 @@ export type ResolversParentTypes = {
   AssetsProperty: Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversParentTypes['AnyAsset']> };
   Attachable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   BooleanProperty: BooleanProperty;
-  Collection: Omit<Collection, 'parent' | 'schemaProperties'> & { parent?: Maybe<ResolversParentTypes['CollectionParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
+  Collection: Omit<Collection, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['CollectionParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
   CollectionConnection: CollectionConnection;
   CollectionContribution: Omit<CollectionContribution, 'contributor'> & { contributor: ResolversParentTypes['AnyContributor'] };
   CollectionContributionConnection: CollectionContributionConnection;
@@ -5508,6 +5747,7 @@ export type ResolversParentTypes = {
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: CreateRolePayload;
   DateProperty: DateProperty;
+  DescribesSchema: ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['SchemaVersion'];
   DestroyAssetInput: DestroyAssetInput;
   DestroyAssetPayload: DestroyAssetPayload;
   DestroyCollectionInput: DestroyCollectionInput;
@@ -5543,10 +5783,12 @@ export type ResolversParentTypes = {
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
   HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
   HierarchicalEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
+  HierarchicalSchemaRank: HierarchicalSchemaRank;
+  HierarchicalSchemaVersionRank: HierarchicalSchemaVersionRank;
   ISO8601Date: Scalars['ISO8601Date'];
   ISO8601DateTime: Scalars['ISO8601DateTime'];
   IntegerProperty: IntegerProperty;
-  Item: Omit<Item, 'parent' | 'schemaProperties'> & { parent?: Maybe<ResolversParentTypes['ItemParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
+  Item: Omit<Item, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['ItemParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
   ItemConnection: ItemConnection;
   ItemContribution: Omit<ItemContribution, 'contributor'> & { contributor: ResolversParentTypes['AnyContributor'] };
   ItemContributionConnection: ItemContributionConnection;
@@ -5564,7 +5806,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   MutationAttributeError: MutationAttributeError;
   MutationGlobalError: MutationGlobalError;
-  Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   OptionableProperty: ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'];
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: Omit<Ordering, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
@@ -6047,6 +6289,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorOfTypeArgs, 'schema'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6083,6 +6326,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+  schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6171,6 +6415,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+  schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
@@ -6249,13 +6494,17 @@ export type ContributionMetadataResolvers<ContextType = any, ParentType extends 
 export type ContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contributor'] = ResolversParentTypes['Contributor']> = {
   __resolveType: TypeResolveFn<'OrganizationContributor' | 'PersonContributor', ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   collectionContributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<ContributorCollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6398,6 +6647,14 @@ export type DatePropertyResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type DescribesSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescribesSchema'] = ResolversParentTypes['DescribesSchema']> = {
+  __resolveType: TypeResolveFn<'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'SchemaVersion', ParentType, ContextType>;
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  namespace?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
 export type DestroyAssetPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['DestroyAssetPayload'] = ResolversParentTypes['DestroyAssetPayload']> = {
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6538,6 +6795,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+  schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
 };
@@ -6648,6 +6906,7 @@ export type HasSchemaPropertiesResolvers<ContextType = any, ParentType extends R
 export type HierarchicalEntryResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalEntry'] = ResolversParentTypes['HierarchicalEntry']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<HierarchicalEntryAncestorOfTypeArgs, 'schema'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6666,6 +6925,36 @@ export type HierarchicalEntryResolvers<ContextType = any, ParentType extends Res
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibleAfterAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   visibleUntilAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
+};
+
+export type HierarchicalSchemaRankResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalSchemaRank'] = ResolversParentTypes['HierarchicalSchemaRank']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  distinctVersionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  namespace?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rank?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  versionRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaVersionRank']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HierarchicalSchemaVersionRankResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalSchemaVersionRank'] = ResolversParentTypes['HierarchicalSchemaVersionRank']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  namespace?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  rank?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  versionNumber?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface Iso8601DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ISO8601Date'], any> {
@@ -6694,6 +6983,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorOfTypeArgs, 'schema'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6729,6 +7019,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+  schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6910,7 +7201,7 @@ export type MutationGlobalErrorResolvers<ContextType = any, ParentType extends R
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'Collection' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'EntityBreadcrumb' | 'EntityLink' | 'Item' | 'ItemContribution' | 'LinkTargetCandidate' | 'Ordering' | 'OrderingEntry' | 'OrganizationContributor' | 'Page' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'Collection' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'EntityBreadcrumb' | 'EntityLink' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemContribution' | 'LinkTargetCandidate' | 'Ordering' | 'OrderingEntry' | 'OrganizationContributor' | 'Page' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -6974,17 +7265,21 @@ export type OrderingEntryEdgeResolvers<ContextType = any, ParentType extends Res
 
 export type OrganizationContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrganizationContributor'] = ResolversParentTypes['OrganizationContributor']> = {
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   collectionContributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<OrganizationContributorCollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<OrganizationContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   legalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -7047,7 +7342,9 @@ export type PermissionGrantResolvers<ContextType = any, ParentType extends Resol
 export type PersonContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['PersonContributor'] = ResolversParentTypes['PersonContributor']> = {
   affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   collectionContributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<PersonContributorCollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -7055,9 +7352,11 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<PersonContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -7850,6 +8149,7 @@ export type Resolvers<ContextType = any> = {
   CreatePersonContributorPayload?: CreatePersonContributorPayloadResolvers<ContextType>;
   CreateRolePayload?: CreateRolePayloadResolvers<ContextType>;
   DateProperty?: DatePropertyResolvers<ContextType>;
+  DescribesSchema?: DescribesSchemaResolvers<ContextType>;
   DestroyAssetPayload?: DestroyAssetPayloadResolvers<ContextType>;
   DestroyCollectionPayload?: DestroyCollectionPayloadResolvers<ContextType>;
   DestroyCommunityPayload?: DestroyCommunityPayloadResolvers<ContextType>;
@@ -7874,6 +8174,8 @@ export type Resolvers<ContextType = any> = {
   GroupProperty?: GroupPropertyResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HierarchicalEntry?: HierarchicalEntryResolvers<ContextType>;
+  HierarchicalSchemaRank?: HierarchicalSchemaRankResolvers<ContextType>;
+  HierarchicalSchemaVersionRank?: HierarchicalSchemaVersionRankResolvers<ContextType>;
   ISO8601Date?: GraphQLScalarType;
   ISO8601DateTime?: GraphQLScalarType;
   IntegerProperty?: IntegerPropertyResolvers<ContextType>;

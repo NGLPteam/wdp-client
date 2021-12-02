@@ -29,7 +29,7 @@ type Props = {
 
 const query = graphql`
   query itemsSlugItemsPagesQuery(
-    $order: SimpleOrder!
+    $order: EntityOrder
     $page: Int!
     $itemSlug: Slug!
   ) {

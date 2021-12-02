@@ -21,7 +21,7 @@ export default function CommunityListView() {
 }
 
 const query = graphql`
-  query communitiesQuery($order: SimpleOrder!, $page: Int!) {
+  query communitiesQuery($order: EntityOrder, $page: Int!) {
     communities(order: $order, page: $page, perPage: 20) {
       ...CommunityListFragment
     }

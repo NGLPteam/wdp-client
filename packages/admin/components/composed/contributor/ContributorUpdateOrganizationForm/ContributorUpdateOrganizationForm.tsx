@@ -44,22 +44,24 @@ export default function ContributorUpdateOrganizationForm({
       <Forms.Grid>
         <Forms.Input
           label="forms.fields.legal_name"
+          isWide
           {...register("legalName")}
         />
         <Forms.Email
           label="forms.fields.email"
-          {...register("email")}
           description="Format: example@email.com"
+          isWide
+          {...register("email")}
         />
+        <Forms.Input label="forms.fields.location" {...register("location")} />
+        <Forms.Input label="forms.fields.url" {...register("url")} />
         <Forms.FileUpload
           label="forms.fields.image"
           name="image"
           image={image?.thumb}
           clearName="clearImage"
         />
-        <Forms.Input label="forms.fields.location" {...register("location")} />
         <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
-        <Forms.Input label="forms.fields.url" {...register("url")} />
         <Forms.LinksRepeater
           label="forms.fields.links"
           itemLabel="forms.fields.link"

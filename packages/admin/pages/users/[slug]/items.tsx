@@ -30,7 +30,7 @@ type Props = {
 const query = graphql`
   query itemsManageSlugUsersPagesQuery(
     $userSlug: Slug!
-    $order: SimpleOrder!
+    $order: SimpleOrder
     $page: Int!
   ) {
     user(slug: $userSlug) {

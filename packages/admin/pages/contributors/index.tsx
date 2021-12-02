@@ -17,7 +17,7 @@ export default function ContributorListView() {
 }
 
 const query = graphql`
-  query contributorsQuery($order: SimpleOrder!, $page: Int!) {
+  query contributorsQuery($order: ContributorOrder, $page: Int!) {
     contributors(order: $order, page: $page, perPage: 20) {
       ...ContributorListFragment
     }

@@ -5,9 +5,9 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
+export type UserOrder = "ADMINS_FIRST" | "ADMINS_RECENT" | "EMAIL_ASCENDING" | "EMAIL_DESCENDING" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
 export type usersQueryVariables = {
-    order: SimpleOrder;
+    order?: UserOrder | null | undefined;
     page: number;
 };
 export type usersQueryResponse = {
@@ -24,7 +24,7 @@ export type usersQuery = {
 
 /*
 query usersQuery(
-  $order: SimpleOrder!
+  $order: UserOrder
   $page: Int!
 ) {
   users(order: $order, page: $page, perPage: 20) {
@@ -334,14 +334,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e37adf89138a1945156aa13fa7f41776",
+    "cacheID": "fccb3a2a01d425dcc7d31d46c7c31688",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnCellFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n"
+    "text": "query usersQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnCellFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'd1c5fcc75f1583313af5dd4e823cce35';
+(node as any).hash = '24980963498e8aeb38912fa4ae5148c6';
 export default node;

@@ -5038,6 +5038,35 @@
             "deprecationReason": null
           },
           {
+            "name": "ancestorOfType",
+            "description": "Look up an ancestor for this entity that implements a specific type. It ascends from this entity,\nso it will first check the parent, then the grandparent, and so on.\n",
+            "args": [
+              {
+                "name": "schema",
+                "description": "A fully-qualified name of a schema to look for.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "UNION",
+              "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "applicableRoles",
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
@@ -5425,10 +5454,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -5562,10 +5591,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -5683,10 +5712,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributorOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "NAME_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -5968,16 +5997,16 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
               {
                 "name": "schema",
-                "description": null,
+                "description": "Filter by a namespace.name schema identifier",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -6798,6 +6827,30 @@
                   "ofType": {
                     "kind": "UNION",
                     "name": "AnySchemaProperty",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaRanks",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HierarchicalSchemaRank",
                     "ofType": null
                   }
                 }
@@ -8346,16 +8399,16 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
               {
                 "name": "schema",
-                "description": null,
+                "description": "Filter by a namespace.name schema identifier",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -9192,6 +9245,30 @@
                   "ofType": {
                     "kind": "UNION",
                     "name": "AnySchemaProperty",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaRanks",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HierarchicalSchemaRank",
                     "ofType": null
                   }
                 }
@@ -10072,10 +10149,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributorOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "NAME_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10466,6 +10543,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "ContributionOrder",
+        "description": "Sort contributions by various properties and directions",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "RECENT",
+            "description": "Sort contributors by newest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort contributors by oldest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TARGET_TITLE_ASCENDING",
+            "description": "Sort contributors by their target's title A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TARGET_TITLE_DESCENDING",
+            "description": "Sort contributors by their target's title Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "Contributor",
         "description": "A contributor who has made a contribution",
@@ -10483,6 +10595,22 @@
             "deprecationReason": null
           },
           {
+            "name": "collectionContributionCount",
+            "description": "The total number of collection contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "collectionContributions",
             "description": null,
             "args": [
@@ -10491,10 +10619,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10604,6 +10732,22 @@
             "deprecationReason": null
           },
           {
+            "name": "contributionCount",
+            "description": "The total number of contributions (item + collection) from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "email",
             "description": null,
             "args": [],
@@ -10644,6 +10788,22 @@
             "deprecationReason": null
           },
           {
+            "name": "itemContributionCount",
+            "description": "The total number of item contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "itemContributions",
             "description": null,
             "args": [
@@ -10652,10 +10812,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10799,6 +10959,22 @@
                     "ofType": null
                   }
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A display name, independent of the type of contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -10993,6 +11169,65 @@
         ],
         "interfaces": null,
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ContributorOrder",
+        "description": "Sort contributors by various properties and directions",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "RECENT",
+            "description": "Sort contributors by newest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort contributors by oldest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MOST_CONTRIBUTIONS",
+            "description": "Sort contributors by most contributions, then fall back to name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LEAST_CONTRIBUTIONS",
+            "description": "Sort contributors by least contributions, then fall back to name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_ASCENDING",
+            "description": "Sort contributors by name A-Z. For people, this currently uses western naming order (family name, given name).",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_DESCENDING",
+            "description": "Sort contributors by name Z-A. For people, this currently uses western naming order (family name, given name).",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "AFFILIATION_ASCENDING",
+            "description": "Sort contributors by affiliation A-Z, then fall back to name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "AFFILIATION_DESCENDING",
+            "description": "Sort contributors by affiliation Z-A, then fall back to name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -13663,6 +13898,97 @@
         ],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "DescribesSchema",
+        "description": "An interface used to describe a schema definition, whether for a discrete\ntype or in some aggregate.\n",
+        "fields": [
+          {
+            "name": "identifier",
+            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The kind of entity this schema applies to",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A human-readable name for the schema",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "namespace",
+            "description": "A unique namespace the schema lives in",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "HierarchicalSchemaRank",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HierarchicalSchemaVersionRank",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SchemaVersion",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "INPUT_OBJECT",
@@ -16592,6 +16918,30 @@
             "deprecationReason": null
           },
           {
+            "name": "schemaRanks",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HierarchicalSchemaRank",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "schemaVersion",
             "description": null,
             "args": [],
@@ -17211,6 +17561,65 @@
           {
             "name": "ITEM_LINKED_ITEM",
             "description": "A link to an item from another item",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "EntityOrder",
+        "description": "Sort entities by a specific property and order",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "RECENT",
+            "description": "Sort entities by newest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort entities by oldest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PUBLISHED_ASCENDING",
+            "description": "Sort entities by oldest published date (or OLDEST for communities)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PUBLISHED_DESCENDING",
+            "description": "Sort entities by newest published date (or RECENT for communities)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TITLE_ASCENDING",
+            "description": "Sort entities by title A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TITLE_DESCENDING",
+            "description": "Sort entities by title Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEMA_NAME_ASCENDING",
+            "description": "Sort entities by the name of their schema A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEMA_NAME_DESCENDING",
+            "description": "Sort entities by the name of their schema Z-A",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -18090,6 +18499,35 @@
             "deprecationReason": null
           },
           {
+            "name": "ancestorOfType",
+            "description": "Look up an ancestor for this entity that implements a specific type. It ascends from this entity,\nso it will first check the parent, then the grandparent, and so on.\n",
+            "args": [
+              {
+                "name": "schema",
+                "description": "A fully-qualified name of a schema to look for.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "UNION",
+              "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "available",
             "description": "The date this entity was made available",
             "args": [],
@@ -18369,6 +18807,410 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HierarchicalSchemaRank",
+        "description": "A ranking of a schema from a certain point in the hierarchy. This can be used to generate\nnavigation or calculate statistics about what various entities contain.\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The number of entities that implement this schema from this point in the hierarchy.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "distinctVersionCount",
+            "description": "A count of distinct versions of this specific schema type from this point of the hierarchy.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The kind of entity this schema applies to",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A human-readable name for the schema",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "namespace",
+            "description": "A unique namespace the schema lives in",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rank",
+            "description": "The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaDefinition",
+            "description": "A reference to the discrete schema definition",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": "A fully-qualified unique value that can be used to refer to this schema within the system",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "versionRanks",
+            "description": "A reference to the schema versions from this ranking",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HierarchicalSchemaVersionRank",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "DescribesSchema",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HierarchicalSchemaVersionRank",
+        "description": "A ranking of a schema version from a certain point in the hierarchy. This can be used to generate\nnavigation or calculate statistics about what versions of a schema various entities contain.\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The number of entities that implement this schema from this point in the hierarchy.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The kind of entity this schema applies to",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A human-readable name for the schema",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "namespace",
+            "description": "A unique namespace the schema lives in",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rank",
+            "description": "The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaDefinition",
+            "description": "A reference to the discrete schema definition",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersion",
+            "description": "A reference to the discrete schema version",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": "A fully-qualified unique value that can be used to refer to this schema within the system",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "versionNumber",
+            "description": "A semantic version associated with the schema",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "DescribesSchema",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "SCALAR",
@@ -18851,6 +19693,35 @@
             "deprecationReason": null
           },
           {
+            "name": "ancestorOfType",
+            "description": "Look up an ancestor for this entity that implements a specific type. It ascends from this entity,\nso it will first check the parent, then the grandparent, and so on.\n",
+            "args": [
+              {
+                "name": "schema",
+                "description": "A fully-qualified name of a schema to look for.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "UNION",
+              "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "applicableRoles",
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
@@ -19270,10 +20141,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -19391,10 +20262,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributorOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "NAME_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -19660,10 +20531,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -20458,6 +21329,30 @@
                   "ofType": {
                     "kind": "UNION",
                     "name": "AnySchemaProperty",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaRanks",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HierarchicalSchemaRank",
                     "ofType": null
                   }
                 }
@@ -23572,6 +24467,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "HierarchicalSchemaRank",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HierarchicalSchemaVersionRank",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "Item",
             "ofType": null
           },
@@ -24620,6 +25525,22 @@
             "deprecationReason": null
           },
           {
+            "name": "collectionContributionCount",
+            "description": "The total number of collection contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "collectionContributions",
             "description": null,
             "args": [
@@ -24628,10 +25549,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -24741,6 +25662,22 @@
             "deprecationReason": null
           },
           {
+            "name": "contributionCount",
+            "description": "The total number of contributions (item + collection) from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -24813,6 +25750,22 @@
             "deprecationReason": null
           },
           {
+            "name": "itemContributionCount",
+            "description": "The total number of item contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "itemContributions",
             "description": null,
             "args": [
@@ -24821,10 +25774,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -24993,6 +25946,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A display name, independent of the type of contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -25775,6 +26744,22 @@
             "deprecationReason": null
           },
           {
+            "name": "collectionContributionCount",
+            "description": "The total number of collection contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "collectionContributions",
             "description": null,
             "args": [
@@ -25783,10 +26768,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -25896,6 +26881,22 @@
             "deprecationReason": null
           },
           {
+            "name": "contributionCount",
+            "description": "The total number of contributions (item + collection) from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -25992,6 +26993,22 @@
             "deprecationReason": null
           },
           {
+            "name": "itemContributionCount",
+            "description": "The total number of item contributions from this contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "itemContributions",
             "description": null,
             "args": [
@@ -26000,10 +27017,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributionOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "TARGET_TITLE_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -26147,6 +27164,22 @@
                     "ofType": null
                   }
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A display name, independent of the type of contributor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -26723,10 +27756,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -26902,10 +27935,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "ContributorOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "NAME_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -27167,10 +28200,10 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "RoleOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "NAME_ASCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -27646,7 +28679,7 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "UserOrder",
                   "ofType": null
                 },
                 "defaultValue": "RECENT",
@@ -28803,6 +29836,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "RoleOrder",
+        "description": "Sort roles by a specific property and order",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "RECENT",
+            "description": "Sort roles by newest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort roles by oldest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_ASCENDING",
+            "description": "Sort roles by their name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_DESCENDING",
+            "description": "Sort roles by their name Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "ScalarProperty",
         "description": null,
@@ -29774,7 +30842,7 @@
           },
           {
             "name": "identifier",
-            "description": null,
+            "description": "A unique (per-namespace) value that names the schema within the system.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -29790,7 +30858,7 @@
           },
           {
             "name": "kind",
-            "description": null,
+            "description": "The kind of entity this schema applies to",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -29806,7 +30874,7 @@
           },
           {
             "name": "name",
-            "description": null,
+            "description": "A human-readable name for the schema",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -29822,7 +30890,7 @@
           },
           {
             "name": "namespace",
-            "description": null,
+            "description": "A unique namespace the schema lives in",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -29838,7 +30906,7 @@
           },
           {
             "name": "number",
-            "description": null,
+            "description": "A semantic version for the schema",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -29927,6 +30995,11 @@
         ],
         "inputFields": null,
         "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "DescribesSchema",
+            "ofType": null
+          },
           {
             "kind": "INTERFACE",
             "name": "HasSchemaProperties",
@@ -30444,20 +31517,20 @@
       {
         "kind": "ENUM",
         "name": "SimpleOrder",
-        "description": null,
+        "description": "A generic enum for sorting models that don't have anything more specific implemented",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "RECENT",
-            "description": null,
+            "description": "Sort models by newest created date",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "OLDEST",
-            "description": null,
+            "description": "Sort models by oldest created date",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -35067,16 +36140,16 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
               {
                 "name": "schema",
-                "description": null,
+                "description": "Filter by a namespace.name schema identifier",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -35232,16 +36305,16 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
               {
                 "name": "schema",
-                "description": null,
+                "description": "Filter by a namespace.name schema identifier",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -35739,16 +36812,16 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "EntityOrder",
                   "ofType": null
                 },
-                "defaultValue": "RECENT",
+                "defaultValue": "PUBLISHED_DESCENDING",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
               {
                 "name": "schema",
-                "description": null,
+                "description": "Filter by a namespace.name schema identifier",
                 "type": {
                   "kind": "LIST",
                   "name": null,
@@ -37659,7 +38732,7 @@
                 "description": null,
                 "type": {
                   "kind": "ENUM",
-                  "name": "SimpleOrder",
+                  "name": "UserOrder",
                   "ofType": null
                 },
                 "defaultValue": "RECENT",
@@ -39085,6 +40158,65 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "UserOrder",
+        "description": "Sort users by a specific property and order",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "RECENT",
+            "description": "Sort users by newest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort users by oldest created date",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ADMINS_FIRST",
+            "description": "Sort users with admins pushed to the top, followed by name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ADMINS_RECENT",
+            "description": "Sort users with admins pushed to the top, followed by recent",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_ASCENDING",
+            "description": "Sort users by their name A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAME_DESCENDING",
+            "description": "Sort users by their name Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "EMAIL_ASCENDING",
+            "description": "Sort users by their email A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "EMAIL_DESCENDING",
+            "description": "Sort users by their email Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "UserProfileInput",
         "description": "A mapping of attributes for a user to update in the authentication provider.\n",
@@ -40065,7 +41197,20 @@
           {
             "name": "args",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "includeDeprecated",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,
