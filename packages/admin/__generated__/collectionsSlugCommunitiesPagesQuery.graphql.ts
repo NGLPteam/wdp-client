@@ -5,9 +5,9 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
+export type EntityOrder = "OLDEST" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
 export type collectionsSlugCommunitiesPagesQueryVariables = {
-    order: SimpleOrder;
+    order?: EntityOrder | null | undefined;
     page: number;
     communitySlug: string;
 };
@@ -28,7 +28,7 @@ export type collectionsSlugCommunitiesPagesQuery = {
 
 /*
 query collectionsSlugCommunitiesPagesQuery(
-  $order: SimpleOrder!
+  $order: EntityOrder
   $page: Int!
   $communitySlug: Slug!
 ) {
@@ -448,14 +448,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8ee815e384514c6fb9a4358bb7bc0e11",
+    "cacheID": "2f8c88eb19ce56001ac383d68842e015",
     "id": null,
     "metadata": {},
     "name": "collectionsSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: SimpleOrder!\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsSlugCommunitiesPagesQuery(\n  $order: EntityOrder\n  $page: Int!\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f7b37a764f4867813ad25a31858f4787';
+(node as any).hash = 'e8e97c3618f57495389d97d5d0a72eb1';
 export default node;

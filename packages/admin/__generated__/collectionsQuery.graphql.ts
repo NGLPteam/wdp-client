@@ -5,9 +5,9 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
+export type EntityOrder = "OLDEST" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
 export type collectionsQueryVariables = {
-    order: SimpleOrder;
+    order?: EntityOrder | null | undefined;
     page: number;
 };
 export type collectionsQueryResponse = {
@@ -26,7 +26,7 @@ export type collectionsQuery = {
 
 /*
 query collectionsQuery(
-  $order: SimpleOrder!
+  $order: EntityOrder
   $page: Int!
 ) {
   viewer {
@@ -397,14 +397,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6cd9826f4649b2f5fd1fa516385cfe31",
+    "cacheID": "f7f288119f8e0cf21598d9b03f90b15a",
     "id": null,
     "metadata": {},
     "name": "collectionsQuery",
     "operationKind": "query",
-    "text": "query collectionsQuery(\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '66bd9a4ca9334a687973047ea4909c01';
+(node as any).hash = '714ce510d4cdfce9913e9ad4850f4705';
 export default node;

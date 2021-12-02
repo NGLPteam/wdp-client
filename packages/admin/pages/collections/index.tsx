@@ -16,7 +16,7 @@ export default function CollectionListView() {
 }
 
 const query = graphql`
-  query collectionsQuery($order: SimpleOrder!, $page: Int!) {
+  query collectionsQuery($order: EntityOrder, $page: Int!) {
     viewer {
       collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment

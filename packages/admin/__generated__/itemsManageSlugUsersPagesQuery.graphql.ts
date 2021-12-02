@@ -8,7 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type itemsManageSlugUsersPagesQueryVariables = {
     userSlug: string;
-    order: SimpleOrder;
+    order?: SimpleOrder | null | undefined;
     page: number;
 };
 export type itemsManageSlugUsersPagesQueryResponse = {
@@ -29,7 +29,7 @@ export type itemsManageSlugUsersPagesQuery = {
 /*
 query itemsManageSlugUsersPagesQuery(
   $userSlug: Slug!
-  $order: SimpleOrder!
+  $order: SimpleOrder
   $page: Int!
 ) {
   user(slug: $userSlug) {
@@ -451,14 +451,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5fff2354c36950ae5de02c63e85dc968",
+    "cacheID": "0e4a30595a9db7d7f993eb5e279c3545",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder!\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();
-(node as any).hash = '0ce6475444d16f2dc7e473e13c913984';
+(node as any).hash = '99cde25aa9a6eae56f151cedd8db7344';
 export default node;

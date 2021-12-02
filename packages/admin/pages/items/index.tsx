@@ -19,7 +19,7 @@ export default function ItemListView() {
 }
 
 const query = graphql`
-  query itemsQuery($order: SimpleOrder!, $page: Int!) {
+  query itemsQuery($order: EntityOrder, $page: Int!) {
     viewer {
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
