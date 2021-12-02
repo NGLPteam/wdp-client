@@ -13,13 +13,7 @@ export type ArticleHeroFragment = {
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
     readonly contributions: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly contributor: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-                };
-            };
-        }>;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
     };
     readonly " $refType": "ArticleHeroFragment";
 };
@@ -83,42 +77,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "ItemContributionEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ItemContribution",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": null,
-                  "kind": "LinkedField",
-                  "name": "contributor",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "ContributorNameFragment"
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "ContributorsListFragment"
         }
       ],
       "storageKey": null
@@ -127,5 +88,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '2a1ec0455eef9a58a6ad77e0cad86f08';
+(node as any).hash = '31aa29f024539a840575be86bc6f89ed';
 export default node;

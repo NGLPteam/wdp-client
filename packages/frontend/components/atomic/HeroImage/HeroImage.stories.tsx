@@ -1,5 +1,5 @@
 import { Story } from "@storybook/react";
-import { HeroImageBase } from "./HeroImage";
+import HeroImageBase from "./HeroImageBase";
 import { baseColors } from "theme/base/variables";
 
 type Props = React.ComponentProps<typeof HeroImageBase>;

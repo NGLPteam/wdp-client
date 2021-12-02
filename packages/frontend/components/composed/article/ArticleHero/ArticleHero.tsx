@@ -2,12 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
-import {
-  ArticleHeroFragment$data,
-  ArticleHeroFragment$key,
-} from "@/relay/ArticleHeroFragment.graphql";
+import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 import { Button, PrecisionDate } from "components/atomic";
-import ContributorName from "components/composed/contributor/ContributorName";
+import ContributorsList from "components/composed/contributor/ContributorsList";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
@@ -21,14 +18,10 @@ export default function ArticleHero({ data }: Props) {
             <h4 className="t-copy-italic">Article Subtitle Goes Here</h4>
           </Styled.TitleBlock>
           <Styled.DataBlock>
-            {article.contributions.edges.map(
-              ({ node }: ContributionNode, i: number) => (
-                <strong key={i}>
-                  <ContributorName data={node.contributor} />
-                  {i < article.contributions.edges.length - 1 && ", "}
-                </strong>
-              )
-            )}
+            <ContributorsList
+              className="t-copy-medium"
+              data={article.contributions}
+            />
             <p className="t-copy-lighter">
               {article.published && (
                 <PrecisionDate
@@ -59,8 +52,6 @@ interface Props {
   data?: ArticleHeroFragment$key | null;
 }
 
-type ContributionNode = ArticleHeroFragment$data["contributions"]["edges"][number];
-
 const fragment = graphql`
   fragment ArticleHeroFragment on Item {
     title
@@ -70,13 +61,7 @@ const fragment = graphql`
       ...PrecisionDateFragment
     }
     contributions {
-      edges {
-        node {
-          contributor {
-            ...ContributorNameFragment
-          }
-        }
-      }
+      ...ContributorsListFragment
     }
   }
 `;

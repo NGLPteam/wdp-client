@@ -6,3 +6,4 @@ export { default as Dropdown } from "./Dropdown";
 export { default as HeroImage } from "./HeroImage";
 export { default as PrecisionDate } from "./PrecisionDate";
 export { default as SearchButton } from "./SearchButton";
+export { default as SquareThumbnail } from "./SquareThumbnail";
