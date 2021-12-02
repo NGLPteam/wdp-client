@@ -14,8 +14,11 @@ export const NavInner = styled.div`
   align-items: center;
 `;
 
-export const LeftSide = styled.div``;
+export const LeftSide = styled.div`
+  flex: 1 1 auto;
+`;
 
 export const RightSide = styled.div`
+  flex: 1 1 auto;
   max-width: ${pxToRem(376)};
 `;
