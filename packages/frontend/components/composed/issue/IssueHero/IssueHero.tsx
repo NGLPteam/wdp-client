@@ -12,19 +12,25 @@ export default function IssueHero({ data }: Props) {
     <header>
       <div className="a-bg-custom10">
         <Styled.HeroInner className="l-container-wide">
-          <Styled.Title>Parent Journal</Styled.Title>
-          <Styled.JournalMeta className="l-flex">
-            <div>Journal subtitle goes here</div>
-            <div className="t-label-sm">
-              ISSN: <Styled.Number>0000-0000</Styled.Number>
-            </div>
-          </Styled.JournalMeta>
+          {issue.journal && (
+            <>
+              <Styled.Title>{issue.journal.title}</Styled.Title>
+              <Styled.JournalMeta className="l-flex">
+                <div>Journal subtitle goes here</div>
+                <div className="t-label-sm">
+                  ISSN: <Styled.Number>0000-0000</Styled.Number>
+                </div>
+              </Styled.JournalMeta>
+            </>
+          )}
           <Styled.IssueWrapper className="l-flex">
             <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
             <Styled.IssueMeta>
               <Styled.Issue className="l-flex">
                 {issue.title}
-                <Styled.Volume>Volume X</Styled.Volume>
+                {issue.volume && (
+                  <Styled.Volume>{issue.volume.title}</Styled.Volume>
+                )}
               </Styled.Issue>
               {issue.summary && (
                 <Styled.Description>{issue.summary}</Styled.Description>
@@ -56,6 +62,16 @@ const fragment = graphql`
     doi
     thumbnail {
       ...CoverImageFragment
+    }
+    journal: ancestorOfType(schema: "nglp:journal") {
+      ... on Collection {
+        title
+      }
+    }
+    volume: ancestorOfType(schema: "nglp:journal_volume") {
+      ... on Collection {
+        title
+      }
     }
     # TODO: How do we get the issue's parent journal?
   }
