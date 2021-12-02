@@ -7,8 +7,8 @@ import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
 import InstallationName from "../../composed/instance/InstallationName";
-import { Search } from "components/forms";
 import * as Styled from "./AppFooter.styles";
+import { Search } from "components/forms";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
 // Note: About text and community name will come from backend data

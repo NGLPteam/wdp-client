@@ -15,9 +15,7 @@ export default function Search({ placeholder, queryParams }: Props) {
       className="a-button-secondary-sm l-flex l-flex--gap"
     >
       <Styled.SearchLabel htmlFor="navSearch">
-        <span className="a-hidden">
-          {placeholder ? placeholder : t("search.label")}
-        </span>
+        <span className="a-hidden">{placeholder || t("search.label")}</span>
         <IconFactory icon="search" role="presentation" />
       </Styled.SearchLabel>
       {queryParams &&
@@ -28,7 +26,7 @@ export default function Search({ placeholder, queryParams }: Props) {
         id="navSearch"
         type="search"
         name="q"
-        placeholder={placeholder ? placeholder : t("search.label")}
+        placeholder={placeholder || t("search.label")}
       />
       <button className="a-hidden">{t("search.submit")}</button>
     </Styled.SearchForm>
@@ -36,6 +34,6 @@ export default function Search({ placeholder, queryParams }: Props) {
 }
 
 type Props = {
-  placeholder?: () => string;
-  queryParams?: { collectionID: string };
+  placeholder?: string;
+  queryParams?: { [key: string]: string };
 };

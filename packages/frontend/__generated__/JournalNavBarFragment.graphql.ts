@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type JournalNavBarFragment = {
     readonly title: string;
+    readonly id: string;
     readonly " $fragmentRefs": FragmentRefs<"JournalNavListFragment">;
     readonly " $refType": "JournalNavBarFragment";
 };
@@ -32,6 +33,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "JournalNavListFragment"
@@ -40,5 +48,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'e27560d20046a2aec453a6cd5a50a119';
+(node as any).hash = 'e00fb2456af7ad07eb5eb0bf3cc8a880';
 export default node;

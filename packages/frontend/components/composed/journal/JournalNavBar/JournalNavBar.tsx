@@ -1,12 +1,14 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NavSearch } from "components/global";
+import { useTranslation } from "react-i18next";
 import JournalNavList from "../JournalNavList";
-import { JournalNavBarFragment$key } from "@/relay/JournalNavBarFragment.graphql";
 import * as Styled from "./JournalNavBar.styles";
+import { Search } from "components/forms";
+import { JournalNavBarFragment$key } from "@/relay/JournalNavBarFragment.graphql";
 
 export default function JournalNavBar({ data }: Props) {
+  const { t } = useTranslation();
   const journal = useMaybeFragment(fragment, data);
 
   return journal ? (
@@ -16,7 +18,12 @@ export default function JournalNavBar({ data }: Props) {
           <JournalNavList data={journal} />
         </Styled.LeftSide>
         <Styled.RightSide>
-          <NavSearch name={journal.title} />
+          <Search
+            placeholder={t("search.journal_placeholder", {
+              name: journal.title,
+            })}
+            queryParams={{ collectionID: journal.id }}
+          />
         </Styled.RightSide>
       </Styled.NavInner>
     </Styled.Nav>
@@ -30,6 +37,7 @@ type Props = {
 const fragment = graphql`
   fragment JournalNavBarFragment on Collection {
     title
+    id
     ...JournalNavListFragment
   }
 `;

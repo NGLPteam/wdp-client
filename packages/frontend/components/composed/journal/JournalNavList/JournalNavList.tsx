@@ -1,11 +1,11 @@
 import React from "react";
-import { Dropdown, Button } from "components/atomic";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
-import { JournalNavListFragment$key } from "@/relay/JournalNavListFragment.graphql";
 import * as Styled from "./JournalNavList.styles";
+import { JournalNavListFragment$key } from "@/relay/JournalNavListFragment.graphql";
+import { Dropdown, Button } from "components/atomic";
 
 export default function JournalNavList({ data }: Props) {
   const { t } = useTranslation();
