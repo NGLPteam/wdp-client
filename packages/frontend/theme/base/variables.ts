@@ -1,3 +1,5 @@
+import { pxToRem } from "@wdp/lib/theme/functions";
+
 export type CSSVariableObj = Record<string, string>;
 
 // Base colors
@@ -71,10 +73,11 @@ export const containerWidths = {
 
 // Border radius
 export const borderRadius = {
-  sm: "8px",
-  md: "12px",
-  lg: "20px",
-  xlg: "43px",
+  xs: pxToRem(6),
+  sm: pxToRem(8),
+  md: pxToRem(12),
+  lg: pxToRem(20),
+  xlg: pxToRem(43),
 };
 
 // Box shadows

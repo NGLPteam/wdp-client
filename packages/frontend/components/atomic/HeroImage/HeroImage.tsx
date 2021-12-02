@@ -1,8 +1,7 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import Image from "next/image";
 import { graphql } from "react-relay";
-import * as Styled from "./HeroImage.styles";
+import HeroImageBase from "./HeroImageBase";
 import { HeroImageFragment$key } from "@/relay/HeroImageFragment.graphql";
 
 export default function HeroImage({ data }: Props) {
@@ -26,22 +25,3 @@ const fragment = graphql`
     }
   }
 `;
-
-export function HeroImageBase({ alt, url }: BaseProps) {
-  return (
-    <Styled.Wrapper className="a-bg-custom20">
-      <Image
-        alt={alt}
-        src={url}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      />
-    </Styled.Wrapper>
-  );
-}
-
-interface BaseProps {
-  alt?: string;
-  url: string;
-}
