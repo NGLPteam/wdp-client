@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { baseColors, customColors, zIndex } from "./variables";
+import { baseColors, borderRadius, customColors, zIndex } from "./variables";
 import { getColorsByKey } from "./functions";
 
 function setCustomColors(colorName: string) {
@@ -157,6 +157,13 @@ export default css`
     ${Object.entries(zIndex).map(
       ([key, value]) => `
       --z-index-${key}: ${value};
+    `
+    )}
+
+    /* border radius */
+    ${Object.entries(borderRadius).map(
+      ([key, value]) => `
+      --border-radius-${key}: ${value};
     `
     )}
 
