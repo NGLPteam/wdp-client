@@ -63,6 +63,11 @@ return {
       "args": [
         {
           "kind": "Literal",
+          "name": "nodeFilter",
+          "value": "DESCENDANTS"
+        },
+        {
+          "kind": "Literal",
           "name": "order",
           "value": "PUBLISHED_ASCENDING"
         },
@@ -84,7 +89,7 @@ return {
           "name": "FeaturedIssuesFragment"
         }
       ],
-      "storageKey": "collections(order:\"PUBLISHED_ASCENDING\",perPage:4,schema:\"nglp:journal_issue\")"
+      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",perPage:4,schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -106,5 +111,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1c7ee7a4167b7192dac4528d82249853';
+(node as any).hash = 'eda6c1ca07e808b126502922c39e89d7';
 export default node;

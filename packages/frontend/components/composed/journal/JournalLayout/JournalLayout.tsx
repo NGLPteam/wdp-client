@@ -37,6 +37,7 @@ const fragment = graphql`
     issues: collections(
       schema: "nglp:journal_issue"
       order: PUBLISHED_ASCENDING
+      nodeFilter: DESCENDANTS
       perPage: 4
     ) {
       ...FeaturedIssuesFragment
