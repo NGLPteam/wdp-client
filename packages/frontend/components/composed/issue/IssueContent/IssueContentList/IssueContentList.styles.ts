@@ -37,7 +37,7 @@ export const ItemSummary = styled.div`
   ${tLineClamp(3)}
 `;
 
-export const ItemMetadata = styled.p`
+export const ItemMetadata = styled.div`
   > * + * {
     padding-block-start: ${pxToRem(2)};
   }

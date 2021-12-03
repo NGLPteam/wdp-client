@@ -35,10 +35,12 @@ export default function IssueContentList({ data }: Props) {
                     </Styled.ItemSummary>
                   )}
                   <Styled.ItemMetadata>
-                    <ContributorsList
-                      className="t-copy-sm"
-                      data={node.contributions}
-                    />
+                    <p>
+                      <ContributorsList
+                        className="t-copy-sm"
+                        data={node.contributions}
+                      />
+                    </p>
                     <p className="t-copy-sm t-copy-lighter">
                       <PrecisionDate data={node.published} /> • Additional
                       Metadata

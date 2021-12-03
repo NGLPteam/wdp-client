@@ -13,14 +13,14 @@ export default function ContributorsList({ data, className }: Props) {
   const contributions = useMaybeFragment(fragment, data);
 
   return contributions && contributions.edges.length > 0 ? (
-    <p className={className}>
+    <span className={className}>
       {contributions.edges.map(({ node }: Node, i: number) => (
         <React.Fragment key={i}>
           <ContributorName data={node.contributor} />
           {i < contributions.edges.length - 1 && ", "}
         </React.Fragment>
       ))}
-    </p>
+    </span>
   ) : null;
 }
 
