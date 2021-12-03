@@ -14,16 +14,14 @@ export default function ArticleParentHeader({ data }: Props) {
           {article.journal && (
             <>
               <p className="t-h3">{article.journal.title}</p>
-              <p className="t-label-sm">ISSN: 0000-0000</p>
             </>
           )}
         </Styled.JournalBlock>
         <Styled.IssueBlock>
           {article.issue && <p>{article.issue.title}</p>}
           {article.volume && (
-            <p className="t-color-lighter">{article.volume.title}</p>
+            <p className="t-copy-lighter">{article.volume.title}</p>
           )}
-          <p className="t-label-sm">ISSN: 0000-0000</p>
         </Styled.IssueBlock>
       </Styled.ParentBlock>
     </div>

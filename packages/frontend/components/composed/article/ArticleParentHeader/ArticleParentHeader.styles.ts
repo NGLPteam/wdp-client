@@ -26,9 +26,5 @@ export const IssueBlock = styled.div`
 
   > * + * {
     padding-inline-start: ${pxToRem(12)};
-
-    &:last-child {
-      margin-inline-start: auto;
-    }
   }
 `;

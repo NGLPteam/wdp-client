@@ -17,9 +17,6 @@ export default function IssueHero({ data }: Props) {
               <Styled.Title>{issue.journal.title}</Styled.Title>
               <Styled.JournalMeta className="l-flex">
                 <div>Journal subtitle goes here</div>
-                <div className="t-label-sm">
-                  ISSN: <Styled.Number>0000-0000</Styled.Number>
-                </div>
               </Styled.JournalMeta>
             </>
           )}
@@ -35,9 +32,6 @@ export default function IssueHero({ data }: Props) {
               {issue.summary && (
                 <Styled.Description>{issue.summary}</Styled.Description>
               )}
-              <div className="t-label-sm">
-                ISSN: <Styled.Number>0000-0000</Styled.Number>
-              </div>
               {issue.doi && (
                 <Styled.DOI className="t-label-sm">
                   DOI: <Styled.Number>{issue.doi}</Styled.Number>
