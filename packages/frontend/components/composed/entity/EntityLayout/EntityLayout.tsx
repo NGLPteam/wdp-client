@@ -18,6 +18,7 @@ export default function EntityLayout({ data }: Props) {
 
 interface Props {
   data?: EntityLayoutFragment$key | null;
+  children?: React.ReactNode;
 }
 
 const fragment = graphql`

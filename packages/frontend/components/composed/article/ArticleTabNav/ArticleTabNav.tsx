@@ -16,7 +16,7 @@ export default function ArticleTabNav({ data }: Props) {
 
   function getLink(route: string, label: string, pageSlug?: string) {
     return slug ? (
-      <Styled.Item>
+      <Styled.Item key={route === "item.page" ? pageSlug : route}>
         <NamedLink
           route={route}
           routeParams={pageSlug ? { slug, page: pageSlug } : { slug }}

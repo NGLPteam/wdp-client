@@ -5,17 +5,17 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type EntityLayoutFactoryFragment = {
+export type EntityPageLayoutFactoryFragment = {
     readonly schemaDefinition?: {
         readonly identifier: string;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "JournalLayoutFragment" | "IssueLayoutFragment" | "ArticleContentLayoutFragment">;
-    readonly " $refType": "EntityLayoutFactoryFragment";
+    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "ArticlePageLayoutFragment">;
+    readonly " $refType": "EntityPageLayoutFactoryFragment";
 };
-export type EntityLayoutFactoryFragment$data = EntityLayoutFactoryFragment;
-export type EntityLayoutFactoryFragment$key = {
-    readonly " $data"?: EntityLayoutFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment">;
+export type EntityPageLayoutFactoryFragment$data = EntityPageLayoutFactoryFragment;
+export type EntityPageLayoutFactoryFragment$key = {
+    readonly " $data"?: EntityPageLayoutFactoryFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFactoryFragment">;
 };
 
 
@@ -48,23 +48,13 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "EntityLayoutFactoryFragment",
+  "name": "EntityPageLayoutFactoryFragment",
   "selections": [
     {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "JournalLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "IssueLayoutFragment"
-        }
+        (v1/*: any*/)
       ],
       "type": "Collection",
       "abstractKey": null
@@ -77,7 +67,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ArticleContentLayoutFragment"
+          "name": "ArticlePageLayoutFragment"
         }
       ],
       "type": "Item",
@@ -88,5 +78,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'c70ea0abc27238d3f4480a30f8331e73';
+(node as any).hash = '17609175913c0286478258cf4fc6a959';
 export default node;

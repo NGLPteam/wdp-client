@@ -9,7 +9,7 @@ import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql
 import RelatedJournals from "components/composed/journal/RelatedJournals";
 import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 
-export default function JournalLayout({ data }: Props) {
+export default function JournalLayout({ data, children }: Props) {
   const journal = useMaybeFragment(fragment, data);
 
   return (
@@ -17,7 +17,7 @@ export default function JournalLayout({ data }: Props) {
       <BreadcrumbsBar data={journal} />
       <JournalHero data={journal} />
       <JournalNavBar data={journal} />
-      <JournalInfo data={journal} />
+      {children || <JournalInfo data={journal} />}
       <FeaturedIssues data={journal?.issues} />
       <RelatedJournals data={journal?.related} />
     </>
@@ -26,6 +26,7 @@ export default function JournalLayout({ data }: Props) {
 
 interface Props {
   data?: JournalLayoutFragment$key | null;
+  children?: React.ReactNode;
 }
 
 const fragment = graphql`

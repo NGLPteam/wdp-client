@@ -20,6 +20,7 @@ export default function IssueLayout({ data }: Props) {
 
 interface Props {
   data?: IssueLayoutFragment$key | null;
+  children?: React.ReactNode;
 }
 
 const fragment = graphql`
