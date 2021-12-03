@@ -42,6 +42,28 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "item",
     path: "/items/[slug]",
+    routes: [
+      {
+        name: "item.page",
+        path: "/items/[slug]/[page]",
+      },
+      {
+        name: "item.metadata",
+        path: "/items/[slug]/metadata",
+      },
+      {
+        name: "item.files",
+        path: "/items/[slug]/files",
+      },
+      {
+        name: "item.contributors",
+        path: "/items/[slug]/contributors",
+      },
+      {
+        name: "item.metrics",
+        path: "/items/[slug]/metrics",
+      },
+    ],
   },
   {
     name: "about",
