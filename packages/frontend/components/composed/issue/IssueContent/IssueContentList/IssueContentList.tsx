@@ -29,7 +29,11 @@ export default function IssueContentList({ data }: Props) {
                       Item subtitle
                     </h5>
                   </Styled.ItemHeader>
-                  <p className="t-copy-lighter">Summary {node.summary}</p>
+                  {node.summary && (
+                    <Styled.ItemSummary className="t-copy-lighter">
+                      <p>{node.summary}</p>
+                    </Styled.ItemSummary>
+                  )}
                   <Styled.ItemMetadata>
                     <ContributorsList
                       className="t-copy-sm"

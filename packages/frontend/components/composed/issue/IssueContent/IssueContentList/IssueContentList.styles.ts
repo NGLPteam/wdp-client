@@ -1,5 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { tLineClamp } from "theme/mixins";
 
 export const List = styled.ul``;
 
@@ -30,6 +31,10 @@ export const ItemHeader = styled.div`
   > * + * {
     padding-block-start: ${pxToRem(4)};
   }
+`;
+
+export const ItemSummary = styled.div`
+  ${tLineClamp(3)}
 `;
 
 export const ItemMetadata = styled.p`
