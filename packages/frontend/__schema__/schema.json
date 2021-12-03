@@ -5447,7 +5447,7 @@
           },
           {
             "name": "collections",
-            "description": null,
+            "description": "Retrieve the collections beneath this collection.",
             "args": [
               {
                 "name": "order",
@@ -5458,6 +5458,38 @@
                   "ofType": null
                 },
                 "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "nodeFilter",
+                "description": "Describe the depth of entities to retrieve",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SubtreeNodeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "CHILDREN",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -20524,7 +20556,7 @@
           },
           {
             "name": "items",
-            "description": null,
+            "description": "Retrieve the items beneath this item",
             "args": [
               {
                 "name": "order",
@@ -20535,6 +20567,38 @@
                   "ofType": null
                 },
                 "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "nodeFilter",
+                "description": "Describe the depth of entities to retrieve",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SubtreeNodeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "CHILDREN",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -32136,6 +32200,29 @@
           }
         ],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SubtreeNodeFilter",
+        "description": "When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CHILDREN",
+            "description": "Fetch only the first level of the same type of entity (Item, Collection)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DESCENDANTS",
+            "description": "Fetch all descendant entities of the same base type (Item, Collection)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {

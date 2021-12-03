@@ -6,8 +6,8 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type JournalLayoutFragment = {
-    readonly links: {
-        readonly " $fragmentRefs": FragmentRefs<"RelatedEntitiesFragment">;
+    readonly related: {
+        readonly " $fragmentRefs": FragmentRefs<"RelatedJournalsFragment">;
     };
     readonly issues: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
@@ -36,7 +36,7 @@ return {
   "name": "JournalLayoutFragment",
   "selections": [
     {
-      "alias": null,
+      "alias": "related",
       "args": [
         {
           "kind": "Literal",
@@ -53,7 +53,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "RelatedEntitiesFragment"
+          "name": "RelatedJournalsFragment"
         }
       ],
       "storageKey": "links(order:\"RECENT\",perPage:4)"
@@ -63,10 +63,20 @@ return {
       "args": [
         {
           "kind": "Literal",
+          "name": "nodeFilter",
+          "value": "DESCENDANTS"
+        },
+        {
+          "kind": "Literal",
           "name": "order",
           "value": "PUBLISHED_ASCENDING"
         },
-        (v0/*: any*/)
+        (v0/*: any*/),
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:journal_issue"
+        }
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -79,7 +89,7 @@ return {
           "name": "FeaturedIssuesFragment"
         }
       ],
-      "storageKey": "collections(order:\"PUBLISHED_ASCENDING\",perPage:4)"
+      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",perPage:4,schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -101,5 +111,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b4a2255192d862124da863a08a44ca05';
+(node as any).hash = 'eda6c1ca07e808b126502922c39e89d7';
 export default node;

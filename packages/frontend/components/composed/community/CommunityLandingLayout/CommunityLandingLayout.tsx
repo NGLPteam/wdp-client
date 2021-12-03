@@ -3,7 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import CommunityHero from "../CommunityHero";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
-import FeaturedCollections from "components/composed/collection/FeaturedCollections";
+import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -11,7 +11,7 @@ export default function CommunityLayout({ data }: Props) {
   return (
     <>
       <CommunityHero data={community} />
-      <FeaturedCollections
+      <FeaturedJournals
         data={community?.collections}
         headerText="Featured Journals"
         buttonText="See All Journals"
@@ -28,8 +28,8 @@ interface Props {
 const fragment = graphql`
   fragment CommunityLandingLayoutFragment on Community {
     ...CommunityHeroFragment
-    collections(order: RECENT, perPage: 5) {
-      ...FeaturedCollectionsFragment
+    collections(schema: "nglp:journal", order: RECENT, perPage: 5) {
+      ...FeaturedJournalsFragment
     }
   }
 `;

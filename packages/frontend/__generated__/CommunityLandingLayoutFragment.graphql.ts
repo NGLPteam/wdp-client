@@ -7,7 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLandingLayoutFragment = {
     readonly collections: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
     };
     readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     readonly " $refType": "CommunityLandingLayoutFragment";
@@ -38,6 +38,11 @@ const node: ReaderFragment = {
           "kind": "Literal",
           "name": "perPage",
           "value": 5
+        },
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:journal"
         }
       ],
       "concreteType": "CollectionConnection",
@@ -48,10 +53,10 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "FeaturedCollectionsFragment"
+          "name": "FeaturedJournalsFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",perPage:5)"
+      "storageKey": "collections(order:\"RECENT\",perPage:5,schema:\"nglp:journal\")"
     },
     {
       "args": null,
@@ -62,5 +67,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'f085d3b48b501faf95cba8d94334c67f';
+(node as any).hash = '1f887e3feefcbedd08c77f0ffabbe665';
 export default node;

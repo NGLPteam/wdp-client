@@ -644,8 +644,13 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionConnection! @deprecated(reason: "Use Collection.collections")
+  """Retrieve the collections beneath this collection."""
   collections(
     order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2624,8 +2629,13 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   identifier: String!
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
+  """Retrieve the items beneath this item"""
   items(
     order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -4118,6 +4128,14 @@ type StringProperty implements ScalarProperty {
   path: String!
   required: Boolean!
   type: String!
+}
+
+"""When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants."""
+enum SubtreeNodeFilter {
+  """Fetch only the first level of the same type of entity (Item, Collection)"""
+  CHILDREN
+  """Fetch all descendant entities of the same base type (Item, Collection)"""
+  DESCENDANTS
 }
 
 type TagsProperty implements ScalarProperty {

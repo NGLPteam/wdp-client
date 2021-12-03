@@ -3,23 +3,17 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./RelatedEntities.styles";
+import * as Styled from "./RelatedJournals.styles";
 import { Button } from "components/atomic";
 import CoverImage from "components/atomic/CoverImage";
 import {
-  RelatedEntitiesFragment$data,
-  RelatedEntitiesFragment$key,
-} from "@/relay/RelatedEntitiesFragment.graphql";
+  RelatedJournalsFragment$data,
+  RelatedJournalsFragment$key,
+} from "@/relay/RelatedJournalsFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 import PrecisionDate from "components/atomic/PrecisionDate";
 
-export default function RelatedEntities({
-  data,
-  headerText,
-  bodyText,
-  buttonText,
-  buttonRoute,
-}: Props) {
+export default function RelatedJournals({ data }: Props) {
   const entities = useMaybeFragment(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
@@ -28,9 +22,14 @@ export default function RelatedEntities({
     <Styled.Section className="l-container-wide a-bg-neutral00">
       <Styled.HeaderBlock>
         <Styled.HeaderText className="t-capitalize">
-          {t(headerText)}
+          {t("layouts.related_journals_header")}
         </Styled.HeaderText>
-        {bodyText && <p className="t-copy-sm a-color-lighter">{bodyText}</p>}
+        <p className="t-copy-sm a-color-lighter">{`Pharetra laoreet facilisis egestas gravida sit tortor ut. Velit
+        consequat tempus eleifend elit sit eget ultrices. In blandit eget
+        eros, tellus condimentum augue interdum sit tristique. Pharetra
+        laoreet facilisis egestas gravida sit tortor ut. Velit consequat
+        tempus eleifend elit sit eget ultrices. In blandit eget eros, tellus
+        condimentum augue interdum sit tristique....`}</p>
       </Styled.HeaderBlock>
       <Styled.List>
         {/* The query should be limited to four results, but just in case it isn't... slicey dicey */}
@@ -71,9 +70,11 @@ export default function RelatedEntities({
       </Styled.List>
       {slug && (
         <Styled.ButtonWrapper>
-          <NamedLink route={buttonRoute} routeParams={{ slug }} passHref>
+          <NamedLink route="collection" routeParams={{ slug }} passHref>
             <Button as="a">
-              <span className="t-capitalize">{t(buttonText)}</span>
+              <span className="t-capitalize">
+                {t("layouts.see_all_journals")}
+              </span>
             </Button>
           </NamedLink>
         </Styled.ButtonWrapper>
@@ -84,21 +85,13 @@ export default function RelatedEntities({
 
 interface Props {
   /* EntityLinkConnection data */
-  data?: RelatedEntitiesFragment$key | null;
-  /* Header text */
-  headerText: string;
-  /* Header body text */
-  bodyText?: string;
-  /* The bottom button text */
-  buttonText: string;
-  /* Route for bottom button. Uses current slug for route params */
-  buttonRoute: string;
+  data?: RelatedJournalsFragment$key | null;
 }
 
-type Node = RelatedEntitiesFragment$data["edges"][number];
+type Node = RelatedJournalsFragment$data["edges"][number];
 
 const fragment = graphql`
-  fragment RelatedEntitiesFragment on EntityLinkConnection {
+  fragment RelatedJournalsFragment on EntityLinkConnection {
     edges {
       node {
         target {

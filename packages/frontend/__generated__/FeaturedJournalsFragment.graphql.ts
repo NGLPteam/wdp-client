@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type FeaturedCollectionsFragment = {
+export type FeaturedJournalsFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly title: string;
@@ -21,12 +21,12 @@ export type FeaturedCollectionsFragment = {
             };
         };
     }>;
-    readonly " $refType": "FeaturedCollectionsFragment";
+    readonly " $refType": "FeaturedJournalsFragment";
 };
-export type FeaturedCollectionsFragment$data = FeaturedCollectionsFragment;
-export type FeaturedCollectionsFragment$key = {
-    readonly " $data"?: FeaturedCollectionsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsFragment">;
+export type FeaturedJournalsFragment$data = FeaturedJournalsFragment;
+export type FeaturedJournalsFragment$key = {
+    readonly " $data"?: FeaturedJournalsFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
 };
 
 
@@ -35,7 +35,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "FeaturedCollectionsFragment",
+  "name": "FeaturedJournalsFragment",
   "selections": [
     {
       "alias": null,
@@ -129,5 +129,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'ed7129cf9af64b7845fbe343d6d6f06f';
+(node as any).hash = 'a3c6796e3da6ed0f8702321bafd25849';
 export default node;
