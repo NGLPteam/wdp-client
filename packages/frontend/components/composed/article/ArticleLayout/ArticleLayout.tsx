@@ -3,6 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
+import ArticleContent from "../ArticleContent";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 
@@ -14,6 +15,7 @@ export default function ArticleLayout({ data }: Props) {
       <BreadcrumbsBar data={article} />
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
+      <ArticleContent data={article} />
     </>
   );
 }
@@ -27,5 +29,6 @@ const fragment = graphql`
     ...BreadcrumbsBarFragment
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment
+    ...ArticleContentFragment
   }
 `;
