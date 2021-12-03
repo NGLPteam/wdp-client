@@ -1,6 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { fluidScale, tLineClamp } from "theme/mixins";
+import { fluidScale, tLabel, tLineClamp } from "theme/mixins";
 
 export const SectionInner = styled.div`
   padding-block-start: ${pxToRem(100)};
@@ -52,4 +52,5 @@ export const ItemSummary = styled.p`
 
 export const ItemReadMore = styled.div`
   padding-block-start: ${pxToRem(10)};
+  ${tLabel("sm")}
 `;

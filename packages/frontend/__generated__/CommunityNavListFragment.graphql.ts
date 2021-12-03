@@ -6,6 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityNavListFragment = {
+    readonly schemaRanks: ReadonlyArray<{
+        readonly slug: string;
+        readonly name: string;
+        readonly count: number;
+    }>;
     readonly pages: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -24,12 +29,46 @@ export type CommunityNavListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CommunityNavListFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HierarchicalSchemaRank",
+      "kind": "LinkedField",
+      "name": "schemaRanks",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "count",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -54,13 +93,7 @@ const node: ReaderFragment = {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                },
+                (v0/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -81,5 +114,6 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'f29823a75fa1706cb7b94a53ad993659';
+})();
+(node as any).hash = '9097bc6f5d3a1fc56ee8e43ffe735e9e';
 export default node;

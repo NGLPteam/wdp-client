@@ -82,6 +82,12 @@ fragment CommunityNavBarFragment on Community {
 }
 
 fragment CommunityNavListFragment on Community {
+  schemaRanks {
+    slug
+    name
+    count
+    id
+  }
   pages {
     edges {
       node {
@@ -389,6 +395,33 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "HierarchicalSchemaRank",
+            "kind": "LinkedField",
+            "name": "schemaRanks",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "count",
+                "storageKey": null
+              },
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "PageConnection",
             "kind": "LinkedField",
             "name": "pages",
@@ -457,12 +490,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f7c361287e6ad7be23274f2bce011ead",
+    "cacheID": "0d4079a60aea882dcfee775e7a096f6e",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  collections(schema: \"nglp:journal\", order: RECENT, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on AssetPreview {\n  alt\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      title\n      slug\n      updatedAt\n      thumbnail {\n        ...CoverImageFragment\n      }\n      collections {\n        pageInfo {\n          totalCount\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  collections(schema: \"nglp:journal\", order: RECENT, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on AssetPreview {\n  alt\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      title\n      slug\n      updatedAt\n      thumbnail {\n        ...CoverImageFragment\n      }\n      collections {\n        pageInfo {\n          totalCount\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

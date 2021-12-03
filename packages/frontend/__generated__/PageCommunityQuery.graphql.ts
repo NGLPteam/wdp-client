@@ -79,6 +79,12 @@ fragment CommunityNavBarFragment on Community {
 }
 
 fragment CommunityNavListFragment on Community {
+  schemaRanks {
+    slug
+    name
+    count
+    id
+  }
   pages {
     edges {
       node {
@@ -315,6 +321,33 @@ return {
           {
             "alias": null,
             "args": null,
+            "concreteType": "HierarchicalSchemaRank",
+            "kind": "LinkedField",
+            "name": "schemaRanks",
+            "plural": true,
+            "selections": [
+              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "count",
+                "storageKey": null
+              },
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "PageConnection",
             "kind": "LinkedField",
             "name": "pages",
@@ -383,12 +416,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "78ea3bd041477f922b08bd385f083dea",
+    "cacheID": "7b017095832da889b8968aee2917a3b1",
     "id": null,
     "metadata": {},
     "name": "PageCommunityQuery",
     "operationKind": "query",
-    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...HeroImageFragment\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment HeroImageFragment on AssetPreview {\n  alt\n  image: large {\n    webp {\n      url\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...HeroImageFragment\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment HeroImageFragment on AssetPreview {\n  alt\n  image: large {\n    webp {\n      url\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

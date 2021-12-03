@@ -6,6 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type JournalNavListFragment = {
+    readonly schemaRanks: ReadonlyArray<{
+        readonly slug: string;
+        readonly name: string;
+        readonly count: number;
+    }>;
     readonly pages: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -24,12 +29,46 @@ export type JournalNavListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "JournalNavListFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HierarchicalSchemaRank",
+      "kind": "LinkedField",
+      "name": "schemaRanks",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "count",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -61,13 +100,7 @@ const node: ReaderFragment = {
                   "name": "title",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                }
+                (v0/*: any*/)
               ],
               "storageKey": null
             }
@@ -81,5 +114,6 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '56ca7e162d00ccb20c0a40200f92d949';
+})();
+(node as any).hash = '4948799e9198bd45463ab55d6753e61a';
 export default node;
