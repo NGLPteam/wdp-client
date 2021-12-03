@@ -5,7 +5,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CommunityNavList.styles";
 import { IconFactory } from "components/factories";
-import { Dropdown } from "components/atomic";
+import { ArrowLink, Dropdown } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 
 export default function CommunityNavList({ condensed, data }: Props) {
@@ -23,6 +23,14 @@ export default function CommunityNavList({ condensed, data }: Props) {
     );
   }
 
+  const schemaLinks = community
+    ? community.schemaRanks.map((schema, i) => (
+        <a className="t-capitalize" key={i} href="#">
+          {t(`schema.${schema.slug.replace(":", ".")}`, { count: 2 })}
+        </a>
+      ))
+    : [];
+
   return (
     <Styled.NavList condensed={condensed}>
       <li>
@@ -30,14 +38,12 @@ export default function CommunityNavList({ condensed, data }: Props) {
           label={t("nav.explore")}
           disclosure={getDisclosure("nav.explore")}
           menuItems={[
-            <a
+            ...schemaLinks,
+            <ArrowLink
               key={1}
               className="l-flex l-flex--gap-sm l-flex--align-center"
-              href="#"
-            >
-              <span>{t("nav.browse_all")}</span>
-              <IconFactory icon="arrowRight" />
-            </a>,
+              label={t("nav.browse_all")}
+            />,
           ]}
         />
       </li>
@@ -67,6 +73,11 @@ interface Props {
 
 const fragment = graphql`
   fragment CommunityNavListFragment on Community {
+    schemaRanks {
+      slug
+      name
+      count
+    }
     pages {
       edges {
         node {

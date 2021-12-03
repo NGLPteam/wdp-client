@@ -20,13 +20,21 @@ export default function JournalNavList({ data }: Props) {
     );
   }
 
+  const schemaLinks = journal
+    ? journal.schemaRanks.map((schema, i) => (
+        <a className="t-capitalize" key={i} href="#">
+          {t(`schema.${schema.slug.replace(":", ".")}`, { count: 2 })}
+        </a>
+      ))
+    : [];
+
   return (
     <Styled.NavList>
       <li>
         <Dropdown
           label={t("nav.browse")}
           disclosure={getDisclosure("nav.browse")}
-          menuItems={[]}
+          menuItems={[...schemaLinks]}
         />
       </li>
       {slug &&
@@ -54,6 +62,11 @@ type Props = {
 
 const fragment = graphql`
   fragment JournalNavListFragment on Collection {
+    schemaRanks {
+      slug
+      name
+      count
+    }
     pages {
       edges {
         node {

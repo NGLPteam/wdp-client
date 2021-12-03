@@ -37,17 +37,29 @@
       "collection": "collection",
       "collection_plural": "collections",
       "item": "item",
-      "item_plural": "items",
-      "journal": "journal",
-      "journal_plural": "journals",
-      "issue": "issue",
-      "issue_plural": "issues"
+      "item_plural": "items"
+    },
+    "schema": {
+      "nglp.journal": "journal",
+      "nglp.journal_plural": "journals",
+      "nglp.journal_issue": "issue",
+      "nglp.journal_issue_plural": "issues",
+      "nglp.journal_volume": "volume",
+      "nglp.journal_volume_plural": "volumes",
+      "nglp.journal_article": "article",
+      "nglp.journal_article_plural": "articles",
+      "nglp.article": "article",
+      "nglp.article_plural": "articles",
+      "nglp.dissertation": "dissertation",
+      "nglp.dissertation_plural": "dissertations",
+      "default.collection": "$t(glossary.collection)",
+      "default.item": "$t(glossary.item)"
     },
     "layouts": {
-      "related_journals_header": "Related $t(glossary.journal_plural)",
-      "see_all_journals": "See All $t(glossary.journal_plural)",
-      "featured_issues_header": "Featured $t(glossary.issue_plural)",
-      "see_all_issues": "See All $t(glossary.issue_plural)"
+      "related_journals_header": "Related $t(schema.nglp.journal_plural)",
+      "see_all_journals": "See All $t(schema.nglp.journal_plural)",
+      "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
+      "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)"
     },
     "nav": {
       "home": "Home",
