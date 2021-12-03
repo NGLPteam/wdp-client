@@ -595,6 +595,7 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Collection.collections */
   children: CollectionConnection;
+  /** Retrieve the collections beneath this collection. */
   collections: CollectionConnection;
   community: Community;
   contributions: CollectionContributionConnection;
@@ -740,6 +741,8 @@ export type CollectionChildrenArgs = {
 /** A collection of items */
 export type CollectionCollectionsArgs = {
   order?: Maybe<EntityOrder>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  nodeFilter?: Maybe<SubtreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2492,6 +2495,7 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   identifier: Scalars['String'];
   /** The date this entity was issued */
   issued: VariablePrecisionDate;
+  /** Retrieve the items beneath this item */
   items: ItemConnection;
   leaf: Scalars['Boolean'];
   /** Available link targets for this entity */
@@ -2641,6 +2645,8 @@ export type ItemContributorsArgs = {
 /** An item that belongs to a collection */
 export type ItemItemsArgs = {
   order?: Maybe<EntityOrder>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  nodeFilter?: Maybe<SubtreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -4201,6 +4207,14 @@ export type StringProperty = ScalarProperty & {
   type: Scalars['String'];
 };
 
+/** When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants. */
+export type SubtreeNodeFilter =
+  /** Fetch only the first level of the same type of entity (Item, Collection) */
+  | 'CHILDREN'
+  /** Fetch all descendant entities of the same base type (Item, Collection) */
+  | 'DESCENDANTS'
+  | '%future added value';
+
 export type TagsProperty = ScalarProperty & {
   __typename?: 'TagsProperty';
   fullPath: Scalars['String'];
@@ -5585,6 +5599,7 @@ export type ResolversTypes = {
   Sluggable: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePagePayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentCollectionPayload'] | ResolversTypes['ReparentItemPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePagePayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpdateUserPayload'] | ResolversTypes['UpdateViewerSettingsPayload'] | ResolversTypes['UpsertContributionPayload'];
   StringProperty: ResolverTypeWrapper<StringProperty>;
+  SubtreeNodeFilter: SubtreeNodeFilter;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
   TimestampProperty: ResolverTypeWrapper<TimestampProperty>;
   TreeNodeFilter: TreeNodeFilter;
@@ -6296,7 +6311,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
-  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   contributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<CollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
@@ -7003,7 +7018,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
-  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ItemLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;

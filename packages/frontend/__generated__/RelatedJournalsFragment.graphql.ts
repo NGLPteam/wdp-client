@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type RelatedEntitiesFragment = {
+export type RelatedJournalsFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly target: {
@@ -35,12 +35,12 @@ export type RelatedEntitiesFragment = {
             };
         };
     }>;
-    readonly " $refType": "RelatedEntitiesFragment";
+    readonly " $refType": "RelatedJournalsFragment";
 };
-export type RelatedEntitiesFragment$data = RelatedEntitiesFragment;
-export type RelatedEntitiesFragment$key = {
-    readonly " $data"?: RelatedEntitiesFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedEntitiesFragment">;
+export type RelatedJournalsFragment$data = RelatedJournalsFragment;
+export type RelatedJournalsFragment$key = {
+    readonly " $data"?: RelatedJournalsFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"RelatedJournalsFragment">;
 };
 
 
@@ -105,7 +105,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RelatedEntitiesFragment",
+  "name": "RelatedJournalsFragment",
   "selections": [
     {
       "alias": null,
@@ -157,5 +157,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a913b8d2afbd30a971771a3e0b4493e3';
+(node as any).hash = 'eb1fbc25e6dae5ff00299eb75dcae358';
 export default node;

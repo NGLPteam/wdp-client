@@ -5,15 +5,15 @@ import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./FeaturedCollections.styles";
+import * as Styled from "./FeaturedJournals.styles";
 import { Button } from "components/atomic";
 import CoverImage from "components/atomic/CoverImage";
 import {
-  FeaturedCollectionsFragment$data,
-  FeaturedCollectionsFragment$key,
-} from "@/relay/FeaturedCollectionsFragment.graphql";
+  FeaturedJournalsFragment$data,
+  FeaturedJournalsFragment$key,
+} from "@/relay/FeaturedJournalsFragment.graphql";
 
-export default function FeaturedCollections({
+export default function FeaturedJournals({
   data,
   headerText,
   buttonText,
@@ -22,12 +22,12 @@ export default function FeaturedCollections({
   const collections = useMaybeFragment(fragment, data);
   const coverHeight = collections?.edges.length === 5 ? 240 : 300;
   const style = {
-    "--FeaturedCollections-cover-height": pxToRem(coverHeight),
+    "--FeaturedJournals-cover-height": pxToRem(coverHeight),
   } as React.CSSProperties;
   const { t } = useTranslation();
   const slug = useRouteSlug();
 
-  return collections ? (
+  return collections && collections.edges.length > 0 ? (
     <Styled.Section className="a-bg-neutral00" style={style}>
       <h3 className="a-hidden">{t(headerText)}</h3>
       <Styled.List>
@@ -83,7 +83,7 @@ export default function FeaturedCollections({
 
 interface Props {
   /* CollectionConnection data */
-  data?: FeaturedCollectionsFragment$key | null;
+  data?: FeaturedJournalsFragment$key | null;
   /* Header text */
   headerText: string;
   /* The bottom button text */
@@ -92,10 +92,10 @@ interface Props {
   buttonRoute: string;
 }
 
-type Node = FeaturedCollectionsFragment$data["edges"][number];
+type Node = FeaturedJournalsFragment$data["edges"][number];
 
 const fragment = graphql`
-  fragment FeaturedCollectionsFragment on CollectionConnection {
+  fragment FeaturedJournalsFragment on CollectionConnection {
     edges {
       node {
         title
