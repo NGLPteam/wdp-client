@@ -2,33 +2,32 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { respond, lGrid } from "theme/mixins";
 
+const MOBILE_BREAK = 70;
+
 export const HeroInner = styled.div`
   ${lGrid()}
+  grid-template-areas: "left left left left left left left left . right right right";
   padding-block-start: var(--container-padding-lg);
   padding-block-end: var(--container-padding-lg);
 
   ${respond(
     `
-    display: grid; 
-    grid-template-rows: repeat(2, auto); 
     grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto); 
+    grid-template-areas: 
+      "left"
+      "right";
     `,
-    70
+    MOBILE_BREAK
   )}
 `;
 
 export const LeftSide = styled.div`
-  grid-column: span 8;
-
-  ${respond(`grid-column: span 9;`, 100)}
-  ${respond(`grid-column: 1;`, 70)}
+  grid-area: left;
 `;
 
 export const RightSide = styled.div`
-  grid-column: 10 / span 3;
-
-  ${respond(`grid-column: span 3;`, 100)}
-  ${respond(`grid-column: 1;`, 70)}
+  grid-area: right;
 `;
 
 export const TitleBlock = styled.div`
