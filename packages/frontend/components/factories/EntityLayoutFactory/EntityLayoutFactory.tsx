@@ -4,35 +4,37 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import IssueLayout from "components/composed/issue/IssueLayout";
-import ArticleLayout from "components/composed/article/ArticleLayout";
 import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
+import ArticleContentLayout from "components/composed/article/ArticleContentLayout";
 
-export default function EntityLayoutFactory({ data }: Props) {
+export default function EntityLayoutFactory({ data, children }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   if (!entity) return null;
 
   switch (entity.schemaDefinition?.identifier) {
     case "journal":
-      return <JournalLayout data={entity} />;
+      return <JournalLayout data={entity}>{children}</JournalLayout>;
       break;
 
     case "journal_issue":
-      return <IssueLayout data={entity} />;
+      return <IssueLayout data={entity}>{children}</IssueLayout>;
       break;
 
+    case "article":
     case "journal_article":
-      return <ArticleLayout data={entity} />;
+      return <ArticleContentLayout data={entity} />;
       break;
 
     default:
-      return <EntityLayout data={entity} />;
+      return <EntityLayout data={entity}>{children}</EntityLayout>;
       break;
   }
 }
 
 interface Props {
   data?: EntityLayoutFactoryFragment$key | null;
+  children?: React.ReactNode;
 }
 
 const fragment = graphql`
@@ -52,7 +54,7 @@ const fragment = graphql`
       }
 
       ...EntityLayoutFragment
-      ...ArticleLayoutFragment
+      ...ArticleContentLayoutFragment
     }
   }
 `;

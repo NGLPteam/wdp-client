@@ -13,7 +13,7 @@ export default function ItemPage() {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
-          <EntityLayoutFactory data={data?.item} />
+          <EntityLayoutFactory data={data?.item}>Metrics</EntityLayoutFactory>
         </CommunityChildLayout>
       )}
     </QueryWrapper>
