@@ -14,14 +14,13 @@ export default function JournalHero({ data }: Props) {
         <Styled.HeroInner className="l-container-wide">
           <Styled.TitleBlock>
             <Styled.Title>{journal.title}</Styled.Title>
-            <Styled.Subtitle>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Styled.Subtitle>
+            <Styled.Subtitle>Journal subtitle</Styled.Subtitle>
+          </Styled.TitleBlock>
+          <Styled.MetadataBlock>
             <Styled.ISSN className="t-label-sm">
               ISSN: <Styled.Number>0000-0000</Styled.Number>
             </Styled.ISSN>
-          </Styled.TitleBlock>
+          </Styled.MetadataBlock>
         </Styled.HeroInner>
       </header>
       <HeroImage data={journal.thumbnail} />
