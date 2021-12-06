@@ -6,8 +6,8 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type IssueContentFragment = {
-    readonly items: {
-        readonly " $fragmentRefs": FragmentRefs<"IssueContentListFragment">;
+    readonly orderings: {
+        readonly " $fragmentRefs": FragmentRefs<"EntityOrderSelectFragment">;
     };
     readonly " $refType": "IssueContentFragment";
 };
@@ -28,15 +28,15 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "ItemConnection",
+      "concreteType": "OrderingConnection",
       "kind": "LinkedField",
-      "name": "items",
+      "name": "orderings",
       "plural": false,
       "selections": [
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "IssueContentListFragment"
+          "name": "EntityOrderSelectFragment"
         }
       ],
       "storageKey": null
@@ -45,5 +45,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '76dddb8129e589553d23854519a03912';
+(node as any).hash = '82ddf44b5a611ffccd3471bc3fbf501c';
 export default node;

@@ -1,17 +1,11 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { tLineClamp } from "theme/mixins";
-
-export const List = styled.ul``;
-
-export const ListItem = styled.li`
-  & + & {
-    padding-block-start: var(--padding-xl);
-  }
-`;
+import { tLineClamp, respond } from "theme/mixins";
 
 export const ItemLinkWrapper = styled.a`
   display: flex;
+
+  ${respond(`flex-direction: column-reverse;`, 70)}
 `;
 
 export const ItemText = styled.div`
@@ -25,6 +19,14 @@ export const ItemText = styled.div`
 export const ItemThumbnail = styled.div`
   flex: 0;
   padding-inline-start: var(--padding-lg);
+
+  ${respond(
+    `
+    padding-inline-start: 0;
+    padding-block-end: var(--padding-md);
+  `,
+    70
+  )}
 `;
 
 export const ItemHeader = styled.div`
