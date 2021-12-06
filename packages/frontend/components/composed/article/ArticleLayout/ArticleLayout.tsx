@@ -4,6 +4,7 @@ import { graphql } from "react-relay";
 import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
+import ArticleText from "../ArticleText";
 import * as Styled from "./ArticleLayout.styles";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
@@ -19,7 +20,7 @@ export default function ArticleLayout({ data, children }: Props) {
       <section className="a-bg-neutral00">
         <Styled.SectionInner className="l-container-wide">
           <ArticleTabNav data={article} />
-          {children}
+          {children || <ArticleText data={article} />}
         </Styled.SectionInner>
       </section>
     </>
@@ -39,5 +40,6 @@ const fragment = graphql`
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment
     ...ArticleTabNavFragment
+    ...ArticleTextFragment
   }
 `;

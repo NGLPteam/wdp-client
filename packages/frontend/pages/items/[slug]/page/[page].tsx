@@ -4,7 +4,8 @@ import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
 import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
 import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
-import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import EntityPageLayout from "components/composed/entity/EntityPageLayout";
 
 export default function ItemPage() {
   const slug = useRouteSlug();
@@ -14,7 +15,9 @@ export default function ItemPage() {
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
-          <EntityPageLayoutFactory data={data?.item} />
+          <EntityLayoutFactory data={data?.item}>
+            <EntityPageLayout data={data?.item?.page} />
+          </EntityLayoutFactory>
         </CommunityChildLayout>
       )}
     </QueryWrapper>
@@ -26,10 +29,13 @@ export default function ItemPage() {
 const query = graphql`
   query PageSlugItemQuery($slug: Slug!, $pageSlug: String!) {
     item(slug: $slug) {
-      ...EntityPageLayoutFactoryFragment
+      ...EntityLayoutFactoryFragment
       community {
         ...CommunityHeroFragment
         ...CommunityChildLayoutFragment
+      }
+      page(slug: $pageSlug) {
+        ...EntityPageLayoutFragment
       }
     }
     ...CommunityChildLayoutAppFragment
