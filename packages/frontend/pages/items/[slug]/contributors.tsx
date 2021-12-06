@@ -5,6 +5,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
 import { contributorsSlugItemQuery as Query } from "@/relay/contributorsSlugItemQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import EntityContributorsLayout from "components/composed/entity/EntityContributorsLayout";
 
 export default function ItemPage() {
   const slug = useRouteSlug();
@@ -14,7 +15,7 @@ export default function ItemPage() {
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
-            Contributors
+            <EntityContributorsLayout data={data?.item?.contributions} />
           </EntityLayoutFactory>
         </CommunityChildLayout>
       )}
@@ -31,6 +32,9 @@ const query = graphql`
       community {
         ...CommunityHeroFragment
         ...CommunityChildLayoutFragment
+      }
+      contributions {
+        ...EntityContributorsLayoutFragment
       }
     }
     ...CommunityChildLayoutAppFragment

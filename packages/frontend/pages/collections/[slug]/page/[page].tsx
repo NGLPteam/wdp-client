@@ -11,7 +11,7 @@ export default function CommunityPage() {
   const slug = useRouteSlug();
   const pageSlug = useRoutePageSlug();
 
-  return slug ? (
+  return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
         <CommunityChildLayout
