@@ -17,7 +17,7 @@ export const baseRoutes: BaseRoute[] = [
     routes: [
       {
         name: "community.page",
-        path: "/communities/[slug]/[page]",
+        path: "/communities/[slug]/page/[page]",
       },
       {
         name: "community.collections",
@@ -35,7 +35,7 @@ export const baseRoutes: BaseRoute[] = [
     routes: [
       {
         name: "collection.page",
-        path: "/collections/[slug]/[page]",
+        path: "/collections/[slug]/page/[page]",
       },
     ],
   },
@@ -45,11 +45,11 @@ export const baseRoutes: BaseRoute[] = [
     routes: [
       {
         name: "item.page",
-        path: "/items/[slug]/[page]",
+        path: "/items/[slug]/page/[page]",
       },
       {
         name: "item.metadata",
-        path: "/items/[slug]/metadata",
+        path: "/items/[slug]/metadata", // possibly items/[slug]/view/[slug]
       },
       {
         name: "item.files",
