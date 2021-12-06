@@ -4,10 +4,10 @@ import { graphql } from "react-relay";
 import IssueHero from "../IssueHero";
 import IssueContent from "../IssueContent";
 import { BreadcrumbsBar } from "components/layout";
-import { IssueLayoutFragment$key } from "@/relay/IssueLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
+import { IssueLayoutFragment$key } from "@/relay/IssueLayoutFragment.graphql";
 
-export default function IssueLayout({ data }: Props) {
+export default function IssueLayout({ data, children }: Props) {
   const issue = useMaybeFragment(fragment, data);
 
   return (
@@ -15,7 +15,7 @@ export default function IssueLayout({ data }: Props) {
       <EntityHTMLHead data={issue} />
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
-      <IssueContent data={issue} />
+      <IssueContent data={issue}>{children}</IssueContent>
     </>
   );
 }

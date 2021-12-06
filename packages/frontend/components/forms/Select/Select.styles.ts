@@ -9,7 +9,8 @@ export const SelectWrapper = styled.div`
 export const Select = styled.select`
   ${aInputReset}
   ${aButton("secondary", "sm")}
-padding-inline-end: 34px;
+  padding-inline-end: 34px;
+  width: 100%;
 `;
 
 export const SelectIcon = styled.span`
