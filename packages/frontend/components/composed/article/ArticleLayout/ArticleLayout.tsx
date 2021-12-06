@@ -8,12 +8,14 @@ import ArticleText from "../ArticleText";
 import * as Styled from "./ArticleLayout.styles";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
+import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
 export default function ArticleLayout({ data, children }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   return (
     <>
+      <EntityHTMLHead data={article} />
       <BreadcrumbsBar data={article} />
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
@@ -36,6 +38,7 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleLayoutFragment on Item {
+    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment

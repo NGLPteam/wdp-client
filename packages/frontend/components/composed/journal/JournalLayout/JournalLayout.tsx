@@ -8,12 +8,14 @@ import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedJournals from "components/composed/journal/RelatedJournals";
 import FeaturedIssues from "components/composed/issue/FeaturedIssues";
+import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
 export default function JournalLayout({ data, children }: Props) {
   const journal = useMaybeFragment(fragment, data);
 
   return (
     <>
+      <EntityHTMLHead data={journal} />
       <BreadcrumbsBar data={journal} />
       <JournalHero data={journal} />
       <JournalNavBar data={journal} />
@@ -31,6 +33,7 @@ interface Props {
 
 const fragment = graphql`
   fragment JournalLayoutFragment on Collection {
+    ...EntityHTMLHeadFragment
     ...JournalHeroFragment
     ...JournalNavBarFragment
     ...JournalInfoFragment

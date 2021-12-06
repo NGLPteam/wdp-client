@@ -1,6 +1,7 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import ReactMarkdown from "react-markdown";
 import { EntityPageLayoutFragment$key } from "@/relay/EntityPageLayoutFragment.graphql";
 
 export default function EntityPageLayout({ data }: Props) {
@@ -9,7 +10,7 @@ export default function EntityPageLayout({ data }: Props) {
   return page ? (
     <div className="t-rte">
       <h3>{page.title}</h3>
-      <div>{page.body}</div>
+      <ReactMarkdown>{page.body}</ReactMarkdown>
     </div>
   ) : null;
 }
