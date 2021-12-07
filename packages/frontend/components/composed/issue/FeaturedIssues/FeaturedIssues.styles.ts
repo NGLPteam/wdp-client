@@ -54,3 +54,14 @@ export const ItemReadMore = styled.div`
   padding-block-start: ${pxToRem(10)};
   ${tLabel("sm")}
 `;
+
+export const ItemPrimaryMetadata = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+
+  > * + * {
+    &:before {
+      content: ", ";
+    }
+  }
+`;

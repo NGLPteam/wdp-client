@@ -8,12 +8,8 @@ import { FragmentRefs } from "relay-runtime";
 export type FeaturedIssuesFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly title: string;
             readonly slug: string;
-            readonly summary: string | null;
-            readonly thumbnail: {
-                readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-            } | null;
+            readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
         };
     }>;
     readonly " $refType": "FeaturedIssuesFragment";
@@ -52,38 +48,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "slug",
               "storageKey": null
             },
             {
-              "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "summary",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "AssetPreview",
-              "kind": "LinkedField",
-              "name": "thumbnail",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "CoverImageFragment"
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "FeaturedIssueFragment"
             }
           ],
           "storageKey": null
@@ -95,5 +66,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '74df60865a6c87e3105e67f8f281c606';
+(node as any).hash = 'e38024c86c8297f2b946a88575d67c08';
 export default node;
