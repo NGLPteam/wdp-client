@@ -1,11 +1,10 @@
 import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import * as Styled from "./FeaturedIssues.styles";
-import { ArrowLink, PrecisionDate } from "components/atomic";
+import { ArrowLink, PrecisionDate, NamedLink } from "components/atomic";
 import CoverImage from "components/atomic/CoverImage";
 import { FeaturedIssueFragment$key } from "@/relay/FeaturedIssueFragment.graphql";
 

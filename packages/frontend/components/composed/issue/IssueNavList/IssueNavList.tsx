@@ -1,9 +1,10 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./IssueNavList.styles";
 import { IssueNavListFragment$key } from "@/relay/IssueNavListFragment.graphql";
+import { NamedLink } from "components/atomic";
 
 export default function IssueNavList({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);

@@ -1,13 +1,12 @@
 import React from "react";
-import { useRouterContext } from "@wdp/lib/routes";
 import { useTranslation } from "react-i18next";
 import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
+import { RouteHelper } from "routes";
 
 export default function Search({ placeholder, queryParams }: Props) {
   const { t } = useTranslation();
-  const { findRouteByName } = useRouterContext();
-  const searchRoute = findRouteByName("search");
+  const searchRoute = RouteHelper.findRouteByName("search");
 
   return (
     <Styled.SearchForm

@@ -1,11 +1,11 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./FeaturedIssues.styles";
 import FeaturedIssue from "./FeaturedIssue";
-import { Button } from "components/atomic";
+import { Button, NamedLink } from "components/atomic";
 import {
   FeaturedIssuesFragment$data,
   FeaturedIssuesFragment$key,

@@ -1,9 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink } from "@wdp/lib/routes";
 import * as Styled from "./IssueSummaryItem.styles";
-import { PrecisionDate, SquareThumbnail } from "components/atomic";
+import { PrecisionDate, SquareThumbnail, NamedLink } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import { IssueSummaryItemFragment$key } from "@/relay/IssueSummaryItemFragment.graphql";
 

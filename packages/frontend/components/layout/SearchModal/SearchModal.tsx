@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
-import { useRouterContext } from "@wdp/lib/routes";
 import Modal from "../BaseModal";
 import * as Styled from "./SearchModal.styles";
 import { IconFactory } from "components/factories";
 import { Select } from "components/forms";
+import { RouteHelper } from "routes";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -13,8 +13,7 @@ export default function SearchModal({ dialog }: Pick<ModalProps, "dialog">) {
   const selectId = "searchFilter";
   const searchId = "searchInput";
   const { t } = useTranslation();
-  const { findRouteByName } = useRouterContext();
-  const searchRoute = findRouteByName("search");
+  const searchRoute = RouteHelper.findRouteByName("search");
 
   return (
     <Modal dialog={dialog} label={t("search.label")}>
