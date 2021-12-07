@@ -32,7 +32,10 @@ export default function FeaturedJournals({
       <h3 className="a-hidden">{t(headerText)}</h3>
       <Styled.List>
         {collections.edges.map(({ node }: Node, i) => (
-          <Styled.ListItem key={node.slug}>
+          <Styled.ListItem
+            key={node.slug}
+            data-count={collections.edges.length}
+          >
             <NamedLink
               route="collection"
               routeParams={{ slug: node.slug }}
