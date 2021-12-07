@@ -4,8 +4,8 @@ import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./FeaturedIssues.styles";
-import { ArrowLink, Button } from "components/atomic";
-import CoverImage from "components/atomic/CoverImage";
+import FeaturedIssue from "./FeaturedIssue";
+import { Button } from "components/atomic";
 import {
   FeaturedIssuesFragment$data,
   FeaturedIssuesFragment$key,
@@ -28,42 +28,7 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
           {issues.edges.slice(0, limit).map(({ node }: Node) =>
             node.slug ? (
               <Styled.ListItem key={node.slug}>
-                <NamedLink
-                  route="collection"
-                  routeParams={{ slug: node.slug }}
-                  passHref
-                >
-                  <Styled.ItemLink>
-                    <Styled.ItemCoverBlock>
-                      <CoverImage
-                        data={node.thumbnail}
-                        maxWidth={120}
-                        maxHeight={160}
-                      />
-                    </Styled.ItemCoverBlock>
-                    <div>
-                      <Styled.ItemTitleBlock>
-                        <h4>{node.title}</h4>
-                        {/* <h5 className="t-copy-italic">Subtitle</h5> */}
-                      </Styled.ItemTitleBlock>
-                      <div className="t-copy-sm">
-                        <p>Primary Metadata</p>
-                        <p className="t-copy-italic t-copy-light">
-                          Secondary metadata
-                        </p>
-                      </div>
-                      {node.summary && (
-                        <Styled.ItemSummary className="t-copy-light">
-                          {node.summary}
-                        </Styled.ItemSummary>
-                      )}
-                      <Styled.ItemReadMore
-                        as={ArrowLink}
-                        label={t("common.read_more")}
-                      />
-                    </div>
-                  </Styled.ItemLink>
-                </NamedLink>
+                <FeaturedIssue data={node} />
               </Styled.ListItem>
             ) : null
           )}
@@ -94,12 +59,8 @@ const fragment = graphql`
   fragment FeaturedIssuesFragment on CollectionConnection {
     edges {
       node {
-        title
         slug
-        summary
-        thumbnail {
-          ...CoverImageFragment
-        }
+        ...FeaturedIssueFragment
       }
     }
   }
