@@ -1,11 +1,11 @@
 import React from "react";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CommunityNavList.styles";
 import { IconFactory } from "components/factories";
-import { ArrowLink, Dropdown } from "components/atomic";
+import { ArrowLink, Dropdown, NamedLink } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 
 export default function CommunityNavList({ condensed, data }: Props) {

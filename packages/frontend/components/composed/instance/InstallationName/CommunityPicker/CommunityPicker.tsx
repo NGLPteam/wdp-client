@@ -1,9 +1,8 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink } from "@wdp/lib/routes";
 import startCase from "lodash/startCase";
-import { Button, Dropdown } from "components/atomic";
+import { Button, Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 
 export default function CommunityPicker({ data }: Props) {

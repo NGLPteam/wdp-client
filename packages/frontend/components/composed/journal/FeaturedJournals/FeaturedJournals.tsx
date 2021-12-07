@@ -1,13 +1,12 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate } from "@wdp/lib/helpers";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./FeaturedJournals.styles";
-import { Button } from "components/atomic";
-import CoverImage from "components/atomic/CoverImage";
+import { Button, NamedLink, CoverImage } from "components/atomic";
 import {
   FeaturedJournalsFragment$data,
   FeaturedJournalsFragment$key,

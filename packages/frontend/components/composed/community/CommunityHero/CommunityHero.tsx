@@ -2,17 +2,16 @@ import React, { useRef } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouterContext } from "@wdp/lib/routes";
 import * as Styled from "./CommunityHero.styles";
 import { IconFactory } from "components/factories";
 import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
+import { RouteHelper } from "routes";
 
 export default function CommunityHero({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { findRouteByName } = useRouterContext();
-  const searchRoute = findRouteByName("search");
+  const searchRoute = RouteHelper.findRouteByName("search");
 
   return community ? (
     <section className="a-bg-custom10">

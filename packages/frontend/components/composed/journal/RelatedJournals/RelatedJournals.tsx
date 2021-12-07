@@ -1,17 +1,20 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./RelatedJournals.styles";
-import { Button } from "components/atomic";
-import CoverImage from "components/atomic/CoverImage";
+import {
+  Button,
+  NamedLink,
+  CoverImage,
+  PrecisionDate,
+} from "components/atomic";
 import {
   RelatedJournalsFragment$data,
   RelatedJournalsFragment$key,
 } from "@/relay/RelatedJournalsFragment.graphql";
 import { getRouteByEntityType } from "helpers";
-import PrecisionDate from "components/atomic/PrecisionDate";
 
 export default function RelatedJournals({ data }: Props) {
   const entities = useMaybeFragment(fragment, data);

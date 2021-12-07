@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink } from "@wdp/lib/routes";
 import { useTranslation } from "react-i18next";
 import Dropdown from "../Dropdown";
+import { NamedLink } from "..";
 import * as Styled from "./Breadcrumbs.styles";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
 import { EntityKind } from "types/graphql-schema";

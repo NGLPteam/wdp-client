@@ -3,24 +3,23 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import Link from "next/link";
-import { useRouterContext } from "@wdp/lib/routes";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
 import InstallationName from "../../composed/instance/InstallationName";
 import * as Styled from "./AppFooter.styles";
 import { Search } from "components/forms";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
+import { RouteHelper } from "routes";
 
 // Note: About text and community name will come from backend data
 function AppFooter({ data, nameComponent }: Props) {
   const { t } = useTranslation();
   const today = new Date();
   const { footerData } = appData;
-  const { findRouteByName } = useRouterContext();
   const footerApiData = useMaybeFragment(fragment, data);
 
   function renderRoute(route: string, label?: string) {
-    const routeObj = findRouteByName(route);
+    const routeObj = RouteHelper.findRouteByName(route);
     const routeLabel = label || routeObj?.label;
 
     return routeObj && routeLabel ? (

@@ -1,12 +1,13 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink, useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./ArticleTabNav.styles";
 import {
   ArticleTabNavFragment$data,
   ArticleTabNavFragment$key,
 } from "@/relay/ArticleTabNavFragment.graphql";
+import { NamedLink } from "components/atomic";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
