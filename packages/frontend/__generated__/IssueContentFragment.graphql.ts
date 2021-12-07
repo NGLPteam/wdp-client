@@ -9,6 +9,7 @@ export type IssueContentFragment = {
     readonly orderings: {
         readonly " $fragmentRefs": FragmentRefs<"EntityOrderSelectFragment">;
     };
+    readonly " $fragmentRefs": FragmentRefs<"IssueNavListFragment">;
     readonly " $refType": "IssueContentFragment";
 };
 export type IssueContentFragment$data = IssueContentFragment;
@@ -40,10 +41,15 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "IssueNavListFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '82ddf44b5a611ffccd3471bc3fbf501c';
+(node as any).hash = '229f9835b25c35452a3bb2fb444236ab';
 export default node;
