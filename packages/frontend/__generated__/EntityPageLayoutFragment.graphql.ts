@@ -8,6 +8,9 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityPageLayoutFragment = {
     readonly title: string;
     readonly body: string;
+    readonly heroImage: {
+        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
+    } | null;
     readonly " $refType": "EntityPageLayoutFragment";
 };
 export type EntityPageLayoutFragment$data = EntityPageLayoutFragment;
@@ -37,10 +40,26 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "body",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "AssetPreview",
+      "kind": "LinkedField",
+      "name": "heroImage",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContentImageFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Page",
   "abstractKey": null
 };
-(node as any).hash = '23cf75d1fc893e8e6158c4c3ecf8cc26';
+(node as any).hash = '501f891424cca2a08bd76aa7388cfd48';
 export default node;
