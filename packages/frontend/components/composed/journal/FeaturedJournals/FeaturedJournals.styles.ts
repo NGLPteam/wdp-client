@@ -1,6 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
+import { tLineClamp } from "theme/mixins";
 
 export const Section = styled.div`
   position: relative;
@@ -37,7 +38,9 @@ export const ListItem = styled.li`
 `;
 
 export const ItemLink = styled.a`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `;
 
 export const ItemCover = styled.div`
@@ -54,16 +57,25 @@ export const ItemCover = styled.div`
 `;
 
 export const ItemTitle = styled.h4`
-  display: inline-block;
+  flex: 1 1 auto;
   margin-block-end: ${pxToRem(24)};
   padding-block-start: ${pxToRem(20)};
-  padding-inline: ${pxToRem(30)};
+  padding-inline: ${pxToRem(40)};
+  text-align: center;
+  ${tLineClamp(2)}
 `;
 
 export const ItemData = styled.div`
   margin-block-start: auto;
-  padding-inline: ${pxToRem(30)};
+  padding-inline: ${pxToRem(40)};
   padding-block-end: ${pxToRem(30)};
+  text-align: center;
+
+  > * + * {
+    &:before {
+      content: ", ";
+    }
+  }
 `;
 
 export const ButtonWrapper = styled.div`
