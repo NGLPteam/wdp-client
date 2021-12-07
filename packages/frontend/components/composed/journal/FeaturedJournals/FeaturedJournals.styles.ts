@@ -24,11 +24,16 @@ export const List = styled.ul`
   display: flex;
   max-width: ${containerWidths.max};
   margin: 0 auto;
+  justify-content: center;
 `;
 
 export const ListItem = styled.li`
   flex: 1 1 100%;
   z-index: 1;
+
+  &[data-count="1"] {
+    max-width: 480px;
+  }
 `;
 
 export const ItemLink = styled.a`
