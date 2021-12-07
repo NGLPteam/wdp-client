@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
+import IssueNavList from "../IssueNavList";
 import * as Styled from "./IssueContent.styles";
 import EntityOrderSelect from "components/composed/entity/EntityOrderSelect";
 import { IssueContentFragment$key } from "@/relay/IssueContentFragment.graphql";
@@ -26,11 +27,15 @@ export default function IssueContent({ data, children }: Props) {
       <Styled.SectionInner className="l-container-wide">
         <Styled.LeftSide>{children}</Styled.LeftSide>
         <Styled.RightSide as="nav">
-          <EntityOrderSelect
-            data={content?.orderings}
-            onChange={handleOrderChange}
-            defaultValue={order}
-          />
+          {/* TODO: Fix router context, use context to get current route name */}
+          {router.pathname === "/collections/[slug]" && (
+            <EntityOrderSelect
+              data={content?.orderings}
+              onChange={handleOrderChange}
+              defaultValue={order}
+            />
+          )}
+          <IssueNavList data={content} />
         </Styled.RightSide>
       </Styled.SectionInner>
     </Styled.Section>
@@ -47,5 +52,6 @@ const fragment = graphql`
     orderings {
       ...EntityOrderSelectFragment
     }
+    ...IssueNavListFragment
   }
 `;
