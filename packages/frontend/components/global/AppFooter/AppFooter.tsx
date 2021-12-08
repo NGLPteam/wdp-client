@@ -12,7 +12,7 @@ import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { RouteHelper } from "routes";
 
 // Note: About text and community name will come from backend data
-function AppFooter({ data, nameComponent }: Props) {
+function AppFooter({ data, nameComponent, background = "custom10" }: Props) {
   const { t } = useTranslation();
   const today = new Date();
   const { footerData } = appData;
@@ -32,7 +32,7 @@ function AppFooter({ data, nameComponent }: Props) {
   }
 
   return (
-    <Styled.FooterWrapper className="a-bg-custom10">
+    <Styled.FooterWrapper className={`a-bg-${background}`}>
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
           {nameComponent}
@@ -71,6 +71,7 @@ function AppFooter({ data, nameComponent }: Props) {
 interface Props {
   data?: AppFooterFragment$key | null;
   nameComponent?: React.ReactNode;
+  background?: string;
 }
 
 export default AppFooter;
