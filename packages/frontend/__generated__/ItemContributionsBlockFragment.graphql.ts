@@ -5,18 +5,19 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type EntityContributorsLayoutFragment = {
+export type ItemContributionsBlockFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly id: string;
+            readonly slug: string;
+            readonly " $fragmentRefs": FragmentRefs<"ContributionBlockItemFragment">;
         };
     }>;
-    readonly " $refType": "EntityContributorsLayoutFragment";
+    readonly " $refType": "ItemContributionsBlockFragment";
 };
-export type EntityContributorsLayoutFragment$data = EntityContributorsLayoutFragment;
-export type EntityContributorsLayoutFragment$key = {
-    readonly " $data"?: EntityContributorsLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityContributorsLayoutFragment">;
+export type ItemContributionsBlockFragment$data = ItemContributionsBlockFragment;
+export type ItemContributionsBlockFragment$key = {
+    readonly " $data"?: ItemContributionsBlockFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"ItemContributionsBlockFragment">;
 };
 
 
@@ -25,7 +26,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "EntityContributorsLayoutFragment",
+  "name": "ItemContributionsBlockFragment",
   "selections": [
     {
       "alias": null,
@@ -47,8 +48,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "id",
+              "name": "slug",
               "storageKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ContributionBlockItemFragment"
             }
           ],
           "storageKey": null
@@ -60,5 +66,5 @@ const node: ReaderFragment = {
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = '0e0da7ddbdae46e0cfd4d44adf782509';
+(node as any).hash = 'b0c6a66ca523d59fc7cdbd104b9bc7e6';
 export default node;

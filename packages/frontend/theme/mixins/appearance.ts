@@ -90,7 +90,7 @@ export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
 /* Button hover styles */
 export function aButtonBase(style: "primary" | "secondary") {
   return css`
-    display: flex;
+    display: inline-flex;
     align-items: center;
     background: var(--button-${style}-bg-color);
     color: var(--button-${style}-text-color);
