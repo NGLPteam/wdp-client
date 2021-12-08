@@ -82,5 +82,13 @@ export const borderRadius = {
 
 // Box shadows
 export const boxShadow = {
-  popUp: "0px 12px 24px -12px rgba(0, 0, 0, 0.3);",
+  popUp: "0px 12px 24px -12px rgba(0, 0, 0, 0.3)",
+  focusGlow: "0px 0px 6px rgba(35, 35, 36, 0.2)",
+};
+
+// Transitions
+export const transition = {
+  color: "color 0.17s ease-in",
+  background: "background 0.17s ease-in",
+  opacity: "opacity 0.17s ease-in",
 };

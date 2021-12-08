@@ -142,9 +142,15 @@ export default css`
 
     /* buttons */
     --button-primary-bg-color: ${baseColors.neutral90};
+    --button-primary-bg-hover-color: ${baseColors.neutral70};
+    --button-primary-bg-focus-color: ${baseColors.neutral60};
     --button-primary-text-color: ${baseColors.neutral00};
+    --button-primary-text-hover-color: ${baseColors.neutral00};
     --button-secondary-bg-color: var(--color-custom10);
+    --button-secondary-bg-hover-color: var(--color-custom80);
+    --button-secondary-bg-focus-color: var(--color-custom20);
     --button-secondary-text-color: ${baseColors.neutral90};
+    --button-secondary-text-hover-color: ${baseColors.neutral00};
 
     /* container */
     --container-padding-xlg: ${pxToRem(120)};
@@ -174,5 +180,8 @@ export default css`
     --padding-rg: ${pxToRem(16)};
     --padding-sm: ${pxToRem(8)};
     --padding-xs: ${pxToRem(6)};
+
+    /* focus */
+    --border-color-focus: ${baseColors.neutral90};
   }
 `;

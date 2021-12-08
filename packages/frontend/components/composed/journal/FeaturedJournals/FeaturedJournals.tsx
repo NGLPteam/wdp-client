@@ -67,6 +67,7 @@ const fragment = graphql`
   fragment FeaturedJournalsFragment on CollectionConnection {
     edges {
       node {
+        slug
         ...FeaturedJournalFragment
       }
     }
