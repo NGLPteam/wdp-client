@@ -8,6 +8,7 @@ export const Inner = styled.div`
 
 export const Left = styled.div`
   padding-block-start: var(--padding-xs);
+  grid-column: 1 / span 3;
 `;
 
 export const Right = styled.div`

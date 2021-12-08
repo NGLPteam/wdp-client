@@ -10,13 +10,13 @@ import { CurrentIssueFragment$key } from "@/relay/CurrentIssueFragment.graphql";
 export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
   const result = useMaybeFragment(fragment, data);
-  const issue = result?.edges[0].node;
+  const issue = result?.edges.length ? result.edges[0].node : null;
   const articles = issue?.items.edges.slice(0, 3);
 
   return issue ? (
     <section className="a-bg-neutral00">
       <Styled.Inner className="l-container-wide l-grid">
-        <Styled.Left className="l-grid__item l-grid__item--3">
+        <Styled.Left>
           <CoverImage data={issue.thumbnail} maxWidth={278} maxHeight={370} />
           <Styled.Meta className="t-copy">
             <p>{issue.ancestorOfType?.title}</p>
