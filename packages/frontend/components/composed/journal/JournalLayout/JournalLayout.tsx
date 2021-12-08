@@ -3,6 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import JournalHero from "../JournalHero";
 import JournalNavBar from "../JournalNavBar";
+import CurrentIssue from "../CurrentIssue";
 import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedJournals from "components/composed/journal/RelatedJournals";
@@ -19,6 +20,7 @@ export default function JournalLayout({ data, children }: Props) {
       <JournalHero data={journal} />
       <JournalNavBar data={journal} />
       {children}
+      <CurrentIssue data={journal?.currentIssue} />
       <FeaturedIssues data={journal?.issues} />
       <RelatedJournals data={journal?.related} />
     </>
@@ -46,6 +48,13 @@ const fragment = graphql`
       perPage: 4
     ) {
       ...FeaturedIssuesFragment
+    }
+    currentIssue: collections(
+      perPage: 1
+      schema: "nglp:journal_issue"
+      order: PUBLISHED_DESCENDING
+    ) {
+      ...CurrentIssueFragment
     }
   }
 `;
