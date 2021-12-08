@@ -31,10 +31,6 @@ export const List = styled.ul`
 export const ListItem = styled.li`
   flex: 1 1 100%;
   z-index: 1;
-
-  &[data-count="1"] {
-    max-width: 480px;
-  }
 `;
 
 export const ItemLink = styled.a`
@@ -56,20 +52,26 @@ export const ItemCover = styled.div`
   padding-inline: var(--container-padding-sm);
 `;
 
-export const ItemTitle = styled.h4`
-  flex: 1 1 auto;
-  margin-block-end: ${pxToRem(24)};
+export const ItemText = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: ${pxToRem(410 + 60)};
+  margin: 0 auto;
+  padding-inline-start: ${pxToRem(30)};
+  padding-inline-end: ${pxToRem(30)};
   padding-block-start: ${pxToRem(20)};
-  padding-inline: ${pxToRem(40)};
+  padding-block-end: ${pxToRem(30)};
   text-align: center;
+  height: 100%;
+`;
+
+export const ItemTitle = styled.h4`
+  margin-block-end: ${pxToRem(24)};
   ${tLineClamp(2)}
 `;
 
 export const ItemData = styled.div`
   margin-block-start: auto;
-  padding-inline: ${pxToRem(40)};
-  padding-block-end: ${pxToRem(30)};
-  text-align: center;
 
   > * + * {
     &:before {

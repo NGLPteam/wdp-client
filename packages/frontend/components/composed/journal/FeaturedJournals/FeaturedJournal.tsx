@@ -23,23 +23,25 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
             maxHeight={coverHeight}
           />
         </Styled.ItemCover>
-        <Styled.ItemTitle>{journal.title}</Styled.ItemTitle>
-        <Styled.ItemData className="t-copy-sm a-color-lighter">
-          {journal.issues.pageInfo.totalCount ? (
-            <span>
-              {t("layouts.issue_count", {
-                count: journal.issues.pageInfo.totalCount,
-              })}
-            </span>
-          ) : null}
-          {journal.updatedAt && (
-            <span>
-              {t("common.last_updated", {
-                value: formatDate(journal.updatedAt, "L/d/yy"),
-              })}
-            </span>
-          )}
-        </Styled.ItemData>
+        <Styled.ItemText>
+          <Styled.ItemTitle>{journal.title}</Styled.ItemTitle>
+          <Styled.ItemData className="t-copy-sm a-color-lighter">
+            {journal.issues.pageInfo.totalCount ? (
+              <span>
+                {t("layouts.issue_count", {
+                  count: journal.issues.pageInfo.totalCount,
+                })}
+              </span>
+            ) : null}
+            {journal.updatedAt && (
+              <span>
+                {t("common.last_updated", {
+                  value: formatDate(journal.updatedAt, "L/d/yy"),
+                })}
+              </span>
+            )}
+          </Styled.ItemData>
+        </Styled.ItemText>
       </Styled.ItemLink>
     </NamedLink>
   ) : null;
