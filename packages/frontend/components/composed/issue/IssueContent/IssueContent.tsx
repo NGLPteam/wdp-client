@@ -7,6 +7,7 @@ import IssueNavList from "../IssueNavList";
 import * as Styled from "./IssueContent.styles";
 import EntityOrderSelect from "components/composed/entity/EntityOrderSelect";
 import { IssueContentFragment$key } from "@/relay/IssueContentFragment.graphql";
+import { BackToTopBlock } from "components/layout";
 
 export default function IssueContent({ data, children }: Props) {
   const content = useMaybeFragment(fragment, data);
@@ -23,22 +24,24 @@ export default function IssueContent({ data, children }: Props) {
   }
 
   return (
-    <Styled.Section className="a-bg-neutral00">
-      <Styled.SectionInner className="l-container-wide">
-        <Styled.LeftSide>{children}</Styled.LeftSide>
-        <Styled.RightSide as="nav">
-          {/* TODO: Fix router context, use context to get current route name */}
-          {router.pathname === "/collections/[slug]" && (
-            <EntityOrderSelect
-              data={content?.orderings}
-              onChange={handleOrderChange}
-              defaultValue={order}
-            />
-          )}
-          <IssueNavList data={content} />
-        </Styled.RightSide>
-      </Styled.SectionInner>
-    </Styled.Section>
+    <section className="a-bg-neutral00">
+      <Styled.SectionWrapper as={BackToTopBlock} className="l-container-wide">
+        <Styled.SectionInner>
+          <Styled.LeftSide>{children}</Styled.LeftSide>
+          <Styled.RightSide as="nav">
+            {/* TODO: Fix router context, use context to get current route name */}
+            {router.pathname === "/collections/[slug]" && (
+              <EntityOrderSelect
+                data={content?.orderings}
+                onChange={handleOrderChange}
+                defaultValue={order}
+              />
+            )}
+            <IssueNavList data={content} />
+          </Styled.RightSide>
+        </Styled.SectionInner>
+      </Styled.SectionWrapper>
+    </section>
   );
 }
 

@@ -5,7 +5,7 @@ import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
 import * as Styled from "./ArticleLayout.styles";
-import { BreadcrumbsBar } from "components/layout";
+import { BackToTopBlock, BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
@@ -19,7 +19,7 @@ export default function ArticleLayout({ data, children }: Props) {
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
       <section className="a-bg-neutral00">
-        <Styled.SectionInner className="l-container-wide">
+        <Styled.SectionInner as={BackToTopBlock} className="l-container-wide">
           <ArticleTabNav data={article} />
           {children}
         </Styled.SectionInner>
