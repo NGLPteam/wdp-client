@@ -25,6 +25,7 @@ export default function CommunityChildLayout({
           <CommunityCondensedNav data={app} communityData={community} />
         ) : undefined
       }
+      footerBackground="custom20"
     >
       {community && <CommunityHTMLHead data={community} />}
       {children}

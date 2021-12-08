@@ -6,14 +6,24 @@ import AppFooter from "../AppFooter";
 import * as Styled from "./AppBody.styles";
 import { AppBodyFragment$key } from "@/relay/AppBodyFragment.graphql";
 
-function AppBody({ children, data, nameComponent, headerNavComponent }: Props) {
+function AppBody({
+  children,
+  data,
+  nameComponent,
+  headerNavComponent,
+  footerBackground,
+}: Props) {
   const appData = useMaybeFragment(fragment, data);
 
   return (
     <Styled.Body className="a-bg-neutral00">
       {headerNavComponent || <AppHeader data={appData} />}
       <Styled.Main id="main">{children}</Styled.Main>
-      <AppFooter data={appData} nameComponent={nameComponent} />
+      <AppFooter
+        data={appData}
+        nameComponent={nameComponent}
+        background={footerBackground}
+      />
     </Styled.Body>
   );
 }
@@ -24,6 +34,7 @@ interface Props {
   /** This component will replace the "Instance Name" text in the footer */
   nameComponent?: React.ReactNode;
   headerNavComponent?: React.ReactNode;
+  footerBackground?: string;
 }
 
 export default AppBody;
