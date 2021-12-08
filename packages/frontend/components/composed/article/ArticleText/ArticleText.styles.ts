@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { lGrid } from "theme/mixins";
 
 export const BodyWrapper = styled.div`
+  padding-block-start: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-lg);
+`;
+
+export const BodyInner = styled.div`
   ${lGrid()}
   grid-template-areas: "text text text text text text text text . toc toc toc";
 `;

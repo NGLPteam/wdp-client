@@ -8,7 +8,7 @@ import {
   ItemContributionsBlockFragment$data,
 } from "@/relay/ItemContributionsBlockFragment.graphql";
 
-const ItemContributionsBlock = ({ data, background = "custom10" }: Props) => {
+const ItemContributionsBlock = ({ data, background }: Props) => {
   const contributors = useMaybeFragment(fragment, data);
 
   return contributors && contributors.edges.length > 0 ? (

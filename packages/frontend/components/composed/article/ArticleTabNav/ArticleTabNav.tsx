@@ -30,7 +30,7 @@ export default function ArticleTabNav({ data }: Props) {
   }
 
   return nav ? (
-    <nav>
+    <nav className="l-container-wide">
       <Styled.List>
         {getLink("item", "Article")}
         {getLink("item.metadata", "Metadata")}
