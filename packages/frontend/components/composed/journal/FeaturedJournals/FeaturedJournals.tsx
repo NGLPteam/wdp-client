@@ -1,12 +1,12 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { formatDate } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./FeaturedJournals.styles";
-import { Button, NamedLink, CoverImage } from "components/atomic";
+import FeaturedJournal from "./FeaturedJournal";
+import { Button, NamedLink } from "components/atomic";
 import {
   FeaturedJournalsFragment$data,
   FeaturedJournalsFragment$key,
@@ -35,40 +35,7 @@ export default function FeaturedJournals({
             key={node.slug}
             data-count={collections.edges.length}
           >
-            <NamedLink
-              route="collection"
-              routeParams={{ slug: node.slug }}
-              passHref
-            >
-              <Styled.ItemLink>
-                <Styled.ItemCover
-                  className={i % 2 === 0 ? "a-bg-neutral90" : "a-bg-neutral80"}
-                >
-                  <CoverImage
-                    data={node.thumbnail}
-                    maxWidth={300}
-                    maxHeight={coverHeight}
-                  />
-                </Styled.ItemCover>
-                <Styled.ItemTitle className="t-copy t-copy-medium">
-                  {node.title}
-                </Styled.ItemTitle>
-                <Styled.ItemData className="t-copy-sm a-color-lighter">
-                  {node.collections.pageInfo.totalCount ? (
-                    <span>
-                      {node.collections.pageInfo.totalCount} Collections,{" "}
-                    </span>
-                  ) : null}
-                  {node.updatedAt && (
-                    <span>
-                      {t("common.last_updated", {
-                        value: formatDate(node.updatedAt, "L/d/yy"),
-                      })}
-                    </span>
-                  )}
-                </Styled.ItemData>
-              </Styled.ItemLink>
-            </NamedLink>
+            <FeaturedJournal data={node} index={i} coverHeight={coverHeight} />
           </Styled.ListItem>
         ))}
       </Styled.List>
@@ -100,17 +67,8 @@ const fragment = graphql`
   fragment FeaturedJournalsFragment on CollectionConnection {
     edges {
       node {
-        title
         slug
-        updatedAt
-        thumbnail {
-          ...CoverImageFragment
-        }
-        collections {
-          pageInfo {
-            totalCount
-          }
-        }
+        ...FeaturedJournalFragment
       }
     }
   }

@@ -27,7 +27,10 @@ export default function Search({ placeholder, queryParams }: Props) {
         name="q"
         placeholder={placeholder || t("search.label")}
       />
-      <button className="a-hidden">{t("search.submit")}</button>
+      <Styled.SubmitButton type="submit">
+        <IconFactory icon="arrowRight" role="presentation" />
+        <span className="a-hidden">{t("search.submit")}</span>
+      </Styled.SubmitButton>
     </Styled.SearchForm>
   );
 }

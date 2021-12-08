@@ -13,4 +13,5 @@ export const aInputReset = `
   border: none;
   cursor: pointer;
   background: transparent;
+  color: inherit;
 `;

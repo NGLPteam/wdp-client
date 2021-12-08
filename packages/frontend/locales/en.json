@@ -59,7 +59,9 @@
       "related_journals_header": "Related $t(schema.nglp.journal_plural)",
       "see_all_journals": "See All $t(schema.nglp.journal_plural)",
       "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
-      "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)"
+      "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)",
+      "issue_count": "{{count}} Issue",
+      "issue_count_plural": "{{count}} Issues"
     },
     "nav": {
       "home": "Home",

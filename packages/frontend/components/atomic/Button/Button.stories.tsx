@@ -19,13 +19,17 @@ export default {
 };
 
 const Template: Story<Props> = ({ children, ...args }) => (
-  <Button {...args}>{children}</Button>
+  <div className="l-flex l-flex--gap">
+    <Button {...args}>Button!</Button>
+    <Button {...args} secondary>
+      Secondary Button!
+    </Button>
+  </div>
 );
 
 export const Default: Story<Props> = Template.bind({});
 
 Default.args = {
-  children: "A Button!",
-  secondary: false,
   size: "lg",
+  disabled: false,
 };

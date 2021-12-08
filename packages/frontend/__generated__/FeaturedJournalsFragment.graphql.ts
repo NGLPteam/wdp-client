@@ -8,17 +8,8 @@ import { FragmentRefs } from "relay-runtime";
 export type FeaturedJournalsFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
-            readonly title: string;
             readonly slug: string;
-            readonly updatedAt: string;
-            readonly thumbnail: {
-                readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-            } | null;
-            readonly collections: {
-                readonly pageInfo: {
-                    readonly totalCount: number;
-                };
-            };
+            readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalFragment">;
         };
     }>;
     readonly " $refType": "FeaturedJournalsFragment";
@@ -57,67 +48,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "slug",
               "storageKey": null
             },
             {
-              "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "updatedAt",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "AssetPreview",
-              "kind": "LinkedField",
-              "name": "thumbnail",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "CoverImageFragment"
-                }
-              ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "CollectionConnection",
-              "kind": "LinkedField",
-              "name": "collections",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "PageInfo",
-                  "kind": "LinkedField",
-                  "name": "pageInfo",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "totalCount",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "FeaturedJournalFragment"
             }
           ],
           "storageKey": null
@@ -129,5 +66,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'a3c6796e3da6ed0f8702321bafd25849';
+(node as any).hash = '850fef19013547c284ff54b037215e3d';
 export default node;

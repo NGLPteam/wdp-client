@@ -32,9 +32,10 @@ export default function CommunityHero({ data }: Props) {
               ref={inputRef}
               placeholder={t("search.community_placeholder")}
             />
-            <button className="a-hidden" type="submit">
-              {t("search.submit")}
-            </button>
+            <Styled.SearchButton type="submit">
+              <IconFactory icon="arrowRight" />
+              <span className="a-hidden">{t("search.submit")}</span>
+            </Styled.SearchButton>
           </Styled.SearchWrapper>
         </Styled.Form>
       </Styled.HeroInner>
