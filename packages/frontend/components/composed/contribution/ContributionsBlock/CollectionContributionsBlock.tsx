@@ -8,10 +8,7 @@ import {
   CollectionContributionsBlockFragment$data,
 } from "@/relay/CollectionContributionsBlockFragment.graphql";
 
-const CollectionContributionsBlock = ({
-  data,
-  background = "custom10",
-}: Props) => {
+const CollectionContributionsBlock = ({ data, background }: Props) => {
   const contributors = useMaybeFragment(fragment, data);
 
   const showAvatars = useMemo(() => {
