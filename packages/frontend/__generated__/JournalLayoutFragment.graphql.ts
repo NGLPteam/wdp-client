@@ -12,6 +12,9 @@ export type JournalLayoutFragment = {
     readonly issues: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
     };
+    readonly currentIssue: {
+        readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "JournalHeroFragment" | "JournalNavBarFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
@@ -28,6 +31,11 @@ var v0 = {
   "kind": "Literal",
   "name": "perPage",
   "value": 4
+},
+v1 = {
+  "kind": "Literal",
+  "name": "schema",
+  "value": "nglp:journal_issue"
 };
 return {
   "argumentDefinitions": [],
@@ -72,11 +80,7 @@ return {
           "value": "PUBLISHED_ASCENDING"
         },
         (v0/*: any*/),
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:journal_issue"
-        }
+        (v1/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -90,6 +94,34 @@ return {
         }
       ],
       "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",perPage:4,schema:\"nglp:journal_issue\")"
+    },
+    {
+      "alias": "currentIssue",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "PUBLISHED_DESCENDING"
+        },
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 1
+        },
+        (v1/*: any*/)
+      ],
+      "concreteType": "CollectionConnection",
+      "kind": "LinkedField",
+      "name": "collections",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "CurrentIssueFragment"
+        }
+      ],
+      "storageKey": "collections(order:\"PUBLISHED_DESCENDING\",perPage:1,schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -116,5 +148,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5420944b816e029d825a68181e3d807a';
+(node as any).hash = '750d7b035f07bc67a84ab452e3d9845a';
 export default node;
