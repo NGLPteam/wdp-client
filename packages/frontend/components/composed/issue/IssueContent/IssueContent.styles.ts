@@ -2,7 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { lGrid, respond } from "theme/mixins";
 
-export const Section = styled.section`
+export const SectionWrapper = styled.div`
   padding-block-start: ${pxToRem(80)};
   padding-block-end: var(--container-padding-xlg);
 `;

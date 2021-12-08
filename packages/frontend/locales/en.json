@@ -16,7 +16,8 @@
       "show_more": "Show More",
       "read_more": "Read More",
       "last_updated": "Last Updated {{value}}",
-      "published": "Published"
+      "published": "Published",
+      "back_to_top": "Back to Top"
     },
     "search": {
       "label": "Search",
