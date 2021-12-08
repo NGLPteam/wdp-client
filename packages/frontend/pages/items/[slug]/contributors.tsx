@@ -15,7 +15,10 @@ export default function ItemPage() {
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
-            <ItemContributionsBlock data={data?.item?.contributions} />
+            <ItemContributionsBlock
+              data={data?.item?.contributions}
+              background="neutral00"
+            />
           </EntityLayoutFactory>
         </CommunityChildLayout>
       )}

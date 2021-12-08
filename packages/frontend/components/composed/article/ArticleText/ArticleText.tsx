@@ -5,6 +5,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleText.styles";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
 import { ContentImage } from "components/atomic";
+import { BackToTopBlock } from "components/layout";
 
 export default function ArticleText({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
@@ -14,34 +15,36 @@ export default function ArticleText({ data }: Props) {
   );
 
   return article ? (
-    <Styled.BodyWrapper>
-      <Styled.TextBlock>
-        <Styled.ImageBlock>
-          <ContentImage data={article.thumbnail} />
-        </Styled.ImageBlock>
-        {body?.fullText &&
-          (body.fullText.content && body.fullText.kind === "HTML" ? (
-            <div
-              className="t-rte"
-              dangerouslySetInnerHTML={{ __html: body.fullText.content }}
-            />
-          ) : (
-            body.fullText.content && (
-              <ReactMarkdown className="t-rte">
-                {body.fullText.content}
-              </ReactMarkdown>
-            )
-          ))}
-      </Styled.TextBlock>
-      <Styled.TOCBlock>
-        <Styled.TOCHeader className="t-label-sm t-copy-light">
-          Table of Contents
-        </Styled.TOCHeader>
-        <Styled.TOCList>
-          <Styled.TOCListItem>Example Item</Styled.TOCListItem>
-          <Styled.TOCListItem>Example Item</Styled.TOCListItem>
-        </Styled.TOCList>
-      </Styled.TOCBlock>
+    <Styled.BodyWrapper as={BackToTopBlock} className="l-container-wide">
+      <Styled.BodyInner>
+        <Styled.TextBlock>
+          <Styled.ImageBlock>
+            <ContentImage data={article.thumbnail} />
+          </Styled.ImageBlock>
+          {body?.fullText &&
+            (body.fullText.content && body.fullText.kind === "HTML" ? (
+              <div
+                className="t-rte"
+                dangerouslySetInnerHTML={{ __html: body.fullText.content }}
+              />
+            ) : (
+              body.fullText.content && (
+                <ReactMarkdown className="t-rte">
+                  {body.fullText.content}
+                </ReactMarkdown>
+              )
+            ))}
+        </Styled.TextBlock>
+        <Styled.TOCBlock>
+          <Styled.TOCHeader className="t-label-sm t-copy-light">
+            Table of Contents
+          </Styled.TOCHeader>
+          <Styled.TOCList>
+            <Styled.TOCListItem>Example Item</Styled.TOCListItem>
+            <Styled.TOCListItem>Example Item</Styled.TOCListItem>
+          </Styled.TOCList>
+        </Styled.TOCBlock>
+      </Styled.BodyInner>
     </Styled.BodyWrapper>
   ) : null;
 }
