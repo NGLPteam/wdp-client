@@ -2,6 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { borderRadius } from "theme/base/variables";
+import { aButtonBase } from "theme/mixins";
 
 export const Form = styled.form`
   padding-block: ${pxToRem(36)};
@@ -27,6 +28,10 @@ export const SearchInput = styled.input`
   border: none;
   background: transparent;
   padding-inline-end: var(--padding-sm);
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const SearchIconLabel = styled.label`
@@ -38,9 +43,8 @@ export const SearchIconLabel = styled.label`
 `;
 
 export const SearchButton = styled.button`
+  ${aButtonBase("secondary")}
   flex: 0 0 auto;
-  display: flex;
-  align-items: center;
   justify-content: center;
   background: var(--color-custom20);
   border-top-right-radius: ${borderRadius.sm};

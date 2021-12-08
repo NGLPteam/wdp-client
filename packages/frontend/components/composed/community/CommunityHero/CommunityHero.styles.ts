@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aInputReset } from "@wdp/lib/theme/mixins";
+import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
 import { tHeading } from "theme/mixins/typography";
 
 export const HeroInner = styled.div`
@@ -42,5 +42,19 @@ export const SearchInput = styled.input`
     width: ${pxToRem(32)};
     height: ${pxToRem(32)};
     margin-block-start: ${pxToRem(2)};
+  }
+`;
+
+export const SearchButton = styled.button`
+  border-bottom: 3px solid var(--color-base-neutral20);
+
+  &:focus {
+    outline: none;
+  }
+
+  /* Only show the submit button if the user is using keyboard navigation */
+  /* Without this, there's no indication of what's in focus */
+  &:not(:focus) {
+    ${aHidden}
   }
 `;

@@ -1,5 +1,5 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aInputReset } from "@wdp/lib/theme/mixins";
+import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 
 export const SearchForm = styled.form`
@@ -20,5 +20,23 @@ export const SearchInput = styled.input`
 
   ::placeholder {
     text-overflow: ellipsis;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const SubmitButton = styled.button`
+  margin-block-start: 1px;
+
+  &:focus {
+    outline: none;
+  }
+
+  /* Only show the submit button if the user is using keyboard navigation */
+  /* Without this, there's no indication of what's in focus */
+  &:not(:focus) {
+    ${aHidden}
   }
 `;

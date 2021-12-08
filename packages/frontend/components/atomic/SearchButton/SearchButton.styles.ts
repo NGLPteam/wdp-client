@@ -1,12 +1,10 @@
 import styled from "styled-components";
+import { aButtonBase } from "theme/mixins";
 
 export const ButtonWrapper = styled.button`
-  display: flex;
-  align-items: center;
+  ${aButtonBase("secondary")}
   justify-content: center;
-  color: var(--button-secondary-text-color);
   border-radius: 50%;
-  background-color: var(--button-secondary-bg-color);
   width: var(--search-button-size);
   height: var(--search-button-size);
 `;

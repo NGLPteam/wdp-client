@@ -75,40 +75,52 @@ export function aBgNeutral90() {
   `;
 }
 
+/* Button styles, including padding and border radius */
 export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
   return css`
-    background: var(--button-${style}-bg-color);
-    color: var(--button-${style}-text-color);
+    ${aButtonBase(style)}
     border-radius: ${borderRadius.xlg};
     padding-block-start: ${size === "sm" ? "6px" : "14px"};
     padding-block-end: ${size === "sm" ? "9px" : "17px"};
     padding-inline: ${size === "sm" ? "16px" : "30px"};
+    ${tLabel("mix")}
+  `;
+}
+
+/* Button hover styles */
+export function aButtonBase(style: "primary" | "secondary") {
+  return css`
+    display: flex;
+    align-items: center;
+    background: var(--button-${style}-bg-color);
+    color: var(--button-${style}-text-color);
     transition: ${transition.color}, ${transition.background},
       ${transition.opacity};
-    ${tLabel("mix")}
-
-    ${aFocus(`
-      background: var(--button-${style}-bg-focus-color);
-    `)}
 
     &:disabled {
       opacity: 0.35;
     }
 
-    &:hover {
+    &:hover:not(:focus) {
       background: var(--button-${style}-bg-hover-color);
       color: var(--button-${style}-text-hover-color);
     }
+
+    ${aFocus(`
+      background: var(--button-${style}-bg-focus-color);
+    `)}
   `;
 }
 
+/* General focus styles */
 export function aFocus(content?: CssContent) {
   return css`
     &:focus {
       outline: none;
     }
 
-    &:focus-visible {
+    &:focus-visible,
+    &:focus-within {
       box-shadow: inset 0px 0px 0px 1px var(--border-color-focus),
         ${boxShadow.focusGlow};
       ${content}
