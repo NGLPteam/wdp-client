@@ -14,11 +14,11 @@ export type ViewerContextQueryResponse = {
         readonly avatar: {
             readonly small: {
                 readonly png: {
-                    readonly url: string;
-                    readonly alt: string;
-                } | null;
+                    readonly url: string | null;
+                    readonly alt: string | null;
+                };
             };
-        } | null;
+        };
     };
 };
 export type ViewerContextQuery = {
@@ -80,7 +80,7 @@ v3 = {
 v4 = {
   "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "avatar",
   "plural": false,
@@ -88,7 +88,7 @@ v4 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "small",
       "plural": false,
@@ -96,7 +96,7 @@ v4 = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "png",
           "plural": false,

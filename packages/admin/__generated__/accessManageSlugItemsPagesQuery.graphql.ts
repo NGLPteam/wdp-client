@@ -288,7 +288,7 @@ v7 = {
 v8 = {
   "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "avatar",
   "plural": false,
@@ -296,7 +296,7 @@ v8 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "small",
       "plural": false,
@@ -304,7 +304,7 @@ v8 = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "png",
           "plural": false,

@@ -9,7 +9,7 @@ export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
 export type ArticleTextFragment = {
     readonly thumbnail: {
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    } | null;
+    };
     readonly properties: ReadonlyArray<{
         readonly fullPath?: string | undefined;
         readonly fullText?: {
@@ -39,7 +39,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "thumbnail",
       "plural": false,

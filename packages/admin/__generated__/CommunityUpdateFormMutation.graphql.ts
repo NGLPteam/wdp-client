@@ -10,7 +10,11 @@ export type UpdateCommunityInput = {
     communityId: string;
     position?: number | null | undefined;
     title: string;
+    heroImage?: UploadedFileInput | null | undefined;
+    heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
+    thumbnailMetadata?: ImageMetadataInput | null | undefined;
+    clearHeroImage?: boolean | null | undefined;
     clearThumbnail?: boolean | null | undefined;
     clientMutationId?: string | null | undefined;
 };
@@ -20,8 +24,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type CommunityUpdateFormMutationVariables = {
     input: UpdateCommunityInput;

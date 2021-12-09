@@ -8,22 +8,22 @@ export default function ContentImageBase({
   width,
   height,
 }: BaseProps) {
-  return (
+  return url ? (
     <Styled.Wrapper className="a-bg-custom20">
       <Image
-        alt={alt}
+        alt={alt || ""}
         src={url}
-        width={width}
-        height={height}
+        width={width || 0}
+        height={height || 0}
         layout="responsive"
       />
     </Styled.Wrapper>
-  );
+  ) : null;
 }
 
 interface BaseProps {
-  alt?: string;
-  url: string;
-  width: number;
-  height: number;
+  alt?: string | null;
+  url: string | null;
+  width: number | null;
+  height: number | null;
 }

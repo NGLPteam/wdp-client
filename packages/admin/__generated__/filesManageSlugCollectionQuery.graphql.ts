@@ -287,7 +287,7 @@ return {
                       {
                         "alias": "thumbnail",
                         "args": null,
-                        "concreteType": "AssetPreview",
+                        "concreteType": "ImageAttachment",
                         "kind": "LinkedField",
                         "name": "preview",
                         "plural": false,
@@ -295,7 +295,7 @@ return {
                           {
                             "alias": "image",
                             "args": null,
-                            "concreteType": "PreviewImageMap",
+                            "concreteType": "ImageSize",
                             "kind": "LinkedField",
                             "name": "medium",
                             "plural": false,
@@ -303,7 +303,7 @@ return {
                               {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "PreviewImage",
+                                "concreteType": "ImageDerivative",
                                 "kind": "LinkedField",
                                 "name": "png",
                                 "plural": false,

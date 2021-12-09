@@ -366,7 +366,9 @@ export type Asset = {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
 };
 
@@ -382,7 +384,9 @@ export type AssetAudio = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -399,7 +403,9 @@ export type AssetDocument = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -416,7 +422,9 @@ export type AssetImage = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -456,18 +464,11 @@ export type AssetPdf = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
-};
-
-export type AssetPreview = {
-  __typename?: 'AssetPreview';
-  alt: Scalars['String'];
-  large: PreviewImageMap;
-  medium: PreviewImageMap;
-  small: PreviewImageMap;
-  thumb: PreviewImageMap;
 };
 
 export type AssetProperty = ScalarProperty & {
@@ -501,7 +502,9 @@ export type AssetUnknown = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -518,7 +521,9 @@ export type AssetVideo = Asset & Node & Sluggable & {
   id: Scalars['ID'];
   kind: AssetKind;
   name: Scalars['String'];
-  preview?: Maybe<AssetPreview>;
+  preview: ImageAttachment;
+  /** Configurable metadata for the preview attachment */
+  previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -553,6 +558,22 @@ export type AttachableAssetsArgs = {
   pageDirection?: PageDirection;
   perPage?: Scalars['Int'];
 };
+
+/** This describes where a given file attachment is stored (if at all) */
+export type AttachmentStorage =
+  /** STORE refers to permanent storage. An asset here has been fully processed and is ready for access */
+  | 'STORE'
+  /**
+   * CACHE refers to temporary storage. When a file is first uploaded to the system, it lives in cache and needs to be processed.
+   * A user could potentially fetch something from an API while a file is still being processed in the background, and if so, none
+   * of its derivatives will be present yet.
+   */
+  | 'CACHE'
+  /** Not yet used */
+  | 'DERIVATIVES'
+  /** Remote URL storage. Only used internally at present, but may sometimes appear during certain harvesting events. */
+  | 'REMOTE'
+  | '%future added value';
 
 export type BooleanProperty = ScalarProperty & {
   __typename?: 'BooleanProperty';
@@ -595,6 +616,7 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Collection.collections */
   children: CollectionConnection;
+  /** Retrieve the collections beneath this collection. */
   collections: CollectionConnection;
   community: Community;
   contributions: CollectionContributionConnection;
@@ -608,6 +630,10 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   hasCollections: Scalars['Boolean'];
   /** Whether this collection has any child items */
   hasItems: Scalars['Boolean'];
+  /** A hero image for the entity, suitable for displaying in page headers */
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   hidden: Scalars['Boolean'];
   /** If present, this is the timestamp the entity was hidden at */
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
@@ -636,6 +662,8 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   published: VariablePrecisionDate;
   /** @deprecated Use the variable-precision 'published' field instead */
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
+  /** Retrieve linked collections of the same schema type */
+  relatedCollections: CollectionConnection;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
   /** The context for our schema instance. Includes form values and necessary referents. */
@@ -647,8 +675,10 @@ export type Collection = Accessible & Entity & HierarchicalEntry & Contributable
   slug: Scalars['Slug'];
   /** A description of the contents of the entity */
   summary?: Maybe<Scalars['String']>;
-  /** A mapping of an entity's preview thumbnail */
-  thumbnail?: Maybe<AssetPreview>;
+  /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
+  thumbnail: ImageAttachment;
+  /** Configurable metadata for the thumbnail attachment */
+  thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
   title: Scalars['String'];
   /** The date this entity was last updated within the WDP */
@@ -740,6 +770,8 @@ export type CollectionChildrenArgs = {
 /** A collection of items */
 export type CollectionCollectionsArgs = {
   order?: Maybe<EntityOrder>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  nodeFilter?: Maybe<SubtreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -846,6 +878,19 @@ export type CollectionPageArgs = {
 
 /** A collection of items */
 export type CollectionPagesArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** A collection of items */
+export type CollectionRelatedCollectionsArgs = {
+  order?: Maybe<EntityOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -966,6 +1011,10 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   breadcrumbs: Array<EntityBreadcrumb>;
   collections: CollectionConnection;
   createdAt: Scalars['ISO8601DateTime'];
+  /** A hero image for the entity, suitable for displaying in page headers */
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
   hierarchicalDepth: Scalars['Int'];
   id: Scalars['ID'];
@@ -992,8 +1041,10 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   slug: Scalars['Slug'];
-  /** A mapping of an entity's preview thumbnail */
-  thumbnail?: Maybe<AssetPreview>;
+  /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
+  thumbnail: ImageAttachment;
+  /** Configurable metadata for the thumbnail attachment */
+  thumbnailMetadata?: Maybe<ImageMetadata>;
   title: Scalars['String'];
   updatedAt: Scalars['ISO8601DateTime'];
   /** Access grants for specific users */
@@ -1318,8 +1369,10 @@ export type Contributor = {
   contributionCount: Scalars['Int'];
   email?: Maybe<Scalars['String']>;
   identifier: Scalars['String'];
-  /** An optional image associated with the contributor */
-  image?: Maybe<AssetPreview>;
+  /** An optional image associated with the contributor. */
+  image: ImageAttachment;
+  /** Configurable metadata for the image attachment */
+  imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
   itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
@@ -1471,7 +1524,13 @@ export type CreateCollectionInput = {
   /** Human readable title for the entity */
   title: Scalars['String'];
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
   /** Digital Object Identifier (see: https://doi.org) */
   doi?: Maybe<Scalars['String']>;
   /** A brief description of the entity's contents */
@@ -1509,7 +1568,13 @@ export type CreateCommunityInput = {
   position?: Maybe<Scalars['Int']>;
   schemaVersionSlug?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -1536,7 +1601,13 @@ export type CreateItemInput = {
   /** Human readable title for the entity */
   title: Scalars['String'];
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
   /** Digital Object Identifier (see: https://doi.org) */
   doi?: Maybe<Scalars['String']>;
   /** A brief description of the entity's contents */
@@ -1609,8 +1680,10 @@ export type CreateOrganizationContributorInput = {
   /** A summary of the contributor */
   bio?: Maybe<Scalars['String']>;
   links?: Maybe<Array<ContributorLinkInput>>;
-  /** A reference to an upload in Tus. */
+  /** A reference to an uploaded image in Tus. */
   image?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  imageMetadata?: Maybe<ImageMetadataInput>;
   /** The legal name of the organization */
   legalName?: Maybe<Scalars['String']>;
   /** Where the organization is located (if applicable) */
@@ -1640,8 +1713,10 @@ export type CreatePageInput = {
   slug: Scalars['String'];
   position?: Maybe<Scalars['Int']>;
   body: Scalars['String'];
-  /** The hero image to represent the page. */
+  /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -1668,8 +1743,10 @@ export type CreatePersonContributorInput = {
   /** A summary of the contributor */
   bio?: Maybe<Scalars['String']>;
   links?: Maybe<Array<ContributorLinkInput>>;
-  /** A reference to an upload in Tus. */
+  /** A reference to an uploaded image in Tus. */
   image?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  imageMetadata?: Maybe<ImageMetadataInput>;
   givenName?: Maybe<Scalars['String']>;
   familyName?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -2005,6 +2082,10 @@ export type Entity = {
   assignedUsers: ContextualPermissionConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
+  /** A hero image for the entity, suitable for displaying in page headers */
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
   hierarchicalDepth: Scalars['Int'];
   /** Available link targets for this entity */
@@ -2023,8 +2104,10 @@ export type Entity = {
   schemaProperties: Array<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
-  /** A mapping of an entity's preview thumbnail */
-  thumbnail?: Maybe<AssetPreview>;
+  /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
+  thumbnail: ImageAttachment;
+  /** Configurable metadata for the thumbnail attachment */
+  thumbnailMetadata?: Maybe<ImageMetadata>;
 };
 
 
@@ -2282,6 +2365,16 @@ export type FullTextProperty = ScalarProperty & {
   type: Scalars['String'];
 };
 
+/** The global configuration for this installation of WDP. */
+export type GlobalConfiguration = Node & {
+  __typename?: 'GlobalConfiguration';
+  id: Scalars['ID'];
+  /** Settings specific to this site */
+  site: SiteSettings;
+  /** Settings specific to the site's theme */
+  theme: ThemeSettings;
+};
+
 /** Autogenerated input type of GrantAccess */
 export type GrantAccessInput = {
   entityId: Scalars['ID'];
@@ -2314,6 +2407,15 @@ export type GroupProperty = SchemaProperty & {
   properties: Array<AnyScalarProperty>;
   required: Scalars['Boolean'];
   type: Scalars['String'];
+};
+
+/** Something which implements a #storage key that identifies where its attachment currently lives. */
+export type HasAttachmentStorage = {
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
 };
 
 export type HasSchemaProperties = {
@@ -2430,6 +2532,154 @@ export type HierarchicalSchemaVersionRank = Node & DescribesSchema & {
 
 
 
+/** An abstract image interface. It includes the minimum amount of data to render an image in the browser. */
+export type Image = {
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** @deprecated Use width and height directly. */
+  dimensions?: Maybe<Array<Scalars['Int']>>;
+  /** The height of the image, if present */
+  height?: Maybe<Scalars['Int']>;
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
+  /** The URL for the image, if present. */
+  url?: Maybe<Scalars['String']>;
+  /** The width of the image, if present */
+  width?: Maybe<Scalars['Int']>;
+};
+
+/** An attached image with standardized derivatives. */
+export type ImageAttachment = HasAttachmentStorage & {
+  __typename?: 'ImageAttachment';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** A large-sized mapping for derivative formats */
+  large: ImageSize;
+  /** A medium-sized mapping for derivative formats */
+  medium: ImageSize;
+  /** Configurable metadata for the image. */
+  metadata?: Maybe<ImageMetadata>;
+  /** The original source for the image */
+  original: ImageOriginal;
+  /** A small-sized mapping for derivative formats */
+  small: ImageSize;
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
+  /** A thumb-sized mapping for derivative formats */
+  thumb: ImageSize;
+};
+
+/** A derivative of the image with a specific size and format. */
+export type ImageDerivative = Image & {
+  __typename?: 'ImageDerivative';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** @deprecated Use width and height directly. */
+  dimensions?: Maybe<Array<Scalars['Int']>>;
+  /** The format of this derivative */
+  format: ImageDerivativeFormat;
+  /** The height of the image, if present */
+  height?: Maybe<Scalars['Int']>;
+  /** The maximum height this size can occupy */
+  maxHeight: Scalars['Int'];
+  /** The maximum width this size can occupy */
+  maxWidth: Scalars['Int'];
+  /** The size of this derivative */
+  size: ImageDerivativeSize;
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
+  /** The URL for the image, if present. */
+  url?: Maybe<Scalars['String']>;
+  /** The width of the image, if present */
+  width?: Maybe<Scalars['Int']>;
+};
+
+/** The format of a specific image derivative. */
+export type ImageDerivativeFormat =
+  /** A more efficiently compressed image supported by most browsers worldwide. */
+  | 'WEBP'
+  /** A Portable Network Graphics-formatted file, for legacy support on most all browsers. */
+  | 'PNG'
+  | '%future added value';
+
+/** The size of a specific image derivative. */
+export type ImageDerivativeSize =
+  | 'LARGE'
+  | 'MEDIUM'
+  | 'SMALL'
+  | 'THUMB'
+  | '%future added value';
+
+/** Shared metadata for image attachments */
+export type ImageMetadata = {
+  __typename?: 'ImageMetadata';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+};
+
+/** Shared metadata for updating image attachments */
+export type ImageMetadataInput = {
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+};
+
+/**
+ * The original source for the image. While derivatives are processing, it could be useful
+ * for a temporary preview in the admin section, or for troubleshooting.
+ *
+ * As this is the raw image, it is not optimized for display in the frontend and is best
+ * used only as a fallback.
+ */
+export type ImageOriginal = HasAttachmentStorage & Image & {
+  __typename?: 'ImageOriginal';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** @deprecated Use width and height directly. */
+  dimensions?: Maybe<Array<Scalars['Int']>>;
+  /** The height of the image, if present */
+  height?: Maybe<Scalars['Int']>;
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
+  /** The URL for the image, if present. */
+  url?: Maybe<Scalars['String']>;
+  /** The width of the image, if present */
+  width?: Maybe<Scalars['Int']>;
+};
+
+/**
+ * This describes a specific derivative style
+ * for an attachment, e.g. small, medium, thumb.
+ *
+ * It is further broken down into the various formats
+ * the WDP generates, presently WEBP and PNG.
+ */
+export type ImageSize = {
+  __typename?: 'ImageSize';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** The (maximum) height for this size. */
+  height: Scalars['Int'];
+  /** A png-formatted image derivative for this particular size. */
+  png: ImageDerivative;
+  size: ImageDerivativeSize;
+  /** A webp-formatted image derivative for this particular size. */
+  webp: ImageDerivative;
+  /** The (maximum) width for this size. */
+  width: Scalars['Int'];
+};
+
 export type IntegerProperty = ScalarProperty & {
   __typename?: 'IntegerProperty';
   defaultInteger?: Maybe<Scalars['Int']>;
@@ -2482,6 +2732,10 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   doi?: Maybe<Scalars['String']>;
   /** Whether this item has any child items */
   hasItems: Scalars['Boolean'];
+  /** A hero image for the entity, suitable for displaying in page headers */
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   hidden: Scalars['Boolean'];
   /** If present, this is the timestamp the entity was hidden at */
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
@@ -2492,6 +2746,7 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   identifier: Scalars['String'];
   /** The date this entity was issued */
   issued: VariablePrecisionDate;
+  /** Retrieve the items beneath this item */
   items: ItemConnection;
   leaf: Scalars['Boolean'];
   /** Available link targets for this entity */
@@ -2510,6 +2765,8 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   published: VariablePrecisionDate;
   /** @deprecated Use the variable-precision 'published' field instead */
   publishedOn?: Maybe<Scalars['ISO8601Date']>;
+  /** Retrieve linked items of the same schema type */
+  relatedItems: ItemConnection;
   root: Scalars['Boolean'];
   schemaDefinition: SchemaDefinition;
   /** The context for our schema instance. Includes form values and necessary referents. */
@@ -2521,8 +2778,10 @@ export type Item = Accessible & Entity & HierarchicalEntry & Contributable & Has
   slug: Scalars['Slug'];
   /** A description of the contents of the entity */
   summary?: Maybe<Scalars['String']>;
-  /** A mapping of an entity's preview thumbnail */
-  thumbnail?: Maybe<AssetPreview>;
+  /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
+  thumbnail: ImageAttachment;
+  /** Configurable metadata for the thumbnail attachment */
+  thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
   title: Scalars['String'];
   /** The date this entity was last updated within the WDP */
@@ -2641,6 +2900,8 @@ export type ItemContributorsArgs = {
 /** An item that belongs to a collection */
 export type ItemItemsArgs = {
   order?: Maybe<EntityOrder>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  nodeFilter?: Maybe<SubtreeNodeFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2705,6 +2966,19 @@ export type ItemPageArgs = {
 
 /** An item that belongs to a collection */
 export type ItemPagesArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Scalars['Int'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemRelatedItemsArgs = {
+  order?: Maybe<EntityOrder>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2984,6 +3258,8 @@ export type Mutation = {
   updateCommunity?: Maybe<UpdateCommunityPayload>;
   /** Update a Contribution by ID. */
   updateContribution?: Maybe<UpdateContributionPayload>;
+  /** Update the global configuration for this site. */
+  updateGlobalConfiguration?: Maybe<UpdateGlobalConfigurationPayload>;
   /** Update an item */
   updateItem?: Maybe<UpdateItemPayload>;
   /** Update an ordering by ID */
@@ -3179,6 +3455,12 @@ export type MutationUpdateCommunityArgs = {
 /** The entry point for making changes to the data within the WDP API. */
 export type MutationUpdateContributionArgs = {
   input: UpdateContributionInput;
+};
+
+
+/** The entry point for making changes to the data within the WDP API. */
+export type MutationUpdateGlobalConfigurationArgs = {
+  input: UpdateGlobalConfigurationInput;
 };
 
 
@@ -3406,8 +3688,10 @@ export type OrganizationContributor = Contributor & Node & Sluggable & {
   email?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   identifier: Scalars['String'];
-  /** An optional image associated with the contributor */
-  image?: Maybe<AssetPreview>;
+  /** An optional image associated with the contributor. */
+  image: ImageAttachment;
+  /** Configurable metadata for the image attachment */
+  imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
   itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
@@ -3457,7 +3741,9 @@ export type Page = Node & {
   createdAt: Scalars['ISO8601DateTime'];
   entity: AnyEntity;
   /** The hero image for a page */
-  heroImage?: Maybe<AssetPreview>;
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   id: Scalars['ID'];
   position?: Maybe<Scalars['Int']>;
   slug: Scalars['String'];
@@ -3544,8 +3830,10 @@ export type PersonContributor = Contributor & Node & Sluggable & {
   givenName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   identifier: Scalars['String'];
-  /** An optional image associated with the contributor */
-  image?: Maybe<AssetPreview>;
+  /** An optional image associated with the contributor. */
+  image: ImageAttachment;
+  /** Configurable metadata for the image attachment */
+  imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
   itemContributionCount: Scalars['Int'];
   itemContributions: ItemContributionConnection;
@@ -3593,25 +3881,6 @@ export type PositionDirection =
   | 'DESCENDING'
   | '%future added value';
 
-export type PreviewImage = {
-  __typename?: 'PreviewImage';
-  alt: Scalars['String'];
-  dimensions: Array<Scalars['Int']>;
-  height: Scalars['Int'];
-  url: Scalars['String'];
-  width: Scalars['Int'];
-};
-
-export type PreviewImageMap = {
-  __typename?: 'PreviewImageMap';
-  alt: Scalars['String'];
-  dimensions: Array<Scalars['Int']>;
-  height: Scalars['Int'];
-  png?: Maybe<PreviewImage>;
-  webp?: Maybe<PreviewImage>;
-  width: Scalars['Int'];
-};
-
 /** When altering a schema version for an entity, there are various strategies that can be used to determine how to handle the provided properties. */
 export type PropertyApplicationStrategy =
   /** If set to this value, property values will be validated and applied */
@@ -3637,6 +3906,8 @@ export type Query = {
   contributor?: Maybe<AnyContributor>;
   /** A list of all contributors in the system */
   contributors: AnyContributorConnection;
+  /** Fetch the global configuration for this installation */
+  globalConfiguration: GlobalConfiguration;
   /** Look up an item by slug */
   item?: Maybe<Item>;
   /** Look up an item contribution by slug */
@@ -4174,6 +4445,19 @@ export type SimpleOrder =
   | 'OLDEST'
   | '%future added value';
 
+/** Configuration settings for information about this installation. */
+export type SiteSettings = {
+  __typename?: 'SiteSettings';
+  /** The name of the provider supporting and maintaining this installation. */
+  providerName: Scalars['String'];
+};
+
+/** A value for updating the site's configuration */
+export type SiteSettingsInput = {
+  /** The name of the provider supporting and maintaining this installation. */
+  providerName: Scalars['String'];
+};
+
 
 /** Objects have a serialized slug for looking them up in the system and generating links without UUIDs */
 export type Sluggable = {
@@ -4201,6 +4485,14 @@ export type StringProperty = ScalarProperty & {
   type: Scalars['String'];
 };
 
+/** When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants. */
+export type SubtreeNodeFilter =
+  /** Fetch only the first level of the same type of entity (Item, Collection) */
+  | 'CHILDREN'
+  /** Fetch all descendant entities of the same base type (Item, Collection) */
+  | 'DESCENDANTS'
+  | '%future added value';
+
 export type TagsProperty = ScalarProperty & {
   __typename?: 'TagsProperty';
   fullPath: Scalars['String'];
@@ -4210,6 +4502,19 @@ export type TagsProperty = ScalarProperty & {
   required: Scalars['Boolean'];
   tags: Array<Scalars['String']>;
   type: Scalars['String'];
+};
+
+/** Configuration settings for the theme of the WDP frontend. */
+export type ThemeSettings = {
+  __typename?: 'ThemeSettings';
+  color: Scalars['String'];
+  font: Scalars['String'];
+};
+
+/** A value for updating the theme */
+export type ThemeSettingsInput = {
+  color: Scalars['String'];
+  font: Scalars['String'];
 };
 
 export type TimestampProperty = ScalarProperty & {
@@ -4275,7 +4580,13 @@ export type UpdateCollectionInput = {
   /** Human readable title for the entity */
   title: Scalars['String'];
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
   /** Digital Object Identifier (see: https://doi.org) */
   doi?: Maybe<Scalars['String']>;
   /** A brief description of the entity's contents */
@@ -4288,6 +4599,8 @@ export type UpdateCollectionInput = {
   visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
   /** If present, this is the timestamp an entity is visible until */
   visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+  /** If set to true, this will clear the attachment hero_image on this model. */
+  clearHeroImage?: Maybe<Scalars['Boolean']>;
   /** If set to true, this will clear the attachment thumbnail on this model. */
   clearThumbnail?: Maybe<Scalars['Boolean']>;
   /** A unique identifier for the client performing the mutation. */
@@ -4316,7 +4629,15 @@ export type UpdateCommunityInput = {
   /** Human readable title for the entity */
   title: Scalars['String'];
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** If set to true, this will clear the attachment hero_image on this model. */
+  clearHeroImage?: Maybe<Scalars['Boolean']>;
   /** If set to true, this will clear the attachment thumbnail on this model. */
   clearThumbnail?: Maybe<Scalars['Boolean']>;
   /** A unique identifier for the client performing the mutation. */
@@ -4360,6 +4681,30 @@ export type UpdateContributionPayload = StandardMutationPayload & {
   haltCode?: Maybe<Scalars['String']>;
 };
 
+/** Autogenerated input type of UpdateGlobalConfiguration */
+export type UpdateGlobalConfigurationInput = {
+  /** Possible new settings for the site */
+  site?: Maybe<SiteSettingsInput>;
+  /** Possible new settings for the theme */
+  theme?: Maybe<ThemeSettingsInput>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']>;
+};
+
+/** Autogenerated return type of UpdateGlobalConfiguration */
+export type UpdateGlobalConfigurationPayload = StandardMutationPayload & {
+  __typename?: 'UpdateGlobalConfigurationPayload';
+  attributeErrors: Array<MutationAttributeError>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']>;
+  errors: Array<UserError>;
+  /** Though a global configuration always exists, this will be null if it fails to apply for some reason. */
+  globalConfiguration?: Maybe<GlobalConfiguration>;
+  globalErrors: Array<MutationGlobalError>;
+  /** Not presently used */
+  haltCode?: Maybe<Scalars['String']>;
+};
+
 /** Autogenerated input type of UpdateItem */
 export type UpdateItemInput = {
   /** The item to update */
@@ -4367,7 +4712,13 @@ export type UpdateItemInput = {
   /** Human readable title for the entity */
   title: Scalars['String'];
   /** A reference to an uploaded image in Tus. */
+  heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  /** A reference to an uploaded image in Tus. */
   thumbnail?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  thumbnailMetadata?: Maybe<ImageMetadataInput>;
   /** Digital Object Identifier (see: https://doi.org) */
   doi?: Maybe<Scalars['String']>;
   /** A brief description of the entity's contents */
@@ -4380,6 +4731,8 @@ export type UpdateItemInput = {
   visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
   /** If present, this is the timestamp an entity is visible until */
   visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+  /** If set to true, this will clear the attachment hero_image on this model. */
+  clearHeroImage?: Maybe<Scalars['Boolean']>;
   /** If set to true, this will clear the attachment thumbnail on this model. */
   clearThumbnail?: Maybe<Scalars['Boolean']>;
   /** A unique identifier for the client performing the mutation. */
@@ -4440,8 +4793,10 @@ export type UpdateOrganizationContributorInput = {
   /** A summary of the contributor */
   bio?: Maybe<Scalars['String']>;
   links?: Maybe<Array<ContributorLinkInput>>;
-  /** A reference to an upload in Tus. */
+  /** A reference to an uploaded image in Tus. */
   image?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  imageMetadata?: Maybe<ImageMetadataInput>;
   /** The legal name of the organization */
   legalName?: Maybe<Scalars['String']>;
   /** Where the organization is located (if applicable) */
@@ -4474,8 +4829,10 @@ export type UpdatePageInput = {
   slug: Scalars['String'];
   position?: Maybe<Scalars['Int']>;
   body: Scalars['String'];
-  /** The hero image to represent the page. */
+  /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  heroImageMetadata?: Maybe<ImageMetadataInput>;
   /** If set to true, this will clear the attachment hero_image on this model. */
   clearHeroImage?: Maybe<Scalars['Boolean']>;
   /** A unique identifier for the client performing the mutation. */
@@ -4504,8 +4861,10 @@ export type UpdatePersonContributorInput = {
   /** A summary of the contributor */
   bio?: Maybe<Scalars['String']>;
   links?: Maybe<Array<ContributorLinkInput>>;
-  /** A reference to an upload in Tus. */
+  /** A reference to an uploaded image in Tus. */
   image?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  imageMetadata?: Maybe<ImageMetadataInput>;
   givenName?: Maybe<Scalars['String']>;
   familyName?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -4556,8 +4915,10 @@ export type UpdateRolePayload = StandardMutationPayload & {
 /** Autogenerated input type of UpdateUser */
 export type UpdateUserInput = {
   userId: Scalars['ID'];
-  /** An avatar to represent your user in the WDP. */
+  /** A reference to an uploaded image in Tus. */
   avatar?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  avatarMetadata?: Maybe<ImageMetadataInput>;
   /** If set to true, this will clear the attachment avatar on this model. */
   clearAvatar?: Maybe<Scalars['Boolean']>;
   /** Attributes for the user that correspond to attributes in Keycloak. */
@@ -4581,8 +4942,10 @@ export type UpdateUserPayload = StandardMutationPayload & {
 
 /** Autogenerated input type of UpdateViewerSettings */
 export type UpdateViewerSettingsInput = {
-  /** An avatar to represent your user in the WDP. */
+  /** A reference to an uploaded image in Tus. */
   avatar?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  avatarMetadata?: Maybe<ImageMetadataInput>;
   /** If set to true, this will clear the attachment avatar on this model. */
   clearAvatar?: Maybe<Scalars['Boolean']>;
   /** Attributes for the user that correspond to attributes in Keycloak. */
@@ -4616,11 +4979,14 @@ export type UploadedFileInput = {
   id: Scalars['UploadID'];
   /** The storage that contains the input. */
   storage?: Maybe<UploadStorage>;
+  /** Metadata to associate with the upload */
   metadata?: Maybe<UploadedFileMetadataInput>;
 };
 
 /** File metadata to attach to the upload. */
 export type UploadedFileMetadataInput = {
+  /** Alt text for the upload (not always applicable) */
+  alt?: Maybe<Scalars['String']>;
   /** The original filename, since Tus mangles them. */
   filename?: Maybe<Scalars['String']>;
   /**
@@ -4666,7 +5032,9 @@ export type User = AccessGrantSubject & ExposesPermissions & Node & Sluggable & 
   /** Is this an anonymous / unauthenticated user? */
   anonymous: Scalars['Boolean'];
   /** A user's avatar */
-  avatar?: Maybe<AssetPreview>;
+  avatar: ImageAttachment;
+  /** Configurable metadata for the avatar attachment */
+  avatarMetadata?: Maybe<ImageMetadata>;
   /** All access grants for this user on a collection */
   collectionAccessGrants: UserCollectionAccessGrantConnection;
   /** Query the collections this user has access to */
@@ -5396,7 +5764,6 @@ export type ResolversTypes = {
   AssetKind: AssetKind;
   AssetKindFilter: AssetKindFilter;
   AssetPDF: ResolverTypeWrapper<Omit<AssetPdf, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
-  AssetPreview: ResolverTypeWrapper<AssetPreview>;
   AssetProperty: ResolverTypeWrapper<Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   AssetSelectOption: ResolverTypeWrapper<AssetSelectOption>;
@@ -5404,6 +5771,7 @@ export type ResolversTypes = {
   AssetVideo: ResolverTypeWrapper<Omit<AssetVideo, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetsProperty: ResolverTypeWrapper<Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversTypes['AnyAsset']> }>;
   Attachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  AttachmentStorage: AttachmentStorage;
   BooleanProperty: ResolverTypeWrapper<BooleanProperty>;
   Collection: ResolverTypeWrapper<Omit<Collection, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['CollectionParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
   CollectionConnection: ResolverTypeWrapper<CollectionConnection>;
@@ -5492,15 +5860,26 @@ export type ResolversTypes = {
   FullText: ResolverTypeWrapper<FullText>;
   FullTextKind: FullTextKind;
   FullTextProperty: ResolverTypeWrapper<FullTextProperty>;
+  GlobalConfiguration: ResolverTypeWrapper<GlobalConfiguration>;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
+  HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'];
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
   HierarchicalEntry: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HierarchicalSchemaRank: ResolverTypeWrapper<HierarchicalSchemaRank>;
   HierarchicalSchemaVersionRank: ResolverTypeWrapper<HierarchicalSchemaVersionRank>;
   ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
   ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']>;
+  Image: ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'];
+  ImageAttachment: ResolverTypeWrapper<ImageAttachment>;
+  ImageDerivative: ResolverTypeWrapper<ImageDerivative>;
+  ImageDerivativeFormat: ImageDerivativeFormat;
+  ImageDerivativeSize: ImageDerivativeSize;
+  ImageMetadata: ResolverTypeWrapper<ImageMetadata>;
+  ImageMetadataInput: ImageMetadataInput;
+  ImageOriginal: ResolverTypeWrapper<ImageOriginal>;
+  ImageSize: ResolverTypeWrapper<ImageSize>;
   IntegerProperty: ResolverTypeWrapper<IntegerProperty>;
   Item: ResolverTypeWrapper<Omit<Item, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['ItemParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
   ItemConnection: ResolverTypeWrapper<ItemConnection>;
@@ -5523,7 +5902,7 @@ export type ResolversTypes = {
   MutationAttributeError: ResolverTypeWrapper<MutationAttributeError>;
   MutationErrorScope: MutationErrorScope;
   MutationGlobalError: ResolverTypeWrapper<MutationGlobalError>;
-  Node: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  Node: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['GlobalConfiguration'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   NullOrderPriority: NullOrderPriority;
   OptionableProperty: ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'];
   OrderDefinitionInput: OrderDefinitionInput;
@@ -5547,8 +5926,6 @@ export type ResolversTypes = {
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PositionDirection: PositionDirection;
-  PreviewImage: ResolverTypeWrapper<PreviewImage>;
-  PreviewImageMap: ResolverTypeWrapper<PreviewImageMap>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
   Query: ResolverTypeWrapper<{}>;
   ReparentCollectionInput: ReparentCollectionInput;
@@ -5581,11 +5958,16 @@ export type ResolversTypes = {
   SelectOption: ResolverTypeWrapper<SelectOption>;
   SelectProperty: ResolverTypeWrapper<SelectProperty>;
   SimpleOrder: SimpleOrder;
+  SiteSettings: ResolverTypeWrapper<SiteSettings>;
+  SiteSettingsInput: SiteSettingsInput;
   Slug: ResolverTypeWrapper<Scalars['Slug']>;
   Sluggable: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
-  StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePagePayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentCollectionPayload'] | ResolversTypes['ReparentItemPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePagePayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpdateUserPayload'] | ResolversTypes['UpdateViewerSettingsPayload'] | ResolversTypes['UpsertContributionPayload'];
+  StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePagePayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentCollectionPayload'] | ResolversTypes['ReparentItemPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateGlobalConfigurationPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePagePayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpdateUserPayload'] | ResolversTypes['UpdateViewerSettingsPayload'] | ResolversTypes['UpsertContributionPayload'];
   StringProperty: ResolverTypeWrapper<StringProperty>;
+  SubtreeNodeFilter: SubtreeNodeFilter;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
+  ThemeSettings: ResolverTypeWrapper<ThemeSettings>;
+  ThemeSettingsInput: ThemeSettingsInput;
   TimestampProperty: ResolverTypeWrapper<TimestampProperty>;
   TreeNodeFilter: TreeNodeFilter;
   URLProperty: ResolverTypeWrapper<UrlProperty>;
@@ -5597,6 +5979,8 @@ export type ResolversTypes = {
   UpdateCommunityPayload: ResolverTypeWrapper<UpdateCommunityPayload>;
   UpdateContributionInput: UpdateContributionInput;
   UpdateContributionPayload: ResolverTypeWrapper<Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<ResolversTypes['AnyContribution']> }>;
+  UpdateGlobalConfigurationInput: UpdateGlobalConfigurationInput;
+  UpdateGlobalConfigurationPayload: ResolverTypeWrapper<UpdateGlobalConfigurationPayload>;
   UpdateItemInput: UpdateItemInput;
   UpdateItemPayload: ResolverTypeWrapper<UpdateItemPayload>;
   UpdateOrderingInput: UpdateOrderingInput;
@@ -5696,7 +6080,6 @@ export type ResolversParentTypes = {
   AssetDocument: Omit<AssetDocument, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetImage: Omit<AssetImage, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetPDF: Omit<AssetPdf, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
-  AssetPreview: AssetPreview;
   AssetProperty: Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
   Boolean: Scalars['Boolean'];
   AssetSelectOption: AssetSelectOption;
@@ -5778,15 +6161,24 @@ export type ResolversParentTypes = {
   Float: Scalars['Float'];
   FullText: FullText;
   FullTextProperty: FullTextProperty;
+  GlobalConfiguration: GlobalConfiguration;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
+  HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'];
   HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
   HierarchicalEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HierarchicalSchemaRank: HierarchicalSchemaRank;
   HierarchicalSchemaVersionRank: HierarchicalSchemaVersionRank;
   ISO8601Date: Scalars['ISO8601Date'];
   ISO8601DateTime: Scalars['ISO8601DateTime'];
+  Image: ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'];
+  ImageAttachment: ImageAttachment;
+  ImageDerivative: ImageDerivative;
+  ImageMetadata: ImageMetadata;
+  ImageMetadataInput: ImageMetadataInput;
+  ImageOriginal: ImageOriginal;
+  ImageSize: ImageSize;
   IntegerProperty: IntegerProperty;
   Item: Omit<Item, 'ancestorOfType' | 'parent' | 'schemaProperties'> & { ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['ItemParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
   ItemConnection: ItemConnection;
@@ -5806,7 +6198,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   MutationAttributeError: MutationAttributeError;
   MutationGlobalError: MutationGlobalError;
-  Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['GlobalConfiguration'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   OptionableProperty: ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'];
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: Omit<Ordering, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
@@ -5826,8 +6218,6 @@ export type ResolversParentTypes = {
   Paginated: ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
   PermissionGrant: PermissionGrant;
   PersonContributor: PersonContributor;
-  PreviewImage: PreviewImage;
-  PreviewImageMap: PreviewImageMap;
   Query: {};
   ReparentCollectionInput: ReparentCollectionInput;
   ReparentCollectionPayload: ReparentCollectionPayload;
@@ -5855,11 +6245,15 @@ export type ResolversParentTypes = {
   SchemaVersionOption: SchemaVersionOption;
   SelectOption: SelectOption;
   SelectProperty: SelectProperty;
+  SiteSettings: SiteSettings;
+  SiteSettingsInput: SiteSettingsInput;
   Slug: Scalars['Slug'];
   Sluggable: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
-  StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePagePayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentCollectionPayload'] | ResolversParentTypes['ReparentItemPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePagePayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpdateUserPayload'] | ResolversParentTypes['UpdateViewerSettingsPayload'] | ResolversParentTypes['UpsertContributionPayload'];
+  StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePagePayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentCollectionPayload'] | ResolversParentTypes['ReparentItemPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateGlobalConfigurationPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePagePayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpdateUserPayload'] | ResolversParentTypes['UpdateViewerSettingsPayload'] | ResolversParentTypes['UpsertContributionPayload'];
   StringProperty: StringProperty;
   TagsProperty: TagsProperty;
+  ThemeSettings: ThemeSettings;
+  ThemeSettingsInput: ThemeSettingsInput;
   TimestampProperty: TimestampProperty;
   URLProperty: UrlProperty;
   URLReference: UrlReference;
@@ -5870,6 +6264,8 @@ export type ResolversParentTypes = {
   UpdateCommunityPayload: UpdateCommunityPayload;
   UpdateContributionInput: UpdateContributionInput;
   UpdateContributionPayload: Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<ResolversParentTypes['AnyContribution']> };
+  UpdateGlobalConfigurationInput: UpdateGlobalConfigurationInput;
+  UpdateGlobalConfigurationPayload: UpdateGlobalConfigurationPayload;
   UpdateItemInput: UpdateItemInput;
   UpdateItemPayload: UpdateItemPayload;
   UpdateOrderingInput: UpdateOrderingInput;
@@ -6128,7 +6524,8 @@ export type AssetResolvers<ContextType = any, ParentType extends ResolversParent
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
 };
 
@@ -6142,7 +6539,8 @@ export type AssetAudioResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6158,7 +6556,8 @@ export type AssetDocumentResolvers<ContextType = any, ParentType extends Resolve
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6174,7 +6573,8 @@ export type AssetImageResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6190,18 +6590,10 @@ export type AssetPdfResolvers<ContextType = any, ParentType extends ResolversPar
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type AssetPreviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetPreview'] = ResolversParentTypes['AssetPreview']> = {
-  alt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  large?: Resolver<ResolversTypes['PreviewImageMap'], ParentType, ContextType>;
-  medium?: Resolver<ResolversTypes['PreviewImageMap'], ParentType, ContextType>;
-  small?: Resolver<ResolversTypes['PreviewImageMap'], ParentType, ContextType>;
-  thumb?: Resolver<ResolversTypes['PreviewImageMap'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -6233,7 +6625,8 @@ export type AssetUnknownResolvers<ContextType = any, ParentType extends Resolver
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6249,7 +6642,8 @@ export type AssetVideoResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['AssetKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  preview?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  preview?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  previewMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6296,7 +6690,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
-  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   contributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<CollectionContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
@@ -6304,6 +6698,8 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -6322,6 +6718,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  relatedCollections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionRelatedCollectionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
@@ -6330,7 +6727,8 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   userAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionUserAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6400,6 +6798,8 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CommunityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
@@ -6418,7 +6818,8 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   userAccessGrants?: Resolver<ResolversTypes['UserCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityUserAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6499,7 +6900,8 @@ export type ContributorResolvers<ContextType = any, ParentType extends Resolvers
   contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
@@ -6785,6 +7187,8 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection' | 'perPage'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -6797,7 +7201,8 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
 };
 
 export type EntityBreadcrumbResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityBreadcrumb'] = ResolversParentTypes['EntityBreadcrumb']> = {
@@ -6877,6 +7282,13 @@ export type FullTextPropertyResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type GlobalConfigurationResolvers<ContextType = any, ParentType extends ResolversParentTypes['GlobalConfiguration'] = ResolversParentTypes['GlobalConfiguration']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  site?: Resolver<ResolversTypes['SiteSettings'], ParentType, ContextType>;
+  theme?: Resolver<ResolversTypes['ThemeSettings'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type GrantAccessPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['GrantAccessPayload'] = ResolversParentTypes['GrantAccessPayload']> = {
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -6896,6 +7308,11 @@ export type GroupPropertyResolvers<ContextType = any, ParentType extends Resolve
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HasAttachmentStorageResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasAttachmentStorage'] = ResolversParentTypes['HasAttachmentStorage']> = {
+  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageOriginal', ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
 };
 
 export type HasSchemaPropertiesResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasSchemaProperties'] = ResolversParentTypes['HasSchemaProperties']> = {
@@ -6965,6 +7382,67 @@ export interface Iso8601DateTimeScalarConfig extends GraphQLScalarTypeConfig<Res
   name: 'ISO8601DateTime';
 }
 
+export type ImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
+  __resolveType: TypeResolveFn<'ImageDerivative' | 'ImageOriginal', ParentType, ContextType>;
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+};
+
+export type ImageAttachmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageAttachment'] = ResolversParentTypes['ImageAttachment']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  large?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  medium?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
+  original?: Resolver<ResolversTypes['ImageOriginal'], ParentType, ContextType>;
+  small?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
+  thumb?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageDerivativeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageDerivative'] = ResolversParentTypes['ImageDerivative']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  format?: Resolver<ResolversTypes['ImageDerivativeFormat'], ParentType, ContextType>;
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maxHeight?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  maxWidth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageMetadataResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageMetadata'] = ResolversParentTypes['ImageMetadata']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageOriginalResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageOriginal'] = ResolversParentTypes['ImageOriginal']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageSizeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageSize'] = ResolversParentTypes['ImageSize']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  png?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
+  size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
+  webp?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
+  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type IntegerPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['IntegerProperty'] = ResolversParentTypes['IntegerProperty']> = {
   defaultInteger?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -6997,13 +7475,15 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
-  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'pageDirection' | 'perPage'>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ItemLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection' | 'perPage'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -7015,6 +7495,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   publishedOn?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  relatedItems?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemRelatedItemsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
@@ -7023,7 +7504,8 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  thumbnail?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   userAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemUserAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
@@ -7176,6 +7658,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateCollection?: Resolver<Maybe<ResolversTypes['UpdateCollectionPayload']>, ParentType, ContextType, RequireFields<MutationUpdateCollectionArgs, 'input'>>;
   updateCommunity?: Resolver<Maybe<ResolversTypes['UpdateCommunityPayload']>, ParentType, ContextType, RequireFields<MutationUpdateCommunityArgs, 'input'>>;
   updateContribution?: Resolver<Maybe<ResolversTypes['UpdateContributionPayload']>, ParentType, ContextType, RequireFields<MutationUpdateContributionArgs, 'input'>>;
+  updateGlobalConfiguration?: Resolver<Maybe<ResolversTypes['UpdateGlobalConfigurationPayload']>, ParentType, ContextType, RequireFields<MutationUpdateGlobalConfigurationArgs, 'input'>>;
   updateItem?: Resolver<Maybe<ResolversTypes['UpdateItemPayload']>, ParentType, ContextType, RequireFields<MutationUpdateItemArgs, 'input'>>;
   updateOrdering?: Resolver<Maybe<ResolversTypes['UpdateOrderingPayload']>, ParentType, ContextType, RequireFields<MutationUpdateOrderingArgs, 'input'>>;
   updateOrganizationContributor?: Resolver<Maybe<ResolversTypes['UpdateOrganizationContributorPayload']>, ParentType, ContextType, RequireFields<MutationUpdateOrganizationContributorArgs, 'input'>>;
@@ -7201,7 +7684,7 @@ export type MutationGlobalErrorResolvers<ContextType = any, ParentType extends R
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'Collection' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'EntityBreadcrumb' | 'EntityLink' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemContribution' | 'LinkTargetCandidate' | 'Ordering' | 'OrderingEntry' | 'OrganizationContributor' | 'Page' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'Collection' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemContribution' | 'LinkTargetCandidate' | 'Ordering' | 'OrderingEntry' | 'OrganizationContributor' | 'Page' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -7272,7 +7755,8 @@ export type OrganizationContributorResolvers<ContextType = any, ParentType exten
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<OrganizationContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
@@ -7292,7 +7776,8 @@ export type PageResolvers<ContextType = any, ParentType extends ResolversParentT
   body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
-  heroImage?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -7351,7 +7836,8 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<PersonContributorItemContributionsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
@@ -7366,25 +7852,6 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type PreviewImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['PreviewImage'] = ResolversParentTypes['PreviewImage']> = {
-  alt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  dimensions?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
-  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type PreviewImageMapResolvers<ContextType = any, ParentType extends ResolversParentTypes['PreviewImageMap'] = ResolversParentTypes['PreviewImageMap']> = {
-  alt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  dimensions?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
-  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  png?: Resolver<Maybe<ResolversTypes['PreviewImage']>, ParentType, ContextType>;
-  webp?: Resolver<Maybe<ResolversTypes['PreviewImage']>, ParentType, ContextType>;
-  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   accessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<QueryAccessGrantsArgs, 'entity' | 'subject' | 'order' | 'pageDirection' | 'perPage'>>;
   collection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<QueryCollectionArgs, 'slug'>>;
@@ -7393,6 +7860,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   community?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityArgs, 'slug'>>;
   contributor?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorArgs, 'slug'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<QueryContributorsArgs, 'order' | 'kind' | 'pageDirection' | 'perPage'>>;
+  globalConfiguration?: Resolver<ResolversTypes['GlobalConfiguration'], ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'slug'>>;
   itemContribution?: Resolver<Maybe<ResolversTypes['ItemContribution']>, ParentType, ContextType, RequireFields<QueryItemContributionArgs, 'slug'>>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'id'>>;
@@ -7608,6 +8076,11 @@ export type SelectPropertyResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SiteSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteSettings'] = ResolversParentTypes['SiteSettings']> = {
+  providerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface SlugScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Slug'], any> {
   name: 'Slug';
 }
@@ -7618,7 +8091,7 @@ export type SluggableResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type StandardMutationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['StandardMutationPayload'] = ResolversParentTypes['StandardMutationPayload']> = {
-  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePagePayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyAssetPayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'DestroyPagePayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'ReparentCollectionPayload' | 'ReparentItemPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePagePayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpdateUserPayload' | 'UpdateViewerSettingsPayload' | 'UpsertContributionPayload', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePagePayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyAssetPayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'DestroyPagePayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'ReparentCollectionPayload' | 'ReparentItemPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateGlobalConfigurationPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePagePayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpdateUserPayload' | 'UpdateViewerSettingsPayload' | 'UpsertContributionPayload', ParentType, ContextType>;
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
@@ -7645,6 +8118,12 @@ export type TagsPropertyResolvers<ContextType = any, ParentType extends Resolver
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ThemeSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ThemeSettings'] = ResolversParentTypes['ThemeSettings']> = {
+  color?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  font?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -7715,6 +8194,16 @@ export type UpdateContributionPayloadResolvers<ContextType = any, ParentType ext
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contribution?: Resolver<Maybe<ResolversTypes['AnyContribution']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
+  haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type UpdateGlobalConfigurationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['UpdateGlobalConfigurationPayload'] = ResolversParentTypes['UpdateGlobalConfigurationPayload']> = {
+  attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  globalConfiguration?: Resolver<Maybe<ResolversTypes['GlobalConfiguration']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -7819,7 +8308,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<UserAllAccessGrantsArgs, 'entity' | 'order' | 'pageDirection' | 'perPage'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   anonymous?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  avatar?: Resolver<Maybe<ResolversTypes['AssetPreview']>, ParentType, ContextType>;
+  avatar?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  avatarMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   collectionAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<UserCollectionAccessGrantsArgs, 'order' | 'pageDirection' | 'perPage'>>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<UserCollectionsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
   communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<UserCommunitiesArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection' | 'perPage'>>;
@@ -8110,7 +8600,6 @@ export type Resolvers<ContextType = any> = {
   AssetDocument?: AssetDocumentResolvers<ContextType>;
   AssetImage?: AssetImageResolvers<ContextType>;
   AssetPDF?: AssetPdfResolvers<ContextType>;
-  AssetPreview?: AssetPreviewResolvers<ContextType>;
   AssetProperty?: AssetPropertyResolvers<ContextType>;
   AssetSelectOption?: AssetSelectOptionResolvers<ContextType>;
   AssetUnknown?: AssetUnknownResolvers<ContextType>;
@@ -8170,14 +8659,22 @@ export type Resolvers<ContextType = any> = {
   FloatProperty?: FloatPropertyResolvers<ContextType>;
   FullText?: FullTextResolvers<ContextType>;
   FullTextProperty?: FullTextPropertyResolvers<ContextType>;
+  GlobalConfiguration?: GlobalConfigurationResolvers<ContextType>;
   GrantAccessPayload?: GrantAccessPayloadResolvers<ContextType>;
   GroupProperty?: GroupPropertyResolvers<ContextType>;
+  HasAttachmentStorage?: HasAttachmentStorageResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HierarchicalEntry?: HierarchicalEntryResolvers<ContextType>;
   HierarchicalSchemaRank?: HierarchicalSchemaRankResolvers<ContextType>;
   HierarchicalSchemaVersionRank?: HierarchicalSchemaVersionRankResolvers<ContextType>;
   ISO8601Date?: GraphQLScalarType;
   ISO8601DateTime?: GraphQLScalarType;
+  Image?: ImageResolvers<ContextType>;
+  ImageAttachment?: ImageAttachmentResolvers<ContextType>;
+  ImageDerivative?: ImageDerivativeResolvers<ContextType>;
+  ImageMetadata?: ImageMetadataResolvers<ContextType>;
+  ImageOriginal?: ImageOriginalResolvers<ContextType>;
+  ImageSize?: ImageSizeResolvers<ContextType>;
   IntegerProperty?: IntegerPropertyResolvers<ContextType>;
   Item?: ItemResolvers<ContextType>;
   ItemConnection?: ItemConnectionResolvers<ContextType>;
@@ -8212,8 +8709,6 @@ export type Resolvers<ContextType = any> = {
   Paginated?: PaginatedResolvers<ContextType>;
   PermissionGrant?: PermissionGrantResolvers<ContextType>;
   PersonContributor?: PersonContributorResolvers<ContextType>;
-  PreviewImage?: PreviewImageResolvers<ContextType>;
-  PreviewImageMap?: PreviewImageMapResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ReparentCollectionPayload?: ReparentCollectionPayloadResolvers<ContextType>;
   ReparentItemPayload?: ReparentItemPayloadResolvers<ContextType>;
@@ -8237,11 +8732,13 @@ export type Resolvers<ContextType = any> = {
   SchemaVersionOption?: SchemaVersionOptionResolvers<ContextType>;
   SelectOption?: SelectOptionResolvers<ContextType>;
   SelectProperty?: SelectPropertyResolvers<ContextType>;
+  SiteSettings?: SiteSettingsResolvers<ContextType>;
   Slug?: GraphQLScalarType;
   Sluggable?: SluggableResolvers<ContextType>;
   StandardMutationPayload?: StandardMutationPayloadResolvers<ContextType>;
   StringProperty?: StringPropertyResolvers<ContextType>;
   TagsProperty?: TagsPropertyResolvers<ContextType>;
+  ThemeSettings?: ThemeSettingsResolvers<ContextType>;
   TimestampProperty?: TimestampPropertyResolvers<ContextType>;
   URLProperty?: UrlPropertyResolvers<ContextType>;
   URLReference?: UrlReferenceResolvers<ContextType>;
@@ -8249,6 +8746,7 @@ export type Resolvers<ContextType = any> = {
   UpdateCollectionPayload?: UpdateCollectionPayloadResolvers<ContextType>;
   UpdateCommunityPayload?: UpdateCommunityPayloadResolvers<ContextType>;
   UpdateContributionPayload?: UpdateContributionPayloadResolvers<ContextType>;
+  UpdateGlobalConfigurationPayload?: UpdateGlobalConfigurationPayloadResolvers<ContextType>;
   UpdateItemPayload?: UpdateItemPayloadResolvers<ContextType>;
   UpdateOrderingPayload?: UpdateOrderingPayloadResolvers<ContextType>;
   UpdateOrganizationContributorPayload?: UpdateOrganizationContributorPayloadResolvers<ContextType>;

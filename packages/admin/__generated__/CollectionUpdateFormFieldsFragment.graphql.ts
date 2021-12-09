@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type CollectionUpdateFormFieldsFragment = {
     readonly title: string;
@@ -13,13 +14,14 @@ export type CollectionUpdateFormFieldsFragment = {
     readonly visibleAfterAt: string | null;
     readonly visibleUntilAt: string | null;
     readonly thumbnail: {
+        readonly storage: AttachmentStorage | null;
         readonly thumb: {
             readonly png: {
-                readonly alt: string;
-                readonly url: string;
-            } | null;
+                readonly alt: string | null;
+                readonly url: string | null;
+            };
         };
-    } | null;
+    };
     readonly " $refType": "CollectionUpdateFormFieldsFragment";
 };
 export type CollectionUpdateFormFieldsFragment$data = CollectionUpdateFormFieldsFragment;
@@ -74,7 +76,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "thumbnail",
       "plural": false,
@@ -82,7 +84,14 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImageMap",
+          "kind": "ScalarField",
+          "name": "storage",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
           "kind": "LinkedField",
           "name": "thumb",
           "plural": false,
@@ -90,7 +99,7 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PreviewImage",
+              "concreteType": "ImageDerivative",
               "kind": "LinkedField",
               "name": "png",
               "plural": false,
@@ -122,5 +131,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '87ba9ce56ddec7646805eca4d324a1d3';
+(node as any).hash = '0d1273230786235d0d6d646fa323a643';
 export default node;

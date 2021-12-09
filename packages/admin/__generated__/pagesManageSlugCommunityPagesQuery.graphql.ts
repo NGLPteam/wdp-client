@@ -201,7 +201,7 @@ v4 = [
               {
                 "alias": "thumbnail",
                 "args": null,
-                "concreteType": "AssetPreview",
+                "concreteType": "ImageAttachment",
                 "kind": "LinkedField",
                 "name": "heroImage",
                 "plural": false,
@@ -209,7 +209,7 @@ v4 = [
                   {
                     "alias": "image",
                     "args": null,
-                    "concreteType": "PreviewImageMap",
+                    "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "medium",
                     "plural": false,
@@ -217,7 +217,7 @@ v4 = [
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "PreviewImage",
+                        "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
                         "name": "png",
                         "plural": false,

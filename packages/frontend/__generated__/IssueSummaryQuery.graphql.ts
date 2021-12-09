@@ -83,6 +83,7 @@ fragment IssueSummaryItemFragment on AnyEntity {
       ...ContributorsListFragment
     }
     thumbnail {
+      storage
       ...SquareThumbnailFragment
     }
   }
@@ -125,10 +126,10 @@ fragment PrecisionDateFragment on VariablePrecisionDate {
   value
 }
 
-fragment SquareThumbnailFragment on AssetPreview {
-  alt
+fragment SquareThumbnailFragment on ImageAttachment {
   image: medium {
     webp {
+      alt
       url
     }
   }
@@ -229,44 +230,33 @@ v10 = {
   "abstractKey": "__isNode"
 },
 v11 = {
-  "alias": null,
+  "alias": "image",
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageSize",
   "kind": "LinkedField",
-  "name": "thumbnail",
+  "name": "medium",
   "plural": false,
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
-    {
-      "alias": "image",
-      "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageDerivative",
       "kind": "LinkedField",
-      "name": "medium",
+      "name": "webp",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "alt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
           "storageKey": null
         }
       ],
@@ -372,7 +362,25 @@ v12 = [
             ],
             "storageKey": null
           },
-          (v11/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageAttachment",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "storage",
+                "storageKey": null
+              },
+              (v11/*: any*/)
+            ],
+            "storageKey": null
+          }
         ],
         "type": "Item",
         "abstractKey": null
@@ -384,7 +392,18 @@ v12 = [
           (v6/*: any*/),
           (v7/*: any*/),
           (v8/*: any*/),
-          (v11/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageAttachment",
+            "kind": "LinkedField",
+            "name": "thumbnail",
+            "plural": false,
+            "selections": [
+              (v11/*: any*/)
+            ],
+            "storageKey": null
+          }
         ],
         "type": "Collection",
         "abstractKey": null
@@ -541,12 +560,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "efdbbfd64eff3432dc1abead15c01a56",
+    "cacheID": "97bafdefd2cd2d57795167e2cd5a168a",
     "id": null,
     "metadata": {},
     "name": "IssueSummaryQuery",
     "operationKind": "query",
-    "text": "query IssueSummaryQuery(\n  $slug: Slug!\n  $order: String!\n) {\n  collection(slug: $slug) {\n    ordering(identifier: $order) {\n      children {\n        ...IssueSummaryOrderingListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryOrderingListFragment on OrderingEntryConnection {\n  edges {\n    node {\n      entry {\n        __typename\n        ... on Item {\n          ...IssueSummaryItemFragment\n        }\n        ... on Collection {\n          ...IssueSummaryItemFragment\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on AssetPreview {\n  alt\n  image: medium {\n    webp {\n      url\n    }\n  }\n}\n"
+    "text": "query IssueSummaryQuery(\n  $slug: Slug!\n  $order: String!\n) {\n  collection(slug: $slug) {\n    ordering(identifier: $order) {\n      children {\n        ...IssueSummaryOrderingListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryOrderingListFragment on OrderingEntryConnection {\n  edges {\n    node {\n      entry {\n        __typename\n        ... on Item {\n          ...IssueSummaryItemFragment\n        }\n        ... on Collection {\n          ...IssueSummaryItemFragment\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

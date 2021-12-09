@@ -11,12 +11,14 @@ const FileUploadCurrent = ({ image }: Props) => {
   // TODO: Show current file, if any
   return image ? (
     <Styled.UploadPreview>
-      {image && image.png && (
+      {image && image.png && image.png.url && (
         <Image
           image={{
             ...image.png,
             width: WIDTH,
             height: HEIGHT,
+            alt: image.png.alt || "",
+            url: image.png.url,
           }}
           objectFit={OBJECT_FIT}
         />
@@ -31,8 +33,8 @@ interface Props {
 }
 
 export interface Png {
-  alt: string;
-  url: string;
+  alt?: string | null;
+  url?: string | null;
 }
 
 export interface Image {

@@ -6,14 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CoverImageFragment = {
-    readonly alt: string;
     readonly image: {
         readonly webp: {
-            readonly url: string;
-            readonly alt: string;
-            readonly width: number;
-            readonly height: number;
-        } | null;
+            readonly url: string | null;
+            readonly alt: string | null;
+            readonly width: number | null;
+            readonly height: number | null;
+        };
     };
     readonly " $refType": "CoverImageFragment";
 };
@@ -25,25 +24,16 @@ export type CoverImageFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CoverImageFragment",
   "selections": [
-    (v0/*: any*/),
     {
       "alias": "image",
       "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "large",
       "plural": false,
@@ -51,7 +41,7 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "webp",
           "plural": false,
@@ -63,7 +53,13 @@ return {
               "name": "url",
               "storageKey": null
             },
-            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "alt",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -85,9 +81,8 @@ return {
       "storageKey": null
     }
   ],
-  "type": "AssetPreview",
+  "type": "ImageAttachment",
   "abstractKey": null
 };
-})();
-(node as any).hash = '5ad5f8b15dec3da6f3d5bd43ebbaebd7';
+(node as any).hash = 'dafb0a22ac3f75f43e228c73bf36c68b';
 export default node;

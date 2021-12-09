@@ -121,6 +121,7 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
+      storage
       thumb {
         png {
           alt

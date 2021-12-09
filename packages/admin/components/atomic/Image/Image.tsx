@@ -8,7 +8,7 @@ function Image(props: Props) {
   // variables, Typescript loses track of the connection between them and our prop types
   // won't be checked correctly.
   const {
-    image: { url, alt },
+    image: { url },
     layout: layoutIgnored,
     unoptimized,
     ...nextImageProps
@@ -16,12 +16,17 @@ function Image(props: Props) {
 
   const commonNextImageProps = {
     src: url,
-    alt: alt,
     ...nextImageProps,
   };
 
   if (props.layout === "fill") {
-    return <NextImage layout={props.layout} {...commonNextImageProps} />;
+    return (
+      <NextImage
+        layout={props.layout}
+        {...commonNextImageProps}
+        alt={props.image.alt || ""}
+      />
+    );
   } else {
     return (
       <NextImage
@@ -30,6 +35,7 @@ function Image(props: Props) {
         layout={props.layout}
         width={props.image.width}
         height={props.image.height}
+        alt={props.image.alt || ""}
       />
     );
   }
@@ -42,10 +48,11 @@ interface BaseImageProps
   > {
   className?: string;
   unoptimized?: boolean;
+  alt?: string | null;
 }
 
 interface FillImage {
-  alt: string;
+  alt: string | null;
   url: string;
 }
 

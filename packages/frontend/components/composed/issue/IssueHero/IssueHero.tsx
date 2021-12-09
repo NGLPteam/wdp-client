@@ -21,7 +21,13 @@ export default function IssueHero({ data }: Props) {
             </>
           )}
           <Styled.IssueWrapper className="l-flex">
-            <CoverImage data={issue.thumbnail} maxWidth={225} maxHeight={300} />
+            {issue.thumbnail?.storage && (
+              <CoverImage
+                data={issue.thumbnail}
+                maxWidth={225}
+                maxHeight={300}
+              />
+            )}
             <Styled.IssueMeta>
               <Styled.Issue className="l-flex">
                 {issue.title}
@@ -55,6 +61,7 @@ const fragment = graphql`
     summary
     doi
     thumbnail {
+      storage
       ...CoverImageFragment
     }
     journal: ancestorOfType(schema: "nglp:journal") {

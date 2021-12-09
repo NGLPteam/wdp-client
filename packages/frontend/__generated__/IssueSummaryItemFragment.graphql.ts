@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type IssueSummaryItemFragment = {
     readonly title?: string | undefined;
     readonly slug?: string | undefined;
@@ -16,8 +17,9 @@ export type IssueSummaryItemFragment = {
         readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
     } | undefined;
     readonly thumbnail?: {
+        readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
-    } | null | undefined;
+    } | undefined;
     readonly " $refType": "IssueSummaryItemFragment";
 };
 export type IssueSummaryItemFragment$data = IssueSummaryItemFragment;
@@ -67,20 +69,9 @@ v3 = {
   "storageKey": null
 },
 v4 = {
-  "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
-  "kind": "LinkedField",
-  "name": "thumbnail",
-  "plural": false,
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SquareThumbnailFragment"
-    }
-  ],
-  "storageKey": null
+  "kind": "FragmentSpread",
+  "name": "SquareThumbnailFragment"
 };
 return {
   "argumentDefinitions": [],
@@ -111,7 +102,25 @@ return {
           ],
           "storageKey": null
         },
-        (v4/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageAttachment",
+          "kind": "LinkedField",
+          "name": "thumbnail",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "storage",
+              "storageKey": null
+            },
+            (v4/*: any*/)
+          ],
+          "storageKey": null
+        }
       ],
       "type": "Item",
       "abstractKey": null
@@ -123,7 +132,18 @@ return {
         (v1/*: any*/),
         (v2/*: any*/),
         (v3/*: any*/),
-        (v4/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageAttachment",
+          "kind": "LinkedField",
+          "name": "thumbnail",
+          "plural": false,
+          "selections": [
+            (v4/*: any*/)
+          ],
+          "storageKey": null
+        }
       ],
       "type": "Collection",
       "abstractKey": null
@@ -133,5 +153,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'c5a7e24efab6ae798d3c24a3e664aec1';
+(node as any).hash = 'e7bce19c19163f49791e7a63181c8a60';
 export default node;

@@ -2587,8 +2587,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2793,8 +2809,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3000,8 +3032,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3207,8 +3255,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3520,8 +3584,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3578,97 +3658,6 @@
             "ofType": null
           }
         ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "AssetPreview",
-        "description": null,
-        "fields": [
-          {
-            "name": "alt",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "large",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PreviewImageMap",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "medium",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PreviewImageMap",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "small",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PreviewImageMap",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "thumb",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "PreviewImageMap",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -4012,8 +4001,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4219,8 +4224,24 @@
             "description": null,
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewMetadata",
+            "description": "Configurable metadata for the preview attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4576,6 +4597,41 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "AttachmentStorage",
+        "description": "This describes where a given file attachment is stored (if at all)",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "STORE",
+            "description": "STORE refers to permanent storage. An asset here has been fully processed and is ready for access",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "CACHE",
+            "description": "CACHE refers to temporary storage. When a file is first uploaded to the system, it lives in cache and needs to be processed.\nA user could potentially fetch something from an API while a file is still being processed in the background, and if so, none\nof its derivatives will be present yet.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DERIVATIVES",
+            "description": "Not yet used",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "REMOTE",
+            "description": "Remote URL storage. Only used internally at present, but may sometimes appear during certain harvesting events.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -5447,7 +5503,7 @@
           },
           {
             "name": "collections",
-            "description": null,
+            "description": "Retrieve the collections beneath this collection.",
             "args": [
               {
                 "name": "order",
@@ -5458,6 +5514,38 @@
                   "ofType": null
                 },
                 "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "nodeFilter",
+                "description": "Describe the depth of entities to retrieve",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SubtreeNodeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "CHILDREN",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -5892,6 +5980,34 @@
                 "name": "Boolean",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImage",
+            "description": "A hero image for the entity, suitable for displaying in page headers",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Configurable metadata for the hero_image attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -6764,6 +6880,127 @@
             "deprecationReason": "Use the variable-precision 'published' field instead"
           },
           {
+            "name": "relatedCollections",
+            "description": "Retrieve linked collections of the same schema type",
+            "args": [
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityOrder",
+                  "ofType": null
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "root",
             "description": null,
             "args": [],
@@ -6905,11 +7142,27 @@
           },
           {
             "name": "thumbnail",
-            "description": "A mapping of an entity's preview thumbnail",
+            "description": "A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Configurable metadata for the thumbnail attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -8560,6 +8813,34 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A hero image for the entity, suitable for displaying in page headers",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Configurable metadata for the hero_image attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hierarchicalDepth",
             "description": "The depth of the hierarchical entity, taking into account any parent types",
             "args": [],
@@ -9311,11 +9592,27 @@
           },
           {
             "name": "thumbnail",
-            "description": "A mapping of an entity's preview thumbnail",
+            "description": "A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Configurable metadata for the thumbnail attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -10777,11 +11074,27 @@
           },
           {
             "name": "image",
-            "description": "An optional image associated with the contributor",
+            "description": "An optional image associated with the contributor.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Configurable metadata for the image attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -11834,11 +12147,47 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12110,11 +12459,47 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12314,11 +12699,47 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -12871,10 +13292,22 @@
           },
           {
             "name": "image",
-            "description": "A reference to an upload in Tus.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13131,10 +13564,22 @@
           },
           {
             "name": "heroImage",
-            "description": "The hero image to represent the page.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13347,10 +13792,22 @@
           },
           {
             "name": "image",
-            "description": "A reference to an upload in Tus.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -16296,6 +16753,34 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A hero image for the entity, suitable for displaying in page headers",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Configurable metadata for the hero_image attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hierarchicalDepth",
             "description": "The depth of the hierarchical entity, taking into account any parent types",
             "args": [],
@@ -16959,11 +17444,27 @@
           },
           {
             "name": "thumbnail",
-            "description": "A mapping of an entity's preview thumbnail",
+            "description": "A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Configurable metadata for the thumbnail attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -18097,6 +18598,71 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "GlobalConfiguration",
+        "description": "The global configuration for this installation of WDP.",
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "site",
+            "description": "Settings specific to this site",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SiteSettings",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "theme",
+            "description": "Settings specific to the site's theme",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ThemeSettings",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "GrantAccessInput",
         "description": "Autogenerated input type of GrantAccess",
@@ -18420,6 +18986,40 @@
         ],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "HasAttachmentStorage",
+        "description": "Something which implements a #storage key that identifies where its attachment currently lives.",
+        "fields": [
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "ImageAttachment",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ImageOriginal",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "INTERFACE",
@@ -19229,6 +19829,711 @@
         "fields": null,
         "inputFields": null,
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Image",
+        "description": "An abstract image interface. It includes the minimum amount of data to render an image in the browser.",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dimensions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use width and height directly."
+          },
+          {
+            "name": "height",
+            "description": "The height of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": "The URL for the image, if present.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "The width of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "ImageDerivative",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ImageOriginal",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageAttachment",
+        "description": "An attached image with standardized derivatives.",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "large",
+            "description": "A large-sized mapping for derivative formats",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "medium",
+            "description": "A medium-sized mapping for derivative formats",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": "Configurable metadata for the image.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "original",
+            "description": "The original source for the image",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageOriginal",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "small",
+            "description": "A small-sized mapping for derivative formats",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumb",
+            "description": "A thumb-sized mapping for derivative formats",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "HasAttachmentStorage",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageDerivative",
+        "description": "A derivative of the image with a specific size and format.",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dimensions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use width and height directly."
+          },
+          {
+            "name": "format",
+            "description": "The format of this derivative",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImageDerivativeFormat",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "height",
+            "description": "The height of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "maxHeight",
+            "description": "The maximum height this size can occupy",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "maxWidth",
+            "description": "The maximum width this size can occupy",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "size",
+            "description": "The size of this derivative",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImageDerivativeSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": "The URL for the image, if present.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "The width of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Image",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ImageDerivativeFormat",
+        "description": "The format of a specific image derivative.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "WEBP",
+            "description": "A more efficiently compressed image supported by most browsers worldwide.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PNG",
+            "description": "A Portable Network Graphics-formatted file, for legacy support on most all browsers.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ImageDerivativeSize",
+        "description": "The size of a specific image derivative.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "LARGE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MEDIUM",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SMALL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "THUMB",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageMetadata",
+        "description": "Shared metadata for image attachments",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ImageMetadataInput",
+        "description": "Shared metadata for updating image attachments",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageOriginal",
+        "description": "The original source for the image. While derivatives are processing, it could be useful\nfor a temporary preview in the admin section, or for troubleshooting.\n\nAs this is the raw image, it is not optimized for display in the frontend and is best\nused only as a fallback.\n",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dimensions",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use width and height directly."
+          },
+          {
+            "name": "height",
+            "description": "The height of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": "The URL for the image, if present.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "The width of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "HasAttachmentStorage",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Image",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ImageSize",
+        "description": "This describes a specific derivative style\nfor an attachment, e.g. small, medium, thumb.\n\nIt is further broken down into the various formats\nthe WDP generates, presently WEBP and PNG.\n",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "height",
+            "description": "The (maximum) height for this size.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "png",
+            "description": "A png-formatted image derivative for this particular size.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageDerivative",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "size",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImageDerivativeSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "webp",
+            "description": "A webp-formatted image derivative for this particular size.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageDerivative",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "The (maximum) width for this size.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -20431,6 +21736,34 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A hero image for the entity, suitable for displaying in page headers",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Configurable metadata for the hero_image attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hidden",
             "description": null,
             "args": [],
@@ -20524,7 +21857,7 @@
           },
           {
             "name": "items",
-            "description": null,
+            "description": "Retrieve the items beneath this item",
             "args": [
               {
                 "name": "order",
@@ -20535,6 +21868,38 @@
                   "ofType": null
                 },
                 "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "nodeFilter",
+                "description": "Describe the depth of entities to retrieve",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "SubtreeNodeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "CHILDREN",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -21266,6 +22631,127 @@
             "deprecationReason": "Use the variable-precision 'published' field instead"
           },
           {
+            "name": "relatedItems",
+            "description": "Retrieve linked items of the same schema type",
+            "args": [
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityOrder",
+                  "ofType": null
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "25",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ItemConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "root",
             "description": null,
             "args": [],
@@ -21407,11 +22893,27 @@
           },
           {
             "name": "thumbnail",
-            "description": "A mapping of an entity's preview thumbnail",
+            "description": "A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Configurable metadata for the thumbnail attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -23980,6 +25482,35 @@
             "deprecationReason": null
           },
           {
+            "name": "updateGlobalConfiguration",
+            "description": "Update the global configuration for this site.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for UpdateGlobalConfiguration",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UpdateGlobalConfigurationInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UpdateGlobalConfigurationPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updateItem",
             "description": "Update an item",
             "args": [
@@ -24463,6 +25994,11 @@
           {
             "kind": "OBJECT",
             "name": "EntityLink",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "GlobalConfiguration",
             "ofType": null
           },
           {
@@ -25739,11 +27275,27 @@
           },
           {
             "name": "image",
-            "description": "An optional image associated with the contributor",
+            "description": "An optional image associated with the contributor.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Configurable metadata for the image attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26114,8 +27666,24 @@
             "description": "The hero image for a page",
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Configurable metadata for the hero_image attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26982,11 +28550,27 @@
           },
           {
             "name": "image",
-            "description": "An optional image associated with the contributor",
+            "description": "An optional image associated with the contributor.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Configurable metadata for the image attachment",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27308,212 +28892,6 @@
             "deprecationReason": null
           }
         ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "PreviewImage",
-        "description": null,
-        "fields": [
-          {
-            "name": "alt",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dimensions",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "height",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "url",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "width",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "PreviewImageMap",
-        "description": null,
-        "fields": [
-          {
-            "name": "alt",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dimensions",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "height",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "png",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "PreviewImage",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "webp",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "PreviewImage",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "width",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -28053,6 +29431,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "AnyContributorConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "globalConfiguration",
+            "description": "Fetch the global configuration for this installation",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "GlobalConfiguration",
                 "ofType": null
               }
             },
@@ -31538,6 +32932,60 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "SiteSettings",
+        "description": "Configuration settings for information about this installation.",
+        "fields": [
+          {
+            "name": "providerName",
+            "description": "The name of the provider supporting and maintaining this installation.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SiteSettingsInput",
+        "description": "A value for updating the site's configuration",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "providerName",
+            "description": "The name of the provider supporting and maintaining this installation.",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "Slug",
         "description": "A slug that can identify a record in context",
@@ -31956,6 +33404,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "UpdateGlobalConfigurationPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "UpdateItemPayload",
             "ofType": null
           },
@@ -32139,6 +33592,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "SubtreeNodeFilter",
+        "description": "When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CHILDREN",
+            "description": "Fetch only the first level of the same type of entity (Item, Collection)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DESCENDANTS",
+            "description": "Fetch all descendant entities of the same base type (Item, Collection)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "TagsProperty",
         "description": null,
@@ -32272,6 +33748,92 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ThemeSettings",
+        "description": "Configuration settings for the theme of the WDP frontend.",
+        "fields": [
+          {
+            "name": "color",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "font",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ThemeSettingsInput",
+        "description": "A value for updating the theme",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "color",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "font",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -32789,11 +34351,47 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -32873,6 +34471,18 @@
               "ofType": null
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearHeroImage",
+            "description": "If set to true, this will clear the attachment hero_image on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -33081,6 +34691,30 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -33089,6 +34723,30 @@
               "ofType": null
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearHeroImage",
+            "description": "If set to true, this will clear the attachment hero_image on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -33436,6 +35094,178 @@
       },
       {
         "kind": "INPUT_OBJECT",
+        "name": "UpdateGlobalConfigurationInput",
+        "description": "Autogenerated input type of UpdateGlobalConfiguration",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "site",
+            "description": "Possible new settings for the site",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "SiteSettingsInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "theme",
+            "description": "Possible new settings for the theme",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ThemeSettingsInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UpdateGlobalConfigurationPayload",
+        "description": "Autogenerated return type of UpdateGlobalConfiguration",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "globalConfiguration",
+            "description": "Though a global configuration always exists, this will be null if it fails to apply for some reason.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "GlobalConfiguration",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
         "name": "UpdateItemInput",
         "description": "Autogenerated input type of UpdateItem",
         "fields": null,
@@ -33473,11 +35303,47 @@
             "deprecationReason": null
           },
           {
+            "name": "heroImage",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -33557,6 +35423,18 @@
               "ofType": null
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearHeroImage",
+            "description": "If set to true, this will clear the attachment hero_image on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -34026,10 +35904,22 @@
           },
           {
             "name": "image",
-            "description": "A reference to an upload in Tus.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -34314,10 +36204,22 @@
           },
           {
             "name": "heroImage",
-            "description": "The hero image to represent the page.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -34542,10 +36444,22 @@
           },
           {
             "name": "image",
-            "description": "A reference to an upload in Tus.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -34990,10 +36904,22 @@
           },
           {
             "name": "avatar",
-            "description": "An avatar to represent your user in the WDP.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatarMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -35178,10 +37104,22 @@
         "inputFields": [
           {
             "name": "avatar",
-            "description": "An avatar to represent your user in the WDP.\n",
+            "description": "A reference to an uploaded image in Tus.\n",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatarMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -35421,7 +37359,7 @@
           },
           {
             "name": "metadata",
-            "description": null,
+            "description": "Metadata to associate with the upload",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "UploadedFileMetadataInput",
@@ -35442,6 +37380,18 @@
         "description": "File metadata to attach to the upload.",
         "fields": null,
         "inputFields": [
+          {
+            "name": "alt",
+            "description": "Alt text for the upload (not always applicable)",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "filename",
             "description": "The original filename, since Tus mangles them.",
@@ -35991,8 +37941,24 @@
             "description": "A user's avatar",
             "args": [],
             "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "avatarMetadata",
+            "description": "Configurable metadata for the avatar attachment",
+            "args": [],
+            "type": {
               "kind": "OBJECT",
-              "name": "AssetPreview",
+              "name": "ImageMetadata",
               "ofType": null
             },
             "isDeprecated": false,

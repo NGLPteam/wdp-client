@@ -46,11 +46,13 @@ export default function RelatedJournals({ data }: Props) {
               >
                 <Styled.ItemLink>
                   <Styled.ItemCover>
-                    <CoverImage
-                      data={node.target.thumbnail}
-                      maxWidth={263}
-                      maxHeight={280}
-                    />
+                    {node.target.thumbnail?.storage && (
+                      <CoverImage
+                        data={node.target.thumbnail}
+                        maxWidth={263}
+                        maxHeight={280}
+                      />
+                    )}
                   </Styled.ItemCover>
                   <Styled.ItemText>
                     <h4>{node.target.title}</h4>
@@ -106,6 +108,7 @@ const fragment = graphql`
               ...PrecisionDateFragment
             }
             thumbnail {
+              storage
               ...CoverImageFragment
             }
           }
@@ -117,6 +120,7 @@ const fragment = graphql`
               ...PrecisionDateFragment
             }
             thumbnail {
+              storage
               ...CoverImageFragment
             }
           }

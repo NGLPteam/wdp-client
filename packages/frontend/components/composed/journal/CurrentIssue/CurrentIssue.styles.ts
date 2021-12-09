@@ -2,28 +2,39 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { tLabel, tLineClamp, tHeading } from "theme/mixins";
 
+interface BaseProps {
+  $hasImage?: boolean;
+}
+
 export const Inner = styled.div`
   padding-block: ${pxToRem(100)};
 `;
 
-export const Left = styled.div`
-  padding-block-start: var(--padding-xs);
+export const Title = styled.h3<BaseProps>`
+  grid-column: 2 / 12;
+
+  ${({ $hasImage }) => $hasImage && `grid-column: 5 / span 8;`}
+`;
+
+export const ImageLink = styled.a`
   grid-column: 1 / span 3;
+  margin-block-end: ${pxToRem(20)};
 `;
 
-export const Right = styled.div`
-  grid-column: 5 / span 8;
+export const Meta = styled.div<BaseProps>`
+  grid-column: 2 / 12;
+
+  ${({ $hasImage }) => $hasImage && `grid-column: 1 / span 3;`}
 `;
 
-export const Title = styled.h3`
-  padding-block-end: ${pxToRem(10)};
+export const ArticleList = styled.ul<BaseProps>`
+  grid-column: 2 / 12;
+  padding-block-start: ${pxToRem(10)};
+
+  ${({ $hasImage }) => $hasImage && `grid-column: 5 / span 8;`}
 `;
 
-export const Meta = styled.div`
-  margin-block-start: ${pxToRem(20)};
-`;
-
-export const Item = styled.div`
+export const Item = styled.li`
   padding-block-start: ${pxToRem(28)};
   border-top: 1px solid var(--color-lighter);
   padding-block-end: ${pxToRem(30)};

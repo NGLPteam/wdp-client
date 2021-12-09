@@ -25,14 +25,17 @@ export const IssueWrapper = styled.div`
   flex-wrap: nowrap;
   padding-block-start: ${pxToRem(46)};
 
-  & > * {
+  > * {
     flex-grow: 1;
+  }
+
+  > * + * {
+    margin-inline-start: ${pxToRem(42)};
   }
 `;
 
 export const IssueMeta = styled.div`
   max-width: ${pxToRem(596)};
-  margin-inline-start: ${pxToRem(42)};
 `;
 
 export const Issue = styled.h3`

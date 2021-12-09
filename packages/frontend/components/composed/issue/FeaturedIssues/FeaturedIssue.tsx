@@ -28,9 +28,11 @@ export default function FeaturedIssue({ data }: Props) {
   return issue ? (
     <NamedLink route="collection" routeParams={{ slug: issue.slug }} passHref>
       <Styled.ItemLink>
-        <Styled.ItemCoverBlock>
-          <CoverImage data={issue.thumbnail} maxWidth={120} maxHeight={160} />
-        </Styled.ItemCoverBlock>
+        {issue.thumbnail?.storage && (
+          <Styled.ItemCoverBlock>
+            <CoverImage data={issue.thumbnail} maxWidth={120} maxHeight={160} />
+          </Styled.ItemCoverBlock>
+        )}
         <div>
           <Styled.ItemTitleBlock>
             <h4>{issue.title}</h4>
@@ -74,6 +76,7 @@ const fragment = graphql`
     slug
     summary
     thumbnail {
+      storage
       ...CoverImageFragment
     }
     published {

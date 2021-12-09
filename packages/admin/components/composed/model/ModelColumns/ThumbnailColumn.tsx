@@ -35,7 +35,7 @@ const ThumbnailColumn = <NodeType extends Node>({
     disableSortBy: true,
     cellType: "thumbnail",
     Cell: ({ grid = false, value, row }: CellProps<NodeType>) => {
-      if (!value || !value?.png) return null;
+      if (!value || !value?.png || !value?.png.url) return null;
       const { png } = value;
       const width = grid ? 180 : 50;
       const height = grid ? 180 : 50;
