@@ -53,6 +53,7 @@ const fragment = graphql`
       perPage: 1
       schema: "nglp:journal_issue"
       order: PUBLISHED_DESCENDING
+      nodeFilter: DESCENDANTS
     ) {
       ...CurrentIssueFragment
     }

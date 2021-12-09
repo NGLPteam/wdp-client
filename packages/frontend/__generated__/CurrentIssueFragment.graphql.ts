@@ -5,13 +5,16 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type CurrentIssueFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly title: string;
+            readonly slug: string;
             readonly thumbnail: {
+                readonly storage: AttachmentStorage | null;
                 readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-            } | null;
+            };
             readonly published: {
                 readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
             };
@@ -49,6 +52,13 @@ var v0 = {
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -73,14 +83,22 @@ return {
           "plural": false,
           "selections": [
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
-              "concreteType": "AssetPreview",
+              "concreteType": "ImageAttachment",
               "kind": "LinkedField",
               "name": "thumbnail",
               "plural": false,
               "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "storage",
+                  "storageKey": null
+                },
                 {
                   "args": null,
                   "kind": "FragmentSpread",
@@ -161,13 +179,7 @@ return {
                       "plural": false,
                       "selections": [
                         (v0/*: any*/),
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "slug",
-                          "storageKey": null
-                        },
+                        (v1/*: any*/),
                         {
                           "alias": null,
                           "args": null,
@@ -211,5 +223,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5c1169cf0773e5cd55cc937d7d978ea3';
+(node as any).hash = '256d00fd63a68a81b4da129d19ec80f6';
 export default node;

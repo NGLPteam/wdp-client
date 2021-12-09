@@ -36,7 +36,7 @@ interface ViewerContextProps {
   allowedActions: readonly string[];
   uploadAccess?: boolean;
   uploadToken?: string | null;
-  avatarUrl?: string;
+  avatarUrl?: string | null;
 }
 
 interface Props {

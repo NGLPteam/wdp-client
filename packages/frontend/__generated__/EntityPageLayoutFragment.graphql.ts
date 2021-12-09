@@ -10,7 +10,7 @@ export type EntityPageLayoutFragment = {
     readonly body: string;
     readonly heroImage: {
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    } | null;
+    };
     readonly " $refType": "EntityPageLayoutFragment";
 };
 export type EntityPageLayoutFragment$data = EntityPageLayoutFragment;
@@ -44,7 +44,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "heroImage",
       "plural": false,

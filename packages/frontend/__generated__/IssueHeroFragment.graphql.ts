@@ -5,13 +5,15 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type IssueHeroFragment = {
     readonly title: string;
     readonly summary: string | null;
     readonly doi: string | null;
     readonly thumbnail: {
+        readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    } | null;
+    };
     readonly journal: {
         readonly title?: string | undefined;
     } | null;
@@ -70,11 +72,18 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "thumbnail",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "storage",
+          "storageKey": null
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -120,5 +129,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4e777a591f6b255d108fa217fe2885a7';
+(node as any).hash = '5ece98f24d7c10ae37e837d5a9dfc12e';
 export default node;

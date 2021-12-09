@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type RelatedJournalsFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -16,8 +17,9 @@ export type RelatedJournalsFragment = {
                     readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
                 };
                 readonly thumbnail: {
+                    readonly storage: AttachmentStorage | null;
                     readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-                } | null;
+                };
             } | {
                 readonly __typename: "Item";
                 readonly title: string;
@@ -26,8 +28,9 @@ export type RelatedJournalsFragment = {
                     readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
                 };
                 readonly thumbnail: {
+                    readonly storage: AttachmentStorage | null;
                     readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-                } | null;
+                };
             } | {
                 /*This will never be '%other', but we need some
                 value in case none of the concrete values match.*/
@@ -87,11 +90,18 @@ var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "AssetPreview",
+    "concreteType": "ImageAttachment",
     "kind": "LinkedField",
     "name": "thumbnail",
     "plural": false,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "storage",
+        "storageKey": null
+      },
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -157,5 +167,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'eb1fbc25e6dae5ff00299eb75dcae358';
+(node as any).hash = '1a648e04b3c9e9f8ac661e062efa055e';
 export default node;

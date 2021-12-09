@@ -7,16 +7,12 @@ import { ContributorAvatarFragment$key } from "@/relay/ContributorAvatarFragment
 import { IconFactory } from "components/factories";
 
 const ContributorAvatar = ({ data }: Props) => {
-  const image = useMaybeFragment(fragment, data);
+  const imageData = useMaybeFragment(fragment, data);
+  const image = imageData?.small?.webp;
 
-  return image?.small?.webp ? (
+  return image && image.url ? (
     <Styled.Wrapper>
-      <Image
-        src={image.small.webp.url}
-        alt={image.alt}
-        width={60}
-        height={60}
-      />
+      <Image src={image.url} alt={image.alt || ""} width={60} height={60} />
     </Styled.Wrapper>
   ) : (
     <IconFactory icon="contributorAvatar" />
@@ -30,10 +26,10 @@ interface Props {
 export default ContributorAvatar;
 
 const fragment = graphql`
-  fragment ContributorAvatarFragment on AssetPreview {
-    alt
+  fragment ContributorAvatarFragment on ImageAttachment {
     small {
       webp {
+        alt
         url
       }
     }

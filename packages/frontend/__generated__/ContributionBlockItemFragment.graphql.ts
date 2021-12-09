@@ -14,7 +14,7 @@ export type ContributionBlockItemFragment = {
     readonly contributor: {
         readonly image?: {
             readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-        } | null | undefined;
+        } | undefined;
         readonly affiliation?: string | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
     };
@@ -39,7 +39,7 @@ var v0 = {
 v1 = {
   "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,

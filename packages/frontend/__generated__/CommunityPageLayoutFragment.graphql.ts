@@ -10,7 +10,7 @@ export type CommunityPageLayoutFragment = {
     readonly body: string;
     readonly heroImage: {
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
-    } | null;
+    };
     readonly " $refType": "CommunityPageLayoutFragment";
 };
 export type CommunityPageLayoutFragment$data = CommunityPageLayoutFragment;
@@ -44,7 +44,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "heroImage",
       "plural": false,

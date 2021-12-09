@@ -76,6 +76,7 @@ fragment IssueSummaryItemFragment on AnyEntity {
       ...ContributorsListFragment
     }
     thumbnail {
+      storage
       ...SquareThumbnailFragment
     }
   }
@@ -107,10 +108,10 @@ fragment PrecisionDateFragment on VariablePrecisionDate {
   value
 }
 
-fragment SquareThumbnailFragment on AssetPreview {
-  alt
+fragment SquareThumbnailFragment on ImageAttachment {
   image: medium {
     webp {
+      alt
       url
     }
   }
@@ -179,44 +180,33 @@ v5 = {
   "storageKey": null
 },
 v6 = {
-  "alias": null,
+  "alias": "image",
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageSize",
   "kind": "LinkedField",
-  "name": "thumbnail",
+  "name": "medium",
   "plural": false,
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
-    {
-      "alias": "image",
-      "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageDerivative",
       "kind": "LinkedField",
-      "name": "medium",
+      "name": "webp",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "alt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
           "storageKey": null
         }
       ],
@@ -417,7 +407,25 @@ return {
                                 ],
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageAttachment",
+                                "kind": "LinkedField",
+                                "name": "thumbnail",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "storage",
+                                    "storageKey": null
+                                  },
+                                  (v6/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
                             ],
                             "type": "Item",
                             "abstractKey": null
@@ -428,7 +436,18 @@ return {
                               (v3/*: any*/),
                               (v4/*: any*/),
                               (v5/*: any*/),
-                              (v6/*: any*/)
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageAttachment",
+                                "kind": "LinkedField",
+                                "name": "thumbnail",
+                                "plural": false,
+                                "selections": [
+                                  (v6/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
                             ],
                             "type": "Collection",
                             "abstractKey": null
@@ -453,12 +472,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5ca999723abf3f3760887e1205dfa437",
+    "cacheID": "f51c7642433691dc42cf3d601d786406",
     "id": null,
     "metadata": {},
     "name": "IssueSummaryItemsQuery",
     "operationKind": "query",
-    "text": "query IssueSummaryItemsQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    items {\n      ...IssueSummaryListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryListFragment on ItemConnection {\n  edges {\n    node {\n      slug\n      ...IssueSummaryItemFragment\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on AssetPreview {\n  alt\n  image: medium {\n    webp {\n      url\n    }\n  }\n}\n"
+    "text": "query IssueSummaryItemsQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    items {\n      ...IssueSummaryListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryListFragment on ItemConnection {\n  edges {\n    node {\n      slug\n      ...IssueSummaryItemFragment\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

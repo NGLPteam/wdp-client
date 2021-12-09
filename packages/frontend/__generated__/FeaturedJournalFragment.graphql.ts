@@ -11,7 +11,7 @@ export type FeaturedJournalFragment = {
     readonly updatedAt: string;
     readonly thumbnail: {
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    } | null;
+    };
     readonly issues: {
         readonly pageInfo: {
             readonly totalCount: number;
@@ -57,7 +57,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "thumbnail",
       "plural": false,

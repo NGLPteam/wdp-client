@@ -23,7 +23,7 @@ export default function JournalHero({ data }: Props) {
           </Styled.MetadataBlock>
         </Styled.HeroInner>
       </header>
-      <HeroImage data={journal.thumbnail} />
+      {journal.thumbnail?.storage && <HeroImage data={journal.thumbnail} />}
     </>
   ) : null;
 }
@@ -36,6 +36,7 @@ const fragment = graphql`
   fragment JournalHeroFragment on Collection {
     title
     thumbnail {
+      storage
       ...HeroImageFragment
     }
   }

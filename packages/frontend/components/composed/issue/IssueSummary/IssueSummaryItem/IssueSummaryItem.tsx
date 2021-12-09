@@ -34,7 +34,7 @@ export default function IssueSummaryItem({ data }: Props) {
             </p>
           </Styled.ItemMetadata>
         </Styled.ItemText>
-        {content.thumbnail && (
+        {content.thumbnail?.storage && (
           <Styled.ItemThumbnail>
             <SquareThumbnail data={content.thumbnail} />
           </Styled.ItemThumbnail>
@@ -61,6 +61,7 @@ const fragment = graphql`
         ...ContributorsListFragment
       }
       thumbnail {
+        storage
         ...SquareThumbnailFragment
       }
     }

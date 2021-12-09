@@ -13,7 +13,7 @@ export const Section = styled.div`
     position: absolute;
     background: var(--color-base-neutral90);
     height: calc(
-      var(--FeaturedJournal-cover-height, ${pxToRem(300)}) +
+      var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
         var(--container-padding-sm) * 2
     );
     width: 100vw;
@@ -40,11 +40,12 @@ export const ItemLink = styled.a`
 `;
 
 export const ItemCover = styled.div`
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(
-    var(--FeaturedJournal-cover-height, ${pxToRem(300)}) +
+    var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
       var(--container-padding-sm) * 2
   );
   padding-block-start: var(--container-padding-sm);

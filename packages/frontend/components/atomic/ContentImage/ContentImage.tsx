@@ -10,7 +10,7 @@ export default function ContentImage({ data }: Props) {
 
   return image ? (
     <ContentImageBase
-      alt={imageData.alt}
+      alt={image.alt}
       url={image.url}
       width={image.width}
       height={image.height}
@@ -23,10 +23,10 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment ContentImageFragment on AssetPreview {
-    alt
+  fragment ContentImageFragment on ImageAttachment {
     image: large {
       webp {
+        alt
         url
         width
         height

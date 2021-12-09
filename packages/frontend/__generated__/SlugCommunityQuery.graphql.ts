@@ -111,8 +111,7 @@ fragment CommunityPickerFragment on Query {
   }
 }
 
-fragment CoverImageFragment on AssetPreview {
-  alt
+fragment CoverImageFragment on ImageAttachment {
   image: large {
     webp {
       url
@@ -185,20 +184,13 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = [
+v5 = [
   (v3/*: any*/),
   (v2/*: any*/),
-  (v5/*: any*/)
+  (v4/*: any*/)
 ];
 return {
   "fragment": {
@@ -304,16 +296,15 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "AssetPreview",
+                        "concreteType": "ImageAttachment",
                         "kind": "LinkedField",
                         "name": "thumbnail",
                         "plural": false,
                         "selections": [
-                          (v4/*: any*/),
                           {
                             "alias": "image",
                             "args": null,
-                            "concreteType": "PreviewImageMap",
+                            "concreteType": "ImageSize",
                             "kind": "LinkedField",
                             "name": "large",
                             "plural": false,
@@ -321,7 +312,7 @@ return {
                               {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "PreviewImage",
+                                "concreteType": "ImageDerivative",
                                 "kind": "LinkedField",
                                 "name": "webp",
                                 "plural": false,
@@ -333,7 +324,13 @@ return {
                                     "name": "url",
                                     "storageKey": null
                                   },
-                                  (v4/*: any*/),
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "alt",
+                                    "storageKey": null
+                                  },
                                   {
                                     "alias": null,
                                     "args": null,
@@ -392,7 +389,7 @@ return {
                         ],
                         "storageKey": "collections(schema:\"nglp:journal_issue\")"
                       },
-                      (v5/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -426,7 +423,7 @@ return {
                 "name": "count",
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -453,7 +450,7 @@ return {
                     "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v5/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -462,7 +459,7 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       },
@@ -489,7 +486,7 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": (v6/*: any*/),
+                "selections": (v5/*: any*/),
                 "storageKey": null
               }
             ],
@@ -501,12 +498,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cb86adc3c1d867cb5ac662327df2001c",
+    "cacheID": "59da1cf13bdfcf83f503e9ffd3946d15",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  collections(schema: \"nglp:journal\", order: RECENT, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on AssetPreview {\n  alt\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  title\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: collections(schema: \"nglp:journal_issue\") {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  collections(schema: \"nglp:journal\", order: RECENT, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  title\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: collections(schema: \"nglp:journal_issue\") {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

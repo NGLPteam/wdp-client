@@ -15,19 +15,17 @@ export default function CoverImage({ data, maxWidth, maxHeight }: Props) {
     "--CoverImage-max-height": pxToRem(maxHeight),
   } as React.CSSProperties;
 
-  if (!image) return null;
-
-  return (
+  return image && image.url ? (
     <Styled.Figure style={style}>
       <Image
         layout="intrinsic"
         src={image.url}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
+        alt={image.alt || ""}
+        width={image.width || 0}
+        height={image.height || 0}
       />
     </Styled.Figure>
-  );
+  ) : null;
 }
 
 interface Props {
@@ -37,8 +35,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment CoverImageFragment on AssetPreview {
-    alt
+  fragment CoverImageFragment on ImageAttachment {
     image: large {
       webp {
         url

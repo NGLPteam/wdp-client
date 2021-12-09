@@ -6,11 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type ContributorAvatarFragment = {
-    readonly alt: string;
     readonly small: {
         readonly webp: {
-            readonly url: string;
-        } | null;
+            readonly alt: string | null;
+            readonly url: string | null;
+        };
     };
     readonly " $refType": "ContributorAvatarFragment";
 };
@@ -31,14 +31,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "alt",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "small",
       "plural": false,
@@ -46,11 +39,18 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "webp",
           "plural": false,
           "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "alt",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -65,8 +65,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "AssetPreview",
+  "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = 'da6fd4408a62da9f3f723b6a156603a4';
+(node as any).hash = '239cd68c87a078490b100710e75c17de';
 export default node;
