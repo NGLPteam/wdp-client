@@ -34,11 +34,6 @@ var v0 = {
 },
 v1 = {
   "kind": "Literal",
-  "name": "nodeFilter",
-  "value": "DESCENDANTS"
-},
-v2 = {
-  "kind": "Literal",
   "name": "schema",
   "value": "nglp:journal_issue"
 };
@@ -74,14 +69,18 @@ return {
     {
       "alias": "issues",
       "args": [
-        (v1/*: any*/),
+        {
+          "kind": "Literal",
+          "name": "nodeFilter",
+          "value": "DESCENDANTS"
+        },
         {
           "kind": "Literal",
           "name": "order",
           "value": "PUBLISHED_ASCENDING"
         },
         (v0/*: any*/),
-        (v2/*: any*/)
+        (v1/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -99,7 +98,6 @@ return {
     {
       "alias": "currentIssue",
       "args": [
-        (v1/*: any*/),
         {
           "kind": "Literal",
           "name": "order",
@@ -110,7 +108,7 @@ return {
           "name": "perPage",
           "value": 1
         },
-        (v2/*: any*/)
+        (v1/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -123,7 +121,7 @@ return {
           "name": "CurrentIssueFragment"
         }
       ],
-      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",perPage:1,schema:\"nglp:journal_issue\")"
+      "storageKey": "collections(order:\"PUBLISHED_DESCENDING\",perPage:1,schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -150,5 +148,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'aba7a310163b0ac919ac98580f9b6238';
+(node as any).hash = '750d7b035f07bc67a84ab452e3d9845a';
 export default node;
