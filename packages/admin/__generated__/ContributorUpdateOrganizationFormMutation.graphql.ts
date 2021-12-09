@@ -12,6 +12,7 @@ export type UpdateOrganizationContributorInput = {
     bio?: string | null | undefined;
     links?: Array<ContributorLinkInput> | null | undefined;
     image?: UploadedFileInput | null | undefined;
+    imageMetadata?: ImageMetadataInput | null | undefined;
     legalName?: string | null | undefined;
     location?: string | null | undefined;
     contributorId: string;
@@ -28,8 +29,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type ContributorUpdateOrganizationFormMutationVariables = {
     input: UpdateOrganizationContributorInput;
@@ -303,7 +308,7 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "AssetPreview",
+                        "concreteType": "ImageAttachment",
                         "kind": "LinkedField",
                         "name": "image",
                         "plural": false,
@@ -311,7 +316,7 @@ return {
                           {
                             "alias": null,
                             "args": null,
-                            "concreteType": "PreviewImageMap",
+                            "concreteType": "ImageSize",
                             "kind": "LinkedField",
                             "name": "thumb",
                             "plural": false,
@@ -319,7 +324,7 @@ return {
                               {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "PreviewImage",
+                                "concreteType": "ImageDerivative",
                                 "kind": "LinkedField",
                                 "name": "png",
                                 "plural": false,

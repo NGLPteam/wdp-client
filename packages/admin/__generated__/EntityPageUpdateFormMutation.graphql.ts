@@ -13,6 +13,7 @@ export type UpdatePageInput = {
     position?: number | null | undefined;
     body: string;
     heroImage?: UploadedFileInput | null | undefined;
+    heroImageMetadata?: ImageMetadataInput | null | undefined;
     clearHeroImage?: boolean | null | undefined;
     clientMutationId?: string | null | undefined;
 };
@@ -22,8 +23,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type EntityPageUpdateFormMutationVariables = {
     input: UpdatePageInput;
@@ -37,13 +42,13 @@ export type EntityPageUpdateFormMutationResponse = {
             readonly heroImage: {
                 readonly medium: {
                     readonly png: {
-                        readonly url: string;
-                        readonly height: number;
-                        readonly width: number;
-                        readonly alt: string;
-                    } | null;
+                        readonly url: string | null;
+                        readonly height: number | null;
+                        readonly width: number | null;
+                        readonly alt: string | null;
+                    };
                 };
-            } | null;
+            };
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -142,7 +147,7 @@ v2 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "heroImage",
       "plural": false,
@@ -150,7 +155,7 @@ v2 = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImageMap",
+          "concreteType": "ImageSize",
           "kind": "LinkedField",
           "name": "medium",
           "plural": false,
@@ -158,7 +163,7 @@ v2 = {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PreviewImage",
+              "concreteType": "ImageDerivative",
               "kind": "LinkedField",
               "name": "png",
               "plural": false,

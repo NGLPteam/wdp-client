@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateViewerSettingsInput = {
     avatar?: UploadedFileInput | null | undefined;
+    avatarMetadata?: ImageMetadataInput | null | undefined;
     clearAvatar?: boolean | null | undefined;
     profile: UserProfileInput;
     clientMutationId?: string | null | undefined;
@@ -18,8 +19,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type UserProfileInput = {
     givenName: string;
@@ -272,7 +277,7 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "AssetPreview",
+                "concreteType": "ImageAttachment",
                 "kind": "LinkedField",
                 "name": "avatar",
                 "plural": false,
@@ -280,7 +285,7 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "PreviewImageMap",
+                    "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "small",
                     "plural": false,
@@ -288,7 +293,7 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "PreviewImage",
+                        "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
                         "name": "png",
                         "plural": false,

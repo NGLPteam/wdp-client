@@ -50,6 +50,7 @@ fragment CollectionListFragment on CollectionConnection {
       id
     }
     thumbnail {
+      storage
       image: medium {
         png {
           url
@@ -259,15 +260,22 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "AssetPreview",
+                    "concreteType": "ImageAttachment",
                     "kind": "LinkedField",
                     "name": "thumbnail",
                     "plural": false,
                     "selections": [
                       {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "storage",
+                        "storageKey": null
+                      },
+                      {
                         "alias": "image",
                         "args": null,
-                        "concreteType": "PreviewImageMap",
+                        "concreteType": "ImageSize",
                         "kind": "LinkedField",
                         "name": "medium",
                         "plural": false,
@@ -275,7 +283,7 @@ return {
                           {
                             "alias": null,
                             "args": null,
-                            "concreteType": "PreviewImage",
+                            "concreteType": "ImageDerivative",
                             "kind": "LinkedField",
                             "name": "png",
                             "plural": false,
@@ -397,12 +405,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f7f288119f8e0cf21598d9b03f90b15a",
+    "cacheID": "47990e0d39959a5ebd81b3d924a488ca",
     "id": null,
     "metadata": {},
     "name": "collectionsQuery",
     "operationKind": "query",
-    "text": "query collectionsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query collectionsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      storage\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    allowedActions\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

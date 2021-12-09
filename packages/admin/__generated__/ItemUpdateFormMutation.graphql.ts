@@ -10,13 +10,17 @@ export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateItemInput = {
     itemId: string;
     title: string;
+    heroImage?: UploadedFileInput | null | undefined;
+    heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
+    thumbnailMetadata?: ImageMetadataInput | null | undefined;
     doi?: string | null | undefined;
     summary?: string | null | undefined;
     publishedOn?: string | null | undefined;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null | undefined;
     visibleUntilAt?: string | null | undefined;
+    clearHeroImage?: boolean | null | undefined;
     clearThumbnail?: boolean | null | undefined;
     clientMutationId?: string | null | undefined;
 };
@@ -26,8 +30,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type ItemUpdateFormMutationVariables = {
     input: UpdateItemInput;
@@ -67,6 +75,7 @@ fragment ItemUpdateFormFieldsFragment on Item {
   visibleAfterAt
   visibleUntilAt
   thumbnail {
+    storage
     thumb {
       png {
         alt
@@ -280,7 +289,7 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "AssetPreview",
+                "concreteType": "ImageAttachment",
                 "kind": "LinkedField",
                 "name": "thumbnail",
                 "plural": false,
@@ -288,7 +297,14 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "PreviewImageMap",
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "thumb",
                     "plural": false,
@@ -296,7 +312,7 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "PreviewImage",
+                        "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
                         "name": "png",
                         "plural": false,
@@ -341,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f5e338cb10346ccd42c59257422f1299",
+    "cacheID": "4e6ec99f2aa5f5e87e2373d065654f76",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

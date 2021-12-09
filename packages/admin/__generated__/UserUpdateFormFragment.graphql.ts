@@ -14,13 +14,13 @@ export type UserUpdateFormFragment = {
     readonly avatar: {
         readonly small: {
             readonly png: {
-                readonly url: string;
-                readonly alt: string;
-                readonly height: number;
-                readonly width: number;
-            } | null;
+                readonly url: string | null;
+                readonly alt: string | null;
+                readonly height: number | null;
+                readonly width: number | null;
+            };
         };
-    } | null;
+    };
     readonly " $refType": "UserUpdateFormFragment";
 };
 export type UserUpdateFormFragment$data = UserUpdateFormFragment;
@@ -75,7 +75,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "AssetPreview",
+      "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "avatar",
       "plural": false,
@@ -83,7 +83,7 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImageMap",
+          "concreteType": "ImageSize",
           "kind": "LinkedField",
           "name": "small",
           "plural": false,
@@ -91,7 +91,7 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PreviewImage",
+              "concreteType": "ImageDerivative",
               "kind": "LinkedField",
               "name": "png",
               "plural": false,

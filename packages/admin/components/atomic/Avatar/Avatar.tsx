@@ -12,8 +12,8 @@ const Avatar = ({ url, alt = "", size = 30 }: Props) => {
 
 interface Props {
   size?: number;
-  alt?: string;
-  url?: string;
+  alt?: string | null;
+  url?: string | null;
 }
 
 export default Avatar;

@@ -76,6 +76,7 @@ fragment UserItemsListFragment on UserItemAccessGrantConnection {
         title
         slug
         thumbnail {
+          storage
           image: medium {
             png {
               url
@@ -288,15 +289,22 @@ return {
                           {
                             "alias": null,
                             "args": null,
-                            "concreteType": "AssetPreview",
+                            "concreteType": "ImageAttachment",
                             "kind": "LinkedField",
                             "name": "thumbnail",
                             "plural": false,
                             "selections": [
                               {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "storage",
+                                "storageKey": null
+                              },
+                              {
                                 "alias": "image",
                                 "args": null,
-                                "concreteType": "PreviewImageMap",
+                                "concreteType": "ImageSize",
                                 "kind": "LinkedField",
                                 "name": "medium",
                                 "plural": false,
@@ -304,7 +312,7 @@ return {
                                   {
                                     "alias": null,
                                     "args": null,
-                                    "concreteType": "PreviewImage",
+                                    "concreteType": "ImageDerivative",
                                     "kind": "LinkedField",
                                     "name": "png",
                                     "plural": false,
@@ -451,12 +459,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0e4a30595a9db7d7f993eb5e279c3545",
+    "cacheID": "d9a2738bc6ff12da6d44f12b9a096b3e",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        thumbnail {\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        thumbnail {\n          storage\n          image: medium {\n            png {\n              url\n              height\n              width\n              alt\n            }\n          }\n        }\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
   }
 };
 })();

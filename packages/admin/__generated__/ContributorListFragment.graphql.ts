@@ -14,15 +14,16 @@ export type ContributorListFragment = {
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly image: {
-            readonly alt: string;
+            readonly alt: string | null;
             readonly thumb: {
-                readonly dimensions: ReadonlyArray<number>;
+                readonly width: number;
+                readonly height: number;
                 readonly png: {
-                    readonly alt: string;
-                    readonly url: string;
-                } | null;
+                    readonly alt: string | null;
+                    readonly url: string | null;
+                };
             };
-        } | null;
+        };
     } | {
         readonly __typename: "PersonContributor";
         readonly id: string;
@@ -32,15 +33,16 @@ export type ContributorListFragment = {
         readonly createdAt: string;
         readonly updatedAt: string;
         readonly image: {
-            readonly alt: string;
+            readonly alt: string | null;
             readonly thumb: {
-                readonly dimensions: ReadonlyArray<number>;
+                readonly width: number;
+                readonly height: number;
                 readonly png: {
-                    readonly alt: string;
-                    readonly url: string;
-                } | null;
+                    readonly alt: string | null;
+                    readonly url: string | null;
+                };
             };
-        } | null;
+        };
     } | {
         /*This will never be '%other', but we need some
         value in case none of the concrete values match.*/
@@ -96,7 +98,7 @@ v4 = {
 v5 = {
   "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,
@@ -105,7 +107,7 @@ v5 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "thumb",
       "plural": false,
@@ -114,13 +116,20 @@ v5 = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "dimensions",
+          "name": "width",
           "storageKey": null
         },
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "kind": "ScalarField",
+          "name": "height",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "png",
           "plural": false,
@@ -221,5 +230,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e5c8a50380297ceb9bace02a3d5e8f2f';
+(node as any).hash = '9fbf0acebe97e42d7e0d5e7b1417ba31';
 export default node;

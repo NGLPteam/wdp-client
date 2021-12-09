@@ -345,7 +345,9 @@ interface Asset {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
 }
 
@@ -360,7 +362,9 @@ type AssetAudio implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -376,7 +380,9 @@ type AssetDocument implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -392,7 +398,9 @@ type AssetImage implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -431,17 +439,11 @@ type AssetPDF implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
-}
-
-type AssetPreview {
-  alt: String!
-  large: PreviewImageMap!
-  medium: PreviewImageMap!
-  small: PreviewImageMap!
-  thumb: PreviewImageMap!
 }
 
 type AssetProperty implements ScalarProperty {
@@ -472,7 +474,9 @@ type AssetUnknown implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -488,7 +492,9 @@ type AssetVideo implements Asset & Node & Sluggable {
   id: ID!
   kind: AssetKind!
   name: String!
-  preview: AssetPreview
+  preview: ImageAttachment!
+  """Configurable metadata for the preview attachment"""
+  previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -524,6 +530,26 @@ interface Attachable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyAssetConnection!
+}
+
+"""This describes where a given file attachment is stored (if at all)"""
+enum AttachmentStorage {
+  """STORE refers to permanent storage. An asset here has been fully processed and is ready for access"""
+  STORE
+  """
+  CACHE refers to temporary storage. When a file is first uploaded to the system, it lives in cache and needs to be processed.
+  A user could potentially fetch something from an API while a file is still being processed in the background, and if so, none
+  of its derivatives will be present yet.
+  
+  """
+  CACHE
+  """Not yet used"""
+  DERIVATIVES
+  """
+  Remote URL storage. Only used internally at present, but may sometimes appear during certain harvesting events.
+  
+  """
+  REMOTE
 }
 
 type BooleanProperty implements ScalarProperty {
@@ -644,8 +670,13 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """Returns the last _n_ elements from the list."""
     last: Int
   ): CollectionConnection! @deprecated(reason: "Use Collection.collections")
+  """Retrieve the collections beneath this collection."""
   collections(
     order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -706,6 +737,10 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   hasCollections: Boolean!
   """Whether this collection has any child items"""
   hasItems: Boolean!
+  """A hero image for the entity, suitable for displaying in page headers"""
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   hidden: Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
@@ -817,6 +852,24 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   """The date this entity was published"""
   published: VariablePrecisionDate!
   publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
+  """Retrieve linked collections of the same schema type"""
+  relatedCollections(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): CollectionConnection!
   root: Boolean!
   schemaDefinition: SchemaDefinition!
   """The context for our schema instance. Includes form values and necessary referents."""
@@ -828,8 +881,10 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   slug: Slug!
   """A description of the contents of the entity"""
   summary: String
-  """A mapping of an entity's preview thumbnail"""
-  thumbnail: AssetPreview
+  """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
+  thumbnail: ImageAttachment!
+  """Configurable metadata for the thumbnail attachment"""
+  thumbnailMetadata: ImageMetadata
   """A human-readable title for the entity"""
   title: String!
   """The date this entity was last updated within the WDP"""
@@ -1045,6 +1100,10 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     perPage: Int! = 25
   ): CollectionConnection!
   createdAt: ISO8601DateTime!
+  """A hero image for the entity, suitable for displaying in page headers"""
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
@@ -1134,8 +1193,10 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
-  """A mapping of an entity's preview thumbnail"""
-  thumbnail: AssetPreview
+  """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
+  thumbnail: ImageAttachment!
+  """Configurable metadata for the thumbnail attachment"""
+  thumbnailMetadata: ImageMetadata
   title: String!
   updatedAt: ISO8601DateTime!
   """Access grants for specific users"""
@@ -1345,8 +1406,10 @@ interface Contributor {
   contributionCount: Int!
   email: String
   identifier: String!
-  """An optional image associated with the contributor"""
-  image: AssetPreview
+  """An optional image associated with the contributor."""
+  image: ImageAttachment!
+  """Configurable metadata for the image attachment"""
+  imageMetadata: ImageMetadata
   """The total number of item contributions from this contributor"""
   itemContributionCount: Int!
   itemContributions(
@@ -1492,7 +1555,22 @@ input CreateCollectionInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
   """Digital Object Identifier (see: https://doi.org)"""
   doi: String
   """A brief description of the entity's contents"""
@@ -1532,7 +1610,22 @@ input CreateCommunityInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1564,7 +1657,22 @@ input CreateItemInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
   """Digital Object Identifier (see: https://doi.org)"""
   doi: String
   """A brief description of the entity's contents"""
@@ -1639,10 +1747,15 @@ input CreateOrganizationContributorInput {
   bio: String
   links: [ContributorLinkInput!]
   """
-  A reference to an upload in Tus.
+  A reference to an uploaded image in Tus.
   
   """
   image: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  imageMetadata: ImageMetadataInput
   """The legal name of the organization"""
   legalName: String
   """Where the organization is located (if applicable)"""
@@ -1672,10 +1785,15 @@ input CreatePageInput {
   position: Int
   body: String!
   """
-  The hero image to represent the page.
+  A reference to an uploaded image in Tus.
   
   """
   heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1702,10 +1820,15 @@ input CreatePersonContributorInput {
   bio: String
   links: [ContributorLinkInput!]
   """
-  A reference to an upload in Tus.
+  A reference to an uploaded image in Tus.
   
   """
   image: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  imageMetadata: ImageMetadataInput
   givenName: String
   familyName: String
   title: String
@@ -2062,6 +2185,10 @@ interface Entity {
   ): ContextualPermissionConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """A hero image for the entity, suitable for displaying in page headers"""
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   """Available link targets for this entity"""
@@ -2144,8 +2271,10 @@ interface Entity {
   schemaProperties: [AnySchemaProperty!]!
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
-  """A mapping of an entity's preview thumbnail"""
-  thumbnail: AssetPreview
+  """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
+  thumbnail: ImageAttachment!
+  """Configurable metadata for the thumbnail attachment"""
+  thumbnailMetadata: ImageMetadata
 }
 
 type EntityBreadcrumb implements Node {
@@ -2305,6 +2434,15 @@ type FullTextProperty implements ScalarProperty {
   type: String!
 }
 
+"""The global configuration for this installation of WDP."""
+type GlobalConfiguration implements Node {
+  id: ID!
+  """Settings specific to this site"""
+  site: SiteSettings!
+  """Settings specific to the site's theme"""
+  theme: ThemeSettings!
+}
+
 """Autogenerated input type of GrantAccess"""
 input GrantAccessInput {
   entityId: ID!
@@ -2335,6 +2473,16 @@ type GroupProperty implements SchemaProperty {
   properties: [AnyScalarProperty!]!
   required: Boolean!
   type: String!
+}
+
+"""Something which implements a #storage key that identifies where its attachment currently lives."""
+interface HasAttachmentStorage {
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
 }
 
 interface HasSchemaProperties {
@@ -2451,6 +2599,158 @@ scalar ISO8601Date
 
 """An ISO 8601-encoded datetime"""
 scalar ISO8601DateTime
+
+"""An abstract image interface. It includes the minimum amount of data to render an image in the browser."""
+interface Image {
+  """Alt text for accessible images"""
+  alt: String
+  dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
+  """The height of the image, if present"""
+  height: Int
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
+  """The URL for the image, if present."""
+  url: String
+  """The width of the image, if present"""
+  width: Int
+}
+
+"""An attached image with standardized derivatives."""
+type ImageAttachment implements HasAttachmentStorage {
+  """Alt text for accessible images"""
+  alt: String
+  """A large-sized mapping for derivative formats"""
+  large: ImageSize!
+  """A medium-sized mapping for derivative formats"""
+  medium: ImageSize!
+  """Configurable metadata for the image."""
+  metadata: ImageMetadata
+  """The original source for the image"""
+  original: ImageOriginal!
+  """A small-sized mapping for derivative formats"""
+  small: ImageSize!
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
+  """A thumb-sized mapping for derivative formats"""
+  thumb: ImageSize!
+}
+
+"""A derivative of the image with a specific size and format."""
+type ImageDerivative implements Image {
+  """Alt text for accessible images"""
+  alt: String
+  dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
+  """The format of this derivative"""
+  format: ImageDerivativeFormat!
+  """The height of the image, if present"""
+  height: Int
+  """The maximum height this size can occupy"""
+  maxHeight: Int!
+  """The maximum width this size can occupy"""
+  maxWidth: Int!
+  """The size of this derivative"""
+  size: ImageDerivativeSize!
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
+  """The URL for the image, if present."""
+  url: String
+  """The width of the image, if present"""
+  width: Int
+}
+
+"""The format of a specific image derivative."""
+enum ImageDerivativeFormat {
+  """
+  A more efficiently compressed image supported by most browsers worldwide.
+  
+  """
+  WEBP
+  """
+  A Portable Network Graphics-formatted file, for legacy support on most all browsers.
+  
+  """
+  PNG
+}
+
+"""The size of a specific image derivative."""
+enum ImageDerivativeSize {
+  LARGE
+  MEDIUM
+  SMALL
+  THUMB
+}
+
+"""Shared metadata for image attachments"""
+type ImageMetadata {
+  """Alt text for accessible images"""
+  alt: String
+}
+
+"""Shared metadata for updating image attachments"""
+input ImageMetadataInput {
+  """Alt text for accessible images"""
+  alt: String
+}
+
+"""
+The original source for the image. While derivatives are processing, it could be useful
+for a temporary preview in the admin section, or for troubleshooting.
+
+As this is the raw image, it is not optimized for display in the frontend and is best
+used only as a fallback.
+
+"""
+type ImageOriginal implements HasAttachmentStorage & Image {
+  """Alt text for accessible images"""
+  alt: String
+  dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
+  """The height of the image, if present"""
+  height: Int
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
+  """The URL for the image, if present."""
+  url: String
+  """The width of the image, if present"""
+  width: Int
+}
+
+"""
+This describes a specific derivative style
+for an attachment, e.g. small, medium, thumb.
+
+It is further broken down into the various formats
+the WDP generates, presently WEBP and PNG.
+
+"""
+type ImageSize {
+  """Alt text for accessible images"""
+  alt: String
+  """The (maximum) height for this size."""
+  height: Int!
+  """A png-formatted image derivative for this particular size."""
+  png: ImageDerivative!
+  size: ImageDerivativeSize!
+  """A webp-formatted image derivative for this particular size."""
+  webp: ImageDerivative!
+  """The (maximum) width for this size."""
+  width: Int!
+}
 
 type IntegerProperty implements ScalarProperty {
   defaultInteger: Int
@@ -2614,6 +2914,10 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   doi: String
   """Whether this item has any child items"""
   hasItems: Boolean!
+  """A hero image for the entity, suitable for displaying in page headers"""
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   hidden: Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
@@ -2624,8 +2928,13 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   identifier: String!
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
+  """Retrieve the items beneath this item"""
   items(
     order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2721,6 +3030,24 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   """The date this entity was published"""
   published: VariablePrecisionDate!
   publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
+  """Retrieve linked items of the same schema type"""
+  relatedItems(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int! = 25
+  ): ItemConnection!
   root: Boolean!
   schemaDefinition: SchemaDefinition!
   """The context for our schema instance. Includes form values and necessary referents."""
@@ -2732,8 +3059,10 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   slug: Slug!
   """A description of the contents of the entity"""
   summary: String
-  """A mapping of an entity's preview thumbnail"""
-  thumbnail: AssetPreview
+  """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
+  thumbnail: ImageAttachment!
+  """Configurable metadata for the thumbnail attachment"""
+  thumbnailMetadata: ImageMetadata
   """A human-readable title for the entity"""
   title: String!
   """The date this entity was last updated within the WDP"""
@@ -3147,6 +3476,14 @@ type Mutation {
     """Parameters for UpdateContribution"""
     input: UpdateContributionInput!
   ): UpdateContributionPayload
+  """
+  Update the global configuration for this site.
+  
+  """
+  updateGlobalConfiguration(
+    """Parameters for UpdateGlobalConfiguration"""
+    input: UpdateGlobalConfigurationInput!
+  ): UpdateGlobalConfigurationPayload
   """Update an item"""
   updateItem(
     """Parameters for UpdateItem"""
@@ -3391,8 +3728,10 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   email: String
   id: ID!
   identifier: String!
-  """An optional image associated with the contributor"""
-  image: AssetPreview
+  """An optional image associated with the contributor."""
+  image: ImageAttachment!
+  """Configurable metadata for the image attachment"""
+  imageMetadata: ImageMetadata
   """The total number of item contributions from this contributor"""
   itemContributionCount: Int!
   itemContributions(
@@ -3431,7 +3770,9 @@ type Page implements Node {
   createdAt: ISO8601DateTime!
   entity: AnyEntity!
   """The hero image for a page"""
-  heroImage: AssetPreview
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   id: ID!
   position: Int
   slug: String!
@@ -3529,8 +3870,10 @@ type PersonContributor implements Contributor & Node & Sluggable {
   givenName: String
   id: ID!
   identifier: String!
-  """An optional image associated with the contributor"""
-  image: AssetPreview
+  """An optional image associated with the contributor."""
+  image: ImageAttachment!
+  """Configurable metadata for the image attachment"""
+  imageMetadata: ImageMetadata
   """The total number of item contributions from this contributor"""
   itemContributionCount: Int!
   itemContributions(
@@ -3566,23 +3909,6 @@ type PersonContributor implements Contributor & Node & Sluggable {
 enum PositionDirection {
   ASCENDING
   DESCENDING
-}
-
-type PreviewImage {
-  alt: String!
-  dimensions: [Int!]!
-  height: Int!
-  url: String!
-  width: Int!
-}
-
-type PreviewImageMap {
-  alt: String!
-  dimensions: [Int!]!
-  height: Int!
-  png: PreviewImage
-  webp: PreviewImage
-  width: Int!
 }
 
 """When altering a schema version for an entity, there are various strategies that can be used to determine how to handle the provided properties."""
@@ -3663,6 +3989,8 @@ type Query {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int! = 25
   ): AnyContributorConnection!
+  """Fetch the global configuration for this installation"""
+  globalConfiguration: GlobalConfiguration!
   """Look up an item by slug"""
   item(slug: Slug!): Item
   """Look up an item contribution by slug"""
@@ -4092,6 +4420,18 @@ enum SimpleOrder {
   OLDEST
 }
 
+"""Configuration settings for information about this installation."""
+type SiteSettings {
+  """The name of the provider supporting and maintaining this installation."""
+  providerName: String!
+}
+
+"""A value for updating the site's configuration"""
+input SiteSettingsInput {
+  """The name of the provider supporting and maintaining this installation."""
+  providerName: String!
+}
+
 """A slug that can identify a record in context"""
 scalar Slug
 
@@ -4120,6 +4460,14 @@ type StringProperty implements ScalarProperty {
   type: String!
 }
 
+"""When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants."""
+enum SubtreeNodeFilter {
+  """Fetch only the first level of the same type of entity (Item, Collection)"""
+  CHILDREN
+  """Fetch all descendant entities of the same base type (Item, Collection)"""
+  DESCENDANTS
+}
+
 type TagsProperty implements ScalarProperty {
   fullPath: String!
   isWide: Boolean!
@@ -4128,6 +4476,18 @@ type TagsProperty implements ScalarProperty {
   required: Boolean!
   tags: [String!]!
   type: String!
+}
+
+"""Configuration settings for the theme of the WDP frontend."""
+type ThemeSettings {
+  color: String!
+  font: String!
+}
+
+"""A value for updating the theme"""
+input ThemeSettingsInput {
+  color: String!
+  font: String!
 }
 
 type TimestampProperty implements ScalarProperty {
@@ -4192,7 +4552,22 @@ input UpdateCollectionInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
   """Digital Object Identifier (see: https://doi.org)"""
   doi: String
   """A brief description of the entity's contents"""
@@ -4205,6 +4580,11 @@ input UpdateCollectionInput {
   visibleAfterAt: ISO8601DateTime
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
+  """
+  If set to true, this will clear the attachment hero_image on this model.
+  
+  """
+  clearHeroImage: Boolean = false
   """
   If set to true, this will clear the attachment thumbnail on this model.
   
@@ -4238,7 +4618,27 @@ input UpdateCommunityInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
+  """
+  If set to true, this will clear the attachment hero_image on this model.
+  
+  """
+  clearHeroImage: Boolean = false
   """
   If set to true, this will clear the attachment thumbnail on this model.
   
@@ -4283,6 +4683,29 @@ type UpdateContributionPayload implements StandardMutationPayload {
   haltCode: String
 }
 
+"""Autogenerated input type of UpdateGlobalConfiguration"""
+input UpdateGlobalConfigurationInput {
+  """Possible new settings for the site"""
+  site: SiteSettingsInput
+  """Possible new settings for the theme"""
+  theme: ThemeSettingsInput
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+}
+
+"""Autogenerated return type of UpdateGlobalConfiguration"""
+type UpdateGlobalConfigurationPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]!
+  """Though a global configuration always exists, this will be null if it fails to apply for some reason."""
+  globalConfiguration: GlobalConfiguration
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+}
+
 """Autogenerated input type of UpdateItem"""
 input UpdateItemInput {
   """The item to update"""
@@ -4293,7 +4716,22 @@ input UpdateItemInput {
   A reference to an uploaded image in Tus.
   
   """
+  heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
   thumbnail: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  thumbnailMetadata: ImageMetadataInput
   """Digital Object Identifier (see: https://doi.org)"""
   doi: String
   """A brief description of the entity's contents"""
@@ -4306,6 +4744,11 @@ input UpdateItemInput {
   visibleAfterAt: ISO8601DateTime
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
+  """
+  If set to true, this will clear the attachment hero_image on this model.
+  
+  """
+  clearHeroImage: Boolean = false
   """
   If set to true, this will clear the attachment thumbnail on this model.
   
@@ -4371,10 +4814,15 @@ input UpdateOrganizationContributorInput {
   bio: String
   links: [ContributorLinkInput!]
   """
-  A reference to an upload in Tus.
+  A reference to an uploaded image in Tus.
   
   """
   image: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  imageMetadata: ImageMetadataInput
   """The legal name of the organization"""
   legalName: String
   """Where the organization is located (if applicable)"""
@@ -4410,10 +4858,15 @@ input UpdatePageInput {
   position: Int
   body: String!
   """
-  The hero image to represent the page.
+  A reference to an uploaded image in Tus.
   
   """
   heroImage: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  heroImageMetadata: ImageMetadataInput
   """
   If set to true, this will clear the attachment hero_image on this model.
   
@@ -4445,10 +4898,15 @@ input UpdatePersonContributorInput {
   bio: String
   links: [ContributorLinkInput!]
   """
-  A reference to an upload in Tus.
+  A reference to an uploaded image in Tus.
   
   """
   image: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  imageMetadata: ImageMetadataInput
   givenName: String
   familyName: String
   title: String
@@ -4501,10 +4959,15 @@ type UpdateRolePayload implements StandardMutationPayload {
 input UpdateUserInput {
   userId: ID!
   """
-  An avatar to represent your user in the WDP.
+  A reference to an uploaded image in Tus.
   
   """
   avatar: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  avatarMetadata: ImageMetadataInput
   """
   If set to true, this will clear the attachment avatar on this model.
   
@@ -4534,10 +4997,15 @@ type UpdateUserPayload implements StandardMutationPayload {
 """Autogenerated input type of UpdateViewerSettings"""
 input UpdateViewerSettingsInput {
   """
-  An avatar to represent your user in the WDP.
+  A reference to an uploaded image in Tus.
   
   """
   avatar: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  avatarMetadata: ImageMetadataInput
   """
   If set to true, this will clear the attachment avatar on this model.
   
@@ -4581,11 +5049,14 @@ input UploadedFileInput {
   id: UploadID!
   """The storage that contains the input."""
   storage: UploadStorage = CACHE
+  """Metadata to associate with the upload"""
   metadata: UploadedFileMetadataInput
 }
 
 """File metadata to attach to the upload."""
 input UploadedFileMetadataInput {
+  """Alt text for the upload (not always applicable)"""
+  alt: String
   """The original filename, since Tus mangles them."""
   filename: String = "asset"
   """
@@ -4664,7 +5135,9 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   """Is this an anonymous / unauthenticated user?"""
   anonymous: Boolean!
   """A user's avatar"""
-  avatar: AssetPreview
+  avatar: ImageAttachment!
+  """Configurable metadata for the avatar attachment"""
+  avatarMetadata: ImageMetadata
   """All access grants for this user on a collection"""
   collectionAccessGrants(
     order: SimpleOrder = RECENT

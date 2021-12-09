@@ -214,7 +214,7 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "AssetPreview",
+                "concreteType": "ImageAttachment",
                 "kind": "LinkedField",
                 "name": "avatar",
                 "plural": false,
@@ -222,7 +222,7 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "PreviewImageMap",
+                    "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "small",
                     "plural": false,
@@ -230,7 +230,7 @@ return {
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "PreviewImage",
+                        "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
                         "name": "png",
                         "plural": false,

@@ -77,6 +77,7 @@ const fragment = graphql`
         number
       }
       thumbnail {
+        storage
         image: medium {
           png {
             url

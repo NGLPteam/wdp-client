@@ -12,6 +12,7 @@ export type CreatePersonContributorInput = {
     bio?: string | null | undefined;
     links?: Array<ContributorLinkInput> | null | undefined;
     image?: UploadedFileInput | null | undefined;
+    imageMetadata?: ImageMetadataInput | null | undefined;
     givenName?: string | null | undefined;
     familyName?: string | null | undefined;
     title?: string | null | undefined;
@@ -28,8 +29,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type ContributorCreatePersonFormMutationVariables = {
     input: CreatePersonContributorInput;
@@ -47,11 +52,11 @@ export type ContributorCreatePersonFormMutationResponse = {
             readonly image: {
                 readonly thumb: {
                     readonly png: {
-                        readonly alt: string;
-                        readonly url: string;
-                    } | null;
+                        readonly alt: string | null;
+                        readonly url: string | null;
+                    };
                 };
-            } | null;
+            };
             readonly links: ReadonlyArray<{
                 readonly title: string;
                 readonly url: string;
@@ -188,7 +193,7 @@ v9 = {
 v10 = {
   "alias": null,
   "args": null,
-  "concreteType": "AssetPreview",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,
@@ -196,7 +201,7 @@ v10 = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "PreviewImageMap",
+      "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "thumb",
       "plural": false,
@@ -204,7 +209,7 @@ v10 = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PreviewImage",
+          "concreteType": "ImageDerivative",
           "kind": "LinkedField",
           "name": "png",
           "plural": false,

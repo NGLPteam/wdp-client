@@ -14,11 +14,11 @@ export type ContributorUpdateOrganizationFormFieldsFragment = {
     readonly image?: {
         readonly thumb: {
             readonly png: {
-                readonly alt: string;
-                readonly url: string;
-            } | null;
+                readonly alt: string | null;
+                readonly url: string | null;
+            };
         };
-    } | null | undefined;
+    } | undefined;
     readonly links?: ReadonlyArray<{
         readonly title: string;
         readonly url: string;
@@ -82,7 +82,7 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "AssetPreview",
+          "concreteType": "ImageAttachment",
           "kind": "LinkedField",
           "name": "image",
           "plural": false,
@@ -90,7 +90,7 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "PreviewImageMap",
+              "concreteType": "ImageSize",
               "kind": "LinkedField",
               "name": "thumb",
               "plural": false,
@@ -98,7 +98,7 @@ return {
                 {
                   "alias": null,
                   "args": null,
-                  "concreteType": "PreviewImage",
+                  "concreteType": "ImageDerivative",
                   "kind": "LinkedField",
                   "name": "png",
                   "plural": false,

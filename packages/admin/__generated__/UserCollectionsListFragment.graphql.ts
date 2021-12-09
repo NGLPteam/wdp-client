@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type UserCollectionsListFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -14,15 +15,16 @@ export type UserCollectionsListFragment = {
                 readonly title: string;
                 readonly slug: string;
                 readonly thumbnail: {
+                    readonly storage: AttachmentStorage | null;
                     readonly image: {
                         readonly png: {
-                            readonly url: string;
-                            readonly height: number;
-                            readonly width: number;
-                            readonly alt: string;
-                        } | null;
+                            readonly url: string | null;
+                            readonly height: number | null;
+                            readonly width: number | null;
+                            readonly alt: string | null;
+                        };
                     };
-                } | null;
+                };
             };
             readonly role: {
                 readonly id: string;
@@ -103,15 +105,22 @@ return {
                 {
                   "alias": null,
                   "args": null,
-                  "concreteType": "AssetPreview",
+                  "concreteType": "ImageAttachment",
                   "kind": "LinkedField",
                   "name": "thumbnail",
                   "plural": false,
                   "selections": [
                     {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "storage",
+                      "storageKey": null
+                    },
+                    {
                       "alias": "image",
                       "args": null,
-                      "concreteType": "PreviewImageMap",
+                      "concreteType": "ImageSize",
                       "kind": "LinkedField",
                       "name": "medium",
                       "plural": false,
@@ -119,7 +128,7 @@ return {
                         {
                           "alias": null,
                           "args": null,
-                          "concreteType": "PreviewImage",
+                          "concreteType": "ImageDerivative",
                           "kind": "LinkedField",
                           "name": "png",
                           "plural": false,
@@ -212,5 +221,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ae59e2182614967cf5677e80fe920cea';
+(node as any).hash = '996f79141abb6be019651a33ba237e41';
 export default node;

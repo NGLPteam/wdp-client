@@ -131,6 +131,7 @@ const fragment = graphql`
           title
           slug
           thumbnail {
+            storage
             image: medium {
               png {
                 url

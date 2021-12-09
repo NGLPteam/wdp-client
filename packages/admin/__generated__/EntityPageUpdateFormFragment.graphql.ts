@@ -14,13 +14,13 @@ export type EntityPageUpdateFormFragment = {
         readonly heroImage: {
             readonly thumb: {
                 readonly png: {
-                    readonly url: string;
-                    readonly height: number;
-                    readonly width: number;
-                    readonly alt: string;
-                } | null;
+                    readonly url: string | null;
+                    readonly height: number | null;
+                    readonly width: number | null;
+                    readonly alt: string | null;
+                };
             };
-        } | null;
+        };
     } | null | undefined;
     readonly " $refType": "EntityPageUpdateFormFragment";
 };
@@ -79,7 +79,7 @@ var v0 = [
       {
         "alias": null,
         "args": null,
-        "concreteType": "AssetPreview",
+        "concreteType": "ImageAttachment",
         "kind": "LinkedField",
         "name": "heroImage",
         "plural": false,
@@ -87,7 +87,7 @@ var v0 = [
           {
             "alias": null,
             "args": null,
-            "concreteType": "PreviewImageMap",
+            "concreteType": "ImageSize",
             "kind": "LinkedField",
             "name": "thumb",
             "plural": false,
@@ -95,7 +95,7 @@ var v0 = [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "PreviewImage",
+                "concreteType": "ImageDerivative",
                 "kind": "LinkedField",
                 "name": "png",
                 "plural": false,

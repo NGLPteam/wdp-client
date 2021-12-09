@@ -11,7 +11,10 @@ export type CreateCollectionInput = {
     parentId: string;
     schemaVersionSlug?: string | null | undefined;
     title: string;
+    heroImage?: UploadedFileInput | null | undefined;
+    heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
+    thumbnailMetadata?: ImageMetadataInput | null | undefined;
     doi?: string | null | undefined;
     summary?: string | null | undefined;
     publishedOn?: string | null | undefined;
@@ -26,8 +29,12 @@ export type UploadedFileInput = {
     metadata?: UploadedFileMetadataInput | null | undefined;
 };
 export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
     filename?: string | null | undefined;
     mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
 };
 export type CollectionAddFormMutationVariables = {
     input: CreateCollectionInput;

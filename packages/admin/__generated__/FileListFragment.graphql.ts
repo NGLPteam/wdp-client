@@ -16,13 +16,13 @@ export type FileListFragment = {
         readonly thumbnail?: {
             readonly image: {
                 readonly png: {
-                    readonly alt: string;
-                    readonly url: string;
-                    readonly height: number;
-                    readonly width: number;
-                } | null;
+                    readonly alt: string | null;
+                    readonly url: string | null;
+                    readonly height: number | null;
+                    readonly width: number | null;
+                };
             };
-        } | null | undefined;
+        } | undefined;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "FileListFragment";
@@ -90,7 +90,7 @@ const node: ReaderFragment = {
             {
               "alias": "thumbnail",
               "args": null,
-              "concreteType": "AssetPreview",
+              "concreteType": "ImageAttachment",
               "kind": "LinkedField",
               "name": "preview",
               "plural": false,
@@ -98,7 +98,7 @@ const node: ReaderFragment = {
                 {
                   "alias": "image",
                   "args": null,
-                  "concreteType": "PreviewImageMap",
+                  "concreteType": "ImageSize",
                   "kind": "LinkedField",
                   "name": "medium",
                   "plural": false,
@@ -106,7 +106,7 @@ const node: ReaderFragment = {
                     {
                       "alias": null,
                       "args": null,
-                      "concreteType": "PreviewImage",
+                      "concreteType": "ImageDerivative",
                       "kind": "LinkedField",
                       "name": "png",
                       "plural": false,
