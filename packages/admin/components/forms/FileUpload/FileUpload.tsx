@@ -151,7 +151,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
                 multiple={false}
                 {...inputProps}
               />
-              {image && !isCleared && !state.file ? (
+              {image?.png?.url && !isCleared && !state.file ? (
                 <>
                   <FileUploadCurrent image={image} />
                   <Styled.RemoveButton onClick={handleClear} type="button">

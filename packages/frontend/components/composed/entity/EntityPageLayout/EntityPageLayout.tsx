@@ -2,6 +2,7 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import ReactMarkdown from "react-markdown";
+import * as Styled from "./EntityPageLayout.styles";
 import { EntityPageLayoutFragment$key } from "@/relay/EntityPageLayoutFragment.graphql";
 import { ContentImage } from "components/atomic";
 
@@ -9,11 +10,11 @@ export default function EntityPageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);
 
   return page ? (
-    <div className="t-rte">
+    <Styled.Wrapper className="t-rte l-container-wide">
       {page.heroImage && <ContentImage data={page.heroImage} />}
       <h3>{page.title}</h3>
       <ReactMarkdown>{page.body}</ReactMarkdown>
-    </div>
+    </Styled.Wrapper>
   ) : null;
 }
 
