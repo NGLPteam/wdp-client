@@ -15,6 +15,7 @@ import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
 import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
+import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 
 export default function ItemLayout({
   children,
@@ -55,6 +56,11 @@ export default function ItemLayout({
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ItemCreateButton parentSlug={slug} />
+      <ButtonControlView
+        href={`${process.env.NEXT_PUBLIC_FE_URL}items/${slug}`}
+      >
+        {t("common.view")}
+      </ButtonControlView>
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}

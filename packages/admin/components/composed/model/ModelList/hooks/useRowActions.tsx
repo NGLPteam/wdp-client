@@ -8,6 +8,7 @@ import {
   ButtonControlDownload,
 } from "components/atomic/buttons";
 import IconFactory from "components/factories/IconFactory";
+import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
 type ActionConfig<D extends Record<string, unknown>> = {
@@ -16,13 +17,13 @@ type ActionConfig<D extends Record<string, unknown>> = {
   handleLink?: ({ row }: { row: Row<D> }) => string;
 };
 
-type ActionKeys = "download" | "edit" | "delete";
+type ActionKeys = "download" | "edit" | "delete" | "view";
 
 interface ActionDefinition {
   label: string;
-  icon: IconFactoryProps["icon"];
-  action: string;
-  iconRotate: number;
+  icon?: IconFactoryProps["icon"];
+  action?: string;
+  iconRotate?: number;
   modalLabel?: string;
   modalBody?: React.ReactNode;
 }
@@ -37,26 +38,25 @@ type ActionConfigurations<D extends Record<string, unknown>> = {
 
 const availableActions: ActionDefinitions = {
   download: {
-    label: i18next.t("download"),
-    icon: "arrow",
+    label: i18next.t("common.download"),
     iconRotate: 180,
-    action: "",
   },
   edit: {
-    label: i18next.t("edit"),
+    label: i18next.t("common.edit"),
     icon: "edit",
     action: "self.update",
-    iconRotate: 0,
   },
   delete: {
-    label: i18next.t("delete"),
+    label: i18next.t("common.delete"),
     icon: "delete",
     action: "self.delete",
-    iconRotate: 0,
     modalLabel: i18next.t("messages.delete.confirm_label"),
     modalBody: (
       <p className="t-copy-sm">{i18next.t("messages.delete.confirm_body")}</p>
     ),
+  },
+  view: {
+    label: i18next.t("common.view"),
   },
 };
 
@@ -81,12 +81,20 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
     ></ButtonControlConfirm>
   ) : action === "download" && actionConfig?.handleLink ? (
     <ButtonControlDownload
-      key="download"
+      key={action}
       aria-label={actionDefinition.label}
       {...(actionConfig?.handleLink && {
         href: actionConfig.handleLink({ row }),
       })}
     ></ButtonControlDownload>
+  ) : action === "view" && actionConfig?.handleLink ? (
+    <ButtonControlView
+      key={action}
+      aria-label={actionDefinition.label}
+      href={`${process.env.NEXT_PUBLIC_FE_URL}${actionConfig.handleLink({
+        row,
+      })}`}
+    />
   ) : (
     <ButtonControl
       key={action}
