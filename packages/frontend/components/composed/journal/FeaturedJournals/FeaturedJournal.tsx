@@ -21,6 +21,8 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
             data={journal.thumbnail}
             maxWidth={300}
             maxHeight={coverHeight}
+            usePlaceholder
+            slug={journal.slug}
           />
         </Styled.ItemCover>
         <Styled.ItemText>

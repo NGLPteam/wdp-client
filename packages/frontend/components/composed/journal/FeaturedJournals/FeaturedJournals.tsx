@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
@@ -19,12 +19,18 @@ export default function FeaturedJournals({
   buttonRoute,
 }: Props) {
   const collections = useMaybeFragment(fragment, data);
-  const coverHeight = collections?.edges.length === 5 ? 240 : 300;
+  const coverHeight = collections && collections.edges.length >= 5 ? 240 : 300;
   const style = {
     "--FeaturedJournals-cover-height": pxToRem(coverHeight),
   } as React.CSSProperties;
   const { t } = useTranslation();
   const slug = useRouteSlug();
+
+  const showButton = useMemo(() => {
+    const total = collections?.pageInfo?.totalCount || 0;
+    const perPage = collections?.pageInfo?.perPage || 0;
+    return total > perPage;
+  }, [collections]);
 
   return collections && collections.edges.length > 0 ? (
     <Styled.Section className="a-bg-neutral00" style={style}>
@@ -39,7 +45,7 @@ export default function FeaturedJournals({
           </Styled.ListItem>
         ))}
       </Styled.List>
-      {slug && (
+      {slug && showButton && (
         <Styled.ButtonWrapper>
           <NamedLink route={buttonRoute} routeParams={{ slug }}>
             <Button as="a">{t(buttonText)}</Button>
@@ -70,6 +76,10 @@ const fragment = graphql`
         slug
         ...FeaturedJournalFragment
       }
+    }
+    pageInfo {
+      totalCount
+      perPage
     }
   }
 `;
