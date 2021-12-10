@@ -16,6 +16,7 @@ import {
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import ItemCreateButton from "components/composed/item/ItemCreateButton";
+import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 
 export default function CollectionLayout({
   children,
@@ -57,6 +58,11 @@ export default function CollectionLayout({
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ItemCreateButton parentSlug={slug} />
       <CollectionCreateButton parentSlug={slug} />
+      <ButtonControlView
+        href={`${process.env.NEXT_PUBLIC_FE_URL}/collections/${slug}`}
+      >
+        {t("common.view")}
+      </ButtonControlView>
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}

@@ -14,6 +14,7 @@ import {
 import { RouteHelper } from "routes";
 import { ButtonControlConfirm, ButtonControlGroup } from "components/atomic";
 import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
+import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 
 export default function CommunityLayout({
   children,
@@ -53,6 +54,11 @@ export default function CommunityLayout({
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <CollectionCreateButton parentSlug={slug} />
+      <ButtonControlView
+        href={`${process.env.NEXT_PUBLIC_FE_URL}/communities/${slug}`}
+      >
+        {t("common.view")}
+      </ButtonControlView>
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}

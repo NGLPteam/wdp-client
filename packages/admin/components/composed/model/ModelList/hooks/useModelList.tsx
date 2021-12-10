@@ -12,6 +12,7 @@ interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
   handleDelete?: (props: ModelTableActionProps<T>) => void;
   handleDownload?: (props: ModelTableActionProps<T>) => void;
+  handleView?: (props: ModelTableActionProps<T>) => void;
 }
 
 export interface UseModelListProps<
@@ -74,6 +75,9 @@ function useModelList<
       }),
       ...(actions.handleDownload && {
         download: { handleLink: actions.handleDownload },
+      }),
+      ...(actions.handleView && {
+        view: { handleLink: actions.handleView },
       }),
     }),
     [actions]

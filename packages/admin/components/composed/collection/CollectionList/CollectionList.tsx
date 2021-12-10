@@ -49,6 +49,8 @@ function CollectionList<T extends OperationType>({
         { collectionId: row.original.id },
         row.original.title || "glossary.collection"
       ),
+    handleView: ({ row }: ModelTableActionProps<CollectionNode>) =>
+      row.original.slug ? `/collections/${row.original.slug}` : null,
   };
 
   const buttons = !hideHeader ? (

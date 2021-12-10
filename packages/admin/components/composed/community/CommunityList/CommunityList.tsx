@@ -44,6 +44,8 @@ function CommunityList<T extends OperationType>({
       drawerHelper.open("editCommunity", { drawerSlug: row.original.slug }),
     handleDelete: ({ row }: ModelTableActionProps<CommunityNode>) =>
       destroy.community({ communityId: row.original.id }, row.original.name),
+    handleView: ({ row }: ModelTableActionProps<CommunityNode>) =>
+      row.original.slug ? `/communities/${row.original.slug}` : null,
   };
 
   const buttons = (
