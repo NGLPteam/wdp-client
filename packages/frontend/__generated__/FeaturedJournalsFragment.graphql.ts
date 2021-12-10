@@ -12,6 +12,10 @@ export type FeaturedJournalsFragment = {
             readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalFragment">;
         };
     }>;
+    readonly pageInfo: {
+        readonly totalCount: number;
+        readonly perPage: number | null;
+    };
     readonly " $refType": "FeaturedJournalsFragment";
 };
 export type FeaturedJournalsFragment$data = FeaturedJournalsFragment;
@@ -61,10 +65,35 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PageInfo",
+      "kind": "LinkedField",
+      "name": "pageInfo",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "perPage",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '850fef19013547c284ff54b037215e3d';
+(node as any).hash = 'ed4f4d32240f7661b9981bc459d6eb70';
 export default node;

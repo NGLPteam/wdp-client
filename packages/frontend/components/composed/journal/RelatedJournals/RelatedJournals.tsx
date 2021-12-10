@@ -46,13 +46,13 @@ export default function RelatedJournals({ data }: Props) {
               >
                 <Styled.ItemLink>
                   <Styled.ItemCover>
-                    {node.target.thumbnail?.storage && (
-                      <CoverImage
-                        data={node.target.thumbnail}
-                        maxWidth={263}
-                        maxHeight={280}
-                      />
-                    )}
+                    <CoverImage
+                      data={node.target.thumbnail}
+                      maxWidth={263}
+                      maxHeight={280}
+                      usePlaceholder
+                      slug={node.target.slug}
+                    />
                   </Styled.ItemCover>
                   <Styled.ItemText>
                     <h4>{node.target.title}</h4>

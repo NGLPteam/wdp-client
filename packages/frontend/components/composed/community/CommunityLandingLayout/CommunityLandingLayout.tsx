@@ -28,7 +28,7 @@ interface Props {
 const fragment = graphql`
   fragment CommunityLandingLayoutFragment on Community {
     ...CommunityHeroFragment
-    collections(schema: "nglp:journal", order: RECENT, perPage: 5) {
+    collections(schema: "nglp:journal", order: RECENT, page: 1, perPage: 5) {
       ...FeaturedJournalsFragment
     }
   }

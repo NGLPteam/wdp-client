@@ -36,6 +36,11 @@ const node: ReaderFragment = {
         },
         {
           "kind": "Literal",
+          "name": "page",
+          "value": 1
+        },
+        {
+          "kind": "Literal",
           "name": "perPage",
           "value": 5
         },
@@ -56,7 +61,7 @@ const node: ReaderFragment = {
           "name": "FeaturedJournalsFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",perPage:5,schema:\"nglp:journal\")"
+      "storageKey": "collections(order:\"RECENT\",page:1,perPage:5,schema:\"nglp:journal\")"
     },
     {
       "args": null,
@@ -67,5 +72,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '1f887e3feefcbedd08c77f0ffabbe665';
+(node as any).hash = 'f388744a87d3bf76bbd2127698b5e0c6';
 export default node;
