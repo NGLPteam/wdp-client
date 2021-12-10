@@ -15,7 +15,7 @@ const ContributorAvatar = ({ data }: Props) => {
       <Image src={image.url} alt={image.alt || ""} width={60} height={60} />
     </Styled.Wrapper>
   ) : (
-    <IconFactory icon="contributorAvatar" />
+    <IconFactory icon="avatarLarge" />
   );
 };
 
