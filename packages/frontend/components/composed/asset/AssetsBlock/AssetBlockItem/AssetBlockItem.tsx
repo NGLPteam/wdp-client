@@ -1,0 +1,78 @@
+import React from "react";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql } from "react-relay";
+import { formatDate, formatFileSize } from "@wdp/lib/helpers";
+import AssetThumbnail from "../../AssetThumbnail";
+import * as Styled from "./AssetBlockItem.styles";
+import { IconFactory } from "components/factories";
+import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
+
+export default function AssetBlockItem({ data }: Props) {
+  const file = useMaybeFragment(fragment, data);
+
+  return file ? (
+    <Styled.Wrapper>
+      <Styled.ImageLink href="#">
+        <AssetThumbnail data={file} />
+      </Styled.ImageLink>
+      <Styled.TextBlock>
+        <h4>
+          <a href="#">{file.name}</a>
+        </h4>
+        <Styled.InfoBlock>
+          {file.kind && <p className="t-label-sm">{file.kind}</p>}
+          <Styled.MetadataList className="t-copy-lighter t-copy-sm">
+            {file.updatedAt && (
+              <li>{formatDate(file.updatedAt, "MMM d, yyyy")}</li>
+            )}
+            {file.fileSize && <li>{formatFileSize(file.fileSize)}</li>}
+          </Styled.MetadataList>
+        </Styled.InfoBlock>
+        <p className="t-copy-lighter t-copy-sm">{file.caption}</p>
+        {file.downloadUrl && (
+          <Styled.DownloadLink
+            className="t-label-sm"
+            href={file.downloadUrl}
+            target="_blank"
+          >
+            <span>Download</span> <IconFactory icon="download" />
+          </Styled.DownloadLink>
+        )}
+      </Styled.TextBlock>
+    </Styled.Wrapper>
+  ) : null;
+}
+
+interface Props {
+  data?: AssetBlockItemFragment$key | null;
+}
+
+const fragment = graphql`
+  fragment AssetBlockItemFragment on Asset {
+    ... on Asset {
+      caption
+      contentType
+      downloadUrl
+      fileSize
+      kind
+      name
+      slug
+      ...AssetThumbnailFragment
+    }
+    ... on AssetDocument {
+      updatedAt
+    }
+    ... on AssetImage {
+      updatedAt
+    }
+    ... on AssetPDF {
+      updatedAt
+    }
+    ... on AssetAudio {
+      updatedAt
+    }
+    ... on AssetVideo {
+      updatedAt
+    }
+  }
+`;

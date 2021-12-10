@@ -13,15 +13,31 @@ Object.defineProperty(nextImage, "default", {
       width,
       height,
       objectFit = "contain",
-      objectPosition = "bottom left",
+      focalPoint = [0.5, 0.5],
+      className,
     } = props;
+    const objectPosition = focalPoint
+      .map((coord) => coord * 100 + "%")
+      .join(" ");
+    const wrapperStyle =
+      objectFit !== "cover"
+        ? {}
+        : {
+            position: "absolute",
+            inset: 0,
+            inlineSize: "100%",
+            blockSize: "100%",
+          };
     const style = {
       objectFit,
       objectPosition,
       blockSize: objectFit === "cover" ? "100%" : "auto",
+      width: objectFit === "cover" ? "100%" : "auto",
     };
     return (
-      <img src={src} alt={alt} width={width} height={height} style={style} />
+      <div style={wrapperStyle} className={className}>
+        <img src={src} alt={alt} width={width} height={height} style={style} />
+      </div>
     );
   },
 });

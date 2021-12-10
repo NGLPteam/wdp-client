@@ -113,16 +113,22 @@ export function aButtonBase(style: "primary" | "secondary") {
 }
 
 /* General focus styles */
+export const aFocusBase = `box-shadow: inset 0px 0px 0px 1px var(--border-color-focus), ${boxShadow.focusGlow};`;
+
+export const aFocusReset = `
+  &:focus {
+    outline: none;
+  }
+`;
+
+/* General focus styles */
 export function aFocus(content?: CssContent) {
   return css`
-    &:focus {
-      outline: none;
-    }
+    ${aFocusReset}
 
     &:focus-visible,
     &:focus-within {
-      box-shadow: inset 0px 0px 0px 1px var(--border-color-focus),
-        ${boxShadow.focusGlow};
+      ${aFocusBase}
       ${content}
     }
   `;

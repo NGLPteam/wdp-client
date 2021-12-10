@@ -1,6 +1,5 @@
 import { Story } from "@storybook/react";
 import ContentImageBase from "./ContentImageBase";
-import { baseColors } from "theme/base/variables";
 
 type Props = React.ComponentProps<typeof ContentImageBase>;
 
@@ -9,10 +8,14 @@ export default {
   component: ContentImageBase,
 };
 
-const Template: Story<Props> = (args) => <ContentImageBase {...args} />;
+const Template: Story<Props> = (args) => (
+  <div style={{ width: "500px" }}>
+    <ContentImageBase {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {
   alt: "",
-  url: `https://via.placeholder.com/2880x600/${baseColors.neutral20}`,
+  url: `/images/placeholders/renaissance.png`,
 };
