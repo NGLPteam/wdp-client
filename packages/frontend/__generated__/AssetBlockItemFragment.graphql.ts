@@ -7,7 +7,6 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type AssetBlockItemFragment = {
-    readonly __typename: string;
     readonly caption: string | null;
     readonly contentType: string;
     readonly downloadUrl: string | null;
@@ -43,13 +42,6 @@ return {
   "metadata": null,
   "name": "AssetBlockItemFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
     {
       "alias": null,
       "args": null,
@@ -139,5 +131,5 @@ return {
   "abstractKey": "__isAsset"
 };
 })();
-(node as any).hash = '5c243025e5f8fce1753703781ead6a0f';
+(node as any).hash = '9237ed01f1d967d942552b5936f0e66f';
 export default node;

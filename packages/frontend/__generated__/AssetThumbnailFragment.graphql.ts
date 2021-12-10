@@ -9,6 +9,7 @@ export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "vi
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type AssetThumbnailFragment = {
     readonly kind: AssetKind;
+    readonly slug: string;
     readonly preview: {
         readonly storage: AttachmentStorage | null;
         readonly image: {
@@ -39,6 +40,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "kind",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
       "storageKey": null
     },
     {
@@ -99,5 +107,5 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = 'f75b6d58fe641b86c2c783a60155c1fc';
+(node as any).hash = 'ce485284fc5289280b3561451a547ac2';
 export default node;
