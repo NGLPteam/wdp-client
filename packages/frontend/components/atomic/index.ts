@@ -1,4 +1,5 @@
 export { default as ArrowLink } from "./ArrowLink";
+export { default as FileThumbnail } from "./FileThumbnail";
 export { default as Avatar } from "./Avatar";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as Button } from "./Button";

@@ -20,7 +20,13 @@ const Template: Story<Props> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  url: "https://via.placeholder.com/120",
+  url: `/images/placeholders/avatar1.jpeg`,
+  size: "sm",
+  alt: "",
+};
+
+export const NoImage = Template.bind({});
+NoImage.args = {
   size: "sm",
   alt: "",
 };

@@ -38,7 +38,9 @@
       "collection": "collection",
       "collection_plural": "collections",
       "item": "item",
-      "item_plural": "items"
+      "item_plural": "items",
+      "files": "File",
+      "files_plural": "Files"
     },
     "schema": {
       "nglp.journal": "journal",

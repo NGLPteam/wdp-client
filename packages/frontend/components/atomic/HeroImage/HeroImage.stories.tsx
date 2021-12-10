@@ -1,6 +1,5 @@
 import { Story } from "@storybook/react";
 import HeroImageBase from "./HeroImageBase";
-import { baseColors } from "theme/base/variables";
 
 type Props = React.ComponentProps<typeof HeroImageBase>;
 
@@ -14,5 +13,5 @@ const Template: Story<Props> = (args) => <HeroImageBase {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   alt: "",
-  url: `https://via.placeholder.com/2880x600/${baseColors.neutral20}`,
+  url: `/images/placeholders/blue-ucla.png`,
 };

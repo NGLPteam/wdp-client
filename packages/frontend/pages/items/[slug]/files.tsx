@@ -5,7 +5,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
 import { filesSlugItemQuery as Query } from "@/relay/filesSlugItemQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import EntityAssetsLayout from "components/composed/entity/EntityAssetsLayout";
+import AssetsBlock from "components/composed/asset/AssetsBlock";
 
 export default function ItemPage() {
   const slug = useRouteSlug();
@@ -15,7 +15,7 @@ export default function ItemPage() {
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
-            <EntityAssetsLayout data={data?.item?.assets} />
+            <AssetsBlock data={data?.item?.assets} />
           </EntityLayoutFactory>
         </CommunityChildLayout>
       )}
@@ -34,7 +34,7 @@ const query = graphql`
         ...CommunityChildLayoutFragment
       }
       assets {
-        ...EntityAssetsLayoutFragment
+        ...AssetsBlockFragment
       }
     }
     ...CommunityChildLayoutAppFragment
