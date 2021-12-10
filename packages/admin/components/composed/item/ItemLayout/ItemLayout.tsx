@@ -57,7 +57,7 @@ export default function ItemLayout({
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ItemCreateButton parentSlug={slug} />
       <ButtonControlView
-        href={`${process.env.NEXT_PUBLIC_FE_URL}items/${slug}`}
+        href={`${process.env.NEXT_PUBLIC_FE_URL}/items/${slug}`}
       >
         {t("common.view")}
       </ButtonControlView>

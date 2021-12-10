@@ -43,7 +43,7 @@ function ItemList<T extends OperationType>({
         row.original.title || "glossary.item"
       ),
     handleView: ({ row }: ModelTableActionProps<ItemNode>) =>
-      row.original.slug ? `items/${row.original.slug}` : null,
+      row.original.slug ? `/items/${row.original.slug}` : null,
   };
 
   return (

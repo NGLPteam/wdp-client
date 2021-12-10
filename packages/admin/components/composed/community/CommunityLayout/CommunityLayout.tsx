@@ -55,7 +55,7 @@ export default function CommunityLayout({
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <CollectionCreateButton parentSlug={slug} />
       <ButtonControlView
-        href={`${process.env.NEXT_PUBLIC_FE_URL}communities/${slug}`}
+        href={`${process.env.NEXT_PUBLIC_FE_URL}/communities/${slug}`}
       >
         {t("common.view")}
       </ButtonControlView>

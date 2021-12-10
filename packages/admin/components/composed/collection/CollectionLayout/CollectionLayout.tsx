@@ -59,7 +59,7 @@ export default function CollectionLayout({
       <ItemCreateButton parentSlug={slug} />
       <CollectionCreateButton parentSlug={slug} />
       <ButtonControlView
-        href={`${process.env.NEXT_PUBLIC_FE_URL}collections/${slug}`}
+        href={`${process.env.NEXT_PUBLIC_FE_URL}/collections/${slug}`}
       >
         {t("common.view")}
       </ButtonControlView>
