@@ -9,7 +9,7 @@ export const ICON_MAP = {
   search: Icons.Search,
   search32: Icons.Search32,
   close: Icons.Close,
-  contributorAvatar: Icons.ContributorAvatar,
+  avatarLarge: Icons.AvatarLarge,
   chevronDown: Icons.ChevronDown,
   chevronLeft: Icons.ChevronLeft,
   chevronRight: Icons.ChevronRight,

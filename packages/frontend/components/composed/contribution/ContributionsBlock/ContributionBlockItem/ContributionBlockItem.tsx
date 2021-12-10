@@ -6,14 +6,16 @@ import ContributorAvatar from "../../../contributor/ContributorAvatar";
 import * as Styled from "./ContributionBlockItem.styles";
 import { ContributionBlockItemFragment$key } from "@/relay/ContributionBlockItemFragment.graphql";
 
-const ContributionBlockItem = ({ data }: Props) => {
+const ContributionBlockItem = ({ data, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
 
   return contribution ? (
     <Styled.ListItem>
-      <Styled.ItemAvatar>
-        <ContributorAvatar data={contribution.contributor.image} />
-      </Styled.ItemAvatar>
+      {showAvatar && (
+        <Styled.ItemAvatar>
+          <ContributorAvatar data={contribution.contributor.image} />
+        </Styled.ItemAvatar>
+      )}
       <div>
         <strong>
           <ContributorName data={contribution.contributor} />
@@ -33,6 +35,7 @@ const ContributionBlockItem = ({ data }: Props) => {
 
 interface Props {
   data?: ContributionBlockItemFragment$key | null;
+  showAvatar?: boolean;
 }
 
 export default ContributionBlockItem;
