@@ -1,4 +1,3 @@
-export { default as NamedLink } from "./components/NamedLink";
 export {
   default as RouterContext,
   RouterContextProvider,

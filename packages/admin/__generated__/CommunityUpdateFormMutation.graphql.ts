@@ -10,6 +10,7 @@ export type UpdateCommunityInput = {
     communityId: string;
     position?: number | null | undefined;
     title: string;
+    subtitle?: string | null | undefined;
     heroImage?: UploadedFileInput | null | undefined;
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;

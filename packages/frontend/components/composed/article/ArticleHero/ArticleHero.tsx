@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
 import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
-import { Button, PrecisionDate } from "components/atomic";
+import { DownloadButton, PrecisionDate } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 
 export default function ArticleHero({ data }: Props) {
@@ -34,9 +34,7 @@ export default function ArticleHero({ data }: Props) {
           {article.summary && (
             <Styled.Summary>{article.summary}</Styled.Summary>
           )}
-          <Button size="sm" secondary icon="download">
-            Download PDF
-          </Button>
+          <DownloadButton>Download PDF</DownloadButton>
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
           <div>

@@ -1,6 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { aFocusReset } from "theme/mixins";
+import { aFocusReset, tLineClamp } from "theme/mixins";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -41,12 +41,6 @@ export const MetadataList = styled.ul`
   }
 `;
 
-export const DownloadLink = styled.a`
-  display: block;
-  display: flex;
-  align-items: center;
-
-  > svg {
-    margin-inline-start: var(--padding-xs);
-  }
+export const Caption = styled.p`
+  ${tLineClamp(2)}
 `;
