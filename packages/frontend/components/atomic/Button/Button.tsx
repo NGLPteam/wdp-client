@@ -9,7 +9,14 @@ type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
  */
 const Button = forwardRef(
   (
-    { children, icon, size = "lg", secondary, ...props }: Props & ButtonProps,
+    {
+      children,
+      icon,
+      size = "lg",
+      secondary,
+      iconLeft,
+      ...props
+    }: Props & ButtonProps,
     ref: MaybeButtonRef
   ) => {
     let className = `a-button-${secondary ? "secondary" : "primary"}`;
@@ -17,8 +24,11 @@ const Button = forwardRef(
 
     return (
       <Styles.ButtonStyles ref={ref} className={className} {...props}>
+        {icon && iconLeft && (
+          <IconFactory icon={icon} role={children ? "presentation" : "img"} />
+        )}
         {children && <span>{children}</span>}
-        {icon && (
+        {icon && !iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
       </Styles.ButtonStyles>
@@ -33,4 +43,6 @@ interface Props {
   size?: "lg" | "sm";
   /* Set to true for secondary style */
   secondary?: boolean;
+  /* Show icon on the left */
+  iconLeft?: true;
 }

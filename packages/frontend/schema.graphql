@@ -58,7 +58,7 @@ interface AccessGrantSubject {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
 }
 
@@ -91,7 +91,7 @@ interface Accessible {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
 }
 
@@ -528,7 +528,7 @@ interface Attachable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAssetConnection!
 }
 
@@ -564,7 +564,7 @@ type BooleanProperty implements ScalarProperty {
 }
 
 """A collection of items"""
-type Collection implements Accessible & Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -583,7 +583,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyCollectionAccessGrantConnection!
   """The date this entity was added to its parent"""
   accessioned: VariablePrecisionDate!
@@ -604,7 +604,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
@@ -636,7 +636,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAssetConnection!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
@@ -654,7 +654,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ContextualPermissionConnection!
   """The date this entity was made available"""
   available: VariablePrecisionDate!
@@ -690,7 +690,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionConnection!
   community: Community!
   contributions(
@@ -708,7 +708,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionContributionConnection!
   """Contributors to this element"""
   contributors(
@@ -727,12 +727,31 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyContributorConnection!
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
-  """The Digital Object Identifier for this entity. See https://doi.org"""
+  """
+  The Digital Object Identifier for this entity. See https://doi.org
+  
+  """
   doi: String
+  """Retrieve the first matching collection beneath this collection."""
+  firstCollection(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
+  ): Collection
+  """Retrieve the first matching item beneath this item."""
+  firstItem(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
+  ): Item
   """Whether this collection has any child collections"""
   hasCollections: Boolean!
   """Whether this collection has any child items"""
@@ -749,6 +768,11 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The International Standard Serial Number for this entity. See https://issn.org
+  
+  """
+  issn: String
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   items(
@@ -770,7 +794,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemConnection!
   leaf: Boolean!
   """Available link targets for this entity"""
@@ -790,7 +814,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
@@ -807,7 +831,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
@@ -826,7 +850,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
   page(slug: String!): Page
@@ -844,7 +868,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): PageConnection!
   parent: CollectionParent
   """An array of hashes that can be requested to load in a context"""
@@ -868,7 +892,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionConnection!
   root: Boolean!
   schemaDefinition: SchemaDefinition!
@@ -876,9 +900,19 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  """
+  Read a single schema property by its full path.
+  
+  """
+  schemaProperty(
+    """The full path to the schema property. Please note, paths are snake_case, not camelCase."""
+    fullPath: String!
+  ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
+  """A human-readable subtitle for the entity"""
+  subtitle: String
   """A description of the contents of the entity"""
   summary: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
@@ -905,7 +939,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserCollectionAccessGrantConnection!
   """Not presently used"""
   userGroupAccessGrants(
@@ -923,7 +957,7 @@ type Collection implements Accessible & Entity & HierarchicalEntry & Contributab
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupCollectionAccessGrantConnection!
   """If an entity is available in the frontend"""
   visibility: EntityVisibility!
@@ -1014,7 +1048,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyCommunityAccessGrantConnection!
   """A polymorphic connection for access grants from an entity"""
   allAccessGrants(
@@ -1033,7 +1067,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
@@ -1056,7 +1090,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAssetConnection!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
@@ -1074,7 +1108,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ContextualPermissionConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
@@ -1097,9 +1131,25 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionConnection!
   createdAt: ISO8601DateTime!
+  """Retrieve the first matching collection beneath this collection."""
+  firstCollection(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
+  ): Collection
+  """Retrieve the first matching item beneath this item."""
+  firstItem(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
+  ): Item
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -1124,7 +1174,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
@@ -1141,7 +1191,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): EntityLinkConnection!
   metadata: JSON
   name: String! @deprecated(reason: "Use Community.title")
@@ -1162,7 +1212,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
   page(slug: String!): Page
@@ -1180,7 +1230,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): PageConnection!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
@@ -1190,13 +1240,24 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  """
+  Read a single schema property by its full path.
+  
+  """
+  schemaProperty(
+    """The full path to the schema property. Please note, paths are snake_case, not camelCase."""
+    fullPath: String!
+  ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
+  """A human-readable subtitle for the entity"""
+  subtitle: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
   thumbnail: ImageAttachment!
   """Configurable metadata for the thumbnail attachment"""
   thumbnailMetadata: ImageMetadata
+  """A human-readable title for the entity"""
   title: String!
   updatedAt: ISO8601DateTime!
   """Access grants for specific users"""
@@ -1215,7 +1276,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserCommunityAccessGrantConnection!
   """Not presently used"""
   userGroupAccessGrants(
@@ -1233,7 +1294,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupCommunityAccessGrantConnection!
 }
 
@@ -1323,7 +1384,7 @@ interface Contributable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyContributorConnection!
 }
 
@@ -1400,7 +1461,7 @@ interface Contributor {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionContributionConnection!
   """The total number of contributions (item + collection) from this contributor"""
   contributionCount: Int!
@@ -1427,7 +1488,7 @@ interface Contributor {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
   links: [ContributorLink!]!
@@ -1549,8 +1610,10 @@ input CreateCollectionInput {
   """
   parentId: ID!
   schemaVersionSlug: String = "default:collection:latest"
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -1571,18 +1634,20 @@ input CreateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
-  """Digital Object Identifier (see: https://doi.org)"""
-  doi: String
-  """A brief description of the entity's contents"""
+  """A brief description of the entity's contents."""
   summary: String
   """The date the entity was published"""
-  publishedOn: ISO8601Date
+  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
   visibleAfterAt: ISO8601DateTime
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
+  """Digital Object Identifier (see: https://doi.org)"""
+  doi: String
+  """International Standard Serial Number (see: https://issn.org)"""
+  issn: String
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1601,11 +1666,13 @@ type CreateCollectionPayload implements StandardMutationPayload {
 
 """Autogenerated input type of CreateCommunity"""
 input CreateCommunityInput {
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
   """The position the community occupies in the list"""
   position: Int
   schemaVersionSlug: String = "default:community:latest"
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -1651,8 +1718,10 @@ input CreateItemInput {
   """
   parentId: ID!
   schemaVersionSlug: String = "default:item:latest"
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -1673,18 +1742,20 @@ input CreateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
-  """Digital Object Identifier (see: https://doi.org)"""
-  doi: String
-  """A brief description of the entity's contents"""
+  """A brief description of the entity's contents."""
   summary: String
   """The date the entity was published"""
-  publishedOn: ISO8601Date
+  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
   visibleAfterAt: ISO8601DateTime
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
+  """Digital Object Identifier (see: https://doi.org)"""
+  doi: String
+  """International Standard Serial Number (see: https://issn.org)"""
+  issn: String
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -2159,7 +2230,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
@@ -2181,7 +2252,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ContextualPermissionConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
@@ -2208,7 +2279,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
@@ -2225,7 +2296,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
@@ -2244,7 +2315,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
   page(slug: String!): Page
@@ -2262,7 +2333,7 @@ interface Entity {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): PageConnection!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
@@ -2271,10 +2342,14 @@ interface Entity {
   schemaProperties: [AnySchemaProperty!]!
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
+  """A human-readable subtitle for the entity"""
+  subtitle: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
   thumbnail: ImageAttachment!
   """Configurable metadata for the thumbnail attachment"""
   thumbnailMetadata: ImageMetadata
+  """A human-readable title for the entity"""
+  title: String!
 }
 
 type EntityBreadcrumb implements Node {
@@ -2485,6 +2560,24 @@ interface HasAttachmentStorage {
   storage: AttachmentStorage
 }
 
+"""An entity that has a DOI"""
+interface HasDOI {
+  """
+  The Digital Object Identifier for this entity. See https://doi.org
+  
+  """
+  doi: String
+}
+
+"""An entity that has an ISSN"""
+interface HasISSN {
+  """
+  The International Standard Serial Number for this entity. See https://issn.org
+  
+  """
+  issn: String
+}
+
 interface HasSchemaProperties {
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
@@ -2507,13 +2600,21 @@ interface HierarchicalEntry {
   available: VariablePrecisionDate!
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
-  """The Digital Object Identifier for this entity. See https://doi.org"""
+  """
+  The Digital Object Identifier for this entity. See https://doi.org
+  
+  """
   doi: String
   hidden: Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The International Standard Serial Number for this entity. See https://issn.org
+  
+  """
+  issn: String
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   leaf: Boolean!
@@ -2523,8 +2624,6 @@ interface HierarchicalEntry {
   root: Boolean!
   """A description of the contents of the entity"""
   summary: String
-  """A human-readable title for the entity"""
-  title: String!
   """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """If an entity is available in the frontend"""
@@ -2764,7 +2863,7 @@ type IntegerProperty implements ScalarProperty {
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Entity & HierarchicalEntry & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2783,7 +2882,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyCollectionAccessGrantConnection!
   """The date this entity was added to its parent"""
   accessioned: VariablePrecisionDate!
@@ -2804,7 +2903,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
@@ -2836,7 +2935,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAssetConnection!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
@@ -2854,7 +2953,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ContextualPermissionConnection!
   """The date this entity was made available"""
   available: VariablePrecisionDate!
@@ -2887,7 +2986,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemContributionConnection!
   """Contributors to this element"""
   contributors(
@@ -2906,12 +3005,23 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyContributorConnection!
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
-  """The Digital Object Identifier for this entity. See https://doi.org"""
+  """
+  The Digital Object Identifier for this entity. See https://doi.org
+  
+  """
   doi: String
+  """Retrieve the first matching item beneath this item."""
+  firstItem(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    """Describe the depth of entities to retrieve"""
+    nodeFilter: SubtreeNodeFilter = CHILDREN
+  ): Item
   """Whether this item has any child items"""
   hasItems: Boolean!
   """A hero image for the entity, suitable for displaying in page headers"""
@@ -2926,6 +3036,11 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The International Standard Serial Number for this entity. See https://issn.org
+  
+  """
+  issn: String
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   """Retrieve the items beneath this item"""
@@ -2948,7 +3063,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemConnection!
   leaf: Boolean!
   """Available link targets for this entity"""
@@ -2968,7 +3083,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): LinkTargetCandidateConnection!
   links(
     order: SimpleOrder = RECENT
@@ -2985,7 +3100,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
@@ -3004,7 +3119,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
   page(slug: String!): Page
@@ -3022,7 +3137,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): PageConnection!
   parent: ItemParent
   """An array of hashes that can be requested to load in a context"""
@@ -3046,7 +3161,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemConnection!
   root: Boolean!
   schemaDefinition: SchemaDefinition!
@@ -3054,9 +3169,19 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  """
+  Read a single schema property by its full path.
+  
+  """
+  schemaProperty(
+    """The full path to the schema property. Please note, paths are snake_case, not camelCase."""
+    fullPath: String!
+  ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   slug: Slug!
+  """A human-readable subtitle for the entity"""
+  subtitle: String
   """A description of the contents of the entity"""
   summary: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
@@ -3083,7 +3208,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserCollectionAccessGrantConnection!
   """Not presently used"""
   userGroupAccessGrants(
@@ -3101,7 +3226,7 @@ type Item implements Accessible & Entity & HierarchicalEntry & Contributable & H
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupCollectionAccessGrantConnection!
   """If an entity is available in the frontend"""
   visibility: EntityVisibility!
@@ -3609,7 +3734,7 @@ type Ordering implements Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): OrderingEntryConnection!
   createdAt: ISO8601DateTime!
   """Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted."""
@@ -3720,7 +3845,7 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionContributionConnection!
   """The total number of contributions (item + collection) from this contributor"""
   contributionCount: Int!
@@ -3749,7 +3874,7 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
   legalName: String
@@ -3860,7 +3985,7 @@ type PersonContributor implements Contributor & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionContributionConnection!
   """The total number of contributions (item + collection) from this contributor"""
   contributionCount: Int!
@@ -3891,7 +4016,7 @@ type PersonContributor implements Contributor & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
   links: [ContributorLink!]!
@@ -3942,8 +4067,10 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
+  """Look up an asset by slug"""
+  asset(slug: Slug!): AnyAsset
   """Look up a collection by slug"""
   collection(slug: Slug!): Collection
   """Look up a collection contribution by slug"""
@@ -3964,7 +4091,7 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CommunityConnection!
   """Look up a community by slug"""
   community(slug: Slug!): Community
@@ -3987,7 +4114,7 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyContributorConnection!
   """Fetch the global configuration for this installation"""
   globalConfiguration: GlobalConfiguration!
@@ -4036,7 +4163,7 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): SchemaDefinitionConnection!
   """Look up a schema version by slug"""
   schemaVersion(slug: Slug!): SchemaVersion
@@ -4059,7 +4186,7 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): SchemaVersionConnection!
   """Look up a user by slug"""
   user(slug: Slug!): User
@@ -4079,7 +4206,7 @@ type Query {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserConnection!
   """The currently authenticated user. AKA: you"""
   viewer: User!
@@ -4283,6 +4410,14 @@ interface SchemaInstance {
   schemaInstanceContext: SchemaInstanceContext!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  """
+  Read a single schema property by its full path.
+  
+  """
+  schemaProperty(
+    """The full path to the schema property. Please note, paths are snake_case, not camelCase."""
+    fullPath: String!
+  ): AnySchemaProperty
 }
 
 """A context that describes the current state of the form"""
@@ -4546,8 +4681,10 @@ type UnknownProperty implements ScalarProperty {
 """Autogenerated input type of UpdateCollection"""
 input UpdateCollectionInput {
   collectionId: ID!
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -4568,12 +4705,10 @@ input UpdateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
-  """Digital Object Identifier (see: https://doi.org)"""
-  doi: String
-  """A brief description of the entity's contents"""
+  """A brief description of the entity's contents."""
   summary: String
   """The date the entity was published"""
-  publishedOn: ISO8601Date
+  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -4590,6 +4725,10 @@ input UpdateCollectionInput {
   
   """
   clearThumbnail: Boolean = false
+  """Digital Object Identifier (see: https://doi.org)"""
+  doi: String
+  """International Standard Serial Number (see: https://issn.org)"""
+  issn: String
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -4612,8 +4751,10 @@ input UpdateCommunityInput {
   communityId: ID!
   """The position the community occupies in the list"""
   position: Int
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -4710,8 +4851,10 @@ type UpdateGlobalConfigurationPayload implements StandardMutationPayload {
 input UpdateItemInput {
   """The item to update"""
   itemId: ID!
-  """Human readable title for the entity"""
+  """Human-readable title for the entity"""
   title: String!
+  """Human-readable subtitle for the entity"""
+  subtitle: String
   """
   A reference to an uploaded image in Tus.
   
@@ -4732,12 +4875,10 @@ input UpdateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
-  """Digital Object Identifier (see: https://doi.org)"""
-  doi: String
-  """A brief description of the entity's contents"""
+  """A brief description of the entity's contents."""
   summary: String
   """The date the entity was published"""
-  publishedOn: ISO8601Date
+  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -4754,6 +4895,10 @@ input UpdateItemInput {
   
   """
   clearThumbnail: Boolean = false
+  """Digital Object Identifier (see: https://doi.org)"""
+  doi: String
+  """International Standard Serial Number (see: https://issn.org)"""
+  issn: String
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -5109,7 +5254,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyUserAccessGrantConnection!
   """A polymorphic connection for access grants from a subject"""
   allAccessGrants(
@@ -5128,7 +5273,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
@@ -5154,7 +5299,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserCollectionAccessGrantConnection!
   """Query the collections this user has access to"""
   collections(
@@ -5177,7 +5322,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CollectionConnection!
   """Query the communities this user has access to"""
   communities(
@@ -5200,7 +5345,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): CommunityConnection!
   """All access grants for this user on a community"""
   communityAccessGrants(
@@ -5218,7 +5363,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserCommunityAccessGrantConnection!
   createdAt: ISO8601DateTime!
   """A user's email. Depending on the upstream provider, this may not be set."""
@@ -5248,7 +5393,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserItemAccessGrantConnection!
   """Query the items this user has access to"""
   items(
@@ -5271,7 +5416,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): ItemConnection!
   """The user's full provided name. Depending on the upstream provider, this may not be set."""
   name: String
@@ -5430,7 +5575,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyUserGroupAccessGrantConnection!
   """A polymorphic connection for access grants from a subject"""
   allAccessGrants(
@@ -5449,7 +5594,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): AnyAccessGrantConnection!
   """All access grants for this group on a collection"""
   collectionAccessGrants(
@@ -5467,7 +5612,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupCollectionAccessGrantConnection!
   """All access grants for this group on a community"""
   communityAccessGrants(
@@ -5485,7 +5630,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupCommunityAccessGrantConnection!
   createdAt: ISO8601DateTime!
   description: String!
@@ -5506,7 +5651,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserGroupItemAccessGrantConnection!
   name: String!
   slug: Slug!
@@ -5526,7 +5671,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The direction in which pages advance (to traverse pages backwards)"""
     pageDirection: PageDirection! = FORWARDS
     """The amount of edges / nodes to fetch per page"""
-    perPage: Int! = 25
+    perPage: Int
   ): UserConnection!
 }
 
@@ -5749,4 +5894,15 @@ type VariablePrecisionDate {
   precision: DatePrecision!
   """The actual date, encoded in ISO8601 format (if available)"""
   value: ISO8601Date
+}
+
+"""
+A corresponding input type for VariablePrecisionDate.
+
+"""
+input VariablePrecisionDateInput {
+  """The actual date, encoded in ISO8601 format (if available)"""
+  value: ISO8601Date
+  """The level of precision: the frontend can make decisions about how to format the associated value based on this"""
+  precision: DatePrecision!
 }

@@ -5,23 +5,26 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCollectionInput = {
     collectionId: string;
     title: string;
+    subtitle?: string | null | undefined;
     heroImage?: UploadedFileInput | null | undefined;
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
     thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    doi?: string | null | undefined;
     summary?: string | null | undefined;
-    publishedOn?: string | null | undefined;
+    published?: VariablePrecisionDateInput | null | undefined;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null | undefined;
     visibleUntilAt?: string | null | undefined;
     clearHeroImage?: boolean | null | undefined;
     clearThumbnail?: boolean | null | undefined;
+    doi?: string | null | undefined;
+    issn?: string | null | undefined;
     clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {
@@ -36,6 +39,10 @@ export type UploadedFileMetadataInput = {
 };
 export type ImageMetadataInput = {
     alt?: string | null | undefined;
+};
+export type VariablePrecisionDateInput = {
+    value?: string | null | undefined;
+    precision: DatePrecision;
 };
 export type CollectionUpdateFormMutationVariables = {
     input: UpdateCollectionInput;

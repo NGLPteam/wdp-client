@@ -17,7 +17,9 @@
       "read_more": "Read More",
       "last_updated": "Last Updated {{value}}",
       "published": "Published",
-      "back_to_top": "Back to Top"
+      "back": "Back",
+      "back_to_top": "Back to Top",
+      "download": "Download"
     },
     "search": {
       "label": "Search",

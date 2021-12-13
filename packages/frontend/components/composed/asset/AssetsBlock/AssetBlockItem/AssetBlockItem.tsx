@@ -4,8 +4,8 @@ import { graphql } from "react-relay";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import AssetThumbnail from "../../AssetThumbnail";
 import * as Styled from "./AssetBlockItem.styles";
-import { IconFactory } from "components/factories";
 import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
+import { DownloadLink } from "components/atomic";
 
 export default function AssetBlockItem({ data }: Props) {
   const file = useMaybeFragment(fragment, data);
@@ -28,15 +28,11 @@ export default function AssetBlockItem({ data }: Props) {
             {file.fileSize && <li>{formatFileSize(file.fileSize)}</li>}
           </Styled.MetadataList>
         </Styled.InfoBlock>
-        <p className="t-copy-lighter t-copy-sm">{file.caption}</p>
+        <Styled.Caption className="t-copy-lighter t-copy-sm">
+          {file.caption}
+        </Styled.Caption>
         {file.downloadUrl && (
-          <Styled.DownloadLink
-            className="t-label-sm"
-            href={file.downloadUrl}
-            target="_blank"
-          >
-            <span>Download</span> <IconFactory icon="download" />
-          </Styled.DownloadLink>
+          <DownloadLink className="t-label-sm" href={file.downloadUrl} />
         )}
       </Styled.TextBlock>
     </Styled.Wrapper>

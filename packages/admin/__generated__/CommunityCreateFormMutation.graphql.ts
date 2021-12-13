@@ -10,6 +10,7 @@ export type CreateCommunityInput = {
     title: string;
     position?: number | null | undefined;
     schemaVersionSlug?: string | null | undefined;
+    subtitle?: string | null | undefined;
     heroImage?: UploadedFileInput | null | undefined;
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
