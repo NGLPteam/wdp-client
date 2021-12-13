@@ -18,10 +18,10 @@ export default function ArticleIssueMetadata({ data }: Props) {
       ) : (
         "--"
       )}
-      {issue.firstPage ? (
+      {issue.firstPage?.integerValue ? (
         <div>
           Pages {issue.firstPage.integerValue}
-          {issue.lastPage && ` - ${issue.lastPage.integerValue}`}
+          {issue.lastPage?.integerValue && ` - ${issue.lastPage.integerValue}`}
         </div>
       ) : null}
     </MetadataProperty>

@@ -14,7 +14,9 @@ export default function ItemPage() {
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
-            <div className="l-container-wide">Metrics</div>
+            <div className="l-container-wide l-container-wide--p-lg">
+              Metrics
+            </div>
           </EntityLayoutFactory>
         </CommunityChildLayout>
       )}

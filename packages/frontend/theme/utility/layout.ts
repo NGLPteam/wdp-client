@@ -39,6 +39,11 @@ export default css`
     padding-inline-end: var(--grid-column-gap);
   }
 
+  .l-container-wide--p-lg {
+    padding-block-start: var(--container-padding-lg);
+    padding-block-end: var(--container-padding-xlg);
+  }
+
   .l-grid {
     display: grid;
     row-gap: var(--grid-row-gap);

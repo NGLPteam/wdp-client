@@ -14,6 +14,16 @@ export type ArticleTabNavFragment = {
             };
         }>;
     };
+    readonly contributions: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    };
+    readonly assets: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    };
     readonly " $refType": "ArticleTabNavFragment";
 };
 export type ArticleTabNavFragment$data = ArticleTabNavFragment;
@@ -24,7 +34,28 @@ export type ArticleTabNavFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "PageInfo",
+    "kind": "LinkedField",
+    "name": "pageInfo",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "totalCount",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -76,10 +107,31 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemContributionConnection",
+      "kind": "LinkedField",
+      "name": "contributions",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "AnyAssetConnection",
+      "kind": "LinkedField",
+      "name": "assets",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": null
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '844ab96dea86594a1c6390435929942b';
+})();
+(node as any).hash = '5e11616b7af3b312da315eea4b73f2cd';
 export default node;
