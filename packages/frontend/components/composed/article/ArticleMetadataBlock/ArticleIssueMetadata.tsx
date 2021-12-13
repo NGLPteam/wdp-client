@@ -1,11 +1,13 @@
 import React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { ArticleIssueMetadataFragment$key } from "@/relay/ArticleIssueMetadataFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { ArticleIssueMetadataFragment$key } from "@/relay/ArticleIssueMetadataFragment.graphql";
 
 export default function ArticleIssueMetadata({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
+  const { t } = useTranslation();
 
   return issue ? (
     <MetadataProperty label="Issue">
@@ -20,8 +22,12 @@ export default function ArticleIssueMetadata({ data }: Props) {
       )}
       {issue.firstPage?.integerValue ? (
         <div>
-          Pages {issue.firstPage.integerValue}
-          {issue.lastPage?.integerValue && ` - ${issue.lastPage.integerValue}`}
+          {issue.lastPage?.integerValue
+            ? t("common.pages", {
+                first: issue.firstPage.integerValue,
+                last: issue.lastPage.integerValue,
+              })
+            : t("common.page", { value: issue.firstPage.integerValue })}
         </div>
       ) : null}
     </MetadataProperty>

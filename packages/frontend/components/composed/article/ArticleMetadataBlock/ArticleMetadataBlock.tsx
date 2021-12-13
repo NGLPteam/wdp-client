@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleMetadataBlock.styles";
 import ArticleIssueMetadata from "./ArticleIssueMetadata";
@@ -8,10 +9,11 @@ import MetadataFactory from "components/factories/MetadataFactory";
 
 export default function ArticleMetadataBlock({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
+  const { t } = useTranslation();
 
   return entity ? (
     <Styled.Section className="l-container-wide">
-      <h3>Metadata</h3>
+      <h3>{t("layouts.metadata_header")}</h3>
       <Styled.List>
         {entity.collectedMeta && (
           <Styled.ListItem>
@@ -30,7 +32,10 @@ export default function ArticleMetadataBlock({ data }: Props) {
         )}
         {entity.volumeIdMeta && (
           <Styled.ListItem>
-            <MetadataFactory label="Volume ID" data={entity.volumeIdMeta} />
+            <MetadataFactory
+              label={t("layouts.volume_id_label")}
+              data={entity.volumeIdMeta}
+            />
           </Styled.ListItem>
         )}
         {entity && (
