@@ -6,7 +6,6 @@ module.exports = {
     "@storybook/addon-essentials",
     "storybook-addon-themes",
     "@storybook/addon-a11y",
-    "storybook-addon-pseudo-states",
   ],
   typescript: {
     check: false,
