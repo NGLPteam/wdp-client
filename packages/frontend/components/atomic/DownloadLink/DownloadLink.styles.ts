@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const DownloadLink = styled.a`
+export const Link = styled.a`
   display: inline-flex;
   align-items: center;
 

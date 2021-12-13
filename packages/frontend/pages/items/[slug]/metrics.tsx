@@ -13,7 +13,9 @@ export default function ItemPage() {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <CommunityChildLayout data={data} communityData={data?.item?.community}>
-          <EntityLayoutFactory data={data?.item}>Metrics</EntityLayoutFactory>
+          <EntityLayoutFactory data={data?.item}>
+            <div className="l-container-wide">Metrics</div>
+          </EntityLayoutFactory>
         </CommunityChildLayout>
       )}
     </QueryWrapper>

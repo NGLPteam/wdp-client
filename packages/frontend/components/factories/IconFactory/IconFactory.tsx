@@ -11,6 +11,7 @@ export const ICON_MAP = {
   avatar60: Icons.Avatar60,
   close: Icons.Close,
   download: Icons.Download,
+  linkExternal: Icons.LinkExternal,
   image32: Icons.Image32,
   chevronDown: Icons.ChevronDown,
   chevronLeft: Icons.ChevronLeft,

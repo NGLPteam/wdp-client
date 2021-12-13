@@ -60,6 +60,10 @@
       "default.collection": "$t(glossary.collection)",
       "default.item": "$t(glossary.item)"
     },
+    "metadata": {
+      "authored_on": "Authored On",
+      "tags": "Tags"
+    },
     "layouts": {
       "related_journals_header": "Related $t(schema.nglp.journal_plural)",
       "see_all_journals": "See All $t(schema.nglp.journal_plural)",
