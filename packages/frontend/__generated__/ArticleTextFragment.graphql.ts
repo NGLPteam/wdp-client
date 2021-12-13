@@ -10,16 +10,14 @@ export type ArticleTextFragment = {
     readonly thumbnail: {
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
-    readonly properties: ReadonlyArray<{
-        readonly fullPath?: string | undefined;
+    readonly bodyText: {
         readonly fullText?: {
             readonly content: string | null;
             readonly kind: FullTextKind | null;
             readonly lang: string | null;
         } | null | undefined;
         readonly type?: string | undefined;
-        readonly label?: string | undefined;
-    }>;
+    } | null;
     readonly " $refType": "ArticleTextFragment";
 };
 export type ArticleTextFragment$data = ArticleTextFragment;
@@ -53,23 +51,22 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": "properties",
-      "args": null,
+      "alias": "bodyText",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "body"
+        }
+      ],
       "concreteType": null,
       "kind": "LinkedField",
-      "name": "schemaProperties",
-      "plural": true,
+      "name": "schemaProperty",
+      "plural": false,
       "selections": [
         {
           "kind": "InlineFragment",
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "fullPath",
-              "storageKey": null
-            },
             {
               "alias": null,
               "args": null,
@@ -108,24 +105,17 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "type",
               "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "label",
-              "storageKey": null
             }
           ],
           "type": "FullTextProperty",
           "abstractKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "schemaProperty(fullPath:\"body\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '13c690a40a959fb5a3a7190fa318c3f4';
+(node as any).hash = 'ca360d3e7637c24ba32390f7633caa66';
 export default node;

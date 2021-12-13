@@ -4,7 +4,7 @@ import { lGrid } from "theme/mixins";
 
 export const BodyWrapper = styled.div`
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-xlg);
 `;
 
 export const BodyInner = styled.div`

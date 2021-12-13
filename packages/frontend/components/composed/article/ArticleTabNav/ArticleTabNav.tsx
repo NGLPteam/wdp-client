@@ -34,8 +34,9 @@ export default function ArticleTabNav({ data }: Props) {
       <Styled.List>
         {getLink("item", "Article")}
         {getLink("item.metadata", "Metadata")}
-        {getLink("item.files", "Files")}
-        {getLink("item.contributors", "Contributors")}
+        {nav.assets?.pageInfo.totalCount > 0 && getLink("item.files", "Files")}
+        {nav.contributions?.pageInfo.totalCount > 0 &&
+          getLink("item.contributors", "Contributors")}
         {getLink("item.metrics", "Metrics")}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
@@ -59,6 +60,16 @@ const fragment = graphql`
           title
           slug
         }
+      }
+    }
+    contributions {
+      pageInfo {
+        totalCount
+      }
+    }
+    assets {
+      pageInfo {
+        totalCount
       }
     }
   }

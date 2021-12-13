@@ -19,7 +19,9 @@
       "published": "Published",
       "back": "Back",
       "back_to_top": "Back to Top",
-      "download": "Download"
+      "download": "Download",
+      "page": "Page {{value}}",
+      "pages": "Pages {{first}} - {{last}}"
     },
     "search": {
       "label": "Search",
@@ -60,13 +62,20 @@
       "default.collection": "$t(glossary.collection)",
       "default.item": "$t(glossary.item)"
     },
+    "metadata": {
+      "authored_on": "Authored On",
+      "tags": "Tags"
+    },
     "layouts": {
       "related_journals_header": "Related $t(schema.nglp.journal_plural)",
       "see_all_journals": "See All $t(schema.nglp.journal_plural)",
       "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
       "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)",
       "issue_count": "{{count}} Issue",
-      "issue_count_plural": "{{count}} Issues"
+      "issue_count_plural": "{{count}} Issues",
+      "metadata_header": "Metadata",
+      "metrics_header": "Metrics",
+      "volume_id_label": "Volume ID"
     },
     "nav": {
       "home": "Home",

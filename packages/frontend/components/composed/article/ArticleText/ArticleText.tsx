@@ -9,28 +9,27 @@ import { BackToTopBlock } from "components/layout";
 
 export default function ArticleText({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
-  const body = useMemo(
-    () => article?.properties.find((p) => p.fullPath === "body"),
-    [article]
-  );
+  const fullText = useMemo(() => article?.bodyText?.fullText, [article]);
 
-  return article ? (
+  return article && fullText ? (
     <Styled.BodyWrapper as={BackToTopBlock} className="l-container-wide">
       <Styled.BodyInner>
         <Styled.TextBlock>
           <Styled.ImageBlock>
             <ContentImage data={article.thumbnail} />
           </Styled.ImageBlock>
-          {body?.fullText &&
-            (body.fullText.content && body.fullText.kind === "HTML" ? (
+          {fullText &&
+            (fullText.content && fullText.kind === "HTML" ? (
               <div
                 className="t-rte"
-                dangerouslySetInnerHTML={{ __html: body.fullText.content }}
+                dangerouslySetInnerHTML={{
+                  __html: fullText.content,
+                }}
               />
             ) : (
-              body.fullText.content && (
+              fullText.content && (
                 <ReactMarkdown className="t-rte">
-                  {body.fullText.content}
+                  {fullText.content}
                 </ReactMarkdown>
               )
             ))}
@@ -46,7 +45,11 @@ export default function ArticleText({ data }: Props) {
         </Styled.TOCBlock>
       </Styled.BodyInner>
     </Styled.BodyWrapper>
-  ) : null;
+  ) : (
+    <Styled.BodyWrapper className="l-container-wide">
+      No article content found.
+    </Styled.BodyWrapper>
+  );
 }
 
 interface Props {
@@ -58,16 +61,14 @@ const fragment = graphql`
     thumbnail {
       ...ContentImageFragment
     }
-    properties: schemaProperties {
+    bodyText: schemaProperty(fullPath: "body") {
       ... on FullTextProperty {
-        fullPath
         fullText {
           content
           kind
           lang
         }
         type
-        label
       }
     }
   }
