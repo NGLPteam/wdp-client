@@ -23,11 +23,11 @@ export default function ArticleIssueMetadata({ data }: Props) {
       {issue.firstPage?.integerValue ? (
         <div>
           {issue.lastPage?.integerValue
-            ? t("common.pages", {
+            ? t("common.page_x-y", {
                 first: issue.firstPage.integerValue,
                 last: issue.lastPage.integerValue,
               })
-            : t("common.page", { value: issue.firstPage.integerValue })}
+            : t("common.page_x", { value: issue.firstPage.integerValue })}
         </div>
       ) : null}
     </MetadataProperty>

@@ -14,7 +14,7 @@ export type JournalLayoutFragment = {
     };
     readonly currentIssue: {
         readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
-    };
+    } | null;
     readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "JournalHeroFragment" | "JournalNavBarFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
@@ -33,6 +33,11 @@ var v0 = {
   "value": 4
 },
 v1 = {
+  "kind": "Literal",
+  "name": "nodeFilter",
+  "value": "DESCENDANTS"
+},
+v2 = {
   "kind": "Literal",
   "name": "schema",
   "value": "nglp:journal_issue"
@@ -69,18 +74,19 @@ return {
     {
       "alias": "issues",
       "args": [
-        {
-          "kind": "Literal",
-          "name": "nodeFilter",
-          "value": "DESCENDANTS"
-        },
+        (v1/*: any*/),
         {
           "kind": "Literal",
           "name": "order",
           "value": "PUBLISHED_ASCENDING"
         },
+        {
+          "kind": "Literal",
+          "name": "page",
+          "value": 1
+        },
         (v0/*: any*/),
-        (v1/*: any*/)
+        (v2/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -93,26 +99,22 @@ return {
           "name": "FeaturedIssuesFragment"
         }
       ],
-      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",perPage:4,schema:\"nglp:journal_issue\")"
+      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
     },
     {
       "alias": "currentIssue",
       "args": [
+        (v1/*: any*/),
         {
           "kind": "Literal",
           "name": "order",
           "value": "PUBLISHED_DESCENDING"
         },
-        {
-          "kind": "Literal",
-          "name": "perPage",
-          "value": 1
-        },
-        (v1/*: any*/)
+        (v2/*: any*/)
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": "Collection",
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "firstCollection",
       "plural": false,
       "selections": [
         {
@@ -121,7 +123,7 @@ return {
           "name": "CurrentIssueFragment"
         }
       ],
-      "storageKey": "collections(order:\"PUBLISHED_DESCENDING\",perPage:1,schema:\"nglp:journal_issue\")"
+      "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -148,5 +150,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '750d7b035f07bc67a84ab452e3d9845a';
+(node as any).hash = 'ba72eba9f9060b3584e2e7d68e94b542';
 export default node;

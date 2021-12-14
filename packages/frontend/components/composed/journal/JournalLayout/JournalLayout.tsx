@@ -45,14 +45,15 @@ const fragment = graphql`
       schema: "nglp:journal_issue"
       order: PUBLISHED_ASCENDING
       nodeFilter: DESCENDANTS
+      page: 1
       perPage: 4
     ) {
       ...FeaturedIssuesFragment
     }
-    currentIssue: collections(
-      perPage: 1
+    currentIssue: firstCollection(
       schema: "nglp:journal_issue"
       order: PUBLISHED_DESCENDING
+      nodeFilter: DESCENDANTS
     ) {
       ...CurrentIssueFragment
     }
