@@ -4,11 +4,14 @@ import { respond } from "theme/mixins";
 
 export const ListItem = styled.li`
   grid-column: span 3;
-  display: flex;
 
   ${respond(`grid-column: span 4;`, 100)}
   ${respond(`grid-column: span 6;`, 70)}
   ${respond(`grid-column: span 12;`, 30)}
+`;
+
+export const ItemLink = styled.a`
+  display: flex;
 
   > * + * {
     padding-inline-start: ${pxToRem(20)};

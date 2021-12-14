@@ -5,10 +5,16 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ItemContributionsBlockFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly slug: string;
+            readonly contributor: {
+                readonly image?: {
+                    readonly storage: AttachmentStorage | null;
+                } | undefined;
+            };
             readonly " $fragmentRefs": FragmentRefs<"ContributionBlockItemFragment">;
         };
     }>;
@@ -22,7 +28,28 @@ export type ItemContributionsBlockFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageAttachment",
+    "kind": "LinkedField",
+    "name": "image",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "storage",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -52,6 +79,29 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "contributor",
+              "plural": false,
+              "selections": [
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v0/*: any*/),
+                  "type": "PersonContributor",
+                  "abstractKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v0/*: any*/),
+                  "type": "OrganizationContributor",
+                  "abstractKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
               "args": null,
               "kind": "FragmentSpread",
               "name": "ContributionBlockItemFragment"
@@ -66,5 +116,6 @@ const node: ReaderFragment = {
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'b0c6a66ca523d59fc7cdbd104b9bc7e6';
+})();
+(node as any).hash = '420babbd19b88151addacb836d3c0930';
 export default node;

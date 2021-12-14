@@ -75,7 +75,8 @@
       "issue_count_plural": "{{count}} Issues",
       "metadata_header": "Metadata",
       "metrics_header": "Metrics",
-      "volume_id_label": "Volume ID"
+      "volume_id_label": "Volume ID",
+      "contributions_header": "Contributions"
     },
     "nav": {
       "home": "Home",

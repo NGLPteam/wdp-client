@@ -64,6 +64,10 @@ export const baseRoutes: BaseRoute[] = [
         path: "/items/[slug]/contributors",
       },
       {
+        name: "item.contributor",
+        path: "/items/[slug]/contributors/[contributor]",
+      },
+      {
         name: "item.metrics",
         path: "/items/[slug]/metrics",
       },
