@@ -4,6 +4,7 @@ import { graphql } from "react-relay";
 import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
+import RelatedArticles from "../RelatedArticles";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
@@ -19,6 +20,7 @@ export default function ArticleLayout({ data, children }: Props) {
       <ArticleHero data={article} />
       <ArticleTabNav data={article} />
       {children}
+      <RelatedArticles data={article?.relatedItems} />
     </>
   );
 }
@@ -37,5 +39,8 @@ const fragment = graphql`
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment
     ...ArticleTabNavFragment
+    relatedItems {
+      ...RelatedArticlesFragment
+    }
   }
 `;

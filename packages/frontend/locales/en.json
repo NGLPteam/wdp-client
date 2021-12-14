@@ -70,6 +70,7 @@
     },
     "layouts": {
       "related_journals_header": "Related $t(schema.nglp.journal_plural)",
+      "related_articles_header": "Related $t(schema.nglp.article_plural)",
       "see_all_journals": "See All $t(schema.nglp.journal_plural)",
       "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
       "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)",
