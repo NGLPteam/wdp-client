@@ -12,6 +12,7 @@ export type ContributionBlockItemFragment = {
     readonly contributorKind: ContributorKind;
     readonly role: string | null;
     readonly contributor: {
+        readonly slug?: string | undefined;
         readonly image?: {
             readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
         } | undefined;
@@ -34,22 +35,6 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "affiliation",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ImageAttachment",
-  "kind": "LinkedField",
-  "name": "image",
-  "plural": false,
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ContributorAvatarFragment"
-    }
-  ],
   "storageKey": null
 };
 return {
@@ -89,26 +74,54 @@ return {
       "plural": false,
       "selections": [
         {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContributorNameFragment"
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "type": "Sluggable",
+          "abstractKey": "__isSluggable"
         },
         {
           "kind": "InlineFragment",
           "selections": [
-            (v1/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageAttachment",
+              "kind": "LinkedField",
+              "name": "image",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ContributorAvatarFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "Contributor",
+          "abstractKey": "__isContributor"
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
             (v0/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
         },
         {
-          "kind": "InlineFragment",
-          "selections": [
-            (v1/*: any*/)
-          ],
-          "type": "OrganizationContributor",
-          "abstractKey": null
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorNameFragment"
         }
       ],
       "storageKey": null
@@ -118,5 +131,5 @@ return {
   "abstractKey": "__isContribution"
 };
 })();
-(node as any).hash = 'aa643343b24982820790d5c0c330a905';
+(node as any).hash = '1edf125ed2aff97ae08708a123771865';
 export default node;

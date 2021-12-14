@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import ContributionBlockItem from "./ContributionBlockItem";
@@ -9,12 +9,22 @@ import {
 } from "@/relay/ItemContributionsBlockFragment.graphql";
 
 const ItemContributionsBlock = ({ data, background }: Props) => {
-  const contributors = useMaybeFragment(fragment, data);
+  const contributions = useMaybeFragment(fragment, data);
 
-  return contributors && contributors.edges.length > 0 ? (
+  const showAvatars = useMemo(() => {
+    return contributions?.edges.some(
+      ({ node }: Node) => node.contributor?.image?.storage
+    );
+  }, [contributions]);
+
+  return contributions && contributions.edges.length > 0 ? (
     <BaseContributionsBlock background={background}>
-      {contributors.edges.map(({ node }: Node) => (
-        <ContributionBlockItem data={node} key={node.slug} />
+      {contributions.edges.map(({ node }: Node) => (
+        <ContributionBlockItem
+          showAvatar={showAvatars}
+          data={node}
+          key={node.slug}
+        />
       ))}
     </BaseContributionsBlock>
   ) : null;
@@ -34,6 +44,18 @@ const fragment = graphql`
     edges {
       node {
         slug
+        contributor {
+          ... on PersonContributor {
+            image {
+              storage
+            }
+          }
+          ... on OrganizationContributor {
+            image {
+              storage
+            }
+          }
+        }
         ...ContributionBlockItemFragment
       }
     }
