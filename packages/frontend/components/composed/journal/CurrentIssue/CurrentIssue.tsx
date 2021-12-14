@@ -8,85 +8,98 @@ import {
   ArrowLink,
   PrecisionDate,
   NamedLink,
+  DotList,
 } from "components/atomic";
+import { ArticleSummary } from "components/layout";
 import ContributorsList from "components/composed/contributor/ContributorsList";
-import { CurrentIssueFragment$key } from "@/relay/CurrentIssueFragment.graphql";
+import {
+  CurrentIssueFragment$data,
+  CurrentIssueFragment$key,
+} from "@/relay/CurrentIssueFragment.graphql";
 
 export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
-  const result = useMaybeFragment(fragment, data);
-  const issue = result?.edges.length ? result.edges[0].node : null;
+  const issue = useMaybeFragment(fragment, data);
   const articles = issue?.items.edges.slice(0, 3);
   const hasImage = !!issue?.thumbnail?.storage;
 
   return issue ? (
     <section className="a-bg-neutral00">
       <Styled.Inner className="l-container-wide l-grid">
-        <Styled.Title $hasImage={hasImage}>
-          <NamedLink
-            route="collection"
-            routeParams={{ slug: issue.slug }}
-            passHref
-          >
-            <a>{issue.title}</a>
-          </NamedLink>
-        </Styled.Title>
         {hasImage && (
           <NamedLink
             route="collection"
             routeParams={{ slug: issue.slug }}
             passHref
           >
-            <Styled.ImageLink>
+            <Styled.ImageBlock as="a">
               <CoverImage
                 data={issue.thumbnail}
                 maxWidth={278}
                 maxHeight={370}
               />
-            </Styled.ImageLink>
+            </Styled.ImageBlock>
           </NamedLink>
         )}
-        <Styled.Meta className="t-copy" $hasImage={hasImage}>
-          <p>{issue.ancestorOfType?.title}</p>
-          <p className="t-copy-lighter">Volume XX</p>
-          <p className="t-copy-lighter">Issue XX</p>
-          <PrecisionDate data={issue.published} label="Issue date" />
-        </Styled.Meta>
-        <Styled.ArticleList $hasImage={hasImage}>
-          {articles &&
-            articles.map((article) => (
-              <Styled.Item key={article.node.slug}>
-                <Styled.ItemTitleBlock>
-                  <h4>{article.node.title}</h4>
-                  <Styled.ItemSubtitle className="t-copy-italic">
-                    Subtitle
-                  </Styled.ItemSubtitle>
-                </Styled.ItemTitleBlock>
-                <div className="t-copy-sm">
-                  <ContributorsList data={article.node.contributions} />
-                  <p className="t-copy-italic t-copy-lighter">
-                    Secondary metadata
-                  </p>
-                </div>
-                {article.node.summary && (
-                  <Styled.ItemSummary className="t-copy-lighter">
-                    {article.node.summary}
-                  </Styled.ItemSummary>
-                )}
-                {article.node.slug && (
-                  <Styled.ItemReadMore>
-                    <NamedLink
-                      route="collection"
-                      routeParams={{ slug: article.node.slug }}
-                      passHref
-                    >
-                      <ArrowLink label={t("common.read_more")} />
-                    </NamedLink>
-                  </Styled.ItemReadMore>
-                )}
-              </Styled.Item>
-            ))}
-        </Styled.ArticleList>
+        <Styled.TextBlock $hasImage={hasImage}>
+          <Styled.TitleBlock>
+            <h3>
+              <NamedLink
+                route="collection"
+                routeParams={{ slug: issue.slug }}
+                passHref
+              >
+                <a>{issue.title}</a>
+              </NamedLink>
+            </h3>
+            <DotList className="t-copy-lighter">
+              {issue.volume && <li>{issue.volume?.title}</li>}
+              {issue.published.value && (
+                <li>
+                  <PrecisionDate
+                    data={issue.published}
+                    label={t("common.published")}
+                  />
+                </li>
+              )}
+              <li>Additional metadata</li>
+            </DotList>
+          </Styled.TitleBlock>
+          <Styled.ArticleList>
+            {articles &&
+              articles.map((article: ArticleNode) => (
+                <Styled.Item key={article.node.slug}>
+                  <ArticleSummary
+                    title={article.node.title}
+                    summary={
+                      article.node.summary && (
+                        <p className="t-copy-sm">{article.node.summary}</p>
+                      )
+                    }
+                    contributors={
+                      article.node.contributions && (
+                        <ContributorsList data={article.node.contributions} />
+                      )
+                    }
+                    readMore={
+                      article.node.slug && (
+                        <NamedLink
+                          route="item"
+                          routeParams={{ slug: article.node.slug }}
+                          passHref
+                        >
+                          <ArrowLink
+                            className="t-label-sm"
+                            label={t("common.read_more")}
+                          />
+                        </NamedLink>
+                      )
+                    }
+                  />
+                </Styled.Item>
+              ))}
+          </Styled.ArticleList>
+        </Styled.TextBlock>
       </Styled.Inner>
     </section>
   ) : null;
@@ -96,34 +109,33 @@ type Props = {
   data?: CurrentIssueFragment$key | null;
 };
 
+type ArticleNode = CurrentIssueFragment$data["items"]["edges"][number];
+
 const fragment = graphql`
-  fragment CurrentIssueFragment on CollectionConnection {
-    edges {
-      node {
+  fragment CurrentIssueFragment on Collection {
+    title
+    slug
+    thumbnail {
+      storage
+      ...CoverImageFragment
+    }
+    published {
+      value
+      ...PrecisionDateFragment
+    }
+    volume: ancestorOfType(schema: "nglp:journal_volume") {
+      ... on Collection {
         title
-        slug
-        thumbnail {
-          storage
-          ...CoverImageFragment
-        }
-        published {
-          ...PrecisionDateFragment
-        }
-        ancestorOfType(schema: "nglp:journal") {
-          ... on Collection {
-            title
-          }
-        }
-        items(perPage: 3) {
-          edges {
-            node {
-              title
-              slug
-              summary
-              contributions {
-                ...ContributorsListFragment
-              }
-            }
+      }
+    }
+    items(perPage: 3) {
+      edges {
+        node {
+          title
+          slug
+          summary
+          contributions {
+            ...ContributorsListFragment
           }
         }
       }

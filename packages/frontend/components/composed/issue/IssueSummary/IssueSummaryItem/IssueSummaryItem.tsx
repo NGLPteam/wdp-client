@@ -1,9 +1,14 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./IssueSummaryItem.styles";
-import { PrecisionDate, SquareThumbnail, NamedLink } from "components/atomic";
+import {
+  PrecisionDate,
+  SquareThumbnail,
+  NamedLink,
+  DotList,
+} from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
+import { ArticleSummary } from "components/layout";
 import { IssueSummaryItemFragment$key } from "@/relay/IssueSummaryItemFragment.graphql";
 
 export default function IssueSummaryItem({ data }: Props) {
@@ -11,35 +16,35 @@ export default function IssueSummaryItem({ data }: Props) {
 
   return content && content.slug ? (
     <NamedLink route="item" routeParams={{ slug: content.slug }} passHref>
-      <Styled.ItemLinkWrapper>
-        <Styled.ItemText>
-          <Styled.ItemHeader>
-            <h4>{content.title}</h4>
-            <h5 className="t-copy-italic t-copy-lighter">Item subtitle</h5>
-          </Styled.ItemHeader>
-          {content.summary && (
-            <Styled.ItemSummary className="t-copy-lighter">
-              <p>{content.summary}</p>
-            </Styled.ItemSummary>
-          )}
-          <Styled.ItemMetadata>
-            <p>
+      <a>
+        <ArticleSummary
+          title={content.title}
+          summary={content.summary}
+          metadata={
+            <DotList>
+              {content.published && (
+                <li>
+                  <PrecisionDate data={content.published} />
+                </li>
+              )}
+              <li>Additional Metadata</li>
+            </DotList>
+          }
+          contributors={
+            content.contributions && (
               <ContributorsList
                 className="t-copy-sm"
                 data={content.contributions}
               />
-            </p>
-            <p className="t-copy-sm t-copy-lighter">
-              <PrecisionDate data={content.published} /> • Additional Metadata
-            </p>
-          </Styled.ItemMetadata>
-        </Styled.ItemText>
-        {content.thumbnail?.storage && (
-          <Styled.ItemThumbnail>
-            <SquareThumbnail data={content.thumbnail} />
-          </Styled.ItemThumbnail>
-        )}
-      </Styled.ItemLinkWrapper>
+            )
+          }
+          thumbnail={
+            content?.thumbnail?.storage && (
+              <SquareThumbnail data={content.thumbnail} />
+            )
+          }
+        />
+      </a>
     </NamedLink>
   ) : null;
 }

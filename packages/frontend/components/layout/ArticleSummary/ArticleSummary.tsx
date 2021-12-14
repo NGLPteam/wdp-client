@@ -23,14 +23,16 @@ export default function ArticleSummary({
             <h5 className="t-copy-italic t-copy-lighter">{subtitle}</h5>
           )}
         </Styled.Headers>
-        {summary && (
-          <Styled.Summary className="t-copy-lighter">{summary}</Styled.Summary>
-        )}
         {(contributors || metadata) && (
           <Styled.Metadata>
-            {contributors && <p className="t-copy-sm">{contributors}</p>}
+            {contributors && (
+              <p className="t-copy-sm t-copy-medium">{contributors}</p>
+            )}
             {metadata && <p className="t-copy-sm t-copy-lighter">{metadata}</p>}
           </Styled.Metadata>
+        )}
+        {summary && (
+          <Styled.Summary className="t-copy-lighter">{summary}</Styled.Summary>
         )}
         {readMore}
       </Styled.Text>
