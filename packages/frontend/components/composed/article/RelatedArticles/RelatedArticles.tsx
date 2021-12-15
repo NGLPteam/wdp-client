@@ -10,7 +10,7 @@ export default function RelatedArticles({ data }: Props) {
   const { t } = useTranslation();
   const articles = useMaybeFragment(fragment, data);
   return articles?.edges.length ? (
-    <section className="a-bg-custom10">
+    <Styled.Outer className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
         <h3 className="t-capitalize">{t("layouts.related_articles_header")}</h3>
         <Styled.List>
@@ -47,7 +47,7 @@ export default function RelatedArticles({ data }: Props) {
           ))}
         </Styled.List>
       </Styled.Inner>
-    </section>
+    </Styled.Outer>
   ) : null;
 }
 

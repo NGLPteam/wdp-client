@@ -7,6 +7,14 @@ export const Inner = styled.div`
   padding-block-end: var(--container-padding-xlg);
 `;
 
+export const Outer = styled.section`
+  .a-bg-custom10 + & {
+    > ${Inner} {
+      border-top: 1px solid var(--color-base-neutral70);
+    }
+  }
+`;
+
 export const List = styled.ul`
   ${lGrid({
     rowGap: "var(--grid-row-gap-lg)",
