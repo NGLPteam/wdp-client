@@ -10,7 +10,7 @@ export default function PrevNextIssue({ data }: Props) {
   const item = useMaybeFragment(fragment, data);
   const issues = item?.volume?.collections?.edges;
   return issues ? (
-    <section className="a-bg-custom10">
+    <Styled.Outer className="a-bg-custom10">
       <Styled.Inner className="l-container-wide l-flex l-flex--gap">
         <Styled.FixedWidthButton iconLeft icon="arrowLeft">
           {t("nav.previous_issue")}
@@ -19,7 +19,7 @@ export default function PrevNextIssue({ data }: Props) {
           {t("nav.next_issue")}
         </Styled.FixedWidthButton>
       </Styled.Inner>
-    </section>
+    </Styled.Outer>
   ) : null;
 }
 

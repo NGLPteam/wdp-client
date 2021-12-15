@@ -7,6 +7,14 @@ export const Inner = styled.div`
   padding-block: var(--container-padding-lg);
 `;
 
+export const Outer = styled.section`
+  .a-bg-custom10 + & {
+    > ${Inner} {
+      border-top: 1px solid var(--color-base-neutral70);
+    }
+  }
+`;
+
 export const FixedWidthButton = styled(Button)`
   ${aButton("primary", "lg")}
   width: ${pxToRem(180)};
