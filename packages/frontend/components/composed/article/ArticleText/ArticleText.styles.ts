@@ -16,12 +16,18 @@ export const TextBlock = styled.div`
   grid-area: text;
 `;
 
-export const TOCBlock = styled.div`
-  grid-area: toc;
-`;
-
 export const ImageBlock = styled.div`
   margin-block-end: var(--padding-lg);
+`;
+
+export const TOCBlock = styled.div`
+  grid-area: toc;
+  padding-block-end: ${pxToRem(100)};
+`;
+
+export const TOCInner = styled.div`
+  position: sticky;
+  top: var(--padding-lg);
 `;
 
 export const TOCHeader = styled.h5`
