@@ -133,9 +133,11 @@ export default css`
     --font-weight-bold: 700;
 
     /* grid */
-    --grid-column-gap: 16px;
-    --grid-column-gap-sm: 8px;
-    --grid-row-gap: 16px;
+    --grid-column-gap-lg: ${pxToRem(36)};
+    --grid-column-gap: ${pxToRem(16)};
+    --grid-column-gap-sm: ${pxToRem(8)};
+    --grid-row-gap: ${pxToRem(16)};
+    --grid-row-gap-lg: ${pxToRem(30)};
 
     /* borders */
     --border-color: ${baseColors.neutral70};

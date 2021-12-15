@@ -1,19 +1,24 @@
 import { css } from "styled-components";
 
+type GridProps = {
+  rowGap?: string;
+  colGap?: string;
+  columns?: number;
+};
+
 // Base grid styling
-export function lGridBase() {
+export function lGridBase(props?: GridProps) {
   return css`
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    row-gap: var(--grid-row-gap);
-    column-gap: var(--grid-column-gap);
+    grid-template-columns: repeat(${(props && props.columns) || 12}, 1fr);
+    row-gap: ${(props && props.rowGap) || "var(--grid-row-gap)"};
+    column-gap: ${(props && props.colGap) || "var(--grid-column-gap)"};
   `;
 }
 
 // Base grid styling with columns
-export function lGrid() {
+export function lGrid(props?: GridProps) {
   return css`
-    ${lGridBase()}
-    grid-template-columns: repeat(12, 1fr);
+    ${lGridBase(props)}
   `;
 }
