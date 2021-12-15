@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-
+import { useFormContext } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 
@@ -13,16 +13,18 @@ export default function MultiselectProperty(props: Props) {
     props.field
   );
 
+  const { register } = useFormContext();
+
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ label, required, name, isWide }) => (
         <Select
           label={label}
           required={required}
           options={field.options}
           multiple
           isWide={isWide}
-          {...register}
+          {...register(name)}
         />
       )}
     </ScalarProperty>

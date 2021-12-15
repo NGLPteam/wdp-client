@@ -1,22 +1,23 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-
+import { useFormContext } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
 import Input from "components/forms/Input";
 import type { StringPropertyFragment$key } from "@/relay/StringPropertyFragment.graphql";
 
 export default function StringProperty(props: Props) {
   const field = useFragment<StringPropertyFragment$key>(fragment, props.field);
+  const { register } = useFormContext();
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ name, label, required, isWide }) => (
         <Input
           label={label}
           required={required}
           isWide={isWide || register.name === "title"}
-          {...register}
+          {...register(name)}
         />
       )}
     </ScalarProperty>
