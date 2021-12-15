@@ -24,7 +24,7 @@ export default function ScalarProperty(props: Props) {
     required,
     path,
     type,
-    register: register(name, { required }),
+    register: register(name),
     control,
     isWide,
   };
