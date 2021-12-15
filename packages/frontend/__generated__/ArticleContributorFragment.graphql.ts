@@ -5,31 +5,23 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ArticleContributorFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly affiliation: string | null;
             readonly role: string | null;
             readonly contributor: {
+                readonly slug?: string | undefined;
                 readonly __typename: "PersonContributor";
-                readonly title: string | null;
-                readonly bio: string | null;
-                readonly affiliation: string | null;
-                readonly image: {
+                readonly title?: string | null | undefined;
+                readonly bio?: string | null | undefined;
+                readonly affiliation?: string | null | undefined;
+                readonly image?: {
+                    readonly storage: AttachmentStorage | null;
                     readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-                };
+                } | undefined;
                 readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-            } | {
-                readonly __typename: "OrganizationContributor";
-                readonly bio: string | null;
-                readonly image: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-                };
-                readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
             };
         };
     }>;
@@ -73,6 +65,13 @@ v3 = {
   "name": "image",
   "plural": false,
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "storage",
+      "storageKey": null
+    },
     {
       "args": null,
       "kind": "FragmentSpread",
@@ -127,6 +126,20 @@ return {
                 {
                   "kind": "InlineFragment",
                   "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "slug",
+                      "storageKey": null
+                    }
+                  ],
+                  "type": "Sluggable",
+                  "abstractKey": "__isSluggable"
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
                     (v1/*: any*/),
                     {
                       "alias": null,
@@ -168,5 +181,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a6798207882a7d0b51d32ef3c620466b';
+(node as any).hash = '389f7437ca6b4f76eae6c95fcacafc6f';
 export default node;

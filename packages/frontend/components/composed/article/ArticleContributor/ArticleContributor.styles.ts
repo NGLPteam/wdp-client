@@ -6,7 +6,6 @@ export const Inner = styled.div`
   align-items: flex-start;
   width: 100%;
   padding-block: var(--container-padding-lg);
-  border-bottom: 1px solid var(--border-color);
 `;
 
 export const AvatarWrapper = styled.div`
@@ -22,14 +21,6 @@ export const Name = styled.h4``;
 
 export const Roles = styled.div`
   margin-block-start: var(--padding-xs);
-`;
-
-export const Role = styled.span`
-  & + & {
-    &:before {
-      content: " \\2022\  ";
-    }
-  }
 `;
 
 export const Bio = styled.p`
