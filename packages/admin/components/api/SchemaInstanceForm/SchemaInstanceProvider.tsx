@@ -120,7 +120,7 @@ export default function SchemaInstanceProvider({
     <Context.Provider value={context}>
       <form onSubmit={onSubmit}>
         <FormProvider {...form}>
-          <Watcher control={form.control} />
+          {props.watchInConsole && <Watcher control={form.control} />}
           {props.children}
           <Actions
             onCancel={onCancel}
@@ -148,6 +148,11 @@ interface Props {
    * value will be passed through localization first.
    */
   failureNotification?: string;
+  /**
+   * Setting this to true will activate a monitor that will log changes to the form
+   * in the browser console.
+   */
+  watchInConsole?: boolean;
 }
 
 function useExtractContext(props: Props): State {

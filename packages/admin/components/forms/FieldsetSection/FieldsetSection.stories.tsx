@@ -43,7 +43,3 @@ export const InAForm: Story<Props> = (args) => {
 InAForm.args = {
   label: "Example fieldset",
 };
-
-InAForm.argTypes = {
-  name: { control: { disable: true } },
-};

@@ -35,7 +35,3 @@ InAForm.args = {
   hideLabel: false,
   required: false,
 };
-
-InAForm.argTypes = {
-  name: { control: { disable: true } },
-};
