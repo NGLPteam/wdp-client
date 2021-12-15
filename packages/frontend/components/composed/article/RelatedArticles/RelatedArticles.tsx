@@ -12,12 +12,10 @@ export default function RelatedArticles({ data }: Props) {
   return articles?.edges.length ? (
     <section className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
-        <Styled.Header className="t-capitalize">
-          {t("layouts.related_articles_header")}
-        </Styled.Header>
+        <h3 className="t-capitalize">{t("layouts.related_articles_header")}</h3>
         <Styled.List>
-          {articles.edges.map((edge) => (
-            <Styled.ListItem>
+          {articles.edges.map((edge, i) => (
+            <Styled.ListItem key={i}>
               <Styled.ItemTitle>{edge.node.title}</Styled.ItemTitle>
               <Styled.ItemMetadata className="t-copy-lighter">
                 {edge.node.journal?.title && <p>{edge.node.journal.title}</p>}

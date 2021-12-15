@@ -7,11 +7,11 @@ export const Inner = styled.div`
   padding-block-end: var(--container-padding-xlg);
 `;
 
-export const Header = styled.h3``;
-
 export const List = styled.ul`
-  ${lGrid()}
-  row-gap: ${pxToRem(30)};
+  ${lGrid({
+    rowGap: "var(--grid-row-gap-lg)",
+    colGap: "var(--grid-column-gap-lg)",
+  })}
   margin-block-start: var(--padding-xl);
 `;
 
