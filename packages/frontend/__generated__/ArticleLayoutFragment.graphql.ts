@@ -9,6 +9,9 @@ export type ArticleLayoutFragment = {
     readonly relatedItems: {
         readonly " $fragmentRefs": FragmentRefs<"RelatedArticlesFragment">;
     };
+    readonly contributions: {
+        readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "ArticleParentHeaderFragment" | "ArticleHeroFragment" | "ArticleTabNavFragment">;
     readonly " $refType": "ArticleLayoutFragment";
 };
@@ -43,6 +46,22 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemContributionConnection",
+      "kind": "LinkedField",
+      "name": "contributions",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ArticleContributorFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "EntityHTMLHeadFragment"
@@ -71,5 +90,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'b35686d19e30a0d7e6b0dfc5684e62a9';
+(node as any).hash = 'aaf484b87160ecc41aee4c66d99304d2';
 export default node;
