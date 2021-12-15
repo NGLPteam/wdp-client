@@ -9,6 +9,7 @@ export type RelatedArticlesFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly title: string;
+            readonly slug: string;
             readonly published: {
                 readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
             };
@@ -89,6 +90,13 @@ return {
           "plural": false,
           "selections": [
             (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -173,5 +181,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b4fa78e553122caef9cedf9eddf1994a';
+(node as any).hash = '64ea12cda0e90664e1bcaad39d57337b';
 export default node;
