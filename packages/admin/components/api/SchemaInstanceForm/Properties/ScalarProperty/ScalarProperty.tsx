@@ -1,7 +1,5 @@
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import { useFormContext } from "react-hook-form";
-import type { UseFormRegisterReturn, Control } from "react-hook-form";
 
 import type { ScalarPropertyFragment$key } from "@/relay/ScalarPropertyFragment.graphql";
 
@@ -14,8 +12,6 @@ export default function ScalarProperty(props: Props) {
   const { name, label, required, path, type, isWide } =
     useFragment<ScalarPropertyFragment$key>(fragment, props.field);
 
-  const { register, control } = useFormContext();
-
   // If we need to, we could override the label here
 
   const childProps: RenderScalarProps = {
@@ -24,8 +20,6 @@ export default function ScalarProperty(props: Props) {
     required,
     path,
     type,
-    register: register(name),
-    control,
     isWide,
   };
 
@@ -43,8 +37,6 @@ interface RenderScalarProps {
   required: boolean;
   path: string;
   type: string;
-  register: UseFormRegisterReturn;
-  control: Control;
   isWide?: boolean;
 }
 

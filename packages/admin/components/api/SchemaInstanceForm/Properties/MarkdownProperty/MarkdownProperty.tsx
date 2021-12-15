@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-
+import { useFormContext } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
 import Textarea from "components/forms/Textarea";
 import type { MarkdownPropertyFragment$key } from "@/relay/MarkdownPropertyFragment.graphql";
@@ -16,14 +16,16 @@ export default function MarkdownProperty(props: Props) {
     props.field
   );
 
+  const { register } = useFormContext();
+
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ label, required, name, isWide }) => (
         <Textarea
           label={label}
           required={required}
           isWide={isWide}
-          {...register}
+          {...register(name)}
         />
       )}
     </ScalarProperty>

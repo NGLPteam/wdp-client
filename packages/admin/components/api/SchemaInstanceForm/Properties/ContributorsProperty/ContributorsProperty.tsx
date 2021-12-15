@@ -1,9 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import { Controller } from "react-hook-form";
-
-// import Select from "components/forms/Select";
+import { Controller, useFormContext } from "react-hook-form";
 import { useSchemaFormContext } from "../../Context";
 import ScalarProperty from "../ScalarProperty";
 import Multiselect from "components/forms/Multiselect";
@@ -18,9 +16,11 @@ export default function ContributorsProperty(props: Props) {
     props.field
   );
 
+  const { control } = useFormContext();
+
   return (
     <ScalarProperty field={field}>
-      {({ label, required, control, name, isWide }) => (
+      {({ label, required, name, isWide }) => (
         <Controller
           name={name}
           control={control}

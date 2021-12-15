@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-
+import { useFormContext } from "react-hook-form";
 import { useSchemaFormContext } from "../../Context";
 import ScalarProperty from "../ScalarProperty";
 import AssetPropertySelect from "components/forms/AssetPropertySelect";
@@ -13,15 +13,17 @@ export default function AssetProperty(props: Props) {
 
   const field = useFragment<AssetPropertyFragment$key>(fragment, props.field);
 
+  const { register } = useFormContext();
+
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ label, required, name, isWide }) => (
         <AssetPropertySelect
           label={label}
           required={required}
           options={options}
           isWide={isWide}
-          {...register}
+          {...register(name)}
         />
       )}
     </ScalarProperty>
