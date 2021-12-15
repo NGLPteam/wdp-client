@@ -25,7 +25,7 @@
     "react-relay-network-modern": "^6.0.0",
     "react-relay-network-modern-ssr": "^1.4.0",
     "relay-compiler": ">=12.0.0",
-    "relay-compiler-language-typescript": "^14.0.0",
+    "relay-compiler-language-typescript": "^15.0.0",
     "relay-config": "^12.0.0",
     "relay-hooks": "^6.0.0",
     "relay-runtime": "^12.0.0",
