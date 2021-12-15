@@ -18,8 +18,9 @@ export default function MarkdownProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ name, label, required, register, isWide }) => (
         <Textarea
+          name={name}
           label={label}
           required={required}
           isWide={isWide}

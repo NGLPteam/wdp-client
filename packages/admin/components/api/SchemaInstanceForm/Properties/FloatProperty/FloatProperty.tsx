@@ -11,8 +11,9 @@ export default function FloatProperty(props: Props) {
 
   return (
     <ScalarProperty field={field}>
-      {({ label, required, register, isWide }) => (
+      {({ name, label, required, register, isWide }) => (
         <Input
+          name={name}
           label={label}
           required={required}
           type="number"

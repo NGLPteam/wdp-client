@@ -10,7 +10,10 @@ import type { ScalarPropertyFragment$key } from "@/relay/ScalarPropertyFragment.
  * It enables us to provide some normalization for labels and potential future
  * generic interfaces.
  */
-export default function ScalarProperty(props: Props) {
+export default function ScalarProperty({
+  registerName = true,
+  ...props
+}: Props) {
   const { name, label, required, path, type, isWide } =
     useFragment<ScalarPropertyFragment$key>(fragment, props.field);
 
@@ -24,10 +27,13 @@ export default function ScalarProperty(props: Props) {
     required,
     path,
     type,
-    register: register(name, { required }),
     control,
     isWide,
   };
+
+  if (registerName) {
+    childProps.register = register(name, { required });
+  }
 
   return props.children(childProps);
 }
@@ -35,6 +41,7 @@ export default function ScalarProperty(props: Props) {
 interface Props {
   field: ScalarPropertyFragment$key;
   children: RenderScalarProperty;
+  registerName?: boolean;
 }
 
 interface RenderScalarProps {
@@ -43,7 +50,7 @@ interface RenderScalarProps {
   required: boolean;
   path: string;
   type: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   control: Control;
   isWide?: boolean;
 }
