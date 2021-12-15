@@ -51,27 +51,27 @@ const FullTextInput = forwardRef(
             name="kind"
             label={t("forms.full_text.kind_label")}
             options={options}
-            defaultValue={value?.kind || defaultValue?.kind}
-            onChange={handleChange}
+            defaultValue={value?.kind?.toUpperCase() || defaultValue?.kind}
             {...props}
+            onChange={handleChange}
             ref={kindRef}
           />
           <Input
             name="lang"
             label={t("forms.full_text.lang_label")}
-            onChange={handleChange}
             defaultValue={value?.lang || defaultValue?.lang}
-            ref={langRef}
             {...props}
+            onChange={handleChange}
+            ref={langRef}
           />
         </FormGrid>
         <Textarea
           name="content"
           label={t("forms.full_text.content_label")}
-          onChange={handleChange}
           defaultValue={value?.content || defaultValue?.content}
-          ref={contentRef}
           {...props}
+          onChange={handleChange}
+          ref={contentRef}
         />
       </Fieldset>
     );
