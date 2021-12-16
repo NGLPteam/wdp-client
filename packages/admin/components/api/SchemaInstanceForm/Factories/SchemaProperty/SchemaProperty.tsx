@@ -43,6 +43,8 @@ export default function SchemaProperty(props: Props) {
       return <Properties.Tags field={field} />;
     case "FullTextProperty":
       return <Properties.FullText field={field} />;
+    case "URLProperty":
+      return <Properties.URL field={field} />;
     case "VariableDateProperty":
       return <Properties.VariableDate field={field} />;
     default:
@@ -132,6 +134,11 @@ const fragment = graphql`
     ... on FullTextProperty {
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...FullTextPropertyFragment
+    }
+
+    ... on URLProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
+      ...URLPropertyFragment
     }
 
     ... on VariableDateProperty {
