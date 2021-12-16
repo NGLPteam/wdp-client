@@ -20,6 +20,7 @@
       "back": "Back",
       "back_to_top": "Back to Top",
       "download": "Download",
+      "download_name": "Download {{name}}",
       "page_x": "Page {{value}}",
       "pages_x-y": "Pages {{first}} - {{last}}",
       "page_count": "{{count}} Page",
@@ -63,6 +64,13 @@
       "nglp.dissertation_plural": "dissertations",
       "default.collection": "$t(glossary.collection)",
       "default.item": "$t(glossary.item)"
+    },
+    "asset": {
+      "pdf": "PDF",
+      "image": "image",
+      "audio": "audio",
+      "video": "video",
+      "document": "document"
     },
     "metadata": {
       "authored_on": "Authored On",

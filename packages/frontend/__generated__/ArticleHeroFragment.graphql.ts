@@ -15,6 +15,9 @@ export type ArticleHeroFragment = {
     readonly contributions: {
         readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
     };
+    readonly pdfVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
+    } | null;
     readonly " $refType": "ArticleHeroFragment";
 };
 export type ArticleHeroFragment$data = ArticleHeroFragment;
@@ -83,10 +86,32 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": "pdfVersion",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "pdf_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "AssetDownloadButtonFragment"
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '31aa29f024539a840575be86bc6f89ed';
+(node as any).hash = '8c1d93c931c96daeb038ef6508481e0c';
 export default node;
