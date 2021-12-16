@@ -29,3 +29,9 @@ export function fluidScale(
   if (max === min) return max;
   return fluidScaleBase(max, min, defaultMaxVw, defaultMinVw);
 }
+
+export function globalNavRespond(content: CssContent, operator?: string) {
+  const breakpoint = breakpoints[70];
+
+  return respond(content, breakpoint, operator);
+}
