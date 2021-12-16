@@ -3,8 +3,9 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
 import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
-import { DownloadButton, PrecisionDate } from "components/atomic";
+import { PrecisionDate } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
+import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
@@ -34,7 +35,9 @@ export default function ArticleHero({ data }: Props) {
           {article.summary && (
             <Styled.Summary>{article.summary}</Styled.Summary>
           )}
-          <DownloadButton>Download PDF</DownloadButton>
+          {article.pdfVersion && (
+            <AssetDownloadButton data={article.pdfVersion} />
+          )}
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
           <div>
@@ -60,6 +63,9 @@ const fragment = graphql`
     }
     contributions {
       ...ContributorsListFragment
+    }
+    pdfVersion: schemaProperty(fullPath: "pdf_version") {
+      ...AssetDownloadButtonFragment
     }
   }
 `;
