@@ -18,6 +18,9 @@ export type ArticleMetadataBlockFragment = {
     readonly volumeIdMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
+    readonly onlineVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
     readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
     readonly " $refType": "ArticleMetadataBlockFragment";
 };
@@ -108,6 +111,22 @@ return {
       "storageKey": "schemaProperty(fullPath:\"volume.id\")"
     },
     {
+      "alias": "onlineVersion",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "online_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"online_version\")"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ArticleIssueMetadataFragment"
@@ -117,5 +136,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '93536426889fbbdf328234f498e9c45b';
+(node as any).hash = '6505a72ba4724e33787e8e6799fd1912';
 export default node;
