@@ -9,6 +9,9 @@ export type EntityContentLayoutFactoryFragment = {
     readonly schemaDefinition?: {
         readonly identifier: string;
     } | undefined;
+    readonly contributions?: {
+        readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
+    } | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "JournalLayoutFragment" | "JournalInfoFragment" | "IssueLayoutFragment" | "IssueSummaryFragment" | "ArticleLayoutFragment" | "ArticleTextFragment">;
     readonly " $refType": "EntityContentLayoutFactoryFragment";
 };
@@ -83,6 +86,22 @@ return {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ItemContributionConnection",
+          "kind": "LinkedField",
+          "name": "contributions",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ArticleContributorFragment"
+            }
+          ],
+          "storageKey": null
+        },
         (v1/*: any*/),
         {
           "args": null,
@@ -103,5 +122,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '9f4f8a5484c5c71c33f829fdf8510815';
+(node as any).hash = 'd8f785d1e4fbc122ba43ae257ea9660c';
 export default node;
