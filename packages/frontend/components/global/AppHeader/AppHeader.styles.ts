@@ -63,3 +63,11 @@ export const MobileRight = styled.div`
 
   ${globalNavRespond(`display: none`, "min")}
 `;
+
+export const MobileList = styled.div`
+  padding-block-start: ${pxToRem(30)};
+
+  > * + * {
+    margin-block-start: ${pxToRem(35)};
+  }
+`;

@@ -7,13 +7,14 @@ import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
 import { useWindowSize } from "@wdp/lib/hooks";
 import { breakpoints } from "theme/base/variables";
-import MobileMenuToggle from "../../layout/MobileMenuToggle";
-import MobileMenu from "../../layout/MobileMenu";
-import InstallationName from "../../composed/instance/InstallationName";
-import CommunityPicker from "../../composed/instance/InstallationName/CommunityPicker";
+import MobileMenuToggle from "components/layout/MobileMenuToggle";
+import MobileMenu from "components/layout/MobileMenu";
+import InstallationName from "components/composed/instance/InstallationName";
+import CommunityPicker from "components/composed/instance/InstallationName/CommunityPicker";
+import AccountDropdown from "components/composed/viewer/AccountDropdown";
+import Search from "components/forms/Search";
 import * as Styled from "./AppHeader.styles";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
-import AccountDropdown from "components/composed/viewer/AccountDropdown";
 
 function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);
@@ -71,7 +72,10 @@ function AppHeader({ data }: Props) {
         onClose={toggleActive}
         data={appData}
       >
-        test
+        <Styled.MobileList>
+          <Search />
+          <AccountDropdown leftAvatar />
+        </Styled.MobileList>
       </MobileMenu>
     </Styled.Header>
   );
