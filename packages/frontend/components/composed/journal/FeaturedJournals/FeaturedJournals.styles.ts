@@ -1,11 +1,10 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
-import { tLineClamp } from "theme/mixins";
+import { respond, fluidScale, tLineClamp } from "theme/mixins";
 
 export const Section = styled.div`
   position: relative;
-  padding-block-end: ${pxToRem(100)};
 
   &::before {
     content: "";
@@ -26,10 +25,13 @@ export const List = styled.ul`
   max-width: ${containerWidths.max};
   margin: 0 auto;
   justify-content: center;
+
+  ${respond(`flex-wrap: wrap;`, 100)}
+  ${respond(`flex-direction: column;`, 50)}
 `;
 
 export const ListItem = styled.li`
-  flex: 1 1 100%;
+  flex: 1 1 30%;
   z-index: 1;
 `;
 
@@ -61,7 +63,7 @@ export const ItemText = styled.div`
   padding-inline-start: ${pxToRem(30)};
   padding-inline-end: ${pxToRem(30)};
   padding-block-start: ${pxToRem(20)};
-  padding-block-end: ${pxToRem(30)};
+  padding-block-end: ${fluidScale("80px", "60px")};
   text-align: center;
   height: 100%;
 `;
@@ -85,4 +87,5 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-block-start: ${pxToRem(50)};
+  padding-block-end: ${fluidScale("96px", "80px")};
 `;

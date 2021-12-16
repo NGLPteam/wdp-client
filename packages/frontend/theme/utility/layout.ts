@@ -3,7 +3,6 @@
 import { css } from "styled-components";
 import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 import { containerWidths } from "../base/variables";
-import { fluidScale } from "theme/mixins";
 
 const COLUMNS = 12;
 
