@@ -66,6 +66,10 @@ export type SchemaPropertyFragment = {
     readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
     readonly " $refType": "SchemaPropertyFragment";
 } | {
+    readonly __typename: "URLProperty";
+    readonly " $fragmentRefs": FragmentRefs<"URLPropertyFragment">;
+    readonly " $refType": "SchemaPropertyFragment";
+} | {
     readonly __typename: "VariableDateProperty";
     readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
     readonly " $refType": "SchemaPropertyFragment";
@@ -282,6 +286,18 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
+          "name": "URLPropertyFragment"
+        }
+      ],
+      "type": "URLProperty",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
           "name": "VariableDatePropertyFragment"
         }
       ],
@@ -292,5 +308,5 @@ const node: ReaderFragment = {
   "type": "AnyScalarProperty",
   "abstractKey": "__isAnyScalarProperty"
 };
-(node as any).hash = '729cb89148606cf7cb0f680491aaa207';
+(node as any).hash = '7a8f5c6450117eec0c3307cf4e16ed90';
 export default node;
