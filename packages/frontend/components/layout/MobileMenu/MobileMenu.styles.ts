@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { noInsetSupport } from "@wdp/lib/theme/mixins";
 import { reducedMotion } from "@castiron/style-mixins";
+import { slideDrawerIn, slideDrawerOut } from "theme/base/animations";
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -13,6 +14,7 @@ export const Wrapper = styled.div`
   z-index: 1000;
   inset-block: 0;
   inset-inline-end: 0;
+  transform: translateX(100%);
 
   ${reducedMotion(css`
     opacity: 0;
@@ -24,6 +26,24 @@ export const Wrapper = styled.div`
     right: 0;
     bottom: 0;
   `)}
+
+  &[data-leave="true"] {
+    animation: ${slideDrawerOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+
+    ${reducedMotion(`
+      animation: none;
+    `)}
+  }
+
+  &[data-enter="true"] {
+    animation: ${slideDrawerIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
+
+    ${reducedMotion(`
+      animation: none;
+      transform: translateX(0);
+      opacity: 1;
+    `)}
+  }
 `;
 
 export const Header = styled.div`

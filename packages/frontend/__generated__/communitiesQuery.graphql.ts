@@ -32,6 +32,7 @@ fragment AppFooterFragment on Query {
 
 fragment AppHeaderFragment on Query {
   ...InstallationNameFragment
+  ...CommunityPickerFragment
 }
 
 fragment BaseLayoutFragment on Query {
@@ -134,12 +135,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "8fd0970c5f6bc3d8e705538fecef2c4f",
+    "cacheID": "7c79ab417264ba04de1d6f681c79f6e6",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n  ...CommunityPickerFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 (node as any).hash = '0cf5c758637bfb6b250320f179f94ffd';
