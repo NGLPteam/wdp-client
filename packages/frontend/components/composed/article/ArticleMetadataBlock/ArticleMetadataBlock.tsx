@@ -38,6 +38,14 @@ export default function ArticleMetadataBlock({ data }: Props) {
             />
           </Styled.ListItem>
         )}
+        {entity.onlineVersion && (
+          <Styled.ListItem>
+            <MetadataFactory
+              label={t("layouts.online_version_label")}
+              data={entity.onlineVersion}
+            />
+          </Styled.ListItem>
+        )}
         {entity && (
           <Styled.ListItem>
             <ArticleIssueMetadata data={entity} />
@@ -64,6 +72,9 @@ const fragment = graphql`
       ...MetadataFactoryFragment
     }
     volumeIdMeta: schemaProperty(fullPath: "volume.id") {
+      ...MetadataFactoryFragment
+    }
+    onlineVersion: schemaProperty(fullPath: "online_version") {
       ...MetadataFactoryFragment
     }
     ...ArticleIssueMetadataFragment
