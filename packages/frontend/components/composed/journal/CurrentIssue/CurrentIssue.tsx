@@ -25,7 +25,7 @@ export default function CurrentIssue({ data }: Props) {
 
   return issue ? (
     <section className="a-bg-neutral00">
-      <Styled.Inner className="l-container-wide l-grid">
+      <Styled.Inner className="l-container-wide" $hasImage={hasImage}>
         {hasImage && (
           <NamedLink
             route="collection"
@@ -41,7 +41,7 @@ export default function CurrentIssue({ data }: Props) {
             </Styled.ImageBlock>
           </NamedLink>
         )}
-        <Styled.TextBlock $hasImage={hasImage}>
+        <Styled.TextBlock>
           <Styled.TitleBlock>
             <h3>
               <NamedLink
