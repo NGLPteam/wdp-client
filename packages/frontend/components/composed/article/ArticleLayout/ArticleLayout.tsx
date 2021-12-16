@@ -5,7 +5,6 @@ import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
 import RelatedArticles from "../RelatedArticles";
-import ArticleContributor from "../ArticleContributor";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
@@ -21,7 +20,6 @@ export default function ArticleLayout({ data, children }: Props) {
       <ArticleHero data={article} />
       <ArticleTabNav data={article} />
       {children}
-      <ArticleContributor data={article?.contributions} />
       <RelatedArticles data={article?.relatedItems} />
     </>
   );
@@ -43,9 +41,6 @@ const fragment = graphql`
     ...ArticleTabNavFragment
     relatedItems {
       ...RelatedArticlesFragment
-    }
-    contributions {
-      ...ArticleContributorFragment
     }
   }
 `;

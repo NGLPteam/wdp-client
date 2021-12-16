@@ -4,7 +4,7 @@ import { lGrid, respond } from "theme/mixins";
 
 export const SectionInner = styled.div`
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-xlg);
 `;
 
 export const List = styled.ul`
