@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
+import { lGrid, respond } from "theme/mixins";
 
 export const FooterWrapper = styled.footer`
   padding-block-start: var(--container-padding-xlg);
@@ -6,13 +8,38 @@ export const FooterWrapper = styled.footer`
 `;
 
 export const FooterInner = styled.div`
-  display: grid;
-  grid-template:
-    "community . search" auto
-    "about . nav" auto
-    "copyright copyright copyright" auto
-    / minmax(auto, 473px) 1fr minmax(auto, 376px);
-  gap: 40px var(--grid-column-gap);
+  ${lGrid({
+    rowGap: "var(--padding-xl)",
+  })}
+
+  grid-template-areas:
+    "community community community community community . . . search search search search"
+    "about about about about about . . . nav nav nav nav"
+    "copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright";
+
+  ${respond(
+    `
+    grid-template-areas:
+    "community community community community community community . search search search search search"
+    "about about about about about about . nav nav nav nav nav"
+    "copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright";
+    `,
+    120
+  )}
+
+  ${respond(
+    `
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "community"
+      "search"
+      "nav"
+      "about"
+      "copyright";
+    row-gap: ${pxToRem(60)};
+  `,
+    70
+  )}
 `;
 
 export const CommunityNameWrapper = styled.div`
