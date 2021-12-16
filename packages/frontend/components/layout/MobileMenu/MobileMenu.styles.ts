@@ -56,7 +56,9 @@ export const Header = styled.div`
   padding-inline-end: var(--padding-md);
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  height: 100%;
+`;
 
 export const Inner = styled.div``;
 
