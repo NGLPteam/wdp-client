@@ -1,1 +1,1 @@
-export { default } from "./MobileNavMenu";
+export { default } from "./MobileMenu";

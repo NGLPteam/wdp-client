@@ -5,7 +5,10 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import * as Styled from "./MobileMenu.styles";
 
 const MobileMenu = forwardRef(
-  ({ children, active, id, onClose }: Props, ref: Ref<HTMLInputElement>) => {
+  (
+    { children, active, id, onClose, data }: Props,
+    ref: Ref<HTMLInputElement>
+  ) => {
     const { t } = useTranslation();
     const prevActive = useRef(false);
 
@@ -22,8 +25,8 @@ const MobileMenu = forwardRef(
         data-leave={!active && active !== prevActive.current}
         data-enter={active}
       >
-        <Styled.Header>
-          <CommunityPicker />
+        <Styled.Header className="l-container-wide">
+          <CommunityPicker data={data} />
           <MobileMenuToggle
             onToggle={onClose}
             icon="close"
@@ -46,6 +49,7 @@ type Props = {
   active: boolean;
   id: string;
   onClose: () => void;
+  data: any;
 };
 
 export default MobileMenu;
