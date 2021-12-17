@@ -18,7 +18,7 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
 
   return issues?.edges && issues.edges.length > 0 ? (
     <section className="a-bg-neutral90">
-      <Styled.SectionInner>
+      <Styled.SectionInner className="l-container-wide">
         <Styled.HeaderBlock>
           <h3 className="t-capitalize">
             {t("layouts.featured_issues_header")}
@@ -34,13 +34,15 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
           )}
         </Styled.List>
         {slug && (
-          <NamedLink route="collection" routeParams={{ slug }} passHref>
-            <Button as="a">
-              <span className="t-capitalize">
-                {t("layouts.see_all_issues")}
-              </span>
-            </Button>
-          </NamedLink>
+          <Styled.ButtonWrapper>
+            <NamedLink route="collection" routeParams={{ slug }} passHref>
+              <Button as="a">
+                <span className="t-capitalize">
+                  {t("layouts.see_all_issues")}
+                </span>
+              </Button>
+            </NamedLink>
+          </Styled.ButtonWrapper>
         )}
       </Styled.SectionInner>
     </section>

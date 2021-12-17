@@ -1,9 +1,10 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { fluidScale, lGrid, respond } from "theme/mixins";
 
 export const Section = styled.section`
-  padding-block-start: ${pxToRem(100)};
-  padding-block-end: ${pxToRem(100)};
+  padding-block-start: ${fluidScale("100px", "80px")};
+  padding-block-end: ${fluidScale("100px", "80px")};
 
   > * + * {
     margin-block-start: ${pxToRem(50)};
@@ -19,12 +20,15 @@ export const HeaderText = styled.h3`
 `;
 
 export const List = styled.ul`
-  display: grid;
-  column-gap: ${pxToRem(36)};
-  grid-template-columns: repeat(4, 1fr);
-`;
+  ${lGrid({
+    columns: 4,
+    colGap: pxToRem(36),
+    rowGap: pxToRem(60),
+  })}
 
-export const ListItem = styled.li``;
+  ${respond(`grid-template-columns: repeat(2, 1fr);`, 70)}
+  ${respond(`grid-template-columns: 1fr;`, 50)}
+`;
 
 export const ItemLink = styled.a`
   display: block;
@@ -34,6 +38,8 @@ export const ItemCover = styled.div`
   > figure > span {
     border: 1px solid var(--color-base-neutral20) !important;
   }
+
+  ${respond(`max-width: ${pxToRem(140)};`, 50)}
 `;
 
 export const ItemText = styled.div`

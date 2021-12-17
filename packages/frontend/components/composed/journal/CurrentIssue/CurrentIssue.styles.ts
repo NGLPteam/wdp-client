@@ -1,24 +1,50 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import { lGrid, respond } from "theme/mixins";
 
 interface BaseProps {
   $hasImage?: boolean;
 }
 
-export const Inner = styled.div`
+const innerWithImage = `
+  grid-template-areas: "image image image . text text text text text text text text";
+  ${respond(
+    `
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "image"
+      "text";
+  `,
+    70
+  )}
+`;
+
+const innerWithoutImage = `
+  grid-template-areas: ". text text text text text text text text text text .";
+  ${respond(
+    `
+    grid-template-columns: 1fr;
+    grid-template-areas: "text";
+  `,
+    70
+  )}
+`;
+
+export const Inner = styled.div<BaseProps>`
   padding-block: ${pxToRem(100)};
+
+  ${lGrid()}
+
+  ${({ $hasImage }) => ($hasImage ? innerWithImage : innerWithoutImage)}
 `;
 
 export const ImageBlock = styled.div`
-  grid-column: 1 / span 3;
-  grid-row: 1 / span 2;
+  grid-area: image;
   margin-block-end: ${pxToRem(20)};
 `;
 
-export const TextBlock = styled.div<BaseProps>`
-  grid-column: 2 / 12;
-
-  ${({ $hasImage }) => $hasImage && `grid-column: 5 / span 8;`};
+export const TextBlock = styled.div`
+  grid-area: text;
 `;
 
 export const TitleBlock = styled.div`

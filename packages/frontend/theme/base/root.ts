@@ -2,6 +2,7 @@ import { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { baseColors, borderRadius, customColors, zIndex } from "./variables";
 import { getColorsByKey } from "./functions";
+import { fluidScale } from "theme/mixins";
 
 function setCustomColors(colorName: string) {
   const colors = getColorsByKey(colorName, customColors);
@@ -21,7 +22,7 @@ function setBaseColors() {
 
 export const baseFontStyles = css`
   --font-face-header: sans-serif;
-  --font-size-h1: 60px;
+  --font-size-h1: ${fluidScale("60px", "54px")};
   --line-height-h1: 66px;
   --font-size-h2: 46px;
   --line-height-h2: 54px;
@@ -159,6 +160,8 @@ export default css`
     --container-padding-lg: ${pxToRem(60)};
     --container-padding-sm: ${pxToRem(36)};
     --container-padding-xs: ${pxToRem(24)};
+    --container-v-padding: ${fluidScale("60px", "30px")};
+    --container-v-padding-sm: ${fluidScale("60px", "20px")};
 
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};

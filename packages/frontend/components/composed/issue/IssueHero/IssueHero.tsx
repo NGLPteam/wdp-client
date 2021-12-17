@@ -1,12 +1,17 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueHero.styles";
 import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
 import CoverImage from "components/atomic/CoverImage";
+import { DotList, PrecisionDate } from "components/atomic";
+import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   return issue ? (
     <header>
@@ -15,33 +20,55 @@ export default function IssueHero({ data }: Props) {
           {issue.journal && (
             <>
               <Styled.Title>{issue.journal.title}</Styled.Title>
-              <Styled.JournalMeta className="l-flex">
+              <Styled.JournalMeta>
                 <div>Journal subtitle goes here</div>
               </Styled.JournalMeta>
             </>
           )}
-          <Styled.IssueWrapper className="l-flex">
-            {issue.thumbnail?.storage && (
-              <CoverImage
-                data={issue.thumbnail}
-                maxWidth={225}
-                maxHeight={300}
-              />
-            )}
-            <Styled.IssueMeta>
-              <Styled.Issue className="l-flex">
-                {issue.title}
-                {issue.volume && (
-                  <Styled.Volume>{issue.volume.title}</Styled.Volume>
+          <Styled.IssueWrapper>
+            <Styled.IssueText>
+              {issue.thumbnail?.storage && (
+                <CoverImage
+                  data={issue.thumbnail}
+                  maxWidth={225}
+                  maxHeight={300}
+                />
+              )}
+              <Styled.Issue>
+                <h3>
+                  {issue.title}
+                  {issue.volume && (
+                    <Styled.Volume className="t-copy-lighter">
+                      {issue.volume.title}
+                    </Styled.Volume>
+                  )}
+                </h3>
+                {issue.summary && (
+                  <Styled.Description>
+                    <DotList className="t-copy-lighter">
+                      {issue.published && (
+                        <li>
+                          <PrecisionDate
+                            data={issue.published}
+                            label={t("common.published")}
+                          />
+                        </li>
+                      )}
+                      <li>Metadata</li>
+                    </DotList>
+                    <p>{issue.summary}</p>
+                  </Styled.Description>
+                )}
+                {issue.pdfVersion && (
+                  <AssetDownloadButton data={issue.pdfVersion} />
                 )}
               </Styled.Issue>
-              {issue.summary && (
-                <Styled.Description>{issue.summary}</Styled.Description>
-              )}
+            </Styled.IssueText>
+            <Styled.IssueMeta>
               {issue.doi && (
-                <Styled.DOI className="t-label-sm">
+                <span className="t-label-sm">
                   DOI: <Styled.Number>{issue.doi}</Styled.Number>
-                </Styled.DOI>
+                </span>
               )}
             </Styled.IssueMeta>
           </Styled.IssueWrapper>
@@ -60,6 +87,9 @@ const fragment = graphql`
     title
     summary
     doi
+    published {
+      ...PrecisionDateFragment
+    }
     thumbnail {
       storage
       ...CoverImageFragment
@@ -73,6 +103,9 @@ const fragment = graphql`
       ... on Collection {
         title
       }
+    }
+    pdfVersion: schemaProperty(fullPath: "pdf_version") {
+      ...AssetDownloadButtonFragment
     }
   }
 `;

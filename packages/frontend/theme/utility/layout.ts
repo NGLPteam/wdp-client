@@ -24,24 +24,24 @@ function createItems() {
 
 export default css`
   .l-container-max {
-    max-width: calc(${containerWidths.max} + (var(--grid-column-gap) * 2));
+    max-width: calc(${containerWidths.max} + (var(--container-v-padding) * 2));
     margin-inline-start: auto;
     margin-inline-end: auto;
-    padding-inline-start: var(--grid-column-gap);
-    padding-inline-end: var(--grid-column-gap);
+    padding-inline-start: var(--container-v-padding);
+    padding-inline-end: var(--container-v-padding);
   }
 
   .l-container-wide {
-    max-width: calc(${containerWidths.wide} + (var(--grid-column-gap) * 2));
+    max-width: calc(${containerWidths.wide} + (var(--container-v-padding) * 2));
     margin-inline-start: auto;
     margin-inline-end: auto;
-    padding-inline-start: var(--grid-column-gap);
-    padding-inline-end: var(--grid-column-gap);
+    padding-inline-start: var(--container-v-padding);
+    padding-inline-end: var(--container-v-padding);
   }
 
   .l-container-wide--p-lg {
     padding-block-start: var(--container-padding-lg);
-    padding-block-end: var(--container-padding-xlg);
+    padding-block-end: var(--container-padding-lg);
   }
 
   .l-grid {

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { tLabel } from "theme/mixins";
 
 export const List = styled.ul`
-  padding-block-start: var(--container-padding-lg);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   overflow-x: auto;

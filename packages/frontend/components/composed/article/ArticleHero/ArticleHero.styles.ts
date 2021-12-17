@@ -1,14 +1,14 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { respond, lGrid } from "theme/mixins";
+import { respond, lGrid, fluidScale } from "theme/mixins";
 
-const MOBILE_BREAK = 70;
+const MOBILE_BREAK = 100;
 
 export const HeroInner = styled.div`
   ${lGrid()}
   grid-template-areas: "left left left left left left left left . right right right";
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: ${fluidScale("60px", "50px")};
+  padding-block-end: ${fluidScale("60px", "50px")};
 
   ${respond(
     `
@@ -28,6 +28,18 @@ export const LeftSide = styled.div`
 
 export const RightSide = styled.div`
   grid-area: right;
+
+  > * + * {
+    margin-block-start: var(--padding-rg);
+  }
+
+  ${respond(
+    `
+    border-top: 1px solid var(--border-color);
+    padding-block-start: var(--padding-rg);
+  `,
+    MOBILE_BREAK
+  )}
 `;
 
 export const TitleBlock = styled.div`

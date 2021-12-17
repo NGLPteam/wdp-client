@@ -1,11 +1,12 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
-import { tLineClamp } from "theme/mixins";
+import { respond, fluidScale, tLineClamp } from "theme/mixins";
+
+const DESKTOP_BREAK = 100;
 
 export const Section = styled.div`
   position: relative;
-  padding-block-end: ${pxToRem(100)};
 
   &::before {
     content: "";
@@ -18,6 +19,8 @@ export const Section = styled.div`
     );
     width: 100vw;
     z-index: 0;
+
+    ${respond(`display: none;`, DESKTOP_BREAK)}
   }
 `;
 
@@ -26,10 +29,13 @@ export const List = styled.ul`
   max-width: ${containerWidths.max};
   margin: 0 auto;
   justify-content: center;
+
+  ${respond(`flex-wrap: wrap;`, DESKTOP_BREAK)}
+  ${respond(`flex-direction: column;`, 50)}
 `;
 
 export const ListItem = styled.li`
-  flex: 1 1 100%;
+  flex: 1 1 30%;
   z-index: 1;
 `;
 
@@ -40,16 +46,17 @@ export const ItemLink = styled.a`
 `;
 
 export const ItemCover = styled.div`
+  --FeaturedJournals-cover-v-padding: ${fluidScale("36px", "60px")};
   flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(
     var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
-      var(--container-padding-sm) * 2
+      var(--FeaturedJournals-cover-v-padding) * 2
   );
-  padding-block-start: var(--container-padding-sm);
-  padding-block-end: var(--container-padding-sm);
+  padding-block-start: var(--FeaturedJournals-cover-v-padding);
+  padding-block-end: var(--FeaturedJournals-cover-v-padding);
   padding-inline: var(--container-padding-sm);
 `;
 
@@ -61,7 +68,7 @@ export const ItemText = styled.div`
   padding-inline-start: ${pxToRem(30)};
   padding-inline-end: ${pxToRem(30)};
   padding-block-start: ${pxToRem(20)};
-  padding-block-end: ${pxToRem(30)};
+  padding-block-end: ${fluidScale("80px", "60px")};
   text-align: center;
   height: 100%;
 `;
@@ -85,4 +92,5 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-block-start: ${pxToRem(50)};
+  padding-block-end: ${fluidScale("96px", "80px")};
 `;

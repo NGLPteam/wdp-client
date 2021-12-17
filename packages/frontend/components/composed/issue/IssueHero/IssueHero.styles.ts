@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import { lGrid, respond } from "theme/mixins";
 
 export const HeroInner = styled.div`
   padding-block-start: var(--container-padding-sm);
@@ -11,6 +12,7 @@ export const Title = styled.h2`
 `;
 
 export const JournalMeta = styled.div`
+  display: flex;
   justify-content: space-between;
   padding-block-end: var(--padding-rg);
   border-bottom: 1px solid var(--color-base-neutral70);
@@ -21,25 +23,52 @@ export const Number = styled.span`
 `;
 
 export const IssueWrapper = styled.div`
-  width: 100%;
-  flex-wrap: nowrap;
+  ${lGrid({
+    rowGap: "var(--padding-xl)",
+  })}
   padding-block-start: ${pxToRem(46)};
+`;
 
-  > * {
-    flex-grow: 1;
-  }
+export const IssueText = styled.div`
+  grid-column: 1 / 9;
+  display: flex;
 
-  > * + * {
-    margin-inline-start: ${pxToRem(42)};
-  }
+  ${respond(`grid-column: 1 / -1;`, 100)}
+  ${respond(`flex-wrap: wrap;`, 50)}
 `;
 
 export const IssueMeta = styled.div`
-  max-width: ${pxToRem(596)};
+  grid-column: 10 / -1;
+
+  ${respond(
+    `
+    grid-column: 1 / -1;
+    padding-block-start: var(--padding-rg);
+    border-top: 1px solid var(--border-color);
+  `,
+    100
+  )}
+
+  > * + * {
+    margin-block-start: var(--padding-rg);
+  }
 `;
 
-export const Issue = styled.h3`
+export const Issue = styled.div`
   margin-block-end: var(--padding-rg);
+  margin-inline-start: ${pxToRem(38)};
+
+  ${respond(
+    `
+    margin-inline-start: 0;
+    margin-block-start: ${pxToRem(42)};
+  `,
+    50
+  )}
+
+  > * + * {
+    margin-block-start: var(--padding-md);
+  }
 `;
 
 export const Volume = styled.span`
@@ -49,8 +78,8 @@ export const Volume = styled.span`
 
 export const Description = styled.div`
   margin-block-end: var(--padding-md);
-`;
 
-export const DOI = styled.div`
-  margin-block-start: var(--padding-sm);
+  > * + * {
+    margin-block-start: var(--padding-xs);
+  }
 `;

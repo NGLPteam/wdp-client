@@ -5,9 +5,8 @@ import { respond } from "theme/mixins";
 export const ListItem = styled.li`
   grid-column: span 3;
 
-  ${respond(`grid-column: span 4;`, 100)}
-  ${respond(`grid-column: span 6;`, 70)}
-  ${respond(`grid-column: span 12;`, 30)}
+  ${respond(`grid-column: span 6;`, 100)}
+  ${respond(`grid-column: span 12;`, 70)}
 `;
 
 export const ItemLink = styled.a`

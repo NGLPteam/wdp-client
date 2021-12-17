@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { routeQueryArrayToString } from "@wdp/lib/routes";
+import { useRouter } from "next/router";
 import * as Styled from "./ArticleTabNav.styles";
 import {
   ArticleTabNavFragment$data,
   ArticleTabNavFragment$key,
 } from "@/relay/ArticleTabNavFragment.graphql";
 import { NamedLink } from "components/atomic";
+import { RouteHelper } from "routes";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
 export default function ArticleTabNav({ data }: Props) {
   const nav = useMaybeFragment(fragment, data);
-  const slug = useRouteSlug();
+
+  const {
+    query: { slug: slugQuery, page: pageQuery },
+  } = useRouter();
+
+  const slug = routeQueryArrayToString(slugQuery);
+
+  const page = routeQueryArrayToString(pageQuery);
+
+  const activeRoute = useMemo(() => {
+    return RouteHelper.activeRoute();
+  }, []);
 
   function getLink(route: string, label: string, pageSlug?: string) {
+    const isCurrent =
+      activeRoute?.name === route && (!pageSlug || pageSlug === page);
+
     return slug ? (
       <Styled.Item key={route === "item.page" ? pageSlug : route}>
         <NamedLink
@@ -23,7 +39,9 @@ export default function ArticleTabNav({ data }: Props) {
           routeParams={pageSlug ? { slug, page: pageSlug } : { slug }}
           passHref
         >
-          <Styled.TabLink aria-current={undefined}>{label}</Styled.TabLink>
+          <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
+            {label}
+          </Styled.TabLink>
         </NamedLink>
       </Styled.Item>
     ) : null;

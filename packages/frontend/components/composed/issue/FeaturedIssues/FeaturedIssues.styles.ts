@@ -1,24 +1,25 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { fluidScale, tLabel, tLineClamp } from "theme/mixins";
+import { lGrid, respond, tLabel, tLineClamp } from "theme/mixins";
 
 export const SectionInner = styled.div`
+  ${lGrid({ rowGap: "var(--padding-lg)" })}
   padding-block-start: ${pxToRem(100)};
   padding-block-end: ${pxToRem(100)};
-  max-width: ${pxToRem(964)};
-  margin-inline: auto;
 `;
 
 export const HeaderBlock = styled.header`
   border-bottom: 1px solid var(--border-color);
   padding-block-end: var(--padding-rg);
-  margin-block-end: var(--padding-xl);
+  grid-column: 2 / 12;
+  ${respond(`grid-column: 1 / -1;`, 70)}
 `;
 
 export const List = styled.ul`
   border-bottom: 1px solid var(--border-color);
   padding-block-end: var(--padding-xl);
-  margin-block-end: var(--padding-xl);
+  grid-column: 2 / 12;
+  ${respond(`grid-column: 1 / -1;`, 70)}
 `;
 
 export const ListItem = styled.li`
@@ -27,14 +28,20 @@ export const ListItem = styled.li`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  grid-column: 2 / 12;
+  ${respond(`grid-column: 1 / -1;`, 70)}
+`;
+
 export const ItemLink = styled.a`
   display: flex;
+  ${respond(`flex-wrap: wrap;`, 50)}
 `;
 
 export const ItemCoverBlock = styled.div`
   margin-inline-end: var(--padding-lg);
-  flex: 0 0 auto;
-  max-width: ${fluidScale("120px", "70px", 70)};
+  flex: 0 0 120px;
+  ${respond(`margin-block-end: var(--padding-lg);`, 50)}
 `;
 
 export const ItemTitleBlock = styled.div`

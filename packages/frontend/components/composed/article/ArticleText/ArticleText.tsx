@@ -82,9 +82,11 @@ export default function ArticleText({ data }: Props) {
           </Styled.TOCBlock>
         )}
         <Styled.TextBlock ref={textEl}>
-          <Styled.ImageBlock>
-            <ContentImage data={article.thumbnail} />
-          </Styled.ImageBlock>
+          {article.thumbnail?.storage && (
+            <Styled.ImageBlock>
+              <ContentImage data={article.thumbnail} />
+            </Styled.ImageBlock>
+          )}
           {renderContent()}
         </Styled.TextBlock>
       </Styled.BodyInner>
@@ -103,6 +105,7 @@ interface Props {
 const fragment = graphql`
   fragment ArticleTextFragment on Item {
     thumbnail {
+      storage
       ...ContentImageFragment
     }
     bodyText: schemaProperty(fullPath: "body") {
