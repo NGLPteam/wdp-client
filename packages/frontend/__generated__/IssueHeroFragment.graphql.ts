@@ -10,6 +10,9 @@ export type IssueHeroFragment = {
     readonly title: string;
     readonly summary: string | null;
     readonly doi: string | null;
+    readonly published: {
+        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
+    };
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
@@ -19,6 +22,9 @@ export type IssueHeroFragment = {
     } | null;
     readonly volume: {
         readonly title?: string | undefined;
+    } | null;
+    readonly pdfVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     } | null;
     readonly " $refType": "IssueHeroFragment";
 };
@@ -67,6 +73,22 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "doi",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "published",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        }
+      ],
       "storageKey": null
     },
     {
@@ -123,11 +145,33 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
+    },
+    {
+      "alias": "pdfVersion",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "pdf_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "AssetDownloadButtonFragment"
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '5ece98f24d7c10ae37e837d5a9dfc12e';
+(node as any).hash = 'aeefcfc58733c05b4dd81638b8ba7edf';
 export default node;

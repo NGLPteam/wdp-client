@@ -157,7 +157,7 @@ export default css`
 
     /* container */
     --container-padding-xlg: ${pxToRem(120)};
-    --container-padding-lg: ${pxToRem(60)};
+    --container-padding-lg: ${fluidScale("60px", "80px")};
     --container-padding-sm: ${pxToRem(36)};
     --container-padding-xs: ${pxToRem(24)};
     --container-v-padding: ${fluidScale("60px", "30px")};
