@@ -1,4 +1,5 @@
 import { Story } from "@storybook/react";
+import { Button } from "..";
 import Dropdown from "./Dropdown";
 
 type Props = React.ComponentProps<typeof Dropdown>;
@@ -22,14 +23,27 @@ const MENU_ITEMS = [
 
 const Template: Story<Props> = (args) => (
   <>
-    <Dropdown {...args} />
-    <Dropdown {...args} />
+    <Dropdown
+      {...args}
+      disclosure={
+        <Button size="sm" icon="chevronDown">
+          Toggle
+        </Button>
+      }
+    />{" "}
+    <Dropdown
+      {...args}
+      disclosure={
+        <Button size="sm" icon="chevronDown" secondary>
+          Toggle
+        </Button>
+      }
+    />
   </>
 );
 
 export const Default = Template.bind({});
 Default.args = {
   label: "Example",
-  disclosure: <button>Toggle</button>,
   menuItems: MENU_ITEMS,
 };

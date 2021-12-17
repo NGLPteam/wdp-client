@@ -8,8 +8,6 @@ export const Nav = styled.div`
 `;
 
 export const NavInner = styled.div`
-  --button-secondary-bg-color: var(--color-custom10);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
