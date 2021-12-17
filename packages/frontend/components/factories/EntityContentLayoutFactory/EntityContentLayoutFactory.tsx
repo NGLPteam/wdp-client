@@ -36,10 +36,12 @@ export default function EntityContentLayoutFactory({ data, children }: Props) {
     case "article":
     case "journal_article":
       return (
-        <ArticleLayout data={entity}>
-          <ArticleText data={entity} />
+        <>
+          <ArticleLayout data={entity}>
+            <ArticleText data={entity} />
+          </ArticleLayout>
           <ArticleContributor data={entity?.contributions} />
-        </ArticleLayout>
+        </>
       );
       break;
 
