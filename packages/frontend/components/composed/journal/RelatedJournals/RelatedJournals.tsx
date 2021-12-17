@@ -38,7 +38,7 @@ export default function RelatedJournals({ data }: Props) {
         {/* The query should be limited to four results, but just in case it isn't... slicey dicey */}
         {entities.edges.slice(0, 4).map(({ node }: Node) =>
           node.target.__typename !== "%other" && node.target.slug ? (
-            <Styled.ListItem key={node.target.slug}>
+            <li key={node.target.slug}>
               <NamedLink
                 route={getRouteByEntityType(node.target.__typename) || "home"}
                 routeParams={{ slug: node.target.slug }}
@@ -69,7 +69,7 @@ export default function RelatedJournals({ data }: Props) {
                   </Styled.ItemText>
                 </Styled.ItemLink>
               </NamedLink>
-            </Styled.ListItem>
+            </li>
           ) : null
         )}
       </Styled.List>
