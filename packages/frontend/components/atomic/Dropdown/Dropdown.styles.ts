@@ -10,7 +10,8 @@ export const DropdownWrapper = styled.div`
 `;
 
 export const List = styled.ul`
-  padding-inline: var(--padding-lg);
+  padding-inline-start: var(--padding-lg);
+  padding-inline-end: var(--padding-lg);
   padding-block-start: var(--padding-md);
   padding-block-end: var(--padding-lg);
 `;

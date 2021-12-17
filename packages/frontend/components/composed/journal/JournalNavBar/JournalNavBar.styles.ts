@@ -3,7 +3,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { respond } from "theme/mixins";
 
 export const Nav = styled.div`
-  padding-block: ${pxToRem(36)};
+  padding-block-start: ${pxToRem(36)};
+  padding-block-end: ${pxToRem(36)};
   min-height: ${pxToRem(104)};
 `;
 

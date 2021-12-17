@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 export const SearchForm = styled.form`
   align-items: stretch;
-  padding-block: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
   height: ${pxToRem(32)};
 `;
 

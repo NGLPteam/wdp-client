@@ -11,7 +11,7 @@ const innerWithImage = `
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "image"
       "text";
   `,
@@ -31,7 +31,8 @@ const innerWithoutImage = `
 `;
 
 export const Inner = styled.div<BaseProps>`
-  padding-block: ${pxToRem(100)};
+  padding-block-start: ${pxToRem(100)};
+  padding-block-end: ${pxToRem(100)};
 
   ${lGrid()}
 
