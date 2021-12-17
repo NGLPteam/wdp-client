@@ -67,6 +67,8 @@ function CommunityCondensedNav({ data, communityData }: Props) {
             onToggle={toggleActive}
             label={t("nav.menu")}
             icon="hamburger24"
+            ariaControls={mobileNavId}
+            ariaExpanded={isActive}
           />
         </Styled.MobileRight>
       </Styled.HeaderInner>

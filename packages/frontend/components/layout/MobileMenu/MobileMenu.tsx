@@ -30,16 +30,18 @@ const MobileMenu = forwardRef(
         data-leave={!active && active !== prevActive.current}
         data-enter={active}
       >
-        <Styled.Header className="l-container-wide">
+        <Styled.Header>
           <CommunityPicker data={communities} />
           <MobileMenuToggle
             onToggle={onClose}
             icon="close24"
             label={t("common.close")}
+            ariaControls={id}
+            ariaExpanded={active}
           />
         </Styled.Header>
         <Styled.Content>
-          <Styled.Inner className="l-container-wide">{children}</Styled.Inner>
+          <Styled.Inner>{children}</Styled.Inner>
         </Styled.Content>
         <Styled.Footer className="a-bg-custom10">
           <p className="t-label-mix">WDP Installation Name</p>

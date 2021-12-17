@@ -52,15 +52,19 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   min-height: 100px;
-  padding-inline-start: ${pxToRem(20)};
-  padding-inline-end: var(--padding-md);
+  padding-inline-start: var(--container-v-padding-sm);
+  padding-inline-end: var(--container-v-padding-sm);
 `;
 
 export const Content = styled.div`
   height: 100%;
+  padding-inline-start: var(--container-v-padding-sm);
+  padding-inline-end: var(--container-v-padding-sm);
 `;
 
-export const Inner = styled.div``;
+export const Inner = styled.div`
+  width: 100%;
+`;
 
 export const Footer = styled.footer`
   display: flex;

@@ -31,7 +31,8 @@ export function fluidScale(
 }
 
 export function globalNavRespond(content: CssContent, operator?: string) {
-  const breakpoint = breakpoints[70];
+  const breakpoint =
+    operator === "min" ? `${parseInt(breakpoints[70]) + 1}px` : 70;
 
   return respond(content, breakpoint, operator);
 }

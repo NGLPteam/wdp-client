@@ -11,7 +11,7 @@ export default function Search({ placeholder, queryParams, mobile }: Props) {
   return (
     <Styled.SearchForm
       action={searchRoute?.path}
-      className="a-button-secondary-sm l-flex l-flex--gap"
+      className="a-button-secondary-sm"
     >
       <Styled.SearchLabel htmlFor="navSearch">
         <span className="a-hidden">{placeholder || t("search.label")}</span>

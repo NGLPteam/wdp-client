@@ -3,6 +3,8 @@ import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 
 export const SearchForm = styled.form`
+  display: flex;
+  gap: var(--grid-gap-sm);
   align-items: stretch;
   padding-block-start: 0;
   padding-block-end: 0;

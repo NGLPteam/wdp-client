@@ -27,8 +27,8 @@ export const HeaderInner = styled.div`
   ${globalNavRespond(
     `
     && {
-      padding-inline-start: ${pxToRem(20)};
-      padding-inline-end: var(--padding-md);
+      padding-inline-start: var(--container-v-padding-sm);
+      padding-inline-end: var(--container-v-padding-sm);
     }
     `
   )}
