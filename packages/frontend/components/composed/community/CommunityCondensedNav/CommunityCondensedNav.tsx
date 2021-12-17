@@ -2,14 +2,13 @@ import React, { useRef, useCallback, useEffect } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import { useToggle } from "@wdp/lib/hooks";
+import { useToggle, useWindowSize } from "@wdp/lib/hooks";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
-import { useWindowSize } from "@wdp/lib/hooks";
-import { breakpoints } from "theme/base/variables";
 import AccountDropdown from "../../viewer/AccountDropdown";
 import CommunityNavList from "../CommunityNavList";
 import * as Styled from "./CommunityCondensedNav.styles";
+import { breakpoints } from "theme/base/variables";
 import InstallationName from "components/composed/instance/InstallationName";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import MobileMenu from "components/layout/MobileMenu";
@@ -39,7 +38,7 @@ function CommunityCondensedNav({ data, communityData }: Props) {
       }
     }
     prevWidth.current = width;
-  }, [width, isActive]);
+  }, [width, isActive, setActive]);
 
   useFocusTrap(mobileNavRef, isActive, {
     onDeactivate: useCallback(() => setActive(false), [setActive]),
@@ -99,6 +98,7 @@ const appFragment = graphql`
   fragment CommunityCondensedNavAppFragment on Query {
     ...InstallationNameFragment
     ...CommunityPickerFragment
+    ...MobileMenuFragment
   }
 `;
 

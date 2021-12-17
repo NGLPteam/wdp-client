@@ -1,6 +1,6 @@
 import React from "react";
-import { IconFactory } from "components/factories";
 import * as Styled from "./MobileMenuToggle.styles";
+import { IconFactory } from "components/factories";
 type IconProps = React.ComponentProps<typeof IconFactory>;
 
 export default function MobileMenuToggle({ onToggle, label, icon }: Props) {

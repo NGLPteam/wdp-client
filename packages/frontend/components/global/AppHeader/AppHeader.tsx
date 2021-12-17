@@ -2,10 +2,10 @@ import React, { useRef, useCallback, useEffect } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useToggle } from "@wdp/lib/hooks";
+import { useToggle, useWindowSize } from "@wdp/lib/hooks";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
-import { useWindowSize } from "@wdp/lib/hooks";
+import * as Styled from "./AppHeader.styles";
 import { breakpoints } from "theme/base/variables";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import MobileMenu from "components/layout/MobileMenu";
@@ -13,7 +13,6 @@ import InstallationName from "components/composed/instance/InstallationName";
 import CommunityPicker from "components/composed/instance/InstallationName/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import Search from "components/forms/Search";
-import * as Styled from "./AppHeader.styles";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
 function AppHeader({ data }: Props) {
@@ -35,7 +34,7 @@ function AppHeader({ data }: Props) {
       }
     }
     prevWidth.current = width;
-  }, [width, isActive]);
+  }, [width, isActive, setActive]);
 
   useFocusTrap(mobileNavRef, isActive, {
     onDeactivate: useCallback(() => setActive(false), [setActive]),
@@ -91,5 +90,6 @@ const fragment = graphql`
   fragment AppHeaderFragment on Query {
     ...InstallationNameFragment
     ...CommunityPickerFragment
+    ...MobileMenuFragment
   }
 `;

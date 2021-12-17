@@ -1,7 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { globalNavRespond, aBgCustom10, aBgCustom20 } from "theme/mixins";
-
+import { globalNavRespond, aBgCustom10 } from "theme/mixins";
 
 export const Header = styled.header`
   padding-block-start: ${pxToRem(14)};
@@ -35,7 +34,7 @@ export const HeaderInner = styled.div`
 `;
 
 export const LeftSide = styled.div`
-${globalNavRespond(`display: none`)}
+  ${globalNavRespond(`display: none`)}
 `;
 
 export const MobileLeft = styled.div`

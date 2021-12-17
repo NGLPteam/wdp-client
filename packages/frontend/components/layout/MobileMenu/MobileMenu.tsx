@@ -1,8 +1,11 @@
 import React, { forwardRef, Ref, useRef, useEffect } from "react";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
+import * as Styled from "./MobileMenu.styles";
 import CommunityPicker from "components/composed/instance/InstallationName/CommunityPicker";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
-import * as Styled from "./MobileMenu.styles";
+import { MobileMenuFragment$key } from "@/relay/MobileMenuFragment.graphql";
 
 const MobileMenu = forwardRef(
   (
@@ -16,6 +19,8 @@ const MobileMenu = forwardRef(
       prevActive.current = active;
     }, [active]);
 
+    const communities = useMaybeFragment(fragment, data);
+
     return (
       <Styled.Wrapper
         as="nav"
@@ -26,7 +31,7 @@ const MobileMenu = forwardRef(
         data-enter={active}
       >
         <Styled.Header className="l-container-wide">
-          <CommunityPicker data={data} />
+          <CommunityPicker data={communities} />
           <MobileMenuToggle
             onToggle={onClose}
             icon="close24"
@@ -49,7 +54,13 @@ type Props = {
   active: boolean;
   id: string;
   onClose: () => void;
-  data: any;
+  data?: MobileMenuFragment$key | null;
 };
 
 export default MobileMenu;
+
+const fragment = graphql`
+  fragment MobileMenuFragment on Query {
+    ...CommunityPickerFragment
+  }
+`;
