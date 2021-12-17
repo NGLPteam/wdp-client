@@ -57,7 +57,8 @@ export const ItemCover = styled.div`
   );
   padding-block-start: var(--FeaturedJournals-cover-v-padding);
   padding-block-end: var(--FeaturedJournals-cover-v-padding);
-  padding-inline: var(--container-padding-sm);
+  padding-inline-start: var(--container-padding-sm);
+  padding-inline-end: var(--container-padding-sm);
 `;
 
 export const ItemText = styled.div`

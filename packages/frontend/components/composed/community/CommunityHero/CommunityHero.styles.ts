@@ -35,7 +35,8 @@ export const SearchInput = styled.input`
   flex: 1 1 auto;
   padding-block-start: ${pxToRem(17)};
   padding-block-end: ${pxToRem(20)};
-  padding-inline: ${pxToRem(12)};
+  padding-inline-start: ${pxToRem(12)};
+  padding-inline-end: ${pxToRem(12)};
   border-bottom: 3px solid var(--color-base-neutral20);
 
   &::-webkit-search-cancel-button {

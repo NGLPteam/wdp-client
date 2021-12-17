@@ -3,7 +3,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 
 export const Banner = styled.div`
-  padding-block: ${pxToRem(36)};
+  padding-block-start: ${pxToRem(36)};
+  padding-block-end: ${pxToRem(36)};
 `;
 
 export const Content = styled.div`

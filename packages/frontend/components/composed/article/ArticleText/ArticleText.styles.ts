@@ -14,7 +14,7 @@ export const BodyInner = styled.div`
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-areas: 
+    grid-template-areas:
       "toc"
       "text";`,
     100
@@ -45,7 +45,8 @@ export const TOCHeader = styled.h5`
 `;
 
 export const TOCList = styled.ul`
-  padding-block: var(--padding-md);
+  padding-block-start: var(--padding-md);
+  padding-block-end: var(--padding-md);
   border-bottom: 1px solid var(--border-color);
 `;
 

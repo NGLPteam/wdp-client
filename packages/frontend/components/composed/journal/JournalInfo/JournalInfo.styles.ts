@@ -6,7 +6,9 @@ const TABLET_BREAK = 100;
 const MOBILE_BREAK = 70;
 
 export const SectionInner = styled.div`
-  padding-block: ${pxToRem(80)};
+  padding-block-start: ${pxToRem(80)};
+  padding-block-end: ${pxToRem(80)};
+
   ${lGrid()}
 
   ${respond(
@@ -42,7 +44,8 @@ export const AnnouncementsBlock = styled.div`
   grid-column: 9 / span 4;
   border-radius: var(--border-radius-md);
   padding-block-start: ${pxToRem(44)};
-  padding-inline: ${pxToRem(52)};
+  padding-inline-start: ${pxToRem(52)};
+  padding-inline-end: ${pxToRem(52)};
   padding-block-end: ${pxToRem(52)};
 
   ${respond(
@@ -67,7 +70,8 @@ export const AnnouncementsHeader = styled.h4`
 `;
 
 export const AnnouncementItem = styled.li`
-  padding-block: var(--padding-md);
+  padding-block-start: var(--padding-md);
+  padding-block-end: var(--padding-md);
   border-bottom: 1px solid var(--border-color);
 `;
 

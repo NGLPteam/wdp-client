@@ -5,8 +5,10 @@ import { borderRadius } from "theme/base/variables";
 import { aButtonBase } from "theme/mixins";
 
 export const Form = styled.form`
-  padding-block: ${pxToRem(36)};
-  padding-inline: ${pxToRem(48)};
+  padding-block-start: ${pxToRem(36)};
+  padding-block-end: ${pxToRem(36)};
+  padding-inline-start: ${pxToRem(48)};
+  padding-inline-end: ${pxToRem(48)};
   max-width: ${pxToRem(768)};
   width: calc(100vw - var(--padding-sm) * 2);
 `;
