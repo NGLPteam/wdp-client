@@ -12,7 +12,7 @@ export default function JournalNavBar({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
 
   return journal ? (
-    <Styled.Nav className="a-bg-custom20">
+    <Styled.Nav className="a-bg-custom20" as="nav">
       <Styled.NavInner className="l-container-wide">
         <Styled.LeftSide>
           <JournalNavList data={journal} />
