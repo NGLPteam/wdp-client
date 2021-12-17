@@ -11,8 +11,8 @@ export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   return article ? (
-    <div className="a-bg-custom10">
-      <Styled.HeroInner as="header" className="l-container-wide">
+    <header className="a-bg-custom10">
+      <Styled.HeroInner className="l-container-wide">
         <Styled.LeftSide>
           <Styled.TitleBlock>
             <h2>{article.title}</h2>
@@ -40,12 +40,14 @@ export default function ArticleHero({ data }: Props) {
           )}
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
-          <div>
-            DOI: <span className="t-copy-light">{article.doi}</span>
-          </div>
+          {article.doi && (
+            <div>
+              DOI: <span className="t-copy-light">{article.doi}</span>
+            </div>
+          )}
         </Styled.RightSide>
       </Styled.HeroInner>
-    </div>
+    </header>
   ) : null;
 }
 

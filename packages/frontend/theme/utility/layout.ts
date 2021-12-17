@@ -41,7 +41,7 @@ export default css`
 
   .l-container-wide--p-lg {
     padding-block-start: var(--container-padding-lg);
-    padding-block-end: var(--container-padding-xlg);
+    padding-block-end: var(--container-padding-lg);
   }
 
   .l-grid {

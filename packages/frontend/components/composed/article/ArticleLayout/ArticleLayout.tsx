@@ -5,6 +5,7 @@ import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
 import RelatedArticles from "../RelatedArticles";
+import * as Styled from "./ArticleLayout.styles";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
@@ -18,8 +19,10 @@ export default function ArticleLayout({ data, children }: Props) {
       <BreadcrumbsBar data={article} />
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
-      <ArticleTabNav data={article} />
-      {children}
+      <Styled.ContentBlock>
+        <ArticleTabNav data={article} />
+        {children}
+      </Styled.ContentBlock>
       <RelatedArticles data={article?.relatedItems} />
     </>
   );

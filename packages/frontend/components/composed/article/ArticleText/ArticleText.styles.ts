@@ -1,15 +1,24 @@
-import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { lGrid } from "theme/mixins";
+import { pxToRem } from "@wdp/lib/theme/functions";
+import { lGrid, respond, fluidScale } from "theme/mixins";
 
 export const BodyWrapper = styled.div`
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xlg);
+  padding-block-end: var(--container-padding-lg);
 `;
 
 export const BodyInner = styled.div`
   ${lGrid()}
   grid-template-areas: "text text text text text text text text . toc toc toc";
+
+  ${respond(
+    `
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "toc"
+      "text";`,
+    100
+  )}
 `;
 
 export const TextBlock = styled.div`
@@ -22,7 +31,7 @@ export const ImageBlock = styled.div`
 
 export const TOCBlock = styled.div`
   grid-area: toc;
-  padding-block-end: ${pxToRem(100)};
+  padding-block-end: ${fluidScale("100px", "50px")};
 `;
 
 export const TOCInner = styled.div`

@@ -5,9 +5,11 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
 export type ArticleTextFragment = {
     readonly thumbnail: {
+        readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
     readonly bodyText: {
@@ -42,6 +44,13 @@ const node: ReaderFragment = {
       "name": "thumbnail",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "storage",
+          "storageKey": null
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -117,5 +126,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'ca360d3e7637c24ba32390f7633caa66';
+(node as any).hash = 'df3d90e4509acb44d1cbf9670ebb0350';
 export default node;
