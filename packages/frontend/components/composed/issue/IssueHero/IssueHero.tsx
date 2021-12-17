@@ -28,37 +28,38 @@ export default function IssueHero({ data }: Props) {
           <Styled.IssueWrapper>
             <Styled.IssueText>
               {issue.thumbnail?.storage && (
-                <CoverImage
-                  data={issue.thumbnail}
-                  maxWidth={225}
-                  maxHeight={300}
-                />
+                <Styled.IssueCover>
+                  <CoverImage
+                    data={issue.thumbnail}
+                    maxWidth={225}
+                    maxHeight={300}
+                  />
+                </Styled.IssueCover>
               )}
               <Styled.Issue>
-                <h3>
-                  {issue.title}
-                  {issue.volume && (
-                    <Styled.Volume className="t-copy-lighter">
-                      {issue.volume.title}
-                    </Styled.Volume>
-                  )}
-                </h3>
-                {issue.summary && (
-                  <Styled.Description>
-                    <DotList className="t-copy-lighter">
-                      {issue.published && (
-                        <li>
-                          <PrecisionDate
-                            data={issue.published}
-                            label={t("common.published")}
-                          />
-                        </li>
-                      )}
-                      <li>Metadata</li>
-                    </DotList>
-                    <p>{issue.summary}</p>
-                  </Styled.Description>
+                <Styled.IssueTitle as="h3">{issue.title}</Styled.IssueTitle>
+                {issue.volume && (
+                  <Styled.Volume>{issue.volume.title}</Styled.Volume>
                 )}
+                <Styled.Description>
+                  {issue.volume && (
+                    <Styled.VolumeMobile>
+                      {issue.volume.title}
+                    </Styled.VolumeMobile>
+                  )}
+                  <DotList className="t-copy-lighter">
+                    {issue.published && (
+                      <li>
+                        <PrecisionDate
+                          data={issue.published}
+                          label={t("common.published")}
+                        />
+                      </li>
+                    )}
+                    <li>Metadata</li>
+                  </DotList>
+                  {issue.summary && <p>{issue.summary}</p>}
+                </Styled.Description>
                 {issue.pdfVersion && (
                   <AssetDownloadButton data={issue.pdfVersion} />
                 )}

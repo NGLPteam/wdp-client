@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { lGrid, respond } from "theme/mixins";
+import { fluidScale, lGrid, respond, tHeading } from "theme/mixins";
 
 export const HeroInner = styled.div`
   padding-block-start: var(--container-padding-sm);
@@ -26,7 +26,7 @@ export const IssueWrapper = styled.div`
   ${lGrid({
     rowGap: "var(--padding-xl)",
   })}
-  padding-block-start: ${pxToRem(46)};
+  padding-block-start: ${fluidScale("46px", "40px")};
 `;
 
 export const IssueText = styled.div`
@@ -35,6 +35,19 @@ export const IssueText = styled.div`
 
   ${respond(`grid-column: 1 / -1;`, 100)}
   ${respond(`flex-wrap: wrap;`, 50)}
+`;
+
+export const IssueCover = styled.div`
+  margin-inline-end: ${pxToRem(38)};
+  flex: 1 0 auto;
+  max-width: ${fluidScale("225px", "180px")};
+
+  ${respond(
+    `
+    margin-block-end: ${pxToRem(42)};
+  `,
+    50
+  )};
 `;
 
 export const IssueMeta = styled.div`
@@ -55,30 +68,35 @@ export const IssueMeta = styled.div`
 `;
 
 export const Issue = styled.div`
-  margin-block-end: var(--padding-rg);
-  margin-inline-start: ${pxToRem(38)};
-
-  ${respond(
-    `
-    margin-inline-start: 0;
-    margin-block-start: ${pxToRem(42)};
-  `,
-    50
-  )}
+  width: 100%;
 
   > * + * {
     margin-block-start: var(--padding-md);
   }
 `;
 
+export const IssueTitle = styled.h3`
+  padding-inline-end: var(--padding-md);
+
+  ${respond(`display: inline-block;`, 70, "min")}
+`;
+
+const VOLUME_BREAK = 70;
+
 export const Volume = styled.span`
+  ${tHeading(3)}
   color: var(--color-base-neutral70);
-  padding-inline-start: var(--padding-md);
+
+  ${respond(`display: none`, VOLUME_BREAK)}
+`;
+
+export const VolumeMobile = styled.p`
+  display: none;
+
+  ${respond(`display: block;`, VOLUME_BREAK)}
 `;
 
 export const Description = styled.div`
-  margin-block-end: var(--padding-md);
-
   > * + * {
     margin-block-start: var(--padding-xs);
   }
