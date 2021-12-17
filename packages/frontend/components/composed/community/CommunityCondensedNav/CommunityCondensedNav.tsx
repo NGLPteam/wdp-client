@@ -45,18 +45,17 @@ function CommunityCondensedNav({ data, communityData }: Props) {
     onDeactivate: useCallback(() => setActive(false), [setActive]),
   });
 
-
   return (
     <Styled.Header className="a-bg-custom20">
       <Styled.HeaderInner className="l-container-wide">
         {appData && (
           <>
-          <Styled.LeftSide>
-            <InstallationName data={appData} />
-          </Styled.LeftSide>
-          <Styled.MobileLeft>
-            <CommunityPicker data={appData} />
-          </Styled.MobileLeft>
+            <Styled.LeftSide>
+              <InstallationName data={appData} />
+            </Styled.LeftSide>
+            <Styled.MobileLeft>
+              <CommunityPicker data={appData} />
+            </Styled.MobileLeft>
           </>
         )}
         <Styled.RightSide>
@@ -68,7 +67,7 @@ function CommunityCondensedNav({ data, communityData }: Props) {
           <MobileMenuToggle
             onToggle={toggleActive}
             label={t("nav.menu")}
-            icon="arrowDown"
+            icon="hamburger24"
           />
         </Styled.MobileRight>
       </Styled.HeaderInner>
@@ -81,8 +80,8 @@ function CommunityCondensedNav({ data, communityData }: Props) {
       >
         <Styled.MobileList>
           {community && <CommunityNavList data={community} mobile />}
-          <Search />
-          <AccountDropdown leftAvatar />
+          <Search mobile />
+          <AccountDropdown mobile />
         </Styled.MobileList>
       </MobileMenu>
     </Styled.Header>

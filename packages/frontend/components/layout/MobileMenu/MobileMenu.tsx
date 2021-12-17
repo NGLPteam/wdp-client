@@ -29,7 +29,7 @@ const MobileMenu = forwardRef(
           <CommunityPicker data={data} />
           <MobileMenuToggle
             onToggle={onClose}
-            icon="close"
+            icon="close24"
             label={t("common.close")}
           />
         </Styled.Header>

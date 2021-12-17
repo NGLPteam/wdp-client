@@ -61,7 +61,7 @@ function AppHeader({ data }: Props) {
           <MobileMenuToggle
             onToggle={toggleActive}
             label={t("nav.menu")}
-            icon="arrowDown"
+            icon="hamburger24"
           />
         </Styled.MobileRight>
       </Styled.HeaderInner>
@@ -73,8 +73,8 @@ function AppHeader({ data }: Props) {
         data={appData}
       >
         <Styled.MobileList>
-          <Search />
-          <AccountDropdown leftAvatar />
+          <Search mobile />
+          <AccountDropdown mobile />
         </Styled.MobileList>
       </MobileMenu>
     </Styled.Header>
