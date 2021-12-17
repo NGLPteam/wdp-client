@@ -22,3 +22,9 @@ export const NavButton = styled.button`
     margin-inline-start: var(--padding-sm);
   }
 `;
+
+export const MobileNavList = styled.ul<Pick<BaseProps, "condensed">>`
+  > * + * {
+    margin-block-start: ${pxToRem(35)};
+  }
+`;
