@@ -5,19 +5,26 @@ import * as Styled from "./AccountDropdown.styles";
 import { useViewerContext } from "hooks";
 import { Avatar, Dropdown } from "components/atomic";
 
-export default function AccountDropdown({ condensed }: Props) {
+export default function AccountDropdown({ condensed, mobile }: Props) {
   const { avatarUrl, name } = useViewerContext();
   const { isAuthenticated, handleSignInOut } = useSignInOut();
   const { t } = useTranslation();
 
+  const signInOutClass = mobile ? "t-label-lg" : "t-label-sm";
+
   return (
     <div className="l-flex l-flex--align-center l-flex--gap">
-      {name && !condensed && <span className="t-label-mix">{name}</span>}
+      {name && !condensed && !mobile && (
+        <span className="t-label-mix">{name}</span>
+      )}
       {avatarUrl && (
         <Dropdown
           disclosure={
             <Styled.AccountButton>
               {avatarUrl && <Avatar url={avatarUrl} />}
+              {name && mobile && (
+                <Styled.Name className="t-copy-sm">{name}</Styled.Name>
+              )}
               <Styled.Icon icon="chevronDown" />
             </Styled.AccountButton>
           }
@@ -30,7 +37,7 @@ export default function AccountDropdown({ condensed }: Props) {
         />
       )}
       {isAuthenticated === false && (
-        <button className="t-label-sm" onClick={handleSignInOut}>
+        <button className={signInOutClass} onClick={handleSignInOut}>
           {t("common.sign_in")}
         </button>
       )}
@@ -40,4 +47,5 @@ export default function AccountDropdown({ condensed }: Props) {
 
 interface Props {
   condensed?: boolean;
+  mobile?: boolean;
 }

@@ -4,14 +4,14 @@ import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
 import { RouteHelper } from "routes";
 
-export default function Search({ placeholder, queryParams }: Props) {
+export default function Search({ placeholder, queryParams, mobile }: Props) {
   const { t } = useTranslation();
   const searchRoute = RouteHelper.findRouteByName("search");
 
   return (
     <Styled.SearchForm
       action={searchRoute?.path}
-      className="a-button-secondary-sm l-flex l-flex--gap"
+      className="a-button-secondary-sm"
     >
       <Styled.SearchLabel htmlFor="navSearch">
         <span className="a-hidden">{placeholder || t("search.label")}</span>
@@ -26,6 +26,7 @@ export default function Search({ placeholder, queryParams }: Props) {
         type="search"
         name="q"
         placeholder={placeholder || t("search.label")}
+        className={mobile ? "t-copy-sm" : undefined}
       />
       <Styled.SubmitButton type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
@@ -38,4 +39,5 @@ export default function Search({ placeholder, queryParams }: Props) {
 type Props = {
   placeholder?: string;
   queryParams?: { [key: string]: string };
+  mobile?: boolean;
 };

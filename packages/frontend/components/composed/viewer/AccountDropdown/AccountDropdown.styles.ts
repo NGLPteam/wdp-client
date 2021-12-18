@@ -9,3 +9,7 @@ export const AccountButton = styled.button`
 export const Icon = styled(IconFactory)`
   margin-inline-start: var(--padding-sm);
 `;
+
+export const Name = styled.span`
+  margin-inline-start: var(--padding-sm);
+`;

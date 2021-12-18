@@ -8,11 +8,13 @@ import { IconFactory } from "components/factories";
 import { ArrowLink, Dropdown, NamedLink } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 
-export default function CommunityNavList({ condensed, data }: Props) {
+export default function CommunityNavList({ condensed, mobile, data }: Props) {
   const slug = useRouteSlug();
   const { t } = useTranslation();
   const community = useMaybeFragment(fragment, data);
   const linkClassName = condensed ? "t-label-sm" : "t-label-lg";
+
+  const ListComponent = mobile ? Styled.MobileNavList : Styled.NavList;
 
   function getDisclosure(label: string) {
     return (
@@ -32,7 +34,7 @@ export default function CommunityNavList({ condensed, data }: Props) {
     : [];
 
   return (
-    <Styled.NavList condensed={condensed}>
+    <ListComponent condensed={condensed}>
       <li>
         <Dropdown
           label={t("nav.explore")}
@@ -62,12 +64,13 @@ export default function CommunityNavList({ condensed, data }: Props) {
             </NamedLink>
           </li>
         ))}
-    </Styled.NavList>
+    </ListComponent>
   );
 }
 
 interface Props {
   condensed?: boolean;
+  mobile?: boolean;
   data?: CommunityNavListFragment$key | null;
 }
 

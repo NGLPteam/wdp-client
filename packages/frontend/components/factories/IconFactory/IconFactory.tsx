@@ -21,6 +21,8 @@ export const ICON_MAP = {
   search32: Icons.Search32,
   text32: Icons.Text32,
   video32: Icons.Video32,
+  hamburger24: Icons.Hamburger24,
+  close24: Icons.Close24,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

@@ -105,7 +105,8 @@
       "explore": "Explore",
       "privacy": "Privacy Statement",
       "terms": "Terms of Service",
-      "breadcrumbs_dropdown_label": "$t(common.show_more)"
+      "breadcrumbs_dropdown_label": "$t(common.show_more)",
+      "menu": "Menu"
     }
   }
 }
