@@ -14,10 +14,7 @@ export type PageSlugCollectionQueryResponse = {
         readonly community: {
             readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
         };
-        readonly page: {
-            readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
 };
@@ -34,13 +31,9 @@ query PageSlugCollectionQuery(
   $pageSlug: String!
 ) {
   collection(slug: $slug) {
-    ...EntityLayoutFactoryFragment
+    ...EntityPageLayoutFactoryFragment
     community {
       ...CommunityLayoutFragment
-      id
-    }
-    page(slug: $pageSlug) {
-      ...EntityPageLayoutFragment
       id
     }
     id
@@ -466,6 +459,34 @@ fragment EntityOrderSelectFragment on OrderingConnection {
   }
 }
 
+fragment EntityPageLayoutFactoryFragment on AnyEntity {
+  __isAnyEntity: __typename
+  ... on Collection {
+    schemaDefinition {
+      identifier
+      id
+    }
+    ...IssueLayoutFragment
+    ...EntityLayoutFactoryFragment
+    page(slug: $pageSlug) {
+      ...EntityPageLayoutFragment
+      ...IssuePageLayoutFragment
+      id
+    }
+  }
+  ... on Item {
+    schemaDefinition {
+      identifier
+      id
+    }
+    ...EntityLayoutFactoryFragment
+    page(slug: $pageSlug) {
+      ...EntityPageLayoutFragment
+      id
+    }
+  }
+}
+
 fragment EntityPageLayoutFragment on Page {
   title
   body
@@ -588,6 +609,14 @@ fragment IssueNavListFragment on Collection {
         id
       }
     }
+  }
+}
+
+fragment IssuePageLayoutFragment on Page {
+  title
+  body
+  heroImage {
+    ...ContentImageFragment
   }
 }
 
@@ -766,42 +795,35 @@ v2 = [
     "variableName": "slug"
   }
 ],
-v3 = [
-  {
-    "kind": "Variable",
-    "name": "slug",
-    "variableName": "pageSlug"
-  }
-],
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "concreteType": "HierarchicalSchemaRank",
@@ -809,8 +831,8 @@ v8 = {
   "name": "schemaRanks",
   "plural": true,
   "selections": [
+    (v4/*: any*/),
     (v5/*: any*/),
-    (v6/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -818,91 +840,16 @@ v8 = {
       "name": "count",
       "storageKey": null
     },
-    (v7/*: any*/)
+    (v6/*: any*/)
   ],
   "storageKey": null
 },
-v9 = [
-  (v5/*: any*/),
+v8 = [
   (v4/*: any*/),
-  (v7/*: any*/)
+  (v3/*: any*/),
+  (v6/*: any*/)
 ],
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-},
-v11 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v12 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "width",
-  "storageKey": null
-},
-v13 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "height",
-  "storageKey": null
-},
-v14 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "identifier",
-  "storageKey": null
-},
-v15 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "SchemaDefinition",
-  "kind": "LinkedField",
-  "name": "schemaDefinition",
-  "plural": false,
-  "selections": [
-    (v14/*: any*/),
-    (v7/*: any*/)
-  ],
-  "storageKey": null
-},
-v16 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "storage",
-  "storageKey": null
-},
-v17 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "ImageDerivative",
-    "kind": "LinkedField",
-    "name": "webp",
-    "plural": false,
-    "selections": [
-      (v10/*: any*/),
-      (v11/*: any*/)
-    ],
-    "storageKey": null
-  }
-],
-v18 = [
-  (v4/*: any*/),
-  (v5/*: any*/),
-  (v7/*: any*/)
-],
-v19 = {
+v9 = {
   "alias": null,
   "args": null,
   "concreteType": "PageConnection",
@@ -925,7 +872,7 @@ v19 = {
           "kind": "LinkedField",
           "name": "node",
           "plural": false,
-          "selections": (v18/*: any*/),
+          "selections": (v8/*: any*/),
           "storageKey": null
         }
       ],
@@ -934,33 +881,55 @@ v19 = {
   ],
   "storageKey": null
 },
-v20 = {
-  "kind": "Literal",
-  "name": "perPage",
-  "value": 4
-},
-v21 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "identifier",
   "storageKey": null
 },
-v22 = {
+v11 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SchemaDefinition",
+  "kind": "LinkedField",
+  "name": "schemaDefinition",
+  "plural": false,
+  "selections": [
+    (v10/*: any*/),
+    (v6/*: any*/)
+  ],
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "summary",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "doi",
+  "storageKey": null
+},
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "precision",
   "storageKey": null
 },
-v23 = {
+v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "value",
   "storageKey": null
 },
-v24 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "VariablePrecisionDate",
@@ -968,12 +937,47 @@ v24 = {
   "name": "published",
   "plural": false,
   "selections": [
-    (v22/*: any*/),
-    (v23/*: any*/)
+    (v14/*: any*/),
+    (v15/*: any*/)
   ],
   "storageKey": null
 },
-v25 = {
+v17 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "storage",
+  "storageKey": null
+},
+v18 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v20 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v21 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v22 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -981,7 +985,7 @@ v25 = {
   "name": "thumbnail",
   "plural": false,
   "selections": [
-    (v16/*: any*/),
+    (v17/*: any*/),
     {
       "alias": "image",
       "args": null,
@@ -998,10 +1002,10 @@ v25 = {
           "name": "webp",
           "plural": false,
           "selections": [
-            (v11/*: any*/),
-            (v10/*: any*/),
-            (v12/*: any*/),
-            (v13/*: any*/)
+            (v18/*: any*/),
+            (v19/*: any*/),
+            (v20/*: any*/),
+            (v21/*: any*/)
           ],
           "storageKey": null
         }
@@ -1011,182 +1015,34 @@ v25 = {
   ],
   "storageKey": null
 },
-v26 = [
-  (v4/*: any*/),
-  (v5/*: any*/),
-  (v24/*: any*/),
-  (v25/*: any*/)
-],
-v27 = {
+v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v24 = {
   "kind": "InlineFragment",
   "selections": [
-    (v7/*: any*/)
+    (v6/*: any*/)
   ],
   "type": "Node",
   "abstractKey": "__isNode"
 },
-v28 = {
-  "kind": "Literal",
-  "name": "nodeFilter",
-  "value": "DESCENDANTS"
-},
-v29 = {
-  "kind": "Literal",
-  "name": "schema",
-  "value": "nglp:journal_issue"
-},
-v30 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "summary",
-  "storageKey": null
-},
-v31 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "VariablePrecisionDate",
-  "kind": "LinkedField",
-  "name": "published",
-  "plural": false,
-  "selections": [
-    (v23/*: any*/),
-    (v22/*: any*/)
-  ],
-  "storageKey": null
-},
-v32 = [
-  {
-    "kind": "Literal",
-    "name": "schema",
-    "value": "nglp:journal_volume"
-  }
-],
-v33 = [
-  (v21/*: any*/),
+v25 = [
+  (v23/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
-      (v4/*: any*/)
+      (v3/*: any*/)
     ],
     "type": "Collection",
     "abstractKey": null
   },
-  (v27/*: any*/)
+  (v24/*: any*/)
 ],
-v34 = {
-  "alias": "volume",
-  "args": (v32/*: any*/),
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "ancestorOfType",
-  "plural": false,
-  "selections": (v33/*: any*/),
-  "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
-},
-v35 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "content",
-  "storageKey": null
-},
-v36 = {
-  "kind": "TypeDiscriminator",
-  "abstractKey": "__isAnyContributor"
-},
-v37 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v5/*: any*/)
-  ],
-  "type": "Sluggable",
-  "abstractKey": "__isSluggable"
-},
-v38 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "familyName",
-  "storageKey": null
-},
-v39 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "givenName",
-  "storageKey": null
-},
-v40 = {
-  "kind": "InlineFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "legalName",
-      "storageKey": null
-    }
-  ],
-  "type": "OrganizationContributor",
-  "abstractKey": null
-},
-v41 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ItemContributionEdge",
-  "kind": "LinkedField",
-  "name": "edges",
-  "plural": true,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemContribution",
-      "kind": "LinkedField",
-      "name": "node",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "contributor",
-          "plural": false,
-          "selections": [
-            (v21/*: any*/),
-            (v36/*: any*/),
-            (v37/*: any*/),
-            {
-              "kind": "InlineFragment",
-              "selections": [
-                (v38/*: any*/),
-                (v39/*: any*/)
-              ],
-              "type": "PersonContributor",
-              "abstractKey": null
-            },
-            (v40/*: any*/),
-            (v27/*: any*/)
-          ],
-          "storageKey": null
-        },
-        (v7/*: any*/)
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v42 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "doi",
-  "storageKey": null
-},
-v43 = {
+v26 = {
   "alias": "journal",
   "args": [
     {
@@ -1199,17 +1055,29 @@ v43 = {
   "kind": "LinkedField",
   "name": "ancestorOfType",
   "plural": false,
-  "selections": (v33/*: any*/),
+  "selections": (v25/*: any*/),
   "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
 },
-v44 = {
+v27 = [
+  {
+    "kind": "Literal",
+    "name": "schema",
+    "value": "nglp:journal_volume"
+  }
+],
+v28 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  (v6/*: any*/)
+],
+v29 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "kind",
   "storageKey": null
 },
-v45 = {
+v30 = {
   "alias": "pdfVersion",
   "args": [
     {
@@ -1223,7 +1091,7 @@ v45 = {
   "name": "schemaProperty",
   "plural": false,
   "selections": [
-    (v21/*: any*/),
+    (v23/*: any*/),
     {
       "kind": "InlineFragment",
       "selections": [
@@ -1235,11 +1103,11 @@ v45 = {
           "name": "asset",
           "plural": false,
           "selections": [
-            (v21/*: any*/),
+            (v23/*: any*/),
             {
               "kind": "InlineFragment",
               "selections": [
-                (v6/*: any*/),
+                (v5/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -1247,7 +1115,7 @@ v45 = {
                   "name": "downloadUrl",
                   "storageKey": null
                 },
-                (v44/*: any*/),
+                (v29/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -1259,7 +1127,7 @@ v45 = {
               "type": "Asset",
               "abstractKey": "__isAsset"
             },
-            (v27/*: any*/)
+            (v24/*: any*/)
           ],
           "storageKey": null
         }
@@ -1270,7 +1138,7 @@ v45 = {
   ],
   "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
 },
-v46 = [
+v31 = [
   {
     "alias": null,
     "args": null,
@@ -1279,16 +1147,285 @@ v46 = [
     "name": "image",
     "plural": false,
     "selections": [
-      (v16/*: any*/)
+      (v17/*: any*/)
     ],
     "storageKey": null
+  }
+],
+v32 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "affiliation",
+  "storageKey": null
+},
+v33 = {
+  "kind": "TypeDiscriminator",
+  "abstractKey": "__isAnyContributor"
+},
+v34 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v4/*: any*/)
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
+},
+v35 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v19/*: any*/),
+      (v18/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v36 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "familyName",
+  "storageKey": null
+},
+v37 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "givenName",
+  "storageKey": null
+},
+v38 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "legalName",
+      "storageKey": null
+    }
+  ],
+  "type": "OrganizationContributor",
+  "abstractKey": null
+},
+v39 = {
+  "alias": null,
+  "args": [
+    {
+      "kind": "Variable",
+      "name": "slug",
+      "variableName": "pageSlug"
+    }
+  ],
+  "concreteType": "Page",
+  "kind": "LinkedField",
+  "name": "page",
+  "plural": false,
+  "selections": [
+    (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "body",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageAttachment",
+      "kind": "LinkedField",
+      "name": "heroImage",
+      "plural": false,
+      "selections": [
+        {
+          "alias": "image",
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "large",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                (v19/*: any*/),
+                (v18/*: any*/),
+                (v20/*: any*/),
+                (v21/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    (v6/*: any*/)
+  ],
+  "storageKey": null
+},
+v40 = {
+  "kind": "Literal",
+  "name": "schema",
+  "value": "nglp:journal_issue"
+},
+v41 = {
+  "alias": "issue",
+  "args": [
+    (v40/*: any*/)
+  ],
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "ancestorOfType",
+  "plural": false,
+  "selections": (v25/*: any*/),
+  "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
+},
+v42 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v36/*: any*/),
+    (v37/*: any*/)
+  ],
+  "type": "PersonContributor",
+  "abstractKey": null
+},
+v43 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v44 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "AnyAssetConnection",
+  "kind": "LinkedField",
+  "name": "assets",
+  "plural": false,
+  "selections": [
+    (v43/*: any*/)
+  ],
+  "storageKey": null
+},
+v45 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+},
+v46 = [
+  (v23/*: any*/),
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "fullPath",
+        "storageKey": null
+      },
+      (v45/*: any*/)
+    ],
+    "type": "StringProperty",
+    "abstractKey": null
   }
 ],
 v47 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "affiliation",
+  "concreteType": "ItemConnection",
+  "kind": "LinkedField",
+  "name": "relatedItems",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Item",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v3/*: any*/),
+            (v4/*: any*/),
+            (v16/*: any*/),
+            (v26/*: any*/),
+            {
+              "alias": "volumeId",
+              "args": [
+                {
+                  "kind": "Literal",
+                  "name": "fullPath",
+                  "value": "volume.id"
+                }
+              ],
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "schemaProperty",
+              "plural": false,
+              "selections": (v46/*: any*/),
+              "storageKey": "schemaProperty(fullPath:\"volume.id\")"
+            },
+            {
+              "alias": "issueId",
+              "args": [
+                {
+                  "kind": "Literal",
+                  "name": "fullPath",
+                  "value": "id"
+                }
+              ],
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "schemaProperty",
+              "plural": false,
+              "selections": (v46/*: any*/),
+              "storageKey": "schemaProperty(fullPath:\"id\")"
+            },
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v48 = {
@@ -1316,9 +1453,9 @@ v48 = {
           "name": "label",
           "storageKey": null
         },
-        (v44/*: any*/),
-        (v5/*: any*/),
-        (v7/*: any*/)
+        (v29/*: any*/),
+        (v4/*: any*/),
+        (v6/*: any*/)
       ],
       "storageKey": null
     }
@@ -1336,41 +1473,339 @@ v50 = {
   "abstractKey": null
 },
 v51 = {
+  "kind": "InlineFragment",
+  "selections": (v49/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v52 = {
   "alias": null,
   "args": null,
-  "concreteType": "PageInfo",
+  "concreteType": "ImageAttachment",
   "kind": "LinkedField",
-  "name": "pageInfo",
+  "name": "heroImage",
   "plural": false,
   "selections": [
+    (v17/*: any*/),
     {
-      "alias": null,
+      "alias": "image",
       "args": null,
-      "kind": "ScalarField",
-      "name": "totalCount",
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "large",
+      "plural": false,
+      "selections": (v35/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v52 = [
-  (v21/*: any*/),
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "fullPath",
-        "storageKey": null
-      },
-      (v35/*: any*/)
-    ],
-    "type": "StringProperty",
-    "abstractKey": null
-  }
-];
+v53 = {
+  "kind": "Literal",
+  "name": "perPage",
+  "value": 4
+},
+v54 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  (v16/*: any*/),
+  (v22/*: any*/)
+],
+v55 = {
+  "alias": "related",
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "order",
+      "value": "RECENT"
+    },
+    (v53/*: any*/)
+  ],
+  "concreteType": "EntityLinkConnection",
+  "kind": "LinkedField",
+  "name": "links",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "EntityLinkEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "EntityLink",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "target",
+              "plural": false,
+              "selections": [
+                (v23/*: any*/),
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v54/*: any*/),
+                  "type": "Collection",
+                  "abstractKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v54/*: any*/),
+                  "type": "Item",
+                  "abstractKey": null
+                },
+                (v24/*: any*/)
+              ],
+              "storageKey": null
+            },
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": "links(order:\"RECENT\",perPage:4)"
+},
+v56 = {
+  "kind": "Literal",
+  "name": "nodeFilter",
+  "value": "DESCENDANTS"
+},
+v57 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "VariablePrecisionDate",
+  "kind": "LinkedField",
+  "name": "published",
+  "plural": false,
+  "selections": [
+    (v15/*: any*/),
+    (v14/*: any*/)
+  ],
+  "storageKey": null
+},
+v58 = {
+  "alias": "volume",
+  "args": (v27/*: any*/),
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "ancestorOfType",
+  "plural": false,
+  "selections": (v25/*: any*/),
+  "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
+},
+v59 = {
+  "alias": "issues",
+  "args": [
+    (v56/*: any*/),
+    {
+      "kind": "Literal",
+      "name": "order",
+      "value": "PUBLISHED_ASCENDING"
+    },
+    {
+      "kind": "Literal",
+      "name": "page",
+      "value": 1
+    },
+    (v53/*: any*/),
+    (v40/*: any*/)
+  ],
+  "concreteType": "CollectionConnection",
+  "kind": "LinkedField",
+  "name": "collections",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "CollectionEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Collection",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v4/*: any*/),
+            (v3/*: any*/),
+            (v12/*: any*/),
+            (v22/*: any*/),
+            (v57/*: any*/),
+            (v58/*: any*/),
+            {
+              "alias": "properties",
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "schemaProperties",
+              "plural": true,
+              "selections": [
+                (v23/*: any*/),
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    (v45/*: any*/),
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "path",
+                      "storageKey": null
+                    }
+                  ],
+                  "type": "StringProperty",
+                  "abstractKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
+},
+v60 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ItemContributionEdge",
+  "kind": "LinkedField",
+  "name": "edges",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemContribution",
+      "kind": "LinkedField",
+      "name": "node",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "contributor",
+          "plural": false,
+          "selections": [
+            (v23/*: any*/),
+            (v33/*: any*/),
+            (v34/*: any*/),
+            (v42/*: any*/),
+            (v38/*: any*/),
+            (v24/*: any*/)
+          ],
+          "storageKey": null
+        },
+        (v6/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v61 = {
+  "alias": "currentIssue",
+  "args": [
+    (v56/*: any*/),
+    {
+      "kind": "Literal",
+      "name": "order",
+      "value": "PUBLISHED_DESCENDING"
+    },
+    (v40/*: any*/)
+  ],
+  "concreteType": "Collection",
+  "kind": "LinkedField",
+  "name": "firstCollection",
+  "plural": false,
+  "selections": [
+    (v3/*: any*/),
+    (v4/*: any*/),
+    (v22/*: any*/),
+    (v57/*: any*/),
+    (v58/*: any*/),
+    {
+      "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 3
+        }
+      ],
+      "concreteType": "ItemConnection",
+      "kind": "LinkedField",
+      "name": "items",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ItemEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Item",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v3/*: any*/),
+                (v4/*: any*/),
+                (v12/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ItemContributionConnection",
+                  "kind": "LinkedField",
+                  "name": "contributions",
+                  "plural": false,
+                  "selections": [
+                    (v60/*: any*/)
+                  ],
+                  "storageKey": null
+                },
+                (v6/*: any*/)
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "items(perPage:3)"
+    },
+    (v6/*: any*/)
+  ],
+  "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -1406,25 +1841,9 @@ return {
             "storageKey": null
           },
           {
-            "alias": null,
-            "args": (v3/*: any*/),
-            "concreteType": "Page",
-            "kind": "LinkedField",
-            "name": "page",
-            "plural": false,
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "EntityPageLayoutFragment"
-              }
-            ],
-            "storageKey": null
-          },
-          {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "EntityLayoutFactoryFragment"
+            "name": "EntityPageLayoutFactoryFragment"
           }
         ],
         "storageKey": null
@@ -1463,380 +1882,41 @@ return {
             "name": "community",
             "plural": false,
             "selections": [
+              (v3/*: any*/),
               (v4/*: any*/),
-              (v5/*: any*/),
-              (v8/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "PageConnection",
-                "kind": "LinkedField",
-                "name": "pages",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "PageEdge",
-                    "kind": "LinkedField",
-                    "name": "edges",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Page",
-                        "kind": "LinkedField",
-                        "name": "node",
-                        "plural": false,
-                        "selections": (v9/*: any*/),
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              (v7/*: any*/)
+              (v7/*: any*/),
+              (v9/*: any*/),
+              (v6/*: any*/)
             ],
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": (v3/*: any*/),
-            "concreteType": "Page",
-            "kind": "LinkedField",
-            "name": "page",
-            "plural": false,
-            "selections": [
-              (v4/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "body",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageAttachment",
-                "kind": "LinkedField",
-                "name": "heroImage",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": "image",
-                    "args": null,
-                    "concreteType": "ImageSize",
-                    "kind": "LinkedField",
-                    "name": "large",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ImageDerivative",
-                        "kind": "LinkedField",
-                        "name": "webp",
-                        "plural": false,
-                        "selections": [
-                          (v10/*: any*/),
-                          (v11/*: any*/),
-                          (v12/*: any*/),
-                          (v13/*: any*/)
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              },
-              (v7/*: any*/)
-            ],
-            "storageKey": null
-          },
-          (v7/*: any*/),
+          (v6/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  (v15/*: any*/),
-                  (v4/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageAttachment",
-                    "kind": "LinkedField",
-                    "name": "heroImage",
-                    "plural": false,
-                    "selections": [
-                      (v16/*: any*/),
-                      {
-                        "alias": "image",
-                        "args": null,
-                        "concreteType": "ImageSize",
-                        "kind": "LinkedField",
-                        "name": "large",
-                        "plural": false,
-                        "selections": (v17/*: any*/),
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  (v8/*: any*/),
-                  (v19/*: any*/),
-                  {
-                    "alias": "related",
-                    "args": [
-                      {
-                        "kind": "Literal",
-                        "name": "order",
-                        "value": "RECENT"
-                      },
-                      (v20/*: any*/)
-                    ],
-                    "concreteType": "EntityLinkConnection",
-                    "kind": "LinkedField",
-                    "name": "links",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "EntityLinkEdge",
-                        "kind": "LinkedField",
-                        "name": "edges",
-                        "plural": true,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "EntityLink",
-                            "kind": "LinkedField",
-                            "name": "node",
-                            "plural": false,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": null,
-                                "kind": "LinkedField",
-                                "name": "target",
-                                "plural": false,
-                                "selections": [
-                                  (v21/*: any*/),
-                                  {
-                                    "kind": "InlineFragment",
-                                    "selections": (v26/*: any*/),
-                                    "type": "Collection",
-                                    "abstractKey": null
-                                  },
-                                  {
-                                    "kind": "InlineFragment",
-                                    "selections": (v26/*: any*/),
-                                    "type": "Item",
-                                    "abstractKey": null
-                                  },
-                                  (v27/*: any*/)
-                                ],
-                                "storageKey": null
-                              },
-                              (v7/*: any*/)
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": "links(order:\"RECENT\",perPage:4)"
-                  },
-                  {
-                    "alias": "issues",
-                    "args": [
-                      (v28/*: any*/),
-                      {
-                        "kind": "Literal",
-                        "name": "order",
-                        "value": "PUBLISHED_ASCENDING"
-                      },
-                      {
-                        "kind": "Literal",
-                        "name": "page",
-                        "value": 1
-                      },
-                      (v20/*: any*/),
-                      (v29/*: any*/)
-                    ],
-                    "concreteType": "CollectionConnection",
-                    "kind": "LinkedField",
-                    "name": "collections",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "CollectionEdge",
-                        "kind": "LinkedField",
-                        "name": "edges",
-                        "plural": true,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "Collection",
-                            "kind": "LinkedField",
-                            "name": "node",
-                            "plural": false,
-                            "selections": [
-                              (v5/*: any*/),
-                              (v4/*: any*/),
-                              (v30/*: any*/),
-                              (v25/*: any*/),
-                              (v31/*: any*/),
-                              (v34/*: any*/),
-                              {
-                                "alias": "properties",
-                                "args": null,
-                                "concreteType": null,
-                                "kind": "LinkedField",
-                                "name": "schemaProperties",
-                                "plural": true,
-                                "selections": [
-                                  (v21/*: any*/),
-                                  {
-                                    "kind": "InlineFragment",
-                                    "selections": [
-                                      (v35/*: any*/),
-                                      {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "path",
-                                        "storageKey": null
-                                      }
-                                    ],
-                                    "type": "StringProperty",
-                                    "abstractKey": null
-                                  }
-                                ],
-                                "storageKey": null
-                              },
-                              (v7/*: any*/)
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
-                  },
-                  {
-                    "alias": "currentIssue",
-                    "args": [
-                      (v28/*: any*/),
-                      {
-                        "kind": "Literal",
-                        "name": "order",
-                        "value": "PUBLISHED_DESCENDING"
-                      },
-                      (v29/*: any*/)
-                    ],
-                    "concreteType": "Collection",
-                    "kind": "LinkedField",
-                    "name": "firstCollection",
-                    "plural": false,
-                    "selections": [
-                      (v4/*: any*/),
-                      (v5/*: any*/),
-                      (v25/*: any*/),
-                      (v31/*: any*/),
-                      (v34/*: any*/),
-                      {
-                        "alias": null,
-                        "args": [
-                          {
-                            "kind": "Literal",
-                            "name": "perPage",
-                            "value": 3
-                          }
-                        ],
-                        "concreteType": "ItemConnection",
-                        "kind": "LinkedField",
-                        "name": "items",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ItemEdge",
-                            "kind": "LinkedField",
-                            "name": "edges",
-                            "plural": true,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "Item",
-                                "kind": "LinkedField",
-                                "name": "node",
-                                "plural": false,
-                                "selections": [
-                                  (v4/*: any*/),
-                                  (v5/*: any*/),
-                                  (v30/*: any*/),
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "concreteType": "ItemContributionConnection",
-                                    "kind": "LinkedField",
-                                    "name": "contributions",
-                                    "plural": false,
-                                    "selections": [
-                                      (v41/*: any*/)
-                                    ],
-                                    "storageKey": null
-                                  },
-                                  (v7/*: any*/)
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": "items(perPage:3)"
-                      },
-                      (v7/*: any*/)
-                    ],
-                    "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
-                  },
-                  (v30/*: any*/),
-                  (v42/*: any*/),
-                  (v24/*: any*/),
-                  (v25/*: any*/),
-                  (v43/*: any*/),
+                  (v11/*: any*/),
+                  (v3/*: any*/),
+                  (v12/*: any*/),
+                  (v13/*: any*/),
+                  (v16/*: any*/),
+                  (v22/*: any*/),
+                  (v26/*: any*/),
                   {
                     "alias": "volume",
-                    "args": (v32/*: any*/),
+                    "args": (v27/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "ancestorOfType",
                     "plural": false,
                     "selections": [
-                      (v21/*: any*/),
+                      (v23/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v4/*: any*/),
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": [
@@ -1868,7 +1948,7 @@ return {
                                     "kind": "LinkedField",
                                     "name": "node",
                                     "plural": false,
-                                    "selections": (v18/*: any*/),
+                                    "selections": (v28/*: any*/),
                                     "storageKey": null
                                   }
                                 ],
@@ -1881,11 +1961,11 @@ return {
                         "type": "Collection",
                         "abstractKey": null
                       },
-                      (v27/*: any*/)
+                      (v24/*: any*/)
                     ],
                     "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
                   },
-                  (v45/*: any*/),
+                  (v30/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1910,9 +1990,9 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v6/*: any*/),
-                              (v14/*: any*/),
-                              (v7/*: any*/)
+                              (v5/*: any*/),
+                              (v10/*: any*/),
+                              (v6/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -1922,7 +2002,8 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/),
+                  (v9/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1947,7 +2028,7 @@ return {
                             "name": "node",
                             "plural": false,
                             "selections": [
-                              (v5/*: any*/),
+                              (v4/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -1956,28 +2037,28 @@ return {
                                 "name": "contributor",
                                 "plural": false,
                                 "selections": [
-                                  (v21/*: any*/),
+                                  (v23/*: any*/),
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": (v46/*: any*/),
+                                    "selections": (v31/*: any*/),
                                     "type": "PersonContributor",
                                     "abstractKey": null
                                   },
                                   {
                                     "kind": "InlineFragment",
-                                    "selections": (v46/*: any*/),
+                                    "selections": (v31/*: any*/),
                                     "type": "OrganizationContributor",
                                     "abstractKey": null
                                   },
-                                  (v27/*: any*/)
+                                  (v24/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v7/*: any*/),
+                              (v6/*: any*/),
                               {
                                 "kind": "InlineFragment",
                                 "selections": [
-                                  (v47/*: any*/),
+                                  (v32/*: any*/),
                                   {
                                     "alias": null,
                                     "args": null,
@@ -2007,8 +2088,8 @@ return {
                                     "name": "contributor",
                                     "plural": false,
                                     "selections": [
-                                      (v36/*: any*/),
-                                      (v37/*: any*/),
+                                      (v33/*: any*/),
+                                      (v34/*: any*/),
                                       {
                                         "kind": "InlineFragment",
                                         "selections": [
@@ -2027,7 +2108,7 @@ return {
                                                 "kind": "LinkedField",
                                                 "name": "small",
                                                 "plural": false,
-                                                "selections": (v17/*: any*/),
+                                                "selections": (v35/*: any*/),
                                                 "storageKey": null
                                               }
                                             ],
@@ -2040,14 +2121,14 @@ return {
                                       {
                                         "kind": "InlineFragment",
                                         "selections": [
-                                          (v47/*: any*/),
-                                          (v38/*: any*/),
-                                          (v39/*: any*/)
+                                          (v32/*: any*/),
+                                          (v36/*: any*/),
+                                          (v37/*: any*/)
                                         ],
                                         "type": "PersonContributor",
                                         "abstractKey": null
                                       },
-                                      (v40/*: any*/)
+                                      (v38/*: any*/)
                                     ],
                                     "storageKey": null
                                   }
@@ -2064,13 +2145,97 @@ return {
                     ],
                     "storageKey": null
                   },
+                  (v39/*: any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v50/*: any*/),
                       {
                         "kind": "InlineFragment",
-                        "selections": (v49/*: any*/),
+                        "selections": [
+                          (v41/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ItemContributionConnection",
+                            "kind": "LinkedField",
+                            "name": "contributions",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ItemContributionEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "ItemContribution",
+                                    "kind": "LinkedField",
+                                    "name": "node",
+                                    "plural": false,
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "concreteType": null,
+                                        "kind": "LinkedField",
+                                        "name": "contributor",
+                                        "plural": false,
+                                        "selections": [
+                                          (v33/*: any*/),
+                                          (v34/*: any*/),
+                                          (v42/*: any*/),
+                                          (v38/*: any*/)
+                                        ],
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              },
+                              (v43/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          (v44/*: any*/),
+                          (v47/*: any*/),
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
+                              (v50/*: any*/),
+                              (v51/*: any*/)
+                            ],
+                            "type": "AnyEntity",
+                            "abstractKey": "__isAnyEntity"
+                          },
+                          (v48/*: any*/)
+                        ],
+                        "type": "Item",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v52/*: any*/),
+                          (v7/*: any*/),
+                          (v55/*: any*/),
+                          (v59/*: any*/),
+                          (v61/*: any*/),
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
+                              (v51/*: any*/)
+                            ],
+                            "type": "AnyEntity",
+                            "abstractKey": "__isAnyEntity"
+                          },
+                          (v48/*: any*/)
+                        ],
                         "type": "Collection",
                         "abstractKey": null
                       }
@@ -2086,131 +2251,98 @@ return {
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  (v15/*: any*/),
-                  (v43/*: any*/),
-                  (v34/*: any*/),
-                  {
-                    "alias": "issue",
-                    "args": [
-                      (v29/*: any*/)
-                    ],
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "ancestorOfType",
-                    "plural": false,
-                    "selections": (v33/*: any*/),
-                    "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
-                  },
-                  (v4/*: any*/),
-                  (v30/*: any*/),
-                  (v42/*: any*/),
-                  (v24/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ItemContributionConnection",
-                    "kind": "LinkedField",
-                    "name": "contributions",
-                    "plural": false,
-                    "selections": [
-                      (v41/*: any*/),
-                      (v51/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  (v45/*: any*/),
-                  (v19/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "AnyAssetConnection",
-                    "kind": "LinkedField",
-                    "name": "assets",
-                    "plural": false,
-                    "selections": [
-                      (v51/*: any*/)
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ItemConnection",
-                    "kind": "LinkedField",
-                    "name": "relatedItems",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ItemEdge",
-                        "kind": "LinkedField",
-                        "name": "edges",
-                        "plural": true,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "Item",
-                            "kind": "LinkedField",
-                            "name": "node",
-                            "plural": false,
-                            "selections": [
-                              (v4/*: any*/),
-                              (v5/*: any*/),
-                              (v24/*: any*/),
-                              (v43/*: any*/),
-                              {
-                                "alias": "volumeId",
-                                "args": [
-                                  {
-                                    "kind": "Literal",
-                                    "name": "fullPath",
-                                    "value": "volume.id"
-                                  }
-                                ],
-                                "concreteType": null,
-                                "kind": "LinkedField",
-                                "name": "schemaProperty",
-                                "plural": false,
-                                "selections": (v52/*: any*/),
-                                "storageKey": "schemaProperty(fullPath:\"volume.id\")"
-                              },
-                              {
-                                "alias": "issueId",
-                                "args": [
-                                  {
-                                    "kind": "Literal",
-                                    "name": "fullPath",
-                                    "value": "id"
-                                  }
-                                ],
-                                "concreteType": null,
-                                "kind": "LinkedField",
-                                "name": "schemaProperty",
-                                "plural": false,
-                                "selections": (v52/*: any*/),
-                                "storageKey": "schemaProperty(fullPath:\"id\")"
-                              },
-                              (v7/*: any*/)
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
+                  (v11/*: any*/),
+                  (v39/*: any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v50/*: any*/)
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v52/*: any*/),
+                          (v7/*: any*/),
+                          (v55/*: any*/),
+                          (v59/*: any*/),
+                          (v61/*: any*/)
+                        ],
+                        "type": "Collection",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v26/*: any*/),
+                          (v58/*: any*/),
+                          (v41/*: any*/),
+                          (v3/*: any*/),
+                          (v12/*: any*/),
+                          (v13/*: any*/),
+                          (v16/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ItemContributionConnection",
+                            "kind": "LinkedField",
+                            "name": "contributions",
+                            "plural": false,
+                            "selections": [
+                              (v60/*: any*/),
+                              (v43/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          (v30/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "PageConnection",
+                            "kind": "LinkedField",
+                            "name": "pages",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "PageEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "Page",
+                                    "kind": "LinkedField",
+                                    "name": "node",
+                                    "plural": false,
+                                    "selections": (v28/*: any*/),
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          (v44/*: any*/),
+                          (v47/*: any*/),
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
+                              (v50/*: any*/)
+                            ],
+                            "type": "AnyEntity",
+                            "abstractKey": "__isAnyEntity"
+                          },
+                          (v48/*: any*/)
+                        ],
+                        "type": "Item",
+                        "abstractKey": null
+                      }
                     ],
                     "type": "AnyEntity",
                     "abstractKey": "__isAnyEntity"
-                  },
-                  (v48/*: any*/)
+                  }
                 ],
                 "type": "Item",
                 "abstractKey": null
@@ -2245,7 +2377,7 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": (v9/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               }
             ],
@@ -2257,14 +2389,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ed9bcd4668da1f7ed5b16806da6d25b8",
+    "cacheID": "2398d15c31c44d8b060c8aa9d57c8bbc",
     "id": null,
     "metadata": {},
     "name": "PageSlugCollectionQuery",
     "operationKind": "query",
-    "text": "query PageSlugCollectionQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  collection(slug: $slug) {\n    ...EntityLayoutFactoryFragment\n    community {\n      ...CommunityLayoutFragment\n      id\n    }\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment ArticleHeroFragment on Item {\n  title\n  summary\n  doi\n  published {\n    ...PrecisionDateFragment\n  }\n  contributions {\n    ...ContributorsListFragment\n  }\n  pdfVersion: schemaProperty(fullPath: \"pdf_version\") {\n    __typename\n    ...AssetDownloadButtonFragment\n  }\n}\n\nfragment ArticleLayoutFragment on Item {\n  ...EntityHTMLHeadFragment\n  ...BreadcrumbsBarFragment\n  ...ArticleParentHeaderFragment\n  ...ArticleHeroFragment\n  ...ArticleTabNavFragment\n  relatedItems {\n    ...RelatedArticlesFragment\n  }\n}\n\nfragment ArticleParentHeaderFragment on Item {\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  issue: ancestorOfType(schema: \"nglp:journal_issue\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ArticleTabNavFragment on Item {\n  pages {\n    edges {\n      node {\n        title\n        slug\n        id\n      }\n    }\n  }\n  contributions {\n    pageInfo {\n      totalCount\n    }\n  }\n  assets {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment AssetDownloadButtonFragment on AssetProperty {\n  asset {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      name\n      downloadUrl\n      kind\n      contentType\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment BreadcrumbsBarFragment on Entity {\n  __isEntity: __typename\n  ...BreadcrumbsFragment\n}\n\nfragment BreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n\nfragment CollectionContributionsBlockFragment on CollectionContributionConnection {\n  edges {\n    node {\n      slug\n      contributor {\n        __typename\n        ... on PersonContributor {\n          image {\n            storage\n          }\n        }\n        ... on OrganizationContributor {\n          image {\n            storage\n          }\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...ContributionBlockItemFragment\n      id\n    }\n  }\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment ContributionBlockItemFragment on Contribution {\n  __isContribution: __typename\n  affiliation\n  displayName\n  contributorKind\n  role\n  contributor {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Contributor {\n      __isContributor: __typename\n      image {\n        ...ContributorAvatarFragment\n      }\n    }\n    ... on PersonContributor {\n      affiliation\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment CurrentIssueFragment on Collection {\n  title\n  slug\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  items(perPage: 3) {\n    edges {\n      node {\n        title\n        slug\n        summary\n        contributions {\n          ...ContributorsListFragment\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHTMLHeadFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n  }\n  ... on Collection {\n    title\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment EntityLayoutFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFragment\n    ...JournalLayoutFragment\n    ...IssueLayoutFragment\n  }\n  ... on Item {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFragment\n    ...ArticleLayoutFragment\n  }\n}\n\nfragment EntityLayoutFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ...EntityHTMLHeadFragment\n  ... on Collection {\n    ...BreadcrumbsBarFragment\n    ...EntityHeroFragment\n  }\n  ... on Item {\n    ...BreadcrumbsBarFragment\n    ...EntityHeroFragment\n  }\n}\n\nfragment EntityOrderSelectFragment on OrderingConnection {\n  edges {\n    node {\n      name\n      identifier\n      id\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n\nfragment FeaturedIssueFragment on Collection {\n  title\n  slug\n  summary\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  properties: schemaProperties {\n    __typename\n    ... on StringProperty {\n      content\n      path\n    }\n  }\n}\n\nfragment FeaturedIssuesFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedIssueFragment\n      id\n    }\n  }\n}\n\nfragment HeroImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment IssueContentFragment on Collection {\n  orderings {\n    ...EntityOrderSelectFragment\n  }\n  ...IssueNavListFragment\n}\n\nfragment IssueHeroFragment on Collection {\n  title\n  summary\n  doi\n  published {\n    ...PrecisionDateFragment\n  }\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  pdfVersion: schemaProperty(fullPath: \"pdf_version\") {\n    __typename\n    ...AssetDownloadButtonFragment\n  }\n}\n\nfragment IssueLayoutFragment on Collection {\n  ...EntityHTMLHeadFragment\n  ...BreadcrumbsBarFragment\n  ...IssueHeroFragment\n  ...IssueContentFragment\n  ...PrevNextIssueFragment\n  contributions {\n    ...CollectionContributionsBlockFragment\n  }\n}\n\nfragment IssueNavListFragment on Collection {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment JournalHeroFragment on Collection {\n  title\n  heroImage {\n    storage\n    ...HeroImageFragment\n  }\n}\n\nfragment JournalLayoutFragment on Collection {\n  ...EntityHTMLHeadFragment\n  ...JournalHeroFragment\n  ...JournalNavBarFragment\n  ...BreadcrumbsBarFragment\n  related: links(order: RECENT, perPage: 4) {\n    ...RelatedJournalsFragment\n  }\n  issues: collections(schema: \"nglp:journal_issue\", order: PUBLISHED_ASCENDING, nodeFilter: DESCENDANTS, page: 1, perPage: 4) {\n    ...FeaturedIssuesFragment\n  }\n  currentIssue: firstCollection(schema: \"nglp:journal_issue\", order: PUBLISHED_DESCENDING, nodeFilter: DESCENDANTS) {\n    ...CurrentIssueFragment\n    id\n  }\n}\n\nfragment JournalNavBarFragment on Collection {\n  title\n  id\n  ...JournalNavListFragment\n}\n\nfragment JournalNavListFragment on Collection {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        title\n        slug\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PrevNextIssueFragment on Collection {\n  slug\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      collections(schema: [\"nglp:journal_issue\"]) {\n        edges {\n          node {\n            title\n            slug\n            id\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment RelatedArticlesFragment on ItemConnection {\n  edges {\n    node {\n      title\n      slug\n      published {\n        ...PrecisionDateFragment\n      }\n      journal: ancestorOfType(schema: \"nglp:journal\") {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      volumeId: schemaProperty(fullPath: \"volume.id\") {\n        __typename\n        ... on StringProperty {\n          fullPath\n          content\n        }\n      }\n      issueId: schemaProperty(fullPath: \"id\") {\n        __typename\n        ... on StringProperty {\n          fullPath\n          content\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment RelatedJournalsFragment on EntityLinkConnection {\n  edges {\n    node {\n      target {\n        __typename\n        ... on Collection {\n          __typename\n          title\n          slug\n          published {\n            ...PrecisionDateFragment\n          }\n          thumbnail {\n            storage\n            ...CoverImageFragment\n          }\n        }\n        ... on Item {\n          __typename\n          title\n          slug\n          published {\n            ...PrecisionDateFragment\n          }\n          thumbnail {\n            storage\n            ...CoverImageFragment\n          }\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query PageSlugCollectionQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  collection(slug: $slug) {\n    ...EntityPageLayoutFactoryFragment\n    community {\n      ...CommunityLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment ArticleHeroFragment on Item {\n  title\n  summary\n  doi\n  published {\n    ...PrecisionDateFragment\n  }\n  contributions {\n    ...ContributorsListFragment\n  }\n  pdfVersion: schemaProperty(fullPath: \"pdf_version\") {\n    __typename\n    ...AssetDownloadButtonFragment\n  }\n}\n\nfragment ArticleLayoutFragment on Item {\n  ...EntityHTMLHeadFragment\n  ...BreadcrumbsBarFragment\n  ...ArticleParentHeaderFragment\n  ...ArticleHeroFragment\n  ...ArticleTabNavFragment\n  relatedItems {\n    ...RelatedArticlesFragment\n  }\n}\n\nfragment ArticleParentHeaderFragment on Item {\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  issue: ancestorOfType(schema: \"nglp:journal_issue\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ArticleTabNavFragment on Item {\n  pages {\n    edges {\n      node {\n        title\n        slug\n        id\n      }\n    }\n  }\n  contributions {\n    pageInfo {\n      totalCount\n    }\n  }\n  assets {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment AssetDownloadButtonFragment on AssetProperty {\n  asset {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      name\n      downloadUrl\n      kind\n      contentType\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment BreadcrumbsBarFragment on Entity {\n  __isEntity: __typename\n  ...BreadcrumbsFragment\n}\n\nfragment BreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n\nfragment CollectionContributionsBlockFragment on CollectionContributionConnection {\n  edges {\n    node {\n      slug\n      contributor {\n        __typename\n        ... on PersonContributor {\n          image {\n            storage\n          }\n        }\n        ... on OrganizationContributor {\n          image {\n            storage\n          }\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...ContributionBlockItemFragment\n      id\n    }\n  }\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment ContributionBlockItemFragment on Contribution {\n  __isContribution: __typename\n  affiliation\n  displayName\n  contributorKind\n  role\n  contributor {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Contributor {\n      __isContributor: __typename\n      image {\n        ...ContributorAvatarFragment\n      }\n    }\n    ... on PersonContributor {\n      affiliation\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment CurrentIssueFragment on Collection {\n  title\n  slug\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  items(perPage: 3) {\n    edges {\n      node {\n        title\n        slug\n        summary\n        contributions {\n          ...ContributorsListFragment\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHTMLHeadFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n  }\n  ... on Collection {\n    title\n  }\n}\n\nfragment EntityHeroFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n  }\n  ... on Community {\n    title\n  }\n  ... on Item {\n    title\n  }\n}\n\nfragment EntityLayoutFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFragment\n    ...JournalLayoutFragment\n    ...IssueLayoutFragment\n  }\n  ... on Item {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFragment\n    ...ArticleLayoutFragment\n  }\n}\n\nfragment EntityLayoutFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ...EntityHTMLHeadFragment\n  ... on Collection {\n    ...BreadcrumbsBarFragment\n    ...EntityHeroFragment\n  }\n  ... on Item {\n    ...BreadcrumbsBarFragment\n    ...EntityHeroFragment\n  }\n}\n\nfragment EntityOrderSelectFragment on OrderingConnection {\n  edges {\n    node {\n      name\n      identifier\n      id\n    }\n  }\n}\n\nfragment EntityPageLayoutFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...IssueLayoutFragment\n    ...EntityLayoutFactoryFragment\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      ...IssuePageLayoutFragment\n      id\n    }\n  }\n  ... on Item {\n    schemaDefinition {\n      identifier\n      id\n    }\n    ...EntityLayoutFactoryFragment\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n\nfragment FeaturedIssueFragment on Collection {\n  title\n  slug\n  summary\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  properties: schemaProperties {\n    __typename\n    ... on StringProperty {\n      content\n      path\n    }\n  }\n}\n\nfragment FeaturedIssuesFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedIssueFragment\n      id\n    }\n  }\n}\n\nfragment HeroImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment IssueContentFragment on Collection {\n  orderings {\n    ...EntityOrderSelectFragment\n  }\n  ...IssueNavListFragment\n}\n\nfragment IssueHeroFragment on Collection {\n  title\n  summary\n  doi\n  published {\n    ...PrecisionDateFragment\n  }\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  pdfVersion: schemaProperty(fullPath: \"pdf_version\") {\n    __typename\n    ...AssetDownloadButtonFragment\n  }\n}\n\nfragment IssueLayoutFragment on Collection {\n  ...EntityHTMLHeadFragment\n  ...BreadcrumbsBarFragment\n  ...IssueHeroFragment\n  ...IssueContentFragment\n  ...PrevNextIssueFragment\n  contributions {\n    ...CollectionContributionsBlockFragment\n  }\n}\n\nfragment IssueNavListFragment on Collection {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment IssuePageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n\nfragment JournalHeroFragment on Collection {\n  title\n  heroImage {\n    storage\n    ...HeroImageFragment\n  }\n}\n\nfragment JournalLayoutFragment on Collection {\n  ...EntityHTMLHeadFragment\n  ...JournalHeroFragment\n  ...JournalNavBarFragment\n  ...BreadcrumbsBarFragment\n  related: links(order: RECENT, perPage: 4) {\n    ...RelatedJournalsFragment\n  }\n  issues: collections(schema: \"nglp:journal_issue\", order: PUBLISHED_ASCENDING, nodeFilter: DESCENDANTS, page: 1, perPage: 4) {\n    ...FeaturedIssuesFragment\n  }\n  currentIssue: firstCollection(schema: \"nglp:journal_issue\", order: PUBLISHED_DESCENDING, nodeFilter: DESCENDANTS) {\n    ...CurrentIssueFragment\n    id\n  }\n}\n\nfragment JournalNavBarFragment on Collection {\n  title\n  id\n  ...JournalNavListFragment\n}\n\nfragment JournalNavListFragment on Collection {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        title\n        slug\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PrevNextIssueFragment on Collection {\n  slug\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      collections(schema: [\"nglp:journal_issue\"]) {\n        edges {\n          node {\n            title\n            slug\n            id\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment RelatedArticlesFragment on ItemConnection {\n  edges {\n    node {\n      title\n      slug\n      published {\n        ...PrecisionDateFragment\n      }\n      journal: ancestorOfType(schema: \"nglp:journal\") {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      volumeId: schemaProperty(fullPath: \"volume.id\") {\n        __typename\n        ... on StringProperty {\n          fullPath\n          content\n        }\n      }\n      issueId: schemaProperty(fullPath: \"id\") {\n        __typename\n        ... on StringProperty {\n          fullPath\n          content\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment RelatedJournalsFragment on EntityLinkConnection {\n  edges {\n    node {\n      target {\n        __typename\n        ... on Collection {\n          __typename\n          title\n          slug\n          published {\n            ...PrecisionDateFragment\n          }\n          thumbnail {\n            storage\n            ...CoverImageFragment\n          }\n        }\n        ... on Item {\n          __typename\n          title\n          slug\n          published {\n            ...PrecisionDateFragment\n          }\n          thumbnail {\n            storage\n            ...CoverImageFragment\n          }\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c6c7512199d769465513d4cacc6e479f';
+(node as any).hash = '04b3bcff00bbf78a7e154a923ff081ee';
 export default node;

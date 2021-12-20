@@ -26,14 +26,8 @@ export default function MetadataFactory({ data, label }: Props) {
   switch (field.__typename) {
     case "AssetProperty":
       return <AssetProperty data={field} label={label} />;
-    // case "AssetsProperty":
-    //   return <AssetsProperty data={field} label={label} />;
     case "BooleanProperty":
       return <BooleanProperty data={field} label={label} />;
-    // case "ContributorProperty":
-    //   return <ContributorProperty data={field} label={label} />;
-    // case "ContributorsProperty":
-    //   return <ContributorsProperty data={field} label={label} />;
     case "DateProperty":
       return <DateProperty data={field} label={label} />;
     case "EmailProperty":
@@ -41,18 +35,10 @@ export default function MetadataFactory({ data, label }: Props) {
     case "FloatProperty":
     case "IntegerProperty":
       return <NumberProperty data={field} label={label} />;
-    // case "MarkdownProperty":
-    //   return <MarkdownProperty data={field} label={label} />;
-    // case "MultiselectProperty":
-    //   return <MultiselectProperty data={field} label={label} />;
-    // case "SelectProperty":
-    //   return <SelectProperty data={field} label={label} />;
     case "StringProperty":
       return <StringProperty data={field} label={label} />;
     case "TagsProperty":
       return <TagsProperty data={field} label={label} />;
-    // case "FullTextProperty":
-    //   return <FullTextProperty data={field} label={label} />;
     case "URLProperty":
       return <URLProperty data={field} label={label} />;
     case "VariableDateProperty":

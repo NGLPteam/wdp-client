@@ -29,4 +29,8 @@ export const LeftSide = styled.div`
 
 export const RightSide = styled.div`
   grid-area: right;
+
+  > * + * {
+    margin-block-start: var(--padding-md);
+  }
 `;
