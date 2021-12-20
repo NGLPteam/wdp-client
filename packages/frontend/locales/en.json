@@ -88,7 +88,8 @@
       "metrics_header": "Metrics",
       "volume_id_label": "Volume ID",
       "online_version_label": "Online Version",
-      "contributions_header": "Contributions"
+      "contributions_header": "Contributions",
+      "back_to_contributors": "Back to Contributors"
     },
     "nav": {
       "home": "Home",

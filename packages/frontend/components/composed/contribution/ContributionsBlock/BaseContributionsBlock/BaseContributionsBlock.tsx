@@ -9,7 +9,7 @@ const BaseContributionsBlock = ({
   const { t } = useTranslation();
 
   return children ? (
-    <section className={`a-bg-${background}`}>
+    <section className={`a-bg-${background}`} id="contributors">
       <Styled.SectionInner className="l-container-wide">
         <h3 className="t-capitalize">{t("glossary.contributor_plural")}</h3>
         <Styled.List>{children}</Styled.List>

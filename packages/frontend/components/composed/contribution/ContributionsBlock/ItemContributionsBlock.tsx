@@ -21,9 +21,10 @@ const ItemContributionsBlock = ({ data, background }: Props) => {
     <BaseContributionsBlock background={background}>
       {contributions.edges.map(({ node }: Node) => (
         <ContributionBlockItem
-          showAvatar={showAvatars}
           data={node}
           key={node.slug}
+          showAvatar={showAvatars}
+          route="item.contributor"
         />
       ))}
     </BaseContributionsBlock>

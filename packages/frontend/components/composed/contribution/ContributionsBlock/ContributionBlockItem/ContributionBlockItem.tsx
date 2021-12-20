@@ -8,14 +8,14 @@ import * as Styled from "./ContributionBlockItem.styles";
 import { ContributionBlockItemFragment$key } from "@/relay/ContributionBlockItemFragment.graphql";
 import { NamedLink } from "components/atomic";
 
-const ContributionBlockItem = ({ data, showAvatar }: Props) => {
+const ContributionBlockItem = ({ data, route, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
   const slug = useRouteSlug();
 
   return contribution && slug && contribution.contributor.slug ? (
     <Styled.ListItem>
       <NamedLink
-        route="item.contributor"
+        route={route}
         routeParams={{ slug, contributor: contribution.contributor.slug }}
         passHref
       >
@@ -48,6 +48,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
 interface Props {
   data?: ContributionBlockItemFragment$key | null;
   showAvatar?: boolean;
+  route: string;
 }
 
 export default ContributionBlockItem;
