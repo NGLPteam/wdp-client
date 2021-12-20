@@ -57,7 +57,7 @@ function AppFooter({ data, nameComponent, background = "custom10" }: Props) {
           </p>
           {footerApiData && (
             <>
-              <Styled.InstallationDesktop className="l-flex l-flex--gap">
+              <Styled.InstallationDesktop>
                 <InstallationName />
                 <CommunityPicker data={footerApiData} />
               </Styled.InstallationDesktop>
