@@ -3,13 +3,13 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
-import IssueNavList from "../IssueNavList";
-import * as Styled from "./IssueContent.styles";
+import IssueNavList from "./IssueNavList";
+import * as Styled from "./IssueContentNav.styles";
 import EntityOrderSelect from "components/composed/entity/EntityOrderSelect";
-import { IssueContentFragment$key } from "@/relay/IssueContentFragment.graphql";
+import { IssueContentNavFragment$key } from "@/relay/IssueContentNavFragment.graphql";
 import { BackToTopBlock } from "components/layout";
 
-export default function IssueContent({ data, children }: Props) {
+export default function IssueContentNav({ data, children }: Props) {
   const content = useMaybeFragment(fragment, data);
   const router = useRouter();
   const order = useMemo(() => {
@@ -46,12 +46,12 @@ export default function IssueContent({ data, children }: Props) {
 }
 
 interface Props {
-  data?: IssueContentFragment$key | null;
+  data?: IssueContentNavFragment$key | null;
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment IssueContentFragment on Collection {
+  fragment IssueContentNavFragment on Collection {
     orderings {
       ...EntityOrderSelectFragment
     }

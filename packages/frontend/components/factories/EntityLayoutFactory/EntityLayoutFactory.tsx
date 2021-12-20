@@ -15,20 +15,16 @@ export default function EntityLayoutFactory({ data, children }: Props) {
   switch (entity.schemaDefinition?.identifier) {
     case "journal":
       return <JournalLayout data={entity}>{children}</JournalLayout>;
-      break;
 
     case "journal_issue":
       return <IssueLayout data={entity}>{children}</IssueLayout>;
-      break;
 
     case "article":
     case "journal_article":
       return <ArticleLayout data={entity}>{children}</ArticleLayout>;
-      break;
 
     default:
       return <EntityLayout data={entity}>{children}</EntityLayout>;
-      break;
   }
 }
 

@@ -19,11 +19,9 @@ export default function EntityMetadataLayoutFactory({ data, children }: Props) {
           <ArticleMetadataBlock data={entity} />
         </ArticleLayout>
       );
-      break;
 
     default:
       return <EntityLayout data={entity}>{children}</EntityLayout>;
-      break;
   }
 }
 

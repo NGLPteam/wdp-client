@@ -6,6 +6,7 @@ import IssueLayout from "components/composed/issue/IssueLayout";
 import { EntityPageLayoutFactoryFragment$key } from "@/relay/EntityPageLayoutFactoryFragment.graphql";
 import EntityPageLayout from "components/composed/entity/EntityPageLayout";
 import IssuePageLayout from "components/composed/issue/IssuePageLayout";
+import IssueContentNav from "components/composed/issue/IssueContentNav";
 
 export default function EntityPageLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -16,7 +17,9 @@ export default function EntityPageLayoutFactory({ data }: Props) {
     case "journal_issue":
       return (
         <IssueLayout data={entity}>
-          <IssuePageLayout data={entity.page} />
+          <IssueContentNav data={entity}>
+            <IssuePageLayout data={entity.page} />
+          </IssueContentNav>
         </IssueLayout>
       );
 
@@ -41,6 +44,7 @@ const fragment = graphql`
       }
 
       ...IssueLayoutFragment
+      ...IssueContentNavFragment
       ...EntityLayoutFactoryFragment
 
       page(slug: $pageSlug) {
