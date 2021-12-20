@@ -7,7 +7,7 @@ import CommunityLayout from "components/composed/community/CommunityLayout";
 import { contributorsSlugItemQuery as Query } from "@/relay/contributorsSlugItemQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 
-export default function ItemPage() {
+export default function ContributorsSlugItemPage() {
   const slug = useRouteSlug();
 
   return slug ? (

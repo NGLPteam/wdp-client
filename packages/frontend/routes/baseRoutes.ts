@@ -37,6 +37,10 @@ export const baseRoutes: BaseRoute[] = [
         name: "collection.page",
         path: "/collections/[slug]/page/[page]",
       },
+      {
+        name: "collection.contributor",
+        path: "/collections/[slug]/contributors/[contributor]",
+      },
     ],
   },
   {

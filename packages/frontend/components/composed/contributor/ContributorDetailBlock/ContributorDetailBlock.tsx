@@ -11,17 +11,21 @@ import ContributionItem from "./ContributionItem/ContributionItem";
 import { BackButton, ExternalLink, NamedLink } from "components/atomic";
 import { ContributorDetailBlockFragment$key } from "@/relay/ContributorDetailBlockFragment.graphql";
 
-export default function ContributorDetailBlock({ data }: Props) {
+export default function ContributorDetailBlock({
+  data,
+  backRoute,
+  backLabel,
+}: Props) {
   const contributor = useMaybeFragment(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
 
   return contributor ? (
     <div className="l-container-wide">
-      {slug && (
+      {slug && backRoute && (
         <Styled.BackNav>
-          <NamedLink route="item.contributors" routeParams={{ slug }} passHref>
-            <BackButton>Back to Contributors</BackButton>
+          <NamedLink route={backRoute} routeParams={{ slug }} passHref>
+            <BackButton>{t(backLabel || "common.back")}</BackButton>
           </NamedLink>
         </Styled.BackNav>
       )}
@@ -77,6 +81,8 @@ export default function ContributorDetailBlock({ data }: Props) {
 
 interface Props {
   data?: ContributorDetailBlockFragment$key | null;
+  backRoute?: string;
+  backLabel?: string;
 }
 
 const fragment = graphql`

@@ -3,12 +3,12 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import ContributorDetailBlock from "components/composed/contributor/ContributorDetailBlock";
-import { ContributorSlugItemQuery as Query } from "@/relay/ContributorSlugItemQuery.graphql";
+import { ContributorSlugCollectionQuery as Query } from "@/relay/ContributorSlugCollectionQuery.graphql";
 
-export default function ContributorSlugItemPage() {
+export default function CollectionContributor() {
   const router = useRouter();
   const { slug: slugQuery, contributor: contributorQuery } = router.query;
   const slug = routeQueryArrayToString(slugQuery);
@@ -17,15 +17,17 @@ export default function ContributorSlugItemPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, contributor }}>
       {({ data }) => (
-        <CommunityLayout data={data} communityData={data?.item?.community}>
-          <EntityLayoutFactory data={data?.item}>
+        <CommunityChildLayout
+          data={data}
+          communityData={data?.collection?.community}
+        >
+          <EntityLayoutFactory data={data?.collection}>
             <ContributorDetailBlock
-              backRoute="item.contributors"
-              backLabel="layouts.back_to_contributors"
+              backRoute="collection"
               data={data?.contributor}
             />
           </EntityLayoutFactory>
-        </CommunityLayout>
+        </CommunityChildLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -34,19 +36,17 @@ export default function ContributorSlugItemPage() {
 }
 
 const query = graphql`
-  query ContributorSlugItemQuery($slug: Slug!, $contributor: Slug!) {
-    item(slug: $slug) {
+  query ContributorSlugCollectionQuery($slug: Slug!, $contributor: Slug!) {
+    collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
-
       community {
-        ...CommunityLayoutFragment
+        ...CommunityHeroFragment
+        ...CommunityChildLayoutFragment
       }
     }
-
     contributor(slug: $contributor) {
       ...ContributorDetailBlockFragment
     }
-
-    ...CommunityLayoutAppFragment
+    ...CommunityChildLayoutAppFragment
   }
 `;
