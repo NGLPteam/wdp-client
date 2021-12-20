@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouteSlug } from "@wdp/lib/routes";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -9,7 +8,6 @@ import { ArrowLink, Dropdown, NamedLink } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 
 export default function CommunityNavList({ condensed, mobile, data }: Props) {
-  const slug = useRouteSlug();
   const { t } = useTranslation();
   const community = useMaybeFragment(fragment, data);
   const linkClassName = condensed ? "t-label-sm" : "t-label-lg";
@@ -49,13 +47,14 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
           ]}
         />
       </li>
-      {slug &&
-        community?.pages.edges &&
+      {community &&
+        community.slug &&
+        community.pages.edges &&
         community.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
               route="community.page"
-              routeParams={{ slug, page: node.slug }}
+              routeParams={{ slug: community.slug, page: node.slug }}
               passHref
             >
               <Styled.NavButton as="a" href="#">
@@ -76,6 +75,7 @@ interface Props {
 
 const fragment = graphql`
   fragment CommunityNavListFragment on Community {
+    slug
     schemaRanks {
       slug
       name

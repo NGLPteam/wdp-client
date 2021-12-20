@@ -10,9 +10,9 @@ export type itemsQueryVariables = {
 };
 export type itemsQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityChildLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
 };
 export type itemsQuery = {
     readonly response: itemsQueryResponse;
@@ -26,10 +26,10 @@ query itemsQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
-    ...CommunityChildLayoutFragment
+    ...CommunityLayoutFragment
     id
   }
-  ...CommunityChildLayoutAppFragment
+  ...CommunityLayoutAppFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -46,17 +46,6 @@ fragment AppHeaderFragment on Query {
   ...MobileMenuFragment
 }
 
-fragment CommunityChildLayoutAppFragment on Query {
-  ...CommunityCondensedNavAppFragment
-  ...AppBodyFragment
-}
-
-fragment CommunityChildLayoutFragment on Community {
-  ...CommunityHTMLHeadFragment
-  ...CommunityNameFragment
-  ...CommunityCondensedNavFragment
-}
-
 fragment CommunityCondensedNavAppFragment on Query {
   ...CommunityPickerFragment
   ...MobileMenuFragment
@@ -70,12 +59,30 @@ fragment CommunityHTMLHeadFragment on Community {
   title
 }
 
+fragment CommunityLayoutAppFragment on Query {
+  ...AppBodyFragment
+  ...CommunityCondensedNavAppFragment
+}
+
+fragment CommunityLayoutFragment on Community {
+  ...CommunityHTMLHeadFragment
+  ...CommunityNameFragment
+  ...CommunityNavBarFragment
+  ...CommunityCondensedNavFragment
+}
+
 fragment CommunityNameFragment on Community {
   title
   slug
 }
 
+fragment CommunityNavBarFragment on Community {
+  ...CommunityNameFragment
+  ...CommunityNavListFragment
+}
+
 fragment CommunityNavListFragment on Community {
+  slug
   schemaRanks {
     slug
     name
@@ -169,7 +176,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityChildLayoutFragment"
+            "name": "CommunityLayoutFragment"
           }
         ],
         "storageKey": null
@@ -177,7 +184,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CommunityChildLayoutAppFragment"
+        "name": "CommunityLayoutAppFragment"
       }
     ],
     "type": "Query",
@@ -297,14 +304,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c1b672e3fcbb175fc50850a5ee3cc92b",
+    "cacheID": "1180a5c97cb0ca3fd84210533511f796",
     "id": null,
     "metadata": {},
     "name": "itemsQuery",
     "operationKind": "query",
-    "text": "query itemsQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityChildLayoutFragment\n    id\n  }\n  ...CommunityChildLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityChildLayoutAppFragment on Query {\n  ...CommunityCondensedNavAppFragment\n  ...AppBodyFragment\n}\n\nfragment CommunityChildLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavListFragment on Community {\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query itemsQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();
-(node as any).hash = 'c399383257eb0b7167e6ab8dc2b67c75';
+(node as any).hash = '5fdf38cad1a413202d134e1cd7922bb7';
 export default node;

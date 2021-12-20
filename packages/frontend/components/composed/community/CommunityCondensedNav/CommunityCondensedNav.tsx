@@ -18,7 +18,11 @@ import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNav
 import { SearchButton } from "components/atomic";
 import { CommunityCondensedNavAppFragment$key } from "@/relay/CommunityCondensedNavAppFragment.graphql";
 
-function CommunityCondensedNav({ data, communityData }: Props) {
+function CommunityCondensedNav({
+  data,
+  communityData,
+  isCommunityRoot,
+}: Props) {
   const appData = useMaybeFragment(appFragment, data);
   const community = useMaybeFragment(fragment, communityData);
 
@@ -59,9 +63,11 @@ function CommunityCondensedNav({ data, communityData }: Props) {
           </>
         )}
         <Styled.RightSide>
-          {community && <CommunityNavList data={community} condensed />}
-          <SearchButton size="sm" />
-          <AccountDropdown condensed />
+          {community && !isCommunityRoot && (
+            <CommunityNavList data={community} condensed />
+          )}
+          {!isCommunityRoot && <SearchButton size="sm" />}
+          <AccountDropdown condensed={!isCommunityRoot} />
         </Styled.RightSide>
         <Styled.MobileRight>
           <MobileMenuToggle
@@ -93,6 +99,7 @@ function CommunityCondensedNav({ data, communityData }: Props) {
 interface Props {
   data?: CommunityCondensedNavAppFragment$key | null;
   communityData?: CommunityCondensedNavFragment$key | null;
+  isCommunityRoot?: boolean;
 }
 
 export default CommunityCondensedNav;

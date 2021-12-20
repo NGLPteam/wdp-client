@@ -1,5 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { globalNavRespond } from "theme/mixins";
 
 export const Nav = styled.nav`
   padding-block-start: ${pxToRem(36)};
@@ -8,6 +9,12 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${globalNavRespond(
+    `
+    display: none;
+    `
+  )}
 `;
 
 export const LeftSide = styled.div``;

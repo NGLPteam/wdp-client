@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityNavListFragment = {
+    readonly slug: string;
     readonly schemaRanks: ReadonlyArray<{
         readonly slug: string;
         readonly name: string;
@@ -43,6 +44,7 @@ return {
   "metadata": null,
   "name": "CommunityNavListFragment",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -115,5 +117,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '9097bc6f5d3a1fc56ee8e43ffe735e9e';
+(node as any).hash = '238ea0818dccfe3d47090c0557cfe5eb';
 export default node;
