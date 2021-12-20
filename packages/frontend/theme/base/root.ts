@@ -20,14 +20,17 @@ function setBaseColors() {
   );
 }
 
+// The font size shrinks to one size below on mobile
+// ie, h1 becomes an h2, h2 becomes an h3, etc.
+// h4 says the same.
 export const baseFontStyles = css`
   --font-face-header: sans-serif;
   --font-size-h1: ${fluidScale("60px", "54px")};
-  --line-height-h1: 66px;
-  --font-size-h2: 46px;
-  --line-height-h2: 54px;
-  --font-size-h3: 28px;
-  --line-height-h3: 36px;
+  --line-height-h1: ${fluidScale("66px", "54px")};
+  --font-size-h2: ${fluidScale("46px", "28px")};
+  --line-height-h2: ${fluidScale("54px", "36px")};
+  --font-size-h3: ${fluidScale("28px", "20px")};
+  --line-height-h3: ${fluidScale("36px", "24px")};
   --font-size-h4: 20px;
   --line-height-h4: 24px;
   --font-face-base: sans-serif;
