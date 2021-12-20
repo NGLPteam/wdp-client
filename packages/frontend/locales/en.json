@@ -107,6 +107,8 @@
       "terms": "Terms of Service",
       "breadcrumbs_dropdown_label": "$t(common.show_more)",
       "menu": "Menu",
+      "previous": "Previous",
+      "next": "Next",
       "next_issue": "Next $t(schema.nglp.journal_issue)",
       "previous_issue": "Previous $t(schema.nglp.journal_issue)"
     }

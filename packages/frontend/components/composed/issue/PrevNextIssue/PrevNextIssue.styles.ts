@@ -1,10 +1,20 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { Button } from "components/atomic";
-import { aButton } from "theme/mixins/appearance";
+import { respond } from "theme/mixins";
 
 export const Inner = styled.div`
-  padding-block: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-lg);
+
+  ${respond(
+    `
+    justify-content: center;
+    padding-block-start: ${pxToRem(80)};
+    padding-block-end: ${pxToRem(80)};
+    gap: var(--grid-column-gap-lg);
+    `,
+    70
+  )}
 `;
 
 export const Outer = styled.section`
@@ -12,15 +22,5 @@ export const Outer = styled.section`
     > ${Inner} {
       border-top: 1px solid var(--color-base-neutral70);
     }
-  }
-`;
-
-export const FixedWidthButton = styled(Button)`
-  ${aButton("primary", "lg")}
-  width: ${pxToRem(180)};
-  justify-content: center;
-
-  & > svg {
-    flex-grow: 0;
   }
 `;

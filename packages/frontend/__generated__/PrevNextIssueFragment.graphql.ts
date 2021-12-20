@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type PrevNextIssueFragment = {
+    readonly slug: string;
     readonly volume: {
         readonly collections?: {
             readonly edges: ReadonlyArray<{
@@ -26,12 +27,21 @@ export type PrevNextIssueFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "PrevNextIssueFragment",
   "selections": [
+    (v0/*: any*/),
     {
       "alias": "volume",
       "args": [
@@ -88,13 +98,7 @@ const node: ReaderFragment = {
                           "name": "title",
                           "storageKey": null
                         },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "slug",
-                          "storageKey": null
-                        }
+                        (v0/*: any*/)
                       ],
                       "storageKey": null
                     }
@@ -115,5 +119,6 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '1972f8c4def995df2d928d3e44209c48';
+})();
+(node as any).hash = '024fc37cb99391d502f9776c9b4c793a';
 export default node;
