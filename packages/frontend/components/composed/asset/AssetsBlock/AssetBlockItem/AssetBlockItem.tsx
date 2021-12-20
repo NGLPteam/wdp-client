@@ -2,13 +2,15 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
+import { useRouteSlug } from "@wdp/lib/routes";
 import AssetThumbnail from "../../AssetThumbnail";
 import * as Styled from "./AssetBlockItem.styles";
 import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
-import { DownloadLink } from "components/atomic";
+import { DownloadLink, NamedLink } from "components/atomic";
 
 export default function AssetBlockItem({ data }: Props) {
   const file = useMaybeFragment(fragment, data);
+  const slug = useRouteSlug();
 
   return file ? (
     <Styled.Wrapper>
@@ -17,7 +19,17 @@ export default function AssetBlockItem({ data }: Props) {
       </Styled.ImageLink>
       <Styled.TextBlock>
         <h4>
-          <a href="#">{file.name}</a>
+          {slug && file.slug ? (
+            <NamedLink
+              route="item.file"
+              routeParams={{ slug, file: file.slug }}
+              passHref
+            >
+              <a href="#">{file.name}</a>
+            </NamedLink>
+          ) : (
+            file.name
+          )}
         </h4>
         <Styled.InfoBlock>
           {file.kind && <p className="t-label-sm">{file.kind}</p>}
