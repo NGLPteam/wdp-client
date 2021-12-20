@@ -27,7 +27,7 @@ export default function ItemUpdateForm({
   const { itemId = "", ...fieldsData } =
     useFragment<ItemUpdateFormFragment$key>(fragment, data);
 
-  const { thumbnail, visibleAfterAt, visibleUntilAt, ...values } =
+  const { thumbnail, heroImage, visibleAfterAt, visibleUntilAt, ...values } =
     useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
 
   const defaultValues = {
@@ -59,7 +59,17 @@ export default function ItemUpdateForm({
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
-        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
+        <Forms.FileUpload
+          label="forms.fields.heroImage"
+          name="heroImage"
+          image={heroImage?.thumb}
+          clearName="clearHeroImage"
+        />
+        <Forms.Textarea
+          label="forms.fields.summary"
+          {...register("summary")}
+          isWide
+        />
         <Forms.Select
           label="forms.fields.visibility"
           options={[
@@ -123,6 +133,15 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
+      storage
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
+    heroImage {
       storage
       thumb {
         png {

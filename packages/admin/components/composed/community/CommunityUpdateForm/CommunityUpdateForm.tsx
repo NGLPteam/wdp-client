@@ -21,10 +21,11 @@ export default function CommunityUpdateForm({
   const { communityId = "", ...fieldsData } =
     useFragment<CommunityUpdateFormFragment$key>(fragment, data);
 
-  const defaultValues = useFragment<CommunityUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData
-  );
+  const { heroImage, ...defaultValues } =
+    useFragment<CommunityUpdateFormFieldsFragment$key>(
+      fieldsFragment,
+      fieldsData
+    );
 
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => ({ input: { ...data, communityId } }),
@@ -35,6 +36,12 @@ export default function CommunityUpdateForm({
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input label="forms.fields.title" {...register("title")} isWide />
+        <Forms.FileUpload
+          label="forms.fields.heroImage"
+          name="heroImage"
+          image={heroImage?.thumb}
+          clearName="clearHeroImage"
+        />
       </Forms.Grid>
     ),
     []
@@ -68,6 +75,15 @@ type Fields = Omit<UpdateCommunityInput, "communityId">;
 const fieldsFragment = graphql`
   fragment CommunityUpdateFormFieldsFragment on Community {
     title
+    heroImage {
+      storage
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
   }
 `;
 
