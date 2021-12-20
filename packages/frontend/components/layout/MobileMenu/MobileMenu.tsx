@@ -3,7 +3,8 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./MobileMenu.styles";
-import CommunityPicker from "components/composed/instance/InstallationName/CommunityPicker";
+import CommunityPicker from "components/composed/instance/CommunityPicker";
+import InstallationName from "components/composed/instance/InstallationName";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { MobileMenuFragment$key } from "@/relay/MobileMenuFragment.graphql";
 
@@ -44,7 +45,7 @@ const MobileMenu = forwardRef(
           <Styled.Inner>{children}</Styled.Inner>
         </Styled.Content>
         <Styled.Footer className="a-bg-custom10">
-          <p className="t-label-mix">WDP Installation Name</p>
+          <InstallationName />
         </Styled.Footer>
       </Styled.Wrapper>
     );

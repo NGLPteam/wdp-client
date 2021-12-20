@@ -48,6 +48,15 @@ export const CommunityNameWrapper = styled.div`
 
 export const SearchWrapper = styled.div`
   grid-area: search;
+
+  ${respond(`display: none`, 70)}
+`;
+
+export const SearchMobile = styled.div`
+  --button-secondary-bg-color: var(--color-base-neutral00);
+  grid-area: search;
+
+  ${respond(`display: none`, 70, "min")}
 `;
 
 export const AboutWrapper = styled.div`
@@ -71,4 +80,27 @@ export const NavListItem = styled.li`
 export const CopyrightText = styled.p`
   grid-area: copyright;
   padding-block-start: ${95 - 40}px;
+`;
+
+export const InstallationDesktop = styled.div`
+  align-items: center;
+
+  > p {
+    padding-block-end: ${pxToRem(3)};
+  }
+
+  ${respond(`display: none`, 70)}
+`;
+
+export const InstallationMobile = styled.div`
+  margin-block-end: ${pxToRem(12)};
+
+  ${respond(`display: none`, 70, "min")}
+`;
+
+export const CommunityPickerMobile = styled.div`
+  --button-secondary-bg-color: var(--color-base-neutral00);
+  margin-block-start: var(--container-padding-sm);
+
+  ${respond(`display: none`, 70, "min")}
 `;
