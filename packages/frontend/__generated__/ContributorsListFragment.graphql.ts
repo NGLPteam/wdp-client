@@ -9,6 +9,7 @@ export type ContributorsListFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly contributor: {
+                readonly slug?: string | undefined;
                 readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
             };
         };
@@ -54,6 +55,20 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "slug",
+                      "storageKey": null
+                    }
+                  ],
+                  "type": "Sluggable",
+                  "abstractKey": "__isSluggable"
+                },
+                {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "ContributorNameFragment"
@@ -71,5 +86,5 @@ const node: ReaderFragment = {
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = '83c33284ac8f8ad6b657c718aa0b8d24';
+(node as any).hash = '9d7ba90166f93e3e7ac5b802cc453d52';
 export default node;
