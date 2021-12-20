@@ -59,6 +59,10 @@ fragment ContributorsListFragment on ItemContributionConnection {
     node {
       contributor {
         __typename
+        ... on Sluggable {
+          __isSluggable: __typename
+          slug
+        }
         ...ContributorNameFragment
         ... on Node {
           __isNode: __typename
@@ -316,6 +320,14 @@ v12 = [
                           {
                             "kind": "InlineFragment",
                             "selections": [
+                              (v6/*: any*/)
+                            ],
+                            "type": "Sluggable",
+                            "abstractKey": "__isSluggable"
+                          },
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
                               {
                                 "alias": null,
                                 "args": null,
@@ -560,12 +572,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "97bafdefd2cd2d57795167e2cd5a168a",
+    "cacheID": "b0667d2f00ed60498de278b93d178966",
     "id": null,
     "metadata": {},
     "name": "IssueSummaryQuery",
     "operationKind": "query",
-    "text": "query IssueSummaryQuery(\n  $slug: Slug!\n  $order: String!\n) {\n  collection(slug: $slug) {\n    ordering(identifier: $order) {\n      children {\n        ...IssueSummaryOrderingListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryOrderingListFragment on OrderingEntryConnection {\n  edges {\n    node {\n      entry {\n        __typename\n        ... on Item {\n          ...IssueSummaryItemFragment\n        }\n        ... on Collection {\n          ...IssueSummaryItemFragment\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query IssueSummaryQuery(\n  $slug: Slug!\n  $order: String!\n) {\n  collection(slug: $slug) {\n    ordering(identifier: $order) {\n      children {\n        ...IssueSummaryOrderingListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryOrderingListFragment on OrderingEntryConnection {\n  edges {\n    node {\n      entry {\n        __typename\n        ... on Item {\n          ...IssueSummaryItemFragment\n        }\n        ... on Collection {\n          ...IssueSummaryItemFragment\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

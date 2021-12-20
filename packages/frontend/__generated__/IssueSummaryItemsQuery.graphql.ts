@@ -52,6 +52,10 @@ fragment ContributorsListFragment on ItemContributionConnection {
     node {
       contributor {
         __typename
+        ... on Sluggable {
+          __isSluggable: __typename
+          slug
+        }
         ...ContributorNameFragment
         ... on Node {
           __isNode: __typename
@@ -137,24 +141,31 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "slug",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "summary",
+  "name": "title",
   "storageKey": null
 },
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "summary",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "VariablePrecisionDate",
@@ -179,7 +190,7 @@ v5 = {
   ],
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": "image",
   "args": null,
   "concreteType": "ImageSize",
@@ -291,23 +302,17 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "slug",
-                        "storageKey": null
-                      },
                       (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
                           {
                             "kind": "InlineFragment",
                             "selections": [
-                              (v3/*: any*/),
                               (v4/*: any*/),
                               (v5/*: any*/),
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -354,6 +359,14 @@ return {
                                               {
                                                 "kind": "InlineFragment",
                                                 "selections": [
+                                                  (v2/*: any*/)
+                                                ],
+                                                "type": "Sluggable",
+                                                "abstractKey": "__isSluggable"
+                                              },
+                                              {
+                                                "kind": "InlineFragment",
+                                                "selections": [
                                                   {
                                                     "alias": null,
                                                     "args": null,
@@ -389,7 +402,7 @@ return {
                                               {
                                                 "kind": "InlineFragment",
                                                 "selections": [
-                                                  (v2/*: any*/)
+                                                  (v3/*: any*/)
                                                 ],
                                                 "type": "Node",
                                                 "abstractKey": "__isNode"
@@ -397,7 +410,7 @@ return {
                                             ],
                                             "storageKey": null
                                           },
-                                          (v2/*: any*/)
+                                          (v3/*: any*/)
                                         ],
                                         "storageKey": null
                                       }
@@ -422,7 +435,7 @@ return {
                                     "name": "storage",
                                     "storageKey": null
                                   },
-                                  (v6/*: any*/)
+                                  (v7/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -433,9 +446,9 @@ return {
                           {
                             "kind": "InlineFragment",
                             "selections": [
-                              (v3/*: any*/),
                               (v4/*: any*/),
                               (v5/*: any*/),
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -444,7 +457,7 @@ return {
                                 "name": "thumbnail",
                                 "plural": false,
                                 "selections": [
-                                  (v6/*: any*/)
+                                  (v7/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -465,19 +478,19 @@ return {
             ],
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f51c7642433691dc42cf3d601d786406",
+    "cacheID": "b3353fa5bb79c86b2d7549f96322b675",
     "id": null,
     "metadata": {},
     "name": "IssueSummaryItemsQuery",
     "operationKind": "query",
-    "text": "query IssueSummaryItemsQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    items {\n      ...IssueSummaryListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryListFragment on ItemConnection {\n  edges {\n    node {\n      slug\n      ...IssueSummaryItemFragment\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query IssueSummaryItemsQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    items {\n      ...IssueSummaryListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  edges {\n    node {\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment IssueSummaryItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    contributions {\n      ...ContributorsListFragment\n    }\n    thumbnail {\n      storage\n      ...SquareThumbnailFragment\n    }\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n    published {\n      ...PrecisionDateFragment\n    }\n    thumbnail {\n      ...SquareThumbnailFragment\n    }\n  }\n}\n\nfragment IssueSummaryListFragment on ItemConnection {\n  edges {\n    node {\n      slug\n      ...IssueSummaryItemFragment\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();
