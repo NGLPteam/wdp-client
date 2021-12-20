@@ -1,5 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 import { globalNavRespond, aBgCustom10, aBgCustom20 } from "theme/mixins";
 
 export const Header = styled.header`
@@ -35,6 +36,20 @@ export const HeaderInner = styled.div`
 `;
 
 export const LeftSide = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--grid-column-gap);
+
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: var(--grid-column-gap);
+    }
+  `)}
+
+  > p {
+    padding-block-end: ${pxToRem(3)};
+  }
+
   ${globalNavRespond(`display: none`)}
 `;
 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { lGrid, respond } from "theme/mixins";
+import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
+import { lGrid, respond, globalNavRespond } from "theme/mixins";
 
 export const FooterWrapper = styled.footer`
   padding-block-start: var(--container-padding-xlg);
@@ -48,6 +49,15 @@ export const CommunityNameWrapper = styled.div`
 
 export const SearchWrapper = styled.div`
   grid-area: search;
+
+  ${globalNavRespond(`display: none;`)}
+`;
+
+export const SearchMobile = styled.div`
+  --button-secondary-bg-color: var(--color-base-neutral00);
+  grid-area: search;
+
+  ${globalNavRespond(`display: none;`, "min")}
 `;
 
 export const AboutWrapper = styled.div`
@@ -71,4 +81,35 @@ export const NavListItem = styled.li`
 export const CopyrightText = styled.p`
   grid-area: copyright;
   padding-block-start: ${95 - 40}px;
+`;
+
+export const InstallationDesktop = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--grid-column-gap);
+
+  ${noFlexGapSupport(`
+    > * + * {
+      margin-inline-start: var(--grid-column-gap);
+    }
+  `)}
+
+  > p {
+    padding-block-end: ${pxToRem(3)};
+  }
+
+  ${globalNavRespond(`display: none;`)}
+`;
+
+export const InstallationMobile = styled.div`
+  margin-block-end: ${pxToRem(12)};
+
+  ${globalNavRespond(`display: none;`, "min")}
+`;
+
+export const CommunityPickerMobile = styled.div`
+  --button-secondary-bg-color: var(--color-base-neutral00);
+  margin-block-start: var(--container-padding-sm);
+
+  ${globalNavRespond(`display: none;`, "min")}
 `;

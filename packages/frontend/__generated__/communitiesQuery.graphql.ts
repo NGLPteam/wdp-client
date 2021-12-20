@@ -27,11 +27,10 @@ fragment AppBodyFragment on Query {
 }
 
 fragment AppFooterFragment on Query {
-  ...InstallationNameFragment
+  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
-  ...InstallationNameFragment
   ...CommunityPickerFragment
   ...MobileMenuFragment
 }
@@ -50,10 +49,6 @@ fragment CommunityPickerFragment on Query {
       }
     }
   }
-}
-
-fragment InstallationNameFragment on Query {
-  ...CommunityPickerFragment
 }
 
 fragment MobileMenuFragment on Query {
@@ -140,12 +135,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "dc01854213b0f612b94c3a5b8c6691d3",
+    "cacheID": "90f9486533d67a63e0378816009eeb5e",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...InstallationNameFragment\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 (node as any).hash = '0cf5c758637bfb6b250320f179f94ffd';

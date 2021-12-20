@@ -5,8 +5,9 @@ import startCase from "lodash/startCase";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
-import InstallationName from "../../composed/instance/InstallationName";
 import * as Styled from "./AppFooter.styles";
+import InstallationName from "components/composed/instance/InstallationName";
+import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { Search } from "components/forms";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { RouteHelper } from "routes";
@@ -40,7 +41,13 @@ function AppFooter({ data, nameComponent, background = "custom10" }: Props) {
         <Styled.SearchWrapper>
           <Search />
         </Styled.SearchWrapper>
+        <Styled.SearchMobile>
+          <Search mobile />
+        </Styled.SearchMobile>
         <Styled.AboutWrapper>
+          <Styled.InstallationMobile>
+            <InstallationName />
+          </Styled.InstallationMobile>
           <p className="t-copy-sm t-copy-lighter">
             A brief overview of this WDP instance. Arcu nisl ullamcorper
             vulputate sed urna dolor. Tristique morbi integer in morbi morbi
@@ -48,7 +55,17 @@ function AppFooter({ data, nameComponent, background = "custom10" }: Props) {
             egestas adipiscing placerat accumsan pharetra volutpat viverra sit
             proin.
           </p>
-          {footerApiData && <InstallationName data={footerApiData} />}
+          {footerApiData && (
+            <>
+              <Styled.InstallationDesktop>
+                <InstallationName />
+                <CommunityPicker data={footerApiData} />
+              </Styled.InstallationDesktop>
+              <Styled.CommunityPickerMobile>
+                <CommunityPicker data={footerApiData} />
+              </Styled.CommunityPickerMobile>
+            </>
+          )}
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
           {footerData.nav.map(({ label, children }) => (
@@ -78,6 +95,6 @@ export default AppFooter;
 
 const fragment = graphql`
   fragment AppFooterFragment on Query {
-    ...InstallationNameFragment
+    ...CommunityPickerFragment
   }
 `;

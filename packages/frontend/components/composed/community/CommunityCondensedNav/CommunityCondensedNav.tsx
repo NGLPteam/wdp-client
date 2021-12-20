@@ -13,7 +13,7 @@ import InstallationName from "components/composed/instance/InstallationName";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import MobileMenu from "components/layout/MobileMenu";
 import Search from "components/forms/Search";
-import CommunityPicker from "components/composed/instance/InstallationName/CommunityPicker";
+import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNavFragment.graphql";
 import { SearchButton } from "components/atomic";
 import { CommunityCondensedNavAppFragment$key } from "@/relay/CommunityCondensedNavAppFragment.graphql";
@@ -50,7 +50,8 @@ function CommunityCondensedNav({ data, communityData }: Props) {
         {appData && (
           <>
             <Styled.LeftSide>
-              <InstallationName data={appData} />
+              <InstallationName />
+              <CommunityPicker data={appData} />
             </Styled.LeftSide>
             <Styled.MobileLeft>
               <CommunityPicker data={appData} />
@@ -98,7 +99,6 @@ export default CommunityCondensedNav;
 
 const appFragment = graphql`
   fragment CommunityCondensedNavAppFragment on Query {
-    ...InstallationNameFragment
     ...CommunityPickerFragment
     ...MobileMenuFragment
   }
