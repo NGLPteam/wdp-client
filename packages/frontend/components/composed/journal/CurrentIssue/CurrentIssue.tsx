@@ -20,7 +20,7 @@ import {
 export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
   const issue = useMaybeFragment(fragment, data);
-  const articles = issue?.items.edges.slice(0, 3);
+  const articles = issue?.items.edges;
   const hasImage = !!issue?.thumbnail?.storage;
 
   return issue ? (
@@ -70,7 +70,15 @@ export default function CurrentIssue({ data }: Props) {
               articles.map((article: ArticleNode) => (
                 <Styled.Item key={article.node.slug}>
                   <ArticleSummary
-                    title={article.node.title}
+                    title={
+                      <NamedLink
+                        route="item"
+                        routeParams={{ slug: article.node.slug }}
+                        passHref
+                      >
+                        <a>{article.node.title}</a>
+                      </NamedLink>
+                    }
                     summary={
                       article.node.summary && (
                         <p className="t-copy-sm">{article.node.summary}</p>
