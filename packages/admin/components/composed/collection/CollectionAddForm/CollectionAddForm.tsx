@@ -98,6 +98,7 @@ export default function AddCollectionForm({
         )}
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
         <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
+        <Forms.FileUpload label="forms.fields.heroImage" name="heroImage" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.Select
           options={[

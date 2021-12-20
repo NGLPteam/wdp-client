@@ -24,7 +24,7 @@ export default function CollectionUpdateForm({
   const { collectionId = "", ...fieldsData } =
     useFragment<CollectionUpdateFormFragment$key>(fragment, data);
 
-  const { thumbnail, visibleAfterAt, visibleUntilAt, ...values } =
+  const { thumbnail, heroImage, visibleAfterAt, visibleUntilAt, ...values } =
     useFragment<CollectionUpdateFormFieldsFragment$key>(
       fieldsFragment,
       fieldsData
@@ -59,7 +59,17 @@ export default function CollectionUpdateForm({
           image={thumbnail?.thumb}
           clearName="clearThumbnail"
         />
-        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
+        <Forms.FileUpload
+          label="forms.fields.heroImage"
+          name="heroImage"
+          image={heroImage?.thumb}
+          clearName="clearHeroImage"
+        />
+        <Forms.Textarea
+          label="forms.fields.summary"
+          isWide
+          {...register("summary")}
+        />
         <Forms.Select
           label="forms.fields.visibility"
           options={[
@@ -121,6 +131,15 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
+      storage
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
+    heroImage {
       storage
       thumb {
         png {

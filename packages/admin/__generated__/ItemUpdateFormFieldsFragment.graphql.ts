@@ -22,6 +22,15 @@ export type ItemUpdateFormFieldsFragment = {
             };
         };
     };
+    readonly heroImage: {
+        readonly storage: AttachmentStorage | null;
+        readonly thumb: {
+            readonly png: {
+                readonly alt: string | null;
+                readonly url: string | null;
+            };
+        };
+    };
     readonly " $refType": "ItemUpdateFormFieldsFragment";
 };
 export type ItemUpdateFormFieldsFragment$data = ItemUpdateFormFieldsFragment;
@@ -32,7 +41,53 @@ export type ItemUpdateFormFieldsFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "storage",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageSize",
+    "kind": "LinkedField",
+    "name": "thumb",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ImageDerivative",
+        "kind": "LinkedField",
+        "name": "png",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "alt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "url",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -80,56 +135,23 @@ const node: ReaderFragment = {
       "kind": "LinkedField",
       "name": "thumbnail",
       "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "thumb",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
+      "selections": (v0/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageAttachment",
+      "kind": "LinkedField",
+      "name": "heroImage",
+      "plural": false,
+      "selections": (v0/*: any*/),
       "storageKey": null
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '6bed84203a251a11e0550bf23354c189';
+})();
+(node as any).hash = '3c60685c814c52dfeda1426fc304d1c1';
 export default node;
