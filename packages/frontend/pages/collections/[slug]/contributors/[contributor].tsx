@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
+import CommunityLayout from "components/composed/community/CommunityLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import ContributorDetailBlock from "components/composed/contributor/ContributorDetailBlock";
 import { ContributorSlugCollectionQuery as Query } from "@/relay/ContributorSlugCollectionQuery.graphql";
@@ -17,7 +17,7 @@ export default function CollectionContributor() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, contributor }}>
       {({ data }) => (
-        <CommunityChildLayout
+        <CommunityLayout
           data={data}
           communityData={data?.collection?.community}
         >
@@ -27,7 +27,7 @@ export default function CollectionContributor() {
               data={data?.contributor}
             />
           </EntityLayoutFactory>
-        </CommunityChildLayout>
+        </CommunityLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -41,12 +41,12 @@ const query = graphql`
       ...EntityLayoutFactoryFragment
       community {
         ...CommunityHeroFragment
-        ...CommunityChildLayoutFragment
+        ...CommunityLayoutFragment
       }
     }
     contributor(slug: $contributor) {
       ...ContributorDetailBlockFragment
     }
-    ...CommunityChildLayoutAppFragment
+    ...CommunityLayoutAppFragment
   }
 `;
