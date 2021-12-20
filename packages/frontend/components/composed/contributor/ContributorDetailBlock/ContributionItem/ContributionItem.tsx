@@ -24,7 +24,19 @@ export default function ContributionItem({ data }: Props) {
 
   return contribution ? (
     <ArticleSummary
-      title={contribution.title}
+      title={
+        contribution.slug ? (
+          <NamedLink
+            route="item"
+            routeParams={{ slug: contribution.slug }}
+            passHref
+          >
+            <a>{contribution.title}</a>
+          </NamedLink>
+        ) : (
+          contribution.title
+        )
+      }
       summary={
         contribution.summary && (
           <p className="t-copy-sm">{contribution.summary}</p>
