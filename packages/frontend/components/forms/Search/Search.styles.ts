@@ -1,29 +1,25 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
+import { aHidden, aInputReset, tTruncate } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 
 export const SearchForm = styled.form`
   display: flex;
-  gap: var(--grid-gap-sm);
   align-items: stretch;
-  padding-block-start: 0;
-  padding-block-end: 0;
   height: ${pxToRem(32)};
+  width: 100%;
 `;
 
 export const SearchLabel = styled.label`
+  margin-inline-end: ${pxToRem(12)};
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
 export const SearchInput = styled.input`
   ${aInputReset}
+  ${tTruncate}
   flex: 1 1 auto;
-
-  ::placeholder {
-    text-overflow: ellipsis;
-  }
 
   &:focus {
     outline: none;
@@ -31,7 +27,8 @@ export const SearchInput = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  margin-block-start: 1px;
+  display: flex;
+  align-items: center;
 
   &:focus {
     outline: none;

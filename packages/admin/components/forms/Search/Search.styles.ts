@@ -47,7 +47,10 @@ export const SearchInput = styled(BaseSearchInput)<Props>`
       height: 20px;
       width: 20px;
       border-radius: 10px;
-      background: url(${encodedIconClose({ fill: "#D1E7F0" })}) center no-repeat;
+      background: url(${encodedIconClose({
+          fill: "#D1E7F0",
+        })})
+        center no-repeat;
     }
   }
 
