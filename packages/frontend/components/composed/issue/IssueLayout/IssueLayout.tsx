@@ -2,7 +2,6 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import IssueHero from "../IssueHero";
-import IssueContent from "../IssueContent";
 import PrevNextIssue from "../PrevNextIssue";
 import { CollectionContributionsBlock } from "components/composed/contribution/ContributionsBlock";
 import { BreadcrumbsBar } from "components/layout";
@@ -17,7 +16,7 @@ export default function IssueLayout({ data, children }: Props) {
       <EntityHTMLHead data={issue} />
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
-      <IssueContent data={issue}>{children}</IssueContent>
+      {children}
       <CollectionContributionsBlock data={issue?.contributions} />
       <PrevNextIssue data={issue} />
     </>
@@ -34,7 +33,6 @@ const fragment = graphql`
     ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...IssueHeroFragment
-    ...IssueContentFragment
     ...PrevNextIssueFragment
     contributions {
       ...CollectionContributionsBlockFragment

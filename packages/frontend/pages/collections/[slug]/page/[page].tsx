@@ -30,6 +30,7 @@ const query = graphql`
   query PageSlugCollectionQuery($slug: Slug!, $pageSlug: String!) {
     collection(slug: $slug) {
       ...EntityPageLayoutFactoryFragment
+
       community {
         ...CommunityLayoutFragment
       }

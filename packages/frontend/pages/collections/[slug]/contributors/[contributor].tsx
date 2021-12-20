@@ -39,14 +39,16 @@ const query = graphql`
   query ContributorSlugCollectionQuery($slug: Slug!, $contributor: Slug!) {
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
+
       community {
-        ...CommunityHeroFragment
         ...CommunityLayoutFragment
       }
     }
+
     contributor(slug: $contributor) {
       ...ContributorDetailBlockFragment
     }
+
     ...CommunityLayoutAppFragment
   }
 `;
