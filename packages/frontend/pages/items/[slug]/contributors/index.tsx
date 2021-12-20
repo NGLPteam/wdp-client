@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { ItemContributionsBlock } from "components/composed/contribution/ContributionsBlock";
-import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
+import CommunityLayout from "components/composed/community/CommunityLayout";
 import { contributorsSlugItemQuery as Query } from "@/relay/contributorsSlugItemQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 
@@ -13,14 +13,14 @@ export default function ItemPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <CommunityChildLayout data={data} communityData={data?.item?.community}>
+        <CommunityLayout data={data} communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
             <ItemContributionsBlock
               data={data?.item?.contributions}
               background="neutral00"
             />
           </EntityLayoutFactory>
-        </CommunityChildLayout>
+        </CommunityLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -33,13 +33,12 @@ const query = graphql`
     item(slug: $slug) {
       ...EntityLayoutFactoryFragment
       community {
-        ...CommunityHeroFragment
-        ...CommunityChildLayoutFragment
+        ...CommunityLayoutFragment
       }
       contributions {
         ...ItemContributionsBlockFragment
       }
     }
-    ...CommunityChildLayoutAppFragment
+    ...CommunityLayoutAppFragment
   }
 `;

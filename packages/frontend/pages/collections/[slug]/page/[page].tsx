@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
-import CommunityChildLayout from "components/composed/community/CommunityChildLayout";
+import CommunityLayout from "components/composed/community/CommunityLayout";
 import { PageSlugCollectionQuery as Query } from "@/relay/PageSlugCollectionQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import EntityPageLayout from "components/composed/entity/EntityPageLayout";
@@ -14,14 +14,14 @@ export default function CommunityPage() {
   return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
-        <CommunityChildLayout
+        <CommunityLayout
           data={data}
           communityData={data?.collection?.community}
         >
           <EntityLayoutFactory data={data?.collection}>
             <EntityPageLayout data={data?.collection?.page} />
           </EntityLayoutFactory>
-        </CommunityChildLayout>
+        </CommunityLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -34,13 +34,12 @@ const query = graphql`
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
       community {
-        ...CommunityHeroFragment
-        ...CommunityChildLayoutFragment
+        ...CommunityLayoutFragment
       }
       page(slug: $pageSlug) {
         ...EntityPageLayoutFragment
       }
     }
-    ...CommunityChildLayoutAppFragment
+    ...CommunityLayoutAppFragment
   }
 `;

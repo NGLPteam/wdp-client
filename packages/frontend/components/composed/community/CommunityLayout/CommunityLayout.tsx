@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "../../../global";
 import CommunityName from "../CommunityName";
 import CommunityNav from "../CommunityNavBar";
 import CommunityHTMLHead from "../CommunityHTMLHead";
+import CommunityCondensedNav from "../CommunityCondensedNav";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { CommunityLayoutAppFragment$key } from "@/relay/CommunityLayoutAppFragment.graphql";
+import { RouteHelper } from "routes";
 
 export default function CommunityLayout({
   children,
@@ -15,6 +17,12 @@ export default function CommunityLayout({
 }: Props) {
   const appData = useMaybeFragment(appFragment, data);
   const community = useMaybeFragment(fragment, communityData);
+  const activeRoute = RouteHelper.activeRoute();
+
+  const isCommunityRoot = useMemo(
+    () => activeRoute?.name.includes("community"),
+    [activeRoute]
+  );
 
   return appData ? (
     <>
@@ -23,9 +31,18 @@ export default function CommunityLayout({
         nameComponent={
           community ? <CommunityName data={community} /> : undefined
         }
+        headerNavComponent={
+          appData ? (
+            <CommunityCondensedNav
+              data={appData}
+              communityData={community}
+              isCommunityRoot={isCommunityRoot}
+            />
+          ) : undefined
+        }
       >
         {community && <CommunityHTMLHead data={community} />}
-        {community && <CommunityNav data={community} />}
+        {community && isCommunityRoot && <CommunityNav data={community} />}
         {children}
       </AppBody>
     </>
@@ -43,11 +60,13 @@ const fragment = graphql`
     ...CommunityHTMLHeadFragment
     ...CommunityNameFragment
     ...CommunityNavBarFragment
+    ...CommunityCondensedNavFragment
   }
 `;
 
 const appFragment = graphql`
   fragment CommunityLayoutAppFragment on Query {
     ...AppBodyFragment
+    ...CommunityCondensedNavAppFragment
   }
 `;

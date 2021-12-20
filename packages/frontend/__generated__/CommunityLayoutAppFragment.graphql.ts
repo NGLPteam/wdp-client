@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLayoutAppFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"AppBodyFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"AppBodyFragment" | "CommunityCondensedNavAppFragment">;
     readonly " $refType": "CommunityLayoutAppFragment";
 };
 export type CommunityLayoutAppFragment$data = CommunityLayoutAppFragment;
@@ -27,10 +27,15 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "AppBodyFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityCondensedNavAppFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'e117eaf8f1184ad3fb1339a1a7a020f0';
+(node as any).hash = '23d4bad6f8ccaa44977ef928729826c4';
 export default node;
