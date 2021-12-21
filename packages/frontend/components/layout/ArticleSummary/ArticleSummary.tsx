@@ -26,9 +26,11 @@ export default function ArticleSummary({
         {(contributors || metadata) && (
           <Styled.Metadata>
             {contributors && (
-              <p className="t-copy-sm t-copy-medium">{contributors}</p>
+              <div className="t-copy-sm t-copy-medium">{contributors}</div>
             )}
-            {metadata && <p className="t-copy-sm t-copy-lighter">{metadata}</p>}
+            {metadata && (
+              <div className="t-copy-sm t-copy-lighter">{metadata}</div>
+            )}
           </Styled.Metadata>
         )}
         {summary && (
