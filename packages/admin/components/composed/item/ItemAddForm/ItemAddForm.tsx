@@ -72,7 +72,13 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         <Forms.Input
           label="forms.fields.title"
           required
+          isWide
           {...register("title")}
+        />
+        <Forms.Input
+          label="forms.fields.subtitle"
+          isWide
+          {...register("subtitle")}
         />
         {formData && (
           <Forms.Select

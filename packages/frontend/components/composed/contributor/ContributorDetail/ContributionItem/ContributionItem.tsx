@@ -37,6 +37,7 @@ export default function ContributionItem({ data }: Props) {
           contribution.title
         )
       }
+      subtitle={contribution.subtitle}
       summary={
         contribution.summary && (
           <p className="t-copy-sm">{contribution.summary}</p>
@@ -58,11 +59,13 @@ const fragment = graphql`
     }
     ... on Collection {
       title
+      subtitle
       slug
       summary
     }
     ... on Item {
       title
+      subtitle
       slug
       summary
     }

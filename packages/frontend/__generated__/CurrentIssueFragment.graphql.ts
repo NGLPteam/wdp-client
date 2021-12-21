@@ -24,6 +24,7 @@ export type CurrentIssueFragment = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly title: string;
+                readonly subtitle: string | null;
                 readonly slug: string;
                 readonly summary: string | null;
                 readonly contributions: {
@@ -167,6 +168,13 @@ return {
               "plural": false,
               "selections": [
                 (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "subtitle",
+                  "storageKey": null
+                },
                 (v1/*: any*/),
                 {
                   "alias": null,
@@ -205,5 +213,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6bd61995fbf6a9eb30792cc5e6898b7f';
+(node as any).hash = 'dfa2d2716fe7c0e5f1c96dfafbf30603';
 export default node;

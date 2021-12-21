@@ -63,11 +63,13 @@ fragment ContributionItemFragment on AnyEntity {
   }
   ... on Collection {
     title
+    subtitle
     slug
     summary
   }
   ... on Item {
     title
+    subtitle
     slug
     summary
   }
@@ -204,6 +206,13 @@ v4 = {
 },
 v5 = [
   (v4/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "subtitle",
+    "storageKey": null
+  },
   (v3/*: any*/),
   {
     "alias": null,
@@ -547,12 +556,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1aa8d68d3a53b12898f8161aa2fe5196",
+    "cacheID": "76e2fdbfbb8b1a2859fc9c604904d7a0",
     "id": null,
     "metadata": {},
     "name": "SlugContributorPageQuery",
     "operationKind": "query",
-    "text": "query SlugContributorPageQuery(\n  $slug: Slug!\n) {\n  ...ContributorDetailLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributionItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Collection {\n    title\n    slug\n    summary\n  }\n  ... on Item {\n    title\n    slug\n    summary\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  collectionContributionCount\n  collectionContributions {\n    nodes {\n      role\n      collection {\n        ...ContributionItemFragment\n        id\n      }\n      id\n    }\n  }\n  itemContributionCount\n  itemContributions {\n    nodes {\n      role\n      item {\n        ...ContributionItemFragment\n        id\n      }\n      id\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorDetailLayoutFragment on Query {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorHTMLHeadFragment\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...BaseLayoutFragment\n}\n\nfragment ContributorHTMLHeadFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query SlugContributorPageQuery(\n  $slug: Slug!\n) {\n  ...ContributorDetailLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributionItemFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Collection {\n    title\n    subtitle\n    slug\n    summary\n  }\n  ... on Item {\n    title\n    subtitle\n    slug\n    summary\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  collectionContributionCount\n  collectionContributions {\n    nodes {\n      role\n      collection {\n        ...ContributionItemFragment\n        id\n      }\n      id\n    }\n  }\n  itemContributionCount\n  itemContributions {\n    nodes {\n      role\n      item {\n        ...ContributionItemFragment\n        id\n      }\n      id\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorDetailLayoutFragment on Query {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorHTMLHeadFragment\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...BaseLayoutFragment\n}\n\nfragment ContributorHTMLHeadFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
   }
 };
 })();

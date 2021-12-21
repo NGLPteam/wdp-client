@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type FeaturedIssueFragment = {
     readonly title: string;
+    readonly subtitle: string | null;
     readonly slug: string;
     readonly summary: string | null;
     readonly thumbnail: {
@@ -50,6 +51,13 @@ return {
   "name": "FeaturedIssueFragment",
   "selections": [
     (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "subtitle",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -172,5 +180,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1005c772873608a11f34f2f8c89f3141';
+(node as any).hash = '1e1ec8dfdb82c81342e880c6b8be6a23';
 export default node;

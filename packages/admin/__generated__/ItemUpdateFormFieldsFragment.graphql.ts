@@ -9,6 +9,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type ItemUpdateFormFieldsFragment = {
     readonly title: string;
+    readonly subtitle: string | null;
     readonly visibility: EntityVisibility;
     readonly summary: string | null;
     readonly visibleAfterAt: string | null;
@@ -104,6 +105,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "subtitle",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "visibility",
       "storageKey": null
     },
@@ -153,5 +161,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '3c60685c814c52dfeda1426fc304d1c1';
+(node as any).hash = '631263110f5a7333af5d87bd617d995c';
 export default node;

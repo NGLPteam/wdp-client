@@ -53,6 +53,12 @@ export default function CollectionUpdateForm({
     ({ form: { register, watch } }) => (
       <Forms.Grid>
         <Forms.Input label="forms.fields.title" isWide {...register("title")} />
+        <Forms.Input
+          label="forms.fields.subtitle"
+          isWide
+          required
+          {...register("subtitle")}
+        />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           name="thumbnail"
@@ -126,6 +132,7 @@ type Fields = Omit<UpdateCollectionInput, "collectionId">;
 const fieldsFragment = graphql`
   fragment CollectionUpdateFormFieldsFragment on Collection {
     title
+    subtitle
     visibility
     summary
     visibleAfterAt

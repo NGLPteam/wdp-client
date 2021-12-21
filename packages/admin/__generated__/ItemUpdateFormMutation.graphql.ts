@@ -77,6 +77,7 @@ mutation ItemUpdateFormMutation(
 
 fragment ItemUpdateFormFieldsFragment on Item {
   title
+  subtitle
   visibility
   summary
   visibleAfterAt
@@ -323,6 +324,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "subtitle",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "visibility",
                 "storageKey": null
               },
@@ -384,12 +392,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0d1bc2dd61f5eeab42a6c39cfd912ccc",
+    "cacheID": "3927a5e1c6eb7ad240663322ae115816",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  subtitle\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ContributionItemFragment = {
     readonly slug?: string | undefined;
     readonly title?: string | undefined;
+    readonly subtitle?: string | null | undefined;
     readonly summary?: string | null | undefined;
     readonly " $refType": "ContributionItemFragment";
 };
@@ -33,6 +34,13 @@ v1 = [
     "args": null,
     "kind": "ScalarField",
     "name": "title",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "subtitle",
     "storageKey": null
   },
   (v0/*: any*/),
@@ -75,5 +83,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '99c5627b7b7e4567667f07cb04abee73';
+(node as any).hash = '34ab939d5ef8cd39879d9a0d4f94f819';
 export default node;

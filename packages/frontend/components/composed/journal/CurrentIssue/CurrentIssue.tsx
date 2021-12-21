@@ -79,6 +79,7 @@ export default function CurrentIssue({ data }: Props) {
                         <a>{article.node.title}</a>
                       </NamedLink>
                     }
+                    subtitle={article.node.subtitle}
                     summary={
                       article.node.summary && (
                         <p className="t-copy-sm">{article.node.summary}</p>
@@ -140,6 +141,7 @@ const fragment = graphql`
       edges {
         node {
           title
+          subtitle
           slug
           summary
           contributions {

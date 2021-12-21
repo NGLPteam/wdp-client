@@ -38,8 +38,8 @@ var v0 = [
         "storageKey": null
       }
     ],
-    "type": "Collection",
-    "abstractKey": null
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -101,5 +101,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '08f8a092f5e76d0d18672a87b1b344e7';
+(node as any).hash = '406b0b2daff224cf9611f94093a6d4f6';
 export default node;

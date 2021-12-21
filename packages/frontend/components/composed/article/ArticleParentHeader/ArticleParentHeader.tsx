@@ -35,17 +35,17 @@ interface Props {
 const fragment = graphql`
   fragment ArticleParentHeaderFragment on Item {
     journal: ancestorOfType(schema: "nglp:journal") {
-      ... on Collection {
+      ... on Entity {
         title
       }
     }
     volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Collection {
+      ... on Entity {
         title
       }
     }
     issue: ancestorOfType(schema: "nglp:journal_issue") {
-      ... on Collection {
+      ... on Entity {
         title
       }
     }
