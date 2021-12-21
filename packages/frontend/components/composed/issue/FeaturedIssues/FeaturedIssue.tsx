@@ -26,42 +26,54 @@ export default function FeaturedIssue({ data }: Props) {
   }, [issue, t]);
 
   return issue ? (
-    <NamedLink route="collection" routeParams={{ slug: issue.slug }} passHref>
-      <Styled.ItemLink>
-        {issue.thumbnail?.storage && (
-          <Styled.ItemCoverBlock>
-            <CoverImage data={issue.thumbnail} maxWidth={120} maxHeight={160} />
-          </Styled.ItemCoverBlock>
-        )}
-        <div>
-          <Styled.ItemTitleBlock>
-            <h4>{issue.title}</h4>
-            {/* <h5 className="t-copy-italic">Subtitle</h5> */}
-          </Styled.ItemTitleBlock>
-          <div className="t-copy-sm">
-            {issue.volume && <p>{issue.volume.title}</p>}
-            <Styled.ItemPrimaryMetadata>
-              {issueNumber && <li>{issueNumber}</li>}
-              {issue.published.value && (
-                <li>
-                  <PrecisionDate
-                    data={issue.published}
-                    label={t("common.published")}
-                  />
-                </li>
-              )}
-            </Styled.ItemPrimaryMetadata>
-            <p className="t-copy-italic t-copy-light">Secondary metadata</p>
-          </div>
-          {issue.summary && (
-            <Styled.ItemSummary className="t-copy-light">
-              {issue.summary}
-            </Styled.ItemSummary>
-          )}
-          <Styled.ItemReadMore as={ArrowLink} label={t("common.read_more")} />
+    <Styled.ItemLink>
+      {issue.thumbnail?.storage && (
+        <Styled.ItemCoverBlock>
+          <CoverImage data={issue.thumbnail} maxWidth={120} maxHeight={160} />
+        </Styled.ItemCoverBlock>
+      )}
+      <div>
+        <Styled.ItemTitleBlock>
+          <h4>
+            <NamedLink
+              route="collection"
+              routeParams={{ slug: issue.slug }}
+              passHref
+            >
+              <a>{issue.title}</a>
+            </NamedLink>
+          </h4>
+          {/* <h5 className="t-copy-italic">Subtitle</h5> */}
+        </Styled.ItemTitleBlock>
+        <div className="t-copy-sm">
+          {issue.volume && <p>{issue.volume.title}</p>}
+          <Styled.ItemPrimaryMetadata>
+            {issueNumber && <li>{issueNumber}</li>}
+            {issue.published.value && (
+              <li>
+                <PrecisionDate
+                  data={issue.published}
+                  label={t("common.published")}
+                />
+              </li>
+            )}
+          </Styled.ItemPrimaryMetadata>
+          <p className="t-copy-italic t-copy-light">Secondary metadata</p>
         </div>
-      </Styled.ItemLink>
-    </NamedLink>
+        {issue.summary && (
+          <Styled.ItemSummary className="t-copy-light">
+            {issue.summary}
+          </Styled.ItemSummary>
+        )}
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: issue.slug }}
+          passHref
+        >
+          <Styled.ItemReadMore as={ArrowLink} label={t("common.read_more")} />
+        </NamedLink>
+      </div>
+    </Styled.ItemLink>
   ) : null;
 }
 

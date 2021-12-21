@@ -58,7 +58,7 @@ export const ItemSummary = styled.p`
 `;
 
 export const ItemReadMore = styled.div`
-  padding-block-start: ${pxToRem(10)};
+  margin-block-start: ${pxToRem(10)};
   ${tLabel("sm")}
 `;
 

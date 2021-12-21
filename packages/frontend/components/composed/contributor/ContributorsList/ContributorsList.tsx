@@ -13,8 +13,8 @@ type Node = ContributorsListFragment$data["edges"][number];
 export default function ContributorsList({
   data,
   className,
-  route,
-  routeParams = {},
+  itemSlug,
+  collectionSlug,
 }: Props) {
   const contributions = useMaybeFragment(fragment, data);
 
@@ -22,12 +22,13 @@ export default function ContributorsList({
     <span className={className}>
       {contributions.edges.map(({ node }: Node, i: number) => (
         <React.Fragment key={i}>
-          {route && node.contributor.slug ? (
+          {node.contributor.slug ? (
             <NamedLink
-              route={route}
+              route="contributor"
               routeParams={{
-                ...routeParams,
-                contributor: node.contributor.slug,
+                slug: node.contributor.slug,
+                ...(itemSlug && { item: itemSlug }),
+                ...(collectionSlug && { collection: collectionSlug }),
               }}
               passHref
             >
@@ -52,8 +53,10 @@ interface Props {
   data?: ContributorsListFragment$key | null;
   label?: string;
   className?: string;
-  route?: string;
-  routeParams?: Record<string, string>;
+  /* Pass this in to add the parent item's slug to the contributor route */
+  itemSlug?: string;
+  /* Pass this in to add the parent collection's slug to the contributor route */
+  collectionSlug?: string;
 }
 
 const fragment = graphql`

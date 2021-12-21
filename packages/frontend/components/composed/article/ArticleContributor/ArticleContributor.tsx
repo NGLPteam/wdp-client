@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./ArticleContributor.styles";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
@@ -9,7 +8,6 @@ import { DotList, NamedLink } from "components/atomic";
 import { ArticleContributorFragment$key } from "@/relay/ArticleContributorFragment.graphql";
 
 export default function ArticleContributor({ data }: Props) {
-  const slug = useRouteSlug();
   const contributions = useMaybeFragment(fragment, data);
   const authorContributions = contributions?.edges.filter(
     (edge) => edge.node.role?.toLowerCase() === "author"
@@ -23,7 +21,6 @@ export default function ArticleContributor({ data }: Props) {
   return contributor &&
     (contributor.__typename === "PersonContributor" ||
       contributor.__typename === "OrganizationContributor") &&
-    slug &&
     contributor.slug ? (
     <section className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
@@ -34,8 +31,13 @@ export default function ArticleContributor({ data }: Props) {
         )}
         <Styled.Info>
           <NamedLink
-            route="item.contributor"
-            routeParams={{ slug, contributor: contributor.slug }}
+            route="contributor"
+            routeParams={{
+              slug: contributor.slug,
+              ...(contributionToShow?.item?.slug && {
+                item: contributionToShow.item?.slug,
+              }),
+            }}
             passHref
           >
             <a>
@@ -76,6 +78,9 @@ const fragment = graphql`
       node {
         affiliation
         role
+        item {
+          slug
+        }
         contributor {
           ... on Sluggable {
             slug

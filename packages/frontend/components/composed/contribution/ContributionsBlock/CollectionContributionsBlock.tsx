@@ -24,7 +24,6 @@ const CollectionContributionsBlock = ({ data, background }: Props) => {
           data={node}
           key={node.slug}
           showAvatar={showAvatars}
-          route="collection.contributor"
         />
       ))}
     </BaseContributionsBlock>

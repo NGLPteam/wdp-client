@@ -40,6 +40,7 @@ export default function CommunityLayout({
             />
           ) : undefined
         }
+        footerBackground={isCommunityRoot ? "custom10" : "custom20"}
       >
         {community && <CommunityHTMLHead data={community} />}
         {community && isCommunityRoot && <CommunityNav data={community} />}

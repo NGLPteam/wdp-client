@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useRouteSlug } from "@wdp/lib/routes";
 import {
   PrecisionDate,
   SquareThumbnail,
@@ -13,39 +14,41 @@ import { IssueSummaryItemFragment$key } from "@/relay/IssueSummaryItemFragment.g
 
 export default function IssueSummaryItem({ data }: Props) {
   const content = useMaybeFragment(fragment, data);
+  const slug = useRouteSlug();
 
   return content && content.slug ? (
-    <NamedLink route="item" routeParams={{ slug: content.slug }} passHref>
-      <a>
-        <ArticleSummary
-          title={content.title}
-          summary={content.summary}
-          metadata={
-            <DotList>
-              {content.published && (
-                <li>
-                  <PrecisionDate data={content.published} />
-                </li>
-              )}
-              <li>Additional Metadata</li>
-            </DotList>
-          }
-          contributors={
-            content.contributions && (
-              <ContributorsList
-                className="t-copy-sm"
-                data={content.contributions}
-              />
-            )
-          }
-          thumbnail={
-            content?.thumbnail?.storage && (
-              <SquareThumbnail data={content.thumbnail} />
-            )
-          }
-        />
-      </a>
-    </NamedLink>
+    <ArticleSummary
+      title={
+        <NamedLink route="item" routeParams={{ slug: content.slug }} passHref>
+          <a>{content.title}</a>
+        </NamedLink>
+      }
+      summary={content.summary}
+      metadata={
+        <DotList>
+          {content.published && (
+            <li>
+              <PrecisionDate data={content.published} />
+            </li>
+          )}
+          <li>Additional Metadata</li>
+        </DotList>
+      }
+      contributors={
+        content.contributions && (
+          <ContributorsList
+            className="t-copy-sm"
+            data={content.contributions}
+            {...(slug && { collectionSlug: slug })}
+          />
+        )
+      }
+      thumbnail={
+        content?.thumbnail?.storage && (
+          <SquareThumbnail data={content.thumbnail} />
+        )
+      }
+    />
   ) : null;
 }
 
