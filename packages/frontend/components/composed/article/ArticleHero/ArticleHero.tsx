@@ -16,7 +16,9 @@ export default function ArticleHero({ data }: Props) {
         <Styled.LeftSide>
           <Styled.TitleBlock>
             <h2>{article.title}</h2>
-            <h4 className="t-copy-italic">Article Subtitle Goes Here</h4>
+            {article.subtitle && (
+              <h4 className="t-copy-italic">{article.subtitle}</h4>
+            )}
           </Styled.TitleBlock>
           <Styled.DataBlock>
             <ContributorsList
@@ -60,6 +62,7 @@ const fragment = graphql`
   fragment ArticleHeroFragment on Item {
     slug
     title
+    subtitle
     summary
     doi
     published {

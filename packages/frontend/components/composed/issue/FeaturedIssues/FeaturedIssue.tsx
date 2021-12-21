@@ -43,7 +43,9 @@ export default function FeaturedIssue({ data }: Props) {
               <a>{issue.title}</a>
             </NamedLink>
           </h4>
-          {/* <h5 className="t-copy-italic">Subtitle</h5> */}
+          {issue.subtitle && (
+            <h5 className="t-copy-italic">{issue.subtitle}</h5>
+          )}
         </Styled.ItemTitleBlock>
         <div className="t-copy-sm">
           {issue.volume && <p>{issue.volume.title}</p>}
@@ -85,6 +87,7 @@ interface Props {
 const fragment = graphql`
   fragment FeaturedIssueFragment on Collection {
     title
+    subtitle
     slug
     summary
     thumbnail {

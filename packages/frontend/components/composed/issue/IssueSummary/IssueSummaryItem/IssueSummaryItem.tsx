@@ -23,6 +23,7 @@ export default function IssueSummaryItem({ data }: Props) {
           <a>{content.title}</a>
         </NamedLink>
       }
+      subtitle={content.subtitle}
       summary={content.summary}
       metadata={
         <DotList>
@@ -60,6 +61,7 @@ const fragment = graphql`
   fragment IssueSummaryItemFragment on AnyEntity {
     ... on Item {
       title
+      subtitle
       slug
       summary
       published {

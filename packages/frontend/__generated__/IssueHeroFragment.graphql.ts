@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type IssueHeroFragment = {
     readonly title: string;
+    readonly subtitle: string | null;
     readonly summary: string | null;
     readonly doi: string | null;
     readonly published: {
@@ -19,6 +20,7 @@ export type IssueHeroFragment = {
     };
     readonly journal: {
         readonly title?: string | undefined;
+        readonly subtitle?: string | null | undefined;
     } | null;
     readonly volume: {
         readonly title?: string | undefined;
@@ -44,16 +46,13 @@ var v0 = {
   "name": "title",
   "storageKey": null
 },
-v1 = [
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      (v0/*: any*/)
-    ],
-    "type": "Collection",
-    "abstractKey": null
-  }
-];
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "subtitle",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -61,6 +60,7 @@ return {
   "name": "IssueHeroFragment",
   "selections": [
     (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -127,7 +127,17 @@ return {
       "kind": "LinkedField",
       "name": "ancestorOfType",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/)
+          ],
+          "type": "Entity",
+          "abstractKey": "__isEntity"
+        }
+      ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
     },
     {
@@ -143,7 +153,16 @@ return {
       "kind": "LinkedField",
       "name": "ancestorOfType",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/)
+          ],
+          "type": "Entity",
+          "abstractKey": "__isEntity"
+        }
+      ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
     },
     {
@@ -173,5 +192,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'aeefcfc58733c05b4dd81638b8ba7edf';
+(node as any).hash = '829137ec7da3f04d0120a5a96c7f510e';
 export default node;

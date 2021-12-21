@@ -237,6 +237,7 @@
     "forms": {
       "fields": {
         "title": "Title",
+        "subtitle": "Subtitle",
         "thumbnail": "Thumbnail",
         "visibility": "Visibility",
         "summary": "Summary",

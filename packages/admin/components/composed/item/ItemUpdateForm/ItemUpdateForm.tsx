@@ -52,7 +52,17 @@ export default function ItemUpdateForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.title" {...register("title")} isWide />
+        <Forms.Input
+          label="forms.fields.title"
+          {...register("title")}
+          required
+          isWide
+        />
+        <Forms.Input
+          label="forms.fields.subtitle"
+          isWide
+          {...register("subtitle")}
+        />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           name="thumbnail"
@@ -128,6 +138,7 @@ type Fields = Omit<UpdateItemInput, "itemId">;
 const fieldsFragment = graphql`
   fragment ItemUpdateFormFieldsFragment on Item {
     title
+    subtitle
     visibility
     summary
     visibleAfterAt

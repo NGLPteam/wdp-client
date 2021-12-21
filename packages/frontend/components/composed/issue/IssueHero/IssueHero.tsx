@@ -20,9 +20,11 @@ export default function IssueHero({ data }: Props) {
           {issue.journal && (
             <>
               <Styled.Title>{issue.journal.title}</Styled.Title>
-              <Styled.JournalMeta>
-                <div>Journal subtitle goes here</div>
-              </Styled.JournalMeta>
+              {issue.journal.subtitle && (
+                <Styled.JournalMeta>
+                  <div>{issue.journal.subtitle}</div>
+                </Styled.JournalMeta>
+              )}
             </>
           )}
           <Styled.IssueWrapper>
@@ -86,6 +88,7 @@ interface Props {
 const fragment = graphql`
   fragment IssueHeroFragment on Collection {
     title
+    subtitle
     summary
     doi
     published {
@@ -96,12 +99,13 @@ const fragment = graphql`
       ...CoverImageFragment
     }
     journal: ancestorOfType(schema: "nglp:journal") {
-      ... on Collection {
+      ... on Entity {
         title
+        subtitle
       }
     }
     volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Collection {
+      ... on Entity {
         title
       }
     }

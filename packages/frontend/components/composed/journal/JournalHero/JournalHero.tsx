@@ -14,7 +14,9 @@ export default function JournalHero({ data }: Props) {
         <Styled.HeroInner className="l-container-wide">
           <Styled.TitleBlock>
             <Styled.Title>{journal.title}</Styled.Title>
-            <Styled.Subtitle>Journal subtitle</Styled.Subtitle>
+            {journal.subtitle && (
+              <Styled.Subtitle>{journal.subtitle}</Styled.Subtitle>
+            )}
           </Styled.TitleBlock>
           <Styled.MetadataBlock>
             <Styled.ISSN className="t-label-sm">
@@ -35,6 +37,7 @@ interface Props {
 const fragment = graphql`
   fragment JournalHeroFragment on Collection {
     title
+    subtitle
     heroImage {
       storage
       ...HeroImageFragment
