@@ -11,7 +11,7 @@ export default function ContributorHTMLHead({ data }: Props) {
     <Head>
       <title>
         {contributor.__typename === "OrganizationContributor"
-          ? contributor.legalName
+          ? `${contributor.legalName} `
           : contributor.__typename === "PersonContributor"
           ? `${contributor.givenName} ${contributor.familyName} `
           : ""}
