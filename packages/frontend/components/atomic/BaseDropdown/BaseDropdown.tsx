@@ -24,6 +24,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
     ref
   ) => {
     const popoverState = usePopoverState({ gutter, modal: isModal });
+    const closePopover = popoverState.hide;
 
     return (
       <>
@@ -37,7 +38,8 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
           role={undefined}
           aria-label={label}
         >
-          {children}
+          {typeof children === "function" &&
+            children({ onClick: closePopover })}
         </Styled.Popover>
       </>
     );
