@@ -1,22 +1,26 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
 import ContributorName from "../../../contributor/ContributorName";
 import ContributorAvatar from "../../../contributor/ContributorAvatar";
 import * as Styled from "./ContributionBlockItem.styles";
 import { ContributionBlockItemFragment$key } from "@/relay/ContributionBlockItemFragment.graphql";
 import { NamedLink } from "components/atomic";
 
-const ContributionBlockItem = ({ data, route, showAvatar }: Props) => {
+const ContributionBlockItem = ({ data, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
-  const slug = useRouteSlug();
 
-  return contribution && slug && contribution.contributor.slug ? (
+  return contribution && contribution.contributor.slug ? (
     <Styled.ListItem>
       <NamedLink
-        route={route}
-        routeParams={{ slug, contributor: contribution.contributor.slug }}
+        route="contributor"
+        routeParams={{
+          slug: contribution.contributor.slug,
+          ...(contribution.item?.slug && { item: contribution.item.slug }),
+          ...(contribution.collection?.slug && {
+            collection: contribution.collection.slug,
+          }),
+        }}
         passHref
       >
         <Styled.ItemLink>
@@ -48,7 +52,6 @@ const ContributionBlockItem = ({ data, route, showAvatar }: Props) => {
 interface Props {
   data?: ContributionBlockItemFragment$key | null;
   showAvatar?: boolean;
-  route: string;
 }
 
 export default ContributionBlockItem;
@@ -72,6 +75,18 @@ const fragment = graphql`
         affiliation
       }
       ...ContributorNameFragment
+    }
+
+    ... on ItemContribution {
+      item {
+        slug
+      }
+    }
+
+    ... on CollectionContribution {
+      collection {
+        slug
+      }
     }
   }
 `;

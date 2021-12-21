@@ -19,6 +19,12 @@ export type ContributionBlockItemFragment = {
         readonly affiliation?: string | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
     };
+    readonly item?: {
+        readonly slug: string;
+    } | undefined;
+    readonly collection?: {
+        readonly slug: string;
+    } | undefined;
     readonly " $refType": "ContributionBlockItemFragment";
 };
 export type ContributionBlockItemFragment$data = ContributionBlockItemFragment;
@@ -36,7 +42,16 @@ var v0 = {
   "kind": "ScalarField",
   "name": "affiliation",
   "storageKey": null
-};
+},
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -75,15 +90,7 @@ return {
       "selections": [
         {
           "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            }
-          ],
+          "selections": (v1/*: any*/),
           "type": "Sluggable",
           "abstractKey": "__isSluggable"
         },
@@ -125,11 +132,45 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Item",
+          "kind": "LinkedField",
+          "name": "item",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "ItemContribution",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Collection",
+          "kind": "LinkedField",
+          "name": "collection",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "CollectionContribution",
+      "abstractKey": null
     }
   ],
   "type": "Contribution",
   "abstractKey": "__isContribution"
 };
 })();
-(node as any).hash = '1edf125ed2aff97ae08708a123771865';
+(node as any).hash = 'e47b4705cc412644d8f75089bf1dca02';
 export default node;

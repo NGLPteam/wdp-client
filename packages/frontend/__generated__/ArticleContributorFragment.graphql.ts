@@ -11,6 +11,9 @@ export type ArticleContributorFragment = {
         readonly node: {
             readonly affiliation: string | null;
             readonly role: string | null;
+            readonly item: {
+                readonly slug: string;
+            };
             readonly contributor: {
                 readonly slug?: string | undefined;
                 readonly __typename: "PersonContributor";
@@ -43,21 +46,30 @@ var v0 = {
   "name": "affiliation",
   "storageKey": null
 },
-v1 = {
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "bio",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -80,7 +92,7 @@ v3 = {
   ],
   "storageKey": null
 },
-v4 = {
+v5 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "ContributorNameFragment"
@@ -118,6 +130,16 @@ return {
             {
               "alias": null,
               "args": null,
+              "concreteType": "Item",
+              "kind": "LinkedField",
+              "name": "item",
+              "plural": false,
+              "selections": (v1/*: any*/),
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
               "concreteType": null,
               "kind": "LinkedField",
               "name": "contributor",
@@ -125,22 +147,14 @@ return {
               "selections": [
                 {
                   "kind": "InlineFragment",
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "slug",
-                      "storageKey": null
-                    }
-                  ],
+                  "selections": (v1/*: any*/),
                   "type": "Sluggable",
                   "abstractKey": "__isSluggable"
                 },
                 {
                   "kind": "InlineFragment",
                   "selections": [
-                    (v1/*: any*/),
+                    (v2/*: any*/),
                     {
                       "alias": null,
                       "args": null,
@@ -148,10 +162,10 @@ return {
                       "name": "title",
                       "storageKey": null
                     },
-                    (v2/*: any*/),
-                    (v0/*: any*/),
                     (v3/*: any*/),
-                    (v4/*: any*/)
+                    (v0/*: any*/),
+                    (v4/*: any*/),
+                    (v5/*: any*/)
                   ],
                   "type": "PersonContributor",
                   "abstractKey": null
@@ -159,10 +173,10 @@ return {
                 {
                   "kind": "InlineFragment",
                   "selections": [
-                    (v1/*: any*/),
                     (v2/*: any*/),
                     (v3/*: any*/),
-                    (v4/*: any*/)
+                    (v4/*: any*/),
+                    (v5/*: any*/)
                   ],
                   "type": "OrganizationContributor",
                   "abstractKey": null
@@ -181,5 +195,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '389f7437ca6b4f76eae6c95fcacafc6f';
+(node as any).hash = '0f7e7650037e0d5486203ef63c9435f2';
 export default node;

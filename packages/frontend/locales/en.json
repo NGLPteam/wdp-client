@@ -18,6 +18,7 @@
       "last_updated": "Last Updated {{value}}",
       "published": "Published",
       "back": "Back",
+      "back_to_name": "Back to {{name}}",
       "back_to_top": "Back to Top",
       "download": "Download",
       "download_name": "Download {{name}}",

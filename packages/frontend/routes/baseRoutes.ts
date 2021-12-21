@@ -37,10 +37,6 @@ export const baseRoutes: BaseRoute[] = [
         name: "collection.page",
         path: "/collections/[slug]/page/[page]",
       },
-      {
-        name: "collection.contributor",
-        path: "/collections/[slug]/contributors/[contributor]",
-      },
     ],
   },
   {
@@ -68,14 +64,14 @@ export const baseRoutes: BaseRoute[] = [
         path: "/items/[slug]/contributors",
       },
       {
-        name: "item.contributor",
-        path: "/items/[slug]/contributors/[contributor]",
-      },
-      {
         name: "item.metrics",
         path: "/items/[slug]/metrics",
       },
     ],
+  },
+  {
+    name: "contributor",
+    path: "/contributors/[slug]",
   },
   {
     name: "about",

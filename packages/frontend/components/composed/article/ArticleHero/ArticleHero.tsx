@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./ArticleHero.styles";
 import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 import { PrecisionDate } from "components/atomic";
@@ -10,7 +9,6 @@ import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
-  const slug = useRouteSlug();
 
   return article ? (
     <header className="a-bg-custom10">
@@ -24,8 +22,7 @@ export default function ArticleHero({ data }: Props) {
             <ContributorsList
               className="t-copy-medium"
               data={article.contributions}
-              route="item.contributor"
-              routeParams={{ slug: slug || "" }}
+              itemSlug={article.slug}
             />
             <p className="t-copy-lighter">
               {article.published && (
@@ -61,6 +58,7 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleHeroFragment on Item {
+    slug
     title
     summary
     doi

@@ -5,7 +5,16 @@ export const BackNav = styled.nav`
   padding-block-start: var(--container-padding-lg);
 `;
 
-export const Section = styled.section`
+export const NameHeader = styled.div`
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    padding-inline-start: var(--padding-rg);
+  }
+`;
+
+export const ContributorWrapper = styled.div`
   padding-block-start: var(--container-padding-lg);
   padding-block-end: var(--container-padding-lg);
 
@@ -26,14 +35,13 @@ export const AssetInfo = styled.div`
   }
 `;
 
-export const ContributionsSection = styled.section`
+export const ContributionsWrapper = styled.div`
   padding-block-start: var(--container-padding-lg);
   padding-block-end: var(--container-padding-xlg);
-  border-top: 1px solid var(--border-color);
+`;
 
-  > * + * {
-    margin-block-start: var(--padding-xl);
-  }
+export const ContributionsHeader = styled.h3`
+  margin-block-end: var(--padding-xl);
 `;
 
 export const ContributionList = styled.ul`
