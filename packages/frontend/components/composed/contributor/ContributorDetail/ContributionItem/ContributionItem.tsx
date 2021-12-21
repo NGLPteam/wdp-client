@@ -17,7 +17,7 @@ export default function ContributionItem({ data }: Props) {
         routeParams={{ slug: contribution.slug }}
         passHref
       >
-        <ArrowLink className="t-label-sm" label={t("common.read_more")} />
+        <ArrowLink className="t-label-sm">{t("common.read_more")}</ArrowLink>
       </NamedLink>
     ) : null;
   }

@@ -2,13 +2,13 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import JournalHero from "../JournalHero";
-import JournalNavBar from "../JournalNavBar";
 import CurrentIssue from "../CurrentIssue";
 import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedJournals from "components/composed/journal/RelatedJournals";
 import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
+import EntityNavBar from "components/composed/entity/EntityNavBar";
 
 export default function JournalLayout({ data, children }: Props) {
   const journal = useMaybeFragment(fragment, data);
@@ -18,7 +18,7 @@ export default function JournalLayout({ data, children }: Props) {
       <EntityHTMLHead data={journal} />
       <BreadcrumbsBar data={journal} />
       <JournalHero data={journal} />
-      <JournalNavBar data={journal} />
+      <EntityNavBar data={journal} />
       {children}
       <CurrentIssue data={journal?.currentIssue} />
       <FeaturedIssues data={journal?.issues} />
@@ -36,7 +36,7 @@ const fragment = graphql`
   fragment JournalLayoutFragment on Collection {
     ...EntityHTMLHeadFragment
     ...JournalHeroFragment
-    ...JournalNavBarFragment
+    ...EntityNavBarFragment
     ...BreadcrumbsBarFragment
     related: links(order: RECENT, perPage: 4) {
       ...RelatedJournalsFragment

@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./JournalNavList.styles";
-import { JournalNavListFragment$key } from "@/relay/JournalNavListFragment.graphql";
+import * as Styled from "./EntityNavList.styles";
+import { EntityNavListFragment$key } from "@/relay/EntityNavListFragment.graphql";
 import { Dropdown, Button, NamedLink } from "components/atomic";
 
-export default function JournalNavList({ data }: Props) {
+export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
   const slug = useRouteSlug();
-  const journal = useMaybeFragment(fragment, data);
+  const entity = useMaybeFragment(fragment, data);
 
   function getDisclosure(label: string) {
     return (
@@ -20,8 +20,8 @@ export default function JournalNavList({ data }: Props) {
     );
   }
 
-  const schemaLinks = journal
-    ? journal.schemaRanks.map((schema, i) => (
+  const schemaLinks = entity
+    ? entity.schemaRanks.map((schema, i) => (
         <a className="t-capitalize" key={i} href="#">
           {t(`schema.${schema.slug.replace(":", ".")}`, { count: 2 })}
         </a>
@@ -30,19 +30,22 @@ export default function JournalNavList({ data }: Props) {
 
   return (
     <Styled.NavList>
-      <li>
-        <Dropdown
-          label={t("nav.browse")}
-          disclosure={getDisclosure("nav.browse")}
-          menuItems={[...schemaLinks]}
-        />
-      </li>
+      {schemaLinks.length > 1 && (
+        <li>
+          <Dropdown
+            label={t("nav.browse")}
+            disclosure={getDisclosure("nav.browse")}
+            menuItems={[...schemaLinks]}
+          />
+        </li>
+      )}
+      {schemaLinks.length === 1 && <li>{schemaLinks[0]}</li>}
       {slug &&
-        journal?.pages?.edges &&
-        journal.pages.edges.map(({ node }) => (
+        entity?.pages?.edges &&
+        entity.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
-              route="collection.page"
+              route="entity.page"
               routeParams={{ slug, page: node.slug }}
               passHref
             >
@@ -57,11 +60,11 @@ export default function JournalNavList({ data }: Props) {
 }
 
 type Props = {
-  data?: JournalNavListFragment$key | null;
+  data?: EntityNavListFragment$key | null;
 };
 
 const fragment = graphql`
-  fragment JournalNavListFragment on Collection {
+  fragment EntityNavListFragment on Entity {
     schemaRanks {
       slug
       name

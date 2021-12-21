@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "EntityHeroFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "EntityHeroFragment" | "EntityNavBarFragment">;
     readonly " $refType": "EntityLayoutFragment";
 };
 export type EntityLayoutFragment$data = EntityLayoutFragment;
@@ -17,20 +17,7 @@ export type EntityLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "BreadcrumbsBarFragment"
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "EntityHeroFragment"
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -43,20 +30,29 @@ return {
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Collection",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Item",
-      "abstractKey": null
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BreadcrumbsBarFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityHeroFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityNavBarFragment"
+        }
+      ],
+      "type": "Entity",
+      "abstractKey": "__isEntity"
     }
   ],
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-})();
-(node as any).hash = 'eb6cecce49aa49c2d9b1d3586cfaa306';
+(node as any).hash = '97647f02ee9a968732a7450d68830718';
 export default node;

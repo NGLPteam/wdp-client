@@ -72,7 +72,9 @@ export default function FeaturedIssue({ data }: Props) {
           routeParams={{ slug: issue.slug }}
           passHref
         >
-          <Styled.ItemReadMore as={ArrowLink} label={t("common.read_more")} />
+          <Styled.ItemReadMore as={ArrowLink}>
+            {t("common.read_more")}
+          </Styled.ItemReadMore>
         </NamedLink>
       </div>
     </Styled.ItemLink>

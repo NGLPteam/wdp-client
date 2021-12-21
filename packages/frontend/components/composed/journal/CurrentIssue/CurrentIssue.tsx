@@ -97,10 +97,9 @@ export default function CurrentIssue({ data }: Props) {
                           routeParams={{ slug: article.node.slug }}
                           passHref
                         >
-                          <ArrowLink
-                            className="t-label-sm"
-                            label={t("common.read_more")}
-                          />
+                          <ArrowLink className="t-label-sm">
+                            {t("common.read_more")}
+                          </ArrowLink>
                         </NamedLink>
                       )
                     }

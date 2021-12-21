@@ -15,7 +15,7 @@ export type JournalLayoutFragment = {
     readonly currentIssue: {
         readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "JournalHeroFragment" | "JournalNavBarFragment" | "BreadcrumbsBarFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "JournalHeroFragment" | "EntityNavBarFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
 export type JournalLayoutFragment$data = JournalLayoutFragment;
@@ -138,7 +138,7 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "JournalNavBarFragment"
+      "name": "EntityNavBarFragment"
     },
     {
       "args": null,
@@ -150,5 +150,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ba72eba9f9060b3584e2e7d68e94b542';
+(node as any).hash = 'a4a78bad2f3e78bbd3e7040dd90f1eaf';
 export default node;

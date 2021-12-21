@@ -1,0 +1,47 @@
+import React from "react";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
+import EntityNavList from "./EntityNavList";
+import * as Styled from "./EntityNavBar.styles";
+import { Search } from "components/forms";
+import { EntityNavBarFragment$key } from "@/relay/EntityNavBarFragment.graphql";
+
+export default function EntityNavBar({ data }: Props) {
+  const { t } = useTranslation();
+  const entity = useMaybeFragment(fragment, data);
+
+  return entity ? (
+    <Styled.Nav className="a-bg-custom20" as="nav">
+      <Styled.NavInner className="l-container-wide">
+        <Styled.LeftSide>
+          <EntityNavList data={entity} />
+        </Styled.LeftSide>
+        <Styled.RightSide>
+          <Search
+            placeholder={t("search.placeholder_name", {
+              name: entity.title,
+            })}
+            queryParams={{ ...(entity.id && { id: entity.id }) }}
+          />
+        </Styled.RightSide>
+      </Styled.NavInner>
+    </Styled.Nav>
+  ) : null;
+}
+
+type Props = {
+  data?: EntityNavBarFragment$key | null;
+};
+
+const fragment = graphql`
+  fragment EntityNavBarFragment on AnyEntity {
+    ... on Node {
+      id
+    }
+    ... on Entity {
+      title
+      ...EntityNavListFragment
+    }
+  }
+`;

@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./EntityHero.styles";
+import { HeroImage } from "components/atomic";
 import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 
 export default function EntityHero({ data }: Props) {
@@ -10,8 +11,9 @@ export default function EntityHero({ data }: Props) {
   return entity ? (
     <section className="a-bg-custom10">
       <Styled.HeroInner className="l-container-wide">
-        <Styled.Header>{entity.title}</Styled.Header>
+        <h2>{entity.title}</h2>
       </Styled.HeroInner>
+      {entity.heroImage?.storage && <HeroImage data={entity.heroImage} />}
     </section>
   ) : null;
 }
@@ -24,12 +26,17 @@ const fragment = graphql`
   fragment EntityHeroFragment on AnyEntity {
     ... on Collection {
       title
-    }
-    ... on Community {
-      title
+      heroImage {
+        storage
+        ...HeroImageFragment
+      }
     }
     ... on Item {
       title
+      heroImage {
+        storage
+        ...HeroImageFragment
+      }
     }
   }
 `;

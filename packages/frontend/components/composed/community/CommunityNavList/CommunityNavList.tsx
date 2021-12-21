@@ -42,8 +42,9 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
             <ArrowLink
               key={1}
               className="l-flex l-flex--gap-sm l-flex--align-center"
-              label={t("nav.browse_all")}
-            />,
+            >
+              {t("nav.browse_all")}
+            </ArrowLink>,
           ]}
         />
       </li>

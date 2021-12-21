@@ -1,6 +1,7 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./JournalInfo.styles";
 import { JournalInfoFragment$key } from "@/relay/JournalInfoFragment.graphql";
 import { ArrowLink } from "components/atomic";
@@ -9,6 +10,7 @@ export default function JournalInfo({ data }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const journal = useMaybeFragment(fragment, data);
   const announcements = [1, 2];
+  const { t } = useTranslation();
 
   return (
     <section className="a-bg-custom10">
@@ -60,7 +62,9 @@ export default function JournalInfo({ data }: Props) {
                     vestibulum cras odio in.
                   </p>
                 </Styled.AnnouncementBody>
-                <ArrowLink className="t-label-mix" label="Read More" />
+                <ArrowLink className="t-label-mix">
+                  {t("common.read_more")}
+                </ArrowLink>
               </Styled.AnnouncementItem>
             ))}
           </ul>
