@@ -38,8 +38,9 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
           role={undefined}
           aria-label={label}
         >
-          {typeof children === "function" &&
-            children({ onClick: closePopover })}
+          {typeof children === "function"
+            ? children({ onClick: closePopover })
+            : children}
         </Styled.Popover>
       </>
     );
