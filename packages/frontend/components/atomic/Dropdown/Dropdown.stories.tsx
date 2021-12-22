@@ -19,6 +19,9 @@ const MENU_ITEMS = [
   <a href="#" key={3}>
     Item Three
   </a>,
+  <button key={4} onClick={() => console.info("clicked!")}>
+    Button with click event
+  </button>,
 ];
 
 const Template: Story<Props> = (args) => (
