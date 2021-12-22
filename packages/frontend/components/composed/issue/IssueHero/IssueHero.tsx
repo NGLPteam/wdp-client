@@ -32,6 +32,8 @@ export default function IssueHero({ data }: Props) {
               {issue.thumbnail?.storage && (
                 <Styled.IssueCover>
                   <CoverImage
+                    id={issue.id}
+                    title={issue.title}
                     data={issue.thumbnail}
                     maxWidth={225}
                     maxHeight={300}
@@ -87,6 +89,7 @@ interface Props {
 
 const fragment = graphql`
   fragment IssueHeroFragment on Collection {
+    id
     title
     subtitle
     summary

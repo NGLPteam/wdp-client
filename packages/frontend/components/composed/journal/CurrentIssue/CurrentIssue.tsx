@@ -34,6 +34,8 @@ export default function CurrentIssue({ data }: Props) {
           >
             <Styled.ImageBlock as="a">
               <CoverImage
+                id={issue.id}
+                title={issue.title}
                 data={issue.thumbnail}
                 maxWidth={278}
                 maxHeight={370}
@@ -121,6 +123,7 @@ type ArticleNode = CurrentIssueFragment$data["items"]["edges"][number];
 
 const fragment = graphql`
   fragment CurrentIssueFragment on Collection {
+    id
     title
     slug
     thumbnail {

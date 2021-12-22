@@ -47,11 +47,12 @@ export default function RelatedJournals({ data }: Props) {
                 <Styled.ItemLink>
                   <Styled.ItemCover>
                     <CoverImage
+                      title={node.target.title}
+                      id={node.target.id}
                       data={node.target.thumbnail}
                       maxWidth={263}
                       maxHeight={280}
                       usePlaceholder
-                      slug={node.target.slug}
                     />
                   </Styled.ItemCover>
                   <Styled.ItemText>
@@ -102,6 +103,7 @@ const fragment = graphql`
         target {
           ... on Collection {
             __typename
+            id
             title
             slug
             published {
@@ -114,6 +116,7 @@ const fragment = graphql`
           }
           ... on Item {
             __typename
+            id
             title
             slug
             published {

@@ -18,11 +18,12 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
           className={index % 2 === 0 ? "a-bg-neutral90" : "a-bg-neutral80"}
         >
           <CoverImage
+            id={journal.id}
+            title={journal.title}
             data={journal.thumbnail}
             maxWidth={300}
             maxHeight={coverHeight}
             usePlaceholder
-            slug={journal.slug}
           />
         </Styled.ItemCover>
         <Styled.ItemText>
@@ -58,6 +59,7 @@ interface Props {
 
 const fragment = graphql`
   fragment FeaturedJournalFragment on Collection {
+    id
     title
     slug
     updatedAt
