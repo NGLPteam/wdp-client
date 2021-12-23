@@ -27,6 +27,10 @@ export const baseRoutes: BaseRoute[] = [
         name: "community.items",
         path: "/communities/[slug]/items",
       },
+      {
+        name: "community.search",
+        path: "/communities/[slug]/search",
+      },
     ],
   },
   {

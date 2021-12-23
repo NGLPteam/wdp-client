@@ -19,3 +19,9 @@ export type MaybeButtonOrLinkRef =
   | React.RefObject<HTMLLinkElement>
   | null
   | undefined;
+
+export type MaybeSelectRef =
+  | ((instance: HTMLSelectElement | null) => void)
+  | React.RefObject<HTMLSelectElement>
+  | null
+  | undefined;
