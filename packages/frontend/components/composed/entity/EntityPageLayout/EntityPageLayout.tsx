@@ -10,7 +10,7 @@ export default function EntityPageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);
 
   return page ? (
-    <Styled.Wrapper className="t-rte l-container-wide">
+    <Styled.Wrapper className="t-rte l-container-wide a-bg-neutral00">
       {page.heroImage && <ContentImage data={page.heroImage} />}
       <h3>{page.title}</h3>
       <ReactMarkdown>{page.body}</ReactMarkdown>

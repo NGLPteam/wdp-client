@@ -9,7 +9,7 @@ export type FeaturedIssuesFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly slug: string;
-            readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"IssueSummaryFragment">;
         };
     }>;
     readonly " $refType": "FeaturedIssuesFragment";
@@ -54,7 +54,7 @@ const node: ReaderFragment = {
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "FeaturedIssueFragment"
+              "name": "IssueSummaryFragment"
             }
           ],
           "storageKey": null
@@ -66,5 +66,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'e38024c86c8297f2b946a88575d67c08';
+(node as any).hash = 'a9cfa7453a1e9c131fc5cf3214b786d2';
 export default node;

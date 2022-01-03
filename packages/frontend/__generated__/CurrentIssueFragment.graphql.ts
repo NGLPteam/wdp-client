@@ -24,13 +24,8 @@ export type CurrentIssueFragment = {
     readonly items: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly title: string;
-                readonly subtitle: string | null;
                 readonly slug: string;
-                readonly summary: string | null;
-                readonly contributions: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
-                };
+                readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
             };
         }>;
     };
@@ -175,37 +170,11 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "subtitle",
-                  "storageKey": null
-                },
                 (v1/*: any*/),
                 {
-                  "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "summary",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ItemContributionConnection",
-                  "kind": "LinkedField",
-                  "name": "contributions",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "ContributorsListFragment"
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "ArticleSummaryFragment"
                 }
               ],
               "storageKey": null
@@ -221,5 +190,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8c1d453fb8c7026486b908c3096b2a28';
+(node as any).hash = '4a3031ee02f32d2a337ff6fc71296068';
 export default node;

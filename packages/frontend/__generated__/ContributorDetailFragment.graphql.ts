@@ -13,7 +13,7 @@ export type ContributorDetailFragment = {
         readonly nodes: ReadonlyArray<{
             readonly role: string | null;
             readonly collection: {
-                readonly " $fragmentRefs": FragmentRefs<"ContributionItemFragment">;
+                readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment">;
             };
         }>;
     };
@@ -22,7 +22,7 @@ export type ContributorDetailFragment = {
         readonly nodes: ReadonlyArray<{
             readonly role: string | null;
             readonly item: {
-                readonly " $fragmentRefs": FragmentRefs<"ContributionItemFragment">;
+                readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment">;
             };
         }>;
     };
@@ -59,7 +59,7 @@ v1 = [
   {
     "args": null,
     "kind": "FragmentSpread",
-    "name": "ContributionItemFragment"
+    "name": "EntitySummaryFragment"
   }
 ],
 v2 = {
@@ -229,5 +229,5 @@ return {
   "abstractKey": "__isContributor"
 };
 })();
-(node as any).hash = 'c4d60c5b6a076ad61578f530ae0d8953';
+(node as any).hash = 'a81c67b0f33ad4fada99aee9c6db8c5f';
 export default node;

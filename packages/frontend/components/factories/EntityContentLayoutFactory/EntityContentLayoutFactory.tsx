@@ -9,8 +9,8 @@ import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLay
 import JournalInfo from "components/composed/journal/JournalInfo";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
-import IssueSummary from "components/composed/issue/IssueSummary";
-import IssueContentNav from "components/composed/issue/IssueContentNav";
+import IssueContent from "components/composed/issue/IssueContent";
+import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 
 export default function EntityContentLayoutFactory({ data, children }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -28,9 +28,9 @@ export default function EntityContentLayoutFactory({ data, children }: Props) {
     case "journal_issue":
       return (
         <IssueLayout data={entity}>
-          <IssueContentNav data={entity}>
-            <IssueSummary data={entity} />
-          </IssueContentNav>
+          <IssueSidebarNav data={entity}>
+            <IssueContent data={entity} />
+          </IssueSidebarNav>
         </IssueLayout>
       );
 
@@ -66,8 +66,8 @@ const fragment = graphql`
       ...JournalLayoutFragment
       ...JournalInfoFragment
       ...IssueLayoutFragment
-      ...IssueContentNavFragment
-      ...IssueSummaryFragment
+      ...IssueSidebarNavFragment
+      ...IssueContentFragment
     }
     ... on Item {
       schemaDefinition {

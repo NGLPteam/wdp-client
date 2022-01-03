@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./JournalHero.styles";
-import { HeroImage } from "components/atomic";
+import { HeroImage, NamedLink } from "components/atomic";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
@@ -13,7 +13,15 @@ export default function JournalHero({ data }: Props) {
       <header className="a-bg-custom10">
         <Styled.HeroInner className="l-container-wide">
           <Styled.TitleBlock>
-            <Styled.Title>{journal.title}</Styled.Title>
+            <Styled.Title>
+              <NamedLink
+                route="collection"
+                routeParams={{ slug: journal.slug }}
+                passHref
+              >
+                <a>{journal.title}</a>
+              </NamedLink>
+            </Styled.Title>
             {journal.subtitle && (
               <Styled.Subtitle>{journal.subtitle}</Styled.Subtitle>
             )}
@@ -36,6 +44,7 @@ interface Props {
 
 const fragment = graphql`
   fragment JournalHeroFragment on Collection {
+    slug
     title
     subtitle
     heroImage {

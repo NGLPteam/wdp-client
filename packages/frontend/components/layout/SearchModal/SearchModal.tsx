@@ -11,6 +11,7 @@ import { RouteHelper } from "routes";
 import { IconFactory } from "components/factories";
 import { Select } from "components/forms";
 import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
+import { getSchemaTranslationKey } from "helpers";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -73,7 +74,7 @@ export default function SearchModal({ dialog, data }: Props) {
           <Select id={selectId} {...register("schema")}>
             {searchData?.schemaRanks.map(({ slug }) => (
               <option key={slug} value={slug}>
-                {startCase(t(`schema.${slug.replace(":", ".")}`, { count: 2 }))}
+                {startCase(t(getSchemaTranslationKey(slug), { count: 2 }))}
               </option>
             ))}
           </Select>

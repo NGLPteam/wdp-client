@@ -2,6 +2,7 @@ import GlobalStyles from "theme/globalStyles";
 import { baseColors, customColors } from "theme/base/variables";
 import * as nextImage from "next/image";
 import { ThemeProvider } from "styled-components";
+import { RouterContext } from "next/dist/shared/lib/router-context";
 import i18n, { SUPPORTED_LOCALES, DEFAULT_LNG } from "../i18n";
 
 Object.defineProperty(nextImage, "default", {
@@ -86,6 +87,9 @@ export const globalTypes = {
 };
 
 export const parameters = {
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
   themes: {
     default: "neutral00",
     list: [

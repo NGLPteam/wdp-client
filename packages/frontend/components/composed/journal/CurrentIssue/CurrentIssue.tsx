@@ -5,13 +5,11 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CurrentIssue.styles";
 import {
   CoverImage,
-  ArrowLink,
   PrecisionDate,
   NamedLink,
   DotList,
 } from "components/atomic";
-import { ArticleSummary } from "components/layout";
-import ContributorsList from "components/composed/contributor/ContributorsList";
+import ArticleSummary from "components/composed/article/ArticleSummary";
 import {
   CurrentIssueFragment$data,
   CurrentIssueFragment$key,
@@ -66,48 +64,13 @@ export default function CurrentIssue({ data }: Props) {
                   />
                 </li>
               )}
-              <li>Additional metadata</li>
             </DotList>
           </Styled.TitleBlock>
           <Styled.ArticleList>
             {articles &&
-              articles.map((article: ArticleNode) => (
-                <Styled.Item key={article.node.slug}>
-                  <ArticleSummary
-                    title={
-                      <NamedLink
-                        route="item"
-                        routeParams={{ slug: article.node.slug }}
-                        passHref
-                      >
-                        <a>{article.node.title}</a>
-                      </NamedLink>
-                    }
-                    subtitle={article.node.subtitle}
-                    summary={
-                      article.node.summary && (
-                        <p className="t-copy-sm">{article.node.summary}</p>
-                      )
-                    }
-                    contributors={
-                      article.node.contributions && (
-                        <ContributorsList data={article.node.contributions} />
-                      )
-                    }
-                    readMore={
-                      article.node.slug && (
-                        <NamedLink
-                          route="item"
-                          routeParams={{ slug: article.node.slug }}
-                          passHref
-                        >
-                          <ArrowLink className="t-label-sm">
-                            {t("common.read_more")}
-                          </ArrowLink>
-                        </NamedLink>
-                      )
-                    }
-                  />
+              articles.map(({ node }: ArticleNode) => (
+                <Styled.Item key={node.slug}>
+                  <ArticleSummary data={node} showReadMore />
                 </Styled.Item>
               ))}
           </Styled.ArticleList>
@@ -144,13 +107,8 @@ const fragment = graphql`
     items(perPage: 3) {
       edges {
         node {
-          title
-          subtitle
           slug
-          summary
-          contributions {
-            ...ContributorsListFragment
-          }
+          ...ArticleSummaryFragment
         }
       }
     }

@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type JournalHeroFragment = {
+    readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
     readonly heroImage: {
@@ -29,6 +30,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "JournalHeroFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -70,5 +78,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '6d984f185eec8894a388dacf758c3267';
+(node as any).hash = 'da90e2f3ed0f0d5d405906de93518ef8';
 export default node;

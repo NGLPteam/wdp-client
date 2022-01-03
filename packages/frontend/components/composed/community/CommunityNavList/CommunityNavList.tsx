@@ -6,6 +6,7 @@ import * as Styled from "./CommunityNavList.styles";
 import { IconFactory } from "components/factories";
 import { ArrowLink, Dropdown, NamedLink, Accordion } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
+import { getSchemaTranslationKey } from "helpers";
 
 export default function CommunityNavList({ condensed, mobile, data }: Props) {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
   const schemaLinks = community
     ? community.schemaRanks.map((schema, i) => (
         <a className="t-capitalize" key={i} href="#">
-          {t(`schema.${schema.slug.replace(":", ".")}`, { count: 2 })}
+          {t(getSchemaTranslationKey(schema.slug), { count: 2 })}
         </a>
       ))
     : [];

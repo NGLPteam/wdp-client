@@ -3,8 +3,8 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import IssueSummary from "../IssueSummary";
 import * as Styled from "./FeaturedIssues.styles";
-import FeaturedIssue from "./FeaturedIssue";
 import { Button, NamedLink } from "components/atomic";
 import {
   FeaturedIssuesFragment$data,
@@ -28,7 +28,7 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
           {issues.edges.slice(0, limit).map(({ node }: Node) =>
             node.slug ? (
               <Styled.ListItem key={node.slug}>
-                <FeaturedIssue data={node} />
+                <IssueSummary data={node} />
               </Styled.ListItem>
             ) : null
           )}
@@ -62,7 +62,7 @@ const fragment = graphql`
     edges {
       node {
         slug
-        ...FeaturedIssueFragment
+        ...IssueSummaryFragment
       }
     }
   }

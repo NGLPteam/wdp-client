@@ -1,8 +1,23 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { fluidScale, lGrid, respond } from "theme/mixins";
+import {
+  aBgCustom10,
+  aBgNeutral00,
+  fluidScale,
+  lGrid,
+  respond,
+} from "theme/mixins";
 
+// This section's background changes if bumped up against a white background
 export const Section = styled.section`
+  ${aBgNeutral00()}
+
+  .a-bg-neutral00 + & {
+    ${aBgCustom10()}
+  }
+`;
+
+export const Inner = styled.div`
   padding-block-start: ${fluidScale("100px", "80px")};
   padding-block-end: ${fluidScale("100px", "80px")};
 
