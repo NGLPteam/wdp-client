@@ -16,3 +16,4 @@ export { default as NamedLink } from "./NamedLink";
 export { default as PrecisionDate } from "./PrecisionDate";
 export { default as SearchButton } from "./SearchButton";
 export { default as SquareThumbnail } from "./SquareThumbnail";
+export { default as Accordion } from "./Accordion";

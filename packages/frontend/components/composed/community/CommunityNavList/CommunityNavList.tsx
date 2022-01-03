@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CommunityNavList.styles";
 import { IconFactory } from "components/factories";
-import { ArrowLink, Dropdown, NamedLink } from "components/atomic";
+import { ArrowLink, Dropdown, NamedLink, Accordion } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 
 export default function CommunityNavList({ condensed, mobile, data }: Props) {
@@ -31,23 +31,38 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
       ))
     : [];
 
+  const exploreMenu = mobile ? (
+    <Accordion
+      label={t("nav.explore")}
+      menuItems={[
+        ...schemaLinks,
+        <ArrowLink
+          key={1}
+          className="l-flex l-flex--gap-sm l-flex--align-center"
+        >
+          {t("nav.browse_all")}
+        </ArrowLink>,
+      ]}
+    />
+  ) : (
+    <Dropdown
+      label={t("nav.explore")}
+      menuItems={[
+        ...schemaLinks,
+        <ArrowLink
+          key={1}
+          className="l-flex l-flex--gap-sm l-flex--align-center"
+        >
+          {t("nav.browse_all")}
+        </ArrowLink>,
+      ]}
+      disclosure={getDisclosure("nav.explore")}
+    />
+  );
+
   return (
     <ListComponent condensed={condensed}>
-      <li>
-        <Dropdown
-          label={t("nav.explore")}
-          disclosure={getDisclosure("nav.explore")}
-          menuItems={[
-            ...schemaLinks,
-            <ArrowLink
-              key={1}
-              className="l-flex l-flex--gap-sm l-flex--align-center"
-            >
-              {t("nav.browse_all")}
-            </ArrowLink>,
-          ]}
-        />
-      </li>
+      <li>{exploreMenu}</li>
       {community &&
         community.slug &&
         community.pages.edges &&
