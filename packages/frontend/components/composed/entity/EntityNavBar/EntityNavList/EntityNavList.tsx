@@ -4,8 +4,9 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./EntityNavList.styles";
-import { EntityNavListFragment$key } from "@/relay/EntityNavListFragment.graphql";
 import { Dropdown, Button, NamedLink } from "components/atomic";
+import { EntityNavListFragment$key } from "@/relay/EntityNavListFragment.graphql";
+import { getRouteByEntityType } from "helpers";
 
 export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
@@ -20,36 +21,45 @@ export default function EntityNavList({ data }: Props) {
     );
   }
 
-  const schemaLinks = entity
-    ? entity.schemaRanks.map((schema, i) => (
-        <a className="t-capitalize" key={i} href="#">
-          {t(`schema.${schema.slug.replace(":", ".")}`, { count: 2 })}
-        </a>
-      ))
+  const typeRoute = getRouteByEntityType(entity?.__typename);
+
+  const dropdownLinks = entity
+    ? entity.orderings.edges
+        .filter(({ node }) => node.children?.pageInfo?.totalCount)
+        .map(({ node }, i) =>
+          slug ? (
+            <NamedLink
+              key={i}
+              route={`${typeRoute}.browse`}
+              routeParams={{ slug, ordering: node.identifier }}
+              passHref
+            >
+              <a className="t-capitalize" href="#">
+                {node.name}
+              </a>
+            </NamedLink>
+          ) : null
+        )
     : [];
 
   return (
     <Styled.NavList>
-      {schemaLinks.length > 1 && (
+      {dropdownLinks.length > 1 && (
         <li>
           <Dropdown
             label={t("nav.browse")}
             disclosure={getDisclosure("nav.browse")}
-            menuItems={[...schemaLinks]}
+            menuItems={[...dropdownLinks]}
           />
         </li>
       )}
-      {schemaLinks.length === 1 && <li>{schemaLinks[0]}</li>}
+      {dropdownLinks.length === 1 && <li>{dropdownLinks[0]}</li>}
       {slug &&
         entity?.pages?.edges &&
         entity.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
-              route={
-                entity.__typename === "COLLECTION"
-                  ? "collection.page"
-                  : "item.page"
-              }
+              route={`${typeRoute}.page`}
               routeParams={{ slug, page: node.slug }}
               passHref
             >
@@ -70,10 +80,19 @@ type Props = {
 const fragment = graphql`
   fragment EntityNavListFragment on Entity {
     __typename
-    schemaRanks {
-      slug
-      name
-      count
+    orderings {
+      edges {
+        node {
+          name
+          slug
+          identifier
+          children {
+            pageInfo {
+              totalCount
+            }
+          }
+        }
+      }
     }
     pages {
       edges {

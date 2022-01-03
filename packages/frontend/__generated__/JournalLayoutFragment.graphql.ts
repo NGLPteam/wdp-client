@@ -9,12 +9,6 @@ export type JournalLayoutFragment = {
     readonly related: {
         readonly " $fragmentRefs": FragmentRefs<"RelatedJournalsFragment">;
     };
-    readonly issues: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
-    };
-    readonly currentIssue: {
-        readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
-    } | null;
     readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "JournalHeroFragment" | "EntityNavBarFragment" | "BreadcrumbsBarFragment">;
     readonly " $refType": "JournalLayoutFragment";
 };
@@ -26,23 +20,7 @@ export type JournalLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "kind": "Literal",
-  "name": "perPage",
-  "value": 4
-},
-v1 = {
-  "kind": "Literal",
-  "name": "nodeFilter",
-  "value": "DESCENDANTS"
-},
-v2 = {
-  "kind": "Literal",
-  "name": "schema",
-  "value": "nglp:journal_issue"
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -56,7 +34,11 @@ return {
           "name": "order",
           "value": "RECENT"
         },
-        (v0/*: any*/)
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 4
+        }
       ],
       "concreteType": "EntityLinkConnection",
       "kind": "LinkedField",
@@ -70,60 +52,6 @@ return {
         }
       ],
       "storageKey": "links(order:\"RECENT\",perPage:4)"
-    },
-    {
-      "alias": "issues",
-      "args": [
-        (v1/*: any*/),
-        {
-          "kind": "Literal",
-          "name": "order",
-          "value": "PUBLISHED_ASCENDING"
-        },
-        {
-          "kind": "Literal",
-          "name": "page",
-          "value": 1
-        },
-        (v0/*: any*/),
-        (v2/*: any*/)
-      ],
-      "concreteType": "CollectionConnection",
-      "kind": "LinkedField",
-      "name": "collections",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FeaturedIssuesFragment"
-        }
-      ],
-      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
-    },
-    {
-      "alias": "currentIssue",
-      "args": [
-        (v1/*: any*/),
-        {
-          "kind": "Literal",
-          "name": "order",
-          "value": "PUBLISHED_DESCENDING"
-        },
-        (v2/*: any*/)
-      ],
-      "concreteType": "Collection",
-      "kind": "LinkedField",
-      "name": "firstCollection",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "CurrentIssueFragment"
-        }
-      ],
-      "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
     },
     {
       "args": null,
@@ -149,6 +77,5 @@ return {
   "type": "Collection",
   "abstractKey": null
 };
-})();
-(node as any).hash = 'a4a78bad2f3e78bbd3e7040dd90f1eaf';
+(node as any).hash = '5fad6e0e83727d2a0e36fda3468d13ea';
 export default node;

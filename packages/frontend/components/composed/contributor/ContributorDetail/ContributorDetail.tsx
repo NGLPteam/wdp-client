@@ -7,10 +7,10 @@ import get from "lodash/get";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
-import ContributionItem from "./ContributionItem/ContributionItem";
 import { ExternalLink } from "components/atomic";
-import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import { BackToTopBlock } from "components/layout";
+import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
+import EntitySummary from "components/composed/entity/EntitySummary";
 
 export default function ContributorDetail({ data }: Props) {
   const contributor = useMaybeFragment(fragment, data);
@@ -69,13 +69,13 @@ export default function ContributorDetail({ data }: Props) {
               {contributor.collectionContributions.nodes.map(
                 ({ collection }, i) => (
                   <Styled.ContributionItem key={i}>
-                    <ContributionItem data={collection} />
+                    <EntitySummary data={collection} showReadMore />
                   </Styled.ContributionItem>
                 )
               )}
               {contributor.itemContributions.nodes.map(({ item }, i) => (
                 <Styled.ContributionItem key={i}>
-                  <ContributionItem data={item} />
+                  <EntitySummary data={item} showReadMore />
                 </Styled.ContributionItem>
               ))}
             </Styled.ContributionList>
@@ -102,7 +102,7 @@ const fragment = graphql`
         nodes {
           role
           collection {
-            ...ContributionItemFragment
+            ...EntitySummaryFragment
           }
         }
       }
@@ -111,7 +111,7 @@ const fragment = graphql`
         nodes {
           role
           item {
-            ...ContributionItemFragment
+            ...EntitySummaryFragment
           }
         }
       }

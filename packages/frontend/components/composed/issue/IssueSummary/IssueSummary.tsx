@@ -1,40 +1,142 @@
 import React, { useMemo } from "react";
-import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import IssueSummaryQuery from "./IssueSummaryQuery";
-import IssueSummaryItemsQuery from "./IssueSummaryItemsQuery";
+import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import startCase from "lodash/startCase";
+import * as Styled from "./IssueSummary.styles";
+import { ArrowLink, PrecisionDate, NamedLink } from "components/atomic";
+import CoverImage from "components/atomic/CoverImage";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 
-export default function IssueSummary({ data }: Props) {
-  const content = useMaybeFragment(fragment, data);
+export default function IssueSummary({ data, showReadMore }: Props) {
+  const issue = useMaybeFragment(fragment, data);
+  const { t } = useTranslation();
 
-  // Get the first order in orderings as a default option
-  const firstOrder = useMemo(
-    () => content?.orderings?.edges[0]?.node.identifier,
-    [content]
-  );
+  const issueNumber = useMemo(() => {
+    if (!issue) return null;
 
-  // If no orderings are defined on this issue, return a list of items
-  return firstOrder ? (
-    <IssueSummaryQuery order={firstOrder} />
-  ) : (
-    <IssueSummaryItemsQuery />
-  );
+    const prop = issue?.properties.find((p) => p.path === "number");
+    const numberString = startCase(
+      `${t("schema.nglp.journal_issue")} ${prop?.content}`
+    );
+    return prop?.content &&
+      issue.title.toLocaleLowerCase() !== numberString.toLocaleLowerCase()
+      ? numberString
+      : null;
+  }, [issue, t]);
+
+  return issue ? (
+    <Styled.Wrapper>
+      {issue.cover?.storage && (
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: issue.slug }}
+          passHref
+        >
+          <Styled.ItemCoverLink>
+            <CoverImage
+              id={issue.id}
+              title={issue.title}
+              data={issue.cover}
+              maxWidth={120}
+              maxHeight={160}
+            />
+          </Styled.ItemCoverLink>
+        </NamedLink>
+      )}
+      <div>
+        <Styled.ItemTitleBlock>
+          <h4>
+            <NamedLink
+              route="collection"
+              routeParams={{ slug: issue.slug }}
+              passHref
+            >
+              <a>{issue.title}</a>
+            </NamedLink>
+          </h4>
+          {issue.subtitle && (
+            <h5 className="t-copy-italic">{issue.subtitle}</h5>
+          )}
+        </Styled.ItemTitleBlock>
+        <div className="t-copy-sm">
+          {issue.volume && <p>{issue.volume.title}</p>}
+          <Styled.ItemPrimaryMetadata>
+            {issueNumber && <li>{issueNumber}</li>}
+            {issue.published.value && (
+              <li>
+                <PrecisionDate
+                  data={issue.published}
+                  label={t("common.published")}
+                />
+              </li>
+            )}
+          </Styled.ItemPrimaryMetadata>
+          {(issue.articles.pageInfo.totalCount || 0) > 0 && (
+            <p className="t-copy-italic t-copy-light t-capitalize">
+              {issue.articles.pageInfo.totalCount}{" "}
+              {t("schema.nglp.journal_article", {
+                count: issue.articles.pageInfo.totalCount,
+              })}
+            </p>
+          )}
+        </div>
+        {issue.summary && (
+          <Styled.ItemSummary className="t-copy-light">
+            {issue.summary}
+          </Styled.ItemSummary>
+        )}
+        {showReadMore && (
+          <NamedLink
+            route="collection"
+            routeParams={{ slug: issue.slug }}
+            passHref
+          >
+            <Styled.ItemReadMore as={ArrowLink}>
+              {t("common.read_more")}
+            </Styled.ItemReadMore>
+          </NamedLink>
+        )}
+      </div>
+    </Styled.Wrapper>
+  ) : null;
 }
 
 interface Props {
+  /* Collection data */
   data?: IssueSummaryFragment$key | null;
+  showReadMore?: boolean;
 }
 
 const fragment = graphql`
   fragment IssueSummaryFragment on Collection {
-    orderings {
-      edges {
-        node {
-          name
-          slug
-          identifier
-        }
+    id
+    title
+    subtitle
+    slug
+    summary
+    cover: thumbnail {
+      storage
+      ...CoverImageFragment
+    }
+    published {
+      value
+      ...PrecisionDateFragment
+    }
+    volume: ancestorOfType(schema: "nglp:journal_volume") {
+      ... on Collection {
+        title
+      }
+    }
+    properties: schemaProperties {
+      ... on StringProperty {
+        content
+        path
+      }
+    }
+    articles: items(schema: "nglp:journal_article") {
+      pageInfo {
+        totalCount
       }
     }
   }

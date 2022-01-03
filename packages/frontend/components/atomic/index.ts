@@ -13,6 +13,8 @@ export { default as ExternalLink } from "./ExternalLink";
 export { default as FileThumbnail } from "./FileThumbnail";
 export { default as HeroImage } from "./HeroImage";
 export { default as NamedLink } from "./NamedLink";
+export { default as PageCount } from "./PageCount";
+export { default as Pagination } from "./Pagination";
 export { default as PrecisionDate } from "./PrecisionDate";
 export { default as SearchButton } from "./SearchButton";
 export { default as SquareThumbnail } from "./SquareThumbnail";

@@ -7,19 +7,16 @@ const KIND_MAP = {
   "%future added value": null,
 };
 
-export function getRouteByEntityKind(kind: EntityKind) {
-  return KIND_MAP[kind];
+export function getRouteByEntityKind(kind?: EntityKind) {
+  return kind ? KIND_MAP[kind] : null;
 }
 
-const TYPE_MAP = {
+const TYPE_MAP: Record<string, string> = {
   Community: "community",
   Collection: "collection",
   Item: "item",
-  "%other": null,
 };
 
-export function getRouteByEntityType(
-  typename: "Collection" | "Community" | "Item" | "%other"
-) {
-  return TYPE_MAP[typename];
+export function getRouteByEntityType(typename?: string) {
+  return typename ? TYPE_MAP[typename] : null;
 }

@@ -60,7 +60,6 @@ export default function IssueHero({ data }: Props) {
                         />
                       </li>
                     )}
-                    <li>Metadata</li>
                   </DotList>
                   {issue.summary && <p>{issue.summary}</p>}
                 </Styled.Description>

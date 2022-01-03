@@ -2,11 +2,9 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import JournalHero from "../JournalHero";
-import CurrentIssue from "../CurrentIssue";
 import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedJournals from "components/composed/journal/RelatedJournals";
-import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 
@@ -20,8 +18,6 @@ export default function JournalLayout({ data, children }: Props) {
       <JournalHero data={journal} />
       <EntityNavBar data={journal} />
       {children}
-      <CurrentIssue data={journal?.currentIssue} />
-      <FeaturedIssues data={journal?.issues} />
       <RelatedJournals data={journal?.related} />
     </>
   );
@@ -40,22 +36,6 @@ const fragment = graphql`
     ...BreadcrumbsBarFragment
     related: links(order: RECENT, perPage: 4) {
       ...RelatedJournalsFragment
-    }
-    issues: collections(
-      schema: "nglp:journal_issue"
-      order: PUBLISHED_ASCENDING
-      nodeFilter: DESCENDANTS
-      page: 1
-      perPage: 4
-    ) {
-      ...FeaturedIssuesFragment
-    }
-    currentIssue: firstCollection(
-      schema: "nglp:journal_issue"
-      order: PUBLISHED_DESCENDING
-      nodeFilter: DESCENDANTS
-    ) {
-      ...CurrentIssueFragment
     }
   }
 `;

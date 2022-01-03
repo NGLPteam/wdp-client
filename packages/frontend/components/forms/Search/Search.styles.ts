@@ -1,6 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aHidden, aInputReset, tTruncate } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
+import { aFocusReset } from "theme/mixins";
 
 export const SearchForm = styled.form`
   display: flex;
@@ -21,9 +22,7 @@ export const SearchInput = styled.input`
   ${tTruncate}
   flex: 1 1 auto;
 
-  &:focus {
-    outline: none;
-  }
+  ${aFocusReset}
 `;
 
 export const SubmitButton = styled.button`

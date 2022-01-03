@@ -1,6 +1,7 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { Select } from "components/forms";
 import { EntityOrderSelectFragment$key } from "@/relay/EntityOrderSelectFragment.graphql";
 
@@ -10,6 +11,9 @@ export default function EntityOrderSelect({
   defaultValue,
 }: Props) {
   const orderings = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
+
   const id = "orderSelect";
 
   function handleChange({ target }: { target: HTMLSelectElement }) {
@@ -18,9 +22,9 @@ export default function EntityOrderSelect({
   }
 
   return orderings && orderings.edges.length > 0 ? (
-    <>
+    <div>
       <label htmlFor={id} className="a-hidden">
-        Order:
+        {t("form.order_label")}
       </label>
       <Select id={id} onChange={handleChange} defaultValue={defaultValue}>
         {orderings.edges.map(({ node }) => (
@@ -29,7 +33,7 @@ export default function EntityOrderSelect({
           </option>
         ))}
       </Select>
-    </>
+    </div>
   ) : null;
 }
 

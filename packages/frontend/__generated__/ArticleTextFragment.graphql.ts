@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
+export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
 export type ArticleTextFragment = {
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
@@ -18,7 +19,7 @@ export type ArticleTextFragment = {
             readonly kind: FullTextKind | null;
             readonly lang: string | null;
         } | null | undefined;
-        readonly type?: string | undefined;
+        readonly type?: SchemaPropertyType | undefined;
     } | null;
     readonly " $refType": "ArticleTextFragment";
 };

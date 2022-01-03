@@ -22,69 +22,71 @@ export default function RelatedJournals({ data }: Props) {
   const { t } = useTranslation();
 
   return entities?.edges && entities.edges.length > 0 ? (
-    <Styled.Section className="l-container-wide a-bg-neutral00">
-      <Styled.HeaderBlock>
-        <Styled.HeaderText className="t-capitalize">
-          {t("layouts.related_journals_header")}
-        </Styled.HeaderText>
-        <p className="t-copy-sm a-color-lighter">{`Pharetra laoreet facilisis egestas gravida sit tortor ut. Velit
+    <Styled.Section>
+      <Styled.Inner className="l-container-wide">
+        <Styled.HeaderBlock>
+          <Styled.HeaderText className="t-capitalize">
+            {t("layouts.related_journals_header")}
+          </Styled.HeaderText>
+          <p className="t-copy-sm a-color-lighter">{`Pharetra laoreet facilisis egestas gravida sit tortor ut. Velit
         consequat tempus eleifend elit sit eget ultrices. In blandit eget
         eros, tellus condimentum augue interdum sit tristique. Pharetra
         laoreet facilisis egestas gravida sit tortor ut. Velit consequat
         tempus eleifend elit sit eget ultrices. In blandit eget eros, tellus
         condimentum augue interdum sit tristique....`}</p>
-      </Styled.HeaderBlock>
-      <Styled.List>
-        {/* The query should be limited to four results, but just in case it isn't... slicey dicey */}
-        {entities.edges.slice(0, 4).map(({ node }: Node) =>
-          node.target.__typename !== "%other" && node.target.slug ? (
-            <li key={node.target.slug}>
-              <NamedLink
-                route={getRouteByEntityType(node.target.__typename) || "home"}
-                routeParams={{ slug: node.target.slug }}
-                passHref
-              >
-                <Styled.ItemLink>
-                  <Styled.ItemCover>
-                    <CoverImage
-                      title={node.target.title}
-                      id={node.target.id}
-                      data={node.target.thumbnail}
-                      maxWidth={263}
-                      maxHeight={280}
-                      usePlaceholder
-                    />
-                  </Styled.ItemCover>
-                  <Styled.ItemText>
-                    <h4>{node.target.title}</h4>
-                    <div className="t-copy-sm a-color-lighter">
-                      {node.target.published && (
-                        <p>
-                          <PrecisionDate
-                            data={node.target.published}
-                            label="common.published"
-                          />
-                        </p>
-                      )}
-                    </div>
-                  </Styled.ItemText>
-                </Styled.ItemLink>
-              </NamedLink>
-            </li>
-          ) : null
+        </Styled.HeaderBlock>
+        <Styled.List>
+          {/* The query should be limited to four results, but just in case it isn't... slicey dicey */}
+          {entities.edges.slice(0, 4).map(({ node }: Node) =>
+            node.target.__typename !== "%other" && node.target.slug ? (
+              <li key={node.target.slug}>
+                <NamedLink
+                  route={getRouteByEntityType(node.target.__typename) || "home"}
+                  routeParams={{ slug: node.target.slug }}
+                  passHref
+                >
+                  <Styled.ItemLink>
+                    <Styled.ItemCover>
+                      <CoverImage
+                        title={node.target.title}
+                        id={node.target.id}
+                        data={node.target.thumbnail}
+                        maxWidth={263}
+                        maxHeight={280}
+                        usePlaceholder
+                      />
+                    </Styled.ItemCover>
+                    <Styled.ItemText>
+                      <h4>{node.target.title}</h4>
+                      <div className="t-copy-sm a-color-lighter">
+                        {node.target.published && (
+                          <p>
+                            <PrecisionDate
+                              data={node.target.published}
+                              label="common.published"
+                            />
+                          </p>
+                        )}
+                      </div>
+                    </Styled.ItemText>
+                  </Styled.ItemLink>
+                </NamedLink>
+              </li>
+            ) : null
+          )}
+        </Styled.List>
+        {slug && (
+          <Styled.ButtonWrapper>
+            <NamedLink route="collection" routeParams={{ slug }} passHref>
+              <Button as="a">
+                <span className="t-capitalize">
+                  {t("layouts.see_all_journals")}
+                </span>
+              </Button>
+            </NamedLink>
+          </Styled.ButtonWrapper>
         )}
-      </Styled.List>
-      {slug && (
-        <Styled.ButtonWrapper>
-          <NamedLink route="collection" routeParams={{ slug }} passHref>
-            <Button as="a">
-              <span className="t-capitalize">
-                {t("layouts.see_all_journals")}
-              </span>
-            </Button>
-          </NamedLink>
-        </Styled.ButtonWrapper>
-      )}
+      </Styled.Inner>
     </Styled.Section>
   ) : null;
 }
