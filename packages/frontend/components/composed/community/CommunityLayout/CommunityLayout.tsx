@@ -6,9 +6,9 @@ import CommunityName from "../CommunityName";
 import CommunityNav from "../CommunityNavBar";
 import CommunityHTMLHead from "../CommunityHTMLHead";
 import CommunityCondensedNav from "../CommunityCondensedNav";
+import { RouteHelper } from "routes";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { CommunityLayoutAppFragment$key } from "@/relay/CommunityLayoutAppFragment.graphql";
-import { RouteHelper } from "routes";
 
 export default function CommunityLayout({
   children,
@@ -19,10 +19,12 @@ export default function CommunityLayout({
   const community = useMaybeFragment(fragment, communityData);
   const activeRoute = RouteHelper.activeRoute();
 
-  const isCommunityRoot = useMemo(
-    () => activeRoute?.name.includes("community"),
-    [activeRoute]
-  );
+  const isCommunityRoot = useMemo(() => {
+    const routeName = activeRoute?.name;
+    return routeName
+      ? routeName.includes("community") && !routeName.includes("search")
+      : false;
+  }, [activeRoute]);
 
   return appData ? (
     <>
@@ -32,13 +34,11 @@ export default function CommunityLayout({
           community ? <CommunityName data={community} /> : undefined
         }
         headerNavComponent={
-          appData ? (
-            <CommunityCondensedNav
-              data={appData}
-              communityData={community}
-              isCommunityRoot={isCommunityRoot}
-            />
-          ) : undefined
+          <CommunityCondensedNav
+            data={appData}
+            communityData={community}
+            isCommunityRoot={isCommunityRoot}
+          />
         }
         footerBackground={isCommunityRoot ? "custom10" : "custom20"}
       >

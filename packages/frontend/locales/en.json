@@ -34,7 +34,9 @@
       "community_placeholder": "What are you looking for?",
       "search_area_label": "Search area:",
       "community_option": "$t(glossary.community)",
-      "submit": "$t(common.submit)"
+      "submit": "$t(common.submit)",
+      "count_results_for_name": "{{count}} <0>result for </0> <1>{{name}}</1>",
+      "count_results_for_name_plural": "{{count}} <0>results for</0> <1>{{name}}</1>"
     },
     "glossary": {
       "community": "community",

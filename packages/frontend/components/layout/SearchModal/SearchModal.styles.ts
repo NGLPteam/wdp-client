@@ -34,6 +34,10 @@ export const SearchInput = styled.input`
   &:focus {
     outline: none;
   }
+
+  &:autofill {
+    background: transparent;
+  }
 `;
 
 export const SearchIconLabel = styled.label`

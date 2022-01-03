@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useToggle, useWindowSize } from "@wdp/lib/hooks";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
-import AccountDropdown from "../../viewer/AccountDropdown";
 import CommunityNavList from "../CommunityNavList";
+import AccountDropdown from "../../viewer/AccountDropdown";
 import * as Styled from "./CommunityCondensedNav.styles";
 import { breakpoints } from "theme/base/variables";
 import InstallationName from "components/composed/instance/InstallationName";
@@ -14,9 +14,9 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import MobileMenu from "components/layout/MobileMenu";
 import Search from "components/forms/Search";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
-import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNavFragment.graphql";
 import { SearchButton } from "components/atomic";
 import { CommunityCondensedNavAppFragment$key } from "@/relay/CommunityCondensedNavAppFragment.graphql";
+import { CommunityCondensedNavFragment$key } from "@/relay/CommunityCondensedNavFragment.graphql";
 
 function CommunityCondensedNav({
   data,
@@ -66,7 +66,7 @@ function CommunityCondensedNav({
           {community && !isCommunityRoot && (
             <CommunityNavList data={community} condensed />
           )}
-          {!isCommunityRoot && <SearchButton size="sm" />}
+          {!isCommunityRoot && <SearchButton size="sm" data={community} />}
           <AccountDropdown condensed={!isCommunityRoot} />
         </Styled.RightSide>
         <Styled.MobileRight>
@@ -114,5 +114,6 @@ const appFragment = graphql`
 const fragment = graphql`
   fragment CommunityCondensedNavFragment on Community {
     ...CommunityNavListFragment
+    ...SearchButtonFragment
   }
 `;
