@@ -30,7 +30,7 @@
     "search": {
       "label": "Search",
       "placeholder": "Search",
-      "journal_placeholder": "Search {{name}}",
+      "placeholder_name": "Search {{name}}",
       "community_placeholder": "What are you looking for?",
       "search_area_label": "Search area:",
       "community_option": "$t(glossary.community)",
@@ -84,6 +84,7 @@
       "related_articles_header": "Related $t(schema.nglp.article_plural)",
       "see_all_journals": "See All $t(schema.nglp.journal_plural)",
       "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
+      "featured_collections_header": "Featured $t(glossary.collection_plural)",
       "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)",
       "issue_count": "{{count}} Issue",
       "issue_count_plural": "{{count}} Issues",

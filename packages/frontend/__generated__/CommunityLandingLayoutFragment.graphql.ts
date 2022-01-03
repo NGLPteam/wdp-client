@@ -6,8 +6,14 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLandingLayoutFragment = {
-    readonly collections: {
+    readonly journals: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
+    };
+    readonly collections: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsListFragment" | "FeaturedCollectionsGridFragment">;
     };
     readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     readonly " $refType": "CommunityLandingLayoutFragment";
@@ -20,25 +26,28 @@ export type CommunityLandingLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "kind": "Literal",
+  "name": "order",
+  "value": "RECENT"
+},
+v1 = {
+  "kind": "Literal",
+  "name": "page",
+  "value": 1
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CommunityLandingLayoutFragment",
   "selections": [
     {
-      "alias": null,
+      "alias": "journals",
       "args": [
-        {
-          "kind": "Literal",
-          "name": "order",
-          "value": "RECENT"
-        },
-        {
-          "kind": "Literal",
-          "name": "page",
-          "value": 1
-        },
+        (v0/*: any*/),
+        (v1/*: any*/),
         {
           "kind": "Literal",
           "name": "perPage",
@@ -64,6 +73,58 @@ const node: ReaderFragment = {
       "storageKey": "collections(order:\"RECENT\",page:1,perPage:5,schema:\"nglp:journal\")"
     },
     {
+      "alias": null,
+      "args": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 8
+        },
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "default:collection"
+        }
+      ],
+      "concreteType": "CollectionConnection",
+      "kind": "LinkedField",
+      "name": "collections",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FeaturedCollectionsListFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FeaturedCollectionsGridFragment"
+        }
+      ],
+      "storageKey": "collections(order:\"RECENT\",page:1,perPage:8,schema:\"default:collection\")"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CommunityHeroFragment"
@@ -72,5 +133,6 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'f388744a87d3bf76bbd2127698b5e0c6';
+})();
+(node as any).hash = '8f81b5cd9ce41223ec0c89b5783bad52';
 export default node;

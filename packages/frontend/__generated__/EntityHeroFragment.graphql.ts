@@ -5,8 +5,13 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityHeroFragment = {
     readonly title?: string | undefined;
+    readonly heroImage?: {
+        readonly storage: AttachmentStorage | null;
+        readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
+    } | undefined;
     readonly " $refType": "EntityHeroFragment";
 };
 export type EntityHeroFragment$data = EntityHeroFragment;
@@ -25,6 +30,29 @@ var v0 = [
     "kind": "ScalarField",
     "name": "title",
     "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageAttachment",
+    "kind": "LinkedField",
+    "name": "heroImage",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "storage",
+        "storageKey": null
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "HeroImageFragment"
+      }
+    ],
+    "storageKey": null
   }
 ];
 return {
@@ -42,12 +70,6 @@ return {
     {
       "kind": "InlineFragment",
       "selections": (v0/*: any*/),
-      "type": "Community",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
       "type": "Item",
       "abstractKey": null
     }
@@ -56,5 +78,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '931ed9956b2953766333ca1f895bee87';
+(node as any).hash = '1c70058430059a77c672b1cf1aeb2216';
 export default node;

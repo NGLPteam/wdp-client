@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import ArrowLink from "./ArrowLink";
+import ArrowList from "./";
 
-type Props = React.ComponentProps<typeof ArrowLink>;
+type Props = React.ComponentProps<typeof ArrowList>;
 
 export default {
-  title: "Components/Atomic/ArrowLink",
-  component: ArrowLink,
+  title: "Components/Atomic/ArrowList",
+  component: ArrowList,
   argTypes: {
     className: {
       options: ["t-label-sm", "t-copy", "t-copy-sm"],
@@ -20,11 +20,14 @@ const Template: Story<Props> = (args) => (
       Hint: Try changing the text style by changing the className property
     </p>
     <br />
-    <ArrowLink {...args} />
+    <ArrowList {...args}>
+      <li>List item</li>
+      <li>List item</li>
+      <li>List item</li>
+      <li>List item</li>
+    </ArrowList>
   </>
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  children: "Arrow Link",
-};
+Default.args = {};
