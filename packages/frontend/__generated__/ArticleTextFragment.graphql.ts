@@ -17,6 +17,9 @@ export type ArticleTextFragment = {
         } | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
     } | null;
+    readonly pdf: {
+        readonly " $fragmentRefs": FragmentRefs<"AssetInlinePDFFragment">;
+    } | null;
     readonly " $refType": "ArticleTextFragment";
 };
 export type ArticleTextFragment$data = ArticleTextFragment;
@@ -102,10 +105,39 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"body\")"
+    },
+    {
+      "alias": "pdf",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "pdf_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "AssetInlinePDFFragment"
+            }
+          ],
+          "type": "AssetProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '42a3f7da7c9d5c47785886b73ef46aeb';
+(node as any).hash = 'c431e6dd9949727c5b438246b0ddf2a7';
 export default node;
