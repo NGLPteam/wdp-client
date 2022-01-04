@@ -12,21 +12,33 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
   const { t } = useTranslation();
 
   return journal ? (
-    <NamedLink route="collection" routeParams={{ slug: journal.slug }} passHref>
-      <Styled.ItemLink>
-        <Styled.ItemCover
-          className={index % 2 === 0 ? "a-bg-neutral90" : "a-bg-neutral80"}
+    <Styled.ItemWrapper>
+      <Styled.ItemCover
+        className={index % 2 === 0 ? "a-bg-neutral90" : "a-bg-neutral80"}
+      >
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: journal.slug }}
+          passHref
         >
-          <CoverImage
-            id={journal.id}
-            title={journal.title}
-            data={journal.thumbnail}
-            maxWidth={300}
-            maxHeight={coverHeight}
-            usePlaceholder
-          />
-        </Styled.ItemCover>
-        <Styled.ItemText>
+          <Styled.CoverLink>
+            <CoverImage
+              id={journal.id}
+              title={journal.title}
+              data={journal.thumbnail}
+              maxWidth={300}
+              maxHeight={coverHeight}
+              usePlaceholder
+            />
+          </Styled.CoverLink>
+        </NamedLink>
+      </Styled.ItemCover>
+      <NamedLink
+        route="collection"
+        routeParams={{ slug: journal.slug }}
+        passHref
+      >
+        <Styled.ItemText as="a">
           <Styled.ItemTitle>{journal.title}</Styled.ItemTitle>
           <Styled.ItemData className="t-copy-sm a-color-lighter">
             {journal.issues.pageInfo.totalCount ? (
@@ -45,8 +57,8 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
             )}
           </Styled.ItemData>
         </Styled.ItemText>
-      </Styled.ItemLink>
-    </NamedLink>
+      </NamedLink>
+    </Styled.ItemWrapper>
   ) : null;
 }
 

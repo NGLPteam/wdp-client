@@ -165,7 +165,7 @@ export default function CoverPlaceholder({
   };
 
   return (
-    <Styled.Svg viewBox={`0 0 ${width} ${height}`} style={style}>
+    <svg viewBox={`0 0 ${width} ${height}`} style={style}>
       <rect width={width} height={height} fill={theme.background} />
 
       {pattern.map((cell, index) => (
@@ -204,7 +204,7 @@ export default function CoverPlaceholder({
             </Styled.TitleText>
           ))}{" "}
       </>
-    </Styled.Svg>
+    </svg>
   );
 }
 
