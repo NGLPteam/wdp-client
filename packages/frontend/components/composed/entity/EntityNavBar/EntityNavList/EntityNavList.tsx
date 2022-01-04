@@ -45,7 +45,11 @@ export default function EntityNavList({ data }: Props) {
         entity.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
-              route="entity.page"
+              route={
+                entity.__typename === "COLLECTION"
+                  ? "collection.page"
+                  : "item.page"
+              }
               routeParams={{ slug, page: node.slug }}
               passHref
             >
@@ -65,6 +69,7 @@ type Props = {
 
 const fragment = graphql`
   fragment EntityNavListFragment on Entity {
+    __typename
     schemaRanks {
       slug
       name

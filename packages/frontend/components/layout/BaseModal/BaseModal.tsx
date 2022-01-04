@@ -1,5 +1,6 @@
-import * as React from "react";
+import React, { useCallback } from "react";
 import type { DialogProps } from "reakit/Dialog";
+import { useIsMounted } from "@wdp/lib/hooks";
 import * as Styled from "./BaseModal.styles";
 
 const Modal = ({
@@ -10,11 +11,13 @@ const Modal = ({
   hideOnClickOutside = true,
   label,
 }: Props) => {
-  const handleClose = () => {
-    if (dialog && dialog.hide) dialog.hide();
-  };
+  const isMounted = useIsMounted();
 
-  return (
+  const handleClose = useCallback(() => {
+    if (dialog && dialog.hide) dialog.hide();
+  }, [dialog]);
+
+  return isMounted ? (
     <Styled.Backdrop {...dialog}>
       <Styled.Wrapper>
         <Styled.Modal
@@ -32,7 +35,7 @@ const Modal = ({
         </Styled.Modal>
       </Styled.Wrapper>
     </Styled.Backdrop>
-  );
+  ) : null;
 };
 
 type RenderChildProps = {

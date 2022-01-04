@@ -113,7 +113,9 @@ export function aButtonBase(style: "primary" | "secondary") {
 }
 
 /* General focus styles */
-export const aFocusBase = `box-shadow: inset 0px 0px 0px 1px var(--border-color-focus), ${boxShadow.focusGlow};`;
+export const aFocusBase = `
+  box-shadow: 0px 0px 0px 1px var(--border-color-focus), ${boxShadow.focusGlow};
+`;
 
 export const aFocusReset = `
   &:focus {

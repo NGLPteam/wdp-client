@@ -1,4 +1,5 @@
 import React from "react";
+import { useIsMounted } from "@wdp/lib/hooks";
 import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
 import * as Styled from "./BaseDropdown.styles";
 
@@ -23,10 +24,13 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
     },
     ref
   ) => {
+    const isMounted = useIsMounted();
+
     const popoverState = usePopoverState({ gutter, modal: isModal });
+
     const closePopover = popoverState.hide;
 
-    return (
+    return isMounted ? (
       <>
         <PopoverDisclosure ref={ref} {...popoverState} {...props}>
           {(disclosureProps) => React.cloneElement(disclosure, disclosureProps)}
@@ -43,7 +47,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
             : children}
         </Styled.Popover>
       </>
-    );
+    ) : null;
   }
 );
 

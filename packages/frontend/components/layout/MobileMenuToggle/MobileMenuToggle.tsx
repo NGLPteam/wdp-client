@@ -7,15 +7,10 @@ export default function MobileMenuToggle({
   onToggle,
   label,
   icon,
-  ariaControls,
-  ariaExpanded,
+  ...props
 }: Props) {
   return (
-    <Styled.Toggle
-      onClick={onToggle}
-      aria-controls={ariaControls}
-      aria-expanded={ariaExpanded}
-    >
+    <Styled.Toggle onClick={onToggle} {...props}>
       <Styled.Label className="t-label-lg">{label}</Styled.Label>
       <IconFactory icon={icon} role="presentation" />
     </Styled.Toggle>
@@ -26,6 +21,6 @@ type Props = {
   onToggle: () => void;
   label: string;
   icon: IconProps["icon"];
-  ariaControls: string;
-  ariaExpanded: boolean;
+  "aria-controls": string;
+  "aria-expanded": boolean;
 };

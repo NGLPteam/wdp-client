@@ -1,6 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { lGrid, respond, tLabel, tLineClamp } from "theme/mixins";
+import { aFocus, lGrid, respond, tLabel, tLineClamp } from "theme/mixins";
 
 export const SectionInner = styled.div`
   ${lGrid({ rowGap: "var(--padding-lg)" })}
@@ -23,6 +23,9 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
+  display: flex;
+  ${respond(`flex-wrap: wrap;`, 50)}
+
   & + & {
     padding-block-start: var(--padding-xl);
   }
@@ -33,15 +36,13 @@ export const ButtonWrapper = styled.div`
   ${respond(`grid-column: 1 / -1;`, 70)}
 `;
 
-export const ItemLink = styled.a`
-  display: flex;
-  ${respond(`flex-wrap: wrap;`, 50)}
-`;
-
-export const ItemCoverBlock = styled.div`
+export const ItemCoverLink = styled.a`
   margin-inline-end: var(--padding-lg);
   flex: 0 0 120px;
+
   ${respond(`margin-block-end: var(--padding-lg);`, 50)}
+
+  ${aFocus()}
 `;
 
 export const ItemTitleBlock = styled.div`
