@@ -29,7 +29,13 @@ export default function FeaturedIssue({ data }: Props) {
     <Styled.ItemLink>
       {issue.thumbnail?.storage && (
         <Styled.ItemCoverBlock>
-          <CoverImage data={issue.thumbnail} maxWidth={120} maxHeight={160} />
+          <CoverImage
+            id={issue.id}
+            title={issue.title}
+            data={issue.thumbnail}
+            maxWidth={120}
+            maxHeight={160}
+          />
         </Styled.ItemCoverBlock>
       )}
       <div>
@@ -88,6 +94,7 @@ interface Props {
 
 const fragment = graphql`
   fragment FeaturedIssueFragment on Collection {
+    id
     title
     subtitle
     slug

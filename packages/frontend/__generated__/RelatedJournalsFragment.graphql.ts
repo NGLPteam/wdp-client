@@ -11,6 +11,7 @@ export type RelatedJournalsFragment = {
         readonly node: {
             readonly target: {
                 readonly __typename: "Collection";
+                readonly id: string;
                 readonly title: string;
                 readonly slug: string;
                 readonly published: {
@@ -22,6 +23,7 @@ export type RelatedJournalsFragment = {
                 };
             } | {
                 readonly __typename: "Item";
+                readonly id: string;
                 readonly title: string;
                 readonly slug: string;
                 readonly published: {
@@ -55,6 +57,13 @@ var v0 = [
     "args": null,
     "kind": "ScalarField",
     "name": "__typename",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
     "storageKey": null
   },
   {
@@ -167,5 +176,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1a648e04b3c9e9f8ac661e062efa055e';
+(node as any).hash = '8175b4b64de5e7c3f398f22d5a6819e5';
 export default node;

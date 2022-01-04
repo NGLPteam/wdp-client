@@ -3,6 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import Image from "next/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import CoverPlaceholder from "../CoverPlaceholder";
 import * as Styled from "./CoverImage.styles";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
 
@@ -12,20 +13,31 @@ export default function CoverImage({
   maxWidth,
   maxHeight,
   usePlaceholder,
-  slug,
-}: Props) {
+  title,
+  id,
+}: ImageProps | PlaceholderProps) {
   const imageData = useMaybeFragment(fragment, data);
   const image = imageData?.image.webp;
   const style = {
     "--CoverImage-max-width": pxToRem(maxWidth),
     "--CoverImage-max-height": pxToRem(maxHeight),
   } as React.CSSProperties;
-  // Use the slug to keep the random cover image the same across the app
-  const placeholder = slug
-    ? slug.charCodeAt(0) % 3
-    : Math.floor(Math.random() * 3) + 1;
 
-  return image && image.url ? (
+  if (!image || !image.url) {
+    if (!usePlaceholder) return null;
+    return (
+      <Styled.Figure style={style}>
+        <CoverPlaceholder
+          seed={id || "fallback-placeholder"}
+          title={title}
+          maxWidth={maxWidth}
+          maxHeight={maxHeight}
+        />
+      </Styled.Figure>
+    );
+  }
+
+  return (
     <Styled.Figure style={style}>
       <Image
         layout="intrinsic"
@@ -35,28 +47,30 @@ export default function CoverImage({
         height={image.height || 0}
       />
     </Styled.Figure>
-  ) : usePlaceholder ? (
-    <Styled.Figure style={style}>
-      <Image
-        layout="intrinsic"
-        src={`/images/covers/Cover${placeholder || 1}.png`}
-        alt={""}
-        width={850}
-        height={1100}
-      />
-    </Styled.Figure>
-  ) : null;
+  );
 }
 
-interface Props {
+interface ImageProps {
   /* Image fragment */
   data?: CoverImageFragment$key | null;
   maxWidth: number;
   maxHeight: number;
   /* Show a placeholder if no image is provided */
-  usePlaceholder?: boolean;
-  /* Used to generate a placeholder, if no image is provided */
-  slug?: string;
+  usePlaceholder?: false;
+  title?: string;
+  id?: string;
+}
+
+// If a placeholder fallback is requested, this component requires a title and id to
+// generate the placeholder
+interface PlaceholderProps {
+  /* Image fragment */
+  data?: CoverImageFragment$key | null;
+  maxWidth: number;
+  maxHeight: number;
+  usePlaceholder: true;
+  title: string;
+  id: string;
 }
 
 const fragment = graphql`

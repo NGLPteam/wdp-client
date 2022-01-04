@@ -11,7 +11,7 @@ export const Figure = styled.figure`
   }
 
   /* These properties need to be set for a flexible image width and height,
-   * which we need to properly set the box shadow 
+   * which we need to properly set the box shadow
    */
   img {
     display: block;

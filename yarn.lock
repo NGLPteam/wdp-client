@@ -2229,6 +2229,11 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
+"@spissvinkel/alea@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@spissvinkel/alea/-/alea-1.2.1.tgz#69ec1b95c37412ab692117238d99171baaf8a8a1"
+  integrity sha512-PIwf64IaumvEld5+tyeeHELt1MKfZ0GNRqLl9D07eEJjksOaN7S2zqQriqFfKDys6ZrmLhWk9T6bW9YzkDopkg==
+
 "@storybook/addon-a11y@6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/addon-a11y/-/addon-a11y-6.3.12.tgz#2f930fc84fc275a4ed43a716fc09cc12caf4e110"
@@ -3185,6 +3190,11 @@
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/braces/-/braces-3.0.1.tgz#5a284d193cfc61abb2e5a50d36ebbc50d942a32b"
   integrity sha512-+euflG6ygo4bn0JHtn4pYqcXwRtLvElQ7/nnjDu7iYG56H0+OhCd7d6Ug0IE3WcFpZozBKW2+80FUbv5QGk5AQ==
+
+"@types/chunk-text@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/chunk-text/-/chunk-text-1.0.0.tgz#9cfa9b7071fad7029f695e51a8178b769e2fe588"
+  integrity sha512-TAQeh9qyBGf8HfsvvZ5BTcXEm7hMCm1WGnYDmro1lMHfydjdcVN/X1vLLfhoadKghu+nf5i2o0bLIiQRzZ6EjQ==
 
 "@types/color-convert@^2.0.0":
   version "2.0.0"
@@ -5488,6 +5498,13 @@ chrome-trace-event@^1.0.2:
   resolved "https://registry.yarnpkg.com/chrome-trace-event/-/chrome-trace-event-1.0.3.tgz#1015eced4741e15d06664a957dbbf50d041e26ac"
   integrity sha512-p3KULyQg4S7NIHixdwbGX+nFHkoBiA4YQmyWtjb8XngSKV124nJmRysgAeujbUVb15vh+RvFUfCPqU7rXk+hZg==
 
+chunk-text@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/chunk-text/-/chunk-text-2.0.1.tgz#4d6e9946c6b842f823b504ee25366a6644733272"
+  integrity sha512-ER6TSpe2DT4wjOVOKJ3FFAYv7wE77HA/Ztz88Peiv3lq/2oVMsItYJJsVVI0xNZM8cdImOOTNqlw+LQz7gYdJg==
+  dependencies:
+    runes "^0.4.3"
+
 ci-info@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
@@ -6682,7 +6699,7 @@ enhanced-resolve@^4.5.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
-enhanced-resolve@^5.8.3:
+enhanced-resolve@^5.7.0, enhanced-resolve@^5.8.3:
   version "5.8.3"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.8.3.tgz#6d552d465cce0423f5b3d718511ea53826a7b2f0"
   integrity sha512-EGAbGvH7j7Xt2nc0E7D99La1OiEs8LnyimkRgwExpUMScN6O+3x9tIWs7PLQZVNx4YD+00skHXPXi1yQHpAmZA==
@@ -10858,6 +10875,14 @@ next-i18next@^8.5.1:
     i18next-fs-backend "^1.0.7"
     react-i18next "^11.8.13"
 
+next-transpile-modules@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/next-transpile-modules/-/next-transpile-modules-9.0.0.tgz#133b1742af082e61cc76b02a0f12ffd40ce2bf90"
+  integrity sha512-VCNFOazIAnXn1hvgYYSTYMnoWgKgwlYh4lm1pKbSfiB3kj5ZYLcKVhfh3jkPOg1cnd9DP+pte9yCUocdPEUBTQ==
+  dependencies:
+    enhanced-resolve "^5.7.0"
+    escalade "^3.1.1"
+
 next@12.0.2:
   version "12.0.2"
   resolved "https://registry.yarnpkg.com/next/-/next-12.0.2.tgz#269512cdf14d12c535c12240280da95e7be2d006"
@@ -13053,6 +13078,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   integrity sha1-6Eg5bwV9Ij8kOGkkYY4laUFh7Ec=
   dependencies:
     aproba "^1.1.1"
+
+runes@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.3.tgz#32f7738844bc767b65cc68171528e3373c7bb355"
+  integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
 
 rxjs@^6.3.3, rxjs@^6.6.0:
   version "6.6.7"
