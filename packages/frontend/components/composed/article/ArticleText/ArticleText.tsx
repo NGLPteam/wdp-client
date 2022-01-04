@@ -6,6 +6,7 @@ import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
+import AssetInlinePDF from "components/composed/asset/AssetInlinePDF";
 
 type TOCItem = {
   text: string;
@@ -15,6 +16,7 @@ type TOCItem = {
 export default function ArticleText({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
   const fullText = useMemo(() => article?.bodyText?.fullText, [article]);
+  const pdf = useMemo(() => article?.pdf, [article]);
   const [toc, setTOC] = useState<TOCItem[]>();
   const textEl = useRef<HTMLDivElement>(null);
 
@@ -70,7 +72,7 @@ export default function ArticleText({ data }: Props) {
     </Styled.BodyWrapper>
   ) : (
     <Styled.BodyWrapper className="l-container-wide">
-      No article content found.
+      {pdf ? <AssetInlinePDF data={pdf} /> : "No article content found."}
     </Styled.BodyWrapper>
   );
 }
@@ -92,6 +94,11 @@ const fragment = graphql`
         }
       }
       ...FullTextFragment
+    }
+    pdf: schemaProperty(fullPath: "pdf_version") {
+      ... on AssetProperty {
+        ...AssetInlinePDFFragment
+      }
     }
   }
 `;
