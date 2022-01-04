@@ -2,12 +2,15 @@ import React from "react";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
+import { baseColors } from "theme/base/variables";
 import * as Styled from "./CoverPlaceholder.styles";
+import { pxToRem } from "@wdp/lib/theme/functions";
 
 export default function CoverPlaceholder({
-  width: svgWidth = 180,
   seed,
   title,
+  maxWidth,
+  maxHeight,
 }: Props) {
   const randomState = mkState(seed);
   const nextBool: (state: AleaState) => boolean = nextT((n) => n < 0.5);
@@ -33,15 +36,15 @@ export default function CoverPlaceholder({
     },
     {
       titleBackground: "#fdd2d2",
-      titleColor: "#cd7660 ",
+      titleColor: "#cd7660",
       background: "#fdc7c1",
       foreground: "#c55e28",
     },
     {
-      background: "#919196",
-      foreground: "#58585C",
-      titleBackground: "#D0D0D6",
-      titleColor: "#58585C",
+      background: baseColors.neutral60,
+      foreground: baseColors.neutral80,
+      titleBackground: baseColors.neutral30,
+      titleColor: baseColors.neutral80,
     },
   ];
   const nextTheme = mkNextElement(themes);
@@ -157,12 +160,12 @@ export default function CoverPlaceholder({
   pattern.forEach(populate);
 
   const style = {
-    width: svgWidth,
-    padding: 0,
+    maxWidth: pxToRem(maxWidth || width),
+    maxHeight: pxToRem(maxHeight || height),
   };
 
   return (
-    <svg style={style} viewBox={`0 0 ${width} ${height}`}>
+    <Styled.Svg viewBox={`0 0 ${width} ${height}`} style={style}>
       <rect width={width} height={height} fill={theme.background} />
 
       {pattern.map((cell, index) => (
@@ -201,7 +204,7 @@ export default function CoverPlaceholder({
             </Styled.TitleText>
           ))}{" "}
       </>
-    </svg>
+    </Styled.Svg>
   );
 }
 
@@ -212,7 +215,8 @@ interface Cell {
 }
 
 interface Props {
-  width?: number;
+  maxWidth?: number;
+  maxHeight?: number;
   seed: string;
   title?: string;
 }

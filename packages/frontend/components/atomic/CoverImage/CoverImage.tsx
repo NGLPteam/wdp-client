@@ -28,9 +28,10 @@ export default function CoverImage({
     return (
       <Styled.Figure style={style}>
         <CoverPlaceholder
-          width={180}
           seed={id || "fallback-placeholder"}
           title={title}
+          maxWidth={maxWidth}
+          maxHeight={maxHeight}
         />
       </Styled.Figure>
     );

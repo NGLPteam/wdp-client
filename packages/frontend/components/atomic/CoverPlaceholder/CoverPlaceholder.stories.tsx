@@ -5,12 +5,6 @@ type Props = React.ComponentProps<typeof CoverPlaceholder>;
 export default {
   title: "Components/Atomic/CoverPlaceholder",
   component: CoverPlaceholder,
-  argTypes: {
-    size: {
-      options: ["sm", "lg"],
-      control: { type: "select" },
-    },
-  },
 };
 
 const examples = [
@@ -47,11 +41,7 @@ const Template: Story<Props> = () => (
       <div key={width} className="l-flex l-flex--gap">
         {examples.map((example) => (
           <div key={example.title} style={{ marginBottom: 25, width: width }}>
-            <CoverPlaceholder
-              width={width}
-              seed={example.title}
-              title={example.title}
-            />
+            <CoverPlaceholder seed={example.title} title={example.title} />
           </div>
         ))}
       </div>
