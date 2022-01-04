@@ -39,7 +39,7 @@ export const ListItem = styled.li`
   z-index: 1;
 `;
 
-export const ItemLink = styled.a`
+export const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -59,6 +59,14 @@ export const ItemCover = styled.div`
   padding-block-end: var(--FeaturedJournals-cover-v-padding);
   padding-inline-start: var(--container-padding-sm);
   padding-inline-end: var(--container-padding-sm);
+`;
+
+export const CoverLink = styled.a`
+  display: inline-block;
+
+  svg {
+    width: 100%;
+  }
 `;
 
 export const ItemText = styled.div`
