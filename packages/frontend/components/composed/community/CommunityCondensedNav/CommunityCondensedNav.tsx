@@ -3,7 +3,6 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { useToggle, useWindowSize } from "@wdp/lib/hooks";
-import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
 import CommunityNavList from "../CommunityNavList";
 import AccountDropdown from "../../viewer/AccountDropdown";
@@ -27,7 +26,7 @@ function CommunityCondensedNav({
   const community = useMaybeFragment(fragment, communityData);
 
   const { t } = useTranslation();
-  const mobileNavId = useUID();
+  const mobileNavId = "communityMobileNav";
   const mobileNavRef = useRef(null);
   const [isActive, toggleActive, setActive] = useToggle();
   const { width } = useWindowSize();
@@ -74,8 +73,8 @@ function CommunityCondensedNav({
             onToggle={toggleActive}
             label={t("nav.menu")}
             icon="hamburger24"
-            ariaControls={mobileNavId}
-            ariaExpanded={isActive}
+            aria-controls={mobileNavId}
+            aria-expanded={isActive}
           />
         </Styled.MobileRight>
       </Styled.HeaderInner>

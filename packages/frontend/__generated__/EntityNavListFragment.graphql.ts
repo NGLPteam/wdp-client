@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityNavListFragment = {
+    readonly __typename: string;
     readonly schemaRanks: ReadonlyArray<{
         readonly slug: string;
         readonly name: string;
@@ -43,6 +44,13 @@ return {
   "metadata": null,
   "name": "EntityNavListFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__typename",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -115,5 +123,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'eb28990c67f6f807d5bbf16624e9b820';
+(node as any).hash = '6109d23ff2734ffb95c821e96f9dbaaf';
 export default node;

@@ -3,7 +3,6 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useToggle, useWindowSize } from "@wdp/lib/hooks";
-import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
 import * as Styled from "./AppHeader.styles";
 import { breakpoints } from "theme/base/variables";
@@ -19,7 +18,7 @@ function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
-  const mobileNavId = useUID();
+  const mobileNavId = "appMobileNav";
   const mobileNavRef = useRef(null);
   const [isActive, toggleActive, setActive] = useToggle();
   const { width } = useWindowSize();
@@ -62,8 +61,8 @@ function AppHeader({ data }: Props) {
             onToggle={toggleActive}
             label={t("nav.menu")}
             icon="hamburger24"
-            ariaControls={mobileNavId}
-            ariaExpanded={isActive}
+            aria-controls={mobileNavId}
+            aria-expanded={isActive}
           />
         </Styled.MobileRight>
       </Styled.HeaderInner>

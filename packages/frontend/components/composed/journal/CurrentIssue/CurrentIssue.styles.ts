@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { lGrid, respond } from "theme/mixins";
+import { aFocus, lGrid, respond } from "theme/mixins";
 
 interface BaseProps {
   $hasImage?: boolean;
@@ -42,6 +42,11 @@ export const Inner = styled.div<BaseProps>`
 export const ImageBlock = styled.div`
   grid-area: image;
   margin-block-end: ${pxToRem(20)};
+`;
+
+export const ImageLink = styled.a`
+  display: inline-block;
+  ${aFocus()}
 `;
 
 export const TextBlock = styled.div`

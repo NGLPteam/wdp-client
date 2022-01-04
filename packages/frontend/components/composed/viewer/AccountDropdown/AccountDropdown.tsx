@@ -17,7 +17,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
       {name && !condensed && !mobile && (
         <span className="t-label-mix">{name}</span>
       )}
-      {avatarUrl && (
+      {avatarUrl ? (
         <Dropdown
           disclosure={
             <Styled.AccountButton>
@@ -35,11 +35,12 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
             </button>,
           ]}
         />
-      )}
-      {isAuthenticated === false && (
-        <button className={signInOutClass} onClick={handleSignInOut}>
-          {t("common.sign_in")}
-        </button>
+      ) : (
+        isAuthenticated === false && (
+          <button className={signInOutClass} onClick={handleSignInOut}>
+            {t("common.sign_in")}
+          </button>
+        )
       )}
     </div>
   );

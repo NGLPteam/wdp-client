@@ -37,8 +37,8 @@ const MobileMenu = forwardRef(
             onToggle={onClose}
             icon="close24"
             label={t("common.close")}
-            ariaControls={id}
-            ariaExpanded={active}
+            aria-controls={id}
+            aria-expanded={active}
           />
         </Styled.Header>
         <Styled.Content>

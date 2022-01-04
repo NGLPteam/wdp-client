@@ -2,9 +2,9 @@ import React from "react";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
-import { baseColors } from "theme/base/variables";
-import * as Styled from "./CoverPlaceholder.styles";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import * as Styled from "./CoverPlaceholder.styles";
+import { baseColors } from "theme/base/variables";
 
 export default function CoverPlaceholder({
   seed,

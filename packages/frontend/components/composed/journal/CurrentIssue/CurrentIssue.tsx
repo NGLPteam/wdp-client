@@ -27,21 +27,23 @@ export default function CurrentIssue({ data }: Props) {
     <section className="a-bg-neutral00">
       <Styled.Inner className="l-container-wide" $hasImage={hasImage}>
         {hasImage && (
-          <NamedLink
-            route="collection"
-            routeParams={{ slug: issue.slug }}
-            passHref
-          >
-            <Styled.ImageBlock as="a">
-              <CoverImage
-                id={issue.id}
-                title={issue.title}
-                data={issue.thumbnail}
-                maxWidth={278}
-                maxHeight={370}
-              />
-            </Styled.ImageBlock>
-          </NamedLink>
+          <Styled.ImageBlock>
+            <NamedLink
+              route="collection"
+              routeParams={{ slug: issue.slug }}
+              passHref
+            >
+              <Styled.ImageLink>
+                <CoverImage
+                  id={issue.id}
+                  title={issue.title}
+                  data={issue.thumbnail}
+                  maxWidth={278}
+                  maxHeight={370}
+                />
+              </Styled.ImageLink>
+            </NamedLink>
+          </Styled.ImageBlock>
         )}
         <Styled.TextBlock>
           <Styled.TitleBlock>

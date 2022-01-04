@@ -26,17 +26,23 @@ export default function FeaturedIssue({ data }: Props) {
   }, [issue, t]);
 
   return issue ? (
-    <Styled.ItemLink>
+    <>
       {issue.thumbnail?.storage && (
-        <Styled.ItemCoverBlock>
-          <CoverImage
-            id={issue.id}
-            title={issue.title}
-            data={issue.thumbnail}
-            maxWidth={120}
-            maxHeight={160}
-          />
-        </Styled.ItemCoverBlock>
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: issue.slug }}
+          passHref
+        >
+          <Styled.ItemCoverLink>
+            <CoverImage
+              id={issue.id}
+              title={issue.title}
+              data={issue.thumbnail}
+              maxWidth={120}
+              maxHeight={160}
+            />
+          </Styled.ItemCoverLink>
+        </NamedLink>
       )}
       <div>
         <Styled.ItemTitleBlock>
@@ -83,7 +89,7 @@ export default function FeaturedIssue({ data }: Props) {
           </Styled.ItemReadMore>
         </NamedLink>
       </div>
-    </Styled.ItemLink>
+    </>
   ) : null;
 }
 
