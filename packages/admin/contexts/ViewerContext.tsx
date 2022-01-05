@@ -8,6 +8,7 @@ const initialState: ViewerContextProps = {
   uploadAccess: false,
   uploadToken: null,
   avatarUrl: undefined,
+  globalAdmin: false,
 };
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
@@ -37,6 +38,7 @@ interface ViewerContextProps {
   uploadAccess?: boolean;
   uploadToken?: string | null;
   avatarUrl?: string | null;
+  globalAdmin?: boolean;
 }
 
 interface Props {
@@ -62,6 +64,7 @@ const query = graphql`
           }
         }
       }
+      globalAdmin
     }
   }
 `;

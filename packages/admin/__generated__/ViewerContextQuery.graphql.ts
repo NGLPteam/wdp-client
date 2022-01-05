@@ -19,6 +19,7 @@ export type ViewerContextQueryResponse = {
                 };
             };
         };
+        readonly globalAdmin: boolean;
     };
 };
 export type ViewerContextQuery = {
@@ -43,6 +44,7 @@ query ViewerContextQuery {
         }
       }
     }
+    globalAdmin
     id
   }
 }
@@ -123,6 +125,13 @@ v4 = {
     }
   ],
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "globalAdmin",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -143,7 +152,8 @@ return {
           (v1/*: any*/),
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/)
+          (v4/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -170,6 +180,7 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -183,14 +194,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e79ed5cc85e653dd6a664e1a060a8b4d",
+    "cacheID": "2cdcea4e9710e8aaf20455f41c792676",
     "id": null,
     "metadata": {},
     "name": "ViewerContextQuery",
     "operationKind": "query",
-    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ViewerContextQuery {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    globalAdmin\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '528925913ab97b03fca19eba9afa867b';
+(node as any).hash = '3ab11432ef1b7c675384131ccdd7858d';
 export default node;
