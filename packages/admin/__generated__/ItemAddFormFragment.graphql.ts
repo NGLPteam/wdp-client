@@ -6,16 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type ItemAddFormFragment = {
-    readonly schemaVersionOptions: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-    }>;
     readonly item: {
         readonly id: string;
     } | null;
     readonly collection: {
         readonly id: string;
     } | null;
+    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectFragment">;
     readonly " $refType": "ItemAddFormFragment";
 };
 export type ItemAddFormFragment$data = ItemAddFormFragment;
@@ -56,37 +53,6 @@ return {
   "selections": [
     {
       "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "kind",
-          "value": "ITEM"
-        }
-      ],
-      "concreteType": "SchemaVersionOption",
-      "kind": "LinkedField",
-      "name": "schemaVersionOptions",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "label",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "value",
-          "storageKey": null
-        }
-      ],
-      "storageKey": "schemaVersionOptions(kind:\"ITEM\")"
-    },
-    {
-      "alias": null,
       "args": (v0/*: any*/),
       "concreteType": "Item",
       "kind": "LinkedField",
@@ -104,11 +70,16 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaSelectFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'fcad891ba308e79a74341287368aaba0';
+(node as any).hash = '9bf90a2b44cd59a533480fdcf96e1eed';
 export default node;

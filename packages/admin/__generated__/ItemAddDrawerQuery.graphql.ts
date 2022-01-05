@@ -5,8 +5,10 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
 export type ItemAddDrawerQueryVariables = {
     entitySlug: string;
+    schemaKind: SchemaKind;
 };
 export type ItemAddDrawerQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"ItemAddFormFragment">;
@@ -21,20 +23,25 @@ export type ItemAddDrawerQuery = {
 /*
 query ItemAddDrawerQuery(
   $entitySlug: Slug!
+  $schemaKind: SchemaKind!
 ) {
   ...ItemAddFormFragment
 }
 
 fragment ItemAddFormFragment on Query {
-  schemaVersionOptions(kind: ITEM) {
-    label
-    value
-  }
+  ...SchemaSelectFragment
   item(slug: $entitySlug) {
     id
   }
   collection(slug: $entitySlug) {
     id
+  }
+}
+
+fragment SchemaSelectFragment on Query {
+  schemaVersionOptions(kind: $schemaKind) {
+    label
+    value
   }
 }
 */
@@ -45,6 +52,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "entitySlug"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "schemaKind"
   }
 ],
 v1 = [
@@ -89,9 +101,9 @@ return {
         "alias": null,
         "args": [
           {
-            "kind": "Literal",
+            "kind": "Variable",
             "name": "kind",
-            "value": "ITEM"
+            "variableName": "schemaKind"
           }
         ],
         "concreteType": "SchemaVersionOption",
@@ -114,7 +126,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": "schemaVersionOptions(kind:\"ITEM\")"
+        "storageKey": null
       },
       {
         "alias": null,
@@ -139,14 +151,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "391a368e17b3188318b584d35d0beb7a",
+    "cacheID": "ab1189109bc16bd37378f0195d822811",
     "id": null,
     "metadata": {},
     "name": "ItemAddDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...ItemAddFormFragment\n}\n\nfragment ItemAddFormFragment on Query {\n  schemaVersionOptions(kind: ITEM) {\n    label\n    value\n  }\n  item(slug: $entitySlug) {\n    id\n  }\n  collection(slug: $entitySlug) {\n    id\n  }\n}\n"
+    "text": "query ItemAddDrawerQuery(\n  $entitySlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  ...ItemAddFormFragment\n}\n\nfragment ItemAddFormFragment on Query {\n  ...SchemaSelectFragment\n  item(slug: $entitySlug) {\n    id\n  }\n  collection(slug: $entitySlug) {\n    id\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '48b13b369c533b110e3e03d973e503e1';
+(node as any).hash = 'b7d176c59104608d3a3064da9981b59d';
 export default node;

@@ -81,13 +81,10 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           {...register("subtitle")}
         />
         {formData && (
-          <Forms.Select
-            options={formData.schemaVersionOptions.map((option) => ({
-              label: option.label,
-              value: option.value,
-            }))}
-            required
+          <Forms.SchemaSelect
             label="forms.schema.label"
+            data={formData}
+            required
             {...register("schemaVersionSlug")}
           />
         )}
@@ -151,10 +148,8 @@ type Props = Pick<
 
 const fragment = graphql`
   fragment ItemAddFormFragment on Query {
-    schemaVersionOptions(kind: ITEM) {
-      label
-      value
-    }
+    # eslint-disable-next-line relay/must-colocate-fragment-spreads
+    ...SchemaSelectFragment
     item(slug: $entitySlug) {
       id
     }

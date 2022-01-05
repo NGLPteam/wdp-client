@@ -20,7 +20,7 @@ export default function ItemAddDrawer({
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
+      initialVariables={{ entitySlug: drawerSlug, schemaKind: "ITEM" }}
     >
       {({ data }) => (
         <Drawer
@@ -43,7 +43,7 @@ export default function ItemAddDrawer({
 }
 
 const query = graphql`
-  query ItemAddDrawerQuery($entitySlug: Slug!) {
+  query ItemAddDrawerQuery($entitySlug: Slug!, $schemaKind: SchemaKind!) {
     ...ItemAddFormFragment
   }
 `;

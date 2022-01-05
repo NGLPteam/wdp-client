@@ -98,6 +98,7 @@ export default function AddCollectionForm({
         {formData && (
           <Forms.SchemaSelect
             label="forms.schema.label"
+            data={formData}
             required
             {...register("schemaVersionSlug")}
           />
