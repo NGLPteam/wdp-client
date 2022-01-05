@@ -7,7 +7,6 @@ export const Accordion = styled.details``;
 
 export const Label = styled.summary`
   ${tLabel("lg")}
-  font-weight: 400;
   list-style: none;
 
   display: flex;
