@@ -20,14 +20,14 @@ const SchemaSelect = forwardRef(
       }));
     }, [optionsData]);
 
-    return options ? (
+    return (
       <Select
-        options={options}
+        options={options || []}
         label="forms.schema.label"
         ref={ref}
         {...inputProps}
       />
-    ) : null;
+    );
   }
 );
 
