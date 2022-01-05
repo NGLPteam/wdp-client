@@ -10,6 +10,8 @@ export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added
 export type CollectionUpdateFormFieldsFragment = {
     readonly title: string;
     readonly subtitle: string | null;
+    readonly doi: string | null;
+    readonly issn: string | null;
     readonly visibility: EntityVisibility;
     readonly summary: string | null;
     readonly visibleAfterAt: string | null;
@@ -112,6 +114,20 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "doi",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "issn",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "visibility",
       "storageKey": null
     },
@@ -161,5 +177,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '90f9290b4cb968a6f74e92a225cdef7f';
+(node as any).hash = '1f8d0ae0f83a8a83d80867e0e250d7c4';
 export default node;
