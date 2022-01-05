@@ -59,6 +59,8 @@ export default function CollectionUpdateForm({
           required
           {...register("subtitle")}
         />
+        <Forms.Input label="forms.fields.doi" {...register("doi")} />
+        <Forms.Input label="forms.fields.issn" {...register("issn")} />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           name="thumbnail"
@@ -133,6 +135,8 @@ const fieldsFragment = graphql`
   fragment CollectionUpdateFormFieldsFragment on Collection {
     title
     subtitle
+    doi
+    issn
     visibility
     summary
     visibleAfterAt

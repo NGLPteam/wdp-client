@@ -63,6 +63,8 @@ export default function ItemUpdateForm({
           isWide
           {...register("subtitle")}
         />
+        <Forms.Input label="forms.fields.doi" {...register("doi")} />
+        <Forms.Input label="forms.fields.issn" {...register("issn")} />
         <Forms.FileUpload
           label="forms.fields.thumbnail"
           name="thumbnail"
@@ -139,6 +141,8 @@ const fieldsFragment = graphql`
   fragment ItemUpdateFormFieldsFragment on Item {
     title
     subtitle
+    doi
+    issn
     visibility
     summary
     visibleAfterAt

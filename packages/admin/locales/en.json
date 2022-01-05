@@ -284,7 +284,8 @@
         "profile": "Profile",
         "displayname": "Display Name",
         "sortby": "Sort By",
-        "include": "Entities to Include"
+        "include": "Entities to Include",
+        "issn": "ISSN"
       },
       "validation": {
         "year": "Must be a four digit year",
