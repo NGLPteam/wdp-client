@@ -15,11 +15,14 @@ export const useIsAuthorized = ({
   allowedActions,
 }: useIsAuthorizedProps) => {
   // Global viewer permissions
-  const { allowedActions: viewerAllowedActions } = useViewerContext();
+  const { allowedActions: viewerAllowedActions, globalAdmin } =
+    useViewerContext();
   // Entity level permissions
   const { allowedActions: entityAllowedActions } = useAuthContext();
 
   return useMemo(() => {
+    if (globalAdmin) return true;
+
     const checkActions = normalizeArray(actions);
     const permissions = entityAllowedActions
       ? [...viewerAllowedActions, ...entityAllowedActions]
@@ -27,7 +30,13 @@ export const useIsAuthorized = ({
     const actionsList = allowedActions || permissions;
 
     return actionsList?.some((action) => checkActions.includes(action));
-  }, [viewerAllowedActions, entityAllowedActions, allowedActions, actions]);
+  }, [
+    viewerAllowedActions,
+    entityAllowedActions,
+    allowedActions,
+    actions,
+    globalAdmin,
+  ]);
 };
 
 export interface useIsAuthorizedProps {
