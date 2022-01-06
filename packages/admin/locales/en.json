@@ -234,6 +234,16 @@
         "inherited_roles": "Show Inherited Roles"
       }
     },
+    "sort": {
+      "ascending": "ascending",
+      "descending": "descending",
+      "entity.title.ascending": "Title, $t(sort.ascending)",
+      "entity.title.descending": "Title, $t(sort.descending)",
+      "entity.updated_at.ascending": "Updated Date, $t(sort.ascending)",
+      "entity.updated_at.descending": "Updated Date, $t(sort.descending)",
+      "entity.published.ascending": "Published Date, $t(sort.ascending)",
+      "entity.published.descending": "Published Date, $t(sort.descending)"
+    },
     "forms": {
       "fields": {
         "title": "Title",
@@ -284,8 +294,10 @@
         "profile": "Profile",
         "displayname": "Display Name",
         "sortby": "Sort By",
-        "include": "Entities to Include",
-        "issn": "ISSN"
+        "include_descendants": "Include",
+        "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
+        "issn": "ISSN",
+        "schemas": "Schemas"
       },
       "validation": {
         "year": "Must be a four digit year",

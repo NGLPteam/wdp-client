@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
+import i18next from "i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -16,9 +17,50 @@ import type {
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
-const description = `Select descendants to be included in the ordering. Use Direct
-Descendants to select only immediate children, for example journal
-issues but not their articles.`;
+const SORTING_OPTIONS = [
+  {
+    value: JSON.stringify({
+      path: "entity.title",
+      direction: "ASCENDING",
+    }),
+    label: i18next.t("sort.entity.title.ascending"),
+  },
+  {
+    value: JSON.stringify({
+      path: "entity.title",
+      direction: "DESCENDING",
+    }),
+    label: i18next.t("sort.entity.title.descending"),
+  },
+  {
+    value: JSON.stringify({
+      path: "entity.updated_at",
+      direction: "ASCENDING",
+    }),
+    label: i18next.t("sort.entity.updated_at.ascending"),
+  },
+  {
+    value: JSON.stringify({
+      path: "entity.updated_at",
+      direction: "DESCENDING",
+    }),
+    label: i18next.t("sort.entity.updated_at.descending"),
+  },
+  {
+    value: JSON.stringify({
+      path: "entity.published",
+      direction: "ASCENDING",
+    }),
+    label: i18next.t("sort.entity.published.ascending"),
+  },
+  {
+    value: JSON.stringify({
+      path: "entity.published",
+      direction: "DESCENDING",
+    }),
+    label: i18next.t("sort.entity.published.descending"),
+  },
+];
 
 export default function EntityOrderingAddForm({
   data,
@@ -29,37 +71,35 @@ export default function EntityOrderingAddForm({
     fragment,
     data
   );
+
   const entity = formData.item ?? formData.collection;
-
-  const getOrder = (sortby: string): OrderDefinitionInput[] => {
-    const [property, direction] = sortby.split(",");
-    const directionValue = direction === "asc" ? "ASCENDING" : "DESCENDING";
-
-    interface PathOptions extends Record<string, string> {
-      name: string;
-      updatedAt: string;
-      published: string;
-    }
-    const pathOptions: PathOptions = {
-      name: "entity.title",
-      updatedAt: "entity.updated_at",
-      published: "entity.published_on",
-    };
-    const path = pathOptions[property];
-
-    return [{ path: path, direction: directionValue }];
-  };
 
   const toVariables = useToVariables<EntityOrderingAddFormMutation, Fields>(
     (data) => {
+      let filter = {};
+
+      let order: any[] = [];
+
+      if (data.filter?.schemas) {
+        filter = {
+          schemas: data.filter.schemas.map((schema) => JSON.parse(schema)),
+        };
+      }
+
+      if (data.sortby) {
+        order = [JSON.parse(data.sortby)];
+      }
+
       const input = {
         entityId: entity?.id || "",
         name: data.name,
         identifier: convertToSlug(data.name ?? undefined),
-        order: getOrder(data.sortby),
         select: { direct: data.selectDirect },
+        order,
+        filter,
       };
-      return { input: input };
+
+      return { input };
     },
     []
   );
@@ -79,31 +119,36 @@ export default function EntityOrderingAddForm({
         />
         <Forms.Select
           label="forms.fields.sortby"
-          options={[
-            { value: "name, asc", label: "Name, ascending" },
-            { value: "name, desc", label: "Name, descending" },
-            { value: "updatedAt, asc", label: "Updated at, ascending" },
-            { value: "updatedAt, desc", label: "Updated at, descending" },
-            {
-              value: "published, asc",
-              label: "Publication date, ascending",
-            },
-            {
-              value: "published, desc",
-              label: "Publication date, descending",
-            },
-          ]}
+          options={SORTING_OPTIONS}
           {...register("sortby")}
         />
         <Forms.RadioGroup
-          label="forms.fields.include"
-          description={description}
+          label="forms.fields.include_descendants"
+          description={"forms.fields.include_descendants_description"}
           options={[
             { value: "CHILDREN", label: "Direct Descendants" },
             { value: "DESCENDANTS", label: "All Descendants" },
           ]}
           {...register("selectDirect")}
         />
+        {entity?.schemaRanks && entity.schemaRanks.length > 0 && (
+          <Forms.CheckboxGroup
+            label="forms.fields.schemas"
+            name="filter.schema"
+          >
+            <>
+              {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
+                <Forms.Checkbox
+                  key={i}
+                  value={JSON.stringify({ namespace, identifier })}
+                  {...register("filter.schemas")}
+                >
+                  {name}
+                </Forms.Checkbox>
+              ))}
+            </>
+          </Forms.CheckboxGroup>
+        )}
       </Forms.Grid>
     );
   }, []);
@@ -141,9 +186,19 @@ const fragment = graphql`
   fragment EntityOrderingAddFormFragment on Query {
     collection(slug: $entitySlug) {
       id
+      schemaRanks {
+        name
+        namespace
+        identifier
+      }
     }
     item(slug: $entitySlug) {
       id
+      schemaRanks {
+        name
+        namespace
+        identifier
+      }
     }
   }
 `;

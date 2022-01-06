@@ -18,6 +18,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   name,
   required,
   isWide,
+  role,
 }: Props<T>) => {
   const { t } = useTranslation();
   const uid = useUID();
@@ -28,7 +29,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   };
 
   return (
-    <Styled.Wrapper css={css}>
+    <Styled.Wrapper css={css} role={role}>
       <BaseInputLabel htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
         {t(label)}{" "}
         {required && (
@@ -54,6 +55,7 @@ interface Props<T extends FieldValues = FieldValues>
   children: JSX.Element | (({ uid }: { uid: string }) => React.ReactNode);
   isWide?: boolean;
   labelProps?: typeof HTMLLabelElement;
+  role?: string;
 }
 
 export default BaseInputWrapper;

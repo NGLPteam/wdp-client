@@ -28,9 +28,21 @@ query EntityOrderingAddDrawerQuery(
 fragment EntityOrderingAddFormFragment on Query {
   collection(slug: $entitySlug) {
     id
+    schemaRanks {
+      name
+      namespace
+      identifier
+      id
+    }
   }
   item(slug: $entitySlug) {
     id
+    schemaRanks {
+      name
+      namespace
+      identifier
+      id
+    }
   }
 }
 */
@@ -50,12 +62,46 @@ v1 = [
     "variableName": "entitySlug"
   }
 ],
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = [
+  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "id",
+    "concreteType": "HierarchicalSchemaRank",
+    "kind": "LinkedField",
+    "name": "schemaRanks",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "namespace",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "identifier",
+        "storageKey": null
+      },
+      (v2/*: any*/)
+    ],
     "storageKey": null
   }
 ];
@@ -88,7 +134,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v2/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       },
       {
@@ -98,18 +144,18 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v2/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0ed7dd467accab8ac908b85de06d9882",
+    "cacheID": "e026c51947757c02810321d4fd4cbe8a",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n  }\n  item(slug: $entitySlug) {\n    id\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    schemaRanks {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n  item(slug: $entitySlug) {\n    id\n    schemaRanks {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
   }
 };
 })();
