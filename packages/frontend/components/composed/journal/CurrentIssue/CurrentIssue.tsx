@@ -44,6 +44,9 @@ export default function CurrentIssue({ data }: Props) {
           </Styled.ImageBlock>
         )}
         <Styled.TextBlock>
+          <Styled.Label className="t-label-lg">
+            {t("layouts.current_issue")}
+          </Styled.Label>
           <Styled.TitleBlock>
             <h3>
               <NamedLink

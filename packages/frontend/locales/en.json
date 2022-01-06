@@ -96,7 +96,8 @@
       "volume_id_label": "Volume ID",
       "online_version_label": "Online Version",
       "contributions_header": "Contributions",
-      "back_to_contributors": "Back to Contributors"
+      "back_to_contributors": "Back to Contributors",
+      "current_issue": "Current $t(schema.nglp.journal_issue)"
     },
     "nav": {
       "home": "Home",

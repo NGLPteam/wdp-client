@@ -24,7 +24,7 @@ const innerWithoutImage = `
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-areas: "text";
+    grid-template-areas: "lable""text";
   `,
     70
   )}
@@ -37,6 +37,10 @@ export const Inner = styled.div<BaseProps>`
   ${lGrid()}
 
   ${({ $hasImage }) => ($hasImage ? innerWithImage : innerWithoutImage)}
+`;
+
+export const Label = styled.div`
+  margin-block-end: var(--padding-rg);
 `;
 
 export const ImageBlock = styled.div`
