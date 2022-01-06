@@ -24,7 +24,7 @@ const innerWithoutImage = `
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-areas: "lable""text";
+    grid-template-areas: "text";
   `,
     70
   )}
