@@ -59,6 +59,15 @@ export default function RelatedJournals({ data }: Props) {
                     <Styled.ItemText>
                       <h4>{node.target.title}</h4>
                       <div className="t-copy-sm a-color-lighter">
+                        {node.target.currentIssue?.volume?.title && (
+                          <p>{node.target.currentIssue.volume.title}</p>
+                        )}
+                        {node.target.currentIssue?.number?.content && (
+                          <p>
+                            {t("glossary.number")}{" "}
+                            {node.target.currentIssue.number.content}
+                          </p>
+                        )}
                         {node.target.published && (
                           <p>
                             <PrecisionDate
@@ -115,18 +124,21 @@ const fragment = graphql`
               storage
               ...CoverImageFragment
             }
-          }
-          ... on Item {
-            __typename
-            id
-            title
-            slug
-            published {
-              ...PrecisionDateFragment
-            }
-            thumbnail {
-              storage
-              ...CoverImageFragment
+            currentIssue: firstCollection(
+              schema: "nglp:journal_issue"
+              order: PUBLISHED_DESCENDING
+              nodeFilter: DESCENDANTS
+            ) {
+              number: schemaProperty(fullPath: "number") {
+                ... on StringProperty {
+                  content
+                }
+              }
+              volume: ancestorOfType(schema: "nglp:journal_volume") {
+                ... on Collection {
+                  title
+                }
+              }
             }
           }
         }

@@ -53,7 +53,8 @@
       "item": "item",
       "item_plural": "items",
       "files": "File",
-      "files_plural": "Files"
+      "files_plural": "Files",
+      "number": "Number"
     },
     "schema": {
       "nglp.journal": "journal",
