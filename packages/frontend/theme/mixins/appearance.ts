@@ -82,7 +82,8 @@ export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
     border-radius: ${borderRadius.xlg};
     padding-block-start: ${size === "sm" ? "6px" : "14px"};
     padding-block-end: ${size === "sm" ? "9px" : "17px"};
-    padding-inline: ${size === "sm" ? "16px" : "30px"};
+    padding-inline-start: ${size === "sm" ? "16px" : "30px"};
+    padding-inline-end: ${size === "sm" ? "16px" : "30px"};
     ${tLabel("mix")}
   `;
 }
