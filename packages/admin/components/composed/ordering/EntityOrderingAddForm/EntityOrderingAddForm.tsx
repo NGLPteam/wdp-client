@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
+import i18next from "i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -22,48 +23,43 @@ const SORTING_OPTIONS = [
       path: "entity.title",
       direction: "ASCENDING",
     }),
-    label: "Name, Ascending",
+    label: i18next.t("sort.entity.title.ascending"),
   },
   {
     value: JSON.stringify({
       path: "entity.title",
       direction: "DESCENDING",
     }),
-    label: "Name, Descending",
+    label: i18next.t("sort.entity.title.descending"),
   },
   {
     value: JSON.stringify({
       path: "entity.updated_at",
       direction: "ASCENDING",
     }),
-    label: "Updated Date, Ascending",
+    label: i18next.t("sort.entity.updated_at.ascending"),
   },
   {
     value: JSON.stringify({
       path: "entity.updated_at",
       direction: "DESCENDING",
     }),
-    label: "Updated Date, Descending",
+    label: i18next.t("sort.entity.updated_at.descending"),
   },
   {
     value: JSON.stringify({
       path: "entity.published",
       direction: "ASCENDING",
     }),
-    label: "Published Date, Ascending",
+    label: i18next.t("sort.entity.published.ascending"),
   },
   {
     value: JSON.stringify({
       path: "entity.published",
       direction: "DESCENDING",
     }),
-    label: "Published Date, Descending",
+    label: i18next.t("sort.entity.published.descending"),
   },
-];
-
-const INCLUDE_OPTIONS = [
-  { value: "CHILDREN", label: "Direct Descendants" },
-  { value: "DESCENDANTS", label: "All Descendants" },
 ];
 
 export default function EntityOrderingAddForm({
@@ -129,11 +125,17 @@ export default function EntityOrderingAddForm({
         <Forms.RadioGroup
           label="forms.fields.include_descendants"
           description={"forms.fields.include_descendants_description"}
-          options={INCLUDE_OPTIONS}
+          options={[
+            { value: "CHILDREN", label: "Direct Descendants" },
+            { value: "DESCENDANTS", label: "All Descendants" },
+          ]}
           {...register("selectDirect")}
         />
         {entity?.schemaRanks && entity.schemaRanks.length > 0 && (
-          <Forms.CheckboxGroup label="Schemas" name="filter.schema">
+          <Forms.CheckboxGroup
+            label="forms.fields.schemas"
+            name="filter.schema"
+          >
             <>
               {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
                 <Forms.Checkbox

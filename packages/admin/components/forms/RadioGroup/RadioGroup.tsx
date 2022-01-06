@@ -1,9 +1,9 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 import type InputProps from "../inputType";
 import Radio from "./Radio";
 import * as Styled from "./RadioGroup.styles";
-import BaseInputLabel from "components/forms/BaseInputLabel";
 
 const RadioGroup = forwardRef(
   (
@@ -21,7 +21,7 @@ const RadioGroup = forwardRef(
         value={option.value}
         order={i + 1}
         name={name}
-        label={option.label}
+        label={t(option.label)}
         ref={ref}
         {...props}
       />
@@ -42,15 +42,14 @@ const RadioGroup = forwardRef(
   }
 );
 
-interface Props
-  extends Pick<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      "aria-label" | "id"
-    >,
-    Pick<
-      InputProps,
-      "name" | "description" | "required" | "hideLabel" | "label"
-    > {
+type BaseProps = Pick<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "aria-label" | "id"
+> &
+  Pick<InputProps, "name" | "required" | "hideLabel" | "label">;
+
+interface Props extends BaseProps {
+  description?: string;
   options: { value: string; label: string; default?: boolean }[];
 }
 
