@@ -14,7 +14,7 @@ export const HeroInner = styled.div`
     `
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, auto);
-    grid-template-areas: 
+    grid-template-areas:
       "title"
       "metadata";
   `,
@@ -29,6 +29,10 @@ export const TitleBlock = styled.div`
 
 export const MetadataBlock = styled.div`
   grid-area: metadata;
+
+  > * + * {
+    margin-block-start: var(--padding-rg);
+  }
 `;
 
 export const Title = styled.h2`
@@ -40,6 +44,10 @@ export const Subtitle = styled.h3`
 `;
 
 export const ISSN = styled.div`
+  color: var(--color-base-neutral80);
+`;
+
+export const DOI = styled.span`
   color: var(--color-base-neutral80);
 `;
 
