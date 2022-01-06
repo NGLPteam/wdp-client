@@ -26,10 +26,6 @@ export const DOI = styled.span`
   color: var(--color-base-neutral80);
 `;
 
-export const MetaItem = styled.span`
-  display: block;
-`;
-
 export const IssueWrapper = styled.div`
   ${lGrid({
     rowGap: "var(--padding-xl)",

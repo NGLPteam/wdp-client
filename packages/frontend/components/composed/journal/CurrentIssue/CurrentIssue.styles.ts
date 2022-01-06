@@ -63,8 +63,6 @@ export const TitleBlock = styled.div`
   }
 `;
 
-export const Subtitle = styled.div``;
-
 export const ArticleList = styled.ul`
   padding-block-start: ${pxToRem(10)};
 `;

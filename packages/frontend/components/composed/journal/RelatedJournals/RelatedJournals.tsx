@@ -64,8 +64,9 @@ export default function RelatedJournals({ data }: Props) {
                         )}
                         {node.target.currentIssue?.number?.content && (
                           <p>
-                            {t("glossary.number")}{" "}
-                            {node.target.currentIssue.number.content}
+                            {t("metadata.number", {
+                              number: node.target.currentIssue.number.content,
+                            })}
                           </p>
                         )}
                         {node.target.published && (

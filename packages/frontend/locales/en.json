@@ -53,8 +53,7 @@
       "item": "item",
       "item_plural": "items",
       "files": "File",
-      "files_plural": "Files",
-      "number": "Number"
+      "files_plural": "Files"
     },
     "schema": {
       "nglp.journal": "journal",
@@ -81,7 +80,8 @@
     },
     "metadata": {
       "authored_on": "Authored On",
-      "tags": "Tags"
+      "tags": "Tags",
+      "number": "Number {{number}}"
     },
     "layouts": {
       "related_journals_header": "Related $t(schema.nglp.journal_plural)",

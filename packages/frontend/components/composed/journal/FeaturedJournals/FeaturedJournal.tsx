@@ -40,9 +40,11 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
       >
         <Styled.ItemText as="a">
           <Styled.ItemTitle>{journal.title}</Styled.ItemTitle>
-          <Styled.ItemSubtitle className="t-copy">
-            {journal.subtitle}
-          </Styled.ItemSubtitle>
+          {journal.subtitle && (
+            <Styled.ItemSubtitle className="t-copy">
+              {journal.subtitle}
+            </Styled.ItemSubtitle>
+          )}
           <Styled.ItemData className="t-copy-sm a-color-lighter">
             {journal.issues.pageInfo.totalCount ? (
               <span>

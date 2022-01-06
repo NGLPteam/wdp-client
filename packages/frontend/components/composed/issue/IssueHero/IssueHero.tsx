@@ -70,15 +70,15 @@ export default function IssueHero({ data }: Props) {
             </Styled.IssueText>
             <Styled.IssueMeta>
               {issue.issn && (
-                <Styled.MetaItem className="t-label-sm">
+                <div className="t-label-sm">
                   ISSN: <Styled.Number>{issue.issn}</Styled.Number>
-                </Styled.MetaItem>
+                </div>
               )}
               {issue.doi && (
-                <Styled.MetaItem className="t-label-sm">
+                <div className="t-label-sm">
                   <Styled.DOI>DOI: </Styled.DOI>
                   {issue.doi}
-                </Styled.MetaItem>
+                </div>
               )}
             </Styled.IssueMeta>
           </Styled.IssueWrapper>
