@@ -7,21 +7,6 @@ const DESKTOP_BREAK = 100;
 
 export const Section = styled.div`
   position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    background: var(--color-base-neutral90);
-    height: calc(
-      var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
-        var(--container-padding-sm) * 2
-    );
-    width: 100vw;
-    z-index: 0;
-
-    ${respond(`display: none;`, DESKTOP_BREAK)}
-  }
 `;
 
 export const List = styled.ul`
@@ -35,8 +20,41 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
+  --FeaturedJournalsCover-background-color: var(--color-base-neutral90);
+
   flex: 1 1 30%;
   z-index: 1;
+
+  /* Even journals have a lighter bg color */
+  &:nth-child(even) {
+    --FeaturedJournalsCover-background-color: var(--color-base-neutral80);
+  }
+
+  /* Extend color to the edges of the first and last item */
+  &:first-child,
+  &:last-child:nth-child(even) {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      height: calc(
+        var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
+          var(--container-padding-sm) * 2
+      );
+      width: 100vw;
+      z-index: -1;
+      background: var(--FeaturedJournalsCover-background-color);
+
+      ${respond(`display: none;`, DESKTOP_BREAK)}
+    }
+  }
+
+  &:first-child {
+    &::before {
+      left: 0;
+    }
+  }
 `;
 
 export const ItemWrapper = styled.div`
@@ -47,6 +65,8 @@ export const ItemWrapper = styled.div`
 
 export const ItemCover = styled.div`
   --FeaturedJournals-cover-v-padding: ${fluidScale("36px", "60px")};
+
+  background-color: var(--FeaturedJournalsCover-background-color);
   flex: 1 0 auto;
   display: flex;
   align-items: center;
