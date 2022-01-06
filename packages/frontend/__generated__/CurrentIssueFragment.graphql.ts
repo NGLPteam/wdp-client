@@ -9,6 +9,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 export type CurrentIssueFragment = {
     readonly id: string;
     readonly title: string;
+    readonly subtitle: string | null;
     readonly slug: string;
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
@@ -68,6 +69,13 @@ return {
       "storageKey": null
     },
     (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "subtitle",
+      "storageKey": null
+    },
     (v1/*: any*/),
     {
       "alias": null,
@@ -190,5 +198,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4a3031ee02f32d2a337ff6fc71296068';
+(node as any).hash = '60a50faa810455568fea0bcd8ed11bdd';
 export default node;

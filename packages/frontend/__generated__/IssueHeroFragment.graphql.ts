@@ -11,6 +11,7 @@ export type IssueHeroFragment = {
     readonly title: string;
     readonly subtitle: string | null;
     readonly summary: string | null;
+    readonly issn: string | null;
     readonly doi: string | null;
     readonly published: {
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -74,6 +75,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "summary",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "issn",
       "storageKey": null
     },
     {
@@ -200,5 +208,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c8225f5130fa973865cf00876e8b2450';
+(node as any).hash = '84867913191b16b97ce0d52bdc7bbd21';
 export default node;

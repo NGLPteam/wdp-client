@@ -22,6 +22,10 @@ export const Number = styled.span`
   color: var(--color-base-neutral80);
 `;
 
+export const DOI = styled.span`
+  color: var(--color-base-neutral80);
+`;
+
 export const IssueWrapper = styled.div`
   ${lGrid({
     rowGap: "var(--padding-xl)",

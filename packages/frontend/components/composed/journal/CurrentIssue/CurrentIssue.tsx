@@ -44,6 +44,9 @@ export default function CurrentIssue({ data }: Props) {
           </Styled.ImageBlock>
         )}
         <Styled.TextBlock>
+          <Styled.Label className="t-label-lg">
+            {t("layouts.current_issue")}
+          </Styled.Label>
           <Styled.TitleBlock>
             <h3>
               <NamedLink
@@ -54,6 +57,11 @@ export default function CurrentIssue({ data }: Props) {
                 <a>{issue.title}</a>
               </NamedLink>
             </h3>
+            {issue.subtitle && (
+              <div className="t-copy-lighter t-copy-italic">
+                {issue.subtitle}
+              </div>
+            )}
             <DotList className="t-copy-lighter">
               {issue.volume && <li>{issue.volume?.title}</li>}
               {issue.published.value && (
@@ -90,6 +98,7 @@ const fragment = graphql`
   fragment CurrentIssueFragment on Collection {
     id
     title
+    subtitle
     slug
     thumbnail {
       storage

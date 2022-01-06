@@ -39,6 +39,10 @@ export const Inner = styled.div<BaseProps>`
   ${({ $hasImage }) => ($hasImage ? innerWithImage : innerWithoutImage)}
 `;
 
+export const Label = styled.div`
+  margin-block-end: var(--padding-rg);
+`;
+
 export const ImageBlock = styled.div`
   grid-area: image;
   margin-block-end: ${pxToRem(20)};

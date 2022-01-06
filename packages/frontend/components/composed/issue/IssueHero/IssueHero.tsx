@@ -69,10 +69,16 @@ export default function IssueHero({ data }: Props) {
               </Styled.Issue>
             </Styled.IssueText>
             <Styled.IssueMeta>
+              {issue.issn && (
+                <div className="t-label-sm">
+                  ISSN: <Styled.Number>{issue.issn}</Styled.Number>
+                </div>
+              )}
               {issue.doi && (
-                <span className="t-label-sm">
-                  DOI: <Styled.Number>{issue.doi}</Styled.Number>
-                </span>
+                <div className="t-label-sm">
+                  <Styled.DOI>DOI: </Styled.DOI>
+                  {issue.doi}
+                </div>
               )}
             </Styled.IssueMeta>
           </Styled.IssueWrapper>
@@ -92,6 +98,7 @@ const fragment = graphql`
     title
     subtitle
     summary
+    issn
     doi
     published {
       ...PrecisionDateFragment

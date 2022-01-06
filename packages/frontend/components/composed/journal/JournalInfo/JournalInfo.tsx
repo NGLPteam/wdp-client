@@ -62,10 +62,7 @@ export default function JournalInfo({ data }: Props) {
                   <Styled.AnnouncementBody className="t-rte">
                     <p>
                       Massa convallis diam ac facilisis quisque sit enim et.
-                      Viverra est ornare porta justo sapien. Neque, tempor
-                      rhoncus, maecenas urna suspendisse. Feugiat id massa nulla
-                      vulputate at egestas libero, donec. Dictum porttitor
-                      vestibulum cras odio in.
+                      Viverra est ornare porta justo sapien.
                     </p>
                   </Styled.AnnouncementBody>
                   <ArrowLink className="t-label-mix">

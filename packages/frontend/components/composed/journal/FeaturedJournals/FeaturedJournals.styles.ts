@@ -83,8 +83,12 @@ export const ItemText = styled.div`
 `;
 
 export const ItemTitle = styled.h4`
-  margin-block-end: ${pxToRem(24)};
+  margin-block-end: var(--padding-sm);
   ${tLineClamp(2)}
+`;
+
+export const ItemSubtitle = styled.div`
+  margin-block-end: ${pxToRem(24)};
 `;
 
 export const ItemData = styled.div`

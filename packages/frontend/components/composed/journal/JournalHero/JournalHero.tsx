@@ -27,9 +27,16 @@ export default function JournalHero({ data }: Props) {
             )}
           </Styled.TitleBlock>
           <Styled.MetadataBlock>
-            <Styled.ISSN className="t-label-sm">
-              ISSN: <Styled.Number>0000-0000</Styled.Number>
-            </Styled.ISSN>
+            {journal.issn && (
+              <Styled.ISSN className="t-label-sm">
+                ISSN: <Styled.Number>{journal.issn}</Styled.Number>
+              </Styled.ISSN>
+            )}
+            {journal.doi && (
+              <div className="t-label-sm">
+                DOI: <Styled.DOI>{journal.doi}</Styled.DOI>
+              </div>
+            )}
           </Styled.MetadataBlock>
         </Styled.HeroInner>
       </header>
@@ -47,6 +54,8 @@ const fragment = graphql`
     slug
     title
     subtitle
+    issn
+    doi
     heroImage {
       storage
       ...HeroImageFragment

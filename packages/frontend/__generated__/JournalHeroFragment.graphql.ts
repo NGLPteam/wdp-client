@@ -10,6 +10,8 @@ export type JournalHeroFragment = {
     readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
+    readonly issn: string | null;
+    readonly doi: string | null;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
@@ -54,6 +56,20 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "issn",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "doi",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "heroImage",
@@ -78,5 +94,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'da90e2f3ed0f0d5d405906de93518ef8';
+(node as any).hash = '50cab720493d355ff97e06f2de0de2d2';
 export default node;
