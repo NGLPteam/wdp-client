@@ -54,6 +54,9 @@ export default function CurrentIssue({ data }: Props) {
                 <a>{issue.title}</a>
               </NamedLink>
             </h3>
+            <Styled.Subtitle className="t-copy-lighter t-copy-italic">
+              {issue.subtitle}
+            </Styled.Subtitle>
             <DotList className="t-copy-lighter">
               {issue.volume && <li>{issue.volume?.title}</li>}
               {issue.published.value && (
@@ -90,6 +93,7 @@ const fragment = graphql`
   fragment CurrentIssueFragment on Collection {
     id
     title
+    subtitle
     slug
     thumbnail {
       storage
