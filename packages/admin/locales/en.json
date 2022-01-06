@@ -284,7 +284,8 @@
         "profile": "Profile",
         "displayname": "Display Name",
         "sortby": "Sort By",
-        "include": "Entities to Include",
+        "include_descendants": "Include",
+        "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "issn": "ISSN"
       },
       "validation": {

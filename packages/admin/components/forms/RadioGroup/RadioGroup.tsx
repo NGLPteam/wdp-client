@@ -33,7 +33,9 @@ const RadioGroup = forwardRef(
         aria-label={props["aria-label"] || undefined}
       >
         <BaseInputLabel hideLabel={hideLabel}>{t(label)}</BaseInputLabel>
-        {description && <Styled.Description>{description}</Styled.Description>}
+        {description && (
+          <Styled.Description>{t(description)}</Styled.Description>
+        )}
         {radios}
       </Styled.Group>
     );

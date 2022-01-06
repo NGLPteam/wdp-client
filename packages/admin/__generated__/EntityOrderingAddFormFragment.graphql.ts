@@ -8,9 +8,19 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingAddFormFragment = {
     readonly collection: {
         readonly id: string;
+        readonly schemaRanks: ReadonlyArray<{
+            readonly name: string;
+            readonly namespace: string;
+            readonly identifier: string;
+        }>;
     } | null;
     readonly item: {
         readonly id: string;
+        readonly schemaRanks: ReadonlyArray<{
+            readonly name: string;
+            readonly namespace: string;
+            readonly identifier: string;
+        }>;
     } | null;
     readonly " $refType": "EntityOrderingAddFormFragment";
 };
@@ -36,6 +46,38 @@ v1 = [
     "args": null,
     "kind": "ScalarField",
     "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "HierarchicalSchemaRank",
+    "kind": "LinkedField",
+    "name": "schemaRanks",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "name",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "namespace",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "identifier",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -75,5 +117,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5875191369b27f342a694e3cdc3ebb20';
+(node as any).hash = '8672bb27edaf4d98b2c1c97b3ec1df83';
 export default node;
