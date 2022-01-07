@@ -7,19 +7,30 @@ import { PageCountFragment$key } from "@/relay/PageCountFragment.graphql";
 export default function PageCount({ data, length, className, name }: Props) {
   const pageData = useMaybeFragment(fragment, data);
 
-  return pageData && length ? (
+  if (!pageData) return;
+
+  const { totalCount, page, perPage } = pageData;
+
+  const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
+  const end =
+    totalCount < perPage || page * perPage > totalCount
+      ? totalCount
+      : page * perPage;
+
+  return (
     <div className={className}>
       <Trans
-        i18nKey="common.showing_count_out_of_total_name"
+        i18nKey="common.showing_count_out_of_total"
         values={{
-          count: length,
-          total: pageData.totalCount,
+          start,
+          end,
+          total: totalCount,
           name,
         }}
         components={[<span key="text" className="t-copy-lighter"></span>]}
       />
     </div>
-  ) : null;
+  );
 }
 
 interface Props {
@@ -32,5 +43,7 @@ interface Props {
 const fragment = graphql`
   fragment PageCountFragment on PageInfo {
     totalCount
+    page
+    perPage
   }
 `;
