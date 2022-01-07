@@ -23,11 +23,24 @@ export type EntityOrderingLayoutFactoryFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  }
+];
+return {
   "argumentDefinitions": [
     {
       "kind": "RootArgument",
       "name": "identifier"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "page"
     }
   ],
   "kind": "Fragment",
@@ -67,12 +80,12 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "args": null,
+          "args": (v0/*: any*/),
           "kind": "FragmentSpread",
           "name": "EntityOrderingLayoutFragment"
         },
         {
-          "args": null,
+          "args": (v0/*: any*/),
           "kind": "FragmentSpread",
           "name": "IssueOrderingLayoutFragment"
         }
@@ -88,5 +101,6 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'aa653cd6334f3513ba5f198ba7e04359';
+})();
+(node as any).hash = '0055fd3633fca04ffe48a7dc1d15a9f6';
 export default node;

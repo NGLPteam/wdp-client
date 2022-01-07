@@ -35,7 +35,8 @@ export type EntityOrderingLayoutFragment$key = {
 const node: ReaderFragment = {
   "argumentDefinitions": [
     {
-      "kind": "RootArgument",
+      "defaultValue": null,
+      "kind": "LocalArgument",
       "name": "page"
     }
   ],
@@ -158,5 +159,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = 'b9a3ae83b81ddd481c422f968c36f1dd';
+(node as any).hash = '0fa6f3867996bd316d2414455e212e27';
 export default node;

@@ -44,7 +44,7 @@ const query = graphql`
   ) {
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
-      ...EntityOrderingLayoutFactoryFragment
+      ...EntityOrderingLayoutFactoryFragment @arguments(page: $page)
 
       community {
         ...CommunityLayoutFragment

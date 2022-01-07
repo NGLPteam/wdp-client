@@ -54,7 +54,8 @@ interface Props {
 type Node = EntityOrderingLayoutFragment$data["children"]["edges"][number];
 
 const fragment = graphql`
-  fragment EntityOrderingLayoutFragment on Ordering {
+  fragment EntityOrderingLayoutFragment on Ordering
+  @argumentDefinitions(page: { type: "Int" }) {
     name
     inheritedFromSchema
     children(page: $page) {

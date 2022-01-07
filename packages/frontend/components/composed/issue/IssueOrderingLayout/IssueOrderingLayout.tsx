@@ -47,7 +47,8 @@ interface Props {
 type Node = IssueOrderingLayoutFragment$data["children"]["edges"][number];
 
 const fragment = graphql`
-  fragment IssueOrderingLayoutFragment on Ordering {
+  fragment IssueOrderingLayoutFragment on Ordering
+  @argumentDefinitions(page: { type: "Int" }) {
     name
     header
     children(page: $page) {
