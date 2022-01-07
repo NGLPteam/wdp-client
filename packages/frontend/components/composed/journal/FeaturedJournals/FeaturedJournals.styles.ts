@@ -30,6 +30,12 @@ export const ListItem = styled.li`
     --FeaturedJournalsCover-background-color: var(--color-base-neutral80);
   }
 
+  &:first-child {
+    &::before {
+      left: 0;
+    }
+  }
+
   /* Extend color to the edges of the first and last item */
   &:first-child,
   &:last-child:nth-child(even) {
@@ -47,12 +53,6 @@ export const ListItem = styled.li`
       background: var(--FeaturedJournalsCover-background-color);
 
       ${respond(`display: none;`, DESKTOP_BREAK)}
-    }
-  }
-
-  &:first-child {
-    &::before {
-      left: 0;
     }
   }
 `;

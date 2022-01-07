@@ -7,7 +7,7 @@ import * as Styled from "./FeaturedJournals.styles";
 import { NamedLink, CoverImage } from "components/atomic";
 import { FeaturedJournalFragment$key } from "@/relay/FeaturedJournalFragment.graphql";
 
-export default function FeaturedJournal({ data, index, coverHeight }: Props) {
+export default function FeaturedJournal({ data, coverHeight }: Props) {
   const journal = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
@@ -68,7 +68,6 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
 interface Props {
   /* Collection data */
   data?: FeaturedJournalFragment$key | null;
-  index: number;
   coverHeight: number;
 }
 

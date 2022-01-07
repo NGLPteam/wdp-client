@@ -22,14 +22,22 @@ export type CurrentIssueFragment = {
     readonly volume: {
         readonly title?: string | undefined;
     } | null;
-    readonly items: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
+    readonly ordering: {
+        readonly identifier: string;
+        readonly articles: {
+            readonly edges: ReadonlyArray<{
+                readonly node: {
+                    readonly entry: {
+                        readonly slug?: string | undefined;
+                        readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
+                    };
+                };
+            }>;
+            readonly pageInfo: {
+                readonly totalCount: number;
             };
-        }>;
-    };
+        };
+    } | null;
     readonly " $refType": "CurrentIssueFragment";
 };
 export type CurrentIssueFragment$data = CurrentIssueFragment;
@@ -153,50 +161,117 @@ return {
       "args": [
         {
           "kind": "Literal",
-          "name": "perPage",
-          "value": 3
+          "name": "identifier",
+          "value": "articles"
         }
       ],
-      "concreteType": "ItemConnection",
+      "concreteType": "Ordering",
       "kind": "LinkedField",
-      "name": "items",
+      "name": "ordering",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "ItemEdge",
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": "articles",
+          "args": [
+            {
+              "kind": "Literal",
+              "name": "perPage",
+              "value": 3
+            }
+          ],
+          "concreteType": "OrderingEntryConnection",
           "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
+          "name": "children",
+          "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "Item",
+              "concreteType": "OrderingEntryEdge",
               "kind": "LinkedField",
-              "name": "node",
+              "name": "edges",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "OrderingEntry",
+                  "kind": "LinkedField",
+                  "name": "node",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": null,
+                      "kind": "LinkedField",
+                      "name": "entry",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            (v1/*: any*/)
+                          ],
+                          "type": "Sluggable",
+                          "abstractKey": "__isSluggable"
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "ArticleSummaryFragment"
+                            }
+                          ],
+                          "type": "Entity",
+                          "abstractKey": "__isEntity"
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PageInfo",
+              "kind": "LinkedField",
+              "name": "pageInfo",
               "plural": false,
               "selections": [
-                (v1/*: any*/),
                 {
+                  "alias": null,
                   "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ArticleSummaryFragment"
+                  "kind": "ScalarField",
+                  "name": "totalCount",
+                  "storageKey": null
                 }
               ],
               "storageKey": null
             }
           ],
-          "storageKey": null
+          "storageKey": "children(perPage:3)"
         }
       ],
-      "storageKey": "items(perPage:3)"
+      "storageKey": "ordering(identifier:\"articles\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '60a50faa810455568fea0bcd8ed11bdd';
+(node as any).hash = 'f165071cce54bfd4a788792005448b86';
 export default node;

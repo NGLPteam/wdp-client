@@ -8,6 +8,7 @@ import {
   PrecisionDate,
   NamedLink,
   DotList,
+  Button,
 } from "components/atomic";
 import ArticleSummary from "components/composed/article/ArticleSummary";
 import {
@@ -18,7 +19,7 @@ import {
 export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
   const issue = useMaybeFragment(fragment, data);
-  const articles = issue?.items.edges;
+  const articles = issue?.ordering?.articles.edges;
   const hasImage = !!issue?.thumbnail?.storage;
 
   return issue ? (
@@ -76,12 +77,25 @@ export default function CurrentIssue({ data }: Props) {
           </Styled.TitleBlock>
           <Styled.ArticleList>
             {articles &&
-              articles.map(({ node }: ArticleNode) => (
-                <Styled.Item key={node.slug}>
-                  <ArticleSummary data={node} showReadMore />
+              articles.map(({ node: { entry } }: ArticleNode) => (
+                <Styled.Item key={entry.slug}>
+                  <ArticleSummary data={entry} showReadMore />
                 </Styled.Item>
               ))}
           </Styled.ArticleList>
+          {issue?.ordering?.identifier &&
+            issue?.slug &&
+            issue?.ordering?.articles?.pageInfo?.totalCount > 3 && (
+              <Styled.Footer>
+                <NamedLink
+                  route="collection"
+                  routeParams={{ slug: issue.slug }}
+                  passHref
+                >
+                  <Button as="a">{t("layouts.see_all_articles")}</Button>
+                </NamedLink>
+              </Styled.Footer>
+            )}
         </Styled.TextBlock>
       </Styled.Inner>
     </section>
@@ -113,11 +127,23 @@ const fragment = graphql`
         title
       }
     }
-    items(perPage: 3) {
-      edges {
-        node {
-          slug
-          ...ArticleSummaryFragment
+    ordering(identifier: "articles") {
+      identifier
+      articles: children(perPage: 3) {
+        edges {
+          node {
+            entry {
+              ... on Sluggable {
+                slug
+              }
+              ... on Entity {
+                ...ArticleSummaryFragment
+              }
+            }
+          }
+        }
+        pageInfo {
+          totalCount
         }
       }
     }
