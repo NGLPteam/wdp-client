@@ -36,9 +36,9 @@ export default function FeaturedJournals({
     <Styled.Section className="a-bg-neutral00" style={style}>
       <h3 className="a-hidden">{t(headerText)}</h3>
       <Styled.List data-count={collections.edges.length}>
-        {collections.edges.map(({ node }: Node, i) => (
+        {collections.edges.map(({ node }: Node) => (
           <Styled.ListItem key={node.slug}>
-            <FeaturedJournal data={node} index={i} coverHeight={coverHeight} />
+            <FeaturedJournal data={node} coverHeight={coverHeight} />
           </Styled.ListItem>
         ))}
       </Styled.List>

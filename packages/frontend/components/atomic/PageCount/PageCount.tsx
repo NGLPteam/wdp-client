@@ -7,9 +7,9 @@ import { PageCountFragment$key } from "@/relay/PageCountFragment.graphql";
 export default function PageCount({ data, className, name }: Props) {
   const pageData = useMaybeFragment(fragment, data);
 
-  if (!pageData) return null;
+  if (!pageData || !pageData.perPage || !pageData.page) return null;
 
-  const { totalCount, page = 1, perPage } = pageData;
+  const { page, totalCount, perPage } = pageData;
 
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
   const end =
