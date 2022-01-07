@@ -69,6 +69,11 @@ export const ArticleList = styled.ul`
 
 export const Item = styled.li`
   padding-block-start: ${pxToRem(28)};
-  border-top: 1px solid var(--color-lighter);
+  border-top: 1px solid var(--border-color);
   padding-block-end: ${pxToRem(30)};
+`;
+
+export const Footer = styled.div`
+  border-top: 1px solid var(--border-color);
+  padding-block-start: var(--padding-lg);
 `;

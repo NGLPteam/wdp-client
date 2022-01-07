@@ -7,15 +7,13 @@ import * as Styled from "./FeaturedJournals.styles";
 import { NamedLink, CoverImage } from "components/atomic";
 import { FeaturedJournalFragment$key } from "@/relay/FeaturedJournalFragment.graphql";
 
-export default function FeaturedJournal({ data, index, coverHeight }: Props) {
+export default function FeaturedJournal({ data, coverHeight }: Props) {
   const journal = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
   return journal ? (
     <Styled.ItemWrapper>
-      <Styled.ItemCover
-        className={index % 2 === 0 ? "a-bg-neutral90" : "a-bg-neutral80"}
-      >
+      <Styled.ItemCover className="a-bg-neutral90">
         <NamedLink
           route="collection"
           routeParams={{ slug: journal.slug }}
@@ -70,7 +68,6 @@ export default function FeaturedJournal({ data, index, coverHeight }: Props) {
 interface Props {
   /* Collection data */
   data?: FeaturedJournalFragment$key | null;
-  index: number;
   coverHeight: number;
 }
 

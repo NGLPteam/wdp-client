@@ -41,7 +41,8 @@ var v0 = [
 return {
   "argumentDefinitions": [
     {
-      "kind": "RootArgument",
+      "defaultValue": 1,
+      "kind": "LocalArgument",
       "name": "page"
     }
   ],
@@ -146,5 +147,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '895d63b4a71ee105c7aaf063d4a5c256';
+(node as any).hash = 'a379c82484a9453ccb0b3932c460ed87';
 export default node;

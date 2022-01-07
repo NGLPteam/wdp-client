@@ -7,6 +7,8 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type PageCountFragment = {
     readonly totalCount: number;
+    readonly page: number | null;
+    readonly perPage: number | null;
     readonly " $refType": "PageCountFragment";
 };
 export type PageCountFragment$data = PageCountFragment;
@@ -29,10 +31,24 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "totalCount",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "page",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "perPage",
+      "storageKey": null
     }
   ],
   "type": "PageInfo",
   "abstractKey": null
 };
-(node as any).hash = '0d284e7ee5fca6294f2d1fcd7ee76957';
+(node as any).hash = '848440a8d336a9e2248c808bab04e43c';
 export default node;

@@ -35,7 +35,11 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
         </Styled.List>
         {slug && (
           <Styled.ButtonWrapper>
-            <NamedLink route="collection" routeParams={{ slug }} passHref>
+            <NamedLink
+              route="collection.browse"
+              routeParams={{ slug, ordering: "issues" }}
+              passHref
+            >
               <Button as="a">
                 <span className="t-capitalize">
                   {t("layouts.see_all_issues")}

@@ -29,7 +29,8 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityOrderingLayoutFactoryFragment on Entity {
+  fragment EntityOrderingLayoutFactoryFragment on Entity
+  @argumentDefinitions(page: { type: "Int" }) {
     schemaDefinition {
       identifier
     }
@@ -37,8 +38,8 @@ const fragment = graphql`
     ...IssueSidebarNavFragment
 
     ordering(identifier: $identifier) {
-      ...EntityOrderingLayoutFragment
-      ...IssueOrderingLayoutFragment
+      ...EntityOrderingLayoutFragment @arguments(page: $page)
+      ...IssueOrderingLayoutFragment @arguments(page: $page)
     }
   }
 `;

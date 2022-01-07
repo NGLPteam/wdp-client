@@ -27,7 +27,7 @@
       "page_count": "{{count}} Page",
       "page_count_plural": "{{count}} Pages",
       "of_count": "of {{count}}",
-      "showing_count_out_of_total_name": "<0>Showing</0> {{count}} <0>out of</0> {{total}} {{name}}",
+      "showing_count_out_of_total": "<0>Showing</0> {{start}} - {{end}} <0>out of</0> {{total}} {{name}}",
       "no_results": "No results"
     },
     "search": {
@@ -84,12 +84,13 @@
       "number": "Number {{number}}"
     },
     "layouts": {
-      "related_journals_header": "Related $t(schema.nglp.journal_plural)",
-      "related_articles_header": "Related $t(schema.nglp.article_plural)",
-      "see_all_journals": "See All $t(schema.nglp.journal_plural)",
-      "featured_issues_header": "Featured $t(schema.nglp.journal_issue_plural)",
-      "featured_collections_header": "Featured $t(glossary.collection_plural)",
-      "see_all_issues": "See All $t(schema.nglp.journal_issue_plural)",
+      "related_journals_header": "Related Journals",
+      "related_articles_header": "Related Articles",
+      "see_all_journals": "See All Journals",
+      "featured_issues_header": "Featured Issues",
+      "featured_collections_header": "Featured Collections",
+      "see_all_issues": "See All Issues",
+      "see_all_articles": "See All Articles",
       "issue_count": "{{count}} Issue",
       "issue_count_plural": "{{count}} Issues",
       "metadata_header": "Metadata",
