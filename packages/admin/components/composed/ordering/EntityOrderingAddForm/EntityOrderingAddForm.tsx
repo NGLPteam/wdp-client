@@ -78,6 +78,7 @@ export default function EntityOrderingAddForm({
     (data) => {
       let filter = {};
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let order: any[] = [];
 
       if (data.filter?.schemas) {

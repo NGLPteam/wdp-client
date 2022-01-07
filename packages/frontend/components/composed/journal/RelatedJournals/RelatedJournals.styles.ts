@@ -50,9 +50,7 @@ export const ItemLink = styled.a`
 `;
 
 export const ItemCover = styled.div`
-  > figure > span {
-    border: 1px solid var(--color-base-neutral20) !important;
-  }
+  display: inline-block;
 
   ${respond(`max-width: ${pxToRem(140)};`, 50)}
 `;

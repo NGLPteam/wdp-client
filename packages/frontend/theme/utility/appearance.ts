@@ -9,6 +9,7 @@ import {
   aBgNeutral80,
   aBgNeutral90,
   aButton,
+  aLink,
 } from "../mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 import { baseColors } from "theme/base/variables";
@@ -56,8 +57,7 @@ export default css`
   }
 
   .a-link {
-    text-decoration: underline;
-    cursor: pointer;
+    ${aLink}
   }
 
   .a-color {

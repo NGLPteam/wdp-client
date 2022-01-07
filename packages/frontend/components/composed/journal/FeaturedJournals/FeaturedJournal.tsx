@@ -37,10 +37,12 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
         passHref
       >
         <Styled.ItemText as="a">
-          <Styled.ItemTitle>{journal.title}</Styled.ItemTitle>
+          <Styled.ItemTitle>
+            <Styled.ItemLinkText>{journal.title}</Styled.ItemLinkText>
+          </Styled.ItemTitle>
           {journal.subtitle && (
             <Styled.ItemSubtitle className="t-copy">
-              {journal.subtitle}
+              <Styled.ItemLinkText>{journal.subtitle}</Styled.ItemLinkText>
             </Styled.ItemSubtitle>
           )}
           <Styled.ItemData className="t-copy-sm a-color-lighter">

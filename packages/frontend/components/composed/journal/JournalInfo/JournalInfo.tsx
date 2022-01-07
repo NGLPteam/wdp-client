@@ -1,18 +1,17 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import { useTranslation } from "react-i18next";
 import CurrentIssue from "../CurrentIssue";
 import * as Styled from "./JournalInfo.styles";
 import { JournalInfoFragment$key } from "@/relay/JournalInfoFragment.graphql";
-import { ArrowLink } from "components/atomic";
+import { ReadMoreLink } from "components/atomic";
 import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 
 export default function JournalInfo({ data }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const journal = useMaybeFragment(fragment, data);
+
   const announcements = [1, 2];
-  const { t } = useTranslation();
 
   return (
     <>
@@ -65,9 +64,7 @@ export default function JournalInfo({ data }: Props) {
                       Viverra est ornare porta justo sapien.
                     </p>
                   </Styled.AnnouncementBody>
-                  <ArrowLink className="t-label-mix">
-                    {t("common.read_more")}
-                  </ArrowLink>
+                  <ReadMoreLink className="t-label-mix" />
                 </Styled.AnnouncementItem>
               ))}
             </ul>

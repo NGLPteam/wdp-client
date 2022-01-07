@@ -136,3 +136,36 @@ export function aFocus(content?: CssContent) {
     }
   `;
 }
+
+export const aLinkHoverFocus = `
+  color: var(--color-base);
+  text-shadow: 0.04em 0.1em var(--background-color),
+    -0.04em 0.1em var(--background-color);
+  box-shadow: 0 0.07em 0 0 var(--color-light);
+`;
+
+export const aLinkBase = `
+  cursor: pointer;
+  transition: ${transition.color}, box-shadow 0.17s ease-in,
+    text-shadow 0.17s ease-in;
+
+  &[aria-current] {
+    font-weight: var(--font-weight-medium);
+  }
+`;
+
+export const aLink = `
+  ${aLinkBase}
+
+  &:hover {
+    ${aLinkHoverFocus}
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    ${aLinkHoverFocus}
+  }
+`;

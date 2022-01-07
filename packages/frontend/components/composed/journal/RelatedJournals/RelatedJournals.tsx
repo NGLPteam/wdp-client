@@ -40,13 +40,15 @@ export default function RelatedJournals({ data }: Props) {
           {entities.edges.slice(0, 4).map(({ node }: Node) =>
             node.target.__typename !== "%other" && node.target.slug ? (
               <li key={node.target.slug}>
-                <NamedLink
-                  route={getRouteByEntityType(node.target.__typename) || "home"}
-                  routeParams={{ slug: node.target.slug }}
-                  passHref
-                >
-                  <Styled.ItemLink>
-                    <Styled.ItemCover>
+                <Styled.ItemCover>
+                  <NamedLink
+                    route={
+                      getRouteByEntityType(node.target.__typename) || "home"
+                    }
+                    routeParams={{ slug: node.target.slug }}
+                    passHref
+                  >
+                    <a>
                       <CoverImage
                         title={node.target.title}
                         id={node.target.id}
@@ -55,32 +57,42 @@ export default function RelatedJournals({ data }: Props) {
                         maxHeight={280}
                         usePlaceholder
                       />
-                    </Styled.ItemCover>
-                    <Styled.ItemText>
-                      <h4>{node.target.title}</h4>
-                      <div className="t-copy-sm a-color-lighter">
-                        {node.target.currentIssue?.volume?.title && (
-                          <p>{node.target.currentIssue.volume.title}</p>
-                        )}
-                        {node.target.currentIssue?.number?.content && (
-                          <p>
-                            {t("metadata.number", {
-                              number: node.target.currentIssue.number.content,
-                            })}
-                          </p>
-                        )}
-                        {node.target.published && (
-                          <p>
-                            <PrecisionDate
-                              data={node.target.published}
-                              label="common.published"
-                            />
-                          </p>
-                        )}
-                      </div>
-                    </Styled.ItemText>
-                  </Styled.ItemLink>
-                </NamedLink>
+                    </a>
+                  </NamedLink>
+                </Styled.ItemCover>
+                <Styled.ItemText>
+                  <h4>
+                    <NamedLink
+                      route={
+                        getRouteByEntityType(node.target.__typename) || "home"
+                      }
+                      routeParams={{ slug: node.target.slug }}
+                      passHref
+                    >
+                      <a>{node.target.title}</a>
+                    </NamedLink>
+                  </h4>
+                  <div className="t-copy-sm a-color-lighter">
+                    {node.target.currentIssue?.volume?.title && (
+                      <p>{node.target.currentIssue.volume.title}</p>
+                    )}
+                    {node.target.currentIssue?.number?.content && (
+                      <p>
+                        {t("metadata.number", {
+                          number: node.target.currentIssue.number.content,
+                        })}
+                      </p>
+                    )}
+                    {node.target.published && (
+                      <p>
+                        <PrecisionDate
+                          data={node.target.published}
+                          label="common.published"
+                        />
+                      </p>
+                    )}
+                  </div>
+                </Styled.ItemText>
               </li>
             ) : null
           )}

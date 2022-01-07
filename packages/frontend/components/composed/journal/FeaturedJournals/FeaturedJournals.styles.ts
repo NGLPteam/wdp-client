@@ -1,7 +1,14 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
-import { respond, fluidScale, tLineClamp } from "theme/mixins";
+import {
+  respond,
+  fluidScale,
+  tLineClamp,
+  aLinkHoverFocus,
+  aLinkBase,
+  aFocusReset,
+} from "theme/mixins";
 
 const DESKTOP_BREAK = 100;
 
@@ -89,6 +96,10 @@ export const CoverLink = styled.a`
   }
 `;
 
+export const ItemLinkText = styled.span`
+  ${aLinkBase}
+`;
+
 export const ItemText = styled.div`
   display: flex;
   flex-direction: column;
@@ -100,11 +111,20 @@ export const ItemText = styled.div`
   padding-block-end: ${fluidScale("80px", "60px")};
   text-align: center;
   height: 100%;
+
+  ${aFocusReset}
+
+  &:hover,
+  &:focus-visible {
+    ${ItemLinkText} {
+      ${aLinkHoverFocus}
+    }
+  }
 `;
 
 export const ItemTitle = styled.h4`
-  margin-block-end: var(--padding-sm);
   ${tLineClamp(2)}
+  padding-block-end: 1px;
 `;
 
 export const ItemSubtitle = styled.div`

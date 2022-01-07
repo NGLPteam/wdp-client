@@ -2,6 +2,7 @@
 // --------------------
 import { css } from "styled-components";
 import { tHeading } from "../mixins/typography";
+import { aLink } from "theme/mixins";
 
 export default css`
   body {
@@ -47,5 +48,9 @@ export default css`
 
   h6 {
     ${tHeading(6)}
+  }
+
+  a:not([class]) {
+    ${aLink}
   }
 `;

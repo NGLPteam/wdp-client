@@ -2,20 +2,21 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./EntityNavList.styles";
-import { Dropdown, Button, NamedLink } from "components/atomic";
+import { Dropdown, NamedLink, NavMenuLink, Button } from "components/atomic";
 import { EntityNavListFragment$key } from "@/relay/EntityNavListFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 
 export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
   const slug = useRouteSlug();
+  const pageSlug = useRoutePageSlug();
   const entity = useMaybeFragment(fragment, data);
 
   function getDisclosure(label: string) {
     return (
-      <Button size="sm" secondary icon="chevronDown">
+      <Button size="sm" icon="chevronDown" secondary>
         {t(label)}
       </Button>
     );
@@ -34,9 +35,7 @@ export default function EntityNavList({ data }: Props) {
               routeParams={{ slug, ordering: node.identifier }}
               passHref
             >
-              <a className="t-capitalize" href="#">
-                {node.name}
-              </a>
+              <a href="#">{node.name}</a>
             </NamedLink>
           ) : null
         )
@@ -45,7 +44,7 @@ export default function EntityNavList({ data }: Props) {
   return (
     <Styled.NavList>
       {dropdownLinks.length > 1 && (
-        <li>
+        <li className="t-capitalize">
           <Dropdown
             label={t("nav.browse")}
             disclosure={getDisclosure("nav.browse")}
@@ -53,7 +52,9 @@ export default function EntityNavList({ data }: Props) {
           />
         </li>
       )}
-      {dropdownLinks.length === 1 && <li>{dropdownLinks[0]}</li>}
+      {dropdownLinks.length === 1 && (
+        <li className="t-capitalize">{dropdownLinks[0]}</li>
+      )}
       {slug &&
         entity?.pages?.edges &&
         entity.pages.edges.map(({ node }) => (
@@ -63,9 +64,12 @@ export default function EntityNavList({ data }: Props) {
               routeParams={{ slug, page: node.slug }}
               passHref
             >
-              <Styled.NavButton as="a" href="#">
+              <NavMenuLink
+                as="a"
+                aria-current={pageSlug === node.slug ? "page" : undefined}
+              >
                 <span className="t-label-sm">{node.title}</span>
-              </Styled.NavButton>
+              </NavMenuLink>
             </NamedLink>
           </li>
         ))}

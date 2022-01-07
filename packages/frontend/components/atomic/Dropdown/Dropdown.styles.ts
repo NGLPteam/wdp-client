@@ -20,11 +20,6 @@ export const Item = styled.li`
   white-space: nowrap;
   ${tCopySmall}
 
-  > * {
-    /* Set children to block for a larger click area */
-    display: block;
-  }
-
   & + & {
     margin-block-start: var(--padding-rg);
   }

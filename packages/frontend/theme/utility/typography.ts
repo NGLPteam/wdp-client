@@ -2,6 +2,7 @@
 // --------------------
 import { css } from "styled-components";
 import { tCopy, tCopySmall, tLabel, tHeading } from "../mixins/typography";
+import { aLink } from "theme/mixins";
 
 export default css`
   /* Headings - only add if needed */
@@ -60,7 +61,8 @@ export default css`
   /* Rich Text */
   .t-rte {
     a {
-      text-decoration: underline;
+      ${aLink}
+      box-shadow: 0 0.07em 0 0 var(--color-light);
     }
 
     > * + * {

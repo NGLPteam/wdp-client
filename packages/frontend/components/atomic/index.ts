@@ -1,4 +1,3 @@
-export { default as ArrowLink } from "./ArrowLink";
 export { default as ArrowList } from "./ArrowList";
 export { default as Avatar } from "./Avatar";
 export { default as Breadcrumbs } from "./Breadcrumbs";
@@ -9,10 +8,9 @@ export { default as CoverImage } from "./CoverImage";
 export { default as DotList } from "./DotList";
 export { default as DownloadLink } from "./DownloadLink";
 export { default as Dropdown } from "./Dropdown";
-export { default as ExternalLink } from "./ExternalLink";
 export { default as FileThumbnail } from "./FileThumbnail";
 export { default as HeroImage } from "./HeroImage";
-export { default as NamedLink } from "./NamedLink";
+export * from "./links";
 export { default as PageCount } from "./PageCount";
 export { default as Pagination } from "./Pagination";
 export { default as PrecisionDate } from "./PrecisionDate";
