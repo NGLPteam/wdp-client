@@ -106,7 +106,8 @@ type Props = {
   data?: CurrentIssueFragment$key | null;
 };
 
-type ArticleNode = CurrentIssueFragment$data["ordering"]["children"]["edges"][number];
+type ArticleNode =
+  CurrentIssueFragment$data["ordering"]["children"]["edges"][number];
 
 const fragment = graphql`
   fragment CurrentIssueFragment on Collection {

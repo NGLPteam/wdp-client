@@ -10,7 +10,6 @@ import JournalInfo from "components/composed/journal/JournalInfo";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import IssueContent from "components/composed/issue/IssueContent";
-import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 
 export default function EntityContentLayoutFactory({ data, children }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -28,9 +27,7 @@ export default function EntityContentLayoutFactory({ data, children }: Props) {
     case "journal_issue":
       return (
         <IssueLayout data={entity}>
-          <IssueSidebarNav data={entity}>
-            <IssueContent data={entity} />
-          </IssueSidebarNav>
+          <IssueContent data={entity} />
         </IssueLayout>
       );
 
@@ -56,7 +53,8 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityContentLayoutFactoryFragment on AnyEntity {
+  fragment EntityContentLayoutFactoryFragment on AnyEntity
+  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
     ... on Collection {
       schemaDefinition {
         identifier
@@ -66,8 +64,7 @@ const fragment = graphql`
       ...JournalLayoutFragment
       ...JournalInfoFragment
       ...IssueLayoutFragment
-      ...IssueSidebarNavFragment
-      ...IssueContentFragment
+      ...IssueContentFragment @arguments(page: $page)
     }
     ... on Item {
       schemaDefinition {

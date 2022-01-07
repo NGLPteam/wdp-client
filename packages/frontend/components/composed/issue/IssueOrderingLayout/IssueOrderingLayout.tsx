@@ -20,7 +20,7 @@ export default function IssueOrderingLayout({ data }: Props) {
       <header className="a-hidden">
         <h3>{content.header || content.name}</h3>
       </header>
-      {content.children.edges.length > 0 ? (
+      {content.children?.edges && content.children.edges.length > 0 ? (
         <Styled.List>
           {content.children.edges.map(({ node }: Node, i: number) =>
             node.entry ? (
@@ -33,9 +33,11 @@ export default function IssueOrderingLayout({ data }: Props) {
       ) : (
         t("common.no_results")
       )}
-      <Styled.Footer>
-        <Pagination data={content.children.pageInfo} />
-      </Styled.Footer>
+      {content.children?.pageInfo && (
+        <Styled.Footer>
+          <Pagination data={content.children.pageInfo} />
+        </Styled.Footer>
+      )}
     </>
   ) : null;
 }
@@ -48,7 +50,7 @@ type Node = IssueOrderingLayoutFragment$data["children"]["edges"][number];
 
 const fragment = graphql`
   fragment IssueOrderingLayoutFragment on Ordering
-  @argumentDefinitions(page: { type: "Int" }) {
+  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
     name
     header
     children(page: $page) {

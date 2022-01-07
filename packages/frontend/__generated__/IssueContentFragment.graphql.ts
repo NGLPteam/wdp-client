@@ -6,13 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type IssueContentFragment = {
-    readonly orderings: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly identifier: string;
-            };
-        }>;
-    };
+    readonly ordering: {
+        readonly " $fragmentRefs": FragmentRefs<"IssueOrderingLayoutFragment">;
+    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment">;
     readonly " $refType": "IssueContentFragment";
 };
 export type IssueContentFragment$data = IssueContentFragment;
@@ -24,54 +21,53 @@ export type IssueContentFragment$key = {
 
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "defaultValue": 1,
+      "kind": "LocalArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "IssueContentFragment",
   "selections": [
     {
       "alias": null,
-      "args": null,
-      "concreteType": "OrderingConnection",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "identifier",
+          "value": "articles"
+        }
+      ],
+      "concreteType": "Ordering",
       "kind": "LinkedField",
-      "name": "orderings",
+      "name": "ordering",
       "plural": false,
       "selections": [
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "OrderingEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
+          "args": [
             {
-              "alias": null,
-              "args": null,
-              "concreteType": "Ordering",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "Variable",
+              "name": "page",
+              "variableName": "page"
             }
           ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "IssueOrderingLayoutFragment"
         }
       ],
-      "storageKey": null
+      "storageKey": "ordering(identifier:\"articles\")"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "IssueSidebarNavFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'dc1160340939b912f7a329ec3e1c80f1';
+(node as any).hash = '4ebef4dbeae41fc89b6ef1c820108a8d';
 export default node;

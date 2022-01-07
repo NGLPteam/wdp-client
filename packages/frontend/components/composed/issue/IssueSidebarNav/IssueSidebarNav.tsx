@@ -39,7 +39,7 @@ export default function IssueSidebarNav({ data, children }: Props) {
             <EntityOrderSelect
               data={content?.orderings}
               onChange={handleOrderChange}
-              defaultValue={order}
+              defaultValue={order || "articles"}
             />
             <IssueSidebarNavList data={content} />
           </Styled.RightSide>

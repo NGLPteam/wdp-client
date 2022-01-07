@@ -4,12 +4,12 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Trans } from "react-i18next";
 import { PageCountFragment$key } from "@/relay/PageCountFragment.graphql";
 
-export default function PageCount({ data, length, className, name }: Props) {
+export default function PageCount({ data, className, name }: Props) {
   const pageData = useMaybeFragment(fragment, data);
 
-  if (!pageData) return;
+  if (!pageData) return null;
 
-  const { totalCount, page, perPage } = pageData;
+  const { totalCount, page = 1, perPage } = pageData;
 
   const start = totalCount > 0 ? (page - 1) * perPage + 1 : 0;
   const end =
@@ -35,7 +35,6 @@ export default function PageCount({ data, length, className, name }: Props) {
 
 interface Props {
   data?: PageCountFragment$key | null;
-  length?: number;
   className?: string;
   name?: string;
 }

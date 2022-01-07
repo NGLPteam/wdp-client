@@ -22,11 +22,7 @@ export default function EntityOrderingLayout({ data }: Props) {
       <div className="l-container-wide">
         <Styled.Header>
           {ordering.name && <h3 className="t-capitalize">{ordering.name}</h3>}
-          <PageCount
-            data={pageInfo}
-            length={ordering.children?.edges?.length}
-            className="t-label-lg"
-          />
+          <PageCount data={pageInfo} className="t-label-lg" />
         </Styled.Header>
         {ordering.children.edges.length > 0 ? (
           <ul className="t-unstyled-list">
@@ -55,7 +51,7 @@ type Node = EntityOrderingLayoutFragment$data["children"]["edges"][number];
 
 const fragment = graphql`
   fragment EntityOrderingLayoutFragment on Ordering
-  @argumentDefinitions(page: { type: "Int" }) {
+  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
     name
     inheritedFromSchema
     children(page: $page) {
