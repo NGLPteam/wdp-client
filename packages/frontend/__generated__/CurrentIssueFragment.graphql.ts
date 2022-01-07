@@ -24,7 +24,7 @@ export type CurrentIssueFragment = {
     } | null;
     readonly ordering: {
         readonly identifier: string;
-        readonly articles: {
+        readonly children: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
                     readonly entry: {
@@ -178,7 +178,7 @@ return {
           "storageKey": null
         },
         {
-          "alias": "articles",
+          "alias": null,
           "args": [
             {
               "kind": "Literal",
@@ -273,5 +273,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f165071cce54bfd4a788792005448b86';
+(node as any).hash = '705453075affcfab5d50974495a3d614';
 export default node;

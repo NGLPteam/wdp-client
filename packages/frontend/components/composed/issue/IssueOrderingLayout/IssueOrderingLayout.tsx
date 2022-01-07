@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueOrderingLayout.styles";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import {
@@ -12,20 +13,26 @@ import { Pagination } from "components/atomic";
 export default function IssueOrderingLayout({ data }: Props) {
   const content = useMaybeFragment(fragment, data);
 
-  return content && content.children.edges.length > 0 ? (
+  const { t } = useTranslation();
+
+  return content ? (
     <>
       <header className="a-hidden">
         <h3>{content.header || content.name}</h3>
       </header>
-      <Styled.List>
-        {content.children.edges.map(({ node }: Node, i: number) =>
-          node.entry ? (
-            <Styled.ListItem key={i}>
-              <EntitySummaryFactory data={node.entry} />
-            </Styled.ListItem>
-          ) : null
-        )}
-      </Styled.List>
+      {content.children.edges.length > 0 ? (
+        <Styled.List>
+          {content.children.edges.map(({ node }: Node, i: number) =>
+            node.entry ? (
+              <Styled.ListItem key={i}>
+                <EntitySummaryFactory data={node.entry} />
+              </Styled.ListItem>
+            ) : null
+          )}
+        </Styled.List>
+      ) : (
+        t("common.no_results")
+      )}
       <Styled.Footer>
         <Pagination data={content.children.pageInfo} />
       </Styled.Footer>

@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from "react";
 import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import IssueContentList from "./IssueContentList";
 import { RouteHelper } from "routes";
 import { IssueContentFragment$key } from "@/relay/IssueContentFragment.graphql";
 
@@ -29,10 +28,7 @@ export default function IssueContent({ data }: Props) {
     }
   }, [firstOrder, orderingRoute, router]);
 
-  if (!content || firstOrder) return <></>;
-
-  // If no orderings are defined on this issue, return a list of items
-  return <IssueContentList data={content?.items} />;
+  return <></>;
 }
 
 interface Props {
@@ -47,9 +43,6 @@ const fragment = graphql`
           identifier
         }
       }
-    }
-    items {
-      ...IssueContentListFragment
     }
   }
 `;

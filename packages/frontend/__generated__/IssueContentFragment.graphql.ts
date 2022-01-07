@@ -13,9 +13,6 @@ export type IssueContentFragment = {
             };
         }>;
     };
-    readonly items: {
-        readonly " $fragmentRefs": FragmentRefs<"IssueContentListFragment">;
-    };
     readonly " $refType": "IssueContentFragment";
 };
 export type IssueContentFragment$data = IssueContentFragment;
@@ -71,26 +68,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemConnection",
-      "kind": "LinkedField",
-      "name": "items",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "IssueContentListFragment"
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '9e6f5f8f0d1dd181f81081271436e0e1';
+(node as any).hash = 'dc1160340939b912f7a329ec3e1c80f1';
 export default node;

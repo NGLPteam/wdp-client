@@ -19,7 +19,7 @@ import {
 export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
   const issue = useMaybeFragment(fragment, data);
-  const articles = issue?.ordering?.articles.edges;
+  const articles = issue?.ordering?.children.edges;
   const hasImage = !!issue?.thumbnail?.storage;
 
   return issue ? (
@@ -85,7 +85,7 @@ export default function CurrentIssue({ data }: Props) {
           </Styled.ArticleList>
           {issue?.ordering?.identifier &&
             issue?.slug &&
-            issue?.ordering?.articles?.pageInfo?.totalCount > 3 && (
+            issue?.ordering?.children?.pageInfo?.totalCount > 3 && (
               <Styled.Footer>
                 <NamedLink
                   route="collection"
@@ -106,7 +106,7 @@ type Props = {
   data?: CurrentIssueFragment$key | null;
 };
 
-type ArticleNode = CurrentIssueFragment$data["items"]["edges"][number];
+type ArticleNode = CurrentIssueFragment$data["ordering"]["children"]["edges"][number];
 
 const fragment = graphql`
   fragment CurrentIssueFragment on Collection {
@@ -129,7 +129,7 @@ const fragment = graphql`
     }
     ordering(identifier: "articles") {
       identifier
-      articles: children(perPage: 3) {
+      children(perPage: 3) {
         edges {
           node {
             entry {
