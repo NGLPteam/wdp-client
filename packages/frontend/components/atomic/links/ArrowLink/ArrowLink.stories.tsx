@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import ExternalLink from "./ExternalLink";
+import ArrowLink from "./ArrowLink";
 
-type Props = React.ComponentProps<typeof ExternalLink>;
+type Props = React.ComponentProps<typeof ArrowLink>;
 
 export default {
-  title: "Components/Atomic/ExternalLink",
-  component: ExternalLink,
+  title: "Components/Atomic/Links/ArrowLink",
+  component: ArrowLink,
   argTypes: {
     className: {
       options: ["t-label-sm", "t-copy", "t-copy-sm"],
@@ -20,11 +20,14 @@ const Template: Story<Props> = (args) => (
       Hint: Try changing the text style by changing the className property
     </p>
     <br />
-    <ExternalLink {...args} />
+    <ArrowLink {...args} />
+    <div style={{ width: 200, paddingTop: 16 }}>
+      <ArrowLink {...args}>Arrow link with lots of wrapping text</ArrowLink>
+    </div>
   </>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  children: "External link",
+  children: "Read More",
 };

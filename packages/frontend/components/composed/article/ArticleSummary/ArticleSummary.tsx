@@ -1,13 +1,12 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleSummary.styles";
 import {
-  ArrowLink,
   DotList,
   NamedLink,
   PrecisionDate,
+  ReadMoreLink,
   SquareThumbnail,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
@@ -15,8 +14,6 @@ import { ArticleSummaryFragment$key } from "@/relay/ArticleSummaryFragment.graph
 
 export default function ArticleSummary({ data, showReadMore }: Props) {
   const article = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return article ? (
     <Styled.Wrapper>
@@ -58,9 +55,7 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
         )}
         {article.slug && showReadMore && (
           <NamedLink route="item" routeParams={{ slug: article.slug }} passHref>
-            <ArrowLink className="t-label-sm">
-              {t("common.read_more")}
-            </ArrowLink>
+            <ReadMoreLink className="t-label-sm" />
           </NamedLink>
         )}
       </Styled.Text>

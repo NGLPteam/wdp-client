@@ -1,10 +1,9 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./EntitySummary.styles";
 import {
-  ArrowLink,
+  ReadMoreLink,
   DotList,
   NamedLink,
   PrecisionDate,
@@ -15,8 +14,6 @@ import { getRouteByEntityType } from "helpers";
 
 export default function EntitySummary({ data, showReadMore }: Props) {
   const entity = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   const route = getRouteByEntityType(entity?.__typename);
 
@@ -55,9 +52,7 @@ export default function EntitySummary({ data, showReadMore }: Props) {
         )}
         {entity.slug && route && showReadMore && (
           <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-            <ArrowLink className="t-label-sm">
-              {t("common.read_more")}
-            </ArrowLink>
+            <ReadMoreLink className="t-label-sm" />
           </NamedLink>
         )}
       </Styled.Text>

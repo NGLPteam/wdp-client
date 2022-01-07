@@ -11,7 +11,7 @@ const Dropdown = ({ disclosure, menuItems, label }: Props) => {
   return (
     <BaseDropdown label={label} disclosure={disclosure}>
       {({ onClick }) => (
-        <Styled.DropdownWrapper onClick={onClick}>
+        <Styled.DropdownWrapper onClick={onClick} className="a-bg-neutral00">
           <Styled.List>
             {menuItems.map((item, i) => {
               if (item === null) return null;

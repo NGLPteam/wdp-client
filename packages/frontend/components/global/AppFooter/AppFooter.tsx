@@ -24,9 +24,9 @@ function AppFooter({ data, nameComponent, background = "custom10" }: Props) {
     const routeLabel = label || routeObj?.label;
 
     return routeObj && routeLabel ? (
-      <Styled.NavListItem key={route}>
+      <Styled.NavListItem key={route} className="t-copy-sm t-copy-light">
         <Link href={routeObj.path} passHref>
-          <a className="t-copy-sm t-copy-light">{startCase(t(routeLabel))}</a>
+          <a>{startCase(t(routeLabel))}</a>
         </Link>
       </Styled.NavListItem>
     ) : null;

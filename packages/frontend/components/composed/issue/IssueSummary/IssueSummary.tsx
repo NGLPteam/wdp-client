@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import * as Styled from "./IssueSummary.styles";
-import { ArrowLink, PrecisionDate, NamedLink } from "components/atomic";
+import { ReadMoreLink, PrecisionDate, NamedLink } from "components/atomic";
 import CoverImage from "components/atomic/CoverImage";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 
@@ -92,9 +92,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
             routeParams={{ slug: issue.slug }}
             passHref
           >
-            <Styled.ItemReadMore as={ArrowLink}>
-              {t("common.read_more")}
-            </Styled.ItemReadMore>
+            <Styled.ItemReadMore as={ReadMoreLink} />
           </NamedLink>
         )}
       </div>

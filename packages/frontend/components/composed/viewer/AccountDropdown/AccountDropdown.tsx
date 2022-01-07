@@ -30,7 +30,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           }
           label={t("nav.account")}
           menuItems={[
-            <button key={1} onClick={handleSignInOut}>
+            <button className="a-link" key={1} onClick={handleSignInOut}>
               {t("common.sign_out")}
             </button>,
           ]}

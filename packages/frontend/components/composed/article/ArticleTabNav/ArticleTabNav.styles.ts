@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { tLabel } from "theme/mixins";
+import { boxShadow, transition } from "theme/base/variables";
+import { aFocusReset, tLabel } from "theme/mixins";
 
 export const List = styled.ul`
   border-bottom: 1px solid var(--border-color);
@@ -18,10 +19,23 @@ export const TabLink = styled.a`
   padding-block-end: var(--padding-sm);
   border-bottom: 2px solid transparent;
   color: var(--color-light);
+  transition: ${transition.border};
   ${tLabel("sm")}
 
-  &[aria-current] {
-    border-bottom-color: var(--color-base-neutral90);
+  ${aFocusReset}
+
+  &[aria-current],
+  &:focus-visible {
+    border-bottom-color: var(--color-base);
     color: var(--color-base);
+  }
+
+  &:focus-visible {
+    text-shadow: ${boxShadow.focusShadow};
+  }
+
+  &:hover {
+    color: var(--color-lighter);
+    border-bottom-color: var(--color-lighter);
   }
 `;
