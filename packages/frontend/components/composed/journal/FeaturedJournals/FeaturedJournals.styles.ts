@@ -90,6 +90,7 @@ export const ItemCover = styled.div`
 
 export const CoverLink = styled.a`
   display: inline-block;
+  ${aFocusReset}
 
   svg {
     width: 100%;

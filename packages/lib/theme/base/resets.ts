@@ -99,6 +99,10 @@ export default css`
     background: transparent;
     border: 0;
     appearance: none;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   /* Remove link styling */
@@ -106,6 +110,10 @@ export default css`
     color: inherit;
     text-decoration: none;
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   /* Remove table styling */
