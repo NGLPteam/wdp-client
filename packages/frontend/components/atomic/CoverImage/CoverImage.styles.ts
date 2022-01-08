@@ -27,7 +27,7 @@ export const Figure = styled.figure`
     box-shadow: 0px 0px 0px 1px var(--border-color-focus), ${boxShadow.popUp};
   }
 
-  a:focus-visible {
+  a:focus-visible & {
     box-shadow: 0px 0px 0px 1px var(--border-color-focus),
       ${boxShadow.focusGlow};
   }

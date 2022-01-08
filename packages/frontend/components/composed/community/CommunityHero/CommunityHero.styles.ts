@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
 import { tHeading } from "theme/mixins/typography";
+import { aFocusReset } from "theme/mixins";
+import { transition } from "theme/base/variables";
 
 export const HeroInner = styled.div`
   padding-block-start: var(--container-padding-lg);
@@ -38,11 +40,18 @@ export const SearchInput = styled.input`
   padding-inline-start: ${pxToRem(12)};
   padding-inline-end: ${pxToRem(12)};
   border-bottom: 3px solid var(--color-base-neutral20);
+  transition: ${transition.border};
 
   &::-webkit-search-cancel-button {
     width: ${pxToRem(32)};
     height: ${pxToRem(32)};
     margin-block-start: ${pxToRem(2)};
+  }
+
+  ${aFocusReset}
+
+  &:focus-visible {
+    border-bottom: 3px solid var(--color-base-neutral60);
   }
 `;
 
