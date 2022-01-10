@@ -12,6 +12,9 @@ export type ArticleTextFragment = {
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
     readonly bodyText: {
+        readonly fullText?: {
+            readonly content: string | null;
+        } | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
     } | null;
     readonly " $refType": "ArticleTextFragment";
@@ -68,6 +71,31 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "FullText",
+              "kind": "LinkedField",
+              "name": "fullText",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "content",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "FullTextProperty",
+          "abstractKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "FullTextPropertyFragment"
@@ -79,5 +107,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '640387fb8a41dd01acfa1283a2af92b4';
+(node as any).hash = '1ffb1b8c33fd200b3cd1fdad28c8896e';
 export default node;

@@ -86,6 +86,11 @@ const fragment = graphql`
       ...ContentImageFragment
     }
     bodyText: schemaProperty(fullPath: "body") {
+      ... on FullTextProperty {
+        fullText {
+          content
+        }
+      }
       ...FullTextPropertyFragment
     }
   }
