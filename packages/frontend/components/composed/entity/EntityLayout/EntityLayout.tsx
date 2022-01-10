@@ -7,7 +7,7 @@ import { EntityLayoutFragment$key } from "@/relay/EntityLayoutFragment.graphql";
 import { BreadcrumbsBar } from "components/layout";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 
-export default function EntityLayout({ data }: Props) {
+export default function EntityLayout({ data, children }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   return (
@@ -16,6 +16,7 @@ export default function EntityLayout({ data }: Props) {
       <BreadcrumbsBar data={entity} />
       <EntityHero data={entity} />
       <EntityNavBar data={entity} />
+      {children}
     </>
   );
 }

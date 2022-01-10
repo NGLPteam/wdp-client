@@ -34,11 +34,12 @@ var v0 = [
 return {
   "argumentDefinitions": [
     {
-      "kind": "RootArgument",
+      "defaultValue": "items",
+      "kind": "LocalArgument",
       "name": "identifier"
     },
     {
-      "defaultValue": null,
+      "defaultValue": 1,
       "kind": "LocalArgument",
       "name": "page"
     }
@@ -102,5 +103,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '0055fd3633fca04ffe48a7dc1d15a9f6';
+(node as any).hash = 'ef22adfca7a16b0484dc92c0f52755cc';
 export default node;
