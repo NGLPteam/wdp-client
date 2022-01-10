@@ -3,32 +3,22 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
-import IssueLayout from "components/composed/issue/IssueLayout";
 import ArticleLayout from "components/composed/article/ArticleLayout";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import JournalInfo from "components/composed/journal/JournalInfo";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
-import IssueContent from "components/composed/issue/IssueContent";
+import EntityContent from "components/composed/entity/EntityContent";
 
-export default function EntityContentLayoutFactory({ data, children }: Props) {
+export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
-  if (!entity) return null;
-
-  switch (entity.schemaDefinition?.identifier) {
+  switch (entity?.schemaDefinition?.identifier) {
     case "journal":
       return (
         <JournalLayout data={entity}>
           <JournalInfo data={entity} />
         </JournalLayout>
-      );
-
-    case "journal_issue":
-      return (
-        <IssueLayout data={entity}>
-          <IssueContent data={entity} />
-        </IssueLayout>
       );
 
     case "article":
@@ -43,13 +33,16 @@ export default function EntityContentLayoutFactory({ data, children }: Props) {
       );
 
     default:
-      return <EntityLayout data={entity}>{children}</EntityLayout>;
+      return (
+        <EntityLayout data={entity}>
+          <EntityContent data={entity} />
+        </EntityLayout>
+      );
   }
 }
 
 interface Props {
   data?: EntityContentLayoutFactoryFragment$key | null;
-  children?: React.ReactNode;
 }
 
 const fragment = graphql`
@@ -61,10 +54,10 @@ const fragment = graphql`
       }
 
       ...EntityLayoutFragment
+      ...EntityContentFragment
       ...JournalLayoutFragment
       ...JournalInfoFragment
       ...IssueLayoutFragment
-      ...IssueContentFragment @arguments(page: $page)
     }
     ... on Item {
       schemaDefinition {

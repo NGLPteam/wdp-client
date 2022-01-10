@@ -30,7 +30,10 @@ interface Props {
 
 const fragment = graphql`
   fragment EntityOrderingLayoutFactoryFragment on Entity
-  @argumentDefinitions(page: { type: "Int" }) {
+  @argumentDefinitions(
+    page: { type: "Int", defaultValue: 1 }
+    identifier: { type: "String!", defaultValue: "items" }
+  ) {
     schemaDefinition {
       identifier
     }
