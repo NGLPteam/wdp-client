@@ -180,6 +180,9 @@ type AnyAssetEdge {
 """Something that can be attached to"""
 union AnyAttachable = Collection | Community | Item
 
+"""Any entity that can have a parent."""
+union AnyChildEntity = Collection | Item
+
 union AnyCollectionAccessGrant = UserCollectionAccessGrant | UserGroupCollectionAccessGrant
 
 """The connection type for AnyCollectionAccessGrant."""
@@ -252,8 +255,33 @@ union AnyLinkTarget = Collection | Item
 """The various types an OrderingEntry can refer to"""
 union AnyOrderingEntry = Collection | Community | EntityLink | Item
 
+"""
+All types in this union implement OrderingPath.
+
+"""
+union AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath
+
+"""
+`AnyScalarProperty` represents a collection of known *scalar* properties. In effect,
+it includes every possible schema property type except for groups (`GroupProperty`).
+
+This union is intended to iterate the properties within a group. To iterate over the
+properties in a `SchemaInstance`, you should use `AnySchemaPropertyType` to ensure that
+you are also seeing groups.
+
+Any object contained within this union is guaranteed to implement `ScalarProperty`
+as well as `SchemaProperty`.
+
+"""
 union AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
 
+"""
+`AnySchemaProperty` represents the top level of a schema instance's properties. It can include any scalar property, as
+well as any `GroupProperty` that the instance might have. To query only scalar properties, see `AnyScalarProperty`.
+
+All properties contained in this union are guaranteed to implement `SchemaProperty`.
+
+"""
 union AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
 
 """
@@ -446,14 +474,88 @@ type AssetPDF implements Asset & Node & Sluggable {
   updatedAt: ISO8601DateTime!
 }
 
-type AssetProperty implements ScalarProperty {
+type AssetProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   asset: AnyAsset
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """A select option for a single asset"""
@@ -499,14 +601,88 @@ type AssetVideo implements Asset & Node & Sluggable {
   updatedAt: ISO8601DateTime!
 }
 
-type AssetsProperty implements ScalarProperty {
+type AssetsProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   assets: [AnyAsset!]!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """A model that has attached assets"""
@@ -552,19 +728,209 @@ enum AttachmentStorage {
   REMOTE
 }
 
-type BooleanProperty implements ScalarProperty {
+type BooleanProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   checked: Boolean
   checkedByDefault: Boolean
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
+}
+
+"""
+An interface for entities that can contain actual content, as well as any number of themselves
+in a tree structure.
+
+In practice, this means a `Collection` or an `Item`, not a `Community`.
+
+"""
+interface ChildEntity {
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDate!
+  """
+  Directly fetch a defined named ancestor by its name. It can be null,
+  either because an invalid name was provided, the schema hierarchy is
+  incomplete, or the association itself is optional.
+  
+  """
+  ancestorByName(
+    """The name of the ancestor to fetch"""
+    name: String!
+  ): AnyEntity
+  """
+  Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
+  so it will first check the parent, then the grandparent, and so on.
+  
+  """
+  ancestorOfType(
+    """A fully-qualified name of a schema to look for."""
+    schema: String!
+  ): AnyEntity
+  """The date this entity was made available"""
+  available: VariablePrecisionDate!
+  """The date this entity was added to the WDP"""
+  createdAt: ISO8601DateTime!
+  """
+  Whether the entity is _currently_ hidden, based on the server's time zone.
+  
+  """
+  currentlyHidden: Boolean!
+  """
+  Whether the entity is _currently_ visible, based on the server's time zone.
+  
+  """
+  currentlyVisible: Boolean!
+  """
+  The Digital Object Identifier for this entity. See https://doi.org
+  
+  """
+  doi: String
+  """
+  Whether the entity's visibility is set to `HIDDEN`
+  
+  """
+  hidden: Boolean!
+  """
+  Specify a time to check to see if the entity will be hidden.
+  
+  """
+  hiddenAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
+  """If present, this is the timestamp the entity was hidden at"""
+  hiddenAt: ISO8601DateTime
+  """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
+  identifier: String!
+  """
+  The International Standard Serial Number for this entity. See https://issn.org
+  
+  """
+  issn: String
+  """The date this entity was issued"""
+  issued: VariablePrecisionDate!
+  leaf: Boolean!
+  """
+  Fetch a list of named ancestors for this entity. This list is deterministically sorted
+  to retrieve the "closest" ancestors first, ascending upwards in the hierarchy from there.
+  
+  **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
+  because in practice a schema should not have many associations.
+  
+  """
+  namedAncestors: [NamedAncestor!]!
+  """The date this entity was published"""
+  published: VariablePrecisionDate!
+  root: Boolean!
+  """A description of the contents of the entity"""
+  summary: String
+  """The date this entity was last updated within the WDP"""
+  updatedAt: ISO8601DateTime!
+  """If an entity is available in the frontend"""
+  visibility: EntityVisibility!
+  """
+  Whether the entity's visibility is set to `VISIBLE`.
+  
+  """
+  visible: Boolean!
+  """If present, this is the timestamp an entity is visible after"""
+  visibleAfterAt: ISO8601DateTime
+  """
+  Specify a time to check to see if the entity will be visible.
+  
+  """
+  visibleAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
+  """If present, this is the timestamp an entity is visible until"""
+  visibleUntilAt: ISO8601DateTime
 }
 
 """A collection of items"""
-type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Collection implements Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -608,6 +974,16 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """
+  Directly fetch a defined named ancestor by its name. It can be null,
+  either because an invalid name was provided, the schema hierarchy is
+  incomplete, or the association itself is optional.
+  
+  """
+  ancestorByName(
+    """The name of the ancestor to fetch"""
+    name: String!
+  ): AnyEntity
   """
   Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
   so it will first check the parent, then the grandparent, and so on.
@@ -732,6 +1108,16 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """
+  Whether the entity is _currently_ hidden, based on the server's time zone.
+  
+  """
+  currentlyHidden: Boolean!
+  """
+  Whether the entity is _currently_ visible, based on the server's time zone.
+  
+  """
+  currentlyVisible: Boolean!
+  """
   The Digital Object Identifier for this entity. See https://doi.org
   
   """
@@ -760,7 +1146,22 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
   heroImageMetadata: ImageMetadata
+  """
+  Whether the entity's visibility is set to `HIDDEN`
+  
+  """
   hidden: Boolean!
+  """
+  Specify a time to check to see if the entity will be hidden.
+  
+  """
+  hiddenAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
   """The depth of the hierarchical entity, taking into account any parent types"""
@@ -833,10 +1234,27 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): EntityLinkConnection!
+  """
+  Fetch a list of named ancestors for this entity. This list is deterministically sorted
+  to retrieve the "closest" ancestors first, ascending upwards in the hierarchy from there.
+  
+  **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
+  because in practice a schema should not have many associations.
+  
+  """
+  namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
-    order: SimpleOrder = RECENT
+    order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -875,7 +1293,6 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
-  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
   """Retrieve linked collections of the same schema type"""
   relatedCollections(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -961,9 +1378,24 @@ type Collection implements Accessible & Entity & HierarchicalEntry & HasDOI & Ha
   ): UserGroupCollectionAccessGrantConnection!
   """If an entity is available in the frontend"""
   visibility: EntityVisibility!
+  """
+  Whether the entity's visibility is set to `VISIBLE`.
+  
+  """
   visible: Boolean!
   """If present, this is the timestamp an entity is visible after"""
   visibleAfterAt: ISO8601DateTime
+  """
+  Specify a time to check to see if the entity will be visible.
+  
+  """
+  visibleAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
 }
@@ -1197,8 +1629,16 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   name: String! @deprecated(reason: "Use Community.title")
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
-    order: SimpleOrder = RECENT
+    order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1542,14 +1982,88 @@ enum ContributorOrder {
   AFFILIATION_DESCENDING
 }
 
-type ContributorProperty implements ScalarProperty {
+type ContributorProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   contributor: AnyContributor
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """A select option for a single contributor"""
@@ -1559,14 +2073,88 @@ type ContributorSelectOption {
   value: String!
 }
 
-type ContributorsProperty implements ScalarProperty {
+type ContributorsProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   contributors: [AnyContributor!]!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """Autogenerated input type of CreateAsset"""
@@ -1634,10 +2222,16 @@ input CreateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -1742,10 +2336,16 @@ input CreateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -1791,6 +2391,7 @@ input CreateOrderingInput {
   filter: OrderingFilterDefinitionInput
   select: OrderingSelectDefinitionInput
   order: [OrderDefinitionInput!]!
+  render: OrderingRenderDefinitionInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -1949,20 +2550,94 @@ enum DatePrecision {
   DAY
 }
 
-type DateProperty implements ScalarProperty {
+type DateProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   date: ISO8601Date
   default: ISO8601Date
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """
-An interface used to describe a schema definition, whether for a discrete
-type or in some aggregate.
+The most basic shared properties for a single schema, whether a definition,
+a version, or an aggregate based on the former types.
 
 """
 interface DescribesSchema {
@@ -2198,15 +2873,89 @@ enum Direction {
   DESCENDING
 }
 
-type EmailProperty implements ScalarProperty {
+type EmailProperty implements SchemaProperty & ScalarProperty {
   address: String
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   defaultAddress: String
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """An entity that exists in the hierarchy."""
@@ -2300,8 +3049,16 @@ interface Entity {
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
-    order: SimpleOrder = RECENT
+    order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2471,15 +3228,89 @@ interface ExposesPermissions {
   permissions: [PermissionGrant!]!
 }
 
-type FloatProperty implements ScalarProperty {
+type FloatProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   defaultFloat: Float
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
   floatValue: Float
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """A full-text searchable value for an entity"""
@@ -2499,14 +3330,88 @@ enum FullTextKind {
   TEXT
 }
 
-type FullTextProperty implements ScalarProperty {
+type FullTextProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
   fullText: FullText
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """The global configuration for this installation of WDP."""
@@ -2542,12 +3447,61 @@ type GrantAccessPayload implements StandardMutationPayload {
 }
 
 type GroupProperty implements SchemaProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
   legend: String
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
   properties: [AnyScalarProperty!]!
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """Something which implements a #storage key that identifies where its attachment currently lives."""
@@ -2569,6 +3523,17 @@ interface HasDOI {
   doi: String
 }
 
+"""
+Automatically-set timestamps present on most real models in the system.
+
+"""
+interface HasDefaultTimestamps {
+  """The date this entity was added to the WDP"""
+  createdAt: ISO8601DateTime!
+  """The date this entity was last updated within the WDP"""
+  updatedAt: ISO8601DateTime!
+}
+
 """An entity that has an ISSN"""
 interface HasISSN {
   """
@@ -2581,58 +3546,6 @@ interface HasISSN {
 interface HasSchemaProperties {
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
-}
-
-"""A hierarchical entity, like a collection or an item."""
-interface HierarchicalEntry {
-  """The date this entity was added to its parent"""
-  accessioned: VariablePrecisionDate!
-  """
-  Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
-  so it will first check the parent, then the grandparent, and so on.
-  
-  """
-  ancestorOfType(
-    """A fully-qualified name of a schema to look for."""
-    schema: String!
-  ): AnyEntity
-  """The date this entity was made available"""
-  available: VariablePrecisionDate!
-  """The date this entity was added to the WDP"""
-  createdAt: ISO8601DateTime!
-  """
-  The Digital Object Identifier for this entity. See https://doi.org
-  
-  """
-  doi: String
-  hidden: Boolean!
-  """If present, this is the timestamp the entity was hidden at"""
-  hiddenAt: ISO8601DateTime
-  """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
-  identifier: String!
-  """
-  The International Standard Serial Number for this entity. See https://issn.org
-  
-  """
-  issn: String
-  """The date this entity was issued"""
-  issued: VariablePrecisionDate!
-  leaf: Boolean!
-  """The date this entity was published"""
-  published: VariablePrecisionDate!
-  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
-  root: Boolean!
-  """A description of the contents of the entity"""
-  summary: String
-  """The date this entity was last updated within the WDP"""
-  updatedAt: ISO8601DateTime!
-  """If an entity is available in the frontend"""
-  visibility: EntityVisibility!
-  visible: Boolean!
-  """If present, this is the timestamp an entity is visible after"""
-  visibleAfterAt: ISO8601DateTime
-  """If present, this is the timestamp an entity is visible until"""
-  visibleUntilAt: ISO8601DateTime
 }
 
 """
@@ -2851,19 +3764,93 @@ type ImageSize {
   width: Int!
 }
 
-type IntegerProperty implements ScalarProperty {
+type IntegerProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   defaultInteger: Int
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
   integerValue: Int
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2907,6 +3894,16 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """
+  Directly fetch a defined named ancestor by its name. It can be null,
+  either because an invalid name was provided, the schema hierarchy is
+  incomplete, or the association itself is optional.
+  
+  """
+  ancestorByName(
+    """The name of the ancestor to fetch"""
+    name: String!
+  ): AnyEntity
   """
   Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
   so it will first check the parent, then the grandparent, and so on.
@@ -3010,6 +4007,16 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """
+  Whether the entity is _currently_ hidden, based on the server's time zone.
+  
+  """
+  currentlyHidden: Boolean!
+  """
+  Whether the entity is _currently_ visible, based on the server's time zone.
+  
+  """
+  currentlyVisible: Boolean!
+  """
   The Digital Object Identifier for this entity. See https://doi.org
   
   """
@@ -3028,7 +4035,22 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
   heroImageMetadata: ImageMetadata
+  """
+  Whether the entity's visibility is set to `HIDDEN`
+  
+  """
   hidden: Boolean!
+  """
+  Specify a time to check to see if the entity will be hidden.
+  
+  """
+  hiddenAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
   """The depth of the hierarchical entity, taking into account any parent types"""
@@ -3102,10 +4124,27 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): EntityLinkConnection!
+  """
+  Fetch a list of named ancestors for this entity. This list is deterministically sorted
+  to retrieve the "closest" ancestors first, ascending upwards in the hierarchy from there.
+  
+  **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
+  because in practice a schema should not have many associations.
+  
+  """
+  namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
-    order: SimpleOrder = RECENT
+    order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3144,7 +4183,6 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
-  publishedOn: ISO8601Date @deprecated(reason: "Use the variable-precision 'published' field instead")
   """Retrieve linked items of the same schema type"""
   relatedItems(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -3230,9 +4268,24 @@ type Item implements Accessible & Entity & HierarchicalEntry & HasDOI & HasISSN 
   ): UserGroupCollectionAccessGrantConnection!
   """If an entity is available in the frontend"""
   visibility: EntityVisibility!
+  """
+  Whether the entity's visibility is set to `VISIBLE`.
+  
+  """
   visible: Boolean!
   """If present, this is the timestamp an entity is visible after"""
   visibleAfterAt: ISO8601DateTime
+  """
+  Specify a time to check to see if the entity will be visible.
+  
+  """
+  visibleAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
   """If present, this is the timestamp an entity is visible until"""
   visibleUntilAt: ISO8601DateTime
 }
@@ -3375,27 +4428,175 @@ enum LinkTargetCandidateKind {
   ITEM
 }
 
-type MarkdownProperty implements ScalarProperty {
+type MarkdownProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   content: String
   default: String
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
-type MultiselectProperty implements ScalarProperty & OptionableProperty {
+type MultiselectProperty implements SchemaProperty & ScalarProperty & OptionableProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   defaultSelections: [String!]
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
   options: [SelectOption!]!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
   selections: [String!]
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """
@@ -3549,25 +4750,15 @@ type Mutation {
     input: LinkEntityInput!
   ): LinkEntityPayload
   """
-  Reassign the collection to another point in the hierarchy.
+  A polymorphic mutation to reassign an entity to another point in the hierarchy.
   
-  This will update all child collections and descended items, if need be.
-  
-  """
-  reparentCollection(
-    """Parameters for ReparentCollection"""
-    input: ReparentCollectionInput!
-  ): ReparentCollectionPayload
-  """
-  Reassign the item to another point in the hierarchy.
-  
-  This will also update any descendant items, if need be.
+  It performs validations to make sure that the parent entity can accept the child.
   
   """
-  reparentItem(
-    """Parameters for ReparentItem"""
-    input: ReparentItemInput!
-  ): ReparentItemPayload
+  reparentEntity(
+    """Parameters for ReparentEntity"""
+    input: ReparentEntityInput!
+  ): ReparentEntityPayload
   """
   Reset an ordering to "factory" settings. For schema-inherited orderings,
   this will reload its definition from the schema definition. For custom
@@ -3694,6 +4885,30 @@ type MutationGlobalError {
   type: String!
 }
 
+"""
+Entity schemas can define named ancestors, which allows UI developers to refer
+authoritatively to significant relatives in an entity's ancestor. This object
+represents the connection between an originating entity and its ancestors,
+should any be defined for the schema.
+
+"""
+type NamedAncestor {
+  """The actual ancestor"""
+  ancestor: AnyEntity!
+  """The depth of the ancestor in the hierarchy"""
+  ancestorDepth: Int!
+  """The name of the ancestor. Guaranteed to be unique for this specific entity."""
+  name: String!
+  """The relative depth of the originating entity"""
+  originDepth: Int!
+  """
+  The relative depth from the source entity to its ancestor. In other words, `(origin_depth - ancestor_depth)`.
+  Used for sorting ancestors deterministically.
+  
+  """
+  relativeDepth: Int!
+}
+
 """An object with an ID."""
 interface Node {
   """ID of the object."""
@@ -3711,6 +4926,13 @@ interface OptionableProperty {
 }
 
 """Ordering for a specific column"""
+type OrderDefinition {
+  direction: Direction!
+  nulls: NullOrderPriority!
+  path: String!
+}
+
+"""Ordering for a specific column"""
 input OrderDefinitionInput {
   path: String!
   direction: Direction = ASCENDING
@@ -3720,7 +4942,12 @@ input OrderDefinitionInput {
 """An ordering that belongs to an entity and arranges its children in a pre-configured way"""
 type Ordering implements Node & Sluggable {
   children(
-    order: PositionDirection = ASCENDING
+    """
+    You can specify the direction to retrieve entries for an ordering.
+    INVERSE will be identical to DEFAULT if the ordering is marked constant.
+    
+    """
+    order: OrderingEntrySortMode = DEFAULT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3736,6 +4963,8 @@ type Ordering implements Node & Sluggable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): OrderingEntryConnection!
+  """A constant ordering should be treated as not being able to invert itself."""
+  constant: Boolean!
   createdAt: ISO8601DateTime!
   """Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted."""
   disabled: Boolean!
@@ -3743,10 +4972,18 @@ type Ordering implements Node & Sluggable {
   disabledAt: ISO8601Date
   """The entity that owns the ordering"""
   entity: AnyEntity!
+  filter: OrderingFilterDefinition!
   """Optional markdown content to render after the children"""
   footer: String
   """Optional markdown content to render before the children"""
   header: String
+  """
+  A hidden ordering represents an ordering that should not be shown in the frontend,
+  when iterating over an entity's available orderings. It does not affect access, as
+  hidden orderings may still serve a functional purpose for their schema.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """A unique identifier for the ordering within the context of its parent entity."""
   identifier: String!
@@ -3754,8 +4991,44 @@ type Ordering implements Node & Sluggable {
   inheritedFromSchema: Boolean!
   """An optional, human-readable name for the ordering"""
   name: String
+  order: [OrderDefinition!]!
+  """
+  For orderings that are `inheritedFromSchema`, this tracks whether or not the
+  entity has been modified from the schema's definition. It is always false
+  for custom, user-created orderings.
+  
+  """
+  pristine: Boolean!
+  """
+  Configuration for how to render an ordering and its entries.
+  
+  """
+  render: OrderingRenderDefinition!
+  select: OrderingSelectDefinition!
   slug: Slug!
+  """
+  A tree ordering has some special handling to return entities
+  in deterministic order based on their hierarchical position
+  and relation to other entities in the same ordering.
+  
+  This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+  
+  """
+  tree: Boolean!
   updatedAt: ISO8601DateTime!
+}
+
+"""
+An ordering's availability refers to it being enabled or disabled.
+
+"""
+enum OrderingAvailabilityFilter {
+  """Do not filter orderings by whether they are enabled or disabled."""
+  ALL
+  """Fetch only *enabled* orderings."""
+  ENABLED
+  """Fetch only *disabled* orderings."""
+  DISABLED
 }
 
 """The connection type for Ordering."""
@@ -3789,7 +5062,18 @@ type OrderingEntry implements Node & Sluggable {
   id: ID!
   """The parent ordering"""
   ordering: Ordering!
+  """
+  A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity.
+  
+  """
+  relativeDepth: Int!
   slug: Slug!
+  """
+  When an ordering's render mode is set to TREE, its entries will have this set.
+  It is a normalized depth based on what other entities were accepted into the ordering.
+  
+  """
+  treeDepth: Int
   updatedAt: ISO8601DateTime!
 }
 
@@ -3811,15 +5095,210 @@ type OrderingEntryEdge {
   node: OrderingEntry!
 }
 
-input OrderingFilterDefinitionInput {
-  schemas: [String!]
+"""When fetching entries from an ordering, you can swap between the default or a special 'inverted' mode"""
+enum OrderingEntrySortMode {
+  """Retrieve the ordering entries as defined by default"""
+  DEFAULT
+  """Retrieve the ordering entries in an inverted order, accounting for paths"""
+  INVERSE
 }
 
+"""
+A collection of settings for filtering what appears what entities
+may populate an ordering. At present, this only supports schemas.
+
+"""
+type OrderingFilterDefinition {
+  """
+  If set, any child or descendant that matches one of these schemas will
+  be availabel to be included in the ordering.
+  
+  """
+  schemas: [OrderingSchemaFilter!]!
+}
+
+"""
+A collection of settings for filtering what appears what entities
+may populate an ordering. At present, this only supports schemas.
+
+"""
+input OrderingFilterDefinitionInput {
+  """
+  If set, any child or descendant that matches one of these schemas will
+  be availabel to be included in the ordering.
+  
+  """
+  schemas: [OrderingSchemaFilterInput!]
+}
+
+"""An enum used to order `Ordering`s. It uses `DETERMINISTIC` by default to ensure a consistent rendering experience."""
+enum OrderingOrder {
+  """Sort orderings by their static position of the ordering, falling back to the name if unset."""
+  DETERMINISTIC
+  """Sort orderings by newest created date"""
+  RECENT
+  """Sort orderings by oldest created date"""
+  OLDEST
+}
+
+"""
+This represents a valid path that can be used for orderings.
+
+"""
+interface OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+"""A logical grouping for ordering paths."""
+enum OrderingPathGrouping {
+  """
+  Static properties that are directly on an entity.
+  
+  """
+  ENTITY
+  """
+  Static properties that are derived from a link.
+  
+  """
+  LINK
+  """
+  Paths under this type come from a schema. Not every entity is guaranteed
+  to have one, and in orderings with mixed entities, missing props will be
+  treated as null.
+  
+  """
+  PROPS
+  """
+  Static properties that are derived from a schema.
+  
+  """
+  SCHEMA
+}
+
+"""
+Configuration for controlling how an ordering renders itself and its entries.
+
+"""
+type OrderingRenderDefinition {
+  """How to render entries within"""
+  mode: OrderingRenderMode!
+}
+
+"""
+Describe how an ordering should render its entries.
+
+"""
+input OrderingRenderDefinitionInput {
+  mode: OrderingRenderMode = FLAT
+}
+
+"""
+How entries in an ordering should be rendered.
+
+"""
+enum OrderingRenderMode {
+  """
+  The default for most orderings. Every ordering is considered to be on
+  the same level of the hierarchy, and positions are calculated based
+  solely on the paths.
+  
+  """
+  FLAT
+  """
+  A special mode for handling orderings that should operate like a tree. In this setting,
+  entries will be calculated first as though they were flat, then analyzed in order to
+  adjust the positioning to account for the entry's ancestors and position relative to
+  other entries in the ordering.
+  
+  """
+  TREE
+}
+
+"""This defines a specific schema that an ordering can filter its entries by"""
+type OrderingSchemaFilter {
+  """
+  The identifier within the namespace for the schema.
+  
+  """
+  identifier: String!
+  """
+  The namespace the schema occupies.
+  
+  """
+  namespace: String!
+  """
+  An optional version requirement for the associated schema.
+  
+  """
+  version: VersionRequirement
+}
+
+"""This defines a specific schema that an ordering can filter its entries by"""
+input OrderingSchemaFilterInput {
+  """
+  The namespace the schema occupies.
+  
+  """
+  namespace: String!
+  """
+  The identifier within the namespace for the schema.
+  
+  """
+  identifier: String!
+  """
+  An optional version requirement for this ordering. It supports
+  Ruby's version declaration syntax, so you can provide a value
+  like `">= 1.2"` to match against semantically-versioned schemas.
+  
+  """
+  version: VersionRequirement
+}
+
+"""
+Defines how an ordering should select its entries.
+
+"""
+type OrderingSelectDefinition {
+  direct: OrderingDirectSelection!
+  links: OrderingSelectLinkDefinition!
+}
+
+"""
+Define how an ordering should select its entries
+
+"""
 input OrderingSelectDefinitionInput {
   direct: OrderingDirectSelection = CHILDREN
   links: OrderingSelectLinkDefinitionInput
 }
 
+"""
+Describes how an ordering should select its links.
+
+"""
+type OrderingSelectLinkDefinition {
+  contains: Boolean!
+  references: Boolean!
+}
+
+"""
+Describe how an ordering should select its links.
+
+"""
 input OrderingSelectLinkDefinitionInput {
   contains: Boolean
   references: Boolean
@@ -4030,12 +5509,6 @@ type PersonContributor implements Contributor & Node & Sluggable {
   url: String
 }
 
-"""An enum that describes sorting nodes by position in ascending or descending order."""
-enum PositionDirection {
-  ASCENDING
-  DESCENDING
-}
-
 """When altering a schema version for an entity, there are various strategies that can be used to determine how to handle the provided properties."""
 enum PropertyApplicationStrategy {
   """If set to this value, property values will be validated and applied"""
@@ -4132,6 +5605,11 @@ type Query {
     """IDs of the objects."""
     ids: [ID!]!
   ): [Node]!
+  """A list of ordering paths for creating and updating orderings."""
+  orderingPaths(
+    """If passed, this will restrict the property fields returned to the selected schemas."""
+    schemas: [OrderingSchemaFilterInput!]
+  ): [AnyOrderingPath!]!
   """List all roles"""
   roles(
     order: RoleOrder = NAME_ASCENDING
@@ -4212,15 +5690,91 @@ type Query {
   viewer: User!
 }
 
-"""Autogenerated input type of ReparentCollection"""
-input ReparentCollectionInput {
+"""
+An entity which can be limited in its visibility, based on some configured attributes.
+
+"""
+interface ReferencesEntityVisibility {
+  """
+  Whether the entity is _currently_ hidden, based on the server's time zone.
+  
+  """
+  currentlyHidden: Boolean!
+  """
+  Whether the entity is _currently_ visible, based on the server's time zone.
+  
+  """
+  currentlyVisible: Boolean!
+  """
+  Whether the entity's visibility is set to `HIDDEN`
+  
+  """
+  hidden: Boolean!
+  """
+  Specify a time to check to see if the entity will be hidden.
+  
+  """
+  hiddenAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
+  """If present, this is the timestamp the entity was hidden at"""
+  hiddenAt: ISO8601DateTime
+  """If an entity is available in the frontend"""
+  visibility: EntityVisibility!
+  """
+  Whether the entity's visibility is set to `VISIBLE`.
+  
+  """
+  visible: Boolean!
+  """If present, this is the timestamp an entity is visible after"""
+  visibleAfterAt: ISO8601DateTime
+  """
+  Specify a time to check to see if the entity will be visible.
+  
+  """
+  visibleAsOf(
+    """
+    If no value is provided, it will default to the current time.
+    
+    """
+    time: ISO8601DateTime
+  ): Boolean!
+  """If present, this is the timestamp an entity is visible until"""
+  visibleUntilAt: ISO8601DateTime
+}
+
+"""
+An interface for retrieving certain shared, common variable-precision dates
+that are associated with events in the publication, collection, and release
+of an entity.
+
+"""
+interface ReferencesGlobalEntityDates {
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDate!
+  """The date this entity was made available"""
+  available: VariablePrecisionDate!
+  """The date this entity was issued"""
+  issued: VariablePrecisionDate!
+  """The date this entity was published"""
+  published: VariablePrecisionDate!
+}
+
+"""Autogenerated input type of ReparentEntity"""
+input ReparentEntityInput {
   """
   The collection in need of a new parent
   
   """
-  collectionId: ID!
+  childId: ID!
   """
-  The id for the collection's new parent. This can be a community or another collection.
+  The ID for the new parent entity. For children of the collection type, this
+  must be a community or another collection. For children of the item type,
+  this must be a collection or another item.
   
   """
   parentId: ID!
@@ -4228,44 +5782,17 @@ input ReparentCollectionInput {
   clientMutationId: String
 }
 
-"""Autogenerated return type of ReparentCollection"""
-type ReparentCollectionPayload implements StandardMutationPayload {
+"""Autogenerated return type of ReparentEntity"""
+type ReparentEntityPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
-  """A unique identifier for the client performing the mutation."""
-  clientMutationId: String
-  collection: Collection
-  errors: [UserError!]!
-  globalErrors: [MutationGlobalError!]!
-  """Not presently used"""
-  haltCode: String
-}
-
-"""Autogenerated input type of ReparentItem"""
-input ReparentItemInput {
-  """
-  The collection in need of a new parent
-  
-  """
-  itemId: ID!
-  """
-  The id for the item's new parent. This can be a collection or another item.
-  
-  """
-  parentId: ID!
-  """A unique identifier for the client performing the mutation."""
-  clientMutationId: String
-}
-
-"""Autogenerated return type of ReparentItem"""
-type ReparentItemPayload implements StandardMutationPayload {
-  attributeErrors: [MutationAttributeError!]!
+  """If the child was successfully reparented, this field will be populated"""
+  child: AnyChildEntity
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   errors: [UserError!]!
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
-  item: Item
 }
 
 """Autogenerated input type of ResetOrdering"""
@@ -4361,21 +5888,123 @@ enum RoleOrder {
   NAME_DESCENDING
 }
 
+"""
+A property on a `SchemaInstance`.
+
+"""
 interface ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
-type SchemaDefinition implements Node & Sluggable {
+"""
+Configuration for controlling how instances handle specific optional core properties.
+
+"""
+type SchemaCoreDefinition {
+  """Whether to expose or hide an entity's DOI"""
+  doi: Boolean!
+  """Whether to expose or hide an entity's ISSN"""
+  issn: Boolean!
+  """Whether to expose or hide an entity's subtitle"""
+  subtitle: Boolean!
+}
+
+"""
+A schema definition is a logical grouping of `SchemaVersion`s that identifies
+only the shared kind, namespace, and identifier. The name is also most likely
+shared, although it can change between schema versions, and the value on the
+definition will default to whatever the most recent version uses.
+
+"""
+type SchemaDefinition implements DescribesSchema & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
+  """A unique (per-namespace) value that names the schema within the system."""
   identifier: String!
+  """The kind of entity this schema applies to"""
   kind: SchemaKind!
+  """A human-readable name for the schema"""
   name: String!
+  """A unique namespace the schema lives in"""
   namespace: String!
   slug: Slug!
   updatedAt: ISO8601DateTime!
@@ -4442,18 +6071,227 @@ type SchemaInstanceValidation {
   validatedAt: ISO8601DateTime!
 }
 
+"""The kind of entity a schema applies to"""
 enum SchemaKind {
   COMMUNITY
   COLLECTION
   ITEM
-  """Presently unused"""
-  METADATA
 }
 
-interface SchemaProperty {
-  fullPath: String!
+"""
+This ordering path represents a schema property and is variably
+available based on whether matched entities' schemas implement it.
+
+"""
+type SchemaOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
   path: String!
-  type: String!
+  schemaVersion: SchemaVersion!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+"""
+A property on a `SchemaInstance`.
+
+"""
+interface SchemaProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
+  fullPath: String!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
+  path: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
+}
+
+"""Schema properties can serve various functions. This helps communicate the purpose of them, for building UIs, and general introspection."""
+enum SchemaPropertyFunction {
+  """
+  This property acts as data inherently representative of the entity. Full text of an article, titling, and other such purposes.
+  
+  """
+  CONTENT
+  """
+  This property is intended to offer further information about the content, but not necessarily the content itself.
+  Most metadata should be things that are filterable or searchable to help users find and learn more about related
+  content.
+  
+  """
+  METADATA
+  """
+  This property is used for presenting information *about* the content, or how it should be formatted, but is less reflective
+  of the content itself. An option for changing a specific render style, an additional image to display, etc.
+  
+  """
+  PRESENTATION
+  """
+  This property is only used when ordering this entity by ancestors. It should not generally be visible in the frontend, but
+  remain editable by admins to adjust ordering.
+  
+  """
+  SORTING
+  """
+  This property's purpose remains unspecified and is likely the mark of a schema still in development. It should not generally
+  be in a finished schema, as it is important to help communicate the intent of a property for those building a UI.
+  
+  """
+  UNSPECIFIED
+}
+
+"""
+The _kind_ of a data type for a schema property. Mostly informational
+in the API, this value represents the underlying structure of the data type.
+
+"""
+enum SchemaPropertyKind {
+  """A composite of other properties. See `GroupProperty`"""
+  GROUP
+  """
+  A reference (or references) to other models in the system.
+  
+  See `AssetProperty`, `ContributorsProperty` for examples
+  
+  """
+  REFERENCE
+  """
+  A complex data type that is composed of multiple subproperties
+  or requires other processing. Their values cannot be easily
+  mapped to GraphQL / JavaScript primitives.
+  
+  See `VariableDateProperty`, `FullTextProperty` for examples.
+  
+  """
+  COMPLEX
+  """
+  The most common type of property, and what most values are likely to be. Strings,
+  integers, floats, booleans, and so on.
+  
+  """
+  SIMPLE
+}
+
+"""The data type for a schema property."""
+enum SchemaPropertyType {
+  """A reference to a single asset owned by the schema instance. See `AssetProperty`"""
+  ASSET
+  """A reference to multiple assets owned by the schema instance. See `AssetsProperty`"""
+  ASSETS
+  """True or false, yes or no, a checkbox. See `BooleanProperty`"""
+  BOOLEAN
+  """A reference to a single contributor in the system. See `ContributorProperty`"""
+  CONTRIBUTOR
+  """A reference to multiple contributors in the system. See `ContributorsProperty`"""
+  CONTRIBUTORS
+  """An ISO8601-formatted date. See `DateProperty`"""
+  DATE
+  """An email address. See `EmailProperty`"""
+  EMAIL
+  """A decimal / floating-point number. See `FloatProperty`"""
+  FLOAT
+  """A complex type representing textual content. See `FullTextProperty`"""
+  FULL_TEXT
+  """A type composed of other properties. See `GroupProperty`"""
+  GROUP
+  """A whole number. See `IntegerProperty`"""
+  INTEGER
+  """Markdown-formatted text. See `MarkdownProperty`"""
+  MARKDOWN
+  """A dropdown that supports selecting multiple values. See `MultiselectProperty`"""
+  MULTISELECT
+  """A dropdown that can select only one value. See `SelectProperty`"""
+  SELECT
+  """Simple text values. See `StringProperty`"""
+  STRING
+  """An array of tags that can be introspected. See `TagsProperty`"""
+  TAGS
+  """An ISO8601-formatted timestamp. See `TimestampProperty`"""
+  TIMESTAMP
+  """A fallback type for invalid schemas. See `UnknownProperty`"""
+  UNKNOWN
+  """A complex type representing a URL, with metadata. See `URLProperty`"""
+  URL
+  """A complex type representing a date that cannot be expressed exactly. See `VariableDateProperty`"""
+  VARIABLE_DATE
+}
+
+"""
+Configuration for controlling how instances of a schema render outside of orderings.
+
+"""
+type SchemaRenderDefinition {
+  """How to render a list"""
+  listMode: SchemaRenderListMode!
+}
+
+"""
+How instances that implement a certain schema should be rendered outside of an ordering,
+when rendering only entities for the same type of schema.
+
+This value is currently only intended to be used by the frontend. It enforces no special
+handling within the API itself, unlike an `OrderingRenderModeType`.
+
+"""
+enum SchemaRenderListMode {
+  GRID
+  TABLE
+  TREE
 }
 
 """An error that stems from trying to apply an invalid schema value."""
@@ -4470,8 +6308,13 @@ type SchemaValueError {
   path: String!
 }
 
-"""A specific version of a schema definition"""
+"""
+A specific version of a `SchemaDefinition`.
+
+"""
 type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sluggable {
+  """Configuration for controlling how instances of a schema handle certain optional core properties."""
+  core: SchemaCoreDefinition!
   createdAt: ISO8601DateTime!
   id: ID!
   """A unique (per-namespace) value that names the schema within the system."""
@@ -4484,6 +6327,9 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Slu
   namespace: String!
   """A semantic version for the schema"""
   number: String!
+  """Configuration for rendering schema instances outside of orderings"""
+  render: SchemaRenderDefinition!
+  """The shared schema definition for all versions of this namespace and identifier"""
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
@@ -4535,16 +6381,90 @@ type SelectOption {
   value: String!
 }
 
-type SelectProperty implements ScalarProperty & OptionableProperty {
+type SelectProperty implements SchemaProperty & ScalarProperty & OptionableProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   defaultSelection: String
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
   options: [SelectOption!]!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
   selection: String
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """A generic enum for sorting models that don't have anything more specific implemented"""
@@ -4584,15 +6504,112 @@ interface StandardMutationPayload {
   haltCode: String
 }
 
-type StringProperty implements ScalarProperty {
+"""
+This property is static and is always available on an
+entity, irrespective of its schema.
+
+"""
+type StaticOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+type StringProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   content: String
   default: String
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """When retrieving subtypes of a specific entity, you can distinguish between grabbing its children (default) or all of its descendants."""
@@ -4603,14 +6620,88 @@ enum SubtreeNodeFilter {
   DESCENDANTS
 }
 
-type TagsProperty implements ScalarProperty {
+type TagsProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
   tags: [String!]!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """Configuration settings for the theme of the WDP frontend."""
@@ -4625,15 +6716,89 @@ input ThemeSettingsInput {
   font: String!
 }
 
-type TimestampProperty implements ScalarProperty {
+type TimestampProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   default: ISO8601DateTime
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
   timestamp: ISO8601DateTime
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed."""
@@ -4647,13 +6812,87 @@ enum TreeNodeFilter {
 }
 
 """A schematic reference to a URL, with href, label, and optional title"""
-type URLProperty implements ScalarProperty {
+type URLProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
   url: URLReference
 }
 
@@ -4667,14 +6906,88 @@ type URLReference {
   title: String
 }
 
-type UnknownProperty implements ScalarProperty {
+type UnknownProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   default: JSON
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
   unknownValue: JSON
 }
 
@@ -4705,10 +7018,16 @@ input UpdateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -4875,10 +7194,16 @@ input UpdateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -4932,6 +7257,7 @@ input UpdateOrderingInput {
   filter: OrderingFilterDefinitionInput
   select: OrderingSelectDefinitionInput
   order: [OrderDefinitionInput!]!
+  render: OrderingRenderDefinitionInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -5874,14 +8200,88 @@ input UserProfileInput {
   username: String!
 }
 
-type VariableDateProperty implements ScalarProperty {
+type VariableDateProperty implements SchemaProperty & ScalarProperty {
+  """
+  Provided for introspection. This describes whether or not the property's value
+  comes in an array rather than representing a discrete piece of information.
+  
+  See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+  for examples.
+  
+  """
+  array: Boolean!
   dateWithPrecision: VariablePrecisionDate
+  """
+  A human-readable description for the property. It should describe the purpose of the
+  property as well as some details about the types of values it looks for.
+  
+  It can be rendered as help text, hints, etc.
+  
+  """
+  description: String
+  """
+  The full path that represents the property on the schema instance. It is guaranteed
+  to be unique for the instance, and can be used to grab a property directly, as well as
+  facilitating schema validation and errors within the admin application's forms.
+  
+  """
   fullPath: String!
+  """
+  The purpose or intent of this property relative to its entity, parents, and others.
+  
+  """
+  function: SchemaPropertyFunction!
+  """
+  Whether to render a field as "wide" (two columns) in the form.
+  This is intended to help structure forms logically, as well as
+  provide ample space for certain types of data input, particularly
+  full-text, markdown, and other such complex fields.
+  
+  """
   isWide: Boolean!
+  """
+  Provided for introspection. This describes the underlying structure of the data type.
+  
+  """
+  kind: SchemaPropertyKind!
+  """
+  A human-readable label for the schema property.
+  
+  """
   label: String!
+  """
+  Provided for introspection. Whether this property can be used to order entities.
+  For certain data types, there's no sensible way to order properties.
+  
+  """
+  orderable: Boolean!
+  """
+  The "short" path for the property. For properties nested within a group, this can
+  be considered the name of the property without the group's prefix.
+  
+  """
   path: String!
+  """
+  Whether or not this property is required in order for the schema instance
+  to be considered valid.
+  
+  Note: invalid data provided to a schema property will still invalidate
+  the instance as a whole—the required trait only determines whether a value
+  **must** be set.
+  
+  """
   required: Boolean!
-  type: String!
+  """
+  Provided for introspection. This represents the actual data type this property
+  uses.
+  
+  Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+  `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+  since the actual implementations of these properties differ in the GraphQL types
+  associated with their values.
+  
+  """
+  type: SchemaPropertyType!
 }
 
 """
@@ -5906,3 +8306,6 @@ input VariablePrecisionDateInput {
   """The level of precision: the frontend can make decisions about how to format the associated value based on this"""
   precision: DatePrecision!
 }
+
+"""A semantic version requirement"""
+scalar VersionRequirement

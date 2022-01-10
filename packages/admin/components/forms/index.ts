@@ -23,3 +23,5 @@ export { default as LinkTargetTypeahead } from "./LinkTargetTypeahead";
 export { default as RadioGroup } from "./RadioGroup";
 export { default as Description } from "./BaseInputDescription";
 export { default as SchemaSelect } from "./SchemaSelect";
+export { default as VariableDatePicker } from "./VariableDatePicker";
+export { default as VariablePrecisionDateControl } from "./VariablePrecisionDateControl";

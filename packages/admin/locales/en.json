@@ -281,7 +281,7 @@
         "alt_text": "Alt Text",
         "username": "Username",
         "avatar": "Avatar",
-        "publication_date": "Publication Date",
+        "published": "Published",
         "doi": "DOI",
         "parent": "Parent Collection or Item",
         "year": "Year",
@@ -297,7 +297,10 @@
         "include_descendants": "Include",
         "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "issn": "ISSN",
-        "schemas": "Schemas"
+        "schemas": "Schemas",
+        "accessioned": "Accessioned",
+        "issued": "Issued",
+        "available": "Available"
       },
       "validation": {
         "year": "Must be a four digit year",

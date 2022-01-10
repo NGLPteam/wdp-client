@@ -1,10 +1,9 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import { Controller, useFormContext } from "react-hook-form";
 import ScalarProperty from "../ScalarProperty";
 import type { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
-import VariableDatePicker from "components/forms/VariableDatePicker";
+import VariablePrecisionDateControl from "components/forms/VariablePrecisionDateControl";
 
 export default function VariableDateProperty(props: Props) {
   const field = useFragment<VariableDatePropertyFragment$key>(
@@ -12,23 +11,15 @@ export default function VariableDateProperty(props: Props) {
     props.field
   );
 
-  const { control } = useFormContext();
-
   return (
     <ScalarProperty field={field}>
       {({ label, required, name, isWide }) => (
-        <Controller
+        <VariablePrecisionDateControl
           name={name}
-          control={control}
-          defaultValue={field?.dateWithPrecision}
-          render={({ field }) => (
-            <VariableDatePicker
-              label={label}
-              required={required}
-              isWide={isWide}
-              {...field}
-            />
-          )}
+          data={field?.dateWithPrecision}
+          label={label}
+          required={required}
+          isWide={isWide}
         />
       )}
     </ScalarProperty>
@@ -44,8 +35,7 @@ const fragment = graphql`
     ...ScalarPropertyFragment
 
     dateWithPrecision {
-      precision
-      value
+      ...VariablePrecisionDateControlFragment
     }
   }
 `;

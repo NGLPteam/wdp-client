@@ -115,6 +115,26 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.VariablePrecisionDateControl
+          name="published"
+          label="forms.fields.published"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="accessioned"
+          label="forms.fields.accessioned"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="available"
+          label="forms.fields.available"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="issued"
+          label="forms.fields.issued"
+          isWide
+        />
         <Forms.Checkbox defaultChecked name="redirect" onChange={handleCheck}>
           Open new item on save
         </Forms.Checkbox>

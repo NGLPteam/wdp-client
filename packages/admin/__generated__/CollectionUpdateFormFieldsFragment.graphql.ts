@@ -34,6 +34,18 @@ export type CollectionUpdateFormFieldsFragment = {
             };
         };
     };
+    readonly published: {
+        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
+    };
+    readonly accessioned: {
+        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
+    };
+    readonly available: {
+        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
+    };
+    readonly issued: {
+        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
+    };
     readonly " $refType": "CollectionUpdateFormFieldsFragment";
 };
 export type CollectionUpdateFormFieldsFragment$data = CollectionUpdateFormFieldsFragment;
@@ -88,6 +100,13 @@ var v0 = [
       }
     ],
     "storageKey": null
+  }
+],
+v1 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "VariablePrecisionDateControlFragment"
   }
 ];
 return {
@@ -171,11 +190,51 @@ return {
       "plural": false,
       "selections": (v0/*: any*/),
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "published",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "accessioned",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "available",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "issued",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '1f8d0ae0f83a8a83d80867e0e250d7c4';
+(node as any).hash = '8f3d517382295c1f9348fa2ee189f136';
 export default node;

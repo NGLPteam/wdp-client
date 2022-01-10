@@ -6,14 +6,13 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-
+import { sanitizeDateField } from "helpers";
 import type {
   UpdateCollectionInput,
   CollectionUpdateFormMutation,
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import { sanitizeDateField } from "helpers";
 
 export default function CollectionUpdateForm({
   data,
@@ -24,11 +23,20 @@ export default function CollectionUpdateForm({
   const { collectionId = "", ...fieldsData } =
     useFragment<CollectionUpdateFormFragment$key>(fragment, data);
 
-  const { thumbnail, heroImage, visibleAfterAt, visibleUntilAt, ...values } =
-    useFragment<CollectionUpdateFormFieldsFragment$key>(
-      fieldsFragment,
-      fieldsData
-    );
+  const {
+    thumbnail,
+    heroImage,
+    visibleAfterAt,
+    visibleUntilAt,
+    published,
+    accessioned,
+    available,
+    issued,
+    ...values
+  } = useFragment<CollectionUpdateFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData
+  );
 
   const defaultValues = {
     ...values,
@@ -100,6 +108,30 @@ export default function CollectionUpdateForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.VariablePrecisionDateControl
+          name="published"
+          data={published}
+          label="forms.fields.published"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="accessioned"
+          data={accessioned}
+          label="forms.fields.accessioned"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="available"
+          data={available}
+          label="forms.fields.available"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="issued"
+          data={issued}
+          label="forms.fields.issued"
+          isWide
+        />
       </Forms.Grid>
     ),
     []
@@ -158,6 +190,18 @@ const fieldsFragment = graphql`
           url
         }
       }
+    }
+    published {
+      ...VariablePrecisionDateControlFragment
+    }
+    accessioned {
+      ...VariablePrecisionDateControlFragment
+    }
+    available {
+      ...VariablePrecisionDateControlFragment
+    }
+    issued {
+      ...VariablePrecisionDateControlFragment
     }
   }
 `;

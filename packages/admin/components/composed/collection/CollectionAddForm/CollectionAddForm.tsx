@@ -129,6 +129,26 @@ export default function AddCollectionForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.VariablePrecisionDateControl
+          name="published"
+          label="forms.fields.published"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="accessioned"
+          label="forms.fields.accessioned"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="available"
+          label="forms.fields.available"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="issued"
+          label="forms.fields.issued"
+          isWide
+        />
         <Forms.Checkbox name="redirect" onChange={handleCheck} defaultChecked>
           Open new collection on save
         </Forms.Checkbox>
