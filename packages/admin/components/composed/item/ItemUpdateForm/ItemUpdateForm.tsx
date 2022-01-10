@@ -27,8 +27,17 @@ export default function ItemUpdateForm({
   const { itemId = "", ...fieldsData } =
     useFragment<ItemUpdateFormFragment$key>(fragment, data);
 
-  const { thumbnail, heroImage, visibleAfterAt, visibleUntilAt, ...values } =
-    useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
+  const {
+    thumbnail,
+    heroImage,
+    visibleAfterAt,
+    visibleUntilAt,
+    published,
+    accessioned,
+    available,
+    issued,
+    ...values
+  } = useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
 
   const defaultValues = {
     ...values,
@@ -104,6 +113,30 @@ export default function ItemUpdateForm({
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        <Forms.VariablePrecisionDateControl
+          name="published"
+          data={published}
+          label="forms.fields.published"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="accessioned"
+          data={accessioned}
+          label="forms.fields.accessioned"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="available"
+          data={available}
+          label="forms.fields.available"
+          isWide
+        />
+        <Forms.VariablePrecisionDateControl
+          name="issued"
+          data={issued}
+          label="forms.fields.issued"
+          isWide
+        />
       </Forms.Grid>
     ),
     []
@@ -164,6 +197,18 @@ const fieldsFragment = graphql`
           url
         }
       }
+    }
+    published {
+      ...VariablePrecisionDateControlFragment
+    }
+    accessioned {
+      ...VariablePrecisionDateControlFragment
+    }
+    available {
+      ...VariablePrecisionDateControlFragment
+    }
+    issued {
+      ...VariablePrecisionDateControlFragment
     }
   }
 `;

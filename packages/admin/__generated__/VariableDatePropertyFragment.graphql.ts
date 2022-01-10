@@ -5,11 +5,9 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type VariableDatePropertyFragment = {
     readonly dateWithPrecision: {
-        readonly precision: DatePrecision;
-        readonly value: string | null;
+        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
     readonly " $refType": "VariableDatePropertyFragment";
@@ -37,18 +35,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "precision",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "value",
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "VariablePrecisionDateControlFragment"
         }
       ],
       "storageKey": null
@@ -62,5 +51,5 @@ const node: ReaderFragment = {
   "type": "VariableDateProperty",
   "abstractKey": null
 };
-(node as any).hash = '6da1cbc536d74fb1e520e100cb19de12';
+(node as any).hash = 'a9615f76700b6c97c15c86019adc10b9';
 export default node;

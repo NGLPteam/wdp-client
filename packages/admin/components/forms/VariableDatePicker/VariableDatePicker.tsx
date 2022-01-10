@@ -138,8 +138,8 @@ const VariableDatePicker = forwardRef(
 );
 
 type Value = {
-  precision?: DatePrecision;
-  value?: string;
+  precision?: DatePrecision | null;
+  value?: string | null;
 };
 
 interface Props
@@ -147,7 +147,7 @@ interface Props
   /** Returns the current value */
   onChange?: (value: Value) => void;
   /** Default value */
-  value?: Value;
+  value?: Value | null;
 }
 
 export default VariableDatePicker;

@@ -5,7 +5,10 @@ import VariableDatePicker from "./VariableDatePicker";
 import NullForm from "components/api/NullForm";
 
 type FieldValues = {
-  example?: string;
+  example?: {
+    value: "2009";
+    precision: "YEAR";
+  };
 };
 
 type Props = React.ComponentProps<typeof VariableDatePicker>;
@@ -20,8 +23,13 @@ export default {
   },
 };
 
+type Value = {
+  value: string;
+  precision: string;
+};
+
 export const InAForm: Story<Props> = ({ defaultValue, ...args }) => {
-  function handleSubmit(data: Record<string, string | string[]>) {
+  function handleSubmit(data: Record<string, string | Value>) {
     console.info(data);
   }
 

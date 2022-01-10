@@ -256,6 +256,12 @@ union AnyLinkTarget = Collection | Item
 union AnyOrderingEntry = Collection | Community | EntityLink | Item
 
 """
+All types in this union implement OrderingPath.
+
+"""
+union AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath
+
+"""
 `AnyScalarProperty` represents a collection of known *scalar* properties. In effect,
 it includes every possible schema property type except for groups (`GroupProperty`).
 
@@ -1239,8 +1245,16 @@ type Collection implements Accessible & Entity & HasDefaultTimestamps & Referenc
   namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
     order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1615,8 +1629,16 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   name: String! @deprecated(reason: "Use Community.title")
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
     order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2200,10 +2222,16 @@ input CreateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -2308,10 +2336,16 @@ input CreateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -2357,6 +2391,7 @@ input CreateOrderingInput {
   filter: OrderingFilterDefinitionInput
   select: OrderingSelectDefinitionInput
   order: [OrderDefinitionInput!]!
+  render: OrderingRenderDefinitionInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -3014,8 +3049,16 @@ interface Entity {
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
     order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -4092,8 +4135,16 @@ type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEnti
   namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
   orderings(
     order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -4875,6 +4926,13 @@ interface OptionableProperty {
 }
 
 """Ordering for a specific column"""
+type OrderDefinition {
+  direction: Direction!
+  nulls: NullOrderPriority!
+  path: String!
+}
+
+"""Ordering for a specific column"""
 input OrderDefinitionInput {
   path: String!
   direction: Direction = ASCENDING
@@ -4905,6 +4963,8 @@ type Ordering implements Node & Sluggable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): OrderingEntryConnection!
+  """A constant ordering should be treated as not being able to invert itself."""
+  constant: Boolean!
   createdAt: ISO8601DateTime!
   """Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted."""
   disabled: Boolean!
@@ -4912,10 +4972,18 @@ type Ordering implements Node & Sluggable {
   disabledAt: ISO8601Date
   """The entity that owns the ordering"""
   entity: AnyEntity!
+  filter: OrderingFilterDefinition!
   """Optional markdown content to render after the children"""
   footer: String
   """Optional markdown content to render before the children"""
   header: String
+  """
+  A hidden ordering represents an ordering that should not be shown in the frontend,
+  when iterating over an entity's available orderings. It does not affect access, as
+  hidden orderings may still serve a functional purpose for their schema.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """A unique identifier for the ordering within the context of its parent entity."""
   identifier: String!
@@ -4923,8 +4991,44 @@ type Ordering implements Node & Sluggable {
   inheritedFromSchema: Boolean!
   """An optional, human-readable name for the ordering"""
   name: String
+  order: [OrderDefinition!]!
+  """
+  For orderings that are `inheritedFromSchema`, this tracks whether or not the
+  entity has been modified from the schema's definition. It is always false
+  for custom, user-created orderings.
+  
+  """
+  pristine: Boolean!
+  """
+  Configuration for how to render an ordering and its entries.
+  
+  """
+  render: OrderingRenderDefinition!
+  select: OrderingSelectDefinition!
   slug: Slug!
+  """
+  A tree ordering has some special handling to return entities
+  in deterministic order based on their hierarchical position
+  and relation to other entities in the same ordering.
+  
+  This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+  
+  """
+  tree: Boolean!
   updatedAt: ISO8601DateTime!
+}
+
+"""
+An ordering's availability refers to it being enabled or disabled.
+
+"""
+enum OrderingAvailabilityFilter {
+  """Do not filter orderings by whether they are enabled or disabled."""
+  ALL
+  """Fetch only *enabled* orderings."""
+  ENABLED
+  """Fetch only *disabled* orderings."""
+  DISABLED
 }
 
 """The connection type for Ordering."""
@@ -4958,7 +5062,18 @@ type OrderingEntry implements Node & Sluggable {
   id: ID!
   """The parent ordering"""
   ordering: Ordering!
+  """
+  A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity.
+  
+  """
+  relativeDepth: Int!
   slug: Slug!
+  """
+  When an ordering's render mode is set to TREE, its entries will have this set.
+  It is a normalized depth based on what other entities were accepted into the ordering.
+  
+  """
+  treeDepth: Int
   updatedAt: ISO8601DateTime!
 }
 
@@ -4988,8 +5103,32 @@ enum OrderingEntrySortMode {
   INVERSE
 }
 
+"""
+A collection of settings for filtering what appears what entities
+may populate an ordering. At present, this only supports schemas.
+
+"""
+type OrderingFilterDefinition {
+  """
+  If set, any child or descendant that matches one of these schemas will
+  be availabel to be included in the ordering.
+  
+  """
+  schemas: [OrderingSchemaFilter!]!
+}
+
+"""
+A collection of settings for filtering what appears what entities
+may populate an ordering. At present, this only supports schemas.
+
+"""
 input OrderingFilterDefinitionInput {
-  schemas: [String!]
+  """
+  If set, any child or descendant that matches one of these schemas will
+  be availabel to be included in the ordering.
+  
+  """
+  schemas: [OrderingSchemaFilterInput!]
 }
 
 """An enum used to order `Ordering`s. It uses `DETERMINISTIC` by default to ensure a consistent rendering experience."""
@@ -5002,11 +5141,164 @@ enum OrderingOrder {
   OLDEST
 }
 
+"""
+This represents a valid path that can be used for orderings.
+
+"""
+interface OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+"""A logical grouping for ordering paths."""
+enum OrderingPathGrouping {
+  """
+  Static properties that are directly on an entity.
+  
+  """
+  ENTITY
+  """
+  Static properties that are derived from a link.
+  
+  """
+  LINK
+  """
+  Paths under this type come from a schema. Not every entity is guaranteed
+  to have one, and in orderings with mixed entities, missing props will be
+  treated as null.
+  
+  """
+  PROPS
+  """
+  Static properties that are derived from a schema.
+  
+  """
+  SCHEMA
+}
+
+"""
+Configuration for controlling how an ordering renders itself and its entries.
+
+"""
+type OrderingRenderDefinition {
+  """How to render entries within"""
+  mode: OrderingRenderMode!
+}
+
+"""
+Describe how an ordering should render its entries.
+
+"""
+input OrderingRenderDefinitionInput {
+  mode: OrderingRenderMode = FLAT
+}
+
+"""
+How entries in an ordering should be rendered.
+
+"""
+enum OrderingRenderMode {
+  """
+  The default for most orderings. Every ordering is considered to be on
+  the same level of the hierarchy, and positions are calculated based
+  solely on the paths.
+  
+  """
+  FLAT
+  """
+  A special mode for handling orderings that should operate like a tree. In this setting,
+  entries will be calculated first as though they were flat, then analyzed in order to
+  adjust the positioning to account for the entry's ancestors and position relative to
+  other entries in the ordering.
+  
+  """
+  TREE
+}
+
+"""This defines a specific schema that an ordering can filter its entries by"""
+type OrderingSchemaFilter {
+  """
+  The identifier within the namespace for the schema.
+  
+  """
+  identifier: String!
+  """
+  The namespace the schema occupies.
+  
+  """
+  namespace: String!
+  """
+  An optional version requirement for the associated schema.
+  
+  """
+  version: VersionRequirement
+}
+
+"""This defines a specific schema that an ordering can filter its entries by"""
+input OrderingSchemaFilterInput {
+  """
+  The namespace the schema occupies.
+  
+  """
+  namespace: String!
+  """
+  The identifier within the namespace for the schema.
+  
+  """
+  identifier: String!
+  """
+  An optional version requirement for this ordering. It supports
+  Ruby's version declaration syntax, so you can provide a value
+  like `">= 1.2"` to match against semantically-versioned schemas.
+  
+  """
+  version: VersionRequirement
+}
+
+"""
+Defines how an ordering should select its entries.
+
+"""
+type OrderingSelectDefinition {
+  direct: OrderingDirectSelection!
+  links: OrderingSelectLinkDefinition!
+}
+
+"""
+Define how an ordering should select its entries
+
+"""
 input OrderingSelectDefinitionInput {
   direct: OrderingDirectSelection = CHILDREN
   links: OrderingSelectLinkDefinitionInput
 }
 
+"""
+Describes how an ordering should select its links.
+
+"""
+type OrderingSelectLinkDefinition {
+  contains: Boolean!
+  references: Boolean!
+}
+
+"""
+Describe how an ordering should select its links.
+
+"""
 input OrderingSelectLinkDefinitionInput {
   contains: Boolean
   references: Boolean
@@ -5313,6 +5605,11 @@ type Query {
     """IDs of the objects."""
     ids: [ID!]!
   ): [Node]!
+  """A list of ordering paths for creating and updating orderings."""
+  orderingPaths(
+    """If passed, this will restrict the property fields returned to the selected schemas."""
+    schemas: [OrderingSchemaFilterInput!]
+  ): [AnyOrderingPath!]!
   """List all roles"""
   roles(
     order: RoleOrder = NAME_ASCENDING
@@ -5679,6 +5976,19 @@ interface ScalarProperty {
 }
 
 """
+Configuration for controlling how instances handle specific optional core properties.
+
+"""
+type SchemaCoreDefinition {
+  """Whether to expose or hide an entity's DOI"""
+  doi: Boolean!
+  """Whether to expose or hide an entity's ISSN"""
+  issn: Boolean!
+  """Whether to expose or hide an entity's subtitle"""
+  subtitle: Boolean!
+}
+
+"""
 A schema definition is a logical grouping of `SchemaVersion`s that identifies
 only the shared kind, namespace, and identifier. The name is also most likely
 shared, although it can change between schema versions, and the value on the
@@ -5766,6 +6076,30 @@ enum SchemaKind {
   COMMUNITY
   COLLECTION
   ITEM
+}
+
+"""
+This ordering path represents a schema property and is variably
+available based on whether matched entities' schemas implement it.
+
+"""
+type SchemaOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  schemaVersion: SchemaVersion!
+  """The schema property type"""
+  type: SchemaPropertyType!
 }
 
 """
@@ -5937,6 +6271,29 @@ enum SchemaPropertyType {
   VARIABLE_DATE
 }
 
+"""
+Configuration for controlling how instances of a schema render outside of orderings.
+
+"""
+type SchemaRenderDefinition {
+  """How to render a list"""
+  listMode: SchemaRenderListMode!
+}
+
+"""
+How instances that implement a certain schema should be rendered outside of an ordering,
+when rendering only entities for the same type of schema.
+
+This value is currently only intended to be used by the frontend. It enforces no special
+handling within the API itself, unlike an `OrderingRenderModeType`.
+
+"""
+enum SchemaRenderListMode {
+  GRID
+  TABLE
+  TREE
+}
+
 """An error that stems from trying to apply an invalid schema value."""
 type SchemaValueError {
   """An error with the entire set of values"""
@@ -5956,6 +6313,8 @@ A specific version of a `SchemaDefinition`.
 
 """
 type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sluggable {
+  """Configuration for controlling how instances of a schema handle certain optional core properties."""
+  core: SchemaCoreDefinition!
   createdAt: ISO8601DateTime!
   id: ID!
   """A unique (per-namespace) value that names the schema within the system."""
@@ -5968,6 +6327,8 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Slu
   namespace: String!
   """A semantic version for the schema"""
   number: String!
+  """Configuration for rendering schema instances outside of orderings"""
+  render: SchemaRenderDefinition!
   """The shared schema definition for all versions of this namespace and identifier"""
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
@@ -6141,6 +6502,29 @@ interface StandardMutationPayload {
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
+}
+
+"""
+This property is static and is always available on an
+entity, irrespective of its schema.
+
+"""
+type StaticOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  """The schema property type"""
+  type: SchemaPropertyType!
 }
 
 type StringProperty implements SchemaProperty & ScalarProperty {
@@ -6634,10 +7018,16 @@ input UpdateCollectionInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -6804,10 +7194,16 @@ input UpdateItemInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  """The date this entity was added to its parent"""
+  accessioned: VariablePrecisionDateInput
+  """The date this entity was made available"""
+  available: VariablePrecisionDateInput
+  """The date this entity was issued"""
+  issued: VariablePrecisionDateInput
+  """The date this entity was published"""
+  published: VariablePrecisionDateInput
   """A brief description of the entity's contents."""
   summary: String
-  """The date the entity was published"""
-  published: VariablePrecisionDateInput
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -6861,6 +7257,7 @@ input UpdateOrderingInput {
   filter: OrderingFilterDefinitionInput
   select: OrderingSelectDefinitionInput
   order: [OrderDefinitionInput!]!
+  render: OrderingRenderDefinitionInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -7909,3 +8306,6 @@ input VariablePrecisionDateInput {
   """The level of precision: the frontend can make decisions about how to format the associated value based on this"""
   precision: DatePrecision!
 }
+
+"""A semantic version requirement"""
+scalar VersionRequirement

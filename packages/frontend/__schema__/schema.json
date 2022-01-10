@@ -1715,6 +1715,27 @@
       },
       {
         "kind": "UNION",
+        "name": "AnyOrderingPath",
+        "description": "All types in this union implement OrderingPath.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "SchemaOrderingPath",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StaticOrderingPath",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "UNION",
         "name": "AnyScalarProperty",
         "description": "`AnyScalarProperty` represents a collection of known *scalar* properties. In effect,\nit includes every possible schema property type except for groups (`GroupProperty`).\n\nThis union is intended to iterate the properties within a group. To iterate over the\nproperties in a `SchemaInstance`, you should use `AnySchemaPropertyType` to ensure that\nyou are also seeing groups.\n\nAny object contained within this union is guaranteed to implement `ScalarProperty`\nas well as `SchemaProperty`.\n",
         "fields": null,
@@ -7468,7 +7489,7 @@
           },
           {
             "name": "orderings",
-            "description": null,
+            "description": "Retrieve a connection of orderings for the parent object.\n",
             "args": [
               {
                 "name": "order",
@@ -7479,6 +7500,30 @@
                   "ofType": null
                 },
                 "defaultValue": "DETERMINISTIC",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "availability",
+                "description": "Optionally filter orderings by whether they are enabled or disabled.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "visibility",
+                "description": "Optionally filter orderings by whether they are visible or hidden.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -10244,7 +10289,7 @@
           },
           {
             "name": "orderings",
-            "description": null,
+            "description": "Retrieve a connection of orderings for the parent object.\n",
             "args": [
               {
                 "name": "order",
@@ -10255,6 +10300,30 @@
                   "ofType": null
                 },
                 "defaultValue": "DETERMINISTIC",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "availability",
+                "description": "Optionally filter orderings by whether they are enabled or disabled.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "visibility",
+                "description": "Optionally filter orderings by whether they are visible or hidden.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -13441,11 +13510,35 @@
             "deprecationReason": null
           },
           {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
+            "name": "accessioned",
+            "description": "The date this entity was added to its parent",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "available",
+            "description": "The date this entity was made available",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issued",
+            "description": "The date this entity was issued",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -13454,10 +13547,22 @@
           },
           {
             "name": "published",
-            "description": "The date the entity was published",
+            "description": "The date this entity was published",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -14029,11 +14134,35 @@
             "deprecationReason": null
           },
           {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
+            "name": "accessioned",
+            "description": "The date this entity was added to its parent",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "available",
+            "description": "The date this entity was made available",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issued",
+            "description": "The date this entity was issued",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -14042,10 +14171,22 @@
           },
           {
             "name": "published",
-            "description": "The date the entity was published",
+            "description": "The date this entity was published",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -14375,6 +14516,18 @@
                   }
                 }
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "render",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "OrderingRenderDefinitionInput",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -18526,7 +18679,7 @@
           },
           {
             "name": "orderings",
-            "description": null,
+            "description": "Retrieve a connection of orderings for the parent object.\n",
             "args": [
               {
                 "name": "order",
@@ -18537,6 +18690,30 @@
                   "ofType": null
                 },
                 "defaultValue": "DETERMINISTIC",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "availability",
+                "description": "Optionally filter orderings by whether they are enabled or disabled.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "visibility",
+                "description": "Optionally filter orderings by whether they are visible or hidden.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -24015,7 +24192,7 @@
           },
           {
             "name": "orderings",
-            "description": null,
+            "description": "Retrieve a connection of orderings for the parent object.\n",
             "args": [
               {
                 "name": "order",
@@ -24026,6 +24203,30 @@
                   "ofType": null
                 },
                 "defaultValue": "DETERMINISTIC",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "availability",
+                "description": "Optionally filter orderings by whether they are enabled or disabled.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "visibility",
+                "description": "Optionally filter orderings by whether they are visible or hidden.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "OrderingAvailabilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -28171,6 +28372,65 @@
         ]
       },
       {
+        "kind": "OBJECT",
+        "name": "OrderDefinition",
+        "description": "Ordering for a specific column",
+        "fields": [
+          {
+            "name": "direction",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "Direction",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nulls",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "NullOrderPriority",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "OrderDefinitionInput",
         "description": "Ordering for a specific column",
@@ -28344,6 +28604,22 @@
             "deprecationReason": null
           },
           {
+            "name": "constant",
+            "description": "A constant ordering should be treated as not being able to invert itself.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -28404,6 +28680,22 @@
             "deprecationReason": null
           },
           {
+            "name": "filter",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingFilterDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "footer",
             "description": "Optional markdown content to render after the children",
             "args": [],
@@ -28423,6 +28715,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "A hidden ordering represents an ordering that should not be shown in the frontend,\nwhen iterating over an entity's available orderings. It does not affect access, as\nhidden orderings may still serve a functional purpose for their schema.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28488,6 +28796,78 @@
             "deprecationReason": null
           },
           {
+            "name": "order",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "OrderDefinition",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pristine",
+            "description": "For orderings that are `inheritedFromSchema`, this tracks whether or not the\nentity has been modified from the schema's definition. It is always false\nfor custom, user-created orderings.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "render",
+            "description": "Configuration for how to render an ordering and its entries.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingRenderDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "select",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingSelectDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -28497,6 +28877,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tree",
+            "description": "A tree ordering has some special handling to return entities\nin deterministic order based on their hierarchical position\nand relation to other entities in the same ordering.\n\nThis is effectively a shortcut for `Ordering.render.mode === \"TREE\"`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -28534,6 +28930,35 @@
           }
         ],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "OrderingAvailabilityFilter",
+        "description": "An ordering's availability refers to it being enabled or disabled.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ALL",
+            "description": "Do not filter orderings by whether they are enabled or disabled.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENABLED",
+            "description": "Fetch only *enabled* orderings.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DISABLED",
+            "description": "Fetch only *disabled* orderings.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -28759,6 +29184,22 @@
             "deprecationReason": null
           },
           {
+            "name": "relativeDepth",
+            "description": "A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -28770,6 +29211,18 @@
                 "name": "Slug",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "treeDepth",
+            "description": "When an ordering's render mode is set to TREE, its entries will have this set.\nIt is a normalized depth based on what other entities were accepted into the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28955,14 +29408,49 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "OrderingFilterDefinition",
+        "description": "A collection of settings for filtering what appears what entities\nmay populate an ordering. At present, this only supports schemas.\n",
+        "fields": [
+          {
+            "name": "schemas",
+            "description": "If set, any child or descendant that matches one of these schemas will\nbe availabel to be included in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "OrderingSchemaFilter",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "OrderingFilterDefinitionInput",
-        "description": null,
+        "description": "A collection of settings for filtering what appears what entities\nmay populate an ordering. At present, this only supports schemas.\n",
         "fields": null,
         "inputFields": [
           {
             "name": "schemas",
-            "description": null,
+            "description": "If set, any child or descendant that matches one of these schemas will\nbe availabel to be included in the ordering.\n",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -28970,8 +29458,8 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "INPUT_OBJECT",
+                  "name": "OrderingSchemaFilterInput",
                   "ofType": null
                 }
               }
@@ -29015,9 +29503,380 @@
         "possibleTypes": null
       },
       {
+        "kind": "INTERFACE",
+        "name": "OrderingPath",
+        "description": "This represents a valid path that can be used for orderings.\n",
+        "fields": [
+          {
+            "name": "description",
+            "description": "A helpful description of the path",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "grouping",
+            "description": "A logical grouping for ordering paths",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingPathGrouping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the path",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "labelPrefix",
+            "description": "Some paths may have a prefix. For instance, schema properties will have the name of the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The exact path that should be provided to mutation inputs.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The schema property type",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "SchemaOrderingPath",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StaticOrderingPath",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "OrderingPathGrouping",
+        "description": "A logical grouping for ordering paths.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ENTITY",
+            "description": "Static properties that are directly on an entity.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LINK",
+            "description": "Static properties that are derived from a link.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PROPS",
+            "description": "Paths under this type come from a schema. Not every entity is guaranteed\nto have one, and in orderings with mixed entities, missing props will be\ntreated as null.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEMA",
+            "description": "Static properties that are derived from a schema.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrderingRenderDefinition",
+        "description": "Configuration for controlling how an ordering renders itself and its entries.\n",
+        "fields": [
+          {
+            "name": "mode",
+            "description": "How to render entries within",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingRenderMode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrderingRenderDefinitionInput",
+        "description": "Describe how an ordering should render its entries.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "mode",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderingRenderMode",
+              "ofType": null
+            },
+            "defaultValue": "FLAT",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "OrderingRenderMode",
+        "description": "How entries in an ordering should be rendered.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FLAT",
+            "description": "The default for most orderings. Every ordering is considered to be on\nthe same level of the hierarchy, and positions are calculated based\nsolely on the paths.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TREE",
+            "description": "A special mode for handling orderings that should operate like a tree. In this setting,\nentries will be calculated first as though they were flat, then analyzed in order to\nadjust the positioning to account for the entry's ancestors and position relative to\nother entries in the ordering.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrderingSchemaFilter",
+        "description": "This defines a specific schema that an ordering can filter its entries by",
+        "fields": [
+          {
+            "name": "identifier",
+            "description": "The identifier within the namespace for the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "namespace",
+            "description": "The namespace the schema occupies.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "An optional version requirement for the associated schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "VersionRequirement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrderingSchemaFilterInput",
+        "description": "This defines a specific schema that an ordering can filter its entries by",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "namespace",
+            "description": "The namespace the schema occupies.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "The identifier within the namespace for the schema.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "version",
+            "description": "An optional version requirement for this ordering. It supports\nRuby's version declaration syntax, so you can provide a value\nlike `\">= 1.2\"` to match against semantically-versioned schemas.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "VersionRequirement",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrderingSelectDefinition",
+        "description": "Defines how an ordering should select its entries.\n",
+        "fields": [
+          {
+            "name": "direct",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingDirectSelection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "links",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingSelectLinkDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "OrderingSelectDefinitionInput",
-        "description": null,
+        "description": "Define how an ordering should select its entries\n",
         "fields": null,
         "inputFields": [
           {
@@ -29050,9 +29909,52 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "OrderingSelectLinkDefinition",
+        "description": "Describes how an ordering should select its links.\n",
+        "fields": [
+          {
+            "name": "contains",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "references",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "OrderingSelectLinkDefinitionInput",
-        "description": null,
+        "description": "Describe how an ordering should select its links.\n",
         "fields": null,
         "inputFields": [
           {
@@ -31605,6 +32507,51 @@
             "deprecationReason": null
           },
           {
+            "name": "orderingPaths",
+            "description": "A list of ordering paths for creating and updating orderings.",
+            "args": [
+              {
+                "name": "schemas",
+                "description": "If passed, this will restrict the property fields returned to the selected schemas.",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "OrderingSchemaFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "AnyOrderingPath",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "roles",
             "description": "List all roles",
             "args": [
@@ -33654,6 +34601,65 @@
       },
       {
         "kind": "OBJECT",
+        "name": "SchemaCoreDefinition",
+        "description": "Configuration for controlling how instances handle specific optional core properties.\n",
+        "fields": [
+          {
+            "name": "doi",
+            "description": "Whether to expose or hide an entity's DOI",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issn",
+            "description": "Whether to expose or hide an entity's ISSN",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subtitle",
+            "description": "Whether to expose or hide an entity's subtitle",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "SchemaDefinition",
         "description": "A schema definition is a logical grouping of `SchemaVersion`s that identifies\nonly the shared kind, namespace, and identifier. The name is also most likely\nshared, although it can change between schema versions, and the value on the\ndefinition will default to whatever the most recent version uses.\n",
         "fields": [
@@ -34259,6 +35265,127 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "SchemaOrderingPath",
+        "description": "This ordering path represents a schema property and is variably\navailable based on whether matched entities' schemas implement it.\n",
+        "fields": [
+          {
+            "name": "description",
+            "description": "A helpful description of the path",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "grouping",
+            "description": "A logical grouping for ordering paths",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingPathGrouping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the path",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "labelPrefix",
+            "description": "Some paths may have a prefix. For instance, schema properties will have the name of the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The exact path that should be provided to mutation inputs.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersion",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The schema property type",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "OrderingPath",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "SchemaProperty",
         "description": "A property on a `SchemaInstance`.\n",
@@ -34687,6 +35814,62 @@
       },
       {
         "kind": "OBJECT",
+        "name": "SchemaRenderDefinition",
+        "description": "Configuration for controlling how instances of a schema render outside of orderings.\n",
+        "fields": [
+          {
+            "name": "listMode",
+            "description": "How to render a list",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaRenderListMode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SchemaRenderListMode",
+        "description": "How instances that implement a certain schema should be rendered outside of an ordering,\nwhen rendering only entities for the same type of schema.\n\nThis value is currently only intended to be used by the frontend. It enforces no special\nhandling within the API itself, unlike an `OrderingRenderModeType`.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "GRID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TABLE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TREE",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "SchemaValueError",
         "description": "An error that stems from trying to apply an invalid schema value.",
         "fields": [
@@ -34777,6 +35960,22 @@
         "name": "SchemaVersion",
         "description": "A specific version of a `SchemaDefinition`.\n",
         "fields": [
+          {
+            "name": "core",
+            "description": "Configuration for controlling how instances of a schema handle certain optional core properties.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaCoreDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -34883,6 +36082,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "render",
+            "description": "Configuration for rendering schema instances outside of orderings",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaRenderDefinition",
                 "ofType": null
               }
             },
@@ -36104,6 +37319,111 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "StaticOrderingPath",
+        "description": "This property is static and is always available on an\nentity, irrespective of its schema.\n",
+        "fields": [
+          {
+            "name": "description",
+            "description": "A helpful description of the path",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "grouping",
+            "description": "A logical grouping for ordering paths",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingPathGrouping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the path",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "labelPrefix",
+            "description": "Some paths may have a prefix. For instance, schema properties will have the name of the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The exact path that should be provided to mutation inputs.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The schema property type",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "OrderingPath",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -37467,11 +38787,35 @@
             "deprecationReason": null
           },
           {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
+            "name": "accessioned",
+            "description": "The date this entity was added to its parent",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "available",
+            "description": "The date this entity was made available",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issued",
+            "description": "The date this entity was issued",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -37480,10 +38824,22 @@
           },
           {
             "name": "published",
-            "description": "The date the entity was published",
+            "description": "The date this entity was published",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -38455,11 +39811,35 @@
             "deprecationReason": null
           },
           {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
+            "name": "accessioned",
+            "description": "The date this entity was added to its parent",
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "available",
+            "description": "The date this entity was made available",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "issued",
+            "description": "The date this entity was issued",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "VariablePrecisionDateInput",
               "ofType": null
             },
             "defaultValue": null,
@@ -38468,10 +39848,22 @@
           },
           {
             "name": "published",
-            "description": "The date the entity was published",
+            "description": "The date this entity was published",
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -38809,6 +40201,18 @@
                   }
                 }
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "render",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "OrderingRenderDefinitionInput",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -45597,6 +47001,16 @@
             "deprecationReason": null
           }
         ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "VersionRequirement",
+        "description": "A semantic version requirement",
+        "fields": null,
+        "inputFields": null,
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": null

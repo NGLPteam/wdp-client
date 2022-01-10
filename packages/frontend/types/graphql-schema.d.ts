@@ -22,6 +22,8 @@ export type Scalars = {
   Slug: string;
   /** An upload ID is used to refer to an upload within the tus infrastructure outside of the GraphQL API */
   UploadID: string;
+  /** A semantic version requirement */
+  VersionRequirement: string;
 };
 
 /** An access control list */
@@ -277,6 +279,9 @@ export type AnyLinkTarget = Collection | Item | { __typename?: "%other" };
 
 /** The various types an OrderingEntry can refer to */
 export type AnyOrderingEntry = Collection | Community | EntityLink | Item | { __typename?: "%other" };
+
+/** All types in this union implement OrderingPath. */
+export type AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath | { __typename?: "%other" };
 
 /**
  * `AnyScalarProperty` represents a collection of known *scalar* properties. In effect,
@@ -983,6 +988,7 @@ export type Collection = Accessible & Entity & HasDefaultTimestamps & References
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -1225,6 +1231,8 @@ export type CollectionOrderingArgs = {
 /** A collection of items */
 export type CollectionOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
+  availability?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingAvailabilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1407,6 +1415,7 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   name: Scalars['String'];
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -1562,6 +1571,8 @@ export type CommunityOrderingArgs = {
 /** A community of users */
 export type CommunityOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
+  availability?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingAvailabilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2055,10 +2066,16 @@ export type CreateCollectionInput = {
   thumbnail?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
   thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** The date this entity was added to its parent */
+  accessioned?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was made available */
+  available?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was issued */
+  issued?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was published */
+  published?: Maybe<VariablePrecisionDateInput>;
   /** A brief description of the entity's contents. */
   summary?: Maybe<Scalars['String']>;
-  /** The date the entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -2138,10 +2155,16 @@ export type CreateItemInput = {
   thumbnail?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
   thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** The date this entity was added to its parent */
+  accessioned?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was made available */
+  available?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was issued */
+  issued?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was published */
+  published?: Maybe<VariablePrecisionDateInput>;
   /** A brief description of the entity's contents. */
   summary?: Maybe<Scalars['String']>;
-  /** The date the entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -2185,6 +2208,7 @@ export type CreateOrderingInput = {
   filter?: Maybe<OrderingFilterDefinitionInput>;
   select?: Maybe<OrderingSelectDefinitionInput>;
   order: Array<OrderDefinitionInput>;
+  render?: Maybe<OrderingRenderDefinitionInput>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -2739,6 +2763,7 @@ export type Entity = {
   links: EntityLinkConnection;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -2824,6 +2849,8 @@ export type EntityOrderingArgs = {
 /** An entity that exists in the hierarchy. */
 export type EntityOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
+  availability?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingAvailabilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3611,6 +3638,7 @@ export type Item = Accessible & Entity & HasDefaultTimestamps & ReferencesEntity
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -3830,6 +3858,8 @@ export type ItemOrderingArgs = {
 /** An item that belongs to a collection */
 export type ItemOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
+  availability?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingAvailabilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -4577,6 +4607,14 @@ export type OptionableProperty = {
 };
 
 /** Ordering for a specific column */
+export type OrderDefinition = {
+  __typename?: 'OrderDefinition';
+  direction: Direction;
+  nulls: NullOrderPriority;
+  path: Scalars['String'];
+};
+
+/** Ordering for a specific column */
 export type OrderDefinitionInput = {
   path: Scalars['String'];
   direction?: Maybe<Direction>;
@@ -4587,6 +4625,8 @@ export type OrderDefinitionInput = {
 export type Ordering = Node & Sluggable & {
   __typename?: 'Ordering';
   children: OrderingEntryConnection;
+  /** A constant ordering should be treated as not being able to invert itself. */
+  constant: Scalars['Boolean'];
   createdAt: Scalars['ISO8601DateTime'];
   /** Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted. */
   disabled: Scalars['Boolean'];
@@ -4594,10 +4634,17 @@ export type Ordering = Node & Sluggable & {
   disabledAt?: Maybe<Scalars['ISO8601Date']>;
   /** The entity that owns the ordering */
   entity: AnyEntity;
+  filter: OrderingFilterDefinition;
   /** Optional markdown content to render after the children */
   footer?: Maybe<Scalars['String']>;
   /** Optional markdown content to render before the children */
   header?: Maybe<Scalars['String']>;
+  /**
+   * A hidden ordering represents an ordering that should not be shown in the frontend,
+   * when iterating over an entity's available orderings. It does not affect access, as
+   * hidden orderings may still serve a functional purpose for their schema.
+   */
+  hidden: Scalars['Boolean'];
   id: Scalars['ID'];
   /** A unique identifier for the ordering within the context of its parent entity. */
   identifier: Scalars['String'];
@@ -4605,7 +4652,25 @@ export type Ordering = Node & Sluggable & {
   inheritedFromSchema: Scalars['Boolean'];
   /** An optional, human-readable name for the ordering */
   name?: Maybe<Scalars['String']>;
+  order: Array<OrderDefinition>;
+  /**
+   * For orderings that are `inheritedFromSchema`, this tracks whether or not the
+   * entity has been modified from the schema's definition. It is always false
+   * for custom, user-created orderings.
+   */
+  pristine: Scalars['Boolean'];
+  /** Configuration for how to render an ordering and its entries. */
+  render: OrderingRenderDefinition;
+  select: OrderingSelectDefinition;
   slug: Scalars['Slug'];
+  /**
+   * A tree ordering has some special handling to return entities
+   * in deterministic order based on their hierarchical position
+   * and relation to other entities in the same ordering.
+   *
+   * This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+   */
+  tree: Scalars['Boolean'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
@@ -4621,6 +4686,16 @@ export type OrderingChildrenArgs = {
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
 };
+
+/** An ordering's availability refers to it being enabled or disabled. */
+export type OrderingAvailabilityFilter =
+  /** Do not filter orderings by whether they are enabled or disabled. */
+  | 'ALL'
+  /** Fetch only *enabled* orderings. */
+  | 'ENABLED'
+  /** Fetch only *disabled* orderings. */
+  | 'DISABLED'
+  | '%future added value';
 
 /** The connection type for Ordering. */
 export type OrderingConnection = Paginated & {
@@ -4656,7 +4731,14 @@ export type OrderingEntry = Node & Sluggable & {
   id: Scalars['ID'];
   /** The parent ordering */
   ordering: Ordering;
+  /** A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity. */
+  relativeDepth: Scalars['Int'];
   slug: Scalars['Slug'];
+  /**
+   * When an ordering's render mode is set to TREE, its entries will have this set.
+   * It is a normalized depth based on what other entities were accepted into the ordering.
+   */
+  treeDepth?: Maybe<Scalars['Int']>;
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
@@ -4688,8 +4770,29 @@ export type OrderingEntrySortMode =
   | 'INVERSE'
   | '%future added value';
 
+/**
+ * A collection of settings for filtering what appears what entities
+ * may populate an ordering. At present, this only supports schemas.
+ */
+export type OrderingFilterDefinition = {
+  __typename?: 'OrderingFilterDefinition';
+  /**
+   * If set, any child or descendant that matches one of these schemas will
+   * be availabel to be included in the ordering.
+   */
+  schemas: Array<OrderingSchemaFilter>;
+};
+
+/**
+ * A collection of settings for filtering what appears what entities
+ * may populate an ordering. At present, this only supports schemas.
+ */
 export type OrderingFilterDefinitionInput = {
-  schemas?: Maybe<Array<Scalars['String']>>;
+  /**
+   * If set, any child or descendant that matches one of these schemas will
+   * be availabel to be included in the ordering.
+   */
+  schemas?: Maybe<Array<OrderingSchemaFilterInput>>;
 };
 
 /** An enum used to order `Ordering`s. It uses `DETERMINISTIC` by default to ensure a consistent rendering experience. */
@@ -4702,11 +4805,113 @@ export type OrderingOrder =
   | 'OLDEST'
   | '%future added value';
 
+/** This represents a valid path that can be used for orderings. */
+export type OrderingPath = {
+  /** A helpful description of the path */
+  description?: Maybe<Scalars['String']>;
+  /** A logical grouping for ordering paths */
+  grouping: OrderingPathGrouping;
+  /** A human-readable label for the path */
+  label: Scalars['String'];
+  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
+  labelPrefix?: Maybe<Scalars['String']>;
+  /** The exact path that should be provided to mutation inputs. */
+  path: Scalars['String'];
+  /** The schema property type */
+  type: SchemaPropertyType;
+};
+
+/** A logical grouping for ordering paths. */
+export type OrderingPathGrouping =
+  /** Static properties that are directly on an entity. */
+  | 'ENTITY'
+  /** Static properties that are derived from a link. */
+  | 'LINK'
+  /**
+   * Paths under this type come from a schema. Not every entity is guaranteed
+   * to have one, and in orderings with mixed entities, missing props will be
+   * treated as null.
+   */
+  | 'PROPS'
+  /** Static properties that are derived from a schema. */
+  | 'SCHEMA'
+  | '%future added value';
+
+/** Configuration for controlling how an ordering renders itself and its entries. */
+export type OrderingRenderDefinition = {
+  __typename?: 'OrderingRenderDefinition';
+  /** How to render entries within */
+  mode: OrderingRenderMode;
+};
+
+/** Describe how an ordering should render its entries. */
+export type OrderingRenderDefinitionInput = {
+  mode?: Maybe<OrderingRenderMode>;
+};
+
+/** How entries in an ordering should be rendered. */
+export type OrderingRenderMode =
+  /**
+   * The default for most orderings. Every ordering is considered to be on
+   * the same level of the hierarchy, and positions are calculated based
+   * solely on the paths.
+   */
+  | 'FLAT'
+  /**
+   * A special mode for handling orderings that should operate like a tree. In this setting,
+   * entries will be calculated first as though they were flat, then analyzed in order to
+   * adjust the positioning to account for the entry's ancestors and position relative to
+   * other entries in the ordering.
+   */
+  | 'TREE'
+  | '%future added value';
+
+/** This defines a specific schema that an ordering can filter its entries by */
+export type OrderingSchemaFilter = {
+  __typename?: 'OrderingSchemaFilter';
+  /** The identifier within the namespace for the schema. */
+  identifier: Scalars['String'];
+  /** The namespace the schema occupies. */
+  namespace: Scalars['String'];
+  /** An optional version requirement for the associated schema. */
+  version?: Maybe<Scalars['VersionRequirement']>;
+};
+
+/** This defines a specific schema that an ordering can filter its entries by */
+export type OrderingSchemaFilterInput = {
+  /** The namespace the schema occupies. */
+  namespace: Scalars['String'];
+  /** The identifier within the namespace for the schema. */
+  identifier: Scalars['String'];
+  /**
+   * An optional version requirement for this ordering. It supports
+   * Ruby's version declaration syntax, so you can provide a value
+   * like `">= 1.2"` to match against semantically-versioned schemas.
+   */
+  version?: Maybe<Scalars['VersionRequirement']>;
+};
+
+/** Defines how an ordering should select its entries. */
+export type OrderingSelectDefinition = {
+  __typename?: 'OrderingSelectDefinition';
+  direct: OrderingDirectSelection;
+  links: OrderingSelectLinkDefinition;
+};
+
+/** Define how an ordering should select its entries */
 export type OrderingSelectDefinitionInput = {
   direct?: Maybe<OrderingDirectSelection>;
   links?: Maybe<OrderingSelectLinkDefinitionInput>;
 };
 
+/** Describes how an ordering should select its links. */
+export type OrderingSelectLinkDefinition = {
+  __typename?: 'OrderingSelectLinkDefinition';
+  contains: Scalars['Boolean'];
+  references: Scalars['Boolean'];
+};
+
+/** Describe how an ordering should select its links. */
 export type OrderingSelectLinkDefinitionInput = {
   contains?: Maybe<Scalars['Boolean']>;
   references?: Maybe<Scalars['Boolean']>;
@@ -4949,6 +5154,8 @@ export type Query = {
   node?: Maybe<Node>;
   /** Fetches a list of objects given a list of IDs. */
   nodes: Array<Maybe<Node>>;
+  /** A list of ordering paths for creating and updating orderings. */
+  orderingPaths: Array<AnyOrderingPath>;
   /** List all roles */
   roles: RoleConnection;
   /** Look up a schema definition by slug */
@@ -5063,6 +5270,12 @@ export type QueryNodeArgs = {
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryNodesArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+/** The entry point for retrieving data from within the WDP API. */
+export type QueryOrderingPathsArgs = {
+  schemas?: Maybe<Array<OrderingSchemaFilterInput>>;
 };
 
 
@@ -5385,6 +5598,17 @@ export type ScalarProperty = {
   type: SchemaPropertyType;
 };
 
+/** Configuration for controlling how instances handle specific optional core properties. */
+export type SchemaCoreDefinition = {
+  __typename?: 'SchemaCoreDefinition';
+  /** Whether to expose or hide an entity's DOI */
+  doi: Scalars['Boolean'];
+  /** Whether to expose or hide an entity's ISSN */
+  issn: Scalars['Boolean'];
+  /** Whether to expose or hide an entity's subtitle */
+  subtitle: Scalars['Boolean'];
+};
+
 /**
  * A schema definition is a logical grouping of `SchemaVersion`s that identifies
  * only the shared kind, namespace, and identifier. The name is also most likely
@@ -5481,6 +5705,27 @@ export type SchemaKind =
   | 'COLLECTION'
   | 'ITEM'
   | '%future added value';
+
+/**
+ * This ordering path represents a schema property and is variably
+ * available based on whether matched entities' schemas implement it.
+ */
+export type SchemaOrderingPath = OrderingPath & {
+  __typename?: 'SchemaOrderingPath';
+  /** A helpful description of the path */
+  description?: Maybe<Scalars['String']>;
+  /** A logical grouping for ordering paths */
+  grouping: OrderingPathGrouping;
+  /** A human-readable label for the path */
+  label: Scalars['String'];
+  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
+  labelPrefix?: Maybe<Scalars['String']>;
+  /** The exact path that should be provided to mutation inputs. */
+  path: Scalars['String'];
+  schemaVersion: SchemaVersion;
+  /** The schema property type */
+  type: SchemaPropertyType;
+};
 
 /** A property on a `SchemaInstance`. */
 export type SchemaProperty = {
@@ -5628,6 +5873,26 @@ export type SchemaPropertyType =
   | 'VARIABLE_DATE'
   | '%future added value';
 
+/** Configuration for controlling how instances of a schema render outside of orderings. */
+export type SchemaRenderDefinition = {
+  __typename?: 'SchemaRenderDefinition';
+  /** How to render a list */
+  listMode: SchemaRenderListMode;
+};
+
+/**
+ * How instances that implement a certain schema should be rendered outside of an ordering,
+ * when rendering only entities for the same type of schema.
+ *
+ * This value is currently only intended to be used by the frontend. It enforces no special
+ * handling within the API itself, unlike an `OrderingRenderModeType`.
+ */
+export type SchemaRenderListMode =
+  | 'GRID'
+  | 'TABLE'
+  | 'TREE'
+  | '%future added value';
+
 /** An error that stems from trying to apply an invalid schema value. */
 export type SchemaValueError = {
   __typename?: 'SchemaValueError';
@@ -5649,6 +5914,8 @@ export type SchemaValueError = {
 /** A specific version of a `SchemaDefinition`. */
 export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Sluggable & {
   __typename?: 'SchemaVersion';
+  /** Configuration for controlling how instances of a schema handle certain optional core properties. */
+  core: SchemaCoreDefinition;
   createdAt: Scalars['ISO8601DateTime'];
   id: Scalars['ID'];
   /** A unique (per-namespace) value that names the schema within the system. */
@@ -5661,6 +5928,8 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Slugg
   namespace: Scalars['String'];
   /** A semantic version for the schema */
   number: Scalars['String'];
+  /** Configuration for rendering schema instances outside of orderings */
+  render: SchemaRenderDefinition;
   /** The shared schema definition for all versions of this namespace and identifier */
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
@@ -5821,6 +6090,26 @@ export type StandardMutationPayload = {
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
   haltCode?: Maybe<Scalars['String']>;
+};
+
+/**
+ * This property is static and is always available on an
+ * entity, irrespective of its schema.
+ */
+export type StaticOrderingPath = OrderingPath & {
+  __typename?: 'StaticOrderingPath';
+  /** A helpful description of the path */
+  description?: Maybe<Scalars['String']>;
+  /** A logical grouping for ordering paths */
+  grouping: OrderingPathGrouping;
+  /** A human-readable label for the path */
+  label: Scalars['String'];
+  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
+  labelPrefix?: Maybe<Scalars['String']>;
+  /** The exact path that should be provided to mutation inputs. */
+  path: Scalars['String'];
+  /** The schema property type */
+  type: SchemaPropertyType;
 };
 
 export type StringProperty = SchemaProperty & ScalarProperty & {
@@ -6224,10 +6513,16 @@ export type UpdateCollectionInput = {
   thumbnail?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
   thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** The date this entity was added to its parent */
+  accessioned?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was made available */
+  available?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was issued */
+  issued?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was published */
+  published?: Maybe<VariablePrecisionDateInput>;
   /** A brief description of the entity's contents. */
   summary?: Maybe<Scalars['String']>;
-  /** The date the entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -6362,10 +6657,16 @@ export type UpdateItemInput = {
   thumbnail?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
   thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** The date this entity was added to its parent */
+  accessioned?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was made available */
+  available?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was issued */
+  issued?: Maybe<VariablePrecisionDateInput>;
+  /** The date this entity was published */
+  published?: Maybe<VariablePrecisionDateInput>;
   /** A brief description of the entity's contents. */
   summary?: Maybe<Scalars['String']>;
-  /** The date the entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -6411,6 +6712,7 @@ export type UpdateOrderingInput = {
   filter?: Maybe<OrderingFilterDefinitionInput>;
   select?: Maybe<OrderingSelectDefinitionInput>;
   order: Array<OrderDefinitionInput>;
+  render?: Maybe<OrderingRenderDefinitionInput>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -7345,6 +7647,7 @@ export type VariablePrecisionDateInput = {
 
 
 
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 
@@ -7458,6 +7761,7 @@ export type ResolversTypes = {
   AnyEntity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   AnyLinkTarget: ResolversTypes['Collection'] | ResolversTypes['Item'];
   AnyOrderingEntry: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'];
+  AnyOrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
   AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
@@ -7620,8 +7924,10 @@ export type ResolversTypes = {
   Node: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['GlobalConfiguration'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   NullOrderPriority: NullOrderPriority;
   OptionableProperty: ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'];
+  OrderDefinition: ResolverTypeWrapper<OrderDefinition>;
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: ResolverTypeWrapper<Omit<Ordering, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
+  OrderingAvailabilityFilter: OrderingAvailabilityFilter;
   OrderingConnection: ResolverTypeWrapper<OrderingConnection>;
   OrderingDirectSelection: OrderingDirectSelection;
   OrderingEdge: ResolverTypeWrapper<OrderingEdge>;
@@ -7629,9 +7935,19 @@ export type ResolversTypes = {
   OrderingEntryConnection: ResolverTypeWrapper<OrderingEntryConnection>;
   OrderingEntryEdge: ResolverTypeWrapper<OrderingEntryEdge>;
   OrderingEntrySortMode: OrderingEntrySortMode;
+  OrderingFilterDefinition: ResolverTypeWrapper<OrderingFilterDefinition>;
   OrderingFilterDefinitionInput: OrderingFilterDefinitionInput;
   OrderingOrder: OrderingOrder;
+  OrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
+  OrderingPathGrouping: OrderingPathGrouping;
+  OrderingRenderDefinition: ResolverTypeWrapper<OrderingRenderDefinition>;
+  OrderingRenderDefinitionInput: OrderingRenderDefinitionInput;
+  OrderingRenderMode: OrderingRenderMode;
+  OrderingSchemaFilter: ResolverTypeWrapper<OrderingSchemaFilter>;
+  OrderingSchemaFilterInput: OrderingSchemaFilterInput;
+  OrderingSelectDefinition: ResolverTypeWrapper<OrderingSelectDefinition>;
   OrderingSelectDefinitionInput: OrderingSelectDefinitionInput;
+  OrderingSelectLinkDefinition: ResolverTypeWrapper<OrderingSelectLinkDefinition>;
   OrderingSelectLinkDefinitionInput: OrderingSelectLinkDefinitionInput;
   OrganizationContributor: ResolverTypeWrapper<OrganizationContributor>;
   Page: ResolverTypeWrapper<Omit<Page, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
@@ -7657,6 +7973,7 @@ export type ResolversTypes = {
   RoleEdge: ResolverTypeWrapper<RoleEdge>;
   RoleOrder: RoleOrder;
   ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  SchemaCoreDefinition: ResolverTypeWrapper<SchemaCoreDefinition>;
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
   SchemaDefinitionEdge: ResolverTypeWrapper<SchemaDefinitionEdge>;
@@ -7664,10 +7981,13 @@ export type ResolversTypes = {
   SchemaInstanceContext: ResolverTypeWrapper<SchemaInstanceContext>;
   SchemaInstanceValidation: ResolverTypeWrapper<SchemaInstanceValidation>;
   SchemaKind: SchemaKind;
+  SchemaOrderingPath: ResolverTypeWrapper<SchemaOrderingPath>;
   SchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaPropertyFunction: SchemaPropertyFunction;
   SchemaPropertyKind: SchemaPropertyKind;
   SchemaPropertyType: SchemaPropertyType;
+  SchemaRenderDefinition: ResolverTypeWrapper<SchemaRenderDefinition>;
+  SchemaRenderListMode: SchemaRenderListMode;
   SchemaValueError: ResolverTypeWrapper<SchemaValueError>;
   SchemaVersion: ResolverTypeWrapper<Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
   SchemaVersionConnection: ResolverTypeWrapper<SchemaVersionConnection>;
@@ -7682,6 +8002,7 @@ export type ResolversTypes = {
   Slug: ResolverTypeWrapper<Scalars['Slug']>;
   Sluggable: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePagePayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentEntityPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateGlobalConfigurationPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePagePayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpdateUserPayload'] | ResolversTypes['UpdateViewerSettingsPayload'] | ResolversTypes['UpsertContributionPayload'];
+  StaticOrderingPath: ResolverTypeWrapper<StaticOrderingPath>;
   StringProperty: ResolverTypeWrapper<StringProperty>;
   SubtreeNodeFilter: SubtreeNodeFilter;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
@@ -7752,6 +8073,7 @@ export type ResolversTypes = {
   VariableDateProperty: ResolverTypeWrapper<VariableDateProperty>;
   VariablePrecisionDate: ResolverTypeWrapper<VariablePrecisionDate>;
   VariablePrecisionDateInput: VariablePrecisionDateInput;
+  VersionRequirement: ResolverTypeWrapper<Scalars['VersionRequirement']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -7786,6 +8108,7 @@ export type ResolversParentTypes = {
   AnyEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   AnyLinkTarget: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   AnyOrderingEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'];
+  AnyOrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
   AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
@@ -7925,6 +8248,7 @@ export type ResolversParentTypes = {
   NamedAncestor: Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversParentTypes['AnyEntity'] };
   Node: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['GlobalConfiguration'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   OptionableProperty: ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'];
+  OrderDefinition: OrderDefinition;
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: Omit<Ordering, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   OrderingConnection: OrderingConnection;
@@ -7932,8 +8256,16 @@ export type ResolversParentTypes = {
   OrderingEntry: Omit<OrderingEntry, 'entry'> & { entry: ResolversParentTypes['AnyOrderingEntry'] };
   OrderingEntryConnection: OrderingEntryConnection;
   OrderingEntryEdge: OrderingEntryEdge;
+  OrderingFilterDefinition: OrderingFilterDefinition;
   OrderingFilterDefinitionInput: OrderingFilterDefinitionInput;
+  OrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
+  OrderingRenderDefinition: OrderingRenderDefinition;
+  OrderingRenderDefinitionInput: OrderingRenderDefinitionInput;
+  OrderingSchemaFilter: OrderingSchemaFilter;
+  OrderingSchemaFilterInput: OrderingSchemaFilterInput;
+  OrderingSelectDefinition: OrderingSelectDefinition;
   OrderingSelectDefinitionInput: OrderingSelectDefinitionInput;
+  OrderingSelectLinkDefinition: OrderingSelectLinkDefinition;
   OrderingSelectLinkDefinitionInput: OrderingSelectLinkDefinitionInput;
   OrganizationContributor: OrganizationContributor;
   Page: Omit<Page, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
@@ -7956,13 +8288,16 @@ export type ResolversParentTypes = {
   RoleConnection: RoleConnection;
   RoleEdge: RoleEdge;
   ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  SchemaCoreDefinition: SchemaCoreDefinition;
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
   SchemaDefinitionEdge: SchemaDefinitionEdge;
   SchemaInstance: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   SchemaInstanceContext: SchemaInstanceContext;
   SchemaInstanceValidation: SchemaInstanceValidation;
+  SchemaOrderingPath: SchemaOrderingPath;
   SchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  SchemaRenderDefinition: SchemaRenderDefinition;
   SchemaValueError: SchemaValueError;
   SchemaVersion: Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
   SchemaVersionConnection: SchemaVersionConnection;
@@ -7975,6 +8310,7 @@ export type ResolversParentTypes = {
   Slug: Scalars['Slug'];
   Sluggable: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePagePayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentEntityPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateGlobalConfigurationPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePagePayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpdateUserPayload'] | ResolversParentTypes['UpdateViewerSettingsPayload'] | ResolversParentTypes['UpsertContributionPayload'];
+  StaticOrderingPath: StaticOrderingPath;
   StringProperty: StringProperty;
   TagsProperty: TagsProperty;
   ThemeSettings: ThemeSettings;
@@ -8041,6 +8377,7 @@ export type ResolversParentTypes = {
   VariableDateProperty: VariableDateProperty;
   VariablePrecisionDate: VariablePrecisionDate;
   VariablePrecisionDateInput: VariablePrecisionDateInput;
+  VersionRequirement: Scalars['VersionRequirement'];
 };
 
 export type AccessControlListResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessControlList'] = ResolversParentTypes['AccessControlList']> = {
@@ -8186,6 +8523,10 @@ export type AnyLinkTargetResolvers<ContextType = any, ParentType extends Resolve
 
 export type AnyOrderingEntryResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyOrderingEntry'] = ResolversParentTypes['AnyOrderingEntry']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'EntityLink' | 'Item', ParentType, ContextType>;
+};
+
+export type AnyOrderingPathResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyOrderingPath'] = ResolversParentTypes['AnyOrderingPath']> = {
+  __resolveType: TypeResolveFn<'SchemaOrderingPath' | 'StaticOrderingPath', ParentType, ContextType>;
 };
 
 export type AnyScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyScalarProperty'] = ResolversParentTypes['AnyScalarProperty']> = {
@@ -8493,7 +8834,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CollectionLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CollectionOrderingArgs, 'identifier'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CollectionOrderingsArgs, 'order' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CollectionOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CollectionPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CollectionPagesArgs, 'pageDirection'>>;
   parent?: Resolver<Maybe<ResolversTypes['CollectionParent']>, ParentType, ContextType>;
@@ -8593,7 +8934,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   metadata?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingArgs, 'identifier'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CommunityOrderingsArgs, 'order' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CommunityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CommunityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CommunityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
@@ -9001,7 +9342,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection'>>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingArgs, 'identifier'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<EntityOrderingsArgs, 'order' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<EntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<EntityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<EntityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
@@ -9316,7 +9657,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ItemOrderingArgs, 'identifier'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ItemOrderingsArgs, 'order' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ItemOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ItemPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ItemPagesArgs, 'pageDirection'>>;
   parent?: Resolver<Maybe<ResolversTypes['ItemParent']>, ParentType, ContextType>;
@@ -9541,19 +9882,34 @@ export type OptionablePropertyResolvers<ContextType = any, ParentType extends Re
   options?: Resolver<Array<ResolversTypes['SelectOption']>, ParentType, ContextType>;
 };
 
+export type OrderDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderDefinition'] = ResolversParentTypes['OrderDefinition']> = {
+  direction?: Resolver<ResolversTypes['Direction'], ParentType, ContextType>;
+  nulls?: Resolver<ResolversTypes['NullOrderPriority'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type OrderingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ordering'] = ResolversParentTypes['Ordering']> = {
   children?: Resolver<ResolversTypes['OrderingEntryConnection'], ParentType, ContextType, RequireFields<OrderingChildrenArgs, 'order' | 'pageDirection'>>;
+  constant?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   disabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   disabledAt?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  filter?: Resolver<ResolversTypes['OrderingFilterDefinition'], ParentType, ContextType>;
   footer?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   inheritedFromSchema?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  order?: Resolver<Array<ResolversTypes['OrderDefinition']>, ParentType, ContextType>;
+  pristine?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  render?: Resolver<ResolversTypes['OrderingRenderDefinition'], ParentType, ContextType>;
+  select?: Resolver<ResolversTypes['OrderingSelectDefinition'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  tree?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -9576,7 +9932,9 @@ export type OrderingEntryResolvers<ContextType = any, ParentType extends Resolve
   entry?: Resolver<ResolversTypes['AnyOrderingEntry'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   ordering?: Resolver<ResolversTypes['Ordering'], ParentType, ContextType>;
+  relativeDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  treeDepth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -9591,6 +9949,45 @@ export type OrderingEntryConnectionResolvers<ContextType = any, ParentType exten
 export type OrderingEntryEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingEntryEdge'] = ResolversParentTypes['OrderingEntryEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['OrderingEntry'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingFilterDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingFilterDefinition'] = ResolversParentTypes['OrderingFilterDefinition']> = {
+  schemas?: Resolver<Array<ResolversTypes['OrderingSchemaFilter']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingPathResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingPath'] = ResolversParentTypes['OrderingPath']> = {
+  __resolveType: TypeResolveFn<'SchemaOrderingPath' | 'StaticOrderingPath', ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  grouping?: Resolver<ResolversTypes['OrderingPathGrouping'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  labelPrefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+};
+
+export type OrderingRenderDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingRenderDefinition'] = ResolversParentTypes['OrderingRenderDefinition']> = {
+  mode?: Resolver<ResolversTypes['OrderingRenderMode'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingSchemaFilterResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingSchemaFilter'] = ResolversParentTypes['OrderingSchemaFilter']> = {
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  namespace?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['VersionRequirement']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingSelectDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingSelectDefinition'] = ResolversParentTypes['OrderingSelectDefinition']> = {
+  direct?: Resolver<ResolversTypes['OrderingDirectSelection'], ParentType, ContextType>;
+  links?: Resolver<ResolversTypes['OrderingSelectLinkDefinition'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingSelectLinkDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingSelectLinkDefinition'] = ResolversParentTypes['OrderingSelectLinkDefinition']> = {
+  contains?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  references?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -9714,6 +10111,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   itemContribution?: Resolver<Maybe<ResolversTypes['ItemContribution']>, ParentType, ContextType, RequireFields<QueryItemContributionArgs, 'slug'>>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'id'>>;
   nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, RequireFields<QueryNodesArgs, 'ids'>>;
+  orderingPaths?: Resolver<Array<ResolversTypes['AnyOrderingPath']>, ParentType, ContextType, RequireFields<QueryOrderingPathsArgs, never>>;
   roles?: Resolver<ResolversTypes['RoleConnection'], ParentType, ContextType, RequireFields<QueryRolesArgs, 'order'>>;
   schemaDefinition?: Resolver<Maybe<ResolversTypes['SchemaDefinition']>, ParentType, ContextType, RequireFields<QuerySchemaDefinitionArgs, 'slug'>>;
   schemaDefinitions?: Resolver<ResolversTypes['SchemaDefinitionConnection'], ParentType, ContextType, RequireFields<QuerySchemaDefinitionsArgs, 'order' | 'pageDirection'>>;
@@ -9818,6 +10216,13 @@ export type ScalarPropertyResolvers<ContextType = any, ParentType extends Resolv
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
 };
 
+export type SchemaCoreDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaCoreDefinition'] = ResolversParentTypes['SchemaCoreDefinition']> = {
+  doi?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  issn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  subtitle?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SchemaDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaDefinition'] = ResolversParentTypes['SchemaDefinition']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -9868,6 +10273,17 @@ export type SchemaInstanceValidationResolvers<ContextType = any, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SchemaOrderingPathResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaOrderingPath'] = ResolversParentTypes['SchemaOrderingPath']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  grouping?: Resolver<ResolversTypes['OrderingPathGrouping'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  labelPrefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SchemaPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaProperty'] = ResolversParentTypes['SchemaProperty']> = {
   __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -9877,6 +10293,11 @@ export type SchemaPropertyResolvers<ContextType = any, ParentType extends Resolv
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+};
+
+export type SchemaRenderDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaRenderDefinition'] = ResolversParentTypes['SchemaRenderDefinition']> = {
+  listMode?: Resolver<ResolversTypes['SchemaRenderListMode'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SchemaValueErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaValueError'] = ResolversParentTypes['SchemaValueError']> = {
@@ -9889,6 +10310,7 @@ export type SchemaValueErrorResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type SchemaVersionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaVersion'] = ResolversParentTypes['SchemaVersion']> = {
+  core?: Resolver<ResolversTypes['SchemaCoreDefinition'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9896,6 +10318,7 @@ export type SchemaVersionResolvers<ContextType = any, ParentType extends Resolve
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   namespace?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   number?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  render?: Resolver<ResolversTypes['SchemaRenderDefinition'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -9972,6 +10395,16 @@ export type StandardMutationPayloadResolvers<ContextType = any, ParentType exten
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type StaticOrderingPathResolvers<ContextType = any, ParentType extends ResolversParentTypes['StaticOrderingPath'] = ResolversParentTypes['StaticOrderingPath']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  grouping?: Resolver<ResolversTypes['OrderingPathGrouping'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  labelPrefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type StringPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['StringProperty'] = ResolversParentTypes['StringProperty']> = {
@@ -10466,6 +10899,10 @@ export type VariablePrecisionDateResolvers<ContextType = any, ParentType extends
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface VersionRequirementScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['VersionRequirement'], any> {
+  name: 'VersionRequirement';
+}
+
 export type Resolvers<ContextType = any> = {
   AccessControlList?: AccessControlListResolvers<ContextType>;
   AccessGrant?: AccessGrantResolvers<ContextType>;
@@ -10493,6 +10930,7 @@ export type Resolvers<ContextType = any> = {
   AnyEntity?: AnyEntityResolvers<ContextType>;
   AnyLinkTarget?: AnyLinkTargetResolvers<ContextType>;
   AnyOrderingEntry?: AnyOrderingEntryResolvers<ContextType>;
+  AnyOrderingPath?: AnyOrderingPathResolvers<ContextType>;
   AnyScalarProperty?: AnyScalarPropertyResolvers<ContextType>;
   AnySchemaProperty?: AnySchemaPropertyResolvers<ContextType>;
   AnyUserAccessGrant?: AnyUserAccessGrantResolvers<ContextType>;
@@ -10606,12 +11044,19 @@ export type Resolvers<ContextType = any> = {
   NamedAncestor?: NamedAncestorResolvers<ContextType>;
   Node?: NodeResolvers<ContextType>;
   OptionableProperty?: OptionablePropertyResolvers<ContextType>;
+  OrderDefinition?: OrderDefinitionResolvers<ContextType>;
   Ordering?: OrderingResolvers<ContextType>;
   OrderingConnection?: OrderingConnectionResolvers<ContextType>;
   OrderingEdge?: OrderingEdgeResolvers<ContextType>;
   OrderingEntry?: OrderingEntryResolvers<ContextType>;
   OrderingEntryConnection?: OrderingEntryConnectionResolvers<ContextType>;
   OrderingEntryEdge?: OrderingEntryEdgeResolvers<ContextType>;
+  OrderingFilterDefinition?: OrderingFilterDefinitionResolvers<ContextType>;
+  OrderingPath?: OrderingPathResolvers<ContextType>;
+  OrderingRenderDefinition?: OrderingRenderDefinitionResolvers<ContextType>;
+  OrderingSchemaFilter?: OrderingSchemaFilterResolvers<ContextType>;
+  OrderingSelectDefinition?: OrderingSelectDefinitionResolvers<ContextType>;
+  OrderingSelectLinkDefinition?: OrderingSelectLinkDefinitionResolvers<ContextType>;
   OrganizationContributor?: OrganizationContributorResolvers<ContextType>;
   Page?: PageResolvers<ContextType>;
   PageConnection?: PageConnectionResolvers<ContextType>;
@@ -10630,13 +11075,16 @@ export type Resolvers<ContextType = any> = {
   RoleConnection?: RoleConnectionResolvers<ContextType>;
   RoleEdge?: RoleEdgeResolvers<ContextType>;
   ScalarProperty?: ScalarPropertyResolvers<ContextType>;
+  SchemaCoreDefinition?: SchemaCoreDefinitionResolvers<ContextType>;
   SchemaDefinition?: SchemaDefinitionResolvers<ContextType>;
   SchemaDefinitionConnection?: SchemaDefinitionConnectionResolvers<ContextType>;
   SchemaDefinitionEdge?: SchemaDefinitionEdgeResolvers<ContextType>;
   SchemaInstance?: SchemaInstanceResolvers<ContextType>;
   SchemaInstanceContext?: SchemaInstanceContextResolvers<ContextType>;
   SchemaInstanceValidation?: SchemaInstanceValidationResolvers<ContextType>;
+  SchemaOrderingPath?: SchemaOrderingPathResolvers<ContextType>;
   SchemaProperty?: SchemaPropertyResolvers<ContextType>;
+  SchemaRenderDefinition?: SchemaRenderDefinitionResolvers<ContextType>;
   SchemaValueError?: SchemaValueErrorResolvers<ContextType>;
   SchemaVersion?: SchemaVersionResolvers<ContextType>;
   SchemaVersionConnection?: SchemaVersionConnectionResolvers<ContextType>;
@@ -10648,6 +11096,7 @@ export type Resolvers<ContextType = any> = {
   Slug?: GraphQLScalarType;
   Sluggable?: SluggableResolvers<ContextType>;
   StandardMutationPayload?: StandardMutationPayloadResolvers<ContextType>;
+  StaticOrderingPath?: StaticOrderingPathResolvers<ContextType>;
   StringProperty?: StringPropertyResolvers<ContextType>;
   TagsProperty?: TagsPropertyResolvers<ContextType>;
   ThemeSettings?: ThemeSettingsResolvers<ContextType>;
@@ -10696,6 +11145,7 @@ export type Resolvers<ContextType = any> = {
   UserItemAccessGrantEdge?: UserItemAccessGrantEdgeResolvers<ContextType>;
   VariableDateProperty?: VariableDatePropertyResolvers<ContextType>;
   VariablePrecisionDate?: VariablePrecisionDateResolvers<ContextType>;
+  VersionRequirement?: GraphQLScalarType;
 };
 
 
