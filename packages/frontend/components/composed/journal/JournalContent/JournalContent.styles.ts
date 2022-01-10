@@ -47,6 +47,7 @@ export const AnnouncementsBlock = styled.div`
   padding-inline-start: ${pxToRem(52)};
   padding-inline-end: ${pxToRem(52)};
   padding-block-end: ${pxToRem(52)};
+  align-self: start;
 
   ${respond(
     `

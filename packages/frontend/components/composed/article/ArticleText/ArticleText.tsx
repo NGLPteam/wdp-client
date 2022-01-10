@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { convertToSlug } from "@wdp/lib/helpers";
 import * as Styled from "./ArticleText.styles";
-import { ContentImage } from "components/atomic";
+import { ContentImage, FullTextProperty } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
 
@@ -40,28 +39,6 @@ export default function ArticleText({ data }: Props) {
     setTOC(tocList);
   }, [textEl]);
 
-  function renderContent() {
-    if (!fullText || !fullText.content) return;
-
-    switch (fullText.kind) {
-      case "HTML":
-        return (
-          <div
-            className="t-rte"
-            dangerouslySetInnerHTML={{ __html: fullText.content }}
-          />
-        );
-
-      case "MARKDOWN":
-        return (
-          <ReactMarkdown className="t-rte">{fullText.content}</ReactMarkdown>
-        );
-
-      default:
-        return <>{fullText.content}</>;
-    }
-  }
-
   return article && fullText ? (
     <Styled.BodyWrapper as={BackToTopBlock} className="l-container-wide">
       <Styled.BodyInner>
@@ -87,7 +64,7 @@ export default function ArticleText({ data }: Props) {
               <ContentImage data={article.thumbnail} />
             </Styled.ImageBlock>
           )}
-          {renderContent()}
+          <FullTextProperty data={article.bodyText} />
         </Styled.TextBlock>
       </Styled.BodyInner>
     </Styled.BodyWrapper>
@@ -112,11 +89,9 @@ const fragment = graphql`
       ... on FullTextProperty {
         fullText {
           content
-          kind
-          lang
         }
-        type
       }
+      ...FullTextPropertyFragment
     }
   }
 `;

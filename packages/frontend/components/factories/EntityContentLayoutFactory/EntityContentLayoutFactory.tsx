@@ -5,7 +5,7 @@ import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import ArticleLayout from "components/composed/article/ArticleLayout";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
-import JournalInfo from "components/composed/journal/JournalInfo";
+import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import EntityContent from "components/composed/entity/EntityContent";
@@ -17,7 +17,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
     case "journal":
       return (
         <JournalLayout data={entity}>
-          <JournalInfo data={entity} />
+          <JournalContent data={entity} />
         </JournalLayout>
       );
 
@@ -56,7 +56,7 @@ const fragment = graphql`
       ...EntityLayoutFragment
       ...EntityContentFragment
       ...JournalLayoutFragment
-      ...JournalInfoFragment
+      ...JournalContentFragment
       ...IssueLayoutFragment
     }
     ... on Item {

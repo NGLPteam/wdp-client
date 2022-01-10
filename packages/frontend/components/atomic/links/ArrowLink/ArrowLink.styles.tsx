@@ -2,6 +2,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 
 export const Link = styled.a`
+  display: inline-block;
+
   > * + * {
     margin-inline-start: var(--padding-xs);
   }
