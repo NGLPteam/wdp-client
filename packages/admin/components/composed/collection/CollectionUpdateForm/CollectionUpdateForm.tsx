@@ -20,8 +20,10 @@ export default function CollectionUpdateForm({
   onSaveAndClose,
   onCancel,
 }: Props) {
-  const { collectionId = "", ...fieldsData } =
-    useFragment<CollectionUpdateFormFragment$key>(fragment, data);
+  const {
+    collectionId = "",
+    ...fieldsData
+  } = useFragment<CollectionUpdateFormFragment$key>(fragment, data);
 
   const {
     thumbnail,
@@ -64,7 +66,6 @@ export default function CollectionUpdateForm({
         <Forms.Input
           label="forms.fields.subtitle"
           isWide
-          required
           {...register("subtitle")}
         />
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
