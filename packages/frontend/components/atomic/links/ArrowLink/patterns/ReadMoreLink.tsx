@@ -1,9 +1,16 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import ArrowLink from "..";
+import { MaybeLinkRef } from "types/ref";
 
-export default function ReadMoreLink({ ...props }) {
+function ReadMoreLink({ ...props }, ref: MaybeLinkRef) {
   const { t } = useTranslation();
 
-  return <ArrowLink {...props}>{t("common.read_more")}</ArrowLink>;
+  return (
+    <ArrowLink ref={ref} {...props}>
+      {t("common.read_more")}
+    </ArrowLink>
+  );
 }
+
+export default forwardRef(ReadMoreLink);

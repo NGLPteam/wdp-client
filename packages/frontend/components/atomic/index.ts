@@ -1,4 +1,5 @@
 export { default as ArrowList } from "./ArrowList";
+export { default as Accordion } from "./Accordion";
 export { default as Avatar } from "./Avatar";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as Button } from "./Button";
@@ -9,6 +10,7 @@ export { default as DotList } from "./DotList";
 export { default as DownloadLink } from "./DownloadLink";
 export { default as Dropdown } from "./Dropdown";
 export { default as FileThumbnail } from "./FileThumbnail";
+export { default as FullTextProperty } from "./FullTextProperty";
 export { default as HeroImage } from "./HeroImage";
 export * from "./links";
 export { default as PageCount } from "./PageCount";
@@ -16,4 +18,3 @@ export { default as Pagination } from "./Pagination";
 export { default as PrecisionDate } from "./PrecisionDate";
 export { default as SearchButton } from "./SearchButton";
 export { default as SquareThumbnail } from "./SquareThumbnail";
-export { default as Accordion } from "./Accordion";

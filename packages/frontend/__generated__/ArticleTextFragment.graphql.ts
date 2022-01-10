@@ -6,20 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
-export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
 export type ArticleTextFragment = {
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
     readonly bodyText: {
-        readonly fullText?: {
-            readonly content: string | null;
-            readonly kind: FullTextKind | null;
-            readonly lang: string | null;
-        } | null | undefined;
-        readonly type?: SchemaPropertyType | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
     } | null;
     readonly " $refType": "ArticleTextFragment";
 };
@@ -75,50 +68,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "FullText",
-              "kind": "LinkedField",
-              "name": "fullText",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "content",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "kind",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "lang",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "type",
-              "storageKey": null
-            }
-          ],
-          "type": "FullTextProperty",
-          "abstractKey": null
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FullTextPropertyFragment"
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"body\")"
@@ -127,5 +79,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'df3d90e4509acb44d1cbf9670ebb0350';
+(node as any).hash = '640387fb8a41dd01acfa1283a2af92b4';
 export default node;

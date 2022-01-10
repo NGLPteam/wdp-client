@@ -1,6 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { tLineClamp, respond, aFocus } from "theme/mixins";
+import { ReadMoreLink as BaseReadMoreLink } from "components/atomic";
 
 export const Wrapper = styled.div`
   display: flex;
