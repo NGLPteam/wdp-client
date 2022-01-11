@@ -4,13 +4,13 @@ import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import get from "lodash/get";
+import { ExternalLink } from "components/atomic";
+import EntitySummary from "components/composed/entity/EntitySummary";
+import { BackToTopBlock } from "components/layout";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
-import { ExternalLink } from "components/atomic";
-import { BackToTopBlock } from "components/layout";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
-import EntitySummary from "components/composed/entity/EntitySummary";
 
 export default function ContributorDetail({ data }: Props) {
   const contributor = useMaybeFragment(fragment, data);
@@ -18,8 +18,8 @@ export default function ContributorDetail({ data }: Props) {
 
   const contributionCount = useMemo(
     () =>
-      get(contributor, "collectionContributionCount", 0) +
-      get(contributor, "itemContributionCount", 0),
+      get(contributor, "collectionContributions.nodes", []).length +
+      get(contributor, "itemContributions.nodes", []).length,
     [contributor]
   );
 
@@ -97,7 +97,6 @@ const fragment = graphql`
     ...ContributorNameFragment
     ... on Contributor {
       bio
-      collectionContributionCount
       collectionContributions {
         nodes {
           role
@@ -106,7 +105,6 @@ const fragment = graphql`
           }
         }
       }
-      itemContributionCount
       itemContributions {
         nodes {
           role
