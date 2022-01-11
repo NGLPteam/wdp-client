@@ -81,6 +81,8 @@
     "metadata": {
       "authored_on": "Authored On",
       "tags": "Tags",
+      "issue_number": "Issue {{number}}",
+      "volume_number": "Volume {{number}}",
       "number": "Number {{number}}"
     },
     "layouts": {

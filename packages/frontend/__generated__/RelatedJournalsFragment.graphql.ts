@@ -22,12 +22,7 @@ export type RelatedJournalsFragment = {
                     readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
                 };
                 readonly currentIssue: {
-                    readonly number: {
-                        readonly content?: string | null | undefined;
-                    } | null;
-                    readonly volume: {
-                        readonly title?: string | undefined;
-                    } | null;
+                    readonly title: string;
                 } | null;
             } | {
                 /*This will never be '%other', but we need some
@@ -172,62 +167,7 @@ return {
                       "name": "firstCollection",
                       "plural": false,
                       "selections": [
-                        {
-                          "alias": "number",
-                          "args": [
-                            {
-                              "kind": "Literal",
-                              "name": "fullPath",
-                              "value": "number"
-                            }
-                          ],
-                          "concreteType": null,
-                          "kind": "LinkedField",
-                          "name": "schemaProperty",
-                          "plural": false,
-                          "selections": [
-                            {
-                              "kind": "InlineFragment",
-                              "selections": [
-                                {
-                                  "alias": null,
-                                  "args": null,
-                                  "kind": "ScalarField",
-                                  "name": "content",
-                                  "storageKey": null
-                                }
-                              ],
-                              "type": "StringProperty",
-                              "abstractKey": null
-                            }
-                          ],
-                          "storageKey": "schemaProperty(fullPath:\"number\")"
-                        },
-                        {
-                          "alias": "volume",
-                          "args": [
-                            {
-                              "kind": "Literal",
-                              "name": "schema",
-                              "value": "nglp:journal_volume"
-                            }
-                          ],
-                          "concreteType": null,
-                          "kind": "LinkedField",
-                          "name": "ancestorOfType",
-                          "plural": false,
-                          "selections": [
-                            {
-                              "kind": "InlineFragment",
-                              "selections": [
-                                (v0/*: any*/)
-                              ],
-                              "type": "Collection",
-                              "abstractKey": null
-                            }
-                          ],
-                          "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
-                        }
+                        (v0/*: any*/)
                       ],
                       "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
                     }
@@ -249,5 +189,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4fde6b1a46ec9c5e02392052bf2b08f1';
+(node as any).hash = 'c254ca60a2c73728022fbe44b296f99e';
 export default node;

@@ -48,7 +48,7 @@ export default function RelatedJournals({ data }: Props) {
                     routeParams={{ slug: node.target.slug }}
                     passHref
                   >
-                    <a>
+                    <Styled.ItemCoverLink>
                       <CoverImage
                         title={node.target.title}
                         id={node.target.id}
@@ -57,7 +57,7 @@ export default function RelatedJournals({ data }: Props) {
                         maxHeight={280}
                         usePlaceholder
                       />
-                    </a>
+                    </Styled.ItemCoverLink>
                   </NamedLink>
                 </Styled.ItemCover>
                 <Styled.ItemText>
@@ -73,15 +73,8 @@ export default function RelatedJournals({ data }: Props) {
                     </NamedLink>
                   </h4>
                   <div className="t-copy-sm a-color-lighter">
-                    {node.target.currentIssue?.volume?.title && (
-                      <p>{node.target.currentIssue.volume.title}</p>
-                    )}
-                    {node.target.currentIssue?.number?.content && (
-                      <p>
-                        {t("metadata.number", {
-                          number: node.target.currentIssue.number.content,
-                        })}
-                      </p>
+                    {node.target.currentIssue && (
+                      <p>{node.target.currentIssue.title}</p>
                     )}
                     {node.target.published && (
                       <p>
@@ -142,16 +135,7 @@ const fragment = graphql`
               order: PUBLISHED_DESCENDING
               nodeFilter: DESCENDANTS
             ) {
-              number: schemaProperty(fullPath: "number") {
-                ... on StringProperty {
-                  content
-                }
-              }
-              volume: ancestorOfType(schema: "nglp:journal_volume") {
-                ... on Collection {
-                  title
-                }
-              }
+              title
             }
           }
         }

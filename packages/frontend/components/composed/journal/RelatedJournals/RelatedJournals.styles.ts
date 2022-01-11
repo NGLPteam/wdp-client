@@ -50,8 +50,16 @@ export const ItemLink = styled.a`
 `;
 
 export const ItemCover = styled.div`
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 280px;
+`;
 
+export const ItemCoverLink = styled.a`
+  display: inline-block;
+  width: 100%;
+  max-width: 210px;
   ${respond(`max-width: ${pxToRem(140)};`, 50)}
 `;
 
