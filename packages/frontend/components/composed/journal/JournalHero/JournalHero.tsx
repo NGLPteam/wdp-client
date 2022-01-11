@@ -2,7 +2,15 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./JournalHero.styles";
-import { HeroImage, NamedLink } from "components/atomic";
+import {
+  CCLicense,
+  HeroImage,
+  NamedLink,
+  OpenAccess,
+  PeerReviewed,
+  ISSN,
+  DOI,
+} from "components/atomic";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
@@ -26,17 +34,12 @@ export default function JournalHero({ data }: Props) {
               <Styled.Subtitle>{journal.subtitle}</Styled.Subtitle>
             )}
           </Styled.TitleBlock>
-          <Styled.MetadataBlock>
-            {journal.issn && (
-              <Styled.ISSN className="t-label-sm">
-                ISSN: <Styled.Number>{journal.issn}</Styled.Number>
-              </Styled.ISSN>
-            )}
-            {journal.doi && (
-              <div className="t-label-sm">
-                DOI: <Styled.DOI>{journal.doi}</Styled.DOI>
-              </div>
-            )}
+          <Styled.MetadataBlock className="t-label-sm">
+            <ISSN data={journal} />
+            <DOI data={journal} />
+            <CCLicense data={journal} />
+            <OpenAccess data={journal} />
+            <PeerReviewed data={journal} />
           </Styled.MetadataBlock>
         </Styled.HeroInner>
       </header>
@@ -54,11 +57,14 @@ const fragment = graphql`
     slug
     title
     subtitle
-    issn
-    doi
     heroImage {
       storage
       ...HeroImageFragment
     }
+    ...ISSNFragment
+    ...DOIFragment
+    ...PeerReviewedFragment
+    ...OpenAccessFragment
+    ...CCLicenseFragment
   }
 `;

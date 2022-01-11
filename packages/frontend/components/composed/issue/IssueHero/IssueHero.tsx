@@ -5,7 +5,15 @@ import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueHero.styles";
 import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
 import CoverImage from "components/atomic/CoverImage";
-import { DotList, PrecisionDate } from "components/atomic";
+import {
+  CCLicense,
+  DotList,
+  OpenAccess,
+  PeerReviewed,
+  PrecisionDate,
+  DOI,
+  ISSN,
+} from "components/atomic";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 
 export default function IssueHero({ data }: Props) {
@@ -68,17 +76,15 @@ export default function IssueHero({ data }: Props) {
                 )}
               </Styled.Issue>
             </Styled.IssueText>
-            <Styled.IssueMeta>
-              {issue.issn && (
-                <div className="t-label-sm">
-                  ISSN: <Styled.Number>{issue.issn}</Styled.Number>
-                </div>
-              )}
-              {issue.doi && (
-                <div className="t-label-sm">
-                  <Styled.DOI>DOI: </Styled.DOI>
-                  {issue.doi}
-                </div>
+            <Styled.IssueMeta className="t-label-sm">
+              {issue.journal && <ISSN data={issue.journal} />}
+              <DOI data={issue} />
+              {issue.journal && (
+                <>
+                  <CCLicense data={issue.journal} />
+                  <OpenAccess data={issue.journal} />
+                  <PeerReviewed data={issue.journal} />
+                </>
               )}
             </Styled.IssueMeta>
           </Styled.IssueWrapper>
@@ -98,8 +104,7 @@ const fragment = graphql`
     title
     subtitle
     summary
-    issn
-    doi
+    ...DOIFragment
     published {
       ...PrecisionDateFragment
     }
@@ -112,6 +117,10 @@ const fragment = graphql`
         title
         subtitle
       }
+      ...ISSNFragment
+      ...PeerReviewedFragment
+      ...OpenAccessFragment
+      ...CCLicenseFragment
     }
     volume: ancestorOfType(schema: "nglp:journal_volume") {
       ... on Entity {

@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import CurrentIssue from "../CurrentIssue";
 import * as Styled from "./JournalContent.styles";
-import { ReadMoreLink, FullTextProperty } from "components/atomic";
+import { ReadMoreLink, FullText } from "components/atomic";
 import FeaturedIssues from "components/composed/issue/FeaturedIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 
@@ -24,7 +24,7 @@ export default function JournalContent({ data }: Props) {
         <Styled.SectionInner className="l-container-wide">
           {journal.about?.fullText?.content && (
             <Styled.InfoBlock className="t-rte">
-              <FullTextProperty data={journal.about} />
+              <FullText data={journal.about} />
             </Styled.InfoBlock>
           )}
           {announcements && (
@@ -72,7 +72,7 @@ const fragment = graphql`
           content
         }
       }
-      ...FullTextPropertyFragment
+      ...FullTextFragment
     }
 
     issues: collections(

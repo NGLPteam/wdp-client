@@ -1,14 +1,24 @@
 import React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
-import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
-import { PrecisionDate } from "components/atomic";
+import {
+  PrecisionDate,
+  PeerReviewed,
+  CCLicense,
+  PreprintVersion,
+  OpenAccess,
+  DOI,
+} from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
+import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   return article ? (
     <header className="a-bg-custom10">
@@ -43,10 +53,14 @@ export default function ArticleHero({ data }: Props) {
           )}
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
-          {article.doi && (
-            <div>
-              DOI: <span className="t-copy-light">{article.doi}</span>
-            </div>
+          {article.journal && <PreprintVersion data={article.journal} />}
+          <DOI data={article} />
+          {article.journal && (
+            <>
+              <CCLicense data={article.journal} />
+              <OpenAccess data={article.journal} />
+              <PeerReviewed data={article.journal} />
+            </>
           )}
         </Styled.RightSide>
       </Styled.HeroInner>
@@ -64,7 +78,7 @@ const fragment = graphql`
     title
     subtitle
     summary
-    doi
+    ...DOIFragment
     published {
       ...PrecisionDateFragment
     }
@@ -73,6 +87,12 @@ const fragment = graphql`
     }
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
       ...AssetDownloadButtonFragment
+    }
+    journal: ancestorOfType(schema: "nglp:journal") {
+      ...PeerReviewedFragment
+      ...PreprintVersionFragment
+      ...OpenAccessFragment
+      ...CCLicenseFragment
     }
   }
 `;

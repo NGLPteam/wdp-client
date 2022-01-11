@@ -11,8 +11,6 @@ export type IssueHeroFragment = {
     readonly title: string;
     readonly subtitle: string | null;
     readonly summary: string | null;
-    readonly issn: string | null;
-    readonly doi: string | null;
     readonly published: {
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
@@ -23,6 +21,7 @@ export type IssueHeroFragment = {
     readonly journal: {
         readonly title?: string | undefined;
         readonly subtitle?: string | null | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"ISSNFragment" | "PeerReviewedFragment" | "OpenAccessFragment" | "CCLicenseFragment">;
     } | null;
     readonly volume: {
         readonly title?: string | undefined;
@@ -30,6 +29,7 @@ export type IssueHeroFragment = {
     readonly pdfVersion: {
         readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     } | null;
+    readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
     readonly " $refType": "IssueHeroFragment";
 };
 export type IssueHeroFragment$data = IssueHeroFragment;
@@ -75,20 +75,6 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "summary",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "issn",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "doi",
       "storageKey": null
     },
     {
@@ -152,6 +138,26 @@ return {
           ],
           "type": "Entity",
           "abstractKey": "__isEntity"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ISSNFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PeerReviewedFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "OpenAccessFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "CCLicenseFragment"
         }
       ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
@@ -202,11 +208,16 @@ return {
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DOIFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '84867913191b16b97ce0d52bdc7bbd21';
+(node as any).hash = 'e3a826722b723772c9665049a9a5b33e';
 export default node;

@@ -11,7 +11,7 @@ export type JournalContentFragment = {
         readonly fullText?: {
             readonly content: string | null;
         } | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
     } | null;
     readonly issues: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
@@ -95,7 +95,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "FullTextPropertyFragment"
+          "name": "FullTextFragment"
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"description\")"
@@ -163,5 +163,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '2988d441bb96c173daf329a2da24771a';
+(node as any).hash = 'a2dad55ab7f81b00f69ffed78c0f0a08';
 export default node;

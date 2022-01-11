@@ -10,7 +10,6 @@ export type ArticleHeroFragment = {
     readonly title: string;
     readonly subtitle: string | null;
     readonly summary: string | null;
-    readonly doi: string | null;
     readonly published: {
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
@@ -20,6 +19,10 @@ export type ArticleHeroFragment = {
     readonly pdfVersion: {
         readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     } | null;
+    readonly journal: {
+        readonly " $fragmentRefs": FragmentRefs<"PeerReviewedFragment" | "PreprintVersionFragment" | "OpenAccessFragment" | "CCLicenseFragment">;
+    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
     readonly " $refType": "ArticleHeroFragment";
 };
 export type ArticleHeroFragment$data = ArticleHeroFragment;
@@ -62,13 +65,6 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "summary",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "doi",
       "storageKey": null
     },
     {
@@ -124,10 +120,52 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
+    },
+    {
+      "alias": "journal",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:journal"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "ancestorOfType",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PeerReviewedFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PreprintVersionFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "OpenAccessFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "CCLicenseFragment"
+        }
+      ],
+      "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DOIFragment"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '5f480e9cadba93dd324dbc799687e314';
+(node as any).hash = '99eb8a1001e78b9f6588e654921ffc9e';
 export default node;

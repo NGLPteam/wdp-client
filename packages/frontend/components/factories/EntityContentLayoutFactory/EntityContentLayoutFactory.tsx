@@ -4,11 +4,12 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import ArticleLayout from "components/composed/article/ArticleLayout";
-import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import EntityContent from "components/composed/entity/EntityContent";
+import IssueLayout from "components/composed/issue/IssueLayout";
+import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 
 export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -19,6 +20,13 @@ export default function EntityContentLayoutFactory({ data }: Props) {
         <JournalLayout data={entity}>
           <JournalContent data={entity} />
         </JournalLayout>
+      );
+
+    case "issue":
+      return (
+        <IssueLayout data={entity}>
+          <EntityContent data={entity} />
+        </IssueLayout>
       );
 
     case "article":
