@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { convertToSlug } from "@wdp/lib/helpers";
 import * as Styled from "./ArticleText.styles";
-import { ContentImage, FullTextProperty } from "components/atomic";
+import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
 
@@ -64,7 +64,7 @@ export default function ArticleText({ data }: Props) {
               <ContentImage data={article.thumbnail} />
             </Styled.ImageBlock>
           )}
-          <FullTextProperty data={article.bodyText} />
+          <FullText data={article.bodyText} />
         </Styled.TextBlock>
       </Styled.BodyInner>
     </Styled.BodyWrapper>
@@ -91,7 +91,7 @@ const fragment = graphql`
           content
         }
       }
-      ...FullTextPropertyFragment
+      ...FullTextFragment
     }
   }
 `;

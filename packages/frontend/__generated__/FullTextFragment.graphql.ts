@@ -7,19 +7,19 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
 export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
-export type FullTextPropertyFragment = {
+export type FullTextFragment = {
     readonly fullText?: {
         readonly content: string | null;
         readonly kind: FullTextKind | null;
         readonly lang: string | null;
     } | null | undefined;
     readonly type?: SchemaPropertyType | undefined;
-    readonly " $refType": "FullTextPropertyFragment";
+    readonly " $refType": "FullTextFragment";
 };
-export type FullTextPropertyFragment$data = FullTextPropertyFragment;
-export type FullTextPropertyFragment$key = {
-    readonly " $data"?: FullTextPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
+export type FullTextFragment$data = FullTextFragment;
+export type FullTextFragment$key = {
+    readonly " $data"?: FullTextFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
 };
 
 
@@ -28,7 +28,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "FullTextPropertyFragment",
+  "name": "FullTextFragment",
   "selections": [
     {
       "kind": "InlineFragment",
@@ -80,5 +80,5 @@ const node: ReaderFragment = {
   "type": "AnySchemaProperty",
   "abstractKey": "__isAnySchemaProperty"
 };
-(node as any).hash = 'e39469d400d4280edd2e1a3891b56daa';
+(node as any).hash = '9608c826ce090dcd6ee0ffc3235834ed';
 export default node;

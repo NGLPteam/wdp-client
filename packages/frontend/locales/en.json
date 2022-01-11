@@ -79,11 +79,17 @@
       "document": "document"
     },
     "metadata": {
+      "doi": "DOI:",
+      "issn": "ISSN:",
       "authored_on": "Authored On",
       "tags": "Tags",
       "issue_number": "Issue {{number}}",
       "volume_number": "Volume {{number}}",
-      "number": "Number {{number}}"
+      "number": "Number {{number}}",
+      "cc_license": "CC license",
+      "open_access": "Open access",
+      "peer_reviewed": "Peer reviewed",
+      "preprint_version": "Preprint Version"
     },
     "layouts": {
       "related_journals_header": "Related Journals",

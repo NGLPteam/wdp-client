@@ -15,7 +15,7 @@ export type ArticleTextFragment = {
         readonly fullText?: {
             readonly content: string | null;
         } | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
     } | null;
     readonly " $refType": "ArticleTextFragment";
 };
@@ -98,7 +98,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "FullTextPropertyFragment"
+          "name": "FullTextFragment"
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"body\")"
@@ -107,5 +107,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '1ffb1b8c33fd200b3cd1fdad28c8896e';
+(node as any).hash = '42a3f7da7c9d5c47785886b73ef46aeb';
 export default node;

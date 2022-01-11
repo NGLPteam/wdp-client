@@ -2,9 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";
+import { FullTextFragment$key } from "@/relay/FullTextFragment.graphql";
 
-export default function FullTextProperty({ data }: Props) {
+export default function FullText({ data }: Props) {
   const contentData = useMaybeFragment(fragment, data);
 
   const fullText = contentData?.fullText;
@@ -31,11 +31,11 @@ export default function FullTextProperty({ data }: Props) {
 }
 
 interface Props {
-  data?: FullTextPropertyFragment$key | null;
+  data?: FullTextFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment FullTextPropertyFragment on AnySchemaProperty {
+  fragment FullTextFragment on AnySchemaProperty {
     ... on FullTextProperty {
       fullText {
         content

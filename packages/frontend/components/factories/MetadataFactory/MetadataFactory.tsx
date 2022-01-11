@@ -114,7 +114,7 @@ const fragment = graphql`
     }
 
     #... on FullTextProperty {
-    #  ...FullTextPropertyFragment
+    #  ...FullTextFragment
     #}
 
     ... on URLProperty {
