@@ -7,6 +7,7 @@ import ArticleLayout from "components/composed/article/ArticleLayout";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
+import HowToCite from "components/composed/article/HowToCite";
 import EntityContent from "components/composed/entity/EntityContent";
 import IssueLayout from "components/composed/issue/IssueLayout";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
@@ -37,6 +38,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
             <ArticleText data={entity} />
           </ArticleLayout>
           <ArticleContributor data={entity?.contributions} />
+          <HowToCite data={entity} />
         </>
       );
 
@@ -75,6 +77,7 @@ const fragment = graphql`
       ...EntityLayoutFragment
       ...ArticleLayoutFragment
       ...ArticleTextFragment
+      ...HowToCiteFragment
 
       contributions {
         ...ArticleContributorFragment

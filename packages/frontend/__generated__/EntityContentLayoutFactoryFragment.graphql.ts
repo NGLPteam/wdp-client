@@ -12,7 +12,7 @@ export type EntityContentLayoutFactoryFragment = {
     readonly contributions?: {
         readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "EntityContentFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "IssueLayoutFragment" | "ArticleLayoutFragment" | "ArticleTextFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "EntityContentFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "IssueLayoutFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
     readonly " $refType": "EntityContentLayoutFactoryFragment";
 };
 export type EntityContentLayoutFactoryFragment$data = EntityContentLayoutFactoryFragment;
@@ -118,6 +118,11 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "ArticleTextFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "HowToCiteFragment"
         }
       ],
       "type": "Item",
@@ -128,5 +133,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'dacd4fecab7bf6b32e6c66f2b711f756';
+(node as any).hash = 'c5b8bd27ca7d3f963bfb143ff9eb2a20';
 export default node;
