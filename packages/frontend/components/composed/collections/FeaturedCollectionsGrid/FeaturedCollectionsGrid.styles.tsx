@@ -51,17 +51,23 @@ export const NamedLink = styled(BaseNamedLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 336 / 267;
   color: var(--color-base-neutral00);
-  padding: ${pxToRem(20)};
+  padding-inline-start: ${pxToRem(20)};
+  padding-inline-end: ${pxToRem(20)};
   text-align: center;
-
-  ${respond(`aspect-ratio: 315 / 220;`, 50)}
 
   ${aFocus()}
 
   > span {
     position: relative;
     z-index: 1;
+  }
+
+  &:after {
+    display: block;
+    content: "";
+    padding-top: ${(267 / 336) * 100}%;
+
+    ${respond(`padding-top: ${(220 / 315) * 100}%;`, 50)}
   }
 `;
