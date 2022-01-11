@@ -17,8 +17,11 @@ export type CreateItemInput = {
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
     thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    summary?: string | null | undefined;
+    accessioned?: VariablePrecisionDateInput | null | undefined;
+    available?: VariablePrecisionDateInput | null | undefined;
+    issued?: VariablePrecisionDateInput | null | undefined;
     published?: VariablePrecisionDateInput | null | undefined;
+    summary?: string | null | undefined;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null | undefined;
     visibleUntilAt?: string | null | undefined;

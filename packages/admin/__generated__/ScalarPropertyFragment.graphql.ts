@@ -5,12 +5,13 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
 export type ScalarPropertyFragment = {
     readonly name: string;
     readonly label: string;
     readonly path: string;
     readonly required: boolean;
-    readonly type: string;
+    readonly type: SchemaPropertyType;
     readonly isWide: boolean;
     readonly " $refType": "ScalarPropertyFragment";
 };

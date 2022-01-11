@@ -4,7 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type SchemaSelectorModalOptionsQueryVariables = {};
 export type SchemaSelectorModalOptionsQueryResponse = {
     readonly schemaVersions: {
