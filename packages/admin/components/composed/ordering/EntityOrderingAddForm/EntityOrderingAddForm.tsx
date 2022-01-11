@@ -81,10 +81,16 @@ export default function EntityOrderingAddForm({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let order: any[] = [];
 
-      if (data.filter?.schemas) {
-        filter = {
-          schemas: data.filter.schemas.map((schema) => JSON.parse(schema)),
-        };
+      if (data.filterSchemas) {
+        if (typeof data.filterSchemas === "string") {
+          filter = {
+            schemas: [JSON.parse(data.filterSchemas)],
+          };
+        } else {
+          filter = {
+            schemas: data.filterSchemas.map((schema) => JSON.parse(schema)),
+          };
+        }
       }
 
       if (data.sortby) {
@@ -133,16 +139,13 @@ export default function EntityOrderingAddForm({
           {...register("selectDirect")}
         />
         {entity?.schemaRanks && entity.schemaRanks.length > 0 && (
-          <Forms.CheckboxGroup
-            label="forms.fields.schemas"
-            name="filter.schema"
-          >
+          <Forms.CheckboxGroup label="forms.fields.schemas" name="filterSchema">
             <>
               {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
                 <Forms.Checkbox
                   key={i}
                   value={JSON.stringify({ namespace, identifier })}
-                  {...register("filter.schemas")}
+                  {...register("filterSchemas")}
                 >
                   {name}
                 </Forms.Checkbox>
@@ -181,6 +184,7 @@ type Fields = Omit<CreateOrderingInput, "clientMutationId" | "select"> &
   OrderingSelectDefinitionInput & {
     sortby: string;
     selectDirect: OrderingDirectSelection;
+    filterSchemas: string[];
   };
 
 const fragment = graphql`

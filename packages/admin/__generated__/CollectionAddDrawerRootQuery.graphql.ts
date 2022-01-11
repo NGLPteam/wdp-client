@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "METADATA" | "%future added value";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type CollectionAddDrawerRootQueryVariables = {
     schemaKind: SchemaKind;
 };

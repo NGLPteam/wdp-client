@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type NullOrderPriority = "FIRST" | "LAST" | "%future added value";
 export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
+export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 export type CreateOrderingInput = {
     entityId: string;
     identifier: string;
@@ -17,10 +18,16 @@ export type CreateOrderingInput = {
     filter?: OrderingFilterDefinitionInput | null | undefined;
     select?: OrderingSelectDefinitionInput | null | undefined;
     order: Array<OrderDefinitionInput>;
+    render?: OrderingRenderDefinitionInput | null | undefined;
     clientMutationId?: string | null | undefined;
 };
 export type OrderingFilterDefinitionInput = {
-    schemas?: Array<string> | null | undefined;
+    schemas?: Array<OrderingSchemaFilterInput> | null | undefined;
+};
+export type OrderingSchemaFilterInput = {
+    namespace: string;
+    identifier: string;
+    version?: unknown | null | undefined;
 };
 export type OrderingSelectDefinitionInput = {
     direct?: OrderingDirectSelection | null | undefined;
@@ -34,6 +41,9 @@ export type OrderDefinitionInput = {
     path: string;
     direction?: Direction | null | undefined;
     nulls?: NullOrderPriority | null | undefined;
+};
+export type OrderingRenderDefinitionInput = {
+    mode?: OrderingRenderMode | null | undefined;
 };
 export type EntityOrderingAddFormMutationVariables = {
     input: CreateOrderingInput;
