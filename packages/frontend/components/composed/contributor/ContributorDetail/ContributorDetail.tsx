@@ -42,7 +42,7 @@ export default function ContributorDetail({ data }: Props) {
             <p className="t-copy-lighter">{contributor.affiliation}</p>
           )}
           {contributor.bio && (
-            <div className="t-copy-light">
+            <div className="t-copy-light t-rte">
               <ReactMarkdown>{contributor.bio}</ReactMarkdown>
             </div>
           )}
