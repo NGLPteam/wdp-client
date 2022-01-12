@@ -34,7 +34,7 @@ const fragment = graphql`
     ...JournalHeroFragment
     ...EntityNavBarFragment
     ...BreadcrumbsBarFragment
-    related: links(order: RECENT, perPage: 4) {
+    related: relatedCollections(order: RECENT, perPage: 4) {
       ...RelatedJournalsFragment
     }
   }
