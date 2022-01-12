@@ -16,13 +16,13 @@ export default function Copy({ title, ...props }: Props) {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M4.5 11.5H15V1H4.5V11.5ZM5.5 10.5V2H14V10.5H5.5Z"
-        fill="#232324"
+        fill="currentColor"
       />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M1 15H12V12.5H11V14H2V5H3.5V4H1V15Z"
-        fill="#232324"
+        fill="currentColor"
       />
     </svg>
   );
