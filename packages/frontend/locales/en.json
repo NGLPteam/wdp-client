@@ -122,7 +122,8 @@
       "how_to_cite": "How to Cite",
       "article_count": "{{count}} Article",
       "article_count_plural": "{{count}} Articles",
-      "research_units": "Research Units"
+      "research_units": "Research Units",
+      "instance_communities_header": "Our Communities"
     },
     "nav": {
       "home": "Home",
