@@ -1,7 +1,12 @@
 import * as React from "react";
+import Link from "next/link";
 
 export default function InstallationName() {
-  return <p className="t-label-mix">WDP Installation Name</p>;
+  return (
+    <Link href="/">
+      <a className="t-label-mix a-link">WDP Installation Name</a>
+    </Link>
+  );
 }
 
 // type Props = {

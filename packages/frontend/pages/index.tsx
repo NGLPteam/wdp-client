@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import BaseLayout from "components/composed/base/BaseLayout";
+import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
 import { pagesQuery as Query } from "@/relay/pagesQuery.graphql";
 
 export default function HomePage() {
@@ -12,7 +13,7 @@ export default function HomePage() {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <BaseLayout data={data}>
-          <></>
+          <InstanceContentLayout data={data} />
         </BaseLayout>
       )}
     </QueryWrapper>
@@ -22,5 +23,6 @@ export default function HomePage() {
 const query = graphql`
   query pagesQuery {
     ...BaseLayoutFragment
+    ...InstanceContentLayoutFragment
   }
 `;
