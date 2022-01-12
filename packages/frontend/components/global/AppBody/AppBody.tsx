@@ -36,7 +36,7 @@ interface Props {
   nameComponent?: React.ReactNode;
   headerNavComponent?: React.ReactNode;
   footerBackground?: string;
-  communityPicker: React.ReactNode;
+  communityPicker?: React.ReactNode;
 }
 
 export default AppBody;
