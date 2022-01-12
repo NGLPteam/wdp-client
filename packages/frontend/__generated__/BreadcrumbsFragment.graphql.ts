@@ -5,13 +5,11 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type BreadcrumbsFragment = {
+    readonly title: string;
     readonly breadcrumbs: ReadonlyArray<{
         readonly depth: number;
-        readonly label: string;
-        readonly kind: EntityKind;
-        readonly slug: string;
+        readonly " $fragmentRefs": FragmentRefs<"BreadcrumbLinkFragment">;
     }>;
     readonly " $refType": "BreadcrumbsFragment";
 };
@@ -32,6 +30,13 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "title",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "EntityBreadcrumb",
       "kind": "LinkedField",
       "name": "breadcrumbs",
@@ -45,25 +50,9 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "label",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "kind",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "BreadcrumbLinkFragment"
         }
       ],
       "storageKey": null
@@ -72,5 +61,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'c1013e3018132ab7aac882cebf50354c';
+(node as any).hash = 'be25a3c3c4818da8f77f2c807a5ef021';
 export default node;

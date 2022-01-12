@@ -1,75 +1,83 @@
 import React, { useMemo } from "react";
 import { graphql } from "relay-runtime";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import Dropdown from "../Dropdown";
-import { NamedLink } from "..";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./Breadcrumbs.styles";
+import BreadcrumbLink from "./BreadcrumbLink";
+import { Dropdown } from "components/atomic";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
-import { EntityKind } from "types/graphql-schema";
-import { getRouteByEntityKind } from "helpers";
 
 export default function BreadCrumbs({ data }: Props) {
-  const breadcrumbData = useMaybeFragment(fragment, data);
+  const entity = useMaybeFragment(fragment, data);
+
   const { t } = useTranslation();
 
-  const breadcrumbs = breadcrumbData?.breadcrumbs;
+  const breadcrumbs = useMemo(() => {
+    const breadcrumbs = entity?.breadcrumbs;
 
-  // If the breadcrumb length is > 4, wrap middle breadcrumbs into a dropdown
-  const items = useMemo(() => {
     if (!breadcrumbs) return [];
 
-    const getLink = (
-      { kind, label, slug }: { kind: EntityKind; label: string; slug: string },
-      i: number
-    ) => {
-      const routeName = getRouteByEntityKind(kind);
+    return breadcrumbs.map((o, i) => <BreadcrumbLink key={i} data={o} />);
+  }, [entity]);
 
-      return routeName ? (
-        <NamedLink key={i} route={routeName} routeParams={{ slug }}>
-          <a>{label}</a>
-        </NamedLink>
-      ) : null;
-    };
+  return breadcrumbs.length > 0 ? (
+    <>
+      <Styled.List className="t-copy-sm" data-mobile>
+        <Styled.Item>
+          <Dropdown
+            key={1}
+            label={t("breadcrumbs_dropdown_label")}
+            disclosure={<button>...</button>}
+            menuItems={breadcrumbs}
+          />
+          <Styled.Delimiter>/</Styled.Delimiter>
+        </Styled.Item>
+        {entity && (
+          <li key="current">
+            <Styled.ItemText>{entity.title}</Styled.ItemText>
+          </li>
+        )}
+      </Styled.List>
 
-    if (breadcrumbs.length < 4) {
-      return breadcrumbs.map(getLink);
-    }
-
-    const breadcrumbItems = [];
-    const dropdownItems = breadcrumbs
-      .filter((o, i) => i >= 1 && i < breadcrumbs.length - 2)
-      .map(getLink);
-
-    // Add the first item
-    breadcrumbItems.push(getLink(breadcrumbs[0], 0));
-    // Add dropdown
-    breadcrumbItems.push(
-      <Dropdown
-        key={1}
-        label={t("breadcrumbs_dropdown_label")}
-        disclosure={<button>...</button>}
-        menuItems={dropdownItems}
-      />
-    );
-    // Add last two items
-    breadcrumbs
-      .slice(breadcrumbs.length - 2, breadcrumbs.length)
-      .map((o, i) => breadcrumbItems.push(getLink(o, i)));
-
-    return breadcrumbItems;
-  }, [breadcrumbs, t]);
-
-  return (
-    <ul className="l-flex t-copy-sm a-color-lighter">
-      {items.map((crumb, i) => (
-        <li key={i}>
-          {crumb}
-          {i < items.length - 1 && <Styled.Delimiter>/</Styled.Delimiter>}
-        </li>
-      ))}
-    </ul>
-  );
+      <Styled.List className="t-copy-sm" data-desktop>
+        {breadcrumbs.length <= 3 &&
+          breadcrumbs.map((crumb, i) => (
+            <Styled.Item key={i}>
+              <Styled.ItemText>{crumb}</Styled.ItemText>
+              <Styled.Delimiter>/</Styled.Delimiter>
+            </Styled.Item>
+          ))}
+        {breadcrumbs.length > 3 && (
+          <>
+            <Styled.Item key="root">
+              <Styled.ItemText>{breadcrumbs[0]}</Styled.ItemText>
+              <Styled.Delimiter>/</Styled.Delimiter>
+            </Styled.Item>
+            <Styled.Item key="dropdown">
+              <Dropdown
+                key={1}
+                label={t("breadcrumbs_dropdown_label")}
+                disclosure={<button>...</button>}
+                menuItems={breadcrumbs.slice(1, breadcrumbs.length - 1)}
+              />
+              <Styled.Delimiter>/</Styled.Delimiter>
+            </Styled.Item>
+            <Styled.Item key="parent">
+              <Styled.ItemText>
+                {breadcrumbs[breadcrumbs.length - 1]}
+              </Styled.ItemText>
+              <Styled.Delimiter>/</Styled.Delimiter>
+            </Styled.Item>
+          </>
+        )}
+        {entity && (
+          <li key="current">
+            <Styled.ItemText>{entity.title}</Styled.ItemText>
+          </li>
+        )}
+      </Styled.List>
+    </>
+  ) : null;
 }
 
 interface Props {
@@ -78,11 +86,10 @@ interface Props {
 
 export const fragment = graphql`
   fragment BreadcrumbsFragment on Entity {
+    title
     breadcrumbs {
       depth
-      label
-      kind
-      slug
+      ...BreadcrumbLinkFragment
     }
   }
 `;
