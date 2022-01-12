@@ -9,7 +9,7 @@ export type IssueLayoutFragment = {
     readonly contributions: {
         readonly " $fragmentRefs": FragmentRefs<"CollectionContributionsBlockFragment">;
     };
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "IssueHeroFragment" | "PrevNextIssueFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "IssueHeroFragment">;
     readonly " $refType": "IssueLayoutFragment";
 };
 export type IssueLayoutFragment$data = IssueLayoutFragment;
@@ -56,15 +56,10 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "IssueHeroFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "PrevNextIssueFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '8d4166b44134695cf590b4a328ea7d24';
+(node as any).hash = 'f74a64cf268b5208c65fa013f4a37860';
 export default node;
