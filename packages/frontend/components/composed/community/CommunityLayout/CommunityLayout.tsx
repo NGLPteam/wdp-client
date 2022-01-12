@@ -6,6 +6,7 @@ import CommunityName from "../CommunityName";
 import CommunityNav from "../CommunityNavBar";
 import CommunityHTMLHead from "../CommunityHTMLHead";
 import CommunityCondensedNav from "../CommunityCondensedNav";
+import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { RouteHelper } from "routes";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { CommunityLayoutAppFragment$key } from "@/relay/CommunityLayoutAppFragment.graphql";
@@ -40,6 +41,13 @@ export default function CommunityLayout({
             isCommunityRoot={isCommunityRoot}
           />
         }
+        communityPicker={
+          community ? (
+            <CommunityPicker data={appData} active={community} />
+          ) : (
+            <CommunityPicker data={appData} />
+          )
+        }
         footerBackground={isCommunityRoot ? "custom10" : "custom20"}
       >
         {community && <CommunityHTMLHead data={community} />}
@@ -62,6 +70,7 @@ const fragment = graphql`
     ...CommunityNameFragment
     ...CommunityNavBarFragment
     ...CommunityCondensedNavFragment
+    ...CommunityPickerActiveFragment
   }
 `;
 
@@ -69,5 +78,6 @@ const appFragment = graphql`
   fragment CommunityLayoutAppFragment on Query {
     ...AppBodyFragment
     ...CommunityCondensedNavAppFragment
+    ...CommunityPickerFragment
   }
 `;

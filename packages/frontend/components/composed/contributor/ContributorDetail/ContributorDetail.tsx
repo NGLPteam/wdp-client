@@ -4,12 +4,12 @@ import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import get from "lodash/get";
-import { ExternalLink } from "components/atomic";
-import EntitySummary from "components/composed/entity/EntitySummary";
-import { BackToTopBlock } from "components/layout";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
+import { ExternalLink } from "components/atomic";
+import EntitySummary from "components/composed/entity/EntitySummary";
+import { BackToTopBlock } from "components/layout";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 
 export default function ContributorDetail({ data }: Props) {

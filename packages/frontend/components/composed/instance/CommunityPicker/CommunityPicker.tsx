@@ -4,16 +4,18 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import startCase from "lodash/startCase";
 import { Button, Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
+import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
 
-export default function CommunityPicker({ data }: Props) {
+export default function CommunityPicker({ data, active }: Props) {
   const communityData = useMaybeFragment(fragment, data);
+  const activeCommunity = useMaybeFragment(activefragment, active);
   const { t } = useTranslation();
 
   return communityData && communityData.communities ? (
     <Dropdown
       disclosure={
         <Button secondary icon="chevronDown" size="sm">
-          {startCase(t("nav.community_picker"))}
+          {activeCommunity?.title || startCase(t("nav.community_picker"))}
         </Button>
       }
       menuItems={communityData.communities.edges.map(({ node }) => {
@@ -35,6 +37,7 @@ export default function CommunityPicker({ data }: Props) {
 
 type Props = {
   data?: CommunityPickerFragment$key | null;
+  active?: CommunityPickerActiveFragment$key | null;
 };
 
 const fragment = graphql`
@@ -47,5 +50,12 @@ const fragment = graphql`
         }
       }
     }
+  }
+`;
+
+export const activefragment = graphql`
+  fragment CommunityPickerActiveFragment on Community {
+    title
+    slug
   }
 `;

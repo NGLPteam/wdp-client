@@ -23,20 +23,15 @@ query searchQuery {
 
 fragment AppBodyFragment on Query {
   ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
   ...CommunityPickerFragment
-  ...MobileMenuFragment
 }
 
 fragment BaseLayoutFragment on Query {
   ...AppBodyFragment
+  ...CommunityPickerFragment
 }
 
 fragment CommunityPickerFragment on Query {
@@ -49,10 +44,6 @@ fragment CommunityPickerFragment on Query {
       }
     }
   }
-}
-
-fragment MobileMenuFragment on Query {
-  ...CommunityPickerFragment
 }
 */
 
@@ -135,12 +126,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "dee88b09bdf6a5d5c27c651eea7cda53",
+    "cacheID": "8637ab59ce75bff9da0224ed802d31b6",
     "id": null,
     "metadata": {},
     "name": "searchQuery",
     "operationKind": "query",
-    "text": "query searchQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query searchQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 (node as any).hash = '676ab2b3f752535712254577371c0d64';
