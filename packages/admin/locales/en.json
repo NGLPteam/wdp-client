@@ -144,6 +144,8 @@
         "schema_success": "Schema updated successfully",
         "profile_success": "Profile updated successfully",
         "user_success": "User updated successfully"
+        "page_success": "Page updated successfully",
+        "page_failure": "Failed to update page"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",

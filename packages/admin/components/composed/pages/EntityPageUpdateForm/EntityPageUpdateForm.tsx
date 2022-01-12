@@ -55,8 +55,8 @@ export default function EntityPageUpdateForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="messages.add.page_success"
-      failureNotification="messages.add.page_failure"
+      successNotification="messages.update.page_success"
+      failureNotification="messages.update.page_failure"
       name="updatePage"
       refetchTags={["edges"]}
       toVariables={toVariables}
