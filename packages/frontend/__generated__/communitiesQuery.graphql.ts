@@ -23,20 +23,15 @@ query communitiesQuery {
 
 fragment AppBodyFragment on Query {
   ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
   ...CommunityPickerFragment
-  ...MobileMenuFragment
 }
 
 fragment BaseLayoutFragment on Query {
   ...AppBodyFragment
+  ...CommunityPickerFragment
 }
 
 fragment CommunityPickerFragment on Query {
@@ -49,10 +44,6 @@ fragment CommunityPickerFragment on Query {
       }
     }
   }
-}
-
-fragment MobileMenuFragment on Query {
-  ...CommunityPickerFragment
 }
 */
 
@@ -135,12 +126,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "90f9486533d67a63e0378816009eeb5e",
+    "cacheID": "c5671b28fa1a5810edf6f6834fe5018e",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n"
+    "text": "query communitiesQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 (node as any).hash = '0cf5c758637bfb6b250320f179f94ffd';

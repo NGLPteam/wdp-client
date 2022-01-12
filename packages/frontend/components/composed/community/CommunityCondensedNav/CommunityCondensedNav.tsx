@@ -54,10 +54,10 @@ function CommunityCondensedNav({
           <>
             <Styled.LeftSide>
               <InstallationName />
-              <CommunityPicker data={appData} />
+              <CommunityPicker data={appData} active={community} />
             </Styled.LeftSide>
             <Styled.MobileLeft>
-              <CommunityPicker data={appData} />
+              <CommunityPicker data={appData} active={community} />
             </Styled.MobileLeft>
           </>
         )}
@@ -83,7 +83,13 @@ function CommunityCondensedNav({
         id={mobileNavId}
         active={isActive}
         onClose={toggleActive}
-        data={appData}
+        communityPicker={
+          community ? (
+            <CommunityPicker data={appData} active={community} />
+          ) : (
+            <CommunityPicker data={appData} />
+          )
+        }
       >
         <Styled.MobileList>
           {community && <CommunityNavList data={community} mobile />}
@@ -106,7 +112,6 @@ export default CommunityCondensedNav;
 const appFragment = graphql`
   fragment CommunityCondensedNavAppFragment on Query {
     ...CommunityPickerFragment
-    ...MobileMenuFragment
   }
 `;
 
@@ -114,5 +119,6 @@ const fragment = graphql`
   fragment CommunityCondensedNavFragment on Community {
     ...CommunityNavListFragment
     ...SearchButtonFragment
+    ...CommunityPickerActiveFragment
   }
 `;

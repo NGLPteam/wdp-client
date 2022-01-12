@@ -71,7 +71,7 @@ function AppHeader({ data }: Props) {
         id={mobileNavId}
         active={isActive}
         onClose={toggleActive}
-        data={appData}
+        communityPicker={<CommunityPicker data={appData} />}
       >
         <Styled.MobileList>
           <Search mobile />
@@ -91,6 +91,5 @@ export default AppHeader;
 const fragment = graphql`
   fragment AppHeaderFragment on Query {
     ...CommunityPickerFragment
-    ...MobileMenuFragment
   }
 `;

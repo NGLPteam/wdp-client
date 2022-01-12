@@ -11,6 +11,7 @@ function AppBody({
   data,
   nameComponent,
   headerNavComponent,
+  communityPicker,
   footerBackground,
 }: Props) {
   const appData = useMaybeFragment(fragment, data);
@@ -20,8 +21,8 @@ function AppBody({
       {headerNavComponent || <AppHeader data={appData} />}
       <Styled.Main id="main">{children}</Styled.Main>
       <AppFooter
-        data={appData}
         nameComponent={nameComponent}
+        communityPicker={communityPicker}
         background={footerBackground}
       />
     </Styled.Body>
@@ -35,6 +36,7 @@ interface Props {
   nameComponent?: React.ReactNode;
   headerNavComponent?: React.ReactNode;
   footerBackground?: string;
+  communityPicker?: React.ReactNode;
 }
 
 export default AppBody;
@@ -42,6 +44,5 @@ export default AppBody;
 const fragment = graphql`
   fragment AppBodyFragment on Query {
     ...AppHeaderFragment
-    ...AppFooterFragment
   }
 `;

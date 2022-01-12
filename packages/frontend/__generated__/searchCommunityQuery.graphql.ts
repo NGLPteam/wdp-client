@@ -34,26 +34,20 @@ query searchCommunityQuery(
 
 fragment AppBodyFragment on Query {
   ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
   ...CommunityPickerFragment
-  ...MobileMenuFragment
 }
 
 fragment CommunityCondensedNavAppFragment on Query {
   ...CommunityPickerFragment
-  ...MobileMenuFragment
 }
 
 fragment CommunityCondensedNavFragment on Community {
   ...CommunityNavListFragment
   ...SearchButtonFragment
+  ...CommunityPickerActiveFragment
 }
 
 fragment CommunityHTMLHeadFragment on Community {
@@ -63,6 +57,7 @@ fragment CommunityHTMLHeadFragment on Community {
 fragment CommunityLayoutAppFragment on Query {
   ...AppBodyFragment
   ...CommunityCondensedNavAppFragment
+  ...CommunityPickerFragment
 }
 
 fragment CommunityLayoutFragment on Community {
@@ -70,6 +65,7 @@ fragment CommunityLayoutFragment on Community {
   ...CommunityNameFragment
   ...CommunityNavBarFragment
   ...CommunityCondensedNavFragment
+  ...CommunityPickerActiveFragment
 }
 
 fragment CommunityNameFragment on Community {
@@ -102,6 +98,11 @@ fragment CommunityNavListFragment on Community {
   }
 }
 
+fragment CommunityPickerActiveFragment on Community {
+  title
+  slug
+}
+
 fragment CommunityPickerFragment on Query {
   communities {
     edges {
@@ -112,10 +113,6 @@ fragment CommunityPickerFragment on Query {
       }
     }
   }
-}
-
-fragment MobileMenuFragment on Query {
-  ...CommunityPickerFragment
 }
 
 fragment SearchButtonFragment on Community {
@@ -321,12 +318,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "382128fd7fe15d92c023e67c43743919",
+    "cacheID": "7004fc98ecaceb769f56a3ee0bf3cb9e",
     "id": null,
     "metadata": {},
     "name": "searchCommunityQuery",
     "operationKind": "query",
-    "text": "query searchCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n  ...MobileMenuFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment MobileMenuFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
+    "text": "query searchCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
