@@ -970,6 +970,8 @@ export type Collection = Accessible & Entity & HasDefaultTimestamps & References
    * so it will first check the parent, then the grandparent, and so on.
    */
   ancestorOfType?: Maybe<AnyEntity>;
+  /** Look up an announcement for this entity by slug */
+  announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
@@ -1129,6 +1131,12 @@ export type CollectionAncestorByNameArgs = {
 /** A collection of items */
 export type CollectionAncestorOfTypeArgs = {
   schema: Scalars['String'];
+};
+
+
+/** A collection of items */
+export type CollectionAnnouncementArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -1451,6 +1459,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  /** Look up an announcement for this entity by slug */
+  announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
@@ -1541,6 +1551,12 @@ export type CommunityAllAccessGrantsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A community of users */
+export type CommunityAnnouncementArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -2878,6 +2894,8 @@ export type Entity = {
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
   allowedActions: Array<Scalars['String']>;
+  /** Look up an announcement for this entity by slug */
+  announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
@@ -2931,6 +2949,12 @@ export type EntityAllAccessGrantsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An entity that exists in the hierarchy. */
+export type EntityAnnouncementArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -3721,6 +3745,8 @@ export type Item = Accessible & Entity & HasDefaultTimestamps & ReferencesEntity
    * so it will first check the parent, then the grandparent, and so on.
    */
   ancestorOfType?: Maybe<AnyEntity>;
+  /** Look up an announcement for this entity by slug */
+  announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
@@ -3876,6 +3902,12 @@ export type ItemAncestorByNameArgs = {
 /** An item that belongs to a collection */
 export type ItemAncestorOfTypeArgs = {
   schema: Scalars['String'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemAnnouncementArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -9060,6 +9092,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorOfTypeArgs, 'schema'>>;
+  announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CollectionAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CollectionAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
@@ -9178,6 +9211,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   accessGrants?: Resolver<ResolversTypes['AnyCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CommunityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CommunityAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
@@ -9616,6 +9650,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<EntityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<EntityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<EntityAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
@@ -9909,6 +9944,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorOfTypeArgs, 'schema'>>;
+  announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<ItemAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<ItemAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;

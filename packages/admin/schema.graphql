@@ -1041,6 +1041,8 @@ type Collection implements Accessible & Entity & HasDefaultTimestamps & Referenc
     """A fully-qualified name of a schema to look for."""
     schema: String!
   ): AnyEntity
+  """Look up an announcement for this entity by slug"""
+  announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
   announcements(
     order: AnnouncementOrder = RECENT
@@ -1569,6 +1571,8 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """Look up an announcement for this entity by slug"""
+  announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
   announcements(
     order: AnnouncementOrder = RECENT
@@ -3117,6 +3121,8 @@ interface Entity {
   ): AnyAccessGrantConnection!
   """A list of allowed actions for the given user on this entity (and its descendants)."""
   allowedActions: [String!]!
+  """Look up an announcement for this entity by slug"""
+  announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
   announcements(
     order: AnnouncementOrder = RECENT
@@ -4065,6 +4071,8 @@ type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEnti
     """A fully-qualified name of a schema to look for."""
     schema: String!
   ): AnyEntity
+  """Look up an announcement for this entity by slug"""
+  announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
   announcements(
     order: AnnouncementOrder = RECENT

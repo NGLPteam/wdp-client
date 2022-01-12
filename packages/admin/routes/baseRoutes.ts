@@ -57,6 +57,11 @@ export const baseRoutes: BaseRoute[] = [
                 label: "nav.pages",
               },
               {
+                name: "collection.manage.announcements",
+                path: "/collections/[slug]/manage/announcements",
+                label: "nav.announcements",
+              },
+              {
                 name: "collection.manage.contributions",
                 path: "/collections/[slug]/manage/contributions",
                 label: "glossary.contribution_plural",
@@ -125,6 +130,11 @@ export const baseRoutes: BaseRoute[] = [
                 label: "nav.pages",
               },
               {
+                name: "item.manage.announcements",
+                path: "/items/[slug]/manage/announcements",
+                label: "nav.announcements",
+              },
+              {
                 name: "item.manage.contributions",
                 path: "/items/[slug]/manage/contributions",
                 label: "glossary.contribution_plural",
@@ -177,6 +187,11 @@ export const baseRoutes: BaseRoute[] = [
                 name: "community.manage.pages",
                 path: "/communities/[slug]/manage/pages",
                 label: "nav.pages",
+              },
+              {
+                name: "community.manage.announcements",
+                path: "/communities/[slug]/manage/announcements",
+                label: "nav.announcements",
               },
             ],
           },

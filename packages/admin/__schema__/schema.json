@@ -6188,6 +6188,35 @@
             "deprecationReason": null
           },
           {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "announcements",
             "description": "Announcements for a specific entity",
             "args": [
@@ -9781,6 +9810,35 @@
                   }
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -19159,6 +19217,35 @@
             "deprecationReason": null
           },
           {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "announcements",
             "description": "Announcements for a specific entity",
             "args": [
@@ -23856,6 +23943,35 @@
             "type": {
               "kind": "UNION",
               "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
               "ofType": null
             },
             "isDeprecated": false,
