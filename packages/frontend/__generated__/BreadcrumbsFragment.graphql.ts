@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type BreadcrumbsFragment = {
+    readonly title: string;
     readonly breadcrumbs: ReadonlyArray<{
         readonly depth: number;
         readonly label: string;
@@ -29,6 +30,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "BreadcrumbsFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "title",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -72,5 +80,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'c1013e3018132ab7aac882cebf50354c';
+(node as any).hash = '92bbd08e796441fe6c4370ed7faae863';
 export default node;

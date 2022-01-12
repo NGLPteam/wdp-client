@@ -10,13 +10,14 @@ import { EntityKind } from "types/graphql-schema";
 import { getRouteByEntityKind } from "helpers";
 
 export default function BreadCrumbs({ data }: Props) {
-  const breadcrumbData = useMaybeFragment(fragment, data);
-  const { t } = useTranslation();
+  const entity = useMaybeFragment(fragment, data);
 
-  const breadcrumbs = breadcrumbData?.breadcrumbs;
+  const { t } = useTranslation();
 
   // If the breadcrumb length is > 4, wrap middle breadcrumbs into a dropdown
   const items = useMemo(() => {
+    const breadcrumbs = entity?.breadcrumbs;
+
     if (!breadcrumbs) return [];
 
     const getLink = (
@@ -32,13 +33,13 @@ export default function BreadCrumbs({ data }: Props) {
       ) : null;
     };
 
-    if (breadcrumbs.length < 4) {
+    if (breadcrumbs.length < 3) {
       return breadcrumbs.map(getLink);
     }
 
     const breadcrumbItems = [];
     const dropdownItems = breadcrumbs
-      .filter((o, i) => i >= 1 && i < breadcrumbs.length - 2)
+      .filter((o, i) => i >= 1 && i < breadcrumbs.length - 1)
       .map(getLink);
 
     // Add the first item
@@ -52,24 +53,29 @@ export default function BreadCrumbs({ data }: Props) {
         menuItems={dropdownItems}
       />
     );
-    // Add last two items
+    // Add the last item
     breadcrumbs
-      .slice(breadcrumbs.length - 2, breadcrumbs.length)
+      .slice(breadcrumbs.length - 1, breadcrumbs.length)
       .map((o, i) => breadcrumbItems.push(getLink(o, i)));
 
     return breadcrumbItems;
-  }, [breadcrumbs, t]);
+  }, [entity, t]);
 
-  return (
-    <ul className="l-flex t-copy-sm a-color-lighter">
+  return items.length > 0 ? (
+    <ul className="l-flex t-copy-sm">
       {items.map((crumb, i) => (
-        <li key={i}>
-          {crumb}
-          {i < items.length - 1 && <Styled.Delimiter>/</Styled.Delimiter>}
+        <li key={i} className="a-color-lighter l-flex">
+          <Styled.ItemText>{crumb}</Styled.ItemText>
+          <Styled.Delimiter>/</Styled.Delimiter>
         </li>
       ))}
+      {entity && (
+        <li key="current">
+          <Styled.ItemText>{entity.title}</Styled.ItemText>
+        </li>
+      )}
     </ul>
-  );
+  ) : null;
 }
 
 interface Props {
@@ -78,6 +84,7 @@ interface Props {
 
 export const fragment = graphql`
   fragment BreadcrumbsFragment on Entity {
+    title
     breadcrumbs {
       depth
       label
