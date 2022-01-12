@@ -188,6 +188,7 @@ export default css`
     --padding-rg: ${pxToRem(16)};
     --padding-sm: ${pxToRem(8)};
     --padding-xs: ${pxToRem(6)};
+    --padding-xxs: ${pxToRem(4)};
 
     /* focus */
     --border-color-focus: ${baseColors.neutral90};

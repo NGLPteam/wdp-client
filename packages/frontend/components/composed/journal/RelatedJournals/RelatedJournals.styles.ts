@@ -45,32 +45,6 @@ export const List = styled.ul`
   ${respond(`grid-template-columns: 1fr;`, 50)}
 `;
 
-export const ItemLink = styled.a`
-  display: block;
-`;
-
-export const ItemCover = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  height: 280px;
-`;
-
-export const ItemCoverLink = styled.a`
-  display: inline-block;
-  width: 100%;
-  max-width: 210px;
-  ${respond(`max-width: ${pxToRem(140)};`, 50)}
-`;
-
-export const ItemText = styled.div`
-  margin-block-start: ${pxToRem(20)};
-
-  > * + * {
-    margin-block-start: ${pxToRem(12)};
-  }
-`;
-
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;

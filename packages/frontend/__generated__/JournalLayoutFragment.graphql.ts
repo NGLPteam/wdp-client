@@ -40,9 +40,9 @@ const node: ReaderFragment = {
           "value": 4
         }
       ],
-      "concreteType": "EntityLinkConnection",
+      "concreteType": "CollectionConnection",
       "kind": "LinkedField",
-      "name": "links",
+      "name": "relatedCollections",
       "plural": false,
       "selections": [
         {
@@ -51,7 +51,7 @@ const node: ReaderFragment = {
           "name": "RelatedJournalsFragment"
         }
       ],
-      "storageKey": "links(order:\"RECENT\",perPage:4)"
+      "storageKey": "relatedCollections(order:\"RECENT\",perPage:4)"
     },
     {
       "args": null,
@@ -77,5 +77,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '5fad6e0e83727d2a0e36fda3468d13ea';
+(node as any).hash = '64bd0d24e92c0ed6cdfc9830991ca283';
 export default node;

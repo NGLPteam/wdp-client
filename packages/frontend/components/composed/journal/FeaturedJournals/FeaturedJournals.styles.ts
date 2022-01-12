@@ -129,6 +129,7 @@ export const ItemTitle = styled.h4`
 `;
 
 export const ItemSubtitle = styled.div`
+  padding-block-start: var(--padding-xs);
   margin-block-end: ${pxToRem(24)};
 `;
 
