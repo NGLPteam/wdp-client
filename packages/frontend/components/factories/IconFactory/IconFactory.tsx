@@ -26,6 +26,7 @@ export const ICON_MAP = {
   text32: Icons.Text32,
   video32: Icons.Video32,
   user: Icons.User,
+  copy: Icons.Copy,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

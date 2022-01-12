@@ -16,3 +16,4 @@ export { default as Video32 } from "./Video32";
 export { default as Hamburger24 } from "./Hamburger24";
 export { default as Close24 } from "./Close24";
 export { default as User } from "./User";
+export { default as Copy } from "./Copy";

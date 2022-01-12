@@ -12904,6 +12904,11 @@ remark-stringify@^9.0.0:
   dependencies:
     mdast-util-to-markdown "^0.6.0"
 
+remark-strip-html@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/remark-strip-html/-/remark-strip-html-1.0.2.tgz#b073a8a778f2b4a3ae92d52b674173deed7db175"
+  integrity sha512-lzOlh4gp/sd9qYVUO0QNNQbUIDYM35XhBZnvp4S4bkM3OCfrvd2GQlQVPAuneeI/K5jbxTfCGDvb9UT9IEPIwA==
+
 remark@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/remark/-/remark-13.0.0.tgz#d15d9bf71a402f40287ebe36067b66d54868e425"
