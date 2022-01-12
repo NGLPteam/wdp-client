@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import ReactMarkdown from "react-markdown";
 import * as Styled from "./ArticleContributor.styles";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
@@ -57,9 +58,22 @@ export default function ArticleContributor({ data }: Props) {
                   )}
                 </DotList>
               </Styled.Roles>
-              <Styled.Bio className="t-copy-sm t-copy-lighter">
-                {contributor.bio}
-              </Styled.Bio>
+              {contributor.bio && (
+                <Styled.Bio>
+                  <ReactMarkdown
+                    className="t-copy-sm t-copy-lighter"
+                    components={{
+                      h1: "p",
+                      h2: "p",
+                      h3: "p",
+                      h4: "p",
+                      h5: "p",
+                    }}
+                  >
+                    {contributor.bio}
+                  </ReactMarkdown>
+                </Styled.Bio>
+              )}
             </>
           )}
         </Styled.Info>

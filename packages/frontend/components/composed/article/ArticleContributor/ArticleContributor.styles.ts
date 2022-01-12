@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import { tLineClamp } from "@wdp/lib/theme/mixins";
 
 export const Inner = styled.div`
   display: flex;
@@ -26,4 +27,5 @@ export const Roles = styled.div`
 
 export const Bio = styled.p`
   margin-block-start: var(--padding-xs);
+  ${tLineClamp(3)}
 `;
