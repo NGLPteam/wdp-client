@@ -3,6 +3,25 @@ import { tTruncate } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { respond } from "theme/mixins";
 
+const TABLET_BREAK = 60;
+
+export const List = styled.ul`
+  display: flex;
+
+  &[data-mobile] {
+    ${respond("display: none;", TABLET_BREAK, "min")}
+  }
+
+  &[data-desktop] {
+    ${respond("display: none;", TABLET_BREAK)}
+  }
+`;
+
+export const Item = styled.li`
+  display: flex;
+  color: var(--color-lighter);
+`;
+
 export const Delimiter = styled.span`
   display: inline-block;
   padding-inline-start: ${pxToRem(10)};
@@ -15,4 +34,5 @@ export const ItemText = styled.span`
   ${tTruncate}
 
   ${respond(`max-width: 70vw;`, 50)}
+  ${respond(`max-width: 60vw;`, 30)}
 `;
