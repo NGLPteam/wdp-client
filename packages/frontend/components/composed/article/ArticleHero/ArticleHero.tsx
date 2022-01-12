@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
 import {
@@ -17,8 +16,6 @@ import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return article ? (
     <header className="a-bg-custom10">

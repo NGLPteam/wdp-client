@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type IssueHeroFragment = {
+export type VolumeHeroFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
@@ -21,36 +21,22 @@ export type IssueHeroFragment = {
     readonly journal: {
         readonly " $fragmentRefs": FragmentRefs<"JournalHeroCompactFragment" | "JournalHeroMetadataFragment">;
     } | null;
-    readonly volume: {
-        readonly title?: string | undefined;
-    } | null;
-    readonly pdfVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
-    } | null;
     readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
-    readonly " $refType": "IssueHeroFragment";
+    readonly " $refType": "VolumeHeroFragment";
 };
-export type IssueHeroFragment$data = IssueHeroFragment;
-export type IssueHeroFragment$key = {
-    readonly " $data"?: IssueHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueHeroFragment">;
+export type VolumeHeroFragment$data = VolumeHeroFragment;
+export type VolumeHeroFragment$key = {
+    readonly " $data"?: VolumeHeroFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"VolumeHeroFragment">;
 };
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "IssueHeroFragment",
+  "name": "VolumeHeroFragment",
   "selections": [
     {
       "alias": null,
@@ -59,7 +45,13 @@ return {
       "name": "id",
       "storageKey": null
     },
-    (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "title",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -141,53 +133,6 @@ return {
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
     },
     {
-      "alias": "volume",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:journal_volume"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "ancestorOfType",
-      "plural": false,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            (v0/*: any*/)
-          ],
-          "type": "Entity",
-          "abstractKey": "__isEntity"
-        }
-      ],
-      "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
-    },
-    {
-      "alias": "pdfVersion",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "pdf_version"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AssetDownloadButtonFragment"
-        }
-      ],
-      "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DOIFragment"
@@ -196,6 +141,5 @@ return {
   "type": "Collection",
   "abstractKey": null
 };
-})();
-(node as any).hash = '05b0110d584026b4a836d492acea83e7';
+(node as any).hash = 'b77802f3fe7fc457047dc9d3f9d90721';
 export default node;
