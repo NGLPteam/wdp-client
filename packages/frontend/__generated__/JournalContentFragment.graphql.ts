@@ -14,7 +14,7 @@ export type JournalContentFragment = {
         readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
     } | null;
     readonly issues: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedIssuesFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"RecentIssuesFragment">;
     };
     readonly currentIssue: {
         readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
@@ -36,6 +36,11 @@ var v0 = {
   "value": "DESCENDANTS"
 },
 v1 = {
+  "kind": "Literal",
+  "name": "order",
+  "value": "PUBLISHED_DESCENDING"
+},
+v2 = {
   "kind": "Literal",
   "name": "schema",
   "value": "nglp:journal_issue"
@@ -104,11 +109,7 @@ return {
       "alias": "issues",
       "args": [
         (v0/*: any*/),
-        {
-          "kind": "Literal",
-          "name": "order",
-          "value": "PUBLISHED_ASCENDING"
-        },
+        (v1/*: any*/),
         {
           "kind": "Literal",
           "name": "page",
@@ -119,7 +120,7 @@ return {
           "name": "perPage",
           "value": 4
         },
-        (v1/*: any*/)
+        (v2/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -129,21 +130,17 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "FeaturedIssuesFragment"
+          "name": "RecentIssuesFragment"
         }
       ],
-      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_ASCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
+      "storageKey": "collections(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",page:1,perPage:4,schema:\"nglp:journal_issue\")"
     },
     {
       "alias": "currentIssue",
       "args": [
         (v0/*: any*/),
-        {
-          "kind": "Literal",
-          "name": "order",
-          "value": "PUBLISHED_DESCENDING"
-        },
-        (v1/*: any*/)
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "concreteType": "Collection",
       "kind": "LinkedField",
@@ -163,5 +160,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a2dad55ab7f81b00f69ffed78c0f0a08';
+(node as any).hash = 'ff35bc43672aec8aa44fa122515223eb';
 export default node;

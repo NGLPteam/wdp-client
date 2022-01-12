@@ -4,14 +4,14 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import IssueSummary from "../IssueSummary";
-import * as Styled from "./FeaturedIssues.styles";
+import * as Styled from "./RecentIssues.styles";
 import { Button, NamedLink } from "components/atomic";
 import {
-  FeaturedIssuesFragment$data,
-  FeaturedIssuesFragment$key,
-} from "@/relay/FeaturedIssuesFragment.graphql";
+  RecentIssuesFragment$data,
+  RecentIssuesFragment$key,
+} from "@/relay/RecentIssuesFragment.graphql";
 
-export default function FeaturedIssues({ data, limit = 4 }: Props) {
+export default function RecentIssues({ data, limit = 4 }: Props) {
   const issues = useMaybeFragment(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
@@ -20,9 +20,7 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
     <section className="a-bg-neutral90">
       <Styled.SectionInner className="l-container-wide">
         <Styled.HeaderBlock>
-          <h3 className="t-capitalize">
-            {t("layouts.featured_issues_header")}
-          </h3>
+          <h3 className="t-capitalize">{t("layouts.recent_issues_header")}</h3>
         </Styled.HeaderBlock>
         <Styled.List>
           {issues.edges.slice(0, limit).map(({ node }: Node) =>
@@ -55,14 +53,14 @@ export default function FeaturedIssues({ data, limit = 4 }: Props) {
 
 interface Props {
   /* CollectionConnection data */
-  data?: FeaturedIssuesFragment$key | null;
+  data?: RecentIssuesFragment$key | null;
   limit?: number;
 }
 
-type Node = FeaturedIssuesFragment$data["edges"][number];
+type Node = RecentIssuesFragment$data["edges"][number];
 
 const fragment = graphql`
-  fragment FeaturedIssuesFragment on CollectionConnection {
+  fragment RecentIssuesFragment on CollectionConnection {
     edges {
       node {
         slug

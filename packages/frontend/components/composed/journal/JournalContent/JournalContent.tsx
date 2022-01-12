@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import CurrentIssue from "../CurrentIssue";
 import * as Styled from "./JournalContent.styles";
 import { ReadMoreLink, FullText } from "components/atomic";
-import FeaturedIssues from "components/composed/issue/FeaturedIssues";
+import RecentIssues from "components/composed/issue/RecentIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 
 export default function JournalContent({ data }: Props) {
@@ -53,7 +53,7 @@ export default function JournalContent({ data }: Props) {
         </Styled.SectionInner>
       </section>
       <CurrentIssue data={journal.currentIssue} />
-      <FeaturedIssues data={journal.issues} />
+      <RecentIssues data={journal.issues} />
     </>
   );
 }
@@ -77,12 +77,12 @@ const fragment = graphql`
 
     issues: collections(
       schema: "nglp:journal_issue"
-      order: PUBLISHED_ASCENDING
+      order: PUBLISHED_DESCENDING
       nodeFilter: DESCENDANTS
       page: 1
       perPage: 4
     ) {
-      ...FeaturedIssuesFragment
+      ...RecentIssuesFragment
     }
 
     currentIssue: firstCollection(
