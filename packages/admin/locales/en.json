@@ -62,7 +62,9 @@
       "schema": "Schema",
       "schema_plural": "Schemas",
       "page": "Page",
-      "page_plural": "Pages"
+      "page_plural": "Pages",
+      "announcement": "Announcement",
+      "announcement_plural": "Announcements"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -78,7 +80,9 @@
       "updated_at_column": "Updated At",
       "avatar_column": "Avatar",
       "slug_column": "Slug",
+      "header_column": "Header",
       "inherited_from_schema_column": "From Schema?",
+      "published_column": "Published",
       "items_column": "Items",
       "contributors_column": "Contributors",
       "no_results": "No Results",
@@ -107,6 +111,7 @@
       "links": "Links",
       "access": "Access",
       "pages": "Pages",
+      "announcements": "Announcements",
       "contributions": "Contributions",
       "rules": "Rules",
       "files": "Files",
@@ -130,7 +135,9 @@
         "page_success": "Page added successfully",
         "page_failure": "Failed to add page",
         "ordering_success": "Ordering added successfully",
-        "ordering_failure": "Failed to add ordering"
+        "ordering_failure": "Failed to add ordering",
+        "announcement_success": "Announcement added successfully",
+        "announcement_failure": "Failed to add announcement"
       },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
@@ -143,7 +150,9 @@
         "access_success": "Access updated successfully",
         "schema_success": "Schema updated successfully",
         "profile_success": "Profile updated successfully",
-        "user_success": "User updated successfully"
+        "user_success": "User updated successfully",
+        "announcement_success": "Announcement updated successfully",
+        "announcement_failure": "Failed to update announcement",
         "page_success": "Page updated successfully",
         "page_failure": "Failed to update page"
       },
@@ -194,7 +203,9 @@
         "page": "Add Page",
         "page_header": "Add New Page",
         "ordering": "Add Ordering",
-        "ordering_header": "Add New Ordering"
+        "ordering_header": "Add New Ordering",
+        "announcement": "Add Announcement",
+        "announcement_header": "Add New Announcement"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -227,7 +238,9 @@
         "page": "Edit Page",
         "page_header": "Edit Page",
         "user": "Edit User",
-        "user_header": "Edit User"
+        "user_header": "Edit User",
+        "announcement": "Edit Announcement",
+        "announcement_header": "Edit Announcement"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -302,7 +315,9 @@
         "schemas": "Schemas",
         "accessioned": "Accessioned",
         "issued": "Issued",
-        "available": "Available"
+        "available": "Available",
+        "header": "Header",
+        "teaser": "Teaser"
       },
       "validation": {
         "year": "Must be a four digit year",

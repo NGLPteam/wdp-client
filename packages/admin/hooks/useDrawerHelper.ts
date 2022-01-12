@@ -29,6 +29,8 @@ import EntityOrderingAddDrawer from "components/composed/ordering/EntityOrdering
 import EntityPageAddDrawer from "components/composed/pages/EntityPageAddDrawer";
 import EntityPageUpdateDrawer from "components/composed/pages/EntityPageUpdateDrawer";
 import UserUpdateDrawer from "components/composed/user/UserUpdateDrawer";
+import EntityAnnouncementAddDrawer from "components/composed/announcements/EntityAnnouncementAddDrawer";
+import EntityAnnouncementUpdateDrawer from "components/composed/announcements/EntityAnnouncementUpdateDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -57,6 +59,8 @@ const drawerRegistry = {
   addPage: EntityPageAddDrawer,
   editPage: EntityPageUpdateDrawer,
   editUser: UserUpdateDrawer,
+  addAnnouncement: EntityAnnouncementAddDrawer,
+  editAnnouncement: EntityAnnouncementUpdateDrawer,
 };
 
 export function useDrawerHelper() {
