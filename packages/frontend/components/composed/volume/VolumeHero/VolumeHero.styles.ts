@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { fluidScale, lGrid, respond, tHeading } from "theme/mixins";
+import { fluidScale, lGrid, respond } from "theme/mixins";
 
 export const HeroInner = styled.div`
   ${lGrid({
@@ -60,21 +60,6 @@ export const Title = styled.h3`
   padding-inline-end: var(--padding-md);
 
   ${respond(`display: inline-block;`, 70, "min")}
-`;
-
-const VOLUME_BREAK = 70;
-
-export const Volume = styled.span`
-  ${tHeading(3)}
-  color: var(--color-base-neutral70);
-
-  ${respond(`display: none`, VOLUME_BREAK)}
-`;
-
-export const VolumeMobile = styled.p`
-  display: none;
-
-  ${respond(`display: block;`, VOLUME_BREAK)}
 `;
 
 export const Description = styled.div`

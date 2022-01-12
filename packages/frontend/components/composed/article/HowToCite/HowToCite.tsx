@@ -3,9 +3,9 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
+import * as Styled from "./HowToCite.styles";
 import { Button } from "components/atomic";
 import { HowToCiteFragment$key } from "@/relay/HowToCiteFragment.graphql";
-import * as Styled from "./HowToCite.styles";
 
 export default function HowToCite({ data }: Props) {
   const result = useMaybeFragment(fragment, data);

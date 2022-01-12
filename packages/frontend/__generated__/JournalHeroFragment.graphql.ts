@@ -14,7 +14,7 @@ export type JournalHeroFragment = {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
     };
-    readonly " $fragmentRefs": FragmentRefs<"ISSNFragment" | "DOIFragment" | "PeerReviewedFragment" | "OpenAccessFragment" | "CCLicenseFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "JournalHeroMetadataFragment">;
     readonly " $refType": "JournalHeroFragment";
 };
 export type JournalHeroFragment$data = JournalHeroFragment;
@@ -78,31 +78,16 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ISSNFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "DOIFragment"
     },
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "PeerReviewedFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "OpenAccessFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "CCLicenseFragment"
+      "name": "JournalHeroMetadataFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'f0a102922df01185705ebfc1ee2359fd';
+(node as any).hash = 'bc23fa1169fa2eddfe26b3deed18b111';
 export default node;

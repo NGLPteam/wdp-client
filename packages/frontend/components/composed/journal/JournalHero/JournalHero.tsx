@@ -1,16 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import JournalHeroMetadata from "../JournalHeroMetadata";
 import * as Styled from "./JournalHero.styles";
-import {
-  CCLicense,
-  HeroImage,
-  NamedLink,
-  OpenAccess,
-  PeerReviewed,
-  ISSN,
-  DOI,
-} from "components/atomic";
+import { HeroImage, NamedLink, DOI } from "components/atomic";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
@@ -35,11 +28,8 @@ export default function JournalHero({ data }: Props) {
             )}
           </Styled.TitleBlock>
           <Styled.MetadataBlock className="t-label-sm">
-            <ISSN data={journal} />
             <DOI data={journal} />
-            <CCLicense data={journal} />
-            <OpenAccess data={journal} />
-            <PeerReviewed data={journal} />
+            <JournalHeroMetadata data={journal} />
           </Styled.MetadataBlock>
         </Styled.HeroInner>
       </header>
@@ -61,10 +51,7 @@ const fragment = graphql`
       storage
       ...HeroImageFragment
     }
-    ...ISSNFragment
     ...DOIFragment
-    ...PeerReviewedFragment
-    ...OpenAccessFragment
-    ...CCLicenseFragment
+    ...JournalHeroMetadataFragment
   }
 `;

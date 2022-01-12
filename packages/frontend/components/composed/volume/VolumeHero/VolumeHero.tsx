@@ -2,64 +2,54 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./IssueHero.styles";
-import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
+import * as Styled from "./VolumeHero.styles";
+import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
 import CoverImage from "components/atomic/CoverImage";
 import { DotList, PrecisionDate, DOI } from "components/atomic";
-import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
 
-export default function IssueHero({ data }: Props) {
-  const issue = useMaybeFragment(fragment, data);
+export default function VolumeHero({ data }: Props) {
+  const volume = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
-  return issue ? (
+  return volume ? (
     <header className="a-bg-custom10">
-      <JournalHeroCompact data={issue.journal} />
+      <JournalHeroCompact data={volume.journal} />
       <Styled.HeroInner className="l-container-wide">
         <Styled.TextBlock>
-          {issue.thumbnail?.storage && (
+          {volume.thumbnail?.storage && (
             <Styled.Cover>
               <CoverImage
-                id={issue.id}
-                title={issue.title}
-                data={issue.thumbnail}
+                id={volume.id}
+                title={volume.title}
+                data={volume.thumbnail}
                 maxWidth={225}
                 maxHeight={300}
               />
             </Styled.Cover>
           )}
           <Styled.Issue>
-            <Styled.Title as="h3">{issue.title}</Styled.Title>
-            {issue.volume && (
-              <Styled.Volume>{issue.volume.title}</Styled.Volume>
-            )}
+            <Styled.Title as="h3">{volume.title}</Styled.Title>
             <Styled.Description>
-              {issue.volume && (
-                <Styled.VolumeMobile>{issue.volume.title}</Styled.VolumeMobile>
-              )}
               <DotList className="t-copy-lighter">
-                {issue.published && (
+                {volume.published && (
                   <li>
                     <PrecisionDate
-                      data={issue.published}
+                      data={volume.published}
                       label={t("common.published")}
                     />
                   </li>
                 )}
               </DotList>
-              {issue.summary && <p>{issue.summary}</p>}
+              {volume.summary && <p>{volume.summary}</p>}
             </Styled.Description>
-            {issue.pdfVersion && (
-              <AssetDownloadButton data={issue.pdfVersion} />
-            )}
           </Styled.Issue>
         </Styled.TextBlock>
         <Styled.MetadataBlock className="t-label-sm">
-          <DOI data={issue} />
-          <JournalHeroMetadata data={issue.journal} />
+          <DOI data={volume} />
+          <JournalHeroMetadata data={volume.journal} />
         </Styled.MetadataBlock>
       </Styled.HeroInner>
     </header>
@@ -67,11 +57,11 @@ export default function IssueHero({ data }: Props) {
 }
 
 interface Props {
-  data?: IssueHeroFragment$key | null;
+  data?: VolumeHeroFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment IssueHeroFragment on Collection {
+  fragment VolumeHeroFragment on Collection {
     id
     title
     subtitle
@@ -87,14 +77,6 @@ const fragment = graphql`
     journal: ancestorOfType(schema: "nglp:journal") {
       ...JournalHeroCompactFragment
       ...JournalHeroMetadataFragment
-    }
-    volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Entity {
-        title
-      }
-    }
-    pdfVersion: schemaProperty(fullPath: "pdf_version") {
-      ...AssetDownloadButtonFragment
     }
   }
 `;
