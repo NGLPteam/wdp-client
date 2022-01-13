@@ -111,7 +111,9 @@
       "back_to_contributors": "Back to Contributors",
       "current_issue": "Current $t(schema.nglp.journal_issue)",
       "announcements_header": "Announcements",
-      "how_to_cite": "How to Cite"
+      "how_to_cite": "How to Cite",
+      "article_count": "{{count}} Article",
+      "article_count_plural": "{{count}} Articles"
     },
     "nav": {
       "home": "Home",

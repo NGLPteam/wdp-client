@@ -64,6 +64,10 @@ export const ItemText = styled.div`
   }
 `;
 
+export const Subtitle = styled.p`
+  margin-block-start: 0;
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;

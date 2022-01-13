@@ -20,7 +20,9 @@ export default function RelatedIssues({ data }: Props) {
         </Styled.HeaderBlock>
         <Styled.List>
           {issues.edges.map((edge) => (
-            <RelatedIssueBlock key={edge.node.slug} data={edge.node} />
+            <li key={edge.node.slug}>
+              <RelatedIssueBlock data={edge.node} />
+            </li>
           ))}
         </Styled.List>
       </Styled.Inner>

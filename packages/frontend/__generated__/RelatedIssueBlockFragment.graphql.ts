@@ -25,6 +25,11 @@ export type RelatedIssueBlockFragment = {
     readonly journal: {
         readonly title?: string | undefined;
     } | null;
+    readonly articles: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    };
     readonly __typename: "Collection";
     readonly " $refType": "RelatedIssueBlockFragment";
 };
@@ -166,11 +171,46 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
+    },
+    {
+      "alias": "articles",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:journal_article"
+        }
+      ],
+      "concreteType": "CollectionConnection",
+      "kind": "LinkedField",
+      "name": "collections",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "collections(schema:\"nglp:journal_article\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c86a6560597223315f337835f4996a98';
+(node as any).hash = 'ec028911f0ac3af1bba871168853d422';
 export default node;
