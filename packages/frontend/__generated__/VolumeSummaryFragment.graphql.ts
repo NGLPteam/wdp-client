@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type IssueSummaryFragment = {
+export type VolumeSummaryFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
@@ -20,9 +20,6 @@ export type IssueSummaryFragment = {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
-    readonly volume: {
-        readonly title?: string | undefined;
-    } | null;
     readonly journal?: {
         readonly title?: string | undefined;
     } | null | undefined;
@@ -35,12 +32,12 @@ export type IssueSummaryFragment = {
             readonly totalCount: number;
         };
     };
-    readonly " $refType": "IssueSummaryFragment";
+    readonly " $refType": "VolumeSummaryFragment";
 };
-export type IssueSummaryFragment$data = IssueSummaryFragment;
-export type IssueSummaryFragment$key = {
-    readonly " $data"?: IssueSummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueSummaryFragment">;
+export type VolumeSummaryFragment$data = VolumeSummaryFragment;
+export type VolumeSummaryFragment$key = {
+    readonly " $data"?: VolumeSummaryFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"VolumeSummaryFragment">;
 };
 
 
@@ -52,17 +49,7 @@ var v0 = {
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
-},
-v1 = [
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      (v0/*: any*/)
-    ],
-    "type": "Collection",
-    "abstractKey": null
-  }
-];
+};
 return {
   "argumentDefinitions": [
     {
@@ -73,7 +60,7 @@ return {
   ],
   "kind": "Fragment",
   "metadata": null,
-  "name": "IssueSummaryFragment",
+  "name": "VolumeSummaryFragment",
   "selections": [
     {
       "alias": null,
@@ -149,22 +136,6 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": "volume",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:journal_volume"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "ancestorOfType",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
     },
     {
       "alias": "properties",
@@ -251,7 +222,16 @@ return {
           "kind": "LinkedField",
           "name": "ancestorOfType",
           "plural": false,
-          "selections": (v1/*: any*/),
+          "selections": [
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                (v0/*: any*/)
+              ],
+              "type": "Collection",
+              "abstractKey": null
+            }
+          ],
           "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
         }
       ]
@@ -261,5 +241,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f07c59ecbeb0b17ae6a62b681928141e';
+(node as any).hash = 'c64d55921f14a65bd7f2de077ccc39a6';
 export default node;

@@ -138,9 +138,7 @@ const fragment = graphql`
               ... on Sluggable {
                 slug
               }
-              ... on Entity {
-                ...ArticleSummaryFragment
-              }
+              ...ArticleSummaryFragment
             }
           }
         }
