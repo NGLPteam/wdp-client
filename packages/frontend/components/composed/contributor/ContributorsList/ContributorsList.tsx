@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
+import { useWindowSize } from "@wdp/lib/hooks";
 import ContributorName from "../ContributorName";
 import {
   ContributorsListFragment$data,
@@ -18,25 +20,39 @@ export default function ContributorsList({
 }: Props) {
   const contributions = useMaybeFragment(fragment, data);
 
-  return contributions && contributions.edges.length > 0 ? (
+  const { t } = useTranslation();
+
+  const size = useWindowSize();
+
+  const total = contributions?.pageInfo?.totalCount || 0;
+
+  const limit = useMemo(() => {
+    if (!size?.width) return 4;
+
+    return size.width < 541 ? 2 : size.width < 769 ? 3 : 4;
+  }, [size]);
+
+  return contributions && total > 0 ? (
     <span className={className}>
-      {contributions.edges.map(({ node }: Node, i: number) => (
+      {contributions.edges.slice(0, limit).map(({ node }: Node, i: number) => (
         <React.Fragment key={i}>
           {node.contributor.slug ? (
-            <NamedLink
-              route="contributor"
-              routeParams={{
-                slug: node.contributor.slug,
-                ...(itemSlug && { item: itemSlug }),
-                ...(collectionSlug && { collection: collectionSlug }),
-              }}
-              passHref
-            >
-              <a>
-                <ContributorName data={node.contributor} />
-                {i < contributions.edges.length - 1 && ", "}
-              </a>
-            </NamedLink>
+            <>
+              <NamedLink
+                route="contributor"
+                routeParams={{
+                  slug: node.contributor.slug,
+                  ...(itemSlug && { item: itemSlug }),
+                  ...(collectionSlug && { collection: collectionSlug }),
+                }}
+                passHref
+              >
+                <a>
+                  <ContributorName data={node.contributor} />
+                </a>
+              </NamedLink>
+              {i < contributions.edges.length - 1 && ", "}
+            </>
           ) : (
             <>
               <ContributorName data={node.contributor} />
@@ -45,6 +61,7 @@ export default function ContributorsList({
           )}
         </React.Fragment>
       ))}
+      {total > limit && <>{t("common.and_x_more", { count: total - limit })}</>}
     </span>
   ) : null;
 }
@@ -70,6 +87,9 @@ const fragment = graphql`
           ...ContributorNameFragment
         }
       }
+    }
+    pageInfo {
+      totalCount
     }
   }
 `;
