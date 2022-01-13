@@ -14,6 +14,9 @@ export type ContributorsListFragment = {
             };
         };
     }>;
+    readonly pageInfo: {
+        readonly totalCount: number;
+    };
     readonly " $refType": "ContributorsListFragment";
 };
 export type ContributorsListFragment$data = ContributorsListFragment;
@@ -81,10 +84,28 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PageInfo",
+      "kind": "LinkedField",
+      "name": "pageInfo",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "ItemContributionConnection",
   "abstractKey": null
 };
-(node as any).hash = '9d7ba90166f93e3e7ac5b802cc453d52';
+(node as any).hash = '5ecd7e9bcb9f27e56fbfd40e7b3a728b';
 export default node;
