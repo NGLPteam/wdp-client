@@ -5,12 +5,14 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type CommunityNavListFragment = {
     readonly slug: string;
     readonly schemaRanks: ReadonlyArray<{
         readonly slug: string;
         readonly name: string;
         readonly count: number;
+        readonly kind: SchemaKind;
     }>;
     readonly pages: {
         readonly edges: ReadonlyArray<{
@@ -67,6 +69,13 @@ return {
           "kind": "ScalarField",
           "name": "count",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "kind",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -117,5 +126,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '238ea0818dccfe3d47090c0557cfe5eb';
+(node as any).hash = 'f5ace40f03730a87ca4ccf1ebcfea1e8';
 export default node;

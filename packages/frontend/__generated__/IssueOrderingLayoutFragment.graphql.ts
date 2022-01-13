@@ -12,6 +12,7 @@ export type IssueOrderingLayoutFragment = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly entry: {
+                    readonly slug?: string | undefined;
                     readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
                 };
             };
@@ -30,15 +31,7 @@ export type IssueOrderingLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "EntitySummaryFactoryFragment"
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
       "defaultValue": 1,
@@ -104,15 +97,22 @@ return {
                   "selections": [
                     {
                       "kind": "InlineFragment",
-                      "selections": (v0/*: any*/),
-                      "type": "Item",
-                      "abstractKey": null
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "slug",
+                          "storageKey": null
+                        }
+                      ],
+                      "type": "Sluggable",
+                      "abstractKey": "__isSluggable"
                     },
                     {
-                      "kind": "InlineFragment",
-                      "selections": (v0/*: any*/),
-                      "type": "Collection",
-                      "abstractKey": null
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "EntitySummaryFactoryFragment"
                     }
                   ],
                   "storageKey": null
@@ -146,6 +146,5 @@ return {
   "type": "Ordering",
   "abstractKey": null
 };
-})();
-(node as any).hash = 'a379c82484a9453ccb0b3932c460ed87';
+(node as any).hash = 'fc3b2c6722e0ab008ed5234156a728d1';
 export default node;

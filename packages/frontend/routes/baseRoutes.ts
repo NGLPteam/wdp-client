@@ -20,16 +20,16 @@ export const baseRoutes: BaseRoute[] = [
         path: "/communities/[slug]/page/[page]",
       },
       {
-        name: "community.collections",
-        path: "/communities/[slug]/collections",
-      },
-      {
-        name: "community.items",
-        path: "/communities/[slug]/items",
-      },
-      {
         name: "community.search",
         path: "/communities/[slug]/search",
+      },
+      {
+        name: "community.items.schema",
+        path: "/communities/[slug]/items/[schema]",
+      },
+      {
+        name: "community.collections.schema",
+        path: "/communities/[slug]/collections/[schema]",
       },
     ],
   },

@@ -224,16 +224,9 @@ return {
                           "abstractKey": "__isSluggable"
                         },
                         {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "ArticleSummaryFragment"
-                            }
-                          ],
-                          "type": "Entity",
-                          "abstractKey": "__isEntity"
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "ArticleSummaryFragment"
                         }
                       ],
                       "storageKey": null
@@ -273,5 +266,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '705453075affcfab5d50974495a3d614';
+(node as any).hash = '383b6d396aecf902c0224884d7e62436';
 export default node;

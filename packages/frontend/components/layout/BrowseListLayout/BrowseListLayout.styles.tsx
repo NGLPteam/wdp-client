@@ -10,6 +10,13 @@ export const Header = styled.header`
   }
 `;
 
+export const PageCountBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const Footer = styled.div`
   padding-block-start: ${pxToRem(56)};
   padding-block-end: ${pxToRem(120)};

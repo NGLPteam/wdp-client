@@ -7,19 +7,18 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingLayoutFragment = {
     readonly name: string | null;
-    readonly inheritedFromSchema: boolean;
+    readonly header: string | null;
     readonly children: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly entry: {
-                    readonly __typename: string;
                     readonly slug?: string | undefined;
                     readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
                 };
             };
         }>;
         readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"PageCountFragment" | "PaginationFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment">;
         };
     };
     readonly " $refType": "EntityOrderingLayoutFragment";
@@ -55,7 +54,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "inheritedFromSchema",
+      "name": "header",
       "storageKey": null
     },
     {
@@ -97,13 +96,6 @@ const node: ReaderFragment = {
                   "plural": false,
                   "selections": [
                     {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "__typename",
-                      "storageKey": null
-                    },
-                    {
                       "kind": "InlineFragment",
                       "selections": [
                         {
@@ -142,12 +134,7 @@ const node: ReaderFragment = {
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "PageCountFragment"
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PaginationFragment"
+              "name": "BrowseListLayoutFragment"
             }
           ],
           "storageKey": null
@@ -159,5 +146,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '4cdd0481084794ed8db564803255384d';
+(node as any).hash = '0316fac42801121bc9fbe4ace30c1275';
 export default node;

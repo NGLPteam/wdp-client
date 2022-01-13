@@ -7,21 +7,24 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ArticleSummaryFragment = {
-    readonly __typename: string;
     readonly title: string;
     readonly subtitle: string | null;
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
     };
-    readonly published?: {
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    } | undefined;
-    readonly slug?: string | undefined;
-    readonly summary?: string | null | undefined;
-    readonly contributions?: {
+    readonly slug: string;
+    readonly summary: string | null;
+    readonly contributions: {
         readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
-    } | undefined;
+    };
+    readonly published: {
+        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
+    };
+    readonly journal?: {
+        readonly title?: string | undefined;
+    } | null | undefined;
+    readonly __typename: "Item";
     readonly " $refType": "ArticleSummaryFragment";
 };
 export type ArticleSummaryFragment$data = ArticleSummaryFragment;
@@ -32,8 +35,22 @@ export type ArticleSummaryFragment$key = {
 
 
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+};
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": false,
+      "kind": "LocalArgument",
+      "name": "showJournal"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "ArticleSummaryFragment",
@@ -45,13 +62,7 @@ const node: ReaderFragment = {
       "name": "__typename",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -83,75 +94,87 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "kind": "InlineFragment",
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "summary",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemContributionConnection",
+      "kind": "LinkedField",
+      "name": "contributions",
+      "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "VariablePrecisionDate",
+          "kind": "FragmentSpread",
+          "name": "ContributorsListFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "published",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "condition": "showJournal",
+      "kind": "Condition",
+      "passingValue": true,
+      "selections": [
+        {
+          "alias": "journal",
+          "args": [
+            {
+              "kind": "Literal",
+              "name": "schema",
+              "value": "nglp:journal"
+            }
+          ],
+          "concreteType": null,
           "kind": "LinkedField",
-          "name": "published",
+          "name": "ancestorOfType",
           "plural": false,
           "selections": [
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PrecisionDateFragment"
+              "kind": "InlineFragment",
+              "selections": [
+                (v0/*: any*/)
+              ],
+              "type": "Collection",
+              "abstractKey": null
             }
           ],
-          "storageKey": null
+          "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
         }
-      ],
-      "type": "ReferencesGlobalEntityDates",
-      "abstractKey": "__isReferencesGlobalEntityDates"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        }
-      ],
-      "type": "Sluggable",
-      "abstractKey": "__isSluggable"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "summary",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ItemContributionConnection",
-          "kind": "LinkedField",
-          "name": "contributions",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ContributorsListFragment"
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "Item",
-      "abstractKey": null
+      ]
     }
   ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+  "type": "Item",
+  "abstractKey": null
 };
-(node as any).hash = 'd0206dfb45f49cc3615f41dc69e1eb20';
+})();
+(node as any).hash = 'b760ef64c797923f0504aef9e1a2a0cd';
 export default node;

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRoutePageSlug } from "@wdp/lib/routes";
+import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./CommunityNavList.styles";
 import {
   ArrowLink,
@@ -21,6 +21,8 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
 
   const page = useRoutePageSlug();
 
+  const slug = useRouteSlug();
+
   const linkClassName = condensed ? "t-label-sm" : "t-label-lg";
 
   const ListComponent = mobile ? Styled.MobileNavList : Styled.NavList;
@@ -33,25 +35,29 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
     );
   }
 
-  const schemaLinks = community
-    ? community.schemaRanks.map((schema, i) => (
-        <a key={i} href="#">
-          {t(getSchemaTranslationKey(schema.slug), { count: 2 })}
-        </a>
-      ))
-    : [];
+  const schemaLinks =
+    community && slug
+      ? community.schemaRanks.map((schema) => (
+          <NamedLink
+            key={schema.slug}
+            route={
+              schema.kind === "COLLECTION"
+                ? "community.collections.schema"
+                : "community.items.schema"
+            }
+            routeParams={{ slug, schema: schema.slug }}
+          >
+            <a>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</a>
+          </NamedLink>
+        ))
+      : [];
 
   const exploreMenu = mobile ? (
     <Accordion
       label={t("nav.explore")}
       menuItems={[
         ...schemaLinks,
-        <ArrowLink
-          key={1}
-          className="l-flex l-flex--gap-sm l-flex--align-center"
-        >
-          {t("nav.browse_all")}
-        </ArrowLink>,
+        <ArrowLink key={1}>{t("nav.browse_all")}</ArrowLink>,
       ]}
     />
   ) : (
@@ -103,6 +109,7 @@ const fragment = graphql`
       slug
       name
       count
+      kind
     }
     pages {
       edges {

@@ -41,6 +41,7 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
             </div>
           )}
           <DotList className="t-copy-sm t-copy-lighter">
+            {article.journal && <li>{article.journal.title}</li>}
             {article.published && (
               <li>
                 <PrecisionDate data={article.published} />
@@ -76,8 +77,10 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment ArticleSummaryFragment on Entity {
+  fragment ArticleSummaryFragment on Item
+  @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
     __typename
+
     title
     subtitle
     thumbnail {
@@ -85,20 +88,17 @@ const fragment = graphql`
       ...SquareThumbnailFragment
     }
 
-    ... on ReferencesGlobalEntityDates {
-      published {
-        ...PrecisionDateFragment
-      }
+    slug
+    summary
+    contributions {
+      ...ContributorsListFragment
     }
-
-    ... on Sluggable {
-      slug
+    published {
+      ...PrecisionDateFragment
     }
-
-    ... on Item {
-      summary
-      contributions {
-        ...ContributorsListFragment
+    journal: ancestorOfType(schema: "nglp:journal") @include(if: $showJournal) {
+      ... on Collection {
+        title
       }
     }
   }

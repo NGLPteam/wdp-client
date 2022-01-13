@@ -49,7 +49,7 @@ export default function BasePagination({ page, pageCount }: Props) {
           {t("common.submit")}
         </button>
       </form>
-      <span>{t("common.of_count", { count: pageCount })}</span>
+      <span>{t("list.of_count", { count: pageCount })}</span>
       {currentPage < pageCount && (
         <PaginationButton direction="next" page={currentPage} />
       )}

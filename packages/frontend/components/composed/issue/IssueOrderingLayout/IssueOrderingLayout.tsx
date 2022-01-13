@@ -22,16 +22,16 @@ export default function IssueOrderingLayout({ data }: Props) {
       </header>
       {content.children?.edges && content.children.edges.length > 0 ? (
         <Styled.List>
-          {content.children.edges.map(({ node }: Node, i: number) =>
+          {content.children.edges.map(({ node }: Node) =>
             node.entry ? (
-              <Styled.ListItem key={i}>
+              <Styled.ListItem key={node.entry.slug}>
                 <EntitySummaryFactory data={node.entry} />
               </Styled.ListItem>
             ) : null
           )}
         </Styled.List>
       ) : (
-        t("common.no_results")
+        t("list.no_results_message")
       )}
       {content.children?.pageInfo && (
         <Styled.Footer>
@@ -57,12 +57,10 @@ const fragment = graphql`
       edges {
         node {
           entry {
-            ... on Item {
-              ...EntitySummaryFactoryFragment
+            ... on Sluggable {
+              slug
             }
-            ... on Collection {
-              ...EntitySummaryFactoryFragment
-            }
+            ...EntitySummaryFactoryFragment
           }
         }
       }

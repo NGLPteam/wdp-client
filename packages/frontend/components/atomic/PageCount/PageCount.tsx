@@ -20,7 +20,7 @@ export default function PageCount({ data, className, name }: Props) {
   return (
     <div className={className}>
       <Trans
-        i18nKey="common.showing_count_out_of_total"
+        i18nKey="list.showing_count_out_of_total"
         values={{
           start,
           end,

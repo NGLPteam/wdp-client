@@ -1,43 +1,29 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
-import * as Styled from "./IssueSummary.styles";
+import * as Styled from "./VolumeSummary.styles";
 import { ReadMoreLink, PrecisionDate, NamedLink } from "components/atomic";
 import CoverImage from "components/atomic/CoverImage";
-import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
+import { VolumeSummaryFragment$key } from "@/relay/VolumeSummaryFragment.graphql";
 
-export default function IssueSummary({ data, showReadMore }: Props) {
-  const issue = useMaybeFragment(fragment, data);
+export default function VolumeSummary({ data, showReadMore }: Props) {
+  const volume = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
-  const issueNumber = useMemo(() => {
-    if (!issue) return null;
-
-    const prop = issue?.properties.find((p) => p.path === "number");
-    const numberString = startCase(
-      `${t("schema.nglp.journal_issue")} ${prop?.content}`
-    );
-    return prop?.content &&
-      issue.title.toLocaleLowerCase() !== numberString.toLocaleLowerCase()
-      ? numberString
-      : null;
-  }, [issue, t]);
-
-  return issue ? (
+  return volume ? (
     <Styled.Wrapper>
-      {issue.cover?.storage && (
+      {volume.cover?.storage && (
         <NamedLink
           route="collection"
-          routeParams={{ slug: issue.slug }}
+          routeParams={{ slug: volume.slug }}
           passHref
         >
           <Styled.ItemCoverLink>
             <CoverImage
-              id={issue.id}
-              title={issue.title}
-              data={issue.cover}
+              id={volume.id}
+              title={volume.title}
+              data={volume.cover}
               maxWidth={120}
               maxHeight={160}
             />
@@ -49,48 +35,46 @@ export default function IssueSummary({ data, showReadMore }: Props) {
           <h4>
             <NamedLink
               route="collection"
-              routeParams={{ slug: issue.slug }}
+              routeParams={{ slug: volume.slug }}
               passHref
             >
-              <a>{issue.title}</a>
+              <a>{volume.title}</a>
             </NamedLink>
           </h4>
-          {issue.subtitle && (
-            <h5 className="t-copy-italic">{issue.subtitle}</h5>
+          {volume.subtitle && (
+            <h5 className="t-copy-italic">{volume.subtitle}</h5>
           )}
         </Styled.ItemTitleBlock>
         <div className="t-copy-sm">
-          {issueNumber && <p>{issueNumber}</p>}
-          {issue.volume && <p>{issue.volume.title}</p>}
+          {volume.journal && <p>{volume.journal.title}</p>}
           <Styled.ItemPrimaryMetadata>
-            {issue.journal && <li>{issue.journal.title}</li>}
-            {issue.published.value && (
+            {volume.published.value && (
               <li>
                 <PrecisionDate
-                  data={issue.published}
+                  data={volume.published}
                   label={t("common.published")}
                 />
               </li>
             )}
           </Styled.ItemPrimaryMetadata>
-          {(issue.articles.pageInfo.totalCount || 0) > 0 && (
+          {(volume.articles.pageInfo.totalCount || 0) > 0 && (
             <p className="t-copy-italic t-copy-light t-capitalize">
-              {issue.articles.pageInfo.totalCount}{" "}
+              {volume.articles.pageInfo.totalCount}{" "}
               {t("schema.nglp.journal_article", {
-                count: issue.articles.pageInfo.totalCount,
+                count: volume.articles.pageInfo.totalCount,
               })}
             </p>
           )}
         </div>
-        {issue.summary && (
+        {volume.summary && (
           <Styled.ItemSummary className="t-copy-light">
-            {issue.summary}
+            {volume.summary}
           </Styled.ItemSummary>
         )}
         {showReadMore && (
           <NamedLink
             route="collection"
-            routeParams={{ slug: issue.slug }}
+            routeParams={{ slug: volume.slug }}
             passHref
           >
             <Styled.ItemReadMore as={ReadMoreLink} />
@@ -103,12 +87,12 @@ export default function IssueSummary({ data, showReadMore }: Props) {
 
 interface Props {
   /* Collection data */
-  data?: IssueSummaryFragment$key | null;
+  data?: VolumeSummaryFragment$key | null;
   showReadMore?: boolean;
 }
 
 const fragment = graphql`
-  fragment IssueSummaryFragment on Collection
+  fragment VolumeSummaryFragment on Collection
   @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
     id
     title
@@ -122,11 +106,6 @@ const fragment = graphql`
     published {
       value
       ...PrecisionDateFragment
-    }
-    volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Collection {
-        title
-      }
     }
     journal: ancestorOfType(schema: "nglp:journal") @include(if: $showJournal) {
       ... on Collection {
