@@ -128,14 +128,7 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "summary",
           "storageKey": null
-        }
-      ],
-      "type": "ChildEntity",
-      "abstractKey": "__isChildEntity"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
+        },
         {
           "alias": null,
           "args": null,
@@ -160,5 +153,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'cb2729ea12cff86acb02c3baf5cc59a4';
+(node as any).hash = 'd0206dfb45f49cc3615f41dc69e1eb20';
 export default node;

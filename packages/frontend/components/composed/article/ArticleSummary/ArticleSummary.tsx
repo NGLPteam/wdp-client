@@ -95,11 +95,8 @@ const fragment = graphql`
       slug
     }
 
-    ... on ChildEntity {
-      summary
-    }
-
     ... on Item {
+      summary
       contributions {
         ...ContributorsListFragment
       }

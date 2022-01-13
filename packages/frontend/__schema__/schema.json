@@ -5685,18 +5685,6 @@
             "deprecationReason": null
           },
           {
-            "name": "summary",
-            "description": "A description of the contents of the entity",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "updatedAt",
             "description": "The date this entity was last updated within the WDP",
             "args": [],
@@ -6182,6 +6170,35 @@
             "type": {
               "kind": "UNION",
               "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
               "ofType": null
             },
             "isDeprecated": false,
@@ -7135,6 +7152,171 @@
             "deprecationReason": null
           },
           {
+            "name": "descendants",
+            "description": "Search and retrieve *all* descendants of this `Entity`, regardless of type.\n",
+            "args": [
+              {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "EntityDescendantOrder",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "maxDepth",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityDescendantConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "doi",
             "description": "The Digital Object Identifier for this entity. See https://doi.org\n",
             "args": [],
@@ -8064,7 +8246,7 @@
             "args": [
               {
                 "name": "slug",
-                "description": null,
+                "description": "**Note**: Unlike most other model types, a page's slug is just a string\nas opposed to our custom `Slug` type. They are not designed to be\nopaque, but instead be something human-readable that can appear in URIs.\n",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -9786,6 +9968,35 @@
             "deprecationReason": null
           },
           {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "announcements",
             "description": "Announcements for a specific entity",
             "args": [
@@ -10358,6 +10569,171 @@
             "deprecationReason": null
           },
           {
+            "name": "descendants",
+            "description": "Search and retrieve *all* descendants of this `Entity`, regardless of type.\n",
+            "args": [
+              {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "EntityDescendantOrder",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "maxDepth",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityDescendantConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "firstCollection",
             "description": "Retrieve the first matching collection beneath this collection.",
             "args": [
@@ -10481,6 +10857,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageLayout",
+            "description": "The layout to use when rendering this community's hero image.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HeroImageLayout",
                 "ofType": null
               }
             },
@@ -10778,6 +11170,34 @@
             "deprecationReason": null
           },
           {
+            "name": "logo",
+            "description": "A logo for the community",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMetadata",
+            "description": "Configurable metadata for the logo attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "metadata",
             "description": null,
             "args": [],
@@ -10981,7 +11401,7 @@
             "args": [
               {
                 "name": "slug",
-                "description": null,
+                "description": "**Note**: Unlike most other model types, a page's slug is just a string\nas opposed to our custom `Slug` type. They are not designed to be\nopaque, but instead be something human-readable that can appear in URIs.\n",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -11289,6 +11709,30 @@
           {
             "name": "subtitle",
             "description": "A human-readable subtitle for the entity",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": "A description of the contents of the entity",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tagline",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -14237,6 +14681,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -14326,18 +14782,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -14609,6 +15053,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -14646,6 +15102,58 @@
           },
           {
             "name": "thumbnailMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageLayout",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HeroImageLayout",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tagline",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logo",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMetadata",
             "description": "Metadata for an image attachment.\n",
             "type": {
               "kind": "INPUT_OBJECT",
@@ -14861,6 +15369,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -14950,18 +15470,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -19159,6 +19667,35 @@
             "deprecationReason": null
           },
           {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "announcements",
             "description": "Announcements for a specific entity",
             "args": [
@@ -19431,6 +19968,171 @@
                     "ofType": null
                   }
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "descendants",
+            "description": "Search and retrieve *all* descendants of this `Entity`, regardless of type.\n",
+            "args": [
+              {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "EntityDescendantOrder",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "maxDepth",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityDescendantConnection",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -19902,7 +20604,7 @@
             "args": [
               {
                 "name": "slug",
-                "description": null,
+                "description": "**Note**: Unlike most other model types, a page's slug is just a string\nas opposed to our custom `Slug` type. They are not designed to be\nopaque, but instead be something human-readable that can appear in URIs.\n",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -20147,6 +20849,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A description of the contents of the entity",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "thumbnail",
             "description": "A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc.",
             "args": [],
@@ -20323,6 +21037,289 @@
           }
         ],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EntityDescendant",
+        "description": "A descendant of an `Entity`.",
+        "fields": [
+          {
+            "name": "descendant",
+            "description": "The actual descendant entity",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "relativeDepth",
+            "description": "The relative depth of this entity from its ancestor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scope",
+            "description": "The scope of this entity relative to its ancestor",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EntityDescendantConnection",
+        "description": "The connection type for EntityDescendant.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntityDescendantEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntityDescendant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Paginated",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EntityDescendantEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityDescendant",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "EntityDescendantOrder",
+        "description": "Sort entity descendants by specific attributes and order",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "PUBLISHED_ASCENDING",
+            "description": "Sort descendants by oldest published date (or OLDEST for communities)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PUBLISHED_DESCENDING",
+            "description": "Sort descendants by newest published date (or RECENT for communities)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TITLE_ASCENDING",
+            "description": "Sort descendants by title A-Z",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TITLE_DESCENDING",
+            "description": "Sort descendants by title Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "EntityDescendantScopeFilter",
+        "description": "This enum is used to filter the type(s) of descendants to include\nin a set of results.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ALL",
+            "description": "This will include anything regardless of type.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ANY_ENTITY",
+            "description": "This will include all `Collection`s and `Item`s that are direct descendants and not linked.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ANY_LINK",
+            "description": "This will include any _linked_ `Collection`s or `Item`s.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION",
+            "description": "This will include only directly descending `Collection`s, no links.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION_OR_LINK",
+            "description": "This will include any descendant `Collection`s, whether or not it is a link.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM",
+            "description": "This will include only directly descending `Item`s, no links.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM_OR_LINK",
+            "description": "This will include any descendant `Item`s, whether or not it is a link.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LINKED_COLLECTION",
+            "description": "This will only descendant `Collection`s that are linked.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LINKED_ITEM",
+            "description": "This will only descendant `Item`s that are linked.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -20864,6 +21861,89 @@
           {
             "name": "CRUD",
             "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "EntityScope",
+        "description": "This type is used for authorization and filtering, and can\ndistinguish an entity that has been linked to another from\none that exists directly in a hierarchy.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "COMMUNITY",
+            "description": "A `Community` that is an actual descendant at this point in the hierarchy.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION",
+            "description": "A `Collection` that is an actual descendant at this point in the hierarchy.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM",
+            "description": "An `Item` that is an actual descendant at this point in the hierarchy.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMMUNITY_LINKED_COMMUNITY",
+            "description": "A `Community` that was linked from another `Community`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMMUNITY_LINKED_COLLECTION",
+            "description": "A `Collection` that was linked from a `Community`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMMUNITY_LINKED_ITEM",
+            "description": "An `Item` that was linked from a `Community`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION_LINKED_COMMUNITY",
+            "description": "A `Community` that was linked from a `Collection`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION_LINKED_COLLECTION",
+            "description": "A `Collection` that was linked from another `Collection`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COLLECTION_LINKED_ITEM",
+            "description": "An `Item` that was linked from a `Collection`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM_LINKED_COMMUNITY",
+            "description": "A `Community` that was linked from an `Item`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM_LINKED_COLLECTION",
+            "description": "A `Collection` that was linked from an `Item`.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM_LINKED_ITEM",
+            "description": "An `Item` that was linked from another `Item`.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -22140,6 +23220,29 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "HeroImageLayout",
+        "description": "The layout to use when rendering a Hero for an `Entity`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ONE_COLUMN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TWO_COLUMN",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -23862,6 +24965,35 @@
             "deprecationReason": null
           },
           {
+            "name": "announcement",
+            "description": "Look up an announcement for this entity by slug",
+            "args": [
+              {
+                "name": "slug",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Announcement",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "announcements",
             "description": "Announcements for a specific entity",
             "args": [
@@ -24669,6 +25801,171 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "descendants",
+            "description": "Search and retrieve *all* descendants of this `Entity`, regardless of type.\n",
+            "args": [
+              {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "EntityDescendantOrder",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "maxDepth",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityDescendantConnection",
                 "ofType": null
               }
             },
@@ -25532,7 +26829,7 @@
             "args": [
               {
                 "name": "slug",
-                "description": null,
+                "description": "**Note**: Unlike most other model types, a page's slug is just a string\nas opposed to our custom `Slug` type. They are not designed to be\nopaque, but instead be something human-readable that can appear in URIs.\n",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -32365,6 +33662,11 @@
           {
             "kind": "OBJECT",
             "name": "ContextualPermissionConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityDescendantConnection",
             "ofType": null
           },
           {
@@ -40279,6 +41581,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -40368,18 +41682,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -40679,6 +41981,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -40741,6 +42055,70 @@
           {
             "name": "clearThumbnail",
             "description": "If set to true, this will clear the attachment thumbnail on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "heroImageLayout",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HeroImageLayout",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tagline",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logo",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearLogo",
+            "description": "If set to true, this will clear the attachment logo on this model.\n",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -41303,6 +42681,18 @@
             "deprecationReason": null
           },
           {
+            "name": "summary",
+            "description": "A brief description of the entity's contents.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A reference to an uploaded image in Tus.\n",
             "type": {
@@ -41392,18 +42782,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "VariablePrecisionDateInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "summary",
-            "description": "A brief description of the entity's contents.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,

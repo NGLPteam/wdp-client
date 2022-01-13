@@ -887,8 +887,6 @@ export type ChildEntity = {
   /** The date this entity was published */
   published: VariablePrecisionDate;
   root: Scalars['Boolean'];
-  /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
   /** The date this entity was last updated within the WDP */
   updatedAt: Scalars['ISO8601DateTime'];
   /** If an entity is available in the frontend */
@@ -998,6 +996,8 @@ export type Collection = Accessible & Entity & HasDefaultTimestamps & References
   currentlyHidden: Scalars['Boolean'];
   /** Whether the entity is _currently_ visible, based on the server's time zone. */
   currentlyVisible: Scalars['Boolean'];
+  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  descendants: EntityDescendantConnection;
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
   /** Retrieve the first matching collection beneath this collection. */
@@ -1221,6 +1221,22 @@ export type CollectionContributionsArgs = {
 export type CollectionContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A collection of items */
+export type CollectionDescendantsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  order?: EntityDescendantOrder;
+  maxDepth?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1473,12 +1489,16 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   breadcrumbs: Array<EntityBreadcrumb>;
   collections: CollectionConnection;
   createdAt: Scalars['ISO8601DateTime'];
+  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  descendants: EntityDescendantConnection;
   /** Retrieve the first matching collection beneath this collection. */
   firstCollection?: Maybe<Collection>;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
+  /** The layout to use when rendering this community's hero image. */
+  heroImageLayout: HeroImageLayout;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
@@ -1487,6 +1507,10 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
+  /** A logo for the community */
+  logo: ImageAttachment;
+  /** Configurable metadata for the logo attachment */
+  logoMetadata?: Maybe<ImageMetadata>;
   metadata?: Maybe<Scalars['JSON']>;
   /** @deprecated Use Community.title */
   name: Scalars['String'];
@@ -1512,6 +1536,9 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   slug: Scalars['Slug'];
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A description of the contents of the entity */
+  summary?: Maybe<Scalars['String']>;
+  tagline?: Maybe<Scalars['String']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
@@ -1605,6 +1632,22 @@ export type CommunityCollectionsArgs = {
   order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
   nodeFilter?: Maybe<TreeNodeFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A community of users */
+export type CommunityDescendantsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  order?: EntityDescendantOrder;
+  maxDepth?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2183,6 +2226,8 @@ export type CreateCollectionInput = {
   title: Scalars['String'];
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -2199,8 +2244,6 @@ export type CreateCollectionInput = {
   issued?: Maybe<VariablePrecisionDateInput>;
   /** The date this entity was published */
   published?: Maybe<VariablePrecisionDateInput>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -2237,6 +2280,8 @@ export type CreateCommunityInput = {
   schemaVersionSlug?: Maybe<Scalars['String']>;
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -2245,6 +2290,12 @@ export type CreateCommunityInput = {
   thumbnail?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
   thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  heroImageLayout: HeroImageLayout;
+  tagline?: Maybe<Scalars['String']>;
+  /** A reference to an uploaded image in Tus. */
+  logo?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  logoMetadata?: Maybe<ImageMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -2272,6 +2323,8 @@ export type CreateItemInput = {
   title: Scalars['String'];
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -2288,8 +2341,6 @@ export type CreateItemInput = {
   issued?: Maybe<VariablePrecisionDateInput>;
   /** The date this entity was published */
   published?: Maybe<VariablePrecisionDateInput>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -2904,6 +2955,8 @@ export type Entity = {
   assignedUsers: ContextualPermissionConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
+  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  descendants: EntityDescendantConnection;
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
@@ -2929,6 +2982,8 @@ export type Entity = {
   schemaVersion: SchemaVersion;
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A description of the contents of the entity */
+  summary?: Maybe<Scalars['String']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
@@ -2974,6 +3029,22 @@ export type EntityAnnouncementsArgs = {
 /** An entity that exists in the hierarchy. */
 export type EntityAssignedUsersArgs = {
   order?: Maybe<ContextualPermissionOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An entity that exists in the hierarchy. */
+export type EntityDescendantsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  order?: EntityDescendantOrder;
+  maxDepth?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3058,6 +3129,74 @@ export type EntityBreadcrumb = Node & {
   label: Scalars['String'];
   slug: Scalars['String'];
 };
+
+/** A descendant of an `Entity`. */
+export type EntityDescendant = {
+  __typename?: 'EntityDescendant';
+  /** The actual descendant entity */
+  descendant: AnyEntity;
+  /** The relative depth of this entity from its ancestor */
+  relativeDepth: Scalars['Int'];
+  /** The scope of this entity relative to its ancestor */
+  scope: EntityScope;
+};
+
+/** The connection type for EntityDescendant. */
+export type EntityDescendantConnection = Paginated & {
+  __typename?: 'EntityDescendantConnection';
+  /** A list of edges. */
+  edges: Array<EntityDescendantEdge>;
+  /** A list of nodes. */
+  nodes: Array<EntityDescendant>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** An edge in a connection. */
+export type EntityDescendantEdge = {
+  __typename?: 'EntityDescendantEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: EntityDescendant;
+};
+
+/** Sort entity descendants by specific attributes and order */
+export type EntityDescendantOrder =
+  /** Sort descendants by oldest published date (or OLDEST for communities) */
+  | 'PUBLISHED_ASCENDING'
+  /** Sort descendants by newest published date (or RECENT for communities) */
+  | 'PUBLISHED_DESCENDING'
+  /** Sort descendants by title A-Z */
+  | 'TITLE_ASCENDING'
+  /** Sort descendants by title Z-A */
+  | 'TITLE_DESCENDING'
+  | '%future added value';
+
+/**
+ * This enum is used to filter the type(s) of descendants to include
+ * in a set of results.
+ */
+export type EntityDescendantScopeFilter =
+  /** This will include anything regardless of type. */
+  | 'ALL'
+  /** This will include all `Collection`s and `Item`s that are direct descendants and not linked. */
+  | 'ANY_ENTITY'
+  /** This will include any _linked_ `Collection`s or `Item`s. */
+  | 'ANY_LINK'
+  /** This will include only directly descending `Collection`s, no links. */
+  | 'COLLECTION'
+  /** This will include any descendant `Collection`s, whether or not it is a link. */
+  | 'COLLECTION_OR_LINK'
+  /** This will include only directly descending `Item`s, no links. */
+  | 'ITEM'
+  /** This will include any descendant `Item`s, whether or not it is a link. */
+  | 'ITEM_OR_LINK'
+  /** This will only descendant `Collection`s that are linked. */
+  | 'LINKED_COLLECTION'
+  /** This will only descendant `Item`s that are linked. */
+  | 'LINKED_ITEM'
+  | '%future added value';
 
 /** An enumeration of the different kinds of hierarchical entities */
 export type EntityKind =
@@ -3156,6 +3295,38 @@ export type EntityOrder =
 export type EntityPermissionFilter =
   | 'READ_ONLY'
   | 'CRUD'
+  | '%future added value';
+
+/**
+ * This type is used for authorization and filtering, and can
+ * distinguish an entity that has been linked to another from
+ * one that exists directly in a hierarchy.
+ */
+export type EntityScope =
+  /** A `Community` that is an actual descendant at this point in the hierarchy. */
+  | 'COMMUNITY'
+  /** A `Collection` that is an actual descendant at this point in the hierarchy. */
+  | 'COLLECTION'
+  /** An `Item` that is an actual descendant at this point in the hierarchy. */
+  | 'ITEM'
+  /** A `Community` that was linked from another `Community`. */
+  | 'COMMUNITY_LINKED_COMMUNITY'
+  /** A `Collection` that was linked from a `Community`. */
+  | 'COMMUNITY_LINKED_COLLECTION'
+  /** An `Item` that was linked from a `Community`. */
+  | 'COMMUNITY_LINKED_ITEM'
+  /** A `Community` that was linked from a `Collection`. */
+  | 'COLLECTION_LINKED_COMMUNITY'
+  /** A `Collection` that was linked from another `Collection`. */
+  | 'COLLECTION_LINKED_COLLECTION'
+  /** An `Item` that was linked from a `Collection`. */
+  | 'COLLECTION_LINKED_ITEM'
+  /** A `Community` that was linked from an `Item`. */
+  | 'ITEM_LINKED_COMMUNITY'
+  /** A `Collection` that was linked from an `Item`. */
+  | 'ITEM_LINKED_COLLECTION'
+  /** An `Item` that was linked from another `Item`. */
+  | 'ITEM_LINKED_ITEM'
   | '%future added value';
 
 /** The level of visibility an entity can have */
@@ -3444,6 +3615,12 @@ export type HasSchemaProperties = {
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
 };
+
+/** The layout to use when rendering a Hero for an `Entity`. */
+export type HeroImageLayout =
+  | 'ONE_COLUMN'
+  | 'TWO_COLUMN'
+  | '%future added value';
 
 /**
  * A ranking of a schema from a certain point in the hierarchy. This can be used to generate
@@ -3772,6 +3949,8 @@ export type Item = Accessible & Entity & HasDefaultTimestamps & ReferencesEntity
   currentlyHidden: Scalars['Boolean'];
   /** Whether the entity is _currently_ visible, based on the server's time zone. */
   currentlyVisible: Scalars['Boolean'];
+  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  descendants: EntityDescendantConnection;
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
   /** Retrieve the first matching item beneath this item. */
@@ -3977,6 +4156,22 @@ export type ItemContributionsArgs = {
 export type ItemContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An item that belongs to a collection */
+export type ItemDescendantsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  order?: EntityDescendantOrder;
+  maxDepth?: Maybe<Scalars['Int']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -6752,6 +6947,8 @@ export type UpdateCollectionInput = {
   title: Scalars['String'];
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -6768,8 +6965,6 @@ export type UpdateCollectionInput = {
   issued?: Maybe<VariablePrecisionDateInput>;
   /** The date this entity was published */
   published?: Maybe<VariablePrecisionDateInput>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -6811,6 +7006,8 @@ export type UpdateCommunityInput = {
   title: Scalars['String'];
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -6823,6 +7020,14 @@ export type UpdateCommunityInput = {
   clearHeroImage?: Maybe<Scalars['Boolean']>;
   /** If set to true, this will clear the attachment thumbnail on this model. */
   clearThumbnail?: Maybe<Scalars['Boolean']>;
+  heroImageLayout: HeroImageLayout;
+  tagline?: Maybe<Scalars['String']>;
+  /** A reference to an uploaded image in Tus. */
+  logo?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  logoMetadata?: Maybe<ImageMetadataInput>;
+  /** If set to true, this will clear the attachment logo on this model. */
+  clearLogo?: Maybe<Scalars['Boolean']>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
 };
@@ -6896,6 +7101,8 @@ export type UpdateItemInput = {
   title: Scalars['String'];
   /** Human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
+  /** A brief description of the entity's contents. */
+  summary?: Maybe<Scalars['String']>;
   /** A reference to an uploaded image in Tus. */
   heroImage?: Maybe<UploadedFileInput>;
   /** Metadata for an image attachment. */
@@ -6912,8 +7119,6 @@ export type UpdateItemInput = {
   issued?: Maybe<VariablePrecisionDateInput>;
   /** The date this entity was published */
   published?: Maybe<VariablePrecisionDateInput>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
@@ -8116,6 +8321,11 @@ export type ResolversTypes = {
   EmailProperty: ResolverTypeWrapper<EmailProperty>;
   Entity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   EntityBreadcrumb: ResolverTypeWrapper<Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversTypes['AnyEntity'] }>;
+  EntityDescendant: ResolverTypeWrapper<Omit<EntityDescendant, 'descendant'> & { descendant: ResolversTypes['AnyEntity'] }>;
+  EntityDescendantConnection: ResolverTypeWrapper<EntityDescendantConnection>;
+  EntityDescendantEdge: ResolverTypeWrapper<EntityDescendantEdge>;
+  EntityDescendantOrder: EntityDescendantOrder;
+  EntityDescendantScopeFilter: EntityDescendantScopeFilter;
   EntityKind: EntityKind;
   EntityLink: ResolverTypeWrapper<Omit<EntityLink, 'source' | 'target'> & { source: ResolversTypes['AnyEntity'], target: ResolversTypes['AnyEntity'] }>;
   EntityLinkConnection: ResolverTypeWrapper<EntityLinkConnection>;
@@ -8124,6 +8334,7 @@ export type ResolversTypes = {
   EntityLinkScope: EntityLinkScope;
   EntityOrder: EntityOrder;
   EntityPermissionFilter: EntityPermissionFilter;
+  EntityScope: EntityScope;
   EntityVisibility: EntityVisibility;
   ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
@@ -8140,6 +8351,7 @@ export type ResolversTypes = {
   HasDefaultTimestamps: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasISSN: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
+  HeroImageLayout: HeroImageLayout;
   HierarchicalSchemaRank: ResolverTypeWrapper<HierarchicalSchemaRank>;
   HierarchicalSchemaVersionRank: ResolverTypeWrapper<HierarchicalSchemaVersionRank>;
   ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
@@ -8210,7 +8422,7 @@ export type ResolversTypes = {
   PageDirection: PageDirection;
   PageEdge: ResolverTypeWrapper<PageEdge>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
-  Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityDescendantConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
@@ -8462,6 +8674,9 @@ export type ResolversParentTypes = {
   EmailProperty: EmailProperty;
   Entity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   EntityBreadcrumb: Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversParentTypes['AnyEntity'] };
+  EntityDescendant: Omit<EntityDescendant, 'descendant'> & { descendant: ResolversParentTypes['AnyEntity'] };
+  EntityDescendantConnection: EntityDescendantConnection;
+  EntityDescendantEdge: EntityDescendantEdge;
   EntityLink: Omit<EntityLink, 'source' | 'target'> & { source: ResolversParentTypes['AnyEntity'], target: ResolversParentTypes['AnyEntity'] };
   EntityLinkConnection: EntityLinkConnection;
   EntityLinkEdge: EntityLinkEdge;
@@ -8536,7 +8751,7 @@ export type ResolversParentTypes = {
   PageConnection: PageConnection;
   PageEdge: PageEdge;
   PageInfo: PageInfo;
-  Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityDescendantConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
   PermissionGrant: PermissionGrant;
   PersonContributor: PersonContributor;
   Query: {};
@@ -9075,7 +9290,6 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -9107,6 +9321,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CollectionDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'order' | 'nodeFilter'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'order' | 'nodeFilter'>>;
@@ -9219,14 +9434,18 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CommunityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CommunityFirstCollectionArgs, 'order' | 'nodeFilter'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CommunityFirstItemArgs, 'order' | 'nodeFilter'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageLayout?: Resolver<ResolversTypes['HeroImageLayout'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CommunityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CommunityLinksArgs, 'order' | 'pageDirection'>>;
+  logo?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  logoMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingArgs, 'identifier'>>;
@@ -9243,6 +9462,8 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tagline?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9655,6 +9876,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<EntityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -9670,6 +9892,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9682,6 +9905,26 @@ export type EntityBreadcrumbResolvers<ContextType = any, ParentType extends Reso
   kind?: Resolver<ResolversTypes['EntityKind'], ParentType, ContextType>;
   label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntityDescendantResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityDescendant'] = ResolversParentTypes['EntityDescendant']> = {
+  descendant?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  relativeDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  scope?: Resolver<ResolversTypes['EntityScope'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntityDescendantConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityDescendantConnection'] = ResolversParentTypes['EntityDescendantConnection']> = {
+  edges?: Resolver<Array<ResolversTypes['EntityDescendantEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['EntityDescendant']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntityDescendantEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityDescendantEdge'] = ResolversParentTypes['EntityDescendantEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['EntityDescendant'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -9959,6 +10202,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ItemDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'order' | 'nodeFilter'>>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -10382,7 +10626,7 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type PaginatedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Paginated'] = ResolversParentTypes['Paginated']> = {
-  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'EntityLinkConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'EntityDescendantConnection' | 'EntityLinkConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
 };
 
@@ -11337,6 +11581,9 @@ export type Resolvers<ContextType = any> = {
   EmailProperty?: EmailPropertyResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
   EntityBreadcrumb?: EntityBreadcrumbResolvers<ContextType>;
+  EntityDescendant?: EntityDescendantResolvers<ContextType>;
+  EntityDescendantConnection?: EntityDescendantConnectionResolvers<ContextType>;
+  EntityDescendantEdge?: EntityDescendantEdgeResolvers<ContextType>;
   EntityLink?: EntityLinkResolvers<ContextType>;
   EntityLinkConnection?: EntityLinkConnectionResolvers<ContextType>;
   EntityLinkEdge?: EntityLinkEdgeResolvers<ContextType>;

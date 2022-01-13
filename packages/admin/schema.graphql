@@ -949,8 +949,6 @@ interface ChildEntity {
   """The date this entity was published"""
   published: VariablePrecisionDate!
   root: Boolean!
-  """A description of the contents of the entity"""
-  summary: String
   """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """If an entity is available in the frontend"""
@@ -1186,6 +1184,31 @@ type Collection implements Accessible & Entity & HasDefaultTimestamps & Referenc
   """
   currentlyVisible: Boolean!
   """
+  Search and retrieve *all* descendants of this `Entity`, regardless of type.
+  
+  """
+  descendants(
+    scope: EntityDescendantScopeFilter = ALL
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    order: EntityDescendantOrder! = PUBLISHED_DESCENDING
+    maxDepth: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityDescendantConnection!
+  """
   The Digital Object Identifier for this entity. See https://doi.org
   
   """
@@ -1339,7 +1362,15 @@ type Collection implements Accessible & Entity & HasDefaultTimestamps & Referenc
     perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
-  page(slug: String!): Page
+  page(
+    """
+    **Note**: Unlike most other model types, a page's slug is just a string
+    as opposed to our custom `Slug` type. They are not designed to be
+    opaque, but instead be something human-readable that can appear in URIs.
+    
+    """
+    slug: String!
+  ): Page
   pages(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -1654,6 +1685,31 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     perPage: Int
   ): CollectionConnection!
   createdAt: ISO8601DateTime!
+  """
+  Search and retrieve *all* descendants of this `Entity`, regardless of type.
+  
+  """
+  descendants(
+    scope: EntityDescendantScopeFilter = ALL
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    order: EntityDescendantOrder! = PUBLISHED_DESCENDING
+    maxDepth: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityDescendantConnection!
   """Retrieve the first matching collection beneath this collection."""
   firstCollection(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -1672,6 +1728,8 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   ): Item
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
+  """The layout to use when rendering this community's hero image."""
+  heroImageLayout: HeroImageLayout!
   """Configurable metadata for the hero_image attachment"""
   heroImageMetadata: ImageMetadata
   """The depth of the hierarchical entity, taking into account any parent types"""
@@ -1713,6 +1771,10 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): EntityLinkConnection!
+  """A logo for the community"""
+  logo: ImageAttachment!
+  """Configurable metadata for the logo attachment"""
+  logoMetadata: ImageMetadata
   metadata: JSON
   name: String! @deprecated(reason: "Use Community.title")
   """Look up an ordering for this entity by identifier"""
@@ -1743,7 +1805,15 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
-  page(slug: String!): Page
+  page(
+    """
+    **Note**: Unlike most other model types, a page's slug is just a string
+    as opposed to our custom `Slug` type. They are not designed to be
+    opaque, but instead be something human-readable that can appear in URIs.
+    
+    """
+    slug: String!
+  ): Page
   pages(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -1781,6 +1851,9 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   slug: Slug!
   """A human-readable subtitle for the entity"""
   subtitle: String
+  """A description of the contents of the entity"""
+  summary: String
+  tagline: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
   thumbnail: ImageAttachment!
   """Configurable metadata for the thumbnail attachment"""
@@ -2318,6 +2391,8 @@ input CreateCollectionInput {
   title: String!
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -2346,8 +2421,6 @@ input CreateCollectionInput {
   issued: VariablePrecisionDateInput
   """The date this entity was published"""
   published: VariablePrecisionDateInput
-  """A brief description of the entity's contents."""
-  summary: String
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -2383,6 +2456,8 @@ input CreateCommunityInput {
   schemaVersionSlug: String = "default:community:latest"
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -2403,6 +2478,18 @@ input CreateCommunityInput {
   
   """
   thumbnailMetadata: ImageMetadataInput
+  heroImageLayout: HeroImageLayout!
+  tagline: String
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
+  logo: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  logoMetadata: ImageMetadataInput
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -2432,6 +2519,8 @@ input CreateItemInput {
   title: String!
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -2460,8 +2549,6 @@ input CreateItemInput {
   issued: VariablePrecisionDateInput
   """The date this entity was published"""
   published: VariablePrecisionDateInput
-  """A brief description of the entity's contents."""
-  summary: String
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -3163,6 +3250,31 @@ interface Entity {
   ): ContextualPermissionConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """
+  Search and retrieve *all* descendants of this `Entity`, regardless of type.
+  
+  """
+  descendants(
+    scope: EntityDescendantScopeFilter = ALL
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    order: EntityDescendantOrder! = PUBLISHED_DESCENDING
+    maxDepth: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityDescendantConnection!
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -3233,7 +3345,15 @@ interface Entity {
     perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
-  page(slug: String!): Page
+  page(
+    """
+    **Note**: Unlike most other model types, a page's slug is just a string
+    as opposed to our custom `Slug` type. They are not designed to be
+    opaque, but instead be something human-readable that can appear in URIs.
+    
+    """
+    slug: String!
+  ): Page
   pages(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -3259,6 +3379,8 @@ interface Entity {
   schemaVersion: SchemaVersion!
   """A human-readable subtitle for the entity"""
   subtitle: String
+  """A description of the contents of the entity"""
+  summary: String
   """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
   thumbnail: ImageAttachment!
   """Configurable metadata for the thumbnail attachment"""
@@ -3274,6 +3396,99 @@ type EntityBreadcrumb implements Node {
   kind: EntityKind!
   label: String!
   slug: String!
+}
+
+"""A descendant of an `Entity`."""
+type EntityDescendant {
+  """The actual descendant entity"""
+  descendant: AnyEntity!
+  """The relative depth of this entity from its ancestor"""
+  relativeDepth: Int!
+  """The scope of this entity relative to its ancestor"""
+  scope: EntityScope!
+}
+
+"""The connection type for EntityDescendant."""
+type EntityDescendantConnection implements Paginated {
+  """A list of edges."""
+  edges: [EntityDescendantEdge!]!
+  """A list of nodes."""
+  nodes: [EntityDescendant!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type EntityDescendantEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: EntityDescendant!
+}
+
+"""Sort entity descendants by specific attributes and order"""
+enum EntityDescendantOrder {
+  """Sort descendants by oldest published date (or OLDEST for communities)"""
+  PUBLISHED_ASCENDING
+  """Sort descendants by newest published date (or RECENT for communities)"""
+  PUBLISHED_DESCENDING
+  """Sort descendants by title A-Z"""
+  TITLE_ASCENDING
+  """Sort descendants by title Z-A"""
+  TITLE_DESCENDING
+}
+
+"""
+This enum is used to filter the type(s) of descendants to include
+in a set of results.
+
+"""
+enum EntityDescendantScopeFilter {
+  """
+  This will include anything regardless of type.
+  
+  """
+  ALL
+  """
+  This will include all `Collection`s and `Item`s that are direct descendants and not linked.
+  
+  """
+  ANY_ENTITY
+  """
+  This will include any _linked_ `Collection`s or `Item`s.
+  
+  """
+  ANY_LINK
+  """
+  This will include only directly descending `Collection`s, no links.
+  
+  """
+  COLLECTION
+  """
+  This will include any descendant `Collection`s, whether or not it is a link.
+  
+  """
+  COLLECTION_OR_LINK
+  """
+  This will include only directly descending `Item`s, no links.
+  
+  """
+  ITEM
+  """
+  This will include any descendant `Item`s, whether or not it is a link.
+  
+  """
+  ITEM_OR_LINK
+  """
+  This will only descendant `Collection`s that are linked.
+  
+  """
+  LINKED_COLLECTION
+  """
+  This will only descendant `Item`s that are linked.
+  
+  """
+  LINKED_ITEM
 }
 
 """An enumeration of the different kinds of hierarchical entities"""
@@ -3370,6 +3585,75 @@ enum EntityOrder {
 enum EntityPermissionFilter {
   READ_ONLY
   CRUD
+}
+
+"""
+This type is used for authorization and filtering, and can
+distinguish an entity that has been linked to another from
+one that exists directly in a hierarchy.
+
+"""
+enum EntityScope {
+  """
+  A `Community` that is an actual descendant at this point in the hierarchy.
+  
+  """
+  COMMUNITY
+  """
+  A `Collection` that is an actual descendant at this point in the hierarchy.
+  
+  """
+  COLLECTION
+  """
+  An `Item` that is an actual descendant at this point in the hierarchy.
+  
+  """
+  ITEM
+  """
+  A `Community` that was linked from another `Community`.
+  
+  """
+  COMMUNITY_LINKED_COMMUNITY
+  """
+  A `Collection` that was linked from a `Community`.
+  
+  """
+  COMMUNITY_LINKED_COLLECTION
+  """
+  An `Item` that was linked from a `Community`.
+  
+  """
+  COMMUNITY_LINKED_ITEM
+  """
+  A `Community` that was linked from a `Collection`.
+  
+  """
+  COLLECTION_LINKED_COMMUNITY
+  """
+  A `Collection` that was linked from another `Collection`.
+  
+  """
+  COLLECTION_LINKED_COLLECTION
+  """
+  An `Item` that was linked from a `Collection`.
+  
+  """
+  COLLECTION_LINKED_ITEM
+  """
+  A `Community` that was linked from an `Item`.
+  
+  """
+  ITEM_LINKED_COMMUNITY
+  """
+  A `Collection` that was linked from an `Item`.
+  
+  """
+  ITEM_LINKED_COLLECTION
+  """
+  An `Item` that was linked from another `Item`.
+  
+  """
+  ITEM_LINKED_ITEM
 }
 
 """The level of visibility an entity can have"""
@@ -3704,6 +3988,12 @@ interface HasISSN {
 interface HasSchemaProperties {
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+}
+
+"""The layout to use when rendering a Hero for an `Entity`."""
+enum HeroImageLayout {
+  ONE_COLUMN
+  TWO_COLUMN
 }
 
 """
@@ -4195,6 +4485,31 @@ type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEnti
   """
   currentlyVisible: Boolean!
   """
+  Search and retrieve *all* descendants of this `Entity`, regardless of type.
+  
+  """
+  descendants(
+    scope: EntityDescendantScopeFilter = ALL
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    order: EntityDescendantOrder! = PUBLISHED_DESCENDING
+    maxDepth: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityDescendantConnection!
+  """
   The Digital Object Identifier for this entity. See https://doi.org
   
   """
@@ -4339,7 +4654,15 @@ type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEnti
     perPage: Int
   ): OrderingConnection!
   """Look up a page for this entity by slug"""
-  page(slug: String!): Page
+  page(
+    """
+    **Note**: Unlike most other model types, a page's slug is just a string
+    as opposed to our custom `Slug` type. They are not designed to be
+    opaque, but instead be something human-readable that can appear in URIs.
+    
+    """
+    slug: String!
+  ): Page
   pages(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -7228,6 +7551,8 @@ input UpdateCollectionInput {
   title: String!
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -7256,8 +7581,6 @@ input UpdateCollectionInput {
   issued: VariablePrecisionDateInput
   """The date this entity was published"""
   published: VariablePrecisionDateInput
-  """A brief description of the entity's contents."""
-  summary: String
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""
@@ -7304,6 +7627,8 @@ input UpdateCommunityInput {
   title: String!
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -7334,6 +7659,23 @@ input UpdateCommunityInput {
   
   """
   clearThumbnail: Boolean = false
+  heroImageLayout: HeroImageLayout!
+  tagline: String
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
+  logo: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  logoMetadata: ImageMetadataInput
+  """
+  If set to true, this will clear the attachment logo on this model.
+  
+  """
+  clearLogo: Boolean = false
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
 }
@@ -7404,6 +7746,8 @@ input UpdateItemInput {
   title: String!
   """Human-readable subtitle for the entity"""
   subtitle: String
+  """A brief description of the entity's contents."""
+  summary: String
   """
   A reference to an uploaded image in Tus.
   
@@ -7432,8 +7776,6 @@ input UpdateItemInput {
   issued: VariablePrecisionDateInput
   """The date this entity was published"""
   published: VariablePrecisionDateInput
-  """A brief description of the entity's contents."""
-  summary: String
   """What level of visibility the entity has"""
   visibility: EntityVisibility!
   """If present, this is the timestamp an entity is visible after"""

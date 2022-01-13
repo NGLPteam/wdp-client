@@ -12,6 +12,7 @@ export type UpdateItemInput = {
     itemId: string;
     title: string;
     subtitle?: string | null | undefined;
+    summary?: string | null | undefined;
     heroImage?: UploadedFileInput | null | undefined;
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
@@ -20,7 +21,6 @@ export type UpdateItemInput = {
     available?: VariablePrecisionDateInput | null | undefined;
     issued?: VariablePrecisionDateInput | null | undefined;
     published?: VariablePrecisionDateInput | null | undefined;
-    summary?: string | null | undefined;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null | undefined;
     visibleUntilAt?: string | null | undefined;

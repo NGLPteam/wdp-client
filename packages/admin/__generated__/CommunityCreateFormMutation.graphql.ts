@@ -5,16 +5,22 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateCommunityInput = {
     title: string;
     position?: number | null | undefined;
     schemaVersionSlug?: string | null | undefined;
     subtitle?: string | null | undefined;
+    summary?: string | null | undefined;
     heroImage?: UploadedFileInput | null | undefined;
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
     thumbnailMetadata?: ImageMetadataInput | null | undefined;
+    heroImageLayout: HeroImageLayout;
+    tagline?: string | null | undefined;
+    logo?: UploadedFileInput | null | undefined;
+    logoMetadata?: ImageMetadataInput | null | undefined;
     clientMutationId?: string | null | undefined;
 };
 export type UploadedFileInput = {

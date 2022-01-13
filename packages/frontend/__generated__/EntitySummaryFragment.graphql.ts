@@ -30,7 +30,17 @@ export type EntitySummaryFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "summary",
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -126,21 +136,20 @@ const node: ReaderFragment = {
     },
     {
       "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "summary",
-          "storageKey": null
-        }
-      ],
-      "type": "ChildEntity",
-      "abstractKey": "__isChildEntity"
+      "selections": (v0/*: any*/),
+      "type": "Item",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "Collection",
+      "abstractKey": null
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '265074de69be973ddc8683f9299d246f';
+})();
+(node as any).hash = '62bd19466e7c224195b553ff2c1adec1';
 export default node;

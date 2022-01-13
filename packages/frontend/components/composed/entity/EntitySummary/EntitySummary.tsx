@@ -93,7 +93,11 @@ const fragment = graphql`
       slug
     }
 
-    ... on ChildEntity {
+    ... on Item {
+      summary
+    }
+
+    ... on Collection {
       summary
     }
   }
