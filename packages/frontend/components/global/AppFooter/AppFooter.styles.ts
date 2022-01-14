@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 import { lGrid, respond, globalNavRespond } from "theme/mixins";
 
 export const FooterWrapper = styled.footer`
@@ -86,13 +85,10 @@ export const CopyrightText = styled.p`
 export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
-  gap: var(--grid-column-gap);
 
-  ${noFlexGapSupport(`
-    > * + * {
-      margin-inline-start: var(--grid-column-gap);
-    }
-  `)}
+  > * + * {
+    margin-inline-start: var(--grid-column-gap);
+  }
 
   > p {
     padding-block-end: ${pxToRem(3)};

@@ -28,7 +28,7 @@ export default function CommunityName({ data }: Props) {
   const communityData = useMaybeFragment(fragment, data);
 
   return communityData ? (
-    <span className="l-flex l-flex--gap l-flex--align-center">
+    <span className="l-flex l-flex--align-center">
       <CommunityTempLogo />
       <Styled.Header as="h4">
         <NamedLink
