@@ -19,6 +19,15 @@ export type JournalContentFragment = {
     readonly currentIssue: {
         readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
     } | null;
+    readonly announcements: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly teaser: string;
+                readonly header: string;
+                readonly slug: string;
+            };
+        }>;
+    };
     readonly " $refType": "JournalContentFragment";
 };
 export type JournalContentFragment$data = JournalContentFragment;
@@ -154,11 +163,65 @@ return {
         }
       ],
       "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "AnnouncementConnection",
+      "kind": "LinkedField",
+      "name": "announcements",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "AnnouncementEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Announcement",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "teaser",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "header",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "slug",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ff35bc43672aec8aa44fa122515223eb';
+(node as any).hash = '5ead70f40d4c6cb7a2607fbd28827354';
 export default node;
