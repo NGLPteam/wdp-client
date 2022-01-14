@@ -45,7 +45,7 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
             </Styled.ItemSubtitle>
           )}
           <Styled.ItemData className="t-copy-sm a-color-lighter">
-            {journal.issues.pageInfo.totalCount ? (
+            {journal.issues.pageInfo ? (
               <span>
                 {t("layouts.issue_count", {
                   count: journal.issues.pageInfo.totalCount,
@@ -82,7 +82,7 @@ const fragment = graphql`
     thumbnail {
       ...CoverImageFragment
     }
-    issues: collections(schema: "nglp:journal_issue") {
+    issues: descendants(scope: COLLECTION, schema: ["nglp:journal_issue"]) {
       pageInfo {
         totalCount
       }

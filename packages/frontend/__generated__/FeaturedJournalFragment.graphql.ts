@@ -92,12 +92,19 @@ const node: ReaderFragment = {
         {
           "kind": "Literal",
           "name": "schema",
-          "value": "nglp:journal_issue"
+          "value": [
+            "nglp:journal_issue"
+          ]
+        },
+        {
+          "kind": "Literal",
+          "name": "scope",
+          "value": "COLLECTION"
         }
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": "EntityDescendantConnection",
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "descendants",
       "plural": false,
       "selections": [
         {
@@ -119,11 +126,11 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": "collections(schema:\"nglp:journal_issue\")"
+      "storageKey": "descendants(schema:[\"nglp:journal_issue\"],scope:\"COLLECTION\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'fc5293da1717532326aa4b9f9179174b';
+(node as any).hash = '90e06960248b6654732fc413977c9583';
 export default node;

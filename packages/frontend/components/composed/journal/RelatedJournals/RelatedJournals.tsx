@@ -1,11 +1,9 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import RelatedJournal from "./RelatedJournal";
 import * as Styled from "./RelatedJournals.styles";
-import { Button, NamedLink } from "components/atomic";
 import {
   RelatedJournalsFragment$data,
   RelatedJournalsFragment$key,
@@ -13,16 +11,16 @@ import {
 
 export default function RelatedJournals({ data }: Props) {
   const entities = useMaybeFragment(fragment, data);
-  const slug = useRouteSlug();
+  // const slug = useRouteSlug();
   const { t } = useTranslation();
 
   return entities?.edges && entities.edges.length > 0 ? (
     <Styled.Section>
       <Styled.Inner className="l-container-wide">
         <Styled.HeaderBlock>
-          <Styled.HeaderText className="t-capitalize">
+          <h3 className="t-capitalize">
             {t("layouts.related_journals_header")}
-          </Styled.HeaderText>
+          </h3>
         </Styled.HeaderBlock>
         <Styled.List>
           {/* The query should be limited to four results, but just in case it isn't... slicey dicey */}
@@ -34,8 +32,8 @@ export default function RelatedJournals({ data }: Props) {
             ) : null
           )}
         </Styled.List>
-        {slug && (
-          <Styled.ButtonWrapper>
+        <Styled.ButtonWrapper>
+          {/* slug && (
             <NamedLink route="collection" routeParams={{ slug }} passHref>
               <Button as="a">
                 <span className="t-capitalize">
@@ -43,8 +41,8 @@ export default function RelatedJournals({ data }: Props) {
                 </span>
               </Button>
             </NamedLink>
-          </Styled.ButtonWrapper>
-        )}
+          ) */}
+        </Styled.ButtonWrapper>
       </Styled.Inner>
     </Styled.Section>
   ) : null;

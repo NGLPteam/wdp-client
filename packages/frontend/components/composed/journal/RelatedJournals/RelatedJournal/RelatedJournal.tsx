@@ -35,7 +35,7 @@ export default function RelatedJournal({ data }: Props) {
             <Styled.ItemSubheader>{journal.subtitle}</Styled.ItemSubheader>
           )}
           <Styled.ItemMetadata className="t-copy-sm a-color-lighter">
-            {journal.issues.pageInfo.totalCount ? (
+            {journal.issues.pageInfo ? (
               <div>
                 {t("layouts.issue_count", {
                   count: journal.issues.pageInfo.totalCount,
@@ -72,7 +72,7 @@ const fragment = graphql`
       storage
       ...CoverImageFragment
     }
-    issues: collections(schema: "nglp:journal_issue") {
+    issues: descendants(scope: COLLECTION, schema: ["nglp:journal_issue"]) {
       pageInfo {
         totalCount
       }

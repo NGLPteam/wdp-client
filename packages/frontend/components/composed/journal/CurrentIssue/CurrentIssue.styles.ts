@@ -45,6 +45,13 @@ export const TitleBlock = styled.div`
   }
 `;
 
+export const IssueTitle = styled.div`
+  > * + * {
+    display: inline-block;
+    margin-inline-start: var(--padding-md);
+  }
+`;
+
 export const ArticleList = styled.ul`
   padding-block-start: ${pxToRem(10)};
 `;
