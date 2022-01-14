@@ -9,9 +9,12 @@ export const Banner = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${pxToRem(20)};
   justify-content: space-between;
   align-items: center;
+
+  > * + * {
+    margin-inline-start: ${pxToRem(20)};
+  }
 `;
 
 export const Buttons = styled.div`

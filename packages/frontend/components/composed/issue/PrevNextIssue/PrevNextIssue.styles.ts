@@ -11,7 +11,10 @@ export const Inner = styled.div`
     justify-content: center;
     padding-block-start: ${pxToRem(80)};
     padding-block-end: ${pxToRem(80)};
-    gap: var(--grid-column-gap-lg);
+
+    > * + * {
+      margin-inline-start: var(--grid-column-gap-lg);
+    }
     `,
     70
   )}
