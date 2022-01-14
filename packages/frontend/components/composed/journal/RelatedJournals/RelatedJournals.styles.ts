@@ -20,21 +20,15 @@ export const Section = styled.section`
 export const Inner = styled.div`
   padding-block-start: ${fluidScale("100px", "80px")};
   padding-block-end: ${fluidScale("100px", "80px")};
-
-  > * + * {
-    margin-block-start: ${pxToRem(50)};
-  }
 `;
 
 export const HeaderBlock = styled.header`
   max-width: ${pxToRem(768)};
-`;
-
-export const HeaderText = styled.h3`
   margin-block-end: var(--padding-md);
 `;
 
 export const List = styled.ul`
+  margin-block-end: ${pxToRem(50)};
   ${lGrid({
     columns: 4,
     colGap: pxToRem(36),

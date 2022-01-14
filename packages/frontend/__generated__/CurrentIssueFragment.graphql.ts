@@ -5,14 +5,12 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type CurrentIssueFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
     readonly slug: string;
     readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     };
     readonly published: {
@@ -22,6 +20,11 @@ export type CurrentIssueFragment = {
     readonly volume: {
         readonly title?: string | undefined;
     } | null;
+    readonly articles: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    };
     readonly ordering: {
         readonly identifier: string;
         readonly children: {
@@ -62,6 +65,24 @@ v1 = {
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -93,13 +114,6 @@ return {
       "name": "thumbnail",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -155,6 +169,24 @@ return {
         }
       ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
+    },
+    {
+      "alias": "articles",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:journal_article"
+        }
+      ],
+      "concreteType": "ItemConnection",
+      "kind": "LinkedField",
+      "name": "items",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/)
+      ],
+      "storageKey": "items(schema:\"nglp:journal_article\")"
     },
     {
       "alias": null,
@@ -237,24 +269,7 @@ return {
               ],
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "PageInfo",
-              "kind": "LinkedField",
-              "name": "pageInfo",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "totalCount",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
+            (v2/*: any*/)
           ],
           "storageKey": "children(perPage:3)"
         }
@@ -266,5 +281,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '383b6d396aecf902c0224884d7e62436';
+(node as any).hash = '8d67cba7f5e115bd15ee7a27ce7bc740';
 export default node;

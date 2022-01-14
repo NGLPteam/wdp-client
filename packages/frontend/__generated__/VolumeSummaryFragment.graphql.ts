@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type VolumeSummaryFragment = {
     readonly id: string;
     readonly title: string;
@@ -13,7 +12,6 @@ export type VolumeSummaryFragment = {
     readonly slug: string;
     readonly summary: string | null;
     readonly cover: {
-        readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     };
     readonly published: {
@@ -99,13 +97,6 @@ return {
       "name": "thumbnail",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -241,5 +232,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c64d55921f14a65bd7f2de077ccc39a6';
+(node as any).hash = '5a660ff669e74640de424dd926b638d9';
 export default node;

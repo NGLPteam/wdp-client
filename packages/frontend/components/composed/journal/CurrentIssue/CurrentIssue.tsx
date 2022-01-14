@@ -52,7 +52,14 @@ export default function CurrentIssue({ data }: Props) {
                 routeParams={{ slug: issue.slug }}
                 passHref
               >
-                <a>{issue.title}</a>
+                <Styled.IssueTitle as="a">
+                  <span>{issue.title}</span>
+                  {issue.volume && (
+                    <span className="a-color-lighter">
+                      {issue.volume?.title}
+                    </span>
+                  )}
+                </Styled.IssueTitle>
               </NamedLink>
             </h3>
             {issue.subtitle && (
@@ -61,13 +68,19 @@ export default function CurrentIssue({ data }: Props) {
               </div>
             )}
             <DotList className="t-copy-lighter">
-              {issue.volume && <li>{issue.volume?.title}</li>}
               {issue.published.value && (
                 <li>
                   <PrecisionDate
                     data={issue.published}
                     label={t("common.published")}
                   />
+                </li>
+              )}
+              {issue.articles && (
+                <li>
+                  {t("layouts.article_count", {
+                    count: issue.articles.pageInfo.totalCount,
+                  })}
                 </li>
               )}
             </DotList>
@@ -123,6 +136,11 @@ const fragment = graphql`
     volume: ancestorOfType(schema: "nglp:journal_volume") {
       ... on Collection {
         title
+      }
+    }
+    articles: items(schema: "nglp:journal_article") {
+      pageInfo {
+        totalCount
       }
     }
     ordering(identifier: "articles") {

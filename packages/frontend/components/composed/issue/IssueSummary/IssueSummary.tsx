@@ -67,7 +67,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
               </li>
             )}
           </Styled.ItemPrimaryMetadata>
-          {(issue.articles.pageInfo.totalCount || 0) > 0 && (
+          {issue.articles.pageInfo && (
             <p className="t-copy-italic t-copy-light t-capitalize">
               {issue.articles.pageInfo.totalCount}{" "}
               {t("schema.nglp.journal_article", {

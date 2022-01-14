@@ -9,7 +9,7 @@ export type EntitySummaryFactoryFragment = {
     readonly schemaDefinition: {
         readonly identifier: string;
     };
-    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment" | "ArticleSummaryFragment" | "IssueSummaryFragment" | "VolumeSummaryFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment" | "ArticleSummaryFragment" | "IssueSummaryFragment" | "VolumeSummaryFragment" | "JournalSummaryFragment">;
     readonly " $refType": "EntitySummaryFactoryFragment";
 };
 export type EntitySummaryFactoryFragment$data = EntitySummaryFactoryFragment;
@@ -23,9 +23,9 @@ export type EntitySummaryFactoryFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "kind": "Literal",
+    "kind": "Variable",
     "name": "showJournal",
-    "value": true
+    "variableName": "showJournal"
   }
 ];
 return {
@@ -77,11 +77,16 @@ return {
       "args": (v0/*: any*/),
       "kind": "FragmentSpread",
       "name": "VolumeSummaryFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "JournalSummaryFragment"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'b568197f4771a3846eef4650aaf20ca1';
+(node as any).hash = '532e58c4d625e59e266d5c4ce48fa8e7';
 export default node;

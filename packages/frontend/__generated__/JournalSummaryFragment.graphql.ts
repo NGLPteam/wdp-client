@@ -6,15 +6,15 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type RelatedJournalFragment = {
-    readonly id: string;
+export type JournalSummaryFragment = {
+    readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
-    readonly slug: string;
     readonly updatedAt: string;
+    readonly summary: string | null;
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
     };
     readonly issues: {
         readonly pageInfo: {
@@ -22,12 +22,12 @@ export type RelatedJournalFragment = {
         };
     };
     readonly __typename: "Collection";
-    readonly " $refType": "RelatedJournalFragment";
+    readonly " $refType": "JournalSummaryFragment";
 };
-export type RelatedJournalFragment$data = RelatedJournalFragment;
-export type RelatedJournalFragment$key = {
-    readonly " $data"?: RelatedJournalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedJournalFragment">;
+export type JournalSummaryFragment$data = JournalSummaryFragment;
+export type JournalSummaryFragment$key = {
+    readonly " $data"?: JournalSummaryFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"JournalSummaryFragment">;
 };
 
 
@@ -36,7 +36,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RelatedJournalFragment",
+  "name": "JournalSummaryFragment",
   "selections": [
     {
       "alias": null,
@@ -49,7 +49,7 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "slug",
       "storageKey": null
     },
     {
@@ -70,14 +70,14 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "slug",
+      "name": "updatedAt",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "updatedAt",
+      "name": "summary",
       "storageKey": null
     },
     {
@@ -98,7 +98,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "CoverImageFragment"
+          "name": "SquareThumbnailFragment"
         }
       ],
       "storageKey": null
@@ -149,5 +149,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '241f50df2b29697d48a155f9d0a1bfb3';
+(node as any).hash = 'feaa1bc2ededfde1adf21131efe11f24';
 export default node;
