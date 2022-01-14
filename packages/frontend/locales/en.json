@@ -94,6 +94,7 @@
     "layouts": {
       "related_journals_header": "Related Journals",
       "related_articles_header": "Related Articles",
+      "related_issues_header": "Related Issues",
       "see_all_journals": "See All Journals",
       "featured_issues_header": "Featured Issues",
       "featured_collections_header": "Featured Collections",
@@ -110,7 +111,9 @@
       "back_to_contributors": "Back to Contributors",
       "current_issue": "Current $t(schema.nglp.journal_issue)",
       "announcements_header": "Announcements",
-      "how_to_cite": "How to Cite"
+      "how_to_cite": "How to Cite",
+      "article_count": "{{count}} Article",
+      "article_count_plural": "{{count}} Articles"
     },
     "nav": {
       "home": "Home",
