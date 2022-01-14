@@ -1,7 +1,7 @@
 import { respondBase, fluidScaleBase } from "@castiron/style-mixins";
 import get from "lodash/get";
 import { breakpoints } from "../base/variables";
-export { noFlexGapSupport, noInsetSupport } from "@wdp/lib/theme/mixins";
+export { noInsetSupport } from "@wdp/lib/theme/mixins";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CssContent = string | any; // TODO: Get the return type of styled-compoonents css function

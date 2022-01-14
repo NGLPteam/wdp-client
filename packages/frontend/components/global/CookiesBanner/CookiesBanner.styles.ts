@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 
 export const Banner = styled.div`
   padding-block-start: ${pxToRem(36)};
@@ -16,11 +15,7 @@ export const Content = styled.div`
 `;
 
 export const Buttons = styled.div`
-  gap: ${pxToRem(12)};
-
-  ${noFlexGapSupport(`
-    > * + * {
-      margin-inline-start: ${pxToRem(12)};
-    }
-  `)}
+  > * + * {
+    margin-inline-start: ${pxToRem(12)};
+  }
 `;

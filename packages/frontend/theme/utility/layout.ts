@@ -1,7 +1,6 @@
 // Utility layout classes
 // --------------------
 import { css } from "styled-components";
-import { noFlexGapSupport } from "@wdp/lib/theme/mixins";
 import { containerWidths } from "../base/variables";
 
 const COLUMNS = 12;
@@ -85,21 +84,15 @@ export default css`
     &--gap {
       gap: var(--grid-column-gap);
 
-      ${noFlexGapSupport(`
-        > * + * {
-          margin-inline-start: var(--grid-column-gap);
-        }
-      `)}
+      > * + * {
+        margin-inline-start: var(--grid-column-gap);
+      }
     }
 
     &--gap-sm {
-      gap: var(--grid-column-gap-sm);
-
-      ${noFlexGapSupport(`
-        > * + * {
-          margin-inline-start: var(--grid-column-gap-sm);
-        }
-      `)}
+      > * + * {
+        margin-inline-start: var(--grid-column-gap-sm);
+      }
     }
   }
 `;
