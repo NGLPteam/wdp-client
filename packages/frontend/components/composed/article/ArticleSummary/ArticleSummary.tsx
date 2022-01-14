@@ -42,7 +42,7 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
           )}
           <DotList className="t-copy-sm t-copy-lighter">
             {article.journal && <li>{article.journal.title}</li>}
-            {article.published && (
+            {article.published.value && (
               <li>
                 <PrecisionDate data={article.published} />
               </li>
@@ -94,6 +94,7 @@ const fragment = graphql`
       ...ContributorsListFragment
     }
     published {
+      value
       ...PrecisionDateFragment
     }
     journal: ancestorOfType(schema: "nglp:journal") @include(if: $showJournal) {

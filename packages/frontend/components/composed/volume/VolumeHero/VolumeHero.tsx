@@ -32,7 +32,7 @@ export default function VolumeHero({ data }: Props) {
             <Styled.Title as="h3">{volume.title}</Styled.Title>
             <Styled.Description>
               <DotList className="t-copy-lighter">
-                {volume.published && (
+                {volume.published.value && (
                   <li>
                     <PrecisionDate
                       data={volume.published}
@@ -66,6 +66,7 @@ const fragment = graphql`
     summary
     ...DOIFragment
     published {
+      value
       ...PrecisionDateFragment
     }
     thumbnail {

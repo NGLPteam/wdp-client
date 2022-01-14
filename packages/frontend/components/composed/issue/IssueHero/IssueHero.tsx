@@ -39,7 +39,7 @@ export default function IssueHero({ data }: Props) {
                 <Styled.VolumeMobile>{issue.volume.title}</Styled.VolumeMobile>
               )}
               <DotList className="t-copy-lighter">
-                {issue.published && (
+                {issue.published.value && (
                   <li>
                     <PrecisionDate
                       data={issue.published}
@@ -76,6 +76,7 @@ const fragment = graphql`
     summary
     ...DOIFragment
     published {
+      value
       ...PrecisionDateFragment
     }
     thumbnail {
