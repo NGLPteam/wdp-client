@@ -6,11 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type BreadcrumbsFragment = {
+    readonly __typename: string;
     readonly title: string;
     readonly breadcrumbs: ReadonlyArray<{
         readonly depth: number;
         readonly " $fragmentRefs": FragmentRefs<"BreadcrumbLinkFragment">;
     }>;
+    readonly slug?: string | undefined;
     readonly " $refType": "BreadcrumbsFragment";
 };
 export type BreadcrumbsFragment$data = BreadcrumbsFragment;
@@ -27,6 +29,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "BreadcrumbsFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "__typename",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -56,10 +65,24 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        }
+      ],
+      "type": "Sluggable",
+      "abstractKey": "__isSluggable"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'be25a3c3c4818da8f77f2c807a5ef021';
+(node as any).hash = '6237a9b70905956f05610fcd9c290df8';
 export default node;
