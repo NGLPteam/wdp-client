@@ -9,7 +9,7 @@ export const Item = styled.div`
 export const ItemCover = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: flex-end;
   height: 280px;
 `;
 
