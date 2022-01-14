@@ -10,6 +10,7 @@ export type ResearchUnitsListFragment = {
         readonly node: {
             readonly descendant: {
                 readonly title?: string | undefined;
+                readonly slug?: string | undefined;
             };
         };
     }>;
@@ -62,6 +63,13 @@ const node: ReaderFragment = {
                       "kind": "ScalarField",
                       "name": "title",
                       "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "slug",
+                      "storageKey": null
                     }
                   ],
                   "type": "Collection",
@@ -80,5 +88,5 @@ const node: ReaderFragment = {
   "type": "EntityDescendantConnection",
   "abstractKey": null
 };
-(node as any).hash = '57559f402baa7840bd79bd394f439bb0';
+(node as any).hash = '75e2310e7c9688aa4ed70e990f199d81';
 export default node;
