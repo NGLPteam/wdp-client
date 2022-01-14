@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import CurrentIssue from "../CurrentIssue";
 import * as Styled from "./JournalContent.styles";
-import { ReadMoreLink, FullText } from "components/atomic";
+import { ReadMoreLink, FullText, NamedLink } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 
@@ -34,12 +34,30 @@ export default function JournalContent({ data }: Props) {
                 {journal.announcements.edges.map((announcement) => (
                   <Styled.AnnouncementItem key={announcement.node.slug}>
                     <h5 className="t-copy-medium">
-                      <a href="#">{announcement.node.header}</a>
+                      <NamedLink
+                        route="collection.announcement"
+                        routeParams={{
+                          slug: journal.slug,
+                          announcement: announcement.node.slug,
+                        }}
+                        passHref
+                      >
+                        <a>{announcement.node.header}</a>
+                      </NamedLink>
                     </h5>
                     <Styled.AnnouncementBody className="t-rte">
                       <p>{announcement.node.teaser}</p>
                     </Styled.AnnouncementBody>
-                    <ReadMoreLink className="t-label-mix" />
+                    <NamedLink
+                      route="collection.announcement"
+                      routeParams={{
+                        slug: journal.slug,
+                        announcement: announcement.node.slug,
+                      }}
+                      passHref
+                    >
+                      <ReadMoreLink className="t-label-mix" />
+                    </NamedLink>
                   </Styled.AnnouncementItem>
                 ))}
               </ul>
@@ -60,6 +78,7 @@ interface Props {
 const fragment = graphql`
   fragment JournalContentFragment on Collection {
     title
+    slug
 
     about: schemaProperty(fullPath: "description") {
       ... on FullTextProperty {

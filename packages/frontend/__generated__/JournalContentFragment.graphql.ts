@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type JournalContentFragment = {
     readonly title: string;
+    readonly slug: string;
     readonly about: {
         readonly fullText?: {
             readonly content: string | null;
@@ -40,16 +41,23 @@ export type JournalContentFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v1 = {
   "kind": "Literal",
   "name": "nodeFilter",
   "value": "DESCENDANTS"
 },
-v1 = {
+v2 = {
   "kind": "Literal",
   "name": "order",
   "value": "PUBLISHED_DESCENDING"
 },
-v2 = {
+v3 = {
   "kind": "Literal",
   "name": "schema",
   "value": "nglp:journal_issue"
@@ -67,6 +75,7 @@ return {
       "name": "title",
       "storageKey": null
     },
+    (v0/*: any*/),
     {
       "alias": "about",
       "args": [
@@ -117,8 +126,8 @@ return {
     {
       "alias": "issues",
       "args": [
-        (v0/*: any*/),
         (v1/*: any*/),
+        (v2/*: any*/),
         {
           "kind": "Literal",
           "name": "page",
@@ -129,7 +138,7 @@ return {
           "name": "perPage",
           "value": 4
         },
-        (v2/*: any*/)
+        (v3/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -147,9 +156,9 @@ return {
     {
       "alias": "currentIssue",
       "args": [
-        (v0/*: any*/),
         (v1/*: any*/),
-        (v2/*: any*/)
+        (v2/*: any*/),
+        (v3/*: any*/)
       ],
       "concreteType": "Collection",
       "kind": "LinkedField",
@@ -202,13 +211,7 @@ return {
                   "name": "header",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "slug",
-                  "storageKey": null
-                }
+                (v0/*: any*/)
               ],
               "storageKey": null
             }
@@ -223,5 +226,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5ead70f40d4c6cb7a2607fbd28827354';
+(node as any).hash = '948a9d56840d4916e4929c51ba2ec930';
 export default node;
