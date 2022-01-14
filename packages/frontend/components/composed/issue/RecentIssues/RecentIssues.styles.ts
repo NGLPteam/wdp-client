@@ -23,9 +23,6 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  display: flex;
-  ${respond(`flex-wrap: wrap;`, 50)}
-
   & + & {
     padding-block-start: var(--padding-xl);
   }

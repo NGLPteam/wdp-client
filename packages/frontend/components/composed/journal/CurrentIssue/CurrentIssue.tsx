@@ -20,30 +20,27 @@ export default function CurrentIssue({ data }: Props) {
   const { t } = useTranslation();
   const issue = useMaybeFragment(fragment, data);
   const articles = issue?.ordering?.children.edges;
-  const hasImage = !!issue?.thumbnail?.storage;
 
   return issue ? (
     <section className="a-bg-neutral00">
-      <Styled.Inner className="l-container-wide" $hasImage={hasImage}>
-        {hasImage && (
-          <Styled.ImageBlock>
-            <NamedLink
-              route="collection"
-              routeParams={{ slug: issue.slug }}
-              passHref
-            >
-              <Styled.ImageLink>
-                <CoverImage
-                  id={issue.id}
-                  title={issue.title}
-                  data={issue.thumbnail}
-                  maxWidth={278}
-                  maxHeight={370}
-                />
-              </Styled.ImageLink>
-            </NamedLink>
-          </Styled.ImageBlock>
-        )}
+      <Styled.Inner className="l-container-wide">
+        <Styled.ImageBlock>
+          <NamedLink
+            route="collection"
+            routeParams={{ slug: issue.slug }}
+            passHref
+          >
+            <Styled.ImageLink>
+              <CoverImage
+                id={issue.id}
+                title={issue.title}
+                data={issue.thumbnail}
+                maxWidth={278}
+                maxHeight={370}
+              />
+            </Styled.ImageLink>
+          </NamedLink>
+        </Styled.ImageBlock>
         <Styled.TextBlock>
           <Styled.Label className="t-label-lg">
             {t("layouts.current_issue")}
@@ -117,7 +114,6 @@ const fragment = graphql`
     subtitle
     slug
     thumbnail {
-      storage
       ...CoverImageFragment
     }
     published {

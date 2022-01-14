@@ -19,17 +19,15 @@ export default function VolumeHero({ data }: Props) {
       <JournalHeroCompact data={volume.journal} />
       <Styled.HeroInner className="l-container-wide">
         <Styled.TextBlock>
-          {volume.thumbnail?.storage && (
-            <Styled.Cover>
-              <CoverImage
-                id={volume.id}
-                title={volume.title}
-                data={volume.thumbnail}
-                maxWidth={225}
-                maxHeight={300}
-              />
-            </Styled.Cover>
-          )}
+          <Styled.Cover>
+            <CoverImage
+              id={volume.id}
+              title={volume.title}
+              data={volume.thumbnail}
+              maxWidth={225}
+              maxHeight={300}
+            />
+          </Styled.Cover>
           <Styled.Issue>
             <Styled.Title as="h3">{volume.title}</Styled.Title>
             <Styled.Description>
@@ -71,7 +69,6 @@ const fragment = graphql`
       ...PrecisionDateFragment
     }
     thumbnail {
-      storage
       ...CoverImageFragment
     }
     journal: ancestorOfType(schema: "nglp:journal") {

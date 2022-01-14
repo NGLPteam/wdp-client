@@ -20,8 +20,7 @@ export const TextBlock = styled.div`
 
 export const Cover = styled.div`
   margin-inline-end: ${pxToRem(38)};
-  flex: 1 0 auto;
-  max-width: ${fluidScale("225px", "180px")};
+  flex: 1 0 ${fluidScale("225px", "180px")};
 
   ${respond(
     `

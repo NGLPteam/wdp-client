@@ -13,23 +13,21 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
 
   return volume ? (
     <Styled.Wrapper>
-      {volume.cover?.storage && (
-        <NamedLink
-          route="collection"
-          routeParams={{ slug: volume.slug }}
-          passHref
-        >
-          <Styled.ItemCoverLink>
-            <CoverImage
-              id={volume.id}
-              title={volume.title}
-              data={volume.cover}
-              maxWidth={120}
-              maxHeight={160}
-            />
-          </Styled.ItemCoverLink>
-        </NamedLink>
-      )}
+      <NamedLink
+        route="collection"
+        routeParams={{ slug: volume.slug }}
+        passHref
+      >
+        <Styled.ItemCoverLink>
+          <CoverImage
+            id={volume.id}
+            title={volume.title}
+            data={volume.cover}
+            maxWidth={120}
+            maxHeight={160}
+          />
+        </Styled.ItemCoverLink>
+      </NamedLink>
       <div>
         <Styled.ItemTitleBlock>
           <h4>
@@ -100,7 +98,6 @@ const fragment = graphql`
     slug
     summary
     cover: thumbnail {
-      storage
       ...CoverImageFragment
     }
     published {
