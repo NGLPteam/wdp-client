@@ -13,7 +13,7 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
 
   return journal ? (
     <Styled.ItemWrapper>
-      <Styled.ItemCover className="a-bg-neutral90">
+      <Styled.ItemCover>
         <NamedLink
           route="collection"
           routeParams={{ slug: journal.slug }}

@@ -6,7 +6,10 @@ import { aButtonBase, aFocus } from "theme/mixins";
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: var(--padding-rg);
+
+  > * + * {
+    margin-inline-start: var(--padding-rg);
+  }
 `;
 
 export const PrevNextLink = styled.a`
