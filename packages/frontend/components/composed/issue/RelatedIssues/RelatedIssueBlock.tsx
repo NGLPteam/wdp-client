@@ -26,7 +26,6 @@ export default function RelatedIssueBlock({ data }: Props) {
               data={issue.thumbnail}
               maxWidth={263}
               maxHeight={280}
-              usePlaceholder
             />
           </Styled.ItemCoverLink>
         </NamedLink>
@@ -77,7 +76,6 @@ const fragment = graphql`
     slug
     id
     thumbnail {
-      storage
       ...CoverImageFragment
     }
     published {

@@ -27,7 +27,6 @@ export default function RelatedJournal({ data }: Props) {
             data={journal.thumbnail}
             maxWidth={186}
             maxHeight={280}
-            usePlaceholder
           />
         </Styled.ItemCover>
         <Styled.ItemText>

@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aFocus, lGrid, respond } from "theme/mixins";
 
-interface BaseProps {
-  $hasImage?: boolean;
-}
+export const Inner = styled.div`
+  padding-block-start: ${pxToRem(100)};
+  padding-block-end: ${pxToRem(100)};
 
-const innerWithImage = `
+  ${lGrid()}
+
   grid-template-areas: "image image image . text text text text text text text text";
   ${respond(
     `
@@ -17,26 +18,6 @@ const innerWithImage = `
   `,
     70
   )}
-`;
-
-const innerWithoutImage = `
-  grid-template-areas: ". text text text text text text text text text text .";
-  ${respond(
-    `
-    grid-template-columns: 1fr;
-    grid-template-areas: "text";
-  `,
-    70
-  )}
-`;
-
-export const Inner = styled.div<BaseProps>`
-  padding-block-start: ${pxToRem(100)};
-  padding-block-end: ${pxToRem(100)};
-
-  ${lGrid()}
-
-  ${({ $hasImage }) => ($hasImage ? innerWithImage : innerWithoutImage)}
 `;
 
 export const Label = styled.div`
@@ -50,6 +31,7 @@ export const ImageBlock = styled.div`
 
 export const ImageLink = styled.a`
   display: inline-block;
+  width: 100%;
   ${aFocus()}
 `;
 

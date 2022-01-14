@@ -20,6 +20,10 @@ export const ItemCoverLink = styled.a`
   ${aFocus()}
 `;
 
+export const ItemTextBlock = styled.div`
+  flex: 1 1 100%;
+`;
+
 export const ItemTitleBlock = styled.div`
   padding-block-end: ${pxToRem(12)};
 

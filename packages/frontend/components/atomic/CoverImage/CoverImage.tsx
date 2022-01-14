@@ -12,7 +12,6 @@ export default function CoverImage({
   data,
   maxWidth,
   maxHeight,
-  usePlaceholder,
   title,
   id,
 }: ImageProps | PlaceholderProps) {
@@ -24,7 +23,6 @@ export default function CoverImage({
   } as React.CSSProperties;
 
   if (!image || !image.url) {
-    if (!usePlaceholder) return null;
     return (
       <Styled.Figure style={style}>
         <CoverPlaceholder
@@ -51,12 +49,9 @@ export default function CoverImage({
 }
 
 interface ImageProps {
-  /* Image fragment */
   data?: CoverImageFragment$key | null;
   maxWidth: number;
   maxHeight: number;
-  /* Show a placeholder if no image is provided */
-  usePlaceholder?: false;
   title?: string;
   id?: string;
 }
@@ -68,7 +63,6 @@ interface PlaceholderProps {
   data?: CoverImageFragment$key | null;
   maxWidth: number;
   maxHeight: number;
-  usePlaceholder: true;
   title: string;
   id: string;
 }

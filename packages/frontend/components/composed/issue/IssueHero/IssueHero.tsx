@@ -20,17 +20,15 @@ export default function IssueHero({ data }: Props) {
       <JournalHeroCompact data={issue.journal} />
       <Styled.HeroInner className="l-container-wide">
         <Styled.TextBlock>
-          {issue.thumbnail?.storage && (
-            <Styled.Cover>
-              <CoverImage
-                id={issue.id}
-                title={issue.title}
-                data={issue.thumbnail}
-                maxWidth={225}
-                maxHeight={300}
-              />
-            </Styled.Cover>
-          )}
+          <Styled.Cover>
+            <CoverImage
+              id={issue.id}
+              title={issue.title}
+              data={issue.thumbnail}
+              maxWidth={225}
+              maxHeight={300}
+            />
+          </Styled.Cover>
           <Styled.Issue>
             <Styled.Title as="h3">{issue.title}</Styled.Title>
             {issue.volume && (
@@ -81,7 +79,6 @@ const fragment = graphql`
       ...PrecisionDateFragment
     }
     thumbnail {
-      storage
       ...CoverImageFragment
     }
     journal: ancestorOfType(schema: "nglp:journal") {

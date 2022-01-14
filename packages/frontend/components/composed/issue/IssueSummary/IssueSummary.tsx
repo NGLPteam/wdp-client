@@ -27,24 +27,18 @@ export default function IssueSummary({ data, showReadMore }: Props) {
 
   return issue ? (
     <Styled.Wrapper>
-      {issue.cover?.storage && (
-        <NamedLink
-          route="collection"
-          routeParams={{ slug: issue.slug }}
-          passHref
-        >
-          <Styled.ItemCoverLink>
-            <CoverImage
-              id={issue.id}
-              title={issue.title}
-              data={issue.cover}
-              maxWidth={120}
-              maxHeight={160}
-            />
-          </Styled.ItemCoverLink>
-        </NamedLink>
-      )}
-      <div>
+      <NamedLink route="collection" routeParams={{ slug: issue.slug }} passHref>
+        <Styled.ItemCoverLink>
+          <CoverImage
+            id={issue.id}
+            title={issue.title}
+            data={issue.cover}
+            maxWidth={120}
+            maxHeight={160}
+          />
+        </Styled.ItemCoverLink>
+      </NamedLink>
+      <Styled.ItemTextBlock>
         <Styled.ItemTitleBlock>
           <h4>
             <NamedLink
@@ -96,7 +90,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
             <Styled.ItemReadMore as={ReadMoreLink} />
           </NamedLink>
         )}
-      </div>
+      </Styled.ItemTextBlock>
     </Styled.Wrapper>
   ) : null;
 }
@@ -116,7 +110,6 @@ const fragment = graphql`
     slug
     summary
     cover: thumbnail {
-      storage
       ...CoverImageFragment
     }
     published {
