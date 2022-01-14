@@ -263,6 +263,7 @@
       "fields": {
         "title": "Title",
         "subtitle": "Subtitle",
+        "tagline": "Tagline",
         "thumbnail": "Thumbnail",
         "visibility": "Visibility",
         "summary": "Summary",
@@ -306,6 +307,7 @@
         "slug_description": "Slug must be lower case, no special characters or spaces.",
         "body": "Body",
         "hero_image": "Hero Image",
+        "hero_layout": "Hero Layout",
         "profile": "Profile",
         "display_name": "Display Name",
         "sort_by": "Sort By",
