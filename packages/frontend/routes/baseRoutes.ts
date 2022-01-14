@@ -45,6 +45,10 @@ export const baseRoutes: BaseRoute[] = [
         name: "collection.browse",
         path: "/collections/[slug]/browse/[ordering]",
       },
+      {
+        name: "collection.announcement",
+        path: "/collections/[slug]/announcements/[announcement]",
+      },
     ],
   },
   {
