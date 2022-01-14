@@ -6,6 +6,7 @@ import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayo
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 import FeaturedCollectionsList from "components/composed/collections/FeaturedCollectionsList";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
+import ResearchUnitsList from "components/composed/community/ResearchUnitsList";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -29,6 +30,7 @@ export default function CommunityLayout({ data }: Props) {
       ) : (
         <FeaturedCollectionsGrid data={community?.collections} />
       )}
+      <ResearchUnitsList data={community?.descendants} />
     </>
   );
 }
@@ -61,6 +63,10 @@ const fragment = graphql`
       pageInfo {
         totalCount
       }
+    }
+
+    descendants(schema: "nglp:unit", order: TITLE_ASCENDING) {
+      ...ResearchUnitsListFragment
     }
   }
 `;

@@ -15,6 +15,9 @@ export type CommunityLandingLayoutFragment = {
         };
         readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsListFragment" | "FeaturedCollectionsGridFragment">;
     };
+    readonly descendants: {
+        readonly " $fragmentRefs": FragmentRefs<"ResearchUnitsListFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     readonly " $refType": "CommunityLandingLayoutFragment";
 };
@@ -125,6 +128,33 @@ return {
       "storageKey": "collections(order:\"RECENT\",page:1,perPage:8,schema:\"default:collection\")"
     },
     {
+      "alias": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "TITLE_ASCENDING"
+        },
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:unit"
+        }
+      ],
+      "concreteType": "EntityDescendantConnection",
+      "kind": "LinkedField",
+      "name": "descendants",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ResearchUnitsListFragment"
+        }
+      ],
+      "storageKey": "descendants(order:\"TITLE_ASCENDING\",schema:\"nglp:unit\")"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CommunityHeroFragment"
@@ -134,5 +164,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8f81b5cd9ce41223ec0c89b5783bad52';
+(node as any).hash = '6893acc6753002ea227371e792b51243';
 export default node;
