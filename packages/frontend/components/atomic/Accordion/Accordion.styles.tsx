@@ -11,7 +11,10 @@ export const Label = styled.summary`
 
   display: flex;
   align-items: center;
-  gap: ${pxToRem(10)};
+
+  > * + * {
+    margin-inline-start: ${pxToRem(10)};
+  }
 `;
 
 export const Arrow = styled(IconFactory)`

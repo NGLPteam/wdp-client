@@ -19,7 +19,10 @@ export const List = styled.ul`
   --FeaturedCollectionsGrid--gap: ${fluidScale("30px", "10px")};
   display: flex;
   flex-wrap: wrap;
-  gap: var(--FeaturedCollectionsGrid--gap);
+
+  > * + * {
+    margin-inline-start: var(--FeaturedCollectionsGrid--gap);
+  }
 
   ${respond(`--FeaturedCollectionsGrid--gap: ${pxToRem(36)};`, 50)}
 `;
