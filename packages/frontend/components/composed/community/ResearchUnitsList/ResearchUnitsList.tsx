@@ -23,20 +23,22 @@ export default function ResearchUnitsList({ data }: Props) {
             <h3>{t("layouts.research_units")}</h3>
           </Styled.HeaderBlock>
           <Styled.UnitsList className="t-copy-medium">
-            {units.edges.map((edge) => (
-              <Styled.ListItem key={edge.node.descendant.slug}>
-                <NamedLink
-                  route="collection"
-                  routeParams={{ slug: edge.node.descendant.slug }}
-                  passHref
-                >
-                  <Styled.UnitLink>
-                    <IconFactory icon="arrowRight" />
-                    <span>{edge.node.descendant.title}</span>
-                  </Styled.UnitLink>
-                </NamedLink>
-              </Styled.ListItem>
-            ))}
+            {units.edges.map((edge) =>
+              edge.node.descendant.slug ? (
+                <Styled.ListItem key={edge.node.descendant.slug}>
+                  <NamedLink
+                    route="collection"
+                    routeParams={{ slug: edge.node.descendant.slug }}
+                    passHref
+                  >
+                    <Styled.UnitLink>
+                      <IconFactory icon="arrowRight" />
+                      <span>{edge.node.descendant.title}</span>
+                    </Styled.UnitLink>
+                  </NamedLink>
+                </Styled.ListItem>
+              ) : null
+            )}
           </Styled.UnitsList>
         </Styled.TextColumn>
         {image && (
