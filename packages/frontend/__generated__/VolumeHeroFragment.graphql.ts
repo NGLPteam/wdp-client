@@ -11,6 +11,7 @@ export type VolumeHeroFragment = {
     readonly subtitle: string | null;
     readonly summary: string | null;
     readonly published: {
+        readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
     readonly thumbnail: {
@@ -73,6 +74,13 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "PrecisionDateFragment"
@@ -132,5 +140,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'f7713ee90349160a4c678a5cfdbe250c';
+(node as any).hash = '4ef1292c366b6242a7af13da4a9a027a';
 export default node;

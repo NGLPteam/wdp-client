@@ -19,6 +19,7 @@ export type ArticleSummaryFragment = {
         readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
     };
     readonly published: {
+        readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
     readonly journal?: {
@@ -132,6 +133,13 @@ return {
       "plural": false,
       "selections": [
         {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "PrecisionDateFragment"
@@ -176,5 +184,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b760ef64c797923f0504aef9e1a2a0cd';
+(node as any).hash = '9f83c37a0b4b8ef092d16e1ebddc1dd8';
 export default node;

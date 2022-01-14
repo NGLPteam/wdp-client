@@ -11,6 +11,7 @@ export type IssueHeroFragment = {
     readonly subtitle: string | null;
     readonly summary: string | null;
     readonly published: {
+        readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
     readonly thumbnail: {
@@ -80,6 +81,13 @@ return {
       "name": "published",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -188,5 +196,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bc4a3dff84ff341d6eba82cf80bf2e88';
+(node as any).hash = '4a850a3fff3d37cf63e4d6995e04e3a0';
 export default node;
