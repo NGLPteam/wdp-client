@@ -7,10 +7,8 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type HeroImageFragment = {
     readonly image: {
-        readonly webp: {
-            readonly alt: string | null;
-            readonly url: string | null;
-        };
+        readonly alt: string | null;
+        readonly url: string | null;
     };
     readonly " $refType": "HeroImageFragment";
 };
@@ -31,34 +29,23 @@ const node: ReaderFragment = {
     {
       "alias": "image",
       "args": null,
-      "concreteType": "ImageSize",
+      "concreteType": "ImageOriginal",
       "kind": "LinkedField",
-      "name": "large",
+      "name": "original",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "alt",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "alt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
           "storageKey": null
         }
       ],
@@ -68,5 +55,5 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = '4023d983fbf3869214d2e2547e994df5';
+(node as any).hash = 'eb7e4ca817b8fd6576ca7ef658b5bf75';
 export default node;
