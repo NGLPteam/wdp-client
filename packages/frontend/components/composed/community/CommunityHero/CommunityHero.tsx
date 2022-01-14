@@ -13,12 +13,15 @@ export default function CommunityHero({ data }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const searchRoute = RouteHelper.findRouteByName("search");
 
-  return community ? (
+  if (!community) return null;
+
+  const tagline =
+    community.tagline || t("common.welcome_to", { name: community.title });
+
+  return (
     <section className="a-bg-custom10">
       <Styled.HeroInner className="l-container-wide">
-        <Styled.Header>
-          {t("common.welcome_to", { name: community.title })}
-        </Styled.Header>
+        <Styled.Header>{tagline}</Styled.Header>
         <Styled.Form action={searchRoute?.path}>
           <Styled.SearchWrapper>
             <Styled.SearchIconLabel htmlFor="communityHeroSearch">
@@ -40,7 +43,7 @@ export default function CommunityHero({ data }: Props) {
         </Styled.Form>
       </Styled.HeroInner>
     </section>
-  ) : null;
+  );
 }
 
 interface Props {
@@ -50,5 +53,6 @@ interface Props {
 const fragment = graphql`
   fragment CommunityHeroFragment on Community {
     title
+    tagline
   }
 `;
