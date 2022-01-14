@@ -1,70 +1,70 @@
 import styled from "styled-components";
+import BaseImage from "next/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
-import { tHeading } from "theme/mixins/typography";
-import { aFocusReset } from "theme/mixins";
-import { transition } from "theme/base/variables";
+import { fluidScale, respond } from "theme/mixins";
+
+const LAYOUT_BREAK = 120;
+
+export const Hero = styled.header`
+  --CommunityHero-image-height: ${fluidScale("490px", "200px")};
+  position: relative;
+  display: flex;
+
+  &[data-hero-image="true"] {
+    min-height: var(--CommunityHero-image-height);
+  }
+
+  &[data-hero-layout="ONE_COLUMN"] {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &[data-hero-layout="TWO_COLUMN"] {
+    ${respond(`flex-wrap: wrap;`, LAYOUT_BREAK)}
+  }
+`;
 
 export const HeroInner = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xlg);
-`;
-
-export const Header = styled.h1`
-  margin-block-end: ${pxToRem(80)};
-`;
-
-export const Form = styled.form``;
-
-export const SearchWrapper = styled.div`
   display: flex;
-  align-items: stretch;
-  height: ${pxToRem(64)};
-  width: 100%;
-`;
-
-export const SearchIconLabel = styled.label`
-  display: flex;
-  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
   justify-content: center;
-  width: ${pxToRem(64)};
-  border-bottom: 3px solid var(--color-base-neutral90);
-`;
+  padding-block-start: var(--container-padding-lg);
 
-export const SearchInput = styled.input`
-  ${aInputReset}
-  ${tHeading(4)}
-  flex: 1 1 auto;
-  padding-block-start: ${pxToRem(17)};
-  padding-block-end: ${pxToRem(20)};
-  padding-inline-start: ${pxToRem(12)};
-  padding-inline-end: ${pxToRem(12)};
-  border-bottom: 3px solid var(--color-base-neutral20);
-  transition: ${transition.border};
-
-  &::-webkit-search-cancel-button {
-    width: ${pxToRem(32)};
-    height: ${pxToRem(32)};
-    margin-block-start: ${pxToRem(2)};
+  [data-hero-image="true"] & {
+    padding-block-end: var(--container-padding-lg);
   }
 
-  ${aFocusReset}
+  [data-hero-layout="ONE_COLUMN"] & {
+    flex: 0 0 auto;
+    width: 100%;
+  }
 
-  &:focus-visible {
-    border-bottom: 3px solid var(--color-base-neutral60);
+  [data-hero-layout="TWO_COLUMN"] & {
+    flex: 1 1 639px;
+    margin-right: 0;
+
+    ${respond(`max-width: 639px;`, LAYOUT_BREAK, "min")}
   }
 `;
 
-export const SearchButton = styled.button`
-  border-bottom: 3px solid var(--color-base-neutral20);
+export const Summary = styled.div`
+  padding-block-start: ${pxToRem(29)};
+`;
 
-  &:focus {
-    outline: none;
+export const ImageWrapper = styled.div`
+  [data-hero-layout="TWO_COLUMN"] & {
+    position: relative;
+    flex: 1 1 50vw;
+    min-height: var(--CommunityHero-image-height);
+
+    ${respond(`max-width: 50vw;`, LAYOUT_BREAK, "min")}
   }
+`;
 
-  /* Only show the submit button if the user is using keyboard navigation */
-  /* Without this, there's no indication of what's in focus */
-  &:not(:focus) {
-    ${aHidden}
+export const Image = styled(BaseImage)`
+  [data-hero-layout="ONE_COLUMN"] & {
+    opacity: 0.3;
   }
 `;

@@ -58,6 +58,17 @@ fragment CommunityHTMLHeadFragment on Community {
 fragment CommunityHeroFragment on Community {
   title
   tagline
+  summary
+  heroImage {
+    storage
+    original {
+      alt
+      url
+      width
+      height
+    }
+  }
+  heroImageLayout
 }
 
 fragment CommunityLandingLayoutFragment on Community {
@@ -261,65 +272,78 @@ v2 = {
   "storageKey": null
 },
 v3 = {
-  "kind": "Literal",
-  "name": "order",
-  "value": "RECENT"
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "storage",
+  "storageKey": null
 },
 v4 = {
-  "kind": "Literal",
-  "name": "page",
-  "value": 1
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "alt",
   "storageKey": null
 },
-v9 = {
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v10 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
+v8 = [
+  (v4/*: any*/),
+  (v5/*: any*/),
+  (v6/*: any*/),
+  (v7/*: any*/)
+],
+v9 = {
+  "kind": "Literal",
+  "name": "order",
+  "value": "RECENT"
+},
+v10 = {
+  "kind": "Literal",
+  "name": "page",
+  "value": 1
+},
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v12 = {
+v14 = {
   "alias": null,
   "args": null,
   "concreteType": "PageInfo",
@@ -327,18 +351,12 @@ v12 = {
   "name": "pageInfo",
   "plural": false,
   "selections": [
-    (v11/*: any*/)
+    (v13/*: any*/)
   ],
   "storageKey": null
 },
-v13 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "storage",
-    "storageKey": null
-  },
+v15 = [
+  (v3/*: any*/),
   {
     "alias": "image",
     "args": null,
@@ -354,29 +372,24 @@ v13 = [
         "kind": "LinkedField",
         "name": "webp",
         "plural": false,
-        "selections": [
-          (v8/*: any*/),
-          (v7/*: any*/),
-          (v9/*: any*/),
-          (v10/*: any*/)
-        ],
+        "selections": (v8/*: any*/),
         "storageKey": null
       }
     ],
     "storageKey": null
   }
 ],
-v14 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v15 = [
-  (v5/*: any*/),
+v17 = [
+  (v11/*: any*/),
   (v2/*: any*/),
-  (v6/*: any*/)
+  (v12/*: any*/)
 ];
 return {
   "fragment": {
@@ -438,10 +451,46 @@ return {
             "storageKey": null
           },
           {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageAttachment",
+            "kind": "LinkedField",
+            "name": "heroImage",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageOriginal",
+                "kind": "LinkedField",
+                "name": "original",
+                "plural": false,
+                "selections": (v8/*: any*/),
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "heroImageLayout",
+            "storageKey": null
+          },
+          {
             "alias": "journals",
             "args": [
-              (v3/*: any*/),
-              (v4/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "kind": "Literal",
                 "name": "perPage",
@@ -474,8 +523,8 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v6/*: any*/),
+                      (v11/*: any*/),
+                      (v12/*: any*/),
                       (v2/*: any*/),
                       {
                         "alias": null,
@@ -515,10 +564,10 @@ return {
                                 "name": "webp",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/),
-                                  (v8/*: any*/),
-                                  (v9/*: any*/),
-                                  (v10/*: any*/)
+                                  (v5/*: any*/),
+                                  (v4/*: any*/),
+                                  (v6/*: any*/),
+                                  (v7/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -549,7 +598,7 @@ return {
                         "name": "descendants",
                         "plural": false,
                         "selections": [
-                          (v12/*: any*/)
+                          (v14/*: any*/)
                         ],
                         "storageKey": "descendants(schema:[\"nglp:journal_issue\"],scope:\"COLLECTION\")"
                       }
@@ -567,7 +616,7 @@ return {
                 "name": "pageInfo",
                 "plural": false,
                 "selections": [
-                  (v11/*: any*/),
+                  (v13/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -584,8 +633,8 @@ return {
           {
             "alias": null,
             "args": [
-              (v3/*: any*/),
-              (v4/*: any*/),
+              (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "kind": "Literal",
                 "name": "perPage",
@@ -618,9 +667,9 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
+                      (v11/*: any*/),
                       (v2/*: any*/),
-                      (v6/*: any*/),
+                      (v12/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -631,7 +680,7 @@ return {
                             "kind": "LinkedField",
                             "name": "thumbnail",
                             "plural": false,
-                            "selections": (v13/*: any*/),
+                            "selections": (v15/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -641,7 +690,7 @@ return {
                             "kind": "LinkedField",
                             "name": "heroImage",
                             "plural": false,
-                            "selections": (v13/*: any*/),
+                            "selections": (v15/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -654,11 +703,11 @@ return {
                 ],
                 "storageKey": null
               },
-              (v12/*: any*/)
+              (v14/*: any*/)
             ],
             "storageKey": "collections(order:\"RECENT\",page:1,perPage:8,schema:\"default:collection\")"
           },
-          (v5/*: any*/),
+          (v11/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -667,8 +716,8 @@ return {
             "name": "schemaRanks",
             "plural": true,
             "selections": [
-              (v5/*: any*/),
-              (v14/*: any*/),
+              (v11/*: any*/),
+              (v16/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -683,7 +732,7 @@ return {
                 "name": "kind",
                 "storageKey": null
               },
-              (v6/*: any*/)
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
@@ -710,7 +759,7 @@ return {
                     "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
-                    "selections": (v15/*: any*/),
+                    "selections": (v17/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -719,8 +768,8 @@ return {
             ],
             "storageKey": null
           },
-          (v14/*: any*/),
-          (v6/*: any*/)
+          (v16/*: any*/),
+          (v12/*: any*/)
         ],
         "storageKey": null
       },
@@ -747,7 +796,7 @@ return {
                 "kind": "LinkedField",
                 "name": "node",
                 "plural": false,
-                "selections": (v15/*: any*/),
+                "selections": (v17/*: any*/),
                 "storageKey": null
               }
             ],
@@ -759,12 +808,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e6fcd3b5249bbbf9a04ec43d74ea8b2d",
+    "cacheID": "3d7d17412a021440532c225031097b74",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  journals: collections(schema: \"nglp:journal\", order: RECENT, page: 1, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n  collections(schema: \"default:collection\", order: RECENT, page: 1, perPage: 8) {\n    ...FeaturedCollectionsListFragment\n    ...FeaturedCollectionsGridFragment\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      ...FeaturedCollectionsGridImageFragment\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  thumbnail {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedCollectionsListFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      id\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n  pageInfo {\n    totalCount\n    perPage\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n  summary\n  heroImage {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n  heroImageLayout\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  journals: collections(schema: \"nglp:journal\", order: RECENT, page: 1, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n  collections(schema: \"default:collection\", order: RECENT, page: 1, perPage: 8) {\n    ...FeaturedCollectionsListFragment\n    ...FeaturedCollectionsGridFragment\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      ...FeaturedCollectionsGridImageFragment\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  thumbnail {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedCollectionsListFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      id\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n  pageInfo {\n    totalCount\n    perPage\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

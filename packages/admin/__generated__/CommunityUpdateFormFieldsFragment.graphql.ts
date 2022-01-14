@@ -10,6 +10,7 @@ export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value
 export type CommunityUpdateFormFieldsFragment = {
     readonly title: string;
     readonly tagline: string | null;
+    readonly summary: string | null;
     readonly heroImageLayout: HeroImageLayout;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
@@ -48,6 +49,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "tagline",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "summary",
       "storageKey": null
     },
     {
@@ -115,5 +123,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '2592032730a516f5438770ab870d81da';
+(node as any).hash = '3fce9fcdff34bd2bcb1e100cd5994939';
 export default node;

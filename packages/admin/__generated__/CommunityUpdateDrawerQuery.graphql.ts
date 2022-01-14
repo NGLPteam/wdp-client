@@ -36,6 +36,7 @@ query CommunityUpdateDrawerQuery(
 fragment CommunityUpdateFormFieldsFragment on Community {
   title
   tagline
+  summary
   heroImageLayout
   heroImage {
     storage
@@ -146,6 +147,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "summary",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "heroImageLayout",
             "storageKey": null
           },
@@ -209,12 +217,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d226596f2b0ac169ae282abb6e53407f",
+    "cacheID": "2a37957b5730d0acfce1e6d9d088d851",
     "id": null,
     "metadata": {},
     "name": "CommunityUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query CommunityUpdateDrawerQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    id\n    title\n    ...CommunityUpdateFormFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  tagline\n  heroImageLayout\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
+    "text": "query CommunityUpdateDrawerQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    id\n    title\n    ...CommunityUpdateFormFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  tagline\n  summary\n  heroImageLayout\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n}\n\nfragment CommunityUpdateFormFragment on Community {\n  communityId: id\n  ...CommunityUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
