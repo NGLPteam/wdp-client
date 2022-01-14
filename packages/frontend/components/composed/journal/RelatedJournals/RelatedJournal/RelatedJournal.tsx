@@ -19,7 +19,7 @@ export default function RelatedJournal({ data }: Props) {
       routeParams={{ slug: journal.slug }}
       passHref
     >
-      <Styled.ItemLink>
+      <Styled.Item as="a">
         <Styled.ItemCover>
           <CoverImage
             title={journal.title}
@@ -30,9 +30,13 @@ export default function RelatedJournal({ data }: Props) {
           />
         </Styled.ItemCover>
         <Styled.ItemText>
-          <Styled.ItemHeader>{journal.title}</Styled.ItemHeader>
+          <h4>
+            <Styled.LinkText>{journal.title}</Styled.LinkText>
+          </h4>
           {journal.subtitle && (
-            <Styled.ItemSubheader>{journal.subtitle}</Styled.ItemSubheader>
+            <Styled.ItemSubheader as="h5">
+              <Styled.LinkText>{journal.subtitle}</Styled.LinkText>
+            </Styled.ItemSubheader>
           )}
           <Styled.ItemMetadata className="t-copy-sm a-color-lighter">
             {journal.issues.pageInfo ? (
@@ -51,7 +55,7 @@ export default function RelatedJournal({ data }: Props) {
             )}
           </Styled.ItemMetadata>
         </Styled.ItemText>
-      </Styled.ItemLink>
+      </Styled.Item>
     </NamedLink>
   ) : null;
 }

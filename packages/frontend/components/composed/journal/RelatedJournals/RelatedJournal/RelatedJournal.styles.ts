@@ -1,20 +1,9 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { aLinkHoverFocus } from "theme/mixins";
+import { aLinkBase, aLinkHoverFocus } from "theme/mixins";
 
-export const ItemHeader = styled.h4`
-  display: inline-block;
-`;
-
-export const ItemLink = styled.a`
+export const Item = styled.div`
   display: block;
-
-  &:hover,
-  &:focus-within {
-    ${ItemHeader} {
-      ${aLinkHoverFocus}
-    }
-  }
 `;
 
 export const ItemCover = styled.div`
@@ -24,8 +13,19 @@ export const ItemCover = styled.div`
   height: 280px;
 `;
 
-export const ItemSubheader = styled.h5`
+export const ItemSubheader = styled.div`
   margin-block-start: var(--padding-xxs);
+`;
+
+export const LinkText = styled.span`
+  ${aLinkBase}
+
+  /* stylelint-disable selector-type-no-unknown */
+  ${Item}:hover &,
+  ${Item}:focus & {
+    ${aLinkHoverFocus}
+  }
+  /* stylelint-enable selector-type-no-unknown */
 `;
 
 export const ItemText = styled.div`

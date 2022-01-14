@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
-import { Dropdown } from "components/atomic";
+import { Dropdown, NamedLink } from "components/atomic";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
+import { getRouteByEntityType } from "helpers";
 
 export default function BreadCrumbs({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -20,6 +21,18 @@ export default function BreadCrumbs({ data }: Props) {
     return breadcrumbs.map((o, i) => <BreadcrumbLink key={i} data={o} />);
   }, [entity]);
 
+  function renderCurrent() {
+    if (!entity) return null;
+
+    const currentRoute = getRouteByEntityType(entity.__typename);
+
+    return currentRoute && entity.slug ? (
+      <NamedLink route={currentRoute} routeParams={{ slug: entity.slug }}>
+        <a aria-current="page">{entity.title}</a>
+      </NamedLink>
+    ) : null;
+  }
+
   return breadcrumbs.length > 0 ? (
     <>
       <Styled.List className="t-copy-sm" data-mobile>
@@ -32,11 +45,7 @@ export default function BreadCrumbs({ data }: Props) {
           />
           <Styled.Delimiter>/</Styled.Delimiter>
         </Styled.Item>
-        {entity && (
-          <li key="current">
-            <Styled.ItemText>{entity.title}</Styled.ItemText>
-          </li>
-        )}
+        <li key="current">{renderCurrent()}</li>
       </Styled.List>
 
       <Styled.List className="t-copy-sm" data-desktop>
@@ -70,11 +79,7 @@ export default function BreadCrumbs({ data }: Props) {
             </Styled.Item>
           </>
         )}
-        {entity && (
-          <li key="current">
-            <Styled.ItemText>{entity.title}</Styled.ItemText>
-          </li>
-        )}
+        <li key="current">{renderCurrent()}</li>
       </Styled.List>
     </>
   ) : null;
@@ -86,10 +91,15 @@ interface Props {
 
 export const fragment = graphql`
   fragment BreadcrumbsFragment on Entity {
+    __typename
     title
     breadcrumbs {
       depth
       ...BreadcrumbLinkFragment
+    }
+
+    ... on Sluggable {
+      slug
     }
   }
 `;
