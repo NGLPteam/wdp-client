@@ -41,6 +41,7 @@ export default function CommunityUpdateForm({
           {...register("tagline")}
           isWide
         />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.FileUpload
           label="forms.fields.hero_image"
           name="heroImage"
@@ -90,6 +91,7 @@ const fieldsFragment = graphql`
   fragment CommunityUpdateFormFieldsFragment on Community {
     title
     tagline
+    summary
     heroImageLayout
     heroImage {
       storage

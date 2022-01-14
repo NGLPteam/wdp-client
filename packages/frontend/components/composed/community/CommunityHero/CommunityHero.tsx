@@ -1,17 +1,16 @@
-import React, { useRef } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CommunityHero.styles";
-import { IconFactory } from "components/factories";
 import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
-import { RouteHelper } from "routes";
+import SearchHero from "components/composed/search/SearchHero";
 
 export default function CommunityHero({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
+
   const { t } = useTranslation();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const searchRoute = RouteHelper.findRouteByName("search");
 
   if (!community) return null;
 
@@ -19,30 +18,51 @@ export default function CommunityHero({ data }: Props) {
     community.tagline || t("common.welcome_to", { name: community.title });
 
   return (
-    <section className="a-bg-custom10">
-      <Styled.HeroInner className="l-container-wide">
-        <Styled.Header>{tagline}</Styled.Header>
-        <Styled.Form action={searchRoute?.path}>
-          <Styled.SearchWrapper>
-            <Styled.SearchIconLabel htmlFor="communityHeroSearch">
-              <IconFactory icon="search32" role="presentation" />
-              <span className="a-hidden">{t("search.label")}</span>
-            </Styled.SearchIconLabel>
-            <Styled.SearchInput
-              type="search"
-              name="q"
-              id="communityHeroSearch"
-              ref={inputRef}
-              placeholder={t("search.community_placeholder")}
+    <>
+      <Styled.Hero
+        className={
+          community.heroImage?.storage &&
+          community.heroImageLayout === "ONE_COLUMN"
+            ? "a-bg-neutral90"
+            : community.heroImage?.storage
+            ? "a-bg-custom20"
+            : "a-bg-custom10"
+        }
+        data-hero-image={!!community.heroImage?.storage}
+        data-hero-layout={community.heroImageLayout}
+      >
+        <Styled.HeroInner className="l-container-wide">
+          <h1>{tagline}</h1>
+          {community.summary && (
+            <Styled.Summary>
+              <ReactMarkdown
+                components={{
+                  h1: "p",
+                  h2: "p",
+                  h3: "p",
+                  h4: "p",
+                  h5: "p",
+                }}
+              >
+                {community.summary}
+              </ReactMarkdown>
+            </Styled.Summary>
+          )}
+        </Styled.HeroInner>
+        {community.heroImage?.storage && community.heroImage.original.url && (
+          <Styled.ImageWrapper>
+            <Styled.Image
+              alt={community.heroImage.original.alt || ""}
+              src={community.heroImage.original.url}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
             />
-            <Styled.SearchButton type="submit">
-              <IconFactory icon="arrowRight" />
-              <span className="a-hidden">{t("search.submit")}</span>
-            </Styled.SearchButton>
-          </Styled.SearchWrapper>
-        </Styled.Form>
-      </Styled.HeroInner>
-    </section>
+          </Styled.ImageWrapper>
+        )}
+      </Styled.Hero>
+      <SearchHero />
+    </>
   );
 }
 
@@ -54,5 +74,16 @@ const fragment = graphql`
   fragment CommunityHeroFragment on Community {
     title
     tagline
+    summary
+    heroImage {
+      storage
+      original {
+        alt
+        url
+        width
+        height
+      }
+    }
+    heroImageLayout
   }
 `;
