@@ -39,7 +39,7 @@ export default function EntityPageUpdateForm({
         <Forms.Input label="forms.fields.title" {...register("title")} />
         <Forms.Input label="forms.fields.slug" {...register("slug")} />
         <Forms.FileUpload
-          label="forms.fields.heroImage"
+          label="forms.fields.hero_image"
           name="heroImage"
           image={page?.heroImage?.thumb}
           clearName="clearHeroImage"

@@ -75,7 +75,7 @@ export default function CollectionUpdateForm({
           clearName="clearThumbnail"
         />
         <Forms.FileUpload
-          label="forms.fields.heroImage"
+          label="forms.fields.hero_image"
           name="heroImage"
           image={heroImage?.thumb}
           clearName="clearHeroImage"

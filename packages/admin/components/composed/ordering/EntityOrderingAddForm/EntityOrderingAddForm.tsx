@@ -120,12 +120,12 @@ export default function EntityOrderingAddForm({
     return (
       <Forms.Grid>
         <Forms.Input
-          label={"forms.fields.displayname"}
+          label={"forms.fields.display_name"}
           required
           {...register("name")}
         />
         <Forms.Select
-          label="forms.fields.sortby"
+          label="forms.fields.sorty_by"
           options={SORTING_OPTIONS}
           {...register("sortby")}
         />

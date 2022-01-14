@@ -70,7 +70,7 @@ export default function EntityPageAddForm({
           }}
           {...registerSlug}
         />
-        <Forms.FileUpload label="forms.fields.heroImage" name="heroImage" />
+        <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
         <Forms.Textarea
           label="forms.fields.body"
           required

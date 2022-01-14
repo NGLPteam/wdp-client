@@ -37,7 +37,7 @@ export default function CommunityUpdateForm({
       <Forms.Grid>
         <Forms.Input label="forms.fields.title" {...register("title")} isWide />
         <Forms.FileUpload
-          label="forms.fields.heroImage"
+          label="forms.fields.hero_image"
           name="heroImage"
           image={heroImage?.thumb}
           clearName="clearHeroImage"
