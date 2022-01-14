@@ -5,10 +5,7 @@ import { respond } from "theme/mixins";
 export const Section = styled.div`
   overflow: visible;
   display: flex;
-`;
-
-export const ChildWrapper = styled.div`
-  flex: 1 1 auto;
+  align-items: flex-start;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -20,6 +17,10 @@ export const ButtonWrapper = styled.div`
   align-items: flex-end;
   justify-content: flex-end;
   white-space: nowrap;
+
+  &[hidden] {
+    display: none;
+  }
 
   ${respond(
     `
