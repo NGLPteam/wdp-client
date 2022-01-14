@@ -17,7 +17,21 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input label="forms.fields.title" {...register("title")} isWide />
+        <Forms.Input
+          label="forms.fields.tagline"
+          {...register("tagline")}
+          isWide
+        />
         <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
+        <Forms.Select
+          label="forms.fields.hero_layout"
+          options={[
+            { label: "One Column", value: "ONE_COLUMN" },
+            { label: "Two Column", value: "TWO_COLUMN" },
+          ]}
+          isWide
+          {...register("heroImageLayout")}
+        />
       </Forms.Grid>
     ),
     []

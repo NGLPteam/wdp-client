@@ -6,8 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
+export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
 export type CommunityUpdateFormFieldsFragment = {
     readonly title: string;
+    readonly tagline: string | null;
+    readonly heroImageLayout: HeroImageLayout;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
         readonly thumb: {
@@ -38,6 +41,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "title",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "tagline",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "heroImageLayout",
       "storageKey": null
     },
     {
@@ -98,5 +115,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '380505a2aa523c371a32809ab430f841';
+(node as any).hash = '2592032730a516f5438770ab870d81da';
 export default node;
