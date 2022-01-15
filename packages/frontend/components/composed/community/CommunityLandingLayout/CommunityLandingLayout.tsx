@@ -6,7 +6,7 @@ import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayo
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 import FeaturedCollectionsList from "components/composed/collections/FeaturedCollectionsList";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
-import ResearchUnitsList from "components/composed/community/ResearchUnitsList";
+import ResearchUnitsList from "components/composed/unit/UnitList";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -66,7 +66,7 @@ const fragment = graphql`
     }
 
     descendants(schema: "nglp:unit", order: TITLE_ASCENDING) {
-      ...ResearchUnitsListFragment
+      ...UnitListFragment
     }
   }
 `;

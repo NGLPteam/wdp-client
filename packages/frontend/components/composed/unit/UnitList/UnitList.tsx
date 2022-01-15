@@ -2,10 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./ResearchUnitsList.styles";
+import * as Styled from "./UnitList.styles";
 import { NamedLink } from "components/atomic";
-import { IconFactory } from "components/factories";
-import { ResearchUnitsListFragment$key } from "@/relay/ResearchUnitsListFragment.graphql";
+import { UnitListFragment$key } from "@/relay/UnitListFragment.graphql";
 
 export default function ResearchUnitsList({ data }: Props) {
   const units = useMaybeFragment(fragment, data);
@@ -25,18 +24,15 @@ export default function ResearchUnitsList({ data }: Props) {
           <Styled.UnitsList className="t-copy-medium">
             {units.edges.map((edge) =>
               edge.node.descendant.slug ? (
-                <Styled.ListItem key={edge.node.descendant.slug}>
+                <li key={edge.node.descendant.slug}>
                   <NamedLink
                     route="collection"
                     routeParams={{ slug: edge.node.descendant.slug }}
                     passHref
                   >
-                    <Styled.UnitLink>
-                      <IconFactory icon="arrowRight" />
-                      <span>{edge.node.descendant.title}</span>
-                    </Styled.UnitLink>
+                    <a className="a-link">{edge.node.descendant.title}</a>
                   </NamedLink>
-                </Styled.ListItem>
+                </li>
               ) : null
             )}
           </Styled.UnitsList>
@@ -61,11 +57,11 @@ export default function ResearchUnitsList({ data }: Props) {
 }
 
 type Props = {
-  data?: ResearchUnitsListFragment$key | null;
+  data?: UnitListFragment$key | null;
 };
 
 const fragment = graphql`
-  fragment ResearchUnitsListFragment on EntityDescendantConnection {
+  fragment UnitListFragment on EntityDescendantConnection {
     edges {
       node {
         descendant {

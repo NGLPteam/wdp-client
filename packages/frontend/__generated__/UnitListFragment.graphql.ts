@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type ResearchUnitsListFragment = {
+export type UnitListFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
             readonly descendant: {
@@ -14,12 +14,12 @@ export type ResearchUnitsListFragment = {
             };
         };
     }>;
-    readonly " $refType": "ResearchUnitsListFragment";
+    readonly " $refType": "UnitListFragment";
 };
-export type ResearchUnitsListFragment$data = ResearchUnitsListFragment;
-export type ResearchUnitsListFragment$key = {
-    readonly " $data"?: ResearchUnitsListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ResearchUnitsListFragment">;
+export type UnitListFragment$data = UnitListFragment;
+export type UnitListFragment$key = {
+    readonly " $data"?: UnitListFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"UnitListFragment">;
 };
 
 
@@ -28,7 +28,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ResearchUnitsListFragment",
+  "name": "UnitListFragment",
   "selections": [
     {
       "alias": null,
@@ -88,5 +88,5 @@ const node: ReaderFragment = {
   "type": "EntityDescendantConnection",
   "abstractKey": null
 };
-(node as any).hash = '75e2310e7c9688aa4ed70e990f199d81';
+(node as any).hash = '6e473d596371c37221073b764be4eee4';
 export default node;

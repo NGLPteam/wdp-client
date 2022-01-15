@@ -16,7 +16,7 @@ export type CommunityLandingLayoutFragment = {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsListFragment" | "FeaturedCollectionsGridFragment">;
     };
     readonly descendants: {
-        readonly " $fragmentRefs": FragmentRefs<"ResearchUnitsListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"UnitListFragment">;
     };
     readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     readonly " $refType": "CommunityLandingLayoutFragment";
@@ -149,7 +149,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ResearchUnitsListFragment"
+          "name": "UnitListFragment"
         }
       ],
       "storageKey": "descendants(order:\"TITLE_ASCENDING\",schema:\"nglp:unit\")"
@@ -164,5 +164,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6893acc6753002ea227371e792b51243';
+(node as any).hash = '715d7c928f45c46235372fd371be6e5c';
 export default node;

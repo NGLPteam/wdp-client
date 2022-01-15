@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import BaseImage from "next/image";
 import { respond, lGrid } from "theme/mixins";
+import { ArrowList } from "components/atomic";
 
 export const Inner = styled.div`
   ${lGrid()}
@@ -33,41 +34,26 @@ export const TextColumn = styled.div`
 
 export const HeaderBlock = styled.div`
   padding-block-end: ${pxToRem(12)};
-  border-bottom: 1px solid currentColor;
+  border-bottom: 1px solid var(--border-color);
 `;
 
-export const UnitsList = styled.ul`
+export const UnitsList = styled(ArrowList)`
   padding-block-start: ${pxToRem(28)};
   padding-block-end: var(--padding-lg);
-  border-bottom: 1px solid currentColor;
-`;
+  border-bottom: 1px solid var(--border-color);
 
-export const ListItem = styled.li`
-  & + & {
+  > li + li {
     margin-block-start: ${pxToRem(20)};
   }
-`;
 
-export const UnitLink = styled.a`
-  display: flex;
-
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-
-  > svg {
+  & li::before {
     flex-shrink: 0;
-    margin-block-start: ${pxToRem(4)};
-  }
-
-  > * + * {
-    padding-inline-start: ${pxToRem(14)};
+    margin-inline-end: ${pxToRem(14)};
   }
 `;
 
 export const ImageColumn = styled.div`
-  grid-column: 7 / 12;
+  grid-column: 7 / 13;
 
   ${respond(
     `
