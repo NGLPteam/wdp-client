@@ -1,49 +1,40 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { tLineClamp, respond, aFocus } from "theme/mixins";
+import { aFocus, respond, tLineClamp } from "theme/mixins";
 
 export const Wrapper = styled.div`
   display: flex;
+  ${respond(`flex-wrap: wrap;`, 50)}
 
-  ${respond(`flex-direction: column-reverse;`, 70)}
-`;
-
-export const Text = styled.div`
-  flex: 1 1 auto;
-
-  > * + * {
-    margin-block-start: ${pxToRem(12)};
+  & + & {
+    padding-block-start: var(--padding-xl);
   }
 `;
 
-export const ThumbnailLink = styled.a`
-  display: block;
-  flex: 0;
-  margin-inline-start: var(--padding-lg);
+export const ItemCoverLink = styled.a`
+  margin-inline-end: var(--padding-lg);
+  flex: 0 0 120px;
+
+  ${respond(`margin-block-end: var(--padding-lg);`, 50)}
 
   ${aFocus()}
+`;
 
-  ${respond(
-    `
-    margin-inline-start: 0;
-    margin-block-end: var(--padding-md);
-  `,
-    70
-  )}
+export const TextBlock = styled.div`
+  flex: 1 1 100%;
 `;
 
 export const Headers = styled.div`
+  padding-block-end: ${pxToRem(12)};
+
   > * + * {
-    margin-block-start: ${pxToRem(4)};
+    padding-block-start: var(--padding-xs);
   }
 `;
 
-export const Summary = styled.div`
-  ${tLineClamp(3)}
+export const Summary = styled.p`
+  padding-block-start: var(--padding-sm);
+  ${tLineClamp(2)}
 `;
 
-export const Metadata = styled.div`
-  > * + * {
-    margin-block-start: ${pxToRem(2)};
-  }
-`;
+export const Metadata = styled.div``;
