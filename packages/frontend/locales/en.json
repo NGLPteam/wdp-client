@@ -121,7 +121,8 @@
       "announcements_header": "Announcements",
       "how_to_cite": "How to Cite",
       "article_count": "{{count}} Article",
-      "article_count_plural": "{{count}} Articles"
+      "article_count_plural": "{{count}} Articles",
+      "research_units": "Research Units"
     },
     "nav": {
       "home": "Home",
