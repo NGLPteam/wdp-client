@@ -7,14 +7,15 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type JournalSummaryFragment = {
+    readonly id: string;
     readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
     readonly updatedAt: string;
     readonly summary: string | null;
-    readonly thumbnail: {
+    readonly cover: {
         readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     };
     readonly issues: {
         readonly pageInfo: {
@@ -43,6 +44,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
       "storageKey": null
     },
     {
@@ -81,7 +89,7 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
+      "alias": "cover",
       "args": null,
       "concreteType": "ImageAttachment",
       "kind": "LinkedField",
@@ -98,7 +106,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "SquareThumbnailFragment"
+          "name": "CoverImageFragment"
         }
       ],
       "storageKey": null
@@ -149,5 +157,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'feaa1bc2ededfde1adf21131efe11f24';
+(node as any).hash = 'dbd31231f3d56e4f8e86a95670e6d20d';
 export default node;

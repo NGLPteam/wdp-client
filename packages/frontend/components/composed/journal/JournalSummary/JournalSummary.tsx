@@ -8,7 +8,7 @@ import {
   ReadMoreLink,
   DotList,
   NamedLink,
-  SquareThumbnail,
+  CoverImage,
 } from "components/atomic";
 import { JournalSummaryFragment$key } from "@/relay/JournalSummaryFragment.graphql";
 import { getRouteByEntityType } from "helpers";
@@ -22,7 +22,22 @@ export default function JournalSummary({ data, showReadMore }: Props) {
 
   return journal ? (
     <Styled.Wrapper>
-      <Styled.Text>
+      <NamedLink
+        route="collection"
+        routeParams={{ slug: journal.slug }}
+        passHref
+      >
+        <Styled.ItemCoverLink>
+          <CoverImage
+            id={journal.id}
+            title={journal.title}
+            data={journal.cover}
+            maxWidth={120}
+            maxHeight={160}
+          />
+        </Styled.ItemCoverLink>
+      </NamedLink>
+      <Styled.TextBlock>
         <Styled.Headers>
           {journal.title && journal.slug && route && (
             <h4>
@@ -71,14 +86,7 @@ export default function JournalSummary({ data, showReadMore }: Props) {
             <ReadMoreLink className="t-label-sm" />
           </NamedLink>
         )}
-      </Styled.Text>
-      {journal.thumbnail.storage && route && journal.slug && (
-        <NamedLink route={route} routeParams={{ slug: journal.slug }} passHref>
-          <Styled.ThumbnailLink>
-            <SquareThumbnail data={journal.thumbnail} />
-          </Styled.ThumbnailLink>
-        </NamedLink>
-      )}
+      </Styled.TextBlock>
     </Styled.Wrapper>
   ) : null;
 }
@@ -91,14 +99,15 @@ interface Props {
 const fragment = graphql`
   fragment JournalSummaryFragment on Collection {
     __typename
+    id
     slug
     title
     subtitle
     updatedAt
     summary
-    thumbnail {
+    cover: thumbnail {
       storage
-      ...SquareThumbnailFragment
+      ...CoverImageFragment
     }
     issues: descendants(scope: COLLECTION, schema: ["nglp:journal_issue"]) {
       pageInfo {
