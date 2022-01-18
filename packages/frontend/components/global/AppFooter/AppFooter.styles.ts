@@ -86,8 +86,8 @@ export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
 
-  > * + * {
-    margin-inline-start: var(--grid-column-gap);
+  > *:first-child {
+    margin-inline-end: var(--grid-column-gap);
   }
 
   > p {

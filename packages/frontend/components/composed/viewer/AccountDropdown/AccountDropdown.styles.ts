@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { aHidden } from "@wdp/lib/theme/mixins";
 import { IconFactory } from "components/factories";
 import {
   aLinkBase,
@@ -32,6 +33,10 @@ export const Name = styled.span`
     ${tLabel("mix")}
     order: -1;
     margin-inline-end: var(--padding-sm);
+
+    &[data-condensed="true"] {
+      ${aHidden}
+    }
   `,
     "min"
   )}

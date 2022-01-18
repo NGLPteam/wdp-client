@@ -19,7 +19,9 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           disclosure={
             <Styled.AccountButton>
               {avatarUrl && <Avatar url={avatarUrl} />}
-              {name && <Styled.Name>{name}</Styled.Name>}
+              {name && (
+                <Styled.Name data-condensed={condensed}>{name}</Styled.Name>
+              )}
               <Styled.Icon icon="chevronDown" />
             </Styled.AccountButton>
           }

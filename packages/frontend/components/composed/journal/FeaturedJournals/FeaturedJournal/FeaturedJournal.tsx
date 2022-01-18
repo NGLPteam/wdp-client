@@ -3,7 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate } from "@wdp/lib/helpers";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./FeaturedJournals.styles";
+import * as Styled from "./FeaturedJournal.styles";
 import { NamedLink, CoverImage } from "components/atomic";
 import { FeaturedJournalFragment$key } from "@/relay/FeaturedJournalFragment.graphql";
 
@@ -12,13 +12,9 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
   const { t } = useTranslation();
 
   return journal ? (
-    <Styled.ItemWrapper>
-      <Styled.ItemCover>
-        <NamedLink
-          route="collection"
-          routeParams={{ slug: journal.slug }}
-          passHref
-        >
+    <NamedLink route="collection" routeParams={{ slug: journal.slug }} passHref>
+      <Styled.ItemWrapper as="a">
+        <Styled.ItemCover>
           <Styled.CoverLink>
             <CoverImage
               id={journal.id}
@@ -28,14 +24,8 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
               maxHeight={coverHeight}
             />
           </Styled.CoverLink>
-        </NamedLink>
-      </Styled.ItemCover>
-      <NamedLink
-        route="collection"
-        routeParams={{ slug: journal.slug }}
-        passHref
-      >
-        <Styled.ItemText as="a">
+        </Styled.ItemCover>
+        <Styled.ItemText>
           <Styled.ItemTitle>
             <Styled.ItemLinkText>{journal.title}</Styled.ItemLinkText>
           </Styled.ItemTitle>
@@ -61,8 +51,8 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
             )}
           </Styled.ItemData>
         </Styled.ItemText>
-      </NamedLink>
-    </Styled.ItemWrapper>
+      </Styled.ItemWrapper>
+    </NamedLink>
   ) : null;
 }
 
