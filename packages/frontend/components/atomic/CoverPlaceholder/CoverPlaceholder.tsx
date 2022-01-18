@@ -4,7 +4,6 @@ import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import * as Styled from "./CoverPlaceholder.styles";
-import { baseColors } from "theme/base/variables";
 
 export default function CoverPlaceholder({
   seed,
@@ -29,22 +28,39 @@ export default function CoverPlaceholder({
 
   const themes = [
     {
-      titleBackground: "#d8cabb",
-      titleColor: "#5c5a5a",
-      background: "#d3c1af",
-      foreground: "#7e7e82",
+      // Natural
+      titleBackground: "#D4C1AE",
+      titleColor: "#61574E",
+      background: "#9E8E7E",
+      foreground: "#807366",
     },
     {
-      titleBackground: "#fdd2d2",
-      titleColor: "#cd7660",
-      background: "#fdc7c1",
-      foreground: "#c55e28",
+      // Blue
+      titleBackground: "#BEC4D4",
+      titleColor: "#4F5870",
+      background: "#8492B5",
+      foreground: "#687594",
     },
     {
-      background: baseColors.neutral60,
-      foreground: baseColors.neutral80,
-      titleBackground: baseColors.neutral30,
-      titleColor: baseColors.neutral80,
+      // Green
+      titleBackground: "#B1C4B1",
+      titleColor: "#4F5C4E",
+      background: "#829782",
+      foreground: "#697A69",
+    },
+    {
+      // Orange
+      titleBackground: "#B1C4B1",
+      titleColor: "#4F5C4E",
+      background: "#829782",
+      foreground: "#697A69",
+    },
+    {
+      // Pink
+      titleBackground: "#DEB6BF",
+      titleColor: "#754C56",
+      background: "#BA828F",
+      foreground: "#9E6774",
     },
   ];
   const nextTheme = mkNextElement(themes);
