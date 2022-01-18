@@ -54,15 +54,10 @@ function AppFooter({
             egestas adipiscing placerat accumsan pharetra volutpat viverra sit
             proin.
           </p>
-          <>
-            <Styled.InstallationDesktop>
-              <InstallationName />
-              {communityPicker}
-            </Styled.InstallationDesktop>
-            <Styled.CommunityPickerMobile>
-              {communityPicker}
-            </Styled.CommunityPickerMobile>
-          </>
+          <Styled.InstallationDesktop>
+            <Styled.InstallationDesktopName as={InstallationName} />
+            {communityPicker}
+          </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
           {footerData.nav.map(({ label, children }) => (

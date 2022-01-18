@@ -41,7 +41,9 @@ export const Name = styled.span`
     "min"
   )}
 
+  /* stylelint-disable selector-type-no-unknown */
   ${AccountButton}:hover & {
     ${aLinkHoverFocus}
   }
+  /* stylelint-enable selector-type-no-unknown */
 `;
