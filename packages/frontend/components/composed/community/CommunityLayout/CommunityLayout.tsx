@@ -48,7 +48,6 @@ export default function CommunityLayout({
             <CommunityPicker data={appData} />
           )
         }
-        footerBackground={isCommunityRoot ? "custom10" : "custom20"}
       >
         {community && <CommunityHTMLHead data={community} />}
         {community && isCommunityRoot && <CommunityNav data={community} />}
