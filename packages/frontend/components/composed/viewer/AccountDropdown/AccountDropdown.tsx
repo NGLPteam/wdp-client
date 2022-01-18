@@ -13,18 +13,13 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
   const signInOutClass = mobile ? "t-label-lg" : "t-label-sm";
 
   return (
-    <div className="l-flex l-flex--align-center l-flex--gap">
-      {name && !condensed && !mobile && (
-        <span className="t-label-mix">{name}</span>
-      )}
+    <Styled.Wrapper>
       {avatarUrl ? (
         <Dropdown
           disclosure={
             <Styled.AccountButton>
               {avatarUrl && <Avatar url={avatarUrl} />}
-              {name && mobile && (
-                <Styled.Name className="t-copy-sm">{name}</Styled.Name>
-              )}
+              {name && <Styled.Name>{name}</Styled.Name>}
               <Styled.Icon icon="chevronDown" />
             </Styled.AccountButton>
           }
@@ -42,7 +37,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           </button>
         )
       )}
-    </div>
+    </Styled.Wrapper>
   );
 }
 
