@@ -52,7 +52,7 @@ export default function CurrentIssue({ data }: Props) {
                 routeParams={{ slug: issue.slug }}
                 passHref
               >
-                <Styled.IssueTitle as="a">
+                <Styled.IssueTitle as="a" className="a-link">
                   <span>{issue.title}</span>
                   {issue.volume && (
                     <span className="a-color-lighter">
