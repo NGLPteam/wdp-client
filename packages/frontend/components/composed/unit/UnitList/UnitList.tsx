@@ -24,15 +24,17 @@ export default function ResearchUnitsList({ data }: Props) {
           <Styled.UnitsList className="t-copy-medium">
             {units.edges.map((edge) =>
               edge.node.descendant.slug ? (
-                <li key={edge.node.descendant.slug}>
+                <Styled.UnitsListItem key={edge.node.descendant.slug}>
                   <NamedLink
                     route="collection"
                     routeParams={{ slug: edge.node.descendant.slug }}
                     passHref
                   >
-                    <a className="a-link">{edge.node.descendant.title}</a>
+                    <span>
+                      <a className="a-link">{edge.node.descendant.title}</a>
+                    </span>
                   </NamedLink>
-                </li>
+                </Styled.UnitsListItem>
               ) : null
             )}
           </Styled.UnitsList>
