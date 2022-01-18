@@ -8,6 +8,10 @@ export const Section = styled.div`
   align-items: flex-start;
 `;
 
+export const ChildrenWrapper = styled.div`
+  flex: 1 0 auto;
+`;
+
 export const ButtonWrapper = styled.div`
   position: sticky;
   top: 0;
