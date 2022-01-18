@@ -15,7 +15,7 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
     <NamedLink route="collection" routeParams={{ slug: journal.slug }} passHref>
       <Styled.ItemWrapper as="a">
         <Styled.ItemCover>
-          <Styled.CoverLink>
+          <Styled.CoverWrapper>
             <CoverImage
               id={journal.id}
               title={journal.title}
@@ -23,7 +23,7 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
               maxWidth={300}
               maxHeight={coverHeight}
             />
-          </Styled.CoverLink>
+          </Styled.CoverWrapper>
         </Styled.ItemCover>
         <Styled.ItemText>
           <Styled.ItemTitle>
