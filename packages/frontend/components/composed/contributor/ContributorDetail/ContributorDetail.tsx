@@ -8,9 +8,9 @@ import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
 import { ExternalLink } from "components/atomic";
-import EntitySummary from "components/composed/entity/EntitySummary";
 import { BackToTopBlock } from "components/layout";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
+import ContributionSummary from "components/composed/contribution/ContributionSummary";
 
 export default function ContributorDetail({ data }: Props) {
   const contributor = useMaybeFragment(fragment, data);
@@ -66,16 +66,14 @@ export default function ContributorDetail({ data }: Props) {
               {t("layouts.contributions_header")}
             </Styled.ContributionsHeader>
             <Styled.ContributionList>
-              {contributor.collectionContributions.nodes.map(
-                ({ collection }, i) => (
-                  <Styled.ContributionItem key={i}>
-                    <EntitySummary data={collection} showReadMore />
-                  </Styled.ContributionItem>
-                )
-              )}
-              {contributor.itemContributions.nodes.map(({ item }, i) => (
+              {contributor.collectionContributions.nodes.map((node, i) => (
                 <Styled.ContributionItem key={i}>
-                  <EntitySummary data={item} showReadMore />
+                  <ContributionSummary data={node} showReadMore />
+                </Styled.ContributionItem>
+              ))}
+              {contributor.itemContributions.nodes.map((node, i) => (
+                <Styled.ContributionItem key={i}>
+                  <ContributionSummary data={node} showReadMore />
                 </Styled.ContributionItem>
               ))}
             </Styled.ContributionList>
@@ -99,18 +97,12 @@ const fragment = graphql`
       bio
       collectionContributions {
         nodes {
-          role
-          collection {
-            ...EntitySummaryFragment
-          }
+          ...ContributionSummaryFragment
         }
       }
       itemContributions {
         nodes {
-          role
-          item {
-            ...EntitySummaryFragment
-          }
+          ...ContributionSummaryFragment
         }
       }
       image {

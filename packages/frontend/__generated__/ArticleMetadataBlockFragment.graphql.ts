@@ -19,6 +19,9 @@ export type ArticleMetadataBlockFragment = {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly onlineVersion: {
+        readonly url?: {
+            readonly href: string | null;
+        } | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
@@ -33,12 +36,13 @@ export type ArticleMetadataBlockFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "MetadataFactoryFragment"
-  }
+var v0 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "MetadataFactoryFragment"
+},
+v1 = [
+  (v0/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -59,7 +63,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"meta.collected\")"
     },
     {
@@ -75,7 +79,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"meta.published\")"
     },
     {
@@ -91,7 +95,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"meta.page_count\")"
     },
     {
@@ -107,7 +111,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"volume.id\")"
     },
     {
@@ -123,7 +127,34 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "URLReference",
+              "kind": "LinkedField",
+              "name": "url",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "href",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "URLProperty",
+          "abstractKey": null
+        },
+        (v0/*: any*/)
+      ],
       "storageKey": "schemaProperty(fullPath:\"online_version\")"
     },
     {
@@ -136,5 +167,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6505a72ba4724e33787e8e6799fd1912';
+(node as any).hash = '0919fb262b35f6a361b94897add2968f';
 export default node;

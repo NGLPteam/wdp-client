@@ -38,21 +38,14 @@ export const LeftSide = styled.div`
   display: flex;
   align-items: center;
 
-  > * + * {
-    margin-inline-start: var(--grid-column-gap);
-  }
-
-  > p {
-    padding-block-end: ${pxToRem(3)};
-  }
-
-  ${globalNavRespond(`display: none`)}
+  ${globalNavRespond(`--button-secondary-bg-color: var(--color-custom20);`)}
 `;
 
-export const MobileLeft = styled.div`
-  --button-secondary-bg-color: var(--color-custom20);
+export const InstallationName = styled.span`
+  margin-inline-end: var(--grid-column-gap);
+  padding-block-end: ${pxToRem(3)};
 
-  ${globalNavRespond(`display: none`, "min")}
+  ${globalNavRespond(`display: none`)}
 `;
 
 export const RightSide = styled.div`

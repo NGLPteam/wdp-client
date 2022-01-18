@@ -45,12 +45,9 @@ function AppHeader({ data }: Props) {
         {appData && (
           <>
             <Styled.LeftSide>
-              <InstallationName />
+              <Styled.InstallationName as={InstallationName} />
               <CommunityPicker data={appData} />
             </Styled.LeftSide>
-            <Styled.MobileLeft>
-              <CommunityPicker data={appData} />
-            </Styled.MobileLeft>
           </>
         )}
         <Styled.RightSide>

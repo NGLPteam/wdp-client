@@ -86,26 +86,21 @@ export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
 
-  > * + * {
-    margin-inline-start: var(--grid-column-gap);
-  }
+  ${globalNavRespond(`
+    margin-block-start: var(--container-padding-sm);
+  `)}
+`;
 
-  > p {
-    padding-block-end: ${pxToRem(3)};
-  }
+export const InstallationDesktopName = styled.div`
+  margin-inline-end: var(--grid-column-gap);
 
-  ${globalNavRespond(`display: none;`)}
+  ${globalNavRespond(`
+      display: none;
+    `)}
 `;
 
 export const InstallationMobile = styled.div`
   margin-block-end: ${pxToRem(12)};
-
-  ${globalNavRespond(`display: none;`, "min")}
-`;
-
-export const CommunityPickerMobile = styled.div`
-  --button-secondary-bg-color: var(--color-base-neutral00);
-  margin-block-start: var(--container-padding-sm);
 
   ${globalNavRespond(`display: none;`, "min")}
 `;

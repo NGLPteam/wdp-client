@@ -41,12 +41,14 @@ export const UnitsList = styled(ArrowList)`
   padding-block-start: ${pxToRem(28)};
   padding-block-end: var(--padding-lg);
   border-bottom: 1px solid var(--border-color);
+`;
 
-  > li + li {
+export const UnitsListItem = styled.li`
+  & + & {
     margin-block-start: ${pxToRem(20)};
   }
 
-  & li::before {
+  &::before {
     flex-shrink: 0;
     margin-inline-end: ${pxToRem(14)};
   }

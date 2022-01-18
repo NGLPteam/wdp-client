@@ -47,7 +47,7 @@ export default function BackToTopBlock({ className, children }: Props) {
 
   return (
     <Styled.Section ref={elRef} className={className}>
-      <div ref={childRef}>{children}</div>
+      <Styled.ChildrenWrapper ref={childRef}>{children}</Styled.ChildrenWrapper>
       <Styled.ButtonWrapper hidden={hideButton}>
         <Button onClick={handleClick} secondary icon="arrowUp">
           {t("common.back_to_top")}

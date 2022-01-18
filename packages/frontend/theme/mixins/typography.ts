@@ -25,7 +25,7 @@ export const tCopySmall = css`
 `;
 
 export function tLabel(style: "sm" | "lg" | "mix") {
-  return css`
+  return `
     text-transform: ${style === "mix" ? "none" : "uppercase"};
     font-size: var(--font-size-label-${style});
     font-weight: var(--font-weight-label-${style});

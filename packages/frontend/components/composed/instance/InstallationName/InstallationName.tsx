@@ -1,20 +1,17 @@
 import * as React from "react";
 import Link from "next/link";
 
-export default function InstallationName() {
+export default function InstallationName({ className }: Props) {
+  const linkClasses = "t-label-mix a-link";
   return (
     <Link href="/">
-      <a className="t-label-mix a-link">WDP Installation Name</a>
+      <a className={className ? `${className} ${linkClasses}` : linkClasses}>
+        WDP Installation Name
+      </a>
     </Link>
   );
 }
 
-// type Props = {
-//   data: InstallationNameFragment$key;
-// };
-
-// const fragment = graphql`
-//   fragment InstallationNameFragment on Query {
-//     # TODO: Get installation name
-//   }
-// `;
+type Props = {
+  className?: string;
+};

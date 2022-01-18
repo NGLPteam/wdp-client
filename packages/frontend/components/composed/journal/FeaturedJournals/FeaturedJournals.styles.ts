@@ -1,14 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
-import {
-  respond,
-  fluidScale,
-  tLineClamp,
-  aLinkHoverFocus,
-  aLinkBase,
-  aFocusReset,
-} from "theme/mixins";
+import { respond, fluidScale } from "theme/mixins";
 
 const DESKTOP_BREAK = 100;
 
@@ -60,85 +53,6 @@ export const ListItem = styled.li`
       background: var(--FeaturedJournalsCover-background-color);
 
       ${respond(`display: none;`, DESKTOP_BREAK)}
-    }
-  }
-`;
-
-export const ItemWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-export const ItemCover = styled.div`
-  --FeaturedJournals-cover-v-padding: ${fluidScale("36px", "60px")};
-
-  background-color: var(--FeaturedJournalsCover-background-color);
-  flex: 1 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(
-    var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
-      var(--FeaturedJournals-cover-v-padding) * 2
-  );
-  padding-block-start: var(--FeaturedJournals-cover-v-padding);
-  padding-block-end: var(--FeaturedJournals-cover-v-padding);
-  padding-inline-start: var(--container-padding-sm);
-  padding-inline-end: var(--container-padding-sm);
-`;
-
-export const CoverLink = styled.a`
-  display: inline-block;
-  ${aFocusReset}
-
-  svg {
-    width: 100%;
-  }
-`;
-
-export const ItemLinkText = styled.span`
-  ${aLinkBase}
-`;
-
-export const ItemText = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: ${pxToRem(410 + 60)};
-  margin: 0 auto;
-  padding-inline-start: ${pxToRem(30)};
-  padding-inline-end: ${pxToRem(30)};
-  padding-block-start: ${pxToRem(20)};
-  padding-block-end: ${fluidScale("80px", "60px")};
-  text-align: center;
-  height: 100%;
-
-  ${aFocusReset}
-
-  &:hover,
-  &:focus-visible {
-    ${ItemLinkText} {
-      ${aLinkHoverFocus}
-    }
-  }
-`;
-
-export const ItemTitle = styled.h4`
-  ${tLineClamp(2)}
-  padding-block-end: 1px;
-`;
-
-export const ItemSubtitle = styled.div`
-  padding-block-start: var(--padding-xs);
-  margin-block-end: ${pxToRem(24)};
-`;
-
-export const ItemData = styled.div`
-  margin-block-start: auto;
-
-  > * + * {
-    &:before {
-      content: ", ";
     }
   }
 `;

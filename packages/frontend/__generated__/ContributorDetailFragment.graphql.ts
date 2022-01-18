@@ -10,18 +10,12 @@ export type ContributorDetailFragment = {
     readonly bio: string | null;
     readonly collectionContributions: {
         readonly nodes: ReadonlyArray<{
-            readonly role: string | null;
-            readonly collection: {
-                readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment">;
-            };
+            readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryFragment">;
         }>;
     };
     readonly itemContributions: {
         readonly nodes: ReadonlyArray<{
-            readonly role: string | null;
-            readonly item: {
-                readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment">;
-            };
+            readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryFragment">;
         }>;
     };
     readonly image: {
@@ -46,21 +40,14 @@ export type ContributorDetailFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "role",
-  "storageKey": null
-},
-v1 = [
+var v0 = [
   {
     "args": null,
     "kind": "FragmentSpread",
-    "name": "EntitySummaryFragment"
+    "name": "ContributionSummaryFragment"
   }
 ],
-v2 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -95,19 +82,7 @@ return {
           "kind": "LinkedField",
           "name": "nodes",
           "plural": true,
-          "selections": [
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Collection",
-              "kind": "LinkedField",
-              "name": "collection",
-              "plural": false,
-              "selections": (v1/*: any*/),
-              "storageKey": null
-            }
-          ],
+          "selections": (v0/*: any*/),
           "storageKey": null
         }
       ],
@@ -128,19 +103,7 @@ return {
           "kind": "LinkedField",
           "name": "nodes",
           "plural": true,
-          "selections": [
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Item",
-              "kind": "LinkedField",
-              "name": "item",
-              "plural": false,
-              "selections": (v1/*: any*/),
-              "storageKey": null
-            }
-          ],
+          "selections": (v0/*: any*/),
           "storageKey": null
         }
       ],
@@ -177,7 +140,7 @@ return {
       "name": "links",
       "plural": true,
       "selections": [
-        (v2/*: any*/),
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -203,7 +166,7 @@ return {
           "name": "affiliation",
           "storageKey": null
         },
-        (v2/*: any*/)
+        (v1/*: any*/)
       ],
       "type": "PersonContributor",
       "abstractKey": null
@@ -213,5 +176,5 @@ return {
   "abstractKey": "__isContributor"
 };
 })();
-(node as any).hash = '18ef3258c7c1e636dd39a6ab36fd7efd';
+(node as any).hash = '3cdd7364e75bdc92372a4945545267e0';
 export default node;
