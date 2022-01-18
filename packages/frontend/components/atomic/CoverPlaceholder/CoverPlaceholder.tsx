@@ -182,44 +182,52 @@ export default function CoverPlaceholder({
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} style={style}>
-      <rect width={width} height={height} fill={theme.background} />
-
-      {pattern.map((cell, index) => (
-        <svg
-          key={index}
-          color={theme.foreground}
-          style={{ overflow: "none" }}
-          y={Math.floor(index / 3) * gridSize}
-          x={Math.floor(index % 3) * gridSize}
-        >
-          <rect
-            width={gridSize + 1}
-            height={gridSize + 1}
-            fill={theme.background}
-          />
-          {cell?.path}
-        </svg>
-      ))}
-
-      <>
+      <clipPath id="placeholder-mask">
         <rect
-          y={titlePositionY}
+          x="0"
+          y="0"
           width={width}
-          height={titleHeight}
-          fill={theme.titleBackground}
+          height={height}
+          fill={theme.background}
         />
-        {titleChunks &&
-          titleChunks.map((row, index) => (
-            <Styled.TitleText
-              key={index}
-              color={theme.titleColor}
-              x={titleLeftPadding}
-              y={titlePositionY + titleTopPadding + (index + 1) * lineHeight}
-            >
-              {row}
-            </Styled.TitleText>
-          ))}{" "}
-      </>
+      </clipPath>
+      <g clipPath="url(#placeholder-mask)">
+        {pattern.map((cell, index) => (
+          <svg
+            key={index}
+            color={theme.foreground}
+            y={Math.floor(index / 3) * gridSize}
+            x={Math.floor(index % 3) * gridSize}
+          >
+            <rect
+              width={gridSize + 1}
+              height={gridSize + 1}
+              fill={theme.background}
+            />
+            {cell?.path}
+          </svg>
+        ))}
+
+        <>
+          <rect
+            y={titlePositionY}
+            width={width}
+            height={titleHeight}
+            fill={theme.titleBackground}
+          />
+          {titleChunks &&
+            titleChunks.map((row, index) => (
+              <Styled.TitleText
+                key={index}
+                color={theme.titleColor}
+                x={titleLeftPadding}
+                y={titlePositionY + titleTopPadding + (index + 1) * lineHeight}
+              >
+                {row}
+              </Styled.TitleText>
+            ))}{" "}
+        </>
+      </g>
     </svg>
   );
 }
