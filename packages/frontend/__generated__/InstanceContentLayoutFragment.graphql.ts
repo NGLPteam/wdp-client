@@ -7,6 +7,14 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type InstanceContentLayoutFragment = {
     readonly communities: {
+        readonly edges: ReadonlyArray<{
+            readonly node: {
+                readonly slug: string;
+            };
+        }>;
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
         readonly " $fragmentRefs": FragmentRefs<"InstanceCommunitiesFragment">;
     };
     readonly " $refType": "InstanceContentLayoutFragment";
@@ -34,6 +42,53 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "alias": null,
+          "args": null,
+          "concreteType": "CommunityEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "Community",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "slug",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "InstanceCommunitiesFragment"
@@ -45,5 +100,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '3d6e4127a3732264ab6baf106618bbca';
+(node as any).hash = 'a745b2470c381191b73626955421e06f';
 export default node;
