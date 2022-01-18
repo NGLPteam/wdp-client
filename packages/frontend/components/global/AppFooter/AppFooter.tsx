@@ -9,11 +9,7 @@ import { Search } from "components/forms";
 import { RouteHelper } from "routes";
 
 // Note: About text and community name will come from backend data
-function AppFooter({
-  nameComponent,
-  communityPicker,
-  background = "custom10",
-}: Props) {
+function AppFooter({ nameComponent, communityPicker }: Props) {
   const { t } = useTranslation();
   const today = new Date();
   const { footerData } = appData;
@@ -32,7 +28,7 @@ function AppFooter({
   }
 
   return (
-    <Styled.FooterWrapper className={`a-bg-${background}`}>
+    <Styled.FooterWrapper className={`a-bg-custom20`}>
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
           {nameComponent}
@@ -85,7 +81,6 @@ function AppFooter({
 interface Props {
   nameComponent?: React.ReactNode;
   communityPicker: React.ReactNode;
-  background?: string;
 }
 
 export default AppFooter;

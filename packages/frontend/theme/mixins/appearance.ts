@@ -37,6 +37,7 @@ export function aBgCustom20() {
   return css`
     --background-color: var(--color-custom20);
     --color-light: ${baseColors.neutral80};
+    --color-lighter: ${baseColors.neutral80};
     --button-secondary-bg-color: var(--color-custom10);
     --button-secondary-bg-focus-color: var(--color-custom20);
 

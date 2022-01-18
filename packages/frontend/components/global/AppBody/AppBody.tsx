@@ -12,7 +12,6 @@ function AppBody({
   nameComponent,
   headerNavComponent,
   communityPicker,
-  footerBackground,
 }: Props) {
   const appData = useMaybeFragment(fragment, data);
 
@@ -23,7 +22,6 @@ function AppBody({
       <AppFooter
         nameComponent={nameComponent}
         communityPicker={communityPicker}
-        background={footerBackground}
       />
     </Styled.Body>
   );
@@ -35,7 +33,6 @@ interface Props {
   /** This component will replace the "Instance Name" text in the footer */
   nameComponent?: React.ReactNode;
   headerNavComponent?: React.ReactNode;
-  footerBackground?: string;
   communityPicker?: React.ReactNode;
 }
 
