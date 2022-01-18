@@ -45,12 +45,12 @@ export const ItemCover = styled.div`
   padding-inline-end: var(--container-padding-sm);
 `;
 
-export const CoverLink = styled.span`
-  display: inline-block;
+export const CoverWrapper = styled.span`
   ${aFocusReset}
 
   svg {
     width: 100%;
+    max-width: 225px !important;
   }
 `;
 
