@@ -143,6 +143,7 @@ export default function CollectionUpdateForm({
       onSaveAndClose={onSaveAndClose}
       onCancel={onCancel}
       successNotification="messages.update.collection_success"
+      failureNotification="messages.update.collection_failure"
       mutation={mutation}
       toVariables={toVariables}
       defaultValues={defaultValues}

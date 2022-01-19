@@ -15,8 +15,8 @@ function CollectionDetails({ data }: Props) {
       <SchemaInstanceForm
         instance={data?.collection}
         schemaKind="COLLECTION"
-        successNotification="forms.collection.update.schemaSuccess"
-        failureNotification="forms.collection.update.schemaFailure"
+        successNotification="messages.update.schema_success"
+        failureNotification="messages.update.schema_failure"
       />
     </>
   ) : (
