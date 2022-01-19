@@ -30,21 +30,35 @@ export default function EntityNavList({ data }: Props) {
 
   const typeRoute = getRouteByEntityType(entity?.__typename);
 
-  const dropdownLinks = entity
-    ? entity.orderings.edges
-        .filter(({ node }) => node.children?.pageInfo?.totalCount)
-        .map(({ node }, i) =>
-          slug ? (
-            <NamedLink
-              key={i}
-              route={`${typeRoute}.browse`}
-              routeParams={{ slug, ordering: node.identifier }}
-              passHref
-            >
-              <Link>{node.name}</Link>
-            </NamedLink>
-          ) : null
-        )
+  const activeOrderings = entity
+    ? entity.orderings.edges.filter(
+        ({ node }) => node.children?.pageInfo?.totalCount
+      )
+    : [];
+  const dropdownLinks = slug
+    ? activeOrderings.length === 1
+      ? activeOrderings.map(({ node }, i) => (
+          <NamedLink
+            key={i}
+            route={`${typeRoute}.browse`}
+            routeParams={{ slug, ordering: node.identifier }}
+            passHref
+          >
+            <Button size="sm" secondary>
+              {t("nav.browse_schema", { schema: node.name })}
+            </Button>
+          </NamedLink>
+        ))
+      : activeOrderings.map(({ node }, i) => (
+          <NamedLink
+            key={i}
+            route={`${typeRoute}.browse`}
+            routeParams={{ slug, ordering: node.identifier }}
+            passHref
+          >
+            <Link>{node.name}</Link>
+          </NamedLink>
+        ))
     : [];
 
   return (
