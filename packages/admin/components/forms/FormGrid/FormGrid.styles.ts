@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { respond } from "theme/mixins/base";
+import { pxToRem } from "theme/mixins/functions";
 
 export const Grid = styled.div`
   display: flex;
@@ -20,5 +21,20 @@ export const Grid = styled.div`
 
   fieldset & {
     padding-block-end: 0;
+  }
+
+  > fieldset + div {
+    border-top: 1px solid var(--neutral40);
+    padding-block-start: ${pxToRem(40)};
+    margin-block-start: calc(${pxToRem(40)} - var(--form-grid-row-gap));
+
+    ${respond(
+      `
+        padding-block-start: ${pxToRem(48)};
+        margin-block-start: calc(${pxToRem(48)} - var(--form-grid-row-gap));
+
+      `,
+      50
+    )}
   }
 `;

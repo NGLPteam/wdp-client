@@ -18,13 +18,7 @@ export default function GroupProperty(props: Props) {
         ))}
       </FormGrid>
     </FieldsetSection>
-  ) : (
-    <>
-      {group.properties.map((prop, index) => (
-        <SchemaProperty field={prop} key={index} />
-      ))}
-    </>
-  );
+  ) : null;
 }
 
 interface Props {
