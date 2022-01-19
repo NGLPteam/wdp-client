@@ -1,17 +1,35 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React, { useMemo } from "react";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ProviderBar.styles";
-import appData from "fixtures/app.data";
+import { useGlobalContext } from "hooks";
+import { ProviderBarFragment$key } from "@/relay/ProviderBarFragment.graphql";
 
 const ProviderBar = () => {
-  const { siteInfo } = appData;
-  const { t } = useTranslation();
+  const data = useGlobalContext();
+
+  const siteData = useMaybeFragment<ProviderBarFragment$key>(
+    fragment,
+    data?.globalConfiguration
+  );
+
+  const name = useMemo(() => {
+    return siteData?.site?.providerName;
+  }, [siteData]);
 
   return (
     <Styled.Wrapper className="a-bg-brand90">
-      <span className="t-label-md">{t(siteInfo.provider)}</span>
+      <span className="t-label-md">{name}</span>
     </Styled.Wrapper>
   );
 };
 
 export default ProviderBar;
+
+const fragment = graphql`
+  fragment ProviderBarFragment on GlobalConfiguration {
+    site {
+      providerName
+    }
+  }
+`;

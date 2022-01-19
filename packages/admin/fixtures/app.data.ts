@@ -38,7 +38,6 @@ const appData = {
   siteInfo: {
     title: "app.title",
     description: "app.description",
-    provider: "app.provider",
     institution: "app.institution",
   },
   headerData: {

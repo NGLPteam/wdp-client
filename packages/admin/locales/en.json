@@ -4,7 +4,6 @@
     "app": {
       "title": "NGLP",
       "description": "...",
-      "provider": "Service Provider Name",
       "institution": "Institution Name",
       "powered_by": "Powered by NGLP–WDP",
       "copyright": "Copyright {{year}} Institution Name and other necessary data. More legal details can be found here.",
@@ -122,7 +121,8 @@
       "in_use": "In Use",
       "help": "Help",
       "contact": "Contact",
-      "edit_profile": "Edit Profile"
+      "edit_profile": "Edit Profile",
+      "edit_global_settings": "Edit Global Settings"
     },
     "messages": {
       "add": {
@@ -242,7 +242,9 @@
         "user": "Edit User",
         "user_header": "Edit User",
         "announcement": "Edit Announcement",
-        "announcement_header": "Edit Announcement"
+        "announcement_header": "Edit Announcement",
+        "global_settings": "Edit Settings",
+        "global_settings_header": "Edit Global Settings"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -322,7 +324,10 @@
         "available": "Available",
         "header": "Header",
         "teaser": "Teaser",
-        "fields": "Fields"
+        "fields": "Fields",
+        "provider_name": "Provider Name",
+        "theme_color": "Color Theme",
+        "theme_font": "Font Theme"
       },
       "validation": {
         "year": "Must be a four digit year",

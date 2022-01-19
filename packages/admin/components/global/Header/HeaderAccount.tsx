@@ -66,6 +66,11 @@ const HeaderAccount = ({ accountNav }: Props) => {
               <Styled.LinkText>{t("nav.edit_profile")}</Styled.LinkText>
             </Styled.Link>
           </DrawerLink>,
+          <DrawerLink key="settings" drawer="editSettings" passHref>
+            <Styled.Link>
+              <Styled.LinkText>{t("nav.edit_global_settings")}</Styled.LinkText>
+            </Styled.Link>
+          </DrawerLink>,
           renderSignInOut(),
         ]}
         alignRight
