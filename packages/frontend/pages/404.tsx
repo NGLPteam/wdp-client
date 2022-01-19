@@ -1,14 +1,14 @@
 import React from "react";
-import BaseLayout from "components/composed/base/BaseLayout";
+import AppLayout from "components/global/AppLayout";
 
 function Error404() {
   return (
-    <BaseLayout>
+    <AppLayout>
       <div className="l-container-max l-container-p-lg t-align-center t-rte">
         <h2>404</h2>
         <p>Page not found.</p>
       </div>
-    </BaseLayout>
+    </AppLayout>
   );
 }
 

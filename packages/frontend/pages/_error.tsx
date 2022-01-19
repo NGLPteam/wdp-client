@@ -1,7 +1,7 @@
 import React from "react";
 import { Page } from "@wdp/lib/types/page";
 import Error404 from "./404";
-import BaseLayout from "components/composed/base/BaseLayout";
+import AppLayout from "components/global/AppLayout";
 
 interface Props {
   statusCode?: number;
@@ -19,12 +19,12 @@ const Error: Page<Props> = ({ statusCode }) => {
   return statusCode === 404 ? (
     <Error404 />
   ) : (
-    <BaseLayout>
+    <AppLayout>
       <div className="l-container-max l-container-p-lg t-align-center t-rte">
         <h2>{statusCode}</h2>
         <p>{message}</p>
       </div>
-    </BaseLayout>
+    </AppLayout>
   );
 };
 

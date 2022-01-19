@@ -2,9 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
-import BaseLayout from "components/composed/base/BaseLayout";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { searchQuery as Query } from "@/relay/searchQuery.graphql";
+import AppLayout from "components/global/AppLayout";
 
 export default function SearchPage() {
   const slug = useRouteSlug();
@@ -12,9 +12,9 @@ export default function SearchPage() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <BaseLayout data={data}>
+        <AppLayout data={data}>
           <SearchLayout />
-        </BaseLayout>
+        </AppLayout>
       )}
     </QueryWrapper>
   );
@@ -22,6 +22,6 @@ export default function SearchPage() {
 
 const query = graphql`
   query searchQuery {
-    ...BaseLayoutFragment
+    ...AppLayoutFragment
   }
 `;

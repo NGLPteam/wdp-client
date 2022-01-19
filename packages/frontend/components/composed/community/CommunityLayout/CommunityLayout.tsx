@@ -1,15 +1,12 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { AppBody } from "../../../global";
-import CommunityName from "../CommunityName";
 import CommunityNav from "../CommunityNavBar";
 import CommunityHTMLHead from "../CommunityHTMLHead";
-import CommunityCondensedNav from "../CommunityCondensedNav";
-import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { RouteHelper } from "routes";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { CommunityLayoutAppFragment$key } from "@/relay/CommunityLayoutAppFragment.graphql";
+import AppLayout from "components/global/AppLayout";
 
 export default function CommunityLayout({
   children,
@@ -29,30 +26,11 @@ export default function CommunityLayout({
 
   return appData ? (
     <>
-      <AppBody
-        data={appData}
-        nameComponent={
-          community ? <CommunityName data={community} /> : undefined
-        }
-        headerNavComponent={
-          <CommunityCondensedNav
-            data={appData}
-            communityData={community}
-            isCommunityRoot={isCommunityRoot}
-          />
-        }
-        communityPicker={
-          community ? (
-            <CommunityPicker data={appData} active={community} />
-          ) : (
-            <CommunityPicker data={appData} />
-          )
-        }
-      >
+      <AppLayout data={appData} communityData={community}>
         {community && <CommunityHTMLHead data={community} />}
         {community && isCommunityRoot && <CommunityNav data={community} />}
         {children}
-      </AppBody>
+      </AppLayout>
     </>
   ) : null;
 }
@@ -66,17 +44,13 @@ interface Props {
 const fragment = graphql`
   fragment CommunityLayoutFragment on Community {
     ...CommunityHTMLHeadFragment
-    ...CommunityNameFragment
     ...CommunityNavBarFragment
-    ...CommunityCondensedNavFragment
-    ...CommunityPickerActiveFragment
+    ...AppLayoutCommunityFragment
   }
 `;
 
 const appFragment = graphql`
   fragment CommunityLayoutAppFragment on Query {
-    ...AppBodyFragment
-    ...CommunityCondensedNavAppFragment
-    ...CommunityPickerFragment
+    ...AppLayoutFragment
   }
 `;

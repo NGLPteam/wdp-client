@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useRouter } from "next/router";
 import InstanceCommunities from "components/composed/instance/InstanceCommunities";
 import InstanceHero from "components/composed/instance/InstanceHero";
 import { InstanceContentLayoutFragment$key } from "@/relay/InstanceContentLayoutFragment.graphql";
 import { RouteHelper } from "routes";
-import { useRouter } from "next/router";
 
 export default function InstanceContentLayout({ data }: Props) {
   const instance = useMaybeFragment(fragment, data);
