@@ -21,7 +21,7 @@ export default function Accordion({ label, menuItems }: Props) {
   return (
     <Styled.Accordion ref={ref}>
       <Styled.Label onClick={onToggle}>
-        {label}
+        <span>{label}</span>
         <Styled.Arrow icon={icon} role="presentation" />
       </Styled.Label>
       <Styled.List>{submenu}</Styled.List>

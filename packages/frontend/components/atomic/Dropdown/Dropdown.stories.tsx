@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
-import { Button } from "..";
 import Dropdown from "./Dropdown";
+import { Button, Link } from "components/atomic";
 
 type Props = React.ComponentProps<typeof Dropdown>;
 
@@ -10,18 +10,23 @@ export default {
 };
 
 const MENU_ITEMS = [
-  <a href="#" key={1}>
+  <Link href="#" key={1}>
     Item One
-  </a>,
-  <a href="#" key={2}>
+  </Link>,
+  <Link href="#" key={2}>
     Item Two
-  </a>,
-  <a href="#" key={3}>
+  </Link>,
+  <Link href="#" key={3}>
     Item Three
-  </a>,
-  <button key={4} onClick={() => console.info("clicked!")}>
+  </Link>,
+  <Link
+    as="button"
+    key={4}
+    onClick={() => console.info("clicked!")}
+    icon="arrowRight"
+  >
     Button with click event
-  </button>,
+  </Link>,
 ];
 
 const Template: Story<Props> = (args) => (

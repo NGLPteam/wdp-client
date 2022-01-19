@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
 import * as Styled from "./AccountDropdown.styles";
 import { useViewerContext } from "hooks";
-import { Avatar, Dropdown } from "components/atomic";
+import { Avatar, Dropdown, Link } from "components/atomic";
 
 export default function AccountDropdown({ condensed, mobile }: Props) {
   const { avatarUrl, name } = useViewerContext();
@@ -27,9 +27,9 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           }
           label={t("nav.account")}
           menuItems={[
-            <button className="a-link" key={1} onClick={handleSignInOut}>
+            <Link as="button" key={1} onClick={handleSignInOut}>
               {t("common.sign_out")}
-            </button>,
+            </Link>,
           ]}
         />
       ) : (

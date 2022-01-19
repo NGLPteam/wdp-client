@@ -10,17 +10,19 @@ export const DropdownWrapper = styled.div`
 `;
 
 export const List = styled.ul`
-  padding-inline-start: var(--padding-lg);
-  padding-inline-end: var(--padding-lg);
-  padding-block-start: var(--padding-md);
-  padding-block-end: var(--padding-lg);
+  padding-block-start: calc(var(--padding-md) - var(--padding-sm));
+  padding-block-end: calc(var(--padding-lg) - var(--padding-sm));
 `;
 
 export const Item = styled.li`
   white-space: nowrap;
   ${tCopySmall}
 
-  & + & {
-    margin-block-start: var(--padding-rg);
+  > * {
+    display: block;
+    padding-inline-start: var(--padding-lg);
+    padding-inline-end: var(--padding-lg);
+    padding-block-start: var(--padding-sm);
+    padding-block-end: var(--padding-sm);
   }
 `;
