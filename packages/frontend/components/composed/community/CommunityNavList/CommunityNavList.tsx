@@ -55,7 +55,14 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
       label={t("nav.explore")}
       menuItems={[
         ...schemaLinks,
-        <ArrowLink key={1}>{t("nav.browse_all")}</ArrowLink>,
+        <NamedLink
+          key={1}
+          route="community.search"
+          routeParams={{ slug: community?.slug || "" }}
+          passHref
+        >
+          <ArrowLink>{t("nav.browse_all")}</ArrowLink>
+        </NamedLink>,
       ]}
     />
   ) : (
@@ -63,7 +70,14 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
       label={t("nav.explore")}
       menuItems={[
         ...schemaLinks,
-        <ArrowLink key={1}>{t("nav.browse_all")}</ArrowLink>,
+        <NamedLink
+          key={1}
+          route="community.search"
+          routeParams={{ slug: community?.slug || "" }}
+          passHref
+        >
+          <ArrowLink>{t("nav.browse_all")}</ArrowLink>
+        </NamedLink>,
       ]}
       disclosure={getDisclosure("nav.explore")}
     />
