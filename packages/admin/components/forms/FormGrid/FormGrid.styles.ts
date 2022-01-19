@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { respond } from "theme/mixins/base";
-import { pxToRem } from "theme/mixins/functions";
+import { Fieldset } from "../FieldsetSection/FieldsetSection.styles";
 
 export const Grid = styled.div`
   display: flex;
@@ -23,18 +23,12 @@ export const Grid = styled.div`
     padding-block-end: 0;
   }
 
-  > fieldset + div {
+  /* stylelint-disable selector-type-no-unknown */
+  > ${Fieldset} + div {
+    flex-basis: var(--form-grid-item-width-wide);
     border-top: 1px solid var(--neutral40);
-    padding-block-start: ${pxToRem(40)};
-    margin-block-start: calc(${pxToRem(40)} - var(--form-grid-row-gap));
-
-    ${respond(
-      `
-        padding-block-start: ${pxToRem(48)};
-        margin-block-start: calc(${pxToRem(48)} - var(--form-grid-row-gap));
-
-      `,
-      50
-    )}
+    padding-block-start: var(--form-grid-row-gap);
+    margin-block-start: var(--form-grid-row-gap);
   }
+  /* stylelint-enable selector-type-no-unknown */
 `;
