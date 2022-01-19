@@ -7,7 +7,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type searchQueryVariables = {};
 export type searchQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"BaseLayoutFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
 };
 export type searchQuery = {
     readonly response: searchQueryResponse;
@@ -18,7 +18,7 @@ export type searchQuery = {
 
 /*
 query searchQuery {
-  ...BaseLayoutFragment
+  ...AppLayoutFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -29,8 +29,13 @@ fragment AppHeaderFragment on Query {
   ...CommunityPickerFragment
 }
 
-fragment BaseLayoutFragment on Query {
+fragment AppLayoutFragment on Query {
   ...AppBodyFragment
+  ...CommunityCondensedNavAppFragment
+  ...CommunityPickerFragment
+}
+
+fragment CommunityCondensedNavAppFragment on Query {
   ...CommunityPickerFragment
 }
 
@@ -57,7 +62,7 @@ const node: ConcreteRequest = {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "BaseLayoutFragment"
+        "name": "AppLayoutFragment"
       }
     ],
     "type": "Query",
@@ -126,13 +131,13 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "8637ab59ce75bff9da0224ed802d31b6",
+    "cacheID": "7e1248fcf8401e2d6dd40fea29c7eabd",
     "id": null,
     "metadata": {},
     "name": "searchQuery",
     "operationKind": "query",
-    "text": "query searchQuery {\n  ...BaseLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment BaseLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query searchQuery {\n  ...AppLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
   }
 };
-(node as any).hash = '676ab2b3f752535712254577371c0d64';
+(node as any).hash = '168ad57345f900284e70dc43d661d770';
 export default node;
