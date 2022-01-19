@@ -135,6 +135,7 @@
       "community_picker": "$t(glossary.community) Picker",
       "browse_all": "Browse All",
       "browse": "Browse",
+      "browse_schema": "Browse {{schema}}",
       "account": "Account",
       "contact": "Contact",
       "explore": "Explore",
