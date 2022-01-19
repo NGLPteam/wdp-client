@@ -53,12 +53,9 @@ function CommunityCondensedNav({
         {appData && (
           <>
             <Styled.LeftSide>
-              <InstallationName />
+              <Styled.InstallationName as={InstallationName} />
               <CommunityPicker data={appData} active={community} />
             </Styled.LeftSide>
-            <Styled.MobileLeft>
-              <CommunityPicker data={appData} active={community} />
-            </Styled.MobileLeft>
           </>
         )}
         <Styled.RightSide>
