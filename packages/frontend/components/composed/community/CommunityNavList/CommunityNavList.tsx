@@ -10,6 +10,7 @@ import {
   NamedLink,
   Accordion,
   NavMenuLink,
+  Link,
 } from "components/atomic";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 import { getSchemaTranslationKey } from "helpers";
@@ -45,7 +46,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
             }
             routeParams={{ slug: community.slug, schema: schema.slug }}
           >
-            <a>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</a>
+            <Link>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</Link>
           </NamedLink>
         ))
       : [];

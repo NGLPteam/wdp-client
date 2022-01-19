@@ -7,7 +7,6 @@ export * from "./Button/patterns";
 export { default as ContentImage } from "./ContentImage";
 export { default as CoverImage } from "./CoverImage";
 export { default as DotList } from "./DotList";
-export { default as DownloadLink } from "./DownloadLink";
 export { default as Dropdown } from "./Dropdown";
 export { default as FileThumbnail } from "./FileThumbnail";
 export { default as HeroImage } from "./HeroImage";

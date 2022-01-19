@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import ArrowLink from "..";
+import ArrowLink from "./ArrowLink";
 import { MaybeLinkRef } from "types/ref";
 
 function ReadMoreLink({ ...props }, ref: MaybeLinkRef) {

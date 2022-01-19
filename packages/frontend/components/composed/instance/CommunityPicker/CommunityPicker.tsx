@@ -2,7 +2,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import startCase from "lodash/startCase";
-import { Button, Dropdown, NamedLink } from "components/atomic";
+import { Button, Dropdown, Link, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
 
@@ -26,7 +26,7 @@ export default function CommunityPicker({ data, active }: Props) {
             routeParams={{ slug: node.slug }}
             passHref
           >
-            <a>{node.title}</a>
+            <Link>{node.title}</Link>
           </NamedLink>
         );
       })}

@@ -170,3 +170,16 @@ export const aLink = `
     ${aLinkHoverFocus}
   }
 `;
+
+// Use this mixin to style text that is inside a link
+export const aLinkText = `
+  display: inline;
+  ${aLinkBase}
+
+  a:hover &,
+  a:focus-visible &
+  button:hover &
+  button:focus-visible & {
+    ${aLinkHoverFocus}
+  }
+`;
