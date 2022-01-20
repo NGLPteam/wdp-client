@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AppSettingsEditFormFragment = {
+export type GlobalSettingsEditFormFragment = {
     readonly site: {
         readonly providerName: string;
     };
@@ -13,12 +13,12 @@ export type AppSettingsEditFormFragment = {
         readonly color: string;
         readonly font: string;
     };
-    readonly " $refType": "AppSettingsEditFormFragment";
+    readonly " $refType": "GlobalSettingsEditFormFragment";
 };
-export type AppSettingsEditFormFragment$data = AppSettingsEditFormFragment;
-export type AppSettingsEditFormFragment$key = {
-    readonly " $data"?: AppSettingsEditFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AppSettingsEditFormFragment">;
+export type GlobalSettingsEditFormFragment$data = GlobalSettingsEditFormFragment;
+export type GlobalSettingsEditFormFragment$key = {
+    readonly " $data"?: GlobalSettingsEditFormFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"GlobalSettingsEditFormFragment">;
 };
 
 
@@ -27,7 +27,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "AppSettingsEditFormFragment",
+  "name": "GlobalSettingsEditFormFragment",
   "selections": [
     {
       "alias": null,
@@ -76,5 +76,5 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '6203c8a4414c255e0bc74c462d0699c9';
+(node as any).hash = 'a3ec90ff0cd1bb0dca79521ba9ac86ec';
 export default node;

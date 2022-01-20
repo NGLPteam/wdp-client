@@ -5,28 +5,28 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AppSettingsEditDrawerQueryVariables = {};
-export type AppSettingsEditDrawerQueryResponse = {
+export type GlobalSettingsEditDrawerQueryVariables = {};
+export type GlobalSettingsEditDrawerQueryResponse = {
     readonly globalConfiguration: {
-        readonly " $fragmentRefs": FragmentRefs<"AppSettingsEditFormFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"GlobalSettingsEditFormFragment">;
     };
 };
-export type AppSettingsEditDrawerQuery = {
-    readonly response: AppSettingsEditDrawerQueryResponse;
-    readonly variables: AppSettingsEditDrawerQueryVariables;
+export type GlobalSettingsEditDrawerQuery = {
+    readonly response: GlobalSettingsEditDrawerQueryResponse;
+    readonly variables: GlobalSettingsEditDrawerQueryVariables;
 };
 
 
 
 /*
-query AppSettingsEditDrawerQuery {
+query GlobalSettingsEditDrawerQuery {
   globalConfiguration {
-    ...AppSettingsEditFormFragment
+    ...GlobalSettingsEditFormFragment
     id
   }
 }
 
-fragment AppSettingsEditFormFragment on GlobalConfiguration {
+fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
   site {
     providerName
   }
@@ -42,7 +42,7 @@ const node: ConcreteRequest = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppSettingsEditDrawerQuery",
+    "name": "GlobalSettingsEditDrawerQuery",
     "selections": [
       {
         "alias": null,
@@ -55,7 +55,7 @@ const node: ConcreteRequest = {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AppSettingsEditFormFragment"
+            "name": "GlobalSettingsEditFormFragment"
           }
         ],
         "storageKey": null
@@ -68,7 +68,7 @@ const node: ConcreteRequest = {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "AppSettingsEditDrawerQuery",
+    "name": "GlobalSettingsEditDrawerQuery",
     "selections": [
       {
         "alias": null,
@@ -134,13 +134,13 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "a23df0655735ca9185a18c07a5749c89",
+    "cacheID": "ed5449a0a2b5c9a47136e42f727b1c61",
     "id": null,
     "metadata": {},
-    "name": "AppSettingsEditDrawerQuery",
+    "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query AppSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...AppSettingsEditFormFragment\n    id\n  }\n}\n\nfragment AppSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n  }\n  theme {\n    color\n    font\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n  }\n  theme {\n    color\n    font\n  }\n}\n"
   }
 };
-(node as any).hash = '9a35bf790d43ea49a08c238ee4b94814';
+(node as any).hash = '14c05f979e57359ae35bfe24eb0c1ce9';
 export default node;

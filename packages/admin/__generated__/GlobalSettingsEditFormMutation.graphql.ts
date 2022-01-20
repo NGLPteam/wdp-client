@@ -17,10 +17,10 @@ export type ThemeSettingsInput = {
     color: string;
     font: string;
 };
-export type AppSettingsEditFormMutationVariables = {
+export type GlobalSettingsEditFormMutationVariables = {
     input: UpdateGlobalConfigurationInput;
 };
-export type AppSettingsEditFormMutationResponse = {
+export type GlobalSettingsEditFormMutationResponse = {
     readonly updateGlobalConfiguration: {
         readonly globalConfiguration: {
             readonly site: {
@@ -30,15 +30,15 @@ export type AppSettingsEditFormMutationResponse = {
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
 };
-export type AppSettingsEditFormMutation = {
-    readonly response: AppSettingsEditFormMutationResponse;
-    readonly variables: AppSettingsEditFormMutationVariables;
+export type GlobalSettingsEditFormMutation = {
+    readonly response: GlobalSettingsEditFormMutationResponse;
+    readonly variables: GlobalSettingsEditFormMutationVariables;
 };
 
 
 
 /*
-mutation AppSettingsEditFormMutation(
+mutation GlobalSettingsEditFormMutation(
   $input: UpdateGlobalConfigurationInput!
 ) {
   updateGlobalConfiguration(input: $input) {
@@ -174,7 +174,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppSettingsEditFormMutation",
+    "name": "GlobalSettingsEditFormMutation",
     "selections": [
       {
         "alias": null,
@@ -214,7 +214,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AppSettingsEditFormMutation",
+    "name": "GlobalSettingsEditFormMutation",
     "selections": [
       {
         "alias": null,
@@ -250,14 +250,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1b45db46916b30c13ed644fe5d854e2c",
+    "cacheID": "fac50ad37035188e82fed18a45b406ab",
     "id": null,
     "metadata": {},
-    "name": "AppSettingsEditFormMutation",
+    "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation AppSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f298e6db9115ddae8a82cad5634dfc6d';
+(node as any).hash = '31d72c27920de3ef8f84ce740fa6ad7f';
 export default node;

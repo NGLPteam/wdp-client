@@ -2,14 +2,14 @@ import * as React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import AppSettingsEditForm from "components/composed/settings/AppSettingsEditForm";
+import GlobalSettingsEditForm from "components/composed/settings/GlobalSettingsEditForm";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
-import type { AppSettingsEditDrawerQuery as Query } from "__generated__/AppSettingsEditDrawerQuery.graphql";
+import type { GlobalSettingsEditDrawerQuery as Query } from "__generated__/GlobalSettingsEditDrawerQuery.graphql";
 import { useViewerContext } from "hooks";
 
-export default function AppSettingsEditDrawer({
+export default function GlobalSettingsEditDrawer({
   dialog, // params,
 }: {
   dialog: DialogProps;
@@ -30,7 +30,7 @@ export default function AppSettingsEditDrawer({
             hideOnClickOutside={false}
           >
             {data?.globalConfiguration && (
-              <AppSettingsEditForm
+              <GlobalSettingsEditForm
                 data={data?.globalConfiguration}
                 onSuccess={dialog.hide}
                 onCancel={dialog.hide}
@@ -44,9 +44,9 @@ export default function AppSettingsEditDrawer({
 }
 
 const query = graphql`
-  query AppSettingsEditDrawerQuery {
+  query GlobalSettingsEditDrawerQuery {
     globalConfiguration {
-      ...AppSettingsEditFormFragment
+      ...GlobalSettingsEditFormFragment
     }
   }
 `;

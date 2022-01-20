@@ -8,19 +8,22 @@ import MutationForm, {
 } from "components/api/MutationForm";
 
 import type {
-  AppSettingsEditFormMutation,
+  GlobalSettingsEditFormMutation,
   UpdateGlobalConfigurationInput,
-} from "@/relay/AppSettingsEditFormMutation.graphql";
-import type { AppSettingsEditFormFragment$key } from "@/relay/AppSettingsEditFormFragment.graphql";
+} from "@/relay/GlobalSettingsEditFormMutation.graphql";
+import type { GlobalSettingsEditFormFragment$key } from "@/relay/GlobalSettingsEditFormFragment.graphql";
 
-export default function AppSettingsEditForm({
+export default function GlobalSettingsEditForm({
   data,
   onSuccess,
   onCancel,
 }: Props) {
-  const settings = useFragment<AppSettingsEditFormFragment$key>(fragment, data);
+  const settings = useFragment<GlobalSettingsEditFormFragment$key>(
+    fragment,
+    data
+  );
 
-  const toVariables = useToVariables<AppSettingsEditFormMutation, Fields>(
+  const toVariables = useToVariables<GlobalSettingsEditFormMutation, Fields>(
     (data) => ({ input: { ...data } }),
     []
   );
@@ -65,7 +68,7 @@ export default function AppSettingsEditForm({
   );
 
   return (
-    <MutationForm<AppSettingsEditFormMutation, Fields>
+    <MutationForm<GlobalSettingsEditFormMutation, Fields>
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
@@ -84,12 +87,12 @@ export default function AppSettingsEditForm({
 type Props = Pick<
   React.ComponentProps<typeof MutationForm>,
   "onSuccess" | "onCancel"
-> & { data: AppSettingsEditFormFragment$key };
+> & { data: GlobalSettingsEditFormFragment$key };
 
 type Fields = Omit<UpdateGlobalConfigurationInput, "announcementId">;
 
 const fragment = graphql`
-  fragment AppSettingsEditFormFragment on GlobalConfiguration {
+  fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
     site {
       providerName
     }
@@ -101,7 +104,7 @@ const fragment = graphql`
 `;
 
 const mutation = graphql`
-  mutation AppSettingsEditFormMutation(
+  mutation GlobalSettingsEditFormMutation(
     $input: UpdateGlobalConfigurationInput!
   ) {
     updateGlobalConfiguration(input: $input) {
