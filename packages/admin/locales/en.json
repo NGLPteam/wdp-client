@@ -321,7 +321,8 @@
         "issued": "Issued",
         "available": "Available",
         "header": "Header",
-        "teaser": "Teaser"
+        "teaser": "Teaser",
+        "fields": "Fields"
       },
       "validation": {
         "year": "Must be a four digit year",
