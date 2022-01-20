@@ -6,7 +6,14 @@ import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
-import AssetInlinePDF from "components/composed/asset/AssetInlinePDF";
+// import AssetInlinePDF from "components/composed/asset/AssetInlinePDF";
+
+import dynamic from "next/dynamic";
+
+const AssetInlinePDF = dynamic(
+  () => import("components/composed/asset/AssetInlinePDF"),
+  { ssr: false }
+);
 
 type TOCItem = {
   text: string;
