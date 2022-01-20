@@ -38,9 +38,9 @@ function Header() {
       </Styled.ProviderBarBlock>
       <Styled.Nav className="a-bg-brand100">
         <Styled.Inner>
-          {siteInfo.institution && (
+          {siteInfo.installation && (
             <LogoPlaceholder>
-              <span className="t-label-md">{t(siteInfo.institution)}</span>
+              <span className="t-label-md">{t(siteInfo.installation)}</span>
             </LogoPlaceholder>
           )}
           <Styled.DesktopNavBlock>

@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -26,6 +27,8 @@ export default function AppSettingsEditForm({
 
   const defaultValues = { ...settings };
 
+  const { t } = useTranslation();
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
@@ -36,9 +39,10 @@ export default function AppSettingsEditForm({
         />
         <Forms.Select
           label="forms.fields.theme_color"
+          description={t("forms.fields.theme_color_description")}
           options={[
             { label: "Cream", value: "cream" },
-            { label: "Gray", value: "gray" },
+            // { label: "Gray", value: "gray" },
             { label: "Blue", value: "blue" },
           ]}
           required
@@ -46,6 +50,7 @@ export default function AppSettingsEditForm({
         />
         <Forms.Select
           label="forms.fields.theme_font"
+          description={t("forms.fields.theme_font_description")}
           options={[
             { label: "Ilisarniq", value: "style1" },
             { label: "Switzer", value: "style2" },
@@ -103,10 +108,6 @@ const mutation = graphql`
       globalConfiguration {
         site {
           providerName
-        }
-        theme {
-          color
-          font
         }
       }
       ...MutationForm_mutationErrors

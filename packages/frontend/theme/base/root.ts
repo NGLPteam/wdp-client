@@ -100,11 +100,19 @@ export default css`
   :root {
     ${setBaseColors()}
 
-    /* custom theme color */
-    ${({ theme }) =>
-      theme && theme.colorStyle
-        ? setCustomColors(theme.colorStyle)
-        : setCustomColors("cream")}
+    /* theme color styles */
+    ${({ theme }) => {
+      if (!theme) return setCustomColors("cream");
+
+      switch (theme.colorStyle) {
+        case "blue":
+        case "gray":
+          return setCustomColors(theme.colorStyle);
+
+        default:
+          return setCustomColors("cream");
+      }
+    }}
 
     /* base font styles */
     ${baseFontStyles}
@@ -114,10 +122,10 @@ export default css`
       if (!theme) return fontStyle1;
 
       switch (theme.fontStyle) {
-        case "fontStyle2":
+        case "style2":
           return fontStyle2;
 
-        case "fontStyle3":
+        case "style3":
           return fontStyle3;
 
         default:

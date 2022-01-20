@@ -26,10 +26,6 @@ export type AppSettingsEditFormMutationResponse = {
             readonly site: {
                 readonly providerName: string;
             };
-            readonly theme: {
-                readonly color: string;
-                readonly font: string;
-            };
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
     } | null;
@@ -49,10 +45,6 @@ mutation AppSettingsEditFormMutation(
     globalConfiguration {
       site {
         providerName
-      }
-      theme {
-        color
-        font
       }
       id
     }
@@ -109,32 +101,7 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ThemeSettings",
-  "kind": "LinkedField",
-  "name": "theme",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "color",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "font",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v4 = [
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -143,7 +110,7 @@ v4 = [
     "storageKey": null
   }
 ],
-v5 = {
+v4 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -185,7 +152,7 @@ v5 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     },
     {
@@ -195,7 +162,7 @@ v5 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v3/*: any*/),
       "storageKey": null
     }
   ],
@@ -225,8 +192,7 @@ return {
             "name": "globalConfiguration",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -234,7 +200,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v5/*: any*/)
+              (v4/*: any*/)
             ]
           }
         ],
@@ -267,7 +233,6 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -278,21 +243,21 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c16965b0a6c89b1b15196f3f10e79922",
+    "cacheID": "1b45db46916b30c13ed644fe5d854e2c",
     "id": null,
     "metadata": {},
     "name": "AppSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation AppSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation AppSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '29524cf0e70bca9d51bbffafabe6b060';
+(node as any).hash = 'f298e6db9115ddae8a82cad5634dfc6d';
 export default node;

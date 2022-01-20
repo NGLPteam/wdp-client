@@ -4,11 +4,11 @@
     "app": {
       "title": "NGLP",
       "description": "...",
-      "institution": "Institution Name",
+      "installation": "Installation Name",
       "powered_by": "Powered by NGLP–WDP",
-      "copyright": "Copyright {{year}} Institution Name and other necessary data. More legal details can be found here.",
+      "copyright": "Copyright {{year}} Installation Name and other necessary data. More legal details can be found here.",
       "about_header": "About",
-      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
+      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source installational web delivery platform."
     },
     "common": {
       "all": "All",
@@ -327,7 +327,9 @@
         "fields": "Fields",
         "provider_name": "Provider Name",
         "theme_color": "Color Theme",
-        "theme_font": "Font Theme"
+        "theme_color_description": "Set the app color theme across all communities.",
+        "theme_font": "Font Theme",
+        "theme_font_description": "Set the app font theme across all communities."
       },
       "validation": {
         "year": "Must be a four digit year",

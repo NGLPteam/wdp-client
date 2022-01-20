@@ -1,5 +1,4 @@
 import type { AppProps, AppContext } from "next/app";
-import { ThemeProvider } from "styled-components";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import {
@@ -12,7 +11,6 @@ import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
 import { AppHtmlHead } from "components/global";
 import { updateI18n } from "i18n";
-import GlobalStyles from "theme";
 import { AppContextProvider } from "contexts";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
@@ -58,17 +56,14 @@ function App({
     <>
       <AppHtmlHead />
       <SSRKeycloakProvider {...ssrProps}>
-        <ThemeProvider theme={{ fontStyle: "fontStyle1", colorStyle: "cream" }}>
-          <GlobalStyles />
-          <KeycloakRelayProvider records={records}>
-            <AppContextProvider>
-              {getLayout({
-                PageComponent: Component,
-                pageComponentProps: pageProps,
-              })}
-            </AppContextProvider>
-          </KeycloakRelayProvider>
-        </ThemeProvider>
+        <KeycloakRelayProvider records={records}>
+          <AppContextProvider>
+            {getLayout({
+              PageComponent: Component,
+              pageComponentProps: pageProps,
+            })}
+          </AppContextProvider>
+        </KeycloakRelayProvider>
       </SSRKeycloakProvider>
     </>
   );

@@ -38,7 +38,7 @@ const appData = {
   siteInfo: {
     title: "app.title",
     description: "app.description",
-    institution: "app.institution",
+    installation: "app.installation",
   },
   headerData: {
     navigation: [
