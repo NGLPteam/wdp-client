@@ -4,12 +4,11 @@
     "app": {
       "title": "NGLP",
       "description": "...",
-      "provider": "Service Provider Name",
-      "institution": "Institution Name",
+      "installation": "Installation Name",
       "powered_by": "Powered by NGLP–WDP",
-      "copyright": "Copyright {{year}} Institution Name and other necessary data. More legal details can be found here.",
+      "copyright": "Copyright {{year}} Installation Name and other necessary data. More legal details can be found here.",
       "about_header": "About",
-      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source institutional web delivery platform."
+      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source installational web delivery platform."
     },
     "common": {
       "all": "All",
@@ -122,7 +121,8 @@
       "in_use": "In Use",
       "help": "Help",
       "contact": "Contact",
-      "edit_profile": "Edit Profile"
+      "edit_profile": "Edit Profile",
+      "edit_global_settings": "Edit Global Settings"
     },
     "messages": {
       "add": {
@@ -156,7 +156,9 @@
         "announcement_success": "Announcement updated successfully",
         "announcement_failure": "Failed to update announcement",
         "page_success": "Page updated successfully",
-        "page_failure": "Failed to update page"
+        "page_failure": "Failed to update page",
+        "global_settings_success": "Global settings updated successfully",
+        "global_settings_failure": "Failed to update global settings"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -242,7 +244,9 @@
         "user": "Edit User",
         "user_header": "Edit User",
         "announcement": "Edit Announcement",
-        "announcement_header": "Edit Announcement"
+        "announcement_header": "Edit Announcement",
+        "global_settings": "Edit Settings",
+        "global_settings_header": "Edit Global Settings"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -322,7 +326,12 @@
         "available": "Available",
         "header": "Header",
         "teaser": "Teaser",
-        "fields": "Fields"
+        "fields": "Fields",
+        "provider_name": "Provider Name",
+        "theme_color": "Color Theme",
+        "theme_color_description": "Set the app color theme across all communities.",
+        "theme_font": "Font Theme",
+        "theme_font_description": "Set the app font theme across all communities."
       },
       "validation": {
         "year": "Must be a four digit year",

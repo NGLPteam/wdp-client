@@ -28,3 +28,4 @@ export { default as useDestroyer } from "./useDestroyer";
 export { default as useChildRouteLinks } from "./useChildRouteLinks";
 export { default as useLocalStorage } from "./useLocalStorage";
 export { default as useViewPreference } from "./useViewPreference";
+export { default as useGlobalContext } from "./useGlobalContext";

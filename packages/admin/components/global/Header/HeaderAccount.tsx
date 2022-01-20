@@ -36,14 +36,25 @@ interface Props {
 
 const HeaderAccount = ({ accountNav }: Props) => {
   const { t } = useTranslation();
+
   const isAuthenticated = useIsAuthenticated();
-  const { avatarUrl } = useViewerContext();
+
+  const { avatarUrl, globalAdmin } = useViewerContext();
 
   const renderSignInOut = () => (
     <Styled.Link key="auth" as="span">
       <Styled.LinkText as={SignInOut} />
     </Styled.Link>
   );
+
+  const renderGlobalSettings = () =>
+    globalAdmin ? (
+      <DrawerLink key="settings" drawer="editSettings" passHref>
+        <Styled.Link>
+          <Styled.LinkText>{t("nav.edit_global_settings")}</Styled.LinkText>
+        </Styled.Link>
+      </DrawerLink>
+    ) : null;
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
@@ -66,6 +77,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
               <Styled.LinkText>{t("nav.edit_profile")}</Styled.LinkText>
             </Styled.Link>
           </DrawerLink>,
+          renderGlobalSettings(),
           renderSignInOut(),
         ]}
         alignRight

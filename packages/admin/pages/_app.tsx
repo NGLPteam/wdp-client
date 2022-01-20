@@ -18,7 +18,7 @@ import { AppContextProvider } from "contexts";
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import { RouteHelper } from "routes";
-import { Toast } from "components/atomic";
+import { Toast, LoadingPage } from "components/atomic";
 
 const NGLPApp = ({
   Component,
@@ -44,7 +44,7 @@ const NGLPApp = ({
   const ssrProps: KeycloakProviderProps = {
     initOptions,
     keycloakConfig,
-    LoadingComponent: <>Loading</>,
+    LoadingComponent: <LoadingPage />,
     persistor,
   };
 

@@ -869,8 +869,31 @@ In practice, this means a `Collection` or an `Item`, not a `Community`.
 
 """
 interface ChildEntity {
+  """Derived access control list"""
+  accessControlList: AccessControlList
   """The date this entity was added to its parent"""
   accessioned: VariablePrecisionDate!
+  """A polymorphic connection for access grants from an entity"""
+  allAccessGrants(
+    subject: AccessGrantSubjectFilter = ALL
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): AnyAccessGrantConnection!
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
   """
   Directly fetch a defined named ancestor by its name. It can be null,
   either because an invalid name was provided, the schema hierarchy is
@@ -890,8 +913,50 @@ interface ChildEntity {
     """A fully-qualified name of a schema to look for."""
     schema: String!
   ): AnyEntity
+  """Look up an announcement for this entity by slug"""
+  announcement(slug: Slug!): Announcement
+  """Announcements for a specific entity"""
+  announcements(
+    order: AnnouncementOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): AnnouncementConnection!
+  """The role(s) that gave the permissions to access this resource, if any."""
+  applicableRoles: [Role!]
+  """Retrieve a list of user & role assignments for this entity"""
+  assignedUsers(
+    order: ContextualPermissionOrder = USER_NAME_ASC
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): ContextualPermissionConnection!
   """The date this entity was made available"""
   available: VariablePrecisionDate!
+  """Previous entries in the hierarchy"""
+  breadcrumbs: [EntityBreadcrumb!]!
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """
@@ -905,10 +970,39 @@ interface ChildEntity {
   """
   currentlyVisible: Boolean!
   """
+  Search and retrieve *all* descendants of this `Entity`, regardless of type.
+  
+  """
+  descendants(
+    scope: EntityDescendantScopeFilter = ALL
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
+    order: EntityDescendantOrder! = PUBLISHED_DESCENDING
+    maxDepth: Int
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityDescendantConnection!
+  """
   The Digital Object Identifier for this entity. See https://doi.org
   
   """
   doi: String
+  """A hero image for the entity, suitable for displaying in page headers"""
+  heroImage: ImageAttachment!
+  """Configurable metadata for the hero_image attachment"""
+  heroImageMetadata: ImageMetadata
   """
   Whether the entity's visibility is set to `HIDDEN`
   
@@ -927,6 +1021,8 @@ interface ChildEntity {
   ): Boolean!
   """If present, this is the timestamp the entity was hidden at"""
   hiddenAt: ISO8601DateTime
+  """The depth of the hierarchical entity, taking into account any parent types"""
+  hierarchicalDepth: Int!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
   """
@@ -937,6 +1033,42 @@ interface ChildEntity {
   """The date this entity was issued"""
   issued: VariablePrecisionDate!
   leaf: Boolean!
+  """Available link targets for this entity"""
+  linkTargetCandidates(
+    kind: LinkTargetCandidateFilter = ALL
+    title: String = ""
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): LinkTargetCandidateConnection!
+  links(
+    order: SimpleOrder = RECENT
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): EntityLinkConnection!
   """
   Fetch a list of named ancestors for this entity. This list is deterministically sorted
   to retrieve the "closest" ancestors first, ascending upwards in the hierarchy from there.
@@ -946,9 +1078,77 @@ interface ChildEntity {
   
   """
   namedAncestors: [NamedAncestor!]!
+  """Look up an ordering for this entity by identifier"""
+  ordering(identifier: String!): Ordering
+  """
+  Retrieve a connection of orderings for the parent object.
+  
+  """
+  orderings(
+    order: OrderingOrder = DETERMINISTIC
+    """Optionally filter orderings by whether they are enabled or disabled."""
+    availability: OrderingAvailabilityFilter = ALL
+    """Optionally filter orderings by whether they are visible or hidden."""
+    visibility: OrderingAvailabilityFilter = ALL
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): OrderingConnection!
+  """Look up a page for this entity by slug"""
+  page(
+    """
+    **Note**: Unlike most other model types, a page's slug is just a string
+    as opposed to our custom `Slug` type. They are not designed to be
+    opaque, but instead be something human-readable that can appear in URIs.
+    
+    """
+    slug: String!
+  ): Page
+  pages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): PageConnection!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
   root: Boolean!
+  schemaDefinition: SchemaDefinition!
+  schemaRanks: [HierarchicalSchemaRank!]!
+  schemaVersion: SchemaVersion!
+  """A human-readable subtitle for the entity"""
+  subtitle: String
+  """A description of the contents of the entity"""
+  summary: String
+  """A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc."""
+  thumbnail: ImageAttachment!
+  """Configurable metadata for the thumbnail attachment"""
+  thumbnailMetadata: ImageMetadata
+  """A human-readable title for the entity"""
+  title: String!
   """The date this entity was last updated within the WDP"""
   updatedAt: ISO8601DateTime!
   """If an entity is available in the frontend"""
@@ -976,7 +1176,7 @@ interface ChildEntity {
 }
 
 """A collection of items"""
-type Collection implements Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Collection implements Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -3965,17 +4165,6 @@ interface HasDOI {
   doi: String
 }
 
-"""
-Automatically-set timestamps present on most real models in the system.
-
-"""
-interface HasDefaultTimestamps {
-  """The date this entity was added to the WDP"""
-  createdAt: ISO8601DateTime!
-  """The date this entity was last updated within the WDP"""
-  updatedAt: ISO8601DateTime!
-}
-
 """An entity that has an ISSN"""
 interface HasISSN {
   """
@@ -4298,7 +4487,7 @@ type IntegerProperty implements SchemaProperty & ScalarProperty {
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Item implements Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -6213,63 +6402,6 @@ type Query {
   ): UserConnection!
   """The currently authenticated user. AKA: you"""
   viewer: User!
-}
-
-"""
-An entity which can be limited in its visibility, based on some configured attributes.
-
-"""
-interface ReferencesEntityVisibility {
-  """
-  Whether the entity is _currently_ hidden, based on the server's time zone.
-  
-  """
-  currentlyHidden: Boolean!
-  """
-  Whether the entity is _currently_ visible, based on the server's time zone.
-  
-  """
-  currentlyVisible: Boolean!
-  """
-  Whether the entity's visibility is set to `HIDDEN`
-  
-  """
-  hidden: Boolean!
-  """
-  Specify a time to check to see if the entity will be hidden.
-  
-  """
-  hiddenAsOf(
-    """
-    If no value is provided, it will default to the current time.
-    
-    """
-    time: ISO8601DateTime
-  ): Boolean!
-  """If present, this is the timestamp the entity was hidden at"""
-  hiddenAt: ISO8601DateTime
-  """If an entity is available in the frontend"""
-  visibility: EntityVisibility!
-  """
-  Whether the entity's visibility is set to `VISIBLE`.
-  
-  """
-  visible: Boolean!
-  """If present, this is the timestamp an entity is visible after"""
-  visibleAfterAt: ISO8601DateTime
-  """
-  Specify a time to check to see if the entity will be visible.
-  
-  """
-  visibleAsOf(
-    """
-    If no value is provided, it will default to the current time.
-    
-    """
-    time: ISO8601DateTime
-  ): Boolean!
-  """If present, this is the timestamp an entity is visible until"""
-  visibleUntilAt: ISO8601DateTime
 }
 
 """

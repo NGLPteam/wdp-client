@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from "react";
 import { graphql } from "react-relay";
-import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
-import { ViewerContextQuery } from "__generated__/ViewerContextQuery.graphql";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { ViewerContextFragment$key } from "@/relay/ViewerContextFragment.graphql";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],
@@ -13,19 +13,19 @@ const initialState: ViewerContextProps = {
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
 
-function ViewerContextProvider({ children }: Props) {
-  const { data } = useAuthenticatedQuery<ViewerContextQuery>(query);
+function ViewerContextProvider({ children, data }: Props) {
+  const viewerData = useMaybeFragment(fragment, data);
 
   const viewer = useMemo(() => {
-    if (data?.viewer) {
-      const { avatar, ...viewerProps } = data.viewer;
+    if (viewerData?.viewer) {
+      const { avatar, ...viewerProps } = viewerData.viewer;
       const avatarUrl = avatar?.small.png?.url;
 
       return { avatarUrl, ...viewerProps };
     }
 
     return initialState;
-  }, [data]);
+  }, [viewerData]);
 
   return (
     <ViewerContext.Provider value={viewer}>{children}</ViewerContext.Provider>
@@ -43,14 +43,15 @@ interface ViewerContextProps {
 
 interface Props {
   children: React.ReactNode;
+  data?: ViewerContextFragment$key | null;
 }
 
 export default ViewerContext;
 
 export { ViewerContextProvider };
 
-const query = graphql`
-  query ViewerContextQuery {
+const fragment = graphql`
+  fragment ViewerContextFragment on Query {
     viewer {
       name
       allowedActions
