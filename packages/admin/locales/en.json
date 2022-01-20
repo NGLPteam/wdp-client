@@ -156,7 +156,9 @@
         "announcement_success": "Announcement updated successfully",
         "announcement_failure": "Failed to update announcement",
         "page_success": "Page updated successfully",
-        "page_failure": "Failed to update page"
+        "page_failure": "Failed to update page",
+        "global_settings_success": "Global settings updated successfully",
+        "global_settings_failure": "Failed to update global settings"
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",

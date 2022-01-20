@@ -13,5 +13,5 @@ export const Circle = styled.div`
   border-bottom-color: var(--brand70);
   border-left-color: var(--brand70);
   border-right-color: var(--brand70);
-  animation: ${spin} 3s infinite linear;
+  animation: ${spin} 1s infinite cubic-bezier(0.37, 0, 0.63, 1);
 `;

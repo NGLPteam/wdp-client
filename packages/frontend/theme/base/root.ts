@@ -106,11 +106,11 @@ export default css`
 
       switch (theme.colorStyle) {
         case "blue":
-        case "gray":
+        case "cream":
           return setCustomColors(theme.colorStyle);
 
         default:
-          return setCustomColors("cream");
+          return setCustomColors("gray");
       }
     }}
 

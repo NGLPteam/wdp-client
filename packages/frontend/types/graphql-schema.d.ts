@@ -840,8 +840,14 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & {
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
  */
 export type ChildEntity = {
+  /** Derived access control list */
+  accessControlList?: Maybe<AccessControlList>;
   /** The date this entity was added to its parent */
   accessioned: VariablePrecisionDate;
+  /** A polymorphic connection for access grants from an entity */
+  allAccessGrants: AnyAccessGrantConnection;
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
   /**
    * Directly fetch a defined named ancestor by its name. It can be null,
    * either because an invalid name was provided, the schema hierarchy is
@@ -853,22 +859,40 @@ export type ChildEntity = {
    * so it will first check the parent, then the grandparent, and so on.
    */
   ancestorOfType?: Maybe<AnyEntity>;
+  /** Look up an announcement for this entity by slug */
+  announcement?: Maybe<Announcement>;
+  /** Announcements for a specific entity */
+  announcements: AnnouncementConnection;
+  /** The role(s) that gave the permissions to access this resource, if any. */
+  applicableRoles?: Maybe<Array<Role>>;
+  /** Retrieve a list of user & role assignments for this entity */
+  assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
   available: VariablePrecisionDate;
+  /** Previous entries in the hierarchy */
+  breadcrumbs: Array<EntityBreadcrumb>;
   /** The date this entity was added to the WDP */
   createdAt: Scalars['ISO8601DateTime'];
   /** Whether the entity is _currently_ hidden, based on the server's time zone. */
   currentlyHidden: Scalars['Boolean'];
   /** Whether the entity is _currently_ visible, based on the server's time zone. */
   currentlyVisible: Scalars['Boolean'];
+  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  descendants: EntityDescendantConnection;
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+  /** A hero image for the entity, suitable for displaying in page headers */
+  heroImage: ImageAttachment;
+  /** Configurable metadata for the hero_image attachment */
+  heroImageMetadata?: Maybe<ImageMetadata>;
   /** Whether the entity's visibility is set to `HIDDEN` */
   hidden: Scalars['Boolean'];
   /** Specify a time to check to see if the entity will be hidden. */
   hiddenAsOf: Scalars['Boolean'];
   /** If present, this is the timestamp the entity was hidden at */
   hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
+  /** The depth of the hierarchical entity, taking into account any parent types */
+  hierarchicalDepth: Scalars['Int'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
   /** The International Standard Serial Number for this entity. See https://issn.org */
@@ -876,6 +900,9 @@ export type ChildEntity = {
   /** The date this entity was issued */
   issued: VariablePrecisionDate;
   leaf: Scalars['Boolean'];
+  /** Available link targets for this entity */
+  linkTargetCandidates: LinkTargetCandidateConnection;
+  links: EntityLinkConnection;
   /**
    * Fetch a list of named ancestors for this entity. This list is deterministically sorted
    * to retrieve the "closest" ancestors first, ascending upwards in the hierarchy from there.
@@ -884,9 +911,31 @@ export type ChildEntity = {
    * because in practice a schema should not have many associations.
    */
   namedAncestors: Array<NamedAncestor>;
+  /** Look up an ordering for this entity by identifier */
+  ordering?: Maybe<Ordering>;
+  /** Retrieve a connection of orderings for the parent object. */
+  orderings: OrderingConnection;
+  /** Look up a page for this entity by slug */
+  page?: Maybe<Page>;
+  pages: PageConnection;
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
   /** The date this entity was published */
   published: VariablePrecisionDate;
   root: Scalars['Boolean'];
+  schemaDefinition: SchemaDefinition;
+  schemaRanks: Array<HierarchicalSchemaRank>;
+  schemaVersion: SchemaVersion;
+  /** A human-readable subtitle for the entity */
+  subtitle?: Maybe<Scalars['String']>;
+  /** A description of the contents of the entity */
+  summary?: Maybe<Scalars['String']>;
+  /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
+  thumbnail: ImageAttachment;
+  /** Configurable metadata for the thumbnail attachment */
+  thumbnailMetadata?: Maybe<ImageMetadata>;
+  /** A human-readable title for the entity */
+  title: Scalars['String'];
   /** The date this entity was last updated within the WDP */
   updatedAt: Scalars['ISO8601DateTime'];
   /** If an entity is available in the frontend */
@@ -899,6 +948,25 @@ export type ChildEntity = {
   visibleAsOf: Scalars['Boolean'];
   /** If present, this is the timestamp an entity is visible until */
   visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityAllAccessGrantsArgs = {
+  subject?: Maybe<AccessGrantSubjectFilter>;
+  order?: Maybe<SimpleOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
 };
 
 
@@ -930,8 +998,172 @@ export type ChildEntityAncestorOfTypeArgs = {
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
  */
+export type ChildEntityAnnouncementArgs = {
+  slug: Scalars['Slug'];
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityAnnouncementsArgs = {
+  order?: Maybe<AnnouncementOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityAssignedUsersArgs = {
+  order?: Maybe<ContextualPermissionOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityDescendantsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
+  order?: EntityDescendantOrder;
+  maxDepth?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
 export type ChildEntityHiddenAsOfArgs = {
   time?: Maybe<Scalars['ISO8601DateTime']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityLinkTargetCandidatesArgs = {
+  kind?: Maybe<LinkTargetCandidateFilter>;
+  title?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityLinksArgs = {
+  order?: Maybe<SimpleOrder>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityOrderingArgs = {
+  identifier: Scalars['String'];
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityOrderingsArgs = {
+  order?: Maybe<OrderingOrder>;
+  availability?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingAvailabilityFilter>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityPageArgs = {
+  slug: Scalars['String'];
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityPagesArgs = {
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
 };
 
 
@@ -946,7 +1178,7 @@ export type ChildEntityVisibleAsOfArgs = {
 };
 
 /** A collection of items */
-export type Collection = Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Collection = Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -3597,14 +3829,6 @@ export type HasDoi = {
   doi?: Maybe<Scalars['String']>;
 };
 
-/** Automatically-set timestamps present on most real models in the system. */
-export type HasDefaultTimestamps = {
-  /** The date this entity was added to the WDP */
-  createdAt: Scalars['ISO8601DateTime'];
-  /** The date this entity was last updated within the WDP */
-  updatedAt: Scalars['ISO8601DateTime'];
-};
-
 /** An entity that has an ISSN */
 export type HasIssn = {
   /** The International Standard Serial Number for this entity. See https://issn.org */
@@ -3900,7 +4124,7 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & Entity & HasDefaultTimestamps & ReferencesEntityVisibility & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Item = Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -5765,42 +5989,6 @@ export type QueryUsersArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
-};
-
-/** An entity which can be limited in its visibility, based on some configured attributes. */
-export type ReferencesEntityVisibility = {
-  /** Whether the entity is _currently_ hidden, based on the server's time zone. */
-  currentlyHidden: Scalars['Boolean'];
-  /** Whether the entity is _currently_ visible, based on the server's time zone. */
-  currentlyVisible: Scalars['Boolean'];
-  /** Whether the entity's visibility is set to `HIDDEN` */
-  hidden: Scalars['Boolean'];
-  /** Specify a time to check to see if the entity will be hidden. */
-  hiddenAsOf: Scalars['Boolean'];
-  /** If present, this is the timestamp the entity was hidden at */
-  hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** If an entity is available in the frontend */
-  visibility: EntityVisibility;
-  /** Whether the entity's visibility is set to `VISIBLE`. */
-  visible: Scalars['Boolean'];
-  /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Specify a time to check to see if the entity will be visible. */
-  visibleAsOf: Scalars['Boolean'];
-  /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
-};
-
-
-/** An entity which can be limited in its visibility, based on some configured attributes. */
-export type ReferencesEntityVisibilityHiddenAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
-};
-
-
-/** An entity which can be limited in its visibility, based on some configured attributes. */
-export type ReferencesEntityVisibilityVisibleAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
 };
 
 /**
@@ -8336,7 +8524,7 @@ export type ResolversTypes = {
   EntityPermissionFilter: EntityPermissionFilter;
   EntityScope: EntityScope;
   EntityVisibility: EntityVisibility;
-  ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
+  ExposesPermissions: ResolversTypes['Collection'] | ResolversTypes['ContextualPermission'] | ResolversTypes['Item'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   FullText: ResolverTypeWrapper<FullText>;
@@ -8348,7 +8536,6 @@ export type ResolversTypes = {
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
   HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'];
   HasDOI: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  HasDefaultTimestamps: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasISSN: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
   HeroImageLayout: HeroImageLayout;
@@ -8427,7 +8614,6 @@ export type ResolversTypes = {
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
   Query: ResolverTypeWrapper<{}>;
-  ReferencesEntityVisibility: ResolversTypes['Collection'] | ResolversTypes['Item'];
   ReferencesGlobalEntityDates: ResolversTypes['Collection'] | ResolversTypes['Item'];
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: ResolverTypeWrapper<Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversTypes['AnyChildEntity']> }>;
@@ -8680,7 +8866,7 @@ export type ResolversParentTypes = {
   EntityLink: Omit<EntityLink, 'source' | 'target'> & { source: ResolversParentTypes['AnyEntity'], target: ResolversParentTypes['AnyEntity'] };
   EntityLinkConnection: EntityLinkConnection;
   EntityLinkEdge: EntityLinkEdge;
-  ExposesPermissions: ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['User'];
+  ExposesPermissions: ResolversParentTypes['Collection'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['Item'] | ResolversParentTypes['User'];
   FloatProperty: FloatProperty;
   Float: Scalars['Float'];
   FullText: FullText;
@@ -8691,7 +8877,6 @@ export type ResolversParentTypes = {
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
   HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'];
   HasDOI: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  HasDefaultTimestamps: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HasISSN: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
   HierarchicalSchemaRank: HierarchicalSchemaRank;
@@ -8755,7 +8940,6 @@ export type ResolversParentTypes = {
   PermissionGrant: PermissionGrant;
   PersonContributor: PersonContributor;
   Query: {};
-  ReferencesEntityVisibility: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   ReferencesGlobalEntityDates: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversParentTypes['AnyChildEntity']> };
@@ -9272,24 +9456,51 @@ export type BooleanPropertyResolvers<ContextType = any, ParentType extends Resol
 
 export type ChildEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['ChildEntity'] = ResolversParentTypes['ChildEntity']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
+  accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
   accessioned?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ChildEntityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ChildEntityAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ChildEntityAncestorOfTypeArgs, 'schema'>>;
+  announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<ChildEntityAnnouncementArgs, 'slug'>>;
+  announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<ChildEntityAnnouncementsArgs, 'order' | 'pageDirection'>>;
+  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ChildEntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ChildEntityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ChildEntityHiddenAsOfArgs, never>>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
+  hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ChildEntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ChildEntityLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
+  ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ChildEntityOrderingArgs, 'identifier'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ChildEntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ChildEntityPageArgs, 'slug'>>;
+  pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ChildEntityPagesArgs, 'pageDirection'>>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
+  schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
+  schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  thumbnailMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -9960,7 +10171,7 @@ export type EntityLinkEdgeResolvers<ContextType = any, ParentType extends Resolv
 };
 
 export type ExposesPermissionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ExposesPermissions'] = ResolversParentTypes['ExposesPermissions']> = {
-  __resolveType: TypeResolveFn<'ContextualPermission' | 'User', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Collection' | 'ContextualPermission' | 'Item' | 'User', ParentType, ContextType>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
 };
@@ -10045,12 +10256,6 @@ export type HasAttachmentStorageResolvers<ContextType = any, ParentType extends 
 export type HasDoiResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasDOI'] = ResolversParentTypes['HasDOI']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-};
-
-export type HasDefaultTimestampsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasDefaultTimestamps'] = ResolversParentTypes['HasDefaultTimestamps']> = {
-  __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
 };
 
 export type HasIssnResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasISSN'] = ResolversParentTypes['HasISSN']> = {
@@ -10689,20 +10894,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'slug'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'order' | 'pageDirection'>>;
   viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-};
-
-export type ReferencesEntityVisibilityResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReferencesEntityVisibility'] = ResolversParentTypes['ReferencesEntityVisibility']> = {
-  __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
-  currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ReferencesEntityVisibilityHiddenAsOfArgs, never>>;
-  hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
-  visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
-  visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  visibleAfterAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
-  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ReferencesEntityVisibilityVisibleAsOfArgs, never>>;
-  visibleUntilAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
 };
 
 export type ReferencesGlobalEntityDatesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReferencesGlobalEntityDates'] = ResolversParentTypes['ReferencesGlobalEntityDates']> = {
@@ -11596,7 +11787,6 @@ export type Resolvers<ContextType = any> = {
   GroupProperty?: GroupPropertyResolvers<ContextType>;
   HasAttachmentStorage?: HasAttachmentStorageResolvers<ContextType>;
   HasDOI?: HasDoiResolvers<ContextType>;
-  HasDefaultTimestamps?: HasDefaultTimestampsResolvers<ContextType>;
   HasISSN?: HasIssnResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HierarchicalSchemaRank?: HierarchicalSchemaRankResolvers<ContextType>;
@@ -11652,7 +11842,6 @@ export type Resolvers<ContextType = any> = {
   PermissionGrant?: PermissionGrantResolvers<ContextType>;
   PersonContributor?: PersonContributorResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  ReferencesEntityVisibility?: ReferencesEntityVisibilityResolvers<ContextType>;
   ReferencesGlobalEntityDates?: ReferencesGlobalEntityDatesResolvers<ContextType>;
   ReparentEntityPayload?: ReparentEntityPayloadResolvers<ContextType>;
   ResetOrderingPayload?: ResetOrderingPayloadResolvers<ContextType>;

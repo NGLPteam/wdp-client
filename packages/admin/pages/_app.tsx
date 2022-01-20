@@ -18,8 +18,7 @@ import { AppContextProvider } from "contexts";
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import { RouteHelper } from "routes";
-import { Toast } from "components/atomic";
-import LoadingPage from "components/atomic/loading/LoadingPage";
+import { Toast, LoadingPage } from "components/atomic";
 
 const NGLPApp = ({
   Component,

@@ -12,6 +12,7 @@ import type { Page } from "@wdp/lib/types/page";
 import { AppHtmlHead } from "components/global";
 import { updateI18n } from "i18n";
 import { AppContextProvider } from "contexts";
+import { LoadingPage } from "components/atomic";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 function App({
@@ -40,6 +41,7 @@ function App({
     initOptions,
     keycloakConfig,
     persistor,
+    LoadingComponent: <LoadingPage />,
   };
 
   const defaultLayout = ({

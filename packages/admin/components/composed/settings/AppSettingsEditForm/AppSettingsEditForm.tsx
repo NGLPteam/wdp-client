@@ -42,7 +42,7 @@ export default function AppSettingsEditForm({
           description={t("forms.fields.theme_color_description")}
           options={[
             { label: "Cream", value: "cream" },
-            // { label: "Gray", value: "gray" },
+            { label: "Gray", value: "gray" },
             { label: "Blue", value: "blue" },
           ]}
           required
@@ -69,8 +69,8 @@ export default function AppSettingsEditForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="messages.update.announcement_success"
-      failureNotification="messages.update.announcement_failure"
+      successNotification="messages.update.global_settings_success"
+      failureNotification="messages.update.global_settings_failure"
       name="updateGlobalConfiguration"
       refetchTags={["globalConfiguration"]}
       toVariables={toVariables}

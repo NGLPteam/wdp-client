@@ -8,6 +8,7 @@ import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { ViewerContextProvider } from "./ViewerContext";
 import GlobalStyles from "theme";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
+import { LoadingPage } from "components/atomic";
 
 /** Wraps the app with all necessary providers
  * ReakitSSRProvider - Reakit SSR support
@@ -15,19 +16,21 @@ import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuer
  * PageContextProvider - page loading states, etc
  */
 const AppContextProvider = ({ children }: Props) => {
-  const { data } = useAuthenticatedQuery<Query>(query);
+  const { data, isLoading } = useAuthenticatedQuery<Query>(query);
 
   const theme = useMemo(() => data?.globalConfiguration?.theme, [data]);
 
-  return (
+  return isLoading ? (
+    <LoadingPage />
+  ) : (
     <ThemeProvider
       theme={{
-        fontStyle: theme?.font || "style1",
-        colorStyle: theme?.color || "cream",
+        fontStyle: theme?.font,
+        colorStyle: theme?.color,
       }}
     >
-      <GlobalStyles />
       <ReakitSSRProvider>
+        <GlobalStyles />
         <ViewerContextProvider data={data}>
           <PageContextProvider>{children}</PageContextProvider>
         </ViewerContextProvider>
