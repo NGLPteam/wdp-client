@@ -7,6 +7,7 @@ import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
 import type { AppSettingsEditDrawerQuery as Query } from "__generated__/AppSettingsEditDrawerQuery.graphql";
+import { useViewerContext } from "hooks";
 
 export default function AppSettingsEditDrawer({
   dialog, // params,
@@ -16,7 +17,9 @@ export default function AppSettingsEditDrawer({
 }) {
   const { t } = useTranslation();
 
-  return (
+  const { globalAdmin } = useViewerContext();
+
+  return globalAdmin ? (
     <QueryWrapper<Query> query={query}>
       {({ data }) => {
         return (
@@ -37,7 +40,7 @@ export default function AppSettingsEditDrawer({
         );
       }}
     </QueryWrapper>
-  );
+  ) : null;
 }
 
 const query = graphql`
