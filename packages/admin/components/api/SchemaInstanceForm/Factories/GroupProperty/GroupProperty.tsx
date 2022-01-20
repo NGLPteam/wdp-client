@@ -1,12 +1,14 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
+import { useTranslation } from "react-i18next";
 import SchemaProperty from "../SchemaProperty";
 import { FieldsetSection, FormGrid } from "components/forms";
 import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";
 
 export default function GroupProperty(props: Props) {
   const group = useFragment<GroupPropertyFragment$key>(fragment, props.group);
+  const { t } = useTranslation();
 
   // Schema property inputs should be laid out in a grid,
   // same as the global properties
@@ -19,11 +21,13 @@ export default function GroupProperty(props: Props) {
       </FormGrid>
     </FieldsetSection>
   ) : (
-    <>
-      {group.properties.map((prop, index) => (
-        <SchemaProperty field={prop} key={index} />
-      ))}
-    </>
+    <FieldsetSection label={t("forms.fields.fields")}>
+      <FormGrid>
+        {group.properties.map((prop, index) => (
+          <SchemaProperty field={prop} key={index} />
+        ))}
+      </FormGrid>
+    </FieldsetSection>
   );
 }
 
