@@ -74,10 +74,11 @@
       "nglp.dissertation_plural": "dissertations",
       "default.collection": "$t(glossary.collection)",
       "default.item": "$t(glossary.item)",
-      "ucm.campus": "Campus",
-      "ucm.campus_plural": "Campuses",
-      "ucm.oru": "ORU",
-      "ucm.series": "Series"
+      "nglp.campus": "campus",
+      "nglp.campus_plural": "campuses",
+      "nglp.unit": "unit",
+      "nglp.unit_plural": "units",
+      "nglp.series": "series"
     },
     "asset": {
       "pdf": "PDF",
