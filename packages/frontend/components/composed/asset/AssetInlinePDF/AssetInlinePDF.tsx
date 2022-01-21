@@ -2,9 +2,11 @@ import React, { useState, useMemo, useRef, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useIsMounted, useWindowSize } from "@wdp/lib/hooks";
 import * as Styled from "./AssetInlinePDF.styles";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
-import { useIsMounted, useWindowSize } from "@wdp/lib/hooks";
+import BasePagination from "components/atomic/Pagination/BasePagination";
+import { LoadingBlock } from "components/atomic";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -32,51 +34,48 @@ export default function AssetInlinePDF({ data }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrapperRef, size]);
 
-  const prevPage = useCallback(
-    () => (numPages && page > 0 ? setPage(page - 1) : null),
-    [page, setPage, numPages]
+  const handleSubmit = useCallback(
+    ({ page }) => {
+      setPage(parseInt(page));
+    },
+    [setPage]
   );
 
-  const nextPage = useCallback(
-    () => (numPages && page < numPages ? setPage(page + 1) : null),
-    [page, setPage, numPages]
-  );
-
-  return isMounted && file ? (
+  return (
     <Styled.Wrapper ref={wrapperRef}>
-      <nav>
-        <button onClick={prevPage} disabled={page === 1}>
-          Prev
-        </button>
-        <span>{` Page ${page} of ${numPages} `}</span>
-        <button onClick={nextPage} disabled={page === numPages}>
-          Next
-        </button>
-      </nav>
-      <Document
-        file={{
-          url: file,
-          httpHeaders: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }}
-        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-        loading="Loading PDF..."
-        onLoadError={(err) => console.info(err.message)}
-      >
-        <Page pageNumber={page} width={width} />
-      </Document>
-      <nav>
-        <button onClick={prevPage} disabled={page === 1}>
-          Prev
-        </button>
-        <span>{` Page ${page} of ${numPages} `}</span>
-        <button onClick={nextPage} disabled={page === numPages}>
-          Next
-        </button>
-      </nav>
+      {isMounted && file ? (
+        <>
+          <div>
+            <BasePagination
+              page={page}
+              pageCount={numPages}
+              onSubmit={handleSubmit}
+            />
+          </div>
+          <Document
+            file={{
+              url: file,
+              httpHeaders: {
+                "Access-Control-Allow-Origin": "*",
+              },
+            }}
+            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+            loading={<LoadingBlock label="common.loading_pdf" />}
+            onLoadError={(err) => console.info(err.message)}
+          >
+            <Page pageNumber={page} width={width} />
+          </Document>
+          <div>
+            <BasePagination
+              page={page}
+              pageCount={numPages}
+              onSubmit={handleSubmit}
+            />
+          </div>
+        </>
+      ) : null}
     </Styled.Wrapper>
-  ) : null;
+  );
 }
 
 type Props = {

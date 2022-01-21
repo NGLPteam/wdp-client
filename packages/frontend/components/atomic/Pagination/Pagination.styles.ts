@@ -12,7 +12,7 @@ export const Nav = styled.nav`
   }
 `;
 
-export const PrevNextLink = styled.a`
+export const PrevNextButton = styled.button`
   ${aButtonBase("secondary")}
   padding: ${pxToRem(12)};
   border-radius: ${pxToRem(4)};

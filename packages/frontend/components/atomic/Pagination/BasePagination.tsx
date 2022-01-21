@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import BasePaginationButton from "./BasePaginationButton";
 import * as Styled from "./Pagination.styles";
-import PaginationButton from "./PaginationPrevNext";
 
-export default function BasePagination({ page, pageCount }: Props) {
+export default function BasePagination({ page, pageCount, onSubmit }: Props) {
   const { t } = useTranslation();
-
-  const { pathname, query, push } = useRouter();
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -16,11 +13,6 @@ export default function BasePagination({ page, pageCount }: Props) {
   useEffect(() => {
     reset({ page });
   }, [reset, page]);
-
-  // Push query changes
-  const onSubmit = (data: Record<string, string>) => {
-    push({ pathname, query: { ...query, page: data.page } });
-  };
 
   // Set width using the maximum page number
   const width = pageCount ? `${pageCount.toString().length + 2}rem` : "3rem";
@@ -34,7 +26,11 @@ export default function BasePagination({ page, pageCount }: Props) {
   return (
     <Styled.Nav aria-label="Pagination Navigation">
       {currentPage > 1 && (
-        <PaginationButton direction="prev" page={currentPage} />
+        <BasePaginationButton
+          direction="prev"
+          page={currentPage}
+          onSubmit={onSubmit}
+        />
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Styled.PageInput
@@ -51,7 +47,11 @@ export default function BasePagination({ page, pageCount }: Props) {
       </form>
       <span>{t("list.of_count", { count: pageCount })}</span>
       {currentPage < pageCount && (
-        <PaginationButton direction="next" page={currentPage} />
+        <BasePaginationButton
+          direction="next"
+          page={currentPage}
+          onSubmit={onSubmit}
+        />
       )}
     </Styled.Nav>
   );
@@ -60,4 +60,5 @@ export default function BasePagination({ page, pageCount }: Props) {
 interface Props {
   page?: number | null;
   pageCount?: number | null;
+  onSubmit: (data: Record<string, string | number>) => void;
 }
