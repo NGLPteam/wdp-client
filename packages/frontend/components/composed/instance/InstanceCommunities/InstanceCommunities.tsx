@@ -19,11 +19,11 @@ export default function InstanceCommunities({ data }: Props) {
         <Styled.Header as="h3">
           {t("layouts.instance_communities_header")}
         </Styled.Header>
-        <Styled.List data-count={communities.edges.length}>
+        <Styled.List>
           {communities.edges.map(({ node }: Node) => (
-            <Styled.Item key={node.slug}>
+            <li key={node.slug}>
               <InstanceCommunitySummary data={node} />
-            </Styled.Item>
+            </li>
           ))}
         </Styled.List>
       </Styled.Inner>

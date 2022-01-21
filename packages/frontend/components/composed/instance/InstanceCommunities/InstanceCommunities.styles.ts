@@ -18,5 +18,3 @@ export const List = styled.ul`
 
   ${respond(`grid-template-columns: 1fr;`, 50)}
 `;
-
-export const Item = styled.li``;
