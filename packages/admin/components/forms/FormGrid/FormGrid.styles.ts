@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { respond } from "theme/mixins/base";
 import { Fieldset } from "../FieldsetSection/FieldsetSection.styles";
+import { respond } from "theme/mixins/base";
 
 export const Grid = styled.div`
   display: flex;

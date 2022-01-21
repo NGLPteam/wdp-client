@@ -13,7 +13,12 @@ export default function EntityHero({ data }: Props) {
       <Styled.HeroInner className="l-container-wide">
         <h2>{entity.title}</h2>
       </Styled.HeroInner>
-      {entity.heroImage?.storage && <HeroImage data={entity.heroImage} />}
+      {entity.heroImage?.storage && (
+        <HeroImage
+          data={entity.heroImage}
+          metadata={entity.heroImageMetadata}
+        />
+      )}
     </section>
   ) : null;
 }
@@ -30,12 +35,18 @@ const fragment = graphql`
         storage
         ...HeroImageFragment
       }
+      heroImageMetadata {
+        ...HeroImageMetadataFragment
+      }
     }
     ... on Item {
       title
       heroImage {
         storage
         ...HeroImageFragment
+      }
+      heroImageMetadata {
+        ...HeroImageMetadataFragment
       }
     }
   }

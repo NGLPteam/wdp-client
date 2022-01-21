@@ -1,7 +1,13 @@
 import styled from "styled-components";
-import { pxToRem } from "@wdp/lib/theme/functions";
 
-export const Header = styled.span`
-  padding-inline-start: var(--padding-rg);
-  padding-block-end: ${pxToRem(6)};
+export const Wrapper = styled.div`
+  > * + * {
+    padding-inline-start: var(--padding-rg);
+  }
+`;
+
+export const Logo = styled.figure`
+  height: 40px;
+  min-width: 40px;
+  display: block;
 `;

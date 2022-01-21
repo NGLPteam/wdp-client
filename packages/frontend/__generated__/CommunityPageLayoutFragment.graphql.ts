@@ -11,6 +11,9 @@ export type CommunityPageLayoutFragment = {
     readonly heroImage: {
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
     };
+    readonly heroImageMetadata: {
+        readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
+    } | null;
     readonly " $refType": "CommunityPageLayoutFragment";
 };
 export type CommunityPageLayoutFragment$data = CommunityPageLayoutFragment;
@@ -56,10 +59,26 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageMetadata",
+      "kind": "LinkedField",
+      "name": "heroImageMetadata",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "HeroImageMetadataFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Page",
   "abstractKey": null
 };
-(node as any).hash = 'a90b6f515245a32e8f581339c18d0470';
+(node as any).hash = 'f4957dd0cba0c6ce31e41e43560caa95';
 export default node;
