@@ -27,13 +27,18 @@ export const LinkWrapper = styled.a`
   --padding-inline: ${pxToRem(36)};
 `;
 
-export const ImageWrapper = styled.figure`
+export const ImageWrapper = styled.figure<{ $withPadding?: true }>`
   height: 180px;
   position: relative;
-  padding-block-start: ${pxToRem(40)};
-  padding-block-end: ${pxToRem(40)};
-  padding-inline-start: var(--padding-inline);
-  padding-inline-end: var(--padding-inline);
+
+  ${({ $withPadding }) =>
+    $withPadding &&
+    `
+    padding-block-start: ${pxToRem(40)};
+    padding-block-end: ${pxToRem(40)};
+    padding-inline-start: var(--padding-inline);
+    padding-inline-end: var(--padding-inline);
+    `}
 `;
 
 export const LogoWrapper = styled.div`

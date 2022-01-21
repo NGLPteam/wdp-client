@@ -12,3 +12,4 @@ export { default as PageCount } from "./PageCount";
 export { default as Pagination } from "./Pagination";
 export * from "./properties";
 export { default as SearchButton } from "./SearchButton";
+export { default as SummaryMarkdown } from "./SummaryMarkdown";
