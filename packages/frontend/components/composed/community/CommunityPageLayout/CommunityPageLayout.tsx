@@ -11,7 +11,7 @@ export default function CommunityPageLayout({ data }: Props) {
 
   return page ? (
     <>
-      <HeroImage data={page.heroImage} />
+      <HeroImage data={page.heroImage} metadata={page.heroImageMetadata} />
       <header className="a-bg-custom10">
         <Styled.HeroInner className="l-container-wide">
           <h2>{page.title}</h2>
@@ -38,6 +38,9 @@ const fragment = graphql`
     body
     heroImage {
       ...HeroImageFragment
+    }
+    heroImageMetadata {
+      ...HeroImageMetadataFragment
     }
   }
 `;

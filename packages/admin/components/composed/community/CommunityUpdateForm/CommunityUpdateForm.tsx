@@ -21,7 +21,7 @@ export default function CommunityUpdateForm({
   const { communityId = "", ...fieldsData } =
     useFragment<CommunityUpdateFormFragment$key>(fragment, data);
 
-  const { heroImage, ...defaultValues } =
+  const { heroImage, logo, ...defaultValues } =
     useFragment<CommunityUpdateFormFieldsFragment$key>(
       fieldsFragment,
       fieldsData
@@ -41,22 +41,31 @@ export default function CommunityUpdateForm({
           {...register("tagline")}
           isWide
         />
-        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.FileUpload
-          label="forms.fields.hero_image"
-          name="heroImage"
-          image={heroImage?.thumb}
-          clearName="clearHeroImage"
+          label="forms.fields.logo"
+          name="logo"
+          image={logo?.thumb}
+          clearName="clearLogo"
         />
-        <Forms.Select
-          label="forms.fields.hero_layout"
-          options={[
-            { label: "One Column", value: "ONE_COLUMN" },
-            { label: "Two Column", value: "TWO_COLUMN" },
-          ]}
-          isWide
-          {...register("heroImageLayout")}
-        />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
+        <Forms.Fieldset label="Hero">
+          <Forms.FileUpload
+            label="forms.fields.hero_image"
+            name="heroImage"
+            image={heroImage?.thumb}
+            clearName="clearHeroImage"
+          />
+          <Forms.AltText {...register("heroImageMetadata.alt")} />
+          <Forms.Select
+            label="forms.fields.hero_layout"
+            options={[
+              { label: "One Column", value: "ONE_COLUMN" },
+              { label: "Two Column", value: "TWO_COLUMN" },
+            ]}
+            isWide
+            {...register("heroImageLayout")}
+          />
+        </Forms.Fieldset>
       </Forms.Grid>
     ),
     []
@@ -101,6 +110,18 @@ const fieldsFragment = graphql`
           url
         }
       }
+    }
+    logo {
+      storage
+      thumb {
+        png {
+          alt
+          url
+        }
+      }
+    }
+    heroImageMetadata {
+      alt
     }
   }
 `;

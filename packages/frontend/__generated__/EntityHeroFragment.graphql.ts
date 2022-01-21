@@ -12,6 +12,9 @@ export type EntityHeroFragment = {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
     } | undefined;
+    readonly heroImageMetadata?: {
+        readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
+    } | null | undefined;
     readonly " $refType": "EntityHeroFragment";
 };
 export type EntityHeroFragment$data = EntityHeroFragment;
@@ -53,6 +56,22 @@ var v0 = [
       }
     ],
     "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageMetadata",
+    "kind": "LinkedField",
+    "name": "heroImageMetadata",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "HeroImageMetadataFragment"
+      }
+    ],
+    "storageKey": null
   }
 ];
 return {
@@ -78,5 +97,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '1c70058430059a77c672b1cf1aeb2216';
+(node as any).hash = 'dee9362867845cf569bdbb251ef45366';
 export default node;

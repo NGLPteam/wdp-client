@@ -14,6 +14,9 @@ export type JournalHeroFragment = {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
     };
+    readonly heroImageMetadata: {
+        readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
+    } | null;
     readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "JournalHeroMetadataFragment">;
     readonly " $refType": "JournalHeroFragment";
 };
@@ -76,6 +79,22 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageMetadata",
+      "kind": "LinkedField",
+      "name": "heroImageMetadata",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "HeroImageMetadataFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DOIFragment"
@@ -89,5 +108,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'bc23fa1169fa2eddfe26b3deed18b111';
+(node as any).hash = 'af5413589bd63b06a5a790a79992aa3f';
 export default node;

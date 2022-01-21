@@ -21,6 +21,18 @@ export type CommunityUpdateFormFieldsFragment = {
             };
         };
     };
+    readonly logo: {
+        readonly storage: AttachmentStorage | null;
+        readonly thumb: {
+            readonly png: {
+                readonly alt: string | null;
+                readonly url: string | null;
+            };
+        };
+    };
+    readonly heroImageMetadata: {
+        readonly alt: string | null;
+    } | null;
     readonly " $refType": "CommunityUpdateFormFieldsFragment";
 };
 export type CommunityUpdateFormFieldsFragment$data = CommunityUpdateFormFieldsFragment;
@@ -31,7 +43,54 @@ export type CommunityUpdateFormFieldsFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "storage",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageSize",
+    "kind": "LinkedField",
+    "name": "thumb",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ImageDerivative",
+        "kind": "LinkedField",
+        "name": "png",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "url",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -72,50 +131,28 @@ const node: ReaderFragment = {
       "kind": "LinkedField",
       "name": "heroImage",
       "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageAttachment",
+      "kind": "LinkedField",
+      "name": "logo",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageMetadata",
+      "kind": "LinkedField",
+      "name": "heroImageMetadata",
+      "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "thumb",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
+        (v0/*: any*/)
       ],
       "storageKey": null
     }
@@ -123,5 +160,6 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '3fce9fcdff34bd2bcb1e100cd5994939';
+})();
+(node as any).hash = 'a703b5505be6f113c77401ee11194364';
 export default node;

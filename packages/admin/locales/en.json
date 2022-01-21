@@ -298,9 +298,9 @@
         "url": "URL",
         "user": "User",
         "caption": "Caption",
-        "altText": "Alt Text",
         "attachment": "Attachment",
         "alt_text": "Alt Text",
+        "alt_text_description": "Descriptive text for the image (<0>See WebAIM alt text techniques</0>)",
         "username": "Username",
         "avatar": "Avatar",
         "published": "Published",
@@ -331,7 +331,8 @@
         "theme_color": "Color Theme",
         "theme_color_description": "Set the app color theme across all communities.",
         "theme_font": "Font Theme",
-        "theme_font_description": "Set the app font theme across all communities."
+        "theme_font_description": "Set the app font theme across all communities.",
+        "logo": "Logo"
       },
       "validation": {
         "year": "Must be a four digit year",
