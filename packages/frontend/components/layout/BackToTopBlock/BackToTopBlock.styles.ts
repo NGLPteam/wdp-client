@@ -9,7 +9,7 @@ export const Section = styled.div`
 `;
 
 export const ChildrenWrapper = styled.div`
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 `;
 
 export const ButtonWrapper = styled.div`
