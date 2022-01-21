@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xlg);
+  padding-block-end: var(--container-padding-xl);
 
   > * + * {
     margin-block-start: var(--padding-xl);

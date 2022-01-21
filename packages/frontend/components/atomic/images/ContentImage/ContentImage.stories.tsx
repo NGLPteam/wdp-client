@@ -4,7 +4,7 @@ import ContentImageBase from "./ContentImageBase";
 type Props = React.ComponentProps<typeof ContentImageBase>;
 
 export default {
-  title: "Components/Atomic/ContentImage",
+  title: "Components/Atomic/Images/ContentImage",
   component: ContentImageBase,
 };
 

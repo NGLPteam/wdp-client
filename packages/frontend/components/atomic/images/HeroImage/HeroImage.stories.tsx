@@ -4,7 +4,7 @@ import HeroImageBase from "./HeroImageBase";
 type Props = React.ComponentProps<typeof HeroImageBase>;
 
 export default {
-  title: "Components/Atomic/HeroImage",
+  title: "Components/Atomic/Images/HeroImage",
   component: HeroImageBase,
 };
 

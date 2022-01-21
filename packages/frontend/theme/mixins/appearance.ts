@@ -18,6 +18,9 @@ const aBgProps = `
 export function aBgNeutral00() {
   return css`
     --background-color: ${baseColors.neutral00};
+    --color-base: ${baseColors.neutral90};
+    --color-light: ${baseColors.neutral80};
+    --color-lighter: ${baseColors.neutral70};
 
     ${aBgProps}
   `;
@@ -26,7 +29,9 @@ export function aBgNeutral00() {
 export function aBgCustom10() {
   return css`
     --background-color: var(--color-custom10);
+    --color-base: ${baseColors.neutral90};
     --color-light: ${baseColors.neutral80};
+    --color-lighter: ${baseColors.neutral70};
     --button-secondary-bg-color: ${baseColors.neutral00};
 
     ${aBgProps}
@@ -36,6 +41,7 @@ export function aBgCustom10() {
 export function aBgCustom20() {
   return css`
     --background-color: var(--color-custom20);
+    --color-base: ${baseColors.neutral90};
     --color-light: ${baseColors.neutral80};
     --color-lighter: ${baseColors.neutral80};
     --button-secondary-bg-color: var(--color-custom10);

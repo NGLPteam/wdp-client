@@ -1,9 +1,9 @@
 import { Story } from "@storybook/react";
-import CoverPlaceholder from "./";
+import CoverPlaceholder from ".";
 type Props = React.ComponentProps<typeof CoverPlaceholder>;
 
 export default {
-  title: "Components/Atomic/CoverPlaceholder",
+  title: "Components/Atomic/Images/CoverPlaceholder",
   component: CoverPlaceholder,
 };
 

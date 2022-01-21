@@ -3,7 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import ReactMarkdown from "react-markdown";
 import * as Styled from "./CommunityPageLayout.styles";
-import HeroImage from "components/atomic/HeroImage";
+import { HeroImage } from "components/atomic";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
 
 export default function CommunityPageLayout({ data }: Props) {

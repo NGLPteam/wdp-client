@@ -4,7 +4,7 @@ import FileThumbnail from "./FileThumbnail";
 type Props = React.ComponentProps<typeof FileThumbnail>;
 
 export default {
-  title: "Components/Atomic/FileThumbnail",
+  title: "Components/Atomic/Images/FileThumbnail",
   component: FileThumbnail,
   argTypes: {
     kind: {
