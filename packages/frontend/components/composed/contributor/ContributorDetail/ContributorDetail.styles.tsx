@@ -37,7 +37,7 @@ export const AssetInfo = styled.div`
 
 export const ContributionsWrapper = styled.div`
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xlg);
+  padding-block-end: var(--container-padding-xl);
 `;
 
 export const ContributionsHeader = styled.h3`

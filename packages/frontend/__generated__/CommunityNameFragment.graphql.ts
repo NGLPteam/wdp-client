@@ -12,10 +12,10 @@ export type CommunityNameFragment = {
     readonly logo: {
         readonly storage: AttachmentStorage | null;
         readonly original: {
-            readonly url: string | null;
             readonly width: number | null;
             readonly height: number | null;
         };
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLogoFragment">;
     };
     readonly " $refType": "CommunityNameFragment";
 };
@@ -74,13 +74,6 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "width",
               "storageKey": null
             },
@@ -93,6 +86,11 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "CommunityLogoFragment"
         }
       ],
       "storageKey": null
@@ -101,5 +99,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'a1fc2ccb9af66f11d466a83e700ad70f';
+(node as any).hash = '0ee2f108689e78513890a8f835de0179';
 export default node;

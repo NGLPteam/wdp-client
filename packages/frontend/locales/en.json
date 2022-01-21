@@ -124,7 +124,7 @@
       "article_count": "{{count}} Article",
       "article_count_plural": "{{count}} Articles",
       "research_units": "Research Units",
-      "instance_communities_header": "Our Communities"
+      "instance_communities_header": "Communities"
     },
     "nav": {
       "home": "Home",

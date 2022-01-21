@@ -4,7 +4,7 @@ import Avatar from "./Avatar";
 type Props = React.ComponentProps<typeof Avatar>;
 
 export default {
-  title: "Components/Atomic/Avatar",
+  title: "Components/Atomic/Images/Avatar",
   component: Avatar,
   argTypes: {
     size: {

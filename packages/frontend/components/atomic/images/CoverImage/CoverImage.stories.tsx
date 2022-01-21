@@ -4,7 +4,7 @@ import CoverImageBase from "./CoverImageBase";
 type Props = React.ComponentProps<typeof CoverImageBase>;
 
 export default {
-  title: "Components/Atomic/CoverImage",
+  title: "Components/Atomic/Images/CoverImage",
   component: CoverImageBase,
 };
 

@@ -145,11 +145,13 @@ export default css`
     --font-weight-bold: 700;
 
     /* grid */
+    --grid-column-gap-xl: ${fluidScale("48px", "16px")};
     --grid-column-gap-lg: ${pxToRem(36)};
     --grid-column-gap: ${pxToRem(16)};
     --grid-column-gap-sm: ${pxToRem(8)};
     --grid-row-gap: ${pxToRem(16)};
     --grid-row-gap-lg: ${pxToRem(30)};
+    --grid-row-gap-xl: ${pxToRem(60)};
 
     /* borders */
     --border-color: ${baseColors.neutral70};
@@ -167,7 +169,7 @@ export default css`
     --button-secondary-text-hover-color: ${baseColors.neutral00};
 
     /* container */
-    --container-padding-xlg: ${pxToRem(120)};
+    --container-padding-xl: ${pxToRem(120)};
     --container-padding-lg: ${pxToRem(60)};
     --container-padding-sm: ${pxToRem(36)};
     --container-padding-xs: ${pxToRem(24)};

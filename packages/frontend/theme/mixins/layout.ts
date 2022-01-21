@@ -8,7 +8,7 @@ type GridProps = {
 
 // Base grid styling
 export function lGridBase(props?: GridProps) {
-  return css`
+  return `
     display: grid;
     grid-template-columns: repeat(${(props && props.columns) || 12}, 1fr);
     row-gap: ${(props && props.rowGap) || "var(--grid-row-gap)"};

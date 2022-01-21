@@ -3,8 +3,12 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./VolumeSummary.styles";
-import { ReadMoreLink, PrecisionDate, NamedLink } from "components/atomic";
-import CoverImage from "components/atomic/CoverImage";
+import {
+  ReadMoreLink,
+  PrecisionDate,
+  NamedLink,
+  CoverImage,
+} from "components/atomic";
 import { VolumeSummaryFragment$key } from "@/relay/VolumeSummaryFragment.graphql";
 
 export default function VolumeSummary({ data, showReadMore }: Props) {

@@ -4,8 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./VolumeHero.styles";
 import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
-import CoverImage from "components/atomic/CoverImage";
-import { DotList, PrecisionDate, DOI } from "components/atomic";
+import { DotList, PrecisionDate, DOI, CoverImage } from "components/atomic";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
 

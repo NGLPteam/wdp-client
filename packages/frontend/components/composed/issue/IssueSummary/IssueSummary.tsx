@@ -4,8 +4,12 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import * as Styled from "./IssueSummary.styles";
-import { ReadMoreLink, PrecisionDate, NamedLink } from "components/atomic";
-import CoverImage from "components/atomic/CoverImage";
+import {
+  ReadMoreLink,
+  PrecisionDate,
+  NamedLink,
+  CoverImage,
+} from "components/atomic";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 
 export default function IssueSummary({ data, showReadMore }: Props) {
