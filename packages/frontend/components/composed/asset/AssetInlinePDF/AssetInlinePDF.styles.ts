@@ -8,3 +8,10 @@ export const Wrapper = styled.div`
     margin-block-start: var(--padding-md);
   }
 `;
+
+export const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+`;

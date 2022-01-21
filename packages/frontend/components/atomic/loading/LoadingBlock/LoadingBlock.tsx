@@ -2,9 +2,9 @@ import React from "react";
 import LoadingSpinner from "../LoadingSpinner";
 import * as Styled from "./LoadingBlock.styles";
 
-export default function LoadingBlock({ className, label }: Props) {
+export default function LoadingBlock({ className, label, style }: Props) {
   return (
-    <Styled.Wrapper className={className}>
+    <Styled.Wrapper className={className} style={style}>
       <LoadingSpinner label={label} />
     </Styled.Wrapper>
   );
@@ -13,4 +13,5 @@ export default function LoadingBlock({ className, label }: Props) {
 interface Props {
   className?: string;
   label?: string;
+  style?: React.CSSProperties;
 }

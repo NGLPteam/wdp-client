@@ -9,6 +9,7 @@ export type AssetInlinePDFFragment = {
     readonly asset: {
         readonly downloadUrl?: string | null | undefined;
     } | null;
+    readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     readonly " $refType": "AssetInlinePDFFragment";
 };
 export type AssetInlinePDFFragment$data = AssetInlinePDFFragment;
@@ -49,10 +50,15 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "AssetDownloadButtonFragment"
     }
   ],
   "type": "AssetProperty",
   "abstractKey": null
 };
-(node as any).hash = '300e0bef10ea131f3d7e1781321d784e';
+(node as any).hash = '35930181d6b3258047749698fd96c3a4';
 export default node;

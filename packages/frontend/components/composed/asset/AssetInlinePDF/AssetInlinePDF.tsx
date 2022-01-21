@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useIsMounted, useWindowSize } from "@wdp/lib/hooks";
+import AssetDownloadButton from "../AssetDownloadButton";
 import * as Styled from "./AssetInlinePDF.styles";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
 import BasePagination from "components/atomic/Pagination/BasePagination";
@@ -16,6 +17,8 @@ export default function AssetInlinePDF({ data }: Props) {
   const [page, setPage] = useState<number>(1);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const docRef = useRef<HTMLDivElement>(null);
 
   const file = useMemo(() => pdf?.asset?.downloadUrl, [pdf]); // "/pdf/Titanic.pdf";
 
@@ -34,6 +37,17 @@ export default function AssetInlinePDF({ data }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrapperRef, size]);
 
+  const height = useMemo(() => {
+    if (docRef?.current) {
+      const bounding = docRef.current.getBoundingClientRect();
+
+      return bounding.height;
+    }
+    return 400;
+    // Check sizing when page changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [docRef, page]);
+
   const handleSubmit = useCallback(
     ({ page }) => {
       setPage(parseInt(page));
@@ -45,33 +59,45 @@ export default function AssetInlinePDF({ data }: Props) {
     <Styled.Wrapper ref={wrapperRef}>
       {isMounted && file ? (
         <>
-          <div>
-            <BasePagination
-              page={page}
-              pageCount={numPages}
-              onSubmit={handleSubmit}
-            />
+          {page && (
+            <Styled.PaginationWrapper>
+              <BasePagination
+                page={page}
+                pageCount={numPages}
+                onSubmit={handleSubmit}
+              />
+            </Styled.PaginationWrapper>
+          )}
+          <div ref={docRef}>
+            <Document
+              file={{
+                url: file,
+                httpHeaders: {
+                  "Access-Control-Allow-Origin": "*",
+                },
+              }}
+              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+              loading={
+                <LoadingBlock
+                  label="common.loading_pdf"
+                  style={{ height: `${height}px` }}
+                />
+              }
+              onLoadError={(err) => console.info(err.message)}
+            >
+              <Page pageNumber={page} width={width} />
+            </Document>
           </div>
-          <Document
-            file={{
-              url: file,
-              httpHeaders: {
-                "Access-Control-Allow-Origin": "*",
-              },
-            }}
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            loading={<LoadingBlock label="common.loading_pdf" />}
-            onLoadError={(err) => console.info(err.message)}
-          >
-            <Page pageNumber={page} width={width} />
-          </Document>
-          <div>
-            <BasePagination
-              page={page}
-              pageCount={numPages}
-              onSubmit={handleSubmit}
-            />
-          </div>
+          {page && (
+            <Styled.PaginationWrapper>
+              <BasePagination
+                page={page}
+                pageCount={numPages}
+                onSubmit={handleSubmit}
+              />
+              <AssetDownloadButton data={pdf} />
+            </Styled.PaginationWrapper>
+          )}
         </>
       ) : null}
     </Styled.Wrapper>
@@ -84,6 +110,7 @@ type Props = {
 
 const fragment = graphql`
   fragment AssetInlinePDFFragment on AssetProperty {
+    ...AssetDownloadButtonFragment
     asset {
       ... on AssetPDF {
         downloadUrl
