@@ -46,6 +46,11 @@ v1 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "EntityLayoutFragment"
+},
+v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "EntityContentFragment"
 };
 return {
   "argumentDefinitions": [
@@ -64,11 +69,7 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityContentFragment"
-        },
+        (v2/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -109,6 +110,7 @@ return {
           "storageKey": null
         },
         (v1/*: any*/),
+        (v2/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -133,5 +135,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'c5b8bd27ca7d3f963bfb143ff9eb2a20';
+(node as any).hash = '9a70060fa4fe4dca282b678a3ba724af';
 export default node;
