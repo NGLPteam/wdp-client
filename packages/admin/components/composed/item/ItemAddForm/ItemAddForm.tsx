@@ -8,6 +8,7 @@ import MutationForm, {
   useOnSuccess,
 } from "components/api/MutationForm";
 import { RouteHelper } from "routes";
+import { useLocalStorage } from "hooks";
 
 import type {
   ItemAddFormMutation,
@@ -17,7 +18,11 @@ import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphq
 import { sanitizeDateField } from "helpers";
 
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
-  const [redirectOnSuccess, setRedirectOnSuccess] = useState(true);
+  const [prevRedirectState, setPrevRedirect] = useLocalStorage(
+    "nglp::open_item",
+    true
+  );
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
     setRedirectOnSuccess(e.target.checked);
 
@@ -45,12 +50,25 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
       variables: ItemAddFormMutation["variables"];
     }) => {
       if (onSuccess) onSuccess({ response, variables, values });
+      setPrevRedirect(true);
       const routeName = "item.manage.details";
       if (response?.createItem?.item)
         redirect(response.createItem.item.slug, routeName);
     },
     [onSuccess, redirect]
   );
+  const onSuccessNoRedirect = ({
+    response,
+    values,
+    variables,
+  }: {
+    response: ItemAddFormMutation["response"];
+    values: Fields;
+    variables: ItemAddFormMutation["variables"];
+  }) => {
+    if (onSuccess) onSuccess({ response, variables, values });
+    setPrevRedirect(false);
+  };
 
   const formData = useFragment<ItemAddFormFragment$key>(fragment, data);
 
@@ -135,7 +153,11 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           label="forms.fields.issued"
           isWide
         />
-        <Forms.Checkbox defaultChecked name="redirect" onChange={handleCheck}>
+        <Forms.Checkbox
+          defaultChecked={prevRedirectState}
+          name="redirect"
+          onChange={handleCheck}
+        >
           Open new item on save
         </Forms.Checkbox>
       </Forms.Grid>
@@ -145,7 +167,9 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   return (
     <MutationForm<ItemAddFormMutation, Fields>
       mutation={mutation}
-      onSuccess={redirectOnSuccess ? onSuccessWithRedirect : onSuccess}
+      onSuccess={
+        redirectOnSuccess ? onSuccessWithRedirect : onSuccessNoRedirect
+      }
       successNotification="messages.add.item_success"
       onCancel={onCancel}
       name="createItem"
