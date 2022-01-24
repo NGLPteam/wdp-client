@@ -19,7 +19,7 @@ import { sanitizeDateField } from "helpers";
 
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
-    "nglp::open_item",
+    "nglp::open_entity_on_save",
     true
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);

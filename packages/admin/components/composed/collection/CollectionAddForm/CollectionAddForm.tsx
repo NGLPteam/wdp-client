@@ -24,7 +24,7 @@ export default function AddCollectionForm({
   parentId,
 }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
-    "nglp::open_collection",
+    "nglp::open_entity_on_save",
     true
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
