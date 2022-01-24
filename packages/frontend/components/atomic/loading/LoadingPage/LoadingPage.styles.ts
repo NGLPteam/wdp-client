@@ -8,6 +8,9 @@ export const Wrapper = styled.div`
   height: 100vh;
   max-height: 100%;
   max-width: 100%;
-  padding-block-end: var(--padding-rg);
+  padding-block-start: var(--container-v-padding);
+  padding-block-end: var(--container-v-padding);
+  padding-inline-start: var(--padding-rg);
+  padding-inline-end: var(--padding-rg);
   overflow: hidden;
 `;

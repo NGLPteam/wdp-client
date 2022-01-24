@@ -21,7 +21,9 @@
       "back_to_name": "Back to {{name}}",
       "back_to_top": "Back to Top",
       "download": "Download",
-      "download_name": "Download {{name}}"
+      "download_name": "Download {{name}}",
+      "loading": "Loading",
+      "loading_pdf": "Loading PDF"
     },
     "list": {
       "page_number": "Page {{number}}",
