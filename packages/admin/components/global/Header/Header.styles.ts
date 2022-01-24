@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { aTextGlow, aGlow } from "theme/mixins/appearance";
-import { tLabel } from "theme/mixins/typography";
+import styled from "styled-components";
+import NavLink from "components/atomic/links/NavLink";
+import { aGlow } from "theme/mixins/appearance";
 import { globalNavRespond, noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 
@@ -55,38 +55,7 @@ export const Item = styled.li`
   }
 `;
 
-export const Link = styled.a<LinkProps>`
-  --nav-link-border: 2px solid transparent;
-  display: inline-block;
-  color: var(--accent-light);
-
-  &:hover {
-    --nav-link-border: 2px solid var(--accent-lighter);
-    color: var(--accent-lighter);
-  }
-
-  &:focus-visible {
-    outline: 0;
-    ${aTextGlow("darkMode")}
-  }
-
-  &:active,
-  &[aria-expanded="true"] {
-    --nav-link-border: 2px solid var(--accent-lighter);
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-  }
-
-  ${({ active }) =>
-    active &&
-    css`
-      --nav-link-border: 2px solid var(--accent-lighter);
-      color: var(--accent-color);
-      border-color: var(--accent-color);
-    `}
-`;
-
-export const AvatarLink = styled(Link)`
+export const AvatarLink = styled(NavLink)<{ active?: boolean }>`
   margin-block-start: ${pxToRem(5)};
   border-radius: 50%;
 
@@ -99,19 +68,3 @@ export const AvatarLink = styled(Link)`
     ${aGlow("darkMode")}
   }
 `;
-
-export const LinkText = styled.span`
-  transition: var(--border-transition), var(--color-transition);
-  border-bottom: var(--nav-link-border);
-  padding-block-end: 1px;
-  ${tLabel("md")}
-
-  &:focus-visible {
-    outline: 0;
-    ${aTextGlow("darkMode")}
-  }
-`;
-
-interface LinkProps {
-  active?: boolean;
-}

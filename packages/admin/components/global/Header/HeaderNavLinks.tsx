@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Header.styles";
-import { Dropdown, NamedLink } from "components/atomic";
+import { Dropdown, NamedLink, NavLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
@@ -52,9 +52,9 @@ function HeaderNavLinks({ navigation }: Props) {
       <Dropdown
         label={t(item.label)}
         disclosure={
-          <Styled.Link as="button" active={active}>
-            <Styled.LinkText>{t(item.label)}</Styled.LinkText>
-          </Styled.Link>
+          <NavLink as="button" active={active}>
+            {t(item.label)}
+          </NavLink>
         }
         menuItems={item.children.map(renderLink)}
       />
@@ -70,9 +70,7 @@ function HeaderNavLinks({ navigation }: Props) {
 
     return (
       <NamedLink route={route.name} passHref>
-        <Styled.Link active={active}>
-          <Styled.LinkText>{t(route.label || "")}</Styled.LinkText>
-        </Styled.Link>
+        <NavLink active={active}>{t(route.label || "")}</NavLink>
       </NamedLink>
     );
   };

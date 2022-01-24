@@ -1,15 +1,13 @@
 import styled, { css } from "styled-components";
-import TabLink from "./TabLink";
 import { aTextGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
-type Props = React.ComponentProps<typeof TabLink>;
 
 const activeState = css`
   color: var(--accent-color);
   border-color: var(--accent-color);
 `;
 
-export const Tab = styled.a<Pick<Props, "active" | "bottomBorder">>`
+export const Tab = styled.a<{ $bottomBorder?: boolean; $active?: boolean }>`
   /* Setting default values lets tabs work with any background */
   --tab-color: inherit;
   --tab-hover-color: var(--color-light);
@@ -17,8 +15,8 @@ export const Tab = styled.a<Pick<Props, "active" | "bottomBorder">>`
   display: block;
   cursor: pointer;
   border-bottom: 2px solid
-    ${({ bottomBorder }) =>
-      bottomBorder ? "var(--color-light)" : "transparent"};
+    ${({ $bottomBorder }) =>
+      $bottomBorder ? "var(--color-light)" : "transparent"};
   padding-block-end: ${pxToRem(8)};
   color: var(--tab-color);
   transition: var(--border-transition), var(--color-transition);
@@ -48,5 +46,5 @@ export const Tab = styled.a<Pick<Props, "active" | "bottomBorder">>`
     ${activeState}
   }
 
-  ${({ active }) => (active ? activeState : "")}
+  ${({ $active }) => ($active ? activeState : "")}
 `;

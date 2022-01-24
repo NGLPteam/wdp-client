@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
+import type { MaybeButtonRef } from "@wdp/lib/types/ref";
 import Button from "../..";
 import * as Styled from "./PrevNextButton.styles";
-import type { MaybeButtonRef } from "types/ref";
 
 const PrevNextButton = forwardRef(
   ({ label, ...props }: Props, ref: MaybeButtonRef) => {

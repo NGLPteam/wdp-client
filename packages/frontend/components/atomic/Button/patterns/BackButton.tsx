@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
+import type { MaybeButtonRef } from "@wdp/lib/types/ref";
 import Button from "..";
-import type { MaybeButtonRef } from "types/ref";
 
 type BaseProps = React.ComponentProps<typeof Button>;
 

@@ -1,4 +1,4 @@
-export { default as TabNav } from "./navs/TabNav";
+export { default as TabNav, Tab } from "./navs/TabNav";
 export { default as SidebarNav } from "./navs/SidebarNav";
 export { default as MobileSubNav } from "./navs/MobileSubNav";
 export { default as Breadcrumbs } from "./Breadcrumbs";

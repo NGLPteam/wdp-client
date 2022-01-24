@@ -1,6 +1,6 @@
 import React from "react";
-import * as Styled from "./TabLink.styles";
 import { NamedLink } from "components/atomic";
+import { Tab } from "components/atomic/navs/TabNav";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 
@@ -14,13 +14,14 @@ const TabLink = ({
 }: Props) => {
   return (
     <NamedLink route={route} {...linkProps} passHref>
-      <Styled.Tab
+      <Tab
+        as="a"
         className={`t-label-${size}`}
         active={active}
         bottomBorder={bottomBorder}
       >
         {children}
-      </Styled.Tab>
+      </Tab>
     </NamedLink>
   );
 };

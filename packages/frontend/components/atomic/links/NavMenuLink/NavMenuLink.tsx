@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from "react";
+import { MaybeLinkRef } from "@wdp/lib/types/ref";
 import * as Styled from "./NavMenuLink.styles";
 import { IconFactory } from "components/factories";
-import { MaybeLinkRef } from "types/ref";
 
 type IconProps = React.ComponentProps<typeof IconFactory>;
 

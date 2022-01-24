@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Header.styles";
 import SignInOut from "components/auth/SignInOut";
-import { DrawerLink, Dropdown, NamedLink } from "components/atomic";
+import { DrawerLink, Dropdown, NamedLink, NavLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useViewerContext, useIsAuthenticated } from "hooks";
@@ -42,17 +42,15 @@ const HeaderAccount = ({ accountNav }: Props) => {
   const { avatarUrl, globalAdmin } = useViewerContext();
 
   const renderSignInOut = () => (
-    <Styled.Link key="auth" as="span">
-      <Styled.LinkText as={SignInOut} />
-    </Styled.Link>
+    <NavLink key="auth" as="span">
+      <SignInOut />
+    </NavLink>
   );
 
   const renderGlobalSettings = () =>
     globalAdmin ? (
       <DrawerLink key="settings" drawer="editSettings" passHref>
-        <Styled.Link>
-          <Styled.LinkText>{t("nav.edit_global_settings")}</Styled.LinkText>
-        </Styled.Link>
+        <NavLink>{t("nav.edit_global_settings")}</NavLink>
       </DrawerLink>
     ) : null;
 
@@ -73,9 +71,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
         menuItems={[
           ...item.children.map(renderLink),
           <DrawerLink key="profile" drawer="editProfile" passHref>
-            <Styled.Link>
-              <Styled.LinkText>{t("nav.edit_profile")}</Styled.LinkText>
-            </Styled.Link>
+            <NavLink>{t("nav.edit_profile")}</NavLink>
           </DrawerLink>,
           renderGlobalSettings(),
           renderSignInOut(),
@@ -94,9 +90,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
 
     return (
       <NamedLink route={route.name} passHref>
-        <Styled.Link active={active}>
-          <Styled.LinkText>{t(item.label) || ""}</Styled.LinkText>
-        </Styled.Link>
+        <NavLink active={active}>{t(item.label || "")}</NavLink>
       </NamedLink>
     );
   };
