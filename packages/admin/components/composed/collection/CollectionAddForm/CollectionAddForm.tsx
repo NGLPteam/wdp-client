@@ -73,6 +73,10 @@ export default function AddCollectionForm({
     []
   );
 
+  const defaultValues = {
+    visibility: "VISIBLE" as Fields["visibility"],
+  };
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, watch } }) => (
       <Forms.Grid>
@@ -95,6 +99,16 @@ export default function AddCollectionForm({
           isWide
           {...register("subtitle")}
         />
+        <Forms.Select
+          options={[
+            { label: "Visible", value: "VISIBLE" },
+            { label: "Hidden", value: "HIDDEN" },
+            { label: "Limited", value: "LIMITED" },
+          ]}
+          label="forms.fields.visibility"
+          required
+          {...register("visibility")}
+        />
         {formData && (
           <Forms.SchemaSelect
             label="forms.schema.label"
@@ -107,16 +121,6 @@ export default function AddCollectionForm({
         <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
         <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
-        <Forms.Select
-          options={[
-            { label: "Visible", value: "VISIBLE" },
-            { label: "Hidden", value: "HIDDEN" },
-            { label: "Limited", value: "LIMITED" },
-          ]}
-          label="forms.fields.visibility"
-          required
-          {...register("visibility")}
-        />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.DatePicker
             label="forms.fields.visible_after"
@@ -166,6 +170,7 @@ export default function AddCollectionForm({
       name="createCollection"
       refetchTags={["collections"]}
       toVariables={toVariables}
+      defaultValues={defaultValues}
     >
       {renderForm}
     </MutationForm>
