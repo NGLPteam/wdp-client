@@ -1,6 +1,6 @@
 import React, { forwardRef, SelectHTMLAttributes } from "react";
+import { MaybeSelectRef } from "@wdp/lib/types/ref";
 import * as Styled from "./Select.styles";
-import { MaybeSelectRef } from "types/ref";
 import { IconFactory } from "components/factories";
 
 function Select(

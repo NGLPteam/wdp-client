@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
+import type { MaybeButtonRef } from "@wdp/lib/types/ref";
 import { IconFactory } from "../../factories";
 import * as Styles from "./Button.styles";
-import type { MaybeButtonRef } from "types/ref";
 type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
 /**

@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from "react";
+import { MaybeLinkRef } from "@wdp/lib/types/ref";
 import Link from "..";
-import { MaybeLinkRef } from "types/ref";
 
 type BaseProps = React.ComponentProps<typeof Link>;
 
