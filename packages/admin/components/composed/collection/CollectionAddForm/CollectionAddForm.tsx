@@ -9,6 +9,7 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { sanitizeDateField } from "helpers";
 import { RouteHelper } from "routes";
+import { useLocalStorage } from "hooks";
 
 import type { CollectionAddFormFragment$key } from "@/relay/CollectionAddFormFragment.graphql";
 import type {
@@ -22,7 +23,11 @@ export default function AddCollectionForm({
   data,
   parentId,
 }: Props) {
-  const [redirectOnSuccess, setRedirectOnSuccess] = useState(true);
+  const [prevRedirectState, setPrevRedirect] = useLocalStorage(
+    "nglp::open_entity_on_save",
+    true
+  );
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
     setRedirectOnSuccess(e.target.checked);
 
@@ -58,6 +63,18 @@ export default function AddCollectionForm({
     },
     [onSuccess, redirect]
   );
+  const onSuccessNoRedirect = ({
+    response,
+    values,
+    variables,
+  }: {
+    response: CollectionAddFormMutation["response"];
+    values: Fields;
+    variables: CollectionAddFormMutation["variables"];
+  }) => {
+    if (onSuccess) onSuccess({ response, variables, values });
+    setPrevRedirect(false);
+  };
 
   const formData = useFragment<CollectionAddFormFragment$key>(fragment, data);
 
@@ -149,7 +166,11 @@ export default function AddCollectionForm({
           label="forms.fields.issued"
           isWide
         />
-        <Forms.Checkbox name="redirect" onChange={handleCheck} defaultChecked>
+        <Forms.Checkbox
+          name="redirect"
+          onChange={handleCheck}
+          defaultChecked={prevRedirectState}
+        >
           Open new collection on save
         </Forms.Checkbox>
       </Forms.Grid>
@@ -160,7 +181,9 @@ export default function AddCollectionForm({
   return (
     <MutationForm<CollectionAddFormMutation, Fields>
       mutation={mutation}
-      onSuccess={redirectOnSuccess ? onSuccessWithRedirect : onSuccess}
+      onSuccess={
+        redirectOnSuccess ? onSuccessWithRedirect : onSuccessNoRedirect
+      }
       successNotification="messages.create.collection_success"
       onCancel={onCancel}
       name="createCollection"
