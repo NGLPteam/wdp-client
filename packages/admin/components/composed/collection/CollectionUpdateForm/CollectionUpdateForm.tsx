@@ -66,6 +66,16 @@ export default function CollectionUpdateForm({
           isWide
           {...register("subtitle")}
         />
+        <Forms.Select
+          label="forms.fields.visibility"
+          options={[
+            { label: "Visible", value: "VISIBLE" },
+            { label: "Hidden", value: "HIDDEN" },
+            { label: "Limited", value: "LIMITED" },
+          ]}
+          isWide
+          {...register("visibility")}
+        />
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
         <Forms.Input label="forms.fields.issn" {...register("issn")} />
         <Forms.FileUpload
@@ -84,16 +94,6 @@ export default function CollectionUpdateForm({
           label="forms.fields.summary"
           isWide
           {...register("summary")}
-        />
-        <Forms.Select
-          label="forms.fields.visibility"
-          options={[
-            { label: "Visible", value: "VISIBLE" },
-            { label: "Hidden", value: "HIDDEN" },
-            { label: "Limited", value: "LIMITED" },
-          ]}
-          isWide
-          {...register("visibility")}
         />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.DatePicker
