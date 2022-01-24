@@ -24,7 +24,7 @@ export default function AppLayout({ data, communityData, children }: Props) {
       : false;
   }, [activeRoute]);
 
-  return appData ? (
+  return (
     <AppBody
       data={appData}
       nameComponent={community ? <CommunityName data={community} /> : undefined}
@@ -35,18 +35,12 @@ export default function AppLayout({ data, communityData, children }: Props) {
           isCommunityRoot={isCommunityRoot}
         />
       }
-      communityPicker={
-        community ? (
-          <CommunityPicker data={appData} active={community} />
-        ) : (
-          <CommunityPicker data={appData} />
-        )
-      }
+      communityPicker={<CommunityPicker data={appData} active={community} />}
     >
-      {community && <CommunityHTMLHead data={community} />}
+      <CommunityHTMLHead data={community} />
       {children}
     </AppBody>
-  ) : null;
+  );
 }
 
 interface Props {

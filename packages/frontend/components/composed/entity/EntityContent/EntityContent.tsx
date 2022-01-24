@@ -13,6 +13,8 @@ export default function EntityContent({ data, children }: Props) {
   const route = RouteHelper.findRouteByName("collection.browse");
 
   useEffect(() => {
+    if (!entity) return;
+
     const firstOrdering = entity?.orderings?.edges[0];
 
     const type = entity?.__typename;

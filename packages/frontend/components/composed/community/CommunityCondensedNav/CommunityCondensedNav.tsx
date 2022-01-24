@@ -50,14 +50,10 @@ function CommunityCondensedNav({
   return (
     <Styled.Header className="a-bg-custom20">
       <Styled.HeaderInner className="l-container-wide">
-        {appData && (
-          <>
-            <Styled.LeftSide>
-              <Styled.InstallationName as={InstallationName} />
-              <CommunityPicker data={appData} active={community} />
-            </Styled.LeftSide>
-          </>
-        )}
+        <Styled.LeftSide>
+          <Styled.InstallationName as={InstallationName} />
+          <CommunityPicker data={appData} active={community} />
+        </Styled.LeftSide>
         <Styled.RightSide>
           {community && !isCommunityRoot && (
             <CommunityNavList data={community} condensed />

@@ -1,24 +1,34 @@
+import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import startCase from "lodash/startCase";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
 
 export default function CommunityPicker({ data, active }: Props) {
   const communityData = useMaybeFragment(fragment, data);
+
   const activeCommunity = useMaybeFragment(activefragment, active);
+
   const { t } = useTranslation();
 
-  return communityData && communityData.communities ? (
+  const menuItems = useMemo(() => {
+    return communityData?.communities?.edges || [];
+  }, [communityData]);
+
+  const activeTitle = useMemo(() => {
+    return activeCommunity?.title;
+  }, [activeCommunity]);
+
+  return (
     <Dropdown
       disclosure={
         <Button secondary icon="chevronDown" size="sm">
-          {activeCommunity?.title || startCase(t("nav.community_picker"))}
+          {activeTitle || t("nav.community_picker")}
         </Button>
       }
-      menuItems={communityData.communities.edges.map(({ node }) => {
+      menuItems={menuItems.map(({ node }) => {
         return (
           <NamedLink
             key={node.slug}
@@ -32,7 +42,7 @@ export default function CommunityPicker({ data, active }: Props) {
       })}
       label={t("nav.communities")}
     />
-  ) : null;
+  );
 }
 
 type Props = {

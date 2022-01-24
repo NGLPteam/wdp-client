@@ -24,15 +24,13 @@ export default function CommunityLayout({
       : false;
   }, [activeRoute]);
 
-  return appData ? (
-    <>
-      <AppLayout data={appData} communityData={community}>
-        {community && <CommunityHTMLHead data={community} />}
-        {community && isCommunityRoot && <CommunityNav data={community} />}
-        {children}
-      </AppLayout>
-    </>
-  ) : null;
+  return (
+    <AppLayout data={appData} communityData={community}>
+      {community && <CommunityHTMLHead data={community} />}
+      {community && isCommunityRoot && <CommunityNav data={community} />}
+      {children}
+    </AppLayout>
+  );
 }
 
 interface Props {

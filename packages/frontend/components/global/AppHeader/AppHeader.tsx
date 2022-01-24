@@ -42,14 +42,10 @@ function AppHeader({ data }: Props) {
   return (
     <Styled.Header>
       <Styled.HeaderInner className="l-container-wide">
-        {appData && (
-          <>
-            <Styled.LeftSide>
-              <Styled.InstallationName as={InstallationName} />
-              <CommunityPicker data={appData} />
-            </Styled.LeftSide>
-          </>
-        )}
+        <Styled.LeftSide>
+          <Styled.InstallationName as={InstallationName} />
+          <CommunityPicker data={appData} />
+        </Styled.LeftSide>
         <Styled.RightSide>
           <AccountDropdown />
         </Styled.RightSide>
