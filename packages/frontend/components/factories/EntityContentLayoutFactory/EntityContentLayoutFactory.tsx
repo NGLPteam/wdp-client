@@ -75,6 +75,7 @@ const fragment = graphql`
       }
 
       ...EntityLayoutFragment
+      ...EntityContentFragment
       ...ArticleLayoutFragment
       ...ArticleTextFragment
       ...HowToCiteFragment
