@@ -31,6 +31,7 @@
     "@react-keycloak/ssr": "^3.3.0",
     "@react-keycloak/web": "^3.4.0",
     "@react-stately/table": "^3.0.0-beta.1",
+    "@spissvinkel/alea": "^1.2.1",
     "@uppy/core": "^1.20.1",
     "@uppy/drag-drop": "^1.4.31",
     "@uppy/drop-target": "^0.2.4",

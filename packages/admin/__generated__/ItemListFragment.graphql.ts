@@ -34,7 +34,7 @@ export type ItemListFragment = {
             };
         };
         readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment" | "ThumbnailColumnCellFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ItemListFragment";
@@ -229,6 +229,11 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "FragmentSpread",
           "name": "ContributorsColumnFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ThumbnailColumnCellFragment"
         }
       ],
       "storageKey": null
@@ -242,5 +247,5 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = 'f47cffe2a21ea13960321aee610a4bc0';
+(node as any).hash = '1e63ceca71683f2df18a5fb22e91e05c';
 export default node;

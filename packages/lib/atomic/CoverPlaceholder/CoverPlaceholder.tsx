@@ -2,14 +2,15 @@ import React from "react";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
-import { pxToRem } from "@wdp/lib/theme/functions";
 import * as Styled from "./CoverPlaceholder.styles";
+import { pxToRem } from "../../theme/functions";
 
 export default function CoverPlaceholder({
   seed,
   title,
   maxWidth,
   maxHeight,
+  style,
 }: Props) {
   const randomState = mkState(seed);
   const nextBool: (state: AleaState) => boolean = nextT((n) => n < 0.5);
@@ -175,13 +176,13 @@ export default function CoverPlaceholder({
   pattern.forEach(populate);
   pattern.forEach(populate);
 
-  const style = {
+  const maxStyle = {
     maxWidth: pxToRem(maxWidth || width),
     maxHeight: pxToRem(maxHeight || height),
   };
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} style={style}>
+    <svg viewBox={`0 0 ${width} ${height}`} style={{ ...maxStyle, ...style }}>
       <clipPath id="placeholder-mask">
         <rect
           x="0"
@@ -243,4 +244,5 @@ interface Props {
   maxHeight?: number;
   seed: string;
   title?: string;
+  style?: React.CSSProperties;
 }

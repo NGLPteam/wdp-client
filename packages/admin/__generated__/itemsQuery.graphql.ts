@@ -100,6 +100,7 @@ fragment ItemListFragment on ItemConnection {
     }
     allowedActions
     ...ContributorsColumnFragment
+    ...ThumbnailColumnCellFragment
   }
   ...ModelListPageFragment
 }
@@ -127,6 +128,31 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment ThumbnailColumnCellFragment on Entity {
+  __isEntity: __typename
+  __typename
+  title
+  thumbnail {
+    storage
+    image: medium {
+      png {
+        url
+        height
+        width
+        alt
+      }
+    }
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  ... on Node {
+    __isNode: __typename
+    id
   }
 }
 */
@@ -192,6 +218,13 @@ v5 = {
   "selections": [
     (v4/*: any*/)
   ],
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
   "storageKey": null
 };
 return {
@@ -447,13 +480,7 @@ return {
                                         "name": "contributor",
                                         "plural": false,
                                         "selections": [
-                                          {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "__typename",
-                                            "storageKey": null
-                                          },
+                                          (v6/*: any*/),
                                           {
                                             "kind": "InlineFragment",
                                             "selections": [
@@ -520,6 +547,22 @@ return {
                     ],
                     "type": "AnyEntity",
                     "abstractKey": "__isAnyEntity"
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v6/*: any*/),
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isSluggable"
+                      },
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isNode"
+                      }
+                    ],
+                    "type": "Entity",
+                    "abstractKey": "__isEntity"
                   }
                 ],
                 "storageKey": null
@@ -588,12 +631,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2fd58e767e4a877ef0770996a016f5b9",
+    "cacheID": "0424df7ed14862eb81e2cb7d58a3fde7",
     "id": null,
     "metadata": {},
     "name": "itemsQuery",
     "operationKind": "query",
-    "text": "query itemsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorsColumnFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    contributions(page: 1, perPage: 1) {\n      edges {\n        node {\n          contributor {\n            __typename\n            ... on OrganizationContributor {\n              slug\n              legalName\n            }\n            ... on PersonContributor {\n              slug\n              givenName\n              familyName\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      storage\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    items {\n      pageInfo {\n        totalCount\n      }\n    }\n    allowedActions\n    ...ContributorsColumnFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query itemsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorsColumnFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    contributions(page: 1, perPage: 1) {\n      edges {\n        node {\n          contributor {\n            __typename\n            ... on OrganizationContributor {\n              slug\n              legalName\n            }\n            ... on PersonContributor {\n              slug\n              givenName\n              familyName\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      storage\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    items {\n      pageInfo {\n        totalCount\n      }\n    }\n    allowedActions\n    ...ContributorsColumnFragment\n    ...ThumbnailColumnCellFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment ThumbnailColumnCellFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    image: medium {\n      png {\n        url\n        height\n        width\n        alt\n      }\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n"
   }
 };
 })();

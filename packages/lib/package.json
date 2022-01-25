@@ -17,6 +17,8 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@castiron/style-mixins": "^1.0.6",
+    "@spissvinkel/alea": "^1.2.1",
+    "chunk-text": "^2.0.1",
     "graphql": "^15.5.1",
     "react": "17.0.2",
     "react-confirm": "^0.1.23",
@@ -38,6 +40,7 @@
     "@graphql-codegen/schema-ast": "^1.18.3",
     "@graphql-codegen/typescript": "^1.22.4",
     "@graphql-codegen/typescript-resolvers": "^1.19.5",
+    "@types/chunk-text": "^1.0.0",
     "@types/react": "~17.0.33",
     "@types/react-dom": "^17.0.9",
     "@types/react-relay": "^11.0.2",

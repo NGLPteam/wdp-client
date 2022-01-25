@@ -3,7 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import Image from "next/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import CoverPlaceholder from "../CoverPlaceholder";
+import { CoverPlaceholder } from "@wdp/lib/atomic";
 import * as Styled from "./CoverImage.styles";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
 
