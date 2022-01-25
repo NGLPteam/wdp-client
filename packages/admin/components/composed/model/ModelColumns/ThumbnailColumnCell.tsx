@@ -1,16 +1,20 @@
 import React from "react";
 import { graphql } from "react-relay";
+import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
 import { useMaybeFragment } from "hooks";
 import { Image, NamedLink } from "components/atomic";
 import { ThumbnailColumnCellFragment$key } from "@/relay/ThumbnailColumnCellFragment.graphql";
-import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
 
-const ThumbnailColumnCell = ({ data }: Props) => {
+const ThumbnailColumnCell = ({ grid, data }: Props) => {
   const entity = useMaybeFragment(fragment, data);
 
   const hasImage = entity?.thumbnail?.storage;
 
   const image = hasImage ? entity?.thumbnail?.image?.png : null;
+
+  const objectPosition = grid ? "bottom left" : "top right";
+
+  const size = grid ? 180 : 50;
 
   return entity ? (
     <NamedLink
@@ -20,18 +24,22 @@ const ThumbnailColumnCell = ({ data }: Props) => {
     >
       <a
         className="a-link"
-        style={{ display: "block", maxHeight: "100%", maxWidth: "100%" }}
+        style={{
+          display: "block",
+          maxHeight: "100%",
+          maxWidth: "100%",
+        }}
       >
         {image && image.url ? (
           <Image
             image={{
               alt: "",
               url: image.url,
-              width: image.width || 0,
-              height: image.height || 0,
+              width: size,
+              height: size,
             }}
             objectFit="contain"
-            objectPosition="center"
+            objectPosition={objectPosition}
           />
         ) : (
           <CoverPlaceholder
@@ -47,6 +55,7 @@ const ThumbnailColumnCell = ({ data }: Props) => {
 
 interface Props {
   data?: ThumbnailColumnCellFragment$key;
+  grid?: boolean;
 }
 
 export default ThumbnailColumnCell;

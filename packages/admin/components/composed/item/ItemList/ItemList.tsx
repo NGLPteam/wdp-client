@@ -27,8 +27,8 @@ function ItemList<T extends OperationType>({
   const columns = [
     ModelColumns.ThumbnailColumn<ItemNode>({
       route: "item",
-      Cell: ({ row }: CellProps<ItemNode>) => (
-        <ThumbnailColumnCell data={row.original} />
+      Cell: ({ row, grid }: CellProps<ItemNode>) => (
+        <ThumbnailColumnCell data={row.original} grid={grid} />
       ),
     }),
 

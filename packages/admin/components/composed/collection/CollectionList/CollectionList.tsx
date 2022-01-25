@@ -34,8 +34,8 @@ function CollectionList<T extends OperationType>({
   const columns = [
     ModelColumns.ThumbnailColumn<CollectionNode>({
       route: "collection",
-      Cell: ({ row }: CellProps<CollectionNode>) => (
-        <ThumbnailColumnCell data={row.original} />
+      Cell: ({ row, grid }: CellProps<CollectionNode>) => (
+        <ThumbnailColumnCell data={row.original} grid={grid} />
       ),
     }),
     ModelColumns.NameColumn<CollectionNode>({
