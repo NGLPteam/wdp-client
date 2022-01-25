@@ -75,6 +75,7 @@
       "roles_column": "Roles",
       "schema_column": "Schema",
       "thumbnail_column": "Thumbnail",
+      "hero_column": "Hero",
       "type_column": "Type",
       "updated_at_column": "Updated At",
       "avatar_column": "Avatar",

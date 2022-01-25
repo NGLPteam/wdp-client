@@ -38,6 +38,7 @@ function EntityPagesList<T extends OperationType>({
 
   /** Columns */
   const columns = [
+    ModelColumns.PageHeroColumn<Node>(),
     ModelColumns.StringColumn<Node>({
       Header: <>{t("lists.name_column")}</>,
       id: "title",
@@ -59,6 +60,18 @@ function EntityPagesList<T extends OperationType>({
         { pageId: row.original.id },
         row.original.title || "glossary.page"
       ),
+    handleView: ({ row }: ModelTableActionProps<Node>) => {
+      const typeRoute =
+        row.original.entity?.__typename === "Collection"
+          ? "collections"
+          : row.original.entity?.__typename === "items"
+          ? "items"
+          : "communities";
+
+      return row.original.slug
+        ? `/${typeRoute}/${row.original.entity?.slug}/page/${row.original.slug}`
+        : null;
+    },
   };
 
   const buttons = (
@@ -103,16 +116,13 @@ const linksFragment = graphql`
         id
         title
         slug
-        thumbnail: heroImage {
-          image: medium {
-            png {
-              url
-              height
-              width
-              alt
-            }
+        entity {
+          __typename
+          ... on Sluggable {
+            slug
           }
         }
+        ...PageHeroColumnFragment
       }
     }
     ...ModelListPageFragment

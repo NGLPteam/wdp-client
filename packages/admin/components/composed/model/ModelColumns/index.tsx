@@ -11,6 +11,7 @@ import AssetThumbnailColumn from "./AssetThumbnailColumn";
 import ContributorNameColumn from "./ContributorNameColumn";
 import UserNameColumn from "./UserNameColumn";
 import CommunityNameColumn from "./CommunityNameColumn";
+import PageHeroColumn from "./PageHeroColumn";
 
 const modelColumns = {
   CreatedAtColumn,
@@ -26,6 +27,7 @@ const modelColumns = {
   ContributorNameColumn,
   UserNameColumn,
   CommunityNameColumn,
+  PageHeroColumn,
 };
 
 export default modelColumns;
