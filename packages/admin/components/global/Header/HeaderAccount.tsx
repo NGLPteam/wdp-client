@@ -43,7 +43,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
 
   const renderSignInOut = () => (
     <NavLink key="auth" as="span">
-      <SignInOut />
+      <SignInOut className="t-label-md" />
     </NavLink>
   );
 
