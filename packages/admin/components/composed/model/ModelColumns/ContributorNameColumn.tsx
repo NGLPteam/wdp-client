@@ -33,9 +33,7 @@ const ContributorNameColumn = <T extends Node>(
           passHref
         >
           <a className="t-weight-md a-link l-flex l-flex--align-center l-flex--gap-sm">
-            {contributor.image?.storage && (
-              <Avatar url={contributor.image.small?.webp?.url || ""} />
-            )}
+            <Avatar data={contributor.image} />
             <span>{getContributorDisplayName(contributor)}</span>
           </a>
         </NamedLink>
@@ -51,14 +49,7 @@ const fragment = graphql`
   fragment ContributorNameColumnFragment on Contributor {
     __typename
     image {
-      storage
-      small {
-        webp {
-          url
-          height
-          width
-        }
-      }
+      ...AvatarFragment
     }
     ... on Sluggable {
       slug

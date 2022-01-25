@@ -2,11 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Header.styles";
 import SignInOut from "components/auth/SignInOut";
-import { DrawerLink, Dropdown, NamedLink, NavLink } from "components/atomic";
+import {
+  DrawerLink,
+  Dropdown,
+  NamedLink,
+  NavLink,
+  Avatar,
+} from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useViewerContext, useIsAuthenticated } from "hooks";
-import Avatar from "components/atomic/images/Avatar";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -39,7 +44,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
 
   const isAuthenticated = useIsAuthenticated();
 
-  const { avatarUrl, globalAdmin } = useViewerContext();
+  const { avatar, globalAdmin } = useViewerContext();
 
   const renderSignInOut = () => (
     <NavLink key="auth" as="span">
@@ -65,7 +70,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
         label={t(item.label)}
         disclosure={
           <Styled.AvatarLink as="button" active={active}>
-            <Avatar url={avatarUrl} />
+            <Avatar data={avatar} placeholder />
           </Styled.AvatarLink>
         }
         menuItems={[

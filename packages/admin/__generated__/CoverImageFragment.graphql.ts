@@ -10,9 +10,7 @@ export type CoverImageFragment = {
     readonly storage: AttachmentStorage | null;
     readonly medium: {
         readonly webp: {
-            readonly url: string | null;
-            readonly height: number | null;
-            readonly width: number | null;
+            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
         };
     };
     readonly " $refType": "CoverImageFragment";
@@ -55,25 +53,9 @@ const node: ReaderFragment = {
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "height",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "width",
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "ImageFragment"
             }
           ],
           "storageKey": null
@@ -85,5 +67,5 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = '775fb2e4954059d0360725c40a37df8b';
+(node as any).hash = '27e9018fde7d187622ed43079c597c16';
 export default node;

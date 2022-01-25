@@ -1,19 +1,40 @@
 import React from "react";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import Image from "../Image";
 import * as Styled from "./Avatar.styles";
-import { BaseImage } from "components/atomic";
+import { AvatarFragment$key } from "@/relay/AvatarFragment.graphql";
+import { IconFactory } from "components/factories";
 
-const Avatar = ({ url, alt = "", size = 30 }: Props) => {
-  return url ? (
+const Avatar = ({ data, size = 32, placeholder }: Props) => {
+  const avatar = useMaybeFragment(fragment, data);
+
+  return avatar?.storage ? (
     <Styled.Wrapper size={size}>
-      <BaseImage image={{ url, alt, width: size, height: size }} />
+      <Image data={avatar?.small?.webp} width={size} height={size} />
     </Styled.Wrapper>
+  ) : placeholder ? (
+    <Styled.IconWrapper size={size}>
+      <IconFactory icon="avatar32" size="lg" />
+    </Styled.IconWrapper>
   ) : null;
 };
 
 interface Props {
   size?: number;
-  alt?: string | null;
-  url?: string | null;
+  data?: AvatarFragment$key | null;
+  placeholder?: boolean;
 }
 
 export default Avatar;
+
+const fragment = graphql`
+  fragment AvatarFragment on ImageAttachment {
+    storage
+    small {
+      webp {
+        ...ImageFragment
+      }
+    }
+  }
+`;

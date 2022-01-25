@@ -2,12 +2,13 @@ import React, { createContext, useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ViewerContextFragment$key } from "@/relay/ViewerContextFragment.graphql";
+import { AvatarFragment$key } from "@/relay/AvatarFragment.graphql";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],
   uploadAccess: false,
   uploadToken: null,
-  avatarUrl: undefined,
+  avatar: undefined,
   globalAdmin: false,
 };
 
@@ -18,10 +19,9 @@ function ViewerContextProvider({ children, data }: Props) {
 
   const viewer = useMemo(() => {
     if (viewerData?.viewer) {
-      const { avatar, ...viewerProps } = viewerData.viewer;
-      const avatarUrl = avatar?.small.png?.url;
+      const viewerProps = viewerData.viewer;
 
-      return { avatarUrl, ...viewerProps };
+      return { ...viewerProps };
     }
 
     return initialState;
@@ -37,7 +37,7 @@ interface ViewerContextProps {
   allowedActions: readonly string[];
   uploadAccess?: boolean;
   uploadToken?: string | null;
-  avatarUrl?: string | null;
+  avatar?: AvatarFragment$key | null;
   globalAdmin?: boolean;
 }
 
@@ -58,12 +58,7 @@ const fragment = graphql`
       uploadAccess
       uploadToken
       avatar {
-        small {
-          png {
-            url
-            alt
-          }
-        }
+        ...AvatarFragment
       }
       globalAdmin
     }

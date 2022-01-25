@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import get from "lodash/get";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
+import { Image } from "components/atomic";
 import { AssetThumbnailColumnFragment$key } from "@/relay/AssetThumbnailColumnFragment.graphql";
-import { BaseImage } from "components/atomic";
 
 type Props<T extends Node> = PartialColumnish<T>;
 
@@ -30,16 +30,7 @@ const AssetThumbnailColumn = <T extends Row>(
         ? asset.thumbnail.image?.png
         : null;
 
-      return image && image.url ? (
-        <BaseImage
-          image={{
-            url: image.url,
-            alt: "",
-            width: image.width || 0,
-            height: image.height || 0,
-          }}
-        />
-      ) : null;
+      return image && image.url ? <Image data={image} /> : null;
     },
     ...props,
   };
@@ -53,10 +44,7 @@ const fragment = graphql`
       storage
       image: medium {
         png {
-          alt
-          url
-          height
-          width
+          ...ImageFragment
         }
       }
     }

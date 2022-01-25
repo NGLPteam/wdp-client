@@ -22,11 +22,28 @@ query AppContextProviderQuery {
   ...ViewerContextFragment
 }
 
+fragment AvatarFragment on ImageAttachment {
+  storage
+  small {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
 fragment GlobalContextFragment on Query {
   globalConfiguration {
     ...ProviderBarFragment
     id
   }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
 }
 
 fragment ProviderBarFragment on GlobalConfiguration {
@@ -42,12 +59,7 @@ fragment ViewerContextFragment on Query {
     uploadAccess
     uploadToken
     avatar {
-      small {
-        png {
-          url
-          alt
-        }
-      }
+      ...AvatarFragment
     }
     globalAdmin
     id
@@ -167,6 +179,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "storage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "ImageSize",
                 "kind": "LinkedField",
                 "name": "small",
@@ -177,22 +196,43 @@ return {
                     "args": null,
                     "concreteType": "ImageDerivative",
                     "kind": "LinkedField",
-                    "name": "png",
+                    "name": "webp",
                     "plural": false,
                     "selections": [
                       {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "url",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "alt",
-                        "storageKey": null
+                        "kind": "InlineFragment",
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "alt",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "url",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "width",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "height",
+                            "storageKey": null
+                          }
+                        ],
+                        "type": "Image",
+                        "abstractKey": "__isImage"
                       }
                     ],
                     "storageKey": null
@@ -217,12 +257,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e873b2ba9dbbb807c007440056cf3599",
+    "cacheID": "00f15e7c7a58d5532348d3628d62f4be",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  ...ViewerContextFragment\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...ProviderBarFragment\n    id\n  }\n}\n\nfragment ProviderBarFragment on GlobalConfiguration {\n  site {\n    providerName\n  }\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    globalAdmin\n    id\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  ...ViewerContextFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...ProviderBarFragment\n    id\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ProviderBarFragment on GlobalConfiguration {\n  site {\n    providerName\n  }\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      ...AvatarFragment\n    }\n    globalAdmin\n    id\n  }\n}\n"
   }
 };
 })();

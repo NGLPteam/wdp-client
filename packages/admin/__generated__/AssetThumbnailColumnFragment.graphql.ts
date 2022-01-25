@@ -11,10 +11,7 @@ export type AssetThumbnailColumnFragment = {
         readonly storage: AttachmentStorage | null;
         readonly image: {
             readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-                readonly height: number | null;
-                readonly width: number | null;
+                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
             };
         };
     };
@@ -66,32 +63,9 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "ImageFragment"
                 }
               ],
               "storageKey": null
@@ -106,5 +80,5 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = '2b248e836c6348fb276a3231a10e869b';
+(node as any).hash = '89b55acca6de415f3a1dbf2704d57906';
 export default node;

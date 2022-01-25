@@ -55,6 +55,23 @@ query RoleGrantAccessDrawerQuery(
   ...RoleGrantAccessFormFragment
 }
 
+fragment AvatarFragment on ImageAttachment {
+  storage
+  small {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
+}
+
 fragment RoleGrantAccessFormFragment on Query {
   ...UserTypeaheadFragment
   ...RoleSelectFragment
@@ -73,12 +90,7 @@ fragment RoleSelectFragment on Query {
 
 fragment UserAvatarFragment on User {
   avatar {
-    small {
-      png {
-        url
-        alt
-      }
-    }
+    ...AvatarFragment
   }
 }
 
@@ -270,6 +282,13 @@ return {
                       {
                         "alias": null,
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "storage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
                         "concreteType": "ImageSize",
                         "kind": "LinkedField",
                         "name": "small",
@@ -280,22 +299,43 @@ return {
                             "args": null,
                             "concreteType": "ImageDerivative",
                             "kind": "LinkedField",
-                            "name": "png",
+                            "name": "webp",
                             "plural": false,
                             "selections": [
                               {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "url",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "alt",
-                                "storageKey": null
+                                "kind": "InlineFragment",
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "alt",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "url",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "width",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "height",
+                                    "storageKey": null
+                                  }
+                                ],
+                                "type": "Image",
+                                "abstractKey": "__isImage"
                               }
                             ],
                             "storageKey": null
@@ -356,12 +396,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e9a7dde4b8ccefd10db2b2943db4942b",
+    "cacheID": "e35fc277c53fa868bf3f5f6fd6af065f",
     "id": null,
     "metadata": {},
     "name": "RoleGrantAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n  }\n  ...RoleGrantAccessFormFragment\n}\n\nfragment RoleGrantAccessFormFragment on Query {\n  ...UserTypeaheadFragment\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserTypeaheadFragment on Query {\n  users {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n"
+    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n  }\n  ...RoleGrantAccessFormFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment RoleGrantAccessFormFragment on Query {\n  ...UserTypeaheadFragment\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserTypeaheadFragment on Query {\n  users {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

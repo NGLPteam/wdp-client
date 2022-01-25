@@ -32,6 +32,15 @@ query contributorsQuery(
   }
 }
 
+fragment AvatarFragment on ImageAttachment {
+  storage
+  small {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
 fragment ContributorListFragment on AnyContributorConnection {
   nodes {
     __typename
@@ -64,14 +73,7 @@ fragment ContributorNameColumnFragment on Contributor {
   __isContributor: __typename
   __typename
   image {
-    storage
-    small {
-      webp {
-        url
-        height
-        width
-      }
-    }
+    ...AvatarFragment
   }
   ... on Sluggable {
     __isSluggable: __typename
@@ -84,6 +86,14 @@ fragment ContributorNameColumnFragment on Contributor {
     givenName
     familyName
   }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -203,25 +213,39 @@ v6 = {
           "plural": false,
           "selections": [
             {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "height",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "width",
-              "storageKey": null
+              "kind": "InlineFragment",
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "alt",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "width",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                }
+              ],
+              "type": "Image",
+              "abstractKey": "__isImage"
             }
           ],
           "storageKey": null
@@ -447,12 +471,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "615ce18c18e6273548cdcafed4f108b3",
+    "cacheID": "ecad6b1aa2f37100ed8a694b2a1f5e3d",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      ...ContributorNameColumnFragment\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n    }\n    ...ContributorNameColumnFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    storage\n    small {\n      webp {\n        url\n        height\n        width\n      }\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      ...ContributorNameColumnFragment\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n    }\n    ...ContributorNameColumnFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

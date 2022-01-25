@@ -5,18 +5,10 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ContributorNameColumnFragment = {
     readonly __typename: string;
     readonly image: {
-        readonly storage: AttachmentStorage | null;
-        readonly small: {
-            readonly webp: {
-                readonly url: string | null;
-                readonly height: number | null;
-                readonly width: number | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
     };
     readonly slug?: string | undefined;
     readonly legalName?: string | null | undefined;
@@ -54,54 +46,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "small",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "webp",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "AvatarFragment"
         }
       ],
       "storageKey": null
@@ -159,5 +106,5 @@ const node: ReaderFragment = {
   "type": "Contributor",
   "abstractKey": "__isContributor"
 };
-(node as any).hash = '8a70ca19dd48ed127d3c74877f137b64';
+(node as any).hash = '43bd73de5aa0162efdb3a942f3c551d3';
 export default node;

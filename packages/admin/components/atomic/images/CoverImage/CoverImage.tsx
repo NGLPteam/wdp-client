@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import BaseImage from "../BaseImage";
+import Image from "../Image";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
 
-type ImageProps = React.ComponentProps<typeof BaseImage>;
+type ImageProps = React.ComponentProps<typeof Image>;
 
 export default function CoverImage({
   data,
@@ -17,14 +17,11 @@ export default function CoverImage({
 
   const webp = image?.storage && image?.medium?.webp;
 
-  return webp && webp.url ? (
-    <BaseImage
-      image={{
-        alt: "",
-        url: webp.url,
-        width: webp.width && webp.width < width ? webp.width : width,
-        height: webp.height && webp.height < height ? webp.height : height,
-      }}
+  return webp ? (
+    <Image
+      data={webp}
+      width={width}
+      height={height}
       objectFit={objectFit}
       objectPosition={objectPosition}
     />
@@ -44,9 +41,7 @@ const fragment = graphql`
     storage
     medium {
       webp {
-        url
-        height
-        width
+        ...ImageFragment
       }
     }
   }
