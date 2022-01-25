@@ -58,5 +58,18 @@ const fragment = graphql`
         }
       }
     }
+    ... on Item {
+      entityId: id
+      parent {
+        ... on Item {
+          id
+          title
+        }
+        ... on Collection {
+          id
+          title
+        }
+      }
+    }
   }
 `;

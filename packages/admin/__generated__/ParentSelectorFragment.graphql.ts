@@ -22,7 +22,14 @@ export type ParentSelectorFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": "entityId",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = [
   {
     "alias": null,
     "args": null,
@@ -37,7 +44,13 @@ var v0 = [
     "name": "title",
     "storageKey": null
   }
-];
+],
+v2 = {
+  "kind": "InlineFragment",
+  "selections": (v1/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -47,13 +60,7 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
-        {
-          "alias": "entityId",
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -64,21 +71,42 @@ return {
           "selections": [
             {
               "kind": "InlineFragment",
-              "selections": (v0/*: any*/),
+              "selections": (v1/*: any*/),
               "type": "Community",
               "abstractKey": null
             },
-            {
-              "kind": "InlineFragment",
-              "selections": (v0/*: any*/),
-              "type": "Collection",
-              "abstractKey": null
-            }
+            (v2/*: any*/)
           ],
           "storageKey": null
         }
       ],
       "type": "Collection",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "parent",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "InlineFragment",
+              "selections": (v1/*: any*/),
+              "type": "Item",
+              "abstractKey": null
+            },
+            (v2/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "type": "Item",
       "abstractKey": null
     }
   ],
@@ -86,5 +114,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '4f4db0f64bece2be2fd00e31802d82c9';
+(node as any).hash = 'f4f973c22d65b3a6bae8baa89e30f545';
 export default node;

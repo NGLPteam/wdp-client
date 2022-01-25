@@ -2,14 +2,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
-import Modal from "components/layout/Modal";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
+import * as Styled from "./ParentSelector.styles";
+import Modal from "components/layout/Modal";
 import MutationForm, {
   Forms,
   useRenderForm,
   useToVariables,
 } from "components/api/MutationForm";
-import * as Styled from "./ParentSelector.styles";
 
 import {
   ParentSelectorModalOptionsQuery as Query,
