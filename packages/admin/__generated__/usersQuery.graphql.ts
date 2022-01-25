@@ -77,7 +77,7 @@ fragment UserListFragment on UserConnection {
     slug
     createdAt
     updatedAt
-    ...UserNameColumnCellFragment
+    ...UserNameColumnFragment
     id
   }
   ...ModelListPageFragment
@@ -87,6 +87,10 @@ fragment UserNameColumnCellFragment on User {
   name
   slug
   ...UserAvatarFragment
+}
+
+fragment UserNameColumnFragment on User {
+  ...UserNameColumnCellFragment
 }
 */
 
@@ -334,12 +338,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fccb3a2a01d425dcc7d31d46c7c31688",
+    "cacheID": "5ea8d3104e68e6b07689f3388688b94a",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnCellFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n"
+    "text": "query usersQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
   }
 };
 })();

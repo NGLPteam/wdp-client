@@ -1,6 +1,10 @@
 import { Story } from "@storybook/react";
 import Grid from "./";
-import { ButtonControlGroup, Image, ButtonControl } from "components/atomic";
+import {
+  ButtonControlGroup,
+  BaseImage,
+  ButtonControl,
+} from "components/atomic";
 
 type Props = React.ComponentProps<typeof Grid>;
 
@@ -26,7 +30,7 @@ function renderRandImage() {
   const height = 180 * 2;
 
   return (
-    <Image
+    <BaseImage
       image={{
         height: height,
         width: width,

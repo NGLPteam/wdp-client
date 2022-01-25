@@ -1,71 +1,38 @@
-import React from "react";
+import * as React from "react";
+import { graphql } from "react-relay";
 import NextImage from "next/image";
-type NextImageProps = React.ComponentProps<typeof NextImage>;
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { ImageFragment$key } from "@/relay/ImageFragment.graphql";
+import { ImageMetadataFragment$key } from "@/relay/ImageMetadataFragment.graphql";
 
-function Image(props: Props) {
-  // Destructuring props in this component is awkward because the Props type relies on
-  // a discriminated union. If we destructure the image and layout props into separate
-  // variables, Typescript loses track of the connection between them and our prop types
-  // won't be checked correctly.
-  const {
-    image: { url },
-    layout: layoutIgnored,
-    unoptimized,
-    ...nextImageProps
-  } = props;
+type ImageProps = React.ComponentProps<typeof NextImage>;
 
-  const commonNextImageProps = {
-    src: url,
-    ...nextImageProps,
-  };
+export default function Image({ data, metadata, ...props }: Props) {
+  const image = useMaybeFragment(fragment, data);
 
-  if (props.layout === "fill") {
-    return (
-      <NextImage
-        layout={props.layout}
-        {...commonNextImageProps}
-        alt={props.image.alt || ""}
-      />
-    );
-  } else {
-    return (
-      <NextImage
-        unoptimized={unoptimized || process.env.NODE_ENV !== "production"}
-        {...commonNextImageProps}
-        layout={props.layout}
-        width={props.image.width}
-        height={props.image.height}
-        alt={props.image.alt || ""}
-      />
-    );
+  const meta = useMaybeFragment(metadataFragment, metadata);
+
+  return image && image.url ? (
+    <NextImage {...props} alt={meta?.alt || image.alt || ""} src={image.url} />
+  ) : null;
+}
+
+interface Props extends Omit<ImageProps, "src" | "alt"> {
+  data?: ImageFragment$key | null;
+  metadata?: ImageMetadataFragment$key | null;
+}
+
+const fragment = graphql`
+  fragment ImageFragment on Image {
+    alt
+    url
+    width
+    height
   }
-}
+`;
 
-interface BaseImageProps
-  extends Pick<
-    NextImageProps,
-    "priority" | "quality" | "sizes" | "objectFit" | "objectPosition"
-  > {
-  className?: string;
-  unoptimized?: boolean;
-  alt?: string | null;
-}
-
-interface FillImage {
-  alt: string | null;
-  url: string;
-}
-
-interface DimensionalImage extends FillImage {
-  height: number | string;
-  width: number | string;
-}
-
-type Props =
-  | (BaseImageProps & { layout: "fill"; image: FillImage })
-  | (BaseImageProps & {
-      layout?: Exclude<NextImageProps["layout"], "fill">;
-      image: DimensionalImage;
-    });
-
-export default Image;
+const metadataFragment = graphql`
+  fragment ImageMetadataFragment on Image {
+    alt
+  }
+`;

@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./FileUpload.styles";
-import { Image } from "components/atomic";
+import { BaseImage } from "components/atomic";
 
 const WIDTH = 150;
 const HEIGHT = 150;
@@ -12,7 +12,7 @@ const FileUploadCurrent = ({ image }: Props) => {
   return image ? (
     <Styled.UploadPreview>
       {image && image.png && image.png.url && (
-        <Image
+        <BaseImage
           image={{
             ...image.png,
             width: WIDTH,

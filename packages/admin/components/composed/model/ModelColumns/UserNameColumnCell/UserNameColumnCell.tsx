@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql } from "react-relay";
-import * as Styled from "./UserNameColumnCell.styles";
 import { useMaybeFragment } from "hooks";
 import { NamedLink } from "components/atomic";
 import UserAvatar from "components/composed/user/UserAvatar";
@@ -15,10 +14,10 @@ const UserNameColumnCell = ({ data }: Props) => {
       routeParams={{ slug: userData?.slug || "" }}
       passHref
     >
-      <Styled.Link className="t-weight-md a-link">
+      <a className="t-weight-md a-link l-flex l-flex--align-center l-flex--gap-sm">
         {userData && <UserAvatar data={userData} />}
         <span>{userData?.name}</span>
-      </Styled.Link>
+      </a>
     </NamedLink>
   );
 };

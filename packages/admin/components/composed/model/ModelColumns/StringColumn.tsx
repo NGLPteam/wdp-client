@@ -12,7 +12,6 @@ type Props<T extends Node> = PartialColumnish<T> & {
 const StringColumn = <T extends Node>({
   Header,
   id,
-  capitalize,
   ...props
 }: Props<T>): Column<T> => {
   return {

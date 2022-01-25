@@ -13,7 +13,7 @@ import {
   RoleAssignedUsersListDataFragment,
   RoleAssignedUsersListDataFragment$key,
 } from "@/relay/RoleAssignedUsersListDataFragment.graphql";
-import UserNameColumnCell from "components/composed/user/UserNameColumnCell";
+import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

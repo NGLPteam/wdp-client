@@ -38,7 +38,6 @@ function EntityPagesList<T extends OperationType>({
 
   /** Columns */
   const columns = [
-    ModelColumns.ThumbnailColumn<Node>({}),
     ModelColumns.StringColumn<Node>({
       Header: <>{t("lists.name_column")}</>,
       id: "title",

@@ -6,7 +6,7 @@ import { DrawerLink, Dropdown, NamedLink, NavLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useViewerContext, useIsAuthenticated } from "hooks";
-import Avatar from "components/atomic/Avatar";
+import Avatar from "components/atomic/images/Avatar";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 

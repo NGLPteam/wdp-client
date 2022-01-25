@@ -71,9 +71,38 @@ fragment CollectionListFragment on CollectionConnection {
       id
     }
     allowedActions
-    ...ThumbnailColumnCellFragment
+    ...EntityThumbnailColumnFragment
   }
   ...ModelListPageFragment
+}
+
+fragment CoverImageFragment on ImageAttachment {
+  storage
+  medium {
+    webp {
+      url
+      height
+      width
+    }
+  }
+}
+
+fragment EntityThumbnailColumnFragment on Entity {
+  __isEntity: __typename
+  __typename
+  title
+  thumbnail {
+    storage
+    ...CoverImageFragment
+  }
+  ... on Node {
+    __isNode: __typename
+    id
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -99,31 +128,6 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
-  }
-}
-
-fragment ThumbnailColumnCellFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    image: medium {
-      png {
-        url
-        height
-        width
-        alt
-      }
-    }
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on Node {
-    __isNode: __typename
-    id
   }
 }
 
@@ -361,7 +365,7 @@ return {
                             "storageKey": null
                           },
                           {
-                            "alias": "image",
+                            "alias": null,
                             "args": null,
                             "concreteType": "ImageSize",
                             "kind": "LinkedField",
@@ -373,7 +377,7 @@ return {
                                 "args": null,
                                 "concreteType": "ImageDerivative",
                                 "kind": "LinkedField",
-                                "name": "png",
+                                "name": "webp",
                                 "plural": false,
                                 "selections": [
                                   {
@@ -396,13 +400,6 @@ return {
                                     "kind": "ScalarField",
                                     "name": "width",
                                     "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "alt",
-                                    "storageKey": null
                                   }
                                 ],
                                 "storageKey": null
@@ -415,11 +412,11 @@ return {
                       },
                       {
                         "kind": "TypeDiscriminator",
-                        "abstractKey": "__isSluggable"
+                        "abstractKey": "__isNode"
                       },
                       {
                         "kind": "TypeDiscriminator",
-                        "abstractKey": "__isNode"
+                        "abstractKey": "__isSluggable"
                       }
                     ],
                     "type": "Entity",
@@ -539,12 +536,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "21a7f38415be4cea461402c5fd1ccba7",
+    "cacheID": "eec9d53308c71916aa620b161c6ebc8f",
     "id": null,
     "metadata": {},
     "name": "collectionsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: EntityOrder\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    allowedActions\n    ...ThumbnailColumnCellFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment ThumbnailColumnCellFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    image: medium {\n      png {\n        url\n        height\n        width\n        alt\n      }\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query collectionsManageSlugCollectionsPagesQuery(\n  $order: EntityOrder\n  $page: Int!\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    collections(order: $order, page: $page, perPage: 20) {\n      ...CollectionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment CollectionListFragment on CollectionConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    allowedActions\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      url\n      height\n      width\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
