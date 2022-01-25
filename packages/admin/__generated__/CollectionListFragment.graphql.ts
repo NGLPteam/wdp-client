@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type CollectionListFragment = {
     readonly nodes: ReadonlyArray<{
         readonly id: string;
@@ -17,18 +16,8 @@ export type CollectionListFragment = {
             readonly name: string;
             readonly number: string;
         };
-        readonly thumbnail: {
-            readonly storage: AttachmentStorage | null;
-            readonly image: {
-                readonly png: {
-                    readonly url: string | null;
-                    readonly height: number | null;
-                    readonly width: number | null;
-                    readonly alt: string | null;
-                };
-            };
-        };
         readonly allowedActions: ReadonlyArray<string>;
+        readonly " $fragmentRefs": FragmentRefs<"ThumbnailColumnCellFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionListFragment";
@@ -118,77 +107,14 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "ImageAttachment",
-          "kind": "LinkedField",
-          "name": "thumbnail",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "storage",
-              "storageKey": null
-            },
-            {
-              "alias": "image",
-              "args": null,
-              "concreteType": "ImageSize",
-              "kind": "LinkedField",
-              "name": "medium",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ImageDerivative",
-                  "kind": "LinkedField",
-                  "name": "png",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "url",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "height",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "width",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "alt",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
           "kind": "ScalarField",
           "name": "allowedActions",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ThumbnailColumnCellFragment"
         }
       ],
       "storageKey": null
@@ -202,5 +128,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '9da0a7cf465f6fe5a98b1198a62dfe6c';
+(node as any).hash = '1596d92623dfdd6a93195170fb92baea';
 export default node;

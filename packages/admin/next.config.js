@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const transpiler = require("next-transpile-modules");
+
 const imageDomains = [
   "lorempixel.com",
   "picsum.photos",
@@ -8,11 +11,13 @@ const imageDomains = [
   "api.staging.nglp.org",
 ];
 
-module.exports = {
+const withTM = transpiler(["@spissvinkel/alea"]);
+
+module.exports = withTM({
   experimental: {
     externalDir: true,
   },
   images: {
     domains: imageDomains,
   },
-};
+});

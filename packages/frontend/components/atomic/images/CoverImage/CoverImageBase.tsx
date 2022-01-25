@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import * as Styled from "./CoverImage.styles";
-import CoverPlaceholder from "components/atomic/images/CoverPlaceholder";
+import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
 
 export default function CoverImageBase({
   alt,
