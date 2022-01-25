@@ -30,7 +30,7 @@ const AssetThumbnailColumn = <T extends Row>(
         ? asset.thumbnail.image?.png
         : null;
 
-      return image && image.url ? <Image data={image} /> : null;
+      return <Image data={image} />;
     },
     ...props,
   };
