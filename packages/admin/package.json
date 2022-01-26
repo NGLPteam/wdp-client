@@ -25,7 +25,7 @@
     "@castiron/components-breadcrumbs": "1.0.0-alpha.0",
     "@castiron/components-input": "1.0.0-alpha.2",
     "@castiron/components-pagination": "^1.0.1",
-    "@castiron/hooks": "^1.0.0-alpha.6",
+    "@castiron/hooks": "1.1.0-beta",
     "@castiron/style-mixins": "^1.0.0",
     "@hookform/error-message": "^2.0.0",
     "@react-keycloak/ssr": "^3.3.0",
