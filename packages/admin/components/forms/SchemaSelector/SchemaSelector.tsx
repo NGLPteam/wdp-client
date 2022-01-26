@@ -8,15 +8,15 @@ import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
-
 import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
-import { SchemaKind } from "types/graphql-schema";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
-const SchemaSelector = ({ schemaKind, schemaData }: Props) => {
+const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
   const data = useMaybeFragment(dataFragment, schemaData);
+
   const dialog = useDialogState({ visible: false, animated: true });
+
   const { t } = useTranslation();
 
   return schemaKind && data?.schemaVersion && data?.entityId ? (
@@ -46,7 +46,7 @@ const SchemaSelector = ({ schemaKind, schemaData }: Props) => {
 
 interface Props extends Pick<SelectProps, "defaultValue"> {
   schemaData?: SchemaSelectorDataFragment$key;
-  schemaKind?: SchemaKind;
+  schemaKind: "COLLECTION" | "ITEM" | "COMMUNITY";
 }
 
 export default SchemaSelector;
@@ -61,7 +61,17 @@ const dataFragment = graphql`
         slug
       }
     }
+
     ... on Item {
+      entityId: id
+      schemaVersion {
+        name
+        number
+        slug
+      }
+    }
+
+    ... on Community {
       entityId: id
       schemaVersion {
         name

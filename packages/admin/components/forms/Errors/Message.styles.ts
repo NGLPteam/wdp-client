@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
+import { IconFactory } from "components/factories";
 
-export const Error = styled.div`
+export const Error = styled.p`
   --icon-background-color: var(--reddark);
   --icon-foreground-color: var(--neutral00);
 
@@ -12,4 +13,14 @@ export const Error = styled.div`
   font-size: var(--font-size-sm);
   color: var(--color-error);
   font-weight: var(--font-weight-medium);
+`;
+
+export const ErrorIcon = styled(IconFactory)`
+  flex: none;
+  align-self: start;
+  margin-block-start: 2px;
+`;
+
+export const ErrorText = styled.span`
+  text-transform: capitalize;
 `;

@@ -19,6 +19,7 @@ export type UpdateCommunityInput = {
     thumbnailMetadata?: ImageMetadataInput | null | undefined;
     clearHeroImage?: boolean | null | undefined;
     clearThumbnail?: boolean | null | undefined;
+    schemaProperties?: unknown | null | undefined;
     heroImageLayout: HeroImageLayout;
     tagline?: string | null | undefined;
     logo?: UploadedFileInput | null | undefined;

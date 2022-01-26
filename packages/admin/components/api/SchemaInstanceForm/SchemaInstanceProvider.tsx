@@ -1,21 +1,16 @@
 import React, { useEffect, useMemo } from "react";
-import groupBy from "lodash/groupBy";
 import { useFragment, useMutation } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
-import type {
-  Control,
-  FieldValues,
-  MultipleFieldErrors,
-  Path,
-} from "react-hook-form";
+import type { Control } from "react-hook-form";
 
 import Actions from "./Actions";
 import Context from "./Context";
 import type { State } from "./Context";
 
 import type { OnSuccessCallback } from "./types";
+import { convertSchemaErrors } from "./convertSchemaErrors";
 import type {
   SchemaInstanceProviderApplyMutation,
   SchemaInstanceProviderApplyMutationResponse as MutationResponse,
@@ -27,6 +22,10 @@ import type {
 } from "@/relay/SchemaInstanceProviderFragment.graphql";
 import { useNotify } from "hooks";
 
+type SchemaErrors = NonNullable<
+  MutationResponse["applySchemaProperties"]
+>["schemaErrors"];
+
 export default function SchemaInstanceProvider({
   successNotification,
   failureNotification,
@@ -36,8 +35,10 @@ export default function SchemaInstanceProvider({
   const notify = useNotify();
   const { t } = useTranslation();
 
-  const [apply] =
-    useMutation<SchemaInstanceProviderApplyMutation>(applyMutation);
+  // eslint-disable-next-line prettier/prettier
+  const [apply] = useMutation<SchemaInstanceProviderApplyMutation>(
+    applyMutation
+  );
 
   const form = useForm({
     defaultValues: context.fieldValues,
@@ -95,7 +96,7 @@ export default function SchemaInstanceProvider({
             notify.error(t(failureNotification));
           }
 
-          const errors = convertSchemaErrors(schemaErrors);
+          const errors = convertSchemaErrors<SchemaErrors>(schemaErrors);
 
           for (const { path, error } of errors) {
             setError(path, error);
@@ -233,47 +234,3 @@ const applyMutation = graphql`
     }
   }
 `;
-
-type SchemaErrors = NonNullable<
-  MutationResponse["applySchemaProperties"]
->["schemaErrors"];
-
-function convertSchemaErrors(
-  schemaErrors: SchemaErrors
-): ConvertedSchemaError[] {
-  if (schemaErrors.length === 0) {
-    return [];
-  }
-
-  const grouped = groupBy(schemaErrors, "path");
-
-  const errors: ConvertedSchemaError[] = [];
-
-  for (const [path, errs] of Object.entries(grouped)) {
-    const messages = errs.map(({ message }) => message);
-
-    const types: MultipleFieldErrors = {};
-
-    messages.forEach(function (message, index) {
-      types[`error_${index}`] = message;
-    });
-
-    if (isPath(path)) {
-      errors.push({ path, error: { types } });
-    }
-  }
-
-  return errors;
-}
-
-function isPath(path: string): path is Path<FieldValues> {
-  return Boolean(path);
-}
-
-type ConvertedSchemaError = {
-  path: Path<FieldValues>;
-
-  error: {
-    types: MultipleFieldErrors;
-  };
-};

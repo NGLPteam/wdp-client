@@ -7,7 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionUpdateFormFragment = {
     readonly collectionId: string;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaContextFragment" | "useSchemaPropertiesFragment">;
     readonly " $refType": "CollectionUpdateFormFragment";
 };
 export type CollectionUpdateFormFragment$data = CollectionUpdateFormFragment;
@@ -35,10 +35,25 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CollectionUpdateFormFieldsFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaFormFieldsFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "useSchemaContextFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "useSchemaPropertiesFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'bfe0f18f89004f4f24306a6014fe3c14';
+(node as any).hash = '394df4aca190b3e5ace127d8c1ac7a70';
 export default node;

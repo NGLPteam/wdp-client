@@ -12,7 +12,7 @@ export type SchemaInstanceFormFragment = {
     readonly properties: ReadonlyArray<{
         readonly " $fragmentRefs": FragmentRefs<"SchemaInstancePropertyFragment">;
     }>;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorDataFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"SchemaFormFieldsFragment" | "SchemaSelectorDataFragment">;
     readonly " $refType": "SchemaInstanceFormFragment";
 };
 export type SchemaInstanceFormFragment$data = SchemaInstanceFormFragment;
@@ -64,11 +64,16 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "SchemaFormFieldsFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "SchemaSelectorDataFragment"
     }
   ],
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '04c779d4e56e0fe204b8088634bbf8d1';
+(node as any).hash = '083ca8be2d9c353b3973c5f3c9d13bba';
 export default node;
