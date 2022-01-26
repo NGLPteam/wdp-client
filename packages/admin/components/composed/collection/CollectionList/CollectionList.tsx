@@ -1,7 +1,7 @@
 import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
@@ -13,7 +13,6 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
-import ThumbnailColumnCell from "components/composed/model/ModelColumns/ThumbnailColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -32,12 +31,7 @@ function CollectionList<T extends OperationType>({
   );
 
   const columns = [
-    ModelColumns.ThumbnailColumn<CollectionNode>({
-      route: "collection",
-      Cell: ({ row, grid }: CellProps<CollectionNode>) => (
-        <ThumbnailColumnCell data={row.original} grid={grid} />
-      ),
-    }),
+    ModelColumns.EntityThumbnailColumn<CollectionNode>(),
     ModelColumns.NameColumn<CollectionNode>({
       route: "collection",
       accessor: "title",
@@ -101,7 +95,7 @@ const fragment = graphql`
         number
       }
       allowedActions
-      ...ThumbnailColumnCellFragment
+      ...EntityThumbnailColumnFragment
     }
     ...ModelListPageFragment
   }

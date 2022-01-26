@@ -7,46 +7,15 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorListFragment = {
     readonly nodes: ReadonlyArray<{
-        readonly __typename: "OrganizationContributor";
-        readonly id: string;
-        readonly slug: string;
-        readonly legalName: string | null;
-        readonly createdAt: string;
-        readonly updatedAt: string;
-        readonly image: {
-            readonly alt: string | null;
-            readonly thumb: {
-                readonly width: number;
-                readonly height: number;
-                readonly png: {
-                    readonly alt: string | null;
-                    readonly url: string | null;
-                };
-            };
-        };
-    } | {
-        readonly __typename: "PersonContributor";
-        readonly id: string;
-        readonly slug: string;
-        readonly givenName: string | null;
-        readonly familyName: string | null;
-        readonly createdAt: string;
-        readonly updatedAt: string;
-        readonly image: {
-            readonly alt: string | null;
-            readonly thumb: {
-                readonly width: number;
-                readonly height: number;
-                readonly png: {
-                    readonly alt: string | null;
-                    readonly url: string | null;
-                };
-            };
-        };
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
+        readonly __typename: string;
+        readonly id?: string | undefined;
+        readonly slug?: string | undefined;
+        readonly legalName?: string | null | undefined;
+        readonly createdAt?: string | undefined;
+        readonly updatedAt?: string | undefined;
+        readonly givenName?: string | null | undefined;
+        readonly familyName?: string | null | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ContributorListFragment";
@@ -89,67 +58,9 @@ v3 = {
   "storageKey": null
 },
 v4 = {
-  "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ImageAttachment",
-  "kind": "LinkedField",
-  "name": "image",
-  "plural": false,
-  "selections": [
-    (v4/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "width",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "height",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "png",
-          "plural": false,
-          "selections": [
-            (v4/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
+  "kind": "FragmentSpread",
+  "name": "ContributorNameColumnFragment"
 };
 return {
   "argumentDefinitions": [],
@@ -186,7 +97,7 @@ return {
             },
             (v2/*: any*/),
             (v3/*: any*/),
-            (v5/*: any*/)
+            (v4/*: any*/)
           ],
           "type": "OrganizationContributor",
           "abstractKey": null
@@ -211,12 +122,12 @@ return {
               "storageKey": null
             },
             (v2/*: any*/),
-            (v3/*: any*/),
-            (v5/*: any*/)
+            (v3/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
-        }
+        },
+        (v4/*: any*/)
       ],
       "storageKey": null
     },
@@ -230,5 +141,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '9fbf0acebe97e42d7e0d5e7b1417ba31';
+(node as any).hash = '758d702497e6e77a9ca2b80f005ed8fa';
 export default node;

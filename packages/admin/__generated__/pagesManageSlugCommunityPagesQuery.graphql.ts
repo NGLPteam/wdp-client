@@ -55,16 +55,18 @@ fragment EntityPagesListDataFragment on PageConnection {
       id
       title
       slug
-      thumbnail: heroImage {
-        image: medium {
-          png {
-            url
-            height
-            width
-            alt
-          }
+      entity {
+        __typename
+        ... on Sluggable {
+          __isSluggable: __typename
+          slug
+        }
+        ... on Node {
+          __isNode: __typename
+          id
         }
       }
+      ...PageHeroColumnFragment
     }
   }
   ...ModelListPageFragment
@@ -92,6 +94,14 @@ fragment EntityPagesListFragment on AnyEntity {
   }
 }
 
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
+}
+
 fragment ModelListPageFragment on Paginated {
   __isPaginated: __typename
   ...ModelPageCountActionsFragment
@@ -115,6 +125,17 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment PageHeroColumnFragment on Page {
+  heroImage {
+    storage
+    small {
+      webp {
+        ...ImageFragment
+      }
+    }
   }
 }
 */
@@ -199,7 +220,41 @@ v4 = [
               },
               (v3/*: any*/),
               {
-                "alias": "thumbnail",
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "entity",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v3/*: any*/)
+                    ],
+                    "type": "Sluggable",
+                    "abstractKey": "__isSluggable"
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v2/*: any*/)
+                    ],
+                    "type": "Node",
+                    "abstractKey": "__isNode"
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
                 "args": null,
                 "concreteType": "ImageAttachment",
                 "kind": "LinkedField",
@@ -207,11 +262,18 @@ v4 = [
                 "plural": false,
                 "selections": [
                   {
-                    "alias": "image",
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
                     "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
-                    "name": "medium",
+                    "name": "small",
                     "plural": false,
                     "selections": [
                       {
@@ -219,36 +281,43 @@ v4 = [
                         "args": null,
                         "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
-                        "name": "png",
+                        "name": "webp",
                         "plural": false,
                         "selections": [
                           {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "height",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "width",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "alt",
-                            "storageKey": null
+                            "kind": "InlineFragment",
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "alt",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "url",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "width",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "height",
+                                "storageKey": null
+                              }
+                            ],
+                            "type": "Image",
+                            "abstractKey": "__isImage"
                           }
                         ],
                         "storageKey": null
@@ -429,12 +498,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "acd146d45914fc0f944a747449421b78",
+    "cacheID": "53e4bfacdfc631dafe627f5914854ff6",
     "id": null,
     "metadata": {},
     "name": "pagesManageSlugCommunityPagesQuery",
     "operationKind": "query",
-    "text": "query pagesManageSlugCommunityPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityPagesListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      thumbnail: heroImage {\n        image: medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query pagesManageSlugCommunityPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityPagesListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      entity {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...PageHeroColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PageHeroColumnFragment on Page {\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

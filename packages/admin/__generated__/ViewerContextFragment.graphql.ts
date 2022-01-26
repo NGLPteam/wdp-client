@@ -12,12 +12,7 @@ export type ViewerContextFragment = {
         readonly uploadAccess: boolean;
         readonly uploadToken: string | null;
         readonly avatar: {
-            readonly small: {
-                readonly png: {
-                    readonly url: string | null;
-                    readonly alt: string | null;
-                };
-            };
+            readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
         };
         readonly globalAdmin: boolean;
     };
@@ -82,40 +77,9 @@ const node: ReaderFragment = {
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "concreteType": "ImageSize",
-              "kind": "LinkedField",
-              "name": "small",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ImageDerivative",
-                  "kind": "LinkedField",
-                  "name": "png",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "url",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "alt",
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "AvatarFragment"
             }
           ],
           "storageKey": null
@@ -134,5 +98,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'b2933a4df7cb48c4a4f895ebd64ccb68';
+(node as any).hash = '953b219e45e60e9e3a7cb9278c03215e';
 export default node;

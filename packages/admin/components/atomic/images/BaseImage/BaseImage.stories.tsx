@@ -1,11 +1,11 @@
 import { Story } from "@storybook/react";
-import Image from ".";
+import BaseImage from ".";
 
-type Props = React.ComponentProps<typeof Image>;
+type Props = React.ComponentProps<typeof BaseImage>;
 
 export default {
   title: "Components/Atomic/Image",
-  component: Image,
+  component: BaseImage,
   parameters: {
     themes: {
       default: "neutral00",
@@ -14,7 +14,7 @@ export default {
 };
 
 // eslint-disable-next-line jsx-a11y/alt-text
-const Template: Story<Props> = (args) => <Image {...args} />;
+const Template: Story<Props> = (args) => <BaseImage {...args} />;
 
 export const Default: Story<Props> = Template.bind({});
 Default.args = {

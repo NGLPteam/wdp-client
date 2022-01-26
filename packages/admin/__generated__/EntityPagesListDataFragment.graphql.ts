@@ -11,16 +11,11 @@ export type EntityPagesListDataFragment = {
             readonly id: string;
             readonly title: string;
             readonly slug: string;
-            readonly thumbnail: {
-                readonly image: {
-                    readonly png: {
-                        readonly url: string | null;
-                        readonly height: number | null;
-                        readonly width: number | null;
-                        readonly alt: string | null;
-                    };
-                };
+            readonly entity: {
+                readonly __typename: string;
+                readonly slug?: string | undefined;
             };
+            readonly " $fragmentRefs": FragmentRefs<"PageHeroColumnFragment">;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -34,7 +29,15 @@ export type EntityPagesListDataFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -70,73 +73,37 @@ const node: ReaderFragment = {
               "name": "title",
               "storageKey": null
             },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            },
-            {
-              "alias": "thumbnail",
-              "args": null,
-              "concreteType": "ImageAttachment",
+              "concreteType": null,
               "kind": "LinkedField",
-              "name": "heroImage",
+              "name": "entity",
               "plural": false,
               "selections": [
                 {
-                  "alias": "image",
+                  "alias": null,
                   "args": null,
-                  "concreteType": "ImageSize",
-                  "kind": "LinkedField",
-                  "name": "medium",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "ImageDerivative",
-                      "kind": "LinkedField",
-                      "name": "png",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "url",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "height",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "width",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "alt",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
+                  "kind": "ScalarField",
+                  "name": "__typename",
                   "storageKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    (v0/*: any*/)
+                  ],
+                  "type": "Sluggable",
+                  "abstractKey": "__isSluggable"
                 }
               ],
               "storageKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "PageHeroColumnFragment"
             }
           ],
           "storageKey": null
@@ -153,5 +120,6 @@ const node: ReaderFragment = {
   "type": "PageConnection",
   "abstractKey": null
 };
-(node as any).hash = '154a416f612c814c486dd6a47997c2fc';
+})();
+(node as any).hash = 'c974d3ba35d88aa394debb3da2e66f94';
 export default node;

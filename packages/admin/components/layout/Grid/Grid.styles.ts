@@ -134,27 +134,6 @@ export const Thumbnail = styled.div`
     `,
     MOBILE_BREAK
   )}
-
-  > a {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-  }
-
-  /* Make sure the image never exceeds the bounding box */
-  > div,
-  > div > img {
-    max-height: 100%;
-    max-width: 100%;
-    object-position: bottom left;
-  }
-
-  > div > img,
-  > a > div > img {
-    object-position: bottom left;
-
-    ${respond(`object-position: top left;`, MOBILE_BREAK)}
-  }
 `;
 
 export const Children = styled.div`

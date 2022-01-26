@@ -32,6 +32,23 @@ query usersQuery(
   }
 }
 
+fragment AvatarFragment on ImageAttachment {
+  storage
+  small {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
+}
+
 fragment ModelListPageFragment on Paginated {
   __isPaginated: __typename
   ...ModelPageCountActionsFragment
@@ -60,12 +77,7 @@ fragment ModelPaginationFragment on Paginated {
 
 fragment UserAvatarFragment on User {
   avatar {
-    small {
-      png {
-        url
-        alt
-      }
-    }
+    ...AvatarFragment
   }
 }
 
@@ -77,7 +89,7 @@ fragment UserListFragment on UserConnection {
     slug
     createdAt
     updatedAt
-    ...UserNameColumnCellFragment
+    ...UserNameColumnFragment
     id
   }
   ...ModelListPageFragment
@@ -87,6 +99,10 @@ fragment UserNameColumnCellFragment on User {
   name
   slug
   ...UserAvatarFragment
+}
+
+fragment UserNameColumnFragment on User {
+  ...UserNameColumnCellFragment
 }
 */
 
@@ -222,6 +238,13 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "small",
@@ -232,22 +255,43 @@ return {
                         "args": null,
                         "concreteType": "ImageDerivative",
                         "kind": "LinkedField",
-                        "name": "png",
+                        "name": "webp",
                         "plural": false,
                         "selections": [
                           {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "alt",
-                            "storageKey": null
+                            "kind": "InlineFragment",
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "alt",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "url",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "width",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "height",
+                                "storageKey": null
+                              }
+                            ],
+                            "type": "Image",
+                            "abstractKey": "__isImage"
                           }
                         ],
                         "storageKey": null
@@ -334,12 +378,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fccb3a2a01d425dcc7d31d46c7c31688",
+    "cacheID": "251587ba64bf555625899cbeecba5484",
     "id": null,
     "metadata": {},
     "name": "usersQuery",
     "operationKind": "query",
-    "text": "query usersQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    small {\n      png {\n        url\n        alt\n      }\n    }\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnCellFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n"
+    "text": "query usersQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    ...UserListFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    email\n    globalAdmin\n    name\n    slug\n    createdAt\n    updatedAt\n    ...UserNameColumnFragment\n    id\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
   }
 };
 })();

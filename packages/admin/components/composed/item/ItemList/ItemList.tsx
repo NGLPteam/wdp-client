@@ -1,7 +1,7 @@
 import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "react-table";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -11,7 +11,6 @@ import type {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
-import ThumbnailColumnCell from "components/composed/model/ModelColumns/ThumbnailColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,13 +24,7 @@ function ItemList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<ItemNode>({
-      route: "item",
-      Cell: ({ row, grid }: CellProps<ItemNode>) => (
-        <ThumbnailColumnCell data={row.original} grid={grid} />
-      ),
-    }),
-
+    ModelColumns.EntityThumbnailColumn<ItemNode>(),
     ModelColumns.NameColumn<ItemNode>({
       route: "item",
       accessor: "title",
@@ -85,17 +78,6 @@ const fragment = graphql`
         name
         number
       }
-      thumbnail {
-        storage
-        image: medium {
-          png {
-            url
-            height
-            width
-            alt
-          }
-        }
-      }
       items {
         pageInfo {
           totalCount
@@ -104,7 +86,7 @@ const fragment = graphql`
       allowedActions
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...ContributorsColumnFragment
-      ...ThumbnailColumnCellFragment
+      ...EntityThumbnailColumnFragment
     }
     ...ModelListPageFragment
   }

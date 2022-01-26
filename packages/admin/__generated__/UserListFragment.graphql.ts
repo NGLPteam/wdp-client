@@ -13,7 +13,7 @@ export type UserListFragment = {
         readonly slug: string;
         readonly createdAt: string;
         readonly updatedAt: string;
-        readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"UserNameColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "UserListFragment";
@@ -85,7 +85,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "UserNameColumnCellFragment"
+          "name": "UserNameColumnFragment"
         }
       ],
       "storageKey": null
@@ -99,5 +99,5 @@ const node: ReaderFragment = {
   "type": "UserConnection",
   "abstractKey": null
 };
-(node as any).hash = 'aa16d3350e312cfe95738d703fdc1577';
+(node as any).hash = '8b074f2408b1d4231f8548171afca747';
 export default node;

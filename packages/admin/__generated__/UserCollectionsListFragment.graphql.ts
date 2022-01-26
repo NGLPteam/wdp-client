@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type UserCollectionsListFragment = {
     readonly edges: ReadonlyArray<{
         readonly node: {
@@ -14,17 +13,7 @@ export type UserCollectionsListFragment = {
                 readonly id: string;
                 readonly title: string;
                 readonly slug: string;
-                readonly thumbnail: {
-                    readonly storage: AttachmentStorage | null;
-                    readonly image: {
-                        readonly png: {
-                            readonly url: string | null;
-                            readonly height: number | null;
-                            readonly width: number | null;
-                            readonly alt: string | null;
-                        };
-                    };
-                };
+                readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
             };
             readonly role: {
                 readonly id: string;
@@ -103,72 +92,9 @@ return {
                 },
                 (v1/*: any*/),
                 {
-                  "alias": null,
                   "args": null,
-                  "concreteType": "ImageAttachment",
-                  "kind": "LinkedField",
-                  "name": "thumbnail",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "storage",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": "image",
-                      "args": null,
-                      "concreteType": "ImageSize",
-                      "kind": "LinkedField",
-                      "name": "medium",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "concreteType": "ImageDerivative",
-                          "kind": "LinkedField",
-                          "name": "png",
-                          "plural": false,
-                          "selections": [
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "url",
-                              "storageKey": null
-                            },
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "height",
-                              "storageKey": null
-                            },
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "width",
-                              "storageKey": null
-                            },
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "alt",
-                              "storageKey": null
-                            }
-                          ],
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "EntityThumbnailColumnFragment"
                 }
               ],
               "storageKey": null
@@ -221,5 +147,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '996f79141abb6be019651a33ba237e41';
+(node as any).hash = '538238b00827fa9ae8551ecbda9da1b8';
 export default node;

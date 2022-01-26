@@ -13,16 +13,7 @@ export type FileListFragment = {
         readonly kind?: AssetKind | undefined;
         readonly name?: string | undefined;
         readonly downloadUrl?: string | null | undefined;
-        readonly thumbnail?: {
-            readonly image: {
-                readonly png: {
-                    readonly alt: string | null;
-                    readonly url: string | null;
-                    readonly height: number | null;
-                    readonly width: number | null;
-                };
-            };
-        } | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"AssetThumbnailColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "FileListFragment";
@@ -88,65 +79,9 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
-              "alias": "thumbnail",
               "args": null,
-              "concreteType": "ImageAttachment",
-              "kind": "LinkedField",
-              "name": "preview",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": "image",
-                  "args": null,
-                  "concreteType": "ImageSize",
-                  "kind": "LinkedField",
-                  "name": "medium",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "ImageDerivative",
-                      "kind": "LinkedField",
-                      "name": "png",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "alt",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "url",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "height",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "width",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "AssetThumbnailColumnFragment"
             }
           ],
           "type": "Asset",
@@ -164,5 +99,5 @@ const node: ReaderFragment = {
   "type": "AnyAssetConnection",
   "abstractKey": null
 };
-(node as any).hash = '7bb2990dd20324be63f31117e99a37a7';
+(node as any).hash = 'cdbeccbc4ed8a1ec3d8c5c860f452204';
 export default node;

@@ -29,18 +29,7 @@ function ContributorList<T extends OperationType>({
   const contributors = useMaybeFragment(fragment, data);
 
   const columns = [
-    ModelColumns.ThumbnailColumn<ContributorNode>({
-      accessor: (row) => {
-        if (row.__typename === "%other") return null;
-        return row?.image?.thumb;
-      },
-      route: "contributor",
-    }),
-    ModelColumns.NameColumn<ContributorNode>({
-      route: "contributor",
-      id: "name",
-      accessor: (row) => getContributorDisplayName(row),
-    }),
+    ModelColumns.ContributorNameColumn<ContributorNode>(),
     ModelColumns.CreatedAtColumn<ContributorNode>(),
     ModelColumns.UpdatedAtColumn<ContributorNode>(),
   ];
@@ -53,7 +42,7 @@ function ContributorList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<ContributorNode>) => {
       if (row.original.__typename === "%other") return;
       destroy.contributor(
-        { contributorId: row.original.id },
+        { contributorId: row.original.id || "" },
         getContributorDisplayName(row.original) || "glossary.collection"
       );
     },
@@ -102,17 +91,7 @@ const fragment = graphql`
         legalName
         createdAt
         updatedAt
-        image {
-          alt
-          thumb {
-            width
-            height
-            png {
-              alt
-              url
-            }
-          }
-        }
+        ...ContributorNameColumnFragment
       }
       ... on PersonContributor {
         id
@@ -121,18 +100,8 @@ const fragment = graphql`
         familyName
         createdAt
         updatedAt
-        image {
-          alt
-          thumb {
-            width
-            height
-            png {
-              alt
-              url
-            }
-          }
-        }
       }
+      ...ContributorNameColumnFragment
     }
     ...ModelListPageFragment
   }

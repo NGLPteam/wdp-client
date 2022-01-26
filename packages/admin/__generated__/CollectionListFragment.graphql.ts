@@ -17,7 +17,7 @@ export type CollectionListFragment = {
             readonly number: string;
         };
         readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"ThumbnailColumnCellFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionListFragment";
@@ -114,7 +114,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ThumbnailColumnCellFragment"
+          "name": "EntityThumbnailColumnFragment"
         }
       ],
       "storageKey": null
@@ -128,5 +128,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '1596d92623dfdd6a93195170fb92baea';
+(node as any).hash = '7080832d77e9b8c141cfdc67a9de734c';
 export default node;

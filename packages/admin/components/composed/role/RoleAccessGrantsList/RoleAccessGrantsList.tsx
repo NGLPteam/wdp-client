@@ -18,7 +18,6 @@ import {
   RoleAccessGrantsListDataFragment,
   RoleAccessGrantsListDataFragment$key,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
-import UserNameColumnCell from "components/composed/user/UserNameColumnCell";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -45,12 +44,9 @@ function RoleAccessGrantsList<T extends OperationType>({
   const slug = useRouteSlug();
 
   const columns = [
-    ModelColumns.NameColumn<Node>({
-      route: "user",
-      accessor: "user",
-      Cell: ({ row }: CellProps<Node>) => (
-        <UserNameColumnCell data={row.original.user} />
-      ),
+    ModelColumns.UserNameColumn<Node>({
+      // Return the data where the user fragment is defined
+      accessor: ({ user }: Node) => user,
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
@@ -135,7 +131,7 @@ const listDataFragment = graphql`
             slug
             name
             email
-            ...UserNameColumnCellFragment
+            ...UserNameColumnFragment
           }
           entity: collection {
             id
@@ -153,7 +149,7 @@ const listDataFragment = graphql`
             slug
             name
             email
-            ...UserNameColumnCellFragment
+            ...UserNameColumnFragment
           }
           entity: item {
             id
@@ -171,7 +167,7 @@ const listDataFragment = graphql`
             slug
             name
             email
-            ...UserNameColumnCellFragment
+            ...UserNameColumnFragment
           }
           entity: community {
             id

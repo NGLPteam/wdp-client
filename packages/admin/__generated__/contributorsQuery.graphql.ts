@@ -32,6 +32,15 @@ query contributorsQuery(
   }
 }
 
+fragment AvatarFragment on ImageAttachment {
+  storage
+  small {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
 fragment ContributorListFragment on AnyContributorConnection {
   nodes {
     __typename
@@ -41,17 +50,7 @@ fragment ContributorListFragment on AnyContributorConnection {
       legalName
       createdAt
       updatedAt
-      image {
-        alt
-        thumb {
-          width
-          height
-          png {
-            alt
-            url
-          }
-        }
-      }
+      ...ContributorNameColumnFragment
     }
     ... on PersonContributor {
       id
@@ -60,24 +59,41 @@ fragment ContributorListFragment on AnyContributorConnection {
       familyName
       createdAt
       updatedAt
-      image {
-        alt
-        thumb {
-          width
-          height
-          png {
-            alt
-            url
-          }
-        }
-      }
     }
+    ...ContributorNameColumnFragment
     ... on Node {
       __isNode: __typename
       id
     }
   }
   ...ModelListPageFragment
+}
+
+fragment ContributorNameColumnFragment on Contributor {
+  __isContributor: __typename
+  __typename
+  image {
+    ...AvatarFragment
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  ... on OrganizationContributor {
+    legalName
+  }
+  ... on PersonContributor {
+    givenName
+    familyName
+  }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -168,56 +184,68 @@ v5 = {
 v6 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
   "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "image",
   "plural": false,
   "selections": [
-    (v6/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "storage",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
-      "name": "thumb",
+      "name": "small",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "width",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "height",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
           "concreteType": "ImageDerivative",
           "kind": "LinkedField",
-          "name": "png",
+          "name": "webp",
           "plural": false,
           "selections": [
-            (v6/*: any*/),
             {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
+              "kind": "InlineFragment",
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "alt",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "width",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                }
+              ],
+              "type": "Image",
+              "abstractKey": "__isImage"
             }
           ],
           "storageKey": null
@@ -226,6 +254,20 @@ v7 = {
       "storageKey": null
     }
   ],
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "givenName",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "familyName",
   "storageKey": null
 };
 return {
@@ -298,7 +340,27 @@ return {
                   },
                   (v4/*: any*/),
                   (v5/*: any*/),
-                  (v7/*: any*/)
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v6/*: any*/),
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isSluggable"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v7/*: any*/),
+                          (v8/*: any*/)
+                        ],
+                        "type": "PersonContributor",
+                        "abstractKey": null
+                      }
+                    ],
+                    "type": "Contributor",
+                    "abstractKey": "__isContributor"
+                  }
                 ],
                 "type": "OrganizationContributor",
                 "abstractKey": null
@@ -308,26 +370,29 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "givenName",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "familyName",
-                    "storageKey": null
-                  },
+                  (v7/*: any*/),
+                  (v8/*: any*/),
                   (v4/*: any*/),
-                  (v5/*: any*/),
-                  (v7/*: any*/)
+                  (v5/*: any*/)
                 ],
                 "type": "PersonContributor",
                 "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v6/*: any*/),
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v3/*: any*/)
+                    ],
+                    "type": "Sluggable",
+                    "abstractKey": "__isSluggable"
+                  }
+                ],
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               },
               {
                 "kind": "InlineFragment",
@@ -406,12 +471,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "786c93534ad104899a930aaa97df6a61",
+    "cacheID": "ecad6b1aa2f37100ed8a694b2a1f5e3d",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          width\n          height\n          png {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n      image {\n        alt\n        thumb {\n          width\n          height\n          png {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      updatedAt\n      ...ContributorNameColumnFragment\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n      updatedAt\n    }\n    ...ContributorNameColumnFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

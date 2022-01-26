@@ -70,6 +70,41 @@ fragment ContributorsColumnFragment on AnyEntity {
   }
 }
 
+fragment CoverImageFragment on ImageAttachment {
+  storage
+  medium {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
+fragment EntityThumbnailColumnFragment on Entity {
+  __isEntity: __typename
+  __typename
+  title
+  thumbnail {
+    storage
+    ...CoverImageFragment
+  }
+  ... on Node {
+    __isNode: __typename
+    id
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
+}
+
 fragment ItemListFragment on ItemConnection {
   nodes {
     id
@@ -82,17 +117,6 @@ fragment ItemListFragment on ItemConnection {
       number
       id
     }
-    thumbnail {
-      storage
-      image: medium {
-        png {
-          url
-          height
-          width
-          alt
-        }
-      }
-    }
     items {
       pageInfo {
         totalCount
@@ -100,7 +124,7 @@ fragment ItemListFragment on ItemConnection {
     }
     allowedActions
     ...ContributorsColumnFragment
-    ...ThumbnailColumnCellFragment
+    ...EntityThumbnailColumnFragment
   }
   ...ModelListPageFragment
 }
@@ -128,31 +152,6 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
-  }
-}
-
-fragment ThumbnailColumnCellFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    image: medium {
-      png {
-        url
-        height
-        width
-        alt
-      }
-    }
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on Node {
-    __isNode: __typename
-    id
   }
 }
 */
@@ -347,74 +346,6 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ImageAttachment",
-                    "kind": "LinkedField",
-                    "name": "thumbnail",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "storage",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": "image",
-                        "args": null,
-                        "concreteType": "ImageSize",
-                        "kind": "LinkedField",
-                        "name": "medium",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ImageDerivative",
-                            "kind": "LinkedField",
-                            "name": "png",
-                            "plural": false,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "url",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "height",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "width",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "alt",
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
                     "concreteType": "ItemConnection",
                     "kind": "LinkedField",
                     "name": "items",
@@ -553,12 +484,87 @@ return {
                     "selections": [
                       (v6/*: any*/),
                       {
-                        "kind": "TypeDiscriminator",
-                        "abstractKey": "__isSluggable"
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageAttachment",
+                        "kind": "LinkedField",
+                        "name": "thumbnail",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "storage",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageSize",
+                            "kind": "LinkedField",
+                            "name": "medium",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageDerivative",
+                                "kind": "LinkedField",
+                                "name": "webp",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "alt",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "url",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "width",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "height",
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "type": "Image",
+                                    "abstractKey": "__isImage"
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
                       },
                       {
                         "kind": "TypeDiscriminator",
                         "abstractKey": "__isNode"
+                      },
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isSluggable"
                       }
                     ],
                     "type": "Entity",
@@ -631,12 +637,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0424df7ed14862eb81e2cb7d58a3fde7",
+    "cacheID": "9bcc28c1a20e15ef9bf6df6755840d3f",
     "id": null,
     "metadata": {},
     "name": "itemsQuery",
     "operationKind": "query",
-    "text": "query itemsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorsColumnFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    contributions(page: 1, perPage: 1) {\n      edges {\n        node {\n          contributor {\n            __typename\n            ... on OrganizationContributor {\n              slug\n              legalName\n            }\n            ... on PersonContributor {\n              slug\n              givenName\n              familyName\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    thumbnail {\n      storage\n      image: medium {\n        png {\n          url\n          height\n          width\n          alt\n        }\n      }\n    }\n    items {\n      pageInfo {\n        totalCount\n      }\n    }\n    allowedActions\n    ...ContributorsColumnFragment\n    ...ThumbnailColumnCellFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment ThumbnailColumnCellFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    image: medium {\n      png {\n        url\n        height\n        width\n        alt\n      }\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n"
+    "text": "query itemsQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  viewer {\n    items(order: $order, page: $page, perPage: 20) {\n      ...ItemListFragment\n    }\n    id\n  }\n}\n\nfragment ContributorsColumnFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    contributions(page: 1, perPage: 1) {\n      edges {\n        node {\n          contributor {\n            __typename\n            ... on OrganizationContributor {\n              slug\n              legalName\n            }\n            ... on PersonContributor {\n              slug\n              givenName\n              familyName\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemListFragment on ItemConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    title\n    schemaVersion {\n      name\n      number\n      id\n    }\n    items {\n      pageInfo {\n        totalCount\n      }\n    }\n    allowedActions\n    ...ContributorsColumnFragment\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

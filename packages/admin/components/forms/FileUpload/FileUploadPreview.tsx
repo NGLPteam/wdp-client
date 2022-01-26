@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { State as UploadState } from "./types";
 import * as Styled from "./FileUpload.styles";
-import { Image } from "components/atomic";
+import { BaseImage } from "components/atomic";
 import { IconFactory } from "components/factories";
 
 const WIDTH = 150;
@@ -22,7 +22,7 @@ const FileUploadPreview = ({ file, isLoading }: UploadStatusProps) => {
   return file ? (
     <Styled.UploadPreview isLoading={isLoading}>
       {fileImageUrl && isImage ? (
-        <Image
+        <BaseImage
           image={{
             url: fileImageUrl,
             width: WIDTH,

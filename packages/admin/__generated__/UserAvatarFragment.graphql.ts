@@ -7,12 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type UserAvatarFragment = {
     readonly avatar: {
-        readonly small: {
-            readonly png: {
-                readonly url: string | null;
-                readonly alt: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
     };
     readonly " $refType": "UserAvatarFragment";
 };
@@ -39,40 +34,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "small",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "AvatarFragment"
         }
       ],
       "storageKey": null
@@ -81,5 +45,5 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '9b5adcd81205a7b1d01d9366b4619187';
+(node as any).hash = '57aacf14b38aad4da4a0d5341c457530';
 export default node;

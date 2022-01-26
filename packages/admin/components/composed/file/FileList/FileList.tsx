@@ -27,7 +27,7 @@ function FileList<T extends OperationType>({
   const destroy = useDestroyer();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<FileNode>({}),
+    ModelColumns.AssetThumbnailColumn<FileNode>({}),
     ModelColumns.NameColumn<FileNode>({
       accessor: "name",
     }),
@@ -98,16 +98,7 @@ const fragment = graphql`
         kind
         name
         downloadUrl
-        thumbnail: preview {
-          image: medium {
-            png {
-              alt
-              url
-              height
-              width
-            }
-          }
-        }
+        ...AssetThumbnailColumnFragment
       }
     }
     ...ModelListPageFragment

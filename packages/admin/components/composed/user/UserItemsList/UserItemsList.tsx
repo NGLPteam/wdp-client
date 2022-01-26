@@ -34,9 +34,9 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
   const slug = useRouteSlug();
 
   const columns = [
-    ModelColumns.ThumbnailColumn<Node>({
-      accessor: (row: Node) => row?.item?.thumbnail?.image,
-      route: "item",
+    ModelColumns.EntityThumbnailColumn<Node>({
+      // Return the data that contains the thumbnail fragment
+      accessor: (originalRow: Node) => originalRow?.item,
     }),
     ModelColumns.NameColumn<Node>({
       route: "item",
@@ -130,17 +130,7 @@ const fragment = graphql`
           id
           title
           slug
-          thumbnail {
-            storage
-            image: medium {
-              png {
-                url
-                height
-                width
-                alt
-              }
-            }
-          }
+          ...EntityThumbnailColumnFragment
         }
         role {
           id

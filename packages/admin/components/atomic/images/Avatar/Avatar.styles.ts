@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 export const Wrapper = styled.div<{ size?: number }>`
@@ -13,4 +14,18 @@ export const Wrapper = styled.div<{ size?: number }>`
       width: ${pxToRem(size)};
       height: ${pxToRem(size)};
     `}
+`;
+
+export const IconWrapper = styled.div<{ size?: number }>`
+  ${aBgLight()}
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--accent-color);
+
+  ${({ size }) =>
+    size &&
+    `
+    width: ${pxToRem(size)};
+    height: ${pxToRem(size)};
+  `}
 `;

@@ -1,9 +1,8 @@
 import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import { CellProps, ModelTableActionProps } from "react-table";
+import { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
-import UserNameColumnCell from "../UserNameColumnCell";
 import { useDrawerHelper, useMaybeFragment } from "hooks";
 import type {
   UserListFragment,
@@ -27,13 +26,7 @@ function UserList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.NameColumn<UserNode>({
-      route: "user",
-      accessor: "name",
-      Cell: ({ row }: CellProps<UserNode>) => (
-        <UserNameColumnCell data={row.original} />
-      ),
-    }),
+    ModelColumns.UserNameColumn<UserNode>(),
     ModelColumns.EmailColumn<UserNode>(),
     ModelColumns.BooleanColumn<UserNode>({
       Header: <>{t("lists.admin_column")}</>,
@@ -77,7 +70,7 @@ const fragment = graphql`
       slug
       createdAt
       updatedAt
-      ...UserNameColumnCellFragment
+      ...UserNameColumnFragment
     }
     ...ModelListPageFragment
   }
