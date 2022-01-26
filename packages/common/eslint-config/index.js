@@ -63,6 +63,12 @@ module.exports = {
     "relay/no-future-added-value": 0,
     "relay/unused-fields": 0,
     "relay/generated-flow-types": 0,
+    camelcase: [
+      2,
+      {
+        ignoreImports: true,
+      },
+    ],
   },
   // Special plugins and extensions for ts
   plugins: ["@typescript-eslint", "relay"],

@@ -3,22 +3,13 @@ import { graphql } from "react-relay";
 import type { GetLayout } from "@wdp/lib/types/page";
 import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
 
-import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
-import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 import { LoadingCircle } from "components/atomic";
+import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 
 function CollectionDetails({ data }: Props) {
   return data && data.collection ? (
-    <>
-      <CollectionUpdateForm data={data?.collection} />
-      <SchemaInstanceForm
-        instance={data?.collection}
-        schemaKind="COLLECTION"
-        successNotification="messages.update.schema_success"
-        failureNotification="messages.update.schema_failure"
-      />
-    </>
+    <CollectionUpdateForm data={data?.collection} />
   ) : (
     <LoadingCircle />
   );
@@ -40,7 +31,6 @@ const query = graphql`
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
       ...CollectionUpdateFormFragment
-      ...SchemaInstanceFormFragment
     }
   }
 `;

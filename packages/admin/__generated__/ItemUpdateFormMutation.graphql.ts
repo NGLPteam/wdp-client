@@ -26,6 +26,7 @@ export type UpdateItemInput = {
     visibleUntilAt?: string | null | undefined;
     clearHeroImage?: boolean | null | undefined;
     clearThumbnail?: boolean | null | undefined;
+    schemaProperties?: unknown | null | undefined;
     doi?: string | null | undefined;
     issn?: string | null | undefined;
     clientMutationId?: string | null | undefined;

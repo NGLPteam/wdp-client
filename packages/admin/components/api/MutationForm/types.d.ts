@@ -21,9 +21,15 @@ export type GetErrors<M extends MutationParameters> = (
   response: M["response"]
 ) => HasErrorFragment | null;
 
+export type GetSchemaErrors<M extends MutationParameters> = (
+  response: M["response"]
+) => HasSchemaErrorFragment | null;
+
 export type GlobalError = ValidateResult;
 
 export type HasErrorFragment = MutationForm_mutationErrors$key;
+
+export type HasSchemaErrorFragment = MutationForm_schemaErrors$key;
 
 export type IsSuccessPredicate<
   M extends MutationParameters,
@@ -43,6 +49,7 @@ interface OnFailureResponse<
   response: M["response"];
   variables: M["variables"];
   values: UnpackNestedValue<T>;
+  setError: UseFormSetError<T>;
 }
 
 export type OnSuccessCallback<
@@ -73,8 +80,10 @@ export type MutationName<M extends MutationParameters> = {
     : never;
 }[keyof M["response"]];
 
-export type PayloadWithErrors<M extends MutationParameters> =
-  M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
+// eslint-disable-next-line prettier/prettier
+export type PayloadWithErrors<
+  M extends MutationParameters
+> = M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
 
 interface PayloadFragments {
   __fragments?: {
@@ -82,8 +91,10 @@ interface PayloadFragments {
   };
 }
 
-export type PayloadWithFragments<M extends MutationParameters> =
-  M["response"][MutationName<M>] & PayloadFragments;
+// eslint-disable-next-line prettier/prettier
+export type PayloadWithFragments<
+  M extends MutationParameters
+> = M["response"][MutationName<M>] & PayloadFragments;
 
 interface RemappedAttributeError<T> {
   path: Path<T>;

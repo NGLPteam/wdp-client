@@ -194,6 +194,7 @@ export default function MutationForm<
             response,
             variables,
             values,
+            setError,
           });
         }
       }
@@ -219,10 +220,12 @@ export default function MutationForm<
 
   const { handleSubmit } = form;
 
-  const onSubmit = useMemo(
-    () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
-  );
+  /* eslint-disable prettier/prettier */
+  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
+    handleSubmit,
+    submitHandler,
+  ]);
+  /* eslint-enable prettier/prettier */
 
   const {
     formState: { isSubmitting, isValidating },
@@ -411,7 +414,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   isSuccess?: IsSuccessPredicate<M, T>
 ): boolean {
   if (typeof isSuccess === "function") {
-    return isSuccess(response, data);
+    return isSuccess(response, data) && hasNoErrors(errors);
   }
 
   return hasNoErrors(errors);

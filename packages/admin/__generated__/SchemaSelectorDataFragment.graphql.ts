@@ -81,11 +81,17 @@ return {
       "selections": (v0/*: any*/),
       "type": "Item",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "Community",
+      "abstractKey": null
     }
   ],
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'f80d9e6a3fa61c8f4f900f3146703343';
+(node as any).hash = 'c4d652a3c808a931cc9b23bb8639e547';
 export default node;

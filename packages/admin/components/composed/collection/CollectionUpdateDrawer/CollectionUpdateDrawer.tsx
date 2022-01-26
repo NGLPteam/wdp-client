@@ -2,11 +2,10 @@ import React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
+import CollectionUpdateForm from "../CollectionUpdateForm";
 import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
-import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
-import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 
 import type {
   CollectionUpdateDrawerQuery as Query,
@@ -79,14 +78,6 @@ export default function CollectionUpdateDrawer({
                 onSaveAndClose={dialog.hide}
                 onCancel={dialog.hide}
               />
-              <SchemaInstanceForm
-                instance={data.collection}
-                schemaKind="COLLECTION"
-                successNotification="messages.update.schema_success"
-                failureNotification="messages.update.schema_failure"
-                onSaveAndClose={dialog.hide}
-                onCancel={dialog.hide}
-              />
             </>
           )}
         </Drawer>
@@ -101,7 +92,6 @@ const query = graphql`
       id
       title
       ...CollectionUpdateFormFragment
-      ...SchemaInstanceFormFragment
     }
   }
 `;

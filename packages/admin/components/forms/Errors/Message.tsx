@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import type { ValidateResult } from "react-hook-form";
 
 import * as Styled from "./Message.styles";
-import { IconFactory } from "components/factories";
 
 export default function Message({ type, result }: Props) {
   const { t } = useTranslation();
@@ -20,8 +19,8 @@ export default function Message({ type, result }: Props) {
 
   return message ? (
     <Styled.Error>
-      <IconFactory icon="warning" title="Error" />
-      <p>{message}</p>
+      <Styled.ErrorIcon icon="warning" title="Error" />
+      <Styled.ErrorText>{message}</Styled.ErrorText>
     </Styled.Error>
   ) : null;
 }
