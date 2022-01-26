@@ -52,5 +52,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '301d9a7c26b4329f9f8d03edbc3694b7';
+(node as any).hash = 'a412122e2e472fc24646d707d0a92ce9';
 export default node;

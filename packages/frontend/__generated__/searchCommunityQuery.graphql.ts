@@ -10,9 +10,9 @@ export type searchCommunityQueryVariables = {
 };
 export type searchCommunityQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
 };
 export type searchCommunityQuery = {
     readonly response: searchCommunityQueryResponse;
@@ -26,10 +26,10 @@ query searchCommunityQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
-    ...CommunityLayoutFragment
+    ...AppLayoutCommunityFragment
     id
   }
-  ...CommunityLayoutAppFragment
+  ...AppLayoutFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -66,16 +66,6 @@ fragment CommunityCondensedNavFragment on Community {
 
 fragment CommunityHTMLHeadFragment on Community {
   title
-}
-
-fragment CommunityLayoutAppFragment on Query {
-  ...AppLayoutFragment
-}
-
-fragment CommunityLayoutFragment on Community {
-  ...CommunityHTMLHeadFragment
-  ...CommunityNavBarFragment
-  ...AppLayoutCommunityFragment
 }
 
 fragment CommunityLogoFragment on ImageAttachment {
@@ -223,7 +213,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "AppLayoutCommunityFragment"
           }
         ],
         "storageKey": null
@@ -231,7 +221,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CommunityLayoutAppFragment"
+        "name": "AppLayoutFragment"
       }
     ],
     "type": "Query",
@@ -403,14 +393,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1830ac4630dcd9c1a515d7c8a66e4bdf",
+    "cacheID": "0e3b3f11d6cac2226af9e4d59307a2ff",
     "id": null,
     "metadata": {},
     "name": "searchCommunityQuery",
     "operationKind": "query",
-    "text": "query searchCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppLayoutFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppLayoutCommunityFragment\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
+    "text": "query searchCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...AppLayoutCommunityFragment\n    id\n  }\n  ...AppLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'eef5c65d963b74e4d90d4de4f0431e13';
+(node as any).hash = 'e065f9a97c8852b987c573c89a8bf49e';
 export default node;

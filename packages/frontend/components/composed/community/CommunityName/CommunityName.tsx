@@ -11,7 +11,7 @@ export default function CommunityName({ data }: Props) {
 
   const hideName = useMemo(
     () =>
-      community?.logo.storage &&
+      community &&
       community.logo.original.width &&
       community.logo.original.height &&
       Math.floor(
@@ -20,22 +20,22 @@ export default function CommunityName({ data }: Props) {
     [community]
   );
 
-  return community ? (
+  return (
     <Styled.Wrapper className="l-flex l-flex--align-center">
       <>
-        {community.logo.storage && <CommunityLogo data={community.logo} />}
+        <CommunityLogo data={community?.logo} />
         <h4 className={hideName ? "a-hidden" : undefined}>
           <NamedLink
             route="community"
-            routeParams={{ slug: community.slug }}
+            routeParams={{ slug: community?.slug || "" }}
             passHref
           >
-            <a>{community.title}</a>
+            <a>{community?.title}</a>
           </NamedLink>
         </h4>
       </>
     </Styled.Wrapper>
-  ) : null;
+  );
 }
 
 interface Props {

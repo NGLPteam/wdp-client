@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import AppLayout from "components/global/AppLayout";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 
@@ -15,9 +15,9 @@ export default function CommunityAboutPage() {
   return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
-        <CommunityLayout data={data} communityData={data?.community}>
+        <AppLayout data={data} communityData={data?.community}>
           <CommunityPageLayout data={data?.community?.page} />
-        </CommunityLayout>
+        </AppLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -31,8 +31,8 @@ const query = graphql`
       page(slug: $pageSlug) {
         ...CommunityPageLayoutFragment
       }
-      ...CommunityLayoutFragment
+      ...AppLayoutCommunityFragment
     }
-    ...CommunityLayoutAppFragment
+    ...AppLayoutFragment
   }
 `;

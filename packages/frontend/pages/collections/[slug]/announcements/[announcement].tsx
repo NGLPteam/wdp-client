@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import AppLayout from "components/global/AppLayout";
 import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSlugCollectionQuery.graphql";
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
 
@@ -18,12 +18,9 @@ export default function AnnouncementPage() {
       initialVariables={{ slug, announcementSlug }}
     >
       {({ data }) => (
-        <CommunityLayout
-          data={data}
-          communityData={data?.collection?.community}
-        >
+        <AppLayout data={data} communityData={data?.collection?.community}>
           <EntityAnnouncementLayoutFactory data={data?.collection} />
-        </CommunityLayout>
+        </AppLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -40,9 +37,9 @@ const query = graphql`
       ...EntityAnnouncementLayoutFactoryFragment
 
       community {
-        ...CommunityLayoutFragment
+        ...AppLayoutCommunityFragment
       }
     }
-    ...CommunityLayoutAppFragment
+    ...AppLayoutFragment
   }
 `;

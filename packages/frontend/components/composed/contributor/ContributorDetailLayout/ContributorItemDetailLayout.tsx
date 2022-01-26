@@ -5,20 +5,17 @@ import ContributorDetailNav from "../ContributorDetailNav";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorHTMLHead from "components/composed/contributor/ContributorHTMLHead";
 import { ContributorItemDetailLayoutFragment$key } from "@/relay/ContributorItemDetailLayoutFragment.graphql";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import AppLayout from "components/global/AppLayout";
 
 export default function ContributorItemDetailLayout({ data }: Props) {
   const layoutData = useMaybeFragment(fragment, data);
 
   return layoutData ? (
-    <CommunityLayout
-      data={layoutData}
-      communityData={layoutData?.item?.community}
-    >
+    <AppLayout data={layoutData} communityData={layoutData?.item?.community}>
       <ContributorHTMLHead data={layoutData.contributor} />
       <ContributorDetailNav data={layoutData.item} />
       <ContributorDetail data={layoutData.contributor} />
-    </CommunityLayout>
+    </AppLayout>
   ) : null;
 }
 
@@ -37,10 +34,10 @@ const fragment = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...CommunityLayoutFragment
+        ...AppLayoutCommunityFragment
       }
     }
 
-    ...CommunityLayoutAppFragment
+    ...AppLayoutFragment
   }
 `;

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { AppBody } from "..";
 import CommunityCondensedNav from "components/composed/community/CommunityCondensedNav";
 import CommunityHTMLHead from "components/composed/community/CommunityHTMLHead";
@@ -9,11 +9,15 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { RouteHelper } from "routes";
 import { AppLayoutFragment$key } from "@/relay/AppLayoutFragment.graphql";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
+import CommunityNavBar from "components/composed/community/CommunityNavBar";
+import { LoadingBlock } from "components/atomic";
 
 export default function AppLayout({ data, communityData, children }: Props) {
   const appData = useMaybeFragment(fragment, data);
 
   const community = useMaybeFragment(communityFragment, communityData);
+
+  const { loading } = usePageContext();
 
   const activeRoute = RouteHelper.activeRoute();
 
@@ -27,18 +31,22 @@ export default function AppLayout({ data, communityData, children }: Props) {
   return (
     <AppBody
       data={appData}
-      nameComponent={community ? <CommunityName data={community} /> : undefined}
+      nameComponent={<CommunityName data={community} />}
       headerNavComponent={
-        <CommunityCondensedNav
-          data={appData}
-          communityData={community}
-          isCommunityRoot={isCommunityRoot}
-        />
+        !isCommunityRoot &&
+        community && (
+          <CommunityCondensedNav
+            data={appData}
+            communityData={community}
+            isCommunityRoot={isCommunityRoot}
+          />
+        )
       }
       communityPicker={<CommunityPicker data={appData} active={community} />}
     >
       <CommunityHTMLHead data={community} />
-      {children}
+      {isCommunityRoot && <CommunityNavBar data={community} />}
+      {loading ? <LoadingBlock /> : children}
     </AppBody>
   );
 }
@@ -64,5 +72,6 @@ const communityFragment = graphql`
     ...CommunityNavBarFragment
     ...CommunityCondensedNavFragment
     ...CommunityPickerActiveFragment
+    ...CommunityNavBarFragment
   }
 `;

@@ -3,10 +3,10 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import CommunityLayout from "components/composed/community/CommunityLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import { OrderingSlugCollectionQuery as Query } from "@/relay/OrderingSlugCollectionQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
+import AppLayout from "components/global/AppLayout";
 
 export default function OrderingSlugCollection() {
   const slug = useRouteSlug();
@@ -21,14 +21,11 @@ export default function OrderingSlugCollection() {
       initialVariables={{ slug, identifier, page }}
     >
       {({ data }) => (
-        <CommunityLayout
-          data={data}
-          communityData={data?.collection?.community}
-        >
+        <AppLayout data={data} communityData={data?.collection?.community}>
           <EntityLayoutFactory data={data?.collection}>
             <EntityOrderingLayoutFactory data={data?.collection} />
           </EntityLayoutFactory>
-        </CommunityLayout>
+        </AppLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -48,9 +45,9 @@ const query = graphql`
         @arguments(page: $page, identifier: $identifier)
 
       community {
-        ...CommunityLayoutFragment
+        ...AppLayoutCommunityFragment
       }
     }
-    ...CommunityLayoutAppFragment
+    ...AppLayoutFragment
   }
 `;

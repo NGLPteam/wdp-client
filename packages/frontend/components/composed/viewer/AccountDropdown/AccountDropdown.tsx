@@ -14,7 +14,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
 
   return (
     <Styled.Wrapper>
-      {avatarUrl ? (
+      {isAuthenticated ? (
         <Dropdown
           disclosure={
             <Styled.AccountButton>
@@ -33,11 +33,9 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           ]}
         />
       ) : (
-        isAuthenticated === false && (
-          <button className={signInOutClass} onClick={handleSignInOut}>
-            {t("common.sign_in")}
-          </button>
-        )
+        <button className={signInOutClass} onClick={handleSignInOut}>
+          {t("common.sign_in")}
+        </button>
       )}
     </Styled.Wrapper>
   );

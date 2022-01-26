@@ -10,9 +10,9 @@ export type SlugCommunityQueryVariables = {
 };
 export type SlugCommunityQueryResponse = {
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLandingLayoutFragment" | "CommunityLayoutFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CommunityLandingLayoutFragment" | "AppLayoutCommunityFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
 };
 export type SlugCommunityQuery = {
     readonly response: SlugCommunityQueryResponse;
@@ -27,10 +27,10 @@ query SlugCommunityQuery(
 ) {
   community(slug: $slug) {
     ...CommunityLandingLayoutFragment
-    ...CommunityLayoutFragment
+    ...AppLayoutCommunityFragment
     id
   }
-  ...CommunityLayoutAppFragment
+  ...AppLayoutFragment
 }
 
 fragment AppBodyFragment on Query {
@@ -100,16 +100,6 @@ fragment CommunityLandingLayoutFragment on Community {
   descendants(schema: "nglp:unit", order: TITLE_ASCENDING) {
     ...UnitListFragment
   }
-}
-
-fragment CommunityLayoutAppFragment on Query {
-  ...AppLayoutFragment
-}
-
-fragment CommunityLayoutFragment on Community {
-  ...CommunityHTMLHeadFragment
-  ...CommunityNavBarFragment
-  ...AppLayoutCommunityFragment
 }
 
 fragment CommunityLogoFragment on ImageAttachment {
@@ -462,7 +452,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
+            "name": "AppLayoutCommunityFragment"
           }
         ],
         "storageKey": null
@@ -470,7 +460,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "CommunityLayoutAppFragment"
+        "name": "AppLayoutFragment"
       }
     ],
     "type": "Query",
@@ -961,14 +951,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "93b51503a798ef7b00e9ddccb75c3bde",
+    "cacheID": "a6694d05411d7d1ee2c1abf24fcf5db4",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...CommunityLayoutFragment\n    id\n  }\n  ...CommunityLayoutAppFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n  summary\n  heroImage {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n  heroImageLayout\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  journals: collections(schema: \"nglp:journal\", order: RECENT, page: 1, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n  collections(schema: \"default:collection\", order: RECENT, page: 1, perPage: 8) {\n    ...FeaturedCollectionsListFragment\n    ...FeaturedCollectionsGridFragment\n    pageInfo {\n      totalCount\n    }\n  }\n  descendants(schema: \"nglp:unit\", order: TITLE_ASCENDING) {\n    ...UnitListFragment\n  }\n}\n\nfragment CommunityLayoutAppFragment on Query {\n  ...AppLayoutFragment\n}\n\nfragment CommunityLayoutFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppLayoutCommunityFragment\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      ...FeaturedCollectionsGridImageFragment\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  thumbnail {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedCollectionsListFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      id\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n  pageInfo {\n    totalCount\n    perPage\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment UnitListFragment on EntityDescendantConnection {\n  edges {\n    node {\n      descendant {\n        __typename\n        ... on Collection {\n          title\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...AppLayoutCommunityFragment\n    id\n  }\n  ...AppLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNameFragment\n  ...CommunityNavBarFragment\n  ...CommunityCondensedNavFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavFragment on Community {\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityPickerActiveFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n  summary\n  heroImage {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n  heroImageLayout\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  journals: collections(schema: \"nglp:journal\", order: RECENT, page: 1, perPage: 5) {\n    ...FeaturedJournalsFragment\n  }\n  collections(schema: \"default:collection\", order: RECENT, page: 1, perPage: 8) {\n    ...FeaturedCollectionsListFragment\n    ...FeaturedCollectionsGridFragment\n    pageInfo {\n      totalCount\n    }\n  }\n  descendants(schema: \"nglp:unit\", order: TITLE_ASCENDING) {\n    ...UnitListFragment\n  }\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      ...FeaturedCollectionsGridImageFragment\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  thumbnail {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedCollectionsListFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      title\n      id\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on CollectionConnection {\n  edges {\n    node {\n      slug\n      ...FeaturedJournalFragment\n      id\n    }\n  }\n  pageInfo {\n    totalCount\n    perPage\n  }\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment UnitListFragment on EntityDescendantConnection {\n  edges {\n    node {\n      descendant {\n        __typename\n        ... on Collection {\n          title\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '94e8c61d5a38a2efe707abf7f873b776';
+(node as any).hash = '9c795fbe96afa7c636a728b0fef2212e';
 export default node;
