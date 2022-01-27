@@ -2,10 +2,7 @@ import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { AppBody } from "..";
-import CommunityCondensedNav from "components/composed/community/CommunityCondensedNav";
 import CommunityHTMLHead from "components/composed/community/CommunityHTMLHead";
-import CommunityName from "components/composed/community/CommunityName";
-import CommunityPicker from "components/composed/instance/CommunityPicker";
 import { RouteHelper } from "routes";
 import { AppLayoutFragment$key } from "@/relay/AppLayoutFragment.graphql";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
@@ -29,21 +26,7 @@ export default function AppLayout({ data, communityData, children }: Props) {
   }, [activeRoute]);
 
   return (
-    <AppBody
-      data={appData}
-      nameComponent={<CommunityName data={community} />}
-      headerNavComponent={
-        !isCommunityRoot &&
-        community && (
-          <CommunityCondensedNav
-            data={appData}
-            communityData={community}
-            isCommunityRoot={isCommunityRoot}
-          />
-        )
-      }
-      communityPicker={<CommunityPicker data={appData} active={community} />}
-    >
+    <AppBody data={appData} communityData={community}>
       <CommunityHTMLHead data={community} />
       {isCommunityRoot && <CommunityNavBar data={community} />}
       {loading ? <LoadingBlock /> : children}
@@ -60,7 +43,6 @@ interface Props {
 const fragment = graphql`
   fragment AppLayoutFragment on Query {
     ...AppBodyFragment
-    ...CommunityCondensedNavAppFragment
     ...CommunityPickerFragment
   }
 `;
@@ -68,10 +50,7 @@ const fragment = graphql`
 const communityFragment = graphql`
   fragment AppLayoutCommunityFragment on Community {
     ...CommunityHTMLHeadFragment
-    ...CommunityNameFragment
     ...CommunityNavBarFragment
-    ...CommunityCondensedNavFragment
-    ...CommunityPickerActiveFragment
-    ...CommunityNavBarFragment
+    ...AppBodyCommunityFragment
   }
 `;

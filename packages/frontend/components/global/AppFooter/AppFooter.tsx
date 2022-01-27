@@ -1,17 +1,29 @@
 import React from "react";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import Link from "next/link";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
 import * as Styled from "./AppFooter.styles";
 import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
 import { RouteHelper } from "routes";
+import CommunityPicker from "components/composed/instance/CommunityPicker";
+import CommunityName from "components/composed/community/CommunityName";
+import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
+import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
 // Note: About text and community name will come from backend data
-function AppFooter({ nameComponent, communityPicker }: Props) {
+function AppFooter({ data, communityData }: Props) {
+  const app = useMaybeFragment(fragment, data);
+
+  const community = useMaybeFragment(communityFragment, communityData);
+
   const { t } = useTranslation();
+
   const today = new Date();
+
   const { footerData } = appData;
 
   function renderRoute(route: string, label?: string) {
@@ -31,7 +43,11 @@ function AppFooter({ nameComponent, communityPicker }: Props) {
     <Styled.FooterWrapper className={`a-bg-custom20`}>
       <Styled.FooterInner className="l-container-wide">
         <Styled.CommunityNameWrapper>
-          {nameComponent}
+          {community ? (
+            <CommunityName data={community} />
+          ) : (
+            <h4>WDP Installation Name</h4>
+          )}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
           <Search />
@@ -52,7 +68,7 @@ function AppFooter({ nameComponent, communityPicker }: Props) {
           </p>
           <Styled.InstallationDesktop>
             <Styled.InstallationDesktopName as={InstallationName} />
-            {communityPicker}
+            <CommunityPicker data={app} active={community} />
           </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
@@ -74,8 +90,21 @@ function AppFooter({ nameComponent, communityPicker }: Props) {
 }
 
 interface Props {
-  nameComponent?: React.ReactNode;
-  communityPicker: React.ReactNode;
+  data?: AppFooterFragment$key | null;
+  communityData?: AppFooterCommunityFragment$key | null;
 }
 
 export default AppFooter;
+
+const fragment = graphql`
+  fragment AppFooterFragment on Query {
+    ...CommunityPickerFragment
+  }
+`;
+
+const communityFragment = graphql`
+  fragment AppFooterCommunityFragment on Community {
+    ...CommunityPickerActiveFragment
+    ...CommunityNameFragment
+  }
+`;
