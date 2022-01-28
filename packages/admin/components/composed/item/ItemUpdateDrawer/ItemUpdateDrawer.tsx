@@ -8,7 +8,6 @@ import { useDrawerHelper, useDestroyer } from "hooks";
 import { QueryWrapper } from "components/api";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
-import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 
 import type {
   ItemUpdateDrawerQuery as Query,
@@ -73,21 +72,11 @@ export default function ItemUpdateDrawer({
           buttons={renderButtons(data)}
         >
           {data && data.item && (
-            <>
-              <ItemUpdateForm
-                data={data.item}
-                onSaveAndClose={dialog.hide}
-                onCancel={dialog.hide}
-              />
-              <SchemaInstanceForm
-                instance={data?.item}
-                successNotification={t("messages.update.schema_success")}
-                failureNotification={t("messages.update.schema_failure")}
-                onSaveAndClose={dialog.hide}
-                onCancel={dialog.hide}
-                schemaKind="ITEM"
-              />
-            </>
+            <ItemUpdateForm
+              data={data.item}
+              onSaveAndClose={dialog.hide}
+              onCancel={dialog.hide}
+            />
           )}
         </Drawer>
       )}
@@ -101,8 +90,6 @@ const query = graphql`
       id
       title
       ...ItemUpdateFormFragment
-      ...SchemaInstanceFormFragment
-      ...SchemaInstanceFormFragment
     }
   }
 `;

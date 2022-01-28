@@ -56,7 +56,7 @@ export type ItemUpdateFormMutationResponse = {
         readonly item: {
             readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFieldsFragment">;
         } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors" | "ItemUpdateForm_schemaErrorsFragment">;
     } | null;
 };
 export type ItemUpdateFormMutation = {
@@ -76,6 +76,7 @@ mutation ItemUpdateFormMutation(
       id
     }
     ...MutationForm_mutationErrors
+    ...ItemUpdateForm_schemaErrorsFragment
   }
 }
 
@@ -120,6 +121,15 @@ fragment ItemUpdateFormFieldsFragment on Item {
   }
 }
 
+fragment ItemUpdateForm_schemaErrorsFragment on UpdateItemPayload {
+  schemaErrors {
+    hint
+    message
+    metadata
+    path
+  }
+}
+
 fragment MutationForm_mutationErrors on StandardMutationPayload {
   __isStandardMutationPayload: __typename
   attributeErrors {
@@ -156,16 +166,24 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "path",
+  "storageKey": null
+},
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "message",
+  "storageKey": null
+},
+v4 = [
+  (v3/*: any*/)
+],
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -176,13 +194,7 @@ v3 = {
       "name": "attributeErrors",
       "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "path",
-          "storageKey": null
-        },
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -207,7 +219,7 @@ v3 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
@@ -217,14 +229,41 @@ v3 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
 },
-v4 = [
+v6 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SchemaValueError",
+  "kind": "LinkedField",
+  "name": "schemaErrors",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hint",
+      "storageKey": null
+    },
+    (v3/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "metadata",
+      "storageKey": null
+    },
+    (v2/*: any*/)
+  ],
+  "storageKey": null
+},
+v7 = [
   {
     "alias": null,
     "args": null,
@@ -269,7 +308,7 @@ v4 = [
     "storageKey": null
   }
 ],
-v5 = [
+v8 = [
   {
     "alias": null,
     "args": null,
@@ -320,7 +359,14 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v3/*: any*/)
+              (v5/*: any*/)
+            ]
+          },
+          {
+            "kind": "InlineDataFragmentSpread",
+            "name": "ItemUpdateForm_schemaErrorsFragment",
+            "selections": [
+              (v6/*: any*/)
             ]
           }
         ],
@@ -415,7 +461,7 @@ return {
                 "kind": "LinkedField",
                 "name": "thumbnail",
                 "plural": false,
-                "selections": (v4/*: any*/),
+                "selections": (v7/*: any*/),
                 "storageKey": null
               },
               {
@@ -425,7 +471,7 @@ return {
                 "kind": "LinkedField",
                 "name": "heroImage",
                 "plural": false,
-                "selections": (v4/*: any*/),
+                "selections": (v7/*: any*/),
                 "storageKey": null
               },
               {
@@ -435,7 +481,7 @@ return {
                 "kind": "LinkedField",
                 "name": "published",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -445,7 +491,7 @@ return {
                 "kind": "LinkedField",
                 "name": "accessioned",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -455,7 +501,7 @@ return {
                 "kind": "LinkedField",
                 "name": "available",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -465,7 +511,7 @@ return {
                 "kind": "LinkedField",
                 "name": "issued",
                 "plural": false,
-                "selections": (v5/*: any*/),
+                "selections": (v8/*: any*/),
                 "storageKey": null
               },
               {
@@ -478,21 +524,22 @@ return {
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v6/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "954b481d4d06553936d716f7d3fbf7f3",
+    "cacheID": "caa108b76d84a516f57e6f06e318be32",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n  accessioned {\n    ...VariablePrecisionDateControlFragment\n  }\n  available {\n    ...VariablePrecisionDateControlFragment\n  }\n  issued {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
+    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...ItemUpdateForm_schemaErrorsFragment\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n  accessioned {\n    ...VariablePrecisionDateControlFragment\n  }\n  available {\n    ...VariablePrecisionDateControlFragment\n  }\n  issued {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment ItemUpdateForm_schemaErrorsFragment on UpdateItemPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
   }
 };
 })();
-(node as any).hash = '3b06c11bf8549666e5fe7c1ec7a47149';
+(node as any).hash = 'ffffa7dc1a3cf5f8cabfa344777d67a0';
 export default node;

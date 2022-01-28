@@ -60,7 +60,11 @@ export default function CollectionUpdateForm({
 
   const mutationName = "updateCollection";
 
-  const { fieldValues: schemaFieldValues = {} } = useSchemaContext(fieldsData);
+  // eslint-disable-next-line prettier/prettier
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -101,6 +105,7 @@ export default function CollectionUpdateForm({
     title: values.title || undefined,
     visibleAfterAt: getDateOnly(visibleAfterAt),
     visibleUntilAt: getDateOnly(visibleUntilAt),
+    ...schemaDefaultValues,
     ...schemaFieldValues,
   };
 

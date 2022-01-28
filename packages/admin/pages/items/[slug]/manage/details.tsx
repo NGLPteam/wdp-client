@@ -5,20 +5,11 @@ import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManage
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
-import SchemaInstanceForm from "components/api/SchemaInstanceForm";
 import { LoadingCircle } from "components/atomic";
 
 function ManageDetails({ data }: Props) {
   return data && data.item ? (
-    <>
-      <ItemUpdateForm data={data?.item} />
-      <SchemaInstanceForm
-        instance={data?.item}
-        successNotification="messages.update.schema_success"
-        failureNotification="messages.update.schema_failure"
-        schemaKind="ITEM"
-      />
-    </>
+    <ItemUpdateForm data={data?.item} />
   ) : (
     <LoadingCircle />
   );
@@ -40,7 +31,6 @@ const query = graphql`
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
       ...ItemUpdateFormFragment
-      ...SchemaInstanceFormFragment
     }
   }
 `;
