@@ -59,12 +59,18 @@ fragment CollectionSlugRedirectFragment on Collection {
 
 fragment useBreadcrumbsFragment on Entity {
   __isEntity: __typename
+  __typename
+  title
   breadcrumbs {
     depth
     label
     kind
     slug
     id
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
   }
 }
 */
@@ -188,6 +194,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "__typename",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "EntityBreadcrumb",
                 "kind": "LinkedField",
                 "name": "breadcrumbs",
@@ -225,6 +238,10 @@ return {
                 "kind": "ScalarField",
                 "name": "allowedActions",
                 "storageKey": null
+              },
+              {
+                "kind": "TypeDiscriminator",
+                "abstractKey": "__isSluggable"
               }
             ],
             "type": "Entity",
@@ -236,12 +253,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "750064a9adfd29481ea0f0fac1903d1a",
+    "cacheID": "3a84cb6e738311be3ec3f524cb94eef0",
     "id": null,
     "metadata": {},
     "name": "SlugCollectionsPageQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n}\n"
+    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();

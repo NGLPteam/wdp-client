@@ -27,9 +27,17 @@ export default function useBreadcrumbs(
   const data = useMaybeFragment<useBreadcrumbsFragment$key>(fragment, entity);
 
   const breadcrumbsData = useMemo(() => {
-    if (!entity) return null;
+    if (!data) return null;
 
-    return data?.breadcrumbs.map((crumb) => {
+    const currentRoute = RouteHelper.findRouteByName(
+      data.__typename.toLowerCase()
+    );
+    const currentPageCrumb = {
+      label: data.title,
+      href: { pathname: currentRoute?.path, query: { slug: data.slug } },
+    };
+
+    const breadcrumbs = data.breadcrumbs.map((crumb) => {
       const routeName = kindMap[crumb.kind];
 
       if (!routeName) {
@@ -54,17 +62,24 @@ export default function useBreadcrumbs(
         href: href,
       };
     });
-  }, [data, entity]);
+
+    return [...breadcrumbs, currentPageCrumb];
+  }, [data]);
 
   return breadcrumbsData || null;
 }
 
 export const fragment = graphql`
   fragment useBreadcrumbsFragment on Entity {
+    __typename
+    title
     breadcrumbs {
       depth
       label
       kind
+      slug
+    }
+    ... on Sluggable {
       slug
     }
   }
