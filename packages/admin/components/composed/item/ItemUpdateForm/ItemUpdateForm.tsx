@@ -210,7 +210,7 @@ export default function ItemUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
       </>
     ),
-    []
+    [fieldsData]
   );
 
   return (

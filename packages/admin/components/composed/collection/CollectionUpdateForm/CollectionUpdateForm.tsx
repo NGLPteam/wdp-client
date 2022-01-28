@@ -209,7 +209,7 @@ export default function CollectionUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
       </>
     ),
-    []
+    [fieldsData]
   );
 
   return (
