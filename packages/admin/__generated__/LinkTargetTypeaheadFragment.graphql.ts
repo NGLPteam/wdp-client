@@ -10,15 +10,7 @@ export type LinkTargetTypeaheadFragment = {
         readonly node: {
             readonly targetId: string;
             readonly target: {
-                readonly __typename: "Collection";
-                readonly title: string;
-            } | {
-                readonly __typename: "Item";
-                readonly title: string;
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
+                readonly " $fragmentRefs": FragmentRefs<"EntityTitleFactoryFragment">;
             };
         };
     }>;
@@ -32,17 +24,7 @@ export type LinkTargetTypeaheadFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
-    "storageKey": null
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -80,23 +62,9 @@ return {
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "__typename",
-                  "storageKey": null
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": (v0/*: any*/),
-                  "type": "Collection",
-                  "abstractKey": null
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": (v0/*: any*/),
-                  "type": "Item",
-                  "abstractKey": null
+                  "kind": "FragmentSpread",
+                  "name": "EntityTitleFactoryFragment"
                 }
               ],
               "storageKey": null
@@ -111,6 +79,5 @@ return {
   "type": "LinkTargetCandidateConnection",
   "abstractKey": null
 };
-})();
-(node as any).hash = 'e467703a74b65caadb97eda0a8e9bcc2';
+(node as any).hash = 'f590a146a76ee0fdf5fac56621e37ad8';
 export default node;

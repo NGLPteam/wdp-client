@@ -101,9 +101,9 @@ const Typeahead = forwardRef(
 );
 
 interface Option {
-  label: string;
+  label: string | React.ReactNode;
   node?: React.ReactNode;
-  value: string | number;
+  value: number | string;
 }
 interface Props extends Omit<InputProps, "onChange"> {
   options?: Option[];
