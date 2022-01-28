@@ -35,7 +35,7 @@ const BreadcrumbsWrapper = ({
     const getLink = ({ label, href, ...props }: Crumbs, i: number) => (
       <Link key={i} href={href} {...props}>
         <a className={`${className}__link`}>
-          <span className="t-copy-sm">{label}</span>
+          <span className="t-copy-sm t-truncate">{label}</span>
         </a>
       </Link>
     );
@@ -97,6 +97,12 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
     &:hover {
       color: var(--accent-color);
       text-decoration: underline;
+    }
+
+    > span {
+      display: inline-block;
+      max-width: 350px;
+      text-decoration: inherit;
     }
   }
 
