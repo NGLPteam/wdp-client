@@ -7,7 +7,10 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionUpdateFormFragment = {
     readonly collectionId: string;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaContextFragment" | "useSchemaPropertiesFragment">;
+    readonly context: {
+        readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
+    };
+    readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
     readonly " $refType": "CollectionUpdateFormFragment";
 };
 export type CollectionUpdateFormFragment$data = CollectionUpdateFormFragment;
@@ -32,6 +35,22 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": "context",
+      "args": null,
+      "concreteType": "SchemaInstanceContext",
+      "kind": "LinkedField",
+      "name": "schemaInstanceContext",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "useSchemaContextFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CollectionUpdateFormFieldsFragment"
@@ -44,16 +63,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "useSchemaContextFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "useSchemaPropertiesFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '394df4aca190b3e5ace127d8c1ac7a70';
+(node as any).hash = '6a15a4028b4d8910e57de9576beab171';
 export default node;

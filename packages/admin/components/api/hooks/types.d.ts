@@ -1,20 +1,10 @@
 import type { FieldValues } from "react-hook-form";
-import type { AssetKind, ContributorKind } from "types/graphql-schema";
+import type {
+  AssetSelectOption,
+  ContributorSelectOption,
+} from "types/graphql-schema";
 
-interface SelectOption {
-  readonly label: string;
-  readonly value: string;
-}
-
-export interface AssetSelectOption extends SelectOption {
-  readonly kind: AssetKind;
-}
-
-export interface ContributorSelectOption extends SelectOption {
-  readonly kind: ContributorKind;
-}
-
-export interface State<T extends FieldValues = FieldValues> {
+export interface SchemaContextState<T extends FieldValues = FieldValues> {
   /**
    * All available assets, specific to the schema instance.
    */

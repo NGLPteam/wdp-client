@@ -16,10 +16,8 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import SchemaFormFields, {
-  useSchemaContext,
-  useSchemaProperties,
-} from "components/api/SchemaFormFields";
+import SchemaFormFields from "components/api/SchemaFormFields";
+import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { sanitizeDateField } from "helpers";
 import {
   CollectionUpdateForm_schemaErrorsFragment,
@@ -64,7 +62,7 @@ export default function CollectionUpdateForm({
   const {
     fieldValues: schemaFieldValues,
     defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData);
+  } = useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -313,9 +311,13 @@ const schemaErrorsFragment = graphql`
 const fragment = graphql`
   fragment CollectionUpdateFormFragment on Collection {
     collectionId: id
+
+    context: schemaInstanceContext {
+      ...useSchemaContextFragment
+    }
+
     ...CollectionUpdateFormFieldsFragment
     ...SchemaFormFieldsFragment
-    ...useSchemaContextFragment
     ...useSchemaPropertiesFragment
   }
 `;

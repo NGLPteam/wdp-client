@@ -18,16 +18,14 @@ import type {
 import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
 import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
 import { sanitizeDateField } from "helpers";
-import SchemaFormFields, {
-  useSchemaContext,
-  useSchemaProperties,
-} from "components/api/SchemaFormFields";
+import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import {
   ItemUpdateForm_schemaErrorsFragment,
   // eslint-disable-next-line max-len
   ItemUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
 } from "@/relay/ItemUpdateForm_schemaErrorsFragment.graphql";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
+import SchemaFormFields from "components/api/SchemaFormFields";
 
 // eslint-disable-next-line camelcase, prettier/prettier
 type SchemaErrors = ItemUpdateForm_schemaErrorsFragment["schemaErrors"];
@@ -52,7 +50,7 @@ export default function ItemUpdateForm({
   const {
     fieldValues: schemaFieldValues,
     defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData);
+  } = useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -303,9 +301,13 @@ const mutation = graphql`
 const fragment = graphql`
   fragment ItemUpdateFormFragment on Item {
     itemId: id
+
+    context: schemaInstanceContext {
+      ...useSchemaContextFragment
+    }
+
     ...ItemUpdateFormFieldsFragment
     ...SchemaFormFieldsFragment
-    ...useSchemaContextFragment
     ...useSchemaPropertiesFragment
   }
 `;
