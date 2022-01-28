@@ -3,6 +3,7 @@ import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import Property from "../SchemaInstanceForm/SchemaInstanceProperty";
+import { SchemaFormFieldsContextProvider } from "./SchemaFormFieldsContext";
 import FormGrid from "components/forms/FormGrid";
 import { ContentHeader } from "components/layout";
 import SchemaSelector from "components/forms/SchemaSelector";
@@ -18,7 +19,7 @@ export default function SchemaFormFields({
   const { t } = useTranslation();
 
   return (
-    <>
+    <SchemaFormFieldsContextProvider data={instance}>
       <ContentHeader title={t(title)} headerStyle="secondary" />
       {instance.properties && instance.properties.length > 0 ? (
         <>
@@ -32,7 +33,7 @@ export default function SchemaFormFields({
       ) : (
         <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
       )}
-    </>
+    </SchemaFormFieldsContextProvider>
   );
 }
 
@@ -49,5 +50,6 @@ const fragment = graphql`
     }
 
     ...SchemaSelectorDataFragment
+    ...SchemaFormFieldsContextFragment
   }
 `;

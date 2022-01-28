@@ -4,23 +4,19 @@ import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
 import type { Control } from "react-hook-form";
-
 import Actions from "./Actions";
 import Context from "./Context";
-import type { State } from "./Context";
-
 import type { OnSuccessCallback } from "./types";
 import { convertSchemaErrors } from "./convertSchemaErrors";
+import { useNotify } from "hooks";
+import { useSchemaContext } from "components/api/hooks";
+import type { SchemaContextState } from "components/api/hooks/types";
 import type {
   SchemaInstanceProviderApplyMutation,
   SchemaInstanceProviderApplyMutationResponse as MutationResponse,
   ApplySchemaPropertiesInput,
 } from "@/relay/SchemaInstanceProviderApplyMutation.graphql";
-import type {
-  SchemaInstanceProviderFragment$key,
-  SchemaInstanceProviderFragment,
-} from "@/relay/SchemaInstanceProviderFragment.graphql";
-import { useNotify } from "hooks";
+import type { SchemaInstanceProviderFragment$key } from "@/relay/SchemaInstanceProviderFragment.graphql";
 
 type SchemaErrors = NonNullable<
   MutationResponse["applySchemaProperties"]
@@ -156,27 +152,10 @@ interface Props {
   watchInConsole?: boolean;
 }
 
-function useExtractContext(props: Props): State {
+function useExtractContext(props: Props): SchemaContextState {
   const raw = useFragment(fragment, props.context);
 
-  return enforceContext(raw);
-}
-
-function enforceContext(context: SchemaInstanceProviderFragment): State {
-  if (isValidContext(context)) {
-    return context;
-  } else {
-    return {
-      assets: [],
-      contributors: [],
-      defaultValues: {},
-      fieldValues: {},
-    };
-  }
-}
-
-function isValidContext(context: unknown): context is State {
-  return Boolean(context);
+  return useSchemaContext(raw);
 }
 
 function Watcher({ control }: { control: Control }) {
@@ -195,22 +174,7 @@ function Watcher({ control }: { control: Control }) {
 
 const fragment = graphql`
   fragment SchemaInstanceProviderFragment on SchemaInstanceContext {
-    assets {
-      kind
-      label
-      value
-    }
-
-    contributors {
-      kind
-      label
-      value
-    }
-
-    defaultValues
-    entityId
-    fieldValues
-    schemaVersionSlug
+    ...useSchemaContextFragment
   }
 `;
 

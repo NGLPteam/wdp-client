@@ -1,8 +1,7 @@
 import { createContext, useContext } from "react";
+import { SchemaContextState } from "components/api/hooks/types";
 
-import type { State } from "./types";
-
-const Context = createContext<State>({
+const Context = createContext<SchemaContextState>({
   assets: [],
   contributors: [],
   defaultValues: {},
@@ -13,6 +12,6 @@ Context.displayName = "forms.Schema.Context";
 
 export default Context;
 
-export function useSchemaFormContext(): State {
+export function useSchemaFormContext(): SchemaContextState {
   return useContext(Context);
 }
