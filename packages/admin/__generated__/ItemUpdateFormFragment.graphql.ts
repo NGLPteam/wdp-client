@@ -10,7 +10,7 @@ export type ItemUpdateFormFragment = {
     readonly context: {
         readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
     };
-    readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ParentSelectorFragment" | "ItemUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
     readonly " $refType": "ItemUpdateFormFragment";
 };
 export type ItemUpdateFormFragment$data = ItemUpdateFormFragment;
@@ -53,6 +53,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "ParentSelectorFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "ItemUpdateFormFieldsFragment"
     },
     {
@@ -69,5 +74,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '552c21993194c983a4d7619a326e4c70';
+(node as any).hash = 'd12815b3082c43ddb1e4c7cd8f914c48';
 export default node;

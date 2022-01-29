@@ -4,23 +4,26 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type ParentSelectorModalOptionsQueryVariables = {};
+export type EntityDescendantScopeFilter = "ALL" | "ANY_ENTITY" | "ANY_LINK" | "COLLECTION" | "COLLECTION_OR_LINK" | "ITEM" | "ITEM_OR_LINK" | "LINKED_COLLECTION" | "LINKED_ITEM" | "%future added value";
+export type ParentSelectorModalOptionsQueryVariables = {
+    scope: EntityDescendantScopeFilter;
+};
 export type ParentSelectorModalOptionsQueryResponse = {
-    readonly viewer: {
-        readonly collections: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly id: string;
-                    readonly title: string;
-                };
-            }>;
-        };
-    };
     readonly communities: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
                 readonly title: string;
+                readonly descendants: {
+                    readonly edges: ReadonlyArray<{
+                        readonly node: {
+                            readonly descendant: {
+                                readonly id?: string | undefined;
+                                readonly title?: string | undefined;
+                            };
+                        };
+                    }>;
+                };
             };
         }>;
     };
@@ -33,23 +36,35 @@ export type ParentSelectorModalOptionsQuery = {
 
 
 /*
-query ParentSelectorModalOptionsQuery {
-  viewer {
-    collections {
-      edges {
-        node {
-          id
-          title
-        }
-      }
-    }
-    id
-  }
+query ParentSelectorModalOptionsQuery(
+  $scope: EntityDescendantScopeFilter!
+) {
   communities {
     edges {
       node {
         id
         title
+        descendants(scope: $scope) {
+          edges {
+            node {
+              descendant {
+                __typename
+                ... on Collection {
+                  id
+                  title
+                }
+                ... on Item {
+                  id
+                  title
+                }
+                ... on Node {
+                  __isNode: __typename
+                  id
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -57,90 +72,53 @@ query ParentSelectorModalOptionsQuery {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "scope"
+  }
+],
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = [
-  (v0/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
-    "storageKey": null
-  }
-],
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "CollectionConnection",
-  "kind": "LinkedField",
-  "name": "collections",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "CollectionEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 },
-v3 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "CommunityConnection",
-  "kind": "LinkedField",
-  "name": "communities",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "CommunityEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Community",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
+v3 = [
+  {
+    "kind": "Variable",
+    "name": "scope",
+    "variableName": "scope"
+  }
+],
+v4 = [
+  (v1/*: any*/),
+  (v2/*: any*/)
+],
+v5 = {
+  "kind": "InlineFragment",
+  "selections": (v4/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v6 = {
+  "kind": "InlineFragment",
+  "selections": (v4/*: any*/),
+  "type": "Item",
+  "abstractKey": null
 };
 return {
   "fragment": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ParentSelectorModalOptionsQuery",
@@ -148,51 +126,201 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "User",
+        "concreteType": "CommunityConnection",
         "kind": "LinkedField",
-        "name": "viewer",
+        "name": "communities",
         "plural": false,
         "selections": [
-          (v2/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": (v3/*: any*/),
+                    "concreteType": "EntityDescendantConnection",
+                    "kind": "LinkedField",
+                    "name": "descendants",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "EntityDescendantEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "EntityDescendant",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": null,
+                                "kind": "LinkedField",
+                                "name": "descendant",
+                                "plural": false,
+                                "selections": [
+                                  (v5/*: any*/),
+                                  (v6/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
-      },
-      (v3/*: any*/)
+      }
     ],
     "type": "Query",
     "abstractKey": null
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ParentSelectorModalOptionsQuery",
     "selections": [
       {
         "alias": null,
         "args": null,
-        "concreteType": "User",
+        "concreteType": "CommunityConnection",
         "kind": "LinkedField",
-        "name": "viewer",
+        "name": "communities",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v0/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": (v3/*: any*/),
+                    "concreteType": "EntityDescendantConnection",
+                    "kind": "LinkedField",
+                    "name": "descendants",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "EntityDescendantEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "EntityDescendant",
+                            "kind": "LinkedField",
+                            "name": "node",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": null,
+                                "kind": "LinkedField",
+                                "name": "descendant",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "__typename",
+                                    "storageKey": null
+                                  },
+                                  (v5/*: any*/),
+                                  (v6/*: any*/),
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      (v1/*: any*/)
+                                    ],
+                                    "type": "Node",
+                                    "abstractKey": "__isNode"
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
-      },
-      (v3/*: any*/)
+      }
     ]
   },
   "params": {
-    "cacheID": "a5c9caca2f0d426fdd4c5b18404e8fce",
+    "cacheID": "5fa613cffa4667ad5914a4cb79f24dc9",
     "id": null,
     "metadata": {},
     "name": "ParentSelectorModalOptionsQuery",
     "operationKind": "query",
-    "text": "query ParentSelectorModalOptionsQuery {\n  viewer {\n    collections {\n      edges {\n        node {\n          id\n          title\n        }\n      }\n    }\n    id\n  }\n  communities {\n    edges {\n      node {\n        id\n        title\n      }\n    }\n  }\n}\n"
+    "text": "query ParentSelectorModalOptionsQuery(\n  $scope: EntityDescendantScopeFilter!\n) {\n  communities {\n    edges {\n      node {\n        id\n        title\n        descendants(scope: $scope) {\n          edges {\n            node {\n              descendant {\n                __typename\n                ... on Collection {\n                  id\n                  title\n                }\n                ... on Item {\n                  id\n                  title\n                }\n                ... on Node {\n                  __isNode: __typename\n                  id\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '109bf70ef8def70c0feae14deea79a2c';
+(node as any).hash = 'a9e7c15b20c039c17a3e8004eac98c56';
 export default node;

@@ -6,11 +6,25 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type ParentSelectorFragment = {
-    readonly entityId?: string | undefined;
-    readonly parent?: {
+    readonly __typename: "Collection";
+    readonly entityId: string;
+    readonly parent: {
         readonly id?: string | undefined;
         readonly title?: string | undefined;
-    } | null | undefined;
+    } | null;
+    readonly " $refType": "ParentSelectorFragment";
+} | {
+    readonly entityId: string;
+    readonly __typename: "Item";
+    readonly parent: {
+        readonly id?: string | undefined;
+        readonly title?: string | undefined;
+    } | null;
+    readonly " $refType": "ParentSelectorFragment";
+} | {
+    /*This will never be '%other', but we need some
+    value in case none of the concrete values match.*/
+    readonly __typename: "%other";
     readonly " $refType": "ParentSelectorFragment";
 };
 export type ParentSelectorFragment$data = ParentSelectorFragment;
@@ -23,13 +37,20 @@ export type ParentSelectorFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
   "alias": "entityId",
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -45,9 +66,9 @@ v1 = [
     "storageKey": null
   }
 ],
-v2 = {
+v3 = {
   "kind": "InlineFragment",
-  "selections": (v1/*: any*/),
+  "selections": (v2/*: any*/),
   "type": "Collection",
   "abstractKey": null
 };
@@ -61,6 +82,7 @@ return {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -71,11 +93,11 @@ return {
           "selections": [
             {
               "kind": "InlineFragment",
-              "selections": (v1/*: any*/),
+              "selections": (v2/*: any*/),
               "type": "Community",
               "abstractKey": null
             },
-            (v2/*: any*/)
+            (v3/*: any*/)
           ],
           "storageKey": null
         }
@@ -86,6 +108,7 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
+        (v1/*: any*/),
         (v0/*: any*/),
         {
           "alias": null,
@@ -97,11 +120,11 @@ return {
           "selections": [
             {
               "kind": "InlineFragment",
-              "selections": (v1/*: any*/),
+              "selections": (v2/*: any*/),
               "type": "Item",
               "abstractKey": null
             },
-            (v2/*: any*/)
+            (v3/*: any*/)
           ],
           "storageKey": null
         }
@@ -114,5 +137,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'f4f973c22d65b3a6bae8baa89e30f545';
+(node as any).hash = 'ebc201965d8d25d8ebd186d909c668f3';
 export default node;

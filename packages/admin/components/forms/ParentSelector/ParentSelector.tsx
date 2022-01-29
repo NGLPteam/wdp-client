@@ -31,6 +31,7 @@ const ParentSelector = ({ data }: Props) => {
       <ParentSelectorModal
         dialog={dialog}
         entityId={entity?.entityId}
+        entityKind={entity?.__typename}
         parentId={entity?.parent?.id}
       />
     </>
@@ -46,6 +47,7 @@ type Props = {
 const fragment = graphql`
   fragment ParentSelectorFragment on AnyEntity {
     ... on Collection {
+      __typename
       entityId: id
       parent {
         ... on Community {
@@ -60,6 +62,7 @@ const fragment = graphql`
     }
     ... on Item {
       entityId: id
+      __typename
       parent {
         ... on Item {
           id
