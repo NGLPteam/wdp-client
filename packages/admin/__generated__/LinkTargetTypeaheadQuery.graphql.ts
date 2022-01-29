@@ -47,7 +47,24 @@ query LinkTargetTypeaheadQuery(
   }
 }
 
-fragment EntityTitleFactoryFragment on Entity {
+fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
+  edges {
+    node {
+      targetId
+      target {
+        __typename
+        ...getEntityTitleFragment
+        ... on Node {
+          __isNode: __typename
+          id
+        }
+      }
+      id
+    }
+  }
+}
+
+fragment getEntityTitleFragment on Entity {
   __isEntity: __typename
   __typename
   title
@@ -83,23 +100,6 @@ fragment EntityTitleFactoryFragment on Entity {
           id
         }
       }
-    }
-  }
-}
-
-fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
-  edges {
-    node {
-      targetId
-      target {
-        __typename
-        ...EntityTitleFactoryFragment
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-      id
     }
   }
 }
@@ -369,12 +369,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6e7a39b60f33e3b3cc40873927307749",
+    "cacheID": "c946082b03d07e5fef7fd7b54fba1eb0",
     "id": null,
     "metadata": {},
     "name": "LinkTargetTypeaheadQuery",
     "operationKind": "query",
-    "text": "query LinkTargetTypeaheadQuery(\n  $slug: Slug!\n  $title: String\n) {\n  collection(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n  item(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n}\n\nfragment EntityTitleFactoryFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  schemaVersion {\n    identifier\n    id\n  }\n  ... on Collection {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  ... on Item {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ...EntityTitleFactoryFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query LinkTargetTypeaheadQuery(\n  $slug: Slug!\n  $title: String\n) {\n  collection(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n  item(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ...getEntityTitleFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment getEntityTitleFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  schemaVersion {\n    identifier\n    id\n  }\n  ... on Collection {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  ... on Item {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();

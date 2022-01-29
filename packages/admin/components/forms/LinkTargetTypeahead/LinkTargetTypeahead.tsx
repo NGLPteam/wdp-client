@@ -4,7 +4,6 @@ import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
-import ReactDOMServer from "react-dom/server";
 import { useMaybeFragment } from "hooks";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
@@ -12,7 +11,7 @@ import {
   LinkTargetTypeaheadFragment$key,
 } from "@/relay/LinkTargetTypeaheadFragment.graphql";
 import BaseTypeahead from "components/forms/BaseTypeahead";
-import { EntityTitleFactory } from "components/factories";
+import { getEntityTitle } from "components/factories/EntityTitleFactory";
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
 
@@ -33,14 +32,10 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   );
 
   const options = useMemo(() => {
-    const options = optionsData?.edges?.map((edge: Edge) => {
-      return {
-        label: ReactDOMServer.renderToString(
-          <EntityTitleFactory data={edge.node.target} />
-        ),
-        value: edge.node.targetId,
-      };
-    });
+    const options = optionsData?.edges?.map((edge: Edge) => ({
+      label: getEntityTitle(edge.node.target),
+      value: edge.node.targetId,
+    }));
 
     return options;
   }, [optionsData]);
@@ -100,7 +95,7 @@ const fragment = graphql`
       node {
         targetId
         target {
-          ...EntityTitleFactoryFragment
+          ...getEntityTitleFragment
         }
       }
     }

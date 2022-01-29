@@ -10,7 +10,7 @@ export type LinkTargetTypeaheadFragment = {
         readonly node: {
             readonly targetId: string;
             readonly target: {
-                readonly " $fragmentRefs": FragmentRefs<"EntityTitleFactoryFragment">;
+                readonly " $fragmentRefs": FragmentRefs<"getEntityTitleFragment">;
             };
         };
     }>;
@@ -24,7 +24,47 @@ export type LinkTargetTypeaheadFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "NamedAncestor",
+    "kind": "LinkedField",
+    "name": "namedAncestors",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "ancestor",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v0/*: any*/)
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -62,9 +102,55 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "EntityTitleFactoryFragment"
+                  "kind": "InlineDataFragmentSpread",
+                  "name": "getEntityTitleFragment",
+                  "selections": [
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "__typename",
+                          "storageKey": null
+                        },
+                        (v0/*: any*/),
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "SchemaVersion",
+                          "kind": "LinkedField",
+                          "name": "schemaVersion",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "identifier",
+                              "storageKey": null
+                            }
+                          ],
+                          "storageKey": null
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": (v1/*: any*/),
+                          "type": "Collection",
+                          "abstractKey": null
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": (v1/*: any*/),
+                          "type": "Item",
+                          "abstractKey": null
+                        }
+                      ],
+                      "type": "Entity",
+                      "abstractKey": "__isEntity"
+                    }
+                  ]
                 }
               ],
               "storageKey": null
@@ -79,5 +165,6 @@ const node: ReaderFragment = {
   "type": "LinkTargetCandidateConnection",
   "abstractKey": null
 };
-(node as any).hash = 'f590a146a76ee0fdf5fac56621e37ad8';
+})();
+(node as any).hash = 'e7a62872262d6481ce014b48e8d7e717';
 export default node;

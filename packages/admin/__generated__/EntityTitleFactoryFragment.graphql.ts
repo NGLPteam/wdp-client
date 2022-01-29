@@ -6,16 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityTitleFactoryFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly schemaVersion: {
-        readonly identifier: string;
-    };
-    readonly namedAncestors?: ReadonlyArray<{
-        readonly ancestor: {
-            readonly title?: string | undefined;
-        };
-    }> | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"getEntityTitleFragment">;
     readonly " $refType": "EntityTitleFactoryFragment";
 };
 export type EntityTitleFactoryFragment$data = EntityTitleFactoryFragment;
@@ -73,47 +64,53 @@ return {
   "name": "EntityTitleFactoryFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    (v0/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "SchemaVersion",
-      "kind": "LinkedField",
-      "name": "schemaVersion",
-      "plural": false,
+      "kind": "InlineDataFragmentSpread",
+      "name": "getEntityTitleFragment",
       "selections": [
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "identifier",
+          "name": "__typename",
           "storageKey": null
+        },
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaVersion",
+          "kind": "LinkedField",
+          "name": "schemaVersion",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "identifier",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v1/*: any*/),
+          "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v1/*: any*/),
+          "type": "Item",
+          "abstractKey": null
         }
-      ],
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v1/*: any*/),
-      "type": "Collection",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v1/*: any*/),
-      "type": "Item",
-      "abstractKey": null
+      ]
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'bb78d9a2ceebc58a2bf1d57c39f0ad6b';
+(node as any).hash = '81b9ae1337d3f472ff9b89e7bb0022df';
 export default node;
