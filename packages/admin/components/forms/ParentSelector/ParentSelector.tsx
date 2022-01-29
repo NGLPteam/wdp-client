@@ -12,16 +12,21 @@ import { ParentSelectorFragment$key } from "@/relay/ParentSelectorFragment.graph
 
 const ParentSelector = ({ data }: Props) => {
   const entity = useMaybeFragment(fragment, data);
+  const parentFragment =
+    entity?.__typename === "Collection"
+      ? collectionParentFragment
+      : itemParentFragment;
+  const parent = useMaybeFragment(parentFragment, entity?.parent);
   const dialog = useDialogState({ visible: false, animated: true });
   const { t } = useTranslation();
 
-  return entity?.parent?.id && entity?.entityId ? (
+  return parent?.id && entity?.entityId ? (
     <>
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">{t("forms.parent.label")}</BaseInputLabel>
         <Styled.Field>
-          {entity?.parent?.title && (
-            <Styled.ParentText>{entity.parent.title}</Styled.ParentText>
+          {parent?.title && (
+            <Styled.ParentText>{parent.title}</Styled.ParentText>
           )}
           <DialogDisclosure as={ButtonControl} {...dialog}>
             {t("forms.parent.change_button")}
@@ -32,7 +37,7 @@ const ParentSelector = ({ data }: Props) => {
         dialog={dialog}
         entityId={entity?.entityId}
         entityKind={entity?.__typename}
-        parentId={entity?.parent?.id}
+        parentId={parent?.id}
       />
     </>
   ) : null;
@@ -44,34 +49,46 @@ type Props = {
   data?: ParentSelectorFragment$key;
 };
 
+const collectionParentFragment = graphql`
+  fragment ParentSelectorCollectionFragment on CollectionParent {
+    ... on Collection {
+      id
+      title
+    }
+    ... on Community {
+      id
+      title
+    }
+  }
+`;
+
+const itemParentFragment = graphql`
+  fragment ParentSelectorItemFragment on ItemParent {
+    ... on Collection {
+      id
+      title
+    }
+    ... on Item {
+      id
+      title
+    }
+  }
+`;
+
 const fragment = graphql`
   fragment ParentSelectorFragment on AnyEntity {
     ... on Collection {
       __typename
       entityId: id
       parent {
-        ... on Community {
-          id
-          title
-        }
-        ... on Collection {
-          id
-          title
-        }
+        ...ParentSelectorCollectionFragment
       }
     }
     ... on Item {
-      entityId: id
       __typename
+      entityId: id
       parent {
-        ... on Item {
-          id
-          title
-        }
-        ... on Collection {
-          id
-          title
-        }
+        ...ParentSelectorItemFragment
       }
     }
   }
