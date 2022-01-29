@@ -357,7 +357,6 @@
       },
       "parent": {
         "label": "Parent",
-        "none": "No schema defined",
         "current_label": "Current Parent",
         "new_label": "New Parent",
         "change_warning": "Changing the parent may require additional schema updates.",
