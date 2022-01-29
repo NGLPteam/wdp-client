@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, useFragment } from "react-relay";
 import { EntityTitleFactoryFragment$key } from "@/relay/EntityTitleFactoryFragment.graphql";
 
@@ -11,7 +10,8 @@ export default function EntityTitleFactory({ data }: Props) {
     case "journal_volume":
       return (
         <>
-          {ancestors ? [entity.title, ...ancestors].join(": ") : entity.title}
+          `${ancestors ? [entity.title, ...ancestors].join(": ") : entity.title}
+          `
         </>
       );
     default:

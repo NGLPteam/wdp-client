@@ -101,7 +101,7 @@ const Typeahead = forwardRef(
 );
 
 interface Option {
-  label: string | React.ReactNode;
+  label: string;
   node?: React.ReactNode;
   value: number | string;
 }
