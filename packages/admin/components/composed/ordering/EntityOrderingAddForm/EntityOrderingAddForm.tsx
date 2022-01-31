@@ -125,9 +125,10 @@ export default function EntityOrderingAddForm({
           {...register("name")}
         />
         <Forms.Select
-          label="forms.fields.sorty_by"
+          label="forms.fields.sort_by"
           options={SORTING_OPTIONS}
           {...register("sortby")}
+          required
         />
         <Forms.RadioGroup
           label="forms.fields.include_descendants"
