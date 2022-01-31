@@ -25,3 +25,4 @@ export { default as Description } from "./BaseInputDescription";
 export { default as SchemaSelect } from "./SchemaSelect";
 export { default as VariableDatePicker } from "./VariableDatePicker";
 export { default as VariablePrecisionDateControl } from "./VariablePrecisionDateControl";
+export { default as ParentSelector } from "./ParentSelector";

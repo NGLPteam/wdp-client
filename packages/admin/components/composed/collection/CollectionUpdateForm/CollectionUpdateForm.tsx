@@ -25,6 +25,7 @@ import {
   CollectionUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
 } from "@/relay/CollectionUpdateForm_schemaErrorsFragment.graphql";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
+import { ParentSelector } from "components/forms";
 
 // eslint-disable-next-line camelcase, prettier/prettier
 type SchemaErrors = CollectionUpdateForm_schemaErrorsFragment["schemaErrors"];
@@ -35,11 +36,11 @@ export default function CollectionUpdateForm({
   onSaveAndClose,
   onCancel,
 }: Props) {
-  // eslint-disable-next-line prettier/prettier
-  const {
-    collectionId = "",
-    ...fieldsData
-  } = useFragment<CollectionUpdateFormFragment$key>(fragment, data);
+  const collection = useFragment<CollectionUpdateFormFragment$key>(
+    fragment,
+    data
+  );
+  const { collectionId = "", ...fieldsData } = collection;
 
   const {
     thumbnail,
@@ -213,21 +214,24 @@ export default function CollectionUpdateForm({
   );
 
   return (
-    <MutationForm<CollectionUpdateFormMutation, Fields>
-      name={mutationName}
-      onSuccess={onSuccess}
-      onSaveAndClose={onSaveAndClose}
-      onCancel={onCancel}
-      successNotification="messages.update.collection_success"
-      failureNotification="messages.update.collection_failure"
-      mutation={mutation}
-      toVariables={toVariables}
-      defaultValues={defaultValues}
-      isSuccess={isSuccess}
-      onFailure={onFailure}
-    >
-      {renderForm}
-    </MutationForm>
+    <>
+      <ParentSelector data={collection} />
+      <MutationForm<CollectionUpdateFormMutation, Fields>
+        name={mutationName}
+        onSuccess={onSuccess}
+        onSaveAndClose={onSaveAndClose}
+        onCancel={onCancel}
+        successNotification="messages.update.collection_success"
+        failureNotification="messages.update.collection_failure"
+        mutation={mutation}
+        toVariables={toVariables}
+        defaultValues={defaultValues}
+        isSuccess={isSuccess}
+        onFailure={onFailure}
+      >
+        {renderForm}
+      </MutationForm>
+    </>
   );
 }
 
@@ -311,6 +315,7 @@ const schemaErrorsFragment = graphql`
 const fragment = graphql`
   fragment CollectionUpdateFormFragment on Collection {
     collectionId: id
+    ...ParentSelectorFragment
 
     context: schemaInstanceContext {
       ...useSchemaContextFragment

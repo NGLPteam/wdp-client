@@ -355,6 +355,15 @@
         "change_label": "Change Schema",
         "change_message": "Are you sure you want to change this schema?"
       },
+      "parent": {
+        "label": "Parent",
+        "current_label": "Current Parent",
+        "new_label": "New Parent",
+        "change_warning": "Changing the parent may require additional schema updates.",
+        "change_button": "Change",
+        "change_label": "Change Parent",
+        "change_message": "Are you sure you want to change this entity's parent?"
+      },
       "file": {
         "upload": "Upload a file or \n drag and drop here",
         "upload_new": "or Upload a new file",

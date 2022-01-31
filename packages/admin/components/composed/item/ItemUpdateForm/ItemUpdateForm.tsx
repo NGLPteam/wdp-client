@@ -26,6 +26,7 @@ import {
 } from "@/relay/ItemUpdateForm_schemaErrorsFragment.graphql";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
 import SchemaFormFields from "components/api/SchemaFormFields";
+import { ParentSelector } from "components/forms";
 
 // eslint-disable-next-line camelcase, prettier/prettier
 type SchemaErrors = ItemUpdateForm_schemaErrorsFragment["schemaErrors"];
@@ -40,11 +41,8 @@ export default function ItemUpdateForm({
 
   const mutationName = "updateItem";
 
-  // eslint-disable-next-line prettier/prettier
-  const {
-    itemId = "",
-    ...fieldsData
-  } = useFragment<ItemUpdateFormFragment$key>(fragment, data);
+  const item = useFragment<ItemUpdateFormFragment$key>(fragment, data);
+  const { itemId = "", ...fieldsData } = item;
 
   // eslint-disable-next-line prettier/prettier
   const {
@@ -214,22 +212,25 @@ export default function ItemUpdateForm({
   );
 
   return (
-    <MutationForm<ItemUpdateFormMutation, Fields>
-      name={mutationName}
-      onSuccess={onSuccess}
-      onSaveAndClose={onSaveAndClose}
-      onCancel={onCancel}
-      successNotification={t("messages.update.item_success", {
-        name: values.title,
-      })}
-      mutation={mutation}
-      toVariables={toVariables}
-      defaultValues={defaultValues}
-      isSuccess={isSuccess}
-      onFailure={onFailure}
-    >
-      {renderForm}
-    </MutationForm>
+    <>
+      <ParentSelector data={item} />
+      <MutationForm<ItemUpdateFormMutation, Fields>
+        name={mutationName}
+        onSuccess={onSuccess}
+        onSaveAndClose={onSaveAndClose}
+        onCancel={onCancel}
+        successNotification={t("messages.update.item_success", {
+          name: values.title,
+        })}
+        mutation={mutation}
+        toVariables={toVariables}
+        defaultValues={defaultValues}
+        isSuccess={isSuccess}
+        onFailure={onFailure}
+      >
+        {renderForm}
+      </MutationForm>
+    </>
   );
 }
 
@@ -301,6 +302,7 @@ const mutation = graphql`
 const fragment = graphql`
   fragment ItemUpdateFormFragment on Item {
     itemId: id
+    ...ParentSelectorFragment
 
     context: schemaInstanceContext {
       ...useSchemaContextFragment
