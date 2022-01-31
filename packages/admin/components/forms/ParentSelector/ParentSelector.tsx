@@ -12,13 +12,11 @@ import { ParentSelectorFragment$key } from "@/relay/ParentSelectorFragment.graph
 
 const ParentSelector = ({ data }: Props) => {
   const entity = useMaybeFragment(fragment, data);
-  const parentFragment =
-    entity?.__typename === "Collection"
-      ? collectionParentFragment
-      : itemParentFragment;
-  const parent = useMaybeFragment(parentFragment, entity?.parent);
   const dialog = useDialogState({ visible: false, animated: true });
   const { t } = useTranslation();
+
+  if (entity?.__typename === "%other") return null;
+  const parent = entity?.parent;
 
   return parent?.id && entity?.entityId ? (
     <>
@@ -49,46 +47,34 @@ type Props = {
   data?: ParentSelectorFragment$key;
 };
 
-const collectionParentFragment = graphql`
-  fragment ParentSelectorCollectionFragment on CollectionParent {
-    ... on Collection {
-      id
-      title
-    }
-    ... on Community {
-      id
-      title
-    }
-  }
-`;
-
-const itemParentFragment = graphql`
-  fragment ParentSelectorItemFragment on ItemParent {
-    ... on Collection {
-      id
-      title
-    }
-    ... on Item {
-      id
-      title
-    }
-  }
-`;
-
 const fragment = graphql`
   fragment ParentSelectorFragment on AnyEntity {
     ... on Collection {
       __typename
       entityId: id
       parent {
-        ...ParentSelectorCollectionFragment
+        ... on Collection {
+          id
+          title
+        }
+        ... on Community {
+          id
+          title
+        }
       }
     }
     ... on Item {
       __typename
       entityId: id
       parent {
-        ...ParentSelectorItemFragment
+        ... on Collection {
+          id
+          title
+        }
+        ... on Item {
+          id
+          title
+        }
       }
     }
   }

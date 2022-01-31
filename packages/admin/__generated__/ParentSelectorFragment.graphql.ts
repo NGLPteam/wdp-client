@@ -9,14 +9,16 @@ export type ParentSelectorFragment = {
     readonly __typename: "Collection";
     readonly entityId: string;
     readonly parent: {
-        readonly " $fragmentRefs": FragmentRefs<"ParentSelectorCollectionFragment">;
+        readonly id?: string | undefined;
+        readonly title?: string | undefined;
     } | null;
     readonly " $refType": "ParentSelectorFragment";
 } | {
     readonly __typename: "Item";
     readonly entityId: string;
     readonly parent: {
-        readonly " $fragmentRefs": FragmentRefs<"ParentSelectorItemFragment">;
+        readonly id?: string | undefined;
+        readonly title?: string | undefined;
     } | null;
     readonly " $refType": "ParentSelectorFragment";
 } | {
@@ -47,6 +49,28 @@ v1 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
+},
+v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "title",
+    "storageKey": null
+  }
+],
+v3 = {
+  "kind": "InlineFragment",
+  "selections": (v2/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -67,10 +91,12 @@ return {
           "name": "parent",
           "plural": false,
           "selections": [
+            (v3/*: any*/),
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ParentSelectorCollectionFragment"
+              "kind": "InlineFragment",
+              "selections": (v2/*: any*/),
+              "type": "Community",
+              "abstractKey": null
             }
           ],
           "storageKey": null
@@ -92,10 +118,12 @@ return {
           "name": "parent",
           "plural": false,
           "selections": [
+            (v3/*: any*/),
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ParentSelectorItemFragment"
+              "kind": "InlineFragment",
+              "selections": (v2/*: any*/),
+              "type": "Item",
+              "abstractKey": null
             }
           ],
           "storageKey": null
@@ -109,5 +137,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'ffb57fca9fefb3ffe0833894ddaca08f';
+(node as any).hash = '4282f79d9e7dea5a12c2315f1f4b8c4f';
 export default node;
