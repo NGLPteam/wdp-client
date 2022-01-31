@@ -45,6 +45,10 @@ function EntityOrderingList<T extends OperationType>({
       Header: <>{t("lists.inherited_from_schema_column")}</>,
       id: "inheritedFromSchema",
     }),
+    ModelColumns.BooleanColumn<EntityOrderingNode>({
+      Header: <>{t("lists.disabled_column")}</>,
+      id: "disabled",
+    }),
     ModelColumns.CreatedAtColumn<EntityOrderingNode>(),
   ];
 
@@ -86,7 +90,8 @@ function EntityOrderingList<T extends OperationType>({
   );
 }
 
-type EntityOrderingNode = EntityOrderingListDataFragment["nodes"][number];
+type EntityOrderingNode =
+  EntityOrderingListDataFragment["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;
@@ -96,12 +101,15 @@ export default EntityOrderingList;
 
 const orderingsfragment = graphql`
   fragment EntityOrderingListDataFragment on OrderingConnection {
-    nodes {
-      id
-      name
-      slug
-      inheritedFromSchema
-      createdAt
+    edges {
+      node {
+        id
+        name
+        slug
+        inheritedFromSchema
+        disabled
+        createdAt
+      }
     }
     ...ModelListPageFragment
   }

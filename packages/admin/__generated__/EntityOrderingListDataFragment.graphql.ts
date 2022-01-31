@@ -6,12 +6,15 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingListDataFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string | null;
-        readonly slug: string;
-        readonly inheritedFromSchema: boolean;
-        readonly createdAt: string;
+    readonly edges: ReadonlyArray<{
+        readonly node: {
+            readonly id: string;
+            readonly name: string | null;
+            readonly slug: string;
+            readonly inheritedFromSchema: boolean;
+            readonly disabled: boolean;
+            readonly createdAt: string;
+        };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "EntityOrderingListDataFragment";
@@ -33,44 +36,62 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "Ordering",
+      "concreteType": "OrderingEdge",
       "kind": "LinkedField",
-      "name": "nodes",
+      "name": "edges",
       "plural": true,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "inheritedFromSchema",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "createdAt",
+          "concreteType": "Ordering",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "id",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "inheritedFromSchema",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "disabled",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "createdAt",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -85,5 +106,5 @@ const node: ReaderFragment = {
   "type": "OrderingConnection",
   "abstractKey": null
 };
-(node as any).hash = '65a4fc23b3f010cc0f65c0e839565e23';
+(node as any).hash = '6fc1caa97f4b6a35b7126cd36c65df50';
 export default node;
