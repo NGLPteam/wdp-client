@@ -318,7 +318,7 @@
         "hero_layout": "Hero Layout",
         "profile": "Profile",
         "display_name": "Display Name",
-        "sort_by": "Sort By",
+        "order_by": "Order By",
         "include_descendants": "Include",
         "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "issn": "ISSN",

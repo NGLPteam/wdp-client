@@ -2,15 +2,18 @@ import styled from "styled-components";
 import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
-export const List = styled.ul`
+export const List = styled.ul<{ $column?: true }>`
   display: flex;
   flex-wrap: wrap;
   margin-block-start: ${pxToRem(12)};
+
+  ${({ $column }) => $column && `flex-direction: column`}
 `;
 
 export const Item = styled.li`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border: 1px solid transparent;
   border-radius: ${pxToRem(4)};
   background-color: var(--button-background);

@@ -10,9 +10,9 @@ import { convertToSlug } from "helpers";
 import type {
   EntityOrderingAddFormMutation,
   CreateOrderingInput,
-  OrderDefinitionInput,
   OrderingSelectDefinitionInput,
   OrderingDirectSelection,
+  OrderDefinitionInput,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
 
@@ -32,9 +32,6 @@ export default function EntityOrderingAddForm({
     (data) => {
       let filter = {};
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let order: any[] = [];
-
       if (data.filterSchemas) {
         if (typeof data.filterSchemas === "string") {
           filter = {
@@ -47,15 +44,11 @@ export default function EntityOrderingAddForm({
         }
       }
 
-      if (data.sortby) {
-        order = [JSON.parse(data.sortby)];
-      }
-
       const input = {
         entityId: entity?.id || "",
         name: data.name,
         identifier: convertToSlug(data.name ?? undefined),
-        order,
+        order: data.order,
         filter,
       };
 
@@ -79,7 +72,9 @@ export default function EntityOrderingAddForm({
             required
             {...register("name")}
           />
-          <Forms.OrderingSortBy {...register("sortby")} />
+          {entity && (
+            <Forms.OrderDefinitionSelectControl name="order" data={entity} />
+          )}
           <Forms.OrderingDirectSelection {...register("select.direct")} />
           {entity && (
             <Forms.SchemaCheckboxGroup
@@ -119,7 +114,6 @@ type Props = Pick<
 type Fields = Omit<CreateOrderingInput, "clientMutationId"> &
   OrderDefinitionInput &
   OrderingSelectDefinitionInput & {
-    sortby: string;
     filterSchemas: string[];
   };
 
@@ -127,10 +121,12 @@ const fragment = graphql`
   fragment EntityOrderingAddFormFragment on Query {
     collection(slug: $entitySlug) {
       id
+      ...OrderDefinitionSelectControlFragment
       ...SchemaCheckboxGroupFragment
     }
     item(slug: $entitySlug) {
       id
+      ...OrderDefinitionSelectControlFragment
       ...SchemaCheckboxGroupFragment
     }
   }

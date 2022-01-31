@@ -26,10 +26,12 @@ export default function EntityOrderingEditForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const { ordering } = useFragment<EntityOrderingEditFormFragment$key>(
+  const entity = useFragment<EntityOrderingEditFormFragment$key>(
     fragment,
     data
   );
+
+  const { ordering } = entity;
 
   // Convert readonly props to expected input
   const defaultValues = useMemo<Partial<Fields> | undefined>(() => {
@@ -57,18 +59,24 @@ export default function EntityOrderingEditForm({
   }, []);
 
   // Render the form
-  const renderForm = useRenderForm<Fields>(({ form: { register } }) => {
-    return (
-      <Forms.Grid>
-        <Forms.Input
-          label="forms.fields.display_name"
-          required
-          {...register("name")}
-        />
-        <Forms.OrderingDirectSelection {...register("select.direct")} />
-      </Forms.Grid>
-    );
-  }, []);
+  const renderForm = useRenderForm<Fields>(
+    ({ form: { register } }) => {
+      return (
+        <Forms.Grid>
+          <Forms.Input
+            label="forms.fields.display_name"
+            required
+            {...register("name")}
+          />
+          {entity && (
+            <Forms.OrderDefinitionSelectControl name="order" data={entity} />
+          )}
+          <Forms.OrderingDirectSelection {...register("select.direct")} />
+        </Forms.Grid>
+      );
+    },
+    [entity]
+  );
 
   return (
     <MutationForm<Mutation, Fields>
@@ -93,6 +101,7 @@ interface Props extends FormProps {
 
 const fragment = graphql`
   fragment EntityOrderingEditFormFragment on Entity {
+    ...OrderDefinitionSelectControlFragment
     ordering(identifier: $identifier) {
       id
       name

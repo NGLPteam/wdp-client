@@ -28,11 +28,27 @@ query EntityOrderingAddDrawerQuery(
 fragment EntityOrderingAddFormFragment on Query {
   collection(slug: $entitySlug) {
     id
+    ...OrderDefinitionSelectControlFragment
     ...SchemaCheckboxGroupFragment
   }
   item(slug: $entitySlug) {
     id
+    ...OrderDefinitionSelectControlFragment
     ...SchemaCheckboxGroupFragment
+  }
+}
+
+fragment OrderDefinitionSelectControlFragment on Entity {
+  __isEntity: __typename
+  ...OrderDefinitionSelectFragment
+}
+
+fragment OrderDefinitionSelectFragment on Entity {
+  __isEntity: __typename
+  schemaRanks {
+    namespace
+    identifier
+    id
   }
 }
 
@@ -86,13 +102,6 @@ v3 = [
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
             "name": "namespace",
             "storageKey": null
           },
@@ -103,7 +112,14 @@ v3 = [
             "name": "identifier",
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -157,12 +173,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "08a2f2dcb38fad3d8514e813a987cf55",
+    "cacheID": "dba1bbb5eb0d6f06368cd5cf4da40e6d",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...SchemaCheckboxGroupFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...SchemaCheckboxGroupFragment\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n    ...SchemaCheckboxGroupFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n    ...SchemaCheckboxGroupFragment\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
   }
 };
 })();

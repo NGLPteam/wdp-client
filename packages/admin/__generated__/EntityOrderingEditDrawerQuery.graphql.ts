@@ -41,6 +41,7 @@ query EntityOrderingEditDrawerQuery(
 
 fragment EntityOrderingEditFormFragment on Entity {
   __isEntity: __typename
+  ...OrderDefinitionSelectControlFragment
   ordering(identifier: $identifier) {
     id
     name
@@ -58,6 +59,20 @@ fragment EntityOrderingEditFormFragment on Entity {
         version
       }
     }
+  }
+}
+
+fragment OrderDefinitionSelectControlFragment on Entity {
+  __isEntity: __typename
+  ...OrderDefinitionSelectFragment
+}
+
+fragment OrderDefinitionSelectFragment on Entity {
+  __isEntity: __typename
+  schemaRanks {
+    namespace
+    identifier
+    id
   }
 }
 */
@@ -94,11 +109,39 @@ v4 = {
   "name": "id",
   "storageKey": null
 },
-v5 = [
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "namespace",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+},
+v7 = [
   (v4/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "HierarchicalSchemaRank",
+        "kind": "LinkedField",
+        "name": "schemaRanks",
+        "plural": true,
+        "selections": [
+          (v5/*: any*/),
+          (v6/*: any*/),
+          (v4/*: any*/)
+        ],
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": [
@@ -180,20 +223,8 @@ v5 = [
                 "name": "schemas",
                 "plural": true,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "namespace",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "identifier",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -265,7 +296,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v7/*: any*/),
         "storageKey": null
       },
       {
@@ -275,18 +306,18 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v7/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "9f7c491b40453cada274c33ca03cdf10",
+    "cacheID": "a4d6d1e4fccde6deb311e0bc2f3c2b76",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ordering(identifier: $identifier) {\n    id\n    name\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n"
+    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectControlFragment\n  ordering(identifier: $identifier) {\n    id\n    name\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n"
   }
 };
 })();

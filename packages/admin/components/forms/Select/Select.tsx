@@ -10,7 +10,6 @@ const Select = forwardRef(
       name,
       hideLabel,
       description,
-      placeholder,
       options,
       error,
       multiple,

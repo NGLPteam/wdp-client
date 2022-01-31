@@ -26,6 +26,7 @@ export type EntityOrderingEditFormFragment = {
             }>;
         };
     } | null;
+    readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment">;
     readonly " $refType": "EntityOrderingEditFormFragment";
 };
 export type EntityOrderingEditFormFragment$data = EntityOrderingEditFormFragment;
@@ -163,10 +164,15 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "OrderDefinitionSelectControlFragment"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '78c1b6d31de6295841d698572360b568';
+(node as any).hash = '42006f3ec98bb1dae499d9eb9de31d9a';
 export default node;
