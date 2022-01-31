@@ -26,3 +26,6 @@ export { default as SchemaSelect } from "./SchemaSelect";
 export { default as VariableDatePicker } from "./VariableDatePicker";
 export { default as VariablePrecisionDateControl } from "./VariablePrecisionDateControl";
 export { default as ParentSelector } from "./ParentSelector";
+export { default as OrderingDirectSelection } from "./OrderingDirectSelection";
+export { default as OrderingSortBy } from "./OrderingSortBy";
+export { default as SchemaCheckboxGroup } from "./SchemaCheckboxGroup";

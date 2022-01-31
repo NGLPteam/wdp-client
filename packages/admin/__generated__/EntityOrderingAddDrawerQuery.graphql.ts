@@ -28,21 +28,21 @@ query EntityOrderingAddDrawerQuery(
 fragment EntityOrderingAddFormFragment on Query {
   collection(slug: $entitySlug) {
     id
-    schemaRanks {
-      name
-      namespace
-      identifier
-      id
-    }
+    ...SchemaCheckboxGroupFragment
   }
   item(slug: $entitySlug) {
     id
-    schemaRanks {
-      name
-      namespace
-      identifier
-      id
-    }
+    ...SchemaCheckboxGroupFragment
+  }
+}
+
+fragment SchemaCheckboxGroupFragment on Entity {
+  __isEntity: __typename
+  schemaRanks {
+    name
+    namespace
+    identifier
+    id
   }
 }
 */
@@ -72,37 +72,44 @@ v2 = {
 v3 = [
   (v2/*: any*/),
   {
-    "alias": null,
-    "args": null,
-    "concreteType": "HierarchicalSchemaRank",
-    "kind": "LinkedField",
-    "name": "schemaRanks",
-    "plural": true,
+    "kind": "InlineFragment",
     "selections": [
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "name",
+        "concreteType": "HierarchicalSchemaRank",
+        "kind": "LinkedField",
+        "name": "schemaRanks",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "namespace",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
+          (v2/*: any*/)
+        ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "namespace",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "identifier",
-        "storageKey": null
-      },
-      (v2/*: any*/)
+      }
     ],
-    "storageKey": null
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -150,12 +157,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e026c51947757c02810321d4fd4cbe8a",
+    "cacheID": "08a2f2dcb38fad3d8514e813a987cf55",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    schemaRanks {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n  item(slug: $entitySlug) {\n    id\n    schemaRanks {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...SchemaCheckboxGroupFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...SchemaCheckboxGroupFragment\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
   }
 };
 })();
