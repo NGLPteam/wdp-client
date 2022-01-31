@@ -85,6 +85,7 @@
       "published_column": "Published",
       "items_column": "Items",
       "contributors_column": "Contributors",
+      "disabled_column": "Disabled",
       "no_results": "No Results",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
