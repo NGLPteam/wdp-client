@@ -9,6 +9,10 @@ export type CCLicenseFragment = {
     readonly ccLicense: {
         readonly selection?: string | null | undefined;
         readonly defaultSelection?: string | null | undefined;
+        readonly options?: ReadonlyArray<{
+            readonly label: string;
+            readonly value: string;
+        }> | undefined;
     } | null;
     readonly " $refType": "CCLicenseFragment";
 };
@@ -56,6 +60,31 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "defaultSelection",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "SelectOption",
+              "kind": "LinkedField",
+              "name": "options",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "label",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "value",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             }
           ],
           "type": "SelectProperty",
@@ -68,5 +97,5 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '0877063247961b589cac552e27f990d3';
+(node as any).hash = '4bbb9731d39ac790f320211388bf9765';
 export default node;

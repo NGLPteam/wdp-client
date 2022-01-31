@@ -20,12 +20,18 @@ export default function CCLicense({ data, className }: Props) {
     [entity]
   );
 
+  const licenseLabel = entity?.ccLicense?.selection
+    ? entity?.ccLicense?.options?.find(
+        (option) => option?.value === entity?.ccLicense?.selection
+      )?.label
+    : null;
+
   return entity?.ccLicense?.selection ? (
     <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
       <IconFactory icon="cc" />
       {licenseLink && (
         <a target="_blank" rel="noreferrer" href={licenseLink}>
-          <span>{t("metadata.cc_license")}</span>
+          <span>{licenseLabel || t("metadata.cc_license")}</span>
         </a>
       )}
     </div>
@@ -43,6 +49,10 @@ const fragment = graphql`
       ... on SelectProperty {
         selection
         defaultSelection
+        options {
+          label
+          value
+        }
       }
     }
   }
