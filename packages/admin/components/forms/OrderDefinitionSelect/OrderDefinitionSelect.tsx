@@ -3,13 +3,13 @@ import { graphql, useFragment } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import Select from "../Select";
 import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 import {
   OrderDefinition,
   OrderingSchemaFilterInput,
 } from "types/graphql-schema";
 import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
-import * as Styled from "./OrderDefinitionSelect.styles";
 
 function OrderDefinitionSelect(
   { name, data, value, onChange }: Props,

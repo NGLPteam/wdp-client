@@ -33,10 +33,11 @@ function EntityOrderingList<T extends OperationType>({
     data
   );
 
-  const collectionOrderings = useMaybeFragment<EntityOrderingListDataFragment$key>(
-    orderingsfragment,
-    sourceEntity?.orderings
-  );
+  const collectionOrderings =
+    useMaybeFragment<EntityOrderingListDataFragment$key>(
+      orderingsfragment,
+      sourceEntity?.orderings
+    );
 
   /* Set the table columns */
   const columns = [
@@ -98,7 +99,8 @@ function EntityOrderingList<T extends OperationType>({
   );
 }
 
-type EntityOrderingNode = EntityOrderingListDataFragment["edges"][number]["node"];
+type EntityOrderingNode =
+  EntityOrderingListDataFragment["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;
