@@ -12,7 +12,7 @@ import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSele
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
 
 function OrderDefinitionSelect(
-  { name, data, value, onChange }: Props,
+  { name, data, value = [], onChange }: Props,
   ref: Ref<HTMLSelectElement>
 ) {
   const selectRef = useRef<HTMLSelectElement | null>(null);
@@ -48,6 +48,8 @@ function OrderDefinitionSelect(
 
   // Filter the options by duplicates and the current selected values
   const filteredOptions = useMemo(() => {
+    if (!value) return options;
+
     return options.filter(
       (o) => value.findIndex((v) => v.path === o.value) < 0
     );
@@ -57,7 +59,8 @@ function OrderDefinitionSelect(
   function handleSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     const path = e.target.value;
 
-    if (!path || value.findIndex((v) => v.path === path) >= 0) return;
+    if (!path || (value && value.findIndex((v) => v.path === path) >= 0))
+      return;
 
     const newValue = [
       ...value,

@@ -248,7 +248,9 @@
         "announcement": "Edit Announcement",
         "announcement_header": "Edit Announcement",
         "global_settings": "Edit Settings",
-        "global_settings_header": "Edit Global Settings"
+        "global_settings_header": "Edit Global Settings",
+        "ordering": "Edit Ordering",
+        "ordering_header": "Edit {{ name }} Ordering"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"

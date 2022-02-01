@@ -34,14 +34,15 @@ export default function OrderDefinitionSelectedList({
 
   return (
     <BaseArrayList column>
-      {value.map((v, i) => (
-        <BaseArrayList.Item key={i} onRemove={() => handleRemove(i)}>
-          <button type="button" onClick={(e) => handleDirection(e, i)}>
-            {`${options.find((o) => o.value === v.path)?.label || v.path}, `}
-            <span className="t-capitalize">{v.direction.toLowerCase()}</span>
-          </button>
-        </BaseArrayList.Item>
-      ))}
+      {value &&
+        value.map((v, i) => (
+          <BaseArrayList.Item key={i} onRemove={() => handleRemove(i)}>
+            <button type="button" onClick={(e) => handleDirection(e, i)}>
+              {`${options.find((o) => o.value === v.path)?.label || v.path}, `}
+              <span className="t-capitalize">{v.direction.toLowerCase()}</span>
+            </button>
+          </BaseArrayList.Item>
+        ))}
     </BaseArrayList>
   );
 }
