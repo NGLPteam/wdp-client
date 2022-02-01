@@ -10,15 +10,7 @@ export type LinkTargetTypeaheadFragment = {
         readonly node: {
             readonly targetId: string;
             readonly target: {
-                readonly __typename: "Collection";
-                readonly title: string;
-            } | {
-                readonly __typename: "Item";
-                readonly title: string;
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
+                readonly " $fragmentRefs": FragmentRefs<"getEntityTitleFragment">;
             };
         };
     }>;
@@ -33,12 +25,42 @@ export type LinkTargetTypeaheadFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v1 = [
   {
     "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "title",
+    "concreteType": "NamedAncestor",
+    "kind": "LinkedField",
+    "name": "namedAncestors",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "ancestor",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v0/*: any*/)
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -80,23 +102,55 @@ return {
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "__typename",
-                  "storageKey": null
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": (v0/*: any*/),
-                  "type": "Collection",
-                  "abstractKey": null
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": (v0/*: any*/),
-                  "type": "Item",
-                  "abstractKey": null
+                  "kind": "InlineDataFragmentSpread",
+                  "name": "getEntityTitleFragment",
+                  "selections": [
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "__typename",
+                          "storageKey": null
+                        },
+                        (v0/*: any*/),
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "SchemaVersion",
+                          "kind": "LinkedField",
+                          "name": "schemaVersion",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "identifier",
+                              "storageKey": null
+                            }
+                          ],
+                          "storageKey": null
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": (v1/*: any*/),
+                          "type": "Collection",
+                          "abstractKey": null
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": (v1/*: any*/),
+                          "type": "Item",
+                          "abstractKey": null
+                        }
+                      ],
+                      "type": "Entity",
+                      "abstractKey": "__isEntity"
+                    }
+                  ]
                 }
               ],
               "storageKey": null
@@ -112,5 +166,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e467703a74b65caadb97eda0a8e9bcc2';
+(node as any).hash = 'e7a62872262d6481ce014b48e8d7e717';
 export default node;

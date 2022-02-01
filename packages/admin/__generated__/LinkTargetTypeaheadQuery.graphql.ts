@@ -53,10 +53,31 @@ fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
       targetId
       target {
         __typename
-        ... on Collection {
-          title
+        ...getEntityTitleFragment
+        ... on Node {
+          __isNode: __typename
+          id
         }
-        ... on Item {
+      }
+      id
+    }
+  }
+}
+
+fragment getEntityTitleFragment on Entity {
+  __isEntity: __typename
+  __typename
+  title
+  schemaVersion {
+    identifier
+    id
+  }
+  ... on Collection {
+    namedAncestors {
+      ancestor {
+        __typename
+        ... on Entity {
+          __isEntity: __typename
           title
         }
         ... on Node {
@@ -64,7 +85,21 @@ fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
           id
         }
       }
-      id
+    }
+  }
+  ... on Item {
+    namedAncestors {
+      ancestor {
+        __typename
+        ... on Entity {
+          __isEntity: __typename
+          title
+        }
+        ... on Node {
+          __isNode: __typename
+          id
+        }
+      }
     }
   }
 }
@@ -115,23 +150,70 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
-    "storageKey": null
-  }
-],
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
 v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = [
+v7 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v6/*: any*/)
+  ],
+  "type": "Node",
+  "abstractKey": "__isNode"
+},
+v8 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "NamedAncestor",
+    "kind": "LinkedField",
+    "name": "namedAncestors",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "ancestor",
+        "plural": false,
+        "selections": [
+          (v4/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v5/*: any*/)
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          },
+          (v7/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v9 = [
   {
     "alias": null,
     "args": (v2/*: any*/),
@@ -171,37 +253,51 @@ v6 = [
                 "name": "target",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "__typename",
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": (v4/*: any*/),
-                    "type": "Collection",
-                    "abstractKey": null
-                  },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": (v4/*: any*/),
-                    "type": "Item",
-                    "abstractKey": null
-                  },
+                  (v4/*: any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v5/*: any*/)
+                      (v5/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "SchemaVersion",
+                        "kind": "LinkedField",
+                        "name": "schemaVersion",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "identifier",
+                            "storageKey": null
+                          },
+                          (v6/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v8/*: any*/),
+                        "type": "Collection",
+                        "abstractKey": null
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v8/*: any*/),
+                        "type": "Item",
+                        "abstractKey": null
+                      }
                     ],
-                    "type": "Node",
-                    "abstractKey": "__isNode"
-                  }
+                    "type": "Entity",
+                    "abstractKey": "__isEntity"
+                  },
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v6/*: any*/)
             ],
             "storageKey": null
           }
@@ -211,7 +307,7 @@ v6 = [
     ],
     "storageKey": null
   },
-  (v5/*: any*/)
+  (v6/*: any*/)
 ];
 return {
   "fragment": {
@@ -257,7 +353,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v6/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       },
       {
@@ -267,18 +363,18 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v6/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "18301b5ec518593809b8da677dfb179d",
+    "cacheID": "c946082b03d07e5fef7fd7b54fba1eb0",
     "id": null,
     "metadata": {},
     "name": "LinkTargetTypeaheadQuery",
     "operationKind": "query",
-    "text": "query LinkTargetTypeaheadQuery(\n  $slug: Slug!\n  $title: String\n) {\n  collection(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n  item(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ... on Collection {\n          title\n        }\n        ... on Item {\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "query LinkTargetTypeaheadQuery(\n  $slug: Slug!\n  $title: String\n) {\n  collection(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n  item(slug: $slug) {\n    linkTargetCandidates(title: $title) {\n      ...LinkTargetTypeaheadFragment\n    }\n    id\n  }\n}\n\nfragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {\n  edges {\n    node {\n      targetId\n      target {\n        __typename\n        ...getEntityTitleFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment getEntityTitleFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  schemaVersion {\n    identifier\n    id\n  }\n  ... on Collection {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  ... on Item {\n    namedAncestors {\n      ancestor {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();

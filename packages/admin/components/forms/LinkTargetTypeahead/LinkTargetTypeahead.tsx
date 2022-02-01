@@ -11,6 +11,7 @@ import {
   LinkTargetTypeaheadFragment$key,
 } from "@/relay/LinkTargetTypeaheadFragment.graphql";
 import BaseTypeahead from "components/forms/BaseTypeahead";
+import { getEntityTitle } from "components/factories/EntityTitleFactory";
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
 
@@ -31,15 +32,10 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   );
 
   const options = useMemo(() => {
-    const options = optionsData?.edges?.map((edge: Edge) => {
-      const targetId = edge.node.targetId;
-      const title =
-        edge.node.target.__typename !== "%other" && edge.node.target.title;
-      return {
-        label: title || "",
-        value: targetId,
-      };
-    });
+    const options = optionsData?.edges?.map((edge: Edge) => ({
+      label: getEntityTitle(edge.node.target),
+      value: edge.node.targetId,
+    }));
 
     return options;
   }, [optionsData]);
@@ -99,14 +95,7 @@ const fragment = graphql`
       node {
         targetId
         target {
-          __typename
-          ... on Collection {
-            title
-          }
-
-          ... on Item {
-            title
-          }
+          ...getEntityTitleFragment
         }
       }
     }

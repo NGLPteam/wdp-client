@@ -44,8 +44,8 @@ export default function EntityLinksAddForm({
         <Forms.Select
           label="forms.fields.link_type"
           options={[
-            { value: "CONTAINS", label: "contains" },
-            { value: "REFERENCES", label: "references" },
+            { value: "CONTAINS", label: "Contains" },
+            { value: "REFERENCES", label: "References" },
           ]}
           description={t("forms.fields.link_type_description", {
             name: sourceEntity.title,
@@ -101,10 +101,7 @@ const mutation = graphql`
     linkEntity(input: $input) {
       link {
         target {
-          ... on Item {
-            title
-          }
-          ... on Collection {
+          ... on Entity {
             title
           }
         }
