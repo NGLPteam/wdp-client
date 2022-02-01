@@ -23,6 +23,11 @@ query searchQuery {
 
 fragment AppBodyFragment on Query {
   ...AppHeaderFragment
+  ...AppFooterFragment
+}
+
+fragment AppFooterFragment on Query {
+  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
@@ -31,11 +36,6 @@ fragment AppHeaderFragment on Query {
 
 fragment AppLayoutFragment on Query {
   ...AppBodyFragment
-  ...CommunityCondensedNavAppFragment
-  ...CommunityPickerFragment
-}
-
-fragment CommunityCondensedNavAppFragment on Query {
   ...CommunityPickerFragment
 }
 
@@ -131,12 +131,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "7e1248fcf8401e2d6dd40fea29c7eabd",
+    "cacheID": "2483209b5a4b4ba1bc3764d9a3124851",
     "id": null,
     "metadata": {},
     "name": "searchQuery",
     "operationKind": "query",
-    "text": "query searchQuery {\n  ...AppLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query searchQuery {\n  ...AppLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 (node as any).hash = '168ad57345f900284e70dc43d661d770';

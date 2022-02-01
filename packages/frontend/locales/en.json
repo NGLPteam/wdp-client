@@ -135,7 +135,7 @@
       "admin": "Admin",
       "categories": "Categories",
       "communities": "$t(glossary.community_plural)",
-      "community_picker": "$t(glossary.community) Picker",
+      "community_picker": "Community Picker",
       "browse_all": "Browse All",
       "browse": "Browse",
       "browse_schema": "Browse {{schema}}",

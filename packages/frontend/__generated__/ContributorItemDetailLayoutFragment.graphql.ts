@@ -11,11 +11,11 @@ export type ContributorItemDetailLayoutFragment = {
     } | null;
     readonly item: {
         readonly community: {
-            readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment">;
         };
         readonly " $fragmentRefs": FragmentRefs<"ContributorDetailNavFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
     readonly " $refType": "ContributorItemDetailLayoutFragment";
 };
 export type ContributorItemDetailLayoutFragment$data = ContributorItemDetailLayoutFragment;
@@ -93,7 +93,7 @@ const node: ReaderFragment = {
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "CommunityLayoutFragment"
+              "name": "AppLayoutCommunityFragment"
             }
           ],
           "storageKey": null
@@ -109,11 +109,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "CommunityLayoutAppFragment"
+      "name": "AppLayoutFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'd797eda2e61b847a5e25ce46c6058556';
+(node as any).hash = '30e367e76362d4c0dc6088614137a73c';
 export default node;

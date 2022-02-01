@@ -24,6 +24,11 @@ query pagesQuery {
 
 fragment AppBodyFragment on Query {
   ...AppHeaderFragment
+  ...AppFooterFragment
+}
+
+fragment AppFooterFragment on Query {
+  ...CommunityPickerFragment
 }
 
 fragment AppHeaderFragment on Query {
@@ -32,11 +37,6 @@ fragment AppHeaderFragment on Query {
 
 fragment AppLayoutFragment on Query {
   ...AppBodyFragment
-  ...CommunityCondensedNavAppFragment
-  ...CommunityPickerFragment
-}
-
-fragment CommunityCondensedNavAppFragment on Query {
   ...CommunityPickerFragment
 }
 
@@ -358,12 +358,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1510577cc251078e88bc216f3d3fdc75",
+    "cacheID": "0affedfd4da9565f74ec76d22021f168",
     "id": null,
     "metadata": {},
     "name": "pagesQuery",
     "operationKind": "query",
-    "text": "query pagesQuery {\n  ...AppLayoutFragment\n  ...InstanceContentLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityCondensedNavAppFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityCondensedNavAppFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n}\n"
+    "text": "query pagesQuery {\n  ...AppLayoutFragment\n  ...InstanceContentLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n}\n"
   }
 };
 })();

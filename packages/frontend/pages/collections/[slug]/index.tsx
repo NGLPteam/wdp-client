@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import AppLayout from "components/global/AppLayout";
 import EntityContentLayoutFactory from "components/factories/EntityContentLayoutFactory";
 import { SlugCollectionQuery as Query } from "@/relay/SlugCollectionQuery.graphql";
 
@@ -20,12 +20,9 @@ export default function CommunityPage() {
       initialVariables={{ slug, page: page || 1 }}
     >
       {({ data }) => (
-        <CommunityLayout
-          data={data}
-          communityData={data?.collection?.community}
-        >
+        <AppLayout data={data} communityData={data?.collection?.community}>
           <EntityContentLayoutFactory data={data?.collection} />
-        </CommunityLayout>
+        </AppLayout>
       )}
     </QueryWrapper>
   ) : (
@@ -38,9 +35,9 @@ const query = graphql`
     collection(slug: $slug) {
       ...EntityContentLayoutFactoryFragment @arguments(page: $page)
       community {
-        ...CommunityLayoutFragment
+        ...AppLayoutCommunityFragment
       }
     }
-    ...CommunityLayoutAppFragment
+    ...AppLayoutFragment
   }
 `;
