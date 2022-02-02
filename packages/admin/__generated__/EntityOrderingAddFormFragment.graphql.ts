@@ -8,19 +8,11 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingAddFormFragment = {
     readonly collection: {
         readonly id: string;
-        readonly schemaRanks: ReadonlyArray<{
-            readonly name: string;
-            readonly namespace: string;
-            readonly identifier: string;
-        }>;
+        readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
     } | null;
     readonly item: {
         readonly id: string;
-        readonly schemaRanks: ReadonlyArray<{
-            readonly name: string;
-            readonly namespace: string;
-            readonly identifier: string;
-        }>;
+        readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
     } | null;
     readonly " $refType": "EntityOrderingAddFormFragment";
 };
@@ -49,36 +41,14 @@ v1 = [
     "storageKey": null
   },
   {
-    "alias": null,
     "args": null,
-    "concreteType": "HierarchicalSchemaRank",
-    "kind": "LinkedField",
-    "name": "schemaRanks",
-    "plural": true,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "namespace",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "identifier",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "FragmentSpread",
+    "name": "OrderDefinitionSelectControlFragment"
+  },
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "SchemaCheckboxGroupFragment"
   }
 ];
 return {
@@ -117,5 +87,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8672bb27edaf4d98b2c1c97b3ec1df83';
+(node as any).hash = '71f210e63d5fe44f542e3eb0ff622852';
 export default node;

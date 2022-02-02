@@ -2,7 +2,7 @@ import React, { Ref, forwardRef, useState, useEffect } from "react";
 import { useCombobox, useMultipleSelection } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
-import BaseArrayList from "../BaseArrayList";
+import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import * as Styled from "./Multiselect.styles";
 
 import HiddenMultiselect from "./HiddenMultiselect";
@@ -135,7 +135,7 @@ const Multiselect = forwardRef(
           {selectedItems && (
             <BaseArrayList>
               {getSelectedItemObjects().map((selectedItem, index) => (
-                <BaseArrayList.Item
+                <BaseArrayListItem
                   key={`selected-item-${index}`}
                   {...getSelectedItemProps({
                     selectedItem: selectedItem.value,
@@ -146,7 +146,7 @@ const Multiselect = forwardRef(
                   }}
                 >
                   {selectedItem.label}
-                </BaseArrayList.Item>
+                </BaseArrayListItem>
               ))}
             </BaseArrayList>
           )}

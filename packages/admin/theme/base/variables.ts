@@ -99,3 +99,8 @@ export const breakpoints: Record<string | number, string> = {
   20: "280px",
   10: "140px",
 };
+
+// Box shadows
+export const boxShadow = {
+  popUp: "0px 12px 24px -12px rgba(0, 0, 0, 0.3)",
+};

@@ -1,28 +1,49 @@
 import React, { forwardRef, Ref } from "react";
+import { Portal } from "reakit/Portal";
+import { useIsMounted } from "@wdp/lib/hooks";
 import * as Styled from "./BaseArrayList.styles";
 import { IconFactory } from "components/factories";
 
 const BaseArrayListItem = forwardRef(
-  ({ children, onRemove, ...itemProps }: Props, ref: Ref<HTMLLIElement>) => {
+  (
+    { children, onRemove, isDragging, draggableStyles, ...props }: Props,
+    ref: Ref<HTMLLIElement>
+  ) => {
     const handleRemove = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (onRemove) onRemove();
     };
 
-    return (
-      <Styled.Item {...itemProps} ref={ref}>
+    const isMounted = useIsMounted();
+
+    const Item = (
+      <Styled.Item
+        ref={ref}
+        $isDragging={isDragging}
+        style={draggableStyles}
+        {...props}
+      >
+        {draggableStyles && <Styled.GrabHandleIcon icon="grabHandle" />}
         <Styled.Text>{children}</Styled.Text>
         <Styled.Button type="button" onClick={handleRemove}>
           <IconFactory icon="close" />
         </Styled.Button>
       </Styled.Item>
     );
+
+    if (isDragging && isMounted) {
+      return <Portal>{Item}</Portal>;
+    }
+
+    return Item;
   }
 );
 
 interface Props {
   children: React.ReactNode;
   onRemove: () => void;
+  isDragging?: boolean;
+  draggableStyles?: React.CSSProperties;
 }
 
 export default BaseArrayListItem;

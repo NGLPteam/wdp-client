@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
 import type { ModelTableActionProps } from "react-table";
-import { useMaybeFragment, useDestroyer } from "hooks";
+import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
 import {
   EntityOrderingListDataFragment,
@@ -22,7 +22,11 @@ function EntityOrderingList<T extends OperationType>({
   hideHeader,
 }: Props) {
   const { t } = useTranslation();
+
   const destroy = useDestroyer();
+
+  const drawerHelper = useDrawerHelper();
+
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
     fragment,
@@ -59,6 +63,11 @@ function EntityOrderingList<T extends OperationType>({
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering"
       ),
+    handleEdit: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      drawerHelper.open("editOrdering", {
+        drawerSlug: sourceEntity?.slug || "",
+        drawerIdentifier: row.original.identifier || "",
+      }),
   };
   /* eslint-enable no-console */
 
@@ -109,6 +118,7 @@ const orderingsfragment = graphql`
         inheritedFromSchema
         disabled
         createdAt
+        identifier
       }
     }
     ...ModelListPageFragment

@@ -1,3 +1,2 @@
-import BaseArrayList from "./BaseArrayList";
-
-export default BaseArrayList;
+export { default } from "./BaseArrayList";
+export { default as BaseArrayListItem } from "./BaseArrayListItem";

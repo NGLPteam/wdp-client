@@ -248,7 +248,9 @@
         "announcement": "Edit Announcement",
         "announcement_header": "Edit Announcement",
         "global_settings": "Edit Settings",
-        "global_settings_header": "Edit Global Settings"
+        "global_settings_header": "Edit Global Settings",
+        "ordering": "Edit Ordering",
+        "ordering_header": "Edit {{ name }} Ordering"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -318,7 +320,7 @@
         "hero_layout": "Hero Layout",
         "profile": "Profile",
         "display_name": "Display Name",
-        "sort_by": "Sort By",
+        "order_by": "Order By",
         "include_descendants": "Include",
         "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "issn": "ISSN",

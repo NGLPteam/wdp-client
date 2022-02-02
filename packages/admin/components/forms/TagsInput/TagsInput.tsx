@@ -2,7 +2,7 @@ import React, { Ref, forwardRef, useState, useEffect } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
 
 import type InputProps from "../inputType";
-import BaseArrayList from "../BaseArrayList";
+import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import TagsInputAdd from "./TagsInputAdd";
 
 /**
@@ -74,14 +74,14 @@ const TagsInput = forwardRef(
           {tags && (
             <BaseArrayList>
               {tags.map((tag, index) => (
-                <BaseArrayList.Item
+                <BaseArrayListItem
                   key={`tag-${index}`}
                   onRemove={() => {
                     handleRemove(tag);
                   }}
                 >
                   {tag}
-                </BaseArrayList.Item>
+                </BaseArrayListItem>
               ))}
             </BaseArrayList>
           )}

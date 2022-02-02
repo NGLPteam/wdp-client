@@ -14,6 +14,7 @@ export type EntityOrderingListDataFragment = {
             readonly inheritedFromSchema: boolean;
             readonly disabled: boolean;
             readonly createdAt: string;
+            readonly identifier: string;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -90,6 +91,13 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "createdAt",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "identifier",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -106,5 +114,5 @@ const node: ReaderFragment = {
   "type": "OrderingConnection",
   "abstractKey": null
 };
-(node as any).hash = '6fc1caa97f4b6a35b7126cd36c65df50';
+(node as any).hash = '7af65964d63d9ac57c6832533facf3da';
 export default node;
