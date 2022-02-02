@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
+import Image from "next/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
@@ -23,8 +24,19 @@ export default function AssetDetailBlock({ data }: Props) {
           <BackButton>Back to Files</BackButton>
         </NamedLink>
       )}
-      {asset.preview?.storage && <ContentImage data={asset.preview} />}
-      <Styled.TextBlock>
+      <Styled.ContentBlock>
+        {asset.preview?.storage ? (
+          <ContentImage data={asset.preview} />
+        ) : asset.downloadUrl && asset.kind === "image" ? (
+          <Image
+            src={asset.downloadUrl}
+            layout="responsive"
+            width={1160}
+            height={640}
+            objectFit="contain"
+            objectPosition="left"
+          />
+        ) : null}
         <h3>{asset.name}</h3>
         <Styled.AssetInfo>
           <p className="t-label-lg">{asset.kind}</p>
@@ -36,7 +48,7 @@ export default function AssetDetailBlock({ data }: Props) {
           </ul>
         </Styled.AssetInfo>
         {asset.caption && <div className="t-copy-light">{asset.caption}</div>}
-      </Styled.TextBlock>
+      </Styled.ContentBlock>
       {asset.downloadUrl && <DownloadLink href={asset.downloadUrl} />}
     </Styled.Section>
   ) : null;
