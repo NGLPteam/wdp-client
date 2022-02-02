@@ -19,7 +19,9 @@ type FormProps = Pick<
   "onSuccess" | "onCancel"
 >;
 
-type Fields = Omit<UpdateOrderingInput, "clientMutationId">;
+type Fields = Omit<UpdateOrderingInput, "clientMutationId"> & {
+  filterSchemas: string[];
+};
 
 export default function EntityOrderingEditForm({
   data,
@@ -41,6 +43,9 @@ export default function EntityOrderingEditForm({
       return {
         order: order as OrderDefinitionInput[],
         filter: filter as OrderingFilterDefinitionInput,
+        filterSchemas: filter.schemas.map((s) =>
+          JSON.stringify({ namespace: s.namespace, identifier: s.identifier })
+        ),
         ...values,
       };
     }
@@ -48,10 +53,16 @@ export default function EntityOrderingEditForm({
 
   // Return variable values to mutation
   const toVariables = useToVariables<Mutation, Fields>((data) => {
-    const { ...values } = data;
+    const { filterSchemas, ...values } = data;
 
     const input = {
       ...values,
+      filter: {
+        schemas:
+          typeof filterSchemas === "string"
+            ? [JSON.parse(filterSchemas)]
+            : data.filterSchemas.map((schema) => JSON.parse(schema)),
+      },
       orderingId: ordering?.id || "",
     };
 
@@ -72,6 +83,13 @@ export default function EntityOrderingEditForm({
             <Forms.OrderDefinitionSelectControl name="order" data={entity} />
           )}
           <Forms.OrderingDirectSelection {...register("select.direct")} />
+          {entity && (
+            <Forms.SchemaCheckboxGroup
+              data={entity}
+              name="filterSchema"
+              register={{ ...register("filterSchemas") }}
+            />
+          )}
         </Forms.Grid>
       );
     },
@@ -102,6 +120,7 @@ interface Props extends FormProps {
 const fragment = graphql`
   fragment EntityOrderingEditFormFragment on Entity {
     ...OrderDefinitionSelectControlFragment
+    ...SchemaCheckboxGroupFragment
     ordering(identifier: $identifier) {
       id
       name

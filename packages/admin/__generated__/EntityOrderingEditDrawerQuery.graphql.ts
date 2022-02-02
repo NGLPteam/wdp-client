@@ -42,6 +42,7 @@ query EntityOrderingEditDrawerQuery(
 fragment EntityOrderingEditFormFragment on Entity {
   __isEntity: __typename
   ...OrderDefinitionSelectControlFragment
+  ...SchemaCheckboxGroupFragment
   ordering(identifier: $identifier) {
     id
     name
@@ -70,6 +71,16 @@ fragment OrderDefinitionSelectControlFragment on Entity {
 fragment OrderDefinitionSelectFragment on Entity {
   __isEntity: __typename
   schemaRanks {
+    namespace
+    identifier
+    id
+  }
+}
+
+fragment SchemaCheckboxGroupFragment on Entity {
+  __isEntity: __typename
+  schemaRanks {
+    name
     namespace
     identifier
     id
@@ -123,7 +134,14 @@ v6 = {
   "name": "identifier",
   "storageKey": null
 },
-v7 = [
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v8 = [
   (v4/*: any*/),
   {
     "kind": "InlineFragment",
@@ -138,7 +156,8 @@ v7 = [
         "selections": [
           (v5/*: any*/),
           (v6/*: any*/),
-          (v4/*: any*/)
+          (v4/*: any*/),
+          (v7/*: any*/)
         ],
         "storageKey": null
       },
@@ -157,13 +176,7 @@ v7 = [
         "plural": false,
         "selections": [
           (v4/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -296,7 +309,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v7/*: any*/),
+        "selections": (v8/*: any*/),
         "storageKey": null
       },
       {
@@ -306,18 +319,18 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v7/*: any*/),
+        "selections": (v8/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a4d6d1e4fccde6deb311e0bc2f3c2b76",
+    "cacheID": "5fe7856358dd3f7742c98aacfdeed9a6",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectControlFragment\n  ordering(identifier: $identifier) {\n    id\n    name\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n"
+    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectControlFragment\n  ...SchemaCheckboxGroupFragment\n  ordering(identifier: $identifier) {\n    id\n    name\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
   }
 };
 })();

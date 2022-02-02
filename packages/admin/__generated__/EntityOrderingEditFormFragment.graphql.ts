@@ -26,7 +26,7 @@ export type EntityOrderingEditFormFragment = {
             }>;
         };
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
     readonly " $refType": "EntityOrderingEditFormFragment";
 };
 export type EntityOrderingEditFormFragment$data = EntityOrderingEditFormFragment;
@@ -169,10 +169,15 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "OrderDefinitionSelectControlFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaCheckboxGroupFragment"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '42006f3ec98bb1dae499d9eb9de31d9a';
+(node as any).hash = 'bb5a2b4b7017e18dc90171cecf14cea8';
 export default node;
