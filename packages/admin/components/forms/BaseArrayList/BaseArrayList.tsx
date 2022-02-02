@@ -1,6 +1,5 @@
 import React, { forwardRef, Ref } from "react";
 import * as Styled from "./BaseArrayList.styles";
-import BaseArrayListItem from "./BaseArrayListItem";
 
 const BaseArrayList = (
   { children, column, isDraggingOver, ...props }: Props,
@@ -23,7 +22,5 @@ interface Props {
   column?: true;
   isDraggingOver?: boolean;
 }
-
-BaseArrayList.Item = BaseArrayListItem;
 
 export default forwardRef(BaseArrayList);
