@@ -23,7 +23,7 @@ const BaseArrayListItem = forwardRef(
         style={draggableStyles}
         {...props}
       >
-        <Styled.GrabHandleIcon icon="grabHandle" />
+        {draggableStyles && <Styled.GrabHandleIcon icon="grabHandle" />}
         <Styled.Text>{children}</Styled.Text>
         <Styled.Button type="button" onClick={handleRemove}>
           <IconFactory icon="close" />
