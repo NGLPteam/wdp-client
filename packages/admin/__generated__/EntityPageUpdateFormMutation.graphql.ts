@@ -39,6 +39,7 @@ export type EntityPageUpdateFormMutationResponse = {
             readonly id: string;
             readonly title: string;
             readonly slug: string;
+            readonly position: number | null;
             readonly heroImage: {
                 readonly medium: {
                     readonly png: {
@@ -69,6 +70,7 @@ mutation EntityPageUpdateFormMutation(
       id
       title
       slug
+      position
       heroImage {
         medium {
           png {
@@ -142,6 +144,13 @@ v2 = {
       "args": null,
       "kind": "ScalarField",
       "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "position",
       "storageKey": null
     },
     {
@@ -328,14 +337,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e9c78584f3b2d4215119a56c73ec9049",
+    "cacheID": "4ac08e860e369eda91d892c6c6fa5069",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1eabb22d5df446c9853f7f8c29af0f08';
+(node as any).hash = '06e579e330057dbf9853934b1f18b89f';
 export default node;

@@ -11,6 +11,7 @@ export type EntityPageUpdateFormFragment = {
         readonly title: string;
         readonly slug: string;
         readonly body: string;
+        readonly position: number | null;
         readonly heroImage: {
             readonly thumb: {
                 readonly png: {
@@ -32,116 +33,7 @@ export type EntityPageUpdateFormFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "pageSlug"
-      }
-    ],
-    "concreteType": "Page",
-    "kind": "LinkedField",
-    "name": "page",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "title",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "slug",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "body",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "ImageAttachment",
-        "kind": "LinkedField",
-        "name": "heroImage",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ImageSize",
-            "kind": "LinkedField",
-            "name": "thumb",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageDerivative",
-                "kind": "LinkedField",
-                "name": "png",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "url",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "height",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "width",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "alt",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
       "kind": "RootArgument",
@@ -154,26 +46,127 @@ return {
   "selections": [
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Community",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Collection",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Item",
-      "abstractKey": null
+      "selections": [
+        {
+          "alias": null,
+          "args": [
+            {
+              "kind": "Variable",
+              "name": "slug",
+              "variableName": "pageSlug"
+            }
+          ],
+          "concreteType": "Page",
+          "kind": "LinkedField",
+          "name": "page",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "id",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "body",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "position",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageAttachment",
+              "kind": "LinkedField",
+              "name": "heroImage",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ImageSize",
+                  "kind": "LinkedField",
+                  "name": "thumb",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageDerivative",
+                      "kind": "LinkedField",
+                      "name": "png",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "url",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "height",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "width",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "alt",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "type": "Entity",
+      "abstractKey": "__isEntity"
     }
   ],
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-})();
-(node as any).hash = '41227bd85df537adf8ee93ea28d8fc7b';
+(node as any).hash = '9dc89c43b323732390236680a672412f';
 export default node;

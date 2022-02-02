@@ -23,7 +23,13 @@ export default function EntityPageUpdateForm({
   );
 
   const toVariables = useToVariables<EntityPageUpdateFormMutation, Fields>(
-    (data) => ({ input: { ...data, pageId: page?.id || "" } }),
+    ({ position, ...data }) => ({
+      input: {
+        ...data,
+        position: typeof position === "string" ? parseInt(position) : position,
+        pageId: page?.id || "",
+      },
+    }),
     []
   );
 
@@ -31,6 +37,7 @@ export default function EntityPageUpdateForm({
     title: page?.title,
     slug: page?.slug,
     body: page?.body,
+    position: page?.position,
   };
 
   const renderForm = useRenderForm<Fields>(
@@ -45,6 +52,11 @@ export default function EntityPageUpdateForm({
           clearName="clearHeroImage"
         />
         <Forms.Textarea label="forms.fields.body" {...register("body")} />
+        <Forms.Input
+          type="number"
+          label="forms.fields.position"
+          {...register("position")}
+        />
       </Forms.Grid>
     ),
     []
@@ -76,48 +88,13 @@ type Fields = Omit<UpdatePageInput, "pageId">;
 
 const fragment = graphql`
   fragment EntityPageUpdateFormFragment on AnyEntity {
-    ... on Community {
+    ... on Entity {
       page(slug: $pageSlug) {
         id
         title
         slug
         body
-        heroImage {
-          thumb {
-            png {
-              url
-              height
-              width
-              alt
-            }
-          }
-        }
-      }
-    }
-    ... on Collection {
-      page(slug: $pageSlug) {
-        id
-        title
-        slug
-        body
-        heroImage {
-          thumb {
-            png {
-              url
-              height
-              width
-              alt
-            }
-          }
-        }
-      }
-    }
-    ... on Item {
-      page(slug: $pageSlug) {
-        id
-        title
-        slug
-        body
+        position
         heroImage {
           thumb {
             png {
@@ -140,6 +117,7 @@ const mutation = graphql`
         id
         title
         slug
+        position
         heroImage {
           medium {
             png {

@@ -336,7 +336,8 @@
         "theme_color_description": "Set the app color theme across all communities.",
         "theme_font": "Font Theme",
         "theme_font_description": "Set the app font theme across all communities.",
-        "logo": "Logo"
+        "logo": "Logo",
+        "position": "Position"
       },
       "validation": {
         "year": "Must be a four digit year",
