@@ -1,19 +1,21 @@
 import styled from "styled-components";
 import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
+import { boxShadow } from "theme/base/variables";
+import { IconFactory } from "components/factories";
 
-export const List = styled.ul<{ $column?: true }>`
+export const List = styled.ul<{ $column?: true; $isDraggingOver?: boolean }>`
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   margin-block-start: ${pxToRem(12)};
 
-  ${({ $column }) => $column && `flex-direction: column`}
+  ${({ $column }) => $column && `flex-direction: column;`}
 `;
 
-export const Item = styled.li`
+export const Item = styled.li<{ $isDragging?: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   border: 1px solid transparent;
   border-radius: ${pxToRem(4)};
   background-color: var(--button-background);
@@ -25,6 +27,14 @@ export const Item = styled.li`
     var(--background-transition), var(--opacity-transition);
   opacity: var(--button-control-opacity, 1);
   visibility: var(--button-control-visibility, visible);
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    `
+    box-shadow: ${boxShadow.popUp};
+    border: 1px solid var(--brand30);
+    background-color: var(--brand20);
+  `}
 
   &:disabled,
   &[aria-disabled="true"],
@@ -62,4 +72,9 @@ export const Text = styled.span`
 export const Button = styled.button`
   display: flex;
   align-items: center;
+  margin-left: auto;
+`;
+
+export const GrabHandleIcon = styled(IconFactory)`
+  margin-inline-end: 6px;
 `;
