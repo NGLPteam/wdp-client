@@ -27,15 +27,14 @@ export default function EntityPageAddForm({
 
   // Sets the slug to the title if no slug is provided
   const toVariables = useToVariables<EntityPageAddFormMutation, Fields>(
-    (data) => {
-      return {
-        input: {
-          ...data,
-          entityId: sourceEntity.id || "",
-          slug: data.slug || convertToSlug(data.title),
-        },
-      };
-    },
+    ({ position, ...data }) => ({
+      input: {
+        ...data,
+        entityId: sourceEntity.id || "",
+        slug: data.slug || convertToSlug(data.title),
+        position: typeof position === "string" ? parseInt(position) : position,
+      },
+    }),
     []
   );
 
@@ -75,6 +74,11 @@ export default function EntityPageAddForm({
           label="forms.fields.body"
           required
           {...register("body")}
+        />
+        <Forms.Input
+          type="number"
+          label="forms.fields.position"
+          {...register("position")}
         />
       </Forms.Grid>
     );
