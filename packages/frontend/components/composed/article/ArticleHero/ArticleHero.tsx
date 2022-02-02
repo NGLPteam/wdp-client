@@ -45,8 +45,8 @@ export default function ArticleHero({ data }: Props) {
           {article.summary && (
             <Styled.Summary>{article.summary}</Styled.Summary>
           )}
-          {article.pdfVersion && (
-            <AssetDownloadButton data={article.pdfVersion} />
+          {article.pdfVersion?.asset && (
+            <AssetDownloadButton data={article.pdfVersion.asset} />
           )}
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
@@ -83,7 +83,11 @@ const fragment = graphql`
       ...ContributorsListFragment
     }
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
-      ...AssetDownloadButtonFragment
+      ... on AssetProperty {
+        asset {
+          ...AssetDownloadButtonFragment
+        }
+      }
     }
     journal: ancestorOfType(schema: "nglp:journal") {
       ...PeerReviewedFragment

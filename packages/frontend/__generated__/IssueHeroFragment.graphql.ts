@@ -24,7 +24,9 @@ export type IssueHeroFragment = {
         readonly title?: string | undefined;
     } | null;
     readonly pdfVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
+        readonly asset?: {
+            readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
+        } | null | undefined;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
     readonly " $refType": "IssueHeroFragment";
@@ -179,9 +181,27 @@ return {
       "plural": false,
       "selections": [
         {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AssetDownloadButtonFragment"
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "asset",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "AssetDownloadButtonFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "AssetProperty",
+          "abstractKey": null
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
@@ -196,5 +216,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4a850a3fff3d37cf63e4d6995e04e3a0';
+(node as any).hash = 'df3000c902b0d6aad3e1367e1c20877c';
 export default node;
