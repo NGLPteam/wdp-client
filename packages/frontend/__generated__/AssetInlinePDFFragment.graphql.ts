@@ -6,9 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AssetInlinePDFFragment = {
-    readonly asset: {
-        readonly downloadUrl?: string | null | undefined;
-    } | null;
+    readonly downloadUrl?: string | null | undefined;
     readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     readonly " $refType": "AssetInlinePDFFragment";
 };
@@ -27,29 +25,18 @@ const node: ReaderFragment = {
   "name": "AssetInlinePDFFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "asset",
-      "plural": false,
+      "kind": "InlineFragment",
       "selections": [
         {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "downloadUrl",
-              "storageKey": null
-            }
-          ],
-          "type": "AssetPDF",
-          "abstractKey": null
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "downloadUrl",
+          "storageKey": null
         }
       ],
-      "storageKey": null
+      "type": "AssetPDF",
+      "abstractKey": null
     },
     {
       "args": null,
@@ -57,8 +44,8 @@ const node: ReaderFragment = {
       "name": "AssetDownloadButtonFragment"
     }
   ],
-  "type": "AssetProperty",
-  "abstractKey": null
+  "type": "Asset",
+  "abstractKey": "__isAsset"
 };
-(node as any).hash = '35930181d6b3258047749698fd96c3a4';
+(node as any).hash = 'b63d9ec38520d0c9138a89259863724d';
 export default node;

@@ -20,7 +20,7 @@ export default function AssetInlinePDF({ data }: Props) {
 
   const docRef = useRef<HTMLDivElement>(null);
 
-  const file = useMemo(() => pdf?.asset?.downloadUrl, [pdf]); // "/pdf/Titanic.pdf";
+  const file = useMemo(() => pdf?.downloadUrl, [pdf]); // "/pdf/Titanic.pdf";
 
   const isMounted = useIsMounted();
 
@@ -109,12 +109,10 @@ type Props = {
 };
 
 const fragment = graphql`
-  fragment AssetInlinePDFFragment on AssetProperty {
-    ...AssetDownloadButtonFragment
-    asset {
-      ... on AssetPDF {
-        downloadUrl
-      }
+  fragment AssetInlinePDFFragment on Asset {
+    ... on AssetPDF {
+      downloadUrl
     }
+    ...AssetDownloadButtonFragment
   }
 `;

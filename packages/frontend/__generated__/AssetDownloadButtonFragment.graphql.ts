@@ -7,12 +7,10 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type AssetDownloadButtonFragment = {
-    readonly asset: {
-        readonly name?: string | undefined;
-        readonly downloadUrl?: string | null | undefined;
-        readonly kind?: AssetKind | undefined;
-        readonly contentType?: string | undefined;
-    } | null;
+    readonly name: string;
+    readonly downloadUrl: string | null;
+    readonly kind: AssetKind;
+    readonly contentType: string;
     readonly " $refType": "AssetDownloadButtonFragment";
 };
 export type AssetDownloadButtonFragment$data = AssetDownloadButtonFragment;
@@ -32,52 +30,34 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "asset",
-      "plural": false,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "downloadUrl",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "kind",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "contentType",
-              "storageKey": null
-            }
-          ],
-          "type": "Asset",
-          "abstractKey": "__isAsset"
-        }
-      ],
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "downloadUrl",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "kind",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "contentType",
       "storageKey": null
     }
   ],
-  "type": "AssetProperty",
-  "abstractKey": null
+  "type": "Asset",
+  "abstractKey": "__isAsset"
 };
-(node as any).hash = 'f17b610b6eccae86c929576de75bcc69';
+(node as any).hash = 'c32ea4df99da9e57301000b308cf19f2';
 export default node;

@@ -8,14 +8,14 @@ import { AssetDownloadButtonFragment$key } from "@/relay/AssetDownloadButtonFrag
 /* Simple download text and icon,
  * style can be changed using the className property */
 export default function AssetDownloadButton({ data, children }: Props) {
-  const assetData = useMaybeFragment(fragment, data);
+  const asset = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
-  return assetData?.asset?.downloadUrl ? (
+  return asset?.downloadUrl ? (
     <Button
       as="a"
-      href={assetData.asset.downloadUrl}
+      href={asset.downloadUrl}
       size="sm"
       target="_blank"
       download
@@ -23,9 +23,7 @@ export default function AssetDownloadButton({ data, children }: Props) {
     >
       {children ||
         t("common.download_name", {
-          name: assetData?.asset?.kind
-            ? t(`asset.${assetData?.asset?.kind}`)
-            : "",
+          name: asset?.kind ? t(`asset.${asset?.kind}`) : "",
         })}
     </Button>
   ) : null;
@@ -37,14 +35,10 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment AssetDownloadButtonFragment on AssetProperty {
-    asset {
-      ... on Asset {
-        name
-        downloadUrl
-        kind
-        contentType
-      }
-    }
+  fragment AssetDownloadButtonFragment on Asset {
+    name
+    downloadUrl
+    kind
+    contentType
   }
 `;

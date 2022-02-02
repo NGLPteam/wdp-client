@@ -78,7 +78,11 @@ export default function ArticleText({ data }: Props) {
     </Styled.BodyWrapper>
   ) : (
     <Styled.BodyWrapper className="l-container-wide">
-      {pdf ? <AssetInlinePDF data={pdf} /> : "No article content found."}
+      {pdf?.asset ? (
+        <AssetInlinePDF data={pdf.asset} />
+      ) : (
+        "No article content found."
+      )}
     </Styled.BodyWrapper>
   );
 }
@@ -103,7 +107,9 @@ const fragment = graphql`
     }
     pdf: schemaProperty(fullPath: "pdf_version") {
       ... on AssetProperty {
-        ...AssetInlinePDFFragment
+        asset {
+          ...AssetInlinePDFFragment
+        }
       }
     }
   }

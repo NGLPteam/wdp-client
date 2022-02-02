@@ -49,8 +49,8 @@ export default function IssueHero({ data }: Props) {
               </DotList>
               {issue.summary && <p>{issue.summary}</p>}
             </Styled.Description>
-            {issue.pdfVersion && (
-              <AssetDownloadButton data={issue.pdfVersion} />
+            {issue.pdfVersion?.asset && (
+              <AssetDownloadButton data={issue.pdfVersion.asset} />
             )}
           </Styled.Issue>
         </Styled.TextBlock>
@@ -91,7 +91,11 @@ const fragment = graphql`
       }
     }
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
-      ...AssetDownloadButtonFragment
+      ... on AssetProperty {
+        asset {
+          ...AssetDownloadButtonFragment
+        }
+      }
     }
   }
 `;
