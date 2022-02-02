@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { DialogState } from "reakit/Dialog";
 import { graphql } from "react-relay";
+import { QueryWrapper } from "@wdp/lib/api/components";
 import Modal from "components/layout/Modal";
 import FileCreateForm from "components/composed/file/FileCreateForm";
-import { QueryWrapper } from "components/api";
 import type { FileCreateModalQuery as Query } from "__generated__/FileCreateModalQuery.graphql";
 import { useRouteSlug } from "hooks";
 
