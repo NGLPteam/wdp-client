@@ -1,7 +1,9 @@
 import React, { useCallback } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 import { OrderDefinition } from "types/graphql-schema";
+import { IconFactory } from "components/factories";
 
 export default function OrderDefinitionSelectedList({
   value,
@@ -73,18 +75,20 @@ export default function OrderDefinitionSelectedList({
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <button
+                      <Styled.DirectionButton
                         type="button"
                         onClick={(e) => handleDirection(e, i)}
                       >
-                        {`${
-                          options.find((o) => o.value === v.path)?.label ||
-                          v.path
-                        }, `}
-                        <span className="t-capitalize">
-                          {v.direction.toLowerCase()}
+                        <span>
+                          {options.find((o) => o.value === v.path)?.label ||
+                            v.path}
                         </span>
-                      </button>
+                        <IconFactory
+                          icon="chevron"
+                          rotate={v.direction === "ASCENDING" ? 0 : 180}
+                          title={v.direction.toLowerCase()}
+                        />
+                      </Styled.DirectionButton>
                     </BaseArrayListItem>
                   )}
                 </Draggable>
