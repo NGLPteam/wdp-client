@@ -2,14 +2,13 @@ import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { Controller, useFormContext } from "react-hook-form";
-import { useSchemaFormContext } from "../../Context";
 import ScalarProperty from "../ScalarProperty";
 import Multiselect from "components/forms/Multiselect";
-
+import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
 import type { ContributorsPropertyFragment$key } from "@/relay/ContributorsPropertyFragment.graphql";
 
 export default function ContributorsProperty(props: Props) {
-  const { contributors: options } = useSchemaFormContext();
+  const { assets: options } = useSchemaFormFieldsContext();
 
   const field = useFragment<ContributorsPropertyFragment$key>(
     fragment,
