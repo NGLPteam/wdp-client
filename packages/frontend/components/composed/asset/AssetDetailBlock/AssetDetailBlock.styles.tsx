@@ -10,7 +10,7 @@ export const Section = styled.section`
   }
 `;
 
-export const TextBlock = styled.div`
+export const ContentBlock = styled.div`
   > * + * {
     margin-block-start: ${pxToRem(20)};
   }
