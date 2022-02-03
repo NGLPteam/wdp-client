@@ -35,3 +35,10 @@ export function tLabel(style: "sm" | "lg" | "mix") {
     line-height: var(--line-height-label-${style});
   `;
 }
+
+// Base list styling
+export const tList = css`
+  padding: 0;
+  margin-inline-start: 1.25rem;
+  list-style-position: outside;
+`;

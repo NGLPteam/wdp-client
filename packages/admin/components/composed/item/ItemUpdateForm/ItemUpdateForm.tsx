@@ -153,8 +153,8 @@ export default function ItemUpdateForm({
           />
           <Forms.Textarea
             label="forms.fields.summary"
-            {...register("summary")}
             isWide
+            {...register("summary")}
           />
           <Forms.VariablePrecisionDateControl
             name="published"

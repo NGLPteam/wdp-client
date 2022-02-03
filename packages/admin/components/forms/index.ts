@@ -32,3 +32,4 @@ export { default as SchemaCheckboxGroup } from "./SchemaCheckboxGroup";
 export { default as Multiselect } from "./Multiselect";
 export { default as AssetsPropertyControl } from "./AssetsPropertyControl";
 export { default as VisibilityFields } from "./VisibilityFields";
+export { default as RichTextareaControl } from "./RichTextareaControl";
