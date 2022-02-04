@@ -12,10 +12,10 @@ export type CollectionAddDrawerQueryVariables = {
 };
 export type CollectionAddDrawerQueryResponse = {
     readonly collection: {
-        readonly id: string;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionAddFormParentFragment">;
     } | null;
     readonly community: {
-        readonly id: string;
+        readonly " $fragmentRefs": FragmentRefs<"CollectionAddFormParentFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"CollectionAddFormFragment">;
 };
@@ -32,9 +32,11 @@ query CollectionAddDrawerQuery(
   $schemaKind: SchemaKind!
 ) {
   collection(slug: $parentSlug) {
+    ...CollectionAddFormParentFragment
     id
   }
   community(slug: $parentSlug) {
+    ...CollectionAddFormParentFragment
     id
   }
   ...CollectionAddFormFragment
@@ -43,6 +45,15 @@ query CollectionAddDrawerQuery(
 fragment CollectionAddFormFragment on Query {
   ...SchemaSelectFragment
   ...CommunitySelectFragment
+}
+
+fragment CollectionAddFormParentFragment on Entity {
+  __isEntity: __typename
+  ... on Node {
+    __isNode: __typename
+    id
+  }
+  ...SchemaSelectParentFragment
 }
 
 fragment CommunitySelectFragment on Query {
@@ -60,6 +71,18 @@ fragment SchemaSelectFragment on Query {
   schemaVersionOptions(kind: $schemaKind) {
     label
     value
+    identifier
+    namespace
+  }
+}
+
+fragment SchemaSelectParentFragment on Entity {
+  __isEntity: __typename
+  schemaRanks {
+    identifier
+    namespace
+    kind
+    id
   }
 }
 */
@@ -84,36 +107,69 @@ v1 = [
     "variableName": "parentSlug"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "CollectionAddFormParentFragment"
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = [
-  (v2/*: any*/)
-],
 v4 = {
   "alias": null,
-  "args": (v1/*: any*/),
-  "concreteType": "Collection",
-  "kind": "LinkedField",
-  "name": "collection",
-  "plural": false,
-  "selections": (v3/*: any*/),
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
   "storageKey": null
 },
 v5 = {
   "alias": null,
-  "args": (v1/*: any*/),
-  "concreteType": "Community",
-  "kind": "LinkedField",
-  "name": "community",
-  "plural": false,
-  "selections": (v3/*: any*/),
+  "args": null,
+  "kind": "ScalarField",
+  "name": "namespace",
   "storageKey": null
-};
+},
+v6 = [
+  (v3/*: any*/),
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "HierarchicalSchemaRank",
+        "kind": "LinkedField",
+        "name": "schemaRanks",
+        "plural": true,
+        "selections": [
+          (v4/*: any*/),
+          (v5/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "kind",
+            "storageKey": null
+          },
+          (v3/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "kind": "TypeDiscriminator",
+        "abstractKey": "__isNode"
+      }
+    ],
+    "type": "Entity",
+    "abstractKey": "__isEntity"
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -121,8 +177,26 @@ return {
     "metadata": null,
     "name": "CollectionAddDrawerQuery",
     "selections": [
-      (v4/*: any*/),
-      (v5/*: any*/),
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v2/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Community",
+        "kind": "LinkedField",
+        "name": "community",
+        "plural": false,
+        "selections": (v2/*: any*/),
+        "storageKey": null
+      },
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -138,8 +212,26 @@ return {
     "kind": "Operation",
     "name": "CollectionAddDrawerQuery",
     "selections": [
-      (v4/*: any*/),
-      (v5/*: any*/),
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v6/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Community",
+        "kind": "LinkedField",
+        "name": "community",
+        "plural": false,
+        "selections": (v6/*: any*/),
+        "storageKey": null
+      },
       {
         "alias": null,
         "args": [
@@ -167,7 +259,9 @@ return {
             "kind": "ScalarField",
             "name": "value",
             "storageKey": null
-          }
+          },
+          (v4/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       },
@@ -195,7 +289,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -215,14 +309,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ff40218c6fe9061a23bcb28d75b0ccbe",
+    "cacheID": "b86915b8cbbde8738b7c51fe4e3ec76e",
     "id": null,
     "metadata": {},
     "name": "CollectionAddDrawerQuery",
     "operationKind": "query",
-    "text": "query CollectionAddDrawerQuery(\n  $parentSlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  collection(slug: $parentSlug) {\n    id\n  }\n  community(slug: $parentSlug) {\n    id\n  }\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
+    "text": "query CollectionAddDrawerQuery(\n  $parentSlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  collection(slug: $parentSlug) {\n    ...CollectionAddFormParentFragment\n    id\n  }\n  community(slug: $parentSlug) {\n    ...CollectionAddFormParentFragment\n    id\n  }\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CollectionAddFormParentFragment on Entity {\n  __isEntity: __typename\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ...SchemaSelectParentFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n    identifier\n    namespace\n  }\n}\n\nfragment SchemaSelectParentFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    identifier\n    namespace\n    kind\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ab773d4f1d69ea7b0fac6bdeb935cd78';
+(node as any).hash = '915aece20dbc3874f8c940afcea0de63';
 export default node;

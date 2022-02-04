@@ -9,6 +9,8 @@ export type SchemaSelectFragment = {
     readonly schemaVersionOptions: ReadonlyArray<{
         readonly label: string;
         readonly value: string;
+        readonly identifier: string;
+        readonly namespace: string;
     }>;
     readonly " $refType": "SchemaSelectFragment";
 };
@@ -58,6 +60,20 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "value",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "namespace",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -66,5 +82,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'f82da6bde36b4909bd5787dcbfb19439';
+(node as any).hash = '95783194c8007296c770a2118e57e3d6';
 export default node;

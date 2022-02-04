@@ -34,6 +34,7 @@ export default function ItemAddDrawer({
               onSuccess={dialog.hide}
               onCancel={dialog.hide}
               data={data}
+              parentData={data.item || data.collection}
             />
           )}
         </Drawer>
@@ -45,5 +46,13 @@ export default function ItemAddDrawer({
 const query = graphql`
   query ItemAddDrawerQuery($entitySlug: Slug!, $schemaKind: SchemaKind!) {
     ...ItemAddFormFragment
+    item(slug: $entitySlug) {
+      id
+      ...ItemAddFormParentFragment
+    }
+    collection(slug: $entitySlug) {
+      id
+      ...ItemAddFormParentFragment
+    }
   }
 `;

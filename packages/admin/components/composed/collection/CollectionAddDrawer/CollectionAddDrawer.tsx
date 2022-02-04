@@ -34,9 +34,9 @@ export default function CollectionAddDrawer({
           {data && (
             <CollectionAddForm
               data={data}
+              parentData={data.community || data.collection}
               onSuccess={dialog.hide}
               onCancel={dialog.hide}
-              parentId={data?.collection?.id ?? data?.community?.id}
             />
           )}
         </Drawer>
@@ -70,10 +70,10 @@ export default function CollectionAddDrawer({
 const query = graphql`
   query CollectionAddDrawerQuery($parentSlug: Slug!, $schemaKind: SchemaKind!) {
     collection(slug: $parentSlug) {
-      id
+      ...CollectionAddFormParentFragment
     }
     community(slug: $parentSlug) {
-      id
+      ...CollectionAddFormParentFragment
     }
     ...CollectionAddFormFragment
   }

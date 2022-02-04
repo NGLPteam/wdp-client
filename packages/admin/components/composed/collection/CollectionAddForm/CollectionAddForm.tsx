@@ -9,25 +9,28 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { sanitizeDateField } from "helpers";
 import { RouteHelper } from "routes";
-import { useLocalStorage } from "hooks";
+import { useLocalStorage, useMaybeFragment } from "hooks";
 
 import type { CollectionAddFormFragment$key } from "@/relay/CollectionAddFormFragment.graphql";
 import type {
   CreateCollectionInput,
   CollectionAddFormMutation,
 } from "@/relay/CollectionAddFormMutation.graphql";
+import { CollectionAddFormParentFragment$key } from "@/relay/CollectionAddFormParentFragment.graphql";
 
 export default function AddCollectionForm({
   onSuccess,
   onCancel,
   data,
-  parentId,
+  parentData,
 }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
     true
   );
+
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
+
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
     setRedirectOnSuccess(e.target.checked);
 
@@ -63,6 +66,7 @@ export default function AddCollectionForm({
     },
     [onSuccess, redirect]
   );
+
   const onSuccessNoRedirect = ({
     response,
     values,
@@ -78,13 +82,18 @@ export default function AddCollectionForm({
 
   const formData = useFragment<CollectionAddFormFragment$key>(fragment, data);
 
+  const parentEntity = useMaybeFragment<CollectionAddFormParentFragment$key>(
+    parentFragment,
+    parentData
+  );
+
   const toVariables = useToVariables<CollectionAddFormMutation, Fields>(
     (data) => ({
       input: {
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        parentId: parentId || data.parentId || "",
+        parentId: data.parentId || parentEntity?.id || "",
       },
     }),
     []
@@ -97,7 +106,7 @@ export default function AddCollectionForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        {!parentId && (
+        {!parentEntity?.id && (
           <Forms.CommunitySelect
             label="forms.fields.community"
             data={formData}
@@ -121,6 +130,7 @@ export default function AddCollectionForm({
           <Forms.SchemaSelect
             label="forms.schema.label"
             data={formData}
+            parentData={parentEntity}
             required
             {...register("schemaVersionSlug")}
           />
@@ -185,7 +195,7 @@ type Props = Pick<
   "onSuccess" | "onCancel"
 > & {
   data: CollectionAddFormFragment$key;
-  parentId?: string;
+  parentData?: CollectionAddFormParentFragment$key | null;
 };
 
 type Fields = Omit<CreateCollectionInput, "clientMutationId">;
@@ -196,6 +206,15 @@ const fragment = graphql`
     ...SchemaSelectFragment
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...CommunitySelectFragment
+  }
+`;
+
+const parentFragment = graphql`
+  fragment CollectionAddFormParentFragment on Entity {
+    ... on Node {
+      id
+    }
+    ...SchemaSelectParentFragment
   }
 `;
 

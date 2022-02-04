@@ -8,7 +8,7 @@ import MutationForm, {
   useOnSuccess,
 } from "components/api/MutationForm";
 import { RouteHelper } from "routes";
-import { useLocalStorage } from "hooks";
+import { useLocalStorage, useMaybeFragment } from "hooks";
 
 import type {
   ItemAddFormMutation,
@@ -16,8 +16,14 @@ import type {
 } from "@/relay/ItemAddFormMutation.graphql";
 import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphql";
 import { sanitizeDateField } from "helpers";
+import { ItemAddFormParentFragment$key } from "@/relay/ItemAddFormParentFragment.graphql";
 
-export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
+export default function ItemAddForm({
+  onSuccess,
+  onCancel,
+  data,
+  parentData,
+}: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
     true
@@ -72,13 +78,18 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
 
   const formData = useFragment<ItemAddFormFragment$key>(fragment, data);
 
+  const parentEntity = useMaybeFragment<ItemAddFormParentFragment$key>(
+    parentFragment,
+    parentData
+  );
+
   const toVariables = useToVariables<ItemAddFormMutation, Fields>(
     (data) => ({
       input: {
         ...data,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        parentId: formData.item?.id ?? formData.collection?.id ?? "",
+        parentId: parentEntity?.id || "",
       },
     }),
     []
@@ -107,6 +118,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           <Forms.SchemaSelect
             label="forms.schema.label"
             data={formData}
+            parentData={parentEntity}
             required
             {...register("schemaVersionSlug")}
           />
@@ -172,18 +184,22 @@ type Props = Pick<
   "onSuccess" | "onCancel"
 > & {
   data: ItemAddFormFragment$key;
+  parentData?: ItemAddFormParentFragment$key | null;
 };
 
 const fragment = graphql`
   fragment ItemAddFormFragment on Query {
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...SchemaSelectFragment
-    item(slug: $entitySlug) {
+  }
+`;
+
+const parentFragment = graphql`
+  fragment ItemAddFormParentFragment on Entity {
+    ... on Node {
       id
     }
-    collection(slug: $entitySlug) {
-      id
-    }
+    ...SchemaSelectParentFragment
   }
 `;
 

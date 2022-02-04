@@ -46,6 +46,8 @@ fragment SchemaSelectFragment on Query {
   schemaVersionOptions(kind: $schemaKind) {
     label
     value
+    identifier
+    namespace
   }
 }
 */
@@ -107,6 +109,20 @@ return {
             "kind": "ScalarField",
             "name": "value",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "namespace",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -161,12 +177,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a0262bffd549e448765735e09364363d",
+    "cacheID": "caf2140668944da162062a5d8c2671a4",
     "id": null,
     "metadata": {},
     "name": "CollectionAddDrawerRootQuery",
     "operationKind": "query",
-    "text": "query CollectionAddDrawerRootQuery(\n  $schemaKind: SchemaKind!\n) {\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
+    "text": "query CollectionAddDrawerRootQuery(\n  $schemaKind: SchemaKind!\n) {\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n    identifier\n    namespace\n  }\n}\n"
   }
 };
 })();
