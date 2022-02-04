@@ -31,3 +31,4 @@ export { default as OrderDefinitionSelectControl } from "./OrderDefinitionSelect
 export { default as SchemaCheckboxGroup } from "./SchemaCheckboxGroup";
 export { default as Multiselect } from "./Multiselect";
 export { default as AssetsPropertyControl } from "./AssetsPropertyControl";
+export { default as VisibilityFields } from "./VisibilityFields";

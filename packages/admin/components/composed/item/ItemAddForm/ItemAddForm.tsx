@@ -89,7 +89,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   };
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register, watch } }) => (
+    ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input
           label="forms.fields.title"
@@ -102,17 +102,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           isWide
           {...register("subtitle")}
         />
-        <Forms.Select
-          label="forms.fields.visibility"
-          options={[
-            { label: "Visible", value: "VISIBLE" },
-            { label: "Hidden", value: "HIDDEN" },
-            { label: "Limited", value: "LIMITED" },
-          ]}
-          isWide
-          {...register("visibility")}
-          required
-        />
+        <Forms.VisibilityFields />
         {formData && (
           <Forms.SchemaSelect
             label="forms.schema.label"
@@ -125,18 +115,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
         <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
-        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.DatePicker
-            label="forms.fields.visible_after"
-            {...register("visibleAfterAt")}
-          />
-        </Forms.HiddenField>
-        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.DatePicker
-            label="forms.fields.visible_until"
-            {...register("visibleUntilAt")}
-          />
-        </Forms.HiddenField>
+
         <Forms.VariablePrecisionDateControl
           name="published"
           label="forms.fields.published"
