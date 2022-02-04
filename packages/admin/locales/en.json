@@ -337,7 +337,8 @@
         "theme_font": "Font Theme",
         "theme_font_description": "Set the app font theme across all communities.",
         "logo": "Logo",
-        "position": "Position"
+        "position": "Position",
+        "select_placeholder": "Select an option"
       },
       "validation": {
         "year": "Must be a four digit year",
