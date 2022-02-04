@@ -95,7 +95,7 @@ export default function AddCollectionForm({
   };
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register, watch } }) => (
+    ({ form: { register } }) => (
       <Forms.Grid>
         {!parentId && (
           <Forms.CommunitySelect
@@ -116,28 +116,7 @@ export default function AddCollectionForm({
           isWide
           {...register("subtitle")}
         />
-        <Forms.Select
-          options={[
-            { label: "Visible", value: "VISIBLE" },
-            { label: "Hidden", value: "HIDDEN" },
-            { label: "Limited", value: "LIMITED" },
-          ]}
-          label="forms.fields.visibility"
-          required
-          {...register("visibility")}
-        />
-        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.DatePicker
-            label="forms.fields.visible_after"
-            {...register("visibleAfterAt")}
-          />
-        </Forms.HiddenField>
-        <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-          <Forms.DatePicker
-            label="forms.fields.visible_until"
-            {...register("visibleUntilAt")}
-          />
-        </Forms.HiddenField>
+        <Forms.VisibilityFields />
         {formData && (
           <Forms.SchemaSelect
             label="forms.schema.label"
