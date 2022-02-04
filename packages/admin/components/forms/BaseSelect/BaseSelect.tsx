@@ -14,7 +14,7 @@ const BaseSelect = forwardRef(
     return (
       <Styled.SelectWrapper>
         <Styled.SelectInput id={id} ref={ref} {...inputProps}>
-          <option value="">{placeholder}</option>
+          {placeholder && <option value="">{placeholder}</option>}
           {options.map(({ value, label }, i) => (
             <option key={i} value={value}>
               {label}
