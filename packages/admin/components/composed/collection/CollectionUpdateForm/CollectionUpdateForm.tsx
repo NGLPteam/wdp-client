@@ -151,6 +151,18 @@ export default function CollectionUpdateForm({
             isWide
             {...register("visibility")}
           />
+          <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+            <Forms.DatePicker
+              label="forms.fields.visible_after"
+              {...register("visibleAfterAt")}
+            />
+          </Forms.HiddenField>
+          <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
+            <Forms.DatePicker
+              label="forms.fields.visible_until"
+              {...register("visibleUntilAt")}
+            />
+          </Forms.HiddenField>
           <Forms.Input label="forms.fields.doi" {...register("doi")} />
           <Forms.Input label="forms.fields.issn" {...register("issn")} />
           <Forms.FileUpload
@@ -170,18 +182,6 @@ export default function CollectionUpdateForm({
             isWide
             {...register("summary")}
           />
-          <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-            <Forms.DatePicker
-              label="forms.fields.visible_after"
-              {...register("visibleAfterAt")}
-            />
-          </Forms.HiddenField>
-          <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
-            <Forms.DatePicker
-              label="forms.fields.visible_until"
-              {...register("visibleUntilAt")}
-            />
-          </Forms.HiddenField>
           <Forms.VariablePrecisionDateControl
             name="published"
             data={published}

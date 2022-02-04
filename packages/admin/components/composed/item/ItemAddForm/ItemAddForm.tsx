@@ -113,18 +113,6 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           {...register("visibility")}
           required
         />
-        {formData && (
-          <Forms.SchemaSelect
-            label="forms.schema.label"
-            data={formData}
-            required
-            {...register("schemaVersionSlug")}
-          />
-        )}
-        <Forms.Input label="forms.fields.doi" {...register("doi")} />
-        <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
-        <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
-        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
         <Forms.HiddenField watch={watch} field="visibility" showOn="LIMITED">
           <Forms.DatePicker
             label="forms.fields.visible_after"
@@ -137,6 +125,19 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
             {...register("visibleUntilAt")}
           />
         </Forms.HiddenField>
+        {formData && (
+          <Forms.SchemaSelect
+            label="forms.schema.label"
+            data={formData}
+            required
+            {...register("schemaVersionSlug")}
+          />
+        )}
+        <Forms.Input label="forms.fields.doi" {...register("doi")} />
+        <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
+        <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
+
         <Forms.VariablePrecisionDateControl
           name="published"
           label="forms.fields.published"
