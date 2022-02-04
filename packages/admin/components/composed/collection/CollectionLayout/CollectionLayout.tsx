@@ -56,8 +56,8 @@ export default function CollectionLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ItemCreateButton parentSlug={slug} />
-      <CollectionCreateButton parentSlug={slug} />
+      <ItemCreateButton data={collection} />
+      <CollectionCreateButton data={collection} />
       <ButtonControlView
         href={`${process.env.NEXT_PUBLIC_FE_URL}/collections/${slug}`}
       >
@@ -107,5 +107,7 @@ const fragment = graphql`
     slug
     id
     ...useBreadcrumbsFragment
+    ...CollectionCreateButtonFragment
+    ...ItemCreateButtonFragment
   }
 `;

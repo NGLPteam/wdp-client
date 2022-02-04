@@ -38,11 +38,25 @@ fragment AuthContextFragment on Entity {
   allowedActions
 }
 
+fragment CollectionCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment CollectionLayoutFragment on Collection {
   title
   slug
   id
   ...useBreadcrumbsFragment
+  ...CollectionCreateButtonFragment
+  ...ItemCreateButtonFragment
 }
 
 fragment CollectionLayoutQueryFragment on Collection {
@@ -97,6 +111,18 @@ fragment EntityLinksListFragment on AnyEntity {
     links(page: $page) {
       ...EntityLinksListDataFragment
     }
+  }
+}
+
+fragment ItemCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
   }
 }
 
@@ -438,6 +464,19 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  (v6/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "kind": "ScalarField",
                 "name": "allowedActions",
                 "storageKey": null
@@ -475,12 +514,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "29e1589c2fd3efbb69466c9626ca0b28",
+    "cacheID": "487ad792203c4d9cfb6dcea85e726e60",
     "id": null,
     "metadata": {},
     "name": "linksManageCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query linksManageCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityLinksListDataFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
+    "text": "query linksManageCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...EntityLinksListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...CollectionCreateButtonFragment\n  ...ItemCreateButtonFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityLinksListDataFragment on EntityLinkConnection {\n  nodes {\n    id\n    slug\n    operator\n    target {\n      __typename\n      ... on Item {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Collection {\n        slug\n        title\n        schemaDefinition {\n          name\n          kind\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityLinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    links(page: $page) {\n      ...EntityLinksListDataFragment\n    }\n  }\n}\n\nfragment ItemCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();

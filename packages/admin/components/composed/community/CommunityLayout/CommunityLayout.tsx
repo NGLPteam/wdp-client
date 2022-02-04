@@ -53,7 +53,7 @@ export default function CommunityLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <CollectionCreateButton parentSlug={slug} />
+      <CollectionCreateButton data={community} />
       <ButtonControlView
         href={`${process.env.NEXT_PUBLIC_FE_URL}/communities/${slug}`}
       >
@@ -100,6 +100,6 @@ const fragment = graphql`
   fragment CommunityLayoutFragment on Community {
     id
     name
-    slug
+    ...CollectionCreateButtonFragment
   }
 `;

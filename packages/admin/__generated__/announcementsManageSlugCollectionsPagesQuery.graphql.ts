@@ -38,11 +38,25 @@ fragment AuthContextFragment on Entity {
   allowedActions
 }
 
+fragment CollectionCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment CollectionLayoutFragment on Collection {
   title
   slug
   id
   ...useBreadcrumbsFragment
+  ...CollectionCreateButtonFragment
+  ...ItemCreateButtonFragment
 }
 
 fragment CollectionLayoutQueryFragment on Collection {
@@ -81,6 +95,18 @@ fragment EntityAnnouncementsListFragment on AnyEntity {
     announcements(page: $page, perPage: 20) {
       ...EntityAnnouncementsListDataFragment
     }
+  }
+}
+
+fragment ItemCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
   }
 }
 
@@ -283,7 +309,14 @@ v4 = [
     ],
     "storageKey": null
   }
-];
+],
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -396,14 +429,21 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  (v5/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -429,12 +469,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "16c16380642482982866195ad9794464",
+    "cacheID": "8919d312b9fec5ebea68875d7d20c904",
     "id": null,
     "metadata": {},
     "name": "announcementsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query announcementsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...EntityAnnouncementsListFragment\n    ...CollectionLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
+    "text": "query announcementsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...EntityAnnouncementsListFragment\n    ...CollectionLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...CollectionCreateButtonFragment\n  ...ItemCreateButtonFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ItemCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();

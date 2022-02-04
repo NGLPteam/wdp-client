@@ -35,11 +35,24 @@ fragment AuthContextFragment on Entity {
   allowedActions
 }
 
+fragment ItemCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment ItemLayoutFragment on Item {
   title
   slug
   id
   ...useBreadcrumbsFragment
+  ...ItemCreateButtonFragment
 }
 
 fragment ItemLayoutQueryFragment on Item {
@@ -92,6 +105,13 @@ v3 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
   "storageKey": null
 };
 return {
@@ -176,14 +196,21 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -209,12 +236,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e410fb5d84fd3c9bcb0a1e70ceab917e",
+    "cacheID": "5c413a36c4e2fd5309ae94c47d49fa94",
     "id": null,
     "metadata": {},
     "name": "rulesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
+    "text": "query rulesManageSlugItemsQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...ItemCreateButtonFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();

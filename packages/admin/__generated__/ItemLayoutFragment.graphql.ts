@@ -9,7 +9,7 @@ export type ItemLayoutFragment = {
     readonly title: string;
     readonly slug: string;
     readonly id: string;
-    readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment" | "ItemCreateButtonFragment">;
     readonly " $refType": "ItemLayoutFragment";
 };
 export type ItemLayoutFragment$data = ItemLayoutFragment;
@@ -51,10 +51,15 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ItemCreateButtonFragment"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '32fa1fd291dd2e6213706568226a237b';
+(node as any).hash = 'a8aef97f538b7f4e25f0fa2d61e04aea';
 export default node;

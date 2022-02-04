@@ -35,10 +35,22 @@ fragment AuthContextFragment on Entity {
   allowedActions
 }
 
+fragment CollectionCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment CommunityLayoutFragment on Community {
   id
   name
-  slug
+  ...CollectionCreateButtonFragment
 }
 
 fragment CommunityLayoutQueryFragment on Community {
@@ -61,7 +73,14 @@ v1 = [
     "name": "slug",
     "variableName": "communitySlug"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -103,13 +122,7 @@ return {
         "name": "community",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -118,21 +131,47 @@ return {
             "storageKey": null
           },
           {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "slug",
-            "storageKey": null
-          },
-          {
             "kind": "InlineFragment",
             "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "allowedActions",
                 "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  }
+                ],
+                "type": "Sluggable",
+                "abstractKey": "__isSluggable"
               }
             ],
             "type": "Entity",
@@ -144,12 +183,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "770e4eb1d8ad8f93e0cfe9eacdd6ab8a",
+    "cacheID": "8724933ef22946b889ddd2f39f0c34e8",
     "id": null,
     "metadata": {},
     "name": "rolesManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query rolesManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n"
+    "text": "query rolesManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n) {\n  community(slug: $communitySlug) {\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  ...CollectionCreateButtonFragment\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n"
   }
 };
 })();

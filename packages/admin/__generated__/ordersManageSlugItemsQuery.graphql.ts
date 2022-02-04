@@ -69,11 +69,24 @@ fragment EntityOrderingListFragment on AnyEntity {
   }
 }
 
+fragment ItemCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment ItemLayoutFragment on Item {
   title
   slug
   id
   ...useBreadcrumbsFragment
+  ...ItemCreateButtonFragment
 }
 
 fragment ItemLayoutQueryFragment on Item {
@@ -159,7 +172,14 @@ v3 = {
   "name": "id",
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v5 = [
   {
     "alias": null,
     "args": [
@@ -384,14 +404,21 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -416,13 +443,13 @@ return {
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               }
@@ -436,12 +463,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "739d6f7c650563494c53a138e4bfd0fc",
+    "cacheID": "cd8dfb2fa89c268c83016e465a13e5cd",
     "id": null,
     "metadata": {},
     "name": "ordersManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityOrderingListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
+    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityOrderingListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n}\n\nfragment ItemCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...ItemCreateButtonFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();

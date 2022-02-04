@@ -38,10 +38,22 @@ fragment AuthContextFragment on Entity {
   allowedActions
 }
 
+fragment CollectionCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment CommunityLayoutFragment on Community {
   id
   name
-  slug
+  ...CollectionCreateButtonFragment
 }
 
 fragment CommunityLayoutQueryFragment on Community {
@@ -174,7 +186,16 @@ v3 = {
   "name": "slug",
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v3/*: any*/)
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
+},
+v5 = [
+  (v3/*: any*/),
   {
     "alias": null,
     "args": [
@@ -234,14 +255,7 @@ v4 = [
                     "name": "__typename",
                     "storageKey": null
                   },
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      (v3/*: any*/)
-                    ],
-                    "type": "Sluggable",
-                    "abstractKey": "__isSluggable"
-                  },
+                  (v4/*: any*/),
                   {
                     "kind": "InlineFragment",
                     "selections": [
@@ -452,25 +466,24 @@ return {
             "name": "name",
             "storageKey": null
           },
-          (v3/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               }
@@ -484,10 +497,30 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "kind",
+                    "storageKey": null
+                  },
+                  (v2/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "kind": "ScalarField",
                 "name": "allowedActions",
                 "storageKey": null
-              }
+              },
+              (v4/*: any*/)
             ],
             "type": "Entity",
             "abstractKey": "__isEntity"
@@ -498,12 +531,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "53e4bfacdfc631dafe627f5914854ff6",
+    "cacheID": "0bd052ca4807e5df94238889a7d41843",
     "id": null,
     "metadata": {},
     "name": "pagesManageSlugCommunityPagesQuery",
     "operationKind": "query",
-    "text": "query pagesManageSlugCommunityPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityPagesListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      entity {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...PageHeroColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PageHeroColumnFragment on Page {\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query pagesManageSlugCommunityPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityPagesListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  ...CollectionCreateButtonFragment\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      entity {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...PageHeroColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PageHeroColumnFragment on Page {\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

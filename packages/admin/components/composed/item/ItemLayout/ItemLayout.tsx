@@ -55,7 +55,7 @@ export default function ItemLayout({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ItemCreateButton parentSlug={slug} />
+      <ItemCreateButton data={item} />
       <ButtonControlView
         href={`${process.env.NEXT_PUBLIC_FE_URL}/items/${slug}`}
       >
@@ -105,5 +105,6 @@ const fragment = graphql`
     slug
     id
     ...useBreadcrumbsFragment
+    ...ItemCreateButtonFragment
   }
 `;

@@ -47,11 +47,25 @@ fragment AvatarFragment on ImageAttachment {
   }
 }
 
+fragment CollectionCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
+}
+
 fragment CollectionLayoutFragment on Collection {
   title
   slug
   id
   ...useBreadcrumbsFragment
+  ...CollectionCreateButtonFragment
+  ...ItemCreateButtonFragment
 }
 
 fragment CollectionLayoutQueryFragment on Collection {
@@ -65,6 +79,18 @@ fragment ImageFragment on Image {
   url
   width
   height
+}
+
+fragment ItemCreateButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+  schemaRanks {
+    kind
+    id
+  }
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -275,7 +301,14 @@ v4 = {
   "name": "__typename",
   "storageKey": null
 },
-v5 = [
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "page",
@@ -287,14 +320,14 @@ v5 = [
     "value": 20
   }
 ],
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": "Role",
@@ -303,18 +336,18 @@ v7 = {
   "plural": false,
   "selections": [
     (v3/*: any*/),
-    (v6/*: any*/)
+    (v7/*: any*/)
   ],
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -389,7 +422,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -399,16 +432,16 @@ v10 = {
   "selections": [
     (v3/*: any*/),
     (v2/*: any*/),
-    (v6/*: any*/),
-    (v8/*: any*/),
-    (v9/*: any*/)
+    (v7/*: any*/),
+    (v9/*: any*/),
+    (v10/*: any*/)
   ],
   "storageKey": null
 },
-v11 = [
+v12 = [
   (v3/*: any*/)
 ],
-v12 = {
+v13 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -549,14 +582,21 @@ return {
                     "name": "label",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HierarchicalSchemaRank",
+                "kind": "LinkedField",
+                "name": "schemaRanks",
+                "plural": true,
+                "selections": [
+                  (v5/*: any*/),
                   (v3/*: any*/)
                 ],
                 "storageKey": null
@@ -570,7 +610,7 @@ return {
               },
               {
                 "alias": null,
-                "args": (v5/*: any*/),
+                "args": (v6/*: any*/),
                 "concreteType": "AnyAccessGrantConnection",
                 "kind": "LinkedField",
                 "name": "allAccessGrants",
@@ -598,8 +638,8 @@ return {
                             "selections": [
                               (v3/*: any*/),
                               (v2/*: any*/),
-                              (v7/*: any*/),
-                              (v10/*: any*/),
+                              (v8/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": "entity",
                                 "args": null,
@@ -607,7 +647,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "collection",
                                 "plural": false,
-                                "selections": (v11/*: any*/),
+                                "selections": (v12/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -619,8 +659,8 @@ return {
                             "selections": [
                               (v3/*: any*/),
                               (v2/*: any*/),
-                              (v7/*: any*/),
-                              (v10/*: any*/),
+                              (v8/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": "entity",
                                 "args": null,
@@ -628,7 +668,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "item",
                                 "plural": false,
-                                "selections": (v11/*: any*/),
+                                "selections": (v12/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -640,8 +680,8 @@ return {
                             "selections": [
                               (v3/*: any*/),
                               (v2/*: any*/),
-                              (v7/*: any*/),
-                              (v10/*: any*/),
+                              (v8/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": "entity",
                                 "args": null,
@@ -649,7 +689,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "community",
                                 "plural": false,
-                                "selections": (v11/*: any*/),
+                                "selections": (v12/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -658,7 +698,7 @@ return {
                           },
                           {
                             "kind": "InlineFragment",
-                            "selections": (v11/*: any*/),
+                            "selections": (v12/*: any*/),
                             "type": "Node",
                             "abstractKey": "__isNode"
                           }
@@ -668,13 +708,13 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v12/*: any*/)
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
               {
                 "alias": null,
-                "args": (v5/*: any*/),
+                "args": (v6/*: any*/),
                 "concreteType": "ContextualPermissionConnection",
                 "kind": "LinkedField",
                 "name": "assignedUsers",
@@ -705,7 +745,7 @@ return {
                             "name": "roles",
                             "plural": true,
                             "selections": [
-                              (v6/*: any*/),
+                              (v7/*: any*/),
                               (v3/*: any*/)
                             ],
                             "storageKey": null
@@ -719,10 +759,10 @@ return {
                             "plural": false,
                             "selections": [
                               (v3/*: any*/),
-                              (v6/*: any*/),
-                              (v8/*: any*/),
+                              (v7/*: any*/),
+                              (v9/*: any*/),
                               (v2/*: any*/),
-                              (v9/*: any*/)
+                              (v10/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -732,7 +772,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v12/*: any*/)
+                  (v13/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -750,12 +790,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c605e918dc48e82356661b44e3df7685",
+    "cacheID": "93517c4b4dee3695b06f11b7290c862e",
     "id": null,
     "metadata": {},
     "name": "accessManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: collection {\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: item {\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: community {\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessGrantsListFragment on Entity {\n  __isEntity: __typename\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessGrantsListDataFragment\n  }\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  ...RoleAccessGrantsListFragment\n  ...RoleAssignedUsersListFragment\n}\n\nfragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        id\n        name\n        email\n        slug\n        ...UserNameColumnCellFragment\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAssignedUsersListFragment on Entity {\n  __isEntity: __typename\n  assignedUsers(page: $page, perPage: 20) {\n    ...RoleAssignedUsersListDataFragment\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
+    "text": "query accessManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment CollectionCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...CollectionCreateButtonFragment\n  ...ItemCreateButtonFragment\n}\n\nfragment CollectionLayoutQueryFragment on Collection {\n  ...CollectionLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemCreateButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  schemaRanks {\n    kind\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: collection {\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: item {\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: community {\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessGrantsListFragment on Entity {\n  __isEntity: __typename\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessGrantsListDataFragment\n  }\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  ...RoleAccessGrantsListFragment\n  ...RoleAssignedUsersListFragment\n}\n\nfragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        id\n        name\n        email\n        slug\n        ...UserNameColumnCellFragment\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAssignedUsersListFragment on Entity {\n  __isEntity: __typename\n  assignedUsers(page: $page, perPage: 20) {\n    ...RoleAssignedUsersListDataFragment\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n"
   }
 };
 })();
