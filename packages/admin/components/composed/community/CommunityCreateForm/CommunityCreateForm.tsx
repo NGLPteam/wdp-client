@@ -16,22 +16,35 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.title" {...register("title")} isWide />
+        <Forms.Input
+          label="forms.fields.title"
+          isWide
+          required
+          {...register("title")}
+        />
         <Forms.Input
           label="forms.fields.tagline"
           {...register("tagline")}
           isWide
         />
-        <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
-        <Forms.Select
-          label="forms.fields.hero_layout"
-          options={[
-            { label: "One Column", value: "ONE_COLUMN" },
-            { label: "Two Column", value: "TWO_COLUMN" },
-          ]}
-          isWide
-          {...register("heroImageLayout")}
-        />
+        <Forms.FileUpload label="forms.fields.logo" name="logo" />
+        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
+
+        <Forms.Fieldset label="Hero">
+          <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
+          <Forms.AltText {...register("heroImageMetadata.alt")} />
+          <Forms.Select
+            label="forms.fields.hero_layout"
+            options={[
+              { label: "One Column", value: "ONE_COLUMN" },
+              { label: "Two Column", value: "TWO_COLUMN" },
+            ]}
+            isWide
+            required
+            defaultValue="ONE_COLUMN"
+            {...register("heroImageLayout")}
+          />
+        </Forms.Fieldset>
       </Forms.Grid>
     ),
     []

@@ -35,7 +35,12 @@ export default function CommunityUpdateForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.title" {...register("title")} isWide />
+        <Forms.Input
+          label="forms.fields.title"
+          {...register("title")}
+          isWide
+          required
+        />
         <Forms.Input
           label="forms.fields.tagline"
           {...register("tagline")}
@@ -63,6 +68,8 @@ export default function CommunityUpdateForm({
               { label: "Two Column", value: "TWO_COLUMN" },
             ]}
             isWide
+            required
+            defaultValue="ONE_COLUMN"
             {...register("heroImageLayout")}
           />
         </Forms.Fieldset>
