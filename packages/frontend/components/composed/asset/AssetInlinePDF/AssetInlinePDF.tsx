@@ -3,9 +3,9 @@ import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useIsMounted } from "@wdp/lib/hooks";
+import AssetPDFPage from "../AssetPDFPage";
 import * as Styled from "./AssetInlinePDF.styles";
 import AssetInlinePDFNav from "./AssetInlinePDFNav";
-import AssetInlinePDFPages from "./AssetInlinePDFPages";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
 
@@ -60,7 +60,15 @@ export default function AssetInlinePDF({ data }: Props) {
                 <AssetInlinePDFNav numPages={numPages} pageId="page" />
               )}
               <Styled.PagesWrapper>
-                <AssetInlinePDFPages numPages={numPages} />
+                {[...Array(numPages).keys()].map((page) => (
+                  <div key={page} id={`page${page + 1}`}>
+                    <AssetPDFPage
+                      pageNumber={page + 1}
+                      showPageNumber
+                      pageLabel={"list.page_number"}
+                    />
+                  </div>
+                ))}
                 {numPages > 1 && (
                   <Styled.BackToTopWrapper>
                     <BackToTopButton onClick={handleBackToTop} />
