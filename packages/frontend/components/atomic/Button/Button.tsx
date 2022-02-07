@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import type { MaybeButtonRef } from "@wdp/lib/types/ref";
 import { IconFactory } from "../../factories";
 import * as Styles from "./Button.styles";
+
 type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
 /**
@@ -15,6 +16,7 @@ const Button = forwardRef(
       size = "lg",
       secondary,
       iconLeft,
+      hideLabelOnMobile,
       ...props
     }: Props & ButtonProps,
     ref: MaybeButtonRef
@@ -23,11 +25,20 @@ const Button = forwardRef(
     if (size !== "lg") className += `-${size}`;
 
     return (
-      <Styles.ButtonStyles ref={ref} className={className} {...props}>
+      <Styles.ButtonStyles
+        ref={ref}
+        className={className}
+        $hideLabelOnMobile={hideLabelOnMobile && icon}
+        {...props}
+      >
         {icon && iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
-        {children && <span>{children}</span>}
+        {children && (
+          <Styles.ButtonLabel $hideOnMobile={hideLabelOnMobile && icon}>
+            {children}
+          </Styles.ButtonLabel>
+        )}
         {icon && !iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
@@ -39,10 +50,12 @@ const Button = forwardRef(
 export default Button;
 
 interface Props {
-  /* Button size - Default large */
+  /** Button size - Default large */
   size?: "lg" | "sm";
-  /* Set to true for secondary style */
+  /** Set to true for secondary style */
   secondary?: boolean;
-  /* Show icon on the left */
+  /** Show icon on the left */
   iconLeft?: true;
+  /** Hide the label on mobile devices */
+  hideLabelOnMobile?: true;
 }

@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useWindowSize } from "@wdp/lib/hooks";
 import * as Styled from "./BackToTopBlock.styles";
-import { Button } from "components/atomic";
+import { BackToTopButton } from "components/atomic";
 
 /**
  * A block of content with a contained back to top button.
@@ -19,16 +18,12 @@ export default function BackToTopBlock({ className, children }: Props) {
 
   const size = useWindowSize();
 
-  const { t } = useTranslation();
-
   const handleClick = useCallback(() => {
-    let scrollTop = 0;
+    if (!elRef || !elRef.current || !document) return;
 
     // Get the top position
-    if (elRef && elRef.current) {
-      const bounding = elRef.current.getBoundingClientRect();
-      scrollTop = window.pageYOffset + bounding.top;
-    }
+    const bounding = elRef.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset + bounding.top;
 
     // Scroll to top
     document.body.scrollTop = scrollTop; // For Safari
@@ -49,9 +44,7 @@ export default function BackToTopBlock({ className, children }: Props) {
     <Styled.Section ref={elRef} className={className}>
       <Styled.ChildrenWrapper ref={childRef}>{children}</Styled.ChildrenWrapper>
       <Styled.ButtonWrapper hidden={hideButton}>
-        <Button onClick={handleClick} secondary icon="arrowUp">
-          {t("common.back_to_top")}
-        </Button>
+        <BackToTopButton hideLabelOnMobile onClick={handleClick} />
       </Styled.ButtonWrapper>
     </Styled.Section>
   );

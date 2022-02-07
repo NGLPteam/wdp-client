@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
-import AssetInlinePDF from "../AssetInlinePDF";
 import * as Styled from "./AssetDetailBlock.styles";
 import { AssetDetailBlockFragment$key } from "@/relay/AssetDetailBlockFragment.graphql";
 import {
@@ -37,8 +36,6 @@ export default function AssetDetailBlock({ data }: Props) {
             objectFit="contain"
             objectPosition="left"
           />
-        ) : asset.kind === "pdf" ? (
-          <AssetInlinePDF data={asset} />
         ) : null}
         <h3>{asset.name}</h3>
         <Styled.AssetInfo>
@@ -74,7 +71,6 @@ const fragment = graphql`
         storage
         ...ContentImageFragment
       }
-      ...AssetInlinePDFFragment
     }
     ... on AssetImage {
       updatedAt

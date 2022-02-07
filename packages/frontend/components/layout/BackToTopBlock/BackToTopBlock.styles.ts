@@ -1,6 +1,4 @@
-import { aHidden } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
-import { respond } from "theme/mixins";
 
 export const Section = styled.div`
   overflow: visible;
@@ -25,18 +23,4 @@ export const ButtonWrapper = styled.div`
   &[hidden] {
     display: none;
   }
-
-  ${respond(
-    `
-    > button > span {
-    ${aHidden} 
-    }
-
-    > button {
-      padding-left: var(--padding-sm);
-      padding-right: var(--padding-rg);
-    }
-  `,
-    30
-  )}
 `;
