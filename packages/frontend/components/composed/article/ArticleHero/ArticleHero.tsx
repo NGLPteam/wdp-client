@@ -33,14 +33,14 @@ export default function ArticleHero({ data }: Props) {
               data={article.contributions}
               itemSlug={article.slug}
             />
-            <p className="t-copy-lighter">
-              {article.published && (
+            {article.published?.value && (
+              <p className="t-copy-lighter">
                 <PrecisionDate
                   data={article.published}
                   label="common.published"
                 />
-              )}
-            </p>
+              </p>
+            )}
           </Styled.DataBlock>
           {article.summary && (
             <Styled.Summary>{article.summary}</Styled.Summary>
@@ -78,6 +78,7 @@ const fragment = graphql`
     ...DOIFragment
     published {
       ...PrecisionDateFragment
+      value
     }
     contributions {
       ...ContributorsListFragment

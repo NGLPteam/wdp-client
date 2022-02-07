@@ -3,7 +3,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { tHeading } from "theme/mixins/typography";
 
 export const HeroInner = styled.div`
-  padding-block-start: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
   padding-block-end: var(--container-padding-sm);
 `;
 

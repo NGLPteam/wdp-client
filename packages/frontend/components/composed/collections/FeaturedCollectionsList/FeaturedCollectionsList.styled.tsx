@@ -1,10 +1,10 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { fluidScale, lGrid, respond } from "theme/mixins";
+import { lGrid, respond } from "theme/mixins";
 
 export const SectionInner = styled.div`
   ${lGrid()}
-  padding-block-start: ${fluidScale("100px", "80px")};
+  padding-block-start: var(--container-padding-xl);
   padding-block-end: 100px;
 `;
 

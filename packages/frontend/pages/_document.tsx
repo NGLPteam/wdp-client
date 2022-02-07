@@ -110,6 +110,13 @@ export default class AppDocument extends Document<Props> {
                 type="font/woff2"
                 crossOrigin="anonymous"
               />
+              <link
+                rel="preload"
+                href={`/fonts/${font}.woff`}
+                as="font"
+                type="font/woff"
+                crossOrigin="anonymous"
+              />
             </React.Fragment>
           ))}
         </Head>

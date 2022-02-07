@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { respond } from "theme/mixins";
 
 export const Inner = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xl);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-xxl);
 `;
 
 export const Header = styled.div`

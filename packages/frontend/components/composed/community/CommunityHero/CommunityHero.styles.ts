@@ -30,10 +30,14 @@ export const HeroInner = styled.div`
   z-index: 1;
   flex-direction: column;
   justify-content: center;
-  padding-block-start: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+
+  @media print {
+    padding-block-end: var(--container-padding-md);
+  }
 
   [data-hero-image="true"] & {
-    padding-block-end: var(--container-padding-lg);
+    padding-block-end: var(--container-padding-md);
   }
 
   [data-hero-layout="ONE_COLUMN"] & {

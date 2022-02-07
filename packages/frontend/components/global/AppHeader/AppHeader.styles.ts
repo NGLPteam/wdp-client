@@ -8,6 +8,10 @@ export const Header = styled.header`
   padding-block-end: ${pxToRem(14)};
   min-height: ${pxToRem(60)};
 
+  @media print {
+    display: none;
+  }
+
   ${globalNavRespond(
     `
     ${aBgCustom10()}

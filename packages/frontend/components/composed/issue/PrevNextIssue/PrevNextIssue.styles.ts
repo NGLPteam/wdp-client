@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import { pxToRem } from "@wdp/lib/theme/functions";
 import { respond } from "theme/mixins";
 
 export const Inner = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 
   ${respond(
     `
     justify-content: center;
-    padding-block-start: ${pxToRem(80)};
-    padding-block-end: ${pxToRem(80)};
+    padding-block-start: var(--container-padding-lg);
+    padding-block-end: var(--container-padding-lg);
 
     > * + * {
       margin-inline-start: var(--grid-column-gap-lg);

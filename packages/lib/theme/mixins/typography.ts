@@ -9,7 +9,7 @@ export function embedFont(
       font-family: ${name};
       font-style: ${style};
       font-weight: ${weight};
-      font-display: block;
+      font-display: optional;
       src: url("/fonts/${filename}.woff2") format("woff2"),
         url("/fonts/${filename}.woff") format("woff");
     }

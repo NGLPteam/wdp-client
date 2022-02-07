@@ -6,6 +6,10 @@ export const Nav = styled.div`
   padding-block-start: ${pxToRem(36)};
   padding-block-end: ${pxToRem(36)};
   min-height: ${pxToRem(104)};
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const NavInner = styled.div`
@@ -32,4 +36,8 @@ export const LeftSide = styled.div`
 export const RightSide = styled.div`
   flex: 1 1 auto;
   max-width: ${pxToRem(376)};
+
+  @media print {
+    display: none;
+  }
 `;

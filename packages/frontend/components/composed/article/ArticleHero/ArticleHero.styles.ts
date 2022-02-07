@@ -51,10 +51,12 @@ export const TitleBlock = styled.div`
 `;
 
 export const DataBlock = styled.div`
-  padding-block-end: ${pxToRem(20)};
-
   > * + * {
     padding-block-start: var(--padding-xs);
+  }
+
+  > *:last-child {
+    padding-block-end: ${pxToRem(20)};
   }
 `;
 

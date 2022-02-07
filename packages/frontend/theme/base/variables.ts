@@ -2,6 +2,10 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 
 export type CSSVariableObj = Record<string, string>;
 
+export const baseSansSerifFont = "Arial, sans-serif";
+
+export const baseSerifFont = "Georgia, serif";
+
 // Base colors
 export const baseColors = {
   neutral100: "#000000",

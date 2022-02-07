@@ -6,8 +6,8 @@ export const Inner = styled.div`
   display: flex;
   align-items: flex-start;
   width: 100%;
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 `;
 
 export const AvatarWrapper = styled.div`

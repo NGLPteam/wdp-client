@@ -73,12 +73,14 @@ export function aBgNeutral80() {
 
 export function aBgNeutral90() {
   return css`
-    ${aBgNeutral80}
-    --background-color: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral60};
-    --button-secondary-bg-color: ${baseColors.neutral80};
+    @media screen {
+      ${aBgNeutral80}
+      --background-color: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral60};
+      --button-secondary-bg-color: ${baseColors.neutral80};
 
-    ${aBgProps}
+      ${aBgProps}
+    }
   `;
 }
 

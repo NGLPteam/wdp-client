@@ -15,6 +15,10 @@ export const Nav = styled.nav`
     display: none;
     `
   )}
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const LeftSide = styled.div``;
