@@ -17,6 +17,10 @@ export const DocumentWrapper = styled.div`
 export const PagesWrapper = styled.div`
   max-width: 100%;
   flex: 1 1 auto;
+
+  > * + * {
+    margin-block-start: var(--container-padding-lg);
+  }
 `;
 
 export const BackToTopWrapper = styled.div`
