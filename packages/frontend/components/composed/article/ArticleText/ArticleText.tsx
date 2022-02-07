@@ -7,7 +7,6 @@ import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
-// import AssetInlinePDF from "components/composed/asset/AssetInlinePDF";
 
 const AssetInlinePDF = dynamic(
   () => import("components/composed/asset/AssetInlinePDF"),

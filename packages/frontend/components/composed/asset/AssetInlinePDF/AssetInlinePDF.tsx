@@ -1,104 +1,75 @@
 import React, { useState, useMemo, useRef, useCallback } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
+import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useIsMounted, useWindowSize } from "@wdp/lib/hooks";
-import AssetDownloadButton from "../AssetDownloadButton";
+import { useIsMounted } from "@wdp/lib/hooks";
 import * as Styled from "./AssetInlinePDF.styles";
+import AssetInlinePDFNav from "./AssetInlinePDFNav";
+import AssetInlinePDFPages from "./AssetInlinePDFPages";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
-import BasePagination from "components/atomic/Pagination/BasePagination";
-import { LoadingBlock } from "components/atomic";
+import { BackToTopButton, LoadingBlock } from "components/atomic";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function AssetInlinePDF({ data }: Props) {
   const pdf = useMaybeFragment(fragment, data);
+
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [page, setPage] = useState<number>(1);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const docRef = useRef<HTMLDivElement>(null);
-
-  const file = useMemo(() => pdf?.downloadUrl, [pdf]); // "/pdf/Titanic.pdf";
+  const file = useMemo(() => pdf?.downloadUrl, [pdf]);
 
   const isMounted = useIsMounted();
 
-  const size = useWindowSize();
-
-  const width = useMemo(() => {
-    if (wrapperRef?.current) {
-      const bounding = wrapperRef.current.getBoundingClientRect();
-
-      return bounding.width;
-    }
-    return 400;
-    // Check sizing when window size changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wrapperRef, size]);
-
-  const height = useMemo(() => {
-    if (docRef?.current) {
-      const bounding = docRef.current.getBoundingClientRect();
-
-      return bounding.height;
-    }
-    return 400;
-    // Check sizing when page changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [docRef, page]);
-
-  const handleSubmit = useCallback(
-    ({ page }) => {
-      setPage(parseInt(page));
+  const onLoadSuccess = useCallback(
+    ({ numPages }) => {
+      setNumPages(numPages);
     },
-    [setPage]
+    [setNumPages]
   );
+
+  const handleBackToTop = () => {
+    if (!wrapperRef || !wrapperRef.current || !document) return;
+
+    const bounding = wrapperRef.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset + bounding.top;
+
+    // Scroll to top
+    document.body.scrollTop = scrollTop; // For Safari
+    document.documentElement.scrollTop = scrollTop; // For Chrome, Firefox, IE and Opera
+  };
 
   return (
     <Styled.Wrapper ref={wrapperRef}>
       {isMounted && file ? (
-        <>
-          {page && (
-            <Styled.PaginationWrapper>
-              <BasePagination
-                page={page}
-                pageCount={numPages}
-                onSubmit={handleSubmit}
-              />
-            </Styled.PaginationWrapper>
+        <Document
+          file={{
+            url: file,
+            httpHeaders: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }}
+          onLoadSuccess={onLoadSuccess}
+          loading={<LoadingBlock label="common.loading_pdf" />}
+          onLoadError={(err) => console.info(err.message)}
+        >
+          {numPages && (
+            <Styled.DocumentWrapper>
+              {numPages > 1 && (
+                <AssetInlinePDFNav numPages={numPages} pageId="page" />
+              )}
+              <Styled.PagesWrapper>
+                <AssetInlinePDFPages numPages={numPages} />
+                {numPages > 1 && (
+                  <Styled.BackToTopWrapper>
+                    <BackToTopButton onClick={handleBackToTop} />
+                  </Styled.BackToTopWrapper>
+                )}
+              </Styled.PagesWrapper>
+            </Styled.DocumentWrapper>
           )}
-          <div ref={docRef}>
-            <Document
-              file={{
-                url: file,
-                httpHeaders: {
-                  "Access-Control-Allow-Origin": "*",
-                },
-              }}
-              onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-              loading={
-                <LoadingBlock
-                  label="common.loading_pdf"
-                  style={{ height: `${height}px` }}
-                />
-              }
-              onLoadError={(err) => console.info(err.message)}
-            >
-              <Page pageNumber={page} width={width} />
-            </Document>
-          </div>
-          {page && (
-            <Styled.PaginationWrapper>
-              <BasePagination
-                page={page}
-                pageCount={numPages}
-                onSubmit={handleSubmit}
-              />
-              <AssetDownloadButton data={pdf} />
-            </Styled.PaginationWrapper>
-          )}
-        </>
+        </Document>
       ) : null}
     </Styled.Wrapper>
   );

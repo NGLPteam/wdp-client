@@ -19,7 +19,6 @@ export type AssetDetailBlockFragment = {
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     } | undefined;
     readonly updatedAt?: string | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetInlinePDFFragment">;
     readonly " $refType": "AssetDetailBlockFragment";
 };
 export type AssetDetailBlockFragment$data = AssetDetailBlockFragment;
@@ -103,11 +102,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AssetInlinePDFFragment"
         }
       ],
       "type": "Asset",
@@ -131,5 +125,5 @@ const node: ReaderFragment = {
   "type": "Node",
   "abstractKey": "__isNode"
 };
-(node as any).hash = '669894515fddebe732a73c28da8294d3';
+(node as any).hash = '44ccd299b87ca05df2abc5c140cb7ea2';
 export default node;
