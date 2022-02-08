@@ -28,46 +28,52 @@ export function aBgNeutral00() {
 
 export function aBgCustom10() {
   return css`
-    --background-color: var(--color-custom10);
-    --color-base: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral80};
-    --color-lighter: ${baseColors.neutral70};
-    --button-secondary-bg-color: ${baseColors.neutral00};
+    @media screen {
+      --background-color: var(--color-custom10);
+      --color-base: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral80};
+      --color-lighter: ${baseColors.neutral70};
+      --button-secondary-bg-color: ${baseColors.neutral00};
 
-    ${aBgProps}
+      ${aBgProps}
+    }
   `;
 }
 
 export function aBgCustom20() {
   return css`
-    --background-color: var(--color-custom20);
-    --color-base: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral80};
-    --color-lighter: ${baseColors.neutral80};
-    --button-secondary-bg-color: var(--color-custom10);
-    --button-secondary-bg-focus-color: var(--color-custom20);
+    @media screen {
+      --background-color: var(--color-custom20);
+      --color-base: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral80};
+      --color-lighter: ${baseColors.neutral80};
+      --button-secondary-bg-color: var(--color-custom10);
+      --button-secondary-bg-focus-color: var(--color-custom20);
 
-    ${aBgProps}
+      ${aBgProps}
+    }
   `;
 }
 
 export function aBgNeutral80() {
   return css`
-    --background-color: ${baseColors.neutral80};
-    --color-base: ${baseColors.neutral00};
-    --color-light: ${baseColors.neutral30};
-    --button-primary-text-color: ${baseColors.neutral90};
-    --button-primary-text-focus-color: ${baseColors.neutral00};
-    --button-primary-bg-color: var(--color-custom20);
-    --button-primary-bg-hover-color: ${baseColors.neutral80};
-    --button-primary-bg-focus-color: var(--color-custom20);
-    --button-secondary-bg-color: ${baseColors.neutral90};
-    --button-secondary-bg-hover-color: ${baseColors.neutral70};
-    --button-secondary-bg-focus-color: ${baseColors.neutral70};
-    --button-secondary-text-color: ${baseColors.neutral00};
-    --border-color-focus: ${baseColors.neutral00};
+    @media screen {
+      --background-color: ${baseColors.neutral80};
+      --color-base: ${baseColors.neutral00};
+      --color-light: ${baseColors.neutral30};
+      --button-primary-text-color: ${baseColors.neutral90};
+      --button-primary-text-focus-color: ${baseColors.neutral00};
+      --button-primary-bg-color: var(--color-custom20);
+      --button-primary-bg-hover-color: ${baseColors.neutral80};
+      --button-primary-bg-focus-color: var(--color-custom20);
+      --button-secondary-bg-color: ${baseColors.neutral90};
+      --button-secondary-bg-hover-color: ${baseColors.neutral70};
+      --button-secondary-bg-focus-color: ${baseColors.neutral70};
+      --button-secondary-text-color: ${baseColors.neutral00};
+      --border-color-focus: ${baseColors.neutral00};
 
-    ${aBgProps}
+      ${aBgProps}
+    }
   `;
 }
 
