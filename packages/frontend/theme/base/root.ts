@@ -31,7 +31,7 @@ function setBaseColors() {
 // ie, h1 becomes an h2, h2 becomes an h3, etc.
 // h4 says the same.
 export const baseSansSerifFontStyles = css`
-  --font-face-header: ${baseSansSerifFont};
+  --font-face-header: Ilisarniq, ${baseSansSerifFont};
   --font-size-h1: ${fluidScale("60px", "54px")};
   --line-height-h1: ${fluidScale("66px", "54px")};
   --font-size-h2: ${fluidScale("46px", "28px")};
@@ -40,7 +40,7 @@ export const baseSansSerifFontStyles = css`
   --line-height-h3: ${fluidScale("36px", "24px")};
   --font-size-h4: 20px;
   --line-height-h4: 24px;
-  --font-face-base: ${baseSansSerifFont};
+  --font-face-base: Ilisarniq, ${baseSansSerifFont};
   --font-size-base: 16px;
   --line-height-base: 22px;
   --font-size-base-sm: 14px;

@@ -121,6 +121,23 @@ export default class AppDocument extends Document<Props> {
           ))}
         </Head>
         <body>
+          <span
+            style={{
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              padding: "0",
+              margin: "-1px",
+              overflow: "hidden",
+              clip: "rect(0 0 0 0)",
+            }}
+            aria-hidden
+          >
+            <span style={{ fontFamily: "Ilisarniq" }}>Ilisarniq</span>
+            <span style={{ fontFamily: "Libre Franklin" }}>Libre Franklin</span>
+            <span style={{ fontFamily: "Sentient" }}>Sentient</span>
+            <span style={{ fontFamily: "Switzer" }}>Switzer</span>
+          </span>
           <template id="relay-data">
             {Buffer.from(JSON.stringify(this.props.records)).toString("base64")}
           </template>
