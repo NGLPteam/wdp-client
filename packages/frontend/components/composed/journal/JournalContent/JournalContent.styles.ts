@@ -42,12 +42,15 @@ export const InfoBlock = styled.div`
 
 export const AnnouncementsBlock = styled.div`
   grid-column: 9 / span 4;
-  border-radius: var(--border-radius-md);
-  padding-block-start: ${pxToRem(44)};
-  padding-inline-start: ${pxToRem(52)};
-  padding-inline-end: ${pxToRem(52)};
-  padding-block-end: ${pxToRem(52)};
-  align-self: start;
+
+  @media screen {
+    border-radius: var(--border-radius-md);
+    padding-block-start: ${pxToRem(44)};
+    padding-inline-start: ${pxToRem(52)};
+    padding-inline-end: ${pxToRem(52)};
+    padding-block-end: ${pxToRem(52)};
+    align-self: start;
+  }
 
   ${respond(
     `

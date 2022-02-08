@@ -21,8 +21,6 @@ export const Nav = styled.nav`
   }
 `;
 
-export const LeftSide = styled.div``;
-
 export const RightSide = styled.div`
   display: flex;
   align-items: center;

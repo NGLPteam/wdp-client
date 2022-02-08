@@ -17,6 +17,7 @@ import Search from "components/forms/Search";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { RouteHelper } from "routes";
+import CommunityName from "components/composed/community/CommunityName";
 
 function AppHeader({ data, communityData }: Props) {
   const appData = useMaybeFragment(fragment, data);
@@ -48,45 +49,54 @@ function AppHeader({ data, communityData }: Props) {
   });
 
   return (
-    <Styled.Header>
-      <Styled.HeaderInner className="l-container-wide">
-        <Styled.LeftSide>
-          <Styled.InstallationName as={InstallationName} />
-          <CommunityPicker data={appData} active={community} />
-        </Styled.LeftSide>
-        <Styled.RightSide>
-          {community && !isCommunityRoot && (
-            <>
-              <CommunityNavList data={community} condensed />
-              <SearchButton size="sm" data={community} />
-            </>
-          )}
-          <AccountDropdown condensed={!isCommunityRoot} />
-        </Styled.RightSide>
-        <Styled.MobileRight>
-          <MobileMenuToggle
-            onToggle={toggleActive}
-            label={t("nav.menu")}
-            icon="hamburger24"
-            aria-controls={mobileNavId}
-            aria-expanded={isActive}
-          />
-        </Styled.MobileRight>
-      </Styled.HeaderInner>
-      <MobileMenu
-        ref={mobileNavRef}
-        id={mobileNavId}
-        active={isActive}
-        onClose={toggleActive}
-        communityPicker={<CommunityPicker data={appData} active={community} />}
-      >
-        <Styled.MobileList>
-          {community && <CommunityNavList data={community} mobile />}
-          <Search mobile />
-          <AccountDropdown mobile />
-        </Styled.MobileList>
-      </MobileMenu>
-    </Styled.Header>
+    <>
+      <Styled.Header>
+        <Styled.HeaderInner className="l-container-wide">
+          <Styled.LeftSide>
+            <Styled.InstallationName as={InstallationName} />
+            <CommunityPicker data={appData} active={community} />
+          </Styled.LeftSide>
+          <Styled.RightSide>
+            {community && !isCommunityRoot && (
+              <>
+                <CommunityNavList data={community} condensed />
+                <SearchButton size="sm" data={community} />
+              </>
+            )}
+            <AccountDropdown condensed={!isCommunityRoot} />
+          </Styled.RightSide>
+          <Styled.MobileRight>
+            <MobileMenuToggle
+              onToggle={toggleActive}
+              label={t("nav.menu")}
+              icon="hamburger24"
+              aria-controls={mobileNavId}
+              aria-expanded={isActive}
+            />
+          </Styled.MobileRight>
+        </Styled.HeaderInner>
+        <MobileMenu
+          ref={mobileNavRef}
+          id={mobileNavId}
+          active={isActive}
+          onClose={toggleActive}
+          communityPicker={
+            <CommunityPicker data={appData} active={community} />
+          }
+        >
+          <Styled.MobileList>
+            {community && <CommunityNavList data={community} mobile />}
+            <Search mobile />
+            <AccountDropdown mobile />
+          </Styled.MobileList>
+        </MobileMenu>
+      </Styled.Header>
+      {community && (
+        <Styled.PrintHeader aria-hidden>
+          <CommunityName data={community} />
+        </Styled.PrintHeader>
+      )}
+    </>
   );
 }
 
@@ -108,5 +118,6 @@ const communityFragment = graphql`
     ...CommunityPickerActiveFragment
     ...CommunityNavListFragment
     ...SearchButtonFragment
+    ...CommunityNameFragment
   }
 `;

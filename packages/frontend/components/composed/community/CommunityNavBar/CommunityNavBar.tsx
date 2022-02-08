@@ -13,9 +13,9 @@ export default function CommunityNavBar({ data }: Props) {
   return community ? (
     <div className="a-bg-custom10">
       <Styled.Nav className="l-container-wide">
-        <Styled.LeftSide>
+        <div>
           <CommunityName data={community} />
-        </Styled.LeftSide>
+        </div>
         <Styled.RightSide>
           <CommunityNavList data={community} />
           <SearchButton size="lg" data={community} />

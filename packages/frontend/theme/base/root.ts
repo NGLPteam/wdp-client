@@ -192,8 +192,8 @@ export default css`
       --container-padding-md: ${pxToRem(30)};
       --container-padding-sm: ${pxToRem(18)};
       --container-padding-xs: ${pxToRem(12)};
-      --container-v-padding: ${pxToRem(12)};
-      --container-v-padding-sm: ${pxToRem(12)};
+      --container-v-padding: 0;
+      --container-v-padding-sm: 0;
     }
 
     /* dropdown */

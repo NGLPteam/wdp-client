@@ -23,4 +23,8 @@ export const ButtonWrapper = styled.div`
   &[hidden] {
     display: none;
   }
+
+  @media print {
+    display: none;
+  }
 `;

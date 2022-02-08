@@ -5,6 +5,10 @@ import { lGrid, respond, globalNavRespond } from "theme/mixins";
 export const FooterWrapper = styled.footer`
   padding-block-start: var(--container-padding-xxl);
   padding-block-end: var(--container-padding-sm);
+
+  @media print {
+    padding-block-start: var(--container-padding-sm);
+  }
 `;
 
 export const FooterInner = styled.div`
