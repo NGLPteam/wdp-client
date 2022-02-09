@@ -10,7 +10,6 @@ export const Backdrop = styled(BaseDialogBackdrop)`
   position: fixed;
   /* Center align short modals on the x-axis */
   display: flex;
-  align-items: center;
   inset-block: 0;
   inset-inline: 0;
   z-index: var(--z-index-modal);
@@ -35,10 +34,11 @@ export const Wrapper = styled.div`
   width: 100%;
   max-height: 100%;
   max-width: 100%;
+  /* Padding so modal doesn't bump up against browser window */
   padding: var(--padding-sm);
+  padding-block-start: 144px;
   /* Scrolling should happen inside this container */
   overflow: auto;
-  /* Padding so modal doesn't bump up against browser window */
 `;
 
 export const Modal = styled(BaseDialog)`

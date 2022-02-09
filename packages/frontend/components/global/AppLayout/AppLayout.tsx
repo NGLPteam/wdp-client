@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { AppBody } from "..";
@@ -16,14 +16,7 @@ export default function AppLayout({ data, communityData, children }: Props) {
 
   const { loading } = usePageContext();
 
-  const activeRoute = RouteHelper.activeRoute();
-
-  const isCommunityRoot = useMemo(() => {
-    const routeName = activeRoute?.name;
-    return routeName
-      ? routeName.includes("community") && !routeName.includes("search")
-      : false;
-  }, [activeRoute]);
+  const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
 
   return (
     <AppBody data={appData} communityData={community}>

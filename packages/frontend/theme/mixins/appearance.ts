@@ -217,3 +217,12 @@ export const aLinkText = css`
     ${aLinkHoverFocus}
   }
 `;
+
+export const aImageHover = `
+  box-shadow: ${boxShadow.popUp}, 0px 0px 0px 1px var(--border-color-focus);
+  border-color: var(--border-color);
+`;
+
+export const aImageFocus = `
+  box-shadow: 0px 0px 0px 1px var(--border-color-focus), ${boxShadow.focusGlow};
+`;

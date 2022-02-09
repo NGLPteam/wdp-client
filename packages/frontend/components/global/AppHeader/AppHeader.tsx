@@ -27,10 +27,15 @@ function AppHeader({ data, communityData }: Props) {
   const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
 
   const { t } = useTranslation();
+
   const mobileNavId = "appMobileNav";
+
   const mobileNavRef = useRef(null);
+
   const [isActive, toggleActive, setActive] = useToggle();
+
   const { width } = useWindowSize();
+
   const prevWidth = useRef<number | undefined>();
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { boxShadow, transition } from "theme/base/variables";
+import { aImageFocus, aImageHover } from "theme/mixins";
 
 export const Figure = styled.figure`
   position: relative;
@@ -9,12 +10,11 @@ export const Figure = styled.figure`
   box-shadow: ${boxShadow.popUp};
 
   a:hover & {
-    box-shadow: ${boxShadow.popUp}, 0px 0px 0px 1px var(--border-color-focus);
+    ${aImageHover}
   }
 
   a:focus-visible & {
-    box-shadow: 0px 0px 0px 1px var(--border-color-focus),
-      ${boxShadow.focusGlow};
+    ${aImageFocus}
   }
 
   > * {

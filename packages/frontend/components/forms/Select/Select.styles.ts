@@ -1,15 +1,17 @@
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
-import { aButton } from "theme/mixins/appearance";
+import { aButton, aFocusReset } from "theme/mixins/appearance";
 
 export const SelectWrapper = styled.div`
   position: relative;
+  ${aButton("secondary", "sm")}
 `;
 
 export const Select = styled.select`
   ${aInputReset}
-  ${aButton("secondary", "sm")}
-  padding-inline-end: 34px;
+  ${aFocusReset}
+  padding-inline-end: ${pxToRem(18)};
   width: 100%;
 `;
 

@@ -32,12 +32,12 @@ function setBaseColors() {
 // h4 says the same.
 export const baseSansSerifFontStyles = css`
   --font-face-header: Ilisarniq, ${baseSansSerifFont};
-  --font-size-h1: ${fluidScale("60px", "54px")};
-  --line-height-h1: ${fluidScale("66px", "54px")};
-  --font-size-h2: ${fluidScale("46px", "28px")};
-  --line-height-h2: ${fluidScale("54px", "36px")};
-  --font-size-h3: ${fluidScale("28px", "20px")};
-  --line-height-h3: ${fluidScale("36px", "24px")};
+  --font-size-h1: ${fluidScale("60px", "54px", 140, 70)};
+  --line-height-h1: ${fluidScale("66px", "54px", 140, 70)};
+  --font-size-h2: ${fluidScale("46px", "28px", 140, 50)};
+  --line-height-h2: ${fluidScale("54px", "36px", 140, 50)};
+  --font-size-h3: ${fluidScale("28px", "20px", 140, 50)};
+  --line-height-h3: ${fluidScale("36px", "24px", 140, 50)};
   --font-size-h4: 20px;
   --line-height-h4: 24px;
   --font-face-base: Ilisarniq, ${baseSansSerifFont};

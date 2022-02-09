@@ -26,9 +26,20 @@ export default function ArticleContributor({ data }: Props) {
     <section className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
         {showAvatar && (
-          <Styled.AvatarWrapper>
-            <ContributorAvatar data={contributor.image} />
-          </Styled.AvatarWrapper>
+          <NamedLink
+            route="contributor"
+            routeParams={{
+              slug: contributor.slug,
+              ...(contributionToShow?.item?.slug && {
+                item: contributionToShow.item?.slug,
+              }),
+            }}
+            passHref
+          >
+            <Styled.AvatarWrapper as="a">
+              <ContributorAvatar data={contributor.image} />
+            </Styled.AvatarWrapper>
+          </NamedLink>
         )}
         <Styled.Info>
           <NamedLink
