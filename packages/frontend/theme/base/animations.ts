@@ -10,6 +10,6 @@ export const slideDrawerOut = keyframes`
 `;
 
 export const spin = keyframes`
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 `;

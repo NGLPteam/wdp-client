@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { lGrid, respond } from "theme/mixins";
 
 export const Section = styled.section`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 `;
 
 export const List = styled.ul`

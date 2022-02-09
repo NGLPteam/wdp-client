@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aHidden, aInputReset } from "@wdp/lib/theme/mixins";
-import { aFocusReset, fluidScale, tHeading } from "theme/mixins";
+import { aFocusReset, tHeading } from "theme/mixins";
 import { transition } from "theme/base/variables";
 
 export const Form = styled.form`
   padding-block-start: ${pxToRem(73)};
-  padding-block-end: ${fluidScale("100px", "80px")};
+  padding-block-end: var(--container-padding-xl);
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const SearchWrapper = styled.div`

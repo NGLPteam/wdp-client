@@ -6,8 +6,8 @@ import { ArrowList } from "components/atomic";
 
 export const Inner = styled.div`
   ${lGrid()}
-  padding-block-start: ${pxToRem(100)};
-  padding-block-end: ${pxToRem(100)};
+  padding-block-start: var(--container-padding-xl);
+  padding-block-end: var(--container-padding-xl);
 
   ${respond(
     `

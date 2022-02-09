@@ -3,8 +3,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { aFocus, lGrid, respond } from "theme/mixins";
 
 export const Inner = styled.div`
-  padding-block-start: ${pxToRem(100)};
-  padding-block-end: ${pxToRem(100)};
+  padding-block-start: var(--container-padding-xl);
+  padding-block-end: var(--container-padding-xl);
 
   ${lGrid()}
 
@@ -27,6 +27,7 @@ export const Label = styled.div`
 export const ImageBlock = styled.div`
   grid-area: image;
   margin-block-end: ${pxToRem(20)};
+  max-width: ${pxToRem(240)};
 `;
 
 export const ImageLink = styled.a`
@@ -65,4 +66,8 @@ export const Item = styled.li`
 export const Footer = styled.div`
   border-top: 1px solid var(--border-color);
   padding-block-start: var(--padding-lg);
+
+  @media print {
+    display: none;
+  }
 `;

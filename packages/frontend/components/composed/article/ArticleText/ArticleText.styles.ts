@@ -3,8 +3,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { lGrid, respond, fluidScale, tHeading } from "theme/mixins";
 
 export const BodyWrapper = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 `;
 
 export const BodyInner = styled.div`

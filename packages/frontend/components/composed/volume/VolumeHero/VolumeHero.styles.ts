@@ -6,7 +6,7 @@ export const HeroInner = styled.div`
   ${lGrid({
     rowGap: "var(--padding-xl)",
   })}
-  padding-block-end: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-md);
   padding-block-start: ${fluidScale("46px", "40px")};
 `;
 

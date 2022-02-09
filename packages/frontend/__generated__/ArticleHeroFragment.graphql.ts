@@ -11,6 +11,7 @@ export type ArticleHeroFragment = {
     readonly subtitle: string | null;
     readonly summary: string | null;
     readonly published: {
+        readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
     readonly contributions: {
@@ -77,6 +78,13 @@ const node: ReaderFragment = {
       "name": "published",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -187,5 +195,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'a046024ac19fe25b625b87f05c730e4d';
+(node as any).hash = '7377c42cbf8e0d612ce1c352b1c2b811';
 export default node;

@@ -23,9 +23,7 @@ export default function JournalHero({ data }: Props) {
                 <a>{journal.title}</a>
               </NamedLink>
             </Styled.Title>
-            {journal.subtitle && (
-              <Styled.Subtitle>{journal.subtitle}</Styled.Subtitle>
-            )}
+            {journal.subtitle && <h3>{journal.subtitle}</h3>}
           </Styled.TitleBlock>
           <Styled.MetadataBlock className="t-label-sm">
             <DOI data={journal} />

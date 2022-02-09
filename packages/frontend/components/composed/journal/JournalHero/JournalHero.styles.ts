@@ -5,15 +5,17 @@ import { lGrid, respond } from "theme/mixins";
 const MOBILE_BREAK = 70;
 
 export const HeroInner = styled.div`
-  ${lGrid()}
+  ${lGrid({
+    rowGap: "var(--padding-xl)",
+  })}
   grid-template-areas: "title title title title title title title title . metadata metadata metadata";
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(auto-fit, auto);
     grid-template-areas:
       "title"
       "metadata";
@@ -33,14 +35,20 @@ export const MetadataBlock = styled.div`
   > * + * {
     margin-block-start: var(--padding-rg);
   }
+
+  ${respond(
+    `
+    &:not(:empty) {
+      border-top: 1px solid var(--border-color);
+      padding-block-start: var(--padding-rg);
+    }
+    `,
+    70
+  )}
 `;
 
 export const Title = styled.h2`
   margin-block-end: var(--padding-rg);
-`;
-
-export const Subtitle = styled.h3`
-  margin-block-end: var(--padding-xl);
 `;
 
 export const ISSN = styled.div`

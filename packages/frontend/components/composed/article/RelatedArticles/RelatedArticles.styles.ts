@@ -3,8 +3,8 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { lGrid, respond } from "theme/mixins";
 
 export const Inner = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xl);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-xxl);
 `;
 
 export const Outer = styled.section`

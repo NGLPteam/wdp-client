@@ -61,13 +61,13 @@ export const globalTypes = {
   fontStyle: {
     name: "Font Style",
     description: "Change the theme's font style",
-    defaultValue: "fontStyle1",
+    defaultValue: "style1",
     toolbar: {
       icon: "paragraph",
       items: [
-        { value: "fontStyle1", title: "Font Style 1" },
-        { value: "fontStyle2", title: "Font Style 2" },
-        { value: "fontStyle3", title: "Font Style 3" },
+        { value: "style1", title: "Font Style 1" },
+        { value: "style2", title: "Font Style 2" },
+        { value: "style3", title: "Font Style 3" },
       ],
     },
   },

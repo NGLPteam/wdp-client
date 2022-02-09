@@ -2,7 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 
 export const BackNav = styled.nav`
-  padding-block-start: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
 `;
 
 export const NameHeader = styled.div`
@@ -15,8 +15,8 @@ export const NameHeader = styled.div`
 `;
 
 export const ContributorWrapper = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 
   > * + * {
     margin-block-start: var(--padding-xl);
@@ -36,8 +36,8 @@ export const AssetInfo = styled.div`
 `;
 
 export const ContributionsWrapper = styled.div`
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-xl);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-xxl);
 `;
 
 export const ContributionsHeader = styled.h3`

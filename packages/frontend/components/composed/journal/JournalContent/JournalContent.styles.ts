@@ -6,22 +6,22 @@ const TABLET_BREAK = 100;
 const MOBILE_BREAK = 70;
 
 export const SectionInner = styled.div`
-  padding-block-start: ${pxToRem(80)};
-  padding-block-end: ${pxToRem(80)};
+  padding-block-start: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-lg);
 
   ${lGrid()}
 
   ${respond(
     `
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto;
   `,
     MOBILE_BREAK
   )}
 
   ${respond(
     `
-    grid-row-gap: var(--container-padding-lg);
+    grid-row-gap: var(--container-padding-md);
     grid-column-gap: var(--container-padding-sm);
   `,
     TABLET_BREAK
@@ -42,12 +42,15 @@ export const InfoBlock = styled.div`
 
 export const AnnouncementsBlock = styled.div`
   grid-column: 9 / span 4;
-  border-radius: var(--border-radius-md);
-  padding-block-start: ${pxToRem(44)};
-  padding-inline-start: ${pxToRem(52)};
-  padding-inline-end: ${pxToRem(52)};
-  padding-block-end: ${pxToRem(52)};
-  align-self: start;
+
+  @media screen {
+    border-radius: var(--border-radius-md);
+    padding-block-start: ${pxToRem(44)};
+    padding-inline-start: ${pxToRem(52)};
+    padding-inline-end: ${pxToRem(52)};
+    padding-block-end: ${pxToRem(52)};
+    align-self: start;
+  }
 
   ${respond(
     `

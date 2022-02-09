@@ -28,11 +28,13 @@ export function aBgNeutral00() {
 
 export function aBgCustom10() {
   return css`
-    --background-color: var(--color-custom10);
-    --color-base: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral80};
-    --color-lighter: ${baseColors.neutral70};
-    --button-secondary-bg-color: ${baseColors.neutral00};
+    @media screen {
+      --background-color: var(--color-custom10);
+      --color-base: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral80};
+      --color-lighter: ${baseColors.neutral70};
+      --button-secondary-bg-color: ${baseColors.neutral00};
+    }
 
     ${aBgProps}
   `;
@@ -40,12 +42,14 @@ export function aBgCustom10() {
 
 export function aBgCustom20() {
   return css`
-    --background-color: var(--color-custom20);
-    --color-base: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral80};
-    --color-lighter: ${baseColors.neutral80};
-    --button-secondary-bg-color: var(--color-custom10);
-    --button-secondary-bg-focus-color: var(--color-custom20);
+    @media screen {
+      --background-color: var(--color-custom20);
+      --color-base: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral80};
+      --color-lighter: ${baseColors.neutral80};
+      --button-secondary-bg-color: var(--color-custom10);
+      --button-secondary-bg-focus-color: var(--color-custom20);
+    }
 
     ${aBgProps}
   `;
@@ -53,19 +57,21 @@ export function aBgCustom20() {
 
 export function aBgNeutral80() {
   return css`
-    --background-color: ${baseColors.neutral80};
-    --color-base: ${baseColors.neutral00};
-    --color-light: ${baseColors.neutral30};
-    --button-primary-text-color: ${baseColors.neutral90};
-    --button-primary-text-focus-color: ${baseColors.neutral00};
-    --button-primary-bg-color: var(--color-custom20);
-    --button-primary-bg-hover-color: ${baseColors.neutral80};
-    --button-primary-bg-focus-color: var(--color-custom20);
-    --button-secondary-bg-color: ${baseColors.neutral90};
-    --button-secondary-bg-hover-color: ${baseColors.neutral70};
-    --button-secondary-bg-focus-color: ${baseColors.neutral70};
-    --button-secondary-text-color: ${baseColors.neutral00};
-    --border-color-focus: ${baseColors.neutral00};
+    @media screen {
+      --background-color: ${baseColors.neutral80};
+      --color-base: ${baseColors.neutral00};
+      --color-light: ${baseColors.neutral30};
+      --button-primary-text-color: ${baseColors.neutral90};
+      --button-primary-text-focus-color: ${baseColors.neutral00};
+      --button-primary-bg-color: var(--color-custom20);
+      --button-primary-bg-hover-color: ${baseColors.neutral80};
+      --button-primary-bg-focus-color: var(--color-custom20);
+      --button-secondary-bg-color: ${baseColors.neutral90};
+      --button-secondary-bg-hover-color: ${baseColors.neutral70};
+      --button-secondary-bg-focus-color: ${baseColors.neutral70};
+      --button-secondary-text-color: ${baseColors.neutral00};
+      --border-color-focus: ${baseColors.neutral00};
+    }
 
     ${aBgProps}
   `;
@@ -74,9 +80,12 @@ export function aBgNeutral80() {
 export function aBgNeutral90() {
   return css`
     ${aBgNeutral80}
-    --background-color: ${baseColors.neutral90};
-    --color-light: ${baseColors.neutral60};
-    --button-secondary-bg-color: ${baseColors.neutral80};
+
+    @media screen {
+      --background-color: ${baseColors.neutral90};
+      --color-light: ${baseColors.neutral60};
+      --button-secondary-bg-color: ${baseColors.neutral80};
+    }
 
     ${aBgProps}
   `;
@@ -88,7 +97,7 @@ export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
     ${aButtonBase(style)}
     border-radius: ${borderRadius.xlg};
     padding-block-start: ${size === "sm" ? "6px" : "14px"};
-    padding-block-end: ${size === "sm" ? "9px" : "17px"};
+    padding-block-end: ${size === "sm" ? "8px" : "17px"};
     padding-inline-start: ${size === "sm" ? "16px" : "30px"};
     padding-inline-end: ${size === "sm" ? "16px" : "30px"};
     ${tLabel("mix")}
@@ -144,24 +153,43 @@ export function aFocus(content?: CssContent) {
   `;
 }
 
-export const aLinkHoverFocus = `
+// The box shadow's line height should be the same - .07em,
+// but it's placement changes based on the font style
+function getBoxShadow(fontStyle: string): string {
+  switch (fontStyle) {
+    case "style3":
+      return "inset 0 -0.11em 0 0 var(--background-color), inset 0 -0.18em 0 0 var(--color-light)";
+
+    case "style2":
+      return "inset 0 -0.07em 0 0 var(--background-color), inset 0 -0.14em 0 0 var(--color-light)";
+
+    default:
+      return "0 0.01em 0 0 var(--color-light), inset 0 -0.06em 0 0 var(--color-light)";
+  }
+}
+
+export const aLinkHoverFocus = css`
   color: var(--color-base);
-  text-shadow: 0.04em 0.1em var(--background-color),
-    -0.04em 0.1em var(--background-color);
-  box-shadow: 0 0.07em 0 0 var(--color-light);
+  text-shadow: 0.04em 0.04em var(--background-color),
+    -0.04em 0.04em var(--background-color),
+    -0.04em -0.04em var(--background-color),
+    0.04em -0.04em var(--background-color), -0.04em 0 var(--background-color),
+    0.04em 0 var(--background-color);
+  box-shadow: ${({ theme }) => getBoxShadow(theme.fontStyle)};
 `;
 
 export const aLinkBase = `
   cursor: pointer;
   transition: ${transition.color}, box-shadow 0.17s ease-in,
     text-shadow 0.17s ease-in;
+    
 
   &[aria-current] {
     font-weight: var(--font-weight-medium);
   }
 `;
 
-export const aLink = `
+export const aLink = css`
   ${aLinkBase}
 
   &:hover {
@@ -178,7 +206,7 @@ export const aLink = `
 `;
 
 // Use this mixin to style text that is inside a link
-export const aLinkText = `
+export const aLinkText = css`
   display: inline;
   ${aLinkBase}
 

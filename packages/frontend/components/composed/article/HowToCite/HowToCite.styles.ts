@@ -5,13 +5,13 @@ import { respond } from "theme/mixins";
 export const Inner = styled.div`
   --button-secondary-bg-color: var(--color-custom20);
 
-  padding-block-start: var(--container-padding-lg);
-  padding-block-end: var(--container-padding-lg);
+  padding-block-start: var(--container-padding-md);
+  padding-block-end: var(--container-padding-md);
 
   ${respond(
     `
-    padding-block-start: ${pxToRem(80)};
-    padding-block-end: ${pxToRem(80)};
+    padding-block-start: var(--container-padding-lg);
+    padding-block-end: var(--container-padding-lg);
     `,
     70
   )}

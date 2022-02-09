@@ -39,8 +39,8 @@ export default css`
   }
 
   .l-container-wide--p-lg {
-    padding-block-start: var(--container-padding-lg);
-    padding-block-end: var(--container-padding-lg);
+    padding-block-start: var(--container-padding-md);
+    padding-block-end: var(--container-padding-md);
   }
 
   .l-grid {

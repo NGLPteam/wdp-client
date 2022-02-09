@@ -1,6 +1,13 @@
 import { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { baseColors, borderRadius, customColors, zIndex } from "./variables";
+import {
+  baseColors,
+  baseSansSerifFont,
+  baseSerifFont,
+  borderRadius,
+  customColors,
+  zIndex,
+} from "./variables";
 import { getColorsByKey } from "./functions";
 import { fluidScale } from "theme/mixins";
 
@@ -23,8 +30,8 @@ function setBaseColors() {
 // The font size shrinks to one size below on mobile
 // ie, h1 becomes an h2, h2 becomes an h3, etc.
 // h4 says the same.
-export const baseFontStyles = css`
-  --font-face-header: sans-serif;
+export const baseSansSerifFontStyles = css`
+  --font-face-header: Ilisarniq, ${baseSansSerifFont};
   --font-size-h1: ${fluidScale("60px", "54px")};
   --line-height-h1: ${fluidScale("66px", "54px")};
   --font-size-h2: ${fluidScale("46px", "28px")};
@@ -33,7 +40,7 @@ export const baseFontStyles = css`
   --line-height-h3: ${fluidScale("36px", "24px")};
   --font-size-h4: 20px;
   --line-height-h4: 24px;
-  --font-face-base: sans-serif;
+  --font-face-base: Ilisarniq, ${baseSansSerifFont};
   --font-size-base: 16px;
   --line-height-base: 22px;
   --font-size-base-sm: 14px;
@@ -51,11 +58,11 @@ export const baseFontStyles = css`
 
 // Font style #1 - will overwrite any base font styles
 export const fontStyle1 = css`
-  --font-face-header: Ilisarniq, sans-serif;
+  --font-face-header: Ilisarniq, ${baseSansSerifFont};
   --letter-spacing-h1: -1.5px;
   --letter-spacing-h2: -1px;
   --letter-spacing-h3: -0.5px;
-  --font-face-base: Ilisarniq, sans-serif;
+  --font-face-base: Ilisarniq, ${baseSansSerifFont};
   --letter-spacing-label-lg: 1.25px;
   --letter-spacing-label-sm: 1.25px;
   --letter-spacing-label-mix: 0.25px;
@@ -63,12 +70,12 @@ export const fontStyle1 = css`
 
 // Font style #2 - will overwrite any base font styles
 export const fontStyle2 = css`
-  --font-face-header: Switzer, sans-serif;
+  --font-face-header: Switzer, ${baseSansSerifFont};
   --letter-spacing-h1: 0.25;
   --letter-spacing-h2: 0.8;
   --letter-spacing-h3: 0.5px;
   --letter-spacing-h4: 0.5px;
-  --font-face-base: Switzer, sans-serif;
+  --font-face-base: Switzer, ${baseSansSerifFont};
   --letter-spacing-base: 0.5px;
   --letter-spacing-label-lg: 1.75px;
   --letter-spacing-label-sm: 1.75px;
@@ -77,12 +84,12 @@ export const fontStyle2 = css`
 
 // Font style #3 - will overwrite any base font styles
 export const fontStyle3 = css`
-  --font-face-header: Sentient, serif;
+  --font-face-header: Sentient, ${baseSerifFont};
   --letter-spacing-h1: -0.75px;
   --letter-spacing-h2: -0.5px;
   --letter-spacing-h3: normal;
   --letter-spacing-h4: normal;
-  --font-face-base: Libre Franklin, sans-serif;
+  --font-face-base: Libre Franklin, ${baseSansSerifFont};
   --letter-spacing-base: 0.25px;
   --letter-spacing-base-sm: 0.25px;
   --font-size-label-lg: 13.5px;
@@ -115,7 +122,7 @@ export default css`
     }}
 
     /* base font styles */
-    ${baseFontStyles}
+    ${baseSansSerifFontStyles}
 
     /* theme font styles */
     ${({ theme }) => {
@@ -169,12 +176,25 @@ export default css`
     --button-secondary-text-hover-color: ${baseColors.neutral00};
 
     /* container */
-    --container-padding-xl: ${pxToRem(120)};
-    --container-padding-lg: ${pxToRem(60)};
+    --container-padding-xxl: ${fluidScale("120px", "100px")};
+    --container-padding-xl: ${fluidScale("100px", "80px")};
+    --container-padding-lg: ${pxToRem(80)};
+    --container-padding-md: ${pxToRem(60)};
     --container-padding-sm: ${pxToRem(36)};
     --container-padding-xs: ${pxToRem(24)};
     --container-v-padding: ${fluidScale("60px", "30px")};
     --container-v-padding-sm: ${fluidScale("60px", "20px")};
+
+    @media print {
+      --container-padding-xxl: ${pxToRem(60)};
+      --container-padding-xl: ${pxToRem(50)};
+      --container-padding-lg: ${pxToRem(40)};
+      --container-padding-md: ${pxToRem(30)};
+      --container-padding-sm: ${pxToRem(18)};
+      --container-padding-xs: ${pxToRem(12)};
+      --container-v-padding: 0;
+      --container-v-padding-sm: 0;
+    }
 
     /* dropdown */
     --dropdown-background: ${baseColors.neutral00};

@@ -3,8 +3,12 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { lGrid, respond, globalNavRespond } from "theme/mixins";
 
 export const FooterWrapper = styled.footer`
-  padding-block-start: var(--container-padding-xl);
+  padding-block-start: var(--container-padding-xxl);
   padding-block-end: var(--container-padding-sm);
+
+  @media print {
+    padding-block-start: var(--container-padding-sm);
+  }
 `;
 
 export const FooterInner = styled.div`
@@ -40,6 +44,15 @@ export const FooterInner = styled.div`
   `,
     70
   )}
+
+  @media print {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "community"
+      "about"
+      "copyright";
+    row-gap: var(--padding-lg);
+  }
 `;
 
 export const CommunityNameWrapper = styled.div`
@@ -50,6 +63,10 @@ export const SearchWrapper = styled.div`
   grid-area: search;
 
   ${globalNavRespond(`display: none;`)}
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const SearchMobile = styled.div`
@@ -57,6 +74,10 @@ export const SearchMobile = styled.div`
   grid-area: search;
 
   ${globalNavRespond(`display: none;`, "min")}
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const AboutWrapper = styled.div`
@@ -71,6 +92,10 @@ export const NavWrapper = styled.nav`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--grid-column-gap);
+
+  @media print {
+    display: none;
+  }
 `;
 
 export const NavListItem = styled.li`
@@ -79,7 +104,10 @@ export const NavListItem = styled.li`
 
 export const CopyrightText = styled.p`
   grid-area: copyright;
-  padding-block-start: ${95 - 40}px;
+
+  @media screen {
+    padding-block-start: ${95 - 40}px;
+  }
 `;
 
 export const InstallationDesktop = styled.div`

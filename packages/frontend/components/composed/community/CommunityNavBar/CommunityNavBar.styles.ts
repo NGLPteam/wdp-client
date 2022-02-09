@@ -15,9 +15,11 @@ export const Nav = styled.nav`
     display: none;
     `
   )}
-`;
 
-export const LeftSide = styled.div``;
+  @media print {
+    display: none;
+  }
+`;
 
 export const RightSide = styled.div`
   display: flex;

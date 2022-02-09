@@ -14,13 +14,17 @@ export const ButtonWrapper = styled.div`
   position: sticky;
   top: 0;
   width: 0;
-  height: calc(100vh - var(--container-padding-lg));
+  height: calc(100vh - var(--container-padding-md));
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   white-space: nowrap;
 
   &[hidden] {
+    display: none;
+  }
+
+  @media print {
     display: none;
   }
 `;

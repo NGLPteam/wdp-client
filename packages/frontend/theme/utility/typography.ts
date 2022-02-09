@@ -60,9 +60,8 @@ export default css`
 
   /* Rich Text */
   .t-rte {
-    a {
+    a:not([class]) {
       ${aLink}
-      box-shadow: 0 0.07em 0 0 var(--color-light);
     }
 
     > * + * {
