@@ -34,9 +34,9 @@ export function aBgCustom10() {
       --color-light: ${baseColors.neutral80};
       --color-lighter: ${baseColors.neutral70};
       --button-secondary-bg-color: ${baseColors.neutral00};
-
-      ${aBgProps}
     }
+
+    ${aBgProps}
   `;
 }
 
@@ -49,9 +49,9 @@ export function aBgCustom20() {
       --color-lighter: ${baseColors.neutral80};
       --button-secondary-bg-color: var(--color-custom10);
       --button-secondary-bg-focus-color: var(--color-custom20);
-
-      ${aBgProps}
     }
+
+    ${aBgProps}
   `;
 }
 
@@ -71,22 +71,23 @@ export function aBgNeutral80() {
       --button-secondary-bg-focus-color: ${baseColors.neutral70};
       --button-secondary-text-color: ${baseColors.neutral00};
       --border-color-focus: ${baseColors.neutral00};
-
-      ${aBgProps}
     }
+
+    ${aBgProps}
   `;
 }
 
 export function aBgNeutral90() {
   return css`
+    ${aBgNeutral80}
+
     @media screen {
-      ${aBgNeutral80}
       --background-color: ${baseColors.neutral90};
       --color-light: ${baseColors.neutral60};
       --button-secondary-bg-color: ${baseColors.neutral80};
-
-      ${aBgProps}
     }
+
+    ${aBgProps}
   `;
 }
 
@@ -96,7 +97,7 @@ export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
     ${aButtonBase(style)}
     border-radius: ${borderRadius.xlg};
     padding-block-start: ${size === "sm" ? "6px" : "14px"};
-    padding-block-end: ${size === "sm" ? "9px" : "17px"};
+    padding-block-end: ${size === "sm" ? "8px" : "17px"};
     padding-inline-start: ${size === "sm" ? "16px" : "30px"};
     padding-inline-end: ${size === "sm" ? "16px" : "30px"};
     ${tLabel("mix")}

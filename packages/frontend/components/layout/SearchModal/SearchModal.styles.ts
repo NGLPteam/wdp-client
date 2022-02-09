@@ -59,5 +59,5 @@ export const SearchButton = styled.button`
 `;
 
 export const SelectLabel = styled.label`
-  padding-block-end: ${pxToRem(4)};
+  padding-block-end: ${pxToRem(3)};
 `;
