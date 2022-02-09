@@ -10,21 +10,15 @@ export default function CommunityPageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);
 
   return page ? (
-    <>
+    <section className="a-bg-custom10">
       <HeroImage data={page.heroImage} metadata={page.heroImageMetadata} />
-      <header className="a-bg-custom10">
-        <Styled.HeroInner className="l-container-wide">
+      <div className="l-container-wide">
+        <Styled.Content className="t-rte">
           <h2>{page.title}</h2>
-        </Styled.HeroInner>
-      </header>
-      <section className="a-bg-custom10">
-        <div className="l-container-wide">
-          <Styled.Content className="t-rte">
-            <ReactMarkdown>{page.body}</ReactMarkdown>
-          </Styled.Content>
-        </div>
-      </section>
-    </>
+          <ReactMarkdown>{page.body}</ReactMarkdown>
+        </Styled.Content>
+      </div>
+    </section>
   ) : null;
 }
 

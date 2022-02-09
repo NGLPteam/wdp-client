@@ -3,7 +3,7 @@ import BaseImage from "next/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { fluidScale, respond } from "theme/mixins";
 
-const LAYOUT_BREAK = 120;
+const LAYOUT_BREAK = 70;
 
 export const Hero = styled.header`
   --CommunityHero-image-height: ${fluidScale("490px", "200px")};
@@ -49,7 +49,13 @@ export const HeroInner = styled.div`
     flex: 1 1 639px;
     margin-right: 0;
 
-    ${respond(`max-width: 639px;`, LAYOUT_BREAK, "min")}
+    ${respond(
+      `
+      flex: 1 1 100%;
+      margin: 0;
+      `,
+      LAYOUT_BREAK
+    )}
   }
 `;
 
@@ -63,7 +69,7 @@ export const ImageWrapper = styled.div`
     flex: 1 1 50vw;
     min-height: var(--CommunityHero-image-height);
 
-    ${respond(`max-width: 50vw;`, LAYOUT_BREAK, "min")}
+    ${respond(`flex: 1 1 100%;`, LAYOUT_BREAK)}
   }
 `;
 
