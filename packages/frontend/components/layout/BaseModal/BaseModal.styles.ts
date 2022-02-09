@@ -10,7 +10,6 @@ export const Backdrop = styled(BaseDialogBackdrop)`
   position: fixed;
   /* Center align short modals on the x-axis */
   display: flex;
-  // align-items: center;
   inset-block: 0;
   inset-inline: 0;
   z-index: var(--z-index-modal);
