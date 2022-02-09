@@ -76,6 +76,7 @@ export default css`
     font: inherit;
     letter-spacing: inherit;
     text-rendering: inherit;
+    margin: 0;
   }
 
   /* Change scroll behavior if reduce motion is on */
