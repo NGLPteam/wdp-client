@@ -16,12 +16,18 @@ export default function SearchLayoutFilter({ data }: Props) {
           <Checkbox key={i} label={schema.name} />
         ))}
       </CheckboxGroup>
-      <Typeahead label="Contributor:" id="contributorFilter">
-        <option>Find a contributor...</option>
-      </Typeahead>
-      <Typeahead id="yearFilter" label="Year:">
-        <option>Select a year...</option>
-      </Typeahead>
+      <Typeahead
+        label="Contributor:"
+        placeholder="Find a contributor..."
+        id="contributorFilter"
+        options={[]}
+      />
+      <Typeahead
+        label="Year:"
+        placeholder="Select a year..."
+        id="yearFilter"
+        options={[]}
+      />
     </Fieldset>
   );
 }
