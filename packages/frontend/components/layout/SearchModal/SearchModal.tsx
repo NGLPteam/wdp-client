@@ -8,10 +8,10 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import Modal from "../BaseModal";
 import * as Styled from "./SearchModal.styles";
 import { RouteHelper } from "routes";
-import { IconFactory } from "components/factories";
 import { Select } from "components/forms";
 import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
 import { getSchemaTranslationKey } from "helpers";
+import SearchBar from "components/composed/search/SearchBar";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -48,22 +48,7 @@ export default function SearchModal({ dialog, data }: Props) {
   return (
     <Modal dialog={dialog} label={t("search.label")}>
       <Styled.Form onSubmit={handleSubmit(onSubmit)}>
-        <Styled.SearchWrapper>
-          <Styled.SearchIconLabel htmlFor={searchId}>
-            <IconFactory icon="search" role="presentation" />
-            <span className="a-hidden">{t("search.label")}</span>
-          </Styled.SearchIconLabel>
-          <Styled.SearchInput
-            type="search"
-            id={searchId}
-            placeholder={t("search.placeholder")}
-            {...register("q")}
-          />
-          <Styled.SearchButton type="submit">
-            <IconFactory icon="arrowRight" role="presentation" />
-            <span className="a-hidden">{t("search.submit")}</span>
-          </Styled.SearchButton>
-        </Styled.SearchWrapper>
+        <SearchBar id={searchId} {...register("q")} />
         <div className="l-flex l-flex--align-center l-flex--gap-sm">
           <Styled.SelectLabel
             htmlFor={selectId}
