@@ -25,3 +25,9 @@ export type MaybeSelectRef =
   | React.RefObject<HTMLSelectElement>
   | null
   | undefined;
+
+export type MaybeInputRef =
+  | ((instance: HTMLInputElement | null) => void)
+  | React.RefObject<HTMLInputElement>
+  | null
+  | undefined;

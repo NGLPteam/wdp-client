@@ -18,13 +18,17 @@ export default {
 
 const Template: Story<Props> = (args) => (
   <Fieldset {...args}>
-    <Checkbox label="Checkbox" value={1} />
+    <Checkbox label="Checkbox" value="1" />
     <Select id="select" label="Select">
-      <option>Select a value</option>
+      <option>Select an option</option>
+      <option>Option</option>
     </Select>
-    <Typeahead id="typehead" label="Typeahead">
-      <option>Select a value</option>
-    </Typeahead>
+    <Typeahead
+      id="typehead"
+      label="Typeahead"
+      placeholder="Select an option"
+      options={[{ label: "Option", value: "option" }]}
+    />
   </Fieldset>
 );
 
