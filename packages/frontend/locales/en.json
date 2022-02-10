@@ -45,7 +45,9 @@
       "community_option": "$t(glossary.community)",
       "submit": "$t(common.submit)",
       "count_results_for_name": "{{count}} <0>result for </0> <1>{{name}}</1>",
-      "count_results_for_name_plural": "{{count}} <0>results for</0> <1>{{name}}</1>"
+      "count_results_for_name_plural": "{{count}} <0>results for</0> <1>{{name}}</1>",
+      "sort_results_header": "Sort results:",
+      "filter_results_header": "Filter results:"
     },
     "glossary": {
       "community": "community",
