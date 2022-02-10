@@ -17,3 +17,4 @@ export { default as Hamburger24 } from "./Hamburger24";
 export { default as Close24 } from "./Close24";
 export { default as User } from "./User";
 export { default as Copy } from "./Copy";
+export { default as Checkbox } from "./Checkbox";

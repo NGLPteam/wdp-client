@@ -13,7 +13,7 @@ export default function SearchPage() {
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
         <AppLayout data={data} communityData={data?.community}>
-          <SearchLayout />
+          <SearchLayout data={data?.community} />
         </AppLayout>
       )}
     </QueryWrapper>
@@ -26,6 +26,7 @@ const query = graphql`
   query searchCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
       ...AppLayoutCommunityFragment
+      ...SearchLayoutFragment
     }
     ...AppLayoutFragment
   }

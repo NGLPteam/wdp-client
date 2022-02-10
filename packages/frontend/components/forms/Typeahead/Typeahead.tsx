@@ -1,17 +1,14 @@
 import React, { forwardRef, SelectHTMLAttributes } from "react";
 import { MaybeSelectRef } from "@wdp/lib/types/ref";
 import Label from "../Label";
-import * as Styled from "./Select.styles";
+import * as Styled from "./Typeahead.styles";
 import { IconFactory } from "components/factories";
 
-function Select(
+function Typeahead(
   {
     id,
     children,
-    block,
-    size,
     label,
-    hideLabel,
     ...props
   }: Props & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">,
   ref: MaybeSelectRef
@@ -19,14 +16,14 @@ function Select(
   return (
     <div>
       {label && (
-        <Label htmlFor={id} className={hideLabel && "a-hidden"}>
+        <Label htmlFor={id} className="t-label-sm a-color-light">
           {label}
         </Label>
       )}
-      <Styled.Wrapper $block={block} $size={size}>
-        <Styled.Select id={id} ref={ref} {...props}>
+      <Styled.Wrapper>
+        <Styled.Typeahead id={id} ref={ref} {...props}>
           {children}
-        </Styled.Select>
+        </Styled.Typeahead>
         <Styled.Icon>
           <IconFactory icon="chevronDown" />
         </Styled.Icon>
@@ -35,13 +32,10 @@ function Select(
   );
 }
 
-export default forwardRef(Select);
+export default forwardRef(Typeahead);
 
 interface Props {
-  id?: string;
+  id: string;
   children: React.ReactNode;
-  block?: true;
-  size?: "lg";
   label?: string;
-  hideLabel?: true;
 }
