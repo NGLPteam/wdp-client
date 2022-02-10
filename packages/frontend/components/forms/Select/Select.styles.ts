@@ -3,9 +3,13 @@ import { aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { aButton, aFocusReset } from "theme/mixins/appearance";
 
-export const SelectWrapper = styled.div`
+export const Wrapper = styled.div<{ $block?: true; $size?: "lg" }>`
   position: relative;
   ${aButton("secondary", "sm")}
+
+  ${({ $size }) => $size === "lg" && "min-height: 40px;"}
+
+  ${({ $block }) => $block && "display: flex;"}
 `;
 
 export const Select = styled.select`
@@ -15,10 +19,11 @@ export const Select = styled.select`
   width: 100%;
 `;
 
-export const SelectIcon = styled.span`
+export const Icon = styled.span`
   position: absolute;
-  display: inline;
+  display: flex;
+  align-items: center;
   pointer-events: none;
   right: 12px;
-  top: 6px;
+  height: 100%;
 `;

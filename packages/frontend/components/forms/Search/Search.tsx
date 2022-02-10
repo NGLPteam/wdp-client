@@ -36,8 +36,8 @@ export default function Search({ placeholder, queryParams, mobile }: Props) {
   );
 }
 
-type Props = {
+interface Props {
   placeholder?: string;
   queryParams?: { [key: string]: string };
   mobile?: boolean;
-};
+}

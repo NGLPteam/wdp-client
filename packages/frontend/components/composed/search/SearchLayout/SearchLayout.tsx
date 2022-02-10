@@ -1,13 +1,18 @@
 import React from "react";
-import { Trans, useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import SearchBar from "../SearchBar";
 import * as Styled from "./SearchLayout.styles";
+import SearchLayoutSort from "./SearchLayoutSort";
+import SearchLayoutFilter from "./SearchLayoutFilter";
+import SearchLayoutResultsHeader from "./SearchLayoutResultsHeader";
+import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
 
-export default function SearchLayout() {
+export default function SearchLayout({ data }: Props) {
   const router = useRouter();
 
-  const { t } = useTranslation();
+  const entity = useMaybeFragment<SearchLayoutFragment$key>(fragment, data);
 
   return (
     <section className="a-bg-neutral00">
@@ -16,31 +21,11 @@ export default function SearchLayout() {
           <SearchBar id="searchPageInput" defaultValue={router.query.q} />
         </Styled.Search>
         <Styled.Sidebar>
-          <Styled.SidebarGroup>
-            <Styled.SidebarHeader>
-              {t("search.sort_results_header")}
-            </Styled.SidebarHeader>
-          </Styled.SidebarGroup>
-          <Styled.SidebarGroup>
-            <Styled.SidebarHeader>
-              {t("search.filter_results_header")}
-            </Styled.SidebarHeader>
-          </Styled.SidebarGroup>
+          <SearchLayoutSort />
+          {entity && <SearchLayoutFilter data={entity} />}
         </Styled.Sidebar>
         <Styled.Results>
-          <Styled.ResultsHeader>
-            <Trans
-              i18nKey="search.count_results_for_name"
-              values={{
-                count: 0,
-                name: router.query.q,
-              }}
-              components={[
-                <span key="text" className="t-copy-light"></span>,
-                <em key="name"></em>,
-              ]}
-            />
-          </Styled.ResultsHeader>
+          <SearchLayoutResultsHeader query={router.query.q} />
           <Styled.ResultsList>
             <Styled.ResultsListItem></Styled.ResultsListItem>
           </Styled.ResultsList>
@@ -49,3 +34,13 @@ export default function SearchLayout() {
     </section>
   );
 }
+
+interface Props {
+  data?: SearchLayoutFragment$key | null;
+}
+
+const fragment = graphql`
+  fragment SearchLayoutFragment on Entity {
+    ...SearchLayoutFilterFragment
+  }
+`;

@@ -1,6 +1,5 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { tLabel } from "theme/mixins";
 
 export const Inner = styled.div`
   padding-block-start: var(--container-padding-md);
@@ -17,22 +16,14 @@ export const Sidebar = styled.div`
   flex-basis: 278px;
   flex-grow: 1;
   padding-inline-end: var(--padding-rg);
-`;
 
-export const SidebarGroup = styled.div`
-  max-width: 278px;
+  > * {
+    max-width: 278px;
+  }
 
-  & + & {
+  > * + * {
     margin-block-start: var(--padding-xl);
   }
-`;
-
-export const SidebarHeader = styled.div`
-  min-height: ${pxToRem(30)};
-  margin-bottom: ${pxToRem(20)};
-  padding-top: ${pxToRem(4)};
-  border-bottom: 1px solid var(--border-color);
-  ${tLabel("sm")}
 `;
 
 export const Results = styled.div`
