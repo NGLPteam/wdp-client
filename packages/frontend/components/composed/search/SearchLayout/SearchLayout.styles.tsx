@@ -1,5 +1,8 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { respond } from "theme/mixins";
+
+const FILTER_BREAK = 70;
 
 export const Inner = styled.div`
   padding-block-start: var(--container-padding-md);
@@ -17,13 +20,22 @@ export const Sidebar = styled.div`
   flex-grow: 1;
   padding-inline-end: var(--padding-rg);
 
-  > * {
-    max-width: 278px;
-  }
+  ${respond("display: none;", FILTER_BREAK)}
+`;
+
+export const Filters = styled.div`
+  max-width: 278px;
 
   > * + * {
     margin-block-start: var(--padding-xl);
   }
+`;
+
+export const FiltersToggle = styled.div`
+  flex: 1 0 100%;
+  margin-block-end: var(--padding-lg);
+
+  ${respond("display: none;", FILTER_BREAK, "min")}
 `;
 
 export const Results = styled.div`

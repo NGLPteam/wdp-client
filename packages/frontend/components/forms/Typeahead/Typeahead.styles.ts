@@ -15,6 +15,7 @@ export const InputWrapper = styled.div`
   align-items: center;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-xs);
+  background: var(--color-base-neutral00);
 
   [aria-expanded="true"] > & {
     border-bottom-left-radius: 0;

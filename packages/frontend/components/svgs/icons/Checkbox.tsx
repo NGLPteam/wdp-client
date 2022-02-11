@@ -20,7 +20,7 @@ const Checkbox = ({ title, fill, ...props }: CheckboxProps) => {
         rx="3.5"
         data-path-name="box"
         stroke="currentColor"
-        fill="none"
+        fill="var(--color-base-neutral00)"
       />
       <path
         d="M3 8L7 11.5L13 4.5"

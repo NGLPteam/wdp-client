@@ -6,19 +6,19 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type SearchLayoutFilterFragment = {
+export type SearchLayoutFiltersFragment = {
     readonly schemaRanks: ReadonlyArray<{
         readonly identifier: string;
         readonly namespace: string;
         readonly kind: SchemaKind;
         readonly name: string;
     }>;
-    readonly " $refType": "SearchLayoutFilterFragment";
+    readonly " $refType": "SearchLayoutFiltersFragment";
 };
-export type SearchLayoutFilterFragment$data = SearchLayoutFilterFragment;
-export type SearchLayoutFilterFragment$key = {
-    readonly " $data"?: SearchLayoutFilterFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFilterFragment">;
+export type SearchLayoutFiltersFragment$data = SearchLayoutFiltersFragment;
+export type SearchLayoutFiltersFragment$key = {
+    readonly " $data"?: SearchLayoutFiltersFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFiltersFragment">;
 };
 
 
@@ -27,7 +27,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SearchLayoutFilterFragment",
+  "name": "SearchLayoutFiltersFragment",
   "selections": [
     {
       "alias": null,
@@ -72,5 +72,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '29e69181a4685a2b100368a1d5e91b35';
+(node as any).hash = '1d908f0792ca40a13a2dcb50a2b85cc4';
 export default node;

@@ -13,6 +13,7 @@ export { default as Search } from "./Search";
 export { default as Search32 } from "./Search32";
 export { default as Text32 } from "./Text32";
 export { default as Video32 } from "./Video32";
+export { default as Hamburger } from "./Hamburger";
 export { default as Hamburger24 } from "./Hamburger24";
 export { default as Close24 } from "./Close24";
 export { default as User } from "./User";

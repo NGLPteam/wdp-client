@@ -17,6 +17,7 @@ export const ICON_MAP = {
   close: Icons.Close,
   close24: Icons.Close24,
   download: Icons.Download,
+  hamburger: Icons.Hamburger,
   hamburger24: Icons.Hamburger24,
   image32: Icons.Image32,
   linkExternal: Icons.LinkExternal,
