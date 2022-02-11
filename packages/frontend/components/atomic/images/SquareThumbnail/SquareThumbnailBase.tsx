@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 import * as Styled from "./SquareThumbnail.styles";
 
-export default function SquareThumbnailBase({ alt, url }: BaseProps) {
+export default function SquareThumbnailBase({ alt, url, size }: BaseProps) {
   return url ? (
-    <Styled.Figure className="a-bg-custom20">
+    <Styled.Wrapper className="a-bg-custom20" $size={size}>
       <Image
         alt={alt || ""}
         src={url}
@@ -12,11 +12,12 @@ export default function SquareThumbnailBase({ alt, url }: BaseProps) {
         objectFit="cover"
         objectPosition="center"
       />
-    </Styled.Figure>
+    </Styled.Wrapper>
   ) : null;
 }
 
 interface BaseProps {
   alt?: string | null;
   url: string | null;
+  size?: number;
 }

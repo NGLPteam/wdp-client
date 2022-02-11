@@ -1,17 +1,19 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { borderRadius } from "theme/base/variables";
 import { aFocusBase } from "theme/mixins";
 
-export const Figure = styled.figure`
+export const Figure = styled.figure<{ $size?: number }>`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: ${pxToRem(120)};
-  width: ${pxToRem(120)};
-  border-radius: ${borderRadius.xs};
+  border-radius: var(--border-radius-sm);
   overflow: hidden;
+
+  ${({ $size }) => `
+    height: ${pxToRem($size || 120)};
+    width: ${pxToRem($size || 120)};
+  `}
 
   > svg {
     z-index: 1;

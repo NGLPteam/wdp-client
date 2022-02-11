@@ -40,9 +40,11 @@ export default function SearchLayout({ data }: Props) {
         </Styled.Sidebar>
         <Styled.Results>
           <SearchLayoutResultsHeader query={router.query.q} />
-          <Styled.ResultsList>
-            <Styled.ResultsListItem></Styled.ResultsListItem>
-          </Styled.ResultsList>
+          {/* <Styled.ResultsList>
+                <Styled.ResultsListItem key={i}>
+                  <SearchResultFactory data={descendant} />
+                </Styled.ResultsListItem>
+            </Styled.ResultsList> */}
         </Styled.Results>
       </Styled.Inner>
 
