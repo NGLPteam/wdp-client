@@ -2,7 +2,9 @@ import { aHidden } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { respond } from "theme/mixins";
 
-export const ButtonStyles = styled.button<{ $hideLabelOnMobile?: true }>`
+export const ButtonStyles = styled.button<{
+  $hideLabelOnMobile?: true;
+}>`
   > * + * {
     margin-inline-start: 8px;
   }
