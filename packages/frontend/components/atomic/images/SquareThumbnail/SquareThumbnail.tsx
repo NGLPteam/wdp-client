@@ -4,11 +4,20 @@ import { graphql } from "react-relay";
 import SquareThumbnailBase from "./SquareThumbnailBase";
 import { SquareThumbnailFragment$key } from "@/relay/SquareThumbnailFragment.graphql";
 
-export default function SquareThumbnail({ data }: Props) {
+type BaseProps = React.ComponentProps<typeof SquareThumbnailBase>;
+
+type ImageProps = Pick<BaseProps, "size">;
+
+export default function SquareThumbnail({
+  data,
+  ...props
+}: Props & ImageProps) {
   const imageData = useMaybeFragment(fragment, data);
   const image = imageData?.image.webp;
 
-  return image ? <SquareThumbnailBase alt={image.alt} url={image.url} /> : null;
+  return image ? (
+    <SquareThumbnailBase {...props} alt={image.alt} url={image.url} />
+  ) : null;
 }
 
 interface Props {

@@ -18,7 +18,7 @@ export const Search = styled.div`
 export const Sidebar = styled.div`
   flex-basis: 278px;
   flex-grow: 1;
-  padding-inline-end: var(--padding-rg);
+  padding-inline-end: var(--container-v-padding);
 
   ${respond("display: none;", FILTER_BREAK)}
 `;
@@ -53,7 +53,5 @@ export const ResultsHeader = styled.div`
 export const ResultsList = styled.ul``;
 
 export const ResultsListItem = styled.li`
-  & + & {
-    margin-block-start: var(--padding-xl);
-  }
+  margin-block-start: var(--padding-xl);
 `;

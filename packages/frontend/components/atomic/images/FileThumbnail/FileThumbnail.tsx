@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import Image from "next/image";
+import { SquareThumbnailBase } from "../SquareThumbnail";
 import * as Styled from "./FileThumbnail.styles";
 import { IconFactory } from "components/factories";
 
-export default function FileThumbnail({ alt, url, kind }: BaseProps) {
+export default function FileThumbnail({ alt, url, kind, size }: BaseProps) {
   const icon = useMemo(() => {
     switch (kind) {
       case "audio":
@@ -21,16 +21,13 @@ export default function FileThumbnail({ alt, url, kind }: BaseProps) {
   }, [kind]);
 
   return (
-    <Styled.Figure className={url ? "a-bg-neutral90" : "a-bg-custom10"}>
+    <Styled.Figure
+      className={url ? "a-bg-neutral90" : "a-bg-custom10"}
+      $size={size}
+    >
       {url && (
         <Styled.ImageWrapper>
-          <Image
-            alt={alt || ""}
-            src={url}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-          />
+          <SquareThumbnailBase alt={alt} url={url} size={size || 120} />
         </Styled.ImageWrapper>
       )}
       {icon}
@@ -42,4 +39,5 @@ interface BaseProps {
   alt?: string | null;
   url?: string | null;
   kind?: string;
+  size?: number;
 }

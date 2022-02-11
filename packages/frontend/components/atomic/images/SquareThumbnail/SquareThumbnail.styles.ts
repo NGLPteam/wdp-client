@@ -1,11 +1,15 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { borderRadius } from "theme/base/variables";
 
-export const Figure = styled.figure`
+export const Wrapper = styled.div<{
+  $size?: number;
+}>`
   position: relative;
-  height: ${pxToRem(160)};
-  width: ${pxToRem(160)};
-  border-radius: ${borderRadius.xs};
   overflow: hidden;
+  border-radius: var(--border-radius-sm);
+
+  ${({ $size }) => `
+    height: ${pxToRem($size || 160)};
+    width: ${pxToRem($size || 160)};
+  `}
 `;
