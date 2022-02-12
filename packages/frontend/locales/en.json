@@ -50,7 +50,8 @@
     "sort": {
       "results_header": "Sort results:",
       "label": "Sort by",
-      "most_recent": "Most recent"
+      "most_recent": "Most recent",
+      "title_asc": "Title, ascending"
     },
     "filter": {
       "results_header": "Filter results:"

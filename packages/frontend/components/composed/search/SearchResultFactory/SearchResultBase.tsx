@@ -1,6 +1,6 @@
 import React from "react";
-import { NamedLink } from "components/atomic";
 import * as Styled from "./SearchResultBase.styles";
+import { NamedLink } from "components/atomic";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 
