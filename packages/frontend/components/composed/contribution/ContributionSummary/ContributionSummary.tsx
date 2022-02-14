@@ -8,6 +8,7 @@ import {
   NamedLink,
   PrecisionDate,
   SquareThumbnail,
+  Link,
 } from "components/atomic";
 import { ContributionSummaryFragment$key } from "@/relay/ContributionSummaryFragment.graphql";
 import { getRouteByEntityType } from "helpers";
@@ -36,7 +37,7 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
                 routeParams={{ slug: entity.slug }}
                 passHref
               >
-                <a>{entity.title}</a>
+                <Link>{entity.title}</Link>
               </NamedLink>
             </h4>
           )}

@@ -4,6 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleSummary.styles";
 import {
   DotList,
+  Link,
   NamedLink,
   PrecisionDate,
   ReadMoreLink,
@@ -26,7 +27,7 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
                 routeParams={{ slug: article.slug }}
                 passHref
               >
-                <a>{article.title}</a>
+                <Link>{article.title}</Link>
               </NamedLink>
             </h4>
           )}

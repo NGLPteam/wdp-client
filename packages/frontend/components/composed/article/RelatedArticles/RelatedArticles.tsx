@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./RelatedArticles.styles";
-import { PrecisionDate, NamedLink } from "components/atomic";
+import { PrecisionDate, NamedLink, Link } from "components/atomic";
 import { RelatedArticlesFragment$key } from "@/relay/RelatedArticlesFragment.graphql";
 
 export default function RelatedArticles({ data }: Props) {
@@ -16,15 +16,15 @@ export default function RelatedArticles({ data }: Props) {
         <Styled.List>
           {articles.edges.map((edge, i) => (
             <Styled.ListItem key={i}>
-              <NamedLink
-                route={"item"}
-                routeParams={{ slug: edge.node.slug }}
-                passHref
-              >
-                <a>
-                  <Styled.ItemTitle>{edge.node.title}</Styled.ItemTitle>
-                </a>
-              </NamedLink>
+              <h4>
+                <NamedLink
+                  route={"item"}
+                  routeParams={{ slug: edge.node.slug }}
+                  passHref
+                >
+                  <Link>{edge.node.title}</Link>
+                </NamedLink>
+              </h4>
               <Styled.ItemMetadata className="t-copy-lighter">
                 {edge.node.journal?.title && <p>{edge.node.journal.title}</p>}
                 <p className="t-capitalize">

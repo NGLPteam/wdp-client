@@ -9,6 +9,7 @@ import {
   DotList,
   NamedLink,
   CoverImage,
+  Link,
 } from "components/atomic";
 import { JournalSummaryFragment$key } from "@/relay/JournalSummaryFragment.graphql";
 import { getRouteByEntityType } from "helpers";
@@ -46,7 +47,7 @@ export default function JournalSummary({ data, showReadMore }: Props) {
                 routeParams={{ slug: journal.slug }}
                 passHref
               >
-                <a>{journal.title}</a>
+                <Link>{journal.title}</Link>
               </NamedLink>
             </h4>
           )}

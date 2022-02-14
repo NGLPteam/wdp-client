@@ -9,6 +9,7 @@ import {
   PrecisionDate,
   NamedLink,
   CoverImage,
+  Link,
 } from "components/atomic";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 
@@ -50,7 +51,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
               routeParams={{ slug: issue.slug }}
               passHref
             >
-              <a>{issue.title}</a>
+              <Link>{issue.title}</Link>
             </NamedLink>
           </h4>
           {issue.subtitle && (

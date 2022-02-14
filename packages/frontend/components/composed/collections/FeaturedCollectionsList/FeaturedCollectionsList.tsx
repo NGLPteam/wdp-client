@@ -3,7 +3,7 @@ import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./FeaturedCollectionsList.styled";
-import { ArrowList, NamedLink } from "components/atomic";
+import { ArrowList, Link, NamedLink } from "components/atomic";
 import {
   FeaturedCollectionsListFragment$data,
   FeaturedCollectionsListFragment$key,
@@ -29,7 +29,7 @@ export default function FeaturedCollectionsList({ data, header }: Props) {
                   routeParams={{ slug: node.slug }}
                   passHref
                 >
-                  <a>{node.title}</a>
+                  <Link>{node.title}</Link>
                 </NamedLink>
               </li>
             ))}

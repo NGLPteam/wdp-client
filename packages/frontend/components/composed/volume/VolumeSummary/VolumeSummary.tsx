@@ -8,6 +8,7 @@ import {
   PrecisionDate,
   NamedLink,
   CoverImage,
+  Link,
 } from "components/atomic";
 import { VolumeSummaryFragment$key } from "@/relay/VolumeSummaryFragment.graphql";
 
@@ -40,7 +41,7 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
               routeParams={{ slug: volume.slug }}
               passHref
             >
-              <a>{volume.title}</a>
+              <Link>{volume.title}</Link>
             </NamedLink>
           </h4>
           {volume.subtitle && (

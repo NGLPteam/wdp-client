@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import CurrentIssue from "../CurrentIssue";
 import * as Styled from "./JournalContent.styles";
-import { ReadMoreLink, FullText, NamedLink } from "components/atomic";
+import { ReadMoreLink, FullText, NamedLink, Link } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 
@@ -42,7 +42,7 @@ export default function JournalContent({ data }: Props) {
                         }}
                         passHref
                       >
-                        <a>{announcement.node.header}</a>
+                        <Link>{announcement.node.header}</Link>
                       </NamedLink>
                     </h5>
                     <Styled.AnnouncementBody className="t-rte">

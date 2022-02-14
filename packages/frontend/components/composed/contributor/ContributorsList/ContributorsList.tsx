@@ -8,7 +8,7 @@ import {
   ContributorsListFragment$data,
   ContributorsListFragment$key,
 } from "@/relay/ContributorsListFragment.graphql";
-import { NamedLink } from "components/atomic";
+import { Link, NamedLink } from "components/atomic";
 
 type Node = ContributorsListFragment$data["edges"][number];
 
@@ -47,9 +47,9 @@ export default function ContributorsList({
                 }}
                 passHref
               >
-                <a>
+                <Link>
                   <ContributorName data={node.contributor} />
-                </a>
+                </Link>
               </NamedLink>
               {i < contributions.edges.length - 1 && ", "}
             </>
