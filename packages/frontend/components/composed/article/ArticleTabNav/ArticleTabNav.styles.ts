@@ -25,12 +25,12 @@ export const TabLink = styled.a`
   ${aFocusReset}
 
   &[aria-current],
-  &:focus-visible {
+  &[data-focus-visible-added] {
     border-bottom-color: var(--color-base);
     color: var(--color-base);
   }
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     text-shadow: ${boxShadow.focusShadow};
   }
 

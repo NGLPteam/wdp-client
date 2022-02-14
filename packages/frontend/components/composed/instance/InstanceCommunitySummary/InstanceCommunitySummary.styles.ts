@@ -19,7 +19,7 @@ export const LinkWrapper = styled.a`
     box-shadow: ${boxShadow.popUp}, 0px 0px 0px 1px var(--border-color-focus);
   }
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     box-shadow: 0px 0px 0px 1px var(--border-color-focus),
       ${boxShadow.focusGlow};
   }

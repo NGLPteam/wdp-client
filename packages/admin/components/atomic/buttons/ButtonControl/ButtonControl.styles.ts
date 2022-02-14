@@ -47,7 +47,7 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
     outline: 0;
   }
 
-  &:focus-visible:not(:hover) {
+  &[data-focus-visible-added]:not(:hover) {
     background-color: var(--brand20);
     border-color: var(--brand100);
     ${aGlow("lightMode")}

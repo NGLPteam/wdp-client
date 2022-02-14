@@ -177,7 +177,7 @@ export const SortIcon = styled.button`
     outline: 0;
   }
 
-  &:focus-visible:not(:hover) {
+  &[data-focus-visible-added]:not(:hover) {
     color: var(--accent-color);
     ${aTextGlow("lightMode")}
   }

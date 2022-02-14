@@ -48,7 +48,7 @@ export const Item = styled.li<{ $isDragging?: boolean }>`
     outline: 0;
   }
 
-  &:focus-visible:not(:hover) {
+  &[data-focus-visible-added]:not(:hover) {
     background-color: var(--brand20);
     border-color: var(--brand100);
     ${aGlow("lightMode")}

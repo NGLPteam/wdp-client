@@ -44,6 +44,7 @@
     "csstype": "^2.6.2",
     "date-fns": "^2.25.0",
     "downshift": "^6.1.7",
+    "focus-visible": "^5.2.0",
     "graphql": "^15.5.1",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",

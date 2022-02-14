@@ -19,7 +19,7 @@ export const ItemWrapper = styled.div`
   height: 100%;
 
   &:hover,
-  &:focus-visible {
+  &[data-focus-visible-added] {
     ${ItemLinkText} {
       ${aLinkHoverFocus}
     }

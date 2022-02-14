@@ -12,7 +12,7 @@ export const Link = styled.a<{ $active?: boolean }>`
     color: var(--accent-lighter);
   }
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     outline: 0;
     ${aTextGlow("darkMode")}
   }
@@ -39,7 +39,7 @@ export const LinkText = styled.span`
   padding-block-end: 1px;
   ${tLabel("md")}
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     outline: 0;
     ${aTextGlow("darkMode")}
   }

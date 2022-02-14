@@ -145,8 +145,8 @@ export function aFocus(content?: CssContent) {
   return css`
     ${aFocusReset}
 
-    &:focus-visible,
-    &:focus-within {
+    &:focus-within,
+    &[data-focus-visible-added] {
       ${aFocusBase}
       ${content}
     }
@@ -196,12 +196,12 @@ export const aLink = css`
     ${aLinkHoverFocus}
   }
 
-  &:focus {
-    outline: none;
+  &[data-focus-visible-added] {
+    ${aLinkHoverFocus}
   }
 
-  &:focus-visible {
-    ${aLinkHoverFocus}
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -211,9 +211,12 @@ export const aLinkText = css`
   ${aLinkBase}
 
   a:hover &,
-  a:focus-visible &
-  button:hover &
-  button:focus-visible & {
+  button:hover & {
+    ${aLinkHoverFocus}
+  }
+
+  a[data-focus-visible-added] &,
+  button[data-focus-visible-added] & {
     ${aLinkHoverFocus}
   }
 `;

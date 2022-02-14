@@ -33,9 +33,9 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           ]}
         />
       ) : (
-        <button className={signInOutClass} onClick={handleSignInOut}>
+        <Link as="button" className={signInOutClass} onClick={handleSignInOut}>
           {t("common.sign_in")}
-        </button>
+        </Link>
       )}
     </Styled.Wrapper>
   );

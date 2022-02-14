@@ -36,7 +36,7 @@ export const Tab = styled.a<{ $bottomBorder?: boolean; $active?: boolean }>`
     color: var(--tab-hover-color);
   }
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     outline: 0;
     color: var(--accent-light);
     ${aTextGlow("lightMode")}
