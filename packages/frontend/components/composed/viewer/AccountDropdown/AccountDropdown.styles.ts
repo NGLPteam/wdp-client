@@ -42,7 +42,8 @@ export const Name = styled.span`
   )}
 
   /* stylelint-disable selector-type-no-unknown */
-  ${AccountButton}:hover & {
+  ${AccountButton}:hover &,
+  ${AccountButton}[data-focus-visible-added] & {
     ${aLinkHoverFocus}
   }
   /* stylelint-enable selector-type-no-unknown */

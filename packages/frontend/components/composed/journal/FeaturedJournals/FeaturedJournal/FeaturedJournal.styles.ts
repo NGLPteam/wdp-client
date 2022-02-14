@@ -76,11 +76,11 @@ export const ItemTitle = styled.h4`
 
 export const ItemSubtitle = styled.div`
   padding-block-start: var(--padding-xs);
-  margin-block-end: ${pxToRem(24)};
 `;
 
 export const ItemData = styled.div`
   margin-block-start: auto;
+  padding-block-start: var(--padding-md);
 
   > * + * {
     &:before {

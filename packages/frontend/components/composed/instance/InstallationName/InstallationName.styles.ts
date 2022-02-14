@@ -6,5 +6,5 @@ export const Wrapper = styled.div`
 `;
 
 export const Name = styled.p`
-  padding-block-end: ${pxToRem(2)};
+  margin-block-end: ${pxToRem(2)};
 `;

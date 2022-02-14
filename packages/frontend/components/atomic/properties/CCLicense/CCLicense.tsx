@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { IconFactory } from "components/factories";
 import { CCLicenseFragment$key } from "@/relay/CCLicenseFragment.graphql";
+import { Link } from "components/atomic";
 
 export default function CCLicense({ data, className }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -30,9 +31,9 @@ export default function CCLicense({ data, className }: Props) {
     <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
       <IconFactory icon="cc" role="presentation" />
       {licenseLink && (
-        <a target="_blank" rel="noreferrer" href={licenseLink}>
+        <Link target="_blank" rel="noreferrer" href={licenseLink}>
           <span>{licenseLabel || t("metadata.cc_license")}</span>
-        </a>
+        </Link>
       )}
     </div>
   ) : null;

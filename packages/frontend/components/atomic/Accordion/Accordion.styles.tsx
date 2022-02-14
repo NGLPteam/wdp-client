@@ -1,25 +1,38 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { tLabel, tCopySmall } from "theme/mixins";
+import { tLabel, tCopySmall, aFocusReset } from "theme/mixins";
 import { IconFactory } from "components/factories";
+import { transition } from "theme/base/variables";
 
 export const Accordion = styled.details``;
 
-export const Label = styled.summary`
+export const Summary = styled.summary`
   ${tLabel("lg")}
-  list-style: none;
-
   display: flex;
   align-items: center;
+  list-style: none;
+  ${aFocusReset}
 
   > * + * {
     margin-inline-start: ${pxToRem(10)};
   }
+
+  > span {
+    border-bottom: 2px solid transparent;
+    transition: ${transition.border};
+  }
+
+  &:hover,
+  &[data-focus-visible-added] {
+    color: var(--color-light);
+
+    > span {
+      border-bottom-color: var(--color-lighter);
+    }
+  }
 `;
 
-export const Arrow = styled(IconFactory)`
-  margin-block-start: ${pxToRem(3)};
-`;
+export const Arrow = styled(IconFactory)``;
 
 export const List = styled.ul`
   padding-inline-start: ${pxToRem(20)};

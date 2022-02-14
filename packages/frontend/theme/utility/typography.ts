@@ -2,7 +2,6 @@
 // --------------------
 import { css } from "styled-components";
 import { tCopy, tCopySmall, tLabel, tHeading } from "../mixins/typography";
-import { aLink } from "theme/mixins";
 
 export default css`
   /* Headings - only add if needed */
@@ -64,8 +63,9 @@ export default css`
 
   /* Rich Text */
   .t-rte {
-    a:not([class]) {
-      ${aLink}
+    a:not([class]),
+    a[class=""] {
+      text-decoration: underline;
     }
 
     > * + * {
