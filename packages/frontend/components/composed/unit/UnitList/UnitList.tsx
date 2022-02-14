@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./UnitList.styles";
-import { NamedLink } from "components/atomic";
+import { Link, NamedLink } from "components/atomic";
 import { UnitListFragment$key } from "@/relay/UnitListFragment.graphql";
 
 export default function ResearchUnitsList({ data }: Props) {
@@ -30,9 +30,7 @@ export default function ResearchUnitsList({ data }: Props) {
                     routeParams={{ slug: edge.node.descendant.slug }}
                     passHref
                   >
-                    <span>
-                      <a className="a-link">{edge.node.descendant.title}</a>
-                    </span>
+                    <Link>{edge.node.descendant.title}</Link>
                   </NamedLink>
                 </Styled.UnitsListItem>
               ) : null

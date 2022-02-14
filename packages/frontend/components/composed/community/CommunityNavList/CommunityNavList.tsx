@@ -45,6 +45,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
                 : "community.items.schema"
             }
             routeParams={{ slug: community.slug, schema: schema.slug }}
+            passHref
           >
             <Link>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</Link>
           </NamedLink>
@@ -68,6 +69,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
     />
   ) : (
     <Dropdown
+      disclosure={getDisclosure("nav.explore")}
       label={t("nav.explore")}
       menuItems={[
         ...schemaLinks,
@@ -80,7 +82,6 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
           <ArrowLink>{t("nav.browse_all")}</ArrowLink>
         </NamedLink>,
       ]}
-      disclosure={getDisclosure("nav.explore")}
     />
   );
 

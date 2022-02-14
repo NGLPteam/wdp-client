@@ -27,7 +27,11 @@ export default function BreadCrumbs({ data }: Props) {
     const currentRoute = getRouteByEntityType(entity.__typename);
 
     return currentRoute && entity.slug ? (
-      <NamedLink route={currentRoute} routeParams={{ slug: entity.slug }}>
+      <NamedLink
+        route={currentRoute}
+        routeParams={{ slug: entity.slug }}
+        passHref
+      >
         <a aria-current="page">{entity.title}</a>
       </NamedLink>
     ) : null;

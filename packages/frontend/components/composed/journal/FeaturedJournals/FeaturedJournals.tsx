@@ -44,7 +44,7 @@ export default function FeaturedJournals({
       </Styled.List>
       {slug && showButton && (
         <Styled.ButtonWrapper>
-          <NamedLink route={buttonRoute} routeParams={{ slug }}>
+          <NamedLink route={buttonRoute} routeParams={{ slug }} passHref>
             <Button as="a">{t(buttonText)}</Button>
           </NamedLink>
         </Styled.ButtonWrapper>
