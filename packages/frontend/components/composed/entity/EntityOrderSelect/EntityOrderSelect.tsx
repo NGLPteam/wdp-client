@@ -26,7 +26,7 @@ export default function EntityOrderSelect({
       <label htmlFor={id} className="a-hidden">
         {t("form.order_label")}
       </label>
-      <Select id={id} onChange={handleChange} defaultValue={defaultValue}>
+      <Select id={id} onChange={handleChange} defaultValue={defaultValue} block>
         {orderings.edges.map(({ node }) => (
           <option key={node.identifier} value={node.identifier}>
             {node.name}

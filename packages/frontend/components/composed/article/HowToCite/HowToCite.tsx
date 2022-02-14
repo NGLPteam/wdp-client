@@ -24,7 +24,8 @@ export default function HowToCite({ data }: Props) {
     <Styled.Outer className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
         <Styled.TextBlock>
-          <h4>{t("layouts.how_to_cite")}</h4>
+          {/* For a11y, this block should have a semantic heading of h3. In design, it's styled as an h4. */}
+          <h3 className="t-h4">{t("layouts.how_to_cite")}</h3>
           <div ref={ref}>
             <ReactMarkdown className="t-rte t-copy-sm t-copy-lighter">
               {citation}

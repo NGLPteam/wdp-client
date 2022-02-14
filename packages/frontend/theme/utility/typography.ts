@@ -10,6 +10,10 @@ export default css`
     ${tHeading(3)}
   }
 
+  .t-h4 {
+    ${tHeading(4)}
+  }
+
   /* Labels */
   .t-label-lg {
     ${tLabel("lg")}

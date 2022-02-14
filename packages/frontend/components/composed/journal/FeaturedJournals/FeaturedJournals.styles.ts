@@ -5,7 +5,7 @@ import { respond, fluidScale } from "theme/mixins";
 
 const DESKTOP_BREAK = 100;
 
-export const Section = styled.div`
+export const Section = styled.section`
   position: relative;
 `;
 
