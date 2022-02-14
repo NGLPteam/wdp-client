@@ -19,6 +19,7 @@ export default function EntityNavBar({ data }: Props) {
         </Styled.LeftSide>
         <Styled.RightSide>
           <Search
+            id="entitySearch"
             placeholder={t("search.placeholder_name", {
               name: entity.title,
             })}

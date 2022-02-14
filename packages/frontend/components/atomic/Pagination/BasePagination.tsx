@@ -39,6 +39,7 @@ export default function BasePagination({ page, pageCount, onSubmit }: Props) {
           max={pageCount}
           defaultValue={currentPage}
           style={{ width }}
+          aria-label="Page"
           {...register("page")}
         />
         <button type="submit" className="a-hidden">

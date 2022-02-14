@@ -72,11 +72,12 @@ function Typeahead<T extends Record<string, unknown>>(
         >
           <IconFactory icon="chevronDown" />
         </Styled.IconButton>
-        <Styled.List {...getMenuProps()} open={isOpen}>
+        <Styled.List {...getMenuProps()} open={isOpen} role="group">
           {isOpen &&
             options?.map((item, i) => (
               <Styled.Item
                 key={`item${i}`}
+                role="option"
                 {...getItemProps({ key: `item${i}`, index: i, item })}
               >
                 {item.node ? item.node : item.label}

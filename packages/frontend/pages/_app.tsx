@@ -1,3 +1,4 @@
+import "focus-visible";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";

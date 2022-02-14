@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NamedLink } from "..";
+import { Link, NamedLink } from "..";
 import { getRouteByEntityKind } from "helpers";
 import { BreadcrumbLinkFragment$key } from "@/relay/BreadcrumbLinkFragment.graphql";
 
@@ -13,8 +13,8 @@ export default function BreadcrumbLink({ data }: Props) {
   if (!crumb?.slug || !route) return null;
 
   return (
-    <NamedLink route={route} routeParams={{ slug: crumb.slug }}>
-      <a>{crumb.label}</a>
+    <NamedLink route={route} routeParams={{ slug: crumb.slug }} passHref>
+      <Link>{crumb.label}</Link>
     </NamedLink>
   );
 }

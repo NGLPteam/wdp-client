@@ -1,26 +1,18 @@
-import React from "react";
+import React, { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
+import { MaybeButtonRef } from "@wdp/lib/types/ref";
 import * as Styled from "./MobileMenuToggle.styles";
 import { IconFactory } from "components/factories";
-type IconProps = React.ComponentProps<typeof IconFactory>;
 
-export default function MobileMenuToggle({
-  onToggle,
-  label,
-  icon,
-  ...props
-}: Props) {
+function MobileMenuToggle({ ...props }, ref: MaybeButtonRef) {
+  const { t } = useTranslation();
+
   return (
-    <Styled.Toggle onClick={onToggle} {...props}>
-      <Styled.Label className="t-label-lg">{label}</Styled.Label>
-      <IconFactory icon={icon} role="presentation" />
+    <Styled.Toggle ref={ref} {...props}>
+      <Styled.Label className="t-label-lg">{t("nav.menu")}</Styled.Label>
+      <IconFactory icon="hamburger24" role="presentation" />
     </Styled.Toggle>
   );
 }
 
-type Props = {
-  onToggle: () => void;
-  label: string;
-  icon: IconProps["icon"];
-  "aria-controls": string;
-  "aria-expanded": boolean;
-};
+export default forwardRef(MobileMenuToggle);

@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
     ${aImageHover}
   }
 
-  a:focus-visible & {
+  a[data-focus-visible-added] & {
     ${aImageFocus}
   }
 `;

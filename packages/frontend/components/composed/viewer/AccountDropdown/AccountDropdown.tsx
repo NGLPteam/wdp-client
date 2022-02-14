@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
 import * as Styled from "./AccountDropdown.styles";
 import { useViewerContext } from "hooks";
-import { Avatar, Dropdown, Link } from "components/atomic";
+import { Avatar, Dropdown, Link, NavMenuLink } from "components/atomic";
 
 export default function AccountDropdown({ condensed, mobile }: Props) {
   const { avatarUrl, name } = useViewerContext();
@@ -33,9 +33,13 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           ]}
         />
       ) : (
-        <button className={signInOutClass} onClick={handleSignInOut}>
+        <NavMenuLink
+          as="button"
+          className={signInOutClass}
+          onClick={handleSignInOut}
+        >
           {t("common.sign_in")}
-        </button>
+        </NavMenuLink>
       )}
     </Styled.Wrapper>
   );

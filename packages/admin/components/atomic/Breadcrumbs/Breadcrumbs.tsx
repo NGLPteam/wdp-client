@@ -86,7 +86,7 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
   &__li {
     display: flex;
 
-    &:focus-visible {
+    &[data-focus-visible-added] {
       outline: 0;
     }
   }

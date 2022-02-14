@@ -6,6 +6,7 @@ import { IconFactory } from "components/factories";
 
 const Avatar = ({ url, alt, size = "sm" }: Props) => {
   const imageSize = size === "sm" ? 32 : 60;
+
   const style = {
     "--Avatar-size": `${pxToRem(imageSize)}`,
     "--Avatar-border-color": size === "sm" ? "none" : "var()",
@@ -16,7 +17,11 @@ const Avatar = ({ url, alt, size = "sm" }: Props) => {
       {url && (
         <Image src={url} alt={alt || ""} width={imageSize} height={imageSize} />
       )}
-      <IconFactory icon={size === "lg" ? "avatar60" : "avatar32"} />
+      <IconFactory
+        icon={size === "lg" ? "avatar60" : "avatar32"}
+        aria-hidden="true"
+        role="presentation"
+      />
     </Styled.Wrapper>
   );
 };

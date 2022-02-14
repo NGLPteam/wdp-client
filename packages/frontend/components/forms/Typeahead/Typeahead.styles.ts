@@ -17,6 +17,10 @@ export const InputWrapper = styled.div`
   border-radius: var(--border-radius-xs);
   background: var(--color-base-neutral00);
 
+  &:focus-within {
+    box-shadow: ${boxShadow.focusGlow};
+  }
+
   [aria-expanded="true"] > & {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

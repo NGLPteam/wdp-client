@@ -1,13 +1,15 @@
-import React, { forwardRef, Ref } from "react";
-import { MaybeLinkRef } from "@wdp/lib/types/ref";
+import React, { forwardRef } from "react";
+import { MaybeButtonOrLinkRef } from "@wdp/lib/types/ref";
 import * as Styled from "./NavMenuLink.styles";
 import { IconFactory } from "components/factories";
 
 type IconProps = React.ComponentProps<typeof IconFactory>;
 
+type BaseProps = React.ComponentProps<typeof Styled.Link>;
+
 function NavMenuLink(
-  { children, as = "a", className, icon, ...props }: Props,
-  ref: MaybeLinkRef | Ref<HTMLSpanElement>
+  { children, as = "a", className, icon, ...props }: Props & BaseProps,
+  ref: MaybeButtonOrLinkRef
 ) {
   const Tag = as;
 

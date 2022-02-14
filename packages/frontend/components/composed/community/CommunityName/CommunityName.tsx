@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import * as Styled from "./CommunityName.styles";
 import CommunityLogo from "./CommunityLogo";
 import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
-import { NamedLink } from "components/atomic";
+import { Link, NamedLink } from "components/atomic";
 
 export default function CommunityName({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -30,7 +30,7 @@ export default function CommunityName({ data }: Props) {
             routeParams={{ slug: community?.slug || "" }}
             passHref
           >
-            <a>{community?.title}</a>
+            <Link>{community?.title}</Link>
           </NamedLink>
         </h4>
       </>

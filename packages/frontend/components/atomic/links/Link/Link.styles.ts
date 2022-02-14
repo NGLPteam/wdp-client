@@ -5,8 +5,7 @@ import { IconFactory as BaseIconFactory } from "components/factories";
 export const Link = styled.a`
   display: inline-block;
 
-  &:focus,
-  &:focus-visible {
+  &:focus {
     outline: none;
   }
 `;
@@ -15,12 +14,14 @@ export const LinkText = styled.span`
   display: inline;
   ${aLinkBase}
 
-  /* stylelint-disable selector-type-no-unknown */
-  ${Link}:hover &,
-  ${Link}:focus-visible {
+  [data-focus-visible-added] & {
     ${aLinkHoverFocus}
   }
-  /* stylelint-enable selector-type-no-unknown */
+
+  a:hover &,
+  button:hover & {
+    ${aLinkHoverFocus}
+  }
 `;
 
 export const IconFactory = styled(BaseIconFactory)`

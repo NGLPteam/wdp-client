@@ -34,7 +34,7 @@ export default function FeaturedJournals({
 
   return collections && collections.edges.length > 0 ? (
     <Styled.Section className="a-bg-neutral00" style={style}>
-      <h3 className="a-hidden">{t(headerText)}</h3>
+      <h2 className="a-hidden">{t(headerText)}</h2>
       <Styled.List data-count={collections.edges.length}>
         {collections.edges.map(({ node }: Node) => (
           <Styled.ListItem key={node.slug}>
@@ -44,7 +44,7 @@ export default function FeaturedJournals({
       </Styled.List>
       {slug && showButton && (
         <Styled.ButtonWrapper>
-          <NamedLink route={buttonRoute} routeParams={{ slug }}>
+          <NamedLink route={buttonRoute} routeParams={{ slug }} passHref>
             <Button as="a">{t(buttonText)}</Button>
           </NamedLink>
         </Styled.ButtonWrapper>

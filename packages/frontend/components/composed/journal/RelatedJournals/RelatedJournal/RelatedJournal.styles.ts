@@ -20,12 +20,10 @@ export const ItemSubheader = styled.div`
 export const LinkText = styled.span`
   ${aLinkBase}
 
-  /* stylelint-disable selector-type-no-unknown */
-  ${Item}:hover &,
-  ${Item}:focus & {
+  ${/* sc-selector */ Item}:hover &,
+  ${/* sc-selector */ Item}:focus & {
     ${aLinkHoverFocus}
   }
-  /* stylelint-enable selector-type-no-unknown */
 `;
 
 export const ItemText = styled.div`

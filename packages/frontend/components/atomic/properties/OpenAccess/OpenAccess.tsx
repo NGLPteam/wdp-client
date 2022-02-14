@@ -12,7 +12,7 @@ export default function OpenAccess({ data, className }: Props) {
 
   return entity?.openAccess?.checked || entity?.openAccess?.checkedByDefault ? (
     <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
-      <IconFactory icon="openLock" />
+      <IconFactory icon="openLock" role="presentation" />
       <span>{t("metadata.open_access")}</span>
     </div>
   ) : null;

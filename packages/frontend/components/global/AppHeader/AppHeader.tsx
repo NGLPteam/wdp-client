@@ -1,14 +1,11 @@
-import React, { useRef, useCallback, useEffect } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useToggle, useWindowSize } from "@wdp/lib/hooks";
-import { useFocusTrap } from "@castiron/hooks/";
+import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import * as Styled from "./AppHeader.styles";
-import { breakpoints } from "theme/base/variables";
 import { SearchButton } from "components/atomic";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
-import MobileMenu from "components/layout/MobileMenu";
 import InstallationName from "components/composed/instance/InstallationName";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
@@ -18,6 +15,7 @@ import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { RouteHelper } from "routes";
 import CommunityName from "components/composed/community/CommunityName";
+import BaseDrawer from "components/layout/BaseDrawer";
 
 function AppHeader({ data, communityData }: Props) {
   const appData = useMaybeFragment(fragment, data);
@@ -28,30 +26,7 @@ function AppHeader({ data, communityData }: Props) {
 
   const { t } = useTranslation();
 
-  const mobileNavId = "appMobileNav";
-
-  const mobileNavRef = useRef(null);
-
-  const [isActive, toggleActive, setActive] = useToggle();
-
-  const { width } = useWindowSize();
-
-  const prevWidth = useRef<number | undefined>();
-
-  useEffect(() => {
-    if (isActive) {
-      if (prevWidth.current !== width) {
-        if (width && width > parseInt(breakpoints[70])) {
-          setActive(false);
-        }
-      }
-    }
-    prevWidth.current = width;
-  }, [width, isActive, setActive]);
-
-  useFocusTrap(mobileNavRef, isActive, {
-    onDeactivate: useCallback(() => setActive(false), [setActive]),
-  });
+  const dialog = useDialogState({ animated: true });
 
   return (
     <>
@@ -71,30 +46,21 @@ function AppHeader({ data, communityData }: Props) {
             <AccountDropdown condensed={!isCommunityRoot} />
           </Styled.RightSide>
           <Styled.MobileRight>
-            <MobileMenuToggle
-              onToggle={toggleActive}
-              label={t("nav.menu")}
-              icon="hamburger24"
-              aria-controls={mobileNavId}
-              aria-expanded={isActive}
-            />
+            <DialogDisclosure as={MobileMenuToggle} {...dialog} />
           </Styled.MobileRight>
         </Styled.HeaderInner>
-        <MobileMenu
-          ref={mobileNavRef}
-          id={mobileNavId}
-          active={isActive}
-          onClose={toggleActive}
-          communityPicker={
-            <CommunityPicker data={appData} active={community} />
-          }
+        <BaseDrawer
+          header={<CommunityPicker data={appData} active={community} />}
+          footer={<InstallationName />}
+          dialog={dialog}
+          label={t("nav.menu")}
         >
           <Styled.MobileList>
             {community && <CommunityNavList data={community} mobile />}
-            <Search mobile />
+            <Search id="headerSearch" mobile />
             <AccountDropdown mobile />
           </Styled.MobileList>
-        </MobileMenu>
+        </BaseDrawer>
       </Styled.Header>
       {community && (
         <Styled.PrintHeader aria-hidden>

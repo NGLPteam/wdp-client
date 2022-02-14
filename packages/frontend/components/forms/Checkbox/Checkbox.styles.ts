@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { IconFactory } from "components/factories";
+import { boxShadow } from "theme/base/variables";
 
 export const Label = styled.label`
   display: flex;
@@ -17,6 +18,7 @@ export const LabelText = styled.span`
 `;
 
 export const Icon = styled(IconFactory)`
+  --checkbox-fill: var(--color-base-neutral00);
   cursor: pointer;
   display: inline-block;
   margin-inline-end: ${pxToRem(8)};
@@ -26,12 +28,11 @@ export const Icon = styled(IconFactory)`
   }
 
   input:hover + & {
-    color: var(--accent-light);
+    color: var(--color-light);
+    --checkbox-fill: var(--color-custom10);
   }
 
   input:checked + & {
-    color: var(--accent-light);
-
     [data-path-name="check"] {
       color: var(--current-color);
     }
@@ -42,7 +43,7 @@ export const Icon = styled(IconFactory)`
     cursor: default;
   }
 
-  input:focus + & {
-    color: var(--accent-light);
+  input[data-focus-visible-added] + & {
+    box-shadow: ${boxShadow.focusGlow};
   }
 `;

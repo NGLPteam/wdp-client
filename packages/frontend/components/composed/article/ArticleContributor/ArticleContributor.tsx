@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import * as Styled from "./ArticleContributor.styles";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
-import { DotList, NamedLink } from "components/atomic";
+import { DotList, Link, NamedLink } from "components/atomic";
 import { ArticleContributorFragment$key } from "@/relay/ArticleContributorFragment.graphql";
 
 export default function ArticleContributor({ data }: Props) {
@@ -36,7 +36,8 @@ export default function ArticleContributor({ data }: Props) {
             }}
             passHref
           >
-            <Styled.AvatarWrapper as="a">
+            {/* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */}
+            <Styled.AvatarWrapper as="a" aria-hidden="true" tabIndex={-1}>
               <ContributorAvatar data={contributor.image} />
             </Styled.AvatarWrapper>
           </NamedLink>
@@ -52,9 +53,9 @@ export default function ArticleContributor({ data }: Props) {
             }}
             passHref
           >
-            <a>
+            <Link>
               <ContributorName data={contributor} />
-            </a>
+            </Link>
           </NamedLink>
           {contributor.__typename === "PersonContributor" && (
             <>

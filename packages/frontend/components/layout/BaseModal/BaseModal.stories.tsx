@@ -11,7 +11,7 @@ export default {
 };
 
 const Template: Story<Props> = (args) => {
-  const dialog = useDialogState({ animated: true });
+  const dialog = useDialogState();
   return (
     <>
       <DialogDisclosure as={Button} {...dialog}>

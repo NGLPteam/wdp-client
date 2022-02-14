@@ -11,6 +11,7 @@ import { Search } from "components/forms";
 import { RouteHelper } from "routes";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
+import { Link as LinkStyle } from "components/atomic";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
@@ -33,7 +34,7 @@ function AppFooter({ data, communityData }: Props) {
     return routeObj && routeLabel ? (
       <Styled.NavListItem key={route} className="t-copy-sm t-copy-light">
         <Link href={routeObj.path} passHref>
-          <a>{startCase(t(routeLabel))}</a>
+          <LinkStyle>{startCase(t(routeLabel))}</LinkStyle>
         </Link>
       </Styled.NavListItem>
     ) : null;
@@ -50,10 +51,10 @@ function AppFooter({ data, communityData }: Props) {
           )}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
-          <Search />
+          <Search id="footerSearch" />
         </Styled.SearchWrapper>
         <Styled.SearchMobile>
-          <Search mobile />
+          <Search mobile id="footerMobileSearch" />
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
           <Styled.InstallationMobile>

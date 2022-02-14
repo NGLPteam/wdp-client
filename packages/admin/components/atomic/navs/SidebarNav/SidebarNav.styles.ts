@@ -35,7 +35,7 @@ export const Link = styled.a<LinkProps>`
       `}
   }
 
-  &:focus-visible {
+  &[data-focus-visible-added] {
     outline: 0;
     box-shadow: inset 0 -1px 0 var(--brand50);
     color: var(--brand50);

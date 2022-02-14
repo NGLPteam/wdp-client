@@ -32,7 +32,7 @@ export const Wrapper = styled(BaseDialog)`
     animation: ${slideDrawerOut} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
 
     ${reducedMotion(`
-      animation: none;
+      animation-duration: 0s;
     `)}
   }
 
@@ -40,7 +40,7 @@ export const Wrapper = styled(BaseDialog)`
     animation: ${slideDrawerIn} 0.3s cubic-bezier(0.61, 1, 0.88, 1) forwards;
 
     ${reducedMotion(`
-      animation: none;
+      animation-duration: 0s;
       transform: translateX(0);
       opacity: 1;
     `)}

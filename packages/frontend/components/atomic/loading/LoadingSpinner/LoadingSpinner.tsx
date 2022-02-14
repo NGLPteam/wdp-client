@@ -6,10 +6,11 @@ const LoadingSpinner = ({ className, label }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Styled.Icon
-      className={className}
-      aria-label={t(label || "common.loading")}
-    />
+    <Styled.Icon className={className}>
+      <Styled.Label className="a-hidden">
+        {t(label || "common.loading")}
+      </Styled.Label>
+    </Styled.Icon>
   );
 };
 

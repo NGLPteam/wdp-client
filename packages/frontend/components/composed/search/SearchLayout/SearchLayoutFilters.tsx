@@ -13,7 +13,7 @@ import {
 } from "components/forms";
 import { SearchLayoutFiltersFragment$key } from "@/relay/SearchLayoutFiltersFragment.graphql";
 
-export default function SearchLayoutFilters({ data }: Props) {
+export default function SearchLayoutFilters({ data, id }: Props) {
   const entity = useMaybeFragment<SearchLayoutFiltersFragment$key>(
     fragment,
     data
@@ -32,7 +32,7 @@ export default function SearchLayoutFilters({ data }: Props) {
 
   return (
     <FormProvider {...methods}>
-      <Styled.Filters as="form">
+      <Styled.Filters id={id} as="form">
         <Fieldset legend={t("sort.results_header")}>
           <Select
             id="sortSearch"
@@ -43,9 +43,6 @@ export default function SearchLayoutFilters({ data }: Props) {
             {...register("sort")}
           >
             <option value="RECENT">{t("sort.most_recent")}</option>
-            <option value="TARGET_TITLE_ASCENDING">
-              {t("sort.title_asc")}
-            </option>
           </Select>
         </Fieldset>
         <Fieldset legend={t("filter.results_header")}>
@@ -84,6 +81,8 @@ export default function SearchLayoutFilters({ data }: Props) {
 
 interface Props {
   data?: SearchLayoutFiltersFragment$key | null;
+  /** a11y ID for form compontents */
+  id?: string;
 }
 
 const fragment = graphql`

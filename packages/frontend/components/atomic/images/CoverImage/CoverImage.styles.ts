@@ -13,7 +13,7 @@ export const Figure = styled.figure`
     ${aImageHover}
   }
 
-  a:focus-visible & {
+  a[data-focus-visible-added] & {
     ${aImageFocus}
   }
 

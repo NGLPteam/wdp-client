@@ -53,7 +53,7 @@ export const LeftSide = styled.div`
 
 export const InstallationName = styled.span`
   margin-inline-end: var(--grid-column-gap);
-  padding-block-end: ${pxToRem(3)};
+  margin-block-end: ${pxToRem(3)};
 
   ${globalNavRespond(`display: none`)}
 `;

@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./RelatedIssues.styles";
-import { NamedLink, CoverImage, PrecisionDate } from "components/atomic";
+import { NamedLink, CoverImage, PrecisionDate, Link } from "components/atomic";
 import { RelatedIssueBlockFragment$key } from "@/relay/RelatedIssueBlockFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 
@@ -37,7 +37,7 @@ export default function RelatedIssueBlock({ data }: Props) {
             routeParams={{ slug: issue.slug }}
             passHref
           >
-            <a>{issue.title}</a>
+            <Link>{issue.title}</Link>
           </NamedLink>
         </h4>
         {issue.subtitle && <Styled.Subtitle>{issue.subtitle}</Styled.Subtitle>}

@@ -55,7 +55,7 @@ export const TOCInner = styled.div`
   top: var(--padding-lg);
 `;
 
-export const TOCHeader = styled.h5`
+export const TOCHeader = styled.h3`
   padding-block-end: var(--padding-sm);
   border-bottom: 1px solid var(--border-color);
 `;

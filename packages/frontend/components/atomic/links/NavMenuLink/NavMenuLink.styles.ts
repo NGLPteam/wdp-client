@@ -31,7 +31,7 @@ export const Link = styled.a`
 
   ${aFocusReset}
 
-  &:focus-visible,
+  &[data-focus-visible-added],
   &[aria-current] {
     color: var(--color-base);
 

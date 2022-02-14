@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import JournalHeroMetadata from "../JournalHeroMetadata";
 import * as Styled from "./JournalHero.styles";
-import { HeroImage, NamedLink, DOI } from "components/atomic";
+import { HeroImage, NamedLink, DOI, Link } from "components/atomic";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
@@ -20,7 +20,7 @@ export default function JournalHero({ data }: Props) {
                 routeParams={{ slug: journal.slug }}
                 passHref
               >
-                <a>{journal.title}</a>
+                <Link>{journal.title}</Link>
               </NamedLink>
             </Styled.Title>
             {journal.subtitle && <h3>{journal.subtitle}</h3>}

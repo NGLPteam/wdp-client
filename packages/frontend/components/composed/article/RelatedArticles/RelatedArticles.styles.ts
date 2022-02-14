@@ -31,8 +31,6 @@ export const ListItem = styled.li`
   ${respond(`grid-column: span 12;`, 30)}
 `;
 
-export const ItemTitle = styled.h4``;
-
 export const ItemMetadata = styled.div`
   padding-block-start: ${pxToRem(12)};
 `;
