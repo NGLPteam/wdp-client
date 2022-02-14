@@ -64,7 +64,7 @@ export default function SearchLayout({ data }: Props) {
           </DialogDisclosure>
         </Styled.FiltersToggle>
         <Styled.Sidebar>
-          <SearchLayoutFilters data={entity} />
+          <SearchLayoutFilters id="sidebarFilters" data={entity} />
         </Styled.Sidebar>
         <Styled.Results>
           <SearchLayoutResultsHeader query={router.query.q} />
@@ -77,7 +77,7 @@ export default function SearchLayout({ data }: Props) {
       </Styled.Inner>
 
       <BaseDrawer label="Filters" dialog={dialog}>
-        <SearchLayoutFilters data={entity} />
+        <SearchLayoutFilters id="mobileFilters" data={entity} />
       </BaseDrawer>
     </section>
   );

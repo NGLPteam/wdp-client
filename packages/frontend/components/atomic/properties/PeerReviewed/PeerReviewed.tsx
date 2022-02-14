@@ -13,7 +13,7 @@ export default function PeerReviewed({ data, className }: Props) {
   return entity?.peerReviewed?.checked ||
     entity?.peerReviewed?.checkedByDefault ? (
     <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
-      <IconFactory icon="user" />
+      <IconFactory icon="user" role="presentation" />
       <span>{t("metadata.peer_reviewed")}</span>
     </div>
   ) : null;

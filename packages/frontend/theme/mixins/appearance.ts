@@ -32,7 +32,7 @@ export function aBgCustom10() {
       --background-color: var(--color-custom10);
       --color-base: ${baseColors.neutral90};
       --color-light: ${baseColors.neutral80};
-      --color-lighter: ${baseColors.neutral70};
+      --color-lighter: ${baseColors.neutral80};
       --button-secondary-bg-color: ${baseColors.neutral00};
     }
 

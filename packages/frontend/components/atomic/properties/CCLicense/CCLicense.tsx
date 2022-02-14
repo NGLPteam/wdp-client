@@ -28,7 +28,7 @@ export default function CCLicense({ data, className }: Props) {
 
   return entity?.ccLicense?.selection ? (
     <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
-      <IconFactory icon="cc" />
+      <IconFactory icon="cc" role="presentation" />
       {licenseLink && (
         <a target="_blank" rel="noreferrer" href={licenseLink}>
           <span>{licenseLabel || t("metadata.cc_license")}</span>

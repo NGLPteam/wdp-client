@@ -36,7 +36,8 @@ export default function ArticleContributor({ data }: Props) {
             }}
             passHref
           >
-            <Styled.AvatarWrapper as="a">
+            {/* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */}
+            <Styled.AvatarWrapper as="a" aria-hidden="true" tabIndex={-1}>
               <ContributorAvatar data={contributor.image} />
             </Styled.AvatarWrapper>
           </NamedLink>

@@ -39,4 +39,5 @@ Default.args = {
   size: undefined,
   hideLabel: undefined,
   label: "Select",
+  id: "selectId",
 };

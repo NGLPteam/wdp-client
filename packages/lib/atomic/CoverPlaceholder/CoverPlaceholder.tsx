@@ -1,4 +1,5 @@
 import React from "react";
+import { useUID } from "react-uid";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
@@ -12,6 +13,7 @@ export default function CoverPlaceholder({
   maxHeight,
   style,
 }: Props) {
+  const uid = useUID();
   const randomState = mkState(seed);
   const nextBool: (state: AleaState) => boolean = nextT((n) => n < 0.5);
   const mkNext0toMax = (
@@ -183,7 +185,8 @@ export default function CoverPlaceholder({
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} style={{ ...maxStyle, ...style }}>
-      <clipPath id="placeholder-mask">
+      {title && <title>{title}</title>}
+      <clipPath id={`placeholder-mask${uid}`}>
         <rect
           x="0"
           y="0"
@@ -192,7 +195,7 @@ export default function CoverPlaceholder({
           fill={theme.background}
         />
       </clipPath>
-      <g clipPath="url(#placeholder-mask)">
+      <g clipPath={`url(#placeholder-mask${uid})`}>
         {pattern.map((cell, index) => (
           <svg
             key={index}

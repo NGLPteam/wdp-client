@@ -34,9 +34,11 @@ export default function SearchResultBase({
         )}
       </Styled.Text>
       {image && (
-        <Styled.Image>
+        // Because the title is an accessible link and the image is presentational,
+        // we can hide this link from screen readers and focus elements
+        <Styled.Image aria-hidden="true">
           <NamedLink route={route} routeParams={routeParams} passHref>
-            <a>{image}</a>
+            <a tabIndex={-1}>{image}</a>
           </NamedLink>
         </Styled.Image>
       )}

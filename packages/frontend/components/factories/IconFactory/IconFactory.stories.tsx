@@ -17,6 +17,7 @@ export default {
 const Template: Story<Props> = (args) => <IconFactory {...args} />;
 Template.args = {
   icon: "search",
+  title: "Icon title",
 };
 
 export const Default = Template.bind({});

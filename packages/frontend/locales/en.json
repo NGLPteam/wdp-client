@@ -23,7 +23,8 @@
       "download": "Download",
       "download_name": "Download {{name}}",
       "loading": "Loading",
-      "loading_pdf": "Loading PDF"
+      "loading_pdf": "Loading PDF",
+      "avatar": "Avatar"
     },
     "list": {
       "page_number": "Page {{number}}",
@@ -96,7 +97,8 @@
       "image": "image",
       "audio": "audio",
       "video": "video",
-      "document": "document"
+      "document": "document",
+      "file": "file"
     },
     "metadata": {
       "doi": "DOI:",

@@ -15,7 +15,7 @@ function Link(
   return children ? (
     <Styled.Link ref={ref} {...props}>
       <Styled.LinkText>{children}</Styled.LinkText>
-      {icon && <Styled.IconFactory icon={icon} />}
+      {icon && <Styled.IconFactory icon={icon} role="presentation" />}
     </Styled.Link>
   ) : null;
 }

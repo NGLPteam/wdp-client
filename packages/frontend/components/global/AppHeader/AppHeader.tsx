@@ -91,7 +91,7 @@ function AppHeader({ data, communityData }: Props) {
         >
           <Styled.MobileList>
             {community && <CommunityNavList data={community} mobile />}
-            <Search mobile />
+            <Search id="headerSearch" mobile />
             <AccountDropdown mobile />
           </Styled.MobileList>
         </MobileMenu>

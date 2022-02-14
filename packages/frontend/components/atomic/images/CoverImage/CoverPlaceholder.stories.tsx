@@ -37,8 +37,8 @@ const sizes = [250, 150, 100];
 
 const Template: Story<Props> = () => (
   <>
-    {sizes.map((width) => (
-      <div key={width} className="l-flex l-flex--gap">
+    {sizes.map((width, i) => (
+      <div key={i} className="l-flex l-flex--gap">
         {examples.map((example) => (
           <div key={example.title} style={{ marginBottom: 25, width: width }}>
             <CoverPlaceholder seed={example.title} title={example.title} />

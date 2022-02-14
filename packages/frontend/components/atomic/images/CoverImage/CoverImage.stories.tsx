@@ -34,7 +34,7 @@ const LinkTemplate: Story<Props> = (args) => (
 
 export const InsideLink = LinkTemplate.bind({});
 InsideLink.args = {
-  alt: "",
+  alt: "journal cover",
   url: `/images/placeholders/blue-ucla.png`,
   width: 225,
   height: 300,

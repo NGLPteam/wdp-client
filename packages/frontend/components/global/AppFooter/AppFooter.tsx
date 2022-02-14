@@ -50,10 +50,10 @@ function AppFooter({ data, communityData }: Props) {
           )}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
-          <Search />
+          <Search id="footerSearch" />
         </Styled.SearchWrapper>
         <Styled.SearchMobile>
-          <Search mobile />
+          <Search mobile id="footerMobileSearch" />
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
           <Styled.InstallationMobile>
