@@ -5,8 +5,9 @@ import type { OperationType } from "relay-runtime";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
 import { toEntities } from "../helpers/toEntities";
 import useRowActions from "./useRowActions";
-import { useNoInitialEffect, useRoutePage } from "hooks";
+import { useNoInitialEffect, useRouteOrder, useRoutePage } from "hooks";
 import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
+import { useRouter } from "next/router";
 
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
@@ -117,13 +118,19 @@ function useModelList<
 
   // Respond to sortBy changes.
   /* eslint-disable react-hooks/exhaustive-deps */
+  const router = useRouter();
   useEffect(() => {
     if (!setQueryVariables || !queryVariables) return;
     if (!Array.isArray(sortBy) || sortBy.length === 0) return;
     const { id, desc } = sortBy[0];
     const order = mapSortBy(id, desc);
     if (!order) return;
+
     setQueryVariables({ ...queryVariables, order });
+    // Quietly update query vars
+    router.push({ query: { ...router.query, order } }, undefined, {
+      shallow: true,
+    });
   }, [sortBy]);
   /* eslint-enable react-hooks/exhaustive-deps */
 

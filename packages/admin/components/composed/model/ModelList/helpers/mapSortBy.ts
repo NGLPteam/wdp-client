@@ -7,7 +7,17 @@ import {
 
 type Orders = EntityOrder | ContributorOrder | ContributionOrder | UserOrder;
 
-type OrderableProperties = "updatedAt";
+type OrderableProperties =
+  | "createdAt"
+  | "name"
+  | "title"
+  | "targetTitle"
+  | "email"
+  | "affiliation"
+  | "contributions"
+  | "globalAdmin"
+  | "schema"
+  | "published";
 
 interface OrderConfig {
   id: OrderableProperties;
@@ -60,7 +70,48 @@ type ReverseMapSortBy = {
 };
 
 export const reverseMapSortBy: ReverseMapSortBy = (order) => {
-  if (order === "RECENT") return { id: "updatedAt", desc: true };
-  if (order === "OLDEST") return { id: "updatedAt", desc: false };
+  switch (order) {
+    case "RECENT":
+    case "OLDEST":
+      return { id: "createdAt", desc: order === "RECENT" };
+
+    case "NAME_DESCENDING":
+    case "NAME_ASCENDING":
+      return { id: "name", desc: order === "NAME_DESCENDING" };
+
+    case "TITLE_DESCENDING":
+    case "TITLE_ASCENDING":
+      return { id: "title", desc: order === "TITLE_DESCENDING" };
+
+    case "TARGET_TITLE_DESCENDING":
+    case "TARGET_TITLE_ASCENDING":
+      return { id: "targetTitle", desc: order === "TARGET_TITLE_DESCENDING" };
+
+    case "EMAIL_DESCENDING":
+    case "EMAIL_ASCENDING":
+      return { id: "email", desc: order === "EMAIL_DESCENDING" };
+
+    case "AFFILIATION_DESCENDING":
+    case "AFFILIATION_ASCENDING":
+      return { id: "affiliation", desc: order === "AFFILIATION_DESCENDING" };
+
+    case "MOST_CONTRIBUTIONS":
+    case "LEAST_CONTRIBUTIONS":
+      return { id: "contributions", desc: order === "MOST_CONTRIBUTIONS" };
+
+    case "ADMINS_RECENT":
+      return { id: "globalAdmin", desc: false };
+
+    case "SCHEMA_NAME_DESCENDING":
+    case "SCHEMA_NAME_ASCENDING":
+      return { id: "schema", desc: order === "SCHEMA_NAME_DESCENDING" };
+
+    case "PUBLISHED_DESCENDING":
+    case "PUBLISHED_ASCENDING":
+      return { id: "published", desc: order === "PUBLISHED_DESCENDING" };
+
+    default:
+      return null;
+  }
   return null;
 };
