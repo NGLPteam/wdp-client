@@ -35,10 +35,8 @@ function CollectionContributionList<T extends OperationType>({
   const { t } = useTranslation();
 
   /* eslint-disable max-len */
-  const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
-    fragment,
-    data
-  );
+  const collectionContributions =
+    useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
@@ -60,13 +58,12 @@ function CollectionContributionList<T extends OperationType>({
     },
   };
 
-  const contributorNameColumn = ModelColumns.ContributorNameColumn<CollectionContributionNode>(
-    {
+  const contributorNameColumn =
+    ModelColumns.ContributorNameColumn<CollectionContributionNode>({
       accessor: (row: CollectionContributionNode) => {
         return row?.contributor;
       },
-    }
-  );
+    });
 
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
@@ -126,7 +123,8 @@ interface CollectionContributionListProps
   nameColumn?: "collection" | "contributor";
 }
 
-type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
+type CollectionContributionNode =
+  CollectionContributionListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {

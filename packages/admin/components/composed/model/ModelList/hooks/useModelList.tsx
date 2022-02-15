@@ -2,12 +2,12 @@ import React, { useCallback, useMemo, useEffect } from "react";
 import { useTable, useSortBy, useRowSelect } from "react-table";
 import type { Column, ModelTableActionProps } from "react-table";
 import type { OperationType } from "relay-runtime";
+import { useRouter } from "next/router";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
 import { toEntities } from "../helpers/toEntities";
 import useRowActions from "./useRowActions";
-import { useNoInitialEffect, useRouteOrder, useRoutePage } from "hooks";
+import { useNoInitialEffect, useRoutePage } from "hooks";
 import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
-import { useRouter } from "next/router";
 
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
