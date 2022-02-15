@@ -4,7 +4,7 @@ import { useUID } from "react-uid";
 import BaseInputError from "../BaseInputError";
 import * as Styled from "./TagsInput.styles";
 
-const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
+const TagsInputAdd = ({ placeholder, onEnter, onBlur, required }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
   const uID = useUID();
@@ -50,6 +50,7 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
         type="text"
         placeholder={placeholder}
         onKeyDown={handleKeyDown}
+        onBlur={onBlur}
         pattern="[^,]+"
         title={t("forms.tags.noCommas")}
       />
@@ -69,6 +70,8 @@ const TagsInputAdd = ({ placeholder, onEnter }: Props) => {
 interface Props {
   placeholder?: string;
   onEnter: (string: string) => void;
+  onBlur: () => void;
+  required?: boolean;
 }
 
 export default TagsInputAdd;
