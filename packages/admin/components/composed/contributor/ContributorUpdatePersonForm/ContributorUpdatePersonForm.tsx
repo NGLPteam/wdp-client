@@ -63,13 +63,18 @@ export default function ContributorUpdatePersonForm({
           description="Format: example@email.com"
           {...register("email")}
         />
+        <Forms.Input
+          label="forms.fields.orcid"
+          description="forms.fields.orcid_description"
+          {...register("orcid")}
+        />
         <Forms.FileUpload
           label="forms.fields.image"
           name="image"
           image={image?.thumb}
           clearName="clearImage"
         />
-        <Forms.Textarea label="forms.fields.bio" isWide {...register("bio")} />
+        <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
         <Forms.LinksRepeater
           label="forms.fields.links"
           itemLabel="forms.fields.link"
@@ -116,6 +121,7 @@ const fieldsFragment = graphql`
       email
       affiliation
       bio
+      orcid
       image {
         thumb {
           png {
