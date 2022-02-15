@@ -11,6 +11,7 @@ export type CreatePersonContributorInput = {
     url?: string | null | undefined;
     bio?: string | null | undefined;
     links?: Array<ContributorLinkInput> | null | undefined;
+    orcid?: string | null | undefined;
     image?: UploadedFileInput | null | undefined;
     imageMetadata?: ImageMetadataInput | null | undefined;
     givenName?: string | null | undefined;
@@ -49,6 +50,7 @@ export type ContributorCreatePersonFormMutationResponse = {
             readonly email: string | null;
             readonly affiliation: string | null;
             readonly bio: string | null;
+            readonly orcid: string | null;
             readonly image: {
                 readonly thumb: {
                     readonly png: {
@@ -85,6 +87,7 @@ mutation ContributorCreatePersonFormMutation(
       email
       affiliation
       bio
+      orcid
       image {
         thumb {
           png {
@@ -187,10 +190,17 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "url",
+  "name": "orcid",
   "storageKey": null
 },
 v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -221,7 +231,7 @@ v10 = {
               "name": "alt",
               "storageKey": null
             },
-            (v9/*: any*/)
+            (v10/*: any*/)
           ],
           "storageKey": null
         }
@@ -231,7 +241,7 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "ContributorLink",
@@ -240,11 +250,11 @@ v11 = {
   "plural": true,
   "selections": [
     (v5/*: any*/),
-    (v9/*: any*/)
+    (v10/*: any*/)
   ],
   "storageKey": null
 },
-v12 = [
+v13 = [
   {
     "alias": null,
     "args": null,
@@ -253,7 +263,7 @@ v12 = [
     "storageKey": null
   }
 ],
-v13 = {
+v14 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -295,7 +305,7 @@ v13 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v12/*: any*/),
+      "selections": (v13/*: any*/),
       "storageKey": null
     },
     {
@@ -305,7 +315,7 @@ v13 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v12/*: any*/),
+      "selections": (v13/*: any*/),
       "storageKey": null
     }
   ],
@@ -342,8 +352,9 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
-              (v11/*: any*/)
+              (v9/*: any*/),
+              (v11/*: any*/),
+              (v12/*: any*/)
             ],
             "storageKey": null
           },
@@ -351,7 +362,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v13/*: any*/)
+              (v14/*: any*/)
             ]
           }
         ],
@@ -390,8 +401,9 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v10/*: any*/),
+              (v9/*: any*/),
               (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -402,21 +414,21 @@ return {
             ],
             "storageKey": null
           },
-          (v13/*: any*/)
+          (v14/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "db3bef5c7545b7fa25d4a2f7c8d015e5",
+    "cacheID": "0248a44c0a0e6581221b0a21eb43dac3",
     "id": null,
     "metadata": {},
     "name": "ContributorCreatePersonFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      givenName\n      familyName\n      title\n      email\n      affiliation\n      bio\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      givenName\n      familyName\n      title\n      email\n      affiliation\n      bio\n      orcid\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a3456ca55fe2e415d3d349f07d65bb39';
+(node as any).hash = 'c19cbb2139571c7165fe696df404acc3';
 export default node;

@@ -11,6 +11,7 @@ export type ContributorUpdateOrganizationFormFieldsFragment = {
     readonly location?: string | null | undefined;
     readonly bio?: string | null | undefined;
     readonly url?: string | null | undefined;
+    readonly orcid?: string | null | undefined;
     readonly image?: {
         readonly thumb: {
             readonly png: {
@@ -82,6 +83,13 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "orcid",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "ImageAttachment",
           "kind": "LinkedField",
           "name": "image",
@@ -148,5 +156,5 @@ return {
   "abstractKey": "__isAnyContributor"
 };
 })();
-(node as any).hash = '2c290ddd7095478c12d8a3b99579d7d2';
+(node as any).hash = 'be1e1463e021ef2cc5e5138cf551cea4';
 export default node;

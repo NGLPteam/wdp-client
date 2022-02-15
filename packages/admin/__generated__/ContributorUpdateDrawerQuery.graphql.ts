@@ -70,6 +70,7 @@ fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
     location
     bio
     url
+    orcid
     image {
       thumb {
         png {
@@ -102,6 +103,7 @@ fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
     email
     affiliation
     bio
+    orcid
     image {
       thumb {
         png {
@@ -214,6 +216,13 @@ v11 = {
 v12 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "orcid",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
   "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "image",
@@ -252,14 +261,14 @@ v12 = {
   ],
   "storageKey": null
 },
-v13 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v14 = {
+v15 = {
   "alias": null,
   "args": null,
   "concreteType": "ContributorLink",
@@ -267,7 +276,7 @@ v14 = {
   "name": "links",
   "plural": true,
   "selections": [
-    (v13/*: any*/),
+    (v14/*: any*/),
     (v11/*: any*/)
   ],
   "storageKey": null
@@ -370,7 +379,8 @@ return {
                               (v10/*: any*/),
                               (v11/*: any*/),
                               (v12/*: any*/),
-                              (v14/*: any*/)
+                              (v13/*: any*/),
+                              (v15/*: any*/)
                             ],
                             "type": "OrganizationContributor",
                             "abstractKey": null
@@ -411,7 +421,7 @@ return {
                           {
                             "kind": "InlineFragment",
                             "selections": [
-                              (v13/*: any*/),
+                              (v14/*: any*/),
                               (v9/*: any*/),
                               {
                                 "alias": null,
@@ -422,7 +432,8 @@ return {
                               },
                               (v10/*: any*/),
                               (v12/*: any*/),
-                              (v14/*: any*/)
+                              (v13/*: any*/),
+                              (v15/*: any*/)
                             ],
                             "type": "PersonContributor",
                             "abstractKey": null
@@ -457,12 +468,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "969504b49102c8d0db1e0352bff32d15",
+    "cacheID": "b9b509d4be5b4f31a250830294e8f296",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n"
+    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n"
   }
 };
 })();

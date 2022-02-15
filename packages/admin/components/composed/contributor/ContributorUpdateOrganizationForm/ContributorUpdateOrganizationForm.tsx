@@ -50,8 +50,12 @@ export default function ContributorUpdateOrganizationForm({
         <Forms.Email
           label="forms.fields.email"
           description="Format: example@email.com"
-          isWide
           {...register("email")}
+        />
+        <Forms.Input
+          label="forms.fields.orcid"
+          description="forms.fields.orcid_description"
+          {...register("orcid")}
         />
         <Forms.Input label="forms.fields.location" {...register("location")} />
         <Forms.Input label="forms.fields.url" {...register("url")} />
@@ -110,6 +114,7 @@ const fieldsFragment = graphql`
       location
       bio
       url
+      orcid
       image {
         thumb {
           png {

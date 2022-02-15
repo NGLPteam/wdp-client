@@ -35,6 +35,11 @@ export default function ContributorCreatePersonForm({
           description="Format: example@email.com"
         />
         <Forms.Input
+          label="forms.fields.orcid"
+          description="forms.fields.orcid_description"
+          {...register("orcid")}
+        />
+        <Forms.Input
           label="forms.fields.affiliation"
           {...register("affiliation")}
         />
@@ -84,6 +89,7 @@ const mutation = graphql`
         email
         affiliation
         bio
+        orcid
         image {
           thumb {
             png {

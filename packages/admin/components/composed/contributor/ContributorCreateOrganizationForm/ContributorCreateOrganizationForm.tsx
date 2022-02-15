@@ -28,6 +28,11 @@ export default function ContributorCreateOrganizationForm({
           {...register("email")}
           description="Format: example@email.com"
         />
+        <Forms.Input
+          label="forms.fields.orcid"
+          description="forms.fields.orcid_description"
+          {...register("orcid")}
+        />
         <Forms.FileUpload label="forms.fields.image" name="image" />
         <Forms.Input label="forms.fields.location" {...register("location")} />
         <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
@@ -78,6 +83,7 @@ const mutation = graphql`
         location
         bio
         url
+        orcid
         image {
           thumb {
             png {
