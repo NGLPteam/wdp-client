@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ValidateResult } from "react-hook-form";
-
+import capitalize from "lodash/capitalize";
 import * as Styled from "./Message.styles";
 
 export default function Message({ type, result }: Props) {
@@ -20,7 +20,7 @@ export default function Message({ type, result }: Props) {
   return message ? (
     <Styled.Error>
       <Styled.ErrorIcon icon="warning" title="Error" />
-      <Styled.ErrorText>{message}</Styled.ErrorText>
+      <span>{capitalize(message)}</span>
     </Styled.Error>
   ) : null;
 }

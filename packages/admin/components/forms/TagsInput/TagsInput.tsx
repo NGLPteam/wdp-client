@@ -1,4 +1,6 @@
 import React, { Ref, forwardRef, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useFormContext } from "react-hook-form";
 import BaseInputWrapper from "../BaseInputWrapper";
 
 import type InputProps from "../inputType";
@@ -24,7 +26,11 @@ const TagsInput = forwardRef(
     }: Props,
     ref: Ref<HTMLInputElement>
   ) => {
+    const { t } = useTranslation();
+
     const [tags, setTags] = useState<Tags>(value);
+
+    const { setError, clearErrors } = useFormContext();
 
     // Pass the selected value back up to react-hook-forms' onChange
     useEffect(() => {
@@ -38,6 +44,7 @@ const TagsInput = forwardRef(
       if (newTag && !currentTags.includes(newTag)) {
         setTags([...currentTags, newTag]);
       }
+      clearErrors(name);
     };
 
     // Remove a tag
@@ -49,6 +56,17 @@ const TagsInput = forwardRef(
       }
     };
 
+    const handleBlur = () => {
+      if (required && (!tags || tags.length === 0)) {
+        setError(name, {
+          type: "manual",
+          message: t("forms.validation.required"),
+        });
+      } else {
+        clearErrors(name);
+      }
+    };
+
     return (
       <BaseInputWrapper
         name={name}
@@ -56,20 +74,26 @@ const TagsInput = forwardRef(
         label={label}
         required={required}
         isWide={isWide}
+        description={description}
       >
         <>
           <div>
+            {/* Visible input field for typeahead functionality */}
+            <TagsInputAdd
+              placeholder={placeholder}
+              onEnter={handleAdd}
+              onBlur={handleBlur}
+              required={required}
+            />
             {/* Hidden input field for react-hook-form or other form control */}
             <input
               hidden
               ref={ref}
               name={name}
-              required={required}
               defaultValue={tags}
+              style={{ width: "100%" }}
               {...inputProps}
             />
-            {/* Visible input field for typeahead functionality */}
-            <TagsInputAdd placeholder={placeholder} onEnter={handleAdd} />
           </div>
           {tags && (
             <BaseArrayList>

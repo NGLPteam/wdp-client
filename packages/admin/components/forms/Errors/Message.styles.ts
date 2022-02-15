@@ -20,7 +20,3 @@ export const ErrorIcon = styled(IconFactory)`
   align-self: start;
   margin-block-start: 2px;
 `;
-
-export const ErrorText = styled.span`
-  text-transform: capitalize;
-`;
