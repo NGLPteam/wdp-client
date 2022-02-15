@@ -14,7 +14,7 @@ const UserNameColumnCell = ({ data }: Props) => {
       routeParams={{ slug: userData?.slug || "" }}
       passHref
     >
-      <a className="t-weight-md a-link l-flex l-flex--align-center l-flex--gap-sm">
+      <a className="t-weight-md a-link l-flex l-flex--gap-sm">
         {userData && <UserAvatar data={userData} />}
         <span>{userData?.name}</span>
       </a>

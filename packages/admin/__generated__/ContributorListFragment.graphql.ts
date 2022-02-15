@@ -12,10 +12,9 @@ export type ContributorListFragment = {
         readonly slug?: string | undefined;
         readonly legalName?: string | null | undefined;
         readonly createdAt?: string | undefined;
-        readonly updatedAt?: string | undefined;
         readonly givenName?: string | null | undefined;
         readonly familyName?: string | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment" | "ContributorAffiliationColumnFragment" | "ContributorContributionsColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ContributorListFragment";
@@ -51,13 +50,6 @@ v2 = {
   "storageKey": null
 },
 v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-},
-v4 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "ContributorNameColumnFragment"
@@ -96,8 +88,7 @@ return {
               "storageKey": null
             },
             (v2/*: any*/),
-            (v3/*: any*/),
-            (v4/*: any*/)
+            (v3/*: any*/)
           ],
           "type": "OrganizationContributor",
           "abstractKey": null
@@ -121,13 +112,22 @@ return {
               "name": "familyName",
               "storageKey": null
             },
-            (v2/*: any*/),
-            (v3/*: any*/)
+            (v2/*: any*/)
           ],
           "type": "PersonContributor",
           "abstractKey": null
         },
-        (v4/*: any*/)
+        (v3/*: any*/),
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorAffiliationColumnFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorContributionsColumnFragment"
+        }
       ],
       "storageKey": null
     },
@@ -141,5 +141,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '758d702497e6e77a9ca2b80f005ed8fa';
+(node as any).hash = '88a84a69e8cbd5fbad2bb624810768b5';
 export default node;

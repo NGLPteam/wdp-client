@@ -11,7 +11,6 @@ const CreatedAtColumn = <NodeType extends CreatableNode>(
   return {
     Header: <>{t("lists.created_at_column")}</>,
     id: "createdAt",
-    disableSortBy: true,
     className: "t-truncate",
     accessor: (originalRow: NodeType) => {
       if (!originalRow.createdAt) return null;

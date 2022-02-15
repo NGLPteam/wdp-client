@@ -67,6 +67,8 @@
     },
     "lists": {
       "admin_column": "Admin?",
+      "affiliation_column": "Affiliation",
+      "contributions_column": "Contributions",
       "created_at_column": "Created At",
       "email_column": "Email",
       "kind_column": "Kind",
@@ -87,6 +89,8 @@
       "contributors_column": "Contributors",
       "disabled_column": "Disabled",
       "no_results": "No Results",
+      "contribution_count": "{{count}} contribution",
+      "contribution_count_plural": "{{count}} contributions",
       "selected_count": "<0>Selected: {{count}}</0> of <0>{{total}}</0>",
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
       "sort": {

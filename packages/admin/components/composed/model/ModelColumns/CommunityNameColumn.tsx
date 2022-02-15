@@ -18,10 +18,9 @@ const CommunityNameColumn = <T extends Node>(
 
   return {
     Header: <span>{t("lists.name_column")}</span>,
-    id: "name",
+    id: "title",
     // By default, the thumbnail fragment should be on the row root
     accessor: (originalRow: T | Row) => originalRow,
-    disableSortBy: true,
     cellType: "name",
     Cell: ({ value }: CellProps<T>) => {
       const community = useMaybeFragment(fragment, value);

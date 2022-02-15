@@ -7,6 +7,7 @@ export { default as DropdownMenu } from "./dropdown/DropdownMenu";
 export { default as Dropdown } from "./dropdown/Dropdown";
 export { default as DataViewToggle } from "./DataViewToggle";
 export { default as Toast } from "./Toast";
+export { default as PrecisionDate } from "./PrecisionDate";
 export * from "./buttons";
 export * from "./links";
 export * from "./loading";

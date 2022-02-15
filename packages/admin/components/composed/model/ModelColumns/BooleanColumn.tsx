@@ -10,13 +10,14 @@ type Props<T extends Node> = PartialColumnish<T> & {
 const BooleanColumn = <T extends Node>({
   Header,
   id,
+  disableSortBy = true,
   ...props
 }: Props<T>): Column<T> => {
   return {
     Header,
     id,
     accessor: (originalRow: T) => get(originalRow, id),
-    disableSortBy: true,
+    disableSortBy,
     Cell: ({ value }: CellProps<T>) => (value && value === true ? "Yes" : "No"),
     ...props,
   };

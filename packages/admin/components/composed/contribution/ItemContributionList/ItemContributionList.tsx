@@ -19,7 +19,6 @@ import {
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, NamedLink } from "components/atomic";
-import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -41,8 +40,7 @@ function ItemContributionList<T extends OperationType>({
 
   const collectionNameColumn = {
     Header: "Name",
-    id: "Name",
-    disableSortBy: true,
+    id: "targetTitle",
     accessor: (row: ItemContributionNode) => {
       return row?.item?.title;
     },
@@ -59,29 +57,12 @@ function ItemContributionList<T extends OperationType>({
     },
   };
 
-  const contributorNameColumn = {
-    Header: "Name",
-    id: "Name",
-    disableSortBy: true,
-    accessor: (row: ItemContributionNode) => {
-      return row?.contributor;
-    },
-    Cell: ({ row }: CellProps<ItemContributionNode>) => {
-      if (row?.original.contributor.__typename === "%other") return null;
-
-      return (
-        <NamedLink
-          route="contributor"
-          routeParams={{ slug: row.original.contributor.slug }}
-          passHref
-        >
-          <a className="t-weight-md a-link">
-            <GetContributorDisplayName contributor={row.original.contributor} />
-          </a>
-        </NamedLink>
-      );
-    },
-  };
+  const contributorNameColumn =
+    ModelColumns.ContributorNameColumn<ItemContributionNode>({
+      accessor: (row: ItemContributionNode) => {
+        return row?.contributor;
+      },
+    });
 
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
@@ -147,15 +128,10 @@ const fragment = graphql`
       role
       contributor {
         __typename
-        ... on OrganizationContributor {
+        ... on Sluggable {
           slug
-          legalName
         }
-        ... on PersonContributor {
-          slug
-          givenName
-          familyName
-        }
+        ...ContributorNameColumnFragment
       }
       item {
         slug

@@ -1,14 +1,17 @@
 import React, { useMemo } from "react";
 
-function ContributorDisplayName({ contributor }: Props) {
+function ContributorDisplayName({ contributor, lastNameFirst }: Props) {
   const displayName = useMemo(
-    () => getContributorDisplayName(contributor),
-    [contributor]
+    () => getContributorDisplayName(contributor, lastNameFirst),
+    [contributor, lastNameFirst]
   );
   return <span>{displayName}</span>;
 }
 
-export function getContributorDisplayName(contributor: AnyContributor): string {
+export function getContributorDisplayName(
+  contributor: AnyContributor,
+  lastNameFirst?: boolean
+): string {
   if (!contributor) return "";
   if (
     contributor.__typename !== "OrganizationContributor" &&
@@ -18,13 +21,18 @@ export function getContributorDisplayName(contributor: AnyContributor): string {
   if (contributor.__typename === "OrganizationContributor")
     return organizationContributorName(contributor);
   if (contributor.__typename === "PersonContributor")
-    return personContributorName(contributor);
+    return personContributorName(contributor, lastNameFirst);
 
   return "";
 }
 
-function personContributorName(contributor: PersonContributor): string {
-  return `${contributor.givenName} ${contributor.familyName}`;
+function personContributorName(
+  contributor: PersonContributor,
+  lastNameFirst?: boolean
+): string {
+  return lastNameFirst
+    ? `${contributor.familyName}, ${contributor.givenName}`
+    : `${contributor.givenName} ${contributor.familyName}`;
 }
 
 function organizationContributorName(
@@ -61,6 +69,7 @@ type AnyContributor =
 
 interface Props {
   contributor?: AnyContributor;
+  lastNameFirst?: boolean;
 }
 
 export default ContributorDisplayName;

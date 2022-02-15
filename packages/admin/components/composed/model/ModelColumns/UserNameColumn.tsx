@@ -17,7 +17,6 @@ const UserNameColumn = <T extends Node>(props: Props<T> = {}): Column<T> => {
   return {
     Header: <>{t("lists.name_column")}</>,
     id: "name",
-    disableSortBy: true,
     cellType: "name",
     accessor: (originalRow: T | Row) => originalRow,
     Cell: ({ value }: CellProps<T>) => {

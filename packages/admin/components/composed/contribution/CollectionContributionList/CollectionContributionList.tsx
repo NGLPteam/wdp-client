@@ -19,7 +19,6 @@ import {
 import { ButtonControlGroup, NamedLink } from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
-import GetContributorDisplayName from "components/composed/contributor/ContributorDisplayName";
 import PageHeader from "components/layout/PageHeader";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -36,14 +35,15 @@ function CollectionContributionList<T extends OperationType>({
   const { t } = useTranslation();
 
   /* eslint-disable max-len */
-  const collectionContributions =
-    useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
+  const collectionContributions = useMaybeFragment<CollectionContributionListFragment$key>(
+    fragment,
+    data
+  );
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
     Header: "Name",
-    id: "Name",
-    disableSortBy: true,
+    id: "targetTitle",
     accessor: (row: CollectionContributionNode) => {
       return row?.collection?.title;
     },
@@ -60,29 +60,13 @@ function CollectionContributionList<T extends OperationType>({
     },
   };
 
-  const contributorNameColumn = {
-    Header: "Name",
-    id: "Name",
-    disableSortBy: true,
-    accessor: (row: CollectionContributionNode) => {
-      return row?.contributor;
-    },
-    Cell: ({ row }: CellProps<CollectionContributionNode>) => {
-      if (row?.original.contributor.__typename === "%other") return null;
-
-      return (
-        <NamedLink
-          route="contributor"
-          routeParams={{ slug: row.original.contributor.slug }}
-          passHref
-        >
-          <a className="t-weight-md a-link">
-            <GetContributorDisplayName contributor={row.original.contributor} />
-          </a>
-        </NamedLink>
-      );
-    },
-  };
+  const contributorNameColumn = ModelColumns.ContributorNameColumn<CollectionContributionNode>(
+    {
+      accessor: (row: CollectionContributionNode) => {
+        return row?.contributor;
+      },
+    }
+  );
 
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
@@ -142,8 +126,7 @@ interface CollectionContributionListProps
   nameColumn?: "collection" | "contributor";
 }
 
-type CollectionContributionNode =
-  CollectionContributionListFragment["nodes"][number];
+type CollectionContributionNode = CollectionContributionListFragment["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {
