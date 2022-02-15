@@ -45,9 +45,11 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-relay": "^11.0.2",
     "@types/relay-runtime": "^12.0.0",
+    "@types/relay-test-utils": "^6.0.5",
     "@types/styled-components": "^5.1.15",
     "babel-plugin-relay": "^12.0.0",
     "babel-plugin-styled-components": "^1.13.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "relay-test-utils": "^13.1.1"
   }
 }

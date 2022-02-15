@@ -4,7 +4,7 @@ import { useUID } from "react-uid";
 import BaseInputError from "../BaseInputError";
 import * as Styled from "./TagsInput.styles";
 
-const TagsInputAdd = ({ placeholder, onEnter, onBlur, required }: Props) => {
+const TagsInputAdd = ({ placeholder, onEnter, onBlur }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
   const uID = useUID();
