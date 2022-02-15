@@ -22,10 +22,7 @@ export const InAForm: Story<Props> = (args) => {
   return (
     <NullForm<FieldValues>>
       {({ form: { register } }) => (
-        <Select
-          {...args}
-          {...register("example", { required: args.required })}
-        />
+        <Select {...args} {...register("example")} />
       )}
     </NullForm>
   );

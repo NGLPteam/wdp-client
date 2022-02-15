@@ -4,7 +4,7 @@ import AssetsPropertySelect from "./AssetsPropertySelect";
 
 type BaseProps = Pick<
   React.ComponentProps<typeof AssetsPropertySelect>,
-  "name" | "label" | "required" | "options" | "isWide"
+  "name" | "label" | "required" | "options" | "isWide" | "description"
 >;
 
 const AssetsPropertyControl = ({
@@ -13,6 +13,7 @@ const AssetsPropertyControl = ({
   required,
   options,
   isWide,
+  description,
 }: Props) => {
   const { control } = useFormContext();
 
@@ -27,6 +28,7 @@ const AssetsPropertyControl = ({
           options={options}
           isWide={isWide}
           value={typeof value === "string" ? [value] : value || []}
+          description={description}
           {...props}
         />
       )}
