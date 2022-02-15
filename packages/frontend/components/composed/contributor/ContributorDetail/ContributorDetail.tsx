@@ -23,6 +23,11 @@ export default function ContributorDetail({ data }: Props) {
     [contributor]
   );
 
+  const hasLinks = useMemo(
+    () => contributor && contributor.links && contributor.links.length > 0,
+    [contributor]
+  );
+
   return contributor ? (
     <>
       <section className="a-bg-custom10">
@@ -46,13 +51,21 @@ export default function ContributorDetail({ data }: Props) {
               <ReactMarkdown>{contributor.bio}</ReactMarkdown>
             </div>
           )}
-          {contributor.links && contributor.links.length > 0 && (
+          {(hasLinks || contributor.orcid) && (
             <ul className="t-label-sm">
-              {contributor.links.map(({ title, url }, i) => (
-                <li key={i}>
-                  <ExternalLink href={url}>{title}</ExternalLink>
-                </li>
-              ))}
+              {contributor.orcid && (
+                <Styled.BioLinkItem>
+                  <ExternalLink href={`https://orcid.org/${contributor.orcid}`}>
+                    ORCID
+                  </ExternalLink>
+                </Styled.BioLinkItem>
+              )}
+              {hasLinks &&
+                contributor.links.map(({ title, url }, i) => (
+                  <Styled.BioLinkItem key={i}>
+                    <ExternalLink href={url}>{title}</ExternalLink>
+                  </Styled.BioLinkItem>
+                ))}
             </ul>
           )}
         </Styled.ContributorWrapper>
@@ -95,6 +108,7 @@ const fragment = graphql`
     ...ContributorNameFragment
     ... on Contributor {
       bio
+      orcid
       collectionContributions {
         nodes {
           ...ContributionSummaryFragment

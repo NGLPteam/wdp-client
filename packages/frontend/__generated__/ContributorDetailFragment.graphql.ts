@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ContributorDetailFragment = {
     readonly bio: string | null;
+    readonly orcid: string | null;
     readonly collectionContributions: {
         readonly nodes: ReadonlyArray<{
             readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryFragment">;
@@ -65,6 +66,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "bio",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "orcid",
       "storageKey": null
     },
     {
@@ -176,5 +184,5 @@ return {
   "abstractKey": "__isContributor"
 };
 })();
-(node as any).hash = '3cdd7364e75bdc92372a4945545267e0';
+(node as any).hash = '6f7ffe15cc20c4088a77520084f0bc56';
 export default node;

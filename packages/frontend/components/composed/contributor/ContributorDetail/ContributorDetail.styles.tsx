@@ -46,10 +46,16 @@ export const ContributionsHeader = styled.h3`
 
 export const ContributionList = styled.ul`
   max-width: ${pxToRem(768)};
+`;
 
-  > * + * {
+export const ContributionItem = styled.li`
+  & + & {
     margin-block-start: var(--padding-xl);
   }
 `;
 
-export const ContributionItem = styled.li``;
+export const BioLinkItem = styled.li`
+  & + & {
+    margin-block-start: var(--padding-xxs);
+  }
+`;
