@@ -255,7 +255,9 @@
         "global_settings": "Edit Settings",
         "global_settings_header": "Edit Global Settings",
         "ordering": "Edit Ordering",
-        "ordering_header": "Edit {{ name }} Ordering"
+        "ordering_header": "Edit {{ name }} Ordering",
+        "file": "Edit File",
+        "file_header": "Edit File {{ name }}"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -378,11 +380,13 @@
       },
       "file": {
         "upload": "Upload a file or \n drag and drop here",
-        "upload_new": "or Upload a new file",
+        "upload_new": "Upload a new file",
+        "or_upload_new": "or Upload a new file",
         "remove": "Remove this file",
         "required": "Please specify a file",
         "upload_failed": "Upload failed (please check console for now)",
-        "server_error": "Something went wrong"
+        "server_error": "Something went wrong",
+        "current_file_type": "Current {{type}}"
       },
       "link_repeater": {
         "add": "Add $t({{ name }})",

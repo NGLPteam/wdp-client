@@ -1,27 +1,11 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { FileIconFactory } from "@wdp/lib/factories";
 import { SquareThumbnailBase } from "../SquareThumbnail";
 import * as Styled from "./FileThumbnail.styles";
-import { IconFactory } from "components/factories";
 
 export default function FileThumbnail({ alt, url, kind, size }: BaseProps) {
   const { t } = useTranslation();
-
-  const icon = useMemo(() => {
-    switch (kind) {
-      case "audio":
-        return <IconFactory icon="audio32" title={t("asset.audio")} />;
-
-      case "image":
-        return <IconFactory icon="image32" title={t("asset.image")} />;
-
-      case "video":
-        return <IconFactory icon="video32" title={t("asset.video")} />;
-
-      default:
-        return <IconFactory icon="text32" title={t("asset.file")} />;
-    }
-  }, [kind, t]);
 
   return (
     <Styled.Figure
@@ -33,7 +17,7 @@ export default function FileThumbnail({ alt, url, kind, size }: BaseProps) {
           <SquareThumbnailBase alt={alt} url={url} size={size || 120} />
         </Styled.ImageWrapper>
       )}
-      {icon}
+      <FileIconFactory kind={kind} title={t(`asset.${kind}`)} />
     </Styled.Figure>
   );
 }

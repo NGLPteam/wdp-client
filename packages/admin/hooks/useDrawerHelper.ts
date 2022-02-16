@@ -16,6 +16,7 @@ import CollectionContributionCreateDrawer from "components/composed/contribution
 import ItemContributionCreateDrawer from "components/composed/contribution/ItemContributionCreateDrawer";
 import ContributorContributionCreateDrawer from "components/composed/contribution/ContributorContributionCreateDrawer";
 import FileCreateDrawer from "components/composed/file/FileCreateDrawer";
+import FileEditDrawer from "components/composed/file/FileEditDrawer";
 import RoleGrantAccessDrawer from "components/composed/role/RoleGrantAccessDrawer";
 import UserGrantCollectionAccessDrawer from "components/composed/user/UserGrantCollectionAccessDrawer";
 import UserGrantItemAccessDrawer from "components/composed/user/UserGrantItemAccessDrawer";
@@ -41,6 +42,7 @@ const drawerRegistry = {
   addItemContribution: ItemContributionCreateDrawer,
   addContributorContribution: ContributorContributionCreateDrawer,
   addFile: FileCreateDrawer,
+  editFile: FileEditDrawer,
   editItemContribution: ItemContributionEditDrawer,
   editCollectionContribution: CollectionContributionEditDrawer,
   addCommunity: CommunityCreateDrawer,

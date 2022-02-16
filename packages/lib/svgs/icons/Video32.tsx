@@ -1,4 +1,4 @@
-import Props from "./iconType";
+import Props from "../../types/icon";
 
 export default function Video32({ title, ...props }: Props) {
   return (

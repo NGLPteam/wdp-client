@@ -1,17 +1,31 @@
 import React from "react";
+import { FileIconFactory } from "@wdp/lib/factories";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./FileUpload.styles";
 import { BaseImage } from "components/atomic";
+import { AssetKind } from "types/graphql-schema";
 
 const WIDTH = 150;
 const HEIGHT = 150;
 const OBJECT_FIT = "contain";
 
-const FileUploadCurrent = ({ image }: Props) => {
+function formatFileSize(bytes: number) {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+
+  if (bytes === 0) return "0 Bytes";
+
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+
+  return `${(bytes / Math.pow(1024, i)).toFixed(2)} ${sizes[i]}`;
+}
+
+const FileUploadCurrent = ({ image, kind, fileSize }: Props) => {
+  const { t } = useTranslation();
+
   // if no alt text is provided, image is considered presentation only.
-  // TODO: Show current file, if any
   return image ? (
     <Styled.UploadPreview>
-      {image && image.png && image.png.url && (
+      {image && image.png && image.png.url ? (
         <BaseImage
           image={{
             ...image.png,
@@ -22,14 +36,25 @@ const FileUploadCurrent = ({ image }: Props) => {
           }}
           objectFit={OBJECT_FIT}
         />
+      ) : (
+        <>
+          <FileIconFactory kind={kind} />
+          <span className="t-capitalize">
+            {t("forms.file.current_file_type", { type: kind })},{" "}
+            {fileSize && formatFileSize(fileSize)}
+          </span>
+        </>
       )}
     </Styled.UploadPreview>
   ) : null;
 };
 
 interface Props {
-  /* Current image */
+  /** Current image */
   image?: Image | null;
+  /** The asset kind: image, audio, etc */
+  kind?: AssetKind;
+  fileSize?: number;
 }
 
 export interface Png {
