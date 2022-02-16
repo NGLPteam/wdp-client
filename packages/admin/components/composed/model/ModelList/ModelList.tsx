@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
+import { Connectionish } from "types/graphql-helpers";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
@@ -13,7 +14,7 @@ import { ViewOptions } from "utils/view-options";
 
 export interface ModelListProps<
   T extends OperationType,
-  U extends PaginatedConnectionish,
+  U extends PaginatedConnectionish | Connectionish,
   V extends Record<string, unknown>
 > extends UseModelListProps<T, U, V> {
   view: ViewOptions;
@@ -23,7 +24,7 @@ export interface ModelListProps<
 
 function ModelList<
   T extends OperationType,
-  U extends PaginatedConnectionish,
+  U extends PaginatedConnectionish | Connectionish,
   V extends Record<string, unknown>
 >({
   queryVariables,

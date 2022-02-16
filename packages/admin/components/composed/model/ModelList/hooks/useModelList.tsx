@@ -8,6 +8,7 @@ import { toEntities } from "../helpers/toEntities";
 import useRowActions from "./useRowActions";
 import { useNoInitialEffect, useRoutePage } from "hooks";
 import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
+import { Connectionish } from "types/graphql-helpers";
 
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
@@ -18,7 +19,7 @@ interface Actions<T extends Record<string, unknown>> {
 
 export interface UseModelListProps<
   T extends OperationType,
-  U extends PaginatedConnectionish,
+  U extends PaginatedConnectionish | Connectionish,
   V extends Record<string, unknown>
 > {
   data?: U | null;
@@ -33,7 +34,7 @@ export interface UseModelListProps<
 
 function useModelList<
   T extends OperationType,
-  U extends PaginatedConnectionish,
+  U extends PaginatedConnectionish | Connectionish,
   V extends Record<string, unknown>
 >({
   data,

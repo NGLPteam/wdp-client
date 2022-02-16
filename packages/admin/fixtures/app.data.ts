@@ -8,12 +8,14 @@ const COMMUNITIES_LINK = {
 const COLLECTIONS_LINK = {
   label: "glossary.collection_plural",
   route: "collections",
+  actions: "communities.read",
   model: "collections",
 };
 
 const ITEMS_LINK = {
   label: "glossary.item_plural",
   route: "items",
+  actions: "communities.read",
   model: "items",
 };
 
