@@ -13,18 +13,9 @@ export type ItemContributionListFragment = {
         readonly updatedAt: string;
         readonly role: string | null;
         readonly contributor: {
-            readonly __typename: "OrganizationContributor";
-            readonly slug: string;
-            readonly legalName: string | null;
-        } | {
-            readonly __typename: "PersonContributor";
-            readonly slug: string;
-            readonly givenName: string | null;
-            readonly familyName: string | null;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
+            readonly __typename: string;
+            readonly slug?: string | undefined;
+            readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
         };
         readonly item: {
             readonly slug: string;
@@ -111,39 +102,15 @@ return {
             {
               "kind": "InlineFragment",
               "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "legalName",
-                  "storageKey": null
-                }
+                (v0/*: any*/)
               ],
-              "type": "OrganizationContributor",
-              "abstractKey": null
+              "type": "Sluggable",
+              "abstractKey": "__isSluggable"
             },
             {
-              "kind": "InlineFragment",
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "givenName",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "familyName",
-                  "storageKey": null
-                }
-              ],
-              "type": "PersonContributor",
-              "abstractKey": null
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ContributorNameColumnFragment"
             }
           ],
           "storageKey": null
@@ -180,5 +147,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '59f9f05fc62a0547b8ddae35457082bb';
+(node as any).hash = 'da94b5c898ab71a19b9546d83da55387';
 export default node;

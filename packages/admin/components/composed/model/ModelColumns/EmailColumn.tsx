@@ -11,7 +11,6 @@ const EmailColumn = <NodeType extends Node>(
     Header: <>{t("lists.email_column")}</>,
     id: "email",
     accessor: (originalRow: NodeType) => originalRow.email,
-    disableSortBy: true,
     className: "t-truncate",
     ...props,
   };

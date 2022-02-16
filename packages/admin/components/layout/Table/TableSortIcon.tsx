@@ -5,7 +5,9 @@ import { IconFactory } from "components/factories";
 
 const TableSortIcon = ({ desc, isSorted, ...buttonProps }: Props) => {
   const { t } = useTranslation();
-  const arrowRotation = desc ? 180 : 0;
+
+  const arrowRotation = desc ? 0 : 180;
+
   const sortLabel = isSorted
     ? desc
       ? t("sort.ascending")

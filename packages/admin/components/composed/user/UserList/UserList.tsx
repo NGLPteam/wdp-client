@@ -30,9 +30,10 @@ function UserList<T extends OperationType>({
     ModelColumns.EmailColumn<UserNode>(),
     ModelColumns.BooleanColumn<UserNode>({
       Header: <>{t("lists.admin_column")}</>,
-      id: "admin",
+      id: "globalAdmin",
+      disableSortBy: false,
     }),
-    ModelColumns.CreatedAtColumn<UserNode>(),
+    ModelColumns.CreatedAtColumn<UserNode>({ disableSortBy: false }),
   ];
 
   const actions = {
@@ -49,7 +50,6 @@ function UserList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       actions={actions}
-      disableSortBy
     />
   );
 }

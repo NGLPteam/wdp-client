@@ -9,7 +9,6 @@ export type CollectionListFragment = {
     readonly nodes: ReadonlyArray<{
         readonly id: string;
         readonly createdAt: string;
-        readonly updatedAt: string;
         readonly title: string;
         readonly slug: string;
         readonly schemaVersion: {
@@ -17,7 +16,7 @@ export type CollectionListFragment = {
             readonly number: string;
         };
         readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "CollectionListFragment";
@@ -56,13 +55,6 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "createdAt",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "updatedAt",
           "storageKey": null
         },
         {
@@ -115,6 +107,11 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "FragmentSpread",
           "name": "EntityThumbnailColumnFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PublishedDateColumnFragment"
         }
       ],
       "storageKey": null
@@ -128,5 +125,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '7080832d77e9b8c141cfdc67a9de734c';
+(node as any).hash = 'fbfabfa98bae8db0f147e8e492f0cf39';
 export default node;

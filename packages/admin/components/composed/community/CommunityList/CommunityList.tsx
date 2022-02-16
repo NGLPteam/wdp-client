@@ -33,7 +33,6 @@ function CommunityList<T extends OperationType>({
   const columns = [
     ModelColumns.CommunityNameColumn<CommunityNode>(),
     ModelColumns.CreatedAtColumn<CommunityNode>(),
-    ModelColumns.UpdatedAtColumn<CommunityNode>(),
   ];
 
   const actions = {

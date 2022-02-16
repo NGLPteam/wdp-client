@@ -10,7 +10,6 @@ export type ItemListFragment = {
         readonly id: string;
         readonly slug: string;
         readonly createdAt: string;
-        readonly updatedAt: string;
         readonly title: string;
         readonly schemaVersion: {
             readonly name: string;
@@ -22,7 +21,7 @@ export type ItemListFragment = {
             };
         };
         readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
     readonly " $refType": "ItemListFragment";
@@ -68,13 +67,6 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "createdAt",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "updatedAt",
           "storageKey": null
         },
         {
@@ -154,6 +146,11 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "FragmentSpread",
           "name": "EntityThumbnailColumnFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PublishedDateColumnFragment"
         }
       ],
       "storageKey": null
@@ -167,5 +164,5 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = 'c898e66de7b90708be64b8f441131cbe';
+(node as any).hash = '857ad597eb85a2416f6d043836013d31';
 export default node;

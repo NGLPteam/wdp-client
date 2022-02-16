@@ -33,12 +33,14 @@ function CollectionList<T extends OperationType>({
   const columns = [
     ModelColumns.EntityThumbnailColumn<CollectionNode>(),
     ModelColumns.NameColumn<CollectionNode>({
+      id: "title",
       route: "collection",
       accessor: "title",
+      disableSortBy: false,
     }),
     ModelColumns.SchemaColumn<CollectionNode>(),
+    ModelColumns.PublishedDateColumn<CollectionNode>(),
     ModelColumns.CreatedAtColumn<CollectionNode>(),
-    ModelColumns.UpdatedAtColumn<CollectionNode>(),
   ];
 
   const actions = {
@@ -87,7 +89,6 @@ const fragment = graphql`
     nodes {
       id
       createdAt
-      updatedAt
       title
       slug
       schemaVersion {
@@ -96,6 +97,7 @@ const fragment = graphql`
       }
       allowedActions
       ...EntityThumbnailColumnFragment
+      ...PublishedDateColumnFragment
     }
     ...ModelListPageFragment
   }

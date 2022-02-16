@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useEffect } from "react";
 import { useTable, useSortBy, useRowSelect } from "react-table";
 import type { Column, ModelTableActionProps } from "react-table";
 import type { OperationType } from "relay-runtime";
+import { useRouter } from "next/router";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
 import { toEntities } from "../helpers/toEntities";
 import useRowActions from "./useRowActions";
@@ -117,13 +118,19 @@ function useModelList<
 
   // Respond to sortBy changes.
   /* eslint-disable react-hooks/exhaustive-deps */
+  const router = useRouter();
   useEffect(() => {
     if (!setQueryVariables || !queryVariables) return;
     if (!Array.isArray(sortBy) || sortBy.length === 0) return;
     const { id, desc } = sortBy[0];
     const order = mapSortBy(id, desc);
     if (!order) return;
+
     setQueryVariables({ ...queryVariables, order });
+    // Quietly update query vars
+    router.push({ query: { ...router.query, order } }, undefined, {
+      shallow: true,
+    });
   }, [sortBy]);
   /* eslint-enable react-hooks/exhaustive-deps */
 

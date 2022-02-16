@@ -26,12 +26,15 @@ function ItemList<T extends OperationType>({
   const columns = [
     ModelColumns.EntityThumbnailColumn<ItemNode>(),
     ModelColumns.NameColumn<ItemNode>({
+      id: "title",
       route: "item",
       accessor: "title",
+      disableSortBy: false,
     }),
     ModelColumns.ContributorsColumn<ItemNode>(),
     ModelColumns.SchemaColumn<ItemNode>(),
-    ModelColumns.UpdatedAtColumn<ItemNode>(),
+    ModelColumns.PublishedDateColumn<ItemNode>(),
+    ModelColumns.CreatedAtColumn<ItemNode>(),
   ];
 
   const actions = {
@@ -72,7 +75,6 @@ const fragment = graphql`
       id
       slug
       createdAt
-      updatedAt
       title
       schemaVersion {
         name
@@ -87,6 +89,7 @@ const fragment = graphql`
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...ContributorsColumnFragment
       ...EntityThumbnailColumnFragment
+      ...PublishedDateColumnFragment
     }
     ...ModelListPageFragment
   }

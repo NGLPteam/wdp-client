@@ -30,8 +30,9 @@ function ContributorList<T extends OperationType>({
 
   const columns = [
     ModelColumns.ContributorNameColumn<ContributorNode>(),
+    ModelColumns.ContributorAffiliationColumn<ContributorNode>(),
+    ModelColumns.ContributorContributionsColumn<ContributorNode>(),
     ModelColumns.CreatedAtColumn<ContributorNode>(),
-    ModelColumns.UpdatedAtColumn<ContributorNode>(),
   ];
 
   const actions = {
@@ -46,6 +47,8 @@ function ContributorList<T extends OperationType>({
         getContributorDisplayName(row.original) || "glossary.collection"
       );
     },
+    handleView: ({ row }: ModelTableActionProps<ContributorNode>) =>
+      row.original.slug ? `/contributors/${row.original.slug}` : null,
   };
 
   // TODO: We need an authorization check here. The contributors.create check doesn't
@@ -90,7 +93,6 @@ const fragment = graphql`
         slug
         legalName
         createdAt
-        updatedAt
         ...ContributorNameColumnFragment
       }
       ... on PersonContributor {
@@ -99,9 +101,10 @@ const fragment = graphql`
         givenName
         familyName
         createdAt
-        updatedAt
       }
       ...ContributorNameColumnFragment
+      ...ContributorAffiliationColumnFragment
+      ...ContributorContributionsColumnFragment
     }
     ...ModelListPageFragment
   }

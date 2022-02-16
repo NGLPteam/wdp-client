@@ -27,17 +27,21 @@ type Props = {
 };
 
 const query = graphql`
-  query collectionsSlugContributorsPagesQuery($contributorSlug: Slug!) {
+  query collectionsSlugContributorsPagesQuery(
+    $contributorSlug: Slug!
+    $order: ContributionOrder
+    $page: Int!
+  ) {
     contributor(slug: $contributorSlug) {
       __typename
       ...ContributorLayoutQueryFragment
       ... on OrganizationContributor {
-        collectionContributions {
+        collectionContributions(page: $page, perPage: 20, order: $order) {
           ...CollectionContributionListFragment
         }
       }
       ... on PersonContributor {
-        collectionContributions {
+        collectionContributions(page: $page, perPage: 20, order: $order) {
           ...CollectionContributionListFragment
         }
       }

@@ -8,10 +8,13 @@ import BooleanColumn from "./BooleanColumn";
 import SchemaColumn from "./SchemaColumn";
 import ContributorsColumn from "./ContributorsColumn";
 import AssetThumbnailColumn from "./AssetThumbnailColumn";
+import ContributorContributionsColumn from "./ContributorContributionsColumn";
+import ContributorAffiliationColumn from "./ContributorAffiliationColumn";
 import ContributorNameColumn from "./ContributorNameColumn";
 import UserNameColumn from "./UserNameColumn";
 import CommunityNameColumn from "./CommunityNameColumn";
 import PageHeroColumn from "./PageHeroColumn";
+import PublishedDateColumn from "./PublishedDateColumn";
 
 const modelColumns = {
   CreatedAtColumn,
@@ -24,10 +27,13 @@ const modelColumns = {
   SchemaColumn,
   ContributorsColumn,
   AssetThumbnailColumn,
+  ContributorAffiliationColumn,
+  ContributorContributionsColumn,
   ContributorNameColumn,
   UserNameColumn,
   CommunityNameColumn,
   PageHeroColumn,
+  PublishedDateColumn,
 };
 
 export default modelColumns;
