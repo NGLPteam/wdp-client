@@ -1,5 +1,5 @@
 import React, { forwardRef, SelectHTMLAttributes } from "react";
-import { MaybeSelectRef } from "@wdp/lib/types/ref";
+import { MaybeSelectRef } from "@castiron/common-types";
 import Label from "../Label";
 import * as Styled from "./Select.styles";
 import { IconFactory } from "components/factories";

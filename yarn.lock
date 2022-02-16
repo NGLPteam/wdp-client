@@ -1348,6 +1348,13 @@
   resolved "https://registry.yarnpkg.com/@bedrock-layout/use-stateful-ref/-/use-stateful-ref-1.1.11.tgz#16c08097bec069ab234043383d1ccc77a4dacd4a"
   integrity sha512-yU73p/LxInc3T4ZHF/2vGrmYB0LxHEbpw9bOLG8YE8cptmnDWbxd3vTEFERts9dwD0kqV+UV2iqXzuHWwj9kiA==
 
+"@castiron/common-types@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@castiron/common-types/-/common-types-1.0.0.tgz#c6ecc9d45e5c89e0d5fee5d58d63fccb3ab8fea9"
+  integrity sha512-ERA36uDzrljTKaFOT1ZGJh5UnM04tnF6evTHjfisu0atCAqyu1sWPxizd01hu6U9vVSv2vbh+U5J6RUW3OXYlA==
+  dependencies:
+    focus-trap "^6.6.0"
+
 "@castiron/components-breadcrumbs@1.0.0-alpha.0":
   version "1.0.0-alpha.0"
   resolved "https://registry.yarnpkg.com/@castiron/components-breadcrumbs/-/components-breadcrumbs-1.0.0-alpha.0.tgz#d8c38fd2cd82c720c52f3a1620ab2be236f69cc2"

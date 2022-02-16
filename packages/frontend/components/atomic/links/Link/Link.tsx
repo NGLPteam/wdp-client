@@ -1,5 +1,5 @@
 import React, { forwardRef, Ref } from "react";
-import { MaybeLinkRef } from "@wdp/lib/types/ref";
+import { MaybeLinkRef } from "@castiron/common-types";
 import * as Styled from "./Link.styles";
 import { IconFactory } from "components/factories";
 

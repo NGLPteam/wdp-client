@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import type { MaybeButtonRef } from "@wdp/lib/types/ref";
+import type { MaybeButtonRef } from "@castiron/common-types";
 import Button from "..";
 
 type BaseProps = React.ComponentProps<typeof Button>;

@@ -1,5 +1,5 @@
 import React, { forwardRef, InputHTMLAttributes } from "react";
-import { MaybeInputRef } from "@wdp/lib/types/ref";
+import { MaybeInputRef } from "@castiron/common-types";
 import { useCombobox } from "downshift";
 import Label from "../Label";
 import * as Styled from "./Typeahead.styles";

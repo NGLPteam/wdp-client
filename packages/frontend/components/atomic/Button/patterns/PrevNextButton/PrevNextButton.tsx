@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import type { MaybeButtonRef } from "@wdp/lib/types/ref";
+import type { MaybeButtonRef } from "@castiron/common-types";
 import Button from "../..";
 import * as Styled from "./PrevNextButton.styles";
 
