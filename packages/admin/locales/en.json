@@ -396,6 +396,10 @@
         "add_file": "Add File",
         "placeholder": "Select a file"
       }
+    },
+    "dashboard": {
+      "installation_header": "Installation",
+      "current_version_label": "Current Version"
     }
   }
 }

@@ -1,31 +1,28 @@
 import React from "react";
-import { MessageBlock } from "components/atomic";
+import { graphql } from "react-relay";
+import { QueryWrapper } from "components/api";
+import { useBaseListQueryVars, useIsAuthenticated } from "hooks";
+import { DashboardLayout } from "components/composed/dashboard";
+import { pagesHomeQuery as Query } from "__generated__/pagesHomeQuery.graphql";
+import DashboardHomeMessage from "components/composed/dashboard/DashboardHomeMessage";
+import { LoadingPage } from "components/atomic";
+
 export default function Home() {
-  const content = (
-    <div>
-      <p>
-        Welcome to the WDP Admin Interface, a tool that allows non-technical
-        users to manage content stored in the WDP API. This tool is under active
-        development as part of the Next Generation Library publishing project.
-      </p>
+  const queryVars = useBaseListQueryVars();
 
-      <p style={{ marginTop: 30 }}>
-        In the future, this screen will be the Admin Interface homepage, and
-        will include high level information about the content stored in this
-        instance.
-      </p>
+  const isAuth = useIsAuthenticated();
 
-      <p style={{ marginTop: 30 }}>
-        For the time being, unauthenticated users can access this tool, but they
-        can&apos;t see very much. To fully explore the tool, make sure you login
-        as a user with access to a range of content.
-      </p>
-    </div>
-  );
-
-  return (
-    <section style={{ marginTop: 30 }}>
-      <MessageBlock name={"Web Delivery Platform (WDP)"} message={content} />
-    </section>
+  return isAuth ? (
+    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
+      {({ data }) => (data ? <DashboardLayout data={data} /> : <LoadingPage />)}
+    </QueryWrapper>
+  ) : (
+    <DashboardHomeMessage />
   );
 }
+
+const query = graphql`
+  query pagesHomeQuery($page: Int, $order: EntityOrder) {
+    ...DashboardLayoutFragment @arguments(page: $page, order: $order)
+  }
+`;
