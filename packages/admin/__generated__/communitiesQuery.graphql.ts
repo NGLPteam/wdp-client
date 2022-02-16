@@ -41,6 +41,7 @@ fragment CommunityListFragment on CommunityConnection {
       updatedAt
       name
       ...CommunityNameColumnFragment
+      ...CommunityThumbnailColumnFragment
     }
   }
   ...ModelListPageFragment
@@ -48,6 +49,10 @@ fragment CommunityListFragment on CommunityConnection {
 
 fragment CommunityNameColumnFragment on Community {
   name
+  slug
+}
+
+fragment CommunityThumbnailColumnFragment on Community {
   slug
   logo {
     storage
@@ -393,12 +398,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d8e36a9924dffdfd35534965d7782e9b",
+    "cacheID": "d82ab600c9501e28e616c013811c4f1c",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      ...CommunityNameColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      ...CommunityNameColumnFragment\n      ...CommunityThumbnailColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityThumbnailColumnFragment on Community {\n  slug\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

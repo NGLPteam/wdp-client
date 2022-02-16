@@ -31,6 +31,7 @@ function CommunityList<T extends OperationType>({
   );
 
   const columns = [
+    ModelColumns.CommunityThumbnailColumn<CommunityNode>(),
     ModelColumns.CommunityNameColumn<CommunityNode>(),
     ModelColumns.CreatedAtColumn<CommunityNode>(),
   ];
@@ -82,6 +83,7 @@ const fragment = graphql`
         updatedAt
         name
         ...CommunityNameColumnFragment
+        ...CommunityThumbnailColumnFragment
       }
     }
     ...ModelListPageFragment
