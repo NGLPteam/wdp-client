@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { MaybeButtonOrLinkRef } from "@wdp/lib/types/ref";
+import { MaybeButtonOrLinkRef } from "@castiron/common-types";
 import * as Styled from "./Tab.styles";
 
 type BaseProps = React.ComponentProps<typeof Styled.Tab>;
