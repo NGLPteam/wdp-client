@@ -13,6 +13,7 @@ import ContributorAffiliationColumn from "./ContributorAffiliationColumn";
 import ContributorNameColumn from "./ContributorNameColumn";
 import UserNameColumn from "./UserNameColumn";
 import CommunityNameColumn from "./CommunityNameColumn";
+import CommunityThumbnailColumn from "./CommunityThumbnailColumn";
 import PageHeroColumn from "./PageHeroColumn";
 import PublishedDateColumn from "./PublishedDateColumn";
 
@@ -32,6 +33,7 @@ const modelColumns = {
   ContributorNameColumn,
   UserNameColumn,
   CommunityNameColumn,
+  CommunityThumbnailColumn,
   PageHeroColumn,
   PublishedDateColumn,
 };
