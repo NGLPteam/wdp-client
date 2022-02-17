@@ -2810,6 +2810,18 @@
         "description": "A generic asset type, implemented by all the more specific kinds",
         "fields": [
           {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -3015,6 +3027,18 @@
         "name": "AssetAudio",
         "description": null,
         "fields": [
+          {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "attachable",
             "description": null,
@@ -3239,6 +3263,18 @@
         "description": null,
         "fields": [
           {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -3461,6 +3497,18 @@
         "name": "AssetImage",
         "description": null,
         "fields": [
+          {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "attachable",
             "description": null,
@@ -3790,6 +3838,18 @@
         "name": "AssetPDF",
         "description": null,
         "fields": [
+          {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "attachable",
             "description": null,
@@ -4289,6 +4349,18 @@
         "description": null,
         "fields": [
           {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -4511,6 +4583,18 @@
         "name": "AssetVideo",
         "description": null,
         "fields": [
+          {
+            "name": "altText",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "attachable",
             "description": null,

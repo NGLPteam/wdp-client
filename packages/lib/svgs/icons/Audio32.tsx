@@ -1,4 +1,4 @@
-import Props from "./iconType";
+import Props from "../../types/icon";
 
 export default function Audio32({ title, ...props }: Props) {
   return (

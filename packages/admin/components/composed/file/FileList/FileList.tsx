@@ -7,7 +7,12 @@ import {
   FileListFragment,
   FileListFragment$key,
 } from "@/relay/FileListFragment.graphql";
-import { useDestroyer, useMaybeFragment, useRouteSlug } from "hooks";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useRouteSlug,
+} from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -25,6 +30,7 @@ function FileList<T extends OperationType>({
   const slug = useRouteSlug();
   const { t } = useTranslation();
   const destroy = useDestroyer();
+  const drawerHelper = useDrawerHelper();
 
   const columns = [
     ModelColumns.AssetThumbnailColumn<FileNode>({}),
@@ -43,6 +49,10 @@ function FileList<T extends OperationType>({
   ];
 
   const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<FileNode>) =>
+      drawerHelper.open("editFile", {
+        drawerSlug: row.original?.slug,
+      }),
     handleDownload: ({ row }: ModelTableActionProps<FileNode>) =>
       row.original.downloadUrl ? row.original.downloadUrl : null,
     handleDelete: ({ row }: ModelTableActionProps<FileNode>) => {

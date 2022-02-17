@@ -34,6 +34,7 @@ import type {
 import FileUploadEmpty from "./FileUploadEmpty";
 import FileUploadCurrent from "./FileUploadCurrent";
 import type { BooleanPath } from "types/form-fields";
+import { AssetKind } from "types/graphql-schema";
 
 /**
  * A file input that integrates with the tus.io endpoint on the API.
@@ -56,6 +57,8 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
   error,
   required,
   image,
+  kind,
+  fileSize,
   clearName,
   isWide,
   ...inputProps
@@ -137,6 +140,7 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
         name={name}
         required={required}
         isWide={isWide}
+        description={description}
       >
         {({ uid }) => (
           <Styled.Wrapper aria-live="polite">
@@ -151,14 +155,24 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
                 multiple={false}
                 {...inputProps}
               />
-              {image?.png?.url && !isCleared && !state.file ? (
+              {(kind || image?.png?.url) && !isCleared && !state.file ? (
                 <>
-                  <FileUploadCurrent image={image} />
-                  <Styled.RemoveButton onClick={handleClear} type="button">
-                    {t("forms.file.remove")}
-                  </Styled.RemoveButton>
+                  <FileUploadCurrent
+                    image={image}
+                    kind={kind}
+                    fileSize={fileSize}
+                  />
+                  {clearName && (
+                    <Styled.RemoveButton onClick={handleClear} type="button">
+                      {t("forms.file.remove")}
+                    </Styled.RemoveButton>
+                  )}
                   <Styled.UploadText>
-                    {t("forms.file.upload_new")}
+                    {t(
+                      clearName
+                        ? "forms.file.or_upload_new"
+                        : "forms.file.upload_new"
+                    )}
                   </Styled.UploadText>
                 </>
               ) : state.file ? (
@@ -196,15 +210,17 @@ export default function FileUpload<T extends FieldValues = FieldValues>({
 
 export interface Props<T extends FieldValues = FieldValues>
   extends Omit<InputProps<T>, "onChange"> {
-  /* Type accepted by file input */
+  /** Type accepted by file input */
   accept?: string;
-  /* Name for the file input */
+  /** Name for the file input */
   name: Path<T>;
-  /* Name for hidden clear input */
+  /** Name for hidden clear input */
   clearName?: BooleanPath<T>;
-  /* Current image */
+  /** Current image */
   image?: ImageType | null;
-  /* Optional upload text */
+  /** The asset kind: image, audio, etc */
+  kind?: AssetKind;
+  fileSize?: number;
 }
 
 function useWaitForUpload<T extends FieldValues>(

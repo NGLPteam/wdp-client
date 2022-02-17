@@ -412,6 +412,7 @@ type ApplySchemaPropertiesPayload implements StandardMutationPayload {
 
 """A generic asset type, implemented by all the more specific kinds"""
 interface Asset {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -428,6 +429,7 @@ interface Asset {
 }
 
 type AssetAudio implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -446,6 +448,7 @@ type AssetAudio implements Asset & Node & Sluggable {
 }
 
 type AssetDocument implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -464,6 +467,7 @@ type AssetDocument implements Asset & Node & Sluggable {
 }
 
 type AssetImage implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -505,6 +509,7 @@ enum AssetKindFilter {
 }
 
 type AssetPDF implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -614,6 +619,7 @@ type AssetSelectOption {
 }
 
 type AssetUnknown implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -632,6 +638,7 @@ type AssetUnknown implements Asset & Node & Sluggable {
 }
 
 type AssetVideo implements Asset & Node & Sluggable {
+  altText: String
   attachable: AnyAttachable!
   caption: String
   contentType: String!
