@@ -432,6 +432,7 @@ export type ApplySchemaPropertiesPayload = StandardMutationPayload & {
 
 /** A generic asset type, implemented by all the more specific kinds */
 export type Asset = {
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -449,6 +450,7 @@ export type Asset = {
 
 export type AssetAudio = Asset & Node & Sluggable & {
   __typename?: 'AssetAudio';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -468,6 +470,7 @@ export type AssetAudio = Asset & Node & Sluggable & {
 
 export type AssetDocument = Asset & Node & Sluggable & {
   __typename?: 'AssetDocument';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -487,6 +490,7 @@ export type AssetDocument = Asset & Node & Sluggable & {
 
 export type AssetImage = Asset & Node & Sluggable & {
   __typename?: 'AssetImage';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -529,6 +533,7 @@ export type AssetKindFilter =
 
 export type AssetPdf = Asset & Node & Sluggable & {
   __typename?: 'AssetPDF';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -624,6 +629,7 @@ export type AssetSelectOption = {
 
 export type AssetUnknown = Asset & Node & Sluggable & {
   __typename?: 'AssetUnknown';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -643,6 +649,7 @@ export type AssetUnknown = Asset & Node & Sluggable & {
 
 export type AssetVideo = Asset & Node & Sluggable & {
   __typename?: 'AssetVideo';
+  altText?: Maybe<Scalars['String']>;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -9414,6 +9421,7 @@ export type ApplySchemaPropertiesPayloadResolvers<ContextType = any, ParentType 
 
 export type AssetResolvers<ContextType = any, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
   __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo', ParentType, ContextType>;
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9428,6 +9436,7 @@ export type AssetResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type AssetAudioResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetAudio'] = ResolversParentTypes['AssetAudio']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9445,6 +9454,7 @@ export type AssetAudioResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type AssetDocumentResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetDocument'] = ResolversParentTypes['AssetDocument']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9462,6 +9472,7 @@ export type AssetDocumentResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type AssetImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetImage'] = ResolversParentTypes['AssetImage']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9479,6 +9490,7 @@ export type AssetImageResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type AssetPdfResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetPDF'] = ResolversParentTypes['AssetPDF']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9519,6 +9531,7 @@ export type AssetSelectOptionResolvers<ContextType = any, ParentType extends Res
 };
 
 export type AssetUnknownResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetUnknown'] = ResolversParentTypes['AssetUnknown']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9536,6 +9549,7 @@ export type AssetUnknownResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type AssetVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetVideo'] = ResolversParentTypes['AssetVideo']> = {
+  altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

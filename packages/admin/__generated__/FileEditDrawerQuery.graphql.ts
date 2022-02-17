@@ -37,6 +37,7 @@ query FileEditDrawerQuery(
 fragment FileEditFormFragment on Asset {
   __isAsset: __typename
   id
+  altText
   name
   caption
   kind
@@ -141,6 +142,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "altText",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "name",
                 "storageKey": null
               },
@@ -237,12 +245,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "509ace741e797f523975e33e4d776ef1",
+    "cacheID": "1b1335754f3659fa75dca1a5ebbdccbb",
     "id": null,
     "metadata": {},
     "name": "FileEditDrawerQuery",
     "operationKind": "query",
-    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    alt\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  previewMetadata {\n    alt\n  }\n}\n"
+    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    alt\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  previewMetadata {\n    alt\n  }\n}\n"
   }
 };
 })();

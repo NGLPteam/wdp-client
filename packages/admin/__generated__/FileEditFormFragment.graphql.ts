@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type FileEditFormFragment = {
     readonly id: string;
+    readonly altText: string | null;
     readonly name: string;
     readonly caption: string | null;
     readonly kind: AssetKind;
@@ -53,6 +54,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "altText",
       "storageKey": null
     },
     {
@@ -142,5 +150,5 @@ return {
   "abstractKey": "__isAsset"
 };
 })();
-(node as any).hash = '3e3834852bd71fad79ac05d9d192549b';
+(node as any).hash = 'f1faad99511d2e60c37a3fae893f0e89';
 export default node;

@@ -20,7 +20,7 @@ export default function FileEditForm({ data, onSuccess }: Props) {
 
   const toVariables = useToVariables<FileEditFormMutation, Fields>(
     (data) => ({
-      input: { ...data, assetId: id, attachment: data.attachment || null },
+      input: { ...data, assetId: id },
     }),
     [id]
   );
@@ -87,6 +87,7 @@ const mutation = graphql`
 const fragment = graphql`
   fragment FileEditFormFragment on Asset {
     id
+    altText
     name
     caption
     kind

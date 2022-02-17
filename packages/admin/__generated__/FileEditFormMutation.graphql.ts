@@ -66,6 +66,7 @@ mutation FileEditFormMutation(
 fragment FileEditFormFragment on Asset {
   __isAsset: __typename
   id
+  altText
   name
   caption
   kind
@@ -286,6 +287,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "altText",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "name",
                     "storageKey": null
                   },
@@ -386,12 +394,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "524adb82ce47fa2640261e7fe5478951",
+    "cacheID": "302e0e895562bbd85f66e9dd4e277f2d",
     "id": null,
     "metadata": {},
     "name": "FileEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation FileEditFormMutation(\n  $input: UpdateAssetInput!\n) {\n  updateAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        ...FileEditFormFragment\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    alt\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation FileEditFormMutation(\n  $input: UpdateAssetInput!\n) {\n  updateAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        ...FileEditFormFragment\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    alt\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
