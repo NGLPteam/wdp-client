@@ -9,19 +9,25 @@ type LinkProps = React.ComponentProps<typeof Styled.Link>;
 /* Simple download text and icon,
  * style can be changed using the className property */
 function Link(
-  { children, icon, ...props }: Props & LinkProps,
+  { children, icon, iconLeft, ...props }: Props & LinkProps,
   ref: MaybeLinkRef | Ref<HTMLSpanElement>
 ) {
   return children ? (
     <Styled.Link ref={ref} {...props}>
+      {icon && iconLeft && (
+        <Styled.IconFactory icon={icon} role="presentation" />
+      )}
       <Styled.LinkText>{children}</Styled.LinkText>
-      {icon && <Styled.IconFactory icon={icon} role="presentation" />}
+      {icon && !iconLeft && (
+        <Styled.IconFactory icon={icon} role="presentation" />
+      )}
     </Styled.Link>
   ) : null;
 }
 
 interface Props {
   icon?: IconProps["icon"];
+  iconLeft?: true;
 }
 
 export default forwardRef(Link);

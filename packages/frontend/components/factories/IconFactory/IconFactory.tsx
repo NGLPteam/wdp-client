@@ -29,6 +29,7 @@ export const ICON_MAP = {
   user: Icons.User,
   copy: Icons.Copy,
   checkbox: Icons.Checkbox,
+  orcid: Icons.ORCID,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

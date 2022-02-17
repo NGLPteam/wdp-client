@@ -344,8 +344,8 @@
         "logo": "Logo",
         "position": "Position",
         "select_placeholder": "Select an option",
-        "orcid": "ORCID",
-        "orcid_description": "An optional, unique Open Researcher and Contributor ID associated with this contributor."
+        "orcid": "ORCID Link",
+        "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor."
       },
       "validation": {
         "year": "Must be a four digit year",
