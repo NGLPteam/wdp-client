@@ -26,7 +26,14 @@ export const LinkText = styled.span`
 
 export const IconFactory = styled(BaseIconFactory)`
   flex: 1 0 auto;
-  margin-inline-start: var(--padding-xxs);
   padding-block-start: 1px;
   vertical-align: text-bottom;
+
+  & + * {
+    margin-inline-start: var(--padding-xxs);
+  }
+
+  * + & {
+    margin-inline-start: var(--padding-xxs);
+  }
 `;

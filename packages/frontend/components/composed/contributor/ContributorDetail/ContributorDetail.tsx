@@ -7,7 +7,7 @@ import get from "lodash/get";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
-import { ExternalLink } from "components/atomic";
+import { ExternalLink, ORCIDLink } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributionSummary from "components/composed/contribution/ContributionSummary";
@@ -55,9 +55,9 @@ export default function ContributorDetail({ data }: Props) {
             <ul className="t-label-sm">
               {contributor.orcid && (
                 <Styled.BioLinkItem>
-                  <ExternalLink href={`https://orcid.org/${contributor.orcid}`}>
-                    ORCID
-                  </ExternalLink>
+                  <ORCIDLink href={contributor.orcid}>
+                    {contributor.orcid}
+                  </ORCIDLink>
                 </Styled.BioLinkItem>
               )}
               {hasLinks &&
