@@ -25,11 +25,6 @@ export default function FileEditForm({ data, onSuccess }: Props) {
     [id]
   );
 
-  const defaultValues = {
-    ...values,
-    altText: previewMetadata?.alt,
-  };
-
   /** Render the form */
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
@@ -58,7 +53,7 @@ export default function FileEditForm({ data, onSuccess }: Props) {
       failureNotification="messages.update.file_failure"
       refetchTags={["properties", "asset"]}
       toVariables={toVariables}
-      defaultValues={defaultValues}
+      defaultValues={values}
     >
       {renderForm}
     </MutationForm>
