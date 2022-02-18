@@ -12,68 +12,93 @@ import type {
 } from "@/relay/CommunityUpdateFormMutation.graphql";
 import type { CommunityUpdateFormFragment$key } from "@/relay/CommunityUpdateFormFragment.graphql";
 import type { CommunityUpdateFormFieldsFragment$key } from "@/relay/CommunityUpdateFormFieldsFragment.graphql";
+import SchemaFormFields from "components/api/SchemaFormFields";
+import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 
 export default function CommunityUpdateForm({
   data,
   onSuccess,
   onCancel,
 }: Props) {
-  const { communityId = "", ...fieldsData } =
-    useFragment<CommunityUpdateFormFragment$key>(fragment, data);
+  const {
+    communityId = "",
+    ...fieldsData
+  } = useFragment<CommunityUpdateFormFragment$key>(fragment, data);
 
-  const { heroImage, logo, ...defaultValues } =
-    useFragment<CommunityUpdateFormFieldsFragment$key>(
-      fieldsFragment,
-      fieldsData
-    );
+  const {
+    heroImage,
+    logo,
+    ...values
+  } = useFragment<CommunityUpdateFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData
+  );
+
+  const schemaProperties = useSchemaProperties(fieldsData);
+
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData.context);
 
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => ({ input: { ...data, communityId } }),
     []
   );
 
+  const defaultValues = {
+    ...values,
+    ...schemaDefaultValues,
+  };
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
-      <Forms.Grid>
-        <Forms.Input
-          label="forms.fields.title"
-          {...register("title")}
-          isWide
-          required
-        />
-        <Forms.Input
-          label="forms.fields.tagline"
-          {...register("tagline")}
-          isWide
-        />
-        <Forms.FileUpload
-          label="forms.fields.logo"
-          name="logo"
-          image={logo?.thumb}
-          clearName="clearLogo"
-        />
-        <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
-        <Forms.Fieldset label="Hero">
-          <Forms.FileUpload
-            label="forms.fields.hero_image"
-            name="heroImage"
-            image={heroImage?.thumb}
-            clearName="clearHeroImage"
-          />
-          <Forms.AltText {...register("heroImageMetadata.alt")} />
-          <Forms.Select
-            label="forms.fields.hero_layout"
-            options={[
-              { label: "One Column", value: "ONE_COLUMN" },
-              { label: "Two Column", value: "TWO_COLUMN" },
-            ]}
+      <>
+        <Forms.Grid>
+          <Forms.Input
+            label="forms.fields.title"
+            {...register("title")}
             isWide
             required
-            defaultValue="ONE_COLUMN"
-            {...register("heroImageLayout")}
           />
-        </Forms.Fieldset>
-      </Forms.Grid>
+          <Forms.Input
+            label="forms.fields.tagline"
+            {...register("tagline")}
+            isWide
+          />
+          <Forms.FileUpload
+            label="forms.fields.logo"
+            name="logo"
+            image={logo?.thumb}
+            clearName="clearLogo"
+          />
+          <Forms.Textarea
+            label="forms.fields.summary"
+            {...register("summary")}
+          />
+          <Forms.Fieldset label="Hero">
+            <Forms.FileUpload
+              label="forms.fields.hero_image"
+              name="heroImage"
+              image={heroImage?.thumb}
+              clearName="clearHeroImage"
+            />
+            <Forms.AltText {...register("heroImageMetadata.alt")} />
+            <Forms.Select
+              label="forms.fields.hero_layout"
+              options={[
+                { label: "One Column", value: "ONE_COLUMN" },
+                { label: "Two Column", value: "TWO_COLUMN" },
+              ]}
+              isWide
+              required
+              defaultValue="ONE_COLUMN"
+              {...register("heroImageLayout")}
+            />
+          </Forms.Fieldset>
+        </Forms.Grid>
+        <SchemaFormFields data={fieldsData} schemaKind="COMMUNITY" />
+      </>
     ),
     []
   );
@@ -148,5 +173,11 @@ const fragment = graphql`
   fragment CommunityUpdateFormFragment on Community {
     communityId: id
     ...CommunityUpdateFormFieldsFragment
+    ...SchemaFormFieldsFragment
+    ...useSchemaPropertiesFragment
+
+    context: schemaInstanceContext {
+      ...useSchemaContextFragment
+    }
   }
 `;

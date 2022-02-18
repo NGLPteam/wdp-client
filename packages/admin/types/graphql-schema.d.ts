@@ -344,7 +344,7 @@ export type AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath | { __type
  * Any object contained within this union is guaranteed to implement `ScalarProperty`
  * as well as `SchemaProperty`.
  */
-export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
+export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
 /**
  * `AnySchemaProperty` represents the top level of a schema instance's properties. It can include any scalar property, as
@@ -352,7 +352,7 @@ export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty
  *
  * All properties contained in this union are guaranteed to implement `SchemaProperty`.
  */
-export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
+export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
 /** Encompasses any access grant for a specific user. */
 export type AnyUserAccessGrant = UserCollectionAccessGrant | UserCommunityAccessGrant | UserItemAccessGrant | { __typename?: "%other" };
@@ -1185,7 +1185,7 @@ export type ChildEntityVisibleAsOfArgs = {
 };
 
 /** A collection of items */
-export type Collection = Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1219,6 +1219,8 @@ export type Collection = Accessible & ExposesPermissions & Entity & ReferencesGl
   assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
   available: VariablePrecisionDate;
+  /** Expose all available entities for this schema property. */
+  availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Collection.collections */
@@ -1416,6 +1418,12 @@ export type CollectionAssignedUsersArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A collection of items */
+export type CollectionAvailableEntitiesForArgs = {
+  fullPath: Scalars['String'];
 };
 
 
@@ -1724,6 +1732,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   assets: AnyAssetConnection;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
+  /** Expose all available entities for this schema property. */
+  availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   collections: CollectionConnection;
@@ -1863,6 +1873,12 @@ export type CommunityAssignedUsersArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A community of users */
+export type CommunityAvailableEntitiesForArgs = {
+  fullPath: Scalars['String'];
 };
 
 
@@ -3188,6 +3204,82 @@ export type EmailProperty = SchemaProperty & ScalarProperty & {
   type: SchemaPropertyType;
 };
 
+/** A property that references a deterministically-ordered list of entities. */
+export type EntitiesProperty = SchemaProperty & ScalarProperty & HasAvailableEntities & {
+  __typename?: 'EntitiesProperty';
+  /**
+   * Provided for introspection. This describes whether or not the property's value
+   * comes in an array rather than representing a discrete piece of information.
+   *
+   * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+   * for examples.
+   */
+  array: Scalars['Boolean'];
+  /** Expose all available entities for this schema property. */
+  availableEntities: Array<EntitySelectOption>;
+  /**
+   * A human-readable description for the property. It should describe the purpose of the
+   * property as well as some details about the types of values it looks for.
+   *
+   * It can be rendered as help text, hints, etc.
+   */
+  description?: Maybe<Scalars['String']>;
+  /**
+   * A deterministically-ordered list of entities.
+   *
+   * Given the same input, this array will always be returned in the same order.
+   */
+  entities: Array<AnyEntity>;
+  /**
+   * The full path that represents the property on the schema instance. It is guaranteed
+   * to be unique for the instance, and can be used to grab a property directly, as well as
+   * facilitating schema validation and errors within the admin application's forms.
+   */
+  fullPath: Scalars['String'];
+  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  function: SchemaPropertyFunction;
+  /**
+   * Whether to render a field as "wide" (two columns) in the form.
+   * This is intended to help structure forms logically, as well as
+   * provide ample space for certain types of data input, particularly
+   * full-text, markdown, and other such complex fields.
+   */
+  isWide: Scalars['Boolean'];
+  /** Provided for introspection. This describes the underlying structure of the data type. */
+  kind: SchemaPropertyKind;
+  /** A human-readable label for the schema property. */
+  label: Scalars['String'];
+  /**
+   * Provided for introspection. Whether this property can be used to order entities.
+   * For certain data types, there's no sensible way to order properties.
+   */
+  orderable: Scalars['Boolean'];
+  /**
+   * The "short" path for the property. For properties nested within a group, this can
+   * be considered the name of the property without the group's prefix.
+   */
+  path: Scalars['String'];
+  /**
+   * Whether or not this property is required in order for the schema instance
+   * to be considered valid.
+   *
+   * Note: invalid data provided to a schema property will still invalidate
+   * the instance as a whole—the required trait only determines whether a value
+   * **must** be set.
+   */
+  required: Scalars['Boolean'];
+  /**
+   * Provided for introspection. This represents the actual data type this property
+   * uses.
+   *
+   * Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+   * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+   * since the actual implementations of these properties differ in the GraphQL types
+   * associated with their values.
+   */
+  type: SchemaPropertyType;
+};
+
 /** An entity that exists in the hierarchy. */
 export type Entity = {
   /** Derived access control list */
@@ -3548,6 +3640,78 @@ export type EntityPermissionFilter =
   | 'CRUD'
   | '%future added value';
 
+/** A property that references another entity within the system. */
+export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntities & {
+  __typename?: 'EntityProperty';
+  /**
+   * Provided for introspection. This describes whether or not the property's value
+   * comes in an array rather than representing a discrete piece of information.
+   *
+   * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
+   * for examples.
+   */
+  array: Scalars['Boolean'];
+  /** Expose all available entities for this schema property. */
+  availableEntities: Array<EntitySelectOption>;
+  /**
+   * A human-readable description for the property. It should describe the purpose of the
+   * property as well as some details about the types of values it looks for.
+   *
+   * It can be rendered as help text, hints, etc.
+   */
+  description?: Maybe<Scalars['String']>;
+  /** A single reference to another entity within the system. */
+  entity?: Maybe<AnyEntity>;
+  /**
+   * The full path that represents the property on the schema instance. It is guaranteed
+   * to be unique for the instance, and can be used to grab a property directly, as well as
+   * facilitating schema validation and errors within the admin application's forms.
+   */
+  fullPath: Scalars['String'];
+  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  function: SchemaPropertyFunction;
+  /**
+   * Whether to render a field as "wide" (two columns) in the form.
+   * This is intended to help structure forms logically, as well as
+   * provide ample space for certain types of data input, particularly
+   * full-text, markdown, and other such complex fields.
+   */
+  isWide: Scalars['Boolean'];
+  /** Provided for introspection. This describes the underlying structure of the data type. */
+  kind: SchemaPropertyKind;
+  /** A human-readable label for the schema property. */
+  label: Scalars['String'];
+  /**
+   * Provided for introspection. Whether this property can be used to order entities.
+   * For certain data types, there's no sensible way to order properties.
+   */
+  orderable: Scalars['Boolean'];
+  /**
+   * The "short" path for the property. For properties nested within a group, this can
+   * be considered the name of the property without the group's prefix.
+   */
+  path: Scalars['String'];
+  /**
+   * Whether or not this property is required in order for the schema instance
+   * to be considered valid.
+   *
+   * Note: invalid data provided to a schema property will still invalidate
+   * the instance as a whole—the required trait only determines whether a value
+   * **must** be set.
+   */
+  required: Scalars['Boolean'];
+  /**
+   * Provided for introspection. This represents the actual data type this property
+   * uses.
+   *
+   * Rendering in the frontend should rely primarily on the `AnySchemaProperty` and
+   * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
+   * since the actual implementations of these properties differ in the GraphQL types
+   * associated with their values.
+   */
+  type: SchemaPropertyType;
+};
+
 /**
  * This type is used for authorization and filtering, and can
  * distinguish an entity that has been linked to another from
@@ -3579,6 +3743,19 @@ export type EntityScope =
   /** An `Item` that was linked from another `Item`. */
   | 'ITEM_LINKED_ITEM'
   | '%future added value';
+
+/** A select option for a single entity */
+export type EntitySelectOption = HasEntityBreadcrumbs & {
+  __typename?: 'EntitySelectOption';
+  /** Previous entries in the hierarchy */
+  breadcrumbs: Array<EntityBreadcrumb>;
+  entity: AnyEntity;
+  kind: EntityKind;
+  label: Scalars['String'];
+  schemaVersion: SchemaVersion;
+  slug: Scalars['Slug'];
+  value: Scalars['ID'];
+};
 
 /** The level of visibility an entity can have */
 export type EntityVisibility =
@@ -3842,10 +4019,20 @@ export type HasAttachmentStorage = {
   storage?: Maybe<AttachmentStorage>;
 };
 
+export type HasAvailableEntities = {
+  /** Expose all available entities for this schema property. */
+  availableEntities: Array<EntitySelectOption>;
+};
+
 /** An entity that has a DOI */
 export type HasDoi = {
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+};
+
+export type HasEntityBreadcrumbs = {
+  /** Previous entries in the hierarchy */
+  breadcrumbs: Array<EntityBreadcrumb>;
 };
 
 /** An entity that has an ISSN */
@@ -4143,7 +4330,7 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & ExposesPermissions & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -4177,6 +4364,8 @@ export type Item = Accessible & ExposesPermissions & Entity & ReferencesGlobalEn
   assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
   available: VariablePrecisionDate;
+  /** Expose all available entities for this schema property. */
+  availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   /** @deprecated Use Item.items */
@@ -4370,6 +4559,12 @@ export type ItemAssignedUsersArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An item that belongs to a collection */
+export type ItemAvailableEntitiesForArgs = {
+  fullPath: Scalars['String'];
 };
 
 
@@ -6312,12 +6507,24 @@ export type SchemaDefinitionEdge = {
  * and the necessary context.
  */
 export type SchemaInstance = {
+  /** Expose all available entities for this schema property. */
+  availableEntitiesFor: Array<EntitySelectOption>;
   /** The context for our schema instance. Includes form values and necessary referents. */
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
   /** Read a single schema property by its full path. */
   schemaProperty?: Maybe<AnySchemaProperty>;
+};
+
+
+/**
+ * Being an instance that implements a schema version with strongly-typed properties.
+ * Overlaps with Entity, but intended for focused access to just the properties
+ * and the necessary context.
+ */
+export type SchemaInstanceAvailableEntitiesForArgs = {
+  fullPath: Scalars['String'];
 };
 
 
@@ -6500,6 +6707,10 @@ export type SchemaPropertyType =
   | 'DATE'
   /** An email address. See `EmailProperty` */
   | 'EMAIL'
+  /** A reference to multiple entities. See `EntitiesProperty` */
+  | 'ENTITIES'
+  /** A reference to a single entity. See `EntityProperty` */
+  | 'ENTITY'
   /** A decimal / floating-point number. See `FloatProperty` */
   | 'FLOAT'
   /** A complex type representing textual content. See `FullTextProperty` */
@@ -8540,8 +8751,8 @@ export type ResolversTypes = {
   AnyLinkTarget: ResolversTypes['Collection'] | ResolversTypes['Item'];
   AnyOrderingEntry: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'];
   AnyOrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
-  AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
-  AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: ResolverTypeWrapper<Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyUserAccessGrant']> }>;
   AnyUserAccessGrantEdge: ResolverTypeWrapper<Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyUserAccessGrant'] }>;
@@ -8642,6 +8853,7 @@ export type ResolversTypes = {
   DestroyPagePayload: ResolverTypeWrapper<DestroyPagePayload>;
   Direction: Direction;
   EmailProperty: ResolverTypeWrapper<EmailProperty>;
+  EntitiesProperty: ResolverTypeWrapper<Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversTypes['AnyEntity']> }>;
   Entity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   EntityBreadcrumb: ResolverTypeWrapper<Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversTypes['AnyEntity'] }>;
   EntityDescendant: ResolverTypeWrapper<Omit<EntityDescendant, 'descendant'> & { descendant: ResolversTypes['AnyEntity'] }>;
@@ -8657,9 +8869,11 @@ export type ResolversTypes = {
   EntityLinkScope: EntityLinkScope;
   EntityOrder: EntityOrder;
   EntityPermissionFilter: EntityPermissionFilter;
+  EntityProperty: ResolverTypeWrapper<Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   EntityScope: EntityScope;
+  EntitySelectOption: ResolverTypeWrapper<Omit<EntitySelectOption, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   EntityVisibility: EntityVisibility;
-  ExposesPermissions: ResolversTypes['Collection'] | ResolversTypes['ContextualPermission'] | ResolversTypes['Item'] | ResolversTypes['User'];
+  ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   FullText: ResolverTypeWrapper<FullText>;
@@ -8670,7 +8884,9 @@ export type ResolversTypes = {
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
   HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'];
+  HasAvailableEntities: ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'];
   HasDOI: ResolversTypes['Collection'] | ResolversTypes['Item'];
+  HasEntityBreadcrumbs: ResolversTypes['Collection'] | ResolversTypes['EntitySelectOption'] | ResolversTypes['Item'];
   HasISSN: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
   HeroImageLayout: HeroImageLayout;
@@ -8760,7 +8976,7 @@ export type ResolversTypes = {
   RoleConnection: ResolverTypeWrapper<RoleConnection>;
   RoleEdge: ResolverTypeWrapper<RoleEdge>;
   RoleOrder: RoleOrder;
-  ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaCoreDefinition: ResolverTypeWrapper<SchemaCoreDefinition>;
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
@@ -8770,7 +8986,7 @@ export type ResolversTypes = {
   SchemaInstanceValidation: ResolverTypeWrapper<SchemaInstanceValidation>;
   SchemaKind: SchemaKind;
   SchemaOrderingPath: ResolverTypeWrapper<SchemaOrderingPath>;
-  SchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  SchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaPropertyFunction: SchemaPropertyFunction;
   SchemaPropertyKind: SchemaPropertyKind;
   SchemaPropertyType: SchemaPropertyType;
@@ -8906,8 +9122,8 @@ export type ResolversParentTypes = {
   AnyLinkTarget: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   AnyOrderingEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'];
   AnyOrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
-  AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
-  AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyUserAccessGrant']> };
   AnyUserAccessGrantEdge: Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyUserAccessGrant'] };
@@ -8997,6 +9213,7 @@ export type ResolversParentTypes = {
   DestroyPageInput: DestroyPageInput;
   DestroyPagePayload: DestroyPagePayload;
   EmailProperty: EmailProperty;
+  EntitiesProperty: Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversParentTypes['AnyEntity']> };
   Entity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   EntityBreadcrumb: Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversParentTypes['AnyEntity'] };
   EntityDescendant: Omit<EntityDescendant, 'descendant'> & { descendant: ResolversParentTypes['AnyEntity'] };
@@ -9005,7 +9222,9 @@ export type ResolversParentTypes = {
   EntityLink: Omit<EntityLink, 'source' | 'target'> & { source: ResolversParentTypes['AnyEntity'], target: ResolversParentTypes['AnyEntity'] };
   EntityLinkConnection: EntityLinkConnection;
   EntityLinkEdge: EntityLinkEdge;
-  ExposesPermissions: ResolversParentTypes['Collection'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['Item'] | ResolversParentTypes['User'];
+  EntityProperty: Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
+  EntitySelectOption: Omit<EntitySelectOption, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
+  ExposesPermissions: ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['User'];
   FloatProperty: FloatProperty;
   Float: Scalars['Float'];
   FullText: FullText;
@@ -9015,7 +9234,9 @@ export type ResolversParentTypes = {
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
   HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'];
+  HasAvailableEntities: ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'];
   HasDOI: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
+  HasEntityBreadcrumbs: ResolversParentTypes['Collection'] | ResolversParentTypes['EntitySelectOption'] | ResolversParentTypes['Item'];
   HasISSN: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
   HierarchicalSchemaRank: HierarchicalSchemaRank;
@@ -9089,7 +9310,7 @@ export type ResolversParentTypes = {
   Role: Role;
   RoleConnection: RoleConnection;
   RoleEdge: RoleEdge;
-  ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   SchemaCoreDefinition: SchemaCoreDefinition;
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
@@ -9098,7 +9319,7 @@ export type ResolversParentTypes = {
   SchemaInstanceContext: SchemaInstanceContext;
   SchemaInstanceValidation: SchemaInstanceValidation;
   SchemaOrderingPath: SchemaOrderingPath;
-  SchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  SchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   SchemaRenderDefinition: SchemaRenderDefinition;
   SchemaValueError: SchemaValueError;
   SchemaVersion: Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
@@ -9364,11 +9585,11 @@ export type AnyOrderingPathResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type AnyScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyScalarProperty'] = ResolversParentTypes['AnyScalarProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'EntitiesProperty' | 'EntityProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
 };
 
 export type AnySchemaPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnySchemaProperty'] = ResolversParentTypes['AnySchemaProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'EntitiesProperty' | 'EntityProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
 };
 
 export type AnyUserAccessGrantResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyUserAccessGrant'] = ResolversParentTypes['AnyUserAccessGrant']> = {
@@ -9673,6 +9894,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CollectionAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
@@ -9792,6 +10014,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CommunityAssignedUsersArgs, 'order' | 'pageDirection'>>;
+  availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CommunityAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -10228,6 +10451,23 @@ export type EmailPropertyResolvers<ContextType = any, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EntitiesPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntitiesProperty'] = ResolversParentTypes['EntitiesProperty']> = {
+  array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  availableEntities?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  entities?: Resolver<Array<ResolversTypes['AnyEntity']>, ParentType, ContextType>;
+  fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  function?: Resolver<ResolversTypes['SchemaPropertyFunction'], ParentType, ContextType>;
+  isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SchemaPropertyKind'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type EntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Entity'] = ResolversParentTypes['Entity']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
@@ -10321,8 +10561,36 @@ export type EntityLinkEdgeResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EntityPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityProperty'] = ResolversParentTypes['EntityProperty']> = {
+  array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  availableEntities?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  entity?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType>;
+  fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  function?: Resolver<ResolversTypes['SchemaPropertyFunction'], ParentType, ContextType>;
+  isWide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SchemaPropertyKind'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntitySelectOptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntitySelectOption'] = ResolversParentTypes['EntitySelectOption']> = {
+  breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
+  entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['EntityKind'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ExposesPermissionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ExposesPermissions'] = ResolversParentTypes['ExposesPermissions']> = {
-  __resolveType: TypeResolveFn<'Collection' | 'ContextualPermission' | 'Item' | 'User', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'ContextualPermission' | 'User', ParentType, ContextType>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
 };
@@ -10404,9 +10672,19 @@ export type HasAttachmentStorageResolvers<ContextType = any, ParentType extends 
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
 };
 
+export type HasAvailableEntitiesResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasAvailableEntities'] = ResolversParentTypes['HasAvailableEntities']> = {
+  __resolveType: TypeResolveFn<'EntitiesProperty' | 'EntityProperty', ParentType, ContextType>;
+  availableEntities?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType>;
+};
+
 export type HasDoiResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasDOI'] = ResolversParentTypes['HasDOI']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type HasEntityBreadcrumbsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasEntityBreadcrumbs'] = ResolversParentTypes['HasEntityBreadcrumbs']> = {
+  __resolveType: TypeResolveFn<'Collection' | 'EntitySelectOption' | 'Item', ParentType, ContextType>;
+  breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
 };
 
 export type HasIssnResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasISSN'] = ResolversParentTypes['HasISSN']> = {
@@ -10549,6 +10827,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<ItemAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemChildrenArgs, never>>;
   collection?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
@@ -11117,7 +11396,7 @@ export type RoleEdgeResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type ScalarPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ScalarProperty'] = ResolversParentTypes['ScalarProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'EntitiesProperty' | 'EntityProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -11165,6 +11444,7 @@ export type SchemaDefinitionEdgeResolvers<ContextType = any, ParentType extends 
 
 export type SchemaInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaInstance'] = ResolversParentTypes['SchemaInstance']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
+  availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<SchemaInstanceAvailableEntitiesForArgs, 'fullPath'>>;
   schemaInstanceContext?: Resolver<ResolversTypes['SchemaInstanceContext'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaProperty?: Resolver<Maybe<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType, RequireFields<SchemaInstanceSchemaPropertyArgs, 'fullPath'>>;
@@ -11200,7 +11480,7 @@ export type SchemaOrderingPathResolvers<ContextType = any, ParentType extends Re
 };
 
 export type SchemaPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaProperty'] = ResolversParentTypes['SchemaProperty']> = {
-  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'EntitiesProperty' | 'EntityProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fullPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -11949,6 +12229,7 @@ export type Resolvers<ContextType = any> = {
   DestroyOrderingPayload?: DestroyOrderingPayloadResolvers<ContextType>;
   DestroyPagePayload?: DestroyPagePayloadResolvers<ContextType>;
   EmailProperty?: EmailPropertyResolvers<ContextType>;
+  EntitiesProperty?: EntitiesPropertyResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
   EntityBreadcrumb?: EntityBreadcrumbResolvers<ContextType>;
   EntityDescendant?: EntityDescendantResolvers<ContextType>;
@@ -11957,6 +12238,8 @@ export type Resolvers<ContextType = any> = {
   EntityLink?: EntityLinkResolvers<ContextType>;
   EntityLinkConnection?: EntityLinkConnectionResolvers<ContextType>;
   EntityLinkEdge?: EntityLinkEdgeResolvers<ContextType>;
+  EntityProperty?: EntityPropertyResolvers<ContextType>;
+  EntitySelectOption?: EntitySelectOptionResolvers<ContextType>;
   ExposesPermissions?: ExposesPermissionsResolvers<ContextType>;
   FloatProperty?: FloatPropertyResolvers<ContextType>;
   FullText?: FullTextResolvers<ContextType>;
@@ -11965,7 +12248,9 @@ export type Resolvers<ContextType = any> = {
   GrantAccessPayload?: GrantAccessPayloadResolvers<ContextType>;
   GroupProperty?: GroupPropertyResolvers<ContextType>;
   HasAttachmentStorage?: HasAttachmentStorageResolvers<ContextType>;
+  HasAvailableEntities?: HasAvailableEntitiesResolvers<ContextType>;
   HasDOI?: HasDoiResolvers<ContextType>;
+  HasEntityBreadcrumbs?: HasEntityBreadcrumbsResolvers<ContextType>;
   HasISSN?: HasIssnResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HierarchicalSchemaRank?: HierarchicalSchemaRankResolvers<ContextType>;

@@ -74,6 +74,14 @@ export type SchemaPropertyFragment = {
     readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
     readonly " $refType": "SchemaPropertyFragment";
 } | {
+    readonly __typename: "EntityProperty";
+    readonly " $fragmentRefs": FragmentRefs<"EntityPropertyFragment">;
+    readonly " $refType": "SchemaPropertyFragment";
+} | {
+    readonly __typename: "EntitiesProperty";
+    readonly " $fragmentRefs": FragmentRefs<"EntitiesPropertyFragment">;
+    readonly " $refType": "SchemaPropertyFragment";
+} | {
     /*This will never be '%other', but we need some
     value in case none of the concrete values match.*/
     readonly __typename: "%other";
@@ -303,10 +311,34 @@ const node: ReaderFragment = {
       ],
       "type": "VariableDateProperty",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityPropertyFragment"
+        }
+      ],
+      "type": "EntityProperty",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntitiesPropertyFragment"
+        }
+      ],
+      "type": "EntitiesProperty",
+      "abstractKey": null
     }
   ],
   "type": "AnyScalarProperty",
   "abstractKey": "__isAnyScalarProperty"
 };
-(node as any).hash = '7a8f5c6450117eec0c3307cf4e16ed90';
+(node as any).hash = '71e8ded7627f77515decc8d1b02f35cb';
 export default node;
