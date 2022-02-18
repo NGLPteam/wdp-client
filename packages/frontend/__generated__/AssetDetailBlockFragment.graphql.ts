@@ -14,6 +14,7 @@ export type AssetDetailBlockFragment = {
     readonly downloadUrl?: string | null | undefined;
     readonly fileSize?: number | undefined;
     readonly name?: string | undefined;
+    readonly altText?: string | null | undefined;
     readonly preview?: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
@@ -84,6 +85,13 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "altText",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "ImageAttachment",
           "kind": "LinkedField",
           "name": "preview",
@@ -131,5 +139,5 @@ const node: ReaderFragment = {
   "type": "Node",
   "abstractKey": "__isNode"
 };
-(node as any).hash = '9359fad56c9f8bec6920bedc9c5b9766';
+(node as any).hash = 'e719c5acd5823d2a8061a8f6236eadb6';
 export default node;

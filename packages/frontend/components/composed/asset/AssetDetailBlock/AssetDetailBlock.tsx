@@ -30,6 +30,7 @@ export default function AssetDetailBlock({ data }: Props) {
           <ContentImage data={asset.preview} />
         ) : asset.downloadUrl && asset.kind === "image" ? (
           <Image
+            alt={asset.altText || ""}
             src={asset.downloadUrl}
             layout="responsive"
             width={1160}
@@ -70,6 +71,7 @@ const fragment = graphql`
       downloadUrl
       fileSize
       name
+      altText
       preview {
         storage
         ...ContentImageFragment
