@@ -13,7 +13,11 @@ export default function AssetThumbnail({ data }: Props) {
 
   function renderThumbnail() {
     return asset ? (
-      <FileThumbnail alt={image?.alt} url={image?.url} kind={asset.kind} />
+      <FileThumbnail
+        alt={image && asset.altText}
+        url={image?.url}
+        kind={asset.kind}
+      />
     ) : null;
   }
 
@@ -38,6 +42,7 @@ const fragment = graphql`
   fragment AssetThumbnailFragment on Asset {
     kind
     slug
+    altText
     preview {
       storage
       image: small {

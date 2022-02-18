@@ -10,6 +10,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 export type AssetThumbnailFragment = {
     readonly kind: AssetKind;
     readonly slug: string;
+    readonly altText: string | null;
     readonly preview: {
         readonly storage: AttachmentStorage | null;
         readonly image: {
@@ -47,6 +48,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "altText",
       "storageKey": null
     },
     {
@@ -107,5 +115,5 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = 'ce485284fc5289280b3561451a547ac2';
+(node as any).hash = 'e4cc04367359736dc5d506df212e9915';
 export default node;
