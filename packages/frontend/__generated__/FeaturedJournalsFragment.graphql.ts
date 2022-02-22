@@ -6,16 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type FeaturedJournalsFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly slug: string;
-            readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalFragment">;
-        };
+    readonly entities: ReadonlyArray<{
+        readonly slug?: string | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalFragment">;
     }>;
-    readonly pageInfo: {
-        readonly totalCount: number;
-        readonly perPage: number | null;
-    };
     readonly " $refType": "FeaturedJournalsFragment";
 };
 export type FeaturedJournalsFragment$data = FeaturedJournalsFragment;
@@ -35,18 +29,13 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "CollectionEdge",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "edges",
+      "name": "entities",
       "plural": true,
       "selections": [
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
+          "kind": "InlineFragment",
           "selections": [
             {
               "alias": null,
@@ -54,46 +43,22 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "slug",
               "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "FeaturedJournalFragment"
             }
           ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PageInfo",
-      "kind": "LinkedField",
-      "name": "pageInfo",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "totalCount",
-          "storageKey": null
+          "type": "Sluggable",
+          "abstractKey": "__isSluggable"
         },
         {
-          "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "perPage",
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "FeaturedJournalFragment"
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "CollectionConnection",
+  "type": "EntitiesProperty",
   "abstractKey": null
 };
-(node as any).hash = 'ed4f4d32240f7661b9981bc459d6eb70';
+(node as any).hash = '58c325f9db346946ac82f1dc9f9f1624';
 export default node;

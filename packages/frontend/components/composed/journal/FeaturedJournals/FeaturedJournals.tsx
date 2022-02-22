@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
@@ -12,40 +12,39 @@ import {
   FeaturedJournalsFragment$key,
 } from "@/relay/FeaturedJournalsFragment.graphql";
 
-export default function FeaturedJournals({
-  data,
-  headerText,
-  buttonText,
-  buttonRoute,
-}: Props) {
+export default function FeaturedJournals({ data }: Props) {
   const collections = useMaybeFragment(fragment, data);
-  const coverHeight = collections && collections.edges.length >= 5 ? 240 : 300;
+
+  const entities = collections?.entities;
+
+  const coverHeight = entities && entities.length >= 5 ? 240 : 300;
+
   const style = {
     "--FeaturedJournals-cover-height": pxToRem(coverHeight),
   } as React.CSSProperties;
+
   const { t } = useTranslation();
+
   const slug = useRouteSlug();
 
-  const showButton = useMemo(() => {
-    const total = collections?.pageInfo?.totalCount || 0;
-    const perPage = collections?.pageInfo?.perPage || 0;
-    return total > perPage;
-  }, [collections]);
-
-  return collections && collections.edges.length > 0 ? (
+  return entities && entities.length > 0 ? (
     <Styled.Section className="a-bg-neutral00" style={style}>
-      <h2 className="a-hidden">{t(headerText)}</h2>
-      <Styled.List data-count={collections.edges.length}>
-        {collections.edges.map(({ node }: Node) => (
-          <Styled.ListItem key={node.slug}>
-            <FeaturedJournal data={node} coverHeight={coverHeight} />
+      <h2 className="a-hidden">{t("layouts.featured_journals")}</h2>
+      <Styled.List data-count={entities.length}>
+        {entities.map((journal: Node) => (
+          <Styled.ListItem key={journal.slug}>
+            <FeaturedJournal data={journal} coverHeight={coverHeight} />
           </Styled.ListItem>
         ))}
       </Styled.List>
-      {slug && showButton && (
+      {slug && (
         <Styled.ButtonWrapper>
-          <NamedLink route={buttonRoute} routeParams={{ slug }} passHref>
-            <Button as="a">{t(buttonText)}</Button>
+          <NamedLink
+            route="community.collections.schema"
+            routeParams={{ slug, schema: "nglp:journal" }}
+            passHref
+          >
+            <Button as="a">{t("layouts.see_all_journals")}</Button>
           </NamedLink>
         </Styled.ButtonWrapper>
       )}
@@ -54,29 +53,19 @@ export default function FeaturedJournals({
 }
 
 interface Props {
-  /* CollectionConnection data */
+  /** CollectionConnection data */
   data?: FeaturedJournalsFragment$key | null;
-  /* Header text */
-  headerText: string;
-  /* The bottom button text */
-  buttonText: string;
-  /* Route for bottom button. Uses current slug for route params */
-  buttonRoute: string;
 }
 
-type Node = FeaturedJournalsFragment$data["edges"][number];
+type Node = FeaturedJournalsFragment$data["entities"][number];
 
 const fragment = graphql`
-  fragment FeaturedJournalsFragment on CollectionConnection {
-    edges {
-      node {
+  fragment FeaturedJournalsFragment on EntitiesProperty {
+    entities {
+      ... on Sluggable {
         slug
-        ...FeaturedJournalFragment
       }
-    }
-    pageInfo {
-      totalCount
-      perPage
+      ...FeaturedJournalFragment
     }
   }
 `;

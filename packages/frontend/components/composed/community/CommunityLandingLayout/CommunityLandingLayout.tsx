@@ -19,12 +19,7 @@ export default function CommunityLayout({ data }: Props) {
   return (
     <>
       <CommunityHero data={community} />
-      <FeaturedJournals
-        data={community?.journals}
-        headerText="Featured Journals"
-        buttonText="See All Journals"
-        buttonRoute="collection" /* TODO: Update route to collection list */
-      />
+      <FeaturedJournals data={community?.featuredJournals} />
       {totalCount > 3 ? (
         <FeaturedCollectionsList data={community?.collections} />
       ) : (
@@ -43,12 +38,7 @@ const fragment = graphql`
   fragment CommunityLandingLayoutFragment on Community {
     ...CommunityHeroFragment
 
-    journals: collections(
-      schema: "nglp:journal"
-      order: RECENT
-      page: 1
-      perPage: 5
-    ) {
+    featuredJournals: schemaProperty(fullPath: "featured.journals") {
       ...FeaturedJournalsFragment
     }
 

@@ -6,9 +6,9 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLandingLayoutFragment = {
-    readonly journals: {
+    readonly featuredJournals: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
-    };
+    } | null;
     readonly collections: {
         readonly pageInfo: {
             readonly totalCount: number;
@@ -29,42 +29,24 @@ export type CommunityLandingLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "kind": "Literal",
-  "name": "order",
-  "value": "RECENT"
-},
-v1 = {
-  "kind": "Literal",
-  "name": "page",
-  "value": 1
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CommunityLandingLayoutFragment",
   "selections": [
     {
-      "alias": "journals",
+      "alias": "featuredJournals",
       "args": [
-        (v0/*: any*/),
-        (v1/*: any*/),
         {
           "kind": "Literal",
-          "name": "perPage",
-          "value": 5
-        },
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:journal"
+          "name": "fullPath",
+          "value": "featured.journals"
         }
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "schemaProperty",
       "plural": false,
       "selections": [
         {
@@ -73,13 +55,21 @@ return {
           "name": "FeaturedJournalsFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",page:1,perPage:5,schema:\"nglp:journal\")"
+      "storageKey": "schemaProperty(fullPath:\"featured.journals\")"
     },
     {
       "alias": null,
       "args": [
-        (v0/*: any*/),
-        (v1/*: any*/),
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "RECENT"
+        },
+        {
+          "kind": "Literal",
+          "name": "page",
+          "value": 1
+        },
         {
           "kind": "Literal",
           "name": "perPage",
@@ -163,6 +153,5 @@ return {
   "type": "Community",
   "abstractKey": null
 };
-})();
-(node as any).hash = '715d7c928f45c46235372fd371be6e5c';
+(node as any).hash = '9bafd2ab6b4bb96da5ff32fcec9f3314';
 export default node;
