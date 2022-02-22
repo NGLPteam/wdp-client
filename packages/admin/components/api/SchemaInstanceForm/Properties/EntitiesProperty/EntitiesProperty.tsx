@@ -33,12 +33,13 @@ export default function EntitiesProperty(props: Props) {
         <Controller
           name={name}
           control={control}
-          render={({ field: { value, ...props } }) => (
+          render={({ field: { ...props } }) => (
             <Multiselect
               label={label}
               required={required}
               options={options}
               isWide
+              dragDropOrder
               placeholder={
                 required ? undefined : t("forms.fields.select_placeholder")
               }

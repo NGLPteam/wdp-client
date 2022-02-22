@@ -1,4 +1,12 @@
-import React, { Ref, forwardRef, useState, useEffect } from "react";
+import React, {
+  Ref,
+  forwardRef,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import type { DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 import { useCombobox, useMultipleSelection } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
@@ -29,6 +37,7 @@ function Multiselect<T extends Record<string, unknown>>(
     onChange,
     value,
     isWide,
+    dragDropOrder,
     ...inputProps
   }: Props<T>,
   ref: Ref<HTMLSelectElement>
@@ -41,6 +50,7 @@ function Multiselect<T extends Record<string, unknown>>(
     addSelectedItem,
     removeSelectedItem,
     selectedItems,
+    setSelectedItems,
   } = useMultipleSelection({
     initialSelectedItems: value || [],
   });
@@ -60,8 +70,16 @@ function Multiselect<T extends Record<string, unknown>>(
     );
 
   // Return selected item objects for currently selected items list
-  const getSelectedItemObjects = () =>
-    options.filter((option) => selectedItems.includes(option.value));
+  const getSelectedItemObjects = () => {
+    const values: Option<T>[] = [];
+
+    selectedItems.forEach((value) => {
+      const item = options.find((o) => o.value === value);
+      if (item) values.push(item);
+    });
+
+    return values;
+  };
 
   const {
     isOpen,
@@ -93,6 +111,54 @@ function Multiselect<T extends Record<string, unknown>>(
       }
     },
   });
+
+  const onDragEnd = useCallback(
+    (sourceIndex: number, destinationIndex: number) => {
+      const newValue = [...selectedItems];
+      const sourceItem = newValue.splice(sourceIndex, 1)[0];
+
+      newValue.splice(destinationIndex, 0, sourceItem);
+
+      setSelectedItems(newValue);
+    },
+    [selectedItems, setSelectedItems]
+  );
+
+  const handleDragEnd = useCallback(
+    ({ destination, source }) => {
+      if (!destination || !source || destination.index === source.index) return;
+      onDragEnd(source.index, destination.index);
+    },
+    [onDragEnd]
+  );
+
+  const renderSelectedItem = ({
+    selectedItem,
+    i,
+    ...props
+  }: {
+    selectedItem: Option<T>;
+    i: number;
+    ref?: Ref<HTMLLIElement>;
+    isDragging?: boolean;
+    draggableStyles?: DraggingStyle | NotDraggingStyle | undefined;
+  }) => {
+    return (
+      <BaseArrayListItem
+        key={`selected-item-${i}`}
+        {...getSelectedItemProps({
+          selectedItem: selectedItem.value,
+          index: i,
+        })}
+        onRemove={() => {
+          removeSelectedItem(selectedItem.value);
+        }}
+        {...props}
+      >
+        {selectedItem.node || selectedItem.label}
+      </BaseArrayListItem>
+    );
+  };
 
   return (
     <BaseInputWrapper
@@ -137,24 +203,47 @@ function Multiselect<T extends Record<string, unknown>>(
             ))}
           </Styled.List>
         </Styled.InputWrapper>
-        {selectedItems && (
-          <BaseArrayList>
-            {getSelectedItemObjects().map((selectedItem, index) => (
-              <BaseArrayListItem
-                key={`selected-item-${index}`}
-                {...getSelectedItemProps({
-                  selectedItem: selectedItem.value,
-                  index,
-                })}
-                onRemove={() => {
-                  removeSelectedItem(selectedItem.value);
-                }}
-              >
-                {selectedItem.node || selectedItem.label}
-              </BaseArrayListItem>
-            ))}
-          </BaseArrayList>
-        )}
+        {selectedItems &&
+          (dragDropOrder ? (
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <BaseArrayList
+                    column
+                    ref={provided.innerRef}
+                    isDraggingOver={snapshot.isDraggingOver}
+                    {...provided.droppableProps}
+                  >
+                    {getSelectedItemObjects().map((selectedItem, i) => (
+                      <Draggable
+                        key={`selected-item-${i}`}
+                        draggableId={`selected-item-${i}`}
+                        index={i}
+                      >
+                        {(provided, snapshot) =>
+                          renderSelectedItem({
+                            selectedItem,
+                            i,
+                            ref: provided.innerRef,
+                            isDragging: snapshot.isDragging,
+                            draggableStyles: provided.draggableProps.style,
+                            ...provided.draggableProps,
+                            ...provided.dragHandleProps,
+                          })
+                        }
+                      </Draggable>
+                    ))}
+                  </BaseArrayList>
+                )}
+              </Droppable>
+            </DragDropContext>
+          ) : (
+            <BaseArrayList>
+              {getSelectedItemObjects().map((selectedItem, i) =>
+                renderSelectedItem({ selectedItem, i })
+              )}
+            </BaseArrayList>
+          ))}
       </>
     </BaseInputWrapper>
   );
@@ -173,6 +262,8 @@ interface Props<T> extends Omit<InputProps, "onChange"> {
   onChange?: (value: Option<T>["value"][]) => void;
   /** Default value */
   value?: Option<T>["value"][];
+  /** Allow drag & drop reordering */
+  dragDropOrder?: true;
 }
 
 export default forwardRef(Multiselect);
