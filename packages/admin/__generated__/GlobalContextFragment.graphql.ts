@@ -9,6 +9,7 @@ export type GlobalContextFragment = {
     readonly globalConfiguration: {
         readonly " $fragmentRefs": FragmentRefs<"ProviderBarFragment">;
     };
+    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorSchemasFragment">;
     readonly " $refType": "GlobalContextFragment";
 };
 export type GlobalContextFragment$data = GlobalContextFragment;
@@ -40,10 +41,57 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "InlineDataFragmentSpread",
+      "name": "SchemaSelectorSchemasFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaVersionConnection",
+          "kind": "LinkedField",
+          "name": "schemaVersions",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "SchemaVersion",
+              "kind": "LinkedField",
+              "name": "nodes",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "kind",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "SchemaSelectorModalOptionsFragment"
+            }
+          ],
+          "storageKey": null
+        }
+      ]
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '40a9423670b6bec88ec0c84ff8f96993';
+(node as any).hash = '9b2a90b5a0ef02cf17ea1a255e5129e9';
 export default node;

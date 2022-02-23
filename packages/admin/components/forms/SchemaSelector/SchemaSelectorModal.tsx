@@ -1,8 +1,7 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import * as Styled from "./SchemaSelector.styles";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
@@ -16,19 +15,19 @@ import {
   AlterSchemaVersionInput,
   SchemaSelectorModalMutation,
 } from "@/relay/SchemaSelectorModalMutation.graphql";
-import {
-  SchemaSelectorModalOptionsQuery as Query,
-  SchemaSelectorModalOptionsQueryResponse as Response,
-} from "@/relay/SchemaSelectorModalOptionsQuery.graphql";
 import { SchemaKind } from "types/graphql-schema";
+import { SchemaSelectorModalOptionsFragment$key } from "@/relay/SchemaSelectorModalOptionsFragment.graphql";
 
 const SchemaSelectorModal = ({
+  data,
   dialog,
   entityId,
   schemaVersionSlug,
   schemaKind,
 }: Props) => {
   const { t } = useTranslation();
+
+  const schemaVersions = useFragment(fragment, data);
 
   const defaultValues = {
     schemaVersionSlug,
@@ -41,8 +40,8 @@ const SchemaSelectorModal = ({
     []
   );
 
-  const getOptions = (data: Response | null | undefined) =>
-    data?.schemaVersions?.edges
+  const options =
+    schemaVersions?.edges
       ?.filter((item) => item.node.kind === schemaKind)
       .map((item) => ({
         label: `${item.node.name} ${item.node.number}`,
@@ -51,20 +50,14 @@ const SchemaSelectorModal = ({
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
-      <QueryWrapper<Query> query={query}>
-        {({ data }) =>
-          data?.schemaVersions?.edges ? (
-            <Forms.Select
-              options={getOptions(data)}
-              label={t("forms.schema.new_label")}
-              description={t("forms.schema.change_warning")}
-              {...register("schemaVersionSlug")}
-            />
-          ) : null
-        }
-      </QueryWrapper>
+      <Forms.Select
+        options={options}
+        label={t("forms.schema.new_label")}
+        description={t("forms.schema.change_warning")}
+        {...register("schemaVersionSlug")}
+      />
     ),
-    []
+    [options]
   );
 
   return (
@@ -98,24 +91,23 @@ export default SchemaSelectorModal;
 type Fields = AlterSchemaVersionInput;
 
 interface Props {
+  data: SchemaSelectorModalOptionsFragment$key;
   dialog: DialogState;
   entityId: string;
   schemaVersionSlug: string;
   schemaKind: SchemaKind;
 }
 
-const query = graphql`
-  query SchemaSelectorModalOptionsQuery {
-    schemaVersions {
-      edges {
-        node {
-          name
-          namespace
-          identifier
-          kind
-          slug
-          number
-        }
+const fragment = graphql`
+  fragment SchemaSelectorModalOptionsFragment on SchemaVersionConnection {
+    edges {
+      node {
+        name
+        namespace
+        identifier
+        kind
+        slug
+        number
       }
     }
   }

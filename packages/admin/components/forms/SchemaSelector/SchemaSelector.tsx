@@ -1,25 +1,45 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql, readInlineData } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./SchemaSelector.styles";
 import SchemaSelectorModal from "./SchemaSelectorModal";
-import { useMaybeFragment } from "hooks";
+import { useGlobalContext, useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
 import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
+import {
+  SchemaSelectorSchemasFragment$key,
+  SchemaSelectorSchemasFragment$data,
+} from "@/relay/SchemaSelectorSchemasFragment.graphql";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
 const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
-  const data = useMaybeFragment(dataFragment, schemaData);
+  const data = useMaybeFragment(fragment, schemaData);
 
   const dialog = useDialogState({ visible: false, animated: true });
 
   const { t } = useTranslation();
 
-  return schemaKind && data?.schemaVersion && data?.entityId ? (
+  const globalData = useGlobalContext();
+
+  const schemas = readInlineData<SchemaSelectorSchemasFragment$key>(
+    schemasFragment,
+    globalData
+  );
+
+  const optionCount =
+    schemas?.schemaVersions?.nodes?.filter(
+      (schema: SchemaNode) => schema.kind === schemaKind
+    ).length || 0;
+
+  return schemas &&
+    schemaKind &&
+    data?.schemaVersion &&
+    data?.entityId &&
+    optionCount > 1 ? (
     <>
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">
@@ -35,6 +55,7 @@ const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
         </Styled.Field>
       </Styled.FieldWrapper>
       <SchemaSelectorModal
+        data={schemas.schemaVersions}
         dialog={dialog}
         entityId={data?.entityId}
         schemaVersionSlug={data?.schemaVersion?.slug}
@@ -51,7 +72,10 @@ interface Props extends Pick<SelectProps, "defaultValue"> {
 
 export default SchemaSelector;
 
-const dataFragment = graphql`
+type SchemaNode =
+  SchemaSelectorSchemasFragment$data["schemaVersions"]["nodes"][number];
+
+const fragment = graphql`
   fragment SchemaSelectorDataFragment on AnyEntity {
     ... on Collection {
       entityId: id
@@ -78,6 +102,18 @@ const dataFragment = graphql`
         number
         slug
       }
+    }
+  }
+`;
+
+const schemasFragment = graphql`
+  fragment SchemaSelectorSchemasFragment on Query @inline {
+    schemaVersions {
+      nodes {
+        name
+        kind
+      }
+      ...SchemaSelectorModalOptionsFragment
     }
   }
 `;

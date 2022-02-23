@@ -30,5 +30,6 @@ const fragment = graphql`
     globalConfiguration {
       ...ProviderBarFragment
     }
+    ...SchemaSelectorSchemasFragment
   }
 `;
