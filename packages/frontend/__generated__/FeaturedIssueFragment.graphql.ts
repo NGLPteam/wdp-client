@@ -41,6 +41,12 @@ export type FeaturedIssueFragment = {
             };
         };
     } | null;
+    readonly featuredArticles: {
+        readonly entities?: ReadonlyArray<{
+            readonly slug?: string | undefined;
+            readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
+        }> | undefined;
+    } | null;
     readonly " $refType": "FeaturedIssueFragment";
 };
 export type FeaturedIssueFragment$data = FeaturedIssueFragment;
@@ -83,7 +89,22 @@ v2 = {
     }
   ],
   "storageKey": null
-};
+},
+v3 = [
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      (v1/*: any*/)
+    ],
+    "type": "Sluggable",
+    "abstractKey": "__isSluggable"
+  },
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "ArticleSummaryFragment"
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -246,21 +267,7 @@ return {
                       "kind": "LinkedField",
                       "name": "entry",
                       "plural": false,
-                      "selections": [
-                        {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            (v1/*: any*/)
-                          ],
-                          "type": "Sluggable",
-                          "abstractKey": "__isSluggable"
-                        },
-                        {
-                          "args": null,
-                          "kind": "FragmentSpread",
-                          "name": "ArticleSummaryFragment"
-                        }
-                      ],
+                      "selections": (v3/*: any*/),
                       "storageKey": null
                     }
                   ],
@@ -275,11 +282,45 @@ return {
         }
       ],
       "storageKey": "ordering(identifier:\"articles\")"
+    },
+    {
+      "alias": "featuredArticles",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "featured_articles"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "entities",
+              "plural": true,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "type": "EntitiesProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"featured_articles\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c1ae080b27ad7ddbeb874d1dc096dbac';
+(node as any).hash = 'cd80e047a7086cbb1bee1b5f240bae7f';
 export default node;

@@ -18,8 +18,12 @@ import {
 
 export default function FeaturedIssue({ data, header }: Props) {
   const { t } = useTranslation();
+
   const issue = useMaybeFragment(fragment, data);
-  const articles = issue?.ordering?.children.edges;
+
+  const articles = issue?.ordering?.children?.edges;
+
+  const featuredArticles = issue?.featuredArticles?.entities;
 
   return issue ? (
     <Styled.Section className="a-bg-netural00">
@@ -86,26 +90,33 @@ export default function FeaturedIssue({ data, header }: Props) {
             </DotList>
           </Styled.TitleBlock>
           <Styled.ArticleList>
-            {articles &&
-              articles.map(({ node: { entry } }: ArticleNode) => (
-                <Styled.Item key={entry.slug}>
-                  <ArticleSummary data={entry} showReadMore />
-                </Styled.Item>
-              ))}
+            {featuredArticles && featuredArticles.length > 0
+              ? featuredArticles.map((entity: FeaturedArticleNode, i) => (
+                  <Styled.Item key={entity.slug || i}>
+                    <ArticleSummary data={entity} showReadMore />
+                  </Styled.Item>
+                ))
+              : articles &&
+                articles.map(({ node }: ArticleNode) => (
+                  <Styled.Item key={node.entry.slug}>
+                    <ArticleSummary data={node.entry} showReadMore />
+                  </Styled.Item>
+                ))}
           </Styled.ArticleList>
-          {issue?.ordering?.identifier &&
-            issue?.slug &&
-            issue?.ordering?.children?.pageInfo?.totalCount > 3 && (
-              <Styled.Footer>
-                <NamedLink
-                  route="collection"
-                  routeParams={{ slug: issue.slug }}
-                  passHref
-                >
-                  <Button as="a">{t("layouts.see_all_articles")}</Button>
-                </NamedLink>
-              </Styled.Footer>
-            )}
+          {issue?.ordering?.identifier && issue?.slug && (
+            <Styled.Footer>
+              <NamedLink
+                route="collection.browse"
+                routeParams={{
+                  slug: issue.slug,
+                  ordering: issue.ordering.identifier,
+                }}
+                passHref
+              >
+                <Button as="a">{t("layouts.see_all_articles")}</Button>
+              </NamedLink>
+            </Styled.Footer>
+          )}
         </Styled.TextBlock>
       </Styled.Inner>
     </Styled.Section>
@@ -117,6 +128,10 @@ type Props = {
   header?: string;
 };
 
+type FeaturedArticleNode = NonNullable<
+  NonNullable<FeaturedIssueFragment$data["featuredArticles"]>["entities"]
+>[number];
+
 type ArticleNode = NonNullable<
   FeaturedIssueFragment$data["ordering"]
 >["children"]["edges"][number];
@@ -127,23 +142,28 @@ const fragment = graphql`
     title
     subtitle
     slug
+
     thumbnail {
       ...CoverImageFragment
     }
+
     published {
       value
       ...PrecisionDateFragment
     }
+
     volume: ancestorOfType(schema: "nglp:journal_volume") {
       ... on Collection {
         title
       }
     }
+
     articles: items(schema: "nglp:journal_article") {
       pageInfo {
         totalCount
       }
     }
+
     ordering(identifier: "articles") {
       identifier
       children(perPage: 3) {
@@ -159,6 +179,17 @@ const fragment = graphql`
         }
         pageInfo {
           totalCount
+        }
+      }
+    }
+
+    featuredArticles: schemaProperty(fullPath: "featured_articles") {
+      ... on EntitiesProperty {
+        entities {
+          ... on Sluggable {
+            slug
+          }
+          ...ArticleSummaryFragment
         }
       }
     }
