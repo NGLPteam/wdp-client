@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type CurrentIssueFragment = {
+export type FeaturedIssueFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
@@ -41,12 +41,18 @@ export type CurrentIssueFragment = {
             };
         };
     } | null;
-    readonly " $refType": "CurrentIssueFragment";
+    readonly featuredArticles: {
+        readonly entities?: ReadonlyArray<{
+            readonly slug?: string | undefined;
+            readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
+        }> | undefined;
+    } | null;
+    readonly " $refType": "FeaturedIssueFragment";
 };
-export type CurrentIssueFragment$data = CurrentIssueFragment;
-export type CurrentIssueFragment$key = {
-    readonly " $data"?: CurrentIssueFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
+export type FeaturedIssueFragment$data = FeaturedIssueFragment;
+export type FeaturedIssueFragment$key = {
+    readonly " $data"?: FeaturedIssueFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
 };
 
 
@@ -83,12 +89,27 @@ v2 = {
     }
   ],
   "storageKey": null
-};
+},
+v3 = [
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      (v1/*: any*/)
+    ],
+    "type": "Sluggable",
+    "abstractKey": "__isSluggable"
+  },
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "ArticleSummaryFragment"
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "CurrentIssueFragment",
+  "name": "FeaturedIssueFragment",
   "selections": [
     {
       "alias": null,
@@ -246,21 +267,7 @@ return {
                       "kind": "LinkedField",
                       "name": "entry",
                       "plural": false,
-                      "selections": [
-                        {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            (v1/*: any*/)
-                          ],
-                          "type": "Sluggable",
-                          "abstractKey": "__isSluggable"
-                        },
-                        {
-                          "args": null,
-                          "kind": "FragmentSpread",
-                          "name": "ArticleSummaryFragment"
-                        }
-                      ],
+                      "selections": (v3/*: any*/),
                       "storageKey": null
                     }
                   ],
@@ -275,11 +282,45 @@ return {
         }
       ],
       "storageKey": "ordering(identifier:\"articles\")"
+    },
+    {
+      "alias": "featuredArticles",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "featured_articles"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "entities",
+              "plural": true,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "type": "EntitiesProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"featured_articles\")"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '8d67cba7f5e115bd15ee7a27ce7bc740';
+(node as any).hash = 'cd80e047a7086cbb1bee1b5f240bae7f';
 export default node;

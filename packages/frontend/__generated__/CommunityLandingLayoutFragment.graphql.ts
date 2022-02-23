@@ -6,15 +6,17 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLandingLayoutFragment = {
-    readonly journals: {
+    readonly featuredJournals: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
-    };
-    readonly collections: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsListFragment" | "FeaturedCollectionsGridFragment">;
-    };
+    } | null;
+    readonly featuredSeries: {
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridFragment">;
+    } | null;
+    readonly featuredIssue: {
+        readonly entity?: {
+            readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
+        } | null | undefined;
+    } | null;
     readonly descendants: {
         readonly " $fragmentRefs": FragmentRefs<"UnitListFragment">;
     };
@@ -29,42 +31,24 @@ export type CommunityLandingLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "kind": "Literal",
-  "name": "order",
-  "value": "RECENT"
-},
-v1 = {
-  "kind": "Literal",
-  "name": "page",
-  "value": 1
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "CommunityLandingLayoutFragment",
   "selections": [
     {
-      "alias": "journals",
+      "alias": "featuredJournals",
       "args": [
-        (v0/*: any*/),
-        (v1/*: any*/),
         {
           "kind": "Literal",
-          "name": "perPage",
-          "value": 5
-        },
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:journal"
+          "name": "fullPath",
+          "value": "featured.journals"
         }
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "schemaProperty",
       "plural": false,
       "selections": [
         {
@@ -73,59 +57,69 @@ return {
           "name": "FeaturedJournalsFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",page:1,perPage:5,schema:\"nglp:journal\")"
+      "storageKey": "schemaProperty(fullPath:\"featured.journals\")"
     },
     {
-      "alias": null,
+      "alias": "featuredSeries",
       "args": [
-        (v0/*: any*/),
-        (v1/*: any*/),
         {
           "kind": "Literal",
-          "name": "perPage",
-          "value": 8
-        },
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "default:collection"
+          "name": "fullPath",
+          "value": "featured.series"
         }
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "schemaProperty",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "totalCount",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FeaturedCollectionsListFragment"
-        },
         {
           "args": null,
           "kind": "FragmentSpread",
           "name": "FeaturedCollectionsGridFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",page:1,perPage:8,schema:\"default:collection\")"
+      "storageKey": "schemaProperty(fullPath:\"featured.series\")"
+    },
+    {
+      "alias": "featuredIssue",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "featured.issue"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "entity",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "FeaturedIssueFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "EntityProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"featured.issue\")"
     },
     {
       "alias": null,
@@ -163,6 +157,5 @@ return {
   "type": "Community",
   "abstractKey": null
 };
-})();
-(node as any).hash = '715d7c928f45c46235372fd371be6e5c';
+(node as any).hash = '1ca8d9f4abc1ef2f0bcfbbee4bc504c4';
 export default node;

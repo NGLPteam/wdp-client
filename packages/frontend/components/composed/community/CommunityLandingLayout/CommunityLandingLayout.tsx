@@ -1,36 +1,29 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import CommunityHero from "../CommunityHero";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
-import FeaturedCollectionsList from "components/composed/collections/FeaturedCollectionsList";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
 import ResearchUnitsList from "components/composed/unit/UnitList";
+import FeaturedIssue from "components/composed/journal/FeaturedIssue";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
 
-  const totalCount = useMemo(
-    () => community?.collections?.pageInfo?.totalCount || 0,
-    [community]
-  );
-
   return (
     <>
       <CommunityHero data={community} />
-      <FeaturedJournals
-        data={community?.journals}
-        headerText="Featured Journals"
-        buttonText="See All Journals"
-        buttonRoute="collection" /* TODO: Update route to collection list */
-      />
-      {totalCount > 3 ? (
-        <FeaturedCollectionsList data={community?.collections} />
-      ) : (
-        <FeaturedCollectionsGrid data={community?.collections} />
+      <FeaturedJournals data={community?.featuredJournals} />
+      {community?.featuredSeries && (
+        <FeaturedCollectionsGrid data={community?.featuredSeries} />
       )}
-      <ResearchUnitsList data={community?.descendants} />
+      {community?.descendants && (
+        <ResearchUnitsList data={community?.descendants} />
+      )}
+      {community?.featuredIssue && (
+        <FeaturedIssue data={community.featuredIssue.entity} />
+      )}
     </>
   );
 }
@@ -43,25 +36,19 @@ const fragment = graphql`
   fragment CommunityLandingLayoutFragment on Community {
     ...CommunityHeroFragment
 
-    journals: collections(
-      schema: "nglp:journal"
-      order: RECENT
-      page: 1
-      perPage: 5
-    ) {
+    featuredJournals: schemaProperty(fullPath: "featured.journals") {
       ...FeaturedJournalsFragment
     }
 
-    collections(
-      schema: "default:collection"
-      order: RECENT
-      page: 1
-      perPage: 8
-    ) {
-      ...FeaturedCollectionsListFragment
+    featuredSeries: schemaProperty(fullPath: "featured.series") {
       ...FeaturedCollectionsGridFragment
-      pageInfo {
-        totalCount
+    }
+
+    featuredIssue: schemaProperty(fullPath: "featured.issue") {
+      ... on EntityProperty {
+        entity {
+          ...FeaturedIssueFragment
+        }
       }
     }
 

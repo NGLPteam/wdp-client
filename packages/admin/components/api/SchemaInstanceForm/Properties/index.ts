@@ -15,3 +15,5 @@ export { default as Tags } from "./TagsProperty";
 export { default as FullText } from "./FullTextProperty";
 export { default as URL } from "./URLProperty";
 export { default as VariableDate } from "./VariableDateProperty";
+export { default as EntityProperty } from "./EntityProperty";
+export { default as EntitiesProperty } from "./EntitiesProperty";

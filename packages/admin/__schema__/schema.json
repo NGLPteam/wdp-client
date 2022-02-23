@@ -2093,6 +2093,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "EntitiesProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "FloatProperty",
             "ofType": null
           },
@@ -2195,6 +2205,16 @@
           {
             "kind": "OBJECT",
             "name": "EmailProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntitiesProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityProperty",
             "ofType": null
           },
           {
@@ -8067,6 +8087,47 @@
             "deprecationReason": null
           },
           {
+            "name": "availableEntitiesFor",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [
+              {
+                "name": "fullPath",
+                "description": "The full path to the schema property. Please note, paths are snake_case, not camelCase.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "breadcrumbs",
             "description": "Previous entries in the hierarchy",
             "args": [],
@@ -10576,7 +10637,7 @@
           },
           {
             "kind": "INTERFACE",
-            "name": "ExposesPermissions",
+            "name": "HasEntityBreadcrumbs",
             "ofType": null
           },
           {
@@ -11832,6 +11893,47 @@
                 "kind": "OBJECT",
                 "name": "ContextualPermissionConnection",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "availableEntitiesFor",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [
+              {
+                "name": "fullPath",
+                "description": "The full path to the schema property. Please note, paths are snake_case, not camelCase.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -21020,6 +21122,253 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "EntitiesProperty",
+        "description": "A property that references a deterministically-ordered list of entities.\n",
+        "fields": [
+          {
+            "name": "array",
+            "description": "Provided for introspection. This describes whether or not the property's value\ncomes in an array rather than representing a discrete piece of information.\n\nSee `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`\nfor examples.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "availableEntities",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entities",
+            "description": "A deterministically-ordered list of entities.\n\nGiven the same input, this array will always be returned in the same order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "AnyEntity",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fullPath",
+            "description": "The full path that represents the property on the schema instance. It is guaranteed\nto be unique for the instance, and can be used to grab a property directly, as well as\nfacilitating schema validation and errors within the admin application's forms.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "function",
+            "description": "The purpose or intent of this property relative to its entity, parents, and others.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyFunction",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isWide",
+            "description": "Whether to render a field as \"wide\" (two columns) in the form.\nThis is intended to help structure forms logically, as well as\nprovide ample space for certain types of data input, particularly\nfull-text, markdown, and other such complex fields.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "Provided for introspection. This describes the underlying structure of the data type.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the schema property.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderable",
+            "description": "Provided for introspection. Whether this property can be used to order entities.\nFor certain data types, there's no sensible way to order properties.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The \"short\" path for the property. For properties nested within a group, this can\nbe considered the name of the property without the group's prefix.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "required",
+            "description": "Whether or not this property is required in order for the schema instance\nto be considered valid.\n\nNote: invalid data provided to a schema property will still invalidate\nthe instance as a whole—the required trait only determines whether a value\n**must** be set.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "SchemaProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasAvailableEntities",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "Entity",
         "description": "An entity that exists in the hierarchy.",
@@ -23391,6 +23740,241 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "EntityProperty",
+        "description": "A property that references another entity within the system.\n",
+        "fields": [
+          {
+            "name": "array",
+            "description": "Provided for introspection. This describes whether or not the property's value\ncomes in an array rather than representing a discrete piece of information.\n\nSee `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`\nfor examples.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "availableEntities",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "A single reference to another entity within the system.\n",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fullPath",
+            "description": "The full path that represents the property on the schema instance. It is guaranteed\nto be unique for the instance, and can be used to grab a property directly, as well as\nfacilitating schema validation and errors within the admin application's forms.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "function",
+            "description": "The purpose or intent of this property relative to its entity, parents, and others.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyFunction",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isWide",
+            "description": "Whether to render a field as \"wide\" (two columns) in the form.\nThis is intended to help structure forms logically, as well as\nprovide ample space for certain types of data input, particularly\nfull-text, markdown, and other such complex fields.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "Provided for introspection. This describes the underlying structure of the data type.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the schema property.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderable",
+            "description": "Provided for introspection. Whether this property can be used to order entities.\nFor certain data types, there's no sensible way to order properties.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The \"short\" path for the property. For properties nested within a group, this can\nbe considered the name of the property without the group's prefix.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "required",
+            "description": "Whether or not this property is required in order for the schema instance\nto be considered valid.\n\nNote: invalid data provided to a schema property will still invalidate\nthe instance as a whole—the required trait only determines whether a value\n**must** be set.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "SchemaProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasAvailableEntities",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "EntityScope",
         "description": "This type is used for authorization and filtering, and can\ndistinguish an entity that has been linked to another from\none that exists directly in a hierarchy.\n",
@@ -23471,6 +24055,143 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EntitySelectOption",
+        "description": "A select option for a single entity",
+        "fields": [
+          {
+            "name": "breadcrumbs",
+            "description": "Previous entries in the hierarchy",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntityBreadcrumb",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersion",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "HasEntityBreadcrumbs",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -23562,17 +24283,7 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
-            "name": "Collection",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
             "name": "ContextualPermission",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
-            "name": "Item",
             "ofType": null
           },
           {
@@ -24578,6 +25289,52 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "HasAvailableEntities",
+        "description": null,
+        "fields": [
+          {
+            "name": "availableEntities",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "EntitiesProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityProperty",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "HasDOI",
         "description": "An entity that has a DOI",
         "fields": [
@@ -24601,6 +25358,57 @@
           {
             "kind": "OBJECT",
             "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Item",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "HasEntityBreadcrumbs",
+        "description": null,
+        "fields": [
+          {
+            "name": "breadcrumbs",
+            "description": "Previous entries in the hierarchy",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntityBreadcrumb",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntitySelectOption",
             "ofType": null
           },
           {
@@ -26866,6 +27674,47 @@
                 "kind": "OBJECT",
                 "name": "VariablePrecisionDate",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "availableEntitiesFor",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [
+              {
+                "name": "fullPath",
+                "description": "The full path to the schema property. Please note, paths are snake_case, not camelCase.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -29175,7 +30024,7 @@
           },
           {
             "kind": "INTERFACE",
-            "name": "ExposesPermissions",
+            "name": "HasEntityBreadcrumbs",
             "ofType": null
           },
           {
@@ -38554,6 +39403,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "EntitiesProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "FloatProperty",
             "ofType": null
           },
@@ -38957,6 +39816,47 @@
         "name": "SchemaInstance",
         "description": "Being an instance that implements a schema version with strongly-typed properties.\nOverlaps with Entity, but intended for focused access to just the properties\nand the necessary context.\n",
         "fields": [
+          {
+            "name": "availableEntitiesFor",
+            "description": "Expose all available entities for this schema property.\n",
+            "args": [
+              {
+                "name": "fullPath",
+                "description": "The full path to the schema property. Please note, paths are snake_case, not camelCase.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EntitySelectOption",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "schemaInstanceContext",
             "description": "The context for our schema instance. Includes form values and necessary referents.",
@@ -39555,6 +40455,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "EntitiesProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "FloatProperty",
             "ofType": null
           },
@@ -39743,6 +40653,18 @@
           {
             "name": "EMAIL",
             "description": "An email address. See `EmailProperty`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENTITIES",
+            "description": "A reference to multiple entities. See `EntitiesProperty`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ENTITY",
+            "description": "A reference to a single entity. See `EntityProperty`",
             "isDeprecated": false,
             "deprecationReason": null
           },

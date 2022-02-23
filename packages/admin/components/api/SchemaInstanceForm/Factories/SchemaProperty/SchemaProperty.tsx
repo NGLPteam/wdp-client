@@ -47,6 +47,10 @@ export default function SchemaProperty(props: Props) {
       return <Properties.URL field={field} />;
     case "VariableDateProperty":
       return <Properties.VariableDate field={field} />;
+    case "EntityProperty":
+      return <Properties.EntityProperty field={field} />;
+    case "EntitiesProperty":
+      return <Properties.EntitiesProperty field={field} />;
     default:
       console.warn("Got unknown schema property type: %s", field.__typename);
       return null;
@@ -144,6 +148,16 @@ const fragment = graphql`
     ... on VariableDateProperty {
       # eslint-disable-next-line relay/must-colocate-fragment-spreads
       ...VariableDatePropertyFragment
+    }
+
+    ... on EntityProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
+      ...EntityPropertyFragment
+    }
+
+    ... on EntitiesProperty {
+      # eslint-disable-next-line relay/must-colocate-fragment-spreads
+      ...EntitiesPropertyFragment
     }
   }
 `;

@@ -2,7 +2,7 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import CurrentIssue from "../CurrentIssue";
+import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
 import { ReadMoreLink, FullText, NamedLink, Link } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
@@ -65,7 +65,10 @@ export default function JournalContent({ data }: Props) {
           )}
         </Styled.SectionInner>
       </section>
-      <CurrentIssue data={journal.currentIssue} />
+      <FeaturedIssue
+        data={journal.currentIssue}
+        header="layouts.current_issue"
+      />
       <RecentIssues data={journal.issues} />
     </>
   );
@@ -104,7 +107,7 @@ const fragment = graphql`
       order: PUBLISHED_DESCENDING
       nodeFilter: DESCENDANTS
     ) {
-      ...CurrentIssueFragment
+      ...FeaturedIssueFragment
     }
 
     announcements {

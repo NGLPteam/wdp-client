@@ -18,7 +18,7 @@ export type JournalContentFragment = {
         readonly " $fragmentRefs": FragmentRefs<"RecentIssuesFragment">;
     };
     readonly currentIssue: {
-        readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
     } | null;
     readonly announcements: {
         readonly edges: ReadonlyArray<{
@@ -168,7 +168,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "CurrentIssueFragment"
+          "name": "FeaturedIssueFragment"
         }
       ],
       "storageKey": "firstCollection(nodeFilter:\"DESCENDANTS\",order:\"PUBLISHED_DESCENDING\",schema:\"nglp:journal_issue\")"
@@ -226,5 +226,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '948a9d56840d4916e4929c51ba2ec930';
+(node as any).hash = 'ce589dac5af87bc6e74d0bb757f5c2f7';
 export default node;
