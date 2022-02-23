@@ -9,12 +9,14 @@ export type CommunityLandingLayoutFragment = {
     readonly featuredJournals: {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
     } | null;
-    readonly collections: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsListFragment" | "FeaturedCollectionsGridFragment">;
-    };
+    readonly featuredSeries: {
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridFragment">;
+    } | null;
+    readonly featuredIssue: {
+        readonly entity?: {
+            readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
+        } | null | undefined;
+    } | null;
     readonly descendants: {
         readonly " $fragmentRefs": FragmentRefs<"UnitListFragment">;
     };
@@ -58,64 +60,66 @@ const node: ReaderFragment = {
       "storageKey": "schemaProperty(fullPath:\"featured.journals\")"
     },
     {
-      "alias": null,
+      "alias": "featuredSeries",
       "args": [
         {
           "kind": "Literal",
-          "name": "order",
-          "value": "RECENT"
-        },
-        {
-          "kind": "Literal",
-          "name": "page",
-          "value": 1
-        },
-        {
-          "kind": "Literal",
-          "name": "perPage",
-          "value": 8
-        },
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "default:collection"
+          "name": "fullPath",
+          "value": "featured.series"
         }
       ],
-      "concreteType": "CollectionConnection",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "collections",
+      "name": "schemaProperty",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "totalCount",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FeaturedCollectionsListFragment"
-        },
         {
           "args": null,
           "kind": "FragmentSpread",
           "name": "FeaturedCollectionsGridFragment"
         }
       ],
-      "storageKey": "collections(order:\"RECENT\",page:1,perPage:8,schema:\"default:collection\")"
+      "storageKey": "schemaProperty(fullPath:\"featured.series\")"
+    },
+    {
+      "alias": "featuredIssue",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "featured.issue"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "entity",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "FeaturedIssueFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "EntityProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"featured.issue\")"
     },
     {
       "alias": null,
@@ -153,5 +157,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '9bafd2ab6b4bb96da5ff32fcec9f3314';
+(node as any).hash = '1ca8d9f4abc1ef2f0bcfbbee4bc504c4';
 export default node;

@@ -6,12 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type FeaturedCollectionsGridFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly slug: string;
-            readonly title: string;
-            readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
-        };
+    readonly entities: ReadonlyArray<{
+        readonly slug?: string | undefined;
+        readonly title?: string | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
     }>;
     readonly " $refType": "FeaturedCollectionsGridFragment";
 };
@@ -32,18 +30,13 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "CollectionEdge",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "edges",
+      "name": "entities",
       "plural": true,
       "selections": [
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
+          "kind": "InlineFragment",
           "selections": [
             {
               "alias": null,
@@ -51,28 +44,36 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "slug",
               "storageKey": null
-            },
+            }
+          ],
+          "type": "Sluggable",
+          "abstractKey": "__isSluggable"
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "title",
               "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "FeaturedCollectionsGridImageFragment"
             }
           ],
-          "storageKey": null
+          "type": "Entity",
+          "abstractKey": "__isEntity"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FeaturedCollectionsGridImageFragment"
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "CollectionConnection",
+  "type": "EntitiesProperty",
   "abstractKey": null
 };
-(node as any).hash = '4c29e295ec16ec68a098cc0ac7735d36';
+(node as any).hash = '082edf9e002d23ee04ec1de4ab0f5cc6';
 export default node;

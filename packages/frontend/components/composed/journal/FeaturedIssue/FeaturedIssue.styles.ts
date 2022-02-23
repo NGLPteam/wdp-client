@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aFocus, lGrid, respond } from "theme/mixins";
+import { aFocus, lGrid, respond, aBgCustom10 } from "theme/mixins";
+
+// This section's background changes if bumped up against a white background
+export const Section = styled.section`
+  .a-bg-neutral00 + & {
+    ${aBgCustom10()}
+  }
+`;
 
 export const Inner = styled.div`
   padding-block-start: var(--container-padding-xl);

@@ -14,27 +14,29 @@ export default function FeaturedCollectionsGrid({ data, header }: Props) {
 
   const { t } = useTranslation();
 
-  return collections && collections.edges.length > 0 ? (
+  return collections && collections.entities.length > 0 ? (
     <section className="a-bg-custom10">
       <Styled.SectionInner className="l-container-wide">
         <Styled.Header className="t-capitalize">
           {t(header || "layouts.featured_collections_header")}
         </Styled.Header>
         <Styled.List>
-          {collections.edges.map(({ node }: Node) => (
-            <Styled.Item key={node.slug}>
-              <Styled.NamedLink
-                route="collection"
-                routeParams={{ slug: node.slug }}
-                passHref
-              >
-                <a>
-                  <FeaturedCollectionsGridImage data={node} />
-                  <span className="t-h3">{node.title}</span>
-                </a>
-              </Styled.NamedLink>
-            </Styled.Item>
-          ))}
+          {collections.entities.map((node: Node) =>
+            node.slug ? (
+              <Styled.Item key={node.slug}>
+                <Styled.NamedLink
+                  route="collection"
+                  routeParams={{ slug: node.slug }}
+                  passHref
+                >
+                  <a>
+                    <FeaturedCollectionsGridImage data={node} />
+                    <span className="t-h3">{node.title}</span>
+                  </a>
+                </Styled.NamedLink>
+              </Styled.Item>
+            ) : null
+          )}
         </Styled.List>
       </Styled.SectionInner>
     </section>
@@ -46,16 +48,18 @@ interface Props {
   data?: FeaturedCollectionsGridFragment$key | null;
 }
 
-type Node = FeaturedCollectionsGridFragment$data["edges"][number];
+type Node = FeaturedCollectionsGridFragment$data["entities"][number];
 
 const fragment = graphql`
-  fragment FeaturedCollectionsGridFragment on CollectionConnection {
-    edges {
-      node {
+  fragment FeaturedCollectionsGridFragment on EntitiesProperty {
+    entities {
+      ... on Sluggable {
         slug
-        title
-        ...FeaturedCollectionsGridImageFragment
       }
+      ... on Entity {
+        title
+      }
+      ...FeaturedCollectionsGridImageFragment
     }
   }
 `;

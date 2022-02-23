@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./CurrentIssue.styles";
+import * as Styled from "./FeaturedIssue.styles";
 import {
   CoverImage,
   PrecisionDate,
@@ -12,17 +12,17 @@ import {
 } from "components/atomic";
 import ArticleSummary from "components/composed/article/ArticleSummary";
 import {
-  CurrentIssueFragment$data,
-  CurrentIssueFragment$key,
-} from "@/relay/CurrentIssueFragment.graphql";
+  FeaturedIssueFragment$data,
+  FeaturedIssueFragment$key,
+} from "@/relay/FeaturedIssueFragment.graphql";
 
-export default function CurrentIssue({ data }: Props) {
+export default function FeaturedIssue({ data, header }: Props) {
   const { t } = useTranslation();
   const issue = useMaybeFragment(fragment, data);
   const articles = issue?.ordering?.children.edges;
 
   return issue ? (
-    <section className="a-bg-neutral00">
+    <Styled.Section className="a-bg-netural00">
       <Styled.Inner className="l-container-wide">
         <Styled.ImageBlock>
           <NamedLink
@@ -43,7 +43,7 @@ export default function CurrentIssue({ data }: Props) {
         </Styled.ImageBlock>
         <Styled.TextBlock>
           <Styled.Label className="t-label-lg">
-            {t("layouts.current_issue")}
+            {t(header || "layouts.featured_issue")}
           </Styled.Label>
           <Styled.TitleBlock>
             <h3>
@@ -108,20 +108,21 @@ export default function CurrentIssue({ data }: Props) {
             )}
         </Styled.TextBlock>
       </Styled.Inner>
-    </section>
+    </Styled.Section>
   ) : null;
 }
 
 type Props = {
-  data?: CurrentIssueFragment$key | null;
+  data?: FeaturedIssueFragment$key | null;
+  header?: string;
 };
 
 type ArticleNode = NonNullable<
-  CurrentIssueFragment$data["ordering"]
+  FeaturedIssueFragment$data["ordering"]
 >["children"]["edges"][number];
 
 const fragment = graphql`
-  fragment CurrentIssueFragment on Collection {
+  fragment FeaturedIssueFragment on Collection {
     id
     title
     subtitle

@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type CurrentIssueFragment = {
+export type FeaturedIssueFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
@@ -41,12 +41,12 @@ export type CurrentIssueFragment = {
             };
         };
     } | null;
-    readonly " $refType": "CurrentIssueFragment";
+    readonly " $refType": "FeaturedIssueFragment";
 };
-export type CurrentIssueFragment$data = CurrentIssueFragment;
-export type CurrentIssueFragment$key = {
-    readonly " $data"?: CurrentIssueFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CurrentIssueFragment">;
+export type FeaturedIssueFragment$data = FeaturedIssueFragment;
+export type FeaturedIssueFragment$key = {
+    readonly " $data"?: FeaturedIssueFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
 };
 
 
@@ -88,7 +88,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "CurrentIssueFragment",
+  "name": "FeaturedIssueFragment",
   "selections": [
     {
       "alias": null,
@@ -281,5 +281,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8d67cba7f5e115bd15ee7a27ce7bc740';
+(node as any).hash = 'c1ae080b27ad7ddbeb874d1dc096dbac';
 export default node;
