@@ -24,7 +24,7 @@ function ContributorsColumnCell({
 
     const total = fragmentData?.contributions?.pageInfo.totalCount;
     const totalString =
-      total && total > 1 ? t("common.and_x_more", { count: total - 1 }) : null;
+      total && total > 1 ? t("list.and_x_more", { count: total - 1 }) : null;
 
     return totalString ? `${names}${totalString}` : names;
   }
