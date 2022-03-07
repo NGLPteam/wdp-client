@@ -9,7 +9,7 @@ export default function ContentImageBase({
   height,
 }: BaseProps) {
   return url ? (
-    <Styled.Wrapper className="a-bg-custom20">
+    <Styled.Wrapper>
       <Image
         alt={alt || ""}
         src={url}

@@ -139,7 +139,11 @@
       "article_count": "{{count}} Article",
       "article_count_plural": "{{count}} Articles",
       "research_units": "Research Units",
-      "instance_communities_header": "Communities"
+      "instance_communities_header": "Communities",
+      "item_count": "{{count}} Item",
+      "item_count_plural": "{{count}} Items",
+      "collection_count": "{{count}} Collection",
+      "collection_count_plural": "{{count}} Collections"
     },
     "nav": {
       "home": "Home",

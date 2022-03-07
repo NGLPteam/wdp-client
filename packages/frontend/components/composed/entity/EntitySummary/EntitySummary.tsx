@@ -1,70 +1,62 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./EntitySummary.styles";
-import {
-  ReadMoreLink,
-  DotList,
-  NamedLink,
-  PrecisionDate,
-  SquareThumbnail,
-  Link,
-} from "components/atomic";
+import { formatDate } from "@wdp/lib/helpers";
+import { useTranslation } from "react-i18next";
+import { DotList, PrecisionDate, ContentImage } from "components/atomic";
 import { EntitySummaryFragment$key } from "@/relay/EntitySummaryFragment.graphql";
 import { getRouteByEntityType } from "helpers";
+import Summary from "components/layout/Summary";
 
 export default function EntitySummary({ data, showReadMore }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   const route = getRouteByEntityType(entity?.__typename);
 
-  return entity ? (
-    <Styled.Wrapper>
-      <Styled.Text>
-        <Styled.Headers>
-          {entity.title && entity.slug && route && (
-            <h4>
-              <NamedLink
-                route={route}
-                routeParams={{ slug: entity.slug }}
-                passHref
-              >
-                <Link>{entity.title}</Link>
-              </NamedLink>
-            </h4>
+  const { t } = useTranslation();
+
+  return entity && route && entity.slug ? (
+    <Summary
+      route={route}
+      routeParams={{ slug: entity.slug }}
+      title={entity.title}
+      summary={entity.summary}
+      thumbnail={
+        entity.thumbnail.storage && <ContentImage data={entity.thumbnail} />
+      }
+      thumbnailRight
+      metadata={
+        <DotList className="t-copy-sm t-copy-lighter">
+          {entity.published?.value && (
+            <li>
+              <PrecisionDate data={entity.published} />
+            </li>
           )}
-          {entity.subtitle && (
-            <h5 className="t-copy-italic t-copy-lighter">{entity.subtitle}</h5>
+          {entity.updatedAt && (
+            <li>
+              {t("common.last_updated", {
+                value: formatDate(entity.updatedAt, "L/d/yy"),
+              })}
+            </li>
           )}
-        </Styled.Headers>
-        {entity.published?.value && (
-          <Styled.Metadata>
-            <DotList className="t-copy-sm t-copy-lighter">
-              <li>
-                <PrecisionDate data={entity.published} />
-              </li>
-            </DotList>
-          </Styled.Metadata>
-        )}
-        {entity.summary && (
-          <Styled.Summary className="t-copy-lighter">
-            {entity.summary}
-          </Styled.Summary>
-        )}
-        {entity.slug && route && showReadMore && (
-          <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-            <ReadMoreLink className="t-label-sm" />
-          </NamedLink>
-        )}
-      </Styled.Text>
-      {entity.thumbnail.storage && route && entity.slug && (
-        <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-          <Styled.ThumbnailLink>
-            <SquareThumbnail data={entity.thumbnail} />
-          </Styled.ThumbnailLink>
-        </NamedLink>
-      )}
-    </Styled.Wrapper>
+          {entity.collections?.pageInfo?.totalCount ? (
+            <li>
+              {t("layouts.collection_count", {
+                count: entity.collections.pageInfo.totalCount,
+              })}
+            </li>
+          ) : null}
+          {entity.items?.pageInfo?.totalCount ? (
+            <li>
+              {t("layouts.item_count", {
+                count: entity.items.pageInfo.totalCount,
+              })}
+            </li>
+          ) : null}
+        </DotList>
+      }
+      showReadMore={showReadMore}
+    />
   ) : null;
 }
 
@@ -80,7 +72,7 @@ const fragment = graphql`
     subtitle
     thumbnail {
       storage
-      ...SquareThumbnailFragment
+      ...ContentImageFragment
     }
 
     ... on ReferencesGlobalEntityDates {
@@ -96,10 +88,30 @@ const fragment = graphql`
 
     ... on Item {
       summary
+      updatedAt
+
+      items {
+        pageInfo {
+          totalCount
+        }
+      }
     }
 
     ... on Collection {
       summary
+      updatedAt
+
+      items {
+        pageInfo {
+          totalCount
+        }
+      }
+
+      collections {
+        pageInfo {
+          totalCount
+        }
+      }
     }
   }
 `;

@@ -12,7 +12,7 @@ export type EntitySummaryFragment = {
     readonly subtitle: string | null;
     readonly thumbnail: {
         readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
     readonly published?: {
         readonly value: string | null;
@@ -20,6 +20,17 @@ export type EntitySummaryFragment = {
     } | undefined;
     readonly slug?: string | undefined;
     readonly summary?: string | null | undefined;
+    readonly updatedAt?: string | undefined;
+    readonly items?: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    } | undefined;
+    readonly collections?: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    } | undefined;
     readonly " $refType": "EntitySummaryFragment";
 };
 export type EntitySummaryFragment$data = EntitySummaryFragment;
@@ -31,15 +42,50 @@ export type EntitySummaryFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "summary",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "updatedAt",
+  "storageKey": null
+},
+v2 = [
   {
     "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "summary",
+    "concreteType": "PageInfo",
+    "kind": "LinkedField",
+    "name": "pageInfo",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "totalCount",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
-];
+],
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ItemConnection",
+  "kind": "LinkedField",
+  "name": "items",
+  "plural": false,
+  "selections": (v2/*: any*/),
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -85,7 +131,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "SquareThumbnailFragment"
+          "name": "ContentImageFragment"
         }
       ],
       "storageKey": null
@@ -136,13 +182,31 @@ return {
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        (v3/*: any*/)
+      ],
       "type": "Item",
       "abstractKey": null
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": [
+        (v0/*: any*/),
+        (v1/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "CollectionConnection",
+          "kind": "LinkedField",
+          "name": "collections",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        }
+      ],
       "type": "Collection",
       "abstractKey": null
     }
@@ -151,5 +215,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '62bd19466e7c224195b553ff2c1adec1';
+(node as any).hash = 'e0ec0acc2f5838d370570c336822384d';
 export default node;
