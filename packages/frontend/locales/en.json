@@ -92,6 +92,27 @@
       "nglp.unit_plural": "units",
       "nglp.series": "series"
     },
+    "counts": {
+      "journal": "{{count}} Journal",
+      "journal_plural": "{{count}} Journals",
+      "journal_issue": "{{count}} Issue",
+      "journal_issue_plural": "{{count}} Issues",
+      "journal_volume": "{{count}} Volume",
+      "journal_volume_plural": "{{count}} Volumes",
+      "journal_article": "{{count}} Article",
+      "journal_article_plural": "{{count}} Articles",
+      "article": "{{count}} Article",
+      "article_plural": "{{count}} Articles",
+      "dissertation": "{{count}} Dissertation",
+      "dissertation_plural": "{{count}} Dissertations",
+      "collection": "$t(glossary.collection)",
+      "item": "$t(glossary.item)",
+      "campus": "{{count}} Campus",
+      "campus_plural": "{{count}} Campuses",
+      "unit": "{{count}} Unit",
+      "unit_plural": "{{count}} Units",
+      "series": "{{count}} Series"
+    },
     "asset": {
       "pdf": "PDF",
       "image": "image",
@@ -139,11 +160,7 @@
       "article_count": "{{count}} Article",
       "article_count_plural": "{{count}} Articles",
       "research_units": "Research Units",
-      "instance_communities_header": "Communities",
-      "item_count": "{{count}} Item",
-      "item_count_plural": "{{count}} Items",
-      "collection_count": "{{count}} Collection",
-      "collection_count_plural": "{{count}} Collections"
+      "instance_communities_header": "Communities"
     },
     "nav": {
       "home": "Home",

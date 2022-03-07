@@ -14,6 +14,11 @@ export type EntitySummaryFragment = {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
     };
+    readonly schemaRanks: ReadonlyArray<{
+        readonly count: number;
+        readonly namespace: string;
+        readonly identifier: string;
+    }>;
     readonly published?: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -21,16 +26,6 @@ export type EntitySummaryFragment = {
     readonly slug?: string | undefined;
     readonly summary?: string | null | undefined;
     readonly updatedAt?: string | undefined;
-    readonly items?: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    } | undefined;
-    readonly collections?: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    } | undefined;
     readonly " $refType": "EntitySummaryFragment";
 };
 export type EntitySummaryFragment$data = EntitySummaryFragment;
@@ -42,50 +37,22 @@ export type EntitySummaryFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "summary",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-},
-v2 = [
+var v0 = [
   {
     "alias": null,
     "args": null,
-    "concreteType": "PageInfo",
-    "kind": "LinkedField",
-    "name": "pageInfo",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "totalCount",
-        "storageKey": null
-      }
-    ],
+    "kind": "ScalarField",
+    "name": "summary",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "updatedAt",
     "storageKey": null
   }
-],
-v3 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ItemConnection",
-  "kind": "LinkedField",
-  "name": "items",
-  "plural": false,
-  "selections": (v2/*: any*/),
-  "storageKey": null
-};
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -137,6 +104,38 @@ return {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "HierarchicalSchemaRank",
+      "kind": "LinkedField",
+      "name": "schemaRanks",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "count",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "namespace",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "kind": "InlineFragment",
       "selections": [
         {
@@ -182,31 +181,13 @@ return {
     },
     {
       "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/),
-        (v3/*: any*/)
-      ],
+      "selections": (v0/*: any*/),
       "type": "Item",
       "abstractKey": null
     },
     {
       "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/),
-        (v3/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "CollectionConnection",
-          "kind": "LinkedField",
-          "name": "collections",
-          "plural": false,
-          "selections": (v2/*: any*/),
-          "storageKey": null
-        }
-      ],
+      "selections": (v0/*: any*/),
       "type": "Collection",
       "abstractKey": null
     }
@@ -215,5 +196,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'e0ec0acc2f5838d370570c336822384d';
+(node as any).hash = 'c32c47f5c86de179f108b5feb1d37384';
 export default node;
