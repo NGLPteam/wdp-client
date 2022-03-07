@@ -37,15 +37,6 @@ export type ItemUpdateFormFieldsFragment = {
     readonly published: {
         readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
     };
-    readonly accessioned: {
-        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
-    };
-    readonly available: {
-        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
-    };
-    readonly issued: {
-        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
-    };
     readonly " $refType": "ItemUpdateFormFieldsFragment";
 };
 export type ItemUpdateFormFieldsFragment$data = ItemUpdateFormFieldsFragment;
@@ -100,13 +91,6 @@ var v0 = [
       }
     ],
     "storageKey": null
-  }
-],
-v1 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "VariablePrecisionDateControlFragment"
   }
 ];
 return {
@@ -198,37 +182,13 @@ return {
       "kind": "LinkedField",
       "name": "published",
       "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "VariablePrecisionDate",
-      "kind": "LinkedField",
-      "name": "accessioned",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "VariablePrecisionDate",
-      "kind": "LinkedField",
-      "name": "available",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "VariablePrecisionDate",
-      "kind": "LinkedField",
-      "name": "issued",
-      "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "VariablePrecisionDateControlFragment"
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -236,5 +196,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '70272bea985ba93aa8dab2f2c76cc6fc';
+(node as any).hash = '51c6269e6c301bb5f3d909ab535fbdce';
 export default node;

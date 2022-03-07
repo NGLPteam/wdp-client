@@ -58,9 +58,6 @@ export default function ItemUpdateForm({
     visibleAfterAt,
     visibleUntilAt,
     published,
-    accessioned,
-    available,
-    issued,
     ...values
   } = useFragment<ItemUpdateFormFieldsFragment$key>(fieldsFragment, fieldsData);
 
@@ -165,24 +162,6 @@ export default function ItemUpdateForm({
             label="forms.fields.published"
             isWide
           />
-          <Forms.VariablePrecisionDateControl
-            name="accessioned"
-            data={accessioned}
-            label="forms.fields.accessioned"
-            isWide
-          />
-          <Forms.VariablePrecisionDateControl
-            name="available"
-            data={available}
-            label="forms.fields.available"
-            isWide
-          />
-          <Forms.VariablePrecisionDateControl
-            name="issued"
-            data={issued}
-            label="forms.fields.issued"
-            isWide
-          />
         </Forms.Grid>
         <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
       </>
@@ -252,15 +231,6 @@ const fieldsFragment = graphql`
       }
     }
     published {
-      ...VariablePrecisionDateControlFragment
-    }
-    accessioned {
-      ...VariablePrecisionDateControlFragment
-    }
-    available {
-      ...VariablePrecisionDateControlFragment
-    }
-    issued {
       ...VariablePrecisionDateControlFragment
     }
   }

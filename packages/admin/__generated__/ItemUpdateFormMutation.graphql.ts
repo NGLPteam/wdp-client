@@ -110,15 +110,6 @@ fragment ItemUpdateFormFieldsFragment on Item {
   published {
     ...VariablePrecisionDateControlFragment
   }
-  accessioned {
-    ...VariablePrecisionDateControlFragment
-  }
-  available {
-    ...VariablePrecisionDateControlFragment
-  }
-  issued {
-    ...VariablePrecisionDateControlFragment
-  }
 }
 
 fragment ItemUpdateForm_schemaErrorsFragment on UpdateItemPayload {
@@ -307,22 +298,6 @@ v7 = [
     ],
     "storageKey": null
   }
-],
-v8 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "precision",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "value",
-    "storageKey": null
-  }
 ];
 return {
   "fragment": {
@@ -481,37 +456,22 @@ return {
                 "kind": "LinkedField",
                 "name": "published",
                 "plural": false,
-                "selections": (v8/*: any*/),
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "VariablePrecisionDate",
-                "kind": "LinkedField",
-                "name": "accessioned",
-                "plural": false,
-                "selections": (v8/*: any*/),
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "VariablePrecisionDate",
-                "kind": "LinkedField",
-                "name": "available",
-                "plural": false,
-                "selections": (v8/*: any*/),
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "VariablePrecisionDate",
-                "kind": "LinkedField",
-                "name": "issued",
-                "plural": false,
-                "selections": (v8/*: any*/),
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "precision",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "value",
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               },
               {
@@ -532,12 +492,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "caa108b76d84a516f57e6f06e318be32",
+    "cacheID": "66eb9fa2bf57fc6db0d7aca6541c4606",
     "id": null,
     "metadata": {},
     "name": "ItemUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...ItemUpdateForm_schemaErrorsFragment\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n  accessioned {\n    ...VariablePrecisionDateControlFragment\n  }\n  available {\n    ...VariablePrecisionDateControlFragment\n  }\n  issued {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment ItemUpdateForm_schemaErrorsFragment on UpdateItemPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
+    "text": "mutation ItemUpdateFormMutation(\n  $input: UpdateItemInput!\n) {\n  updateItem(input: $input) {\n    item {\n      ...ItemUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...ItemUpdateForm_schemaErrorsFragment\n  }\n}\n\nfragment ItemUpdateFormFieldsFragment on Item {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  heroImage {\n    storage\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment ItemUpdateForm_schemaErrorsFragment on UpdateItemPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
   }
 };
 })();

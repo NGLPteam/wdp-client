@@ -135,21 +135,6 @@ export default function AddCollectionForm({
           label="forms.fields.published"
           isWide
         />
-        <Forms.VariablePrecisionDateControl
-          name="accessioned"
-          label="forms.fields.accessioned"
-          isWide
-        />
-        <Forms.VariablePrecisionDateControl
-          name="available"
-          label="forms.fields.available"
-          isWide
-        />
-        <Forms.VariablePrecisionDateControl
-          name="issued"
-          label="forms.fields.issued"
-          isWide
-        />
         <Forms.Checkbox
           name="redirect"
           onChange={handleCheck}
