@@ -32,6 +32,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
     case "article":
     case "journal_article":
+    case "dissertation":
       return (
         <>
           <ArticleLayout data={entity}>

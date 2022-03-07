@@ -9,6 +9,7 @@ export default function EntityAnnouncementLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   if (!entity) return null;
+
   return (
     <EntityLayoutFactory data={entity}>
       <EntityAnnouncementLayout data={entity.announcement} />

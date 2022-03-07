@@ -61,7 +61,7 @@ export default function ContributorsList({
           )}
         </React.Fragment>
       ))}
-      {total > limit && <>{t("common.and_x_more", { count: total - limit })}</>}
+      {total > limit && <>{t("list.and_x_more", { count: total - limit })}</>}
     </span>
   ) : null;
 }

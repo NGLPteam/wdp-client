@@ -25,6 +25,7 @@ export default function EntityLayoutFactory({ data, children }: Props) {
 
     case "article":
     case "journal_article":
+    case "dissertation":
       return <ArticleLayout data={entity}>{children}</ArticleLayout>;
 
     default:
