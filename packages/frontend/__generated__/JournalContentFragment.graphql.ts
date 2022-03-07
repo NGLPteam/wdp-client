@@ -21,13 +21,7 @@ export type JournalContentFragment = {
         readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
     } | null;
     readonly announcements: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly teaser: string;
-                readonly header: string;
-                readonly slug: string;
-            };
-        }>;
+        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementsFragment">;
     };
     readonly " $refType": "JournalContentFragment";
 };
@@ -41,23 +35,16 @@ export type JournalContentFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v1 = {
   "kind": "Literal",
   "name": "nodeFilter",
   "value": "DESCENDANTS"
 },
-v2 = {
+v1 = {
   "kind": "Literal",
   "name": "order",
   "value": "PUBLISHED_DESCENDING"
 },
-v3 = {
+v2 = {
   "kind": "Literal",
   "name": "schema",
   "value": "nglp:journal_issue"
@@ -75,7 +62,13 @@ return {
       "name": "title",
       "storageKey": null
     },
-    (v0/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
     {
       "alias": "about",
       "args": [
@@ -126,8 +119,8 @@ return {
     {
       "alias": "issues",
       "args": [
+        (v0/*: any*/),
         (v1/*: any*/),
-        (v2/*: any*/),
         {
           "kind": "Literal",
           "name": "page",
@@ -138,7 +131,7 @@ return {
           "name": "perPage",
           "value": 4
         },
-        (v3/*: any*/)
+        (v2/*: any*/)
       ],
       "concreteType": "CollectionConnection",
       "kind": "LinkedField",
@@ -156,9 +149,9 @@ return {
     {
       "alias": "currentIssue",
       "args": [
+        (v0/*: any*/),
         (v1/*: any*/),
-        (v2/*: any*/),
-        (v3/*: any*/)
+        (v2/*: any*/)
       ],
       "concreteType": "Collection",
       "kind": "LinkedField",
@@ -182,41 +175,9 @@ return {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "AnnouncementEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Announcement",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "teaser",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "header",
-                  "storageKey": null
-                },
-                (v0/*: any*/)
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "EntityAnnouncementsFragment"
         }
       ],
       "storageKey": null
@@ -226,5 +187,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ce589dac5af87bc6e74d0bb757f5c2f7';
+(node as any).hash = 'd2818f04fb072dc0c02d68ecb1697254';
 export default node;

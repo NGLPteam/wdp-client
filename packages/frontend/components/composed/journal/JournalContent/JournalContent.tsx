@@ -4,9 +4,10 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
-import { ReadMoreLink, FullText, NamedLink, Link } from "components/atomic";
+import { FullText } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
+import EntityAnnouncements from "components/composed/entity/EntityAnnouncements";
 
 export default function JournalContent({ data }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,42 +26,9 @@ export default function JournalContent({ data }: Props) {
               <FullText data={journal.about} />
             </Styled.InfoBlock>
           )}
-          {!!journal.announcements.edges.length && (
-            <Styled.AnnouncementsBlock as="aside" className="a-bg-neutral00">
-              <Styled.AnnouncementsHeader>
-                {t("layouts.announcements_header")}
-              </Styled.AnnouncementsHeader>
-              <ul className="t-unstyled-list">
-                {journal.announcements.edges.map((announcement) => (
-                  <Styled.AnnouncementItem key={announcement.node.slug}>
-                    <h5 className="t-copy-medium">
-                      <NamedLink
-                        route="collection.announcement"
-                        routeParams={{
-                          slug: journal.slug,
-                          announcement: announcement.node.slug,
-                        }}
-                        passHref
-                      >
-                        <Link>{announcement.node.header}</Link>
-                      </NamedLink>
-                    </h5>
-                    <Styled.AnnouncementBody className="t-rte">
-                      <p>{announcement.node.teaser}</p>
-                    </Styled.AnnouncementBody>
-                    <NamedLink
-                      route="collection.announcement"
-                      routeParams={{
-                        slug: journal.slug,
-                        announcement: announcement.node.slug,
-                      }}
-                      passHref
-                    >
-                      <ReadMoreLink className="t-label-mix" />
-                    </NamedLink>
-                  </Styled.AnnouncementItem>
-                ))}
-              </ul>
+          {!!journal.announcements && (
+            <Styled.AnnouncementsBlock>
+              <EntityAnnouncements data={journal.announcements} />
             </Styled.AnnouncementsBlock>
           )}
         </Styled.SectionInner>
@@ -111,13 +79,7 @@ const fragment = graphql`
     }
 
     announcements {
-      edges {
-        node {
-          teaser
-          header
-          slug
-        }
-      }
+      ...EntityAnnouncementsFragment
     }
   }
 `;
