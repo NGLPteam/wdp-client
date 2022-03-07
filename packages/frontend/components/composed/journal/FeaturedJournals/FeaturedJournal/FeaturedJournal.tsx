@@ -37,7 +37,7 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
           <Styled.ItemData className="t-copy-sm a-color-lighter">
             {journal.issues.pageInfo ? (
               <span>
-                {t("layouts.issue_count", {
+                {t("counts.journal_issue", {
                   count: journal.issues.pageInfo.totalCount,
                 })}
               </span>

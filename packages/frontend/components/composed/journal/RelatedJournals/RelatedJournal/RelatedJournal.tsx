@@ -41,7 +41,7 @@ export default function RelatedJournal({ data }: Props) {
           <Styled.ItemMetadata className="t-copy-sm a-color-lighter">
             {journal.issues.pageInfo ? (
               <div>
-                {t("layouts.issue_count", {
+                {t("counts.journal_issue", {
                   count: journal.issues.pageInfo.totalCount,
                 })}
               </div>

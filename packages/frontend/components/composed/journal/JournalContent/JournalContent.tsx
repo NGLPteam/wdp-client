@@ -1,7 +1,6 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import { useTranslation } from "react-i18next";
 import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
 import { FullText } from "components/atomic";
@@ -12,8 +11,6 @@ import EntityAnnouncements from "components/composed/entity/EntityAnnouncements"
 export default function JournalContent({ data }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const journal = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   if (!journal) return null;
 

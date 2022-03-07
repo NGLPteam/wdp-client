@@ -53,7 +53,7 @@ export default function RelatedIssueBlock({ data }: Props) {
           )}
           {issue.articles.pageInfo.totalCount >= 0 && (
             <p>
-              {t("layouts.article_count", {
+              {t("counts.journal_article", {
                 count: issue.articles.pageInfo.totalCount,
               })}
             </p>

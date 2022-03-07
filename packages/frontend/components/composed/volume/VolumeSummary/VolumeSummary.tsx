@@ -62,8 +62,7 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
           </Styled.ItemPrimaryMetadata>
           {(volume.articles.pageInfo.totalCount || 0) > 0 && (
             <p className="t-copy-italic t-copy-light t-capitalize">
-              {volume.articles.pageInfo.totalCount}{" "}
-              {t("schema.nglp.journal_article", {
+              {t("counts.journal_article", {
                 count: volume.articles.pageInfo.totalCount,
               })}
             </p>
