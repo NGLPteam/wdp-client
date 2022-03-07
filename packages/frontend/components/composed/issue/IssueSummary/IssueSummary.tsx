@@ -58,8 +58,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
           </Styled.ItemPrimaryMetadata>
           {issue.articles.pageInfo && (
             <p className="t-copy-italic t-copy-light t-capitalize">
-              {issue.articles.pageInfo.totalCount}{" "}
-              {t("schema.nglp.journal_article", {
+              {t("counts.journal_article", {
                 count: issue.articles.pageInfo.totalCount,
               })}
             </p>

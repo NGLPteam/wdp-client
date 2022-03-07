@@ -82,7 +82,7 @@ export default function FeaturedIssue({ data, header }: Props) {
               )}
               {issue.articles && (
                 <li>
-                  {t("layouts.article_count", {
+                  {t("counts.journal_article", {
                     count: issue.articles.pageInfo.totalCount,
                   })}
                 </li>

@@ -39,7 +39,7 @@ export default function JournalSummary({ data, showReadMore }: Props) {
           )}
           {journal.issues && (
             <li>
-              {t("layouts.issue_count", {
+              {t("counts.journal_issue", {
                 count: journal.issues.pageInfo.totalCount,
               })}
             </li>
