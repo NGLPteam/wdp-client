@@ -15,6 +15,7 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
 
   switch (entity.schemaDefinition?.identifier) {
     case "journal_article":
+    case "dissertation":
       return <ArticleSummary data={entity} {...props} />;
 
     case "journal_issue":
@@ -26,6 +27,8 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
     case "journal":
       return <JournalSummary data={entity} {...props} />;
 
+    case "series":
+    case "unit":
     default:
       return <EntitySummary data={entity} {...props} />;
   }

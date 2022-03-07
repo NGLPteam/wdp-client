@@ -4,14 +4,9 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import * as Styled from "./IssueSummary.styles";
-import {
-  ReadMoreLink,
-  PrecisionDate,
-  NamedLink,
-  CoverImage,
-  Link,
-} from "components/atomic";
+import { PrecisionDate, CoverImage } from "components/atomic";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
+import Summary from "components/layout/Summary";
 
 export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);
@@ -31,34 +26,23 @@ export default function IssueSummary({ data, showReadMore }: Props) {
   }, [issue, t]);
 
   return issue ? (
-    <Styled.Wrapper>
-      <NamedLink route="collection" routeParams={{ slug: issue.slug }} passHref>
-        <Styled.ItemCoverLink>
-          <CoverImage
-            id={issue.id}
-            title={issue.title}
-            data={issue.cover}
-            maxWidth={120}
-            maxHeight={160}
-          />
-        </Styled.ItemCoverLink>
-      </NamedLink>
-      <Styled.ItemTextBlock>
-        <Styled.ItemTitleBlock>
-          <h4>
-            <NamedLink
-              route="collection"
-              routeParams={{ slug: issue.slug }}
-              passHref
-            >
-              <Link>{issue.title}</Link>
-            </NamedLink>
-          </h4>
-          {issue.subtitle && (
-            <h5 className="t-copy-italic">{issue.subtitle}</h5>
-          )}
-        </Styled.ItemTitleBlock>
-        <div className="t-copy-sm">
+    <Summary
+      route="collection"
+      routeParams={{ slug: issue.slug }}
+      title={issue.title}
+      subtitle={issue.subtitle}
+      summary={issue.summary}
+      thumbnail={
+        <CoverImage
+          id={issue.id}
+          title={issue.title}
+          data={issue.cover}
+          maxWidth={120}
+          maxHeight={160}
+        />
+      }
+      metadata={
+        <>
           {issueNumber && <p>{issueNumber}</p>}
           {issue.volume && <p>{issue.volume.title}</p>}
           <Styled.ItemPrimaryMetadata>
@@ -80,23 +64,10 @@ export default function IssueSummary({ data, showReadMore }: Props) {
               })}
             </p>
           )}
-        </div>
-        {issue.summary && (
-          <Styled.ItemSummary className="t-copy-light">
-            {issue.summary}
-          </Styled.ItemSummary>
-        )}
-        {showReadMore && (
-          <NamedLink
-            route="collection"
-            routeParams={{ slug: issue.slug }}
-            passHref
-          >
-            <Styled.ItemReadMore as={ReadMoreLink} />
-          </NamedLink>
-        )}
-      </Styled.ItemTextBlock>
-    </Styled.Wrapper>
+        </>
+      }
+      showReadMore={showReadMore}
+    />
   ) : null;
 }
 

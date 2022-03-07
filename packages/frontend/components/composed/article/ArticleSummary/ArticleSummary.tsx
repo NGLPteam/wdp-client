@@ -1,41 +1,23 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./ArticleSummary.styles";
-import {
-  DotList,
-  Link,
-  NamedLink,
-  PrecisionDate,
-  ReadMoreLink,
-  SquareThumbnail,
-} from "components/atomic";
+import { DotList, PrecisionDate, SquareThumbnail } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
+import Summary from "components/layout/Summary";
 import { ArticleSummaryFragment$key } from "@/relay/ArticleSummaryFragment.graphql";
 
 export default function ArticleSummary({ data, showReadMore }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   return article ? (
-    <Styled.Wrapper>
-      <Styled.Text>
-        <Styled.Headers>
-          {article.title && article.slug && (
-            <h4>
-              <NamedLink
-                route="item"
-                routeParams={{ slug: article.slug }}
-                passHref
-              >
-                <Link>{article.title}</Link>
-              </NamedLink>
-            </h4>
-          )}
-          {article.subtitle && (
-            <h5 className="t-copy-italic t-copy-lighter">{article.subtitle}</h5>
-          )}
-        </Styled.Headers>
-        <Styled.Metadata>
+    <Summary
+      title={article.title}
+      subtitle={article.subtitle}
+      summary={article.summary}
+      route="item"
+      routeParams={{ slug: article.slug }}
+      metadata={
+        <>
           {article.contributions && (
             <div className="t-copy-sm t-copy-medium">
               <ContributorsList data={article.contributions} />
@@ -49,26 +31,16 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
               </li>
             )}
           </DotList>
-        </Styled.Metadata>
-        {article.summary && (
-          <Styled.Summary className="t-copy-lighter">
-            {article.summary}
-          </Styled.Summary>
-        )}
-        {article.slug && showReadMore && (
-          <NamedLink route="item" routeParams={{ slug: article.slug }} passHref>
-            <ReadMoreLink className="t-label-sm" />
-          </NamedLink>
-        )}
-      </Styled.Text>
-      {article.thumbnail.storage && article.slug && (
-        <NamedLink route="item" routeParams={{ slug: article.slug }} passHref>
-          <Styled.ThumbnailLink>
-            <SquareThumbnail data={article.thumbnail} />
-          </Styled.ThumbnailLink>
-        </NamedLink>
-      )}
-    </Styled.Wrapper>
+        </>
+      }
+      thumbnail={
+        article.thumbnail.storage && (
+          <SquareThumbnail data={article.thumbnail} />
+        )
+      }
+      thumbnailRight
+      showReadMore={showReadMore}
+    />
   ) : null;
 }
 
