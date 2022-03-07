@@ -26,34 +26,26 @@ export default function EntitySummary({ data, showReadMore }: Props) {
       }
       thumbnailRight
       metadata={
-        <DotList className="t-copy-sm t-copy-lighter">
-          {entity.published?.value && (
-            <li>
-              <PrecisionDate data={entity.published} />
-            </li>
-          )}
+        <>
+          <DotList>
+            {entity.published?.value && (
+              <li>
+                <PrecisionDate data={entity.published} />
+              </li>
+            )}
+            {entity.schemaRanks &&
+              entity.schemaRanks.map(({ identifier, count }, i) => (
+                <li key={i}>{t(`counts.${identifier}`, { count })}</li>
+              ))}
+          </DotList>
           {entity.updatedAt && (
-            <li>
+            <p className="t-copy-lighter">
               {t("common.last_updated", {
                 value: formatDate(entity.updatedAt, "L/d/yy"),
               })}
-            </li>
+            </p>
           )}
-          {entity.collections?.pageInfo?.totalCount ? (
-            <li>
-              {t("layouts.collection_count", {
-                count: entity.collections.pageInfo.totalCount,
-              })}
-            </li>
-          ) : null}
-          {entity.items?.pageInfo?.totalCount ? (
-            <li>
-              {t("layouts.item_count", {
-                count: entity.items.pageInfo.totalCount,
-              })}
-            </li>
-          ) : null}
-        </DotList>
+        </>
       }
       showReadMore={showReadMore}
     />
@@ -70,9 +62,16 @@ const fragment = graphql`
     __typename
     title
     subtitle
+
     thumbnail {
       storage
       ...ContentImageFragment
+    }
+
+    schemaRanks {
+      count
+      namespace
+      identifier
     }
 
     ... on ReferencesGlobalEntityDates {
@@ -89,29 +88,11 @@ const fragment = graphql`
     ... on Item {
       summary
       updatedAt
-
-      items {
-        pageInfo {
-          totalCount
-        }
-      }
     }
 
     ... on Collection {
       summary
       updatedAt
-
-      items {
-        pageInfo {
-          totalCount
-        }
-      }
-
-      collections {
-        pageInfo {
-          totalCount
-        }
-      }
     }
   }
 `;
