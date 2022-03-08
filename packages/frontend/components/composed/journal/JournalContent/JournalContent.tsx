@@ -1,6 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import rehypeRaw from "rehype-raw";
+import ReactMarkdown from "react-markdown";
 import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
 import { FullText } from "components/atomic";
@@ -18,10 +20,18 @@ export default function JournalContent({ data }: Props) {
     <>
       <section className="a-bg-custom10">
         <Styled.SectionInner className="l-container-wide">
-          {journal.about?.fullText?.content && (
+          {journal.description?.fullText?.content ? (
             <Styled.InfoBlock className="t-rte">
-              <FullText data={journal.about} />
+              <FullText data={journal.description} />
             </Styled.InfoBlock>
+          ) : (
+            journal.about?.content && (
+              <Styled.InfoBlock>
+                <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
+                  {journal.about.content}
+                </ReactMarkdown>
+              </Styled.InfoBlock>
+            )
           )}
           {!!journal.announcements && (
             <Styled.AnnouncementsBlock>
@@ -45,16 +55,21 @@ interface Props {
 
 const fragment = graphql`
   fragment JournalContentFragment on Collection {
-    title
     slug
 
-    about: schemaProperty(fullPath: "description") {
+    description: schemaProperty(fullPath: "description") {
       ... on FullTextProperty {
         fullText {
           content
         }
       }
       ...FullTextFragment
+    }
+
+    about: schemaProperty(fullPath: "about") {
+      ... on MarkdownProperty {
+        content
+      }
     }
 
     issues: collections(
