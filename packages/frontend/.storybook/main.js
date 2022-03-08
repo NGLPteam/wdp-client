@@ -13,7 +13,6 @@ module.exports = {
     checkOptions: {},
     reactDocgen: "react-docgen",
   },
-
   webpackFinal: async (config) => {
     config.resolve.modules = [
       path.resolve(__dirname, ".."),
