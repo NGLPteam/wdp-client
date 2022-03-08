@@ -34,3 +34,8 @@ i18n
   });
 
 export default i18n;
+
+// TODO: Upgrade to ^21.3.0
+// i18n.services.formatter?.add("capitalize", (value: string) => {
+//   return capitalize(value);
+// });

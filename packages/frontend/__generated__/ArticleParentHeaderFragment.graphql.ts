@@ -15,6 +15,12 @@ export type ArticleParentHeaderFragment = {
     readonly issue: {
         readonly title?: string | undefined;
     } | null;
+    readonly unit: {
+        readonly title?: string | undefined;
+    } | null;
+    readonly campus: {
+        readonly title?: string | undefined;
+    } | null;
     readonly " $refType": "ArticleParentHeaderFragment";
 };
 export type ArticleParentHeaderFragment$data = ArticleParentHeaderFragment;
@@ -95,11 +101,43 @@ return {
       "plural": false,
       "selections": (v0/*: any*/),
       "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
+    },
+    {
+      "alias": "unit",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:unit"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "ancestorOfType",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "ancestorOfType(schema:\"nglp:unit\")"
+    },
+    {
+      "alias": "campus",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:campus"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "ancestorOfType",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "ancestorOfType(schema:\"nglp:campus\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
 })();
-(node as any).hash = '406b0b2daff224cf9611f94093a6d4f6';
+(node as any).hash = '646ee8c0022438d770d9d8be942c7e08';
 export default node;

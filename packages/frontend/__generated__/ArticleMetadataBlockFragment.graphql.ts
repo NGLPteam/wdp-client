@@ -9,9 +9,6 @@ export type ArticleMetadataBlockFragment = {
     readonly collectedMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly publishedMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
     readonly pageCountMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
@@ -19,6 +16,41 @@ export type ArticleMetadataBlockFragment = {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly onlineVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly published: {
+        readonly value: string | null;
+        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
+    };
+    readonly accessioned: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly available: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly issued: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly series: {
+        readonly title?: string | undefined;
+        readonly slug?: string | undefined;
+    } | null;
+    readonly textVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly pdfVersion: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly publisher: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly advisor: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly language: {
+        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+    } | null;
+    readonly access: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
@@ -61,22 +93,6 @@ return {
       "plural": false,
       "selections": (v0/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"meta.collected\")"
-    },
-    {
-      "alias": "publishedMeta",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "meta.published"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"meta.published\")"
     },
     {
       "alias": "pageCountMeta",
@@ -127,6 +143,211 @@ return {
       "storageKey": "schemaProperty(fullPath:\"online_version\")"
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "VariablePrecisionDate",
+      "kind": "LinkedField",
+      "name": "published",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "accessioned",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "accessioned"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"accessioned\")"
+    },
+    {
+      "alias": "available",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "available"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"available\")"
+    },
+    {
+      "alias": "issued",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "issued"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"issued\")"
+    },
+    {
+      "alias": "series",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "schema",
+          "value": "nglp:series"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "ancestorOfType",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "type": "Collection",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "ancestorOfType(schema:\"nglp:series\")"
+    },
+    {
+      "alias": "textVersion",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "text_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"text_version\")"
+    },
+    {
+      "alias": "pdfVersion",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "pdf_version"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
+    },
+    {
+      "alias": "publisher",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "publisher"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"publisher\")"
+    },
+    {
+      "alias": "advisor",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "advisor"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"advisor\")"
+    },
+    {
+      "alias": "language",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "language"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"language\")"
+    },
+    {
+      "alias": "access",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "access"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"access\")"
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ArticleIssueMetadataFragment"
@@ -136,5 +357,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '6505a72ba4724e33787e8e6799fd1912';
+(node as any).hash = '4d59db02590c841f7bcc01a2e6e23c26';
 export default node;

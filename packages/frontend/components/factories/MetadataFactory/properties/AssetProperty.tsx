@@ -14,7 +14,9 @@ export default function AssetProperty({ data, label }: Props) {
         <DownloadLink
           href={property.asset.downloadUrl || ""}
           className="t-copy"
-        >{`Download ${property.asset.name}`}</DownloadLink>
+        >
+          {property.asset.name}
+        </DownloadLink>
       )}
     </MetadataProperty>
   ) : null;

@@ -1,5 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
 import {
@@ -9,6 +10,7 @@ import {
   PreprintVersion,
   OpenAccess,
   DOI,
+  FullText,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
@@ -16,6 +18,8 @@ import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   return article ? (
     <header className="a-bg-custom10">
@@ -42,21 +46,35 @@ export default function ArticleHero({ data }: Props) {
               </p>
             )}
           </Styled.DataBlock>
-          {article.summary && (
-            <Styled.Summary>{article.summary}</Styled.Summary>
+          {article.abstract ? (
+            <Styled.Summary aria-label={t("glossary.abstract")}>
+              <FullText data={article.abstract} />
+            </Styled.Summary>
+          ) : (
+            article.summary && (
+              <Styled.Summary>{article.summary}</Styled.Summary>
+            )
           )}
           {article.pdfVersion?.asset && (
-            <AssetDownloadButton data={article.pdfVersion.asset} />
+            <Styled.DownloadButton>
+              <AssetDownloadButton data={article.pdfVersion.asset} />
+            </Styled.DownloadButton>
           )}
         </Styled.LeftSide>
         <Styled.RightSide className="t-label-sm">
           {article.journal && <PreprintVersion data={article.journal} />}
           <DOI data={article} />
-          {article.journal && (
+          {article.journal ? (
             <>
               <CCLicense data={article.journal} />
               <OpenAccess data={article.journal} />
               <PeerReviewed data={article.journal} />
+            </>
+          ) : (
+            <>
+              <CCLicense data={article} />
+              <OpenAccess data={article} />
+              <PeerReviewed data={article} />
             </>
           )}
         </Styled.RightSide>
@@ -96,5 +114,11 @@ const fragment = graphql`
       ...OpenAccessFragment
       ...CCLicenseFragment
     }
+    abstract: schemaProperty(fullPath: "abstract") {
+      ...FullTextFragment
+    }
+    ...CCLicenseFragment
+    ...PeerReviewedFragment
+    ...OpenAccessFragment
   }
 `;

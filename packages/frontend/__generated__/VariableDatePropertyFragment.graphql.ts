@@ -9,6 +9,7 @@ export type VariableDatePropertyFragment = {
     readonly fullPath: string;
     readonly label: string;
     readonly dateWithPrecision: {
+        readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     } | null;
     readonly " $refType": "VariableDatePropertyFragment";
@@ -50,6 +51,13 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "value",
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "PrecisionDateFragment"
@@ -61,5 +69,5 @@ const node: ReaderFragment = {
   "type": "VariableDateProperty",
   "abstractKey": null
 };
-(node as any).hash = '162dcedd1badf4e34571894c1dbb7f0b';
+(node as any).hash = '1cab2508178f3263dbaa25d1e91fe55a';
 export default node;

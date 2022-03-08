@@ -7,3 +7,4 @@ export { default as TagsProperty } from "./TagsProperty";
 export { default as VariableDateProperty } from "./VariableDateProperty";
 export { default as NumberProperty } from "./NumberProperty";
 export { default as URLProperty } from "./URLProperty";
+export { default as SelectProperty } from "./SelectProperty";

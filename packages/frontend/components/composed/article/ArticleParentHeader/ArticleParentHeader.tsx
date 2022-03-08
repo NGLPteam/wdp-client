@@ -11,18 +11,28 @@ export default function ArticleParentHeader({ data }: Props) {
     <div className="a-bg-custom10">
       <Styled.ParentBlock className="l-container-wide">
         <Styled.JournalBlock>
-          {article.journal && (
+          {(article.journal || article.unit) && (
             <>
-              <p className="t-h3">{article.journal.title}</p>
+              <p className="t-h3">
+                {article.journal?.title || article.unit?.title}
+              </p>
             </>
           )}
         </Styled.JournalBlock>
-        <Styled.IssueBlock>
-          {article.issue && <p>{article.issue.title}</p>}
-          {article.volume && (
-            <p className="t-copy-lighter">{article.volume.title}</p>
-          )}
-        </Styled.IssueBlock>
+        {article.issue ? (
+          <Styled.IssueBlock>
+            {article.issue && <p>{article.issue.title}</p>}
+            {article.volume && (
+              <p className="t-copy-lighter">{article.volume.title}</p>
+            )}
+          </Styled.IssueBlock>
+        ) : (
+          article.campus && (
+            <Styled.IssueBlock>
+              <p>{article.campus.title}</p>
+            </Styled.IssueBlock>
+          )
+        )}
       </Styled.ParentBlock>
     </div>
   ) : null;
@@ -45,6 +55,16 @@ const fragment = graphql`
       }
     }
     issue: ancestorOfType(schema: "nglp:journal_issue") {
+      ... on Entity {
+        title
+      }
+    }
+    unit: ancestorOfType(schema: "nglp:unit") {
+      ... on Entity {
+        title
+      }
+    }
+    campus: ancestorOfType(schema: "nglp:campus") {
       ... on Entity {
         title
       }
