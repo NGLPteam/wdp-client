@@ -25,7 +25,10 @@ export type ArticleHeroFragment = {
     readonly journal: {
         readonly " $fragmentRefs": FragmentRefs<"PeerReviewedFragment" | "PreprintVersionFragment" | "OpenAccessFragment" | "CCLicenseFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
+    readonly abstract: {
+        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
+    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "CCLicenseFragment" | "PeerReviewedFragment" | "OpenAccessFragment">;
     readonly " $refType": "ArticleHeroFragment";
 };
 export type ArticleHeroFragment$data = ArticleHeroFragment;
@@ -36,7 +39,23 @@ export type ArticleHeroFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "PeerReviewedFragment"
+},
+v1 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "OpenAccessFragment"
+},
+v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "CCLicenseFragment"
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -163,37 +182,51 @@ const node: ReaderFragment = {
       "name": "ancestorOfType",
       "plural": false,
       "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "PeerReviewedFragment"
-        },
+        (v0/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
           "name": "PreprintVersionFragment"
         },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "OpenAccessFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "CCLicenseFragment"
-        }
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
+    },
+    {
+      "alias": "abstract",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "abstract"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FullTextFragment"
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"abstract\")"
     },
     {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DOIFragment"
-    }
+    },
+    (v2/*: any*/),
+    (v0/*: any*/),
+    (v1/*: any*/)
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '7377c42cbf8e0d612ce1c352b1c2b811';
+})();
+(node as any).hash = 'a613d8d4ce66c112d5a92b82d83761be';
 export default node;

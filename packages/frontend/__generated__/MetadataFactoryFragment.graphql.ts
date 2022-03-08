@@ -30,6 +30,10 @@ export type MetadataFactoryFragment = {
     readonly " $fragmentRefs": FragmentRefs<"NumberPropertyFragment">;
     readonly " $refType": "MetadataFactoryFragment";
 } | {
+    readonly __typename: "SelectProperty";
+    readonly " $fragmentRefs": FragmentRefs<"SelectPropertyFragment">;
+    readonly " $refType": "MetadataFactoryFragment";
+} | {
     readonly __typename: "StringProperty";
     readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
     readonly " $refType": "MetadataFactoryFragment";
@@ -146,6 +150,18 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
+          "name": "SelectPropertyFragment"
+        }
+      ],
+      "type": "SelectProperty",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
           "name": "StringPropertyFragment"
         }
       ],
@@ -193,5 +209,5 @@ return {
   "abstractKey": "__isAnyScalarProperty"
 };
 })();
-(node as any).hash = 'e70fd847dadfaebcccf4fdb4eb91b117';
+(node as any).hash = 'b095761ebbcb6ff121051e6b3ed3d014';
 export default node;

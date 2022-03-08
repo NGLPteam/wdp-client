@@ -9,7 +9,7 @@ export default function ArticleIssueMetadata({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
-  return issue ? (
+  return issue && issue.issueTitleMeta ? (
     <MetadataProperty label="Issue">
       {issue.issueTitleMeta ? (
         <>

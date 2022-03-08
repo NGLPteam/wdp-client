@@ -10,7 +10,7 @@ export default function VariableDateProperty({ data, label }: Props) {
 
   return property ? (
     <MetadataProperty label={label || property.label}>
-      {property.dateWithPrecision && (
+      {property.dateWithPrecision?.value && (
         <PrecisionDate data={property.dateWithPrecision} />
       )}
     </MetadataProperty>
@@ -27,6 +27,7 @@ const fragment = graphql`
     fullPath
     label
     dateWithPrecision {
+      value
       ...PrecisionDateFragment
     }
   }

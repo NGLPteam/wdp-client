@@ -69,7 +69,8 @@
       "item": "item",
       "item_plural": "items",
       "files": "File",
-      "files_plural": "Files"
+      "files_plural": "Files",
+      "abstract": "Abstract"
     },
     "schema": {
       "nglp.journal": "journal",
@@ -124,17 +125,30 @@
       "file": "file"
     },
     "metadata": {
+      "header": "Metadata",
       "doi": "DOI:",
       "issn": "ISSN:",
       "authored_on": "Authored On",
       "tags": "Tags",
       "issue_number": "Issue {{number}}",
       "volume_number": "Volume {{number}}",
+      "volume_id": "Volume ID",
       "number": "Number {{number}}",
       "cc_license": "CC license",
       "open_access": "Open access",
       "peer_reviewed": "Peer reviewed",
-      "preprint_version": "Preprint Version"
+      "preprint_version": "Preprint Version",
+      "publisher": "Publisher",
+      "advisor": "Advisor",
+      "language": "Language",
+      "accessioned": "Accessioned",
+      "issued": "Issued",
+      "available": "Available",
+      "text_version": "Text Version",
+      "pdf_version": "PDF Version",
+      "online_version": "Online Version",
+      "series": "Series",
+      "access": "Access"
     },
     "layouts": {
       "related_journals_header": "Related Journals",
@@ -150,10 +164,7 @@
       "recent_issues_header": "Recent Issues",
       "see_all_issues": "See All Issues",
       "see_all_articles": "See All Articles",
-      "metadata_header": "Metadata",
       "metrics_header": "Metrics",
-      "volume_id_label": "Volume ID",
-      "online_version_label": "Online Version",
       "contributions_header": "Contributions",
       "back_to_contributors": "Back to Contributors",
       "current_issue": "Current Issue",

@@ -52,14 +52,16 @@ export const TitleBlock = styled.div`
 
 export const DataBlock = styled.div`
   > * + * {
+    display: block;
     padding-block-start: var(--padding-xs);
-  }
-
-  > *:last-child {
-    padding-block-end: ${pxToRem(20)};
   }
 `;
 
+export const DownloadButton = styled.span`
+  display: block;
+  padding-block-start: ${pxToRem(28)};
+`;
+
 export const Summary = styled.p`
-  padding-block-end: ${pxToRem(28)};
+  padding-block-start: ${pxToRem(20)};
 `;

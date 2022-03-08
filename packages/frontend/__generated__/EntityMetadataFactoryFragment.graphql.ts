@@ -5,17 +5,17 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type EntityMetadataLayoutFactoryFragment = {
+export type EntityMetadataFactoryFragment = {
     readonly schemaDefinition?: {
         readonly identifier: string;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "ArticleLayoutFragment" | "ArticleMetadataBlockFragment">;
-    readonly " $refType": "EntityMetadataLayoutFactoryFragment";
+    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataBlockFragment">;
+    readonly " $refType": "EntityMetadataFactoryFragment";
 };
-export type EntityMetadataLayoutFactoryFragment$data = EntityMetadataLayoutFactoryFragment;
-export type EntityMetadataLayoutFactoryFragment$key = {
-    readonly " $data"?: EntityMetadataLayoutFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityMetadataLayoutFactoryFragment">;
+export type EntityMetadataFactoryFragment$data = EntityMetadataFactoryFragment;
+export type EntityMetadataFactoryFragment$key = {
+    readonly " $data"?: EntityMetadataFactoryFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"EntityMetadataFactoryFragment">;
 };
 
 
@@ -38,23 +38,17 @@ var v0 = {
     }
   ],
   "storageKey": null
-},
-v1 = {
-  "args": null,
-  "kind": "FragmentSpread",
-  "name": "EntityLayoutFragment"
 };
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "EntityMetadataLayoutFactoryFragment",
+  "name": "EntityMetadataFactoryFragment",
   "selections": [
     {
       "kind": "InlineFragment",
       "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/)
+        (v0/*: any*/)
       ],
       "type": "Collection",
       "abstractKey": null
@@ -66,14 +60,8 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ArticleLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
           "name": "ArticleMetadataBlockFragment"
-        },
-        (v1/*: any*/)
+        }
       ],
       "type": "Item",
       "abstractKey": null
@@ -83,5 +71,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'e78f7761ef6c6656918d6051374bb9fa';
+(node as any).hash = '68a791503acc90976bf8c17af3628e5b';
 export default node;

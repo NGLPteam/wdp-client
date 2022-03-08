@@ -11,6 +11,7 @@ import {
   NumberProperty,
   BooleanProperty,
   URLProperty,
+  SelectProperty,
 } from "./properties";
 import type { MetadataFactoryFragment$key } from "@/relay/MetadataFactoryFragment.graphql";
 
@@ -37,6 +38,8 @@ export default function MetadataFactory({ data, label }: Props) {
       return <NumberProperty data={field} label={label} />;
     case "StringProperty":
       return <StringProperty data={field} label={label} />;
+    case "SelectProperty":
+      return <SelectProperty data={field} label={label} />;
     case "TagsProperty":
       return <TagsProperty data={field} label={label} />;
     case "URLProperty":
@@ -69,14 +72,6 @@ const fragment = graphql`
       ...BooleanPropertyFragment
     }
 
-    #... on ContributorProperty {
-    #  ...ContributorPropertyFragment
-    #}
-
-    #... on ContributorsProperty {
-    #  ...ContributorsPropertyFragment
-    #}
-
     ... on DateProperty {
       ...DatePropertyFragment
     }
@@ -93,17 +88,13 @@ const fragment = graphql`
       ...NumberPropertyFragment
     }
 
-    #... on MarkdownProperty {
-    #  ...MarkdownPropertyFragment
-    #}
-
     #... on MultiselectProperty {
     #  ...MultiselectPropertyFragment
     #}
 
-    #... on SelectProperty {
-    #  ...SelectPropertyFragment
-    #}
+    ... on SelectProperty {
+      ...SelectPropertyFragment
+    }
 
     ... on StringProperty {
       ...StringPropertyFragment
@@ -112,10 +103,6 @@ const fragment = graphql`
     ... on TagsProperty {
       ...TagsPropertyFragment
     }
-
-    #... on FullTextProperty {
-    #  ...FullTextFragment
-    #}
 
     ... on URLProperty {
       ...URLPropertyFragment

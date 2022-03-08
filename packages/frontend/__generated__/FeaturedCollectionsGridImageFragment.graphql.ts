@@ -7,17 +7,6 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type FeaturedCollectionsGridImageFragment = {
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly webp: {
-                readonly alt: string | null;
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
-    };
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
         readonly image: {
@@ -39,67 +28,7 @@ export type FeaturedCollectionsGridImageFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "storage",
-    "storageKey": null
-  },
-  {
-    "alias": "image",
-    "args": null,
-    "concreteType": "ImageSize",
-    "kind": "LinkedField",
-    "name": "large",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "ImageDerivative",
-        "kind": "LinkedField",
-        "name": "webp",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "alt",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "url",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "width",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "height",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -110,25 +39,72 @@ return {
       "args": null,
       "concreteType": "ImageAttachment",
       "kind": "LinkedField",
-      "name": "thumbnail",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageAttachment",
-      "kind": "LinkedField",
       "name": "heroImage",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "storage",
+          "storageKey": null
+        },
+        {
+          "alias": "image",
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "large",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "alt",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "width",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-})();
-(node as any).hash = '97ef79ce0bd4c59504d919c0fb0b8e21';
+(node as any).hash = '1a841d4a04d6f6a9d97668dabbe973c5';
 export default node;
