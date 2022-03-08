@@ -1,7 +1,6 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import rehypeRaw from "rehype-raw";
 import ReactMarkdown from "react-markdown";
 import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
@@ -27,7 +26,7 @@ export default function JournalContent({ data }: Props) {
           ) : (
             journal.about?.content && (
               <Styled.InfoBlock>
-                <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
+                <ReactMarkdown className="t-rte">
                   {journal.about.content}
                 </ReactMarkdown>
               </Styled.InfoBlock>
