@@ -1,26 +1,33 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityHero from "../CommunityHero";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
-import ResearchUnitsList from "components/composed/unit/UnitList";
+import UnitsList from "components/composed/unit/UnitList";
 import FeaturedIssue from "components/composed/journal/FeaturedIssue";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
+
+  const slug = useRouteSlug();
 
   return (
     <>
       <CommunityHero data={community} />
       <FeaturedJournals data={community?.featuredJournals} />
       {community?.featuredSeries && (
-        <FeaturedCollectionsGrid data={community?.featuredSeries} />
+        <FeaturedCollectionsGrid
+          header="layouts.featured_paper_series_header"
+          data={community?.featuredSeries}
+          seeAllRoute="community.collections.schema"
+          seeAllRouteParams={{ slug: slug || "", schema: "nglp:series" }}
+          seeAllText="layouts.see_all_series"
+        />
       )}
-      {community?.descendants && (
-        <ResearchUnitsList data={community?.descendants} />
-      )}
+      {community?.descendants && <UnitsList data={community?.descendants} />}
       {community?.featuredIssue && (
         <FeaturedIssue data={community.featuredIssue.entity} />
       )}

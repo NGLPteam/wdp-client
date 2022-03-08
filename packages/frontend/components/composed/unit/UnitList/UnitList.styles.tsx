@@ -21,8 +21,10 @@ export const Inner = styled.div`
   )}
 `;
 
-export const TextColumn = styled.div`
-  grid-column: 2 / 6;
+export const TextColumn = styled.div<{ $hasImage?: boolean }>`
+  grid-column: 2 / 11;
+
+  ${({ $hasImage }) => $hasImage && `grid-column: 2 / 6;`}
 
   ${respond(
     `

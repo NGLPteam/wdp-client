@@ -2,9 +2,15 @@ import styled from "styled-components";
 // eslint-disable-next-line import/no-named-default
 import { default as BaseImage } from "next/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { aFocus, fluidScale, respond } from "theme/mixins";
+import { aBgNeutral00, aFocus, fluidScale, respond } from "theme/mixins";
 import { NamedLink as BaseNamedLink } from "components/atomic";
 import { transition } from "theme/base/variables";
+
+export const Section = styled.section`
+  .a-bg-custom10 + & {
+    ${aBgNeutral00}
+  }
+`;
 
 export const SectionInner = styled.div`
   padding-block-start: ${fluidScale("100px", "60px")};
@@ -16,28 +22,29 @@ export const Header = styled.h3`
 `;
 
 export const List = styled.ul`
-  --FeaturedCollectionsGrid--gap: ${fluidScale("30px", "10px")};
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: ${fluidScale("30px", "10px")};
 
-  > * + * {
-    margin-inline-start: var(--FeaturedCollectionsGrid--gap);
-  }
-
-  ${respond(`--FeaturedCollectionsGrid--gap: ${pxToRem(36)};`, 50)}
+  ${respond(
+    `
+        grid-template-columns: auto;
+        gap: ${pxToRem(30)};
+    `,
+    50
+  )}
 `;
 
 export const Item = styled.li`
   position: relative;
-  flex: 0 1 calc(33% - var(--FeaturedCollectionsGrid--gap));
-  border-radius: ${pxToRem(16)};
   overflow: hidden;
+  border-radius: ${pxToRem(16)};
+  padding: ${pxToRem(20)};
   background: var(--color-base-neutral90);
   transition: ${transition.background};
 
-  ${respond(`flex: 1 1 auto;`, 50)}
-
-  &:hover, &:focus-within {
+  &:hover,
+  &:focus-within {
     background: var(--color-base-neutral80);
   }
 `;
@@ -73,4 +80,10 @@ export const NamedLink = styled(BaseNamedLink)`
 
     ${respond(`padding-top: ${(220 / 315) * 100}%;`, 50)}
   }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-block-start: ${pxToRem(50)};
 `;

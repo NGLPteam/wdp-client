@@ -4,18 +4,27 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import FeaturedCollectionsGridImage from "./FeaturedCollectionsGridImage";
 import * as Styled from "./FeaturedCollectionsGrid.styles";
+import { NamedLink, Button } from "components/atomic";
 import {
   FeaturedCollectionsGridFragment$data,
   FeaturedCollectionsGridFragment$key,
 } from "@/relay/FeaturedCollectionsGridFragment.graphql";
 
-export default function FeaturedCollectionsGrid({ data, header }: Props) {
+type LinkProps = React.ComponentProps<typeof NamedLink>;
+
+export default function FeaturedCollectionsGrid({
+  data,
+  header,
+  seeAllRoute,
+  seeAllRouteParams,
+  seeAllText,
+}: Props) {
   const collections = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
   return collections && collections.entities.length > 0 ? (
-    <section className="a-bg-custom10">
+    <Styled.Section className="a-bg-custom10">
       <Styled.SectionInner className="l-container-wide">
         <Styled.Header className="t-capitalize">
           {t(header || "layouts.featured_collections_header")}
@@ -38,14 +47,30 @@ export default function FeaturedCollectionsGrid({ data, header }: Props) {
             ) : null
           )}
         </Styled.List>
+        {seeAllRoute && (
+          <Styled.ButtonWrapper>
+            <NamedLink
+              route={seeAllRoute}
+              routeParams={seeAllRouteParams}
+              passHref
+            >
+              <Button as="a">
+                {t(seeAllText || "layouts.see_all_collections")}
+              </Button>
+            </NamedLink>
+          </Styled.ButtonWrapper>
+        )}
       </Styled.SectionInner>
-    </section>
+    </Styled.Section>
   ) : null;
 }
 
 interface Props {
   header?: string;
   data?: FeaturedCollectionsGridFragment$key | null;
+  seeAllRoute?: LinkProps["route"];
+  seeAllRouteParams?: LinkProps["routeParams"];
+  seeAllText?: string;
 }
 
 type Node = FeaturedCollectionsGridFragment$data["entities"][number];

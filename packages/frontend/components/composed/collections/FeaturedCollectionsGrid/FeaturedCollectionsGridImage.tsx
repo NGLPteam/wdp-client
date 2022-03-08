@@ -9,11 +9,7 @@ export default function FeaturedCollectionsGridImage({ data }: Props) {
 
   const image = useMemo(
     () =>
-      imageData?.thumbnail?.storage
-        ? imageData.thumbnail.image.webp
-        : imageData?.heroImage?.storage
-        ? imageData.heroImage.image.webp
-        : null,
+      imageData?.heroImage?.storage ? imageData.heroImage.image.webp : null,
     [imageData]
   );
 
@@ -35,17 +31,6 @@ interface Props {
 
 const fragment = graphql`
   fragment FeaturedCollectionsGridImageFragment on Entity {
-    thumbnail {
-      storage
-      image: large {
-        webp {
-          alt
-          url
-          width
-          height
-        }
-      }
-    }
     heroImage {
       storage
       image: large {
