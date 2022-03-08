@@ -12,7 +12,7 @@ export type EntityContentLayoutFactoryFragment = {
     readonly contributions?: {
         readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "EntityContentFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "IssueLayoutFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "EntityContentFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "IssueLayoutFragment" | "VolumeLayoutFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
     readonly " $refType": "EntityContentLayoutFactoryFragment";
 };
 export type EntityContentLayoutFactoryFragment$data = EntityContentLayoutFactoryFragment;
@@ -84,6 +84,11 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "IssueLayoutFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "VolumeLayoutFragment"
         }
       ],
       "type": "Collection",
@@ -135,5 +140,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '9a70060fa4fe4dca282b678a3ba724af';
+(node as any).hash = '8927fcb0f06818ea6cbbae73ea65019e';
 export default node;
