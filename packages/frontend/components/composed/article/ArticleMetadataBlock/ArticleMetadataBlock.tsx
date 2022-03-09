@@ -85,7 +85,7 @@ export default function ArticleMetadataBlock({ data }: Props) {
           </Styled.ListItem>
         )}
 
-        {entity.series && (
+        {entity.series && entity.series.slug && (
           <Styled.ListItem>
             <MetadataProperty label={t("metadata.series")}>
               <NamedLink
