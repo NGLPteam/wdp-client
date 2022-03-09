@@ -9,7 +9,7 @@ export type EntityLayoutFactoryFragment = {
     readonly schemaDefinition?: {
         readonly identifier: string;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "JournalLayoutFragment" | "IssueLayoutFragment" | "VolumeLayoutFragment" | "ArticleLayoutFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "JournalLayoutFragment" | "IssueLayoutFragment" | "VolumeLayoutFragment" | "SeriesLayoutFragment" | "ArticleLayoutFragment">;
     readonly " $refType": "EntityLayoutFactoryFragment";
 };
 export type EntityLayoutFactoryFragment$data = EntityLayoutFactoryFragment;
@@ -69,6 +69,11 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "VolumeLayoutFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "SeriesLayoutFragment"
         }
       ],
       "type": "Collection",
@@ -93,5 +98,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '5581cd958d4d53e1ba326b8a00d3c22e';
+(node as any).hash = 'b657cc10d01854b564febf35e4433771';
 export default node;

@@ -43,30 +43,35 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment ArticleParentHeaderFragment on Item {
-    journal: ancestorOfType(schema: "nglp:journal") {
-      ... on Entity {
-        title
+  fragment ArticleParentHeaderFragment on Entity {
+    ... on Item {
+      journal: ancestorOfType(schema: "nglp:journal") {
+        ... on Entity {
+          title
+        }
+      }
+      volume: ancestorOfType(schema: "nglp:journal_volume") {
+        ... on Entity {
+          title
+        }
+      }
+      issue: ancestorOfType(schema: "nglp:journal_issue") {
+        ... on Entity {
+          title
+        }
       }
     }
-    volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Entity {
-        title
+
+    ... on Collection {
+      unit: ancestorOfType(schema: "nglp:unit") {
+        ... on Entity {
+          title
+        }
       }
-    }
-    issue: ancestorOfType(schema: "nglp:journal_issue") {
-      ... on Entity {
-        title
-      }
-    }
-    unit: ancestorOfType(schema: "nglp:unit") {
-      ... on Entity {
-        title
-      }
-    }
-    campus: ancestorOfType(schema: "nglp:campus") {
-      ... on Entity {
-        title
+      campus: ancestorOfType(schema: "nglp:campus") {
+        ... on Entity {
+          title
+        }
       }
     }
   }

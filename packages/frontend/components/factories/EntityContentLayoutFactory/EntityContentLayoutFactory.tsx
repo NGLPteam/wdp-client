@@ -18,7 +18,6 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal":
-    case "series":
     case "unit":
       return (
         <JournalLayout data={entity}>
@@ -36,6 +35,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
     case "volume":
     case "journal_volume":
+    case "series":
       return (
         <VolumeLayout data={entity}>
           <EntityContent data={entity} />
