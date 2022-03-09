@@ -30,9 +30,14 @@ export const Delimiter = styled.span`
 
 export const ItemText = styled.span`
   display: inline-block;
-  max-width: 350px;
-  ${tTruncate}
+  max-width: 40vw;
 
-  ${respond(`max-width: 70vw;`, 50)}
-  ${respond(`max-width: 60vw;`, 30)}
+  ${respond(`max-width: 30vw;`, 70)}
+
+  ${respond(`max-width: 60vw;`, 50)}
+
+  a {
+    max-width: 100%;
+    ${tTruncate}
+  }
 `;

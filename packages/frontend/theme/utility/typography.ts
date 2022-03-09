@@ -1,7 +1,13 @@
 // Utility typography classes
 // --------------------
 import { css } from "styled-components";
-import { tCopy, tCopySmall, tLabel, tHeading } from "../mixins/typography";
+import {
+  tCopy,
+  tCopySmall,
+  tLabel,
+  tHeading,
+  tTruncate,
+} from "../mixins/typography";
 
 export default css`
   /* Headings - only add if needed */
@@ -81,5 +87,9 @@ export default css`
       border-inline-start: 3px solid var(--color-custom60);
       padding-inline-start: 1rem;
     }
+  }
+
+  .t-truncate {
+    ${tTruncate}
   }
 `;

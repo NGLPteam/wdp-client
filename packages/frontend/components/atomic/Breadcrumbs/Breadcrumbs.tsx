@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { Link } from "../links";
 import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
 import { Dropdown, NamedLink } from "components/atomic";
@@ -32,7 +33,9 @@ export default function BreadCrumbs({ data }: Props) {
         routeParams={{ slug: entity.slug }}
         passHref
       >
-        <a aria-current="page">{entity.title}</a>
+        <Styled.ItemText>
+          <Link aria-current="page">{entity.title}</Link>
+        </Styled.ItemText>
       </NamedLink>
     ) : null;
   }
