@@ -12,13 +12,13 @@ import EntityContent from "components/composed/entity/EntityContent";
 import IssueLayout from "components/composed/issue/IssueLayout";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import VolumeLayout from "components/composed/volume/VolumeLayout";
+import SeriesLayout from "components/composed/series/SeriesLayout";
 
 export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal":
-    case "unit":
       return (
         <JournalLayout data={entity}>
           <JournalContent data={entity} />
@@ -35,11 +35,17 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
     case "volume":
     case "journal_volume":
-    case "series":
       return (
         <VolumeLayout data={entity}>
           <EntityContent data={entity} />
         </VolumeLayout>
+      );
+
+    case "series":
+      return (
+        <SeriesLayout data={entity}>
+          <EntityContent data={entity} />
+        </SeriesLayout>
       );
 
     case "article":
@@ -82,6 +88,7 @@ const fragment = graphql`
       ...JournalContentFragment
       ...IssueLayoutFragment
       ...VolumeLayoutFragment
+      ...SeriesLayoutFragment
     }
     ... on Item {
       schemaDefinition {
