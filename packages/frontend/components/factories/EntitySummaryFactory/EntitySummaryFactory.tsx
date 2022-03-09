@@ -7,6 +7,7 @@ import EntitySummary from "components/composed/entity/EntitySummary";
 import { EntitySummaryFactoryFragment$key } from "@/relay/EntitySummaryFactoryFragment.graphql";
 import VolumeSummary from "components/composed/volume/VolumeSummary";
 import JournalSummary from "components/composed/journal/JournalSummary";
+import DissertationSummary from "components/composed/dissertation/DissertationSummary";
 
 export default function EntitySummaryFactory({ data, ...props }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -15,8 +16,10 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
 
   switch (entity.schemaDefinition?.identifier) {
     case "journal_article":
-    case "dissertation":
       return <ArticleSummary data={entity} {...props} />;
+
+    case "dissertation":
+      return <DissertationSummary data={entity} {...props} />;
 
     case "journal_issue":
       return <IssueSummary data={entity} {...props} />;
@@ -49,5 +52,6 @@ const fragment = graphql`
     ...IssueSummaryFragment @arguments(showJournal: $showJournal)
     ...VolumeSummaryFragment @arguments(showJournal: $showJournal)
     ...JournalSummaryFragment
+    ...DissertationSummaryFragment
   }
 `;
