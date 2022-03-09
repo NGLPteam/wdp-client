@@ -33,7 +33,7 @@ export default function SeriesHero({ data }: Props) {
                 />
               </Styled.DataBlock>
             )}
-            {entity.about && (
+            {entity.about?.content && (
               <Styled.Summary aria-label={t("glossary.abstract")}>
                 <ReactMarkdown className="t-rte">
                   {entity.about.content}
@@ -41,13 +41,13 @@ export default function SeriesHero({ data }: Props) {
               </Styled.Summary>
             )}
           </Styled.LeftSide>
-          <Styled.RightSide className="t-label-sm">
-            {entity.thumbnail.storage && (
+          {entity.thumbnail?.storage && (
+            <Styled.RightSide className="t-label-sm">
               <Styled.ImageWrapper>
                 <ContentImage data={entity.thumbnail} />
               </Styled.ImageWrapper>
-            )}
-          </Styled.RightSide>
+            </Styled.RightSide>
+          )}
         </Styled.HeroInner>
       </header>
     </>
