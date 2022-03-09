@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { DotList, PrecisionDate, SquareThumbnail } from "components/atomic";
+import { CoverImage, DotList, PrecisionDate } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import Summary from "components/layout/Summary";
 import { DissertationSummaryFragment$key } from "@/relay/DissertationSummaryFragment.graphql";
@@ -38,9 +38,14 @@ export default function DissertationSummary({ data, showReadMore }: Props) {
         </>
       }
       thumbnail={
-        entity.thumbnail.storage && <SquareThumbnail data={entity.thumbnail} />
+        <CoverImage
+          id={entity.id}
+          title={entity.title}
+          data={entity.cover}
+          maxWidth={120}
+          maxHeight={160}
+        />
       }
-      thumbnailRight
       showReadMore={showReadMore}
     />
   ) : null;
@@ -54,13 +59,14 @@ interface Props {
 const fragment = graphql`
   fragment DissertationSummaryFragment on Item
   @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
+    id
     __typename
 
     title
     subtitle
-    thumbnail {
+    cover: thumbnail {
       storage
-      ...SquareThumbnailFragment
+      ...CoverImageFragment
     }
 
     slug

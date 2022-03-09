@@ -7,11 +7,12 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type DissertationSummaryFragment = {
+    readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
-    readonly thumbnail: {
+    readonly cover: {
         readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     };
     readonly slug: string;
     readonly summary: string | null;
@@ -60,6 +61,13 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "__typename",
       "storageKey": null
     },
@@ -78,7 +86,7 @@ return {
       "storageKey": null
     },
     {
-      "alias": null,
+      "alias": "cover",
       "args": null,
       "concreteType": "ImageAttachment",
       "kind": "LinkedField",
@@ -95,7 +103,7 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "SquareThumbnailFragment"
+          "name": "CoverImageFragment"
         }
       ],
       "storageKey": null
@@ -190,5 +198,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8fcb87c5d6e5018e2bcfdcdce293e4af';
+(node as any).hash = 'd57484169cc54650a09eaafcc998d981';
 export default node;

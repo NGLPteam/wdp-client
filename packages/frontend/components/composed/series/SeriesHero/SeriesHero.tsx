@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./SeriesHero.styles";
-import { PrecisionDate } from "components/atomic";
+import { ContentImage, PrecisionDate } from "components/atomic";
 import { SeriesHeroFragment$key } from "@/relay/SeriesHeroFragment.graphql";
 import ArticleParentHeader from "components/composed/article/ArticleParentHeader";
 
@@ -40,7 +40,13 @@ export default function SeriesHero({ data }: Props) {
               </Styled.Summary>
             )}
           </Styled.LeftSide>
-          <Styled.RightSide className="t-label-sm"></Styled.RightSide>
+          <Styled.RightSide className="t-label-sm">
+            {entity.thumbnail.storage && (
+              <Styled.ImageWrapper>
+                <ContentImage data={entity.thumbnail} />
+              </Styled.ImageWrapper>
+            )}
+          </Styled.RightSide>
         </Styled.HeroInner>
       </header>
     </>
@@ -70,5 +76,10 @@ const fragment = graphql`
     }
 
     ...ArticleParentHeaderFragment
+
+    thumbnail {
+      storage
+      ...ContentImageFragment
+    }
   }
 `;

@@ -42,6 +42,10 @@ export const RightSide = styled.div`
   )}
 `;
 
+export const ImageWrapper = styled.div`
+  max-width: 225px;
+`;
+
 export const TitleBlock = styled.div`
   padding-block-end: var(--padding-lg);
 
