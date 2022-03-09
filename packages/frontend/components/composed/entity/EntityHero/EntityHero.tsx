@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./EntityHero.styles";
@@ -29,7 +30,7 @@ export default function EntityHero({ data }: Props) {
           )}
           {entity.about?.content && (
             <Styled.Summary aria-label={t("glossary.abstract")}>
-              <ReactMarkdown className="t-rte">
+              <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
                 {entity.about.content}
               </ReactMarkdown>
             </Styled.Summary>
