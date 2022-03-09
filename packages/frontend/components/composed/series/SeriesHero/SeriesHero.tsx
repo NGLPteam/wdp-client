@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./SeriesHero.styles";
 import { ContentImage, PrecisionDate } from "components/atomic";
@@ -24,19 +25,19 @@ export default function SeriesHero({ data }: Props) {
                 <h4 className="t-copy-italic">{entity.subtitle}</h4>
               )}
             </Styled.TitleBlock>
-            <Styled.DataBlock>
-              {entity.published?.value && (
-                <p className="t-copy-lighter">
-                  <PrecisionDate
-                    data={entity.published}
-                    label="common.published"
-                  />
-                </p>
-              )}
-            </Styled.DataBlock>
+            {entity.published?.value && (
+              <Styled.DataBlock className="t-copy-lighter">
+                <PrecisionDate
+                  data={entity.published}
+                  label="common.published"
+                />
+              </Styled.DataBlock>
+            )}
             {entity.about && (
               <Styled.Summary aria-label={t("glossary.abstract")}>
-                <p>{entity.about.content}</p>
+                <ReactMarkdown className="t-rte">
+                  {entity.about.content}
+                </ReactMarkdown>
               </Styled.Summary>
             )}
           </Styled.LeftSide>
@@ -62,7 +63,6 @@ const fragment = graphql`
     slug
     title
     subtitle
-    summary
 
     published {
       ...PrecisionDateFragment
