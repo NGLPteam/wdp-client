@@ -23,7 +23,6 @@ module.exports = {
       "../components"
     );
     config.resolve.alias["@/theme"] = path.resolve(__dirname, "../theme");
-    // config.resolve.alias["rehype-raw"] = "./__mocks__/rehype-raw";
     return config;
   },
 };

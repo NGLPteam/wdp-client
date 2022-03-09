@@ -18,6 +18,9 @@ export type ArticleParentHeaderFragment = {
     readonly unit?: {
         readonly title?: string | undefined;
     } | null | undefined;
+    readonly series?: {
+        readonly title?: string | undefined;
+    } | null | undefined;
     readonly campus?: {
         readonly title?: string | undefined;
     } | null | undefined;
@@ -47,7 +50,39 @@ var v0 = [
     "type": "Entity",
     "abstractKey": "__isEntity"
   }
-];
+],
+v1 = {
+  "alias": "unit",
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "schema",
+      "value": "nglp:unit"
+    }
+  ],
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "ancestorOfType",
+  "plural": false,
+  "selections": (v0/*: any*/),
+  "storageKey": "ancestorOfType(schema:\"nglp:unit\")"
+},
+v2 = {
+  "alias": "campus",
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "schema",
+      "value": "nglp:campus"
+    }
+  ],
+  "concreteType": null,
+  "kind": "LinkedField",
+  "name": "ancestorOfType",
+  "plural": false,
+  "selections": (v0/*: any*/),
+  "storageKey": "ancestorOfType(schema:\"nglp:campus\")"
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -104,7 +139,25 @@ return {
           "plural": false,
           "selections": (v0/*: any*/),
           "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
-        }
+        },
+        (v1/*: any*/),
+        {
+          "alias": "series",
+          "args": [
+            {
+              "kind": "Literal",
+              "name": "schema",
+              "value": "nglp:series"
+            }
+          ],
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "ancestorOfType",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": "ancestorOfType(schema:\"nglp:series\")"
+        },
+        (v2/*: any*/)
       ],
       "type": "Item",
       "abstractKey": null
@@ -112,38 +165,8 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
-        {
-          "alias": "unit",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "schema",
-              "value": "nglp:unit"
-            }
-          ],
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "ancestorOfType",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": "ancestorOfType(schema:\"nglp:unit\")"
-        },
-        {
-          "alias": "campus",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "schema",
-              "value": "nglp:campus"
-            }
-          ],
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "ancestorOfType",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": "ancestorOfType(schema:\"nglp:campus\")"
-        }
+        (v1/*: any*/),
+        (v2/*: any*/)
       ],
       "type": "Collection",
       "abstractKey": null
@@ -153,5 +176,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '2d990cff6e177468416b52b05e1ab73f';
+(node as any).hash = '3a767157fb0e0c58828e9a0dcae64c3d';
 export default node;

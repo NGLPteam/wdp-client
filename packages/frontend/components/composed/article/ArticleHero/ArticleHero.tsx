@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ArticleHero.styles";
 import {
@@ -15,22 +14,17 @@ import {
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
+import { PrimaryHero } from "components/layout/hero";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
-  const { t } = useTranslation();
-
   return article ? (
-    <header className="a-bg-custom10">
-      <Styled.HeroInner className="l-container-wide">
-        <Styled.LeftSide>
-          <Styled.TitleBlock>
-            <h2>{article.title}</h2>
-            {article.subtitle && (
-              <h4 className="t-copy-italic">{article.subtitle}</h4>
-            )}
-          </Styled.TitleBlock>
+    <PrimaryHero
+      title={article.title}
+      subtitle={<h4 className="t-copy-italic">{article.subtitle}</h4>}
+      LeftComponent={
+        <>
           <Styled.DataBlock>
             <ContributorsList
               className="t-copy-medium"
@@ -38,30 +32,22 @@ export default function ArticleHero({ data }: Props) {
               itemSlug={article.slug}
             />
             {article.published?.value && (
-              <p className="t-copy-lighter">
+              <span className="t-copy-lighter">
                 <PrecisionDate
                   data={article.published}
                   label="common.published"
                 />
-              </p>
+              </span>
             )}
           </Styled.DataBlock>
-          {article.abstract ? (
-            <Styled.Summary aria-label={t("glossary.abstract")}>
-              <FullText data={article.abstract} />
-            </Styled.Summary>
-          ) : (
-            article.summary && (
-              <Styled.Summary>{article.summary}</Styled.Summary>
-            )
-          )}
+          {article.abstract && <FullText data={article.abstract} />}
           {article.pdfVersion?.asset && (
-            <Styled.DownloadButton>
-              <AssetDownloadButton data={article.pdfVersion.asset} />
-            </Styled.DownloadButton>
+            <AssetDownloadButton data={article.pdfVersion.asset} />
           )}
-        </Styled.LeftSide>
-        <Styled.RightSide className="t-label-sm">
+        </>
+      }
+      RightComponent={
+        <>
           {article.journal && <PreprintVersion data={article.journal} />}
           <DOI data={article} />
           {article.journal ? (
@@ -77,9 +63,9 @@ export default function ArticleHero({ data }: Props) {
               <PeerReviewed data={article} />
             </>
           )}
-        </Styled.RightSide>
-      </Styled.HeroInner>
-    </header>
+        </>
+      }
+    />
   ) : null;
 }
 

@@ -1,19 +1,18 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./JournalHeroCompact.styles";
 import { JournalHeroCompactFragment$key } from "@/relay/JournalHeroCompactFragment.graphql";
+import { CompactHero } from "components/layout/hero";
 
 export default function JournalHeroCompact({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
 
   return journal ? (
-    <Styled.Wrapper className="l-container-wide">
-      <Styled.Title>{journal.title}</Styled.Title>
-      {journal.subtitle && (
-        <Styled.Subtitle>{journal.subtitle}</Styled.Subtitle>
-      )}
-    </Styled.Wrapper>
+    <CompactHero
+      style="primary"
+      title={journal.title}
+      subtitle={journal.subtitle}
+    />
   ) : null;
 }
 

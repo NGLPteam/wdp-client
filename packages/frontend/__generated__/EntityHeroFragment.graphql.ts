@@ -9,6 +9,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 export type EntityHeroFragment = {
     readonly title?: string | undefined;
     readonly subtitle?: string | null | undefined;
+    readonly summary?: string | null | undefined;
     readonly thumbnail?: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
@@ -19,9 +20,6 @@ export type EntityHeroFragment = {
     } | undefined;
     readonly heroImageMetadata?: {
         readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
-    } | null | undefined;
-    readonly about?: {
-        readonly content?: string | null | undefined;
     } | null | undefined;
     readonly published?: {
         readonly value: string | null;
@@ -45,29 +43,31 @@ var v0 = {
   "name": "storage",
   "storageKey": null
 },
-v1 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "VariablePrecisionDate",
-  "kind": "LinkedField",
-  "name": "published",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "value",
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "PrecisionDateFragment"
-    }
-  ],
-  "storageKey": null
-};
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "VariablePrecisionDate",
+    "kind": "LinkedField",
+    "name": "published",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "value",
+        "storageKey": null
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "PrecisionDateFragment"
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -89,6 +89,13 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "subtitle",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "summary",
           "storageKey": null
         },
         {
@@ -147,48 +154,13 @@ return {
     },
     {
       "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": "about",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "fullPath",
-              "value": "about"
-            }
-          ],
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "schemaProperty",
-          "plural": false,
-          "selections": [
-            {
-              "kind": "InlineFragment",
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "content",
-                  "storageKey": null
-                }
-              ],
-              "type": "MarkdownProperty",
-              "abstractKey": null
-            }
-          ],
-          "storageKey": "schemaProperty(fullPath:\"about\")"
-        },
-        (v1/*: any*/)
-      ],
+      "selections": (v1/*: any*/),
       "type": "Collection",
       "abstractKey": null
     },
     {
       "kind": "InlineFragment",
-      "selections": [
-        (v1/*: any*/)
-      ],
+      "selections": (v1/*: any*/),
       "type": "Item",
       "abstractKey": null
     }
@@ -197,5 +169,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'f7b33e5f86a6eb57b5c6f9f9c7537797';
+(node as any).hash = '7636e5ac8d88ed85a3d1acc522ba1192';
 export default node;

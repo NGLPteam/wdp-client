@@ -4,9 +4,9 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./EntityHero.styles";
 import { HeroImage, ContentImage, PrecisionDate } from "components/atomic";
 import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
+import { PrimaryHero } from "components/layout/hero";
 
 export default function EntityHero({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -14,43 +14,33 @@ export default function EntityHero({ data }: Props) {
   const { t } = useTranslation();
 
   return entity ? (
-    <section className="a-bg-custom10">
-      <Styled.HeroInner className="l-container-wide">
-        <Styled.LeftSide>
-          <Styled.TitleBlock>
-            <h2>{entity.title}</h2>
-            {entity.subtitle && (
-              <h4 className="t-copy-italic">{entity.subtitle}</h4>
-            )}
-          </Styled.TitleBlock>
+    <PrimaryHero
+      title={entity.title}
+      subtitle={entity.subtitle}
+      LeftComponent={
+        <>
           {entity.published?.value && (
-            <Styled.DataBlock className="t-copy-lighter">
-              <PrecisionDate data={entity.published} label="common.published" />
-            </Styled.DataBlock>
+            <PrecisionDate data={entity.published} label="common.published" />
           )}
-          {entity.about?.content && (
-            <Styled.Summary aria-label={t("glossary.abstract")}>
-              <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
-                {entity.about.content}
-              </ReactMarkdown>
-            </Styled.Summary>
+          {entity.summary && (
+            <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
+              {entity.summary}
+            </ReactMarkdown>
           )}
-        </Styled.LeftSide>
-        {entity.thumbnail?.storage && (
-          <Styled.RightSide className="t-label-sm">
-            <Styled.ImageWrapper>
-              <ContentImage data={entity.thumbnail} />
-            </Styled.ImageWrapper>
-          </Styled.RightSide>
-        )}
-      </Styled.HeroInner>
-      {entity.heroImage?.storage && (
-        <HeroImage
-          data={entity.heroImage}
-          metadata={entity.heroImageMetadata}
-        />
-      )}
-    </section>
+        </>
+      }
+      RightComponent={
+        entity.thumbnail?.storage && <ContentImage data={entity.thumbnail} />
+      }
+      HeroImageComponent={
+        entity.heroImage?.storage && (
+          <HeroImage
+            data={entity.heroImage}
+            metadata={entity.heroImageMetadata}
+          />
+        )
+      }
+    />
   ) : null;
 }
 
@@ -63,6 +53,7 @@ const fragment = graphql`
     ... on Entity {
       title
       subtitle
+      summary
 
       thumbnail {
         storage
@@ -80,12 +71,6 @@ const fragment = graphql`
     }
 
     ... on Collection {
-      about: schemaProperty(fullPath: "about") {
-        ... on MarkdownProperty {
-          content
-        }
-      }
-
       published {
         ...PrecisionDateFragment
         value
