@@ -18,6 +18,12 @@ module.exports = {
       path.resolve(__dirname, ".."),
       "../../node_modules",
     ];
+    config.resolve.alias["property-information/find"] =
+      "property-information/lib/find";
+    config.resolve.alias["property-information/html"] =
+      "property-information/lib/html";
+    config.resolve.alias["property-information/normalize"] =
+      "property-information/lib/normalize";
     config.resolve.alias["@/components"] = path.resolve(
       __dirname,
       "../components"
