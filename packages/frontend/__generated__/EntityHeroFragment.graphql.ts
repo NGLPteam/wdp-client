@@ -48,22 +48,6 @@ var v0 = {
 v1 = {
   "alias": null,
   "args": null,
-  "concreteType": "ImageMetadata",
-  "kind": "LinkedField",
-  "name": "heroImageMetadata",
-  "plural": false,
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "HeroImageMetadataFragment"
-    }
-  ],
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
   "concreteType": "VariablePrecisionDate",
   "kind": "LinkedField",
   "name": "published",
@@ -141,7 +125,22 @@ return {
           ],
           "storageKey": null
         },
-        (v1/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageMetadata",
+          "kind": "LinkedField",
+          "name": "heroImageMetadata",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "HeroImageMetadataFragment"
+            }
+          ],
+          "storageKey": null
+        }
       ],
       "type": "Entity",
       "abstractKey": "__isEntity"
@@ -180,7 +179,7 @@ return {
           ],
           "storageKey": "schemaProperty(fullPath:\"about\")"
         },
-        (v2/*: any*/)
+        (v1/*: any*/)
       ],
       "type": "Collection",
       "abstractKey": null
@@ -188,8 +187,7 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
-        (v1/*: any*/),
-        (v2/*: any*/)
+        (v1/*: any*/)
       ],
       "type": "Item",
       "abstractKey": null
@@ -199,5 +197,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '34d3ea10c8e48aba6188395294e86e6d';
+(node as any).hash = 'f7b33e5f86a6eb57b5c6f9f9c7537797';
 export default node;

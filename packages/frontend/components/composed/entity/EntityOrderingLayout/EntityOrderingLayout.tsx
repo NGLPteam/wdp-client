@@ -35,6 +35,9 @@ const fragment = graphql`
   @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
     name
     header
+    render {
+      mode
+    }
     children(page: $page) {
       edges {
         node {

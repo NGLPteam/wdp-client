@@ -5,9 +5,13 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 export type EntityOrderingLayoutFragment = {
     readonly name: string | null;
     readonly header: string | null;
+    readonly render: {
+        readonly mode: OrderingRenderMode;
+    };
     readonly children: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -55,6 +59,24 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "header",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "OrderingRenderDefinition",
+      "kind": "LinkedField",
+      "name": "render",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "mode",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -146,5 +168,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '0316fac42801121bc9fbe4ace30c1275';
+(node as any).hash = '2a1691d6a1f5233e66ff043c433f60ae';
 export default node;
