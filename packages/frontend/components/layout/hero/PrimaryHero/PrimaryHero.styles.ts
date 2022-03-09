@@ -4,7 +4,7 @@ import { respond, lGrid, fluidScale } from "theme/mixins";
 
 const MOBILE_BREAK = 100;
 
-export const HeroInner = styled.div`
+export const Inner = styled.div`
   ${lGrid()}
   grid-template-areas: "left left left left left left left left . right right right";
   padding-block-start: ${fluidScale("60px", "50px")};
@@ -12,12 +12,12 @@ export const HeroInner = styled.div`
 
   ${respond(
     `
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, auto); 
-    grid-template-areas: 
-      "left"
-      "right";
-    `,
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, auto); 
+  grid-template-areas: 
+    "left"
+    "right";
+  `,
     MOBILE_BREAK
   )}
 `;
@@ -36,31 +36,28 @@ export const RightSide = styled.div`
   ${respond(
     `
     border-top: 1px solid var(--border-color);
+    margin-block-start: var(--padding-rg);
     padding-block-start: var(--padding-rg);
+
   `,
     MOBILE_BREAK
   )}
 `;
 
-export const ImageWrapper = styled.div`
-  max-width: 225px;
+export const Logo = styled.div`
+  margin-block-end: var(--padding-lg);
 `;
 
-export const TitleBlock = styled.div`
-  padding-block-end: var(--padding-lg);
-
+export const Title = styled.div`
   > * + * {
-    padding-block-start: var(--padding-sm);
+    margin-block-start: var(--padding-rg);
   }
 `;
 
-export const DataBlock = styled.div`
-  padding-block-end: ${pxToRem(20)};
+export const LeftContent = styled.div`
+  margin-block-start: ${pxToRem(32)};
 
   > * + * {
-    display: block;
-    padding-block-start: var(--padding-xs);
+    margin-block-start: var(--padding-rg);
   }
 `;
-
-export const Summary = styled.p``;

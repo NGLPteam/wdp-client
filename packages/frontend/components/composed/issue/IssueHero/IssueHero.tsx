@@ -8,6 +8,7 @@ import { DotList, PrecisionDate, DOI, CoverImage } from "components/atomic";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
+import { SecondaryHero } from "components/layout/hero";
 
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
@@ -17,25 +18,29 @@ export default function IssueHero({ data }: Props) {
   console.info("issue", issue);
 
   return issue ? (
-    <header className="a-bg-custom10">
+    <>
       <JournalHeroCompact data={issue.journal} />
-      <Styled.HeroInner className="l-container-wide">
-        <Styled.TextBlock>
-          <Styled.Cover>
-            <CoverImage
-              id={issue.id}
-              title={issue.title}
-              data={issue.thumbnail}
-              maxWidth={225}
-              maxHeight={300}
-            />
-          </Styled.Cover>
-          <Styled.Issue>
-            <Styled.Title as="h3">{issue.title}</Styled.Title>
+      <SecondaryHero
+        title={
+          <>
+            <>{issue.title}</>
             {issue.volume && (
               <Styled.Volume>{issue.volume.title}</Styled.Volume>
             )}
-            <Styled.Description>
+          </>
+        }
+        ThumbnailComponent={
+          <CoverImage
+            id={issue.id}
+            title={issue.title}
+            data={issue.thumbnail}
+            maxWidth={225}
+            maxHeight={300}
+          />
+        }
+        LeftComponent={
+          <>
+            <Styled.Summary>
               {issue.volume && (
                 <Styled.VolumeMobile>{issue.volume.title}</Styled.VolumeMobile>
               )}
@@ -49,19 +54,21 @@ export default function IssueHero({ data }: Props) {
                   </li>
                 )}
               </DotList>
-              {issue.summary && <p>{issue.summary}</p>}
-            </Styled.Description>
+              {issue.summary && <div>{issue.summary}</div>}
+            </Styled.Summary>
             {issue.pdfVersion?.asset && (
               <AssetDownloadButton data={issue.pdfVersion.asset} />
             )}
-          </Styled.Issue>
-        </Styled.TextBlock>
-        <Styled.MetadataBlock className="t-label-sm">
-          <DOI data={issue} />
-          <JournalHeroMetadata data={issue.journal} />
-        </Styled.MetadataBlock>
-      </Styled.HeroInner>
-    </header>
+          </>
+        }
+        RightComponent={
+          <>
+            <DOI data={issue} />
+            <JournalHeroMetadata data={issue.journal} />
+          </>
+        }
+      />
+    </>
   ) : null;
 }
 
