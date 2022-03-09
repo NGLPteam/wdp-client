@@ -14,6 +14,8 @@ export default function IssueHero({ data }: Props) {
 
   const { t } = useTranslation();
 
+  console.info("issue", issue);
+
   return issue ? (
     <header className="a-bg-custom10">
       <JournalHeroCompact data={issue.journal} />
@@ -74,13 +76,16 @@ const fragment = graphql`
     subtitle
     summary
     ...DOIFragment
+
     published {
       value
       ...PrecisionDateFragment
     }
+
     thumbnail {
       ...CoverImageFragment
     }
+
     journal: ancestorOfType(schema: "nglp:journal") {
       ...JournalHeroCompactFragment
       ...JournalHeroMetadataFragment
@@ -90,6 +95,7 @@ const fragment = graphql`
         title
       }
     }
+
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
       ... on AssetProperty {
         asset {
