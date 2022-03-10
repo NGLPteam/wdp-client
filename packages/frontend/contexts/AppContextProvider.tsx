@@ -8,6 +8,7 @@ import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { ViewerContextProvider } from "./ViewerContext";
 import GlobalStyles from "theme";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
+import { AppContextProviderViewerQuery as ViewerQuery } from "@/relay/AppContextProviderViewerQuery.graphql";
 import { LoadingPage } from "components/atomic";
 
 /** Wraps the app with all necessary providers
@@ -17,6 +18,8 @@ import { LoadingPage } from "components/atomic";
  */
 const AppContextProvider = ({ children }: Props) => {
   const { data, isLoading } = useAuthenticatedQuery<Query>(query);
+
+  const { data: viewerData } = useAuthenticatedQuery<ViewerQuery>(viewerQuery);
 
   const theme = useMemo(() => data?.globalConfiguration?.theme, [data]);
 
@@ -31,7 +34,7 @@ const AppContextProvider = ({ children }: Props) => {
     >
       <ReakitSSRProvider>
         <GlobalStyles />
-        <ViewerContextProvider data={data}>
+        <ViewerContextProvider data={viewerData}>
           <PageContextProvider>{children}</PageContextProvider>
         </ViewerContextProvider>
       </ReakitSSRProvider>
@@ -53,6 +56,12 @@ const query = graphql`
         font
       }
     }
+  }
+`;
+
+// If the user isn't logged in, this query will return an error
+const viewerQuery = graphql`
+  query AppContextProviderViewerQuery {
     ...ViewerContextFragment
   }
 `;

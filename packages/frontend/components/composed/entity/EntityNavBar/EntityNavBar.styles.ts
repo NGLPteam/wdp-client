@@ -14,8 +14,6 @@ export const Nav = styled.div`
 
 export const NavInner = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 
   ${respond(
     `
