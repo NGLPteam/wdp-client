@@ -3,6 +3,7 @@ import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useIsMounted } from "@wdp/lib/hooks";
+import { useTranslation } from "react-i18next";
 import AssetPDFPage from "../AssetPDFPage";
 import * as Styled from "./AssetInlinePDF.styles";
 import AssetInlinePDFNav from "./AssetInlinePDFNav";
@@ -13,6 +14,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export default function AssetInlinePDF({ data }: Props) {
   const pdf = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   const [numPages, setNumPages] = useState<number | null>(null);
 
@@ -78,7 +81,9 @@ export default function AssetInlinePDF({ data }: Props) {
             </Styled.DocumentWrapper>
           )}
         </Document>
-      ) : null}
+      ) : (
+        t("common.no_content")
+      )}
     </Styled.Wrapper>
   );
 }

@@ -19,6 +19,11 @@ export type EntityContentFragment = {
             };
         }>;
     };
+    readonly pages: {
+        readonly nodes: ReadonlyArray<{
+            readonly slug: string;
+        }>;
+    };
     readonly " $refType": "EntityContentFragment";
 };
 export type EntityContentFragment$data = EntityContentFragment;
@@ -110,10 +115,39 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "PageConnection",
+      "kind": "LinkedField",
+      "name": "pages",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Page",
+          "kind": "LinkedField",
+          "name": "nodes",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '65d43ebaaebb749b34f6a02cced1cf5c';
+(node as any).hash = '751515dbb969830b5554ca09fe1dd601';
 export default node;
