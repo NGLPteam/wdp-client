@@ -91,7 +91,9 @@
       "nglp.campus_plural": "campuses",
       "nglp.unit": "unit",
       "nglp.unit_plural": "units",
-      "nglp.series": "series"
+      "nglp.series": "series",
+      "nglp.paper": "paper",
+      "nglp.paper_plural": "papers"
     },
     "counts": {
       "journal": "{{count}} Journal",
@@ -114,7 +116,9 @@
       "campus_plural": "{{count}} Campuses",
       "unit": "{{count}} Unit",
       "unit_plural": "{{count}} Units",
-      "series": "{{count}} Series"
+      "series": "{{count}} Series",
+      "papers": "{{count}} Paper",
+      "papers_plural": "{{count}} Papers"
     },
     "asset": {
       "pdf": "PDF",

@@ -23,7 +23,10 @@ export default function AssetDownloadButton({ data, children }: Props) {
     >
       {children ||
         t("common.download_name", {
-          name: asset?.kind ? t(`asset.${asset?.kind}`) : "",
+          name:
+            asset?.kind && asset.kind !== "unknown"
+              ? t(`asset.${asset?.kind}`)
+              : "",
         })}
     </Button>
   ) : null;
