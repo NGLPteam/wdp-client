@@ -9,15 +9,12 @@ export default function EntityMetadataFactory({ data }: Props) {
 
   if (!entity) return null;
 
-  switch (entity.schemaDefinition?.identifier) {
-    case "article":
-    case "journal_article":
-    case "dissertation":
-      return <ArticleMetadataBlock data={entity} />;
+  // switch (entity.schemaDefinition?.identifier) {
+  //   default:
+  //     return <ArticleMetadataBlock data={entity} />;
+  // }
 
-    default:
-      return <>nothin.</>;
-  }
+  return <ArticleMetadataBlock data={entity} />;
 }
 
 interface Props {

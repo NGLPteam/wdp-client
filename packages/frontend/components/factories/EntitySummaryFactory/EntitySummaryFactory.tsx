@@ -19,6 +19,7 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
       return <ArticleSummary data={entity} {...props} />;
 
     case "dissertation":
+    case "paper":
       return <DissertationSummary data={entity} {...props} />;
 
     case "journal_issue":
