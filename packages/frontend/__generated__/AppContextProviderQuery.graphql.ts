@@ -4,7 +4,6 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-import { FragmentRefs } from "relay-runtime";
 export type AppContextProviderQueryVariables = {};
 export type AppContextProviderQueryResponse = {
     readonly globalConfiguration: {
@@ -13,7 +12,6 @@ export type AppContextProviderQueryResponse = {
             readonly font: string;
         };
     };
-    readonly " $fragmentRefs": FragmentRefs<"ViewerContextFragment">;
 };
 export type AppContextProviderQuery = {
     readonly response: AppContextProviderQueryResponse;
@@ -28,25 +26,6 @@ query AppContextProviderQuery {
     theme {
       color
       font
-    }
-    id
-  }
-  ...ViewerContextFragment
-}
-
-fragment ViewerContextFragment on Query {
-  viewer {
-    name
-    allowedActions
-    uploadAccess
-    uploadToken
-    avatar {
-      small {
-        png {
-          url
-          alt
-        }
-      }
     }
     id
   }
@@ -78,13 +57,6 @@ var v0 = {
     }
   ],
   "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
 };
 return {
   "fragment": {
@@ -104,11 +76,6 @@ return {
           (v0/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ViewerContextFragment"
       }
     ],
     "type": "Query",
@@ -129,108 +96,27 @@ return {
         "plural": false,
         "selections": [
           (v0/*: any*/),
-          (v1/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "name",
+            "name": "id",
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "allowedActions",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "uploadAccess",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "uploadToken",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ImageAttachment",
-            "kind": "LinkedField",
-            "name": "avatar",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageSize",
-                "kind": "LinkedField",
-                "name": "small",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageDerivative",
-                    "kind": "LinkedField",
-                    "name": "png",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "url",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "alt",
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v1/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8cc0d0aa88e3b28b26d8815fe04c886f",
+    "cacheID": "b550c4e779f40cd89fec14db89c2c383",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n  ...ViewerContextFragment\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2630c3da9d0f139155ffa04df6b3628a';
+(node as any).hash = '075b28c638f62243e543e3be77883ee5';
 export default node;

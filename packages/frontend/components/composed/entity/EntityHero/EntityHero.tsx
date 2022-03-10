@@ -3,15 +3,12 @@ import { graphql } from "react-relay";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useTranslation } from "react-i18next";
 import { HeroImage, ContentImage, PrecisionDate } from "components/atomic";
 import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 import { PrimaryHero } from "components/layout/hero";
 
 export default function EntityHero({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return entity ? (
     <PrimaryHero

@@ -11,6 +11,11 @@ export type EntityContentFragment = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly identifier: string;
+                readonly children: {
+                    readonly pageInfo: {
+                        readonly totalCount: number;
+                    };
+                };
             };
         }>;
     };
@@ -67,6 +72,35 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "identifier",
                   "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "OrderingEntryConnection",
+                  "kind": "LinkedField",
+                  "name": "children",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "PageInfo",
+                      "kind": "LinkedField",
+                      "name": "pageInfo",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "totalCount",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -81,5 +115,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '437faa0865380e1a2c5892816ca29e20';
+(node as any).hash = '65d43ebaaebb749b34f6a02cced1cf5c';
 export default node;

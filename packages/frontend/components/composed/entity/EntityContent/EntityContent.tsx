@@ -15,15 +15,22 @@ export default function EntityContent({ data, children }: Props) {
   useEffect(() => {
     if (!entity) return;
 
-    const firstOrdering = entity?.orderings?.edges[0];
+    const activeOrderings = entity
+      ? entity.orderings.edges.filter(
+          ({ node }) => node.children?.pageInfo?.totalCount
+        )
+      : [];
 
     const type = entity?.__typename;
 
     // Redirect to entity collection ordering
-    if (firstOrdering?.node && route && type !== "Item") {
+    if (activeOrderings?.[0]?.node && route && type !== "Item") {
       router.replace({
         pathname: route.path,
-        query: { ...router.query, ordering: firstOrdering.node.identifier },
+        query: {
+          ...router.query,
+          ordering: activeOrderings[0].node.identifier,
+        },
       });
     }
   }, [router, entity, route]);
@@ -43,6 +50,11 @@ const fragment = graphql`
       edges {
         node {
           identifier
+          children {
+            pageInfo {
+              totalCount
+            }
+          }
         }
       }
     }
