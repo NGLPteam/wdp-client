@@ -20,7 +20,16 @@ export default function EntityHero({ data }: Props) {
             <PrecisionDate data={entity.published} label="common.published" />
           )}
           {entity.summary && (
-            <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
+            <ReactMarkdown
+              className="t-rte"
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                h1: "h4",
+                h2: "h4",
+                h3: "h4",
+                h4: "h4",
+              }}
+            >
               {entity.summary}
             </ReactMarkdown>
           )}

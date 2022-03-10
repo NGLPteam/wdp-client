@@ -25,7 +25,16 @@ export default function SeriesHero({ data }: Props) {
               <PrecisionDate data={entity.published} label="common.published" />
             )}
             {entity.about?.content && (
-              <ReactMarkdown className="t-rte" rehypePlugins={[rehypeRaw]}>
+              <ReactMarkdown
+                className="t-rte"
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  h1: "h5",
+                  h2: "h5",
+                  h3: "h5",
+                  h4: "h5",
+                }}
+              >
                 {entity.about.content}
               </ReactMarkdown>
             )}
