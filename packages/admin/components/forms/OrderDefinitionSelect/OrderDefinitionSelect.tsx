@@ -43,6 +43,7 @@ function OrderDefinitionSelect(
                 ? `${o.path}#${o.type.toLowerCase()}`
                 : o.path || "",
           }))
+          .sort((a, b) => (a.label < b.label ? -1 : 1))
       : [];
   }, [orderingData]);
 
