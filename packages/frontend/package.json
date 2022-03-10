@@ -16,8 +16,7 @@
     "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
     "fix": "npm-run-all fix:*",
     "fix:js": "eslint --fix --cache -c .eslintrc.js \"**/*.{js,ts,tsx}\"",
-    "types": "npx tsc --strict -w",
-    "relay-watch": "relay --watch"
+    "types": "npx tsc --strict -w"
   },
   "dependencies": {
     "@babel/core": "^7.13.10",

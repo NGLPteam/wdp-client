@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { convertToSlug } from "@wdp/lib/helpers";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
@@ -24,6 +25,7 @@ export default function ArticleText({ data }: Props) {
   const pdf = useMemo(() => article?.pdf, [article]);
   const [toc, setTOC] = useState<TOCItem[]>();
   const textEl = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   /* Get all headers and set table of contents */
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function ArticleText({ data }: Props) {
       {pdf?.asset ? (
         <AssetInlinePDF data={pdf.asset} />
       ) : (
-        "No article content found."
+        t("common.no_content")
       )}
     </Styled.BodyWrapper>
   );

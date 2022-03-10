@@ -24,7 +24,8 @@
       "download_name": "Download {{name}}",
       "loading": "Loading",
       "loading_pdf": "Loading PDF",
-      "avatar": "Avatar"
+      "avatar": "Avatar",
+      "no_content": "No content found"
     },
     "list": {
       "page_number": "Page {{number}}",
