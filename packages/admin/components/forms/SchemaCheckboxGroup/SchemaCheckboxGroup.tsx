@@ -13,7 +13,7 @@ type BaseProps = Omit<CheckboxGroupProps, "label" | "children">;
 export default function SchemaCheckboxGroup({ data, name, register }: Props) {
   const entity = useFragment<SchemaCheckboxGroupFragment$key>(fragment, data);
 
-  return (
+  return entity.schemaRanks.length > 0 ? (
     <CheckboxGroup label="forms.fields.schemas" name={name}>
       <>
         {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
@@ -27,7 +27,7 @@ export default function SchemaCheckboxGroup({ data, name, register }: Props) {
         ))}
       </>
     </CheckboxGroup>
-  );
+  ) : null;
 }
 
 interface Props extends BaseProps {
