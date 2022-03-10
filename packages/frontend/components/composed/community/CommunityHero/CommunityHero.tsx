@@ -18,20 +18,21 @@ export default function CommunityHero({ data }: Props) {
     community.tagline || t("common.welcome_to", { name: community.title });
 
   return (
-    <>
+    <div
+      className={
+        community.heroImage?.storage &&
+        community.heroImageLayout === "ONE_COLUMN"
+          ? "a-bg-neutral90"
+          : community.heroImage?.storage
+          ? "a-bg-custom20"
+          : "a-bg-custom10"
+      }
+    >
       <Styled.Hero
-        className={
-          community.heroImage?.storage &&
-          community.heroImageLayout === "ONE_COLUMN"
-            ? "a-bg-neutral90"
-            : community.heroImage?.storage
-            ? "a-bg-custom20"
-            : "a-bg-custom10"
-        }
         data-hero-image={!!community.heroImage?.storage}
         data-hero-layout={community.heroImageLayout}
       >
-        <Styled.HeroInner className="l-container-wide">
+        <Styled.HeroInner>
           <h1>{tagline}</h1>
           {community.summary && (
             <Styled.Summary>
@@ -62,7 +63,7 @@ export default function CommunityHero({ data }: Props) {
         )}
       </Styled.Hero>
       <SearchHero />
-    </>
+    </div>
   );
 }
 
