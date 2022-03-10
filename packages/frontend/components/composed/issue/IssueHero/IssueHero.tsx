@@ -15,8 +15,6 @@ export default function IssueHero({ data }: Props) {
 
   const { t } = useTranslation();
 
-  console.info("issue", issue);
-
   return issue ? (
     <>
       <JournalHeroCompact data={issue.journal} />

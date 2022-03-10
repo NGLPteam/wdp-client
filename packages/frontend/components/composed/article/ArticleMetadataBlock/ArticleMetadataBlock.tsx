@@ -14,8 +14,6 @@ export default function ArticleMetadataBlock({ data }: Props) {
 
   const { t } = useTranslation();
 
-  console.info("entity", entity);
-
   return entity ? (
     <Styled.Section className="l-container-wide">
       <h3>{t("metadata.header")}</h3>

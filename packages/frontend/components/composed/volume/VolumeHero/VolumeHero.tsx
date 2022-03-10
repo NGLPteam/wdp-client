@@ -13,8 +13,6 @@ export default function VolumeHero({ data }: Props) {
 
   const { t } = useTranslation();
 
-  console.info("volume", volume);
-
   return volume ? (
     <header className="a-bg-custom10">
       <JournalHeroCompact data={volume.journal} />
