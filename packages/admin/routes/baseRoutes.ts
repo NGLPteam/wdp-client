@@ -110,11 +110,6 @@ export const baseRoutes: BaseRoute[] = [
                 label: "nav.order",
               },
               {
-                name: "item.manage.rules",
-                path: "/items/[slug]/manage/rules",
-                label: "nav.rules",
-              },
-              {
                 name: "item.manage.links",
                 path: "/items/[slug]/manage/links",
                 label: "nav.links",
