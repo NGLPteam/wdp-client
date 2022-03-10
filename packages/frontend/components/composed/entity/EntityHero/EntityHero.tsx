@@ -19,7 +19,7 @@ export default function EntityHero({ data }: Props) {
           {entity.published?.value && (
             <PrecisionDate data={entity.published} label="common.published" />
           )}
-          {entity.summary && (
+          {(entity.about?.content || entity.summary) && (
             <ReactMarkdown
               className="t-rte"
               rehypePlugins={[rehypeRaw]}
@@ -30,7 +30,7 @@ export default function EntityHero({ data }: Props) {
                 h4: "h4",
               }}
             >
-              {entity.summary}
+              {entity.about?.content || entity.summary || ""}
             </ReactMarkdown>
           )}
         </>
@@ -81,12 +81,24 @@ const fragment = graphql`
         ...PrecisionDateFragment
         value
       }
+
+      about: schemaProperty(fullPath: "about") {
+        ... on MarkdownProperty {
+          content
+        }
+      }
     }
 
     ... on Item {
       published {
         ...PrecisionDateFragment
         value
+      }
+
+      about: schemaProperty(fullPath: "about") {
+        ... on MarkdownProperty {
+          content
+        }
       }
     }
   }

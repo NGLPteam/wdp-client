@@ -25,6 +25,9 @@ export type EntityHeroFragment = {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     } | undefined;
+    readonly about?: {
+        readonly content?: string | null | undefined;
+    } | null | undefined;
     readonly " $refType": "EntityHeroFragment";
 };
 export type EntityHeroFragment$data = EntityHeroFragment;
@@ -66,6 +69,37 @@ v1 = [
       }
     ],
     "storageKey": null
+  },
+  {
+    "alias": "about",
+    "args": [
+      {
+        "kind": "Literal",
+        "name": "fullPath",
+        "value": "about"
+      }
+    ],
+    "concreteType": null,
+    "kind": "LinkedField",
+    "name": "schemaProperty",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "InlineFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "content",
+            "storageKey": null
+          }
+        ],
+        "type": "MarkdownProperty",
+        "abstractKey": null
+      }
+    ],
+    "storageKey": "schemaProperty(fullPath:\"about\")"
   }
 ];
 return {
@@ -169,5 +203,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '7636e5ac8d88ed85a3d1acc522ba1192';
+(node as any).hash = '1ab44364608110b7edea917c2983c238';
 export default node;
