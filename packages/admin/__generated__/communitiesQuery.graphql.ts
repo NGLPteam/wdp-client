@@ -41,7 +41,6 @@ fragment CommunityListFragment on CommunityConnection {
       updatedAt
       name
       ...CommunityNameColumnFragment
-      ...CommunityThumbnailColumnFragment
     }
   }
   ...ModelListPageFragment
@@ -50,32 +49,6 @@ fragment CommunityListFragment on CommunityConnection {
 fragment CommunityNameColumnFragment on Community {
   name
   slug
-}
-
-fragment CommunityThumbnailColumnFragment on Community {
-  slug
-  logo {
-    storage
-    original {
-      ...ImageFragment
-    }
-  }
-  heroImage {
-    storage
-    small {
-      webp {
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -133,50 +106,6 @@ v1 = [
     "kind": "Literal",
     "name": "perPage",
     "value": 20
-  }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "storage",
-  "storageKey": null
-},
-v3 = [
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "alt",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "url",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "width",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "height",
-        "storageKey": null
-      }
-    ],
-    "type": "Image",
-    "abstractKey": "__isImage"
   }
 ];
 return {
@@ -270,61 +199,6 @@ return {
                     "kind": "ScalarField",
                     "name": "name",
                     "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageAttachment",
-                    "kind": "LinkedField",
-                    "name": "logo",
-                    "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ImageOriginal",
-                        "kind": "LinkedField",
-                        "name": "original",
-                        "plural": false,
-                        "selections": (v3/*: any*/),
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageAttachment",
-                    "kind": "LinkedField",
-                    "name": "heroImage",
-                    "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ImageSize",
-                        "kind": "LinkedField",
-                        "name": "small",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ImageDerivative",
-                            "kind": "LinkedField",
-                            "name": "webp",
-                            "plural": false,
-                            "selections": (v3/*: any*/),
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -398,12 +272,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d82ab600c9501e28e616c013811c4f1c",
+    "cacheID": "021a7b2b9e5fd6deb3b25021d351b72d",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      ...CommunityNameColumnFragment\n      ...CommunityThumbnailColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment CommunityThumbnailColumnFragment on Community {\n  slug\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      ...CommunityNameColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
