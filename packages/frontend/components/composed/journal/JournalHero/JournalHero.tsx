@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import JournalHeroMetadata from "../JournalHeroMetadata";
-import { HeroImage, DOI } from "components/atomic";
+import { HeroImage, DOI, NamedLink } from "components/atomic";
 import { PrimaryHero } from "components/layout/hero";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
@@ -11,7 +11,14 @@ export default function JournalHero({ data }: Props) {
 
   return journal ? (
     <PrimaryHero
-      title={journal.title}
+      title={
+        <NamedLink
+          route="collection"
+          routeParams={{ slug: journal.slug || "" }}
+        >
+          {journal.title}
+        </NamedLink>
+      }
       subtitle={journal.subtitle}
       RightComponent={
         <>
