@@ -1,16 +1,23 @@
 import { aHidden } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
-import { respond } from "theme/mixins";
+import { aButton, respond } from "theme/mixins";
 
 export const ButtonStyles = styled.button<{
   $hideLabelOnMobile?: true;
+  $isBlock?: true;
+  $style?: "primary" | "secondary";
+  $size?: "lg" | "sm";
 }>`
+  ${({ $style = "primary", $size = "lg" }) => aButton($style, $size)}
+
+  ${({ $isBlock }) => $isBlock && `display: flex; width: 100%;`}
+
   > * + * {
     margin-inline-start: 8px;
   }
 
   svg {
-    flex: 1 0 auto;
+    flex: 0 0 auto;
   }
 
   ${({ $hideLabelOnMobile }) =>
@@ -26,5 +33,8 @@ export const ButtonStyles = styled.button<{
 `;
 
 export const ButtonLabel = styled.span<{ $hideOnMobile?: true }>`
+  flex: 1 1 auto;
+  text-align: left;
+
   ${({ $hideOnMobile }) => $hideOnMobile && respond(aHidden, 50)}
 `;

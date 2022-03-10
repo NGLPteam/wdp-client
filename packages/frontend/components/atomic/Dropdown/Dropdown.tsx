@@ -7,9 +7,14 @@ type BaseProps = React.ComponentProps<typeof BaseDropdown>;
 /**
  * A dropdown for navigation submenus.
  */
-const Dropdown = ({ disclosure, menuItems, label }: Props) => {
+const Dropdown = ({
+  disclosure,
+  menuItems,
+  label,
+  ...dropdownProps
+}: Props) => {
   return (
-    <BaseDropdown label={label} disclosure={disclosure}>
+    <BaseDropdown label={label} disclosure={disclosure} {...dropdownProps}>
       {({ onClick }) => (
         <Styled.DropdownWrapper onClick={onClick} className="a-bg-neutral00">
           <Styled.List>

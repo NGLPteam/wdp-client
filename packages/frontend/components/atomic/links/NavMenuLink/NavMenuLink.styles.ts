@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { transition } from "theme/base/variables";
 import { aFocusReset } from "theme/mixins";
-// size="sm" secondary icon="chevronDown"
 
 export const Link = styled.a`
   position: relative;
