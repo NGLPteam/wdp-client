@@ -1,6 +1,7 @@
 import React from "react";
 import { useIsMounted } from "@wdp/lib/hooks";
 import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
+import type { PopoverStateReturn } from "reakit/Popover";
 import * as Styled from "./BaseDropdown.styles";
 
 type ButtonProps = Partial<React.ComponentProps<typeof PopoverDisclosure>>;
@@ -20,13 +21,14 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
       hideOnEsc = true,
       hideOnClickOutside = true,
       isModal = false,
+      placement,
       ...props
     },
     ref
   ) => {
     const isMounted = useIsMounted();
 
-    const popoverState = usePopoverState({ gutter, modal: isModal });
+    const popoverState = usePopoverState({ gutter, placement, modal: isModal });
 
     const closePopover = popoverState.hide;
 
@@ -66,6 +68,8 @@ interface ExtendedProps {
   hideOnClickOutside?: boolean;
   /* Is the dropdown a modal? Default is false. */
   isModal?: boolean;
+  /** Popover placement (see Reakit docks) */
+  placement?: PopoverStateReturn["placement"];
 }
 
 type Props = ButtonProps & ExtendedProps;

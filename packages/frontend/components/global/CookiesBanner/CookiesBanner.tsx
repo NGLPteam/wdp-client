@@ -14,7 +14,7 @@ export default function CookiesBanner({ onAccept, onClose }: Props) {
           <Button size="sm" onClick={onAccept}>
             Accept
           </Button>
-          <Button size="sm" secondary icon="close" onClick={onClose}>
+          <Button size="sm" style="secondary" icon="close" onClick={onClose}>
             Close
           </Button>
         </Styled.Buttons>

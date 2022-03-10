@@ -12,23 +12,25 @@ const Button = forwardRef(
   (
     {
       children,
+      className,
       icon,
-      size = "lg",
-      secondary,
+      size,
+      style,
       iconLeft,
       hideLabelOnMobile,
+      isBlock,
       ...props
     }: Props & ButtonProps,
     ref: MaybeButtonRef
   ) => {
-    let className = `a-button-${secondary ? "secondary" : "primary"}`;
-    if (size !== "lg") className += `-${size}`;
-
     return (
       <Styles.ButtonStyles
         ref={ref}
         className={className}
         $hideLabelOnMobile={hideLabelOnMobile && icon}
+        $isBlock={isBlock}
+        $size={size}
+        $style={style}
         {...props}
       >
         {icon && iconLeft && (
@@ -50,12 +52,14 @@ const Button = forwardRef(
 export default Button;
 
 interface Props {
-  /** Button size - Default large */
+  /** Button size - default is large */
   size?: "lg" | "sm";
-  /** Set to true for secondary style */
-  secondary?: boolean;
+  /** Button style - default is primary */
+  style?: "primary" | "secondary";
   /** Show icon on the left */
   iconLeft?: true;
   /** Hide the label on mobile devices */
   hideLabelOnMobile?: true;
+  /** Display as a block element */
+  isBlock?: true;
 }

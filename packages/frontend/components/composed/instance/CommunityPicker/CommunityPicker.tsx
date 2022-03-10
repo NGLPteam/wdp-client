@@ -24,7 +24,7 @@ export default function CommunityPicker({ data, active }: Props) {
   return (
     <Dropdown
       disclosure={
-        <Button secondary icon="chevronDown" size="sm">
+        <Button style="secondary" icon="chevronDown" size="sm">
           {activeTitle || t("nav.community_picker")}
         </Button>
       }
