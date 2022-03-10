@@ -15,7 +15,6 @@ export default function Summary({
   routeParams = {},
   showReadMore,
 }: Props) {
-  console.info("thumbnail", !!thumbnail);
   return (
     <Styled.Wrapper
       $thumbnailRight={thumbnailRight}
