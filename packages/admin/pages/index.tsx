@@ -4,7 +4,6 @@ import { QueryWrapper } from "components/api";
 import { useBaseListQueryVars, useIsAuthenticated } from "hooks";
 import { DashboardLayout } from "components/composed/dashboard";
 import { pagesHomeQuery as Query } from "__generated__/pagesHomeQuery.graphql";
-import DashboardHomeMessage from "components/composed/dashboard/DashboardHomeMessage";
 import { LoadingPage } from "components/atomic";
 
 export default function Home() {
@@ -16,9 +15,7 @@ export default function Home() {
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (data ? <DashboardLayout data={data} /> : <LoadingPage />)}
     </QueryWrapper>
-  ) : (
-    <DashboardHomeMessage />
-  );
+  ) : null;
 }
 
 const query = graphql`

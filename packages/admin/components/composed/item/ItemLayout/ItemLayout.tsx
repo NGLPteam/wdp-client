@@ -34,8 +34,8 @@ export default function ItemLayout({
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
-  const manageRoutes = useChildRouteLinks("item.manage", { slug });
-  const tabRoutes = useChildRouteLinks("item", { slug });
+  const manageRoutes = useChildRouteLinks("item.manage", { slug }, item);
+  const tabRoutes = useChildRouteLinks("item", { slug }, item);
   const destroy = useDestroyer();
   const router = useRouter();
 
@@ -105,5 +105,6 @@ const fragment = graphql`
     slug
     id
     ...useBreadcrumbsFragment
+    ...useChildRouteLinksFragment
   }
 `;

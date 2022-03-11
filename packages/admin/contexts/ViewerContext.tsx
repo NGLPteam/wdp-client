@@ -10,6 +10,7 @@ const initialState: ViewerContextProps = {
   uploadToken: null,
   avatar: undefined,
   globalAdmin: false,
+  loading: true,
 };
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
@@ -21,7 +22,10 @@ function ViewerContextProvider({ children, data }: Props) {
     if (viewerData?.viewer) {
       const viewerProps = viewerData.viewer;
 
-      return { ...viewerProps };
+      return { ...viewerProps, loading: false };
+    } else if (viewerData && !viewerData.viewer) {
+      // Assume there's been an error
+      return { ...initialState, loading: false };
     }
 
     return initialState;
@@ -39,6 +43,7 @@ interface ViewerContextProps {
   uploadToken?: string | null;
   avatar?: AvatarFragment$key | null;
   globalAdmin?: boolean;
+  loading?: boolean;
 }
 
 interface Props {

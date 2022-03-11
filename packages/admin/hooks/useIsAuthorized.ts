@@ -21,7 +21,7 @@ export const useIsAuthorized = ({
   const { allowedActions: entityAllowedActions } = useAuthContext();
 
   return useMemo(() => {
-    if (globalAdmin) return true;
+    if (globalAdmin || !actions) return true;
 
     const checkActions = normalizeArray(actions);
     const permissions = entityAllowedActions

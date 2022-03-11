@@ -6,6 +6,7 @@ export type BaseRoute = {
   path: string;
   redirect?: string;
   routes?: BaseRoute[];
+  actions?: string[];
 };
 
 export type Route = {
@@ -17,6 +18,7 @@ export type Route = {
   fuzzyRegex: RegExp;
   redirect?: string;
   routes?: BaseRoute[];
+  actions?: string[];
 };
 
 class NextNamedRoutes {
@@ -41,6 +43,7 @@ class NextNamedRoutes {
     redirect,
     routes,
     label,
+    actions,
   }: BaseRoute): NextNamedRoutes => {
     if (!name || !path) {
       throw new Error(
@@ -61,6 +64,7 @@ class NextNamedRoutes {
       redirect,
       routes,
       label,
+      actions,
     });
     return this;
   };

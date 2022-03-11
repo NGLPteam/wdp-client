@@ -4,6 +4,7 @@ import * as Styled from "./Footer.styles";
 import appData from "fixtures/app.data";
 import { LogoPlaceholder } from "components/global";
 import { renderNavLink } from "helpers";
+import { Authorize } from "components/auth";
 
 function Footer() {
   const { footerData } = appData;
@@ -16,15 +17,17 @@ function Footer() {
           <LogoPlaceholder>{t("app.powered_by")}</LogoPlaceholder>
         </div>
         {footerData.navigation.map((nav, i) => (
-          <div className="l-grid__item l-grid__item--2" key={i}>
-            <Styled.Header>{t(nav.header)}</Styled.Header>
-            <Styled.List>
-              {nav.children &&
-                nav.children.map((child, i) =>
-                  renderNavLink(child, i, Styled.ListItem)
-                )}
-            </Styled.List>
-          </div>
+          <Authorize key={i} actions={nav.actions}>
+            <div className="l-grid__item l-grid__item--2">
+              <Styled.Header>{t(nav.header)}</Styled.Header>
+              <Styled.List>
+                {nav.children &&
+                  nav.children.map((child, i) =>
+                    renderNavLink(child, i, Styled.ListItem)
+                  )}
+              </Styled.List>
+            </div>
+          </Authorize>
         ))}
         {footerData.about && (
           <div className="l-grid__item l-grid__item--4">

@@ -32,8 +32,12 @@ export default function CommunityLayout({
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
-  const manageRoutes = useChildRouteLinks("community.manage", { slug });
-  const tabRoutes = useChildRouteLinks("community", { slug });
+  const manageRoutes = useChildRouteLinks(
+    "community.manage",
+    { slug },
+    community
+  );
+  const tabRoutes = useChildRouteLinks("community", { slug }, community);
   const router = useRouter();
   const destroy = useDestroyer();
 
@@ -101,5 +105,7 @@ const fragment = graphql`
     id
     name
     slug
+    allowedActions
+    ...useChildRouteLinksFragment
   }
 `;

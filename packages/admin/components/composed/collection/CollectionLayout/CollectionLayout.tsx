@@ -34,8 +34,12 @@ export default function CollectionLayout({
   const activeRoute = RouteHelper.activeRoute();
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
-  const manageRoutes = useChildRouteLinks("collection.manage", { slug });
-  const tabRoutes = useChildRouteLinks("collection", { slug });
+  const manageRoutes = useChildRouteLinks(
+    "collection.manage",
+    { slug },
+    collection
+  );
+  const tabRoutes = useChildRouteLinks("collection", { slug }, collection);
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
   const destroy = useDestroyer();
   const router = useRouter();
@@ -107,5 +111,6 @@ const fragment = graphql`
     slug
     id
     ...useBreadcrumbsFragment
+    ...useChildRouteLinksFragment
   }
 `;

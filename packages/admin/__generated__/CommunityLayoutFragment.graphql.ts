@@ -9,6 +9,8 @@ export type CommunityLayoutFragment = {
     readonly id: string;
     readonly name: string;
     readonly slug: string;
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly " $fragmentRefs": FragmentRefs<"useChildRouteLinksFragment">;
     readonly " $refType": "CommunityLayoutFragment";
 };
 export type CommunityLayoutFragment$data = CommunityLayoutFragment;
@@ -45,10 +47,22 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "slug",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "allowedActions",
+      "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "useChildRouteLinksFragment"
     }
   ],
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '7f3c6a819cbf5080f1e75ae84d855fb1';
+(node as any).hash = '98066e304b4ac8e327f91473228304e0';
 export default node;

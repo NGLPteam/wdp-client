@@ -14,11 +14,11 @@ export default function Authorize({
 }: Props) {
   const isAuthorized = useIsAuthorized({ actions, allowedActions });
 
-  return isAuthorized ? children : null;
+  return isAuthorized ? <>{children}</> : null;
 }
 
 interface Props {
-  children: JSX.Element;
+  children: React.ReactNode;
   actions?: string | string[] | null;
   allowedActions?: string[] | readonly string[];
 }

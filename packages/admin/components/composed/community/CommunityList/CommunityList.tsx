@@ -81,6 +81,7 @@ const fragment = graphql`
         createdAt
         updatedAt
         name
+        allowedActions
         ...CommunityNameColumnFragment
       }
     }
