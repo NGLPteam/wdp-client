@@ -27,7 +27,10 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
             {article.journal && <li>{article.journal.title}</li>}
             {article.published.value && (
               <li>
-                <PrecisionDate data={article.published} />
+                <PrecisionDate
+                  label="date.published"
+                  data={article.published}
+                />
               </li>
             )}
           </DotList>

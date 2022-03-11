@@ -20,7 +20,7 @@ export default function ArticleMetadataBlock({ data }: Props) {
       <Styled.List>
         {entity.published.value && (
           <Styled.ListItem>
-            <MetadataProperty label={t("common.published")}>
+            <MetadataProperty label={t("date.published")}>
               <PrecisionDate data={entity.published} />
             </MetadataProperty>
           </Styled.ListItem>

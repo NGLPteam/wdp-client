@@ -48,7 +48,7 @@ export default function RelatedIssueBlock({ data }: Props) {
           )}
           {issue.published.value && (
             <p>
-              <PrecisionDate data={issue.published} label="common.published" />
+              <PrecisionDate data={issue.published} />
             </p>
           )}
           {issue.articles.pageInfo.totalCount >= 0 && (

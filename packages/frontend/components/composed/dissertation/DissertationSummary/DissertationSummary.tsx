@@ -24,14 +24,9 @@ export default function DissertationSummary({ data, showReadMore }: Props) {
             </div>
           )}
           <DotList className="t-copy-sm t-copy-lighter">
-            {entity.published.value && (
+            {entity.published?.value && (
               <li>
-                <PrecisionDate data={entity.published} />
-              </li>
-            )}
-            {entity.issued?.dateWithPrecision && (
-              <li>
-                <PrecisionDate data={entity.issued.dateWithPrecision} />
+                <PrecisionDate label="date.published" data={entity.published} />
               </li>
             )}
           </DotList>
@@ -59,32 +54,22 @@ interface Props {
 const fragment = graphql`
   fragment DissertationSummaryFragment on Item
   @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
-    id
     __typename
-
+    id
     title
     subtitle
+    slug
+    summary
     cover: thumbnail {
       storage
       ...CoverImageFragment
     }
-
-    slug
-    summary
     contributions {
       ...ContributorsListFragment
     }
     published {
       value
       ...PrecisionDateFragment
-    }
-
-    issued: schemaProperty(fullPath: "issued") {
-      ... on VariableDateProperty {
-        dateWithPrecision {
-          ...PrecisionDateFragment
-        }
-      }
     }
   }
 `;

@@ -19,9 +19,7 @@ export default function EntityHero({ data }: Props) {
       subtitle={<Markdown.Title>{entity.subtitle}</Markdown.Title>}
       LeftComponent={
         <>
-          {entity.published?.value && (
-            <PrecisionDate data={entity.published} label="common.published" />
-          )}
+          {entity.published?.value && <PrecisionDate data={entity.published} />}
           {(entity.about?.content || entity.summary) && (
             <Markdown.Summary className="t-rte">
               {entity.about?.content || entity.summary || ""}

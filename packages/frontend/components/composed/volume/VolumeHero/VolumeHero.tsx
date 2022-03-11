@@ -33,10 +33,7 @@ export default function VolumeHero({ data }: Props) {
               <DotList className="t-copy-lighter">
                 {volume.published.value && (
                   <li>
-                    <PrecisionDate
-                      data={volume.published}
-                      label={t("common.published")}
-                    />
+                    <PrecisionDate data={volume.published} />
                   </li>
                 )}
               </DotList>

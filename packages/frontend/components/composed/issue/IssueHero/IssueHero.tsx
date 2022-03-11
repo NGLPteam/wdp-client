@@ -53,10 +53,7 @@ export default function IssueHero({ data }: Props) {
               <DotList className="t-copy-lighter">
                 {issue.published.value && (
                   <li>
-                    <PrecisionDate
-                      data={issue.published}
-                      label={t("common.published")}
-                    />
+                    <PrecisionDate data={issue.published} />
                   </li>
                 )}
               </DotList>

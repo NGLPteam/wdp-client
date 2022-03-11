@@ -38,10 +38,7 @@ export default function ArticleHero({ data }: Props) {
             />
             {article.published?.value && (
               <span className="t-copy-lighter">
-                <PrecisionDate
-                  data={article.published}
-                  label="common.published"
-                />
+                <PrecisionDate data={article.published} />
               </span>
             )}
           </Styled.DataBlock>
