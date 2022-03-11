@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./Summary.styles";
-import { NamedLink, Link, ReadMoreLink } from "components/atomic";
+import { NamedLink, Link, ReadMoreLink, Markdown } from "components/atomic";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 
@@ -36,19 +36,25 @@ export default function Summary({
           <h4>
             {route ? (
               <NamedLink route={route} routeParams={routeParams} passHref>
-                <Link>{title}</Link>
+                <Link>
+                  <Markdown.Title>{title}</Markdown.Title>
+                </Link>
               </NamedLink>
             ) : (
-              title
+              <Markdown.Title>title</Markdown.Title>
             )}
           </h4>
           {subtitle && (
-            <h5 className="t-copy-italic t-copy-light">{subtitle}</h5>
+            <h5 className="t-copy-italic t-copy-light">
+              <Markdown.Title>{subtitle}</Markdown.Title>
+            </h5>
           )}
         </Styled.Headers>
         {metadata && <Styled.Metadata>{metadata}</Styled.Metadata>}
         {summary && (
-          <Styled.Summary className="t-copy-lighter">{summary}</Styled.Summary>
+          <Styled.Summary className="t-copy-lighter">
+            <Markdown.Summary>{summary}</Markdown.Summary>
+          </Styled.Summary>
         )}
         {showReadMore && route && (
           <NamedLink route={route} routeParams={routeParams} passHref>
@@ -61,14 +67,14 @@ export default function Summary({
 }
 
 interface Props {
-  /** Title - can have inner HTML */
-  title?: React.ReactNode;
-  /** Subtitle - can have inner HTML */
-  subtitle?: React.ReactNode;
+  /** Title - must be a string */
+  title?: string | null;
+  /** Subtitle - must be a string */
+  subtitle?: string | null;
   /** Metadata */
   metadata?: React.ReactNode;
   /** Summary */
-  summary?: React.ReactNode;
+  summary?: string | null;
   /** Thumbnail */
   thumbnail?: React.ReactNode;
   /** Position the thumbnail on the right */

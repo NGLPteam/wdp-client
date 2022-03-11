@@ -4,7 +4,13 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueHero.styles";
 import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
-import { DotList, PrecisionDate, DOI, CoverImage } from "components/atomic";
+import {
+  DotList,
+  PrecisionDate,
+  DOI,
+  CoverImage,
+  Markdown,
+} from "components/atomic";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
@@ -21,9 +27,11 @@ export default function IssueHero({ data }: Props) {
       <SecondaryHero
         title={
           <>
-            <>{issue.title}</>
+            <Markdown.Title>{issue.title}</Markdown.Title>
             {issue.volume && (
-              <Styled.Volume>{issue.volume.title}</Styled.Volume>
+              <Styled.Volume>
+                <Markdown.Title>{issue.volume.title}</Markdown.Title>
+              </Styled.Volume>
             )}
           </>
         }
@@ -52,7 +60,9 @@ export default function IssueHero({ data }: Props) {
                   </li>
                 )}
               </DotList>
-              {issue.summary && <div>{issue.summary}</div>}
+              {issue.summary && (
+                <Markdown.Summary>{issue.summary}</Markdown.Summary>
+              )}
             </Styled.Summary>
             {issue.pdfVersion?.asset && (
               <AssetDownloadButton data={issue.pdfVersion.asset} />

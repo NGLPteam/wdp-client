@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { FullTextFragment$key } from "@/relay/FullTextFragment.graphql";
+import { Markdown } from "components/atomic";
 
 export default function FullText({ data }: Props) {
   const contentData = useMaybeFragment(fragment, data);
@@ -20,13 +20,10 @@ export default function FullText({ data }: Props) {
         />
       );
 
-    case "MARKDOWN":
-      return (
-        <ReactMarkdown className="t-rte">{fullText.content}</ReactMarkdown>
-      );
-
     default:
-      return <>{fullText.content}</>;
+      return (
+        <Markdown.Base className="t-rte">{fullText.content}</Markdown.Base>
+      );
   }
 }
 

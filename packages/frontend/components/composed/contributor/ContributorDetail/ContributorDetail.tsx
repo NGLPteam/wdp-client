@@ -1,13 +1,12 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import get from "lodash/get";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
-import { ExternalLink, ORCIDLink } from "components/atomic";
+import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributionSummary from "components/composed/contribution/ContributionSummary";
@@ -48,7 +47,7 @@ export default function ContributorDetail({ data }: Props) {
           )}
           {contributor.bio && (
             <div className="t-copy-light t-rte">
-              <ReactMarkdown>{contributor.bio}</ReactMarkdown>
+              <Markdown.Base>{contributor.bio}</Markdown.Base>
             </div>
           )}
           {(hasLinks || contributor.orcid) && (

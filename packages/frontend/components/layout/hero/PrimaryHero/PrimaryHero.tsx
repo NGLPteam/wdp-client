@@ -39,9 +39,9 @@ export default function PrimaryHero({
 
 interface Props {
   /** Title, always an h2, can be a string or a link */
-  title?: React.ReactNode | string | null;
+  title?: React.ReactNode | null;
   /** Subtitle, default h3, can be a react node */
-  subtitle?: string | React.ReactNode | null;
+  subtitle?: React.ReactNode | null;
   /** Left side react components */
   LeftComponent?: React.ReactNode | null;
   /** Right side react components */

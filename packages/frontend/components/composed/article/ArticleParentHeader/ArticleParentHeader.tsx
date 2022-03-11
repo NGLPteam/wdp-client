@@ -1,29 +1,39 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import * as Styled from "./ArticleParentHeader.styles";
 import { ArticleParentHeaderFragment$key } from "@/relay/ArticleParentHeaderFragment.graphql";
 import { CompactHero } from "components/layout/hero";
+import { Markdown } from "components/atomic";
 
 export default function ArticleParentHeader({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   const subtitleComponent = article?.issue ? (
     <>
-      {article.issue && <span>{article.issue.title}</span>}
+      {article.issue && <Markdown.Title>{article.issue.title}</Markdown.Title>}
       {article.volume && (
-        <span className="t-copy-lighter">
-          &nbsp;&nbsp;{article.volume.title}
-        </span>
+        <Styled.Volume as={Markdown.Title} className="t-copy-lighter">
+          {article.volume.title}
+        </Styled.Volume>
       )}
     </>
   ) : (
-    <>{article?.series && <span>{article.series.title}</span>}</>
+    <>
+      {article?.series && (
+        <Markdown.Title>{article.series.title}</Markdown.Title>
+      )}
+    </>
   );
 
   return article ? (
     <CompactHero
       style="secondary"
-      title={article.journal?.title || article.unit?.title}
+      title={
+        <Markdown.Title>
+          {article.journal?.title || article.unit?.title}
+        </Markdown.Title>
+      }
       subtitle={subtitleComponent}
     />
   ) : null;

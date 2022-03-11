@@ -31,7 +31,7 @@ export default function SecondaryHero({
 
 interface Props {
   /** Title - if a string, will render as h3 */
-  title?: string | React.ReactNode | null;
+  title?: React.ReactNode | null;
   /** Thumbnail or Cover, if any */
   ThumbnailComponent?: React.ReactNode | null;
   /** Content for the left side... */
