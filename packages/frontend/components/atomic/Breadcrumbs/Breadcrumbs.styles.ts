@@ -30,11 +30,11 @@ export const Delimiter = styled.span`
 
 export const ItemText = styled.span`
   display: inline-block;
-  max-width: 40vw;
+  max-width: 270px;
 
-  ${respond(`max-width: 30vw;`, 70)}
+  ${respond(`max-width: 20vw;`, 100)}
 
-  ${respond(`max-width: 60vw;`, 50)}
+  ${respond(`max-width: 60vw;`, TABLET_BREAK)}
 
   a {
     max-width: 100%;
