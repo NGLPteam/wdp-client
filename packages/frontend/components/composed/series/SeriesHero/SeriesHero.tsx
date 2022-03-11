@@ -1,9 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { PrecisionDate } from "components/atomic";
+import { Markdown, PrecisionDate } from "components/atomic";
 import { SeriesHeroFragment$key } from "@/relay/SeriesHeroFragment.graphql";
 import ArticleParentHeader from "components/composed/article/ArticleParentHeader";
 import { PrimaryHero } from "components/layout/hero";
@@ -15,9 +13,13 @@ export default function SeriesHero({ data }: Props) {
     <>
       <ArticleParentHeader data={entity} />
       <PrimaryHero
-        title={entity.title}
+        title={<Markdown.Title>{entity.title}</Markdown.Title>}
         subtitle={
-          entity.subtitle && <h4 className="t-copy-italic">entity.subtitle</h4>
+          entity.subtitle && (
+            <h4 className="t-copy-italic">
+              <Markdown.Title>{entity.subtitle}</Markdown.Title>
+            </h4>
+          )
         }
         LeftComponent={
           <>
@@ -25,18 +27,9 @@ export default function SeriesHero({ data }: Props) {
               <PrecisionDate data={entity.published} label="common.published" />
             )}
             {entity.about?.content && (
-              <ReactMarkdown
-                className="t-rte"
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  h1: "h5",
-                  h2: "h5",
-                  h3: "h5",
-                  h4: "h5",
-                }}
-              >
+              <Markdown.Summary className="t-rte">
                 {entity.about.content}
-              </ReactMarkdown>
+              </Markdown.Summary>
             )}
           </>
         }

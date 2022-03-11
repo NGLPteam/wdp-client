@@ -1,9 +1,12 @@
 import React from "react";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { HeroImage, ContentImage, PrecisionDate } from "components/atomic";
+import {
+  HeroImage,
+  ContentImage,
+  PrecisionDate,
+  Markdown,
+} from "components/atomic";
 import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 import { PrimaryHero } from "components/layout/hero";
 
@@ -12,26 +15,17 @@ export default function EntityHero({ data }: Props) {
 
   return entity ? (
     <PrimaryHero
-      title={entity.title}
-      subtitle={entity.subtitle}
+      title={<Markdown.Title>{entity.title}</Markdown.Title>}
+      subtitle={<Markdown.Title>{entity.subtitle}</Markdown.Title>}
       LeftComponent={
         <>
           {entity.published?.value && (
             <PrecisionDate data={entity.published} label="common.published" />
           )}
           {(entity.about?.content || entity.summary) && (
-            <ReactMarkdown
-              className="t-rte"
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                h1: "h4",
-                h2: "h4",
-                h3: "h4",
-                h4: "h4",
-              }}
-            >
+            <Markdown.Summary className="t-rte">
               {entity.about?.content || entity.summary || ""}
-            </ReactMarkdown>
+            </Markdown.Summary>
           )}
         </>
       }

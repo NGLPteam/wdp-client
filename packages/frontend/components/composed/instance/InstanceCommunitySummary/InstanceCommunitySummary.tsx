@@ -3,7 +3,8 @@ import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./InstanceCommunitySummary.styles";
 import { getSchemaTranslationKey } from "helpers";
-import { NamedLink, Image, SummaryMarkdown } from "components/atomic";
+import { NamedLink, Image } from "components/atomic";
+import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
 
 export default function InstanceCommunitySummary({ data }: Props) {
@@ -46,7 +47,7 @@ export default function InstanceCommunitySummary({ data }: Props) {
           )}
           {community.summary && (
             <Styled.Summary
-              as={SummaryMarkdown}
+              as={Markdown.Summary}
               className="t-color-light t-copy-sm"
             >
               {community.summary}

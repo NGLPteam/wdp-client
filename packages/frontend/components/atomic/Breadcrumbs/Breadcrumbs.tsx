@@ -5,7 +5,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Link } from "../links";
 import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
-import { Dropdown, NamedLink } from "components/atomic";
+import { Dropdown, Markdown, NamedLink } from "components/atomic";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 
@@ -34,7 +34,9 @@ export default function BreadCrumbs({ data }: Props) {
         passHref
       >
         <Styled.ItemText>
-          <Link aria-current="page">{entity.title}</Link>
+          <Link aria-current="page">
+            <Markdown.Title>{entity.title}</Markdown.Title>
+          </Link>
         </Styled.ItemText>
       </NamedLink>
     ) : null;

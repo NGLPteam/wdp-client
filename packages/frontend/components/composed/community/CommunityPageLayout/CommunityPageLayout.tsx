@@ -1,9 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
 import * as Styled from "./CommunityPageLayout.styles";
-import { HeroImage } from "components/atomic";
+import { HeroImage, Markdown } from "components/atomic";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
 
 export default function CommunityPageLayout({ data }: Props) {
@@ -15,7 +14,7 @@ export default function CommunityPageLayout({ data }: Props) {
       <div className="l-container-wide">
         <Styled.Content className="t-rte">
           <h2>{page.title}</h2>
-          <ReactMarkdown>{page.body}</ReactMarkdown>
+          <Markdown.Page>{page.body}</Markdown.Page>
         </Styled.Content>
       </div>
     </section>

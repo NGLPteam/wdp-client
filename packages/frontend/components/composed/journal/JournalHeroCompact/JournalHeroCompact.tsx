@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { JournalHeroCompactFragment$key } from "@/relay/JournalHeroCompactFragment.graphql";
 import { CompactHero } from "components/layout/hero";
+import { Markdown } from "components/atomic";
 
 export default function JournalHeroCompact({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
@@ -10,8 +11,8 @@ export default function JournalHeroCompact({ data }: Props) {
   return journal ? (
     <CompactHero
       style="primary"
-      title={journal.title}
-      subtitle={journal.subtitle}
+      title={<Markdown.Title>{journal.title}</Markdown.Title>}
+      subtitle={<Markdown.Title>{journal.subtitle}</Markdown.Title>}
     />
   ) : null;
 }

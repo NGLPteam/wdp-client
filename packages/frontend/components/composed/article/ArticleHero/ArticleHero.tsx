@@ -10,6 +10,7 @@ import {
   OpenAccess,
   DOI,
   FullText,
+  Markdown,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
@@ -21,8 +22,12 @@ export default function ArticleHero({ data }: Props) {
 
   return article ? (
     <PrimaryHero
-      title={article.title}
-      subtitle={<h4 className="t-copy-italic">{article.subtitle}</h4>}
+      title={<Markdown.Title>{article.title}</Markdown.Title>}
+      subtitle={
+        <h4 className="t-copy-italic">
+          <Markdown.Title>{article.subtitle}</Markdown.Title>
+        </h4>
+      }
       LeftComponent={
         <>
           <Styled.DataBlock>

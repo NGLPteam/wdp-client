@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import ReactMarkdown from "react-markdown";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./CommunityHero.styles";
 import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
 import SearchHero from "components/composed/search/SearchHero";
+import { Markdown } from "components/atomic";
 
 export default function CommunityHero({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -35,18 +35,8 @@ export default function CommunityHero({ data }: Props) {
         <Styled.HeroInner>
           <h1>{tagline}</h1>
           {community.summary && (
-            <Styled.Summary>
-              <ReactMarkdown
-                components={{
-                  h1: "p",
-                  h2: "p",
-                  h3: "p",
-                  h4: "p",
-                  h5: "p",
-                }}
-              >
-                {community.summary}
-              </ReactMarkdown>
+            <Styled.Summary as={Markdown.Summary}>
+              {community.summary}
             </Styled.Summary>
           )}
         </Styled.HeroInner>

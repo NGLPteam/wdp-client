@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import ReactMarkdown from "react-markdown";
 import * as Styled from "./HowToCite.styles";
-import { Button } from "components/atomic";
+import { Button, Markdown } from "components/atomic";
 import { HowToCiteFragment$key } from "@/relay/HowToCiteFragment.graphql";
 
 export default function HowToCite({ data }: Props) {
@@ -27,9 +26,9 @@ export default function HowToCite({ data }: Props) {
           {/* For a11y, this block should have a semantic heading of h3. In design, it's styled as an h4. */}
           <h3 className="t-h4">{t("layouts.how_to_cite")}</h3>
           <div ref={ref}>
-            <ReactMarkdown className="t-rte t-copy-sm t-copy-lighter">
+            <Markdown.Summary className="t-rte t-copy-sm t-copy-lighter">
               {citation}
-            </ReactMarkdown>
+            </Markdown.Summary>
           </div>
         </Styled.TextBlock>
         <Button

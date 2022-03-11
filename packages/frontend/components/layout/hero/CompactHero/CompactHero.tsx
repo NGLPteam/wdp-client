@@ -19,7 +19,7 @@ export default function CompactHero({
 }
 
 interface Props {
-  title?: string | null;
-  subtitle?: string | React.ReactNode | null;
+  title?: React.ReactNode | null;
+  subtitle?: React.ReactNode | null;
   style: "primary" | "secondary";
 }

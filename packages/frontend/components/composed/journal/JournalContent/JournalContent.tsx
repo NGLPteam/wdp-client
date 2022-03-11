@@ -1,10 +1,9 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import ReactMarkdown from "react-markdown";
 import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
-import { FullText } from "components/atomic";
+import { FullText, Markdown } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 import EntityAnnouncements from "components/composed/entity/EntityAnnouncements";
@@ -26,9 +25,9 @@ export default function JournalContent({ data }: Props) {
           ) : (
             journal.about?.content && (
               <Styled.InfoBlock>
-                <ReactMarkdown className="t-rte">
+                <Markdown.Base className="t-rte">
                   {journal.about.content}
-                </ReactMarkdown>
+                </Markdown.Base>
               </Styled.InfoBlock>
             )
           )}
