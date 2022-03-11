@@ -13,6 +13,7 @@ export type CommunityListFragment = {
             readonly createdAt: string;
             readonly updatedAt: string;
             readonly name: string;
+            readonly allowedActions: ReadonlyArray<string>;
             readonly " $fragmentRefs": FragmentRefs<"CommunityNameColumnFragment">;
         };
     }>;
@@ -85,6 +86,13 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "allowedActions",
+              "storageKey": null
+            },
+            {
               "args": null,
               "kind": "FragmentSpread",
               "name": "CommunityNameColumnFragment"
@@ -104,5 +112,5 @@ const node: ReaderFragment = {
   "type": "CommunityConnection",
   "abstractKey": null
 };
-(node as any).hash = 'df8c92750caad892a1545f5d9f36af7d';
+(node as any).hash = '295ecc75d82fbe898c704ce6a2587cdf';
 export default node;

@@ -9,7 +9,7 @@ export type CollectionLayoutFragment = {
     readonly title: string;
     readonly slug: string;
     readonly id: string;
-    readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
     readonly " $refType": "CollectionLayoutFragment";
 };
 export type CollectionLayoutFragment$data = CollectionLayoutFragment;
@@ -51,10 +51,15 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "useChildRouteLinksFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '1e5febe31e3ea422317a39e4e140beb0';
+(node as any).hash = '050dd3e39b47be4f5038e6ead083c61c';
 export default node;

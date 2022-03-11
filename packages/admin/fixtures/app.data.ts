@@ -1,21 +1,21 @@
 const COMMUNITIES_LINK = {
   label: "glossary.community_plural",
   route: "communities",
-  actions: "communities.read",
+  actions: "admin.access",
   model: "communities",
 };
 
 const COLLECTIONS_LINK = {
   label: "glossary.collection_plural",
   route: "collections",
-  actions: "communities.read",
+  actions: "admin.access",
   model: "collections",
 };
 
 const ITEMS_LINK = {
   label: "glossary.item_plural",
   route: "items",
-  actions: "communities.read",
+  actions: "admin.access",
   model: "items",
 };
 
@@ -72,6 +72,7 @@ const appData = {
     navigation: [
       {
         header: "nav.manage_header",
+        actions: ["admin.access"],
         children: [
           COMMUNITIES_LINK,
           COLLECTIONS_LINK,

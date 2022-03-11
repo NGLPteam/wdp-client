@@ -60,4 +60,6 @@ interface Props {
   hideLabelOnMobile?: true;
   /** Display as a block element */
   isBlock?: true;
+  /** Use secondary style */
+  secondary?: true;
 }
