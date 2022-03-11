@@ -1,27 +1,57 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useAuthenticatedQuery, useMaybeFragment } from "@wdp/lib/api/hooks";
+import { routeQueryArrayToString } from "@wdp/lib/routes";
+import { useRouter } from "next/router";
 import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingLayoutFactoryFragment.graphql";
 import EntityOrderingLayout from "components/composed/entity/EntityOrderingLayout";
-import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
+import {
+  EntityOrderingLayoutFactoryQuery as Query,
+  EntityOrderingLayoutFactoryQueryResponse,
+} from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
+import { LoadingBlock } from "components/atomic";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
+import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
 
+/**
+ * Fetches the ordering data and gets the right layout based on the schema identifier.
+ * If no ordering identifier is provided, uses the first ordering on the entity.
+ */
 export default function EntityOrderingLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
-  if (!entity) return null;
+  const router = useRouter();
 
-  switch (entity.schemaDefinition?.identifier) {
-    case "journal_issue":
-      return (
-        <IssueSidebarNav data={entity}>
-          <IssueOrderingLayout data={entity.ordering} />
-        </IssueSidebarNav>
-      );
+  const identifier =
+    routeQueryArrayToString(router.query.ordering) ||
+    entity?.initialOrdering?.identifier ||
+    "";
 
-    default:
-      return <EntityOrderingLayout data={entity.ordering} />;
-  }
+  const slug = routeQueryArrayToString(router.query.slug);
+
+  const page = parseInt(routeQueryArrayToString(router.query.page)) || 1;
+
+  const { data: orderingData } = useAuthenticatedQuery<Query>(query, {
+    identifier,
+    page,
+    slug,
+  });
+
+  const getLayout = (data: EntityOrderingLayoutFactoryQueryResponse) => {
+    switch (entity?.schemaDefinition?.identifier) {
+      case "journal_issue":
+        return (
+          <IssueSidebarNav data={entity}>
+            <IssueOrderingLayout data={data.collection?.ordering} />
+          </IssueSidebarNav>
+        );
+
+      default:
+        return <EntityOrderingLayout data={data.collection?.ordering} />;
+    }
+  };
+
+  return entity && orderingData ? getLayout(orderingData) : <LoadingBlock />;
 }
 
 interface Props {
@@ -29,20 +59,30 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityOrderingLayoutFactoryFragment on Entity
-  @argumentDefinitions(
-    page: { type: "Int", defaultValue: 1 }
-    identifier: { type: "String!", defaultValue: "items" }
-  ) {
+  fragment EntityOrderingLayoutFactoryFragment on Entity {
     schemaDefinition {
       identifier
     }
 
-    ...IssueSidebarNavFragment
+    initialOrdering {
+      identifier
+    }
 
-    ordering(identifier: $identifier) {
-      ...EntityOrderingLayoutFragment @arguments(page: $page)
-      ...IssueOrderingLayoutFragment @arguments(page: $page)
+    ...IssueSidebarNavFragment
+  }
+`;
+
+const query = graphql`
+  query EntityOrderingLayoutFactoryQuery(
+    $slug: Slug!
+    $identifier: String!
+    $page: Int
+  ) {
+    collection(slug: $slug) {
+      ordering(identifier: $identifier) {
+        ...EntityOrderingLayoutFragment @arguments(page: $page)
+        ...IssueOrderingLayoutFragment @arguments(page: $page)
+      }
     }
   }
 `;

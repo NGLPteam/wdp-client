@@ -8,17 +8,11 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityNavListFragment = {
     readonly __typename: string;
     readonly orderings: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly name: string | null;
-                readonly slug: string;
-                readonly identifier: string;
-                readonly children: {
-                    readonly pageInfo: {
-                        readonly totalCount: number;
-                    };
-                };
-            };
+        readonly nodes: ReadonlyArray<{
+            readonly name: string | null;
+            readonly slug: string;
+            readonly identifier: string;
+            readonly count: number;
         }>;
     };
     readonly pages: {
@@ -71,64 +65,31 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "OrderingEdge",
+          "concreteType": "Ordering",
           "kind": "LinkedField",
-          "name": "edges",
+          "name": "nodes",
           "plural": true,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "Ordering",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
-                },
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "OrderingEntryConnection",
-                  "kind": "LinkedField",
-                  "name": "children",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "PageInfo",
-                      "kind": "LinkedField",
-                      "name": "pageInfo",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "totalCount",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "identifier",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "count",
               "storageKey": null
             }
           ],
@@ -183,5 +144,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'b15fc4a316c63db1fbdd8d17858d30ad';
+(node as any).hash = '6a12a89e61dfdf5134b510867b9d06fc';
 export default node;

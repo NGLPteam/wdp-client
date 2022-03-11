@@ -11,11 +11,67 @@
       {
         "kind": "OBJECT",
         "name": "AccessControlList",
-        "description": "An access control list",
+        "description": "A scoped access control list for a specific point in the hierarchy",
         "fields": [
           {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "collections",
+            "description": "Permissions that will be applied on the attached entity's subcollections.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityPermissionGrid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "items",
+            "description": "Permissions that will be applied on the attached entity's subitems.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityPermissionGrid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "permissions",
-            "description": null,
+            "description": "An array of hashes that can be requested to load in a context",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36,10 +92,42 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "self",
+            "description": "A `self` grid applies to whatever entity this scoped ACL is applied to.\n\nIts children will inherit other permissions based\non `collections` and `items` respectively.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntityPermissionGrid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
-        "interfaces": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesPermissions",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "String",
+        "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -301,6 +389,42 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The roles this user has access to assign based on their `primaryRole`,\noutside of any hierarchical context.\n\nWhen actually assigning roles for an entity, you should use `Entity.assignableRoles`,\nbecause it will ensure that the user sufficient permissions at that level.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "primaryRole",
+            "description": "The primary role associated with this subject.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Role",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -318,16 +442,6 @@
             "ofType": null
           }
         ]
-      },
-      {
-        "kind": "SCALAR",
-        "name": "String",
-        "description": "The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
       },
       {
         "kind": "SCALAR",
@@ -4090,6 +4204,155 @@
       },
       {
         "kind": "OBJECT",
+        "name": "AssetPermissionGrid",
+        "description": "A grid of permissions for creating, retrieving, updating, and deleting an `Asset`",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "read",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesPermissions",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "PermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "CRUDPermissionGrid",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "AssetProperty",
         "description": null,
         "fields": [
@@ -4291,16 +4554,6 @@
             "ofType": null
           }
         ],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Boolean",
-        "description": "The `Boolean` scalar type represents `true` or `false`.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -5462,6 +5715,140 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "CRUDPermissionGrid",
+        "description": "A grid of permissions for creating, retrieving, updating, and deleting a model",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "read",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "AssetPermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityPermissionGrid",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "ChildEntity",
         "description": "An interface for entities that can contain actual content, as well as any number of themselves\nin a tree structure.\n\nIn practice, this means a `Collection` or an `Item`, not a `Community`.\n",
         "fields": [
@@ -5855,15 +6242,43 @@
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Role",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The role(s) that the current user could assign to other users on this entity, if applicable.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -6365,6 +6780,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "initialOrdering",
+            "description": "The initial ordering to display for this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -7809,15 +8236,19 @@
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Role",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -7948,6 +8379,30 @@
                 "kind": "OBJECT",
                 "name": "AnyAssetConnection",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The role(s) that the current user could assign to other users on this entity, if applicable.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -9127,6 +9582,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "initialOrdering",
+            "description": "The initial ordering to display for this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -11637,15 +12104,19 @@
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Role",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -11776,6 +12247,30 @@
                 "kind": "OBJECT",
                 "name": "AnyAssetConnection",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The role(s) that the current user could assign to other users on this entity, if applicable.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -12479,6 +12974,18 @@
                 "name": "ID",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "initialOrdering",
+            "description": "The initial ordering to display for this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -20905,6 +21412,95 @@
       },
       {
         "kind": "OBJECT",
+        "name": "EffectiveAccess",
+        "description": "User-specific access permissions for non-hierarchical records.\n",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "availableActions",
+            "description": "The values that may appear in `allowed_actions`. This is for introspection\nand type-checking: the presence of a string here does _not_ mean the user\nhas the effective capability.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesPermissions",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "EmailProperty",
         "description": null,
         "fields": [
@@ -21689,15 +22285,43 @@
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Role",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The role(s) that the current user could assign to other users on this entity, if applicable.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -22050,6 +22674,18 @@
                 "name": "Int",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "initialOrdering",
+            "description": "The initial ordering to display for this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -23741,6 +24377,177 @@
       },
       {
         "kind": "OBJECT",
+        "name": "EntityPermissionGrid",
+        "description": "A grid of permissions for various hierarchical entity scopes.",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assets",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AssetPermissionGrid",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "create",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "delete",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "manageAccess",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "read",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "update",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesPermissions",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "PermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "CRUDPermissionGrid",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "EntityProperty",
         "description": "A property that references another entity within the system.\n",
         "fields": [
@@ -24225,6 +25032,39 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "ExposesEffectiveAccess",
+        "description": null,
+        "fields": [
+          {
+            "name": "effectiveAccess",
+            "description": "User-specific access permissions for this object.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EffectiveAccess",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Role",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "ExposesPermissions",
         "description": null,
         "fields": [
@@ -24283,7 +25123,32 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "AccessControlList",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AssetPermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ContextualPermission",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EffectiveAccess",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityPermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "GlobalAccessControlList",
             "ofType": null
           },
           {
@@ -24797,6 +25662,71 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "GlobalAccessControlList",
+        "description": "A global ACL",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesPermissions",
             "ofType": null
           }
         ],
@@ -27402,15 +28332,19 @@
             "description": "The role(s) that gave the permissions to access this resource, if any.",
             "args": [],
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Role",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
                 }
               }
             },
@@ -27541,6 +28475,30 @@
                 "kind": "OBJECT",
                 "name": "AnyAssetConnection",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assignableRoles",
+            "description": "The role(s) that the current user could assign to other users on this entity, if applicable.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -28514,6 +29472,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "initialOrdering",
+            "description": "The initial ordering to display for this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -33585,6 +34555,22 @@
             "deprecationReason": null
           },
           {
+            "name": "count",
+            "description": "The number of entries currently visible within the ordering",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -36152,11 +37138,11 @@
       {
         "kind": "OBJECT",
         "name": "PermissionGrant",
-        "description": "A grant of a specific permission within a specific scope",
+        "description": "A grant of a specific permission within a specific scope.",
         "fields": [
           {
             "name": "allowed",
-            "description": null,
+            "description": "Whether this permission has been granted in the current context.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36172,7 +37158,23 @@
           },
           {
             "name": "name",
-            "description": null,
+            "description": "The unqualified, single name for this permission.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The fully-qualified path for this permission (composed of scope + name).",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -36188,7 +37190,7 @@
           },
           {
             "name": "scope",
-            "description": null,
+            "description": "The scope (or namespace) for this permission.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -36203,6 +37205,76 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "PermissionGrid",
+        "description": "A mapping of permissions specific to a certain scope",
+        "fields": [
+          {
+            "name": "allowedActions",
+            "description": "A list of allowed actions for the given user on this entity (and its descendants).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissions",
+            "description": "An array of hashes that can be requested to load in a context",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermissionGrant",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "AssetPermissionGrid",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "EntityPermissionGrid",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -37200,6 +38272,35 @@
             "deprecationReason": null
           },
           {
+            "name": "communityByTitle",
+            "description": "Look up a community by its title",
+            "args": [
+              {
+                "name": "title",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Community",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "contributor",
             "description": "Look up a contributor by slug",
             "args": [
@@ -37623,7 +38724,7 @@
                   "name": "RoleOrder",
                   "ofType": null
                 },
-                "defaultValue": "NAME_ASCENDING",
+                "defaultValue": "DEFAULT",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -38921,6 +40022,74 @@
             "deprecationReason": null
           },
           {
+            "name": "customPriority",
+            "description": "Only relevant for `custom` roles, this affects sorting.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "effectiveAccess",
+            "description": "User-specific access permissions for this object.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EffectiveAccess",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "globalAccessControlList",
+            "description": "The global access control list that this assigned role implies, based on its sort order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "GlobalAccessControlList",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "globalAllowedActions",
+            "description": "A list of global action names that this role implies, based on its sort order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -38930,6 +40099,34 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "For `system` roles, this will be populated with the unique identifier\nthat marks this as a system role.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "RoleSystemIdentifier",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The specific kind of role this is, based on how it entered the WDP-API.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "RoleKind",
                 "ofType": null
               }
             },
@@ -38977,6 +40174,38 @@
             "deprecationReason": null
           },
           {
+            "name": "primacy",
+            "description": "Used internally to sort roles and ensure certain role types are above\nand below others, irrespective of priority.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "RolePrimacy",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "priority",
+            "description": "The calculated sort priority for this role.\n\n* For `custom` roles, it is based on `custom_priority`.\n* For `system` roles, it is based on hard-coded values within the system\n  and cannot be modified.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -39011,6 +40240,11 @@
         ],
         "inputFields": null,
         "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ExposesEffectiveAccess",
+            "ofType": null
+          },
           {
             "kind": "INTERFACE",
             "name": "Node",
@@ -39151,12 +40385,41 @@
       },
       {
         "kind": "ENUM",
+        "name": "RoleKind",
+        "description": "A categorization of a `Role` based on how it gets into the WDP-API.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CUSTOM",
+            "description": "Custom roles are created and managed through the `createRole`, `updateRole`, and `destroyRole` mutations.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SYSTEM",
+            "description": "System roles are shipped by default with WDP-API and cannot be modified.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
         "name": "RoleOrder",
         "description": "Sort roles by a specific property and order",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "DEFAULT",
+            "description": "Sort roles by default priority within the system",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "RECENT",
             "description": "Sort roles by newest created date",
@@ -39178,6 +40441,70 @@
           {
             "name": "NAME_DESCENDING",
             "description": "Sort roles by their name Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "RolePrimacy",
+        "description": "The level of importance any given role has when it comes to determing what a user's \"primary\" role is.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "HIGH",
+            "description": "Values with this primacy level take priority over all others. They cannot be directly assigned through the API.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DEFAULT",
+            "description": "Values with this primacy level are the default. Any custom roles will be in this scope.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LOW",
+            "description": "Values with this primacy level are always sorted after every other role.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "RoleSystemIdentifier",
+        "description": "This will identify _which_ `system` role this is, if applicable. See `RoleKind` for more information.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ADMIN",
+            "description": "A global administrator. This role cannot be directly assigned.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MANAGER",
+            "description": "A manager can be assigned to handle most `Community` and other entity management concerns.\n\nThey can also appoint other roles (except for other managers) to any entity they manage.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "EDITOR",
+            "description": "An editor has basic update permissions for a specific point in the hierarchy.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "READER",
+            "description": "A reader is anyone who has been given explicit read-access to an entity.\nThis role is primarily used by the administration UI.\n\n**Note**: Anonymous users can still view public entities in the frontend.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -48260,6 +49587,30 @@
             "deprecationReason": null
           },
           {
+            "name": "assignableRoles",
+            "description": "The roles this user has access to assign based on their `primaryRole`,\noutside of any hierarchical context.\n\nWhen actually assigning roles for an entity, you should use `Entity.assignableRoles`,\nbecause it will ensure that the user sufficient permissions at that level.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "avatar",
             "description": "A user's avatar",
             "args": [],
@@ -49253,6 +50604,18 @@
                   }
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "primaryRole",
+            "description": "The primary role associated with this subject.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Role",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -50522,6 +51885,30 @@
             "deprecationReason": null
           },
           {
+            "name": "assignableRoles",
+            "description": "The roles this user has access to assign based on their `primaryRole`,\noutside of any hierarchical context.\n\nWhen actually assigning roles for an entity, you should use `Entity.assignableRoles`,\nbecause it will ensure that the user sufficient permissions at that level.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Role",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "collectionAccessGrants",
             "description": "All access grants for this group on a collection",
             "args": [
@@ -50932,6 +52319,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "primaryRole",
+            "description": "The primary role associated with this subject.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Role",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

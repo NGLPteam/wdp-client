@@ -26,10 +26,24 @@ export type Scalars = {
   VersionRequirement: string;
 };
 
-/** An access control list */
-export type AccessControlList = {
+/** A scoped access control list for a specific point in the hierarchy */
+export type AccessControlList = ExposesPermissions & {
   __typename?: 'AccessControlList';
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  /** Permissions that will be applied on the attached entity's subcollections. */
+  collections: EntityPermissionGrid;
+  /** Permissions that will be applied on the attached entity's subitems. */
+  items: EntityPermissionGrid;
+  /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
+  /**
+   * A `self` grid applies to whatever entity this scoped ACL is applied to.
+   *
+   * Its children will inherit other permissions based
+   * on `collections` and `items` respectively.
+   */
+  self: EntityPermissionGrid;
 };
 
 /**
@@ -65,6 +79,16 @@ export type AccessGrantEntityFilter =
 export type AccessGrantSubject = {
   /** A polymorphic connection for access grants from a subject */
   allAccessGrants: AnyAccessGrantConnection;
+  /**
+   * The roles this user has access to assign based on their `primaryRole`,
+   * outside of any hierarchical context.
+   *
+   * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+   * because it will ensure that the user sufficient permissions at that level.
+   */
+  assignableRoles: Array<Role>;
+  /** The primary role associated with this subject. */
+  primaryRole?: Maybe<Role>;
 };
 
 
@@ -551,6 +575,19 @@ export type AssetPdf = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
+/** A grid of permissions for creating, retrieving, updating, and deleting an `Asset` */
+export type AssetPermissionGrid = ExposesPermissions & PermissionGrid & CrudPermissionGrid & {
+  __typename?: 'AssetPermissionGrid';
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  create: Scalars['Boolean'];
+  delete: Scalars['Boolean'];
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
+  read: Scalars['Boolean'];
+  update: Scalars['Boolean'];
+};
+
 export type AssetProperty = SchemaProperty & ScalarProperty & {
   __typename?: 'AssetProperty';
   /**
@@ -840,6 +877,18 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & {
   type: SchemaPropertyType;
 };
 
+/** A grid of permissions for creating, retrieving, updating, and deleting a model */
+export type CrudPermissionGrid = {
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  create: Scalars['Boolean'];
+  delete: Scalars['Boolean'];
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
+  read: Scalars['Boolean'];
+  update: Scalars['Boolean'];
+};
+
 /**
  * An interface for entities that can contain actual content, as well as any number of themselves
  * in a tree structure.
@@ -871,7 +920,9 @@ export type ChildEntity = {
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
-  applicableRoles?: Maybe<Array<Role>>;
+  applicableRoles: Array<Role>;
+  /** The role(s) that the current user could assign to other users on this entity, if applicable. */
+  assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
@@ -902,6 +953,8 @@ export type ChildEntity = {
   hierarchicalDepth: Scalars['Int'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The initial ordering to display for this entity. */
+  initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
   issn?: Maybe<Scalars['String']>;
   /** The date this entity was issued */
@@ -1212,9 +1265,11 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
-  applicableRoles?: Maybe<Array<Role>>;
+  applicableRoles: Array<Role>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  /** The role(s) that the current user could assign to other users on this entity, if applicable. */
+  assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
@@ -1264,6 +1319,8 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The initial ordering to display for this entity. */
+  initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
   issn?: Maybe<Scalars['String']>;
   /** The date this entity was issued */
@@ -1727,9 +1784,11 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
-  applicableRoles?: Maybe<Array<Role>>;
+  applicableRoles: Array<Role>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  /** The role(s) that the current user could assign to other users on this entity, if applicable. */
+  assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
   /** Expose all available entities for this schema property. */
@@ -1753,6 +1812,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   /** The depth of the hierarchical entity, taking into account any parent types */
   hierarchicalDepth: Scalars['Int'];
   id: Scalars['ID'];
+  /** The initial ordering to display for this entity. */
+  initialOrdering?: Maybe<Ordering>;
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
@@ -3135,6 +3196,21 @@ export type Direction =
   | 'DESCENDING'
   | '%future added value';
 
+/** User-specific access permissions for non-hierarchical records. */
+export type EffectiveAccess = ExposesPermissions & {
+  __typename?: 'EffectiveAccess';
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  /**
+   * The values that may appear in `allowed_actions`. This is for introspection
+   * and type-checking: the presence of a string here does _not_ mean the user
+   * has the effective capability.
+   */
+  availableActions: Array<Scalars['String']>;
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
+};
+
 export type EmailProperty = SchemaProperty & ScalarProperty & {
   __typename?: 'EmailProperty';
   address?: Maybe<Scalars['String']>;
@@ -3293,7 +3369,9 @@ export type Entity = {
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
-  applicableRoles?: Maybe<Array<Role>>;
+  applicableRoles: Array<Role>;
+  /** The role(s) that the current user could assign to other users on this entity, if applicable. */
+  assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
   /** Previous entries in the hierarchy */
@@ -3306,6 +3384,8 @@ export type Entity = {
   heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
   hierarchicalDepth: Scalars['Int'];
+  /** The initial ordering to display for this entity. */
+  initialOrdering?: Maybe<Ordering>;
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
@@ -3640,6 +3720,21 @@ export type EntityPermissionFilter =
   | 'CRUD'
   | '%future added value';
 
+/** A grid of permissions for various hierarchical entity scopes. */
+export type EntityPermissionGrid = ExposesPermissions & PermissionGrid & CrudPermissionGrid & {
+  __typename?: 'EntityPermissionGrid';
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  assets: AssetPermissionGrid;
+  create: Scalars['Boolean'];
+  delete: Scalars['Boolean'];
+  manageAccess: Scalars['Boolean'];
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
+  read: Scalars['Boolean'];
+  update: Scalars['Boolean'];
+};
+
 /** A property that references another entity within the system. */
 export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntities & {
   __typename?: 'EntityProperty';
@@ -3763,6 +3858,11 @@ export type EntityVisibility =
   | 'HIDDEN'
   | 'LIMITED'
   | '%future added value';
+
+export type ExposesEffectiveAccess = {
+  /** User-specific access permissions for this object. */
+  effectiveAccess: EffectiveAccess;
+};
 
 export type ExposesPermissions = {
   /** A list of allowed actions for the given user on this entity (and its descendants). */
@@ -3924,6 +4024,15 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & {
    * associated with their values.
    */
   type: SchemaPropertyType;
+};
+
+/** A global ACL */
+export type GlobalAccessControlList = ExposesPermissions & {
+  __typename?: 'GlobalAccessControlList';
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
 };
 
 /** The global configuration for this installation of WDP. */
@@ -4357,9 +4466,11 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   /** Announcements for a specific entity */
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
-  applicableRoles?: Maybe<Array<Role>>;
+  applicableRoles: Array<Role>;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
+  /** The role(s) that the current user could assign to other users on this entity, if applicable. */
+  assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
   /** The date this entity was made available */
@@ -4404,6 +4515,8 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  /** The initial ordering to display for this entity. */
+  initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
   issn?: Maybe<Scalars['String']>;
   /** The date this entity was issued */
@@ -5499,6 +5612,8 @@ export type Ordering = Node & Sluggable & {
   children: OrderingEntryConnection;
   /** A constant ordering should be treated as not being able to invert itself. */
   constant: Scalars['Boolean'];
+  /** The number of entries currently visible within the ordering */
+  count: Scalars['Int'];
   createdAt: Scalars['ISO8601DateTime'];
   /** Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted. */
   disabled: Scalars['Boolean'];
@@ -5922,12 +6037,25 @@ export type Paginated = {
   pageInfo: PageInfo;
 };
 
-/** A grant of a specific permission within a specific scope */
+/** A grant of a specific permission within a specific scope. */
 export type PermissionGrant = {
   __typename?: 'PermissionGrant';
+  /** Whether this permission has been granted in the current context. */
   allowed: Scalars['Boolean'];
+  /** The unqualified, single name for this permission. */
   name: Scalars['String'];
+  /** The fully-qualified path for this permission (composed of scope + name). */
+  path: Scalars['String'];
+  /** The scope (or namespace) for this permission. */
   scope?: Maybe<Scalars['String']>;
+};
+
+/** A mapping of permissions specific to a certain scope */
+export type PermissionGrid = {
+  /** A list of allowed actions for the given user on this entity (and its descendants). */
+  allowedActions: Array<Scalars['String']>;
+  /** An array of hashes that can be requested to load in a context */
+  permissions: Array<PermissionGrant>;
 };
 
 /** A person that has made contributions */
@@ -6016,6 +6144,8 @@ export type Query = {
   communities: CommunityConnection;
   /** Look up a community by slug */
   community?: Maybe<Community>;
+  /** Look up a community by its title */
+  communityByTitle?: Maybe<Community>;
   /** Look up a contributor by slug */
   contributor?: Maybe<AnyContributor>;
   /** Look up a contributor `by` a certain `value`. */
@@ -6104,6 +6234,12 @@ export type QueryCommunitiesArgs = {
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryCommunityArgs = {
   slug: Scalars['Slug'];
+};
+
+
+/** The entry point for retrieving data from within the WDP API. */
+export type QueryCommunityByTitleArgs = {
+  title: Scalars['String'];
 };
 
 
@@ -6329,14 +6465,29 @@ export type RevokeAccessPayload = StandardMutationPayload & {
 };
 
 /** A named role in the WDP API */
-export type Role = Node & Sluggable & {
+export type Role = ExposesEffectiveAccess & Node & Sluggable & {
   __typename?: 'Role';
   /** The access control list for this specific role */
   accessControlList: AccessControlList;
   /** A list of action names that have been granted to this role */
   allowedActions: Array<Scalars['String']>;
   createdAt: Scalars['ISO8601DateTime'];
+  /** Only relevant for `custom` roles, this affects sorting. */
+  customPriority?: Maybe<Scalars['Int']>;
+  /** User-specific access permissions for this object. */
+  effectiveAccess: EffectiveAccess;
+  /** The global access control list that this assigned role implies, based on its sort order. */
+  globalAccessControlList: GlobalAccessControlList;
+  /** A list of global action names that this role implies, based on its sort order. */
+  globalAllowedActions: Array<Scalars['String']>;
   id: Scalars['ID'];
+  /**
+   * For `system` roles, this will be populated with the unique identifier
+   * that marks this as a system role.
+   */
+  identifier?: Maybe<RoleSystemIdentifier>;
+  /** The specific kind of role this is, based on how it entered the WDP-API. */
+  kind: RoleKind;
   /** The human readable name of the role within the system */
   name: Scalars['String'];
   /**
@@ -6345,6 +6496,19 @@ export type Role = Node & Sluggable & {
    * without having to specify them explicitly in the GraphQL request
    */
   permissions: Array<PermissionGrant>;
+  /**
+   * Used internally to sort roles and ensure certain role types are above
+   * and below others, irrespective of priority.
+   */
+  primacy: RolePrimacy;
+  /**
+   * The calculated sort priority for this role.
+   *
+   * * For `custom` roles, it is based on `custom_priority`.
+   * * For `system` roles, it is based on hard-coded values within the system
+   *   and cannot be modified.
+   */
+  priority: Scalars['Int'];
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
 };
@@ -6369,8 +6533,18 @@ export type RoleEdge = {
   node: Role;
 };
 
+/** A categorization of a `Role` based on how it gets into the WDP-API. */
+export type RoleKind =
+  /** Custom roles are created and managed through the `createRole`, `updateRole`, and `destroyRole` mutations. */
+  | 'CUSTOM'
+  /** System roles are shipped by default with WDP-API and cannot be modified. */
+  | 'SYSTEM'
+  | '%future added value';
+
 /** Sort roles by a specific property and order */
 export type RoleOrder =
+  /** Sort roles by default priority within the system */
+  | 'DEFAULT'
   /** Sort roles by newest created date */
   | 'RECENT'
   /** Sort roles by oldest created date */
@@ -6379,6 +6553,37 @@ export type RoleOrder =
   | 'NAME_ASCENDING'
   /** Sort roles by their name Z-A */
   | 'NAME_DESCENDING'
+  | '%future added value';
+
+/** The level of importance any given role has when it comes to determing what a user's "primary" role is. */
+export type RolePrimacy =
+  /** Values with this primacy level take priority over all others. They cannot be directly assigned through the API. */
+  | 'HIGH'
+  /** Values with this primacy level are the default. Any custom roles will be in this scope. */
+  | 'DEFAULT'
+  /** Values with this primacy level are always sorted after every other role. */
+  | 'LOW'
+  | '%future added value';
+
+/** This will identify _which_ `system` role this is, if applicable. See `RoleKind` for more information. */
+export type RoleSystemIdentifier =
+  /** A global administrator. This role cannot be directly assigned. */
+  | 'ADMIN'
+  /**
+   * A manager can be assigned to handle most `Community` and other entity management concerns.
+   *
+   * They can also appoint other roles (except for other managers) to any entity they manage.
+   */
+  | 'MANAGER'
+  /** An editor has basic update permissions for a specific point in the hierarchy. */
+  | 'EDITOR'
+  /**
+   * A reader is anyone who has been given explicit read-access to an entity.
+   * This role is primarily used by the administration UI.
+   *
+   * **Note**: Anonymous users can still view public entities in the frontend.
+   */
+  | 'READER'
   | '%future added value';
 
 /** A property on a `SchemaInstance`. */
@@ -7963,6 +8168,14 @@ export type User = AccessGrantSubject & ExposesPermissions & Node & Sluggable & 
   allowedActions: Array<Scalars['String']>;
   /** Is this an anonymous / unauthenticated user? */
   anonymous: Scalars['Boolean'];
+  /**
+   * The roles this user has access to assign based on their `primaryRole`,
+   * outside of any hierarchical context.
+   *
+   * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+   * because it will ensure that the user sufficient permissions at that level.
+   */
+  assignableRoles: Array<Role>;
   /** A user's avatar */
   avatar: ImageAttachment;
   /** Configurable metadata for the avatar attachment */
@@ -7995,6 +8208,8 @@ export type User = AccessGrantSubject & ExposesPermissions & Node & Sluggable & 
   name?: Maybe<Scalars['String']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
+  /** The primary role associated with this subject. */
+  primaryRole?: Maybe<Role>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
   /** Can this user upload anything at all? */
@@ -8251,6 +8466,14 @@ export type UserGroup = AccessGrantSubject & Node & Sluggable & {
   accessGrants: AnyUserGroupAccessGrantConnection;
   /** A polymorphic connection for access grants from a subject */
   allAccessGrants: AnyAccessGrantConnection;
+  /**
+   * The roles this user has access to assign based on their `primaryRole`,
+   * outside of any hierarchical context.
+   *
+   * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+   * because it will ensure that the user sufficient permissions at that level.
+   */
+  assignableRoles: Array<Role>;
   /** All access grants for this group on a collection */
   collectionAccessGrants: UserGroupCollectionAccessGrantConnection;
   /** All access grants for this group on a community */
@@ -8261,6 +8484,8 @@ export type UserGroup = AccessGrantSubject & Node & Sluggable & {
   /** All access grants for this group on an item */
   itemAccessGrants: UserGroupItemAccessGrantConnection;
   name: Scalars['String'];
+  /** The primary role associated with this subject. */
+  primaryRole?: Maybe<Role>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
   users: UserConnection;
@@ -8715,10 +8940,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AccessControlList: ResolverTypeWrapper<AccessControlList>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   AccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   AccessGrantEntityFilter: AccessGrantEntityFilter;
   AccessGrantSubject: ResolversTypes['User'] | ResolversTypes['UserGroup'];
-  String: ResolverTypeWrapper<Scalars['String']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   AccessGrantSubjectFilter: AccessGrantSubjectFilter;
   Accessible: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
@@ -8768,8 +8993,9 @@ export type ResolversTypes = {
   AssetKind: AssetKind;
   AssetKindFilter: AssetKindFilter;
   AssetPDF: ResolverTypeWrapper<Omit<AssetPdf, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
-  AssetProperty: ResolverTypeWrapper<Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
+  AssetPermissionGrid: ResolverTypeWrapper<AssetPermissionGrid>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  AssetProperty: ResolverTypeWrapper<Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
   AssetSelectOption: ResolverTypeWrapper<AssetSelectOption>;
   AssetUnknown: ResolverTypeWrapper<Omit<AssetUnknown, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetVideo: ResolverTypeWrapper<Omit<AssetVideo, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
@@ -8777,6 +9003,7 @@ export type ResolversTypes = {
   Attachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   AttachmentStorage: AttachmentStorage;
   BooleanProperty: ResolverTypeWrapper<BooleanProperty>;
+  CRUDPermissionGrid: ResolversTypes['AssetPermissionGrid'] | ResolversTypes['EntityPermissionGrid'];
   ChildEntity: ResolversTypes['Collection'] | ResolversTypes['Item'];
   Collection: ResolverTypeWrapper<Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['CollectionParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversTypes['AnySchemaProperty']> }>;
   CollectionConnection: ResolverTypeWrapper<CollectionConnection>;
@@ -8852,6 +9079,7 @@ export type ResolversTypes = {
   DestroyPageInput: DestroyPageInput;
   DestroyPagePayload: ResolverTypeWrapper<DestroyPagePayload>;
   Direction: Direction;
+  EffectiveAccess: ResolverTypeWrapper<EffectiveAccess>;
   EmailProperty: ResolverTypeWrapper<EmailProperty>;
   EntitiesProperty: ResolverTypeWrapper<Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversTypes['AnyEntity']> }>;
   Entity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
@@ -8869,16 +9097,19 @@ export type ResolversTypes = {
   EntityLinkScope: EntityLinkScope;
   EntityOrder: EntityOrder;
   EntityPermissionFilter: EntityPermissionFilter;
+  EntityPermissionGrid: ResolverTypeWrapper<EntityPermissionGrid>;
   EntityProperty: ResolverTypeWrapper<Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   EntityScope: EntityScope;
   EntitySelectOption: ResolverTypeWrapper<Omit<EntitySelectOption, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   EntityVisibility: EntityVisibility;
-  ExposesPermissions: ResolversTypes['ContextualPermission'] | ResolversTypes['User'];
+  ExposesEffectiveAccess: ResolversTypes['Role'];
+  ExposesPermissions: ResolversTypes['AccessControlList'] | ResolversTypes['AssetPermissionGrid'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EffectiveAccess'] | ResolversTypes['EntityPermissionGrid'] | ResolversTypes['GlobalAccessControlList'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   FullText: ResolverTypeWrapper<FullText>;
   FullTextKind: FullTextKind;
   FullTextProperty: ResolverTypeWrapper<FullTextProperty>;
+  GlobalAccessControlList: ResolverTypeWrapper<GlobalAccessControlList>;
   GlobalConfiguration: ResolverTypeWrapper<GlobalConfiguration>;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
@@ -8962,6 +9193,7 @@ export type ResolversTypes = {
   PageInfo: ResolverTypeWrapper<PageInfo>;
   Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityDescendantConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
+  PermissionGrid: ResolversTypes['AssetPermissionGrid'] | ResolversTypes['EntityPermissionGrid'];
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
   Query: ResolverTypeWrapper<{}>;
@@ -8975,7 +9207,10 @@ export type ResolversTypes = {
   Role: ResolverTypeWrapper<Role>;
   RoleConnection: ResolverTypeWrapper<RoleConnection>;
   RoleEdge: ResolverTypeWrapper<RoleEdge>;
+  RoleKind: RoleKind;
   RoleOrder: RoleOrder;
+  RolePrimacy: RolePrimacy;
+  RoleSystemIdentifier: RoleSystemIdentifier;
   ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   SchemaCoreDefinition: ResolverTypeWrapper<SchemaCoreDefinition>;
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
@@ -9089,9 +9324,9 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AccessControlList: AccessControlList;
+  String: Scalars['String'];
   AccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   AccessGrantSubject: ResolversParentTypes['User'] | ResolversParentTypes['UserGroup'];
-  String: Scalars['String'];
   Int: Scalars['Int'];
   Accessible: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   AlterSchemaVersionInput: AlterSchemaVersionInput;
@@ -9137,14 +9372,16 @@ export type ResolversParentTypes = {
   AssetDocument: Omit<AssetDocument, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetImage: Omit<AssetImage, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetPDF: Omit<AssetPdf, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
-  AssetProperty: Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
+  AssetPermissionGrid: AssetPermissionGrid;
   Boolean: Scalars['Boolean'];
+  AssetProperty: Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
   AssetSelectOption: AssetSelectOption;
   AssetUnknown: Omit<AssetUnknown, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetVideo: Omit<AssetVideo, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetsProperty: Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversParentTypes['AnyAsset']> };
   Attachable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   BooleanProperty: BooleanProperty;
+  CRUDPermissionGrid: ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['EntityPermissionGrid'];
   ChildEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   Collection: Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversParentTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['CollectionParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversParentTypes['AnySchemaProperty']> };
   CollectionConnection: CollectionConnection;
@@ -9212,6 +9449,7 @@ export type ResolversParentTypes = {
   DestroyOrderingPayload: DestroyOrderingPayload;
   DestroyPageInput: DestroyPageInput;
   DestroyPagePayload: DestroyPagePayload;
+  EffectiveAccess: EffectiveAccess;
   EmailProperty: EmailProperty;
   EntitiesProperty: Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversParentTypes['AnyEntity']> };
   Entity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
@@ -9222,13 +9460,16 @@ export type ResolversParentTypes = {
   EntityLink: Omit<EntityLink, 'source' | 'target'> & { source: ResolversParentTypes['AnyEntity'], target: ResolversParentTypes['AnyEntity'] };
   EntityLinkConnection: EntityLinkConnection;
   EntityLinkEdge: EntityLinkEdge;
+  EntityPermissionGrid: EntityPermissionGrid;
   EntityProperty: Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   EntitySelectOption: Omit<EntitySelectOption, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
-  ExposesPermissions: ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['User'];
+  ExposesEffectiveAccess: ResolversParentTypes['Role'];
+  ExposesPermissions: ResolversParentTypes['AccessControlList'] | ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EffectiveAccess'] | ResolversParentTypes['EntityPermissionGrid'] | ResolversParentTypes['GlobalAccessControlList'] | ResolversParentTypes['User'];
   FloatProperty: FloatProperty;
   Float: Scalars['Float'];
   FullText: FullText;
   FullTextProperty: FullTextProperty;
+  GlobalAccessControlList: GlobalAccessControlList;
   GlobalConfiguration: GlobalConfiguration;
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
@@ -9298,6 +9539,7 @@ export type ResolversParentTypes = {
   PageInfo: PageInfo;
   Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityDescendantConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
   PermissionGrant: PermissionGrant;
+  PermissionGrid: ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['EntityPermissionGrid'];
   PersonContributor: PersonContributor;
   Query: {};
   ReferencesGlobalEntityDates: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
@@ -9410,7 +9652,11 @@ export type ResolversParentTypes = {
 };
 
 export type AccessControlListResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessControlList'] = ResolversParentTypes['AccessControlList']> = {
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  collections?: Resolver<ResolversTypes['EntityPermissionGrid'], ParentType, ContextType>;
+  items?: Resolver<ResolversTypes['EntityPermissionGrid'], ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  self?: Resolver<ResolversTypes['EntityPermissionGrid'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -9424,6 +9670,8 @@ export type AccessGrantResolvers<ContextType = any, ParentType extends Resolvers
 export type AccessGrantSubjectResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessGrantSubject'] = ResolversParentTypes['AccessGrantSubject']> = {
   __resolveType: TypeResolveFn<'User' | 'UserGroup', ParentType, ContextType>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<AccessGrantSubjectAllAccessGrantsArgs, 'entity' | 'order' | 'pageDirection'>>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  primaryRole?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
 };
 
 export type AccessibleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Accessible'] = ResolversParentTypes['Accessible']> = {
@@ -9728,6 +9976,16 @@ export type AssetPdfResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AssetPermissionGridResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetPermissionGrid'] = ResolversParentTypes['AssetPermissionGrid']> = {
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  create?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  delete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  update?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type AssetPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetProperty'] = ResolversParentTypes['AssetProperty']> = {
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   asset?: Resolver<Maybe<ResolversTypes['AnyAsset']>, ParentType, ContextType>;
@@ -9825,6 +10083,16 @@ export type BooleanPropertyResolvers<ContextType = any, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CrudPermissionGridResolvers<ContextType = any, ParentType extends ResolversParentTypes['CRUDPermissionGrid'] = ResolversParentTypes['CRUDPermissionGrid']> = {
+  __resolveType: TypeResolveFn<'AssetPermissionGrid' | 'EntityPermissionGrid', ParentType, ContextType>;
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  create?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  delete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  update?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
 export type ChildEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['ChildEntity'] = ResolversParentTypes['ChildEntity']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
@@ -9835,7 +10103,8 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ChildEntityAncestorOfTypeArgs, 'schema'>>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<ChildEntityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<ChildEntityAnnouncementsArgs, 'order' | 'pageDirection'>>;
-  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ChildEntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
@@ -9851,6 +10120,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -9890,8 +10160,9 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorOfTypeArgs, 'schema'>>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CollectionAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CollectionAnnouncementsArgs, 'order' | 'pageDirection'>>;
-  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CollectionAvailableEntitiesForArgs, 'fullPath'>>;
@@ -9918,6 +10189,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
@@ -10011,8 +10283,9 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CommunityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CommunityAnnouncementsArgs, 'order' | 'pageDirection'>>;
-  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CommunityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CommunityAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
@@ -10026,6 +10299,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CommunityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CommunityLinksArgs, 'order' | 'pageDirection'>>;
   logo?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -10434,6 +10708,13 @@ export type DestroyPagePayloadResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EffectiveAccessResolvers<ContextType = any, ParentType extends ResolversParentTypes['EffectiveAccess'] = ResolversParentTypes['EffectiveAccess']> = {
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  availableActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type EmailPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['EmailProperty'] = ResolversParentTypes['EmailProperty']> = {
   address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -10475,13 +10756,15 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<EntityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<EntityAnnouncementsArgs, 'order' | 'pageDirection'>>;
-  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<EntityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection'>>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingArgs, 'identifier'>>;
@@ -10561,6 +10844,18 @@ export type EntityLinkEdgeResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type EntityPermissionGridResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityPermissionGrid'] = ResolversParentTypes['EntityPermissionGrid']> = {
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  assets?: Resolver<ResolversTypes['AssetPermissionGrid'], ParentType, ContextType>;
+  create?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  delete?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  manageAccess?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  read?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  update?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type EntityPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['EntityProperty'] = ResolversParentTypes['EntityProperty']> = {
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   availableEntities?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType>;
@@ -10589,8 +10884,13 @@ export type EntitySelectOptionResolvers<ContextType = any, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ExposesEffectiveAccessResolvers<ContextType = any, ParentType extends ResolversParentTypes['ExposesEffectiveAccess'] = ResolversParentTypes['ExposesEffectiveAccess']> = {
+  __resolveType: TypeResolveFn<'Role', ParentType, ContextType>;
+  effectiveAccess?: Resolver<ResolversTypes['EffectiveAccess'], ParentType, ContextType>;
+};
+
 export type ExposesPermissionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ExposesPermissions'] = ResolversParentTypes['ExposesPermissions']> = {
-  __resolveType: TypeResolveFn<'ContextualPermission' | 'User', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AccessControlList' | 'AssetPermissionGrid' | 'ContextualPermission' | 'EffectiveAccess' | 'EntityPermissionGrid' | 'GlobalAccessControlList' | 'User', ParentType, ContextType>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
 };
@@ -10632,6 +10932,12 @@ export type FullTextPropertyResolvers<ContextType = any, ParentType extends Reso
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GlobalAccessControlListResolvers<ContextType = any, ParentType extends ResolversParentTypes['GlobalAccessControlList'] = ResolversParentTypes['GlobalAccessControlList']> = {
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -10823,8 +11129,9 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorOfTypeArgs, 'schema'>>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<ItemAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<ItemAnnouncementsArgs, 'order' | 'pageDirection'>>;
-  applicableRoles?: Resolver<Maybe<Array<ResolversTypes['Role']>>, ParentType, ContextType>;
+  applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection'>>;
   available?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<ItemAvailableEntitiesForArgs, 'fullPath'>>;
@@ -10849,6 +11156,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
@@ -11097,6 +11405,7 @@ export type OrderDefinitionResolvers<ContextType = any, ParentType extends Resol
 export type OrderingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ordering'] = ResolversParentTypes['Ordering']> = {
   children?: Resolver<ResolversTypes['OrderingEntryConnection'], ParentType, ContextType, RequireFields<OrderingChildrenArgs, 'order' | 'pageDirection'>>;
   constant?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   disabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   disabledAt?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
@@ -11271,8 +11580,15 @@ export type PaginatedResolvers<ContextType = any, ParentType extends ResolversPa
 export type PermissionGrantResolvers<ContextType = any, ParentType extends ResolversParentTypes['PermissionGrant'] = ResolversParentTypes['PermissionGrant']> = {
   allowed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   scope?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PermissionGridResolvers<ContextType = any, ParentType extends ResolversParentTypes['PermissionGrid'] = ResolversParentTypes['PermissionGrid']> = {
+  __resolveType: TypeResolveFn<'AssetPermissionGrid' | 'EntityPermissionGrid', ParentType, ContextType>;
+  allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
 };
 
 export type PersonContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['PersonContributor'] = ResolversParentTypes['PersonContributor']> = {
@@ -11311,6 +11627,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   collectionContribution?: Resolver<Maybe<ResolversTypes['CollectionContribution']>, ParentType, ContextType, RequireFields<QueryCollectionContributionArgs, 'slug'>>;
   communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<QueryCommunitiesArgs, 'order' | 'pageDirection'>>;
   community?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityArgs, 'slug'>>;
+  communityByTitle?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityByTitleArgs, 'title'>>;
   contributor?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorArgs, 'slug'>>;
   contributorLookup?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorLookupArgs, 'by' | 'value' | 'order'>>;
   contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<QueryContributorsArgs, 'order' | 'kind' | 'pageDirection'>>;
@@ -11374,9 +11691,17 @@ export type RoleResolvers<ContextType = any, ParentType extends ResolversParentT
   accessControlList?: Resolver<ResolversTypes['AccessControlList'], ParentType, ContextType>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  customPriority?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  effectiveAccess?: Resolver<ResolversTypes['EffectiveAccess'], ParentType, ContextType>;
+  globalAccessControlList?: Resolver<ResolversTypes['GlobalAccessControlList'], ParentType, ContextType>;
+  globalAllowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  identifier?: Resolver<Maybe<ResolversTypes['RoleSystemIdentifier']>, ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['RoleKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  primacy?: Resolver<ResolversTypes['RolePrimacy'], ParentType, ContextType>;
+  priority?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11870,6 +12195,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<UserAllAccessGrantsArgs, 'entity' | 'order' | 'pageDirection'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   anonymous?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   avatar?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   avatarMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   collectionAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<UserCollectionAccessGrantsArgs, 'order' | 'pageDirection'>>;
@@ -11887,6 +12213,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<UserItemsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection'>>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
+  primaryRole?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   uploadAccess?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -11980,6 +12307,7 @@ export type UserErrorResolvers<ContextType = any, ParentType extends ResolversPa
 export type UserGroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserGroup'] = ResolversParentTypes['UserGroup']> = {
   accessGrants?: Resolver<ResolversTypes['AnyUserGroupAccessGrantConnection'], ParentType, ContextType, RequireFields<UserGroupAccessGrantsArgs, 'entity' | 'order' | 'pageDirection'>>;
   allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<UserGroupAllAccessGrantsArgs, 'entity' | 'order' | 'pageDirection'>>;
+  assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   collectionAccessGrants?: Resolver<ResolversTypes['UserGroupCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<UserGroupCollectionAccessGrantsArgs, 'order' | 'pageDirection'>>;
   communityAccessGrants?: Resolver<ResolversTypes['UserGroupCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<UserGroupCommunityAccessGrantsArgs, 'order' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -11987,6 +12315,7 @@ export type UserGroupResolvers<ContextType = any, ParentType extends ResolversPa
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   itemAccessGrants?: Resolver<ResolversTypes['UserGroupItemAccessGrantConnection'], ParentType, ContextType, RequireFields<UserGroupItemAccessGrantsArgs, 'order' | 'pageDirection'>>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  primaryRole?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<UserGroupUsersArgs, 'order' | 'pageDirection'>>;
@@ -12176,6 +12505,7 @@ export type Resolvers<ContextType = any> = {
   AssetDocument?: AssetDocumentResolvers<ContextType>;
   AssetImage?: AssetImageResolvers<ContextType>;
   AssetPDF?: AssetPdfResolvers<ContextType>;
+  AssetPermissionGrid?: AssetPermissionGridResolvers<ContextType>;
   AssetProperty?: AssetPropertyResolvers<ContextType>;
   AssetSelectOption?: AssetSelectOptionResolvers<ContextType>;
   AssetUnknown?: AssetUnknownResolvers<ContextType>;
@@ -12183,6 +12513,7 @@ export type Resolvers<ContextType = any> = {
   AssetsProperty?: AssetsPropertyResolvers<ContextType>;
   Attachable?: AttachableResolvers<ContextType>;
   BooleanProperty?: BooleanPropertyResolvers<ContextType>;
+  CRUDPermissionGrid?: CrudPermissionGridResolvers<ContextType>;
   ChildEntity?: ChildEntityResolvers<ContextType>;
   Collection?: CollectionResolvers<ContextType>;
   CollectionConnection?: CollectionConnectionResolvers<ContextType>;
@@ -12228,6 +12559,7 @@ export type Resolvers<ContextType = any> = {
   DestroyMutationPayload?: DestroyMutationPayloadResolvers<ContextType>;
   DestroyOrderingPayload?: DestroyOrderingPayloadResolvers<ContextType>;
   DestroyPagePayload?: DestroyPagePayloadResolvers<ContextType>;
+  EffectiveAccess?: EffectiveAccessResolvers<ContextType>;
   EmailProperty?: EmailPropertyResolvers<ContextType>;
   EntitiesProperty?: EntitiesPropertyResolvers<ContextType>;
   Entity?: EntityResolvers<ContextType>;
@@ -12238,12 +12570,15 @@ export type Resolvers<ContextType = any> = {
   EntityLink?: EntityLinkResolvers<ContextType>;
   EntityLinkConnection?: EntityLinkConnectionResolvers<ContextType>;
   EntityLinkEdge?: EntityLinkEdgeResolvers<ContextType>;
+  EntityPermissionGrid?: EntityPermissionGridResolvers<ContextType>;
   EntityProperty?: EntityPropertyResolvers<ContextType>;
   EntitySelectOption?: EntitySelectOptionResolvers<ContextType>;
+  ExposesEffectiveAccess?: ExposesEffectiveAccessResolvers<ContextType>;
   ExposesPermissions?: ExposesPermissionsResolvers<ContextType>;
   FloatProperty?: FloatPropertyResolvers<ContextType>;
   FullText?: FullTextResolvers<ContextType>;
   FullTextProperty?: FullTextPropertyResolvers<ContextType>;
+  GlobalAccessControlList?: GlobalAccessControlListResolvers<ContextType>;
   GlobalConfiguration?: GlobalConfigurationResolvers<ContextType>;
   GrantAccessPayload?: GrantAccessPayloadResolvers<ContextType>;
   GroupProperty?: GroupPropertyResolvers<ContextType>;
@@ -12304,6 +12639,7 @@ export type Resolvers<ContextType = any> = {
   PageInfo?: PageInfoResolvers<ContextType>;
   Paginated?: PaginatedResolvers<ContextType>;
   PermissionGrant?: PermissionGrantResolvers<ContextType>;
+  PermissionGrid?: PermissionGridResolvers<ContextType>;
   PersonContributor?: PersonContributorResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ReferencesGlobalEntityDates?: ReferencesGlobalEntityDatesResolvers<ContextType>;

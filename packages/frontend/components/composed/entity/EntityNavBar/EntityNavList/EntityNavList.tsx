@@ -11,7 +11,10 @@ import {
   Button,
   Link,
 } from "components/atomic";
-import { EntityNavListFragment$key } from "@/relay/EntityNavListFragment.graphql";
+import {
+  EntityNavListFragment$data,
+  EntityNavListFragment$key,
+} from "@/relay/EntityNavListFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 
 export default function EntityNavList({ data }: Props) {
@@ -30,33 +33,32 @@ export default function EntityNavList({ data }: Props) {
 
   const typeRoute = getRouteByEntityType(entity?.__typename);
 
-  const activeOrderings = entity
-    ? entity.orderings.edges.filter(
-        ({ node }) => node.children?.pageInfo?.totalCount
-      )
-    : [];
+  const orderings = entity?.orderings?.nodes || [];
+
   const dropdownLinks = slug
-    ? activeOrderings.length === 1
-      ? activeOrderings.map(({ node }, i) => (
+    ? orderings.length === 1
+      ? orderings.map(({ identifier, name }: Node) => (
           <NamedLink
-            key={i}
+            key={identifier}
             route={`${typeRoute}.browse`}
-            routeParams={{ slug, ordering: node.identifier }}
+            routeParams={{ slug, ordering: identifier }}
             passHref
           >
             <Button size="sm" secondary>
-              {t("nav.browse_schema", { schema: node.name })}
+              {t("nav.browse_schema", { schema: name })}
             </Button>
           </NamedLink>
         ))
-      : activeOrderings.map(({ node }, i) => (
+      : orderings.map(({ identifier, name, count }: Node) => (
           <NamedLink
-            key={i}
+            key={identifier}
             route={`${typeRoute}.browse`}
-            routeParams={{ slug, ordering: node.identifier }}
+            routeParams={{ slug, ordering: identifier }}
             passHref
           >
-            <Link>{node.name}</Link>
+            <Link>
+              {name} ({count})
+            </Link>
           </NamedLink>
         ))
     : [];
@@ -101,21 +103,17 @@ type Props = {
   data?: EntityNavListFragment$key | null;
 };
 
+type Node = EntityNavListFragment$data["orderings"]["nodes"][number];
+
 const fragment = graphql`
   fragment EntityNavListFragment on Entity {
     __typename
     orderings {
-      edges {
-        node {
-          name
-          slug
-          identifier
-          children {
-            pageInfo {
-              totalCount
-            }
-          }
-        }
+      nodes {
+        name
+        slug
+        identifier
+        count
       }
     }
     pages {
