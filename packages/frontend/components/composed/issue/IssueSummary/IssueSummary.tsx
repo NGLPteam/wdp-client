@@ -50,8 +50,8 @@ export default function IssueSummary({ data, showReadMore }: Props) {
             {issue.published.value && (
               <li>
                 <PrecisionDate
+                  label={t("date.published")}
                   data={issue.published}
-                  label={t("common.published")}
                 />
               </li>
             )}

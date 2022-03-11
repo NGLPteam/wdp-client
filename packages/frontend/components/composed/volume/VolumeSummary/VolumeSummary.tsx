@@ -55,7 +55,7 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
               <li>
                 <PrecisionDate
                   data={volume.published}
-                  label={t("common.published")}
+                  label={t("date.published")}
                 />
               </li>
             )}

@@ -74,10 +74,7 @@ export default function FeaturedIssue({ data, header }: Props) {
             <DotList className="t-copy-lighter">
               {issue.published.value && (
                 <li>
-                  <PrecisionDate
-                    data={issue.published}
-                    label={t("common.published")}
-                  />
+                  <PrecisionDate data={issue.published} />
                 </li>
               )}
               {issue.articles && (

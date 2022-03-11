@@ -24,7 +24,7 @@ export default function SeriesHero({ data }: Props) {
         LeftComponent={
           <>
             {entity.published?.value && (
-              <PrecisionDate data={entity.published} label="common.published" />
+              <PrecisionDate data={entity.published} />
             )}
             {entity.about?.content && (
               <Markdown.Summary className="t-rte">

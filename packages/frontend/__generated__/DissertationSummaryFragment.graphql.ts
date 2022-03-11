@@ -10,12 +10,12 @@ export type DissertationSummaryFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
+    readonly slug: string;
+    readonly summary: string | null;
     readonly cover: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
     };
-    readonly slug: string;
-    readonly summary: string | null;
     readonly contributions: {
         readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
     };
@@ -23,11 +23,6 @@ export type DissertationSummaryFragment = {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
-    readonly issued: {
-        readonly dateWithPrecision?: {
-            readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-        } | null | undefined;
-    } | null;
     readonly __typename: "Item";
     readonly " $refType": "DissertationSummaryFragment";
 };
@@ -39,13 +34,7 @@ export type DissertationSummaryFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "args": null,
-  "kind": "FragmentSpread",
-  "name": "PrecisionDateFragment"
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
       "defaultValue": false,
@@ -61,14 +50,14 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "__typename",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "__typename",
+      "name": "id",
       "storageKey": null
     },
     {
@@ -83,6 +72,20 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "subtitle",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "summary",
       "storageKey": null
     },
     {
@@ -106,20 +109,6 @@ return {
           "name": "CoverImageFragment"
         }
       ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "summary",
       "storageKey": null
     },
     {
@@ -153,50 +142,17 @@ return {
           "name": "value",
           "storageKey": null
         },
-        (v0/*: any*/)
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        }
       ],
       "storageKey": null
-    },
-    {
-      "alias": "issued",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "issued"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "VariablePrecisionDate",
-              "kind": "LinkedField",
-              "name": "dateWithPrecision",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/)
-              ],
-              "storageKey": null
-            }
-          ],
-          "type": "VariableDateProperty",
-          "abstractKey": null
-        }
-      ],
-      "storageKey": "schemaProperty(fullPath:\"issued\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-})();
-(node as any).hash = 'd57484169cc54650a09eaafcc998d981';
+(node as any).hash = 'a580098ab4864530db07974ff10290d1';
 export default node;

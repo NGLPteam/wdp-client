@@ -16,7 +16,6 @@
       "show_more": "Show More",
       "read_more": "Read More",
       "last_updated": "Last Updated {{value}}",
-      "published": "Published",
       "back": "Back",
       "back_to_name": "Back to {{name}}",
       "back_to_top": "Back to Top",
@@ -26,6 +25,10 @@
       "loading_pdf": "Loading PDF",
       "avatar": "Avatar",
       "no_content": "No content found"
+    },
+    "date": {
+      "published": "Published",
+      "updated": "Last Updated"
     },
     "list": {
       "page_number": "Page {{number}}",
