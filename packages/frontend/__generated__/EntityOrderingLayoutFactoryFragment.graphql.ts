@@ -9,8 +9,8 @@ export type EntityOrderingLayoutFactoryFragment = {
     readonly schemaDefinition: {
         readonly identifier: string;
     };
-    readonly ordering: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingLayoutFragment" | "IssueOrderingLayoutFragment">;
+    readonly initialOrdering: {
+        readonly identifier: string;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment">;
     readonly " $refType": "EntityOrderingLayoutFactoryFragment";
@@ -26,24 +26,15 @@ export type EntityOrderingLayoutFactoryFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "kind": "Variable",
-    "name": "page",
-    "variableName": "page"
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "identifier",
+    "storageKey": null
   }
 ];
 return {
-  "argumentDefinitions": [
-    {
-      "defaultValue": "items",
-      "kind": "LocalArgument",
-      "name": "identifier"
-    },
-    {
-      "defaultValue": 1,
-      "kind": "LocalArgument",
-      "name": "page"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "EntityOrderingLayoutFactoryFragment",
@@ -55,42 +46,17 @@ return {
       "kind": "LinkedField",
       "name": "schemaDefinition",
       "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        }
-      ],
+      "selections": (v0/*: any*/),
       "storageKey": null
     },
     {
       "alias": null,
-      "args": [
-        {
-          "kind": "Variable",
-          "name": "identifier",
-          "variableName": "identifier"
-        }
-      ],
+      "args": null,
       "concreteType": "Ordering",
       "kind": "LinkedField",
-      "name": "ordering",
+      "name": "initialOrdering",
       "plural": false,
-      "selections": [
-        {
-          "args": (v0/*: any*/),
-          "kind": "FragmentSpread",
-          "name": "EntityOrderingLayoutFragment"
-        },
-        {
-          "args": (v0/*: any*/),
-          "kind": "FragmentSpread",
-          "name": "IssueOrderingLayoutFragment"
-        }
-      ],
+      "selections": (v0/*: any*/),
       "storageKey": null
     },
     {
@@ -103,5 +69,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'ef22adfca7a16b0484dc92c0f52755cc';
+(node as any).hash = '66f1422c002cb0e2bb7f5deeb67b56c1';
 export default node;

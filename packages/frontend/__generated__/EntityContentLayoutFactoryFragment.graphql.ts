@@ -12,7 +12,7 @@ export type EntityContentLayoutFactoryFragment = {
     readonly contributions?: {
         readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "EntityContentFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "IssueLayoutFragment" | "VolumeLayoutFragment" | "SeriesLayoutFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment" | "EntityOrderingLayoutFactoryFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
     readonly " $refType": "EntityContentLayoutFactoryFragment";
 };
 export type EntityContentLayoutFactoryFragment$data = EntityContentLayoutFactoryFragment;
@@ -45,12 +45,12 @@ var v0 = {
 v1 = {
   "args": null,
   "kind": "FragmentSpread",
-  "name": "EntityLayoutFragment"
+  "name": "EntityLayoutFactoryFragment"
 },
 v2 = {
   "args": null,
   "kind": "FragmentSpread",
-  "name": "EntityContentFragment"
+  "name": "EntityOrderingLayoutFactoryFragment"
 };
 return {
   "argumentDefinitions": [
@@ -79,21 +79,6 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "JournalContentFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "IssueLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "VolumeLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "SeriesLayoutFragment"
         }
       ],
       "type": "Collection",
@@ -145,5 +130,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'd5ffcdf6dcef7a59e18928fe606ae464';
+(node as any).hash = '796351f0fa7a808c9c11badb6c39d226';
 export default node;

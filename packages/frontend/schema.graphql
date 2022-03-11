@@ -3,9 +3,30 @@ schema {
   mutation: Mutation
 }
 
-"""An access control list"""
-type AccessControlList {
+"""A scoped access control list for a specific point in the hierarchy"""
+type AccessControlList implements ExposesPermissions {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  """
+  Permissions that will be applied on the attached entity's subcollections.
+  
+  """
+  collections: EntityPermissionGrid!
+  """
+  Permissions that will be applied on the attached entity's subitems.
+  
+  """
+  items: EntityPermissionGrid!
+  """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
+  """
+  A `self` grid applies to whatever entity this scoped ACL is applied to.
+  
+  Its children will inherit other permissions based
+  on `collections` and `items` respectively.
+  
+  """
+  self: EntityPermissionGrid!
 }
 
 """
@@ -60,6 +81,17 @@ interface AccessGrantSubject {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAccessGrantConnection!
+  """
+  The roles this user has access to assign based on their `primaryRole`,
+  outside of any hierarchical context.
+  
+  When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+  because it will ensure that the user sufficient permissions at that level.
+  
+  """
+  assignableRoles: [Role!]!
+  """The primary role associated with this subject."""
+  primaryRole: Role
 }
 
 """Filters a set of access grants by what type of subject they've granted access to"""
@@ -527,6 +559,18 @@ type AssetPDF implements Asset & Node & Sluggable {
   updatedAt: ISO8601DateTime!
 }
 
+"""A grid of permissions for creating, retrieving, updating, and deleting an `Asset`"""
+type AssetPermissionGrid implements ExposesPermissions & PermissionGrid & CRUDPermissionGrid {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  create: Boolean!
+  delete: Boolean!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  read: Boolean!
+  update: Boolean!
+}
+
 type AssetProperty implements SchemaProperty & ScalarProperty {
   """
   Provided for introspection. This describes whether or not the property's value
@@ -868,6 +912,18 @@ type BooleanProperty implements SchemaProperty & ScalarProperty {
   type: SchemaPropertyType!
 }
 
+"""A grid of permissions for creating, retrieving, updating, and deleting a model"""
+interface CRUDPermissionGrid {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  create: Boolean!
+  delete: Boolean!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  read: Boolean!
+  update: Boolean!
+}
+
 """
 An interface for entities that can contain actual content, as well as any number of themselves
 in a tree structure.
@@ -941,7 +997,9 @@ interface ChildEntity {
     perPage: Int
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
-  applicableRoles: [Role!]
+  applicableRoles: [Role!]!
+  """The role(s) that the current user could assign to other users on this entity, if applicable."""
+  assignableRoles: [Role!]!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
     order: ContextualPermissionOrder = USER_NAME_ASC
@@ -1032,6 +1090,11 @@ interface ChildEntity {
   hierarchicalDepth: Int!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The initial ordering to display for this entity.
+  
+  """
+  initialOrdering: Ordering
   """
   The International Standard Serial Number for this entity. See https://issn.org
   
@@ -1267,7 +1330,7 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
     perPage: Int
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
-  applicableRoles: [Role!]
+  applicableRoles: [Role!]!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -1287,6 +1350,8 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAssetConnection!
+  """The role(s) that the current user could assign to other users on this entity, if applicable."""
+  assignableRoles: [Role!]!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
     order: ContextualPermissionOrder = USER_NAME_ASC
@@ -1475,6 +1540,11 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The initial ordering to display for this entity.
+  
+  """
+  initialOrdering: Ordering
   """
   The International Standard Serial Number for this entity. See https://issn.org
   
@@ -1838,7 +1908,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     perPage: Int
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
-  applicableRoles: [Role!]
+  applicableRoles: [Role!]!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -1858,6 +1928,8 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAssetConnection!
+  """The role(s) that the current user could assign to other users on this entity, if applicable."""
+  assignableRoles: [Role!]!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
     order: ContextualPermissionOrder = USER_NAME_ASC
@@ -1958,6 +2030,11 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
   id: ID!
+  """
+  The initial ordering to display for this entity.
+  
+  """
+  initialOrdering: Ordering
   """Available link targets for this entity"""
   linkTargetCandidates(
     kind: LinkTargetCandidateFilter = ALL
@@ -3342,6 +3419,24 @@ enum Direction {
   DESCENDING
 }
 
+"""
+User-specific access permissions for non-hierarchical records.
+
+"""
+type EffectiveAccess implements ExposesPermissions {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  """
+  The values that may appear in `allowed_actions`. This is for introspection
+  and type-checking: the presence of a string here does _not_ mean the user
+  has the effective capability.
+  
+  """
+  availableActions: [String!]!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+}
+
 type EmailProperty implements SchemaProperty & ScalarProperty {
   address: String
   """
@@ -3572,7 +3667,9 @@ interface Entity {
     perPage: Int
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
-  applicableRoles: [Role!]
+  applicableRoles: [Role!]!
+  """The role(s) that the current user could assign to other users on this entity, if applicable."""
+  assignableRoles: [Role!]!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
     order: ContextualPermissionOrder = USER_NAME_ASC
@@ -3624,6 +3721,11 @@ interface Entity {
   heroImageMetadata: ImageMetadata
   """The depth of the hierarchical entity, taking into account any parent types"""
   hierarchicalDepth: Int!
+  """
+  The initial ordering to display for this entity.
+  
+  """
+  initialOrdering: Ordering
   """Available link targets for this entity"""
   linkTargetCandidates(
     kind: LinkTargetCandidateFilter = ALL
@@ -3930,6 +4032,20 @@ enum EntityPermissionFilter {
   CRUD
 }
 
+"""A grid of permissions for various hierarchical entity scopes."""
+type EntityPermissionGrid implements ExposesPermissions & PermissionGrid & CRUDPermissionGrid {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  assets: AssetPermissionGrid!
+  create: Boolean!
+  delete: Boolean!
+  manageAccess: Boolean!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
+  read: Boolean!
+  update: Boolean!
+}
+
 """
 A property that references another entity within the system.
 
@@ -4113,6 +4229,14 @@ enum EntityVisibility {
   VISIBLE
   HIDDEN
   LIMITED
+}
+
+interface ExposesEffectiveAccess {
+  """
+  User-specific access permissions for this object.
+  
+  """
+  effectiveAccess: EffectiveAccess!
 }
 
 interface ExposesPermissions {
@@ -4306,6 +4430,14 @@ type FullTextProperty implements SchemaProperty & ScalarProperty {
   
   """
   type: SchemaPropertyType!
+}
+
+"""A global ACL"""
+type GlobalAccessControlList implements ExposesPermissions {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
 }
 
 """The global configuration for this installation of WDP."""
@@ -4836,7 +4968,7 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
     perPage: Int
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
-  applicableRoles: [Role!]
+  applicableRoles: [Role!]!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -4856,6 +4988,8 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAssetConnection!
+  """The role(s) that the current user could assign to other users on this entity, if applicable."""
+  assignableRoles: [Role!]!
   """Retrieve a list of user & role assignments for this entity"""
   assignedUsers(
     order: ContextualPermissionOrder = USER_NAME_ASC
@@ -5013,6 +5147,11 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  """
+  The initial ordering to display for this entity.
+  
+  """
+  initialOrdering: Ordering
   """
   The International Standard Serial Number for this entity. See https://issn.org
   
@@ -5971,6 +6110,8 @@ type Ordering implements Node & Sluggable {
   ): OrderingEntryConnection!
   """A constant ordering should be treated as not being able to invert itself."""
   constant: Boolean!
+  """The number of entries currently visible within the ordering"""
+  count: Int!
   createdAt: ISO8601DateTime!
   """Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted."""
   disabled: Boolean!
@@ -6447,11 +6588,24 @@ interface Paginated {
   pageInfo: PageInfo!
 }
 
-"""A grant of a specific permission within a specific scope"""
+"""A grant of a specific permission within a specific scope."""
 type PermissionGrant {
+  """Whether this permission has been granted in the current context."""
   allowed: Boolean!
+  """The unqualified, single name for this permission."""
   name: String!
+  """The fully-qualified path for this permission (composed of scope + name)."""
+  path: String!
+  """The scope (or namespace) for this permission."""
   scope: String
+}
+
+"""A mapping of permissions specific to a certain scope"""
+interface PermissionGrid {
+  """A list of allowed actions for the given user on this entity (and its descendants)."""
+  allowedActions: [String!]!
+  """An array of hashes that can be requested to load in a context"""
+  permissions: [PermissionGrant!]!
 }
 
 """A person that has made contributions"""
@@ -6584,6 +6738,8 @@ type Query {
   ): CommunityConnection!
   """Look up a community by slug"""
   community(slug: Slug!): Community
+  """Look up a community by its title"""
+  communityByTitle(title: String!): Community
   """Look up a contributor by slug"""
   contributor(slug: Slug!): AnyContributor
   """
@@ -6652,7 +6808,7 @@ type Query {
   ): [AnyOrderingPath!]!
   """List all roles"""
   roles(
-    order: RoleOrder = NAME_ASCENDING
+    order: RoleOrder = DEFAULT
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -6821,13 +6977,41 @@ type RevokeAccessPayload implements StandardMutationPayload {
 }
 
 """A named role in the WDP API"""
-type Role implements Node & Sluggable {
+type Role implements ExposesEffectiveAccess & Node & Sluggable {
   """The access control list for this specific role"""
   accessControlList: AccessControlList!
   """A list of action names that have been granted to this role"""
   allowedActions: [String!]!
   createdAt: ISO8601DateTime!
+  """Only relevant for `custom` roles, this affects sorting."""
+  customPriority: Int
+  """
+  User-specific access permissions for this object.
+  
+  """
+  effectiveAccess: EffectiveAccess!
+  """
+  The global access control list that this assigned role implies, based on its sort order.
+  
+  """
+  globalAccessControlList: GlobalAccessControlList!
+  """
+  A list of global action names that this role implies, based on its sort order.
+  
+  """
+  globalAllowedActions: [String!]!
   id: ID!
+  """
+  For `system` roles, this will be populated with the unique identifier
+  that marks this as a system role.
+  
+  """
+  identifier: RoleSystemIdentifier
+  """
+  The specific kind of role this is, based on how it entered the WDP-API.
+  
+  """
+  kind: RoleKind!
   """The human readable name of the role within the system"""
   name: String!
   """
@@ -6837,6 +7021,21 @@ type Role implements Node & Sluggable {
   
   """
   permissions: [PermissionGrant!]!
+  """
+  Used internally to sort roles and ensure certain role types are above
+  and below others, irrespective of priority.
+  
+  """
+  primacy: RolePrimacy!
+  """
+  The calculated sort priority for this role.
+  
+  * For `custom` roles, it is based on `custom_priority`.
+  * For `system` roles, it is based on hard-coded values within the system
+    and cannot be modified.
+  
+  """
+  priority: Int!
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -6859,8 +7058,27 @@ type RoleEdge {
   node: Role!
 }
 
+"""
+A categorization of a `Role` based on how it gets into the WDP-API.
+
+"""
+enum RoleKind {
+  """
+  Custom roles are created and managed through the `createRole`, `updateRole`, and `destroyRole` mutations.
+  
+  """
+  CUSTOM
+  """
+  System roles are shipped by default with WDP-API and cannot be modified.
+  
+  """
+  SYSTEM
+}
+
 """Sort roles by a specific property and order"""
 enum RoleOrder {
+  """Sort roles by default priority within the system"""
+  DEFAULT
   """Sort roles by newest created date"""
   RECENT
   """Sort roles by oldest created date"""
@@ -6869,6 +7087,51 @@ enum RoleOrder {
   NAME_ASCENDING
   """Sort roles by their name Z-A"""
   NAME_DESCENDING
+}
+
+"""
+The level of importance any given role has when it comes to determing what a user's "primary" role is.
+
+"""
+enum RolePrimacy {
+  """Values with this primacy level take priority over all others. They cannot be directly assigned through the API."""
+  HIGH
+  """Values with this primacy level are the default. Any custom roles will be in this scope."""
+  DEFAULT
+  """Values with this primacy level are always sorted after every other role."""
+  LOW
+}
+
+"""
+This will identify _which_ `system` role this is, if applicable. See `RoleKind` for more information.
+
+"""
+enum RoleSystemIdentifier {
+  """
+  A global administrator. This role cannot be directly assigned.
+  
+  """
+  ADMIN
+  """
+  A manager can be assigned to handle most `Community` and other entity management concerns.
+  
+  They can also appoint other roles (except for other managers) to any entity they manage.
+  
+  """
+  MANAGER
+  """
+  An editor has basic update permissions for a specific point in the hierarchy.
+  
+  """
+  EDITOR
+  """
+  A reader is anyone who has been given explicit read-access to an entity.
+  This role is primarily used by the administration UI.
+  
+  **Note**: Anonymous users can still view public entities in the frontend.
+  
+  """
+  READER
 }
 
 """
@@ -8738,6 +9001,15 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   allowedActions: [String!]!
   """Is this an anonymous / unauthenticated user?"""
   anonymous: Boolean!
+  """
+  The roles this user has access to assign based on their `primaryRole`,
+  outside of any hierarchical context.
+  
+  When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+  because it will ensure that the user sufficient permissions at that level.
+  
+  """
+  assignableRoles: [Role!]!
   """A user's avatar"""
   avatar: ImageAttachment!
   """Configurable metadata for the avatar attachment"""
@@ -8881,6 +9153,8 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   name: String
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
+  """The primary role associated with this subject."""
+  primaryRole: Role
   slug: Slug!
   updatedAt: ISO8601DateTime!
   """Can this user upload anything at all?"""
@@ -9055,6 +9329,15 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAccessGrantConnection!
+  """
+  The roles this user has access to assign based on their `primaryRole`,
+  outside of any hierarchical context.
+  
+  When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
+  because it will ensure that the user sufficient permissions at that level.
+  
+  """
+  assignableRoles: [Role!]!
   """All access grants for this group on a collection"""
   collectionAccessGrants(
     order: SimpleOrder = RECENT
@@ -9113,6 +9396,8 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
     perPage: Int
   ): UserGroupItemAccessGrantConnection!
   name: String!
+  """The primary role associated with this subject."""
+  primaryRole: Role
   slug: Slug!
   updatedAt: ISO8601DateTime!
   users(
