@@ -31,27 +31,40 @@ export default function EntityOrderingLayoutFactory({ data }: Props) {
 
   const page = parseInt(routeQueryArrayToString(router.query.page)) || 1;
 
-  const { data: orderingData } = useAuthenticatedQuery<Query>(query, {
-    identifier,
-    page,
-    slug,
-  });
+  const { data: orderingData, isLoading } = useAuthenticatedQuery<Query>(
+    query,
+    {
+      identifier,
+      page,
+      slug,
+    }
+  );
 
-  const getLayout = (data: EntityOrderingLayoutFactoryQueryResponse) => {
+  const getLayout = (
+    data?: EntityOrderingLayoutFactoryQueryResponse | null
+  ) => {
     switch (entity?.schemaDefinition?.identifier) {
       case "journal_issue":
         return (
           <IssueSidebarNav data={entity}>
-            <IssueOrderingLayout data={data.collection?.ordering} />
+            {isLoading ? (
+              <LoadingBlock />
+            ) : (
+              <IssueOrderingLayout data={data?.collection?.ordering} />
+            )}
           </IssueSidebarNav>
         );
 
       default:
-        return <EntityOrderingLayout data={data.collection?.ordering} />;
+        return isLoading ? (
+          <LoadingBlock />
+        ) : (
+          <EntityOrderingLayout data={data?.collection?.ordering} />
+        );
     }
   };
 
-  return entity && orderingData ? getLayout(orderingData) : <LoadingBlock />;
+  return entity ? getLayout(orderingData) : <LoadingBlock />;
 }
 
 interface Props {

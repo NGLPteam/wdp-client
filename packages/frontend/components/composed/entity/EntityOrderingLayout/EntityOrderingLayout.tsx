@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import {
   EntityOrderingLayoutFragment$data,
   EntityOrderingLayoutFragment$key,
@@ -13,6 +14,8 @@ export default function EntityOrderingLayout({ data }: Props) {
 
   const pageInfo = useMemo(() => ordering?.children.pageInfo, [ordering]);
 
+  const { t } = useTranslation();
+
   return ordering ? (
     <BrowseListLayout
       data={pageInfo}
@@ -21,7 +24,11 @@ export default function EntityOrderingLayout({ data }: Props) {
         <EntitySummaryFactory key={entry.slug} data={entry} />
       ))}
     />
-  ) : null;
+  ) : (
+    <div className="l-container-wide l-container-wide--p-lg">
+      {t("common.no_content")}
+    </div>
+  );
 }
 
 interface Props {

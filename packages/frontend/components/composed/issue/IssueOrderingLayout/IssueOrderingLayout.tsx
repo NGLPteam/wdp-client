@@ -39,7 +39,11 @@ export default function IssueOrderingLayout({ data }: Props) {
         </Styled.Footer>
       )}
     </>
-  ) : null;
+  ) : (
+    <div className="l-container-wide l-container-wide--p-lg">
+      {t("common.no_content")}
+    </div>
+  );
 }
 
 interface Props {
