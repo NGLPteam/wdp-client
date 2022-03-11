@@ -9,7 +9,7 @@ export default function BackToTopButton(
   const { t } = useTranslation();
 
   return (
-    <Button style="secondary" icon="arrowUp" hideLabelOnMobile {...props}>
+    <Button secondary icon="arrowUp" hideLabelOnMobile {...props}>
       {t("common.back_to_top")}
     </Button>
   );

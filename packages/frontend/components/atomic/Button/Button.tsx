@@ -15,7 +15,7 @@ const Button = forwardRef(
       className,
       icon,
       size,
-      style,
+      secondary,
       iconLeft,
       hideLabelOnMobile,
       isBlock,
@@ -30,7 +30,7 @@ const Button = forwardRef(
         $hideLabelOnMobile={hideLabelOnMobile && icon}
         $isBlock={isBlock}
         $size={size}
-        $style={style}
+        $style={secondary ? "secondary" : "primary"}
         {...props}
       >
         {icon && iconLeft && (
@@ -54,8 +54,6 @@ export default Button;
 interface Props {
   /** Button size - default is large */
   size?: "lg" | "sm";
-  /** Button style - default is primary */
-  style?: "primary" | "secondary";
   /** Show icon on the left */
   iconLeft?: true;
   /** Hide the label on mobile devices */

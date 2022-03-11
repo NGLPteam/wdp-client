@@ -32,7 +32,7 @@ export default function EntityOrderSelect({ data }: Props) {
           label={t("form.order_label")}
           disclosure={
             <Button
-              style="secondary"
+              secondary
               size="sm"
               type="button"
               isBlock
@@ -70,7 +70,7 @@ export default function EntityOrderSelect({ data }: Props) {
           }}
           passHref
         >
-          <Button size="sm" type="button" style="secondary" as="a" isBlock>
+          <Button size="sm" type="button" secondary as="a" isBlock>
             {orderings.edges[0].node.name}
           </Button>
         </NamedLink>
