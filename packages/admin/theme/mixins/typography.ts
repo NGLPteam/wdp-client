@@ -1,5 +1,4 @@
 import { css } from "styled-components";
-import { pxToRem } from "./functions";
 export { tTruncate, tLineClamp } from "@wdp/lib/theme/mixins";
 
 export function tLabel(size: "sm" | "md" | "lg") {
@@ -15,7 +14,8 @@ export function tLabel(size: "sm" | "md" | "lg") {
 // Base list styling
 export const tList = css`
   padding: 0;
-  margin-inline-start: ${pxToRem(8)};
+  margin-inline-start: 1.25rem;
+  list-style-position: outside;
 `;
 
 // Remove list styling

@@ -7,6 +7,7 @@ import {
   tLabel,
   tHeading,
   tTruncate,
+  tList,
 } from "../mixins/typography";
 
 export default css`
@@ -80,7 +81,7 @@ export default css`
 
     ul,
     ol {
-      padding-inline-start: 1rem;
+      ${tList}
     }
 
     blockquote {

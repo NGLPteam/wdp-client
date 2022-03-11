@@ -25,3 +25,7 @@ export { default as Toggle } from "./Toggle";
 export { default as File } from "./File";
 export { default as Avatar32 } from "./Avatar32";
 export { default as GrabHandle } from "./GrabHandle";
+export { default as Bold } from "./Bold";
+export { default as Italic } from "./Italic";
+export { default as Underline } from "./Underline";
+export { default as UnorderedList } from "./UnorderedList";

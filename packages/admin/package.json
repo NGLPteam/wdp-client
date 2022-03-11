@@ -4,7 +4,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev -p 3000",
+    "dev": "NODE_OPTIONS='--max-old-space-size=8192' next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
     "relay": "relay-compiler",
@@ -29,6 +29,7 @@
     "@castiron/hooks": "^1.0.0-alpha.6",
     "@castiron/style-mixins": "^1.0.0",
     "@hookform/error-message": "^2.0.0",
+    "@productboard/slate-edit-list": "^0.21.5",
     "@react-keycloak/ssr": "^3.3.0",
     "@react-keycloak/web": "^3.4.0",
     "@react-stately/table": "^3.0.0-beta.1",
@@ -75,7 +76,12 @@
     "relay-config": "^12.0.0",
     "relay-hooks": "^6.0.0",
     "relay-runtime": "^12.0.0",
+    "remark-parse": "^10.0.1",
+    "remark-slate": "^1.8.5",
+    "slate": "^0.72.8",
+    "slate-react": "^0.72.8",
     "styled-components": "^5.3.0",
+    "unified": "^10.1.1",
     "webpack": ">=2"
   },
   "devDependencies": {
