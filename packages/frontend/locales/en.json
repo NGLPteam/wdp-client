@@ -118,8 +118,8 @@
       "unit": "{{count}} Unit",
       "unit_plural": "{{count}} Units",
       "series": "{{count}} Series",
-      "papers": "{{count}} Paper",
-      "papers_plural": "{{count}} Papers"
+      "paper": "{{count}} Paper",
+      "paper_plural": "{{count}} Papers"
     },
     "asset": {
       "pdf": "PDF",
