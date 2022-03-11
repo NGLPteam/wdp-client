@@ -27,7 +27,7 @@ export default function PrecisionDate({ data, label }: Props) {
   const { t } = useTranslation();
 
   return date && date.value ? (
-    <>{`${label && t(label)} ${getPrecisionDateDisplay(
+    <>{`${label ? t(label) : ""} ${getPrecisionDateDisplay(
       date.precision,
       date.value
     )}`}</>
