@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import capitalize from "lodash/capitalize";
 import ContributorName from "../../../contributor/ContributorName";
 import ContributorAvatar from "../../../contributor/ContributorAvatar";
 import * as Styled from "./ContributionBlockItem.styles";
@@ -34,7 +35,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
               <ContributorName data={contribution.contributor} />
             </strong>
             <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">
-              {contribution.role && <p>{contribution.role}</p>}
+              {contribution.role && <p>{capitalize(contribution.role)}</p>}
               {contribution.affiliation && (
                 <p>
                   {contribution.affiliation ||

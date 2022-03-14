@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import capitalize from "lodash/capitalize";
 import * as Styled from "./ArticleContributor.styles";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
@@ -61,7 +62,7 @@ export default function ArticleContributor({ data }: Props) {
               <Styled.Roles>
                 <DotList className="t-copy-sm t-copy-lighter">
                   {contributionToShow.role && (
-                    <li className="t-capitalize">{contributionToShow.role}</li>
+                    <li>{capitalize(contributionToShow.role)}</li>
                   )}
                   {contributor.title && <li>{contributor.title}</li>}
                   {contributor.affiliation && (

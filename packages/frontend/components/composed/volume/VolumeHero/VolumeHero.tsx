@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useTranslation } from "react-i18next";
 import * as Styled from "./VolumeHero.styles";
 import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
 import { DotList, PrecisionDate, DOI, CoverImage } from "components/atomic";
@@ -10,8 +9,6 @@ import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata
 
 export default function VolumeHero({ data }: Props) {
   const volume = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return volume ? (
     <header className="a-bg-custom10">
