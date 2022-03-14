@@ -1,21 +1,18 @@
 import React, { useMemo } from "react";
 import { graphql } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./ContributionSummary.styles";
-import {
-  ReadMoreLink,
-  DotList,
-  NamedLink,
-  PrecisionDate,
-  SquareThumbnail,
-  Link,
-} from "components/atomic";
-import { ContributionSummaryFragment$key } from "@/relay/ContributionSummaryFragment.graphql";
+import capitalize from "lodash/capitalize";
+import { useTranslation } from "react-i18next";
+import { DotList, PrecisionDate, SquareThumbnail } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
+import Summary from "components/layout/Summary";
+import { ContributionSummaryFragment$key } from "@/relay/ContributionSummaryFragment.graphql";
 import { ContributionSummaryEntityFragment$key } from "@/relay/ContributionSummaryEntityFragment.graphql";
 
 export default function ContributionSummary({ data, showReadMore }: Props) {
   const contribution = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   const entity = useMaybeFragment<ContributionSummaryEntityFragment$key>(
     entityFragment,
@@ -26,54 +23,30 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
     return entity?.__typename ? getRouteByEntityType(entity.__typename) : null;
   }, [entity]);
 
-  return contribution && entity ? (
-    <Styled.Wrapper>
-      <Styled.Text>
-        <Styled.Headers>
-          {entity.title && entity.slug && route && (
-            <h4>
-              <NamedLink
-                route={route}
-                routeParams={{ slug: entity.slug }}
-                passHref
-              >
-                <Link>{entity.title}</Link>
-              </NamedLink>
-            </h4>
+  // <h5 className="t-copy-italic t-copy-lighter">{
+
+  return contribution && entity && route && entity.slug ? (
+    <Summary
+      title={entity.title}
+      subtitle={entity.subtitle}
+      route={route}
+      routeParams={{ slug: entity.slug }}
+      metadata={
+        <DotList className="t-copy-sm t-copy-lighter">
+          {contribution.role && <li>{capitalize(contribution.role)}</li>}
+          {entity.published?.value && (
+            <li>
+              {t("date.published")} <PrecisionDate data={entity.published} />
+            </li>
           )}
-          {entity.subtitle && (
-            <h5 className="t-copy-italic t-copy-lighter">{entity.subtitle}</h5>
-          )}
-        </Styled.Headers>
-        {entity.published?.value && (
-          <Styled.Metadata>
-            <DotList className="t-copy-sm t-copy-lighter">
-              <li>{contribution.role}</li>
-              <li>
-                <PrecisionDate data={entity.published} />
-              </li>
-            </DotList>
-          </Styled.Metadata>
-        )}
-        {entity.summary && (
-          <Styled.Summary className="t-copy-lighter">
-            {entity.summary}
-          </Styled.Summary>
-        )}
-        {entity.slug && route && showReadMore && (
-          <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-            <ReadMoreLink className="t-label-sm" />
-          </NamedLink>
-        )}
-      </Styled.Text>
-      {entity.thumbnail.storage && route && entity.slug && (
-        <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-          <Styled.ThumbnailLink>
-            <SquareThumbnail data={entity.thumbnail} />
-          </Styled.ThumbnailLink>
-        </NamedLink>
-      )}
-    </Styled.Wrapper>
+        </DotList>
+      }
+      summary={entity.summary}
+      showReadMore={showReadMore}
+      thumbnail={
+        entity.thumbnail.storage && <SquareThumbnail data={entity.thumbnail} />
+      }
+    />
   ) : null;
 }
 

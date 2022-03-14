@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueHero.styles";
 import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
 import {
@@ -18,8 +17,6 @@ import { SecondaryHero } from "components/layout/hero";
 
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return issue ? (
     <>
