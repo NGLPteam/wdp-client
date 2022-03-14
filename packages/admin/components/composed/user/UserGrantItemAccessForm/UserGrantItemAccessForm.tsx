@@ -6,8 +6,8 @@ import type {
   UserGrantItemAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantItemAccessFormMutation.graphql";
-import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
+import { NodeRoleSelect } from "components/forms/RoleSelect";
 import { UserGrantItemAccessFormFragment$key } from "@/relay/UserGrantItemAccessFormFragment.graphql";
 
 const UserGrantItemAccessForm = ({
@@ -31,22 +31,22 @@ const UserGrantItemAccessForm = ({
       successNotification="messages.add.access_success"
       defaultValues={defaultValues}
     >
-      {({ form: { register, control } }) => (
-        <Forms.Grid>
-          <input type="hidden" {...register("userId")} />
-          <Forms.ItemTypeahead
-            label="forms.fields.item"
-            name="entityId"
-            control={control}
-            data={formData}
-          />
-          <RoleSelect
-            label="forms.fields.role"
-            data={formData}
-            {...register("roleId")}
-          />
-        </Forms.Grid>
-      )}
+      {({ form: { register, control, watch } }) => {
+        const entityId = watch("entityId");
+
+        return (
+          <Forms.Grid>
+            <input type="hidden" {...register("userId")} />
+            <Forms.ItemTypeahead
+              label="forms.fields.item"
+              name="entityId"
+              control={control}
+              data={formData}
+            />
+            <NodeRoleSelect nodeId={entityId} name="roleId" required />
+          </Forms.Grid>
+        );
+      }}
     </MutationForm>
   );
 };
@@ -67,7 +67,6 @@ const fragment = graphql`
   fragment UserGrantItemAccessFormFragment on Query {
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...ItemTypeaheadFragment
-    ...RoleSelectFragment
   }
 `;
 

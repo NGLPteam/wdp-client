@@ -62,6 +62,7 @@ const fragment = graphql`
         nodes {
           id
           title
+          slug
         }
       }
     }

@@ -1,14 +1,13 @@
 import React from "react";
 import { graphql } from "react-relay";
 import MutationForm, { Forms } from "components/api/MutationForm";
-
 import type {
   UserGrantCollectionAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantCollectionAccessFormMutation.graphql";
-import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
 import { UserGrantCollectionAccessFormFragment$key } from "@/relay/UserGrantCollectionAccessFormFragment.graphql";
+import { NodeRoleSelect } from "components/forms/RoleSelect";
 
 const UserGrantCollectionAccessForm = ({
   data,
@@ -31,22 +30,22 @@ const UserGrantCollectionAccessForm = ({
       successNotification="messages.add.access_success"
       defaultValues={defaultValues}
     >
-      {({ form: { register, control } }) => (
-        <Forms.Grid>
-          <input type="hidden" {...register("userId")} />
-          <Forms.CollectionTypeahead
-            label="forms.fields.collection"
-            name="entityId"
-            control={control}
-            data={formData}
-          />
-          <RoleSelect
-            label="forms.fields.role"
-            data={formData}
-            {...register("roleId")}
-          />
-        </Forms.Grid>
-      )}
+      {({ form: { register, watch, control } }) => {
+        const entityId = watch("entityId");
+
+        return (
+          <Forms.Grid>
+            <input type="hidden" {...register("userId")} />
+            <Forms.CollectionTypeahead
+              label="forms.fields.collection"
+              name="entityId"
+              control={control}
+              data={formData}
+            />
+            <NodeRoleSelect nodeId={entityId} name="roleId" required />
+          </Forms.Grid>
+        );
+      }}
     </MutationForm>
   );
 };
@@ -67,7 +66,6 @@ const fragment = graphql`
   fragment UserGrantCollectionAccessFormFragment on Query {
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...CollectionTypeaheadFragment
-    ...RoleSelectFragment
   }
 `;
 

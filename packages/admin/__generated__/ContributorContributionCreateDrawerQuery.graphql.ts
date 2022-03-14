@@ -53,6 +53,7 @@ fragment CollectionTypeaheadFragment on Query {
       nodes {
         id
         title
+        slug
       }
     }
     id
@@ -177,16 +178,13 @@ v5 = [
     "abstractKey": "__isNode"
   }
 ],
-v6 = [
-  (v2/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
-    "storageKey": null
-  }
-];
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -255,7 +253,10 @@ return {
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
-                "selections": (v6/*: any*/),
+                "selections": [
+                  (v2/*: any*/),
+                  (v6/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -277,7 +278,17 @@ return {
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
-                "selections": (v6/*: any*/),
+                "selections": [
+                  (v2/*: any*/),
+                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
             ],
@@ -310,12 +321,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "70e6528d4fd5b795f21de01a846a4456",
+    "cacheID": "3e59aca45f64090edfc4080b3fdde6a2",
     "id": null,
     "metadata": {},
     "name": "ContributorContributionCreateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...ItemTypeaheadFragment\n  ...CollectionTypeaheadFragment\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n\nfragment ItemTypeaheadFragment on Query {\n  viewer {\n    items {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n        slug\n      }\n    }\n    id\n  }\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...ItemTypeaheadFragment\n  ...CollectionTypeaheadFragment\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n\nfragment ItemTypeaheadFragment on Query {\n  viewer {\n    items {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();

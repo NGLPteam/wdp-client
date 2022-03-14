@@ -10,14 +10,18 @@ import UserTypeahead from "components/forms/UserTypeahead";
 import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
 import { RoleGrantAccessFormFragment$key } from "@/relay/RoleGrantAccessFormFragment.graphql";
+import { RoleGrantAccessFormRolesFragment$key } from "@/relay/RoleGrantAccessFormRolesFragment.graphql";
 
 const RoleGrantAccessForm = ({
   data,
+  rolesData,
   onSuccess,
   onCancel,
   entityId,
 }: Props) => {
   const formData = useMaybeFragment(fragment, data);
+
+  const roles = useMaybeFragment(rolesFragment, rolesData);
 
   const defaultValues = {
     entityId,
@@ -43,7 +47,7 @@ const RoleGrantAccessForm = ({
           />
           <RoleSelect
             label="forms.fields.role"
-            data={formData}
+            data={roles}
             {...register("roleId")}
           />
         </Forms.Grid>
@@ -59,6 +63,7 @@ interface Props
   > {
   entityId?: string;
   data?: RoleGrantAccessFormFragment$key | null;
+  rolesData?: RoleGrantAccessFormRolesFragment$key | null;
 }
 
 export default RoleGrantAccessForm;
@@ -67,6 +72,11 @@ export default RoleGrantAccessForm;
 const fragment = graphql`
   fragment RoleGrantAccessFormFragment on Query {
     ...UserTypeaheadFragment
+  }
+`;
+
+const rolesFragment = graphql`
+  fragment RoleGrantAccessFormRolesFragment on Entity {
     ...RoleSelectFragment
   }
 `;

@@ -6,8 +6,8 @@ import type {
   UserGrantCommunityAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantCommunityAccessFormMutation.graphql";
-import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
+import { NodeRoleSelect } from "components/forms/RoleSelect";
 import { UserGrantCommunityAccessFormFragment$key } from "@/relay/UserGrantCommunityAccessFormFragment.graphql";
 
 const UserGrantCommunityAccessForm = ({
@@ -31,21 +31,21 @@ const UserGrantCommunityAccessForm = ({
       successNotification="messages.add.member_success"
       defaultValues={defaultValues}
     >
-      {({ form: { register } }) => (
-        <Forms.Grid>
-          <input type="hidden" {...register("userId")} />
-          <Forms.CommunitySelect
-            label="forms.fields.community"
-            data={formData}
-            {...register("entityId")}
-          />
-          <RoleSelect
-            label="forms.fields.role"
-            data={formData}
-            {...register("roleId")}
-          />
-        </Forms.Grid>
-      )}
+      {({ form: { register, watch } }) => {
+        const entityId = watch("entityId");
+
+        return (
+          <Forms.Grid>
+            <input type="hidden" {...register("userId")} />
+            <Forms.CommunitySelect
+              label="forms.fields.community"
+              data={formData}
+              {...register("entityId")}
+            />
+            <NodeRoleSelect nodeId={entityId} name="roleId" required />
+          </Forms.Grid>
+        );
+      }}
     </MutationForm>
   );
 };
@@ -66,7 +66,6 @@ const fragment = graphql`
   fragment UserGrantCommunityAccessFormFragment on Query {
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...CommunitySelectFragment
-    ...RoleSelectFragment
   }
 `;
 

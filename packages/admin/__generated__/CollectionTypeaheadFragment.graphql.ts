@@ -11,6 +11,7 @@ export type CollectionTypeaheadFragment = {
             readonly nodes: ReadonlyArray<{
                 readonly id: string;
                 readonly title: string;
+                readonly slug: string;
             }>;
         };
     };
@@ -67,6 +68,13 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "title",
                   "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "slug",
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -81,5 +89,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '765c69d083425f865cdc2d89a954bbb0';
+(node as any).hash = '35c6041846040813d4f309fa3ba4fd64';
 export default node;

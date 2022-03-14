@@ -65,7 +65,7 @@ export default RoleEditAccessForm;
 
 // Load dropdown lists
 const fragment = graphql`
-  fragment RoleEditAccessFormFragment on Query {
+  fragment RoleEditAccessFormFragment on Entity {
     ...RoleSelectFragment
   }
 `;

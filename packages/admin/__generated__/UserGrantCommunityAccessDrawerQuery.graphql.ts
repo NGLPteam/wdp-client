@@ -44,20 +44,8 @@ fragment CommunitySelectFragment on Query {
   }
 }
 
-fragment RoleSelectFragment on Query {
-  roles {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
 fragment UserGrantCommunityAccessFormFragment on Query {
   ...CommunitySelectFragment
-  ...RoleSelectFragment
 }
 */
 
@@ -156,48 +144,16 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "RoleConnection",
-        "kind": "LinkedField",
-        "name": "roles",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "RoleEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Role",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": (v1/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "5fec3e6d0620340cf82a843384d08880",
+    "cacheID": "f95d4e77bbc9c51ebefa982476bdddb4",
     "id": null,
     "metadata": {},
     "name": "UserGrantCommunityAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query UserGrantCommunityAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantCommunityAccessFormFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserGrantCommunityAccessFormFragment on Query {\n  ...CommunitySelectFragment\n  ...RoleSelectFragment\n}\n"
+    "text": "query UserGrantCommunityAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantCommunityAccessFormFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserGrantCommunityAccessFormFragment on Query {\n  ...CommunitySelectFragment\n}\n"
   }
 };
 })();

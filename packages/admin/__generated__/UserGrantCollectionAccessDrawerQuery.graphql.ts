@@ -39,26 +39,15 @@ fragment CollectionTypeaheadFragment on Query {
       nodes {
         id
         title
+        slug
       }
     }
     id
   }
 }
 
-fragment RoleSelectFragment on Query {
-  roles {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
 fragment UserGrantCollectionAccessFormFragment on Query {
   ...CollectionTypeaheadFragment
-  ...RoleSelectFragment
 }
 */
 
@@ -77,17 +66,7 @@ v1 = {
   "name": "id",
   "storageKey": null
 },
-v2 = [
-  (v1/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "name",
-    "storageKey": null
-  }
-],
-v3 = {
+v2 = {
   "alias": null,
   "args": [
     {
@@ -100,7 +79,16 @@ v3 = {
   "kind": "LinkedField",
   "name": "user",
   "plural": false,
-  "selections": (v2/*: any*/),
+  "selections": [
+    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -110,7 +98,7 @@ return {
     "metadata": null,
     "name": "UserGrantCollectionAccessDrawerQuery",
     "selections": [
-      (v3/*: any*/),
+      (v2/*: any*/),
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -126,7 +114,7 @@ return {
     "kind": "Operation",
     "name": "UserGrantCollectionAccessDrawerQuery",
     "selections": [
-      (v3/*: any*/),
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -158,6 +146,13 @@ return {
                     "kind": "ScalarField",
                     "name": "title",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -168,48 +163,16 @@ return {
           (v1/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "RoleConnection",
-        "kind": "LinkedField",
-        "name": "roles",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "RoleEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Role",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": (v2/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6c584cc35db9f0a5ba538f23c2f249e5",
+    "cacheID": "2a13ee767d81e17a0cbc90583c669d8d",
     "id": null,
     "metadata": {},
     "name": "UserGrantCollectionAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query UserGrantCollectionAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantCollectionAccessFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserGrantCollectionAccessFormFragment on Query {\n  ...CollectionTypeaheadFragment\n  ...RoleSelectFragment\n}\n"
+    "text": "query UserGrantCollectionAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantCollectionAccessFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n        slug\n      }\n    }\n    id\n  }\n}\n\nfragment UserGrantCollectionAccessFormFragment on Query {\n  ...CollectionTypeaheadFragment\n}\n"
   }
 };
 })();

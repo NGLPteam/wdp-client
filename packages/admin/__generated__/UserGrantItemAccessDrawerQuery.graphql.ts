@@ -45,20 +45,8 @@ fragment ItemTypeaheadFragment on Query {
   }
 }
 
-fragment RoleSelectFragment on Query {
-  roles {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
 fragment UserGrantItemAccessFormFragment on Query {
   ...ItemTypeaheadFragment
-  ...RoleSelectFragment
 }
 */
 
@@ -77,17 +65,7 @@ v1 = {
   "name": "id",
   "storageKey": null
 },
-v2 = [
-  (v1/*: any*/),
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "name",
-    "storageKey": null
-  }
-],
-v3 = {
+v2 = {
   "alias": null,
   "args": [
     {
@@ -100,7 +78,16 @@ v3 = {
   "kind": "LinkedField",
   "name": "user",
   "plural": false,
-  "selections": (v2/*: any*/),
+  "selections": [
+    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -110,7 +97,7 @@ return {
     "metadata": null,
     "name": "UserGrantItemAccessDrawerQuery",
     "selections": [
-      (v3/*: any*/),
+      (v2/*: any*/),
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -126,7 +113,7 @@ return {
     "kind": "Operation",
     "name": "UserGrantItemAccessDrawerQuery",
     "selections": [
-      (v3/*: any*/),
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -168,48 +155,16 @@ return {
           (v1/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "RoleConnection",
-        "kind": "LinkedField",
-        "name": "roles",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "RoleEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Role",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": (v2/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7774c0c051b5184cc0acf0d7dc7cfc11",
+    "cacheID": "96f404f9a5d480c8cda1ea869c7177ec",
     "id": null,
     "metadata": {},
     "name": "UserGrantItemAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query UserGrantItemAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantItemAccessFormFragment\n}\n\nfragment ItemTypeaheadFragment on Query {\n  viewer {\n    items {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n\nfragment RoleSelectFragment on Query {\n  roles {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment UserGrantItemAccessFormFragment on Query {\n  ...ItemTypeaheadFragment\n  ...RoleSelectFragment\n}\n"
+    "text": "query UserGrantItemAccessDrawerQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    id\n    name\n  }\n  ...UserGrantItemAccessFormFragment\n}\n\nfragment ItemTypeaheadFragment on Query {\n  viewer {\n    items {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n\nfragment UserGrantItemAccessFormFragment on Query {\n  ...ItemTypeaheadFragment\n}\n"
   }
 };
 })();
