@@ -6,14 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type RoleSelectFragment = {
-    readonly roles: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly name: string;
-            };
-        }>;
-    };
+    readonly assignableRoles: ReadonlyArray<{
+        readonly id: string;
+        readonly name: string;
+    }>;
     readonly " $refType": "RoleSelectFragment";
 };
 export type RoleSelectFragment$data = RoleSelectFragment;
@@ -33,53 +29,31 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "RoleConnection",
+      "concreteType": "Role",
       "kind": "LinkedField",
-      "name": "roles",
-      "plural": false,
+      "name": "assignableRoles",
+      "plural": true,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "RoleEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "Role",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
           "storageKey": null
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "Query",
-  "abstractKey": null
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
-(node as any).hash = 'be7aab465d5b403737c5aff989017030';
+(node as any).hash = 'ce0c0a1a65ad99592f6af80d58334031';
 export default node;

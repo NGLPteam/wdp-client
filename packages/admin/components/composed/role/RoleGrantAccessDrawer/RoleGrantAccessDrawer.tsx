@@ -9,6 +9,7 @@ import RoleGrantAccessForm from "components/composed/role/RoleGrantAccessForm";
 import {
   RoleGrantAccessDrawerQuery as Query,
   RoleGrantAccessDrawerQueryResponse as Response,
+  RoleGrantAccessDrawerQueryResponse,
 } from "@/relay/RoleGrantAccessDrawerQuery.graphql";
 
 // Drawer params required: drawerSlug and drawerEntity
@@ -38,12 +39,16 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
       : t(i18nKey);
   }
 
-  function getEntityId(data?: Response | null) {
+  function getEntityData(data?: Response | null): EntityData {
     return drawerEntity === "community"
-      ? data?.community?.id
+      ? data?.community
       : drawerEntity === "collection"
-      ? data?.collection?.id
-      : data?.item?.id;
+      ? data?.collection
+      : data?.item;
+  }
+
+  function getEntityId(data?: Response | null) {
+    return getEntityData(data)?.id;
   }
 
   return drawerSlug && drawerEntity ? (
@@ -72,6 +77,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
             onCancel={dialog.hide}
             entityId={getEntityId(data)}
             data={data}
+            rolesData={getEntityData(data)}
           />
         </Drawer>
       )}
@@ -84,6 +90,11 @@ interface Props {
   params: Record<string, string | undefined | null>;
 }
 
+type EntityData =
+  | RoleGrantAccessDrawerQueryResponse["community"]
+  | RoleGrantAccessDrawerQueryResponse["collection"]
+  | RoleGrantAccessDrawerQueryResponse["item"];
+
 // This fun little query gets the right id and title depending on the entity type.
 const query = graphql`
   query RoleGrantAccessDrawerQuery(
@@ -95,14 +106,17 @@ const query = graphql`
     community(slug: $slug) @include(if: $onCommunity) {
       id
       title
+      ...RoleGrantAccessFormRolesFragment
     }
     collection(slug: $slug) @include(if: $onCollection) {
       id
       title
+      ...RoleGrantAccessFormRolesFragment
     }
     item(slug: $slug) @include(if: $onItem) {
       id
       title
+      ...RoleGrantAccessFormRolesFragment
     }
     ...RoleGrantAccessFormFragment
   }

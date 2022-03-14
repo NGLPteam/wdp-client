@@ -9,6 +9,7 @@ import RoleEditAccessForm from "components/composed/role/RoleEditAccessForm";
 import {
   RoleEditAccessDrawerQuery as Query,
   RoleEditAccessDrawerQueryResponse as Response,
+  RoleEditAccessDrawerQueryResponse,
 } from "@/relay/RoleEditAccessDrawerQuery.graphql";
 import { useDestroyer } from "hooks";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
@@ -42,24 +43,25 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
       : t(i18nKey);
   }
 
-  function getEntityId(data?: Response | null) {
+  function getEntityData(data?: Response | null): EntityData {
     return drawerEntity === "community"
-      ? data?.community?.id
+      ? data?.community
       : drawerEntity === "collection"
-      ? data?.collection?.id
-      : data?.item?.id;
+      ? data?.collection
+      : data?.item;
+  }
+
+  function getEntityId(data?: Response | null) {
+    const entity = getEntityData(data);
+
+    return entity?.id;
   }
 
   /* Render route and delete buttons */
   function renderButtons(data?: Response | null) {
     if (!data) return;
 
-    const entityId =
-      drawerEntity === "community"
-        ? data?.community?.id
-        : drawerEntity === "collection"
-        ? data?.collection?.id
-        : data?.item?.id;
+    const entityId = getEntityId(data);
 
     const userId = data?.user?.id;
 
@@ -108,7 +110,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
             entityId={getEntityId(data)}
             roleId={drawerRoleId}
             userId={data?.user?.id}
-            data={data}
+            data={getEntityData(data)}
           />
         </Drawer>
       )}
@@ -120,6 +122,11 @@ interface Props {
   dialog: DialogProps;
   params: Record<string, string | undefined | null>;
 }
+
+type EntityData =
+  | RoleEditAccessDrawerQueryResponse["community"]
+  | RoleEditAccessDrawerQueryResponse["collection"]
+  | RoleEditAccessDrawerQueryResponse["item"];
 
 // This fun little query gets the right id and title depending on the entity type.
 const query = graphql`
@@ -133,19 +140,21 @@ const query = graphql`
     community(slug: $slug) @include(if: $onCommunity) {
       id
       title
+      ...RoleEditAccessFormFragment
     }
     collection(slug: $slug) @include(if: $onCollection) {
       id
       title
+      ...RoleEditAccessFormFragment
     }
     item(slug: $slug) @include(if: $onItem) {
       id
       title
+      ...RoleEditAccessFormFragment
     }
     user(slug: $userSlug) {
       id
       name
     }
-    ...RoleEditAccessFormFragment
   }
 `;

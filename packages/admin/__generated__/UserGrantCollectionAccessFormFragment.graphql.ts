@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type UserGrantCollectionAccessFormFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"CollectionTypeaheadFragment" | "RoleSelectFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CollectionTypeaheadFragment">;
     readonly " $refType": "UserGrantCollectionAccessFormFragment";
 };
 export type UserGrantCollectionAccessFormFragment$data = UserGrantCollectionAccessFormFragment;
@@ -27,15 +27,10 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "CollectionTypeaheadFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "RoleSelectFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '11813b8f2939869faf28f5567587f00c';
+(node as any).hash = 'c371d61167f18d36f90138742e1c9b85';
 export default node;

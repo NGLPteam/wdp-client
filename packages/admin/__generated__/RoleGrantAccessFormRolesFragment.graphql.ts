@@ -5,14 +5,14 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type RoleEditAccessFormFragment = {
+export type RoleGrantAccessFormRolesFragment = {
     readonly " $fragmentRefs": FragmentRefs<"RoleSelectFragment">;
-    readonly " $refType": "RoleEditAccessFormFragment";
+    readonly " $refType": "RoleGrantAccessFormRolesFragment";
 };
-export type RoleEditAccessFormFragment$data = RoleEditAccessFormFragment;
-export type RoleEditAccessFormFragment$key = {
-    readonly " $data"?: RoleEditAccessFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleEditAccessFormFragment">;
+export type RoleGrantAccessFormRolesFragment$data = RoleGrantAccessFormRolesFragment;
+export type RoleGrantAccessFormRolesFragment$key = {
+    readonly " $data"?: RoleGrantAccessFormRolesFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
 };
 
 
@@ -21,7 +21,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "RoleEditAccessFormFragment",
+  "name": "RoleGrantAccessFormRolesFragment",
   "selections": [
     {
       "args": null,
@@ -32,5 +32,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '3fa9e436fd358033f0f9ee6ae8e5fe8f';
+(node as any).hash = 'a9ad3a46c13cb94ab271c2a6d761008a';
 export default node;

@@ -17,15 +17,17 @@ const RoleSelect = forwardRef(
     const optionsData = useMaybeFragment(fragment, data);
 
     const options = useMemo(() => {
-      return optionsData?.roles.edges.map(({ node }: Node) => {
-        return {
-          label: node.name || "",
-          value: node.id,
-        };
-      });
+      return (
+        optionsData?.assignableRoles?.map(({ name, id }: Node) => {
+          return {
+            label: name || "",
+            value: id,
+          };
+        }) || []
+      );
     }, [optionsData]);
 
-    return options ? (
+    return (
       <Select
         label={label}
         options={options}
@@ -33,7 +35,7 @@ const RoleSelect = forwardRef(
         ref={ref}
         {...inputProps}
       />
-    ) : null;
+    );
   }
 );
 
@@ -41,19 +43,15 @@ interface Props extends Omit<SelectProps, "options"> {
   data?: RoleSelectFragment$key | null;
 }
 
-type Node = RoleSelectFragment$data["roles"]["edges"][number];
+type Node = RoleSelectFragment$data["assignableRoles"][number];
 
 export default RoleSelect;
 
 const fragment = graphql`
-  fragment RoleSelectFragment on Query {
-    roles {
-      edges {
-        node {
-          id
-          name
-        }
-      }
+  fragment RoleSelectFragment on Entity {
+    assignableRoles {
+      id
+      name
     }
   }
 `;
