@@ -17,9 +17,9 @@ export type CommunityLandingLayoutFragment = {
             readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
         } | null | undefined;
     } | null;
-    readonly descendants: {
-        readonly " $fragmentRefs": FragmentRefs<"UnitListFragment">;
-    };
+    readonly featuredUnits: {
+        readonly " $fragmentRefs": FragmentRefs<"FeaturedUnitsFragment">;
+    } | null;
     readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
     readonly " $refType": "CommunityLandingLayoutFragment";
 };
@@ -122,31 +122,26 @@ const node: ReaderFragment = {
       "storageKey": "schemaProperty(fullPath:\"featured.issue\")"
     },
     {
-      "alias": null,
+      "alias": "featuredUnits",
       "args": [
         {
           "kind": "Literal",
-          "name": "order",
-          "value": "TITLE_ASCENDING"
-        },
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:unit"
+          "name": "fullPath",
+          "value": "featured.units"
         }
       ],
-      "concreteType": "EntityDescendantConnection",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "descendants",
+      "name": "schemaProperty",
       "plural": false,
       "selections": [
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "UnitListFragment"
+          "name": "FeaturedUnitsFragment"
         }
       ],
-      "storageKey": "descendants(order:\"TITLE_ASCENDING\",schema:\"nglp:unit\")"
+      "storageKey": "schemaProperty(fullPath:\"featured.units\")"
     },
     {
       "args": null,
@@ -157,5 +152,5 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '1ca8d9f4abc1ef2f0bcfbbee4bc504c4';
+(node as any).hash = 'eb40bd5390c1e966851eb35f6874af81';
 export default node;

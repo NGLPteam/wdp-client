@@ -6,8 +6,8 @@ import CommunityHero from "../CommunityHero";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
-import UnitsList from "components/composed/unit/UnitList";
 import FeaturedIssue from "components/composed/journal/FeaturedIssue";
+import FeaturedUnits from "components/composed/unit/FeaturedUnits";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -27,7 +27,9 @@ export default function CommunityLayout({ data }: Props) {
           seeAllText="layouts.see_all_series"
         />
       )}
-      {community?.descendants && <UnitsList data={community?.descendants} />}
+      {community?.featuredUnits && (
+        <FeaturedUnits data={community?.featuredUnits} />
+      )}
       {community?.featuredIssue && (
         <FeaturedIssue data={community.featuredIssue.entity} />
       )}
@@ -59,8 +61,8 @@ const fragment = graphql`
       }
     }
 
-    descendants(schema: "nglp:unit", order: TITLE_ASCENDING) {
-      ...UnitListFragment
+    featuredUnits: schemaProperty(fullPath: "featured.units") {
+      ...FeaturedUnitsFragment
     }
   }
 `;

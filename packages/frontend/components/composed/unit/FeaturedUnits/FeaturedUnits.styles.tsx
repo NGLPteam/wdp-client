@@ -6,8 +6,16 @@ import { ArrowList } from "components/atomic";
 
 export const Inner = styled.div`
   ${lGrid()}
+  grid-template-areas: ". text text text text . image image image image image image";
   padding-block-start: var(--container-padding-xl);
   padding-block-end: var(--container-padding-xl);
+
+  ${respond(
+    `
+    grid-template-areas: ". text text text text text . image image image image image";
+    `,
+    120
+  )}
 
   ${respond(
     `
@@ -16,22 +24,14 @@ export const Inner = styled.div`
       grid-template-areas:
         "text"
         "image";
+      row-gap: var(--padding-xl);
     `,
-    70
+    100
   )}
 `;
 
 export const TextColumn = styled.div<{ $hasImage?: boolean }>`
-  grid-column: 2 / 11;
-
-  ${({ $hasImage }) => $hasImage && `grid-column: 2 / 6;`}
-
-  ${respond(
-    `
-      grid-area: text;
-    `,
-    70
-  )}
+  grid-area: text;
 `;
 
 export const HeaderBlock = styled.div`
@@ -57,15 +57,7 @@ export const UnitsListItem = styled.li`
 `;
 
 export const ImageColumn = styled.div`
-  grid-column: 7 / 13;
-
-  ${respond(
-    `
-      grid-area: image;
-      padding-block-start: var(--padding-xl);
-    `,
-    70
-  )}
+  grid-area: image;
 `;
 
 export const ImageWrapper = styled.div`
