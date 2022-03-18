@@ -14,6 +14,7 @@ export type DashboardCollectionsListFragment = {
             readonly name: string;
             readonly number: string;
         };
+        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelPageCountActionsFragment" | "ModelPaginationFragment">;
     readonly " $refType": "DashboardCollectionsListFragment";
@@ -85,6 +86,11 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityThumbnailColumnFragment"
         }
       ],
       "storageKey": null
@@ -103,5 +109,5 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '81aa9a1deb9ab78b42eadca340689f74';
+(node as any).hash = '3ae7ad822317ef51c8e1ca4a023e3220';
 export default node;

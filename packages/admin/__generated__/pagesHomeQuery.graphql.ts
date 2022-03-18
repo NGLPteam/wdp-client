@@ -28,9 +28,18 @@ query pagesHomeQuery(
   ...DashboardLayoutFragment_1KnpCu
 }
 
+fragment CoverImageFragment on ImageAttachment {
+  storage
+  medium {
+    webp {
+      ...ImageFragment
+    }
+  }
+}
+
 fragment DashboardCollectionsFragment_1KnpCu on Query {
   viewer {
-    collections(page: $page, order: $order) {
+    collections(page: $page, order: $order, perPage: 10) {
       ...DashboardCollectionsListFragment
     }
     id
@@ -47,6 +56,7 @@ fragment DashboardCollectionsListFragment on CollectionConnection {
       number
       id
     }
+    ...EntityThumbnailColumnFragment
   }
   ...ModelPageCountActionsFragment
   ...ModelPaginationFragment
@@ -73,6 +83,32 @@ fragment DashboardInstallationFragment on Query {
 fragment DashboardLayoutFragment_1KnpCu on Query {
   ...DashboardInstallationFragment
   ...DashboardCollectionsFragment_1KnpCu
+}
+
+fragment EntityThumbnailColumnFragment on Entity {
+  __isEntity: __typename
+  __typename
+  title
+  thumbnail {
+    storage
+    ...CoverImageFragment
+  }
+  ... on Node {
+    __isNode: __typename
+    id
+  }
+  ... on Sluggable {
+    __isSluggable: __typename
+    slug
+  }
+}
+
+fragment ImageFragment on Image {
+  __isImage: __typename
+  alt
+  url
+  width
+  height
 }
 
 fragment ModelPageCountActionsFragment on Paginated {
@@ -107,26 +143,24 @@ v1 = {
   "kind": "LocalArgument",
   "name": "page"
 },
-v2 = [
-  {
-    "kind": "Variable",
-    "name": "order",
-    "variableName": "order"
-  },
-  {
-    "kind": "Variable",
-    "name": "page",
-    "variableName": "page"
-  }
-],
+v2 = {
+  "kind": "Variable",
+  "name": "order",
+  "variableName": "order"
+},
 v3 = {
+  "kind": "Variable",
+  "name": "page",
+  "variableName": "page"
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v4 = [
+v5 = [
   {
     "alias": null,
     "args": null,
@@ -135,12 +169,12 @@ v4 = [
     "name": "pageInfo",
     "plural": false,
     "selections": [
-      (v3/*: any*/)
+      (v4/*: any*/)
     ],
     "storageKey": null
   }
 ],
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -158,7 +192,10 @@ return {
     "name": "pagesHomeQuery",
     "selections": [
       {
-        "args": (v2/*: any*/),
+        "args": [
+          (v2/*: any*/),
+          (v3/*: any*/)
+        ],
         "kind": "FragmentSpread",
         "name": "DashboardLayoutFragment"
       }
@@ -182,7 +219,7 @@ return {
         "kind": "LinkedField",
         "name": "communities",
         "plural": false,
-        "selections": (v4/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -192,7 +229,7 @@ return {
         "kind": "LinkedField",
         "name": "contributors",
         "plural": false,
-        "selections": (v4/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -202,7 +239,7 @@ return {
         "kind": "LinkedField",
         "name": "users",
         "plural": false,
-        "selections": (v4/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -215,7 +252,15 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              {
+                "kind": "Literal",
+                "name": "perPage",
+                "value": 10
+              }
+            ],
             "concreteType": "CollectionConnection",
             "kind": "LinkedField",
             "name": "collections",
@@ -229,7 +274,7 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -266,9 +311,106 @@ return {
                         "name": "number",
                         "storageKey": null
                       },
-                      (v5/*: any*/)
+                      (v6/*: any*/)
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageAttachment",
+                        "kind": "LinkedField",
+                        "name": "thumbnail",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "storage",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageSize",
+                            "kind": "LinkedField",
+                            "name": "medium",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageDerivative",
+                                "kind": "LinkedField",
+                                "name": "webp",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "alt",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "url",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "width",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "height",
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "type": "Image",
+                                    "abstractKey": "__isImage"
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isNode"
+                      },
+                      {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isSluggable"
+                      }
+                    ],
+                    "type": "Entity",
+                    "abstractKey": "__isEntity"
                   }
                 ],
                 "storageKey": null
@@ -319,7 +461,7 @@ return {
                         "name": "hasPreviousPage",
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -330,19 +472,19 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3260591cd140f1a5e609e6509ca1d27c",
+    "cacheID": "e38c635879b489db012c26dd950c7a25",
     "id": null,
     "metadata": {},
     "name": "pagesHomeQuery",
     "operationKind": "query",
-    "text": "query pagesHomeQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardLayoutFragment_1KnpCu\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(page: $page, order: $order) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment DashboardLayoutFragment_1KnpCu on Query {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query pagesHomeQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardLayoutFragment_1KnpCu\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(page: $page, order: $order, perPage: 10) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment DashboardLayoutFragment_1KnpCu on Query {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

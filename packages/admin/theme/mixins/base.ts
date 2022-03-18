@@ -4,7 +4,7 @@ import { breakpoints } from "../base/variables";
 export { noFlexGapSupport, noInsetSupport } from "@wdp/lib/theme/mixins";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type CssContent = string | any; // TODO: Get the return type of styled-compoonents css function
+export type CssContent = string | any; // TODO: Get the return type of styled-compoonents css function
 
 export function respond(
   content: CssContent,
@@ -34,4 +34,8 @@ export function globalNavRespond(content: CssContent, operator?: string) {
   const breakpoint = breakpoints.navBreak;
 
   return respond(content, breakpoint, operator);
+}
+
+export function getBreakpoint(size: string | number) {
+  return get(breakpoints, size, size);
 }

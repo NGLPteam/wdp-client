@@ -28,6 +28,7 @@ export default function DashboardCollections({ data }: Props) {
 
   /** Columns */
   const columns = [
+    ModelColumns.EntityThumbnailColumn<Node>(),
     ModelColumns.NameColumn<Node>({
       id: "title",
       accessor: "title",
@@ -49,7 +50,7 @@ export default function DashboardCollections({ data }: Props) {
             <ModelList<OperationType, DashboardCollectionsListFragment, Node>
               queryVariables={queryVariables}
               setQueryVariables={setQueryVariables}
-              view={ViewOptions.table}
+              view={ViewOptions.grid}
               columns={columns}
               data={collections}
               modelName="collection"
@@ -73,7 +74,7 @@ const fragment = graphql`
     order: { type: "EntityOrder", defaultValue: RECENT }
   ) {
     viewer {
-      collections(page: $page, order: $order) {
+      collections(page: $page, order: $order, perPage: 10) {
         ...DashboardCollectionsListFragment
       }
     }
@@ -92,6 +93,7 @@ const listFragment = graphql`
         name
         number
       }
+      ...EntityThumbnailColumnFragment
     }
     ...ModelPageCountActionsFragment
     ...ModelPaginationFragment
