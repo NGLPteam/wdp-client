@@ -9,6 +9,7 @@ import {
   IssueOrderingLayoutFragment$key,
 } from "@/relay/IssueOrderingLayoutFragment.graphql";
 import { Pagination } from "components/atomic";
+import { NoContent } from "components/layout";
 
 export default function IssueOrderingLayout({ data }: Props) {
   const content = useMaybeFragment(fragment, data);
@@ -31,7 +32,7 @@ export default function IssueOrderingLayout({ data }: Props) {
           )}
         </Styled.List>
       ) : (
-        t("list.no_results_message")
+        <NoContent />
       )}
       {content.children?.pageInfo && (
         <Styled.Footer>

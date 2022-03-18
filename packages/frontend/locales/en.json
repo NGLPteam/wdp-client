@@ -24,7 +24,7 @@
       "loading": "Loading",
       "loading_pdf": "Loading PDF",
       "avatar": "Avatar",
-      "no_content": "No content found"
+      "no_content": "Sorry, this page has no content."
     },
     "date": {
       "published": "Published",
@@ -37,7 +37,6 @@
       "page_count_plural": "{{count}} Pages",
       "of_count": "of {{count}}",
       "showing_count_out_of_total": "<0>Showing</0> {{start}} - {{end}} <0>out of</0> {{total}} {{name}}",
-      "no_results_message": "No results",
       "order_by_label": "Order by:",
       "and_x_more": "and {{count}} more"
     },

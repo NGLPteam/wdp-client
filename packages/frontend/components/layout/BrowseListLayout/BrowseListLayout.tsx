@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useTranslation } from "react-i18next";
+import NoContent from "../NoContent";
 import * as Styled from "./BrowseListLayout.styles";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
@@ -13,8 +13,6 @@ export default function BrowseListLayout({
   items,
 }: Props) {
   const pageInfo = useMaybeFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   return pageInfo ? (
     <section className="a-bg-neutral00">
@@ -33,7 +31,7 @@ export default function BrowseListLayout({
             ))}
           </ul>
         ) : (
-          <div>{t("list.no_results_message")}</div>
+          <NoContent />
         )}
         <Styled.Footer>
           <Pagination data={pageInfo} />
