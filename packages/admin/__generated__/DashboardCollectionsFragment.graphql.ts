@@ -58,6 +58,11 @@ const node: ReaderFragment = {
               "kind": "Variable",
               "name": "page",
               "variableName": "page"
+            },
+            {
+              "kind": "Literal",
+              "name": "perPage",
+              "value": 10
             }
           ],
           "concreteType": "CollectionConnection",
@@ -80,5 +85,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'c5090cfd86a2a7e4be7999189921a71c';
+(node as any).hash = 'd67939fb6e17560f7f6fbc35d822efb4';
 export default node;

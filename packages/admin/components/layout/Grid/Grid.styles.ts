@@ -1,25 +1,41 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Grid from "./Grid";
 import { aBgLight } from "theme/mixins/appearance";
-import { fluidScale, respond } from "theme/mixins/base";
+import { CssContent, fluidScale, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
+
 type Props = React.ComponentProps<typeof Grid>;
 
-const MOBILE_BREAK = "tableBreak";
-const TABLET_BREAK = 70;
+function mobile(content: CssContent) {
+  return `
+    ${respond(content, "tableBreak")}
+    [data-mobile-layout] & {
+      ${content}
+    }
+  `;
+}
+
+function tablet(content: CssContent) {
+  return `
+    ${respond(content, 70)}
+    [data-mobile-layout] & {
+      ${content}
+    }
+  `;
+}
 
 export const Wrapper = styled.div<Partial<Props>>`
   --checkbox-opacity: 0;
   border-top: 1px solid var(--border-color);
+  contain: layout inline-size;
 
   ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
 
-  ${respond(
-    css`
+  ${tablet(
+    `
       --checkbox-opacity: 1;
       --actions-opacity: 1;
-    `,
-    TABLET_BREAK
+    `
   )}
 `;
 
@@ -34,14 +50,13 @@ export const Inner = styled.div`
   padding-block-end: ${pxToRem(32)};
 
   ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
-  ${respond(`grid-template-columns: repeat(1, 1fr);`, MOBILE_BREAK)}
+  ${mobile(`grid-template-columns: repeat(1, 1fr);`)}
 
-  ${respond(
+  ${tablet(
     `
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-  `,
-    TABLET_BREAK
+      margin-inline-start: auto;
+      margin-inline-end: auto;
+    `
   )}
 `;
 
@@ -61,7 +76,7 @@ export const Item = styled.div`
   background-color: transparent;
   transition: var(--background-transition);
 
-  ${respond(
+  ${mobile(
     `
       grid-template:
         "image children actions" 1fr
@@ -78,8 +93,7 @@ export const Item = styled.div`
           "checkbox image children actions" 1fr
           / auto auto 1fr auto;
       }
-    `,
-    MOBILE_BREAK
+    `
   )}
 
   &:hover,
@@ -88,11 +102,10 @@ export const Item = styled.div`
     --actions-opacity: 1;
     ${aBgLight("brand10")}
 
-    ${respond(
-      css`
+    ${mobile(
+      `
         background-color: transparent;
-      `,
-      MOBILE_BREAK
+      `
     )}
   }
 `;
@@ -126,13 +139,12 @@ export const Thumbnail = styled.div`
   max-width: 100%;
   aspect-ratio: 1 / 1;
 
-  ${respond(
+  ${mobile(
     `
       display: block;
       padding-block-end: 0;
       height: 60px;
-    `,
-    MOBILE_BREAK
+    `
   )}
 `;
 
