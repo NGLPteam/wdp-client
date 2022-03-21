@@ -47,7 +47,11 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
             routeParams={{ slug: community.slug, schema: schema.slug }}
             passHref
           >
-            <Link>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</Link>
+            <Link className="t-capitalize">
+              {t(getSchemaTranslationKey(schema.slug), {
+                count: 2,
+              })}
+            </Link>
           </NamedLink>
         ))
       : [];
@@ -87,7 +91,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
 
   return (
     <ListComponent condensed={condensed}>
-      <li className="t-capitalize">{exploreMenu}</li>
+      <li>{exploreMenu}</li>
       {community &&
         community.slug &&
         community.pages.edges &&
