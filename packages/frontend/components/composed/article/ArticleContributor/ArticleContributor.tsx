@@ -1,129 +1,43 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import capitalize from "lodash/capitalize";
-import * as Styled from "./ArticleContributor.styles";
-import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
-import ContributorName from "components/composed/contributor/ContributorName";
-import { DotList, Link, NamedLink, Markdown } from "components/atomic";
-import { ArticleContributorFragment$key } from "@/relay/ArticleContributorFragment.graphql";
+import {
+  ArticleContributorFragment$data,
+  ArticleContributorFragment$key,
+} from "@/relay/ArticleContributorFragment.graphql";
+import ContributionAuthorBlock from "components/composed/contribution/ContributionAuthorBlock";
+import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 
 export default function ArticleContributor({ data }: Props) {
-  const contributions = useMaybeFragment(fragment, data);
-  const authorContributions = contributions?.edges.filter(
-    (edge) => edge.node.role?.toLowerCase() === "author"
-  );
-  const contributionToShow = authorContributions?.length
-    ? authorContributions[0].node
-    : null;
-  const contributor = contributionToShow?.contributor;
-  const showAvatar = contributor?.image?.storage ?? null;
+  const contributionData = useMaybeFragment(fragment, data);
 
-  return contributor &&
-    (contributor.__typename === "PersonContributor" ||
-      contributor.__typename === "OrganizationContributor") &&
-    contributor.slug ? (
-    <section className="a-bg-custom10">
-      <Styled.Inner className="l-container-wide">
-        {showAvatar && (
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contributor.slug,
-              ...(contributionToShow?.item?.slug && {
-                item: contributionToShow.item?.slug,
-              }),
-            }}
-            passHref
-          >
-            {/* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */}
-            <Styled.AvatarWrapper as="a" aria-hidden="true" tabIndex={-1}>
-              <ContributorAvatar data={contributor.image} />
-            </Styled.AvatarWrapper>
-          </NamedLink>
-        )}
-        <Styled.Info>
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contributor.slug,
-              ...(contributionToShow?.item?.slug && {
-                item: contributionToShow.item?.slug,
-              }),
-            }}
-            passHref
-          >
-            <Link>
-              <ContributorName data={contributor} />
-            </Link>
-          </NamedLink>
-          {contributor.__typename === "PersonContributor" && (
-            <>
-              <Styled.Roles>
-                <DotList className="t-copy-sm t-copy-lighter">
-                  {contributionToShow.role && (
-                    <li>{capitalize(contributionToShow.role)}</li>
-                  )}
-                  {contributor.title && <li>{contributor.title}</li>}
-                  {contributor.affiliation && (
-                    <li>{contributor.affiliation}</li>
-                  )}
-                </DotList>
-              </Styled.Roles>
-              {contributor.bio && (
-                <Styled.Bio>
-                  <Markdown.Summary className="t-copy-sm t-copy-lighter t-rte">
-                    {contributor.bio}
-                  </Markdown.Summary>
-                </Styled.Bio>
-              )}
-            </>
-          )}
-        </Styled.Info>
-      </Styled.Inner>
-    </section>
-  ) : null;
+  const contributions = contributionData?.nodes.filter(
+    (node: Node) => node.role && node.role.toLowerCase() === "author"
+  );
+
+  return contributions && contributions.length === 1 ? (
+    <ContributionAuthorBlock data={contributions[0]} />
+  ) : (
+    <ContributionsBlock
+      header="layouts.authors_header"
+      filterRole="author"
+      data={contributionData}
+    />
+  );
 }
 
 type Props = {
   data?: ArticleContributorFragment$key | null;
 };
 
+type Node = ArticleContributorFragment$data["nodes"][number];
+
 const fragment = graphql`
   fragment ArticleContributorFragment on ItemContributionConnection {
-    edges {
-      node {
-        affiliation
-        role
-        item {
-          slug
-        }
-        contributor {
-          ... on Sluggable {
-            slug
-          }
-          ... on PersonContributor {
-            __typename
-            title
-            bio
-            affiliation
-            image {
-              storage
-              ...ContributorAvatarFragment
-            }
-            ...ContributorNameFragment
-          }
-          ... on OrganizationContributor {
-            __typename
-            bio
-            image {
-              storage
-              ...ContributorAvatarFragment
-            }
-            ...ContributorNameFragment
-          }
-        }
-      }
+    nodes {
+      role
+      ...ContributionAuthorBlockFragment
     }
+    ...ContributionsBlockFragment
   }
 `;

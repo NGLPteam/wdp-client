@@ -35,6 +35,7 @@ export default function ArticleHero({ data }: Props) {
               className="t-copy-medium"
               data={article.contributions}
               itemSlug={article.slug}
+              filterRole="author"
             />
             {article.published?.value && (
               <span className="t-copy-lighter">

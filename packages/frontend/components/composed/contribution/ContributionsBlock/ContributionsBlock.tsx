@@ -1,0 +1,96 @@
+import React, { useMemo } from "react";
+import { graphql } from "react-relay";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import ContributionBlockItem from "./ContributionBlockItem";
+import BaseContributionsBlock from "./BaseContributionsBlock";
+import {
+  ContributionsBlockFragment$key,
+  ContributionsBlockFragment$data,
+} from "@/relay/ContributionsBlockFragment.graphql";
+
+type BaseProps = Omit<
+  React.ComponentProps<typeof BaseContributionsBlock>,
+  "children"
+>;
+
+const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
+  const contributionData = useMaybeFragment(fragment, data);
+
+  const showAvatars = useMemo(() => {
+    return contributionData?.nodes?.some(
+      (node: Node) => node.contributor?.image?.storage
+    );
+  }, [contributionData]);
+
+  const contributions = contributionData?.nodes?.filter(
+    (node: Node) =>
+      !filterRole ||
+      (node.role && node.role.toLowerCase() === filterRole.toLowerCase())
+  );
+
+  return contributions && contributions.length > 0 ? (
+    <BaseContributionsBlock {...baseProps}>
+      {contributions.map((node: Node) => (
+        <ContributionBlockItem
+          data={node}
+          key={node.slug}
+          showAvatar={showAvatars}
+        />
+      ))}
+    </BaseContributionsBlock>
+  ) : null;
+};
+
+interface Props extends BaseProps {
+  data?: ContributionsBlockFragment$key | null;
+  /** Filter by a role, example: author */
+  filterRole?: string;
+}
+
+export default ContributionsBlock;
+
+type Node = NonNullable<ContributionsBlockFragment$data["nodes"]>[number];
+
+const fragment = graphql`
+  fragment ContributionsBlockFragment on Paginated {
+    ... on ItemContributionConnection {
+      nodes {
+        slug
+        role
+        contributor {
+          ... on PersonContributor {
+            image {
+              storage
+            }
+          }
+          ... on OrganizationContributor {
+            image {
+              storage
+            }
+          }
+        }
+        ...ContributionBlockItemFragment
+      }
+    }
+
+    ... on CollectionContributionConnection {
+      nodes {
+        slug
+        role
+        contributor {
+          ... on PersonContributor {
+            image {
+              storage
+            }
+          }
+          ... on OrganizationContributor {
+            image {
+              storage
+            }
+          }
+        }
+        ...ContributionBlockItemFragment
+      }
+    }
+  }
+`;
