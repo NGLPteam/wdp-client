@@ -17,9 +17,6 @@ export type UpdateItemInput = {
     heroImageMetadata?: ImageMetadataInput | null | undefined;
     thumbnail?: UploadedFileInput | null | undefined;
     thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    accessioned?: VariablePrecisionDateInput | null | undefined;
-    available?: VariablePrecisionDateInput | null | undefined;
-    issued?: VariablePrecisionDateInput | null | undefined;
     published?: VariablePrecisionDateInput | null | undefined;
     visibility: EntityVisibility;
     visibleAfterAt?: string | null | undefined;

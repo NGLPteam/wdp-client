@@ -2,7 +2,7 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import IssueHero from "../IssueHero";
-import { CollectionContributionsBlock } from "components/composed/contribution/ContributionsBlock";
+import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import { BreadcrumbsBar } from "components/layout";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import RelatedIssues from "components/composed/issue/RelatedIssues";
@@ -17,7 +17,7 @@ export default function IssueLayout({ data, children }: Props) {
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
       {children}
-      <CollectionContributionsBlock data={issue?.contributions} />
+      <ContributionsBlock data={issue?.contributions} />
       <RelatedIssues data={issue?.relatedCollections} />
     </>
   );
@@ -34,7 +34,7 @@ const fragment = graphql`
     ...BreadcrumbsBarFragment
     ...IssueHeroFragment
     contributions {
-      ...CollectionContributionsBlockFragment
+      ...ContributionsBlockFragment
     }
     relatedCollections(page: 1, perPage: 4) {
       ...RelatedIssuesFragment
