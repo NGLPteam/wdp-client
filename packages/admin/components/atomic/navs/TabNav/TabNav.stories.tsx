@@ -20,11 +20,11 @@ Default.args = {
   links: [
     {
       route: "collection.child.collections",
-      label: "glossary.collection_plural",
+      label: "glossary.collection_other",
     },
     {
       route: "collection.child.items",
-      label: "glossary.item_plural",
+      label: "glossary.item_other",
     },
     {
       route: "collection.manage",

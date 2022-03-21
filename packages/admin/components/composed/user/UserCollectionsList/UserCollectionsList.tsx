@@ -109,7 +109,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.collection_plural")}
+      header={t("glossary.collection_other")}
       disableSortBy
       buttons={buttons}
       actions={actions}

@@ -13,7 +13,7 @@ const AssetsBlock = ({ data }: Props) => {
   return (
     <section className={`a-bg-neutral00`}>
       <Styled.SectionInner className="l-container-wide">
-        <h3 className="t-capitalize">{t("glossary.files_plural")}</h3>
+        <h3 className="t-capitalize">{t("glossary.files_other")}</h3>
         {files?.edges && files.edges.length > 0 ? (
           <Styled.List>
             {files.edges.map(({ node }, i) => (

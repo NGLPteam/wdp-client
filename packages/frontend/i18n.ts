@@ -2,6 +2,7 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import get from "lodash/get";
+import capitalize from "lodash/capitalize";
 import * as resources from "./locales";
 
 export const updateI18n = (lang: string) => {
@@ -35,7 +36,6 @@ i18n
 
 export default i18n;
 
-// TODO: Upgrade to ^21.3.0
-// i18n.services.formatter?.add("capitalize", (value: string) => {
-//   return capitalize(value);
-// });
+i18n.services.formatter?.add("capitalize", (value: string) => {
+  return capitalize(value);
+});
