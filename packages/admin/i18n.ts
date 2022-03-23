@@ -24,6 +24,7 @@ i18n
     resources,
     interpolation: {
       escapeValue: false,
+      skipOnVariables: false,
     },
     fallbackLng: {
       default: [DEFAULT_LNG],

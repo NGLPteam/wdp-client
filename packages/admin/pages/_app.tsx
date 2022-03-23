@@ -5,7 +5,6 @@ import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions } from "keycloak-js";
-import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import type { Page } from "@wdp/lib/types/page";
 import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
@@ -113,4 +112,4 @@ interface InitialProps {
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 
-export default appWithTranslation(NGLPApp);
+export default NGLPApp;
