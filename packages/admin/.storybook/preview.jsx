@@ -15,9 +15,12 @@ Object.defineProperty(nextImage, "default", {
       width,
       height,
       objectFit = "contain",
-      objectPosition = "bottom left",
+      focalPoint = [0.5, 0.5],
       className,
     } = props;
+    const objectPosition = focalPoint
+      .map((coord) => coord * 100 + "%")
+      .join(" ");
     const wrapperStyle =
       objectFit !== "cover"
         ? {}
@@ -31,9 +34,10 @@ Object.defineProperty(nextImage, "default", {
       objectFit,
       objectPosition,
       blockSize: objectFit === "cover" ? "100%" : "auto",
+      width: objectFit === "cover" ? "100%" : "auto",
     };
     return (
-      <div className={className}>
+      <div style={wrapperStyle} className={className}>
         <img src={src} alt={alt} width={width} height={height} style={style} />
       </div>
     );
@@ -50,7 +54,9 @@ export const decorators = [
 ];
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
   themes: {
     default: "neutral00",
     list: [
@@ -72,30 +78,7 @@ export const parameters = {
     ],
   },
   backgrounds: { disable: true }, // disabled in favor of themes
-  nextRouter: {
-    Provider: RouterContext.Provider,
-  },
-  viewport: {
-    viewports: {
-      galaxyFold: {
-        name: "Galaxy Fold",
-        styles: {
-          width: "280px",
-          height: "653px",
-        },
-        type: "mobile",
-      },
-      ...INITIAL_VIEWPORTS,
-    },
-  },
   i18n,
   locale: DEFAULT_LNG,
   locales: SUPPORTED_LOCALES,
-  grid: {
-    gridOn: false,
-    columns: 12,
-    gutter: 0,
-    gap: "16px",
-    maxWidth: "1000px",
-  },
 };
