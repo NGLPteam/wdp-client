@@ -22,9 +22,6 @@ export default function CommunityLayout({ data }: Props) {
         <FeaturedCollectionsGrid
           header="layouts.featured_paper_series_header"
           data={community?.featuredSeries}
-          seeAllRoute="community.collections.schema"
-          seeAllRouteParams={{ slug: slug || "", schema: "nglp:series" }}
-          seeAllText="layouts.see_all_series"
         />
       )}
       {community?.featuredUnits && (
