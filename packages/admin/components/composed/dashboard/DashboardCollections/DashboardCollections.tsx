@@ -41,7 +41,7 @@ export default function DashboardCollections({ data }: Props) {
     <section>
       <ContentHeader
         headerStyle="secondary"
-        title={t("glossary.collection_other")}
+        title={t("glossary.collection_plural")}
       />
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (

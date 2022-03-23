@@ -8,7 +8,7 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "collections",
     path: "/collections",
-    label: "glossary.collection_other",
+    label: "glossary.collection_plural",
     routes: [
       {
         name: "collection",
@@ -18,12 +18,12 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "collection.child.collections",
             path: "/collections/[slug]/collections",
-            label: "glossary.collection_other",
+            label: "glossary.collection_plural",
           },
           {
             name: "collection.child.items",
             path: "/collections/[slug]/items",
-            label: "glossary.item_other",
+            label: "glossary.item_plural",
           },
           {
             name: "collection.manage",
@@ -71,7 +71,7 @@ export const baseRoutes: BaseRoute[] = [
               {
                 name: "collection.manage.contributions",
                 path: "/collections/[slug]/manage/contributions",
-                label: "glossary.contribution_other",
+                label: "glossary.contribution_plural",
                 actions: ["self.update"],
               },
               {
@@ -89,18 +89,18 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "items",
     path: "/items",
-    label: "glossary.item_other",
+    label: "glossary.item_plural",
     routes: [
       {
         name: "item",
         path: "/items/[slug]",
         redirect: "/items/[slug]/items",
-        label: "glossary.item_other",
+        label: "glossary.item_plural",
         routes: [
           {
             name: "item.child.items",
             path: "/items/[slug]/items",
-            label: "glossary.item_other",
+            label: "glossary.item_plural",
           },
           {
             name: "item.manage",
@@ -148,7 +148,7 @@ export const baseRoutes: BaseRoute[] = [
               {
                 name: "item.manage.contributions",
                 path: "/items/[slug]/manage/contributions",
-                label: "glossary.contribution_other",
+                label: "glossary.contribution_plural",
                 actions: ["self.update"],
               },
               {
@@ -166,18 +166,18 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "communities",
     path: "/communities",
-    label: "glossary.community_other",
+    label: "glossary.community_plural",
     routes: [
       {
         name: "community",
         path: "/communities/[slug]",
         redirect: "/communities/[slug]/collections",
-        label: "glossary.community_other",
+        label: "glossary.community_plural",
         routes: [
           {
             name: "community.child.collections",
             path: "/communities/[slug]/collections",
-            label: "glossary.collection_other",
+            label: "glossary.collection_plural",
           },
           {
             name: "community.manage",
@@ -219,13 +219,13 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "users",
     path: "/users",
-    label: "glossary.user_other",
+    label: "glossary.user_plural",
     routes: [
       {
         name: "user",
         path: "/users/[slug]",
         redirect: "/users/[slug]/details",
-        label: "glossary.user_other",
+        label: "glossary.user_plural",
         routes: [
           {
             name: "user.details",
@@ -235,17 +235,17 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "user.communities",
             path: "/users/[slug]/communities",
-            label: "glossary.community_other",
+            label: "glossary.community_plural",
           },
           {
             name: "user.collections",
             path: "/users/[slug]/collections",
-            label: "glossary.collection_other",
+            label: "glossary.collection_plural",
           },
           {
             name: "user.items",
             path: "/users/[slug]/items",
-            label: "glossary.item_other",
+            label: "glossary.item_plural",
           },
         ],
       },
@@ -254,13 +254,13 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "contributors",
     path: "/contributors",
-    label: "glossary.contributor_other",
+    label: "glossary.contributor_plural",
     routes: [
       {
         name: "contributor",
         path: "/contributors/[slug]",
         redirect: "/contributors/[slug]/details",
-        label: "glossary.contributor_other",
+        label: "glossary.contributor_plural",
         routes: [
           {
             name: "contributor.details",

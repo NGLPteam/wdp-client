@@ -76,7 +76,7 @@ Using snake case matches i18next’s format for things like pluralizations:
 ```
 "glossary": {
    "collection": "Collection",
-   "collection_other": "Collections"
+   "collection_plural": "Collections"
 }
 ```
 

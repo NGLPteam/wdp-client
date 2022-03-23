@@ -43,11 +43,11 @@ const LINKS = [
 const TABS = [
   {
     route: "collection.child.collections",
-    label: "glossary.collection_other",
+    label: "glossary.collection_plural",
   },
   {
     route: "collection.child.items",
-    label: "glossary.item_other",
+    label: "glossary.item_plural",
   },
   {
     route: "collection.manage",
