@@ -1,7 +1,6 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import { useRouteSlug } from "@wdp/lib/routes";
 import CommunityHero from "../CommunityHero";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
@@ -11,8 +10,6 @@ import FeaturedUnits from "components/composed/unit/FeaturedUnits";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
-
-  const slug = useRouteSlug();
 
   return (
     <>
