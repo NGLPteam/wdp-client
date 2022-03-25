@@ -6,17 +6,15 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type BrowseTreeItemFragment = {
-    readonly __typename: string;
-    readonly slug?: string | undefined;
-    readonly title: string;
-    readonly descendants: {
-        readonly nodes: ReadonlyArray<{
-            readonly descendant: {
-                readonly __typename: string;
-                readonly slug?: string | undefined;
-                readonly title?: string | undefined;
-            };
-        }>;
+    readonly treeDepth: number | null;
+    readonly entry: {
+        readonly __typename: string;
+        readonly slug?: string | undefined;
+        readonly title?: string | undefined;
+        readonly schemaVersion?: {
+            readonly namespace: string;
+            readonly identifier: string;
+        } | undefined;
     };
     readonly " $refType": "BrowseTreeItemFragment";
 };
@@ -28,91 +26,93 @@ export type BrowseTreeItemFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v2 = {
-  "kind": "InlineFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    }
-  ],
-  "type": "Sluggable",
-  "abstractKey": "__isSluggable"
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "BrowseTreeItemFragment",
   "selections": [
-    (v0/*: any*/),
-    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
-      "concreteType": "EntityDescendantConnection",
+      "kind": "ScalarField",
+      "name": "treeDepth",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "descendants",
+      "name": "entry",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "EntityDescendant",
-          "kind": "LinkedField",
-          "name": "nodes",
-          "plural": true,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "kind": "InlineFragment",
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "type": "Sluggable",
+          "abstractKey": "__isSluggable"
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "SchemaVersion",
               "kind": "LinkedField",
-              "name": "descendant",
+              "name": "schemaVersion",
               "plural": false,
               "selections": [
-                (v0/*: any*/),
                 {
-                  "kind": "InlineFragment",
-                  "selections": [
-                    (v1/*: any*/),
-                    (v2/*: any*/)
-                  ],
-                  "type": "Entity",
-                  "abstractKey": "__isEntity"
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "namespace",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "identifier",
+                  "storageKey": null
                 }
               ],
               "storageKey": null
             }
           ],
-          "storageKey": null
+          "type": "Entity",
+          "abstractKey": "__isEntity"
         }
       ],
       "storageKey": null
-    },
-    (v2/*: any*/)
+    }
   ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+  "type": "OrderingEntry",
+  "abstractKey": null
 };
-})();
-(node as any).hash = 'ca43fd07e1e085b20cef0c15a46106ba';
+(node as any).hash = '6d81a611d8467390f901cdde86a282fd';
 export default node;

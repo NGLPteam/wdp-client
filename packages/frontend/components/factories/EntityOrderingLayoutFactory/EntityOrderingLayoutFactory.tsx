@@ -59,7 +59,9 @@ export default function EntityOrderingLayoutFactory({ data }: Props) {
         return isLoading ? (
           <LoadingBlock />
         ) : (
-          <EntityOrderingLayout data={data?.collection?.ordering} />
+          <EntityOrderingLayout
+            data={data?.community?.ordering || data?.collection?.ordering}
+          />
         );
     }
   };
@@ -92,6 +94,12 @@ const query = graphql`
     $page: Int
   ) {
     collection(slug: $slug) {
+      ordering(identifier: $identifier) {
+        ...EntityOrderingLayoutFragment @arguments(page: $page)
+        ...IssueOrderingLayoutFragment @arguments(page: $page)
+      }
+    }
+    community(slug: $slug) {
       ordering(identifier: $identifier) {
         ...EntityOrderingLayoutFragment @arguments(page: $page)
         ...IssueOrderingLayoutFragment @arguments(page: $page)

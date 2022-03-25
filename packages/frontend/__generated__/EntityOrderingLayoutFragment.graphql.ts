@@ -15,10 +15,13 @@ export type EntityOrderingLayoutFragment = {
     readonly children: {
         readonly edges: ReadonlyArray<{
             readonly node: {
+                readonly id: string;
+                readonly treeDepth: number | null;
                 readonly entry: {
                     readonly slug?: string | undefined;
-                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment" | "BrowseTreeItemFragment">;
+                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
                 };
+                readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
             };
         }>;
         readonly pageInfo: {
@@ -112,6 +115,20 @@ const node: ReaderFragment = {
                 {
                   "alias": null,
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "id",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "treeDepth",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
                   "concreteType": null,
                   "kind": "LinkedField",
                   "name": "entry",
@@ -135,14 +152,14 @@ const node: ReaderFragment = {
                       "args": null,
                       "kind": "FragmentSpread",
                       "name": "EntitySummaryFactoryFragment"
-                    },
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "BrowseTreeItemFragment"
                     }
                   ],
                   "storageKey": null
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "BrowseTreeItemFragment"
                 }
               ],
               "storageKey": null
@@ -178,5 +195,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = 'd169690cd01e717f135a43be233cebb0';
+(node as any).hash = 'e48997b13c194883fb90750ade9686f9';
 export default node;
