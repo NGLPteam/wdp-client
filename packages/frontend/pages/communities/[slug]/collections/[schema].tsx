@@ -13,6 +13,9 @@ export default function CommunityCollectionsSchema() {
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (
         <AppLayout data={data} communityData={data?.community}>
+          {/* if (orderingForSchema) */}
+          {/* EntityOrderings */}
+          {/* else */}
           <EntityDescendantsLayout data={data?.community?.descendants} />
         </AppLayout>
       )}
@@ -27,6 +30,7 @@ const query = graphql`
     $page: Int
     $order: EntityDescendantOrder!
   ) {
+    # query for schema
     community(slug: $slug) {
       ...AppLayoutCommunityFragment
       descendants(
@@ -37,6 +41,9 @@ const query = graphql`
       ) {
         ...EntityDescendantsLayoutFragment
       }
+      # orderingForSchema($schema) {
+      #    ...EntityOrderingsFragment
+      # }
     }
     ...AppLayoutFragment
   }
