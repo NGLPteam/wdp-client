@@ -17,12 +17,12 @@ export type EntityOrderingLayoutFragment = {
             readonly node: {
                 readonly entry: {
                     readonly slug?: string | undefined;
-                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
+                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment" | "BrowseTreeItemFragment">;
                 };
             };
         }>;
         readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment" | "BrowseTreeLayoutFragment">;
         };
     };
     readonly " $refType": "EntityOrderingLayoutFragment";
@@ -135,6 +135,11 @@ const node: ReaderFragment = {
                       "args": null,
                       "kind": "FragmentSpread",
                       "name": "EntitySummaryFactoryFragment"
+                    },
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "BrowseTreeItemFragment"
                     }
                   ],
                   "storageKey": null
@@ -157,6 +162,11 @@ const node: ReaderFragment = {
               "args": null,
               "kind": "FragmentSpread",
               "name": "BrowseListLayoutFragment"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "BrowseTreeLayoutFragment"
             }
           ],
           "storageKey": null
@@ -168,5 +178,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '2a1691d6a1f5233e66ff043c433f60ae';
+(node as any).hash = 'd169690cd01e717f135a43be233cebb0';
 export default node;

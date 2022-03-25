@@ -16,3 +16,5 @@ export { default as User } from "./User";
 export { default as Copy } from "./Copy";
 export { default as Checkbox } from "./Checkbox";
 export { default as ORCID } from "./ORCID";
+export { default as Plus } from "./Plus";
+export { default as Minus } from "./Minus";

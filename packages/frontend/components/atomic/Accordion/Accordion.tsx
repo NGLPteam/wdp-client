@@ -1,18 +1,13 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import { useDetailsToggle } from "@wdp/lib/hooks";
 import * as Styled from "./Accordion.styles";
 import { IconKeys } from "components/factories/IconFactory/IconFactory";
 
 export default function Accordion({ label, menuItems }: Props) {
-  const ref = useRef<HTMLDetailsElement>(null);
-  const [icon, toggleIcon] = useState<IconKeys>("chevronDown");
-
-  const onToggle = () => {
-    if (!ref.current?.open) {
-      toggleIcon("chevronUp");
-      return;
-    }
-    toggleIcon("chevronDown");
-  };
+  const { ref, icon, onToggle } = useDetailsToggle<IconKeys>({
+    iconClosed: "chevronDown",
+    iconOpen: "chevronUp",
+  });
 
   const submenu =
     menuItems &&

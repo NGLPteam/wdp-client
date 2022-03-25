@@ -8,6 +8,8 @@ import {
 } from "@/relay/EntityOrderingLayoutFragment.graphql";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import BrowseListLayout from "components/layout/BrowseListLayout";
+import BrowseTreeLayout from "components/layout/BrowseTreeLayout";
+import BrowseTreeItem from "components/layout/BrowseTreeLayout/BrowseTreeItem";
 
 export default function EntityOrderingLayout({ data }: Props) {
   const ordering = useMaybeFragment(fragment, data);
@@ -16,14 +18,26 @@ export default function EntityOrderingLayout({ data }: Props) {
 
   const { t } = useTranslation();
 
+  const mode = ordering?.render?.mode;
+
   return ordering ? (
-    <BrowseListLayout
-      data={pageInfo}
-      header={ordering.header || ordering.name}
-      items={ordering.children.edges.map(({ node: { entry } }: Node) => (
-        <EntitySummaryFactory key={entry.slug} data={entry} />
-      ))}
-    />
+    mode === "TREE" ? (
+      <BrowseTreeLayout
+        data={pageInfo}
+        header={ordering.header || ordering.name}
+        items={ordering.children.edges.map(({ node: { entry } }: Node) => (
+          <BrowseTreeItem key={entry.slug} data={entry} />
+        ))}
+      />
+    ) : (
+      <BrowseListLayout
+        data={pageInfo}
+        header={ordering.header || ordering.name}
+        items={ordering.children.edges.map(({ node: { entry } }: Node) => (
+          <EntitySummaryFactory key={entry.slug} data={entry} />
+        ))}
+      />
+    )
   ) : (
     <div className="l-container-wide l-container-wide--p-lg">
       {t("common.no_content")}
@@ -53,11 +67,13 @@ const fragment = graphql`
               slug
             }
             ...EntitySummaryFactoryFragment
+            ...BrowseTreeItemFragment
           }
         }
       }
       pageInfo {
         ...BrowseListLayoutFragment
+        ...BrowseTreeLayoutFragment
       }
     }
   }
