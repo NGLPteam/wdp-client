@@ -21,3 +21,7 @@ export const Footer = styled.div`
   padding-block-start: ${pxToRem(56)};
   padding-block-end: ${pxToRem(120)};
 `;
+
+export const Details = styled.details`
+  margin-block-start: ${pxToRem(20)};
+`;

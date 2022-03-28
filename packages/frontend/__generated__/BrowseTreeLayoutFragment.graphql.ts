@@ -6,7 +6,14 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type BrowseTreeLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"PaginationFragment" | "PageCountFragment">;
+    readonly nodes: ReadonlyArray<{
+        readonly id: string;
+        readonly treeDepth: number | null;
+        readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
+    }>;
+    readonly pageInfo: {
+        readonly " $fragmentRefs": FragmentRefs<"PaginationFragment" | "PageCountFragment">;
+    };
     readonly " $refType": "BrowseTreeLayoutFragment";
 };
 export type BrowseTreeLayoutFragment$data = BrowseTreeLayoutFragment;
@@ -24,18 +31,59 @@ const node: ReaderFragment = {
   "name": "BrowseTreeLayoutFragment",
   "selections": [
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "PaginationFragment"
+      "concreteType": "OrderingEntry",
+      "kind": "LinkedField",
+      "name": "nodes",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "treeDepth",
+          "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BrowseTreeItemFragment"
+        }
+      ],
+      "storageKey": null
     },
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "PageCountFragment"
+      "concreteType": "PageInfo",
+      "kind": "LinkedField",
+      "name": "pageInfo",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PaginationFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PageCountFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
-  "type": "PageInfo",
+  "type": "OrderingEntryConnection",
   "abstractKey": null
 };
-(node as any).hash = '77de87ebcf0893cf1ee37da82fce1341';
+(node as any).hash = '129c8d02195dab2a0c66a313d50c9634';
 export default node;

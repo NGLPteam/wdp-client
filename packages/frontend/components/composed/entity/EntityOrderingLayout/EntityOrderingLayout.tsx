@@ -8,7 +8,6 @@ import {
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import BrowseTreeLayout from "components/layout/BrowseTreeLayout";
-import BrowseTreeItem from "components/layout/BrowseTreeLayout/BrowseTreeItem";
 import { NoContent } from "components/layout";
 
 export default function EntityOrderingLayout({ data }: Props) {
@@ -21,11 +20,8 @@ export default function EntityOrderingLayout({ data }: Props) {
   return ordering ? (
     mode === "TREE" ? (
       <BrowseTreeLayout
-        data={pageInfo}
+        data={ordering.children}
         header={ordering.header || ordering.name}
-        items={ordering.children.edges.map(({ node }: Node) => (
-          <BrowseTreeItem key={node.entry.slug} data={node} />
-        ))}
       />
     ) : (
       <BrowseListLayout
@@ -57,12 +53,10 @@ const fragment = graphql`
     render {
       mode
     }
-    children(page: $page) {
+    children(page: $page, perPage: 10) {
       edges {
         node {
           id
-          ...BrowseTreeItemFragment
-          treeDepth
           entry {
             ... on Sluggable {
               slug
@@ -73,8 +67,8 @@ const fragment = graphql`
       }
       pageInfo {
         ...BrowseListLayoutFragment
-        ...BrowseTreeLayoutFragment
       }
+      ...BrowseTreeLayoutFragment
     }
   }
 `;
