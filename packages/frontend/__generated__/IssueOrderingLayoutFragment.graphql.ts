@@ -64,6 +64,11 @@ const node: ReaderFragment = {
           "kind": "Variable",
           "name": "page",
           "variableName": "page"
+        },
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 10
         }
       ],
       "concreteType": "OrderingEntryConnection",
@@ -146,5 +151,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = 'fc3b2c6722e0ab008ed5234156a728d1';
+(node as any).hash = '8a714cd703b7f9b19a080afb7df0876e';
 export default node;

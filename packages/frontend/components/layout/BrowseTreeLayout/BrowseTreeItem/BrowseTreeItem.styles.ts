@@ -14,9 +14,7 @@ export const Row = styled.div<{ $level?: number }>`
       ? `var(--BrowseTreeItem-row-margin-left)`
       : `calc(var(--BrowseTreeItem-row-margin-left) * ${$level})`};
 
-  & + & {
-    margin-block-start: ${pxToRem(20)};
-  }
+  margin-block-start: ${pxToRem(20)};
 `;
 
 // export const Toggle = styled(IconFactory)`

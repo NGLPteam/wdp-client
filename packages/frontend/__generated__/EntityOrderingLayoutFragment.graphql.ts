@@ -16,17 +16,16 @@ export type EntityOrderingLayoutFragment = {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
-                readonly treeDepth: number | null;
                 readonly entry: {
                     readonly slug?: string | undefined;
                     readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
                 };
-                readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
             };
         }>;
         readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment" | "BrowseTreeLayoutFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment">;
         };
+        readonly " $fragmentRefs": FragmentRefs<"BrowseTreeLayoutFragment">;
     };
     readonly " $refType": "EntityOrderingLayoutFragment";
 };
@@ -89,6 +88,11 @@ const node: ReaderFragment = {
           "kind": "Variable",
           "name": "page",
           "variableName": "page"
+        },
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 10
         }
       ],
       "concreteType": "OrderingEntryConnection",
@@ -122,13 +126,6 @@ const node: ReaderFragment = {
                 {
                   "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "treeDepth",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
                   "concreteType": null,
                   "kind": "LinkedField",
                   "name": "entry",
@@ -155,11 +152,6 @@ const node: ReaderFragment = {
                     }
                   ],
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "BrowseTreeItemFragment"
                 }
               ],
               "storageKey": null
@@ -179,14 +171,14 @@ const node: ReaderFragment = {
               "args": null,
               "kind": "FragmentSpread",
               "name": "BrowseListLayoutFragment"
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "BrowseTreeLayoutFragment"
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BrowseTreeLayoutFragment"
         }
       ],
       "storageKey": null
@@ -195,5 +187,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = 'e48997b13c194883fb90750ade9686f9';
+(node as any).hash = '2015b1e33c622ae0e2e8e889b69f74fc';
 export default node;
