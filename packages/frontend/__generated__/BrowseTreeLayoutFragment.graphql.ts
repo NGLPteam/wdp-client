@@ -9,6 +9,10 @@ export type BrowseTreeLayoutFragment = {
     readonly nodes: ReadonlyArray<{
         readonly id: string;
         readonly treeDepth: number | null;
+        readonly ancestors: ReadonlyArray<{
+            readonly id: string;
+            readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
+        }>;
         readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
     }>;
     readonly pageInfo: {
@@ -24,7 +28,20 @@ export type BrowseTreeLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "BrowseTreeItemFragment"
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -38,13 +55,7 @@ const node: ReaderFragment = {
       "name": "nodes",
       "plural": true,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -53,10 +64,19 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
+          "alias": null,
           "args": null,
-          "kind": "FragmentSpread",
-          "name": "BrowseTreeItemFragment"
-        }
+          "concreteType": "OrderingEntry",
+          "kind": "LinkedField",
+          "name": "ancestors",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        },
+        (v1/*: any*/)
       ],
       "storageKey": null
     },
@@ -85,5 +105,6 @@ const node: ReaderFragment = {
   "type": "OrderingEntryConnection",
   "abstractKey": null
 };
-(node as any).hash = '129c8d02195dab2a0c66a313d50c9634';
+})();
+(node as any).hash = 'a8966939178f94fdf7a02535fc850943';
 export default node;

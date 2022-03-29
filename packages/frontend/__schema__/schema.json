@@ -6411,6 +6411,22 @@
             "deprecationReason": null
           },
           {
+            "name": "community",
+            "description": "The community this entity belongs to",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Community",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": "The date this entity was added to the WDP",
             "args": [],
@@ -6753,6 +6769,35 @@
             "deprecationReason": null
           },
           {
+            "name": "inCommunityOrdering",
+            "description": null,
+            "args": [
+              {
+                "name": "identifier",
+                "description": "The identifier of the community ordering to look for this entity within.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "initialOrdering",
             "description": "The initial ordering to display for this entity.\n",
             "args": [],
@@ -7075,6 +7120,35 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingForSchema",
+            "description": "Look up an ordering that is set up to handle a specific schema.",
+            "args": [
+              {
+                "name": "slug",
+                "description": "This should be of the `namespace:identifier` format.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
                     "ofType": null
                   }
                 },
@@ -9671,6 +9745,35 @@
             "deprecationReason": null
           },
           {
+            "name": "inCommunityOrdering",
+            "description": null,
+            "args": [
+              {
+                "name": "identifier",
+                "description": "The identifier of the community ordering to look for this entity within.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "initialOrdering",
             "description": "The initial ordering to display for this entity.\n",
             "args": [],
@@ -10142,6 +10245,35 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingForSchema",
+            "description": "Look up an ordering that is set up to handle a specific schema.",
+            "args": [
+              {
+                "name": "slug",
+                "description": "This should be of the `namespace:identifier` format.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
                     "ofType": null
                   }
                 },
@@ -13373,6 +13505,35 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingForSchema",
+            "description": "Look up an ordering that is set up to handle a specific schema.",
+            "args": [
+              {
+                "name": "slug",
+                "description": "This should be of the `namespace:identifier` format.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
                     "ofType": null
                   }
                 },
@@ -22962,6 +23123,35 @@
             "deprecationReason": null
           },
           {
+            "name": "orderingForSchema",
+            "description": "Look up an ordering that is set up to handle a specific schema.",
+            "args": [
+              {
+                "name": "slug",
+                "description": "This should be of the `namespace:identifier` format.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "orderings",
             "description": "Retrieve a connection of orderings for the parent object.\n",
             "args": [
@@ -29441,6 +29631,35 @@
             "deprecationReason": null
           },
           {
+            "name": "inCommunityOrdering",
+            "description": null,
+            "args": [
+              {
+                "name": "identifier",
+                "description": "The identifier of the community ordering to look for this entity within.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "initialOrdering",
             "description": "The initial ordering to display for this entity.\n",
             "args": [],
@@ -29912,6 +30131,35 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingForSchema",
+            "description": "Look up an ordering that is set up to handle a specific schema.",
+            "args": [
+              {
+                "name": "slug",
+                "description": "This should be of the `namespace:identifier` format.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
                     "ofType": null
                   }
                 },
@@ -35093,6 +35341,30 @@
         "description": "An entry within an ordering, it can refer to an entity or an entity link",
         "fields": [
           {
+            "name": "ancestors",
+            "description": "When the associated `Ordering` is a `TREE`, and the current entry is a leaf, this array can be used\nto get the associated ancestors within the entry that\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "OrderingEntry",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -35110,7 +35382,7 @@
           },
           {
             "name": "entry",
-            "description": null,
+            "description": "The actual element being ordered. At present, this will only be a `Community`, `Collection`, or `Item`,\nbut future implementations of orderings may include other content, such as presentation elements.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -35120,6 +35392,30 @@
                 "name": "AnyOrderingEntry",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entrySlug",
+            "description": "The delegated `slug` from the associated `entry`.\n\nThis can be null because future entries may not implement it.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Slug",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entryTitle",
+            "description": "The delegated `title` from the associated `entry`.\n\nThis can be null because future entries may not implement it.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -35141,6 +35437,18 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSibling",
+            "description": "The next entry in the current ordering, if one exists. This will be null if this entry is the last.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ordering",
             "description": "The parent ordering",
             "args": [],
@@ -35152,6 +35460,18 @@
                 "name": "Ordering",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSibling",
+            "description": "The previous entry in the current ordering, if one exists. This will be null if this entry is the first.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39170,6 +39490,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "SchemaVersionConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "systemInfo",
+            "description": "A helper field that is used to look up various details about the WDP-API ecosystem.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SystemInfo",
                 "ofType": null
               }
             },
@@ -44134,6 +44470,66 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SystemInfo",
+        "description": "A helper field that can look up various information about the WDP-API Ecosystem.\n",
+        "fields": [
+          {
+            "name": "entityHierarchyExists",
+            "description": "Check to see if an entity of a given `descendant` type exists with a given `ancestor` type.\n",
+            "args": [
+              {
+                "name": "ancestor",
+                "description": "Should be `namespace:identifier`.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "descendant",
+                "description": "Should be `namespace:identifier`.",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
