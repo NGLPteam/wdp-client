@@ -55,10 +55,13 @@ type Node = IssueOrderingLayoutFragment$data["children"]["edges"][number];
 
 const fragment = graphql`
   fragment IssueOrderingLayoutFragment on Ordering
-  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
+  @argumentDefinitions(
+    page: { type: "Int", defaultValue: 1 }
+    perPage: { type: "Int", defaultValue: 20 }
+  ) {
     name
     header
-    children(page: $page, perPage: 10) {
+    children(page: $page, perPage: $perPage) {
       edges {
         node {
           entry {

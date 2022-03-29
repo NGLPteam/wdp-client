@@ -43,6 +43,11 @@ const node: ReaderFragment = {
       "defaultValue": 1,
       "kind": "LocalArgument",
       "name": "page"
+    },
+    {
+      "defaultValue": 20,
+      "kind": "LocalArgument",
+      "name": "perPage"
     }
   ],
   "kind": "Fragment",
@@ -90,9 +95,9 @@ const node: ReaderFragment = {
           "variableName": "page"
         },
         {
-          "kind": "Literal",
+          "kind": "Variable",
           "name": "perPage",
-          "value": 10
+          "variableName": "perPage"
         }
       ],
       "concreteType": "OrderingEntryConnection",
@@ -187,5 +192,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '2015b1e33c622ae0e2e8e889b69f74fc';
+(node as any).hash = 'c1abcff938baa597602fb09fb332b91c';
 export default node;

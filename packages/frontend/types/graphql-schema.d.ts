@@ -925,6 +925,8 @@ export type ChildEntity = {
   assignedUsers: ContextualPermissionConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
+  /** The community this entity belongs to */
+  community: Community;
   /** The date this entity was added to the WDP */
   createdAt: Scalars['ISO8601DateTime'];
   /** Whether the entity is _currently_ hidden, based on the server's time zone. */
@@ -949,6 +951,7 @@ export type ChildEntity = {
   hierarchicalDepth: Scalars['Int'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  inCommunityOrdering?: Maybe<OrderingEntry>;
   /** The initial ordering to display for this entity. */
   initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
@@ -967,6 +970,8 @@ export type ChildEntity = {
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Look up an ordering that is set up to handle a specific schema. */
+  orderingForSchema?: Maybe<Ordering>;
   /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
@@ -1131,6 +1136,17 @@ export type ChildEntityHiddenAsOfArgs = {
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
  */
+export type ChildEntityInCommunityOrderingArgs = {
+  identifier: Scalars['String'];
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
 export type ChildEntityLinkTargetCandidatesArgs = {
   kind?: Maybe<LinkTargetCandidateFilter>;
   title?: Maybe<Scalars['String']>;
@@ -1170,6 +1186,17 @@ export type ChildEntityLinksArgs = {
  */
 export type ChildEntityOrderingArgs = {
   identifier: Scalars['String'];
+};
+
+
+/**
+ * An interface for entities that can contain actual content, as well as any number of themselves
+ * in a tree structure.
+ *
+ * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ */
+export type ChildEntityOrderingForSchemaArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -1329,6 +1356,7 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  inCommunityOrdering?: Maybe<OrderingEntry>;
   /** The initial ordering to display for this entity. */
   initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
@@ -1348,6 +1376,8 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Look up an ordering that is set up to handle a specific schema. */
+  orderingForSchema?: Maybe<Ordering>;
   /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
@@ -1582,6 +1612,12 @@ export type CollectionHiddenAsOfArgs = {
 
 
 /** A collection of items */
+export type CollectionInCommunityOrderingArgs = {
+  identifier: Scalars['String'];
+};
+
+
+/** A collection of items */
 export type CollectionItemsArgs = {
   order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
@@ -1626,6 +1662,12 @@ export type CollectionLinksArgs = {
 /** A collection of items */
 export type CollectionOrderingArgs = {
   identifier: Scalars['String'];
+};
+
+
+/** A collection of items */
+export type CollectionOrderingForSchemaArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -1834,6 +1876,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   name: Scalars['String'];
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Look up an ordering that is set up to handle a specific schema. */
+  orderingForSchema?: Maybe<Ordering>;
   /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
@@ -2028,6 +2072,12 @@ export type CommunityLinksArgs = {
 /** A community of users */
 export type CommunityOrderingArgs = {
   identifier: Scalars['String'];
+};
+
+
+/** A community of users */
+export type CommunityOrderingForSchemaArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -3387,6 +3437,8 @@ export type Entity = {
   links: EntityLinkConnection;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Look up an ordering that is set up to handle a specific schema. */
+  orderingForSchema?: Maybe<Ordering>;
   /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
@@ -3504,6 +3556,12 @@ export type EntityLinksArgs = {
 /** An entity that exists in the hierarchy. */
 export type EntityOrderingArgs = {
   identifier: Scalars['String'];
+};
+
+
+/** An entity that exists in the hierarchy. */
+export type EntityOrderingForSchemaArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -4507,6 +4565,7 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   id: Scalars['ID'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String'];
+  inCommunityOrdering?: Maybe<OrderingEntry>;
   /** The initial ordering to display for this entity. */
   initialOrdering?: Maybe<Ordering>;
   /** The International Standard Serial Number for this entity. See https://issn.org */
@@ -4527,6 +4586,8 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
+  /** Look up an ordering that is set up to handle a specific schema. */
+  orderingForSchema?: Maybe<Ordering>;
   /** Retrieve a connection of orderings for the parent object. */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
@@ -4738,6 +4799,12 @@ export type ItemHiddenAsOfArgs = {
 
 
 /** An item that belongs to a collection */
+export type ItemInCommunityOrderingArgs = {
+  identifier: Scalars['String'];
+};
+
+
+/** An item that belongs to a collection */
 export type ItemItemsArgs = {
   order?: Maybe<EntityOrder>;
   schema?: Maybe<Array<Scalars['String']>>;
@@ -4782,6 +4849,12 @@ export type ItemLinksArgs = {
 /** An item that belongs to a collection */
 export type ItemOrderingArgs = {
   identifier: Scalars['String'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemOrderingForSchemaArgs = {
+  slug: Scalars['Slug'];
 };
 
 
@@ -5729,11 +5802,36 @@ export type OrderingEdge = {
 /** An entry within an ordering, it can refer to an entity or an entity link */
 export type OrderingEntry = Node & Sluggable & {
   __typename?: 'OrderingEntry';
+  /**
+   * When the associated `Ordering` is a `TREE`, and the current entry is a leaf, this array can be used
+   * to get the associated ancestors within the entry that
+   */
+  ancestors: Array<OrderingEntry>;
   createdAt: Scalars['ISO8601DateTime'];
+  /**
+   * The actual element being ordered. At present, this will only be a `Community`, `Collection`, or `Item`,
+   * but future implementations of orderings may include other content, such as presentation elements.
+   */
   entry: AnyOrderingEntry;
+  /**
+   * The delegated `slug` from the associated `entry`.
+   *
+   * This can be null because future entries may not implement it.
+   */
+  entrySlug?: Maybe<Scalars['Slug']>;
+  /**
+   * The delegated `title` from the associated `entry`.
+   *
+   * This can be null because future entries may not implement it.
+   */
+  entryTitle?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  /** The next entry in the current ordering, if one exists. This will be null if this entry is the last. */
+  nextSibling?: Maybe<OrderingEntry>;
   /** The parent ordering */
   ordering: Ordering;
+  /** The previous entry in the current ordering, if one exists. This will be null if this entry is the first. */
+  prevSibling?: Maybe<OrderingEntry>;
   /** A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity. */
   relativeDepth: Scalars['Int'];
   slug: Scalars['Slug'];
@@ -6192,6 +6290,8 @@ export type Query = {
   schemaVersionOptions: Array<SchemaVersionOption>;
   /** List all schema versions */
   schemaVersions: SchemaVersionConnection;
+  /** A helper field that is used to look up various details about the WDP-API ecosystem. */
+  systemInfo: SystemInfo;
   /** Look up a user by slug */
   user?: Maybe<User>;
   /** A list of all users in the system */
@@ -7291,6 +7391,20 @@ export type SubtreeNodeFilter =
   /** Fetch all descendant entities of the same base type (Item, Collection) */
   | 'DESCENDANTS'
   | '%future added value';
+
+/** A helper field that can look up various information about the WDP-API Ecosystem. */
+export type SystemInfo = {
+  __typename?: 'SystemInfo';
+  /** Check to see if an entity of a given `descendant` type exists with a given `ancestor` type. */
+  entityHierarchyExists: Scalars['Boolean'];
+};
+
+
+/** A helper field that can look up various information about the WDP-API Ecosystem. */
+export type SystemInfoEntityHierarchyExistsArgs = {
+  ancestor: Scalars['Slug'];
+  descendant: Scalars['Slug'];
+};
 
 export type TagsProperty = SchemaProperty & ScalarProperty & {
   __typename?: 'TagsProperty';
@@ -9268,6 +9382,7 @@ export type ResolversTypes = {
   StaticOrderingPath: ResolverTypeWrapper<StaticOrderingPath>;
   StringProperty: ResolverTypeWrapper<StringProperty>;
   SubtreeNodeFilter: SubtreeNodeFilter;
+  SystemInfo: ResolverTypeWrapper<SystemInfo>;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
   ThemeSettings: ResolverTypeWrapper<ThemeSettings>;
   ThemeSettingsInput: ThemeSettingsInput;
@@ -9605,6 +9720,7 @@ export type ResolversParentTypes = {
   StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['ClearInitialOrderingPayload'] | ResolversParentTypes['CreateAnnouncementPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePagePayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyAnnouncementPayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentEntityPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['SelectInitialOrderingPayload'] | ResolversParentTypes['UpdateAnnouncementPayload'] | ResolversParentTypes['UpdateAssetAttachmentPayload'] | ResolversParentTypes['UpdateAssetPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateGlobalConfigurationPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePagePayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpdateUserPayload'] | ResolversParentTypes['UpdateViewerSettingsPayload'] | ResolversParentTypes['UpsertContributionPayload'];
   StaticOrderingPath: StaticOrderingPath;
   StringProperty: StringProperty;
+  SystemInfo: SystemInfo;
   TagsProperty: TagsProperty;
   ThemeSettings: ThemeSettings;
   ThemeSettingsInput: ThemeSettingsInput;
@@ -10134,6 +10250,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ChildEntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
+  community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -10146,6 +10263,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<ChildEntityInCommunityOrderingArgs, 'identifier'>>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -10153,6 +10271,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ChildEntityLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ChildEntityOrderingArgs, 'identifier'>>;
+  orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ChildEntityOrderingForSchemaArgs, 'slug'>>;
   orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ChildEntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ChildEntityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ChildEntityPagesArgs, 'pageDirection'>>;
@@ -10222,6 +10341,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<CollectionInCommunityOrderingArgs, 'identifier'>>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
@@ -10230,6 +10350,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CollectionLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CollectionOrderingArgs, 'identifier'>>;
+  orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CollectionOrderingForSchemaArgs, 'slug'>>;
   orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CollectionOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CollectionPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CollectionPagesArgs, 'pageDirection'>>;
@@ -10339,6 +10460,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   metadata?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingArgs, 'identifier'>>;
+  orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingForSchemaArgs, 'slug'>>;
   orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CommunityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CommunityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CommunityPagesArgs, 'pageDirection'>>;
@@ -10800,6 +10922,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection'>>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingArgs, 'identifier'>>;
+  orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingForSchemaArgs, 'slug'>>;
   orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<EntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<EntityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<EntityPagesArgs, 'pageDirection'>>;
@@ -11186,6 +11309,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<ItemInCommunityOrderingArgs, 'identifier'>>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
@@ -11194,6 +11318,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ItemOrderingArgs, 'identifier'>>;
+  orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ItemOrderingForSchemaArgs, 'slug'>>;
   orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ItemOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ItemPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ItemPagesArgs, 'pageDirection'>>;
@@ -11474,10 +11599,15 @@ export type OrderingEdgeResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type OrderingEntryResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingEntry'] = ResolversParentTypes['OrderingEntry']> = {
+  ancestors?: Resolver<Array<ResolversTypes['OrderingEntry']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entry?: Resolver<ResolversTypes['AnyOrderingEntry'], ParentType, ContextType>;
+  entrySlug?: Resolver<Maybe<ResolversTypes['Slug']>, ParentType, ContextType>;
+  entryTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  nextSibling?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType>;
   ordering?: Resolver<ResolversTypes['Ordering'], ParentType, ContextType>;
+  prevSibling?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType>;
   relativeDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   treeDepth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -11675,6 +11805,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   schemaVersion?: Resolver<Maybe<ResolversTypes['SchemaVersion']>, ParentType, ContextType, RequireFields<QuerySchemaVersionArgs, 'slug'>>;
   schemaVersionOptions?: Resolver<Array<ResolversTypes['SchemaVersionOption']>, ParentType, ContextType, RequireFields<QuerySchemaVersionOptionsArgs, 'kind'>>;
   schemaVersions?: Resolver<ResolversTypes['SchemaVersionConnection'], ParentType, ContextType, RequireFields<QuerySchemaVersionsArgs, 'order' | 'pageDirection'>>;
+  systemInfo?: Resolver<ResolversTypes['SystemInfo'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'slug'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'order' | 'pageDirection'>>;
   viewer?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
@@ -11981,6 +12112,11 @@ export type StringPropertyResolvers<ContextType = any, ParentType extends Resolv
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SystemInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['SystemInfo'] = ResolversParentTypes['SystemInfo']> = {
+  entityHierarchyExists?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<SystemInfoEntityHierarchyExistsArgs, 'ancestor' | 'descendant'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -12715,6 +12851,7 @@ export type Resolvers<ContextType = any> = {
   StandardMutationPayload?: StandardMutationPayloadResolvers<ContextType>;
   StaticOrderingPath?: StaticOrderingPathResolvers<ContextType>;
   StringProperty?: StringPropertyResolvers<ContextType>;
+  SystemInfo?: SystemInfoResolvers<ContextType>;
   TagsProperty?: TagsPropertyResolvers<ContextType>;
   ThemeSettings?: ThemeSettingsResolvers<ContextType>;
   TimestampProperty?: TimestampPropertyResolvers<ContextType>;

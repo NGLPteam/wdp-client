@@ -1018,6 +1018,8 @@ interface ChildEntity {
   ): ContextualPermissionConnection!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """The community this entity belongs to"""
+  community: Community!
   """The date this entity was added to the WDP"""
   createdAt: ISO8601DateTime!
   """
@@ -1086,6 +1088,10 @@ interface ChildEntity {
   hierarchicalDepth: Int!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  inCommunityOrdering(
+    """The identifier of the community ordering to look for this entity within."""
+    identifier: String!
+  ): OrderingEntry
   """
   The initial ordering to display for this entity.
   
@@ -1144,6 +1150,11 @@ interface ChildEntity {
   namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """Look up an ordering that is set up to handle a specific schema."""
+  orderingForSchema(
+    """This should be of the `namespace:identifier` format."""
+    slug: Slug!
+  ): Ordering
   """
   Retrieve a connection of orderings for the parent object.
   
@@ -1549,6 +1560,10 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  inCommunityOrdering(
+    """The identifier of the community ordering to look for this entity within."""
+    identifier: String!
+  ): OrderingEntry
   """
   The initial ordering to display for this entity.
   
@@ -1628,6 +1643,11 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """Look up an ordering that is set up to handle a specific schema."""
+  orderingForSchema(
+    """This should be of the `namespace:identifier` format."""
+    slug: Slug!
+  ): Ordering
   """
   Retrieve a connection of orderings for the parent object.
   
@@ -2086,6 +2106,11 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   name: String! @deprecated(reason: "Use Community.title")
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """Look up an ordering that is set up to handle a specific schema."""
+  orderingForSchema(
+    """This should be of the `namespace:identifier` format."""
+    slug: Slug!
+  ): Ordering
   """
   Retrieve a connection of orderings for the parent object.
   
@@ -3759,6 +3784,11 @@ interface Entity {
   ): EntityLinkConnection!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """Look up an ordering that is set up to handle a specific schema."""
+  orderingForSchema(
+    """This should be of the `namespace:identifier` format."""
+    slug: Slug!
+  ): Ordering
   """
   Retrieve a connection of orderings for the parent object.
   
@@ -5138,6 +5168,10 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   id: ID!
   """A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers."""
   identifier: String!
+  inCommunityOrdering(
+    """The identifier of the community ordering to look for this entity within."""
+    identifier: String!
+  ): OrderingEntry
   """
   The initial ordering to display for this entity.
   
@@ -5218,6 +5252,11 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   namedAncestors: [NamedAncestor!]!
   """Look up an ordering for this entity by identifier"""
   ordering(identifier: String!): Ordering
+  """Look up an ordering that is set up to handle a specific schema."""
+  orderingForSchema(
+    """This should be of the `namespace:identifier` format."""
+    slug: Slug!
+  ): Ordering
   """
   Retrieve a connection of orderings for the parent object.
   
@@ -6215,11 +6254,46 @@ type OrderingEdge {
 
 """An entry within an ordering, it can refer to an entity or an entity link"""
 type OrderingEntry implements Node & Sluggable {
+  """
+  When the associated `Ordering` is a `TREE`, and the current entry is a leaf, this array can be used
+  to get the associated ancestors within the entry that
+  
+  """
+  ancestors: [OrderingEntry!]!
   createdAt: ISO8601DateTime!
+  """
+  The actual element being ordered. At present, this will only be a `Community`, `Collection`, or `Item`,
+  but future implementations of orderings may include other content, such as presentation elements.
+  
+  """
   entry: AnyOrderingEntry!
+  """
+  The delegated `slug` from the associated `entry`.
+  
+  This can be null because future entries may not implement it.
+  
+  """
+  entrySlug: Slug
+  """
+  The delegated `title` from the associated `entry`.
+  
+  This can be null because future entries may not implement it.
+  
+  """
+  entryTitle: String
   id: ID!
+  """
+  The next entry in the current ordering, if one exists. This will be null if this entry is the last.
+  
+  """
+  nextSibling: OrderingEntry
   """The parent ordering"""
   ordering: Ordering!
+  """
+  The previous entry in the current ordering, if one exists. This will be null if this entry is the first.
+  
+  """
+  prevSibling: OrderingEntry
   """
   A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity.
   
@@ -6873,6 +6947,8 @@ type Query {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): SchemaVersionConnection!
+  """A helper field that is used to look up various details about the WDP-API ecosystem."""
+  systemInfo: SystemInfo!
   """Look up a user by slug"""
   user(slug: Slug!): User
   """A list of all users in the system"""
@@ -7902,6 +7978,23 @@ enum SubtreeNodeFilter {
   CHILDREN
   """Fetch all descendant entities of the same base type (Item, Collection)"""
   DESCENDANTS
+}
+
+"""
+A helper field that can look up various information about the WDP-API Ecosystem.
+
+"""
+type SystemInfo {
+  """
+  Check to see if an entity of a given `descendant` type exists with a given `ancestor` type.
+  
+  """
+  entityHierarchyExists(
+    """Should be `namespace:identifier`."""
+    ancestor: Slug!
+    """Should be `namespace:identifier`."""
+    descendant: Slug!
+  ): Boolean!
 }
 
 type TagsProperty implements SchemaProperty & ScalarProperty {

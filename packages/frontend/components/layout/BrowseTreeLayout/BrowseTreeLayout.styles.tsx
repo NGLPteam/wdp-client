@@ -1,5 +1,5 @@
-import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
 
 export const Header = styled.header`
   padding-block-start: var(--container-padding-lg);
@@ -17,11 +17,13 @@ export const PageCountBar = styled.div`
   align-items: center;
 `;
 
+export const ListItems = styled.div`
+  > * {
+    margin-block-start: ${pxToRem(20)};
+  }
+`;
+
 export const Footer = styled.div`
   padding-block-start: ${pxToRem(56)};
   padding-block-end: ${pxToRem(120)};
-`;
-
-export const Details = styled.details`
-  margin-block-start: ${pxToRem(20)};
 `;
