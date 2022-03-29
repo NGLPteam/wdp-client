@@ -18,9 +18,11 @@ export default function useDescendantListQueryVars(): {
 
   const schema = routeQueryArrayToString(router.query.schema);
 
+  const schemaSlug = routeQueryArrayToString(router.query.schema);
+
   const page = parseInt(get(router, "query.page", 1));
 
   const order = get(router, "query.order", "PUBLISHED_DESCENDING");
 
-  return { slug, page, order, schema };
+  return { slug, page, order, schema, schemaSlug };
 }

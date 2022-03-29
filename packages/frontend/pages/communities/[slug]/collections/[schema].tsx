@@ -5,6 +5,7 @@ import { useDescendantListQueryVars } from "hooks";
 import AppLayout from "components/global/AppLayout";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
+import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 
 export default function CommunityCollectionsSchema() {
   const queryVars = useDescendantListQueryVars();
@@ -13,10 +14,14 @@ export default function CommunityCollectionsSchema() {
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (
         <AppLayout data={data} communityData={data?.community}>
-          {/* if (orderingForSchema) */}
-          {/* EntityOrderings */}
-          {/* else */}
-          <EntityDescendantsLayout data={data?.community?.descendants} />
+          {data?.community.orderingForSchema ? (
+            <EntityOrderingLayoutFactory
+              data={data.community}
+              ordering={data.community.orderingForSchema.identifier}
+            />
+          ) : (
+            <EntityDescendantsLayout data={data?.community?.descendants} />
+          )}
         </AppLayout>
       )}
     </QueryWrapper>
@@ -27,12 +32,16 @@ const query = graphql`
   query SchemaCommunityCollectionsQuery(
     $slug: Slug!
     $schema: String!
+    $schemaSlug: Slug!
     $page: Int
     $order: EntityDescendantOrder!
   ) {
     # query for schema
     community(slug: $slug) {
       ...AppLayoutCommunityFragment
+      orderingForSchema(slug: $schemaSlug) {
+        identifier
+      }
       descendants(
         scope: COLLECTION
         order: $order
@@ -41,6 +50,7 @@ const query = graphql`
       ) {
         ...EntityDescendantsLayoutFragment
       }
+      ...EntityOrderingLayoutFactoryFragment
       # orderingForSchema($schema) {
       #    ...EntityOrderingsFragment
       # }
