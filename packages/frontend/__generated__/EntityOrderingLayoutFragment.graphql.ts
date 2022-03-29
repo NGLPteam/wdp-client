@@ -45,7 +45,7 @@ const node: ReaderFragment = {
       "name": "page"
     },
     {
-      "defaultValue": 20,
+      "defaultValue": 40,
       "kind": "LocalArgument",
       "name": "perPage"
     }
@@ -192,5 +192,5 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = 'c1abcff938baa597602fb09fb332b91c';
+(node as any).hash = '7e62053eea583b7d93bc6ac721023873';
 export default node;
