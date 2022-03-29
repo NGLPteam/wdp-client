@@ -17,12 +17,13 @@ import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
  * Fetches the ordering data and gets the right layout based on the schema identifier.
  * If no ordering identifier is provided, uses the first ordering on the entity.
  */
-export default function EntityOrderingLayoutFactory({ data }: Props) {
+export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   const router = useRouter();
 
   const identifier =
+    ordering ||
     routeQueryArrayToString(router.query.ordering) ||
     entity?.initialOrdering?.identifier ||
     "";
@@ -71,6 +72,7 @@ export default function EntityOrderingLayoutFactory({ data }: Props) {
 
 interface Props {
   data?: EntityOrderingLayoutFactoryFragment$key | null;
+  ordering?: string;
 }
 
 const fragment = graphql`
