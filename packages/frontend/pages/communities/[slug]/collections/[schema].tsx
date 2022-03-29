@@ -14,7 +14,7 @@ export default function CommunityCollectionsSchema() {
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (
         <AppLayout data={data} communityData={data?.community}>
-          {data?.community.orderingForSchema ? (
+          {data?.community?.orderingForSchema ? (
             <EntityOrderingLayoutFactory
               data={data.community}
               ordering={data.community.orderingForSchema.identifier}

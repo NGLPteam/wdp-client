@@ -11,6 +11,7 @@ export default function useDescendantListQueryVars(): {
   page: number;
   order: EntityDescendantOrder;
   schema: string;
+  schemaSlug: string;
 } {
   const router = useRouter();
 
