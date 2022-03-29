@@ -86,6 +86,7 @@ const fragment = graphql`
       treeDepth
       ancestors {
         id
+        treeDepth
         ...BrowseTreeItemFragment
       }
       ...BrowseTreeItemFragment
@@ -106,39 +107,58 @@ interface TreeNode extends Node {
 function listToTree(list: TreeNode[]): TreeNode[] {
   const map: Record<string, number> = {};
   const roots: TreeNode[] = [];
+  const treeList: TreeNode[] = [];
+  let index = 0;
+
+  // Map out each list node, including missing ancestors
+  list.forEach((node) => {
+    // Check if this node has ancestors
+    if (node.ancestors) {
+      node.ancestors.forEach((a, i) => {
+        // Check ancestor is already in the index
+        // If it isn't, add it to the tree list
+        if (a.id && !map[a.id]) {
+          map[a.id] = index;
+          index++;
+          treeList.push({
+            ...a,
+            // parent id should equal the previous ancestor id, if any
+            parentId: node.ancestors[i - 1]?.id || undefined,
+            children: [],
+            ancestors: [],
+          });
+        }
+      });
+    }
+    // add nodes in the flat array to map
+    // and treeList
+    map[node.id] = index;
+    index++;
+    treeList.push({
+      ...node,
+      parentId: node?.ancestors?.[0]?.id,
+      children: [],
+    }); // initialize the children
+  });
+
   let node;
-  let i;
 
-  for (i = 0; i < list.length; i += 1) {
-    map[list[i].id] = i; // initialize the map
-    list[i].children = []; // initialize the children
-  }
-
-  for (i = 0; i < list.length; i += 1) {
-    node = list[i];
-
+  // Build the tree from the modified list
+  treeList.forEach((item) => {
+    node = item;
     if (node.parentId) {
       // if you have dangling branches check that map[node.parentId] exists
-      if (list[map[node.parentId]]) {
+      if (treeList[map[node.parentId]]) {
         // children will always exist due to the above init,
         // but the type is array or undefined
-        list[map[node.parentId]].children?.push(node);
+        treeList[map[node.parentId]].children?.push(node);
       } else {
-        // parent not found, add the parent
-        const ancestors = node.ancestors;
-
-        if (!ancestors) {
-          roots.push(node);
-        } else if (ancestors.length >= 1) {
-          const newNode = ancestors[0] as TreeNode;
-
-          roots.push({ ...newNode, children: [node] });
-        }
+        roots.push(node);
       }
     } else {
       roots.push(node);
     }
-  }
+  });
 
   return roots;
 }

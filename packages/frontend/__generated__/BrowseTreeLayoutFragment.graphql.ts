@@ -11,6 +11,7 @@ export type BrowseTreeLayoutFragment = {
         readonly treeDepth: number | null;
         readonly ancestors: ReadonlyArray<{
             readonly id: string;
+            readonly treeDepth: number | null;
             readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
         }>;
         readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
@@ -37,6 +38,13 @@ var v0 = {
   "storageKey": null
 },
 v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "treeDepth",
+  "storageKey": null
+},
+v2 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "BrowseTreeItemFragment"
@@ -56,13 +64,7 @@ return {
       "plural": true,
       "selections": [
         (v0/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "treeDepth",
-          "storageKey": null
-        },
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -72,11 +74,12 @@ return {
           "plural": true,
           "selections": [
             (v0/*: any*/),
-            (v1/*: any*/)
+            (v1/*: any*/),
+            (v2/*: any*/)
           ],
           "storageKey": null
         },
-        (v1/*: any*/)
+        (v2/*: any*/)
       ],
       "storageKey": null
     },
@@ -106,5 +109,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a8966939178f94fdf7a02535fc850943';
+(node as any).hash = 'a19398ac8324f1a8a648c27435115fe9';
 export default node;
