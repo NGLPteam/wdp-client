@@ -8,6 +8,7 @@ const imageDomains = [
   "localhost",
   "api.staging.nglp.org",
   "wdp-api-staging.s3.us-west-2.amazonaws.com",
+  "wdp-api-stg.s3.us-west-2.amazonaws.com",
 ];
 
 const withTM = transpiler(["@spissvinkel/alea"]);

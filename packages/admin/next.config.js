@@ -5,6 +5,7 @@ const imageDomains = [
   "lorempixel.com",
   "picsum.photos",
   "wdp-api-staging.s3.us-west-2.amazonaws.com",
+  "wdp-api-stg.s3.us-west-2.amazonaws.com",
   "via.placeholder.com",
   "localhost:6006",
   "localhost:3000",
