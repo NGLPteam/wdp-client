@@ -8,6 +8,8 @@ const imageDomains = [
   "via.placeholder.com",
   "localhost:6006",
   "localhost:3000",
+  "localhost:10042",
+  "localhost",
   "api.staging.nglp.org",
 ];
 

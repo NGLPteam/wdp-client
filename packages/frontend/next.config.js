@@ -4,6 +4,8 @@ const transpiler = require("next-transpile-modules");
 const imageDomains = [
   "localhost:6007",
   "localhost:3001",
+  "localhost:10042",
+  "localhost",
   "api.staging.nglp.org",
   "wdp-api-staging.s3.us-west-2.amazonaws.com",
 ];
