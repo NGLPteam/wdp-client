@@ -60,5 +60,8 @@
   },
   "devDependencies": {
     "install": "^0.13.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
