@@ -6,11 +6,16 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type UpdateGlobalConfigurationInput = {
+    institution?: InstitutionSettingsInput | null | undefined;
     site?: SiteSettingsInput | null | undefined;
     theme?: ThemeSettingsInput | null | undefined;
     clientMutationId?: string | null | undefined;
 };
+export type InstitutionSettingsInput = {
+    name: string;
+};
 export type SiteSettingsInput = {
+    installationName: string;
     providerName: string;
 };
 export type ThemeSettingsInput = {

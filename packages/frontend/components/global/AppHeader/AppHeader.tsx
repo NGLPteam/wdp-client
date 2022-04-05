@@ -33,7 +33,9 @@ function AppHeader({ data, communityData }: Props) {
       <Styled.Header>
         <Styled.HeaderInner className="l-container-wide">
           <Styled.LeftSide>
-            <Styled.InstallationName as={InstallationName} />
+            {appData && (
+              <Styled.InstallationName as={InstallationName} data={appData} />
+            )}
             <CommunityPicker data={appData} active={community} />
           </Styled.LeftSide>
           <Styled.RightSide>
@@ -51,7 +53,7 @@ function AppHeader({ data, communityData }: Props) {
         </Styled.HeaderInner>
         <BaseDrawer
           header={<CommunityPicker data={appData} active={community} />}
-          footer={<InstallationName />}
+          footer={<InstallationName data={appData} />}
           dialog={dialog}
           label={t("nav.menu")}
         >
@@ -81,6 +83,7 @@ export default AppHeader;
 const fragment = graphql`
   fragment AppHeaderFragment on Query {
     ...CommunityPickerFragment
+    ...InstallationNameFragment
   }
 `;
 

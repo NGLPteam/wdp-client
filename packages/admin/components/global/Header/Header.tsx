@@ -5,13 +5,13 @@ import { useFocusTrap } from "@castiron/hooks/";
 
 import GlobalSearch from "../GlobalSearch";
 import ProviderBar from "../ProviderBar";
+import InstallationName from "../InstallationName";
 import HeaderAccount from "./HeaderAccount";
 import * as Styled from "./Header.styles";
 import HeaderNavLinks from "./HeaderNavLinks";
 import HeaderWrapper from "./HeaderWrapper";
 import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
-import { LogoPlaceholder } from "components/global";
 
 import MobileMenu, { MobileMenuList } from "components/layout/MobileMenu";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
@@ -29,7 +29,7 @@ function Header() {
     onDeactivate: useCallback(() => setActive(false), [setActive]),
   });
 
-  const { siteInfo, headerData, footerData } = appData;
+  const { headerData, footerData } = appData;
 
   return (
     <HeaderWrapper>
@@ -38,11 +38,7 @@ function Header() {
       </Styled.ProviderBarBlock>
       <Styled.Nav className="a-bg-brand100">
         <Styled.Inner>
-          {siteInfo.installation && (
-            <LogoPlaceholder>
-              <span className="t-label-md">{t(siteInfo.installation)}</span>
-            </LogoPlaceholder>
-          )}
+          <InstallationName />
           <Styled.DesktopNavBlock>
             <ul className="l-flex l-flex--align-center">
               <HeaderNavLinks navigation={headerData.navigation} />
