@@ -18,7 +18,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
         <Dropdown
           disclosure={
             <Styled.AccountButton>
-              {avatarUrl && <Avatar url={avatarUrl} />}
+              <Avatar url={avatarUrl} />
               {name && (
                 <Styled.Name data-condensed={condensed}>{name}</Styled.Name>
               )}
