@@ -15,11 +15,12 @@ export default function IssueSummary({ data, showReadMore }: Props) {
   const issueNumber = useMemo(() => {
     if (!issue) return null;
 
-    const prop = issue?.properties.find((p) => p.path === "number");
+    const issueNumber = issue?.issueNumber?.content;
     const numberString = startCase(
-      `${t("schema.nglp.journal_issue")} ${prop?.content}`
+      `${t("schema.nglp.journal_issue")} ${issueNumber}`
     );
-    return prop?.content &&
+    return issueNumber &&
+      issueNumber !== "0" &&
       issue.title.toLocaleLowerCase() !== numberString.toLocaleLowerCase()
       ? numberString
       : null;
@@ -101,15 +102,14 @@ const fragment = graphql`
         title
       }
     }
-    properties: schemaProperties {
-      ... on StringProperty {
-        content
-        path
-      }
-    }
     articles: items(schema: "nglp:journal_article") {
       pageInfo {
         totalCount
+      }
+    }
+    issueNumber: schemaProperty(fullPath: "number") {
+      ... on StringProperty {
+        content
       }
     }
   }

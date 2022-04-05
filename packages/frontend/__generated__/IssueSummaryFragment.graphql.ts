@@ -24,15 +24,14 @@ export type IssueSummaryFragment = {
     readonly journal?: {
         readonly title?: string | undefined;
     } | null | undefined;
-    readonly properties: ReadonlyArray<{
-        readonly content?: string | null | undefined;
-        readonly path?: string | undefined;
-    }>;
     readonly articles: {
         readonly pageInfo: {
             readonly totalCount: number;
         };
     };
+    readonly issueNumber: {
+        readonly content?: string | null | undefined;
+    } | null;
     readonly " $refType": "IssueSummaryFragment";
 };
 export type IssueSummaryFragment$data = IssueSummaryFragment;
@@ -158,38 +157,6 @@ return {
       "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
     },
     {
-      "alias": "properties",
-      "args": null,
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperties",
-      "plural": true,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "content",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "path",
-              "storageKey": null
-            }
-          ],
-          "type": "StringProperty",
-          "abstractKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
       "alias": "articles",
       "args": [
         {
@@ -225,6 +192,37 @@ return {
       "storageKey": "items(schema:\"nglp:journal_article\")"
     },
     {
+      "alias": "issueNumber",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "number"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "content",
+              "storageKey": null
+            }
+          ],
+          "type": "StringProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"number\")"
+    },
+    {
       "condition": "showJournal",
       "kind": "Condition",
       "passingValue": true,
@@ -252,5 +250,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a620f693b1273b7c9685ee22941fd376';
+(node as any).hash = 'f1f4536d2988e852b8ae5dec11689347';
 export default node;
