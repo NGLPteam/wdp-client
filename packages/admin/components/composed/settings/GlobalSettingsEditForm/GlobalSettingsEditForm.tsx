@@ -40,6 +40,11 @@ export default function GlobalSettingsEditForm({
           required
           {...register("site.providerName")}
         />
+        <Forms.Input
+          label="forms.fields.installation_name"
+          required
+          {...register("site.installationName")}
+        />
         <Forms.Select
           label="forms.fields.theme_color"
           description={t("forms.fields.theme_color_description")}
@@ -95,6 +100,7 @@ const fragment = graphql`
   fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
     site {
       providerName
+      installationName
     }
     theme {
       color
@@ -111,6 +117,11 @@ const mutation = graphql`
       globalConfiguration {
         site {
           providerName
+          installationName
+        }
+        theme {
+          color
+          font
         }
       }
       ...MutationForm_mutationErrors
