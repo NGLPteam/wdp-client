@@ -6,11 +6,16 @@ import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type UpdateGlobalConfigurationInput = {
+    institution?: InstitutionSettingsInput | null | undefined;
     site?: SiteSettingsInput | null | undefined;
     theme?: ThemeSettingsInput | null | undefined;
     clientMutationId?: string | null | undefined;
 };
+export type InstitutionSettingsInput = {
+    name: string;
+};
 export type SiteSettingsInput = {
+    installationName: string;
     providerName: string;
 };
 export type ThemeSettingsInput = {
@@ -25,6 +30,11 @@ export type GlobalSettingsEditFormMutationResponse = {
         readonly globalConfiguration: {
             readonly site: {
                 readonly providerName: string;
+                readonly installationName: string;
+            };
+            readonly theme: {
+                readonly color: string;
+                readonly font: string;
             };
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
@@ -45,6 +55,11 @@ mutation GlobalSettingsEditFormMutation(
     globalConfiguration {
       site {
         providerName
+        installationName
+      }
+      theme {
+        color
+        font
       }
       id
     }
@@ -97,11 +112,43 @@ v2 = {
       "kind": "ScalarField",
       "name": "providerName",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "installationName",
+      "storageKey": null
     }
   ],
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ThemeSettings",
+  "kind": "LinkedField",
+  "name": "theme",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "color",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "font",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v4 = [
   {
     "alias": null,
     "args": null,
@@ -110,7 +157,7 @@ v3 = [
     "storageKey": null
   }
 ],
-v4 = {
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -152,7 +199,7 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
@@ -162,7 +209,7 @@ v4 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     }
   ],
@@ -192,7 +239,8 @@ return {
             "name": "globalConfiguration",
             "plural": false,
             "selections": [
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
@@ -200,7 +248,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v5/*: any*/)
             ]
           }
         ],
@@ -233,6 +281,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -243,21 +292,21 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "fac50ad37035188e82fed18a45b406ab",
+    "cacheID": "662a783b0138c051e5f66456440a4b78",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '31d72c27920de3ef8f84ce740fa6ad7f';
+(node as any).hash = 'ad6db7a5f5442180931e3b38912e59dd';
 export default node;

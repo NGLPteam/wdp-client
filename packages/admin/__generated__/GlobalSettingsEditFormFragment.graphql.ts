@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type GlobalSettingsEditFormFragment = {
     readonly site: {
         readonly providerName: string;
+        readonly installationName: string;
     };
     readonly theme: {
         readonly color: string;
@@ -43,6 +44,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "providerName",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "installationName",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -76,5 +84,5 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = 'a3ec90ff0cd1bb0dca79521ba9ac86ec';
+(node as any).hash = '6353d0ed169348789deebd6842f69a72';
 export default node;

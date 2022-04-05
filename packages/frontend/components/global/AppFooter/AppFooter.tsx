@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
@@ -43,13 +43,17 @@ function AppFooter({ data, communityData }: Props) {
   return (
     <Styled.FooterWrapper className={`a-bg-custom20`}>
       <Styled.FooterInner className="l-container-wide">
-        <Styled.CommunityNameWrapper>
-          {community ? (
-            <CommunityName data={community} />
-          ) : (
-            <h4>WDP Installation Name</h4>
-          )}
-        </Styled.CommunityNameWrapper>
+        <Suspense fallback="Loading...">
+          <Styled.CommunityNameWrapper>
+            {community ? (
+              <CommunityName data={community} />
+            ) : (
+              <h4>
+                <InstallationName data={app} />
+              </h4>
+            )}
+          </Styled.CommunityNameWrapper>
+        </Suspense>
         <Styled.SearchWrapper>
           <Search id="footerSearch" />
         </Styled.SearchWrapper>
@@ -58,7 +62,7 @@ function AppFooter({ data, communityData }: Props) {
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
           <Styled.InstallationMobile>
-            <InstallationName />
+            <InstallationName data={app} />
           </Styled.InstallationMobile>
           <p className="t-copy-sm t-copy-lighter">
             A brief overview of this WDP instance. Arcu nisl ullamcorper
@@ -68,7 +72,7 @@ function AppFooter({ data, communityData }: Props) {
             proin.
           </p>
           <Styled.InstallationDesktop>
-            <Styled.InstallationDesktopName as={InstallationName} />
+            <Styled.InstallationDesktopName as={InstallationName} data={app} />
             <CommunityPicker data={app} active={community} />
           </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
@@ -100,6 +104,7 @@ export default AppFooter;
 const fragment = graphql`
   fragment AppFooterFragment on Query {
     ...CommunityPickerFragment
+    ...InstallationNameFragment
   }
 `;
 

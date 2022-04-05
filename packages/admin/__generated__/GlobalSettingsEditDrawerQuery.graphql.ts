@@ -29,6 +29,7 @@ query GlobalSettingsEditDrawerQuery {
 fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
   site {
     providerName
+    installationName
   }
   theme {
     color
@@ -92,6 +93,13 @@ const node: ConcreteRequest = {
                 "kind": "ScalarField",
                 "name": "providerName",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "installationName",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -134,12 +142,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "ed5449a0a2b5c9a47136e42f727b1c61",
+    "cacheID": "4f616f49f9a2d0316db9a0ae14cdd897",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n  }\n  theme {\n    color\n    font\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n  }\n  theme {\n    color\n    font\n  }\n}\n"
   }
 };
 (node as any).hash = '14c05f979e57359ae35bfe24eb0c1ce9';
