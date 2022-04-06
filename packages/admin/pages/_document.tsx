@@ -104,7 +104,7 @@ export default class AppDocument extends Document<Props> {
           ))}
         </Head>
         <body>
-          <span style={{ display: "none" }}>build-test-admin</span>
+          <span style={{ display: "none" }}>build-test-admin-1</span>
           <template id="relay-data">
             {Buffer.from(JSON.stringify(this.props.records)).toString("base64")}
           </template>

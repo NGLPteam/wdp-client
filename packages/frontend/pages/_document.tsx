@@ -138,7 +138,7 @@ export default class AppDocument extends Document<Props> {
             <span style={{ fontFamily: "Sentient" }}>Sentient</span>
             <span style={{ fontFamily: "Switzer" }}>Switzer</span>
           </span>
-          <span style={{ display: "none" }}>build-test-frontend</span>
+          <span style={{ display: "none" }}>build-test-frontend-1</span>
           <template id="relay-data">
             {Buffer.from(JSON.stringify(this.props.records)).toString("base64")}
           </template>
