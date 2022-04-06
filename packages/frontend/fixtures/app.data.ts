@@ -11,7 +11,6 @@ const appData = {
         children: [
           {
             route: "home",
-            label: "Instance Name",
           },
           {
             route: "about",

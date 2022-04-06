@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
 import { RouteHelper } from "routes";
+import { useViewerContext } from "hooks";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 /**
@@ -21,6 +22,12 @@ const NamedLink = forwardRef(
     // Find the route
     const route = RouteHelper.findRouteByName(routeName);
 
+    const { allowedActions } = useViewerContext();
+
+    const isAuthorized = route?.actions
+      ? route.actions.some((action) => allowedActions.includes(action))
+      : true;
+
     // If the route doesn't exist, warn dev in the console
     if (!route) {
       console.warn(`Route ${routeName} not found`, RouteHelper.routes);
@@ -33,7 +40,7 @@ const NamedLink = forwardRef(
     // If the route redirects to another route, link to the redirect path.
     const path = route.redirect ? route.redirect : route.path;
 
-    return (
+    return isAuthorized ? (
       <Link
         href={{ pathname: path, query: nextQuery }}
         passHref={passHref}
@@ -43,7 +50,7 @@ const NamedLink = forwardRef(
           ? React.cloneElement(children, { ref, ...props })
           : children}
       </Link>
-    );
+    ) : null;
   }
 );
 export interface Props extends Omit<LinkProps, "href"> {
