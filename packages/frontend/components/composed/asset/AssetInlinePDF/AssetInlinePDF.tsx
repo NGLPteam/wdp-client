@@ -67,7 +67,7 @@ export default function AssetInlinePDF({ data }: Props) {
                   <div key={page} id={`page${page + 1}`}>
                     <AssetPDFPage
                       pageNumber={page + 1}
-                      showPageNumber
+                      renderPageNumber
                       pageLabel={"list.page_number"}
                     />
                   </div>
