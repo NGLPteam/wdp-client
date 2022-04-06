@@ -116,8 +116,9 @@ export const baseRoutes: BaseRoute[] = [
   },
   {
     name: "admin",
-    path: "https://wdp-admin-client-cast-iron.vercel.app/",
+    path: process.env.NEXT_PUBLIC_ADMIN_URL,
     label: "nav.admin",
+    actions: ["admin.access"],
   },
   {
     name: "search",

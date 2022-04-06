@@ -2,7 +2,6 @@ import React, { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
-import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import appData from "../../../fixtures/app.data";
 import * as Styled from "./AppFooter.styles";
@@ -11,7 +10,7 @@ import { Search } from "components/forms";
 import { RouteHelper } from "routes";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
-import { Link as LinkStyle } from "components/atomic";
+import { Link as LinkStyle, NamedLink } from "components/atomic";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
@@ -29,15 +28,15 @@ function AppFooter({ data, communityData }: Props) {
 
   function renderRoute(route: string, label?: string) {
     const routeObj = RouteHelper.findRouteByName(route);
-    const routeLabel = label || routeObj?.label;
+    const routeLabel = label || routeObj?.label || "";
 
-    return routeObj && routeLabel ? (
+    return (
       <Styled.NavListItem key={route} className="t-copy-sm t-copy-light">
-        <Link href={routeObj.path} passHref>
+        <NamedLink route={route} passHref>
           <LinkStyle>{startCase(t(routeLabel))}</LinkStyle>
-        </Link>
+        </NamedLink>
       </Styled.NavListItem>
-    ) : null;
+    );
   }
 
   return (
@@ -81,7 +80,7 @@ function AppFooter({ data, communityData }: Props) {
             <div key={label}>
               <h5 className="t-label-lg">{t(label)}</h5>
               <ul className="t-unstyled-list">
-                {children.map(({ route, label }) => renderRoute(route, label))}
+                {children.map(({ route }) => renderRoute(route))}
               </ul>
             </div>
           ))}

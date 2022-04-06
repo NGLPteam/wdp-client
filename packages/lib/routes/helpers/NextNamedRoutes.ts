@@ -3,7 +3,7 @@ const nextStylePathComponent = /\[[^/]+\]/g;
 export type BaseRoute = {
   name: string;
   label?: string;
-  path: string;
+  path?: string;
   redirect?: string;
   routes?: BaseRoute[];
   actions?: string[];
@@ -46,9 +46,10 @@ class NextNamedRoutes {
     actions,
   }: BaseRoute): NextNamedRoutes => {
     if (!name || !path) {
-      throw new Error(
+      console.error(
         `Route requires a name and path. name: ${name}, path: ${path}`
       );
+      return this;
     }
 
     if (this.findRouteByName(name)) {
@@ -177,8 +178,15 @@ class NextNamedRoutes {
       throw new Error(`No base routes defined`);
     }
 
-    const addRoute = ({ name, path, redirect, routes, label }: BaseRoute) => {
-      this.add({ name, path, redirect, routes, label });
+    const addRoute = ({
+      name,
+      path,
+      redirect,
+      routes,
+      label,
+      actions,
+    }: BaseRoute) => {
+      this.add({ name, path, redirect, routes, label, actions });
 
       if (routes) {
         routes.forEach(addRoute);
