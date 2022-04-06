@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
 import * as Styled from "./AccountDropdown.styles";
-import { useViewerContext } from "hooks";
+import { useViewerContext } from "contexts";
 import {
   Avatar,
   Dropdown,

@@ -14,7 +14,7 @@ export default function ItemPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.item?.community}>
+        <AppLayout communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
             <div className="l-container-wide l-container-wide--p-lg">
               <h3>{t("layouts.metrics_header")}</h3>
@@ -36,6 +36,5 @@ const query = graphql`
         ...AppLayoutCommunityFragment
       }
     }
-    ...AppLayoutFragment
   }
 `;

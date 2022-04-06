@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import useAuthContext from "./useAuthContext";
-import { useViewerContext } from "hooks";
+import { useViewerContext } from "contexts";
 import { normalizeArray } from "helpers";
 
 /**

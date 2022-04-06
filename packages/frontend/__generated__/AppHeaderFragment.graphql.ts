@@ -6,7 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AppHeaderFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"CommunityPickerFragment" | "InstallationNameFragment">;
+    readonly communities: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    };
     readonly " $refType": "AppHeaderFragment";
 };
 export type AppHeaderFragment$data = AppHeaderFragment;
@@ -24,18 +28,37 @@ const node: ReaderFragment = {
   "name": "AppHeaderFragment",
   "selections": [
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "CommunityPickerFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "InstallationNameFragment"
+      "concreteType": "CommunityConnection",
+      "kind": "LinkedField",
+      "name": "communities",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '0673574c538f6ee07eef73f56e4a8742';
+(node as any).hash = '6b3ef974fd276becc84d9ad8155e6c6a';
 export default node;

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import Link from "next/link";
 import { RouteHelper } from "routes";
-import { useViewerContext } from "hooks";
+import { useViewerContext } from "contexts";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 /**

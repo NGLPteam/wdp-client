@@ -12,7 +12,7 @@ export default function OrderingSlugCommunity() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.community}>
+        <AppLayout communityData={data?.community}>
           <EntityOrderingLayoutFactory data={data?.community} />
         </AppLayout>
       )}
@@ -28,6 +28,5 @@ const query = graphql`
       ...EntityOrderingLayoutFactoryFragment
       ...AppLayoutCommunityFragment
     }
-    ...AppLayoutFragment
   }
 `;

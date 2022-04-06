@@ -7,7 +7,7 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type pagesQueryVariables = {};
 export type pagesQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment" | "InstanceContentLayoutFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"InstanceContentLayoutFragment">;
 };
 export type pagesQuery = {
     readonly response: pagesQueryResponse;
@@ -18,40 +18,7 @@ export type pagesQuery = {
 
 /*
 query pagesQuery {
-  ...AppLayoutFragment
   ...InstanceContentLayoutFragment
-}
-
-fragment AppBodyFragment on Query {
-  ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
-}
-
-fragment AppHeaderFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
-}
-
-fragment AppLayoutFragment on Query {
-  ...AppBodyFragment
-  ...CommunityPickerFragment
-}
-
-fragment CommunityPickerFragment on Query {
-  communities {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
 }
 
 fragment ImageFragment on Image {
@@ -60,15 +27,6 @@ fragment ImageFragment on Image {
   url
   width
   height
-}
-
-fragment InstallationNameFragment on Query {
-  globalConfiguration {
-    site {
-      installationName
-    }
-    id
-  }
 }
 
 fragment InstanceCommunitiesFragment on CommunityConnection {
@@ -193,11 +151,6 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "AppLayoutFragment"
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
         "name": "InstanceContentLayoutFragment"
       }
     ],
@@ -235,6 +188,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v0/*: any*/),
+                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -242,7 +196,6 @@ return {
                     "name": "title",
                     "storageKey": null
                   },
-                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -365,48 +318,18 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "GlobalConfiguration",
-        "kind": "LinkedField",
-        "name": "globalConfiguration",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "SiteSettings",
-            "kind": "LinkedField",
-            "name": "site",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "installationName",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v1/*: any*/)
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e67172114f81e959cb57c0e005715f6b",
+    "cacheID": "fc9612321dd6473973275541a3aee882",
     "id": null,
     "metadata": {},
     "name": "pagesQuery",
     "operationKind": "query",
-    "text": "query pagesQuery {\n  ...AppLayoutFragment\n  ...InstanceContentLayoutFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on Query {\n  globalConfiguration {\n    site {\n      installationName\n    }\n    id\n  }\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n}\n"
+    "text": "query pagesQuery {\n  ...InstanceContentLayoutFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5413a908898f944341b58e1d2d56ae03';
+(node as any).hash = '14a2f8f39c9615b1685607cca9685860';
 export default node;

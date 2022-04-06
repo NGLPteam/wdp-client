@@ -7,7 +7,7 @@ import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
 import type { GlobalSettingsEditDrawerQuery as Query } from "__generated__/GlobalSettingsEditDrawerQuery.graphql";
-import { useViewerContext } from "hooks";
+import { useViewerContext } from "contexts";
 
 export default function GlobalSettingsEditDrawer({
   dialog, // params,

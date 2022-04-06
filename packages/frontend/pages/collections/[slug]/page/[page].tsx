@@ -13,7 +13,7 @@ export default function CommunityPage() {
   return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.collection?.community}>
+        <AppLayout communityData={data?.collection?.community}>
           <EntityPageLayoutFactory data={data?.collection} />
         </AppLayout>
       )}
@@ -32,6 +32,5 @@ const query = graphql`
         ...AppLayoutCommunityFragment
       }
     }
-    ...AppLayoutFragment
   }
 `;

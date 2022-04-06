@@ -17,7 +17,7 @@ export default function ItemPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, file }}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.item?.community}>
+        <AppLayout communityData={data?.item?.community}>
           <EntityLayoutFactory data={data?.item}>
             <AssetDetailBlock data={data?.asset} />
           </EntityLayoutFactory>
@@ -40,6 +40,5 @@ const query = graphql`
     asset(slug: $file) {
       ...AssetDetailBlockFragment
     }
-    ...AppLayoutFragment
   }
 `;

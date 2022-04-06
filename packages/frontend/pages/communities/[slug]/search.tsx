@@ -12,7 +12,7 @@ export default function SearchPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.community}>
+        <AppLayout communityData={data?.community}>
           <SearchLayout data={data?.community} />
         </AppLayout>
       )}
@@ -28,6 +28,5 @@ const query = graphql`
       ...AppLayoutCommunityFragment
       ...SearchLayoutFragment
     }
-    ...AppLayoutFragment
   }
 `;

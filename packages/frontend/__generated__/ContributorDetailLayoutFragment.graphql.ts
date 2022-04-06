@@ -9,7 +9,6 @@ export type ContributorDetailLayoutFragment = {
     readonly contributor: {
         readonly " $fragmentRefs": FragmentRefs<"ContributorHTMLHeadFragment" | "ContributorDetailFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
     readonly " $refType": "ContributorDetailLayoutFragment";
 };
 export type ContributorDetailLayoutFragment$data = ContributorDetailLayoutFragment;
@@ -57,15 +56,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "AppLayoutFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '62ee542b40bd35e22aa9e0d81756979c';
+(node as any).hash = 'd6aa9ec760fd5791c13ea2f6af92370a';
 export default node;

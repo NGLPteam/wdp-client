@@ -2,12 +2,19 @@ import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useLatestPresentValue } from "@wdp/lib/hooks";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
+import { useGlobalContext } from "contexts";
 
-export default function CommunityPicker({ data, active }: Props) {
-  const communityData = useMaybeFragment(fragment, data);
+export default function CommunityPicker({ active }: Props) {
+  const siteData = useGlobalContext();
+
+  const communityData = useMaybeFragment<CommunityPickerFragment$key>(
+    fragment,
+    siteData
+  );
 
   const activeCommunity = useMaybeFragment(activefragment, active);
 
@@ -17,15 +24,17 @@ export default function CommunityPicker({ data, active }: Props) {
     return communityData?.communities?.edges || [];
   }, [communityData]);
 
-  const activeTitle = useMemo(() => {
-    return activeCommunity?.title;
-  }, [activeCommunity]);
+  const { current: memoizedCommunity } = useLatestPresentValue(activeCommunity);
 
-  return (
+  return menuItems.length === 1 ? (
+    <Button secondary size="sm">
+      {menuItems[0].node.title}
+    </Button>
+  ) : (
     <Dropdown
       disclosure={
         <Button secondary icon="chevronDown" size="sm">
-          {activeTitle || t("nav.community_picker")}
+          {memoizedCommunity?.title || t("nav.community_picker")}
         </Button>
       }
       menuItems={menuItems.map(({ node }) => {
@@ -46,7 +55,6 @@ export default function CommunityPicker({ data, active }: Props) {
 }
 
 type Props = {
-  data?: CommunityPickerFragment$key | null;
   active?: CommunityPickerActiveFragment$key | null;
 };
 

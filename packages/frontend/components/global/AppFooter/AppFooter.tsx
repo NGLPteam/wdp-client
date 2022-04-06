@@ -12,13 +12,10 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
 import { Link as LinkStyle, NamedLink } from "components/atomic";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
-import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 
 // Note: About text and community name will come from backend data
-function AppFooter({ data, communityData }: Props) {
-  const app = useMaybeFragment(fragment, data);
-
-  const community = useMaybeFragment(communityFragment, communityData);
+function AppFooter({ communityData }: Props) {
+  const community = useMaybeFragment(fragment, communityData);
 
   const { t } = useTranslation();
 
@@ -48,7 +45,7 @@ function AppFooter({ data, communityData }: Props) {
               <CommunityName data={community} />
             ) : (
               <h4>
-                <InstallationName data={app} />
+                <InstallationName />
               </h4>
             )}
           </Styled.CommunityNameWrapper>
@@ -61,7 +58,7 @@ function AppFooter({ data, communityData }: Props) {
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
           <Styled.InstallationMobile>
-            <InstallationName data={app} />
+            <InstallationName />
           </Styled.InstallationMobile>
           <p className="t-copy-sm t-copy-lighter">
             A brief overview of this WDP instance. Arcu nisl ullamcorper
@@ -71,8 +68,8 @@ function AppFooter({ data, communityData }: Props) {
             proin.
           </p>
           <Styled.InstallationDesktop>
-            <Styled.InstallationDesktopName as={InstallationName} data={app} />
-            <CommunityPicker data={app} active={community} />
+            <Styled.InstallationDesktopName as={InstallationName} />
+            <CommunityPicker active={community} />
           </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
@@ -94,20 +91,12 @@ function AppFooter({ data, communityData }: Props) {
 }
 
 interface Props {
-  data?: AppFooterFragment$key | null;
   communityData?: AppFooterCommunityFragment$key | null;
 }
 
 export default AppFooter;
 
 const fragment = graphql`
-  fragment AppFooterFragment on Query {
-    ...CommunityPickerFragment
-    ...InstallationNameFragment
-  }
-`;
-
-const communityFragment = graphql`
   fragment AppFooterCommunityFragment on Community {
     ...CommunityPickerActiveFragment
     ...CommunityNameFragment

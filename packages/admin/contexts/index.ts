@@ -11,3 +11,5 @@ export {
   default as ViewerContext,
   ViewerContextProvider,
 } from "./ViewerContext";
+export { default as useGlobalContext } from "./useGlobalContext";
+export { default as useViewerContext } from "./useViewerContext";

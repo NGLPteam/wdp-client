@@ -4,7 +4,7 @@ import Uppy from "@uppy/core";
 import Tus, { TusOptions } from "@uppy/tus";
 
 import useLazyRef from "./useLazyRef";
-import useViewerContext from "./useViewerContext";
+import { useViewerContext } from "contexts";
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5 megabytes, the max amount S3 supports for multipart uploading
 

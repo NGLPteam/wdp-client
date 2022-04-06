@@ -2,8 +2,8 @@ import * as React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import LogoPlaceholder from "../LogoPlaceholder";
+import { useGlobalContext } from "contexts";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
-import { useGlobalContext } from "hooks";
 
 export default function InstallationName() {
   const data = useGlobalContext();
