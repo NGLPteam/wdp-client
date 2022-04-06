@@ -42,7 +42,6 @@ export default function GlobalSettingsEditForm({
         />
         <Forms.Input
           label="forms.fields.installation_name"
-          required
           {...register("site.installationName")}
         />
         <Forms.Select
