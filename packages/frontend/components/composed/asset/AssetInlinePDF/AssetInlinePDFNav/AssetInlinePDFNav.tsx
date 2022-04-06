@@ -8,7 +8,13 @@ export default function AssetInlinePDFNav({ numPages, pageId }: Props) {
       <Styled.OutlineInner>
         {[...Array(numPages).keys()].map((page) => (
           <Styled.OutlineLink key={page} href={`#${pageId}${page + 1}`}>
-            <AssetPDFPage pageNumber={page + 1} width={100} showPageNumber />
+            <AssetPDFPage
+              pageNumber={page + 1}
+              width={100}
+              renderAnnotationLayer={false}
+              renderTextLayer={false}
+              renderPageNumber
+            />
           </Styled.OutlineLink>
         ))}
       </Styled.OutlineInner>

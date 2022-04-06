@@ -3,20 +3,29 @@ import { useTranslation } from "react-i18next";
 import { Page } from "react-pdf";
 import * as Styled from "./AssetPDFPage.styles";
 
+type PageProps = React.ComponentProps<typeof Page>;
+
 export default function AssetInlinePDFPage({
   pageNumber,
   width = 1159,
   pageLabel,
-  showPageNumber,
+  renderPageNumber,
+  renderAnnotationLayer,
+  renderTextLayer,
 }: Props) {
   const { t } = useTranslation();
 
   return (
     <>
       <Styled.Page>
-        <Page pageNumber={pageNumber} width={width} />
+        <Page
+          pageNumber={pageNumber}
+          width={width}
+          renderAnnotationLayer={renderAnnotationLayer}
+          renderTextLayer={renderTextLayer}
+        />
       </Styled.Page>
-      {showPageNumber && (
+      {renderPageNumber && (
         <Styled.PageNumber>
           {pageLabel ? t(pageLabel, { number: pageNumber }) : pageNumber}
         </Styled.PageNumber>
@@ -31,7 +40,10 @@ interface Props {
   /** Page width */
   width?: number;
   /** Show the page's number */
-  showPageNumber?: true;
+  renderPageNumber?: true;
   /** Page label - i18n string  */
   pageLabel?: string;
+  /** react-pdf Page props */
+  renderAnnotationLayer?: PageProps["renderAnnotationLayer"];
+  renderTextLayer?: PageProps["renderTextLayer"];
 }
