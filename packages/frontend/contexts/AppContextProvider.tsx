@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { ViewerContextProvider } from "./ViewerContext";
+import { GlobalContextProvider } from "./GlobalContext";
 import GlobalStyles from "theme";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
 import { AppContextProviderViewerQuery as ViewerQuery } from "@/relay/AppContextProviderViewerQuery.graphql";
@@ -34,9 +35,11 @@ const AppContextProvider = ({ children }: Props) => {
     >
       <ReakitSSRProvider>
         <GlobalStyles />
-        <ViewerContextProvider data={viewerData}>
-          <PageContextProvider>{children}</PageContextProvider>
-        </ViewerContextProvider>
+        <GlobalContextProvider data={data}>
+          <ViewerContextProvider data={viewerData}>
+            <PageContextProvider>{children}</PageContextProvider>
+          </ViewerContextProvider>
+        </GlobalContextProvider>
       </ReakitSSRProvider>
     </ThemeProvider>
   );
@@ -50,6 +53,7 @@ export default AppContextProvider;
 
 const query = graphql`
   query AppContextProviderQuery {
+    ...GlobalContextFragment
     globalConfiguration {
       theme {
         color

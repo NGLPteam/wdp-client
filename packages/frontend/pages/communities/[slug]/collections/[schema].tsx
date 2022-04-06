@@ -13,7 +13,7 @@ export default function CommunityCollectionsSchema() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.community}>
+        <AppLayout communityData={data?.community}>
           {data?.community?.orderingForSchema ? (
             <EntityOrderingLayoutFactory
               data={data.community}
@@ -55,6 +55,5 @@ const query = graphql`
       #    ...EntityOrderingsFragment
       # }
     }
-    ...AppLayoutFragment
   }
 `;

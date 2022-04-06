@@ -11,14 +11,17 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
-import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { RouteHelper } from "routes";
 import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
+import { useGlobalContext } from "contexts";
+import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
-function AppHeader({ data, communityData }: Props) {
-  const appData = useMaybeFragment(fragment, data);
+function AppHeader({ communityData }: Props) {
+  const siteData = useGlobalContext();
+
+  const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, siteData);
 
   const community = useMaybeFragment(communityFragment, communityData);
 
@@ -28,15 +31,20 @@ function AppHeader({ data, communityData }: Props) {
 
   const dialog = useDialogState({ animated: true });
 
+  const totalCommunities = appData?.communities.pageInfo.totalCount || 0;
+
   return (
     <>
       <Styled.Header>
         <Styled.HeaderInner className="l-container-wide">
           <Styled.LeftSide>
-            {appData && (
-              <Styled.InstallationName as={InstallationName} data={appData} />
+            {(!isCommunityRoot ||
+              (isCommunityRoot && totalCommunities > 1)) && (
+              <>
+                <Styled.InstallationName as={InstallationName} />
+                <CommunityPicker active={community} />
+              </>
             )}
-            <CommunityPicker data={appData} active={community} />
           </Styled.LeftSide>
           <Styled.RightSide>
             {community && !isCommunityRoot && (
@@ -52,8 +60,8 @@ function AppHeader({ data, communityData }: Props) {
           </Styled.MobileRight>
         </Styled.HeaderInner>
         <BaseDrawer
-          header={<CommunityPicker data={appData} active={community} />}
-          footer={<InstallationName data={appData} />}
+          header={<CommunityPicker active={community} />}
+          footer={<InstallationName />}
           dialog={dialog}
           label={t("nav.menu")}
         >
@@ -74,7 +82,6 @@ function AppHeader({ data, communityData }: Props) {
 }
 
 interface Props {
-  data?: AppHeaderFragment$key | null;
   communityData?: AppHeaderCommunityFragment$key | null;
 }
 
@@ -82,8 +89,11 @@ export default AppHeader;
 
 const fragment = graphql`
   fragment AppHeaderFragment on Query {
-    ...CommunityPickerFragment
-    ...InstallationNameFragment
+    communities {
+      pageInfo {
+        totalCount
+      }
+    }
   }
 `;
 

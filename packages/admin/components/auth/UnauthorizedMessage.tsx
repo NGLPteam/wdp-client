@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import useMaybeFragment from "@wdp/lib/api/hooks/useMaybeFragment";
 import { graphql } from "react-relay";
 import { MessageBlock } from "components/atomic";
-import { useGlobalContext } from "hooks";
+import { useGlobalContext } from "contexts";
 import { UnauthorizedMessageFragment$key } from "@/relay/UnauthorizedMessageFragment.graphql";
 
 export default function UnauthorizedMessage() {

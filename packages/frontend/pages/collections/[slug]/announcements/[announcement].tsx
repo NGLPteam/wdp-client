@@ -18,7 +18,7 @@ export default function AnnouncementPage() {
       initialVariables={{ slug, announcementSlug }}
     >
       {({ data }) => (
-        <AppLayout data={data} communityData={data?.collection?.community}>
+        <AppLayout communityData={data?.collection?.community}>
           <EntityAnnouncementLayoutFactory data={data?.collection} />
         </AppLayout>
       )}
@@ -40,6 +40,5 @@ const query = graphql`
         ...AppLayoutCommunityFragment
       }
     }
-    ...AppLayoutFragment
   }
 `;

@@ -11,7 +11,8 @@ import {
 } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
-import { useViewerContext, useIsAuthenticated } from "hooks";
+import { useIsAuthenticated } from "hooks";
+import { useViewerContext } from "contexts";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 

@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout data={data}>
+        <AppLayout>
           <InstanceContentLayout data={data} />
         </AppLayout>
       )}
@@ -22,7 +22,6 @@ export default function HomePage() {
 
 const query = graphql`
   query pagesQuery {
-    ...AppLayoutFragment
     ...InstanceContentLayoutFragment
   }
 `;

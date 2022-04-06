@@ -6,10 +6,8 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type InstallationNameFragment = {
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly installationName: string;
-        };
+    readonly site: {
+        readonly installationName: string;
     };
     readonly " $refType": "InstallationNameFragment";
 };
@@ -30,35 +28,24 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "GlobalConfiguration",
+      "concreteType": "SiteSettings",
       "kind": "LinkedField",
-      "name": "globalConfiguration",
+      "name": "site",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "SiteSettings",
-          "kind": "LinkedField",
-          "name": "site",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "installationName",
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "installationName",
           "storageKey": null
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "Query",
+  "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '6231dbfe4cb824e6c7704ba0edff91d9';
+(node as any).hash = '755795acfce23d9612eaa8ae4c24502a';
 export default node;

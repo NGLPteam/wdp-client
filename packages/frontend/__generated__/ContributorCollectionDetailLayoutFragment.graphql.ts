@@ -15,7 +15,6 @@ export type ContributorCollectionDetailLayoutFragment = {
         };
         readonly " $fragmentRefs": FragmentRefs<"ContributorDetailNavFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
     readonly " $refType": "ContributorCollectionDetailLayoutFragment";
 };
 export type ContributorCollectionDetailLayoutFragment$data = ContributorCollectionDetailLayoutFragment;
@@ -105,15 +104,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "AppLayoutFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'd333973f15e82de2c92442a1f8af18d4';
+(node as any).hash = '7eaede63ceb31360cac14e5c14f6f77b';
 export default node;

@@ -4,6 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+import { FragmentRefs } from "relay-runtime";
 export type AppContextProviderQueryVariables = {};
 export type AppContextProviderQueryResponse = {
     readonly globalConfiguration: {
@@ -12,6 +13,7 @@ export type AppContextProviderQueryResponse = {
             readonly font: string;
         };
     };
+    readonly " $fragmentRefs": FragmentRefs<"GlobalContextFragment">;
 };
 export type AppContextProviderQuery = {
     readonly response: AppContextProviderQueryResponse;
@@ -22,12 +24,48 @@ export type AppContextProviderQuery = {
 
 /*
 query AppContextProviderQuery {
+  ...GlobalContextFragment
   globalConfiguration {
     theme {
       color
       font
     }
     id
+  }
+}
+
+fragment AppHeaderFragment on Query {
+  communities {
+    pageInfo {
+      totalCount
+    }
+  }
+}
+
+fragment CommunityPickerFragment on Query {
+  communities {
+    edges {
+      node {
+        slug
+        title
+        id
+      }
+    }
+  }
+}
+
+fragment GlobalContextFragment on Query {
+  globalConfiguration {
+    ...InstallationNameFragment
+    id
+  }
+  ...CommunityPickerFragment
+  ...AppHeaderFragment
+}
+
+fragment InstallationNameFragment on GlobalConfiguration {
+  site {
+    installationName
   }
 }
 */
@@ -57,6 +95,13 @@ var v0 = {
     }
   ],
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -76,6 +121,11 @@ return {
           (v0/*: any*/)
         ],
         "storageKey": null
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "GlobalContextFragment"
       }
     ],
     "type": "Query",
@@ -95,12 +145,90 @@ return {
         "name": "globalConfiguration",
         "plural": false,
         "selections": [
-          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "id",
+            "concreteType": "SiteSettings",
+            "kind": "LinkedField",
+            "name": "site",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "installationName",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v1/*: any*/),
+          (v0/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  },
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "totalCount",
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           }
         ],
@@ -109,14 +237,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b550c4e779f40cd89fec14db89c2c383",
+    "cacheID": "01d385e45e604af7d1b61bbcfcf875eb",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '075b28c638f62243e543e3be77883ee5';
+(node as any).hash = '075f147f1bf97fbb197848635dd30287';
 export default node;

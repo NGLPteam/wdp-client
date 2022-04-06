@@ -12,7 +12,6 @@ export type SlugCommunityQueryResponse = {
     readonly community: {
         readonly " $fragmentRefs": FragmentRefs<"CommunityLandingLayoutFragment" | "AppLayoutCommunityFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"AppLayoutFragment">;
 };
 export type SlugCommunityQuery = {
     readonly response: SlugCommunityQueryResponse;
@@ -30,7 +29,6 @@ query SlugCommunityQuery(
     ...AppLayoutCommunityFragment
     id
   }
-  ...AppLayoutFragment
 }
 
 fragment AppBodyCommunityFragment on Community {
@@ -38,19 +36,9 @@ fragment AppBodyCommunityFragment on Community {
   ...AppFooterCommunityFragment
 }
 
-fragment AppBodyFragment on Query {
-  ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
 fragment AppFooterCommunityFragment on Community {
   ...CommunityPickerActiveFragment
   ...CommunityNameFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
 }
 
 fragment AppHeaderCommunityFragment on Community {
@@ -60,20 +48,10 @@ fragment AppHeaderCommunityFragment on Community {
   ...CommunityNameFragment
 }
 
-fragment AppHeaderFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
-}
-
 fragment AppLayoutCommunityFragment on Community {
   ...CommunityHTMLHeadFragment
   ...CommunityNavBarFragment
   ...AppBodyCommunityFragment
-}
-
-fragment AppLayoutFragment on Query {
-  ...AppBodyFragment
-  ...CommunityPickerFragment
 }
 
 fragment ArticleSummaryFragment on Item {
@@ -195,18 +173,6 @@ fragment CommunityNavListFragment on Community {
 fragment CommunityPickerActiveFragment on Community {
   title
   slug
-}
-
-fragment CommunityPickerFragment on Query {
-  communities {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
 }
 
 fragment ContributorNameFragment on AnyContributor {
@@ -404,15 +370,6 @@ fragment FeaturedUnitsFragment on EntitiesProperty {
       __isNode: __typename
       id
     }
-  }
-}
-
-fragment InstallationNameFragment on Query {
-  globalConfiguration {
-    site {
-      installationName
-    }
-    id
   }
 }
 
@@ -786,12 +743,7 @@ v22 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-},
-v23 = [
-  (v11/*: any*/),
-  (v2/*: any*/),
-  (v13/*: any*/)
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -819,11 +771,6 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "AppLayoutFragment"
       }
     ],
     "type": "Query",
@@ -1368,7 +1315,11 @@ return {
                     "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
-                    "selections": (v23/*: any*/),
+                    "selections": [
+                      (v11/*: any*/),
+                      (v2/*: any*/),
+                      (v13/*: any*/)
+                    ],
                     "storageKey": null
                   }
                 ],
@@ -1381,80 +1332,18 @@ return {
           (v13/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CommunityConnection",
-        "kind": "LinkedField",
-        "name": "communities",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "CommunityEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Community",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": (v23/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "GlobalConfiguration",
-        "kind": "LinkedField",
-        "name": "globalConfiguration",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "SiteSettings",
-            "kind": "LinkedField",
-            "name": "site",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "installationName",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v13/*: any*/)
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "09b1a03decefb5ecbe1a29a43bdaddc4",
+    "cacheID": "9d9be8828e4eeb2f6ebdb474fa528683",
     "id": null,
     "metadata": {},
     "name": "SlugCommunityQuery",
     "operationKind": "query",
-    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...AppLayoutCommunityFragment\n    id\n  }\n  ...AppLayoutFragment\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment ArticleSummaryFragment on Item {\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  slug\n  summary\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n  summary\n  heroImage {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n  heroImageLayout\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  featuredJournals: schemaProperty(fullPath: \"featured.journals\") {\n    __typename\n    ...FeaturedJournalsFragment\n  }\n  featuredSeries: schemaProperty(fullPath: \"featured.series\") {\n    __typename\n    ...FeaturedCollectionsGridFragment\n  }\n  featuredIssue: schemaProperty(fullPath: \"featured.issue\") {\n    __typename\n    ... on EntityProperty {\n      entity {\n        __typename\n        ...FeaturedIssueFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  featuredUnits: schemaProperty(fullPath: \"featured.units\") {\n    __typename\n    ...FeaturedUnitsFragment\n  }\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  nodes {\n    role\n    contributor {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ...ContributorNameFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Entity {\n      __isEntity: __typename\n      title\n    }\n    ...FeaturedCollectionsGridImageFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedIssueFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n  ordering(identifier: \"articles\") {\n    identifier\n    children(perPage: 3) {\n      edges {\n        node {\n          entry {\n            __typename\n            ... on Sluggable {\n              __isSluggable: __typename\n              slug\n            }\n            ...ArticleSummaryFragment\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n  featuredArticles: schemaProperty(fullPath: \"featured_articles\") {\n    __typename\n    ... on EntitiesProperty {\n      entities {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ArticleSummaryFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ...FeaturedJournalFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FeaturedUnitsFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Entity {\n      __isEntity: __typename\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  globalConfiguration {\n    site {\n      installationName\n    }\n    id\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query SlugCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLandingLayoutFragment\n    ...AppLayoutCommunityFragment\n    id\n  }\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityNameFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment ArticleSummaryFragment on Item {\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  slug\n  summary\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityHeroFragment on Community {\n  title\n  tagline\n  summary\n  heroImage {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n  heroImageLayout\n}\n\nfragment CommunityLandingLayoutFragment on Community {\n  ...CommunityHeroFragment\n  featuredJournals: schemaProperty(fullPath: \"featured.journals\") {\n    __typename\n    ...FeaturedJournalsFragment\n  }\n  featuredSeries: schemaProperty(fullPath: \"featured.series\") {\n    __typename\n    ...FeaturedCollectionsGridFragment\n  }\n  featuredIssue: schemaProperty(fullPath: \"featured.issue\") {\n    __typename\n    ... on EntityProperty {\n      entity {\n        __typename\n        ...FeaturedIssueFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  featuredUnits: schemaProperty(fullPath: \"featured.units\") {\n    __typename\n    ...FeaturedUnitsFragment\n  }\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  nodes {\n    role\n    contributor {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ...ContributorNameFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Entity {\n      __isEntity: __typename\n      title\n    }\n    ...FeaturedCollectionsGridImageFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FeaturedCollectionsGridImageFragment on Entity {\n  __isEntity: __typename\n  heroImage {\n    storage\n    image: large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment FeaturedIssueFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n  ordering(identifier: \"articles\") {\n    identifier\n    children(perPage: 3) {\n      edges {\n        node {\n          entry {\n            __typename\n            ... on Sluggable {\n              __isSluggable: __typename\n              slug\n            }\n            ...ArticleSummaryFragment\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n  featuredArticles: schemaProperty(fullPath: \"featured_articles\") {\n    __typename\n    ... on EntitiesProperty {\n      entities {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ArticleSummaryFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment FeaturedJournalFragment on Collection {\n  id\n  title\n  subtitle\n  slug\n  updatedAt\n  thumbnail {\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment FeaturedJournalsFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ...FeaturedJournalFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FeaturedUnitsFragment on EntitiesProperty {\n  entities {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Entity {\n      __isEntity: __typename\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9c795fbe96afa7c636a728b0fef2212e';
+(node as any).hash = 'af10750082a92d3897c54512e26f7922';
 export default node;

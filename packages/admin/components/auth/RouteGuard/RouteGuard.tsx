@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
 import UnauthorizedMessage from "../UnauthorizedMessage";
-import { useIsAuthorized, useViewerContext } from "hooks";
+import { useIsAuthorized } from "hooks";
+import { useViewerContext } from "contexts";
 
 export default function RouteGuard({ children }: Props) {
   const { handleSignInOut, isAuthenticated } = useSignInOut();

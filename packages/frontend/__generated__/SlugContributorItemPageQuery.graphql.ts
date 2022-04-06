@@ -32,19 +32,9 @@ fragment AppBodyCommunityFragment on Community {
   ...AppFooterCommunityFragment
 }
 
-fragment AppBodyFragment on Query {
-  ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
 fragment AppFooterCommunityFragment on Community {
   ...CommunityPickerActiveFragment
   ...CommunityNameFragment
-}
-
-fragment AppFooterFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
 }
 
 fragment AppHeaderCommunityFragment on Community {
@@ -54,20 +44,10 @@ fragment AppHeaderCommunityFragment on Community {
   ...CommunityNameFragment
 }
 
-fragment AppHeaderFragment on Query {
-  ...CommunityPickerFragment
-  ...InstallationNameFragment
-}
-
 fragment AppLayoutCommunityFragment on Community {
   ...CommunityHTMLHeadFragment
   ...CommunityNavBarFragment
   ...AppBodyCommunityFragment
-}
-
-fragment AppLayoutFragment on Query {
-  ...AppBodyFragment
-  ...CommunityPickerFragment
 }
 
 fragment CommunityHTMLHeadFragment on Community {
@@ -125,18 +105,6 @@ fragment CommunityNavListFragment on Community {
 fragment CommunityPickerActiveFragment on Community {
   title
   slug
-}
-
-fragment CommunityPickerFragment on Query {
-  communities {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
 }
 
 fragment ContributionSummaryEntityFragment on Entity {
@@ -271,7 +239,6 @@ fragment ContributorItemDetailLayoutFragment on Query {
     }
     id
   }
-  ...AppLayoutFragment
 }
 
 fragment ContributorNameFragment on AnyContributor {
@@ -284,15 +251,6 @@ fragment ContributorNameFragment on AnyContributor {
   ... on OrganizationContributor {
     __typename
     legalName
-  }
-}
-
-fragment InstallationNameFragment on Query {
-  globalConfiguration {
-    site {
-      installationName
-    }
-    id
   }
 }
 
@@ -565,12 +523,7 @@ v13 = {
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
-},
-v14 = [
-  (v8/*: any*/),
-  (v4/*: any*/),
-  (v3/*: any*/)
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -883,7 +836,11 @@ return {
                         "kind": "LinkedField",
                         "name": "node",
                         "plural": false,
-                        "selections": (v14/*: any*/),
+                        "selections": [
+                          (v8/*: any*/),
+                          (v4/*: any*/),
+                          (v3/*: any*/)
+                        ],
                         "storageKey": null
                       }
                     ],
@@ -917,78 +874,16 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CommunityConnection",
-        "kind": "LinkedField",
-        "name": "communities",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "CommunityEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Community",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": (v14/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "GlobalConfiguration",
-        "kind": "LinkedField",
-        "name": "globalConfiguration",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "SiteSettings",
-            "kind": "LinkedField",
-            "name": "site",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "installationName",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v3/*: any*/)
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "15fcfe9339ec71fe97b732642dd33cbd",
+    "cacheID": "acff5510ca1b4d558dc4cde524cbfb7f",
     "id": null,
     "metadata": {},
     "name": "SlugContributorItemPageQuery",
     "operationKind": "query",
-    "text": "query SlugContributorItemPageQuery(\n  $slug: Slug!\n  $item: Slug!\n) {\n  ...ContributorItemDetailLayoutFragment\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppFooterFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderFragment on Query {\n  ...CommunityPickerFragment\n  ...InstallationNameFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment AppLayoutFragment on Query {\n  ...AppBodyFragment\n  ...CommunityPickerFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributionSummaryEntityFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n  }\n  ... on Collection {\n    summary\n  }\n}\n\nfragment ContributionSummaryFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on Contribution {\n    __isContribution: __typename\n    role\n  }\n  ... on CollectionContribution {\n    entity: collection {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n  ... on ItemContribution {\n    entity: item {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  orcid\n  collectionContributions {\n    nodes {\n      ...ContributionSummaryFragment\n      id\n    }\n  }\n  itemContributions {\n    nodes {\n      ...ContributionSummaryFragment\n      id\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorDetailNavFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ... on Entity {\n    __isEntity: __typename\n    title\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ContributorHTMLHeadFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorItemDetailLayoutFragment on Query {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorHTMLHeadFragment\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  item(slug: $item) {\n    ...ContributorDetailNavFragment\n    community {\n      ...AppLayoutCommunityFragment\n      id\n    }\n    id\n  }\n  ...AppLayoutFragment\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment InstallationNameFragment on Query {\n  globalConfiguration {\n    site {\n      installationName\n    }\n    id\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query SlugContributorItemPageQuery(\n  $slug: Slug!\n  $item: Slug!\n) {\n  ...ContributorItemDetailLayoutFragment\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityNameFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment ContributionSummaryEntityFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n  }\n  ... on Collection {\n    summary\n  }\n}\n\nfragment ContributionSummaryFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on Contribution {\n    __isContribution: __typename\n    role\n  }\n  ... on CollectionContribution {\n    entity: collection {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n  ... on ItemContribution {\n    entity: item {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  orcid\n  collectionContributions {\n    nodes {\n      ...ContributionSummaryFragment\n      id\n    }\n  }\n  itemContributions {\n    nodes {\n      ...ContributionSummaryFragment\n      id\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorDetailNavFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ... on Entity {\n    __isEntity: __typename\n    title\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ContributorHTMLHeadFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorItemDetailLayoutFragment on Query {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorHTMLHeadFragment\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  item(slug: $item) {\n    ...ContributorDetailNavFragment\n    community {\n      ...AppLayoutCommunityFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

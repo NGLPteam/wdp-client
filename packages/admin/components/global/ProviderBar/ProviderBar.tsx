@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./ProviderBar.styles";
-import { useGlobalContext } from "hooks";
+import { useGlobalContext } from "contexts";
 import { ProviderBarFragment$key } from "@/relay/ProviderBarFragment.graphql";
 
 const ProviderBar = () => {

@@ -11,7 +11,7 @@ export default function ContributorItemDetailLayout({ data }: Props) {
   const layoutData = useMaybeFragment(fragment, data);
 
   return layoutData ? (
-    <AppLayout data={layoutData} communityData={layoutData?.item?.community}>
+    <AppLayout communityData={layoutData?.item?.community}>
       <ContributorHTMLHead data={layoutData.contributor} />
       <ContributorDetailNav data={layoutData.item} />
       <ContributorDetail data={layoutData.contributor} />
@@ -37,7 +37,5 @@ const fragment = graphql`
         ...AppLayoutCommunityFragment
       }
     }
-
-    ...AppLayoutFragment
   }
 `;
