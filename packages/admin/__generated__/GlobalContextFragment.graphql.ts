@@ -7,7 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type GlobalContextFragment = {
     readonly globalConfiguration: {
-        readonly " $fragmentRefs": FragmentRefs<"ProviderBarFragment" | "InstallationNameFragment" | "UnauthorizedMessageFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ProviderBarFragment" | "InstallationNameFragment" | "UnauthorizedMessageFragment" | "FooterFragment">;
     };
     readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorSchemasFragment">;
     readonly " $refType": "GlobalContextFragment";
@@ -48,6 +48,11 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "FragmentSpread",
           "name": "UnauthorizedMessageFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "FooterFragment"
         }
       ],
       "storageKey": null
@@ -103,5 +108,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '1fe52f47c0e3ad395110f8d1da4754d9';
+(node as any).hash = 'f4d416ec81f15f98c516b043cf6d25c8';
 export default node;

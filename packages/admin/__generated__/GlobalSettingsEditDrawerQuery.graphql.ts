@@ -30,6 +30,10 @@ fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
   site {
     providerName
     installationName
+    footer {
+      description
+      copyrightStatement
+    }
   }
   theme {
     color
@@ -100,6 +104,31 @@ const node: ConcreteRequest = {
                 "kind": "ScalarField",
                 "name": "installationName",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SiteFooter",
+                "kind": "LinkedField",
+                "name": "footer",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "description",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "copyrightStatement",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -142,12 +171,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "4f616f49f9a2d0316db9a0ae14cdd897",
+    "cacheID": "74b9d810cd9af1e8130ae74daaf4c71a",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n  }\n  theme {\n    color\n    font\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    footer {\n      description\n      copyrightStatement\n    }\n  }\n  theme {\n    color\n    font\n  }\n}\n"
   }
 };
 (node as any).hash = '14c05f979e57359ae35bfe24eb0c1ce9';

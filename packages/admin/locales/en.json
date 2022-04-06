@@ -7,8 +7,7 @@
       "installation": "Installation Name",
       "powered_by": "Powered by NGLP–WDP",
       "copyright": "Copyright {{year}} Installation Name and other necessary data. More legal details can be found here.",
-      "about_header": "About",
-      "about_body": "Our Institution’s Name, in partnership with the Name of a Service Provider, has created this website using NGLP–WDP a modern, open source installational web delivery platform."
+      "about_header": "About"
     },
     "common": {
       "all": "All",
@@ -102,7 +101,6 @@
     },
     "nav": {
       "manage_header": "Manage",
-      "learn_header": "Learn",
       "account_header": "Account",
       "breadcrumb_dropdown_label": "Show parent collections",
       "menu_toggle": "Menu",
@@ -343,6 +341,11 @@
         "theme_color_description": "Set the app color theme across all communities.",
         "theme_font": "Font Theme",
         "theme_font_description": "Set the app font theme across all communities.",
+        "footer": "Footer",
+        "copyright_statement": "Copyright Statement",
+        "copyright_statement_description": "Enter the installation copyright information to be displayed in the footer.",
+        "footer_description": "Description",
+        "footer_description_description": "Enter a description of this installation.",
         "logo": "Logo",
         "position": "Position",
         "select_placeholder": "Select an option",

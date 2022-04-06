@@ -8,7 +8,7 @@ export const baseRoutes: BaseRoute[] = [
   },
   {
     name: "communities",
-    path: "/communities",
+    path: "/",
     label: "nav.communities",
   },
   {
@@ -91,27 +91,27 @@ export const baseRoutes: BaseRoute[] = [
   },
   {
     name: "about",
-    path: "/",
+    path: "/placeholder",
     label: "nav.about",
   },
   {
     name: "contact",
-    path: "/",
+    path: "/placeholder",
     label: "nav.contact",
   },
   {
     name: "privacy",
-    path: "/",
+    path: "/placeholder",
     label: "nav.privacy",
   },
   {
     name: "terms",
-    path: "/",
+    path: "/placeholder",
     label: "nav.terms",
   },
   {
     name: "accessibility",
-    path: "/",
+    path: "/placeholder",
     label: "nav.accessibility",
   },
   {

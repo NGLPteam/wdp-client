@@ -9,6 +9,10 @@ export type GlobalSettingsEditFormFragment = {
     readonly site: {
         readonly providerName: string;
         readonly installationName: string;
+        readonly footer: {
+            readonly description: string;
+            readonly copyrightStatement: string;
+        };
     };
     readonly theme: {
         readonly color: string;
@@ -51,6 +55,31 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "installationName",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SiteFooter",
+          "kind": "LinkedField",
+          "name": "footer",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "description",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "copyrightStatement",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -84,5 +113,5 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '6353d0ed169348789deebd6842f69a72';
+(node as any).hash = 'e9782c98bef2bdac999fd42ed33755f3';
 export default node;

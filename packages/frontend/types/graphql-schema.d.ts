@@ -4435,7 +4435,7 @@ export type InstitutionSettings = {
 /** An object for updating the site's configuration */
 export type InstitutionSettingsInput = {
   /** The name of the institution. */
-  name: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type IntegerProperty = SchemaProperty & ScalarProperty & {
@@ -7282,9 +7282,28 @@ export type SimpleOrder =
   | 'OLDEST'
   | '%future added value';
 
+/** A value for updating the site's configuration */
+export type SiteFooter = {
+  __typename?: 'SiteFooter';
+  /** A copyright statement that lives in the site's footer. */
+  copyrightStatement: Scalars['String'];
+  /** A description that lives in the site's footer. */
+  description: Scalars['String'];
+};
+
+/** A value for updating the site's configuration */
+export type SiteFooterInput = {
+  /** A description that lives in the site's footer. */
+  description?: Maybe<Scalars['String']>;
+  /** A copyright statement that lives in the site's footer. */
+  copyrightStatement?: Maybe<Scalars['String']>;
+};
+
 /** Configuration settings for information about this installation. */
 export type SiteSettings = {
   __typename?: 'SiteSettings';
+  /** Settings related to the site's footer */
+  footer: SiteFooter;
   /** The name of the installation. */
   installationName: Scalars['String'];
   /** The name of the provider supporting and maintaining this installation. */
@@ -7294,9 +7313,11 @@ export type SiteSettings = {
 /** A value for updating the site's configuration */
 export type SiteSettingsInput = {
   /** The name of the installation. */
-  installationName: Scalars['String'];
+  installationName?: Maybe<Scalars['String']>;
   /** The name of the provider supporting and maintaining this installation. */
-  providerName: Scalars['String'];
+  providerName?: Maybe<Scalars['String']>;
+  /** Settings for the site's footer */
+  footer?: Maybe<SiteFooterInput>;
 };
 
 
@@ -9397,6 +9418,8 @@ export type ResolversTypes = {
   SelectOption: ResolverTypeWrapper<SelectOption>;
   SelectProperty: ResolverTypeWrapper<SelectProperty>;
   SimpleOrder: SimpleOrder;
+  SiteFooter: ResolverTypeWrapper<SiteFooter>;
+  SiteFooterInput: SiteFooterInput;
   SiteSettings: ResolverTypeWrapper<SiteSettings>;
   SiteSettingsInput: SiteSettingsInput;
   Slug: ResolverTypeWrapper<Scalars['Slug']>;
@@ -9738,6 +9761,8 @@ export type ResolversParentTypes = {
   SelectInitialOrderingPayload: Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   SelectOption: SelectOption;
   SelectProperty: SelectProperty;
+  SiteFooter: SiteFooter;
+  SiteFooterInput: SiteFooterInput;
   SiteSettings: SiteSettings;
   SiteSettingsInput: SiteSettingsInput;
   Slug: Scalars['Slug'];
@@ -12097,7 +12122,14 @@ export type SelectPropertyResolvers<ContextType = any, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SiteFooterResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteFooter'] = ResolversParentTypes['SiteFooter']> = {
+  copyrightStatement?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SiteSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteSettings'] = ResolversParentTypes['SiteSettings']> = {
+  footer?: Resolver<ResolversTypes['SiteFooter'], ParentType, ContextType>;
   installationName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   providerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -12878,6 +12910,7 @@ export type Resolvers<ContextType = any> = {
   SelectInitialOrderingPayload?: SelectInitialOrderingPayloadResolvers<ContextType>;
   SelectOption?: SelectOptionResolvers<ContextType>;
   SelectProperty?: SelectPropertyResolvers<ContextType>;
+  SiteFooter?: SiteFooterResolvers<ContextType>;
   SiteSettings?: SiteSettingsResolvers<ContextType>;
   Slug?: GraphQLScalarType;
   Sluggable?: SluggableResolvers<ContextType>;

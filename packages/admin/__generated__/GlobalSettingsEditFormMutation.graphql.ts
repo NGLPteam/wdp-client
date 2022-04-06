@@ -12,11 +12,16 @@ export type UpdateGlobalConfigurationInput = {
     clientMutationId?: string | null | undefined;
 };
 export type InstitutionSettingsInput = {
-    name: string;
+    name?: string | null | undefined;
 };
 export type SiteSettingsInput = {
-    installationName: string;
-    providerName: string;
+    installationName?: string | null | undefined;
+    providerName?: string | null | undefined;
+    footer?: SiteFooterInput | null | undefined;
+};
+export type SiteFooterInput = {
+    description?: string | null | undefined;
+    copyrightStatement?: string | null | undefined;
 };
 export type ThemeSettingsInput = {
     color: string;
@@ -31,6 +36,10 @@ export type GlobalSettingsEditFormMutationResponse = {
             readonly site: {
                 readonly providerName: string;
                 readonly installationName: string;
+                readonly footer: {
+                    readonly description: string;
+                    readonly copyrightStatement: string;
+                };
             };
             readonly theme: {
                 readonly color: string;
@@ -56,6 +65,10 @@ mutation GlobalSettingsEditFormMutation(
       site {
         providerName
         installationName
+        footer {
+          description
+          copyrightStatement
+        }
       }
       theme {
         color
@@ -118,6 +131,31 @@ v2 = {
       "args": null,
       "kind": "ScalarField",
       "name": "installationName",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SiteFooter",
+      "kind": "LinkedField",
+      "name": "footer",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "description",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "copyrightStatement",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -299,14 +337,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "662a783b0138c051e5f66456440a4b78",
+    "cacheID": "f44d684ed7f409fab707b86fa35e7f86",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        footer {\n          description\n          copyrightStatement\n        }\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ad6db7a5f5442180931e3b38912e59dd';
+(node as any).hash = '43c5d375f26f6da3f25ff051cbe25729';
 export default node;

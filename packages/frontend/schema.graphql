@@ -4834,7 +4834,7 @@ type InstitutionSettings {
 """An object for updating the site's configuration"""
 input InstitutionSettingsInput {
   """The name of the institution."""
-  name: String!
+  name: String
 }
 
 type IntegerProperty implements SchemaProperty & ScalarProperty {
@@ -7849,8 +7849,26 @@ enum SimpleOrder {
   OLDEST
 }
 
+"""A value for updating the site's configuration"""
+type SiteFooter {
+  """A copyright statement that lives in the site's footer."""
+  copyrightStatement: String!
+  """A description that lives in the site's footer."""
+  description: String!
+}
+
+"""A value for updating the site's configuration"""
+input SiteFooterInput {
+  """A description that lives in the site's footer."""
+  description: String
+  """A copyright statement that lives in the site's footer."""
+  copyrightStatement: String
+}
+
 """Configuration settings for information about this installation."""
 type SiteSettings {
+  """Settings related to the site's footer"""
+  footer: SiteFooter!
   """The name of the installation."""
   installationName: String!
   """The name of the provider supporting and maintaining this installation."""
@@ -7860,9 +7878,11 @@ type SiteSettings {
 """A value for updating the site's configuration"""
 input SiteSettingsInput {
   """The name of the installation."""
-  installationName: String!
+  installationName: String
   """The name of the provider supporting and maintaining this installation."""
-  providerName: String!
+  providerName: String
+  """Settings for the site's footer"""
+  footer: SiteFooterInput
 }
 
 """A slug that can identify a record in context"""

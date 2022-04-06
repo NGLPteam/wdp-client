@@ -34,6 +34,24 @@ query AppContextProviderQuery {
   }
 }
 
+fragment AppFooterFragment on Query {
+  communities {
+    pageInfo {
+      totalCount
+    }
+  }
+  globalConfiguration {
+    site {
+      installationName
+      footer {
+        copyrightStatement
+        description
+      }
+    }
+    id
+  }
+}
+
 fragment AppHeaderFragment on Query {
   communities {
     pageInfo {
@@ -61,6 +79,7 @@ fragment GlobalContextFragment on Query {
   }
   ...CommunityPickerFragment
   ...AppHeaderFragment
+  ...AppFooterFragment
 }
 
 fragment InstallationNameFragment on GlobalConfiguration {
@@ -159,6 +178,31 @@ return {
                 "kind": "ScalarField",
                 "name": "installationName",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SiteFooter",
+                "kind": "LinkedField",
+                "name": "footer",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "copyrightStatement",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "description",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -237,12 +281,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "01d385e45e604af7d1b61bbcfcf875eb",
+    "cacheID": "680b93447895d5a253ea288cb0d1d4eb",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n"
   }
 };
 })();

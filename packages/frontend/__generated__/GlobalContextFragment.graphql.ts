@@ -9,7 +9,7 @@ export type GlobalContextFragment = {
     readonly globalConfiguration: {
         readonly " $fragmentRefs": FragmentRefs<"InstallationNameFragment">;
     };
-    readonly " $fragmentRefs": FragmentRefs<"CommunityPickerFragment" | "AppHeaderFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityPickerFragment" | "AppHeaderFragment" | "AppFooterFragment">;
     readonly " $refType": "GlobalContextFragment";
 };
 export type GlobalContextFragment$data = GlobalContextFragment;
@@ -51,10 +51,15 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "AppHeaderFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "AppFooterFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '6e3a9b22e955fe2b8ccb026ad337338c';
+(node as any).hash = 'b06d66255546ba0528d72049d03ce0f2';
 export default node;
