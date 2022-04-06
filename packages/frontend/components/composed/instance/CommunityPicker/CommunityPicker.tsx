@@ -27,9 +27,15 @@ export default function CommunityPicker({ active }: Props) {
   const { current: memoizedCommunity } = useLatestPresentValue(activeCommunity);
 
   return menuItems.length === 1 ? (
-    <Button secondary size="sm">
-      {menuItems[0].node.title}
-    </Button>
+    <NamedLink
+      route="community"
+      routeParams={{ slug: menuItems[0].node.slug || "" }}
+      passHref
+    >
+      <Button as="a" secondary size="sm">
+        {menuItems[0].node.title}
+      </Button>
+    </NamedLink>
   ) : (
     <Dropdown
       disclosure={
