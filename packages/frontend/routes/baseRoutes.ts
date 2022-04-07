@@ -90,31 +90,6 @@ export const baseRoutes: BaseRoute[] = [
     path: "/contributors/[slug]",
   },
   {
-    name: "about",
-    path: "/placeholder",
-    label: "nav.about",
-  },
-  {
-    name: "contact",
-    path: "/placeholder",
-    label: "nav.contact",
-  },
-  {
-    name: "privacy",
-    path: "/placeholder",
-    label: "nav.privacy",
-  },
-  {
-    name: "terms",
-    path: "/placeholder",
-    label: "nav.terms",
-  },
-  {
-    name: "accessibility",
-    path: "/placeholder",
-    label: "nav.accessibility",
-  },
-  {
     name: "admin",
     path: process.env.NEXT_PUBLIC_ADMIN_URL,
     label: "nav.admin",

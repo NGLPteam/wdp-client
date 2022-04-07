@@ -95,8 +95,8 @@ export const NavWrapper = styled.nav`
   }
 `;
 
-export const NavList = styled.ul<{ $columns?: number }>`
-  columns: ${({ $columns = 0 }) => ($columns >= 4 ? "2" : "1")};
+export const NavList = styled.ul`
+  columns: 2;
   margin-top: 8px;
 
   ${globalNavRespond(`columns: 1;`)}
