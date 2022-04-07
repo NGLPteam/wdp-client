@@ -66,7 +66,6 @@ const appData = {
   footerData: {
     about: {
       header: "app.about_header",
-      body: "app.about_body",
     },
     copyright: "app.copyright",
     navigation: [
@@ -79,31 +78,6 @@ const appData = {
           ITEMS_LINK,
           USERS_LINK,
           CONTRIBUTORS_LINK,
-        ],
-      },
-      {
-        header: "nav.learn_header",
-        children: [
-          {
-            label: "nav.features",
-            href: "#",
-          },
-          {
-            label: "nav.partners",
-            href: "#",
-          },
-          {
-            label: "nav.in_use",
-            href: "#",
-          },
-          {
-            label: "nav.help",
-            href: "#",
-          },
-          {
-            label: "nav.contact",
-            href: "#",
-          },
         ],
       },
     ],

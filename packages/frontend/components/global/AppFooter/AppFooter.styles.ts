@@ -82,24 +82,30 @@ export const SearchMobile = styled.div`
 
 export const AboutWrapper = styled.div`
   grid-area: about;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: ${pxToRem(30)};
 `;
 
 export const NavWrapper = styled.nav`
   grid-area: nav;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--grid-column-gap);
 
   @media print {
     display: none;
   }
 `;
 
-export const NavListItem = styled.li`
+export const NavList = styled.ul`
+  columns: 2;
   margin-top: 8px;
+
+  ${globalNavRespond(`columns: 1;`)}
+`;
+
+export const NavListItem = styled.li`
+  & + & {
+    margin-top: 8px;
+  }
 `;
 
 export const CopyrightText = styled.p`
@@ -113,10 +119,6 @@ export const CopyrightText = styled.p`
 export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
-
-  ${globalNavRespond(`
-    margin-block-start: var(--container-padding-sm);
-  `)}
 `;
 
 export const InstallationDesktopName = styled.div`
@@ -128,7 +130,5 @@ export const InstallationDesktopName = styled.div`
 `;
 
 export const InstallationMobile = styled.div`
-  margin-block-end: ${pxToRem(12)};
-
   ${globalNavRespond(`display: none;`, "min")}
 `;

@@ -1,19 +1,36 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql } from "react-relay";
 import * as Styled from "./Footer.styles";
 import appData from "fixtures/app.data";
 import { LogoPlaceholder } from "components/global";
 import { renderNavLink } from "helpers";
 import { Authorize } from "components/auth";
+import { useGlobalContext } from "contexts";
+import { FooterFragment$key } from "@/relay/FooterFragment.graphql";
 
 function Footer() {
   const { footerData } = appData;
   const { t } = useTranslation();
 
+  const data = useGlobalContext();
+
+  const siteData = useMaybeFragment<FooterFragment$key>(
+    fragment,
+    data?.globalConfiguration
+  );
+
+  const description = siteData?.site.footer.description;
+
   return (
     <Styled.Wrapper>
       <Styled.Nav className="l-grid">
-        <div className="l-grid__item l-grid__item--4">
+        <div
+          className={`l-grid__item ${
+            description ? "l-grid__item--4" : "l-grid__item--10"
+          }`}
+        >
           <LogoPlaceholder>{t("app.powered_by")}</LogoPlaceholder>
         </div>
         {footerData.navigation.map((nav, i) => (
@@ -29,20 +46,21 @@ function Footer() {
             </div>
           </Authorize>
         ))}
-        {footerData.about && (
-          <div className="l-grid__item l-grid__item--4">
+        {description && (
+          <div className="l-grid__item l-grid__item--6">
             <Styled.Header>{t(footerData.about.header)}</Styled.Header>
-            <span className="t-rte">{t(footerData.about.body)}</span>
+            <div className="t-rte">{description}</div>
           </div>
         )}
       </Styled.Nav>
       {footerData.copyright && (
         <Styled.Copyright className="l-grid">
           <div className="l-grid__item l-grid__item--4" role="presentation" />
-          <p className="l-grid__item l-grid__item--8">
-            {"© "}
-            {t(footerData.copyright)}
-          </p>
+          {siteData?.site.footer.copyrightStatement && (
+            <div className="l-grid__item l-grid__item--8">
+              {`© ${siteData.site.footer.copyrightStatement}`}
+            </div>
+          )}
         </Styled.Copyright>
       )}
     </Styled.Wrapper>
@@ -50,3 +68,14 @@ function Footer() {
 }
 
 export default Footer;
+
+const fragment = graphql`
+  fragment FooterFragment on GlobalConfiguration {
+    site {
+      footer {
+        copyrightStatement
+        description
+      }
+    }
+  }
+`;

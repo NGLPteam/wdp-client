@@ -22,6 +22,7 @@ const Textarea = forwardRef(
         name={name}
         hideLabel={hideLabel}
         label={label}
+        description={description}
         required={textareaProps.required}
         isWide={isWide}
       >

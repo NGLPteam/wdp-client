@@ -8,7 +8,7 @@ export const baseRoutes: BaseRoute[] = [
   },
   {
     name: "communities",
-    path: "/communities",
+    path: "/",
     label: "nav.communities",
   },
   {
@@ -88,31 +88,6 @@ export const baseRoutes: BaseRoute[] = [
   {
     name: "contributor",
     path: "/contributors/[slug]",
-  },
-  {
-    name: "about",
-    path: "/",
-    label: "nav.about",
-  },
-  {
-    name: "contact",
-    path: "/",
-    label: "nav.contact",
-  },
-  {
-    name: "privacy",
-    path: "/",
-    label: "nav.privacy",
-  },
-  {
-    name: "terms",
-    path: "/",
-    label: "nav.terms",
-  },
-  {
-    name: "accessibility",
-    path: "/",
-    label: "nav.accessibility",
   },
   {
     name: "admin",

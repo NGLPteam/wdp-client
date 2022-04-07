@@ -32,5 +32,6 @@ const fragment = graphql`
     }
     ...CommunityPickerFragment
     ...AppHeaderFragment
+    ...AppFooterFragment
   }
 `;

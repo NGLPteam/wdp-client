@@ -37,7 +37,6 @@ export default function GlobalSettingsEditForm({
       <Forms.Grid>
         <Forms.Input
           label="forms.fields.provider_name"
-          required
           {...register("site.providerName")}
         />
         <Forms.Input
@@ -66,6 +65,18 @@ export default function GlobalSettingsEditForm({
           required
           {...register("theme.font")}
         />
+        <Forms.Fieldset label={t("forms.fields.footer")}>
+          <Forms.Textarea
+            label="forms.fields.footer_description"
+            description="forms.fields.footer_description_description"
+            {...register("site.footer.description")}
+          />
+          <Forms.Input
+            label="forms.fields.copyright_statement"
+            description="forms.fields.copyright_statement_description"
+            {...register("site.footer.copyrightStatement")}
+          />
+        </Forms.Fieldset>
       </Forms.Grid>
     ),
     []
@@ -100,6 +111,10 @@ const fragment = graphql`
     site {
       providerName
       installationName
+      footer {
+        description
+        copyrightStatement
+      }
     }
     theme {
       color
@@ -117,6 +132,10 @@ const mutation = graphql`
         site {
           providerName
           installationName
+          footer {
+            description
+            copyrightStatement
+          }
         }
         theme {
           color

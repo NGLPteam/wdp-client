@@ -1,27 +1,34 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
+import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import appData from "../../../fixtures/app.data";
 import * as Styled from "./AppFooter.styles";
+import { RouteHelper } from "routes";
+import { useGlobalContext } from "contexts";
 import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
-import { RouteHelper } from "routes";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
+import AnnouncementModal from "components/layout/AnnouncementModal";
 import { Link as LinkStyle, NamedLink } from "components/atomic";
+import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
 
 // Note: About text and community name will come from backend data
 function AppFooter({ communityData }: Props) {
-  const community = useMaybeFragment(fragment, communityData);
+  const globalData = useGlobalContext();
+
+  const app = useMaybeFragment<AppFooterFragment$key>(fragment, globalData);
+
+  const community = useMaybeFragment(communityFragment, communityData);
+
+  const communityCount = app?.communities?.pageInfo?.totalCount || 0;
 
   const { t } = useTranslation();
 
-  const today = new Date();
-
-  const { footerData } = appData;
+  const dialog = useDialogState({ modal: true });
 
   function renderRoute(route: string, label?: string) {
     const routeObj = RouteHelper.findRouteByName(route);
@@ -36,20 +43,26 @@ function AppFooter({ communityData }: Props) {
     );
   }
 
+  function renderPlaceholderRoute(label: string) {
+    return (
+      <Styled.NavListItem key={label} className="t-copy-sm t-copy-light">
+        <DialogDisclosure {...dialog}>
+          <LinkStyle as="span">{t(label)}</LinkStyle>
+        </DialogDisclosure>
+      </Styled.NavListItem>
+    );
+  }
+
   return (
     <Styled.FooterWrapper className={`a-bg-custom20`}>
       <Styled.FooterInner className="l-container-wide">
-        <Suspense fallback="Loading...">
-          <Styled.CommunityNameWrapper>
-            {community ? (
-              <CommunityName data={community} />
-            ) : (
-              <h4>
-                <InstallationName />
-              </h4>
-            )}
-          </Styled.CommunityNameWrapper>
-        </Suspense>
+        <Styled.CommunityNameWrapper>
+          {community ? (
+            <CommunityName data={community} />
+          ) : (
+            <h4>{app?.globalConfiguration.site.installationName}</h4>
+          )}
+        </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
           <Search id="footerSearch" />
         </Styled.SearchWrapper>
@@ -57,35 +70,45 @@ function AppFooter({ communityData }: Props) {
           <Search mobile id="footerMobileSearch" />
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
-          <Styled.InstallationMobile>
-            <InstallationName />
-          </Styled.InstallationMobile>
-          <p className="t-copy-sm t-copy-lighter">
-            A brief overview of this WDP instance. Arcu nisl ullamcorper
-            vulputate sed urna dolor. Tristique morbi integer in morbi morbi
-            scelerisque tortor. Eget orci erat vitae elit vel luctus. Sit
-            egestas adipiscing placerat accumsan pharetra volutpat viverra sit
-            proin.
-          </p>
+          {community && (
+            <Styled.InstallationMobile>
+              <InstallationName />
+            </Styled.InstallationMobile>
+          )}
+          {app?.globalConfiguration.site.footer.description && (
+            <div className="t-copy-sm t-copy-lighter">
+              {app?.globalConfiguration.site.footer.description}
+            </div>
+          )}
           <Styled.InstallationDesktop>
-            <Styled.InstallationDesktopName as={InstallationName} />
-            <CommunityPicker active={community} />
+            {community && (
+              <Styled.InstallationDesktopName as={InstallationName} />
+            )}
+            {communityCount > 1 && <CommunityPicker active={community} />}
           </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
-          {footerData.nav.map(({ label, children }) => (
-            <div key={label}>
-              <h5 className="t-label-lg">{t(label)}</h5>
-              <ul className="t-unstyled-list">
-                {children.map(({ route }) => renderRoute(route))}
-              </ul>
-            </div>
-          ))}
+          <h5 className="t-label-lg">{t("nav.explore")}</h5>
+          <Styled.NavList className="t-unstyled-list">
+            {renderRoute("home")}
+            {renderPlaceholderRoute("nav.about")}
+            {communityCount > 1 && renderRoute("communities")}
+            {renderPlaceholderRoute("nav.contact")}
+            {renderPlaceholderRoute("nav.privacy")}
+            {renderPlaceholderRoute("nav.terms")}
+            {renderPlaceholderRoute("nav.accessibility")}
+            {renderRoute("admin")}
+          </Styled.NavList>
         </Styled.NavWrapper>
-        <Styled.CopyrightText className="t-copy-sm t-copy-light">
-          {t("app.copyright", { year: today.getFullYear() })}
-        </Styled.CopyrightText>
+        {app?.globalConfiguration.site.footer.copyrightStatement && (
+          <Styled.CopyrightText className="t-copy-sm t-copy-light">
+            {`© ${app.globalConfiguration.site.footer.copyrightStatement}`}
+          </Styled.CopyrightText>
+        )}
       </Styled.FooterInner>
+      <AnnouncementModal dialog={dialog}>
+        <p>{t("app.placeholder_page_text")}</p>
+      </AnnouncementModal>
     </Styled.FooterWrapper>
   );
 }
@@ -97,6 +120,25 @@ interface Props {
 export default AppFooter;
 
 const fragment = graphql`
+  fragment AppFooterFragment on Query {
+    communities {
+      pageInfo {
+        totalCount
+      }
+    }
+    globalConfiguration {
+      site {
+        installationName
+        footer {
+          copyrightStatement
+          description
+        }
+      }
+    }
+  }
+`;
+
+const communityFragment = graphql`
   fragment AppFooterCommunityFragment on Community {
     ...CommunityPickerActiveFragment
     ...CommunityNameFragment

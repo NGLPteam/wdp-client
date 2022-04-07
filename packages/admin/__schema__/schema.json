@@ -27829,13 +27829,9 @@
             "name": "name",
             "description": "The name of the institution.",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -43640,9 +43636,103 @@
       },
       {
         "kind": "OBJECT",
+        "name": "SiteFooter",
+        "description": "A value for updating the site's configuration",
+        "fields": [
+          {
+            "name": "copyrightStatement",
+            "description": "A copyright statement that lives in the site's footer.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": "A description that lives in the site's footer.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SiteFooterInput",
+        "description": "A value for updating the site's configuration",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "description",
+            "description": "A description that lives in the site's footer.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "copyrightStatement",
+            "description": "A copyright statement that lives in the site's footer.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "SiteSettings",
         "description": "Configuration settings for information about this installation.",
         "fields": [
+          {
+            "name": "footer",
+            "description": "Settings related to the site's footer",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SiteFooter",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "installationName",
             "description": "The name of the installation.",
@@ -43691,13 +43781,9 @@
             "name": "installationName",
             "description": "The name of the installation.",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -43707,13 +43793,21 @@
             "name": "providerName",
             "description": "The name of the provider supporting and maintaining this installation.",
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "footer",
+            "description": "Settings for the site's footer",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "SiteFooterInput",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,

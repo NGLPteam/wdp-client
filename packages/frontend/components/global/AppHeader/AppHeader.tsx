@@ -19,9 +19,9 @@ import { useGlobalContext } from "contexts";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 
 function AppHeader({ communityData }: Props) {
-  const siteData = useGlobalContext();
+  const globalData = useGlobalContext();
 
-  const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, siteData);
+  const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, globalData);
 
   const community = useMaybeFragment(communityFragment, communityData);
 
