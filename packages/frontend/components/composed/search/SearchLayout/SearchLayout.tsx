@@ -4,11 +4,12 @@ import { graphql } from "react-relay";
 import { useForm } from "react-hook-form";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouteSlug } from "@wdp/lib/routes";
+// import { useRouteSlug } from "@wdp/lib/routes";
 import SearchBar from "../SearchBar";
+import SearchResults from "../SearchResults";
+import SearchFilters from "../SearchFilters";
 import * as Styled from "./SearchLayout.styles";
-import SearchLayoutResultsHeader from "./SearchLayoutResultsHeader";
-import SearchLayoutFilters from "./SearchLayoutFilters";
+// import SearchFilters from "./SearchFilters";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { Button } from "components/atomic";
 import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
@@ -16,9 +17,7 @@ import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
 export default function SearchLayout({ data }: Props) {
   const router = useRouter();
 
-  const slug = useRouteSlug();
-
-  const entity = useMaybeFragment<SearchLayoutFragment$key>(fragment, data);
+  const searchData = useMaybeFragment<SearchLayoutFragment$key>(fragment, data);
 
   const dialog = useDialogState({ animated: true });
 
@@ -32,7 +31,6 @@ export default function SearchLayout({ data }: Props) {
         pathname: router.pathname,
         query: {
           q: data.q,
-          slug,
         },
       },
       undefined,
@@ -64,20 +62,18 @@ export default function SearchLayout({ data }: Props) {
           </DialogDisclosure>
         </Styled.FiltersToggle>
         <Styled.Sidebar>
-          <SearchLayoutFilters id="sidebarFilters" data={entity} />
+          {searchData && (
+            <SearchFilters id="sidebarFilters" data={searchData.search} />
+          )}
         </Styled.Sidebar>
         <Styled.Results>
-          <SearchLayoutResultsHeader query={router.query.q} />
-          {/* <Styled.ResultsList>
-                <Styled.ResultsListItem key={i}>
-                  <SearchResultFactory data={descendant} />
-                </Styled.ResultsListItem>
-            </Styled.ResultsList> */}
+          {searchData && <SearchResults data={searchData?.search.results} />}
         </Styled.Results>
       </Styled.Inner>
-
       <BaseDrawer label="Filters" dialog={dialog}>
-        <SearchLayoutFilters id="mobileFilters" data={entity} />
+        {searchData && (
+          <SearchFilters id="mobileFilters" data={searchData.search} />
+        )}
       </BaseDrawer>
     </section>
   );
@@ -88,7 +84,24 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment SearchLayoutFragment on Entity {
-    ...SearchLayoutFiltersFragment
+  fragment SearchLayoutFragment on Query
+  @argumentDefinitions(
+    query: { type: "String" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: EntityOrder, defaultValue: PUBLISHED_DESCENDING }
+  ) {
+    search {
+      originType
+      results(
+        query: $query
+        page: $page
+        predicates: $predicates
+        order: $order
+      ) {
+        ...SearchResultsFragment
+      }
+      ...SearchFiltersFragment
+    }
   }
 `;

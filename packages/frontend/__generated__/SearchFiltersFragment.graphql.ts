@@ -6,19 +6,22 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type SearchLayoutFiltersFragment = {
-    readonly schemaRanks: ReadonlyArray<{
+export type SearchFiltersFragment = {
+    readonly coreProperties: ReadonlyArray<{
+        readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
+    }>;
+    readonly schemas: ReadonlyArray<{
         readonly identifier: string;
         readonly namespace: string;
         readonly kind: SchemaKind;
         readonly name: string;
     }>;
-    readonly " $refType": "SearchLayoutFiltersFragment";
+    readonly " $refType": "SearchFiltersFragment";
 };
-export type SearchLayoutFiltersFragment$data = SearchLayoutFiltersFragment;
-export type SearchLayoutFiltersFragment$key = {
-    readonly " $data"?: SearchLayoutFiltersFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFiltersFragment">;
+export type SearchFiltersFragment$data = SearchFiltersFragment;
+export type SearchFiltersFragment$key = {
+    readonly " $data"?: SearchFiltersFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"SearchFiltersFragment">;
 };
 
 
@@ -27,14 +30,30 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SearchLayoutFiltersFragment",
+  "name": "SearchFiltersFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
-      "concreteType": "HierarchicalSchemaRank",
+      "concreteType": "SearchableCoreProperty",
       "kind": "LinkedField",
-      "name": "schemaRanks",
+      "name": "coreProperties",
+      "plural": true,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "SearchFilterFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "schemas",
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "availableSchemaVersions",
       "plural": true,
       "selections": [
         {
@@ -69,8 +88,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+  "type": "SearchScope",
+  "abstractKey": null
 };
-(node as any).hash = '1d908f0792ca40a13a2dcb50a2b85cc4';
+(node as any).hash = 'cfdd6436708ae2ab1126e9b9ee021691';
 export default node;
