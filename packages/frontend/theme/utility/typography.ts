@@ -41,6 +41,10 @@ export default css`
     ${tCopySmall}
   }
 
+  .t-copy-xs {
+    font-size: 12px;
+  }
+
   .t-copy-medium {
     font-weight: var(--font-weight-medium);
   }

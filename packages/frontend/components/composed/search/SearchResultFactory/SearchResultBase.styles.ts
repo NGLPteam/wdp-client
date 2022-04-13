@@ -23,7 +23,6 @@ export const Image = styled.div`
   flex: 0 0 auto;
   margin-block-start: var(--padding-xxs);
   margin-inline-start: ${pxToRem(20)};
-  max-width: 100px;
 
   ${respond(
     `

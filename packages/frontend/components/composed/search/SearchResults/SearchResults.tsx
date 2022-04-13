@@ -7,8 +7,9 @@ import SearchResultFactory from "../SearchResultFactory";
 import * as Styled from "./SearchResults.styles";
 import { SearchResultsFragment$key } from "@/relay/SearchResultsFragment.graphql";
 import { NoContent } from "components/layout";
+import { LoadingBlock, Pagination } from "components/atomic";
 
-export default function SearchResults({ data }: Props) {
+export default function SearchResults({ data, isLoading }: Props) {
   const results = useFragment<SearchResultsFragment$key>(fragment, data);
 
   const { t } = useTranslation();
@@ -31,14 +32,19 @@ export default function SearchResults({ data }: Props) {
           ]}
         />
       </Styled.Header>
-      {results.nodes.length > 0 ? (
-        <Styled.List>
-          {results.nodes.map(({ entity }, i) => (
-            <Styled.ListItem key={i}>
-              <SearchResultFactory data={entity} />
-            </Styled.ListItem>
-          ))}
-        </Styled.List>
+      {isLoading ? (
+        <LoadingBlock />
+      ) : results && results.nodes.length > 0 ? (
+        <>
+          <Styled.List>
+            {results.nodes.map(({ entity }, i) => (
+              <Styled.ListItem key={i}>
+                <SearchResultFactory data={entity} />
+              </Styled.ListItem>
+            ))}
+          </Styled.List>
+          <Pagination data={results.pageInfo} />
+        </>
       ) : (
         <NoContent message={t("search.no_results")} />
       )}
@@ -48,6 +54,7 @@ export default function SearchResults({ data }: Props) {
 
 interface Props {
   data: SearchResultsFragment$key;
+  isLoading?: boolean;
 }
 
 const fragment = graphql`
@@ -62,6 +69,7 @@ const fragment = graphql`
     }
     pageInfo {
       totalCount
+      ...PaginationFragment
     }
   }
 `;

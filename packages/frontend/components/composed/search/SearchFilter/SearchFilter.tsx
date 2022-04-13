@@ -1,57 +1,30 @@
-import { Fragment } from "react";
 import { graphql, useFragment } from "react-relay";
-import { useFormContext } from "react-hook-form";
+import SearchFilterSelect from "./Filters/SearchFilterSelect";
+import SearchFilterInput from "./Filters/SearchFilterInput";
+import SearchFilterDate from "./Filters/SearchFilterDate";
+import SearchFilterNumber from "./Filters/SearchFilterNumber";
+import SearchFilterBoolean from "./Filters/SearchFilterBoolean";
 import { SearchFilterFragment$key } from "@/relay/SearchFilterFragment.graphql";
-import { Fieldset, Input } from "components/forms";
 
 export default function SearchFilter({ data }: Props) {
   const filter = useFragment(fragment, data);
 
-  const { register } = useFormContext();
+  switch (filter.type) {
+    case "SELECT":
+      return <SearchFilterSelect data={filter} />;
 
-  if (!filter.searchOperators) return null;
+    case "BOOLEAN":
+      return <SearchFilterBoolean data={filter} />;
 
-  const getInputType = (operator: string) => {
-    switch (operator) {
-      case "dateGTE":
-      case "dateLTE":
-        return "date";
+    case "INTEGER":
+      return <SearchFilterNumber data={filter} />;
 
-      default:
-        return "text";
-    }
-  };
+    case "VARIABLE_DATE":
+      return <SearchFilterDate data={filter} />;
 
-  const getInputLabel = (label: string, operator: string) => {
-    switch (operator) {
-      case "dateGTE":
-        return `${label} After`;
-
-      case "dateLTE":
-        return `${label} Before`;
-
-      default:
-        return label;
-    }
-  };
-
-  const renderInput = (label: string, operator: string) => (
-    <Input
-      label={getInputLabel(label, operator)}
-      type={getInputType(operator)}
-      {...register(`${filter.searchPath.replace(".", "-")}--${operator}`)}
-    />
-  );
-
-  return filter.searchOperators.length > 1 ? (
-    <Fieldset legend={filter.label}>
-      {filter.searchOperators.map((operator, i) => (
-        <Fragment key={i}>{renderInput(filter.label, operator)}</Fragment>
-      ))}
-    </Fieldset>
-  ) : (
-    renderInput(filter.label, filter.searchOperators[0])
-  );
+    default:
+      return <SearchFilterInput data={filter} />;
+  }
 }
 
 interface Props {
@@ -59,12 +32,15 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment SearchFilterFragment on SearchableCoreProperty {
-    label
-    description
-    searchPath
-    # These are the operators to use as keys in search predicate objects
-    # when calling the results field.
-    searchOperators
+  fragment SearchFilterFragment on SearchableProperty {
+    ... on ScalarProperty {
+      type
+    }
+
+    ...SearchFilterInputFragment
+    ...SearchFilterSelectFragment
+    ...SearchFilterDateFragment
+    ...SearchFilterNumberFragment
+    ...SearchFilterBooleanFragment
   }
 `;

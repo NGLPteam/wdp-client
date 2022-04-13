@@ -14,6 +14,7 @@ export type SearchResultsFragment = {
     }>;
     readonly pageInfo: {
         readonly totalCount: number;
+        readonly " $fragmentRefs": FragmentRefs<"PaginationFragment">;
     };
     readonly " $refType": "SearchResultsFragment";
 };
@@ -86,6 +87,11 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "totalCount",
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PaginationFragment"
         }
       ],
       "storageKey": null
@@ -94,5 +100,5 @@ const node: ReaderFragment = {
   "type": "SearchResultConnection",
   "abstractKey": null
 };
-(node as any).hash = '24256621c7d62bf4d110b4b0bd22067f';
+(node as any).hash = '9a58ff3a96effe0e3456d09761949dac';
 export default node;

@@ -5,10 +5,8 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SearchOriginType = "ENTITY" | "GLOBAL" | "SCHEMA" | "%future added value";
 export type SearchLayoutFragment = {
     readonly search: {
-        readonly originType: SearchOriginType;
         readonly results: {
             readonly " $fragmentRefs": FragmentRefs<"SearchResultsFragment">;
         };
@@ -27,7 +25,7 @@ export type SearchLayoutFragment$key = {
 const node: ReaderFragment = {
   "argumentDefinitions": [
     {
-      "defaultValue": "PUBLISHED_DESCENDING",
+      "defaultValue": "PUBLISHED_ASCENDING",
       "kind": "LocalArgument",
       "name": "order"
     },
@@ -42,7 +40,7 @@ const node: ReaderFragment = {
       "name": "predicates"
     },
     {
-      "defaultValue": null,
+      "defaultValue": "",
       "kind": "LocalArgument",
       "name": "query"
     }
@@ -59,13 +57,6 @@ const node: ReaderFragment = {
       "name": "search",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "originType",
-          "storageKey": null
-        },
         {
           "alias": null,
           "args": [
@@ -112,8 +103,8 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "Query",
-  "abstractKey": null
+  "type": "Searchable",
+  "abstractKey": "__isSearchable"
 };
-(node as any).hash = '99c132aba61386c3aa7da4dcd008bd0d';
+(node as any).hash = '164a7fa6efd7919400c79cae171d39a0';
 export default node;

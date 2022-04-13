@@ -10,7 +10,5 @@ export const Header = styled.header`
 export const List = styled.ul``;
 
 export const ListItem = styled.li`
-  & + & {
-    margin-block-start: var(--padding-xl);
-  }
+  margin-block-end: var(--padding-xl);
 `;

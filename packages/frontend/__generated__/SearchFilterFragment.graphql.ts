@@ -5,12 +5,10 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SearchOperator = "and" | "dateEquals" | "dateGTE" | "dateLTE" | "equals" | "inAny" | "matches" | "numericGTE" | "numericLTE" | "or" | "%future added value";
+export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "ENTITIES" | "ENTITY" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
 export type SearchFilterFragment = {
-    readonly label: string;
-    readonly description: string | null;
-    readonly searchPath: string;
-    readonly searchOperators: ReadonlyArray<SearchOperator>;
+    readonly type?: SchemaPropertyType | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"SearchFilterInputFragment" | "SearchFilterSelectFragment" | "SearchFilterDateFragment" | "SearchFilterNumberFragment" | "SearchFilterBooleanFragment">;
     readonly " $refType": "SearchFilterFragment";
 };
 export type SearchFilterFragment$data = SearchFilterFragment;
@@ -28,36 +26,47 @@ const node: ReaderFragment = {
   "name": "SearchFilterFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "label",
-      "storageKey": null
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "type",
+          "storageKey": null
+        }
+      ],
+      "type": "ScalarProperty",
+      "abstractKey": "__isScalarProperty"
     },
     {
-      "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "SearchFilterInputFragment"
     },
     {
-      "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "searchPath",
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "SearchFilterSelectFragment"
     },
     {
-      "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "searchOperators",
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "SearchFilterDateFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SearchFilterNumberFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SearchFilterBooleanFragment"
     }
   ],
-  "type": "SearchableCoreProperty",
-  "abstractKey": null
+  "type": "SearchableProperty",
+  "abstractKey": "__isSearchableProperty"
 };
-(node as any).hash = '4049244d205497cdb8c7a29d0839d395';
+(node as any).hash = '34ec771eb2a9af3944af3377e11725a8';
 export default node;
