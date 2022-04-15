@@ -16,7 +16,7 @@ export default function SearchEntityResult({ data }: Props) {
       description={entity.summary}
       image={
         entity.thumbnail.storage ? (
-          <SquareThumbnail data={entity.thumbnail} />
+          <SquareThumbnail data={entity.thumbnail} size={100} />
         ) : undefined
       }
       metadata={

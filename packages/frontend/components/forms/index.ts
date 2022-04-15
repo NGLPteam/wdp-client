@@ -4,3 +4,4 @@ export { default as CheckboxGroup } from "./CheckboxGroup";
 export { default as Checkbox } from "./Checkbox";
 export { default as Typeahead, TypeaheadController } from "./Typeahead";
 export { default as Fieldset } from "./Fieldset";
+export { default as Input } from "./Input";

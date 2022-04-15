@@ -12,6 +12,7 @@ function Select(
     size,
     label,
     hideLabel,
+    secondary,
     ...props
   }: Props & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">,
   ref: MaybeSelectRef
@@ -23,8 +24,8 @@ function Select(
           {label}
         </Label>
       )}
-      <Styled.Wrapper $block={block} $size={size}>
-        <Styled.Select id={id} ref={ref} {...props}>
+      <Styled.Wrapper $block={block} $size={size} $secondary={secondary}>
+        <Styled.Select id={id} ref={ref} $secondary={secondary} {...props}>
           {children}
         </Styled.Select>
         <Styled.Icon>
@@ -44,4 +45,5 @@ interface Props {
   size?: "lg";
   label?: string;
   hideLabel?: true;
+  secondary?: true;
 }

@@ -176,6 +176,17 @@ export type AlterSchemaVersionPayload = StandardMutationPayload & {
 };
 
 /**
+ * The boolean result of evaluating the left and right predicates. Both must be true.
+ *
+ * While this is implemented, it is not likely that the first version of the search
+ * UI will utilize it. It is intended for advanced searching.
+ */
+export type AndOperatorInput = {
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
+};
+
+/**
  * An announcement tied to an entity. These are configured through the backend and can be used
  * to provide time-sensensitive information and news about a specific entity in the system.
  */
@@ -377,6 +388,13 @@ export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty
  * All properties contained in this union are guaranteed to implement `SchemaProperty`.
  */
 export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
+
+/**
+ * `AnySearchableProperty` represents a property that can be searched on.
+ *
+ * Any property underneath this can be assured to implement `SearchableProperty`.
+ */
+export type AnySearchableProperty = BooleanProperty | DateProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TimestampProperty | VariableDateProperty | { __typename?: "%other" };
 
 /** Encompasses any access grant for a specific user. */
 export type AnyUserAccessGrant = UserCollectionAccessGrant | UserCommunityAccessGrant | UserItemAccessGrant | { __typename?: "%other" };
@@ -808,7 +826,7 @@ export type AttachmentStorage =
   | 'REMOTE'
   | '%future added value';
 
-export type BooleanProperty = SchemaProperty & ScalarProperty & {
+export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'BooleanProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -820,12 +838,6 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & {
   array: Scalars['Boolean'];
   checked?: Maybe<Scalars['Boolean']>;
   checkedByDefault?: Maybe<Scalars['Boolean']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -844,7 +856,6 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -865,6 +876,8 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -1209,7 +1222,7 @@ export type ChildEntityOrderingForSchemaArgs = {
 export type ChildEntityOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
   availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingVisibilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1279,7 +1292,7 @@ export type ClearInitialOrderingPayload = StandardMutationPayload & {
 };
 
 /** A collection of items */
-export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1400,6 +1413,8 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   slug: Scalars['Slug'];
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
@@ -1675,7 +1690,7 @@ export type CollectionOrderingForSchemaArgs = {
 export type CollectionOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
   availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingVisibilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -1720,6 +1735,12 @@ export type CollectionRelatedCollectionsArgs = {
 /** A collection of items */
 export type CollectionSchemaPropertyArgs = {
   fullPath: Scalars['String'];
+};
+
+
+/** A collection of items */
+export type CollectionSearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 
@@ -1820,7 +1841,7 @@ export type CollectionEdge = {
 export type CollectionParent = Collection | Community | { __typename?: "%other" };
 
 /** A community of users */
-export type Community = Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Community = Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Community';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1895,6 +1916,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   slug: Scalars['Slug'];
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
@@ -2085,7 +2108,7 @@ export type CommunityOrderingForSchemaArgs = {
 export type CommunityOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
   availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingVisibilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2117,6 +2140,12 @@ export type CommunityPagesArgs = {
 /** A community of users */
 export type CommunitySchemaPropertyArgs = {
   fullPath: Scalars['String'];
+};
+
+
+/** A community of users */
+export type CommunitySearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 
@@ -2896,6 +2925,24 @@ export type CreateRolePayload = StandardMutationPayload & {
   role?: Maybe<Role>;
 };
 
+/** Require that `path = value` while enforcing that value is a date. */
+export type DateEqualsOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['ISO8601Date'];
+};
+
+/** Require that `path ≥ value` while enforcing that value is a date. */
+export type DateGteOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['ISO8601Date'];
+};
+
+/** Require that `path ≤ value` while enforcing that value is a date. */
+export type DateLteOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['ISO8601Date'];
+};
+
 /** This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity. */
 export type DatePrecision =
   | 'NONE'
@@ -2904,7 +2951,7 @@ export type DatePrecision =
   | 'DAY'
   | '%future added value';
 
-export type DateProperty = SchemaProperty & ScalarProperty & {
+export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'DateProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -2916,12 +2963,6 @@ export type DateProperty = SchemaProperty & ScalarProperty & {
   array: Scalars['Boolean'];
   date?: Maybe<Scalars['ISO8601Date']>;
   default?: Maybe<Scalars['ISO8601Date']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -2940,7 +2981,6 @@ export type DateProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -2961,6 +3001,8 @@ export type DateProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -3451,6 +3493,8 @@ export type Entity = {
   schemaProperties: Array<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
   /** A description of the contents of the entity */
@@ -3569,7 +3613,7 @@ export type EntityOrderingForSchemaArgs = {
 export type EntityOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
   availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingVisibilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -3595,6 +3639,12 @@ export type EntityPagesArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An entity that exists in the hierarchy. */
+export type EntitySearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 export type EntityBreadcrumb = Node & {
@@ -3913,6 +3963,26 @@ export type EntityVisibility =
   | 'LIMITED'
   | '%future added value';
 
+/**
+ * Filter entities by their visibility.
+ *
+ * `VISIBLE` is the default in most cases. Any other option requires special privileges.
+ */
+export type EntityVisibilityFilter =
+  /** Do not filter entities by their visibility at all. */
+  | 'ALL'
+  /** Fetch only *currently visible* entities. */
+  | 'VISIBLE'
+  /** Fetch only *currently hidden* entities. */
+  | 'HIDDEN'
+  | '%future added value';
+
+/** Require that `path = value`. */
+export type EqualsOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['JSON'];
+};
+
 export type ExposesEffectiveAccess = {
   /** User-specific access permissions for this object. */
   effectiveAccess: EffectiveAccess;
@@ -3925,7 +3995,7 @@ export type ExposesPermissions = {
   permissions: Array<PermissionGrant>;
 };
 
-export type FloatProperty = SchemaProperty & ScalarProperty & {
+export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'FloatProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -3936,12 +4006,6 @@ export type FloatProperty = SchemaProperty & ScalarProperty & {
    */
   array: Scalars['Boolean'];
   defaultFloat?: Maybe<Scalars['Float']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   floatValue?: Maybe<Scalars['Float']>;
   /**
@@ -3961,7 +4025,6 @@ export type FloatProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -3982,6 +4045,8 @@ export type FloatProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4012,7 +4077,7 @@ export type FullTextKind =
   | 'TEXT'
   | '%future added value';
 
-export type FullTextProperty = SchemaProperty & ScalarProperty & {
+export type FullTextProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'FullTextProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -4022,12 +4087,6 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & {
    * for examples.
    */
   array: Scalars['Boolean'];
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -4047,7 +4106,6 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -4068,6 +4126,8 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4425,6 +4485,16 @@ export type ImageSize = {
   width: Scalars['Int'];
 };
 
+/**
+ * Require that the `path` must include or be one of the strings provided in `value`.
+ *
+ * The actual value of `path` may be an array (multiselect) or string (select).
+ */
+export type InAnyOperatorInput = {
+  path: Scalars['String'];
+  value: Array<Scalars['String']>;
+};
+
 /** Configuration settings for the specific institution featured on this installation. */
 export type InstitutionSettings = {
   __typename?: 'InstitutionSettings';
@@ -4438,7 +4508,7 @@ export type InstitutionSettingsInput = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type IntegerProperty = SchemaProperty & ScalarProperty & {
+export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'IntegerProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -4449,12 +4519,6 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
    */
   array: Scalars['Boolean'];
   defaultInteger?: Maybe<Scalars['Int']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -4474,7 +4538,6 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -4495,6 +4558,8 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4508,7 +4573,7 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & {
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable & {
+export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -4625,6 +4690,8 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   slug: Scalars['Slug'];
   /** A human-readable subtitle for the entity */
   subtitle?: Maybe<Scalars['String']>;
@@ -4877,7 +4944,7 @@ export type ItemOrderingForSchemaArgs = {
 export type ItemOrderingsArgs = {
   order?: Maybe<OrderingOrder>;
   availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingAvailabilityFilter>;
+  visibility?: Maybe<OrderingVisibilityFilter>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -4922,6 +4989,12 @@ export type ItemRelatedItemsArgs = {
 /** An item that belongs to a collection */
 export type ItemSchemaPropertyArgs = {
   fullPath: Scalars['String'];
+};
+
+
+/** An item that belongs to a collection */
+export type ItemSearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 
@@ -5101,7 +5174,7 @@ export type LinkTargetCandidateKind =
   | 'ITEM'
   | '%future added value';
 
-export type MarkdownProperty = SchemaProperty & ScalarProperty & {
+export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'MarkdownProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -5113,12 +5186,6 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & {
   array: Scalars['Boolean'];
   content?: Maybe<Scalars['String']>;
   default?: Maybe<Scalars['String']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -5137,7 +5204,6 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -5158,6 +5224,8 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -5170,7 +5238,19 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & {
   type: SchemaPropertyType;
 };
 
-export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionableProperty & {
+/**
+ * Use full-text search on `path` to match `value`.
+ *
+ * As with top-level query searches, basic quoting and similar features are supported. See
+ * [websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for
+ * more information.
+ */
+export type MatchesOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['String'];
+};
+
+export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty & {
   __typename?: 'MultiselectProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -5181,12 +5261,6 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
    */
   array: Scalars['Boolean'];
   defaultSelections?: Maybe<Array<Scalars['String']>>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -5205,7 +5279,6 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   options: Array<SelectOption>;
   /**
@@ -5227,6 +5300,8 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   selections?: Maybe<Array<Scalars['String']>>;
   /**
    * Provided for introspection. This represents the actual data type this property
@@ -5689,8 +5764,41 @@ export type NullOrderPriority =
   | 'FIRST'
   | '%future added value';
 
+/**
+ * Require that `path ≥ value` while enforcing that value is numeric.
+ *
+ * Note: this will also work for integer paths. Coercion is handled
+ * transparently by the API.
+ */
+export type NumericGteOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['Float'];
+};
+
+/**
+ * Require that `path ≤ value` while enforcing that value is numeric.
+ *
+ * Note: this will also work for integer paths. Coercion is handled
+ * transparently by the API.
+ */
+export type NumericLteOperatorInput = {
+  path: Scalars['String'];
+  value: Scalars['Float'];
+};
+
 export type OptionableProperty = {
   options: Array<SelectOption>;
+};
+
+/**
+ * The boolean result of evaluating the left and right predicates. At least one must be true.
+ *
+ * While this is implemented, it is not likely that the first version of the search
+ * UI will utilize it. It is intended for advanced searching.
+ */
+export type OrOperatorInput = {
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 
 /** Ordering for a specific column */
@@ -6033,6 +6141,15 @@ export type OrderingSelectLinkDefinitionInput = {
   references?: Maybe<Scalars['Boolean']>;
 };
 
+export type OrderingVisibilityFilter =
+  /** Do not filter orderings by their visibility. */
+  | 'ALL'
+  /** Fetch only *visible* orderings. This has no bearing on the ordering's *availability*. */
+  | 'VISIBLE'
+  /** Fetch only *hidden* orderings. */
+  | 'HIDDEN'
+  | '%future added value';
+
 /** An organization that has made contributions */
 export type OrganizationContributor = Contributor & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
@@ -6259,7 +6376,7 @@ export type PropertyApplicationStrategy =
   | '%future added value';
 
 /** The entry point for retrieving data from within the WDP API. */
-export type Query = {
+export type Query = Searchable & {
   __typename?: 'Query';
   /** Retrieve all access grants */
   accessGrants: AnyAccessGrantConnection;
@@ -6305,6 +6422,8 @@ export type Query = {
   schemaVersionOptions: Array<SchemaVersionOption>;
   /** List all schema versions */
   schemaVersions: SchemaVersionConnection;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   /** A helper field that is used to look up various details about the WDP-API ecosystem. */
   systemInfo: SystemInfo;
   /** Look up a user by slug */
@@ -6486,6 +6605,12 @@ export type QuerySchemaVersionsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** The entry point for retrieving data from within the WDP API. */
+export type QuerySearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 
@@ -7108,7 +7233,7 @@ export type SchemaValueError = {
 };
 
 /** A specific version of a `SchemaDefinition`. */
-export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Sluggable & {
+export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties & Node & Sluggable & {
   __typename?: 'SchemaVersion';
   /** Configuration for controlling how instances of a schema handle certain optional core properties. */
   core: SchemaCoreDefinition;
@@ -7130,8 +7255,18 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Slugg
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
+  /** A subset of properties that can be searched for this schema. */
+  searchableProperties: Array<AnySearchableProperty>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+/** A specific version of a `SchemaDefinition`. */
+export type SchemaVersionSearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
 };
 
 /** The connection type for SchemaVersion. */
@@ -7176,6 +7311,149 @@ export type SchemaVersionOrder =
   | 'OLDEST'
   | '%future added value';
 
+/** These operators serve as keys for `SearchPredicateInput`. */
+export type SearchOperator =
+  /** See `AndOperatorInput` */
+  | 'and'
+  /** See `OrOperatorInput` */
+  | 'or'
+  /** See `EqualsOperatorInput` */
+  | 'equals'
+  /** See `MatchesOperatorInput` */
+  | 'matches'
+  /** See `InAnyOperatorInput` */
+  | 'inAny'
+  /** See `DateEqualsOperatorInput` */
+  | 'dateEquals'
+  /** See `DateGTEOperatorInput` */
+  | 'dateGTE'
+  /** See `DateLTEOperatorInput` */
+  | 'dateLTE'
+  /** See `NumericGTEOperatorInput` */
+  | 'numericGTE'
+  /** See `NumericLTEOperatorInput` */
+  | 'numericLTE'
+  | '%future added value';
+
+/** The type of origin for this search scope. */
+export type SearchOriginType =
+  | 'ENTITY'
+  | 'GLOBAL'
+  | 'SCHEMA'
+  | '%future added value';
+
+/**
+ * A predicate clause for searching entities.
+ *
+ * Each key corresponds to a `SearchOperator`, and multiple keys combined
+ * in the same predicate will be implicitly `AND`ed together.
+ */
+export type SearchPredicateInput = {
+  /** See `AndOperatorInput` */
+  and?: Maybe<AndOperatorInput>;
+  /** See `OrOperatorInput` */
+  or?: Maybe<OrOperatorInput>;
+  /** See `DateEqualsOperatorInput` */
+  dateEquals?: Maybe<DateEqualsOperatorInput>;
+  /** See `DateGTEOperatorInput` */
+  dateGTE?: Maybe<DateGteOperatorInput>;
+  /** See `DateLTEOperatorInput` */
+  dateLTE?: Maybe<DateLteOperatorInput>;
+  /** See `EqualsOperatorInput` */
+  equals?: Maybe<EqualsOperatorInput>;
+  /** See `MatchesOperatorInput` */
+  matches?: Maybe<MatchesOperatorInput>;
+  /** See `InAnyOperatorInput` */
+  inAny?: Maybe<InAnyOperatorInput>;
+  /** See `NumericGTEOperatorInput` */
+  numericGTE?: Maybe<NumericGteOperatorInput>;
+  /** See `NumericLTEOperatorInput` */
+  numericLTE?: Maybe<NumericLteOperatorInput>;
+};
+
+/** An entity that's the result of a search. */
+export type SearchResult = {
+  __typename?: 'SearchResult';
+  entity: AnyEntity;
+  kind: EntityKind;
+  schemaVersion: SchemaVersion;
+  slug: Scalars['Slug'];
+  title: Scalars['String'];
+};
+
+/** The connection type for SearchResult. */
+export type SearchResultConnection = Paginated & {
+  __typename?: 'SearchResultConnection';
+  /** A list of edges. */
+  edges: Array<SearchResultEdge>;
+  /** A list of nodes. */
+  nodes: Array<SearchResult>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** An edge in a connection. */
+export type SearchResultEdge = {
+  __typename?: 'SearchResultEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of the edge. */
+  node: SearchResult;
+};
+
+export type SearchScope = {
+  __typename?: 'SearchScope';
+  /** The available schema versions underneath this search scope. */
+  availableSchemaVersions: Array<SchemaVersion>;
+  coreProperties: Array<SearchableCoreProperty>;
+  originType: SearchOriginType;
+  /**
+   * The results of a search. Either `query` or `predicates` should be provided,
+   * otherwise it will return as if everything matches.
+   */
+  results: SearchResultConnection;
+  visibility: EntityVisibilityFilter;
+};
+
+
+export type SearchScopeResultsArgs = {
+  order?: Maybe<EntityOrder>;
+  predicates?: Maybe<Array<SearchPredicateInput>>;
+  query?: Maybe<Scalars['String']>;
+  after?: Maybe<Scalars['String']>;
+  before?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  last?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']>;
+  pageDirection?: PageDirection;
+  perPage?: Maybe<Scalars['Int']>;
+};
+
+export type Searchable = {
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
+};
+
+
+export type SearchableSearchArgs = {
+  visibility?: Maybe<EntityVisibilityFilter>;
+};
+
+export type SearchableCoreProperty = SearchableProperty & {
+  __typename?: 'SearchableCoreProperty';
+  description?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
+};
+
+export type SearchableProperty = {
+  description?: Maybe<Scalars['String']>;
+  label: Scalars['String'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
+};
+
 /** Autogenerated input type of SelectInitialOrdering */
 export type SelectInitialOrderingInput = {
   entityId: Scalars['ID'];
@@ -7204,7 +7482,7 @@ export type SelectOption = {
   value: Scalars['String'];
 };
 
-export type SelectProperty = SchemaProperty & ScalarProperty & OptionableProperty & {
+export type SelectProperty = SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty & {
   __typename?: 'SelectProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -7215,12 +7493,6 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
    */
   array: Scalars['Boolean'];
   defaultSelection?: Maybe<Scalars['String']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -7239,7 +7511,6 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   options: Array<SelectOption>;
   /**
@@ -7261,6 +7532,8 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   selection?: Maybe<Scalars['String']>;
   /**
    * Provided for introspection. This represents the actual data type this property
@@ -7355,7 +7628,7 @@ export type StaticOrderingPath = OrderingPath & {
   type: SchemaPropertyType;
 };
 
-export type StringProperty = SchemaProperty & ScalarProperty & {
+export type StringProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'StringProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -7367,12 +7640,6 @@ export type StringProperty = SchemaProperty & ScalarProperty & {
   array: Scalars['Boolean'];
   content?: Maybe<Scalars['String']>;
   default?: Maybe<Scalars['String']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -7391,7 +7658,6 @@ export type StringProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -7412,6 +7678,8 @@ export type StringProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -7527,7 +7795,7 @@ export type ThemeSettingsInput = {
   font: Scalars['String'];
 };
 
-export type TimestampProperty = SchemaProperty & ScalarProperty & {
+export type TimestampProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'TimestampProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -7538,12 +7806,6 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & {
    */
   array: Scalars['Boolean'];
   default?: Maybe<Scalars['ISO8601DateTime']>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -7562,7 +7824,6 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -7583,6 +7844,8 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   timestamp?: Maybe<Scalars['ISO8601DateTime']>;
   /**
    * Provided for introspection. This represents the actual data type this property
@@ -8943,7 +9206,7 @@ export type UserProfileInput = {
   username: Scalars['String'];
 };
 
-export type VariableDateProperty = SchemaProperty & ScalarProperty & {
+export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
   __typename?: 'VariableDateProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8954,12 +9217,6 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & {
    */
   array: Scalars['Boolean'];
   dateWithPrecision?: Maybe<VariablePrecisionDate>;
-  /**
-   * A human-readable description for the property. It should describe the purpose of the
-   * property as well as some details about the types of values it looks for.
-   *
-   * It can be rendered as help text, hints, etc.
-   */
   description?: Maybe<Scalars['String']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
@@ -8978,7 +9235,6 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & {
   isWide: Scalars['Boolean'];
   /** Provided for introspection. This describes the underlying structure of the data type. */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
   label: Scalars['String'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
@@ -8999,6 +9255,8 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & {
    * **must** be set.
    */
   required: Scalars['Boolean'];
+  searchOperators: Array<SearchOperator>;
+  searchPath: Scalars['String'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -9126,6 +9384,7 @@ export type ResolversTypes = {
   AlterSchemaVersionInput: AlterSchemaVersionInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   AlterSchemaVersionPayload: ResolverTypeWrapper<Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
+  AndOperatorInput: AndOperatorInput;
   Announcement: ResolverTypeWrapper<Omit<Announcement, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   AnnouncementConnection: ResolverTypeWrapper<AnnouncementConnection>;
   AnnouncementEdge: ResolverTypeWrapper<AnnouncementEdge>;
@@ -9154,6 +9413,7 @@ export type ResolversTypes = {
   AnyOrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
   AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
   AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  AnySearchableProperty: ResolversTypes['BooleanProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: ResolverTypeWrapper<Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyUserAccessGrant']> }>;
   AnyUserAccessGrantEdge: ResolverTypeWrapper<Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyUserAccessGrant'] }>;
@@ -9232,6 +9492,9 @@ export type ResolversTypes = {
   CreatePersonContributorPayload: ResolverTypeWrapper<CreatePersonContributorPayload>;
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: ResolverTypeWrapper<CreateRolePayload>;
+  DateEqualsOperatorInput: DateEqualsOperatorInput;
+  DateGTEOperatorInput: DateGteOperatorInput;
+  DateLTEOperatorInput: DateLteOperatorInput;
   DatePrecision: DatePrecision;
   DateProperty: ResolverTypeWrapper<DateProperty>;
   DescribesSchema: ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'];
@@ -9280,6 +9543,8 @@ export type ResolversTypes = {
   EntityScope: EntityScope;
   EntitySelectOption: ResolverTypeWrapper<Omit<EntitySelectOption, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   EntityVisibility: EntityVisibility;
+  EntityVisibilityFilter: EntityVisibilityFilter;
+  EqualsOperatorInput: EqualsOperatorInput;
   ExposesEffectiveAccess: ResolversTypes['Role'];
   ExposesPermissions: ResolversTypes['AccessControlList'] | ResolversTypes['AssetPermissionGrid'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EffectiveAccess'] | ResolversTypes['EntityPermissionGrid'] | ResolversTypes['GlobalAccessControlList'] | ResolversTypes['User'];
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
@@ -9312,6 +9577,7 @@ export type ResolversTypes = {
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ResolverTypeWrapper<ImageOriginal>;
   ImageSize: ResolverTypeWrapper<ImageSize>;
+  InAnyOperatorInput: InAnyOperatorInput;
   InstitutionSettings: ResolverTypeWrapper<InstitutionSettings>;
   InstitutionSettingsInput: InstitutionSettingsInput;
   IntegerProperty: ResolverTypeWrapper<IntegerProperty>;
@@ -9331,6 +9597,7 @@ export type ResolversTypes = {
   LinkTargetCandidateFilter: LinkTargetCandidateFilter;
   LinkTargetCandidateKind: LinkTargetCandidateKind;
   MarkdownProperty: ResolverTypeWrapper<MarkdownProperty>;
+  MatchesOperatorInput: MatchesOperatorInput;
   MultiselectProperty: ResolverTypeWrapper<MultiselectProperty>;
   Mutation: ResolverTypeWrapper<{}>;
   MutationAttributeError: ResolverTypeWrapper<MutationAttributeError>;
@@ -9339,7 +9606,10 @@ export type ResolversTypes = {
   NamedAncestor: ResolverTypeWrapper<Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversTypes['AnyEntity'] }>;
   Node: ResolversTypes['Announcement'] | ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['GlobalConfiguration'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
   NullOrderPriority: NullOrderPriority;
+  NumericGTEOperatorInput: NumericGteOperatorInput;
+  NumericLTEOperatorInput: NumericLteOperatorInput;
   OptionableProperty: ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'];
+  OrOperatorInput: OrOperatorInput;
   OrderDefinition: ResolverTypeWrapper<OrderDefinition>;
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: ResolverTypeWrapper<Omit<Ordering, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
@@ -9365,13 +9635,14 @@ export type ResolversTypes = {
   OrderingSelectDefinitionInput: OrderingSelectDefinitionInput;
   OrderingSelectLinkDefinition: ResolverTypeWrapper<OrderingSelectLinkDefinition>;
   OrderingSelectLinkDefinitionInput: OrderingSelectLinkDefinitionInput;
+  OrderingVisibilityFilter: OrderingVisibilityFilter;
   OrganizationContributor: ResolverTypeWrapper<OrganizationContributor>;
   Page: ResolverTypeWrapper<Omit<Page, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   PageConnection: ResolverTypeWrapper<PageConnection>;
   PageDirection: PageDirection;
   PageEdge: ResolverTypeWrapper<PageEdge>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
-  Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityDescendantConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityDescendantConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['SearchResultConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
   PermissionGrid: ResolversTypes['AssetPermissionGrid'] | ResolversTypes['EntityPermissionGrid'];
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
@@ -9408,11 +9679,21 @@ export type ResolversTypes = {
   SchemaRenderDefinition: ResolverTypeWrapper<SchemaRenderDefinition>;
   SchemaRenderListMode: SchemaRenderListMode;
   SchemaValueError: ResolverTypeWrapper<SchemaValueError>;
-  SchemaVersion: ResolverTypeWrapper<Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversTypes['AnySchemaProperty']> }>;
+  SchemaVersion: ResolverTypeWrapper<Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<ResolversTypes['AnySchemaProperty']>, searchableProperties: Array<ResolversTypes['AnySearchableProperty']> }>;
   SchemaVersionConnection: ResolverTypeWrapper<SchemaVersionConnection>;
   SchemaVersionEdge: ResolverTypeWrapper<SchemaVersionEdge>;
   SchemaVersionOption: ResolverTypeWrapper<SchemaVersionOption>;
   SchemaVersionOrder: SchemaVersionOrder;
+  SearchOperator: SearchOperator;
+  SearchOriginType: SearchOriginType;
+  SearchPredicateInput: SearchPredicateInput;
+  SearchResult: ResolverTypeWrapper<Omit<SearchResult, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
+  SearchResultConnection: ResolverTypeWrapper<SearchResultConnection>;
+  SearchResultEdge: ResolverTypeWrapper<SearchResultEdge>;
+  SearchScope: ResolverTypeWrapper<SearchScope>;
+  Searchable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['Query'] | ResolversTypes['SchemaVersion'];
+  SearchableCoreProperty: ResolverTypeWrapper<SearchableCoreProperty>;
+  SearchableProperty: ResolversTypes['BooleanProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SearchableCoreProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['VariableDateProperty'];
   SelectInitialOrderingInput: SelectInitialOrderingInput;
   SelectInitialOrderingPayload: ResolverTypeWrapper<Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   SelectOption: ResolverTypeWrapper<SelectOption>;
@@ -9517,6 +9798,7 @@ export type ResolversParentTypes = {
   AlterSchemaVersionInput: AlterSchemaVersionInput;
   ID: Scalars['ID'];
   AlterSchemaVersionPayload: Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
+  AndOperatorInput: AndOperatorInput;
   Announcement: Omit<Announcement, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   AnnouncementConnection: AnnouncementConnection;
   AnnouncementEdge: AnnouncementEdge;
@@ -9544,6 +9826,7 @@ export type ResolversParentTypes = {
   AnyOrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
   AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  AnySearchableProperty: ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['VariableDateProperty'];
   AnyUserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
   AnyUserAccessGrantConnection: Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyUserAccessGrant']> };
   AnyUserAccessGrantEdge: Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyUserAccessGrant'] };
@@ -9613,6 +9896,9 @@ export type ResolversParentTypes = {
   CreatePersonContributorPayload: CreatePersonContributorPayload;
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: CreateRolePayload;
+  DateEqualsOperatorInput: DateEqualsOperatorInput;
+  DateGTEOperatorInput: DateGteOperatorInput;
+  DateLTEOperatorInput: DateLteOperatorInput;
   DateProperty: DateProperty;
   DescribesSchema: ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'];
   DestroyAnnouncementInput: DestroyAnnouncementInput;
@@ -9650,6 +9936,7 @@ export type ResolversParentTypes = {
   EntityPermissionGrid: EntityPermissionGrid;
   EntityProperty: Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   EntitySelectOption: Omit<EntitySelectOption, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
+  EqualsOperatorInput: EqualsOperatorInput;
   ExposesEffectiveAccess: ResolversParentTypes['Role'];
   ExposesPermissions: ResolversParentTypes['AccessControlList'] | ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EffectiveAccess'] | ResolversParentTypes['EntityPermissionGrid'] | ResolversParentTypes['GlobalAccessControlList'] | ResolversParentTypes['User'];
   FloatProperty: FloatProperty;
@@ -9678,6 +9965,7 @@ export type ResolversParentTypes = {
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ImageOriginal;
   ImageSize: ImageSize;
+  InAnyOperatorInput: InAnyOperatorInput;
   InstitutionSettings: InstitutionSettings;
   InstitutionSettingsInput: InstitutionSettingsInput;
   IntegerProperty: IntegerProperty;
@@ -9695,13 +9983,17 @@ export type ResolversParentTypes = {
   LinkTargetCandidateConnection: LinkTargetCandidateConnection;
   LinkTargetCandidateEdge: LinkTargetCandidateEdge;
   MarkdownProperty: MarkdownProperty;
+  MatchesOperatorInput: MatchesOperatorInput;
   MultiselectProperty: MultiselectProperty;
   Mutation: {};
   MutationAttributeError: MutationAttributeError;
   MutationGlobalError: MutationGlobalError;
   NamedAncestor: Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversParentTypes['AnyEntity'] };
   Node: ResolversParentTypes['Announcement'] | ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['GlobalConfiguration'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  NumericGTEOperatorInput: NumericGteOperatorInput;
+  NumericLTEOperatorInput: NumericLteOperatorInput;
   OptionableProperty: ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'];
+  OrOperatorInput: OrOperatorInput;
   OrderDefinition: OrderDefinition;
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: Omit<Ordering, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
@@ -9726,7 +10018,7 @@ export type ResolversParentTypes = {
   PageConnection: PageConnection;
   PageEdge: PageEdge;
   PageInfo: PageInfo;
-  Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityDescendantConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityDescendantConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['SearchResultConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
   PermissionGrant: PermissionGrant;
   PermissionGrid: ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['EntityPermissionGrid'];
   PersonContributor: PersonContributor;
@@ -9753,10 +10045,18 @@ export type ResolversParentTypes = {
   SchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
   SchemaRenderDefinition: SchemaRenderDefinition;
   SchemaValueError: SchemaValueError;
-  SchemaVersion: Omit<SchemaVersion, 'schemaProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']> };
+  SchemaVersion: Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, searchableProperties: Array<ResolversParentTypes['AnySearchableProperty']> };
   SchemaVersionConnection: SchemaVersionConnection;
   SchemaVersionEdge: SchemaVersionEdge;
   SchemaVersionOption: SchemaVersionOption;
+  SearchPredicateInput: SearchPredicateInput;
+  SearchResult: Omit<SearchResult, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
+  SearchResultConnection: SearchResultConnection;
+  SearchResultEdge: SearchResultEdge;
+  SearchScope: SearchScope;
+  Searchable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['Query'] | ResolversParentTypes['SchemaVersion'];
+  SearchableCoreProperty: SearchableCoreProperty;
+  SearchableProperty: ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SearchableCoreProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['VariableDateProperty'];
   SelectInitialOrderingInput: SelectInitialOrderingInput;
   SelectInitialOrderingPayload: Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   SelectOption: SelectOption;
@@ -10034,6 +10334,10 @@ export type AnySchemaPropertyResolvers<ContextType = any, ParentType extends Res
   __resolveType: TypeResolveFn<'AssetProperty' | 'AssetsProperty' | 'BooleanProperty' | 'ContributorProperty' | 'ContributorsProperty' | 'DateProperty' | 'EmailProperty' | 'EntitiesProperty' | 'EntityProperty' | 'FloatProperty' | 'FullTextProperty' | 'GroupProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TagsProperty' | 'TimestampProperty' | 'URLProperty' | 'UnknownProperty' | 'VariableDateProperty', ParentType, ContextType>;
 };
 
+export type AnySearchablePropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnySearchableProperty'] = ResolversParentTypes['AnySearchableProperty']> = {
+  __resolveType: TypeResolveFn<'BooleanProperty' | 'DateProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SelectProperty' | 'StringProperty' | 'TimestampProperty' | 'VariableDateProperty', ParentType, ContextType>;
+};
+
 export type AnyUserAccessGrantResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnyUserAccessGrant'] = ResolversParentTypes['AnyUserAccessGrant']> = {
   __resolveType: TypeResolveFn<'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
 };
@@ -10273,6 +10577,8 @@ export type BooleanPropertyResolvers<ContextType = any, ParentType extends Resol
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -10415,6 +10721,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   schemaProperty?: Resolver<Maybe<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType, RequireFields<CollectionSchemaPropertyArgs, 'fullPath'>>;
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<CollectionSearchArgs, 'visibility'>>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10522,6 +10829,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   schemaProperty?: Resolver<Maybe<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType, RequireFields<CommunitySchemaPropertyArgs, 'fullPath'>>;
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<CommunitySearchArgs, 'visibility'>>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10779,6 +11087,8 @@ export type DatePropertyResolvers<ContextType = any, ParentType extends Resolver
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -10981,6 +11291,7 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<EntitySearchArgs, 'visibility'>>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thumbnail?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -11113,6 +11424,8 @@ export type FloatPropertyResolvers<ContextType = any, ParentType extends Resolve
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -11136,6 +11449,8 @@ export type FullTextPropertyResolvers<ContextType = any, ParentType extends Reso
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -11326,6 +11641,8 @@ export type IntegerPropertyResolvers<ContextType = any, ParentType extends Resol
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -11389,6 +11706,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   schemaProperty?: Resolver<Maybe<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType, RequireFields<ItemSchemaPropertyArgs, 'fullPath'>>;
   schemaRanks?: Resolver<Array<ResolversTypes['HierarchicalSchemaRank']>, ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<ItemSearchArgs, 'visibility'>>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -11505,6 +11823,8 @@ export type MarkdownPropertyResolvers<ContextType = any, ParentType extends Reso
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -11522,6 +11842,8 @@ export type MultiselectPropertyResolvers<ContextType = any, ParentType extends R
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   selections?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11791,7 +12113,7 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type PaginatedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Paginated'] = ResolversParentTypes['Paginated']> = {
-  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'EntityDescendantConnection' | 'EntityLinkConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'EntityDescendantConnection' | 'EntityLinkConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'SearchResultConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
 };
 
@@ -11861,6 +12183,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   schemaVersion?: Resolver<Maybe<ResolversTypes['SchemaVersion']>, ParentType, ContextType, RequireFields<QuerySchemaVersionArgs, 'slug'>>;
   schemaVersionOptions?: Resolver<Array<ResolversTypes['SchemaVersionOption']>, ParentType, ContextType, RequireFields<QuerySchemaVersionOptionsArgs, 'kind'>>;
   schemaVersions?: Resolver<ResolversTypes['SchemaVersionConnection'], ParentType, ContextType, RequireFields<QuerySchemaVersionsArgs, 'order' | 'pageDirection'>>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'visibility'>>;
   systemInfo?: Resolver<ResolversTypes['SystemInfo'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'slug'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'order' | 'pageDirection'>>;
@@ -12057,6 +12380,8 @@ export type SchemaVersionResolvers<ContextType = any, ParentType extends Resolve
   render?: Resolver<ResolversTypes['SchemaRenderDefinition'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<SchemaVersionSearchArgs, 'visibility'>>;
+  searchableProperties?: Resolver<Array<ResolversTypes['AnySearchableProperty']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -12085,6 +12410,58 @@ export type SchemaVersionOptionResolvers<ContextType = any, ParentType extends R
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchResult'] = ResolversParentTypes['SearchResult']> = {
+  entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['EntityKind'], ParentType, ContextType>;
+  schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchResultConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchResultConnection'] = ResolversParentTypes['SearchResultConnection']> = {
+  edges?: Resolver<Array<ResolversTypes['SearchResultEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['SearchResult']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchResultEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchResultEdge'] = ResolversParentTypes['SearchResultEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['SearchResult'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchScopeResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchScope'] = ResolversParentTypes['SearchScope']> = {
+  availableSchemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
+  coreProperties?: Resolver<Array<ResolversTypes['SearchableCoreProperty']>, ParentType, ContextType>;
+  originType?: Resolver<ResolversTypes['SearchOriginType'], ParentType, ContextType>;
+  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'order' | 'predicates' | 'pageDirection'>>;
+  visibility?: Resolver<ResolversTypes['EntityVisibilityFilter'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Searchable'] = ResolversParentTypes['Searchable']> = {
+  __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item' | 'Query' | 'SchemaVersion', ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<SearchableSearchArgs, 'visibility'>>;
+};
+
+export type SearchableCorePropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchableCoreProperty'] = ResolversParentTypes['SearchableCoreProperty']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchablePropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchableProperty'] = ResolversParentTypes['SearchableProperty']> = {
+  __resolveType: TypeResolveFn<'BooleanProperty' | 'DateProperty' | 'FloatProperty' | 'FullTextProperty' | 'IntegerProperty' | 'MarkdownProperty' | 'MultiselectProperty' | 'SearchableCoreProperty' | 'SelectProperty' | 'StringProperty' | 'TimestampProperty' | 'VariableDateProperty', ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type SelectInitialOrderingPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['SelectInitialOrderingPayload'] = ResolversParentTypes['SelectInitialOrderingPayload']> = {
@@ -12117,6 +12494,8 @@ export type SelectPropertyResolvers<ContextType = any, ParentType extends Resolv
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   selection?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -12175,6 +12554,8 @@ export type StringPropertyResolvers<ContextType = any, ParentType extends Resolv
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -12218,6 +12599,8 @@ export type TimestampPropertyResolvers<ContextType = any, ParentType extends Res
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -12686,6 +13069,8 @@ export type VariableDatePropertyResolvers<ContextType = any, ParentType extends 
   orderable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   required?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  searchOperators?: Resolver<Array<ResolversTypes['SearchOperator']>, ParentType, ContextType>;
+  searchPath?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SchemaPropertyType'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -12733,6 +13118,7 @@ export type Resolvers<ContextType = any> = {
   AnyOrderingPath?: AnyOrderingPathResolvers<ContextType>;
   AnyScalarProperty?: AnyScalarPropertyResolvers<ContextType>;
   AnySchemaProperty?: AnySchemaPropertyResolvers<ContextType>;
+  AnySearchableProperty?: AnySearchablePropertyResolvers<ContextType>;
   AnyUserAccessGrant?: AnyUserAccessGrantResolvers<ContextType>;
   AnyUserAccessGrantConnection?: AnyUserAccessGrantConnectionResolvers<ContextType>;
   AnyUserAccessGrantEdge?: AnyUserAccessGrantEdgeResolvers<ContextType>;
@@ -12907,6 +13293,13 @@ export type Resolvers<ContextType = any> = {
   SchemaVersionConnection?: SchemaVersionConnectionResolvers<ContextType>;
   SchemaVersionEdge?: SchemaVersionEdgeResolvers<ContextType>;
   SchemaVersionOption?: SchemaVersionOptionResolvers<ContextType>;
+  SearchResult?: SearchResultResolvers<ContextType>;
+  SearchResultConnection?: SearchResultConnectionResolvers<ContextType>;
+  SearchResultEdge?: SearchResultEdgeResolvers<ContextType>;
+  SearchScope?: SearchScopeResolvers<ContextType>;
+  Searchable?: SearchableResolvers<ContextType>;
+  SearchableCoreProperty?: SearchableCorePropertyResolvers<ContextType>;
+  SearchableProperty?: SearchablePropertyResolvers<ContextType>;
   SelectInitialOrderingPayload?: SelectInitialOrderingPayloadResolvers<ContextType>;
   SelectOption?: SelectOptionResolvers<ContextType>;
   SelectProperty?: SelectPropertyResolvers<ContextType>;

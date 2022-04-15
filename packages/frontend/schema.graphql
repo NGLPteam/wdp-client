@@ -166,6 +166,18 @@ type AlterSchemaVersionPayload implements StandardMutationPayload {
 }
 
 """
+The boolean result of evaluating the left and right predicates. Both must be true.
+
+While this is implemented, it is not likely that the first version of the search
+UI will utilize it. It is intended for advanced searching.
+
+"""
+input AndOperatorInput {
+  left: SearchPredicateInput!
+  right: SearchPredicateInput!
+}
+
+"""
 An announcement tied to an entity. These are configured through the backend and can be used
 to provide time-sensensitive information and news about a specific entity in the system.
 
@@ -363,6 +375,14 @@ All properties contained in this union are guaranteed to implement `SchemaProper
 
 """
 union AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
+
+"""
+`AnySearchableProperty` represents a property that can be searched on.
+
+Any property underneath this can be assured to implement `SearchableProperty`.
+
+"""
+union AnySearchableProperty = BooleanProperty | DateProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TimestampProperty | VariableDateProperty
 
 """
 Encompasses any access grant for a specific user.
@@ -827,7 +847,7 @@ enum AttachmentStorage {
   REMOTE
 }
 
-type BooleanProperty implements SchemaProperty & ScalarProperty {
+type BooleanProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -839,13 +859,6 @@ type BooleanProperty implements SchemaProperty & ScalarProperty {
   array: Boolean!
   checked: Boolean
   checkedByDefault: Boolean
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -872,10 +885,6 @@ type BooleanProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -899,6 +908,8 @@ type BooleanProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -1164,7 +1175,7 @@ interface ChildEntity {
     """Optionally filter orderings by whether they are enabled or disabled."""
     availability: OrderingAvailabilityFilter = ALL
     """Optionally filter orderings by whether they are visible or hidden."""
-    visibility: OrderingAvailabilityFilter = ALL
+    visibility: OrderingVisibilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1270,7 +1281,7 @@ type ClearInitialOrderingPayload implements StandardMutationPayload {
 }
 
 """A collection of items"""
-type Collection implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Collection implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -1657,7 +1668,7 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
     """Optionally filter orderings by whether they are enabled or disabled."""
     availability: OrderingAvailabilityFilter = ALL
     """Optionally filter orderings by whether they are visible or hidden."""
-    visibility: OrderingAvailabilityFilter = ALL
+    visibility: OrderingVisibilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -1738,6 +1749,15 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   slug: Slug!
   """A human-readable subtitle for the entity"""
   subtitle: String
@@ -1872,7 +1892,7 @@ type CollectionEdge {
 union CollectionParent = Collection | Community
 
 """A community of users"""
-type Community implements Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Community implements Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2120,7 +2140,7 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """Optionally filter orderings by whether they are enabled or disabled."""
     availability: OrderingAvailabilityFilter = ALL
     """Optionally filter orderings by whether they are visible or hidden."""
-    visibility: OrderingAvailabilityFilter = ALL
+    visibility: OrderingVisibilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2180,6 +2200,15 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   slug: Slug!
   """A human-readable subtitle for the entity"""
   subtitle: String
@@ -3086,6 +3115,33 @@ type CreateRolePayload implements StandardMutationPayload {
   role: Role
 }
 
+"""
+Require that `path = value` while enforcing that value is a date.
+
+"""
+input DateEqualsOperatorInput {
+  path: String!
+  value: ISO8601Date!
+}
+
+"""
+Require that `path ≥ value` while enforcing that value is a date.
+
+"""
+input DateGTEOperatorInput {
+  path: String!
+  value: ISO8601Date!
+}
+
+"""
+Require that `path ≤ value` while enforcing that value is a date.
+
+"""
+input DateLTEOperatorInput {
+  path: String!
+  value: ISO8601Date!
+}
+
 """This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity."""
 enum DatePrecision {
   NONE
@@ -3094,7 +3150,7 @@ enum DatePrecision {
   DAY
 }
 
-type DateProperty implements SchemaProperty & ScalarProperty {
+type DateProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -3106,13 +3162,6 @@ type DateProperty implements SchemaProperty & ScalarProperty {
   array: Boolean!
   date: ISO8601Date
   default: ISO8601Date
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -3139,10 +3188,6 @@ type DateProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -3166,6 +3211,8 @@ type DateProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -3798,7 +3845,7 @@ interface Entity {
     """Optionally filter orderings by whether they are enabled or disabled."""
     availability: OrderingAvailabilityFilter = ALL
     """Optionally filter orderings by whether they are visible or hidden."""
-    visibility: OrderingAvailabilityFilter = ALL
+    visibility: OrderingVisibilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -3847,6 +3894,15 @@ interface Entity {
   schemaProperties: [AnySchemaProperty!]!
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   """A human-readable subtitle for the entity"""
   subtitle: String
   """A description of the contents of the entity"""
@@ -4256,6 +4312,30 @@ enum EntityVisibility {
   LIMITED
 }
 
+"""
+Filter entities by their visibility.
+
+`VISIBLE` is the default in most cases. Any other option requires special privileges.
+
+"""
+enum EntityVisibilityFilter {
+  """Do not filter entities by their visibility at all."""
+  ALL
+  """Fetch only *currently visible* entities."""
+  VISIBLE
+  """Fetch only *currently hidden* entities."""
+  HIDDEN
+}
+
+"""
+Require that `path = value`.
+
+"""
+input EqualsOperatorInput {
+  path: String!
+  value: JSON!
+}
+
 interface ExposesEffectiveAccess {
   """
   User-specific access permissions for this object.
@@ -4271,7 +4351,7 @@ interface ExposesPermissions {
   permissions: [PermissionGrant!]!
 }
 
-type FloatProperty implements SchemaProperty & ScalarProperty {
+type FloatProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -4282,13 +4362,6 @@ type FloatProperty implements SchemaProperty & ScalarProperty {
   """
   array: Boolean!
   defaultFloat: Float
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   floatValue: Float
   """
@@ -4316,10 +4389,6 @@ type FloatProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -4343,6 +4412,8 @@ type FloatProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -4373,7 +4444,7 @@ enum FullTextKind {
   TEXT
 }
 
-type FullTextProperty implements SchemaProperty & ScalarProperty {
+type FullTextProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -4383,13 +4454,6 @@ type FullTextProperty implements SchemaProperty & ScalarProperty {
   
   """
   array: Boolean!
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -4417,10 +4481,6 @@ type FullTextProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -4444,6 +4504,8 @@ type FullTextProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -4825,6 +4887,17 @@ type ImageSize {
   width: Int!
 }
 
+"""
+Require that the `path` must include or be one of the strings provided in `value`.
+
+The actual value of `path` may be an array (multiselect) or string (select).
+
+"""
+input InAnyOperatorInput {
+  path: String!
+  value: [String!]!
+}
+
 """Configuration settings for the specific institution featured on this installation."""
 type InstitutionSettings {
   """The name of the institution."""
@@ -4837,7 +4910,7 @@ input InstitutionSettingsInput {
   name: String
 }
 
-type IntegerProperty implements SchemaProperty & ScalarProperty {
+type IntegerProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -4848,13 +4921,6 @@ type IntegerProperty implements SchemaProperty & ScalarProperty {
   """
   array: Boolean!
   defaultInteger: Int
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -4882,10 +4948,6 @@ type IntegerProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -4909,6 +4971,8 @@ type IntegerProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -4923,7 +4987,7 @@ type IntegerProperty implements SchemaProperty & ScalarProperty {
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Node & Sluggable {
+type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -5280,7 +5344,7 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
     """Optionally filter orderings by whether they are enabled or disabled."""
     availability: OrderingAvailabilityFilter = ALL
     """Optionally filter orderings by whether they are visible or hidden."""
-    visibility: OrderingAvailabilityFilter = ALL
+    visibility: OrderingVisibilityFilter = ALL
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -5361,6 +5425,15 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   ): AnySchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   slug: Slug!
   """A human-readable subtitle for the entity"""
   subtitle: String
@@ -5572,7 +5645,7 @@ enum LinkTargetCandidateKind {
   ITEM
 }
 
-type MarkdownProperty implements SchemaProperty & ScalarProperty {
+type MarkdownProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -5584,13 +5657,6 @@ type MarkdownProperty implements SchemaProperty & ScalarProperty {
   array: Boolean!
   content: String
   default: String
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -5617,10 +5683,6 @@ type MarkdownProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -5644,6 +5706,8 @@ type MarkdownProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -5657,7 +5721,20 @@ type MarkdownProperty implements SchemaProperty & ScalarProperty {
   type: SchemaPropertyType!
 }
 
-type MultiselectProperty implements SchemaProperty & ScalarProperty & OptionableProperty {
+"""
+Use full-text search on `path` to match `value`.
+
+As with top-level query searches, basic quoting and similar features are supported. See
+[websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for
+more information.
+
+"""
+input MatchesOperatorInput {
+  path: String!
+  value: String!
+}
+
+type MultiselectProperty implements SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -5668,13 +5745,6 @@ type MultiselectProperty implements SchemaProperty & ScalarProperty & Optionable
   """
   array: Boolean!
   defaultSelections: [String!]
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -5701,10 +5771,6 @@ type MultiselectProperty implements SchemaProperty & ScalarProperty & Optionable
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   options: [SelectOption!]!
   """
@@ -5729,6 +5795,8 @@ type MultiselectProperty implements SchemaProperty & ScalarProperty & Optionable
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   selections: [String!]
   """
   Provided for introspection. This represents the actual data type this property
@@ -6128,8 +6196,44 @@ enum NullOrderPriority {
   FIRST
 }
 
+"""
+Require that `path ≥ value` while enforcing that value is numeric.
+
+Note: this will also work for integer paths. Coercion is handled
+transparently by the API.
+
+"""
+input NumericGTEOperatorInput {
+  path: String!
+  value: Float!
+}
+
+"""
+Require that `path ≤ value` while enforcing that value is numeric.
+
+Note: this will also work for integer paths. Coercion is handled
+transparently by the API.
+
+"""
+input NumericLTEOperatorInput {
+  path: String!
+  value: Float!
+}
+
 interface OptionableProperty {
   options: [SelectOption!]!
+}
+
+"""
+The boolean result of evaluating the left and right predicates. At least one must be true.
+
+While this is implemented, it is not likely that the first version of the search
+UI will utilize it. It is intended for advanced searching.
+
+"""
+input OrOperatorInput {
+  left: SearchPredicateInput!
+  right: SearchPredicateInput!
 }
 
 """Ordering for a specific column"""
@@ -6550,6 +6654,15 @@ input OrderingSelectLinkDefinitionInput {
   references: Boolean
 }
 
+enum OrderingVisibilityFilter {
+  """Do not filter orderings by their visibility."""
+  ALL
+  """Fetch only *visible* orderings. This has no bearing on the ordering's *availability*."""
+  VISIBLE
+  """Fetch only *hidden* orderings."""
+  HIDDEN
+}
+
 """An organization that has made contributions"""
 type OrganizationContributor implements Contributor & Node & Sluggable {
   bio: String
@@ -6790,7 +6903,7 @@ enum PropertyApplicationStrategy {
 The entry point for retrieving data from within the WDP API.
 
 """
-type Query {
+type Query implements Searchable {
   """Retrieve all access grants"""
   accessGrants(
     entity: AccessGrantEntityFilter = ALL
@@ -6961,6 +7074,15 @@ type Query {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): SchemaVersionConnection!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   """A helper field that is used to look up various details about the WDP-API ecosystem."""
   systemInfo: SystemInfo!
   """Look up a user by slug"""
@@ -7665,7 +7787,7 @@ type SchemaValueError {
 A specific version of a `SchemaDefinition`.
 
 """
-type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sluggable {
+type SchemaVersion implements DescribesSchema & Searchable & HasSchemaProperties & Node & Sluggable {
   """Configuration for controlling how instances of a schema handle certain optional core properties."""
   core: SchemaCoreDefinition!
   createdAt: ISO8601DateTime!
@@ -7686,6 +7808,17 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Slu
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
+  """A subset of properties that can be searched for this schema."""
+  searchableProperties: [AnySearchableProperty!]!
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -7729,6 +7862,176 @@ enum SchemaVersionOrder {
   OLDEST
 }
 
+"""
+These operators serve as keys for `SearchPredicateInput`.
+
+"""
+enum SearchOperator {
+  """See `AndOperatorInput`"""
+  and
+  """See `OrOperatorInput`"""
+  or
+  """See `EqualsOperatorInput`"""
+  equals
+  """See `MatchesOperatorInput`"""
+  matches
+  """See `InAnyOperatorInput`"""
+  inAny
+  """See `DateEqualsOperatorInput`"""
+  dateEquals
+  """See `DateGTEOperatorInput`"""
+  dateGTE
+  """See `DateLTEOperatorInput`"""
+  dateLTE
+  """See `NumericGTEOperatorInput`"""
+  numericGTE
+  """See `NumericLTEOperatorInput`"""
+  numericLTE
+}
+
+"""
+The type of origin for this search scope.
+
+"""
+enum SearchOriginType {
+  ENTITY
+  GLOBAL
+  SCHEMA
+}
+
+"""
+A predicate clause for searching entities.
+
+Each key corresponds to a `SearchOperator`, and multiple keys combined
+in the same predicate will be implicitly `AND`ed together.
+
+"""
+input SearchPredicateInput {
+  """See `AndOperatorInput`"""
+  and: AndOperatorInput
+  """See `OrOperatorInput`"""
+  or: OrOperatorInput
+  """See `DateEqualsOperatorInput`"""
+  dateEquals: DateEqualsOperatorInput
+  """See `DateGTEOperatorInput`"""
+  dateGTE: DateGTEOperatorInput
+  """See `DateLTEOperatorInput`"""
+  dateLTE: DateLTEOperatorInput
+  """See `EqualsOperatorInput`"""
+  equals: EqualsOperatorInput
+  """See `MatchesOperatorInput`"""
+  matches: MatchesOperatorInput
+  """See `InAnyOperatorInput`"""
+  inAny: InAnyOperatorInput
+  """See `NumericGTEOperatorInput`"""
+  numericGTE: NumericGTEOperatorInput
+  """See `NumericLTEOperatorInput`"""
+  numericLTE: NumericLTEOperatorInput
+}
+
+"""
+An entity that's the result of a search.
+
+"""
+type SearchResult {
+  entity: AnyEntity!
+  kind: EntityKind!
+  schemaVersion: SchemaVersion!
+  slug: Slug!
+  title: String!
+}
+
+"""The connection type for SearchResult."""
+type SearchResultConnection implements Paginated {
+  """A list of edges."""
+  edges: [SearchResultEdge!]!
+  """A list of nodes."""
+  nodes: [SearchResult!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type SearchResultEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: SearchResult!
+}
+
+type SearchScope {
+  """
+  The available schema versions underneath this search scope.
+  
+  """
+  availableSchemaVersions: [SchemaVersion!]!
+  coreProperties: [SearchableCoreProperty!]!
+  originType: SearchOriginType!
+  """
+  The results of a search. Either `query` or `predicates` should be provided,
+  otherwise it will return as if everything matches.
+  
+  """
+  results(
+    order: EntityOrder = PUBLISHED_DESCENDING
+    """
+    The predicates to search for, if any.
+    
+    """
+    predicates: [SearchPredicateInput!] = []
+    """
+    Search all text associated with individual entities.
+    
+    Basic quoting and similar features are supported. See
+    [websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for
+    more information.
+    
+    """
+    query: String
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """Returns the elements in the list that come before the specified cursor."""
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection! = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): SearchResultConnection!
+  visibility: EntityVisibilityFilter!
+}
+
+interface Searchable {
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
+}
+
+type SearchableCoreProperty implements SearchableProperty {
+  description: String
+  label: String!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
+}
+
+interface SearchableProperty {
+  description: String
+  label: String!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
+}
+
 """Autogenerated input type of SelectInitialOrdering"""
 input SelectInitialOrderingInput {
   entityId: ID!
@@ -7755,7 +8058,7 @@ type SelectOption {
   value: String!
 }
 
-type SelectProperty implements SchemaProperty & ScalarProperty & OptionableProperty {
+type SelectProperty implements SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -7766,13 +8069,6 @@ type SelectProperty implements SchemaProperty & ScalarProperty & OptionablePrope
   """
   array: Boolean!
   defaultSelection: String
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -7799,10 +8095,6 @@ type SelectProperty implements SchemaProperty & ScalarProperty & OptionablePrope
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   options: [SelectOption!]!
   """
@@ -7827,6 +8119,8 @@ type SelectProperty implements SchemaProperty & ScalarProperty & OptionablePrope
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   selection: String
   """
   Provided for introspection. This represents the actual data type this property
@@ -7925,7 +8219,7 @@ type StaticOrderingPath implements OrderingPath {
   type: SchemaPropertyType!
 }
 
-type StringProperty implements SchemaProperty & ScalarProperty {
+type StringProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -7937,13 +8231,6 @@ type StringProperty implements SchemaProperty & ScalarProperty {
   array: Boolean!
   content: String
   default: String
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -7970,10 +8257,6 @@ type StringProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -7997,6 +8280,8 @@ type StringProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.
@@ -8131,7 +8416,7 @@ input ThemeSettingsInput {
   font: String!
 }
 
-type TimestampProperty implements SchemaProperty & ScalarProperty {
+type TimestampProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -8142,13 +8427,6 @@ type TimestampProperty implements SchemaProperty & ScalarProperty {
   """
   array: Boolean!
   default: ISO8601DateTime
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -8175,10 +8453,6 @@ type TimestampProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -8202,6 +8476,8 @@ type TimestampProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   timestamp: ISO8601DateTime
   """
   Provided for introspection. This represents the actual data type this property
@@ -9765,7 +10041,7 @@ input UserProfileInput {
   username: String!
 }
 
-type VariableDateProperty implements SchemaProperty & ScalarProperty {
+type VariableDateProperty implements SchemaProperty & ScalarProperty & SearchableProperty {
   """
   Provided for introspection. This describes whether or not the property's value
   comes in an array rather than representing a discrete piece of information.
@@ -9776,13 +10052,6 @@ type VariableDateProperty implements SchemaProperty & ScalarProperty {
   """
   array: Boolean!
   dateWithPrecision: VariablePrecisionDate
-  """
-  A human-readable description for the property. It should describe the purpose of the
-  property as well as some details about the types of values it looks for.
-  
-  It can be rendered as help text, hints, etc.
-  
-  """
   description: String
   """
   The full path that represents the property on the schema instance. It is guaranteed
@@ -9809,10 +10078,6 @@ type VariableDateProperty implements SchemaProperty & ScalarProperty {
   
   """
   kind: SchemaPropertyKind!
-  """
-  A human-readable label for the schema property.
-  
-  """
   label: String!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -9836,6 +10101,8 @@ type VariableDateProperty implements SchemaProperty & ScalarProperty {
   
   """
   required: Boolean!
+  searchOperators: [SearchOperator!]!
+  searchPath: String!
   """
   Provided for introspection. This represents the actual data type this property
   uses.

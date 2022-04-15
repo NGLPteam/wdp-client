@@ -917,6 +917,49 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "AndOperatorInput",
+        "description": "The boolean result of evaluating the left and right predicates. Both must be true.\n\nWhile this is implemented, it is not likely that the first version of the search\nUI will utilize it. It is intended for advanced searching.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "left",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "SearchPredicateInput",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "right",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "SearchPredicateInput",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Announcement",
         "description": "An announcement tied to an entity. These are configured through the backend and can be used\nto provide time-sensensitive information and news about a specific entity in the system.\n",
@@ -2389,6 +2432,72 @@
           {
             "kind": "OBJECT",
             "name": "UnknownProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "VariableDateProperty",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "UNION",
+        "name": "AnySearchableProperty",
+        "description": "`AnySearchableProperty` represents a property that can be searched on.\n\nAny property underneath this can be assured to implement `SearchableProperty`.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "BooleanProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "DateProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FloatProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FullTextProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "IntegerProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "MarkdownProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "MultiselectProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SelectProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StringProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TimestampProperty",
             "ofType": null
           },
           {
@@ -5542,7 +5651,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -5618,7 +5727,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -5681,6 +5790,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -5707,6 +5856,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -7198,7 +7352,7 @@
                 "description": "Optionally filter orderings by whether they are visible or hidden.",
                 "type": {
                   "kind": "ENUM",
-                  "name": "OrderingAvailabilityFilter",
+                  "name": "OrderingVisibilityFilter",
                   "ofType": null
                 },
                 "defaultValue": "ALL",
@@ -10323,7 +10477,7 @@
                 "description": "Optionally filter orderings by whether they are visible or hidden.",
                 "type": {
                   "kind": "ENUM",
-                  "name": "OrderingAvailabilityFilter",
+                  "name": "OrderingVisibilityFilter",
                   "ofType": null
                 },
                 "defaultValue": "ALL",
@@ -10876,6 +11030,35 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -11350,6 +11533,11 @@
           {
             "kind": "INTERFACE",
             "name": "SchemaInstance",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
             "ofType": null
           },
           {
@@ -13583,7 +13771,7 @@
                 "description": "Optionally filter orderings by whether they are visible or hidden.",
                 "type": {
                   "kind": "ENUM",
-                  "name": "OrderingAvailabilityFilter",
+                  "name": "OrderingVisibilityFilter",
                   "ofType": null
                 },
                 "defaultValue": "ALL",
@@ -13987,6 +14175,35 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -14358,6 +14575,11 @@
           {
             "kind": "INTERFACE",
             "name": "SchemaInstance",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
             "ofType": null
           },
           {
@@ -19204,6 +19426,135 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "DateEqualsOperatorInput",
+        "description": "Require that `path = value` while enforcing that value is a date.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601Date",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateGTEOperatorInput",
+        "description": "Require that `path ≥ value` while enforcing that value is a date.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601Date",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateLTEOperatorInput",
+        "description": "Require that `path ≤ value` while enforcing that value is a date.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601Date",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "DatePrecision",
         "description": "This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity.",
@@ -19285,7 +19636,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -19361,7 +19712,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -19424,6 +19775,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -19450,6 +19841,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -23184,7 +23580,7 @@
                 "description": "Optionally filter orderings by whether they are visible or hidden.",
                 "type": {
                   "kind": "ENUM",
-                  "name": "OrderingAvailabilityFilter",
+                  "name": "OrderingVisibilityFilter",
                   "ofType": null
                 },
                 "defaultValue": "ALL",
@@ -23524,6 +23920,35 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
                 "ofType": null
               }
             },
@@ -25217,6 +25642,78 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "EntityVisibilityFilter",
+        "description": "Filter entities by their visibility.\n\n`VISIBLE` is the default in most cases. Any other option requires special privileges.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ALL",
+            "description": "Do not filter entities by their visibility at all.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "VISIBLE",
+            "description": "Fetch only *currently visible* entities.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HIDDEN",
+            "description": "Fetch only *currently hidden* entities.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EqualsOperatorInput",
+        "description": "Require that `path = value`.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "JSON",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "ExposesEffectiveAccess",
         "description": null,
@@ -25379,7 +25876,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -25467,7 +25964,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -25530,6 +26027,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -25556,6 +26093,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -25671,7 +26213,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -25759,7 +26301,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -25822,6 +26364,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -25848,6 +26430,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -27793,6 +28380,57 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "InAnyOperatorInput",
+        "description": "Require that the `path` must include or be one of the strings provided in `value`.\n\nThe actual value of `path` may be an array (multiselect) or string (select).\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "InstitutionSettings",
         "description": "Configuration settings for the specific institution featured on this installation.",
@@ -27877,7 +28515,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -27965,7 +28603,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -28028,6 +28666,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -28054,6 +28732,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -30275,7 +30958,7 @@
                 "description": "Optionally filter orderings by whether they are visible or hidden.",
                 "type": {
                   "kind": "ENUM",
-                  "name": "OrderingAvailabilityFilter",
+                  "name": "OrderingVisibilityFilter",
                   "ofType": null
                 },
                 "defaultValue": "ALL",
@@ -30828,6 +31511,35 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -31302,6 +32014,11 @@
           {
             "kind": "INTERFACE",
             "name": "SchemaInstance",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
             "ofType": null
           },
           {
@@ -32380,7 +33097,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -32456,7 +33173,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32519,6 +33236,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -32546,8 +33303,56 @@
             "kind": "INTERFACE",
             "name": "ScalarProperty",
             "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
+            "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MatchesOperatorInput",
+        "description": "Use full-text search on `path` to match `value`.\n\nAs with top-level query searches, basic quoting and similar features are supported. See\n[websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for\nmore information.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -32594,7 +33399,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -32670,7 +33475,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -32757,6 +33562,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selections",
             "description": null,
             "args": [],
@@ -32808,6 +33653,11 @@
           {
             "kind": "INTERFACE",
             "name": "OptionableProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -34581,6 +35431,92 @@
         "possibleTypes": null
       },
       {
+        "kind": "INPUT_OBJECT",
+        "name": "NumericGTEOperatorInput",
+        "description": "Require that `path ≥ value` while enforcing that value is numeric.\n\nNote: this will also work for integer paths. Coercion is handled\ntransparently by the API.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "NumericLTEOperatorInput",
+        "description": "Require that `path ≤ value` while enforcing that value is numeric.\n\nNote: this will also work for integer paths. Coercion is handled\ntransparently by the API.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "path",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "value",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "OptionableProperty",
         "description": null,
@@ -34625,6 +35561,49 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrOperatorInput",
+        "description": "The boolean result of evaluating the left and right predicates. At least one must be true.\n\nWhile this is implemented, it is not likely that the first version of the search\nUI will utilize it. It is intended for advanced searching.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "left",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "SearchPredicateInput",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "right",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "SearchPredicateInput",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -36346,6 +37325,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "OrderingVisibilityFilter",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ALL",
+            "description": "Do not filter orderings by their visibility.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "VISIBLE",
+            "description": "Fetch only *visible* orderings. This has no bearing on the ordering's *availability*.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HIDDEN",
+            "description": "Fetch only *hidden* orderings.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "OrganizationContributor",
         "description": "An organization that has made contributions",
@@ -37504,6 +38512,11 @@
           {
             "kind": "OBJECT",
             "name": "SchemaVersionConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SearchResultConnection",
             "ofType": null
           },
           {
@@ -39563,6 +40576,35 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "systemInfo",
             "description": "A helper field that is used to look up various details about the WDP-API ecosystem.",
             "args": [],
@@ -39742,7 +40784,13 @@
           }
         ],
         "inputFields": null,
-        "interfaces": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -42785,6 +43833,59 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchableProperties",
+            "description": "A subset of properties that can be searched for this schema.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "AnySearchableProperty",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slug",
             "description": null,
             "args": [],
@@ -42822,6 +43923,11 @@
           {
             "kind": "INTERFACE",
             "name": "DescribesSchema",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
             "ofType": null
           },
           {
@@ -43130,6 +44236,983 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "SearchOperator",
+        "description": "These operators serve as keys for `SearchPredicateInput`.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "and",
+            "description": "See `AndOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "or",
+            "description": "See `OrOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "equals",
+            "description": "See `EqualsOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "matches",
+            "description": "See `MatchesOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inAny",
+            "description": "See `InAnyOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateEquals",
+            "description": "See `DateEqualsOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateGTE",
+            "description": "See `DateGTEOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateLTE",
+            "description": "See `DateLTEOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "numericGTE",
+            "description": "See `NumericGTEOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "numericLTE",
+            "description": "See `NumericLTEOperatorInput`",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SearchOriginType",
+        "description": "The type of origin for this search scope.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ENTITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "GLOBAL",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEMA",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SearchPredicateInput",
+        "description": "A predicate clause for searching entities.\n\nEach key corresponds to a `SearchOperator`, and multiple keys combined\nin the same predicate will be implicitly `AND`ed together.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "and",
+            "description": "See `AndOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "AndOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "or",
+            "description": "See `OrOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "OrOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateEquals",
+            "description": "See `DateEqualsOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DateEqualsOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateGTE",
+            "description": "See `DateGTEOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DateGTEOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateLTE",
+            "description": "See `DateLTEOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "DateLTEOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "equals",
+            "description": "See `EqualsOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "EqualsOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "matches",
+            "description": "See `MatchesOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "MatchesOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inAny",
+            "description": "See `InAnyOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "InAnyOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "numericGTE",
+            "description": "See `NumericGTEOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "NumericGTEOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "numericLTE",
+            "description": "See `NumericLTEOperatorInput`",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "NumericLTEOperatorInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SearchResult",
+        "description": "An entity that's the result of a search.\n",
+        "fields": [
+          {
+            "name": "entity",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersion",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SearchResultConnection",
+        "description": "The connection type for SearchResult.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SearchResultEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SearchResult",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Paginated",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SearchResultEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchResult",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SearchScope",
+        "description": null,
+        "fields": [
+          {
+            "name": "availableSchemaVersions",
+            "description": "The available schema versions underneath this search scope.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SchemaVersion",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "coreProperties",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SearchableCoreProperty",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "originType",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SearchOriginType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "results",
+            "description": "The results of a search. Either `query` or `predicates` should be provided,\notherwise it will return as if everything matches.\n",
+            "args": [
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityOrder",
+                  "ofType": null
+                },
+                "defaultValue": "PUBLISHED_DESCENDING",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "predicates",
+                "description": "The predicates to search for, if any.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "SearchPredicateInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "query",
+                "description": "Search all text associated with individual entities.\n\nBasic quoting and similar features are supported. See\n[websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for\nmore information.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "PageDirection",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchResultConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "visibility",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "EntityVisibilityFilter",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Searchable",
+        "description": null,
+        "fields": [
+          {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Community",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Item",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SchemaVersion",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SearchableCoreProperty",
+        "description": null,
+        "fields": [
+          {
+            "name": "description",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "SearchableProperty",
+        "description": null,
+        "fields": [
+          {
+            "name": "description",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "BooleanProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "DateProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FloatProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "FullTextProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "IntegerProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "MarkdownProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "MultiselectProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SearchableCoreProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SelectProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StringProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TimestampProperty",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "VariableDateProperty",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "SelectInitialOrderingInput",
         "description": "Autogenerated input type of SelectInitialOrdering",
@@ -43399,7 +45482,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -43475,7 +45558,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43562,6 +45645,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selection",
             "description": null,
             "args": [],
@@ -43605,6 +45728,11 @@
           {
             "kind": "INTERFACE",
             "name": "OptionableProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -44474,7 +46602,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -44550,7 +46678,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -44613,6 +46741,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -44639,6 +46807,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -45067,7 +47240,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -45143,7 +47316,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -45206,6 +47379,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "timestamp",
             "description": null,
             "args": [],
@@ -45244,6 +47457,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],
@@ -54674,7 +56892,7 @@
           },
           {
             "name": "description",
-            "description": "A human-readable description for the property. It should describe the purpose of the\nproperty as well as some details about the types of values it looks for.\n\nIt can be rendered as help text, hints, etc.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -54750,7 +56968,7 @@
           },
           {
             "name": "label",
-            "description": "A human-readable label for the schema property.\n",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -54813,6 +57031,46 @@
             "deprecationReason": null
           },
           {
+            "name": "searchOperators",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SearchOperator",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "searchPath",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "type",
             "description": "Provided for introspection. This represents the actual data type this property\nuses.\n\nRendering in the frontend should rely primarily on the `AnySchemaProperty` and\n`AnyScalarProperty` unions (in that order)`, rather than relying on this value,\nsince the actual implementations of these properties differ in the GraphQL types\nassociated with their values.\n",
             "args": [],
@@ -54839,6 +57097,11 @@
           {
             "kind": "INTERFACE",
             "name": "ScalarProperty",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "SearchableProperty",
             "ofType": null
           }
         ],

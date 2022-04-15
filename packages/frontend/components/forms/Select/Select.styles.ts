@@ -1,22 +1,48 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aInputReset } from "@wdp/lib/theme/mixins";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { aButton, aFocusReset } from "theme/mixins/appearance";
 
-export const Wrapper = styled.div<{ $block?: true; $size?: "lg" }>`
+export const Wrapper = styled.div<{
+  $block?: true;
+  $size?: "lg";
+  $secondary?: true;
+}>`
   position: relative;
-  ${aButton("secondary", "sm")}
 
   ${({ $size }) => $size === "lg" && "min-height: 40px;"}
 
-  ${({ $block }) => $block && "display: flex;"}
+  ${({ $block }) =>
+    $block &&
+    css`
+      display: flex;
+      width: 100%;
+    `}
+
+  ${({ $secondary }) =>
+    $secondary
+      ? css`
+          border: 1px solid var(--border-color);
+          border-radius: var(--border-radius-xs);
+        `
+      : aButton("secondary", "sm")}
 `;
 
-export const Select = styled.select`
+export const Select = styled.select<{ $secondary?: true }>`
   ${aInputReset}
   ${aFocusReset}
-  padding-inline-end: ${pxToRem(18)};
+  
   width: 100%;
+
+  ${({ $secondary }) =>
+    $secondary
+      ? css`
+          padding-inline-start: 16px;
+          padding-inline-end: 16px;
+          padding-block-start: 8px;
+          padding-block-end: 8px;
+        `
+      : `padding-inline-end: ${pxToRem(18)};`}
 `;
 
 export const Icon = styled.span`
