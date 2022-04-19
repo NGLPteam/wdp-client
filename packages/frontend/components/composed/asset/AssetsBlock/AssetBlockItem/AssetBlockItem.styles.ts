@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const ImageLink = styled.a`
+export const ImageWrapper = styled.div`
   display: inline-block;
   flex: none;
   height: auto;

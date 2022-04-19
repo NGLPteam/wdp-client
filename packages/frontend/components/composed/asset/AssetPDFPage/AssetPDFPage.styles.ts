@@ -11,7 +11,7 @@ export const Page = styled.div`
   }
 `;
 
-export const PageNumber = styled.caption`
+export const PageNumber = styled.div`
   display: block;
   margin-block-start: var(--padding-sm);
   color: var(--color-lighter);
