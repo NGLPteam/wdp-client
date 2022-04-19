@@ -6,6 +6,10 @@ export const baseRoutes: BaseRoute[] = [
     path: "/",
   },
   {
+    name: "search",
+    path: "/search",
+  },
+  {
     name: "collections",
     path: "/collections",
     label: "glossary.collection_plural",

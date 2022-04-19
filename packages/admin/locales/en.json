@@ -414,6 +414,10 @@
     "dashboard": {
       "installation_header": "Installation",
       "current_version_label": "Current Version"
+    },
+    "search": {
+      "results_for_name": "Search results for \"{{name}}\"",
+      "submit": "Submit Search"
     }
   }
 }

@@ -14,7 +14,7 @@ function SearchInput({ className, inputRef }: Props) {
 
   const inputProps = {
     className: `${className}__input a-focus-dark`,
-    placeholder: t("search"),
+    placeholder: t("common.search"),
     ref: inputRef,
   };
 

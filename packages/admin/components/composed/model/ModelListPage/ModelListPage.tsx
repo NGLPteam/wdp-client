@@ -30,7 +30,7 @@ type ModelListPageProps<
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: ReactNode;
-    header?: string;
+    header?: ReactNode;
   };
 
 function ModelListPage<

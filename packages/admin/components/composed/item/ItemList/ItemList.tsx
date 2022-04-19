@@ -93,4 +93,40 @@ const fragment = graphql`
   }
 `;
 
+const searchFragment = graphql`
+  fragment ItemListSearchFragment on SearchResultConnection {
+    nodes {
+      slug
+      entity {
+        ... on Node {
+          id
+        }
+        ... on Sluggable {
+          slug
+        }
+        ... on Entity {
+          title
+          schemaVersion {
+            name
+            number
+          }
+          allowedActions
+          # eslint-disable-next-line relay/must-colocate-fragment-spreads
+          ...ContributorsColumnFragment
+          ...EntityThumbnailColumnFragment
+          ...PublishedDateColumnFragment
+        }
+        ... on Item {
+          items {
+            pageInfo {
+              totalCount
+            }
+          }
+        }
+      }
+    }
+    ...ModelListPageFragment
+  }
+`;
+
 export default ItemList;
