@@ -14,9 +14,9 @@ export default function AssetBlockItem({ data }: Props) {
 
   return file ? (
     <Styled.Wrapper>
-      <Styled.ImageLink href="#">
+      <Styled.ImageWrapper>
         <AssetThumbnail data={file} />
-      </Styled.ImageLink>
+      </Styled.ImageWrapper>
       <Styled.TextBlock>
         <h4>
           {slug && file.slug ? (

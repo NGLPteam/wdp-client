@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
@@ -24,13 +24,20 @@ export default function ArticleTabNav({ data }: Props) {
 
   const page = routeQueryArrayToString(pageQuery);
 
-  const activeRoute = useMemo(() => {
-    return RouteHelper.activeRoute();
-  }, []);
+  const checkIfActive = (routeName: string, pageSlug?: string) => {
+    const checkPage = !pageSlug || pageSlug === page;
+    // Checking against the parent route (item) needs to be strict.
+    // Child routes, such as files, can be fuzzy active.
+    const checkRoute =
+      routeName === "item" || pageSlug
+        ? RouteHelper.isRouteNameActive(routeName)
+        : RouteHelper.isRouteNameFuzzyActive(routeName);
+
+    return checkRoute && checkPage;
+  };
 
   function getLink(route: string, label: string, pageSlug?: string) {
-    const isCurrent =
-      activeRoute?.name === route && (!pageSlug || pageSlug === page);
+    const isCurrent = checkIfActive(route, pageSlug);
 
     return slug ? (
       <Styled.Item key={route === "item.page" ? pageSlug : route}>
