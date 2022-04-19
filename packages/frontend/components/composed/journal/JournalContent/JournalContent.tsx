@@ -14,30 +14,37 @@ export default function JournalContent({ data }: Props) {
 
   if (!journal) return null;
 
+  const showInfoSection =
+    !!journal.description?.fullText?.content ||
+    !!journal.about?.content ||
+    !!journal.announcements?.nodes?.length;
+
   return (
     <>
-      <section className="a-bg-custom10">
-        <Styled.SectionInner className="l-container-wide">
-          {journal.description?.fullText?.content ? (
-            <Styled.InfoBlock className="t-rte">
-              <FullText data={journal.description} />
-            </Styled.InfoBlock>
-          ) : (
-            journal.about?.content && (
-              <Styled.InfoBlock>
-                <Markdown.Base className="t-rte">
-                  {journal.about.content}
-                </Markdown.Base>
+      {showInfoSection && (
+        <section className="a-bg-custom10">
+          <Styled.SectionInner className="l-container-wide">
+            {journal.description?.fullText?.content ? (
+              <Styled.InfoBlock className="t-rte">
+                <FullText data={journal.description} />
               </Styled.InfoBlock>
-            )
-          )}
-          {!!journal.announcements && (
-            <Styled.AnnouncementsBlock>
-              <EntityAnnouncements data={journal.announcements} />
-            </Styled.AnnouncementsBlock>
-          )}
-        </Styled.SectionInner>
-      </section>
+            ) : (
+              journal.about?.content && (
+                <Styled.InfoBlock>
+                  <Markdown.Base className="t-rte">
+                    {journal.about.content}
+                  </Markdown.Base>
+                </Styled.InfoBlock>
+              )
+            )}
+            {!!journal.announcements && (
+              <Styled.AnnouncementsBlock>
+                <EntityAnnouncements data={journal.announcements} />
+              </Styled.AnnouncementsBlock>
+            )}
+          </Styled.SectionInner>
+        </section>
+      )}
       <FeaturedIssue
         data={journal.currentIssue}
         header="layouts.current_issue"
@@ -90,6 +97,11 @@ const fragment = graphql`
 
     announcements {
       ...EntityAnnouncementsFragment
+      ... on AnnouncementConnection {
+        nodes {
+          slug
+        }
+      }
     }
   }
 `;
