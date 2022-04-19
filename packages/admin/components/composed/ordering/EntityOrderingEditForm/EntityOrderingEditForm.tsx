@@ -19,7 +19,7 @@ type FormProps = Pick<
   "onSuccess" | "onCancel"
 >;
 
-type Fields = Omit<UpdateOrderingInput, "clientMutationId"> & {
+type Fields = Omit<UpdateOrderingInput, "clientMutationId" | "filter"> & {
   filterSchemas: string[];
 };
 
@@ -44,7 +44,10 @@ export default function EntityOrderingEditForm({
         order: order as OrderDefinitionInput[],
         filter: filter as OrderingFilterDefinitionInput,
         filterSchemas: filter.schemas.map((s) =>
-          JSON.stringify({ namespace: s.namespace, identifier: s.identifier })
+          JSON.stringify({
+            namespace: s.namespace,
+            identifier: s.identifier,
+          })
         ),
         ...values,
       };

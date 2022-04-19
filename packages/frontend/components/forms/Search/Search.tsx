@@ -1,37 +1,65 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { useRouteSlug } from "@wdp/lib/routes";
 import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
 import { RouteHelper } from "routes";
 
 export default function Search({
+  route = "search",
   placeholder,
-  queryParams,
   mobile,
   id,
 }: Props) {
   const { t } = useTranslation();
-  const searchRoute = RouteHelper.findRouteByName("search");
+
+  const router = useRouter();
+
+  const { handleSubmit, register } = useForm();
+
+  const slug = useRouteSlug();
+
+  const onSubmit = (data: Record<string, string>) => {
+    if (!routeObj) return null;
+
+    router.push(
+      {
+        pathname: routeObj.path,
+        query: {
+          ...(slug && { slug }),
+          q: data.q,
+        },
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
+
+  const routeObj = RouteHelper.findRouteByName(route);
+
+  if (!routeObj) {
+    console.warn(`No route found with the name ${route}`);
+
+    return null;
+  }
 
   return (
     <Styled.SearchForm
-      action={searchRoute?.path}
+      onSubmit={handleSubmit(onSubmit)}
       className="a-button-secondary-sm"
     >
       <Styled.SearchLabel htmlFor={id}>
         <span className="a-hidden">{placeholder || t("search.label")}</span>
         <IconFactory icon="search" role="presentation" />
       </Styled.SearchLabel>
-      {queryParams &&
-        Object.keys(queryParams).map((key) => (
-          <input key={key} type="hidden" name={key} value={queryParams[key]} />
-        ))}
       <Styled.SearchInput
         id={id}
         type="search"
-        name="q"
         placeholder={placeholder || t("search.label")}
         className={mobile ? "t-copy-sm" : undefined}
+        {...register("q")}
       />
       <Styled.SubmitButton type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
@@ -42,8 +70,8 @@ export default function Search({
 }
 
 interface Props {
+  route?: string;
   placeholder?: string;
-  queryParams?: { [key: string]: string };
   mobile?: boolean;
   id: string;
 }

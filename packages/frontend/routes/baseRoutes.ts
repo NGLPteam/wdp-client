@@ -53,6 +53,10 @@ export const baseRoutes: BaseRoute[] = [
         name: "collection.announcement",
         path: "/collections/[slug]/announcements/[announcement]",
       },
+      {
+        name: "collection.search",
+        path: "/collections/[slug]/search",
+      },
     ],
   },
   {

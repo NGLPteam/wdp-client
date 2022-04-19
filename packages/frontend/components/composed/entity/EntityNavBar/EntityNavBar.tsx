@@ -19,11 +19,11 @@ export default function EntityNavBar({ data }: Props) {
         </Styled.LeftSide>
         <Styled.RightSide>
           <Search
+            route="collection.search"
             id="entitySearch"
             placeholder={t("search.placeholder_name", {
               name: entity.title,
             })}
-            queryParams={{ ...(entity.id && { id: entity.id }) }}
           />
         </Styled.RightSide>
       </Styled.NavInner>
@@ -39,6 +39,9 @@ const fragment = graphql`
   fragment EntityNavBarFragment on AnyEntity {
     ... on Node {
       id
+    }
+    ... on Sluggable {
+      slug
     }
     ... on Entity {
       title
