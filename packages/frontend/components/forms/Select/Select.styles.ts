@@ -26,6 +26,14 @@ export const Wrapper = styled.div<{
           border-radius: var(--border-radius-xs);
         `
       : aButton("secondary", "sm")}
+
+  option {
+    color: var(--color-base);
+
+    &:disabled {
+      color: var(--color-light);
+    }
+  }
 `;
 
 export const Select = styled.select<{ $secondary?: true }>`
