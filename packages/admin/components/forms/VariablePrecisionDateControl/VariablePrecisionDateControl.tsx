@@ -21,13 +21,15 @@ export default function VariablePrecisionDateControl({
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
-      render={({ field }) => (
+      render={({ field: { value, ...props } }) => (
+        // If we set "defaultValue" on the Controller, the returned value object is a string.
+        // Instead, we'll set the default value here.
         <Forms.VariableDatePicker
           label={label}
           required={required}
           isWide={isWide}
-          {...field}
+          defaultValue={defaultValue}
+          {...props}
         />
       )}
     />
