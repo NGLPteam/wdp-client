@@ -23,13 +23,8 @@ export default {
   },
 };
 
-type Value = {
-  value: string;
-  precision: string;
-};
-
 export const InAForm: Story<Props> = ({ defaultValue, ...args }) => {
-  function handleSubmit(data: Record<string, string | Value>) {
+  function handleSubmit(data: unknown) {
     console.info(data);
   }
 
@@ -40,8 +35,14 @@ export const InAForm: Story<Props> = ({ defaultValue, ...args }) => {
           name="example"
           control={control}
           defaultValue={defaultValue}
-          render={({ field }) => {
-            return <VariableDatePicker {...args} {...field} />;
+          render={({ field: { value, ...props } }) => {
+            return (
+              <VariableDatePicker
+                {...args}
+                {...props}
+                value={typeof value !== "string" ? value : undefined}
+              />
+            );
           }}
         />
       )}

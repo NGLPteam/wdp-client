@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type EntityNavBarFragment = {
     readonly id?: string | undefined;
+    readonly slug?: string | undefined;
     readonly title?: string | undefined;
     readonly " $fragmentRefs": FragmentRefs<"EntityNavListFragment">;
     readonly " $refType": "EntityNavBarFragment";
@@ -46,6 +47,20 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        }
+      ],
+      "type": "Sluggable",
+      "abstractKey": "__isSluggable"
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "title",
           "storageKey": null
         },
@@ -62,5 +77,5 @@ const node: ReaderFragment = {
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = 'de3d45313e13ac639b1ce27afb00c69e';
+(node as any).hash = '3f24a531cda3ab165d1954c0784ac4d2';
 export default node;

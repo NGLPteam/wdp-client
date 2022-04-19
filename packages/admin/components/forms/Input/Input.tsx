@@ -34,12 +34,13 @@ const Input = forwardRef(
 
 type FormTypes = Partial<Pick<HTMLFormElement, "onInvalid" | "onInput">>;
 
-type InputTypes = Partial<
-  Pick<HTMLInputElement, "min" | "max" | "pattern" | "type">
->;
+type InputTypes = Partial<Pick<HTMLInputElement, "pattern" | "type">>;
 
 type Props<T extends FieldValues = FieldValues> = InputProps<T> &
   FormTypes &
-  InputTypes;
+  InputTypes & {
+    min?: string | number;
+    max?: string | number;
+  };
 
 export default Input;
