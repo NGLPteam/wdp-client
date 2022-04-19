@@ -9,7 +9,6 @@ export type ItemListFragment = {
     readonly nodes: ReadonlyArray<{
         readonly id: string;
         readonly slug: string;
-        readonly createdAt: string;
         readonly title: string;
         readonly schemaVersion: {
             readonly name: string;
@@ -60,13 +59,6 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "slug",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "createdAt",
           "storageKey": null
         },
         {
@@ -164,5 +156,5 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = '857ad597eb85a2416f6d043836013d31';
+(node as any).hash = 'b571bf4f4d379ca09362443c55c47fce';
 export default node;
