@@ -145,6 +145,7 @@ const fragment = graphql`
           givenName
           familyName
         }
+        ...ContributorNameColumnFragment
       }
       collection {
         title
