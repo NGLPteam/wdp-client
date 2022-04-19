@@ -69,12 +69,10 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
     if (!entityId || !userId || !drawerRoleId) return;
 
     const handleDelete = () => {
-      if (data.collection) {
-        destroy.access(
-          { entityId, roleId: drawerRoleId, userId },
-          data?.user?.name || t("glossary.user")
-        );
-      }
+      destroy.access(
+        { entityId, roleId: drawerRoleId, userId },
+        data?.user?.name || t("glossary.user")
+      );
       if (dialog?.hide) dialog.hide();
     };
 
