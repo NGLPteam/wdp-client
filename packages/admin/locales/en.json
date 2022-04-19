@@ -403,6 +403,11 @@
       "asset_property_select": {
         "add_file": "Add File",
         "placeholder": "Select a file"
+      },
+      "order_render_select": {
+        "label": "Display as",
+        "option_flat": "Flat list",
+        "option_tree": "Tree list"
       }
     },
     "dashboard": {

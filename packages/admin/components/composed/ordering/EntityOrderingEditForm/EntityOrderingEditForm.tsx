@@ -82,6 +82,7 @@ export default function EntityOrderingEditForm({
           {entity && (
             <Forms.OrderDefinitionSelectControl name="order" data={entity} />
           )}
+          <Forms.OrderRenderSelect {...register("render.mode")} />
           <Forms.OrderingDirectSelection {...register("select.direct")} />
           {entity && (
             <Forms.SchemaCheckboxGroup
@@ -124,6 +125,9 @@ const fragment = graphql`
     ordering(identifier: $identifier) {
       id
       name
+      render {
+        mode
+      }
       order {
         path
         direction
@@ -148,6 +152,9 @@ const mutation = graphql`
       ordering {
         id
         name
+        render {
+          mode
+        }
         order {
           path
           direction

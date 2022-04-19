@@ -7,10 +7,14 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
+export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 export type EntityOrderingEditFormFragment = {
     readonly ordering: {
         readonly id: string;
         readonly name: string | null;
+        readonly render: {
+            readonly mode: OrderingRenderMode;
+        };
         readonly order: ReadonlyArray<{
             readonly path: string;
             readonly direction: Direction;
@@ -74,6 +78,24 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "OrderingRenderDefinition",
+          "kind": "LinkedField",
+          "name": "render",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "mode",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         },
         {
@@ -179,5 +201,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'bb5a2b4b7017e18dc90171cecf14cea8';
+(node as any).hash = 'd623a17214aa82ec04a0bfa6856edb31';
 export default node;
