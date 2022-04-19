@@ -17,4 +17,5 @@ export const Input = styled.input`
   padding-inline-end: 16px;
   padding-block-start: 8px;
   padding-block-end: 8px;
+  background: var(--color-base-neutral00);
 `;

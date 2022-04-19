@@ -5,7 +5,6 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import * as Styled from "./CommunityNavList.styles";
 import {
-  ArrowLink,
   Dropdown,
   NamedLink,
   Accordion,
@@ -53,35 +52,12 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
       : [];
 
   const exploreMenu = mobile ? (
-    <Accordion
-      label={t("nav.explore")}
-      menuItems={[
-        ...schemaLinks,
-        <NamedLink
-          key={1}
-          route="community.search"
-          routeParams={{ slug: community?.slug || "" }}
-          passHref
-        >
-          <ArrowLink>{t("nav.browse_all")}</ArrowLink>
-        </NamedLink>,
-      ]}
-    />
+    <Accordion label={t("nav.explore")} menuItems={schemaLinks} />
   ) : (
     <Dropdown
       disclosure={getDisclosure("nav.explore")}
       label={t("nav.explore")}
-      menuItems={[
-        ...schemaLinks,
-        <NamedLink
-          key={1}
-          route="community.search"
-          routeParams={{ slug: community?.slug || "" }}
-          passHref
-        >
-          <ArrowLink>{t("nav.browse_all")}</ArrowLink>
-        </NamedLink>,
-      ]}
+      menuItems={schemaLinks}
     />
   );
 

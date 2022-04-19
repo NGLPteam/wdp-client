@@ -16,6 +16,7 @@ export const Wrapper = styled(BaseDialog)`
   inset-block: 0;
   inset-inline-end: 0;
   transform: translateX(100%);
+  overflow-y: auto;
 
   ${reducedMotion(css`
     opacity: 0;
@@ -58,9 +59,10 @@ export const Header = styled.div`
 `;
 
 export const Content = styled.div`
-  height: 100%;
+  flex: 1 1 auto;
   padding-inline-start: var(--container-v-padding-sm);
   padding-inline-end: var(--container-v-padding-sm);
+  padding-block-end: var(--container-v-padding-sm);
 `;
 
 export const Inner = styled.div`
