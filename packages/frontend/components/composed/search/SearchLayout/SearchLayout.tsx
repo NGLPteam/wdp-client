@@ -11,6 +11,7 @@ import BaseDrawer from "components/layout/BaseDrawer";
 import { Button } from "components/atomic";
 import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
 import useSearchQueryVars from "hooks/useSearchQueryVars";
+import { NoContent } from "components/layout";
 
 export default function SearchLayout({ data, refetch, isLoading }: Props) {
   const router = useRouter();
@@ -31,6 +32,10 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
   );
 
   const queryVars = useSearchQueryVars();
+
+  const noSearchQuery =
+    queryVars.query === "" &&
+    (!queryVars.predicates || queryVars.predicates.length === 0);
 
   useEffect(() => {
     handleRefetch(queryVars);
@@ -77,7 +82,11 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
           {search && <SearchFilters id="sidebarFilters" data={search} />}
         </Styled.Sidebar>
         <Styled.Results>
-          <SearchResults data={search?.results} isLoading={isLoading} />
+          {noSearchQuery ? (
+            <NoContent message="search.start_search" />
+          ) : (
+            <SearchResults data={search?.results} isLoading={isLoading} />
+          )}
         </Styled.Results>
       </Styled.Inner>
       <BaseDrawer label="Filters" dialog={dialog}>
