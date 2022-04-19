@@ -52,7 +52,7 @@ export const mapSortBy: MapSortBy = (id, desc) => {
       return desc ? "MOST_CONTRIBUTIONS" : "LEAST_CONTRIBUTIONS";
 
     case "globalAdmin":
-      return desc ? "RECENT" : "ADMINS_RECENT";
+      return desc ? "ADMINS_OLDEST" : "ADMINS_RECENT";
 
     case "schema":
       return desc ? "SCHEMA_NAME_DESCENDING" : "SCHEMA_NAME_ASCENDING";
