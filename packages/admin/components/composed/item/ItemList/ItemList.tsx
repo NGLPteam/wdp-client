@@ -34,7 +34,6 @@ function ItemList<T extends OperationType>({
     ModelColumns.ContributorsColumn<ItemNode>(),
     ModelColumns.SchemaColumn<ItemNode>(),
     ModelColumns.PublishedDateColumn<ItemNode>(),
-    ModelColumns.CreatedAtColumn<ItemNode>(),
   ];
 
   const actions = {
@@ -74,7 +73,6 @@ const fragment = graphql`
     nodes {
       id
       slug
-      createdAt
       title
       schemaVersion {
         name
