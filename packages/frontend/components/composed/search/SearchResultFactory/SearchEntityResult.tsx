@@ -3,13 +3,21 @@ import { graphql, useFragment } from "react-relay";
 import SearchResultBase from "./SearchResultBase";
 import { SearchEntityResultFragment$key } from "@/relay/SearchEntityResultFragment.graphql";
 import { PrecisionDate, SquareThumbnail } from "components/atomic";
+import { getRouteByEntityType } from "helpers";
 
 export default function SearchEntityResult({ data }: Props) {
   const entity = useFragment<SearchEntityResultFragment$key>(fragment, data);
 
+  const route = getRouteByEntityType(entity.__typename);
+
+  if (!route) {
+    console.warn(`No route was found for type ${entity.__typename}`);
+    return null;
+  }
+
   return (
     <SearchResultBase
-      route="collection"
+      route={route}
       routeParams={{ slug: entity.slug || "" }}
       type={entity.schemaVersion.name}
       title={entity.title}
