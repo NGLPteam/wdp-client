@@ -15,6 +15,7 @@ import type {
   OrderDefinitionInput,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
+import { OrderingRenderDefinitionInput } from "types/graphql-schema";
 
 export default function EntityOrderingAddForm({
   data,
@@ -50,6 +51,7 @@ export default function EntityOrderingAddForm({
         identifier: convertToSlug(data.name ?? undefined),
         order: data.order,
         filter,
+        render: data.render,
       };
 
       return { input };
@@ -61,6 +63,7 @@ export default function EntityOrderingAddForm({
     select: {
       direct: "CHILDREN" as OrderingDirectSelection,
     },
+    render: "FLAT" as OrderingRenderDefinitionInput,
   };
 
   const renderForm = useRenderForm<Fields>(
@@ -75,6 +78,7 @@ export default function EntityOrderingAddForm({
           {entity && (
             <Forms.OrderDefinitionSelectControl name="order" data={entity} />
           )}
+          <Forms.OrderRenderSelect {...register("render.mode")} />
           <Forms.OrderingDirectSelection {...register("select.direct")} />
           {entity && (
             <Forms.SchemaCheckboxGroup
