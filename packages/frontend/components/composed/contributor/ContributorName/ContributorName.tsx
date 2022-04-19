@@ -10,7 +10,13 @@ import {
 export default function ContributorName({ data }: Props) {
   const contributor = useMaybeFragment(fragment, data);
 
-  return contributor ? <>{getContributorDisplayName(contributor)}</> : null;
+  return contributor ? (
+    <span
+      dangerouslySetInnerHTML={{
+        __html: getContributorDisplayName(contributor),
+      }}
+    />
+  ) : null;
 }
 
 interface Props {
