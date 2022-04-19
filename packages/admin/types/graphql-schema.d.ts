@@ -9186,8 +9186,12 @@ export type UserOrder =
   | 'OLDEST'
   /** Sort users with admins pushed to the top, followed by name A-Z */
   | 'ADMINS_FIRST'
+  /** Sort users with admins pushed to the bottom, followed by name Z-A */
+  | 'ADMINS_LAST'
   /** Sort users with admins pushed to the top, followed by recent */
   | 'ADMINS_RECENT'
+  /** Sort users with admins pushed to the bottom, followed by `OLDEST` */
+  | 'ADMINS_OLDEST'
   /** Sort users by their name A-Z */
   | 'NAME_ASCENDING'
   /** Sort users by their name Z-A */

@@ -56750,8 +56750,20 @@
             "deprecationReason": null
           },
           {
+            "name": "ADMINS_LAST",
+            "description": "Sort users with admins pushed to the bottom, followed by name Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ADMINS_RECENT",
             "description": "Sort users with admins pushed to the top, followed by recent",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ADMINS_OLDEST",
+            "description": "Sort users with admins pushed to the bottom, followed by `OLDEST`",
             "isDeprecated": false,
             "deprecationReason": null
           },
