@@ -13,18 +13,12 @@ export type CollectionContributionListFragment = {
         readonly updatedAt: string;
         readonly role: string | null;
         readonly contributor: {
-            readonly __typename: "OrganizationContributor";
-            readonly slug: string;
-            readonly legalName: string | null;
-        } | {
-            readonly __typename: "PersonContributor";
-            readonly slug: string;
-            readonly givenName: string | null;
-            readonly familyName: string | null;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
+            readonly __typename: string;
+            readonly slug?: string | undefined;
+            readonly legalName?: string | null | undefined;
+            readonly givenName?: string | null | undefined;
+            readonly familyName?: string | null | undefined;
+            readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
         };
         readonly collection: {
             readonly title: string;
@@ -144,6 +138,11 @@ return {
               ],
               "type": "PersonContributor",
               "abstractKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ContributorNameColumnFragment"
             }
           ],
           "storageKey": null
@@ -180,5 +179,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '18df0e816018f1d55df9e46cc9185c23';
+(node as any).hash = '4fb21f2b3da5a0b99866d14428a97159';
 export default node;
