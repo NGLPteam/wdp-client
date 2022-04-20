@@ -47,7 +47,7 @@ export default function ItemLayout({
           memoizedItem.title || "glossary.item"
         );
         hideDialog();
-        router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
+        router.replace(breadcrumbs[breadcrumbs.length - 2]?.href);
       }
     },
     [memoizedItem, breadcrumbs, destroy, router]
