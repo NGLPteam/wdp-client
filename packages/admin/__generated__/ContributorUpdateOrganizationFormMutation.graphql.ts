@@ -78,15 +78,20 @@ fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
     url
     orcid
     image {
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     links {
       title
+      url
+    }
+  }
+}
+
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
       url
     }
   }
@@ -325,6 +330,13 @@ return {
                           {
                             "alias": null,
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "storage",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
                             "concreteType": "ImageSize",
                             "kind": "LinkedField",
                             "name": "thumb",
@@ -392,12 +404,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4af635fe95bfd8e5cace544af9a2232a",
+    "cacheID": "8e6a658c087e1e1b29d1b4ab0c9e8db7",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorUpdateOrganizationFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      thumb {\n        png {\n          alt\n          url\n        }\n      }\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdateOrganizationFormMutation(\n  $input: UpdateOrganizationContributorInput!\n) {\n  updateOrganizationContributor(input: $input) {\n    contributor {\n      ...ContributorUpdateOrganizationFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

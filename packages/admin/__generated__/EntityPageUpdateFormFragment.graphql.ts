@@ -13,14 +13,7 @@ export type EntityPageUpdateFormFragment = {
         readonly body: string;
         readonly position: number | null;
         readonly heroImage: {
-            readonly thumb: {
-                readonly png: {
-                    readonly url: string | null;
-                    readonly height: number | null;
-                    readonly width: number | null;
-                    readonly alt: string | null;
-                };
-            };
+            readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
         };
     } | null | undefined;
     readonly " $refType": "EntityPageUpdateFormFragment";
@@ -105,54 +98,9 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
-                  "alias": null,
                   "args": null,
-                  "concreteType": "ImageSize",
-                  "kind": "LinkedField",
-                  "name": "thumb",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "ImageDerivative",
-                      "kind": "LinkedField",
-                      "name": "png",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "url",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "height",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "width",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "alt",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "FileUploadFragment"
                 }
               ],
               "storageKey": null
@@ -168,5 +116,5 @@ const node: ReaderFragment = {
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = '9dc89c43b323732390236680a672412f';
+(node as any).hash = '82f678137bd046988abc897b96202089';
 export default node;

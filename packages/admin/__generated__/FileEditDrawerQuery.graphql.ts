@@ -43,16 +43,20 @@ fragment FileEditFormFragment on Asset {
   kind
   fileSize
   preview {
-    alt
-    thumb {
-      png {
-        alt
-        url
-      }
-    }
+    ...FileUploadFragment
   }
   previewMetadata {
     alt
+  }
+}
+
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
+    }
   }
 }
 */
@@ -181,7 +185,13 @@ return {
                 "name": "preview",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -245,12 +255,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1b1335754f3659fa75dca1a5ebbdccbb",
+    "cacheID": "570eb62891cc96dc3146d2d9a35d7260",
     "id": null,
     "metadata": {},
     "name": "FileEditDrawerQuery",
     "operationKind": "query",
-    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    alt\n    thumb {\n      png {\n        alt\n        url\n      }\n    }\n  }\n  previewMetadata {\n    alt\n  }\n}\n"
+    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

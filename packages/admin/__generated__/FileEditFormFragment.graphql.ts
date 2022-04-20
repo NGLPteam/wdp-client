@@ -14,13 +14,7 @@ export type FileEditFormFragment = {
     readonly kind: AssetKind;
     readonly fileSize: number;
     readonly preview: {
-        readonly alt: string | null;
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     };
     readonly previewMetadata: {
         readonly alt: string | null;
@@ -35,15 +29,7 @@ export type FileEditFormFragment$key = {
 
 
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "alt",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -99,36 +85,10 @@ return {
       "name": "preview",
       "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
-          "alias": null,
           "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "thumb",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "FileUploadFragment"
         }
       ],
       "storageKey": null
@@ -141,7 +101,13 @@ return {
       "name": "previewMetadata",
       "plural": false,
       "selections": [
-        (v0/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "alt",
+          "storageKey": null
+        }
       ],
       "storageKey": null
     }
@@ -149,6 +115,5 @@ return {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-})();
-(node as any).hash = 'f1faad99511d2e60c37a3fae893f0e89';
+(node as any).hash = 'e31185cc0ccaa7283088a07e202b014f';
 export default node;

@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type UserOrder = "ADMINS_FIRST" | "ADMINS_RECENT" | "EMAIL_ASCENDING" | "EMAIL_DESCENDING" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
+export type UserOrder = "ADMINS_FIRST" | "ADMINS_LAST" | "ADMINS_OLDEST" | "ADMINS_RECENT" | "EMAIL_ASCENDING" | "EMAIL_DESCENDING" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
 export type usersQueryVariables = {
     order?: UserOrder | null | undefined;
     page: number;

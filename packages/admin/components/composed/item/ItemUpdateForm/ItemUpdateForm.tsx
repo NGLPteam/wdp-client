@@ -153,13 +153,13 @@ export default function ItemUpdateForm({
           <Forms.FileUpload
             label="forms.fields.thumbnail"
             name="thumbnail"
-            image={thumbnail?.thumb}
+            data={thumbnail}
             clearName="clearThumbnail"
           />
           <Forms.FileUpload
             label="forms.fields.hero_image"
             name="heroImage"
-            image={heroImage?.thumb}
+            data={heroImage}
             clearName="clearHeroImage"
           />
           <Forms.Textarea
@@ -224,22 +224,10 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     heroImage {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     published {
       ...VariablePrecisionDateControlFragment

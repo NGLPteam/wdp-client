@@ -31,6 +31,16 @@ query detailsManageSlugUsersPagesQuery(
   }
 }
 
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
+    }
+  }
+}
+
 fragment UserLayoutFragment on User {
   name
   email
@@ -47,14 +57,7 @@ fragment UserUpdateFormFragment on User {
   email
   username
   avatar {
-    small {
-      png {
-        url
-        alt
-        height
-        width
-      }
-    }
+    ...FileUploadFragment
   }
 }
 */
@@ -166,9 +169,16 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "storage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "ImageSize",
                 "kind": "LinkedField",
-                "name": "small",
+                "name": "thumb",
                 "plural": false,
                 "selections": [
                   {
@@ -183,13 +193,6 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "url",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
                         "name": "alt",
                         "storageKey": null
                       },
@@ -197,14 +200,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "height",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "width",
+                        "name": "url",
                         "storageKey": null
                       }
                     ],
@@ -229,12 +225,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "efb21b10b495df57bc3662749446b7ab",
+    "cacheID": "c8e96638402bd34e241f3fa672d5e95e",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

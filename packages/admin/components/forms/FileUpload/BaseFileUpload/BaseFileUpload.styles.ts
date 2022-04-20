@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FileUploadPreview from "./FileUploadPreview";
+import FileUploadPreview from "./BaseFileUploadPreview";
 import { aGlow } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 type FileUploadPreviewProps = React.ComponentProps<typeof FileUploadPreview>;
@@ -83,4 +83,12 @@ export const RemoveButton = styled.button`
   &:hover {
     color: var(--accent-color);
   }
+`;
+
+export const ProcessingFile = styled.div`
+  text-align: center;
+  font-size: var(--font-size-sm);
+  white-space: pre-wrap;
+  padding-block-end: 10px;
+  pointer-events: none;
 `;

@@ -389,7 +389,8 @@
         "required": "Please specify a file",
         "upload_failed": "Upload failed (please check console for now)",
         "server_error": "Something went wrong",
-        "current_file_type": "Current {{type}}"
+        "current_file_type": "Current {{type}}",
+        "processing": "Processing current file"
       },
       "link_repeater": {
         "add": "Add $t({{ name }})",

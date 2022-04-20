@@ -14,12 +14,7 @@ export type ContributorUpdatePersonFormFieldsFragment = {
     readonly bio?: string | null | undefined;
     readonly orcid?: string | null | undefined;
     readonly image?: {
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     } | undefined;
     readonly links?: ReadonlyArray<{
         readonly title: string;
@@ -41,13 +36,6 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "title",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
   "storageKey": null
 };
 return {
@@ -111,34 +99,9 @@ return {
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "concreteType": "ImageSize",
-              "kind": "LinkedField",
-              "name": "thumb",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ImageDerivative",
-                  "kind": "LinkedField",
-                  "name": "png",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "alt",
-                      "storageKey": null
-                    },
-                    (v1/*: any*/)
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "FileUploadFragment"
             }
           ],
           "storageKey": null
@@ -152,7 +115,13 @@ return {
           "plural": true,
           "selections": [
             (v0/*: any*/),
-            (v1/*: any*/)
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            }
           ],
           "storageKey": null
         }
@@ -165,5 +134,5 @@ return {
   "abstractKey": "__isAnyContributor"
 };
 })();
-(node as any).hash = '4ed3b7e7168f0dc0a41838beb71baf8b';
+(node as any).hash = 'b9e3acbb91341d96ec0c2bcb75e52f10';
 export default node;

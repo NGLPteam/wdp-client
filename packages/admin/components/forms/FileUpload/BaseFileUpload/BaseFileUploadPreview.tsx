@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import type { State as UploadState } from "./types";
-import * as Styled from "./FileUpload.styles";
+import type { State as UploadState } from "../types";
+import * as Styled from "./BaseFileUpload.styles";
 import { BaseImage } from "components/atomic";
 import { IconFactory } from "components/factories";
 

@@ -33,7 +33,7 @@ export default function FileEditForm({ data, onSuccess }: Props) {
         <Forms.FileUpload
           label="forms.fields.attachment"
           name="attachment"
-          image={preview?.thumb}
+          data={preview}
           kind={kind}
           fileSize={fileSize}
         />
@@ -89,13 +89,7 @@ const fragment = graphql`
     kind
     fileSize
     preview {
-      alt
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     previewMetadata {
       alt

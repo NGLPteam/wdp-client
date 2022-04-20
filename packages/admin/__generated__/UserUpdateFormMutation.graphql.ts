@@ -64,6 +64,16 @@ mutation UserUpdateFormMutation(
   }
 }
 
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
+    }
+  }
+}
+
 fragment MutationForm_mutationErrors on StandardMutationPayload {
   __isStandardMutationPayload: __typename
   attributeErrors {
@@ -86,14 +96,7 @@ fragment UserUpdateFormFragment on User {
   email
   username
   avatar {
-    small {
-      png {
-        url
-        alt
-        height
-        width
-      }
-    }
+    ...FileUploadFragment
   }
 }
 */
@@ -294,9 +297,16 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
-                    "name": "small",
+                    "name": "thumb",
                     "plural": false,
                     "selections": [
                       {
@@ -311,13 +321,6 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
                             "name": "alt",
                             "storageKey": null
                           },
@@ -325,14 +328,7 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "height",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "width",
+                            "name": "url",
                             "storageKey": null
                           }
                         ],
@@ -354,12 +350,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "aab8976c94e9bd6617d18709e6c584e4",
+    "cacheID": "2d9cb09e1f8e291fa6b898fc0b02420d",
     "id": null,
     "metadata": {},
     "name": "UserUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation UserUpdateFormMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      ...UserUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
+    "text": "mutation UserUpdateFormMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      ...UserUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();
