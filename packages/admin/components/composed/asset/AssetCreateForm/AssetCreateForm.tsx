@@ -42,7 +42,7 @@ export default function AssetCreateForm({ entityId, onCreate }: Props) {
   const renderForm = useRenderForm<FormValues>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.FileUpload<FormValues> label="File" name="attachment" required />
+        <Forms.FileUpload label="File" name="attachment" required />
         <Forms.Input
           label="Name"
           description="Human-readable name of the asset"

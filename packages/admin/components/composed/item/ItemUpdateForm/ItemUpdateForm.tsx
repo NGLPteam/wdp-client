@@ -45,10 +45,8 @@ export default function ItemUpdateForm({
   const { itemId = "", ...fieldsData } = item;
 
   // eslint-disable-next-line prettier/prettier
-  const {
-    fieldValues: schemaFieldValues,
-    defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData.context);
+  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
+    useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -142,13 +140,13 @@ export default function ItemUpdateForm({
           <Forms.FileUpload
             label="forms.fields.thumbnail"
             name="thumbnail"
-            image={thumbnail?.thumb}
+            data={thumbnail}
             clearName="clearThumbnail"
           />
           <Forms.FileUpload
             label="forms.fields.hero_image"
             name="heroImage"
-            image={heroImage?.thumb}
+            data={heroImage}
             clearName="clearHeroImage"
           />
           <Forms.Textarea
@@ -213,22 +211,10 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     heroImage {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     published {
       ...VariablePrecisionDateControlFragment

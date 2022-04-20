@@ -57,15 +57,18 @@ fragment EntityPageUpdateFormFragment on AnyEntity {
       body
       position
       heroImage {
-        thumb {
-          png {
-            url
-            height
-            width
-            alt
-          }
-        }
+        ...FileUploadFragment
       }
+    }
+  }
+}
+
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
     }
   }
 }
@@ -167,6 +170,13 @@ v4 = [
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
                     "name": "thumb",
@@ -184,28 +194,14 @@ v4 = [
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "height",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "width",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
                             "name": "alt",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "url",
                             "storageKey": null
                           }
                         ],
@@ -309,12 +305,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fd588726c97446cb8be2cc3767a91b0b",
+    "cacheID": "945307d33b15e72f4f63e86b059803d0",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    page(slug: $pageSlug) {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        thumb {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    page(slug: $pageSlug) {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        ...FileUploadFragment\n      }\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

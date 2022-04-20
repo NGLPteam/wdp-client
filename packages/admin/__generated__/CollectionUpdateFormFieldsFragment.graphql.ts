@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type CollectionUpdateFormFieldsFragment = {
     readonly title: string;
@@ -17,22 +16,10 @@ export type CollectionUpdateFormFieldsFragment = {
     readonly visibleAfterAt: string | null;
     readonly visibleUntilAt: string | null;
     readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     };
     readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     };
     readonly published: {
         readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
@@ -50,47 +37,9 @@ export type CollectionUpdateFormFieldsFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "storage",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "ImageSize",
-    "kind": "LinkedField",
-    "name": "thumb",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "ImageDerivative",
-        "kind": "LinkedField",
-        "name": "png",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "alt",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "url",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "FragmentSpread",
+    "name": "FileUploadFragment"
   }
 ];
 return {
@@ -196,5 +145,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '295de33b3e8c28913f481cbf6df4991e';
+(node as any).hash = '7805ff0459464511c3bbf2c8abf733d4';
 export default node;

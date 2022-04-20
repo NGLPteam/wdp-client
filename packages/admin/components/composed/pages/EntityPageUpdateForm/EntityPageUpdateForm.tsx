@@ -48,7 +48,7 @@ export default function EntityPageUpdateForm({
         <Forms.FileUpload
           label="forms.fields.hero_image"
           name="heroImage"
-          image={page?.heroImage?.thumb}
+          data={page?.heroImage}
           clearName="clearHeroImage"
         />
         <Forms.Textarea label="forms.fields.body" {...register("body")} />
@@ -96,14 +96,7 @@ const fragment = graphql`
         body
         position
         heroImage {
-          thumb {
-            png {
-              url
-              height
-              width
-              alt
-            }
-          }
+          ...FileUploadFragment
         }
       }
     }

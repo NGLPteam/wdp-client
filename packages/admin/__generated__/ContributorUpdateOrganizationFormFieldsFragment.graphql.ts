@@ -13,12 +13,7 @@ export type ContributorUpdateOrganizationFormFieldsFragment = {
     readonly url?: string | null | undefined;
     readonly orcid?: string | null | undefined;
     readonly image?: {
-        readonly thumb: {
-            readonly png: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     } | undefined;
     readonly links?: ReadonlyArray<{
         readonly title: string;
@@ -96,34 +91,9 @@ return {
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "concreteType": "ImageSize",
-              "kind": "LinkedField",
-              "name": "thumb",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ImageDerivative",
-                  "kind": "LinkedField",
-                  "name": "png",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "alt",
-                      "storageKey": null
-                    },
-                    (v0/*: any*/)
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "FileUploadFragment"
             }
           ],
           "storageKey": null
@@ -156,5 +126,5 @@ return {
   "abstractKey": "__isAnyContributor"
 };
 })();
-(node as any).hash = 'be1e1463e021ef2cc5e5138cf551cea4';
+(node as any).hash = '7bdbdea655625413e55dec53d46368f3';
 export default node;

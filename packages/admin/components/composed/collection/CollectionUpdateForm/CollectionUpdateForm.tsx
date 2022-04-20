@@ -57,10 +57,8 @@ export default function CollectionUpdateForm({
   const mutationName = "updateCollection";
 
   // eslint-disable-next-line prettier/prettier
-  const {
-    fieldValues: schemaFieldValues,
-    defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData.context);
+  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
+    useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -142,15 +140,15 @@ export default function CollectionUpdateForm({
           <Forms.Input label="forms.fields.doi" {...register("doi")} />
           <Forms.Input label="forms.fields.issn" {...register("issn")} />
           <Forms.FileUpload
+            data={thumbnail}
             label="forms.fields.thumbnail"
             name="thumbnail"
-            image={thumbnail?.thumb}
             clearName="clearThumbnail"
           />
           <Forms.FileUpload
+            data={heroImage}
             label="forms.fields.hero_image"
             name="heroImage"
-            image={heroImage?.thumb}
             clearName="clearHeroImage"
           />
           <Forms.Textarea
@@ -214,22 +212,10 @@ const fieldsFragment = graphql`
     visibleAfterAt
     visibleUntilAt
     thumbnail {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     heroImage {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     published {
       ...VariablePrecisionDateControlFragment

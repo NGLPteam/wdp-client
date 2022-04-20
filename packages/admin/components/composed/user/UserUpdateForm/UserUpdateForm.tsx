@@ -58,7 +58,7 @@ const UserUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         <Forms.FileUpload
           label="forms.fields.avatar"
           name="avatar"
-          image={fieldData?.avatar?.small}
+          data={fieldData?.avatar}
           clearName="clearAvatar"
           isWide
         />
@@ -113,14 +113,7 @@ const fragment = graphql`
     email
     username
     avatar {
-      small {
-        png {
-          url
-          alt
-          height
-          width
-        }
-      }
+      ...FileUploadFragment
     }
   }
 `;

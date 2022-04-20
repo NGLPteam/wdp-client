@@ -62,7 +62,7 @@ export default function ContributorUpdateOrganizationForm({
         <Forms.FileUpload
           label="forms.fields.image"
           name="image"
-          image={image?.thumb}
+          data={image}
           clearName="clearImage"
         />
         <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
@@ -116,12 +116,7 @@ const fieldsFragment = graphql`
       url
       orcid
       image {
-        thumb {
-          png {
-            alt
-            url
-          }
-        }
+        ...FileUploadFragment
       }
       links {
         title

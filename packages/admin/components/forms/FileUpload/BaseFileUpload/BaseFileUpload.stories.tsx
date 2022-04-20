@@ -1,5 +1,5 @@
 import { Story } from "@storybook/react";
-import FileUpload, { Props } from "./FileUpload";
+import FileUpload, { Props } from "./BaseFileUpload";
 import NullForm from "components/api/NullForm";
 import type { UploadedFileInput } from "types/graphql-schema";
 

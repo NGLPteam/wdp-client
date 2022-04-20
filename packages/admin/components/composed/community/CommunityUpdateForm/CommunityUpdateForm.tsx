@@ -122,7 +122,7 @@ export default function CommunityUpdateForm({
           <Forms.FileUpload
             label="forms.fields.logo"
             name="logo"
-            image={logo?.thumb}
+            data={logo}
             clearName="clearLogo"
           />
           <Forms.Textarea
@@ -133,7 +133,7 @@ export default function CommunityUpdateForm({
             <Forms.FileUpload
               label="forms.fields.hero_image"
               name="heroImage"
-              image={heroImage?.thumb}
+              data={heroImage}
               clearName="clearHeroImage"
             />
             <Forms.AltText {...register("heroImageMetadata.alt")} />
@@ -190,22 +190,10 @@ const fieldsFragment = graphql`
     summary
     heroImageLayout
     heroImage {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     logo {
-      storage
-      thumb {
-        png {
-          alt
-          url
-        }
-      }
+      ...FileUploadFragment
     }
     heroImageMetadata {
       alt

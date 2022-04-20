@@ -11,14 +11,7 @@ export type UserProfileUpdateFormFragment = {
     readonly email: string | null;
     readonly username: string | null;
     readonly avatar: {
-        readonly small: {
-            readonly png: {
-                readonly url: string | null;
-                readonly alt: string | null;
-                readonly height: number | null;
-                readonly width: number | null;
-            };
-        };
+        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     };
     readonly " $refType": "UserProfileUpdateFormFragment";
 };
@@ -73,54 +66,9 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "small",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "FileUploadFragment"
         }
       ],
       "storageKey": null
@@ -129,5 +77,5 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = 'aa8e2370d106cfc7382eb01f084c64ae';
+(node as any).hash = '1bebca9c6f3efc1eed1deeb3f84e6192';
 export default node;

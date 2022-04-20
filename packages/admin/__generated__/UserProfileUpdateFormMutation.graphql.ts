@@ -63,6 +63,16 @@ mutation UserProfileUpdateFormMutation(
   }
 }
 
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
+    }
+  }
+}
+
 fragment MutationForm_mutationErrors on StandardMutationPayload {
   __isStandardMutationPayload: __typename
   attributeErrors {
@@ -84,14 +94,7 @@ fragment UserProfileUpdateFormFragment on User {
   email
   username
   avatar {
-    small {
-      png {
-        url
-        alt
-        height
-        width
-      }
-    }
+    ...FileUploadFragment
   }
 }
 */
@@ -285,9 +288,16 @@ return {
                   {
                     "alias": null,
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
-                    "name": "small",
+                    "name": "thumb",
                     "plural": false,
                     "selections": [
                       {
@@ -302,13 +312,6 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
                             "name": "alt",
                             "storageKey": null
                           },
@@ -316,14 +319,7 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "height",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "width",
+                            "name": "url",
                             "storageKey": null
                           }
                         ],
@@ -352,12 +348,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "344984ad6802ef36a912b69995dff023",
+    "cacheID": "abc50d4e07d098e0d5e73dd628a2f728",
     "id": null,
     "metadata": {},
     "name": "UserProfileUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation UserProfileUpdateFormMutation(\n  $input: UpdateViewerSettingsInput!\n) {\n  updateViewerSettings(input: $input) {\n    user {\n      ...UserProfileUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
+    "text": "mutation UserProfileUpdateFormMutation(\n  $input: UpdateViewerSettingsInput!\n) {\n  updateViewerSettings(input: $input) {\n    user {\n      ...UserProfileUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

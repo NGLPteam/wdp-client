@@ -32,6 +32,16 @@ query UserUpdateDrawerQuery(
   }
 }
 
+fragment FileUploadFragment on ImageAttachment {
+  storage
+  thumb {
+    png {
+      alt
+      url
+    }
+  }
+}
+
 fragment UserUpdateFormFragment on User {
   id
   givenName
@@ -39,14 +49,7 @@ fragment UserUpdateFormFragment on User {
   email
   username
   avatar {
-    small {
-      png {
-        url
-        alt
-        height
-        width
-      }
-    }
+    ...FileUploadFragment
   }
 }
 */
@@ -162,9 +165,16 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "storage",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "ImageSize",
                 "kind": "LinkedField",
-                "name": "small",
+                "name": "thumb",
                 "plural": false,
                 "selections": [
                   {
@@ -179,13 +189,6 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "url",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
                         "name": "alt",
                         "storageKey": null
                       },
@@ -193,14 +196,7 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "height",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "width",
+                        "name": "url",
                         "storageKey": null
                       }
                     ],
@@ -218,12 +214,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8d90da5d58ffd202dfb37c453478b34e",
+    "cacheID": "8770bf88107bdbc29645f49c5644382d",
     "id": null,
     "metadata": {},
     "name": "UserUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query UserUpdateDrawerQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    name\n    ...UserUpdateFormFragment\n    id\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    small {\n      png {\n        url\n        alt\n        height\n        width\n      }\n    }\n  }\n}\n"
+    "text": "query UserUpdateDrawerQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    name\n    ...UserUpdateFormFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();
