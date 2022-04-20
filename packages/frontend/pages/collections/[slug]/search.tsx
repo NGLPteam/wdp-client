@@ -3,12 +3,12 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
-import AppLayout from "components/global/AppLayout";
 import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 
 function SearchLayoutQuery({
   data,
@@ -40,11 +40,11 @@ export default function SearchPage() {
       }}
     >
       {({ data }) => (
-        <AppLayout communityData={data?.collection?.community}>
+        <CollectionLayoutQuery data={data}>
           <EntityLayoutFactory data={data?.collection}>
             {data?.collection && <SearchLayoutQuery data={data.collection} />}
           </EntityLayoutFactory>
-        </AppLayout>
+        </CollectionLayoutQuery>
       )}
     </QueryWrapper>
   );
@@ -55,10 +55,8 @@ const query = graphql`
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
       ...searchCollectionQueryFragment
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
+    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
 

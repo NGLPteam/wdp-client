@@ -29,8 +29,8 @@ const node: ReaderFragment = {
       "name": "SearchModalFragment"
     }
   ],
-  "type": "Community",
-  "abstractKey": null
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
-(node as any).hash = 'e71087e526da864b14017e47c4140f0c';
+(node as any).hash = '0473a1fc75abe666d8b71bfff42ed689';
 export default node;

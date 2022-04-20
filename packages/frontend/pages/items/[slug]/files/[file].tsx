@@ -3,10 +3,10 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import AppLayout from "components/global/AppLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import AssetDetailBlock from "components/composed/asset/AssetDetailBlock";
 import { FileSlugItemQuery as Query } from "@/relay/FileSlugItemQuery.graphql";
+import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 
 export default function ItemPage() {
   const router = useRouter();
@@ -17,11 +17,11 @@ export default function ItemPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, file }}>
       {({ data }) => (
-        <AppLayout communityData={data?.item?.community}>
+        <ItemLayoutQuery data={data}>
           <EntityLayoutFactory data={data?.item}>
             <AssetDetailBlock data={data?.asset} />
           </EntityLayoutFactory>
-        </AppLayout>
+        </ItemLayoutQuery>
       )}
     </QueryWrapper>
   ) : (
@@ -33,12 +33,10 @@ const query = graphql`
   query FileSlugItemQuery($slug: Slug!, $file: Slug!) {
     item(slug: $slug) {
       ...EntityLayoutFactoryFragment
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
     asset(slug: $file) {
       ...AssetDetailBlockFragment
     }
+    ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

@@ -17,13 +17,16 @@ import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { useGlobalContext } from "contexts";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
+import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
 
-function AppHeader({ communityData }: Props) {
+function AppHeader({ communityData, entityData }: Props) {
   const globalData = useGlobalContext();
 
   const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, globalData);
 
   const community = useMaybeFragment(communityFragment, communityData);
+
+  const entity = useMaybeFragment(entityFragment, entityData);
 
   const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
 
@@ -50,7 +53,7 @@ function AppHeader({ communityData }: Props) {
             {community && !isCommunityRoot && (
               <>
                 <CommunityNavList data={community} condensed />
-                <SearchButton size="sm" data={community} />
+                <SearchButton size="sm" data={entity} />
               </>
             )}
             <AccountDropdown condensed={!isCommunityRoot} />
@@ -83,6 +86,7 @@ function AppHeader({ communityData }: Props) {
 
 interface Props {
   communityData?: AppHeaderCommunityFragment$key | null;
+  entityData?: AppHeaderEntityFragment$key | null;
 }
 
 export default AppHeader;
@@ -101,7 +105,12 @@ const communityFragment = graphql`
   fragment AppHeaderCommunityFragment on Community {
     ...CommunityPickerActiveFragment
     ...CommunityNavListFragment
-    ...SearchButtonFragment
     ...CommunityNameFragment
+  }
+`;
+
+const entityFragment = graphql`
+  fragment AppHeaderEntityFragment on Entity {
+    ...SearchButtonFragment
   }
 `;

@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useDescendantListQueryVars } from "hooks";
-import AppLayout from "components/global/AppLayout";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
+import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 
 export default function CommunityCollectionsSchema() {
   const queryVars = useDescendantListQueryVars();
@@ -13,7 +13,7 @@ export default function CommunityCollectionsSchema() {
   return (
     <QueryWrapper<Query> query={query} initialVariables={queryVars}>
       {({ data }) => (
-        <AppLayout communityData={data?.community}>
+        <CommunityLayoutQuery data={data}>
           {data?.community?.orderingForSchema ? (
             <EntityOrderingLayoutFactory
               data={data.community}
@@ -22,7 +22,7 @@ export default function CommunityCollectionsSchema() {
           ) : (
             <EntityDescendantsLayout data={data?.community?.descendants} />
           )}
-        </AppLayout>
+        </CommunityLayoutQuery>
       )}
     </QueryWrapper>
   );
@@ -38,7 +38,6 @@ const query = graphql`
   ) {
     # query for schema
     community(slug: $slug) {
-      ...AppLayoutCommunityFragment
       orderingForSchema(slug: $schemaSlug) {
         identifier
       }
@@ -55,5 +54,6 @@ const query = graphql`
       #    ...EntityOrderingsFragment
       # }
     }
+    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

@@ -3,9 +3,9 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import AppLayout from "components/global/AppLayout";
 import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSlugCollectionQuery.graphql";
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
+import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 
 export default function AnnouncementPage() {
   const slug = useRouteSlug();
@@ -18,9 +18,9 @@ export default function AnnouncementPage() {
       initialVariables={{ slug, announcementSlug }}
     >
       {({ data }) => (
-        <AppLayout communityData={data?.collection?.community}>
+        <CollectionLayoutQuery data={data}>
           <EntityAnnouncementLayoutFactory data={data?.collection} />
-        </AppLayout>
+        </CollectionLayoutQuery>
       )}
     </QueryWrapper>
   ) : (
@@ -35,10 +35,7 @@ const query = graphql`
   ) {
     collection(slug: $slug) {
       ...EntityAnnouncementLayoutFactoryFragment
-
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
+    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

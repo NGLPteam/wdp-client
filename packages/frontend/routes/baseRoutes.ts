@@ -87,6 +87,10 @@ export const baseRoutes: BaseRoute[] = [
         name: "item.metrics",
         path: "/items/[slug]/metrics",
       },
+      {
+        name: "item.search",
+        path: "/items/[slug]/search",
+      },
     ],
   },
   {

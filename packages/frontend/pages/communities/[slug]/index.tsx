@@ -2,9 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
-import AppLayout from "components/global/AppLayout";
 import { SlugCommunityQuery as Query } from "@/relay/SlugCommunityQuery.graphql";
 import CommunityLandingLayout from "components/composed/community/CommunityLandingLayout";
+import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 
 export default function CommunityPage() {
   const slug = useRouteSlug();
@@ -12,9 +12,9 @@ export default function CommunityPage() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout communityData={data?.community}>
+        <CommunityLayoutQuery data={data}>
           {data?.community && <CommunityLandingLayout data={data.community} />}
-        </AppLayout>
+        </CommunityLayoutQuery>
       )}
     </QueryWrapper>
   ) : (
@@ -26,7 +26,7 @@ const query = graphql`
   query SlugCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
       ...CommunityLandingLayoutFragment
-      ...AppLayoutCommunityFragment
     }
+    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

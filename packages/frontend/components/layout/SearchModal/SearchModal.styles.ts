@@ -2,7 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import { aInputReset } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { borderRadius } from "theme/base/variables";
-import { aButtonBase } from "theme/mixins";
+import { aButtonBase, respond } from "theme/mixins";
 
 export const Form = styled.form`
   padding-block-start: ${pxToRem(36)};
@@ -59,5 +59,15 @@ export const SearchButton = styled.button`
 `;
 
 export const SelectLabel = styled.label`
+  flex: 1 0 auto;
   padding-block-end: ${pxToRem(3)};
+`;
+
+export const SelectWrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--grid-column-gap-sm);
+  align-items: center;
+
+  ${respond(`grid-template-columns: auto;`, 30)}
 `;

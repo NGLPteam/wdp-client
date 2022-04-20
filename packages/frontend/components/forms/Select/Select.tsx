@@ -13,12 +13,13 @@ function Select(
     label,
     hideLabel,
     secondary,
+    className,
     ...props
   }: Props & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">,
   ref: MaybeSelectRef
 ) {
   return (
-    <div>
+    <div className={className}>
       {label && (
         <Label htmlFor={id} className={hideLabel && "a-hidden"}>
           {label}
@@ -46,4 +47,5 @@ interface Props {
   label?: string;
   hideLabel?: true;
   secondary?: true;
+  className?: string;
 }

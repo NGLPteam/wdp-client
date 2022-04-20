@@ -6,9 +6,11 @@ import CommunityNavList from "../CommunityNavList";
 import * as Styled from "./CommunityNavBar.styles";
 import { SearchButton } from "components/atomic";
 import { CommunityNavBarFragment$key } from "@/relay/CommunityNavBarFragment.graphql";
+import { CommunityNavBarEntityFragment$key } from "@/relay/CommunityNavBarEntityFragment.graphql";
 
-export default function CommunityNavBar({ data }: Props) {
+export default function CommunityNavBar({ data, entityData }: Props) {
   const community = useMaybeFragment(fragment, data);
+  const entity = useMaybeFragment(entityFragment, entityData);
 
   return community ? (
     <div className="a-bg-custom10">
@@ -18,7 +20,7 @@ export default function CommunityNavBar({ data }: Props) {
         </div>
         <Styled.RightSide>
           <CommunityNavList data={community} />
-          <SearchButton size="lg" data={community} />
+          <SearchButton size="lg" data={entity} />
         </Styled.RightSide>
       </Styled.Nav>
     </div>
@@ -27,12 +29,18 @@ export default function CommunityNavBar({ data }: Props) {
 
 interface Props {
   data?: CommunityNavBarFragment$key | null;
+  entityData?: CommunityNavBarEntityFragment$key | null;
 }
 
 const fragment = graphql`
   fragment CommunityNavBarFragment on Community {
     ...CommunityNameFragment
     ...CommunityNavListFragment
+  }
+`;
+
+const entityFragment = graphql`
+  fragment CommunityNavBarEntityFragment on Entity {
     ...SearchButtonFragment
   }
 `;

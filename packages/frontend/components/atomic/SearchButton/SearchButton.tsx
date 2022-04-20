@@ -38,7 +38,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment SearchButtonFragment on Community {
+  fragment SearchButtonFragment on Entity {
     ...SearchModalFragment
   }
 `;
