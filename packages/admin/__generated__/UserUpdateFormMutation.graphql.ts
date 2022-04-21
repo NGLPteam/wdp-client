@@ -65,6 +65,7 @@ mutation UserUpdateFormMutation(
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -298,6 +299,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "originalFilename",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "storage",
                     "storageKey": null
                   },
@@ -350,12 +358,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2d9cb09e1f8e291fa6b898fc0b02420d",
+    "cacheID": "1d2d13f4c68fd7d779def4e93e77eea9",
     "id": null,
     "metadata": {},
     "name": "UserUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation UserUpdateFormMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      ...UserUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "mutation UserUpdateFormMutation(\n  $input: UpdateUserInput!\n) {\n  updateUser(input: $input) {\n    user {\n      ...UserUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

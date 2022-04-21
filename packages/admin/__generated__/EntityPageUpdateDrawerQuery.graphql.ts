@@ -64,6 +64,7 @@ fragment EntityPageUpdateFormFragment on AnyEntity {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -167,6 +168,13 @@ v4 = [
                 "name": "heroImage",
                 "plural": false,
                 "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "originalFilename",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -305,12 +313,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "945307d33b15e72f4f63e86b059803d0",
+    "cacheID": "afd42c362252437920ecbea036884c7c",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    page(slug: $pageSlug) {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        ...FileUploadFragment\n      }\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    page(slug: $pageSlug) {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        ...FileUploadFragment\n      }\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

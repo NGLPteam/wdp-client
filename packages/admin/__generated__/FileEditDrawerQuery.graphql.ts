@@ -51,6 +51,7 @@ fragment FileEditFormFragment on Asset {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -189,6 +190,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "originalFilename",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "storage",
                     "storageKey": null
                   },
@@ -255,12 +263,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "570eb62891cc96dc3146d2d9a35d7260",
+    "cacheID": "eea80eb2f925084fe851cc0d1658def1",
     "id": null,
     "metadata": {},
     "name": "FileEditDrawerQuery",
     "operationKind": "query",
-    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

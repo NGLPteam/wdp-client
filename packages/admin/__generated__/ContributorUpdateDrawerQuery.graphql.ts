@@ -118,6 +118,7 @@ fragment ContributorUpdatePersonFormFragment on AnyContributor {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -228,6 +229,13 @@ v13 = {
   "name": "image",
   "plural": false,
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "originalFilename",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -475,12 +483,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d78461cf78bcd219d7bd9189cdea54c4",
+    "cacheID": "824b9e9dc8b6f40ee498286a6e0c3328",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

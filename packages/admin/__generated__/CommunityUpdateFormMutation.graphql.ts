@@ -98,6 +98,7 @@ fragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -243,6 +244,13 @@ v7 = {
   "storageKey": null
 },
 v8 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "originalFilename",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -433,12 +441,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cec5166399e4baa12b78a44d1bd76ffc",
+    "cacheID": "7d503523620ae7cdc1da9d728a232028",
     "id": null,
     "metadata": {},
     "name": "CommunityUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CommunityUpdateFormMutation(\n  $input: UpdateCommunityInput!\n) {\n  updateCommunity(input: $input) {\n    community {\n      ...CommunityUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CommunityUpdateFormSchemaErrorsFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  tagline\n  summary\n  heroImageLayout\n  heroImage {\n    ...FileUploadFragment\n  }\n  logo {\n    ...FileUploadFragment\n  }\n  heroImageMetadata {\n    alt\n  }\n}\n\nfragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation CommunityUpdateFormMutation(\n  $input: UpdateCommunityInput!\n) {\n  updateCommunity(input: $input) {\n    community {\n      ...CommunityUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CommunityUpdateFormSchemaErrorsFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  tagline\n  summary\n  heroImageLayout\n  heroImage {\n    ...FileUploadFragment\n  }\n  logo {\n    ...FileUploadFragment\n  }\n  heroImageMetadata {\n    alt\n  }\n}\n\nfragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();

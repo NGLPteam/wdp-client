@@ -32,6 +32,7 @@ query detailsManageSlugUsersPagesQuery(
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -170,6 +171,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "originalFilename",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "storage",
                 "storageKey": null
               },
@@ -225,12 +233,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c8e96638402bd34e241f3fa672d5e95e",
+    "cacheID": "c76de6c75f44dbc038b36db123d9c3a4",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

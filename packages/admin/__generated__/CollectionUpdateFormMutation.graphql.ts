@@ -107,6 +107,7 @@ fragment CollectionUpdateForm_schemaErrorsFragment on UpdateCollectionPayload {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -250,6 +251,13 @@ v6 = {
   "storageKey": null
 },
 v7 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "originalFilename",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -487,12 +495,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e2b6924b218913d8f0b9655ecf091a6d",
+    "cacheID": "1d794a73e7318ca3b0ebfe75c53c0dc9",
     "id": null,
     "metadata": {},
     "name": "CollectionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CollectionUpdateForm_schemaErrorsFragment\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    ...FileUploadFragment\n  }\n  heroImage {\n    ...FileUploadFragment\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment CollectionUpdateForm_schemaErrorsFragment on UpdateCollectionPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
+    "text": "mutation CollectionUpdateFormMutation(\n  $input: UpdateCollectionInput!\n) {\n  updateCollection(input: $input) {\n    collection {\n      ...CollectionUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CollectionUpdateForm_schemaErrorsFragment\n  }\n}\n\nfragment CollectionUpdateFormFieldsFragment on Collection {\n  title\n  subtitle\n  doi\n  issn\n  visibility\n  summary\n  visibleAfterAt\n  visibleUntilAt\n  thumbnail {\n    ...FileUploadFragment\n  }\n  heroImage {\n    ...FileUploadFragment\n  }\n  published {\n    ...VariablePrecisionDateControlFragment\n  }\n}\n\nfragment CollectionUpdateForm_schemaErrorsFragment on UpdateCollectionPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment VariablePrecisionDateControlFragment on VariablePrecisionDate {\n  precision\n  value\n}\n"
   }
 };
 })();
