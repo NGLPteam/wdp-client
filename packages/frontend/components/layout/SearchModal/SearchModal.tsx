@@ -21,9 +21,6 @@ function getSearchRouteByType(type: string) {
     case "Collection":
       return "collection.search";
 
-    case "Item":
-      return "item.search";
-
     default:
       return "search";
   }
@@ -60,7 +57,9 @@ export default function SearchModal({ dialog, data }: Props) {
 
   const breadcrumbs =
     searchData?.breadcrumbs && searchData.breadcrumbs.length > 0
-      ? [...searchData.breadcrumbs].reverse()
+      ? [...searchData.breadcrumbs]
+          .reverse()
+          .filter((entity) => entity.crumb.__typename !== "Item")
       : null;
 
   return (
@@ -76,7 +75,7 @@ export default function SearchModal({ dialog, data }: Props) {
               {t("search.search_area_label")}
             </Styled.SelectLabel>
             <Select id={selectId} {...register("entity")}>
-              {searchData && (
+              {searchData && searchData.__typename !== "Item" && (
                 <option
                   value={JSON.stringify({
                     type: searchData.__typename,
