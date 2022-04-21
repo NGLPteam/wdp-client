@@ -2,7 +2,6 @@ import React from "react";
 import { graphql, readInlineData, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";
-import omit from "lodash/omit";
 import pick from "lodash/pick";
 import MutationForm, {
   useRenderForm,
@@ -45,10 +44,8 @@ export default function ItemUpdateForm({
   const { itemId = "", ...fieldsData } = item;
 
   // eslint-disable-next-line prettier/prettier
-  const {
-    fieldValues: schemaFieldValues,
-    defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData.context);
+  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
+    useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -104,13 +101,27 @@ export default function ItemUpdateForm({
   []);
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>((data) => {
-    const inputValues = omit(data, schemaProperties);
+    const inputValues = pick(data, [
+      "title",
+      "subtitle",
+      "doi",
+      "issn",
+      "thumbnail",
+      "clearThumbnail",
+      "heroImage",
+      "clearHeroImage",
+      "summary",
+      "published",
+      "visibility",
+      "visibleAfterAt",
+      "visibleUntilAt",
+    ]);
 
     const schemaValues = pick(data, schemaProperties);
 
     return {
       input: {
-        ...(inputValues as UpdateItemInput),
+        ...inputValues,
         itemId,
         visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
         visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
