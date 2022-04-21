@@ -62,6 +62,7 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
   clearName,
   isWide,
   storage,
+  originalFilename,
   ...inputProps
 }: Props<T>) {
   const [isCleared, setIsCleared] = useState(false);
@@ -180,7 +181,9 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
                 <>
                   <Styled.ProcessingFile>
                     <IconFactory icon="file" size="xlg" />
-                    <div>{t("forms.file.processing")}</div>
+                    <div>
+                      {t("forms.file.processing", { name: originalFilename })}
+                    </div>
                   </Styled.ProcessingFile>
                   <Styled.RemoveButton onClick={handleClear} type="button">
                     {t("forms.file.remove")}
@@ -237,6 +240,8 @@ export interface Props<T extends FieldValues = FieldValues>
   fileSize?: number;
   /** The image's storage state */
   storage?: string;
+  /** The image's original file name */
+  originalFilename?: string | null;
 }
 
 function useWaitForUpload<T extends FieldValues>(

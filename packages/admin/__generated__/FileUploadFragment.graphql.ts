@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type FileUploadFragment = {
+    readonly originalFilename: string | null;
     readonly storage: AttachmentStorage | null;
     readonly thumb: {
         readonly png: {
@@ -30,6 +31,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FileUploadFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "originalFilename",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -77,5 +85,5 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = 'f25414f3b8f8d76db67fc7a08b8e0879';
+(node as any).hash = '3e0d7b93a2960b80c8b39f048514c181';
 export default node;

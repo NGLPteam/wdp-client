@@ -29,6 +29,7 @@ query UserProfileUpdateDrawerQuery {
 }
 
 fragment FileUploadFragment on ImageAttachment {
+  originalFilename
   storage
   thumb {
     png {
@@ -140,6 +141,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "originalFilename",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "storage",
                 "storageKey": null
               },
@@ -195,12 +203,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "39e51d90ff017cbca6cc8fdd0c249f01",
+    "cacheID": "c1643abf415ad8f42d0de183027ad23c",
     "id": null,
     "metadata": {},
     "name": "UserProfileUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query UserProfileUpdateDrawerQuery {\n  viewer {\n    name\n    ...UserProfileUpdateFormFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query UserProfileUpdateDrawerQuery {\n  viewer {\n    name\n    ...UserProfileUpdateFormFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

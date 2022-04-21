@@ -4735,13 +4735,32 @@ scalar ISO8601Date
 """An ISO 8601-encoded datetime"""
 scalar ISO8601DateTime
 
-"""An abstract image interface. It includes the minimum amount of data to render an image in the browser."""
+"""
+An interface for various component types of an image attachment
+that allow it to be identified in name and purpose.
+
+"""
 interface Image {
   """Alt text for accessible images"""
   alt: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
   """The height of the image, if present"""
   height: Int
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
   """
   This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
   Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
@@ -4755,7 +4774,7 @@ interface Image {
 }
 
 """An attached image with standardized derivatives."""
-type ImageAttachment implements HasAttachmentStorage {
+type ImageAttachment implements HasAttachmentStorage & ImageIdentification {
   """Alt text for accessible images"""
   alt: String
   """A large-sized mapping for derivative formats"""
@@ -4766,6 +4785,21 @@ type ImageAttachment implements HasAttachmentStorage {
   metadata: ImageMetadata
   """The original source for the image"""
   original: ImageOriginal!
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
   """A small-sized mapping for derivative formats"""
   small: ImageSize!
   """
@@ -4779,7 +4813,7 @@ type ImageAttachment implements HasAttachmentStorage {
 }
 
 """A derivative of the image with a specific size and format."""
-type ImageDerivative implements Image {
+type ImageDerivative implements ImageIdentification & Image {
   """Alt text for accessible images"""
   alt: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
@@ -4791,6 +4825,21 @@ type ImageDerivative implements Image {
   maxHeight: Int!
   """The maximum width this size can occupy"""
   maxWidth: Int!
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
   """The size of this derivative"""
   size: ImageDerivativeSize!
   """
@@ -4827,6 +4876,29 @@ enum ImageDerivativeSize {
   THUMB
 }
 
+"""
+An interface for various component types of an image attachment
+that allow it to be identified in name and purpose.
+
+"""
+interface ImageIdentification {
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
+}
+
 """Shared metadata for image attachments"""
 type ImageMetadata {
   """Alt text for accessible images"""
@@ -4847,12 +4919,27 @@ As this is the raw image, it is not optimized for display in the frontend and is
 used only as a fallback.
 
 """
-type ImageOriginal implements HasAttachmentStorage & Image {
+type ImageOriginal implements HasAttachmentStorage & ImageIdentification & Image {
   """Alt text for accessible images"""
   alt: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
   """The height of the image, if present"""
   height: Int
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
   """
   This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
   Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
@@ -4866,6 +4953,22 @@ type ImageOriginal implements HasAttachmentStorage & Image {
 }
 
 """
+Image attachments on entities fulfill different purposes. This can
+be used to distinguish them at the `ImageAttachment` level.
+
+"""
+enum ImagePurpose {
+  """A hero image."""
+  HERO_IMAGE
+  """A logo (on a Community)."""
+  LOGO
+  """A thumbnail that appears next to the entity in lists, grids, etc."""
+  THUMBNAIL
+  """A fallback for otherwise-unspecified images."""
+  OTHER
+}
+
+"""
 This describes a specific derivative style
 for an attachment, e.g. small, medium, thumb.
 
@@ -4873,13 +4976,28 @@ It is further broken down into the various formats
 the WDP generates, presently WEBP and PNG.
 
 """
-type ImageSize {
+type ImageSize implements ImageIdentification {
   """Alt text for accessible images"""
   alt: String
   """The (maximum) height for this size."""
   height: Int!
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
   """A png-formatted image derivative for this particular size."""
   png: ImageDerivative!
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
   size: ImageDerivativeSize!
   """A webp-formatted image derivative for this particular size."""
   webp: ImageDerivative!
@@ -7973,6 +8091,8 @@ type SearchScope {
   
   """
   results(
+    """Filter by a namespace.name schema identifier"""
+    schema: [String!]
     order: EntityOrder = PUBLISHED_DESCENDING
     """
     The predicates to search for, if any.
