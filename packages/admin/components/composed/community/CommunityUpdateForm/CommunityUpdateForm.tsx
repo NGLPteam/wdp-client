@@ -1,6 +1,5 @@
 import React from "react";
 import { graphql, readInlineData, useFragment } from "react-relay";
-import omit from "lodash/omit";
 import pick from "lodash/pick";
 import MutationForm, {
   useRenderForm,
@@ -49,13 +48,23 @@ export default function CommunityUpdateForm({
 
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => {
-      const inputValues = omit(data, schemaProperties);
+      const inputValues = pick(data, [
+        "title",
+        "tagline",
+        "logo",
+        "clearLogo",
+        "summary",
+        "heroImage",
+        "clearHeroImage",
+        "heroImageMetadata",
+        "heroImageLayout",
+      ]);
 
       const schemaValues = pick(data, schemaProperties);
 
       return {
         input: {
-          ...(inputValues as UpdateCommunityInput),
+          ...inputValues,
           schemaProperties: { ...schemaValues },
           communityId,
         },
