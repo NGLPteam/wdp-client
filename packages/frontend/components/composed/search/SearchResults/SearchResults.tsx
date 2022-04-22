@@ -17,13 +17,15 @@ export default function SearchResults({ data, isLoading }: Props) {
   const { query: queryVars } = useRouter();
   const q = routeQueryArrayToString(queryVars.q);
 
-  return (
+  return isLoading ? (
+    <LoadingBlock />
+  ) : (
     <>
       <Styled.Header>
         <Trans
           i18nKey="search.count_results_for_name"
           values={{
-            count: results.pageInfo?.totalCount,
+            count: results?.pageInfo?.totalCount,
             name: q,
           }}
           components={[
@@ -32,9 +34,7 @@ export default function SearchResults({ data, isLoading }: Props) {
           ]}
         />
       </Styled.Header>
-      {isLoading ? (
-        <LoadingBlock />
-      ) : results && results.nodes.length > 0 ? (
+      {results && results.nodes.length > 0 ? (
         <>
           <Styled.List>
             {results.nodes.map(({ entity }, i) => (

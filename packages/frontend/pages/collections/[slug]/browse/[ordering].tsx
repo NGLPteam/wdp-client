@@ -5,7 +5,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import { OrderingSlugCollectionQuery as Query } from "@/relay/OrderingSlugCollectionQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import AppLayout from "components/global/AppLayout";
+import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 
 export default function OrderingSlugCollection() {
   const slug = useRouteSlug();
@@ -13,11 +13,11 @@ export default function OrderingSlugCollection() {
   return slug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
       {({ data }) => (
-        <AppLayout communityData={data?.collection?.community}>
+        <CollectionLayoutQuery data={data}>
           <EntityLayoutFactory data={data?.collection}>
             <EntityOrderingLayoutFactory data={data?.collection} />
           </EntityLayoutFactory>
-        </AppLayout>
+        </CollectionLayoutQuery>
       )}
     </QueryWrapper>
   ) : (
@@ -30,10 +30,7 @@ const query = graphql`
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
       ...EntityOrderingLayoutFactoryFragment
-
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
+    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

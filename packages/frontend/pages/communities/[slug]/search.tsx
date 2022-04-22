@@ -3,11 +3,11 @@ import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
-import AppLayout from "components/global/AppLayout";
 import { searchCommunityQuery as Query } from "@/relay/searchCommunityQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCommunityQueryFragment$key } from "@/relay/searchCommunityQueryFragment.graphql";
+import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 
 function SearchLayoutQuery({
   data,
@@ -39,9 +39,9 @@ export default function SearchPage() {
       }}
     >
       {({ data }) => (
-        <AppLayout communityData={data?.community}>
+        <CommunityLayoutQuery data={data}>
           {data?.community && <SearchLayoutQuery data={data.community} />}
-        </AppLayout>
+        </CommunityLayoutQuery>
       )}
     </QueryWrapper>
   );
@@ -50,9 +50,9 @@ export default function SearchPage() {
 const query = graphql`
   query searchCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
-      ...AppLayoutCommunityFragment
       ...searchCommunityQueryFragment
     }
+    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
 

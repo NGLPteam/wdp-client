@@ -14,8 +14,8 @@ export type PageCommunityQueryResponse = {
         readonly page: {
             readonly " $fragmentRefs": FragmentRefs<"CommunityPageLayoutFragment">;
         } | null;
-        readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment">;
     } | null;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
 };
 export type PageCommunityQuery = {
     readonly response: PageCommunityQueryResponse;
@@ -34,14 +34,19 @@ query PageCommunityQuery(
       ...CommunityPageLayoutFragment
       id
     }
-    ...AppLayoutCommunityFragment
     id
   }
+  ...CommunityLayoutQueryFragment_20J5Pl
 }
 
 fragment AppBodyCommunityFragment on Community {
   ...AppHeaderCommunityFragment
   ...AppFooterCommunityFragment
+}
+
+fragment AppBodyEntityFragment on Entity {
+  __isEntity: __typename
+  ...AppHeaderEntityFragment
 }
 
 fragment AppFooterCommunityFragment on Community {
@@ -52,8 +57,12 @@ fragment AppFooterCommunityFragment on Community {
 fragment AppHeaderCommunityFragment on Community {
   ...CommunityPickerActiveFragment
   ...CommunityNavListFragment
-  ...SearchButtonFragment
   ...CommunityNameFragment
+}
+
+fragment AppHeaderEntityFragment on Entity {
+  __isEntity: __typename
+  ...SearchButtonFragment
 }
 
 fragment AppLayoutCommunityFragment on Community {
@@ -62,8 +71,22 @@ fragment AppLayoutCommunityFragment on Community {
   ...AppBodyCommunityFragment
 }
 
+fragment AppLayoutEntityFragment on Entity {
+  __isEntity: __typename
+  ...CommunityNavBarEntityFragment
+  ...AppBodyEntityFragment
+}
+
 fragment CommunityHTMLHeadFragment on Community {
   title
+}
+
+fragment CommunityLayoutQueryFragment_20J5Pl on Query {
+  community(slug: $slug) {
+    ...AppLayoutCommunityFragment
+    ...AppLayoutEntityFragment
+    id
+  }
 }
 
 fragment CommunityLogoFragment on ImageAttachment {
@@ -88,10 +111,14 @@ fragment CommunityNameFragment on Community {
   }
 }
 
+fragment CommunityNavBarEntityFragment on Entity {
+  __isEntity: __typename
+  ...SearchButtonFragment
+}
+
 fragment CommunityNavBarFragment on Community {
   ...CommunityNameFragment
   ...CommunityNavListFragment
-  ...SearchButtonFragment
 }
 
 fragment CommunityNavListFragment on Community {
@@ -141,15 +168,35 @@ fragment HeroImageMetadataFragment on ImageMetadata {
   alt
 }
 
-fragment SearchButtonFragment on Community {
+fragment SearchButtonFragment on Entity {
+  __isEntity: __typename
   ...SearchModalFragment
 }
 
-fragment SearchModalFragment on Community {
-  slug
-  name
-  schemaRanks {
+fragment SearchModalFragment on Entity {
+  __isEntity: __typename
+  __typename
+  ... on Sluggable {
+    __isSluggable: __typename
     slug
+  }
+  title
+  breadcrumbs {
+    crumb {
+      __typename
+      ... on Sluggable {
+        __isSluggable: __typename
+        slug
+      }
+      ... on Entity {
+        __isEntity: __typename
+        title
+      }
+      ... on Node {
+        __isNode: __typename
+        id
+      }
+    }
     id
   }
 }
@@ -219,7 +266,7 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "__typename",
   "storageKey": null
 };
 return {
@@ -255,14 +302,14 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AppLayoutCommunityFragment"
           }
         ],
         "storageKey": null
+      },
+      {
+        "args": (v2/*: any*/),
+        "kind": "FragmentSpread",
+        "name": "CommunityLayoutQueryFragment"
       }
     ],
     "type": "Query",
@@ -341,6 +388,7 @@ return {
             ],
             "storageKey": null
           },
+          (v7/*: any*/),
           (v4/*: any*/),
           (v8/*: any*/),
           {
@@ -396,7 +444,13 @@ return {
             "plural": true,
             "selections": [
               (v8/*: any*/),
-              (v9/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -451,22 +505,80 @@ return {
             ],
             "storageKey": null
           },
-          (v9/*: any*/),
-          (v7/*: any*/)
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v9/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityBreadcrumb",
+                "kind": "LinkedField",
+                "name": "breadcrumbs",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "crumb",
+                    "plural": false,
+                    "selections": [
+                      (v9/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v8/*: any*/)
+                        ],
+                        "type": "Sluggable",
+                        "abstractKey": "__isSluggable"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v4/*: any*/)
+                        ],
+                        "type": "Entity",
+                        "abstractKey": "__isEntity"
+                      },
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v7/*: any*/)
+                        ],
+                        "type": "Node",
+                        "abstractKey": "__isNode"
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  (v7/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "TypeDiscriminator",
+                "abstractKey": "__isSluggable"
+              }
+            ],
+            "type": "Entity",
+            "abstractKey": "__isEntity"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ab4b2b71493be926d32b22e510f09e26",
+    "cacheID": "40e1ab619c95529e91fbbebe9d03a5c1",
     "id": null,
     "metadata": {},
     "name": "PageCommunityQuery",
     "operationKind": "query",
-    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    ...AppLayoutCommunityFragment\n    id\n  }\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n  ...CommunityNameFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...HeroImageFragment\n  }\n  heroImageMetadata {\n    ...HeroImageMetadataFragment\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment HeroImageFragment on ImageAttachment {\n  image: original {\n    alt\n    url\n  }\n}\n\nfragment HeroImageMetadataFragment on ImageMetadata {\n  alt\n}\n\nfragment SearchButtonFragment on Community {\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Community {\n  slug\n  name\n  schemaRanks {\n    slug\n    id\n  }\n}\n"
+    "text": "query PageCommunityQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    id\n  }\n  ...CommunityLayoutQueryFragment_20J5Pl\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppBodyEntityFragment on Entity {\n  __isEntity: __typename\n  ...AppHeaderEntityFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderEntityFragment on Entity {\n  __isEntity: __typename\n  ...SearchButtonFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityHTMLHeadFragment\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment AppLayoutEntityFragment on Entity {\n  __isEntity: __typename\n  ...CommunityNavBarEntityFragment\n  ...AppBodyEntityFragment\n}\n\nfragment CommunityHTMLHeadFragment on Community {\n  title\n}\n\nfragment CommunityLayoutQueryFragment_20J5Pl on Query {\n  community(slug: $slug) {\n    ...AppLayoutCommunityFragment\n    ...AppLayoutEntityFragment\n    id\n  }\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarEntityFragment on Entity {\n  __isEntity: __typename\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...HeroImageFragment\n  }\n  heroImageMetadata {\n    ...HeroImageMetadataFragment\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment HeroImageFragment on ImageAttachment {\n  image: original {\n    alt\n    url\n  }\n}\n\nfragment HeroImageMetadataFragment on ImageMetadata {\n  alt\n}\n\nfragment SearchButtonFragment on Entity {\n  __isEntity: __typename\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Entity {\n  __isEntity: __typename\n  __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  title\n  breadcrumbs {\n    crumb {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8a1bb9aba3a75f9d854a13bc956ecb7e';
+(node as any).hash = '67466a3860ada4ff08993522202870d6';
 export default node;

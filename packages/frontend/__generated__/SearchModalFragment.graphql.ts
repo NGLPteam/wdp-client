@@ -6,10 +6,15 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SearchModalFragment = {
-    readonly slug: string;
-    readonly name: string;
-    readonly schemaRanks: ReadonlyArray<{
-        readonly slug: string;
+    readonly __typename: string;
+    readonly slug?: string | undefined;
+    readonly title: string;
+    readonly breadcrumbs: ReadonlyArray<{
+        readonly crumb: {
+            readonly __typename: string;
+            readonly slug?: string | undefined;
+            readonly title?: string | undefined;
+        };
     }>;
     readonly " $refType": "SearchModalFragment";
 };
@@ -26,8 +31,29 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "__typename",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    }
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
 };
 return {
   "argumentDefinitions": [],
@@ -36,29 +62,44 @@ return {
   "name": "SearchModalFragment",
   "selections": [
     (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "HierarchicalSchemaRank",
+      "concreteType": "EntityBreadcrumb",
       "kind": "LinkedField",
-      "name": "schemaRanks",
+      "name": "breadcrumbs",
       "plural": true,
       "selections": [
-        (v0/*: any*/)
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "crumb",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            (v2/*: any*/),
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                (v1/*: any*/)
+              ],
+              "type": "Entity",
+              "abstractKey": "__isEntity"
+            }
+          ],
+          "storageKey": null
+        }
       ],
       "storageKey": null
-    }
+    },
+    (v2/*: any*/)
   ],
-  "type": "Community",
-  "abstractKey": null
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '2c5fc2dc82fe2b1a44031ff4e51a835d';
+(node as any).hash = '10a685448b5c4bf11fb04706a05b7105';
 export default node;

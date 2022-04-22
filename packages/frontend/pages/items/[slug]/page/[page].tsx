@@ -2,9 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
-import AppLayout from "components/global/AppLayout";
 import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
 import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
+import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 
 export default function ItemPage() {
   const slug = useRouteSlug();
@@ -13,9 +13,9 @@ export default function ItemPage() {
   return slug && pageSlug ? (
     <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
       {({ data }) => (
-        <AppLayout communityData={data?.item?.community}>
+        <ItemLayoutQuery data={data}>
           <EntityPageLayoutFactory data={data?.item} />
-        </AppLayout>
+        </ItemLayoutQuery>
       )}
     </QueryWrapper>
   ) : (
@@ -27,10 +27,7 @@ const query = graphql`
   query PageSlugItemQuery($slug: Slug!, $pageSlug: String!) {
     item(slug: $slug) {
       ...EntityPageLayoutFactoryFragment
-
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
+    ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
