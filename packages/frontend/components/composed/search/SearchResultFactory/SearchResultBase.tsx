@@ -1,6 +1,6 @@
 import React from "react";
 import * as Styled from "./SearchResultBase.styles";
-import { NamedLink } from "components/atomic";
+import { Markdown, NamedLink } from "components/atomic";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 
@@ -18,13 +18,15 @@ export default function SearchResultBase({
       <Styled.Text>
         {type && <Styled.Type className="t-label-sm">{type}</Styled.Type>}
         <h4>
-          <NamedLink route={route} routeParams={routeParams}>
-            {title}
+          <NamedLink route={route} routeParams={routeParams} passHref>
+            <a>
+              <Markdown.Title>{title}</Markdown.Title>
+            </a>
           </NamedLink>
         </h4>
         {description && (
           <Styled.Description as="p" className="t-copy-sm a-color-light">
-            {description}
+            <Markdown.Summary>{description}</Markdown.Summary>
           </Styled.Description>
         )}
         {metadata && (
@@ -48,7 +50,7 @@ export default function SearchResultBase({
 
 interface Props {
   type?: string;
-  title: React.ReactNode;
+  title: string;
   description?: string | null;
   metadata?: React.ReactNode;
   image?: React.ReactNode;
