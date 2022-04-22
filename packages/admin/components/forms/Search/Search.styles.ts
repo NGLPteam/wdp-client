@@ -41,7 +41,6 @@ export const SearchInput = styled.input`
   }
 
   &::-webkit-search-cancel-button {
-    background-image: url(${encodedIconClose({ fill: "#000" })});
     position: relative;
     cursor: pointer;
     inset-inline-end: 0;
