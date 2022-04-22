@@ -31,6 +31,7 @@ type ModelListPageProps<
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: ReactNode;
     header?: ReactNode;
+    search?: ReactNode;
   };
 
 function ModelListPage<
@@ -44,6 +45,7 @@ function ModelListPage<
   headerStyle,
   hideHeader,
   header,
+  search,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
   const { t } = useTranslation();
@@ -79,6 +81,7 @@ function ModelListPage<
         selectedView={selectedView}
         setView={setView}
         listId={listId}
+        search={search}
       />
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (

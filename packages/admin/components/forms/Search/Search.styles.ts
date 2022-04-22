@@ -1,80 +1,92 @@
-import React from "react";
 import styled from "styled-components";
-import BaseSearchInput from "./BaseSearchInput";
 import { tLabel } from "theme/mixins/typography";
 import { pxToRem } from "theme/mixins/functions";
-import { aBgLight } from "theme/mixins/appearance";
+import { aBgDark, aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 
 import { noInsetSupport } from "theme/mixins/base";
-type Props = React.ComponentProps<typeof BaseSearchInput>;
+import { IconFactory } from "components/factories";
 
-export const SearchInput = styled(BaseSearchInput)<Props>`
+export const SearchWrapper = styled.div<{ $darkTheme?: boolean }>`
   --search-top-padding: ${pxToRem(7)};
   --search-left-padding: ${pxToRem(12)};
+
   position: relative;
+  display: flex;
+  align-items: stretch;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-xlg);
+  transition: background-color var(--base-duration) var(--base-timing);
+  color: var(--brand100);
+
+  ${({ $darkTheme }) => $darkTheme && aBgDark("brand90")}
 
   &:focus-within,
   &:hover {
     ${aBgLight("brand10")}
-    background-color: transparent;
+  }
+`;
+
+export const SearchInput = styled.input`
+  flex: 1 1 auto;
+  border: none;
+  background-color: transparent;
+  padding-block-start: var(--search-top-padding);
+  padding-block-end: var(--search-top-padding);
+  color: var(--color-dark);
+
+  &::placeholder {
+    color: var(--color-lighter);
+    ${tLabel("md")}
   }
 
-  &__input {
-    width: 100%;
-    background-color: var(--background-light);
-    border-radius: var(--border-radius-xlg);
-    border: none;
-    padding: var(--search-top-padding) var(--search-left-padding)
-      var(--search-top-padding) ${pxToRem(36)};
-    transition: background var(--base-duration) var(--base-timing);
-    color: var(--color-dark);
-
-    &::placeholder {
-      color: var(--color-lighter);
-      ${tLabel("md")}
-    }
-
-    &::-webkit-search-cancel-button {
-      position: relative;
-      inset-inline-end: 0;
-
-      ${noInsetSupport(`
-        right: 0;
-      `)}
-
-      appearance: none;
-      height: 20px;
-      width: 20px;
-      border-radius: 10px;
-      background: url(${encodedIconClose({
-          fill: "#D1E7F0",
-        })})
-        center no-repeat;
-    }
-  }
-
-  &:focus-within &__input,
-  &:hover &__input {
-    &::placeholder {
-      color: var(--brand90);
-    }
-
-    &::-webkit-search-cancel-button {
-      cursor: pointer;
-      background-image: url(${encodedIconClose({ fill: "#000" })});
-    }
-  }
-
-  &__icon {
-    position: absolute;
-    transform: translateY(-50%);
-    inset-block-start: 50%;
-    inset-inline-start: var(--search-left-padding);
+  &::-webkit-search-cancel-button {
+    background-image: url(${encodedIconClose({ fill: "#000" })});
+    position: relative;
+    cursor: pointer;
+    inset-inline-end: 0;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background: url(${encodedIconClose({
+        fill: "#D1E7F0",
+      })})
+      center no-repeat;
 
     ${noInsetSupport(`
-      top: 50%;
-      left: var(--search-left-padding);
-    `)}
+    right: 0;
+  `)}
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const SearchIcon = styled(IconFactory)`
+  flex: 0 0 auto;
+  margin-inline-start: var(--search-left-padding);
+  margin-inline-end: var(--search-left-padding);
+  align-self: center;
+`;
+
+export const FiltersButton = styled.button`
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline-start: var(--search-left-padding);
+  padding-inline-end: var(--search-left-padding);
+  background-color: var(--brand20);
+  border-top-right-radius: var(--border-radius-xlg);
+  border-bottom-right-radius: var(--border-radius-xlg);
+  transition: background-color var(--base-duration) var(--base-timing),
+    color var(--base-duration) var(--base-timing);
+
+  &:hover,
+  &[data-focus-visible-added] {
+    background-color: var(--brand30);
+    color: var(--color-base);
   }
 `;

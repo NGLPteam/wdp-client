@@ -1,7 +1,5 @@
-import React, { useCallback } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import { PageActions } from "components/layout";
-import { Search } from "components/forms";
 import { DataViewToggle } from "components/atomic";
 import useIsMobile from "hooks/useIsMobile";
 import { ViewOptions, DEFAULT_VIEW_OPTIONS } from "utils/view-options";
@@ -11,6 +9,7 @@ export interface ModelListActionsProps {
   setView: React.Dispatch<React.SetStateAction<ViewOptions>>;
   selectedView: ViewOptions;
   listId: string;
+  search?: React.ReactNode;
 }
 
 function ModelListActions({
@@ -18,26 +17,13 @@ function ModelListActions({
   setView,
   selectedView,
   listId,
+  search,
 }: ModelListActionsProps) {
-  const router = useRouter();
   const isNotMobile = !useIsMobile();
-
-  const handleSearchSubmit = useCallback(
-    (value) => {
-      const pathname = window.location.pathname;
-      const { model, page, ...query } = router.query;
-
-      router.push({
-        pathname,
-        query: { ...query, q: value },
-      });
-    },
-    [router]
-  );
 
   return (
     <PageActions
-      search={<Search onSubmit={handleSearchSubmit} />}
+      search={search}
       actions={
         (isNotMobile && (
           <DataViewToggle

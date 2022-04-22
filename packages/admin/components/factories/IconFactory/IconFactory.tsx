@@ -29,6 +29,7 @@ export const ICON_MAP = {
   statusWarning: Icons.StatusWarning,
   avatar32: Icons.Avatar32,
   grabHandle: Icons.GrabHandle,
+  settings: Icons.Settings,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

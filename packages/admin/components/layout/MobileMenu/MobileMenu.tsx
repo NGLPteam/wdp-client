@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import MobileMenuToggle from "../MobileMenuToggle";
 import * as Styled from "./MobileMenu.styles";
-import { GlobalSearch, ProviderBar } from "components/global";
+import { ProviderBar } from "components/global";
 
 const MobileMenu = forwardRef(
   (
@@ -37,7 +37,7 @@ const MobileMenu = forwardRef(
         <Styled.Header>
           {showGlobalSearch && (
             <Styled.SearchBlock>
-              <GlobalSearch />
+              <></>
             </Styled.SearchBlock>
           )}
           <MobileMenuToggle

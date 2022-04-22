@@ -34,6 +34,7 @@ import EntityAnnouncementAddDrawer from "components/composed/announcements/Entit
 import EntityAnnouncementUpdateDrawer from "components/composed/announcements/EntityAnnouncementUpdateDrawer";
 import GlobalSettingsEditDrawer from "components/composed/settings/GlobalSettingsEditDrawer";
 import EntityOrderingEditDrawer from "components/composed/ordering/EntityOrderingEditDrawer";
+import SearchFilterDrawer from "components/composed/search/SearchFilterDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -67,6 +68,7 @@ const drawerRegistry = {
   editAnnouncement: EntityAnnouncementUpdateDrawer,
   editSettings: GlobalSettingsEditDrawer,
   editOrdering: EntityOrderingEditDrawer,
+  searchFilters: SearchFilterDrawer,
 };
 
 export function useDrawerHelper() {

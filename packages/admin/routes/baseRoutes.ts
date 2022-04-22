@@ -221,6 +221,11 @@ export const baseRoutes: BaseRoute[] = [
     ],
   },
   {
+    name: "communities.search",
+    path: "/communities/search",
+    label: "Search Communities",
+  },
+  {
     name: "users",
     path: "/users",
     label: "glossary.user_plural",

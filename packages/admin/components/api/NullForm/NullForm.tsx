@@ -21,6 +21,7 @@ export default function NullForm<T extends FieldValues = FieldValues>({
   contentTitle,
   defaultValues,
   onSubmit: onSubmitCallback,
+  onCancel: onCancelCallback,
 }: Props<T>) {
   const form = useForm<T>({
     criteriaMode: "all",
@@ -60,7 +61,7 @@ export default function NullForm<T extends FieldValues = FieldValues>({
           <Button disabled={submitDisabled} type="submit">
             Submit
           </Button>
-          <Button type="button" secondary>
+          <Button type="button" secondary onClick={onCancelCallback}>
             Cancel
           </Button>
         </div>
@@ -80,6 +81,8 @@ interface Props<T extends FieldValues = FieldValues> {
    * Optionally hook into the submit action for this null form.
    */
   onSubmit?: OnSubmitCallback<T>;
+
+  onCancel?: () => void;
 }
 
 type RenderProps<T extends FieldValues> = (props: {

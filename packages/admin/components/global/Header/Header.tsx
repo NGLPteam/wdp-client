@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useUID } from "react-uid";
 import { useFocusTrap } from "@castiron/hooks/";
 
-import GlobalSearch from "../GlobalSearch";
 import ProviderBar from "../ProviderBar";
 import InstallationName from "../InstallationName";
 import HeaderAccount from "./HeaderAccount";
@@ -18,6 +17,7 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
+import { Search } from "components/forms";
 
 function Header() {
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ function Header() {
             </ul>
           </Styled.DesktopNavBlock>
           <Styled.SearchBlock>
-            <GlobalSearch />
+            <Search darkTheme />
           </Styled.SearchBlock>
           <Styled.AccountBlock>
             <HeaderAccount accountNav={headerData.account} />

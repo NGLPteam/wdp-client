@@ -11,49 +11,64 @@ import type {
   ItemListFragment,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
+import {
+  ItemListSearchFragment,
+  ItemListSearchFragment$key,
+} from "@/relay/ItemListSearchFragment.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function ItemList<T extends OperationType>({
   data,
+  searchData,
   headerStyle,
   hideHeader,
 }: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
+
+  const searchResults = useMaybeFragment<ItemListSearchFragment$key>(
+    searchFragment,
+    searchData
+  );
+
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.EntityThumbnailColumn<ItemNode>(),
-    ModelColumns.NameColumn<ItemNode>({
+    ModelColumns.EntityThumbnailColumn<Node>(),
+    ModelColumns.NameColumn<Node>({
       id: "title",
       route: "item",
       accessor: "title",
       disableSortBy: false,
     }),
-    ModelColumns.ContributorsColumn<ItemNode>(),
-    ModelColumns.SchemaColumn<ItemNode>(),
-    ModelColumns.PublishedDateColumn<ItemNode>(),
+    ModelColumns.ContributorsColumn<Node>(),
+    ModelColumns.SchemaColumn<Node>(),
+    ModelColumns.PublishedDateColumn<Node>(),
   ];
 
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<ItemNode>) =>
-      drawerHelper.open("editItem", { drawerSlug: row.original.slug }),
-    handleDelete: ({ row }: ModelTableActionProps<ItemNode>) =>
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editItem", {
+        drawerSlug: row.original.entity?.slug || row.original.slug,
+      }),
+    handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.item(
-        { itemId: row.original.id },
-        row.original.title || "glossary.item"
+        { itemId: row.original.entity?.id || row.original.id },
+        row.original.entity?.title || row.original.title || "glossary.item"
       ),
-    handleView: ({ row }: ModelTableActionProps<ItemNode>) =>
-      row.original.slug ? `/items/${row.original.slug}` : null,
+    handleView: ({ row }: ModelTableActionProps<Node>) =>
+      row.original.slug
+        ? `/items/${row.original.entity?.slug || row.original.slug}`
+        : null,
   };
 
   return (
-    <ModelListPage<T, ItemListFragment, ItemNode>
+    <ModelListPage<T, ListFragment, Node>
       modelName="item"
       actions={actions}
       columns={columns}
-      data={items}
+      data={items || searchResults}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
@@ -63,10 +78,17 @@ function ItemList<T extends OperationType>({
 
 interface ItemListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: ItemListFragment$key;
+  data?: ItemListFragment$key | null;
+  searchData?: ItemListSearchFragment$key | null;
 }
 
+type ListFragment = ItemListFragment | ItemListSearchFragment;
+
 type ItemNode = ItemListFragment["nodes"][number];
+
+type ItemSearchNode = ItemListSearchFragment["nodes"][number];
+
+type Node = ItemNode & ItemSearchNode;
 
 const fragment = graphql`
   fragment ItemListFragment on ItemConnection {

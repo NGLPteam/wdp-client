@@ -31,16 +31,20 @@ function CommunityList<T extends OperationType>({
   );
 
   const columns = [
-    ModelColumns.CommunityNameColumn<CommunityNode>(),
-    ModelColumns.CreatedAtColumn<CommunityNode>(),
+    ModelColumns.CommunityNameColumn<Node>({
+      accessor: (row: Node) => row,
+    }),
+    ModelColumns.CreatedAtColumn<Node>(),
   ];
 
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<CommunityNode>) =>
-      drawerHelper.open("editCommunity", { drawerSlug: row.original.slug }),
-    handleDelete: ({ row }: ModelTableActionProps<CommunityNode>) =>
+    handleEdit: ({ row }: ModelTableActionProps<Node>) =>
+      drawerHelper.open("editCommunity", {
+        drawerSlug: row.original.slug,
+      }),
+    handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.community({ communityId: row.original.id }, row.original.name),
-    handleView: ({ row }: ModelTableActionProps<CommunityNode>) =>
+    handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug ? `/communities/${row.original.slug}` : null,
   };
 
@@ -53,7 +57,7 @@ function CommunityList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, CommunityListFragment, CommunityNode>
+    <ModelListPage<T, ListFragment, Node>
       modelName="community"
       columns={columns}
       actions={actions}
@@ -67,10 +71,14 @@ function CommunityList<T extends OperationType>({
 
 interface CommunityListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: CommunityListFragment$key;
+  data?: CommunityListFragment$key | null;
 }
 
+type ListFragment = CommunityListFragment;
+
 type CommunityNode = CommunityListFragment["edges"][number]["node"];
+
+type Node = CommunityNode;
 
 const fragment = graphql`
   fragment CommunityListFragment on CommunityConnection {

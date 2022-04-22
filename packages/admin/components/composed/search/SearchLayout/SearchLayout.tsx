@@ -5,7 +5,7 @@ import SearchResultList from "../SearchResultList";
 import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
 import { useSearchQueryVars } from "hooks";
 
-export default function SearchLayout({ data, refetch, isLoading }: Props) {
+export default function SearchLayout({ data, refetch }: Props) {
   const searchData = useMaybeFragment(fragment, data);
 
   const searchVars = useSearchQueryVars();

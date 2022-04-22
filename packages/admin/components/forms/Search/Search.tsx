@@ -1,34 +1,58 @@
-import React, { useRef } from "react";
-import get from "lodash/get";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import * as Styled from "./Search.styles";
+import { useDrawerHelper } from "hooks";
+import type { Drawers } from "hooks/useDrawerHelper";
+import { IconFactory } from "components/factories";
 
-function Search({ className, onSubmit }: Props) {
-  const inputRef = useRef<HTMLInputElement>();
+function Search({ className, filterDrawer, darkTheme }: Props) {
+  const { register, handleSubmit } = useForm();
+
+  const router = useRouter();
 
   const { t } = useTranslation();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const value = get(inputRef, "current.value", "");
-    if (onSubmit) {
-      onSubmit(value);
-    }
+  const drawerHelper = useDrawerHelper();
+
+  const onSubmit = (data: Record<string, string>) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, q: data.q },
+    });
+  };
+
+  const onClick = () => {
+    if (filterDrawer) drawerHelper.open(filterDrawer);
   };
 
   return (
-    <form className={className} onSubmit={handleSubmit}>
-      <Styled.SearchInput inputRef={inputRef} />
-      <button className="a-hidden" type="submit">
-        {t("search.submit")}
-      </button>
+    <form className={className} onSubmit={handleSubmit(onSubmit)}>
+      <Styled.SearchWrapper $darkTheme={darkTheme}>
+        <Styled.SearchIcon icon="search" className={`${className}__icon`} />
+        <Styled.SearchInput
+          placeholder={t("common.search")}
+          required
+          {...register("q")}
+        />
+        <button className="a-hidden" type="submit">
+          {t("search.submit")}
+        </button>
+        {filterDrawer && (
+          <Styled.FiltersButton type="button" onClick={onClick}>
+            <IconFactory icon="settings" title="Search Options" />
+          </Styled.FiltersButton>
+        )}
+      </Styled.SearchWrapper>
     </form>
   );
 }
 
 interface Props {
   className?: string;
-  onSubmit: (value: string) => void;
+  filterDrawer?: Drawers;
+  darkTheme?: boolean;
 }
 
 export default Search;

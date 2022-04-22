@@ -8,11 +8,12 @@ import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { NamedLink } from "components/atomic";
 import type {
   SearchResultListFragment,
   SearchResultListFragment$key,
 } from "@/relay/SearchResultListFragment.graphql";
-import { NamedLink } from "components/atomic";
+import { Search } from "components/forms";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -23,6 +24,7 @@ function SearchResultList<T extends OperationType>({
   searchQuery,
 }: SearchResultListProps) {
   const items = useMaybeFragment<SearchResultListFragment$key>(fragment, data);
+
   const drawerHelper = useDrawerHelper();
 
   const columns = [
@@ -95,13 +97,14 @@ function SearchResultList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
+      search={<Search filterDrawer="searchFilters" />}
     />
   );
 }
 
 interface SearchResultListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: SearchResultListFragment$key;
+  data?: SearchResultListFragment$key | null;
   searchQuery?: string | null;
 }
 

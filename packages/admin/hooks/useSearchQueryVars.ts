@@ -13,7 +13,7 @@ const DEFAULTS = {
 
 interface Props {
   order?: EntityOrder | null | undefined;
-  page?: number | null | undefined;
+  page: number;
   predicates?: SearchPredicateInput[] | null | undefined;
   query?: string | null | undefined;
 }
