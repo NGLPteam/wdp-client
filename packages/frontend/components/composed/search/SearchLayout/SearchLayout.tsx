@@ -114,6 +114,7 @@ const fragment = graphql`
       results(
         query: $query
         page: $page
+        perPage: 20
         predicates: $predicates
         order: $order
       ) {

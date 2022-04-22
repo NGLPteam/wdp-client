@@ -71,6 +71,11 @@ const node: ReaderFragment = {
               "variableName": "page"
             },
             {
+              "kind": "Literal",
+              "name": "perPage",
+              "value": 20
+            },
+            {
               "kind": "Variable",
               "name": "predicates",
               "variableName": "predicates"
@@ -106,5 +111,5 @@ const node: ReaderFragment = {
   "type": "Searchable",
   "abstractKey": "__isSearchable"
 };
-(node as any).hash = '164a7fa6efd7919400c79cae171d39a0';
+(node as any).hash = '7b60f88dad44e7e58f13a98150d8e867';
 export default node;
