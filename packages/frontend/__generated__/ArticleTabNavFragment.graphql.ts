@@ -6,6 +6,10 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type ArticleTabNavFragment = {
+    readonly schemaVersion: {
+        readonly identifier: string;
+        readonly name: string;
+    };
     readonly pages: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -61,6 +65,31 @@ return {
   "metadata": null,
   "name": "ArticleTabNavFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "schemaVersion",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -133,5 +162,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5e11616b7af3b312da315eea4b73f2cd';
+(node as any).hash = 'f8a618c291c677ca6f5e7998d43eb163';
 export default node;

@@ -204,7 +204,12 @@
       "previous": "Previous",
       "next": "Next",
       "next_issue": "Next $t(schema.nglp.journal_issue)",
-      "previous_issue": "Previous $t(schema.nglp.journal_issue)"
+      "previous_issue": "Previous $t(schema.nglp.journal_issue)",
+      "article": "Article",
+      "full_text": "Full Text",
+      "metadata": "Metadata",
+      "files": "Files",
+      "contributors": "Contributors"
     },
     "form": {
       "order_label": "Order:"
