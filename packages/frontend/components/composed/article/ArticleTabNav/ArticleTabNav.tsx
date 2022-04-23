@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./ArticleTabNav.styles";
 import {
   ArticleTabNavFragment$data,
@@ -15,6 +16,8 @@ type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
 export default function ArticleTabNav({ data }: Props) {
   const nav = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   const {
     query: { slug: slugQuery, page: pageQuery },
@@ -47,7 +50,7 @@ export default function ArticleTabNav({ data }: Props) {
           passHref
         >
           <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
-            {label}
+            {t(label)}
           </Styled.TabLink>
         </NamedLink>
       </Styled.Item>
@@ -57,11 +60,17 @@ export default function ArticleTabNav({ data }: Props) {
   return nav ? (
     <nav className="l-container-wide">
       <Styled.List>
-        {getLink("item", "Article")}
-        {getLink("item.metadata", "Metadata")}
-        {nav.assets?.pageInfo.totalCount > 0 && getLink("item.files", "Files")}
+        {getLink(
+          "item",
+          nav.schemaVersion?.identifier === "journal_article"
+            ? "nav.article"
+            : "nav.full_text"
+        )}
+        {getLink("item.metadata", "nav.metadata")}
+        {nav.assets?.pageInfo.totalCount > 0 &&
+          getLink("item.files", "nav.files")}
         {nav.contributions?.pageInfo.totalCount > 0 &&
-          getLink("item.contributors", "Contributors")}
+          getLink("item.contributors", "nav.contributors")}
         {/* {getLink("item.metrics", "Metrics")} */}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
@@ -79,6 +88,10 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleTabNavFragment on Item {
+    schemaVersion {
+      identifier
+      name
+    }
     pages {
       edges {
         node {
