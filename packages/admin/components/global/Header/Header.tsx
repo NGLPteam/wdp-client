@@ -45,7 +45,7 @@ function Header() {
             </ul>
           </Styled.DesktopNavBlock>
           <Styled.SearchBlock>
-            <Search darkTheme />
+            <Search routeName="search" darkTheme />
           </Styled.SearchBlock>
           <Styled.AccountBlock>
             <HeaderAccount accountNav={headerData.account} />

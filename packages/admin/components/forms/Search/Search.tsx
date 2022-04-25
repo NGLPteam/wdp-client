@@ -6,8 +6,9 @@ import * as Styled from "./Search.styles";
 import { useDrawerHelper } from "hooks";
 import type { Drawers } from "hooks/useDrawerHelper";
 import { IconFactory } from "components/factories";
+import { RouteHelper } from "routes";
 
-function Search({ className, filterDrawer, darkTheme }: Props) {
+function Search({ className, routeName, filterDrawer, darkTheme }: Props) {
   const { register, handleSubmit } = useForm();
 
   const router = useRouter();
@@ -16,9 +17,13 @@ function Search({ className, filterDrawer, darkTheme }: Props) {
 
   const drawerHelper = useDrawerHelper();
 
+  const route = routeName ? RouteHelper.findRouteByName(routeName) : null;
+
+  const defaultValue = router.query?.q || "";
+
   const onSubmit = (data: Record<string, string>) => {
     router.push({
-      pathname: router.pathname,
+      pathname: route?.path || router.pathname,
       query: { ...router.query, q: data.q },
     });
   };
@@ -33,6 +38,7 @@ function Search({ className, filterDrawer, darkTheme }: Props) {
         <Styled.SearchIcon icon="search" className={`${className}__icon`} />
         <Styled.SearchInput
           placeholder={t("common.search")}
+          defaultValue={defaultValue}
           required
           {...register("q")}
         />
@@ -51,6 +57,7 @@ function Search({ className, filterDrawer, darkTheme }: Props) {
 
 interface Props {
   className?: string;
+  routeName?: string;
   filterDrawer?: Drawers;
   darkTheme?: boolean;
 }
