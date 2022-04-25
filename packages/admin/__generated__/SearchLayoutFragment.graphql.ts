@@ -7,14 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SearchLayoutFragment = {
     readonly search: {
-        readonly results: {
-            readonly nodes: ReadonlyArray<{
-                readonly entity: {
-                    readonly id?: string | undefined;
-                };
-            }>;
-            readonly " $fragmentRefs": FragmentRefs<"SearchResultListFragment">;
-        };
+        readonly " $fragmentRefs": FragmentRefs<"SearchResultListFragment">;
     };
     readonly " $refType": "SearchLayoutFragment";
 };
@@ -68,7 +61,6 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": [
             {
               "kind": "Variable",
@@ -81,11 +73,6 @@ const node: ReaderFragment = {
               "variableName": "page"
             },
             {
-              "kind": "Literal",
-              "name": "perPage",
-              "value": 20
-            },
-            {
               "kind": "Variable",
               "name": "predicates",
               "variableName": "predicates"
@@ -96,54 +83,8 @@ const node: ReaderFragment = {
               "variableName": "query"
             }
           ],
-          "concreteType": "SearchResultConnection",
-          "kind": "LinkedField",
-          "name": "results",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "SearchResult",
-              "kind": "LinkedField",
-              "name": "nodes",
-              "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": null,
-                  "kind": "LinkedField",
-                  "name": "entity",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "kind": "InlineFragment",
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "id",
-                          "storageKey": null
-                        }
-                      ],
-                      "type": "Node",
-                      "abstractKey": "__isNode"
-                    }
-                  ],
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "SearchResultListFragment"
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "SearchResultListFragment"
         }
       ],
       "storageKey": "search(visibility:\"ALL\")"
@@ -152,5 +93,5 @@ const node: ReaderFragment = {
   "type": "Searchable",
   "abstractKey": "__isSearchable"
 };
-(node as any).hash = '01c4b7d63334c315aa81913d2db60794';
+(node as any).hash = 'cfa9c4cf27e9cdc687cd1cc12f374ff9';
 export default node;

@@ -22,7 +22,10 @@ function SearchResultList<T extends OperationType>({
   hideHeader,
   searchQuery,
 }: SearchResultListProps) {
-  const items = useMaybeFragment<SearchResultListFragment$key>(fragment, data);
+  const searchScope = useMaybeFragment<SearchResultListFragment$key>(
+    fragment,
+    data
+  );
 
   const drawerHelper = useDrawerHelper();
 
@@ -80,7 +83,7 @@ function SearchResultList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, SearchResultListFragment, Node>
+    <ModelListPage<T, SearchResultListFragment["results"], Node>
       modelName="item"
       header={
         <Trans
@@ -92,7 +95,8 @@ function SearchResultList<T extends OperationType>({
       }
       actions={actions}
       columns={columns}
-      data={items}
+      data={searchScope?.results}
+      searchData={searchScope}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
@@ -107,37 +111,52 @@ interface SearchResultListProps
   searchQuery?: string | null;
 }
 
-type Node = SearchResultListFragment["nodes"][number];
+type Node = SearchResultListFragment["results"]["nodes"][number];
 
 const fragment = graphql`
-  fragment SearchResultListFragment on SearchResultConnection {
-    nodes {
-      slug
-      entity {
-        ... on Node {
-          id
-        }
-        ... on Sluggable {
-          slug
-        }
-        ... on Entity {
-          title
-          schemaVersion {
-            name
-            number
-            kind
+  fragment SearchResultListFragment on SearchScope
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+  ) {
+    results(
+      query: $query
+      page: $page
+      predicates: $predicates
+      order: $order
+      perPage: 20
+    ) {
+      nodes {
+        slug
+        entity {
+          ... on Node {
+            id
           }
-          allowedActions
-          # eslint-disable-next-line relay/must-colocate-fragment-spreads
-          ...EntityThumbnailColumnFragment
-          ...PublishedDateColumnFragment
+          ... on Sluggable {
+            slug
+          }
+          ... on Entity {
+            title
+            schemaVersion {
+              name
+              number
+              kind
+            }
+            allowedActions
+            # eslint-disable-next-line relay/must-colocate-fragment-spreads
+            ...EntityThumbnailColumnFragment
+            ...PublishedDateColumnFragment
+          }
         }
       }
+      pageInfo {
+        totalCount
+      }
+      ...ModelListPageFragment
     }
-    pageInfo {
-      totalCount
-    }
-    ...ModelListPageFragment
+    ...ModelListPageSearchFragment
   }
 `;
 

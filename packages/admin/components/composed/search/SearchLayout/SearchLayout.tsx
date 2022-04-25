@@ -23,7 +23,7 @@ export default function SearchLayout({ data, refetch }: Props) {
     <section className="a-bg-neutral00">
       <SearchResultList
         searchQuery={searchVars.query}
-        data={searchData?.search?.results}
+        data={searchData?.search}
       />
     </section>
   );
@@ -44,22 +44,13 @@ const fragment = graphql`
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
   ) {
     search(visibility: ALL) {
-      results(
-        query: $query
-        page: $page
-        predicates: $predicates
-        order: $order
-        perPage: 20
-      ) {
-        nodes {
-          entity {
-            ... on Node {
-              id
-            }
-          }
-        }
-        ...SearchResultListFragment
-      }
+      ...SearchResultListFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+        )
     }
   }
 `;
