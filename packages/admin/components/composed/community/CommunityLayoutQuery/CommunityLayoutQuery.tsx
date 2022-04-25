@@ -29,13 +29,17 @@ function CommunityLayoutQuery<
   const communitySlug = useRouteSlug();
   if (!communitySlug) return <ErrorPage statusCode={404} />;
 
+  const hasQuery =
+    !!searchQueryVars?.query ||
+    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
+
   return (
     <QueryWrapper<Query>
       query={query}
       initialVariables={{
         ...queryVars,
         ...searchQueryVars,
-        hasQuery: !!searchQueryVars?.query,
+        hasQuery,
         communitySlug,
       }}
     >

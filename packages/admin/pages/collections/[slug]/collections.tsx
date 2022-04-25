@@ -7,7 +7,13 @@ import CollectionList from "components/composed/collection/CollectionList";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 
 function CollectionChildCollections({ data }: Props) {
-  return (
+  return data?.collection?.search ? (
+    <CollectionList<Query>
+      searchData={data?.collection?.search?.results}
+      headerStyle="secondary"
+      hideHeader
+    />
+  ) : (
     <CollectionList<Query>
       data={data?.collection?.collections}
       headerStyle="secondary"
@@ -31,12 +37,27 @@ const query = graphql`
   query collectionsManageSlugCollectionsPagesQuery(
     $order: EntityOrder
     $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $query: String
+    $hasQuery: Boolean!
     $collectionSlug: Slug!
   ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
+      }
+      search @include(if: $hasQuery) {
+        results(
+          query: $query
+          page: $page
+          perPage: 20
+          predicates: $predicates
+          order: $order
+          scope: COLLECTION
+        ) {
+          ...CollectionListSearchFragment
+        }
       }
     }
   }

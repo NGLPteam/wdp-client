@@ -39,7 +39,6 @@ function Search({ className, routeName, filterDrawer, darkTheme }: Props) {
         <Styled.SearchInput
           placeholder={t("common.search")}
           defaultValue={defaultValue}
-          required
           {...register("q")}
         />
         <button className="a-hidden" type="submit">

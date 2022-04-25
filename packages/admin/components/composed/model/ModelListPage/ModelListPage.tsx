@@ -14,6 +14,7 @@ import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { QueryVariablesContext } from "contexts";
 import { PageHeader } from "components/layout";
+import Search from "components/forms/Search";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
 import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
@@ -31,7 +32,7 @@ type ModelListPageProps<
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: ReactNode;
     header?: ReactNode;
-    search?: ReactNode;
+    showSearch?: boolean;
   };
 
 function ModelListPage<
@@ -45,7 +46,7 @@ function ModelListPage<
   headerStyle,
   hideHeader,
   header,
-  search,
+  showSearch,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
   const { t } = useTranslation();
@@ -81,7 +82,7 @@ function ModelListPage<
         selectedView={selectedView}
         setView={setView}
         listId={listId}
-        search={search}
+        search={showSearch && <Search filterDrawer="searchFilters" />}
       />
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (

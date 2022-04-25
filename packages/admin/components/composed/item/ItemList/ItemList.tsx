@@ -35,16 +35,25 @@ function ItemList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
 
   const columns = [
-    ModelColumns.EntityThumbnailColumn<Node>(),
+    ModelColumns.EntityThumbnailColumn<Node>({
+      accessor: (row: Node) => row.entity || row,
+    }),
     ModelColumns.NameColumn<Node>({
       id: "title",
       route: "item",
-      accessor: "title",
+      accessor: (row: Node) => row.entity?.title || row.title,
       disableSortBy: false,
     }),
-    ModelColumns.ContributorsColumn<Node>(),
-    ModelColumns.SchemaColumn<Node>(),
-    ModelColumns.PublishedDateColumn<Node>(),
+    ModelColumns.ContributorsColumn<Node>({
+      accessor: (row: Node) => row.entity || row,
+    }),
+    ModelColumns.SchemaColumn<Node>({
+      accessor: (row: Node) =>
+        row.entity?.schemaVersion?.name || row.schemaVersion?.name,
+    }),
+    ModelColumns.PublishedDateColumn<Node>({
+      accessor: (row: Node) => row.entity || row,
+    }),
   ];
 
   const actions = {
@@ -72,6 +81,7 @@ function ItemList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
+      showSearch
     />
   );
 }

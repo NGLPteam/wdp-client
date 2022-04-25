@@ -11,7 +11,8 @@ export default function CollectionListView() {
 
   const searchQueryVars = useSearchQueryVars();
 
-  return searchQueryVars.query ? (
+  return searchQueryVars.query ||
+    (searchQueryVars.predicates && searchQueryVars.predicates.length > 0) ? (
     <QueryWrapper<SearchQuery>
       query={searchQuery}
       initialVariables={searchQueryVars}
@@ -52,6 +53,7 @@ const searchQuery = graphql`
         perPage: 20
         predicates: $predicates
         order: $order
+        scope: COLLECTION
       ) {
         ...CollectionListSearchFragment
       }

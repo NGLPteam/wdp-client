@@ -45011,6 +45011,18 @@
             "description": "The results of a search. Either `query` or `predicates` should be provided,\notherwise it will return as if everything matches.\n",
             "args": [
               {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "schema",
                 "description": "Filter by a namespace.name schema identifier",
                 "type": {

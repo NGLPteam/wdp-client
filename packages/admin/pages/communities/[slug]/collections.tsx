@@ -53,6 +53,7 @@ const query = graphql`
           perPage: 20
           predicates: $predicates
           order: $order
+          scope: COLLECTION
         ) {
           ...CollectionListSearchFragment
         }

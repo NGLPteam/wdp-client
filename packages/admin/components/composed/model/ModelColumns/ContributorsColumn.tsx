@@ -1,4 +1,4 @@
-import { Column } from "react-table";
+import { CellProps, Column, Row } from "react-table";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { UpdatableNode, PartialColumnish } from "./types";
@@ -55,9 +55,10 @@ const ContributorsColumn = <
     Header: <>{t("lists.contributors_column")}</>,
     id: "contributions",
     disableSortBy: true,
-    accessor: (originalRow: NodeType) => {
-      return <ContributorsColumnCell data={originalRow} />;
-    },
+    accessor: (originalRow: NodeType | Row) => originalRow,
+    Cell: ({ value }: CellProps<NodeType>) => (
+      <ContributorsColumnCell data={value} />
+    ),
     ...props,
   };
 };

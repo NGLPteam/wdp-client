@@ -96,6 +96,7 @@ function CollectionList<T extends OperationType>({
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
       buttons={buttons}
+      showSearch
     />
   );
 }

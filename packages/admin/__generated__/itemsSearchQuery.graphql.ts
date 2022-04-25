@@ -58,74 +58,71 @@ export type NumericLTEOperatorInput = {
     path: string;
     value: number;
 };
-export type collectionsSearchQueryVariables = {
+export type itemsSearchQueryVariables = {
     query?: string | null | undefined;
     page: number;
     predicates?: Array<SearchPredicateInput> | null | undefined;
     order?: EntityOrder | null | undefined;
 };
-export type collectionsSearchQueryResponse = {
+export type itemsSearchQueryResponse = {
     readonly search: {
         readonly results: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionListSearchFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"ItemListSearchFragment">;
         };
     };
 };
-export type collectionsSearchQuery = {
-    readonly response: collectionsSearchQueryResponse;
-    readonly variables: collectionsSearchQueryVariables;
+export type itemsSearchQuery = {
+    readonly response: itemsSearchQueryResponse;
+    readonly variables: itemsSearchQueryVariables;
 };
 
 
 
 /*
-query collectionsSearchQuery(
+query itemsSearchQuery(
   $query: String
   $page: Int!
   $predicates: [SearchPredicateInput!]
   $order: EntityOrder
 ) {
   search {
-    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, scope: COLLECTION) {
-      ...CollectionListSearchFragment
+    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, scope: ITEM) {
+      ...ItemListSearchFragment
     }
   }
 }
 
-fragment CollectionListSearchFragment on SearchResultConnection {
-  nodes {
+fragment ContributorsColumnFragment on AnyEntity {
+  __isAnyEntity: __typename
+  ... on Item {
     slug
-    entity {
-      __typename
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-      ... on Entity {
-        __isEntity: __typename
-        title
-        schemaVersion {
-          name
-          number
+    contributions(page: 1, perPage: 1) {
+      edges {
+        node {
+          contributor {
+            __typename
+            ... on OrganizationContributor {
+              slug
+              legalName
+            }
+            ... on PersonContributor {
+              slug
+              givenName
+              familyName
+            }
+            ... on Node {
+              __isNode: __typename
+              id
+            }
+          }
           id
         }
-        allowedActions
-        ...PublishedDateColumnFragment
-        ...EntityThumbnailColumnFragment
       }
-      ... on Collection {
-        createdAt
-      }
-      ... on Item {
-        createdAt
+      pageInfo {
+        totalCount
       }
     }
   }
-  ...ModelListPageFragment
 }
 
 fragment CoverImageFragment on ImageAttachment {
@@ -161,6 +158,44 @@ fragment ImageFragment on Image {
   url
   width
   height
+}
+
+fragment ItemListSearchFragment on SearchResultConnection {
+  nodes {
+    slug
+    entity {
+      __typename
+      ... on Node {
+        __isNode: __typename
+        id
+      }
+      ... on Sluggable {
+        __isSluggable: __typename
+        slug
+      }
+      ... on Entity {
+        __isEntity: __typename
+        title
+        schemaVersion {
+          name
+          number
+          id
+        }
+        allowedActions
+        ...ContributorsColumnFragment
+        ...EntityThumbnailColumnFragment
+        ...PublishedDateColumnFragment
+      }
+      ... on Item {
+        items {
+          pageInfo {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+  ...ModelListPageFragment
 }
 
 fragment ModelListPageFragment on Paginated {
@@ -252,7 +287,7 @@ v4 = [
   {
     "kind": "Literal",
     "name": "scope",
-    "value": "COLLECTION"
+    "value": "ITEM"
   }
 ],
 v5 = {
@@ -266,18 +301,43 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v7 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "createdAt",
-    "storageKey": null
-  }
-];
+v8 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v7/*: any*/)
+  ],
+  "type": "Node",
+  "abstractKey": "__isNode"
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    (v9/*: any*/)
+  ],
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -288,7 +348,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "collectionsSearchQuery",
+    "name": "itemsSearchQuery",
     "selections": [
       {
         "alias": null,
@@ -309,7 +369,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "CollectionListSearchFragment"
+                "name": "ItemListSearchFragment"
               }
             ],
             "storageKey": null
@@ -330,7 +390,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "collectionsSearchQuery",
+    "name": "itemsSearchQuery",
     "selections": [
       {
         "alias": null,
@@ -365,13 +425,8 @@ return {
                     "name": "entity",
                     "plural": false,
                     "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "__typename",
-                        "storageKey": null
-                      },
+                      (v6/*: any*/),
+                      (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -379,14 +434,6 @@ return {
                         ],
                         "type": "Sluggable",
                         "abstractKey": "__isSluggable"
-                      },
-                      {
-                        "kind": "InlineFragment",
-                        "selections": [
-                          (v6/*: any*/)
-                        ],
-                        "type": "Node",
-                        "abstractKey": "__isNode"
                       },
                       {
                         "kind": "InlineFragment",
@@ -420,7 +467,7 @@ return {
                                 "name": "number",
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           },
@@ -510,6 +557,117 @@ return {
                             "kind": "InlineFragment",
                             "selections": [
                               {
+                                "kind": "InlineFragment",
+                                "selections": [
+                                  (v5/*: any*/),
+                                  {
+                                    "alias": null,
+                                    "args": [
+                                      {
+                                        "kind": "Literal",
+                                        "name": "page",
+                                        "value": 1
+                                      },
+                                      {
+                                        "kind": "Literal",
+                                        "name": "perPage",
+                                        "value": 1
+                                      }
+                                    ],
+                                    "concreteType": "ItemContributionConnection",
+                                    "kind": "LinkedField",
+                                    "name": "contributions",
+                                    "plural": false,
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "concreteType": "ItemContributionEdge",
+                                        "kind": "LinkedField",
+                                        "name": "edges",
+                                        "plural": true,
+                                        "selections": [
+                                          {
+                                            "alias": null,
+                                            "args": null,
+                                            "concreteType": "ItemContribution",
+                                            "kind": "LinkedField",
+                                            "name": "node",
+                                            "plural": false,
+                                            "selections": [
+                                              {
+                                                "alias": null,
+                                                "args": null,
+                                                "concreteType": null,
+                                                "kind": "LinkedField",
+                                                "name": "contributor",
+                                                "plural": false,
+                                                "selections": [
+                                                  (v6/*: any*/),
+                                                  {
+                                                    "kind": "InlineFragment",
+                                                    "selections": [
+                                                      (v5/*: any*/),
+                                                      {
+                                                        "alias": null,
+                                                        "args": null,
+                                                        "kind": "ScalarField",
+                                                        "name": "legalName",
+                                                        "storageKey": null
+                                                      }
+                                                    ],
+                                                    "type": "OrganizationContributor",
+                                                    "abstractKey": null
+                                                  },
+                                                  {
+                                                    "kind": "InlineFragment",
+                                                    "selections": [
+                                                      (v5/*: any*/),
+                                                      {
+                                                        "alias": null,
+                                                        "args": null,
+                                                        "kind": "ScalarField",
+                                                        "name": "givenName",
+                                                        "storageKey": null
+                                                      },
+                                                      {
+                                                        "alias": null,
+                                                        "args": null,
+                                                        "kind": "ScalarField",
+                                                        "name": "familyName",
+                                                        "storageKey": null
+                                                      }
+                                                    ],
+                                                    "type": "PersonContributor",
+                                                    "abstractKey": null
+                                                  },
+                                                  (v8/*: any*/)
+                                                ],
+                                                "storageKey": null
+                                              },
+                                              (v7/*: any*/)
+                                            ],
+                                            "storageKey": null
+                                          }
+                                        ],
+                                        "storageKey": null
+                                      },
+                                      (v10/*: any*/)
+                                    ],
+                                    "storageKey": "contributions(page:1,perPage:1)"
+                                  }
+                                ],
+                                "type": "Item",
+                                "abstractKey": null
+                              }
+                            ],
+                            "type": "AnyEntity",
+                            "abstractKey": "__isAnyEntity"
+                          },
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
+                              {
                                 "alias": null,
                                 "args": null,
                                 "concreteType": "VariablePrecisionDate",
@@ -544,13 +702,20 @@ return {
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v7/*: any*/),
-                        "type": "Collection",
-                        "abstractKey": null
-                      },
-                      {
-                        "kind": "InlineFragment",
-                        "selections": (v7/*: any*/),
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ItemConnection",
+                            "kind": "LinkedField",
+                            "name": "items",
+                            "plural": false,
+                            "selections": [
+                              (v10/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
                         "type": "Item",
                         "abstractKey": null
                       }
@@ -606,13 +771,7 @@ return {
                         "name": "hasPreviousPage",
                         "storageKey": null
                       },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "totalCount",
-                        "storageKey": null
-                      }
+                      (v9/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -629,14 +788,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e59da5948c112e4bb0a44baf04b5e8ca",
+    "cacheID": "1ffa3fe089758888c638763e847911b5",
     "id": null,
     "metadata": {},
-    "name": "collectionsSearchQuery",
+    "name": "itemsSearchQuery",
     "operationKind": "query",
-    "text": "query collectionsSearchQuery(\n  $query: String\n  $page: Int!\n  $predicates: [SearchPredicateInput!]\n  $order: EntityOrder\n) {\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, scope: COLLECTION) {\n      ...CollectionListSearchFragment\n    }\n  }\n}\n\nfragment CollectionListSearchFragment on SearchResultConnection {\n  nodes {\n    slug\n    entity {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n        schemaVersion {\n          name\n          number\n          id\n        }\n        allowedActions\n        ...PublishedDateColumnFragment\n        ...EntityThumbnailColumnFragment\n      }\n      ... on Collection {\n        createdAt\n      }\n      ... on Item {\n        createdAt\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {\n  __isReferencesGlobalEntityDates: __typename\n  published {\n    ...PrecisionDateFragment\n  }\n}\n"
+    "text": "query itemsSearchQuery(\n  $query: String\n  $page: Int!\n  $predicates: [SearchPredicateInput!]\n  $order: EntityOrder\n) {\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, scope: ITEM) {\n      ...ItemListSearchFragment\n    }\n  }\n}\n\nfragment ContributorsColumnFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    contributions(page: 1, perPage: 1) {\n      edges {\n        node {\n          contributor {\n            __typename\n            ... on OrganizationContributor {\n              slug\n              legalName\n            }\n            ... on PersonContributor {\n              slug\n              givenName\n              familyName\n            }\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemListSearchFragment on SearchResultConnection {\n  nodes {\n    slug\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n        schemaVersion {\n          name\n          number\n          id\n        }\n        allowedActions\n        ...ContributorsColumnFragment\n        ...EntityThumbnailColumnFragment\n        ...PublishedDateColumnFragment\n      }\n      ... on Item {\n        items {\n          pageInfo {\n            totalCount\n          }\n        }\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {\n  __isReferencesGlobalEntityDates: __typename\n  published {\n    ...PrecisionDateFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '8206b7497d1ace9330616aa222703bd6';
+(node as any).hash = '07a364a7bd34d6739e85444e70806404';
 export default node;

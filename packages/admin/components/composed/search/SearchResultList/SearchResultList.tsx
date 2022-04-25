@@ -13,7 +13,6 @@ import type {
   SearchResultListFragment,
   SearchResultListFragment$key,
 } from "@/relay/SearchResultListFragment.graphql";
-import { Search } from "components/forms";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -97,7 +96,7 @@ function SearchResultList<T extends OperationType>({
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
-      search={<Search filterDrawer="searchFilters" />}
+      showSearch
     />
   );
 }

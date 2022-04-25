@@ -8091,6 +8091,7 @@ type SearchScope {
   
   """
   results(
+    scope: EntityDescendantScopeFilter = ALL
     """Filter by a namespace.name schema identifier"""
     schema: [String!]
     order: EntityOrder = PUBLISHED_DESCENDING

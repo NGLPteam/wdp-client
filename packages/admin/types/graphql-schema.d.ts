@@ -7520,6 +7520,7 @@ export type SearchScope = {
 
 
 export type SearchScopeResultsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
   schema?: Maybe<Array<Scalars['String']>>;
   order?: Maybe<EntityOrder>;
   predicates?: Maybe<Array<SearchPredicateInput>>;
@@ -12565,7 +12566,7 @@ export type SearchScopeResolvers<ContextType = any, ParentType extends Resolvers
   availableSchemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   coreProperties?: Resolver<Array<ResolversTypes['SearchableCoreProperty']>, ParentType, ContextType>;
   originType?: Resolver<ResolversTypes['SearchOriginType'], ParentType, ContextType>;
-  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'order' | 'predicates' | 'pageDirection'>>;
+  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'scope' | 'order' | 'predicates' | 'pageDirection'>>;
   visibility?: Resolver<ResolversTypes['EntityVisibilityFilter'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
