@@ -4,7 +4,12 @@ import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
-import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useSearchQueryVars,
+} from "hooks";
 import {
   CollectionListFragment,
   CollectionListFragment$key,
@@ -35,10 +40,12 @@ function CollectionList<T extends OperationType>({
     data
   );
 
-  const searchResults = useMaybeFragment<CollectionListSearchFragment$key>(
+  const searchScope = useMaybeFragment<CollectionListSearchFragment$key>(
     searchFragment,
     searchData
   );
+
+  const searchQuery = useSearchQueryVars();
 
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
@@ -91,7 +98,13 @@ function CollectionList<T extends OperationType>({
       modelName="collection"
       columns={columns}
       actions={actions}
-      data={collections || searchResults}
+      data={
+        searchQuery.query ||
+        (searchQuery.predicates && searchQuery.predicates.length > 0)
+          ? searchScope?.results
+          : collections
+      }
+      searchData={searchScope}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
@@ -107,11 +120,15 @@ interface CollectionListProps
   searchData?: CollectionListSearchFragment$key | null;
 }
 
-type ListFragment = CollectionListFragment | CollectionListSearchFragment;
+type ListFragment =
+  | CollectionListFragment
+  | NonNullable<CollectionListSearchFragment["results"]>;
 
 type CollectionNode = CollectionListFragment["nodes"][number];
 
-type CollectionSearchNode = CollectionListSearchFragment["nodes"][number];
+type CollectionSearchNode = NonNullable<
+  CollectionListSearchFragment["results"]
+>["nodes"][number];
 
 type Node = CollectionNode & CollectionSearchNode;
 
@@ -135,37 +152,54 @@ const fragment = graphql`
 `;
 
 const searchFragment = graphql`
-  fragment CollectionListSearchFragment on SearchResultConnection {
-    nodes {
-      slug
-      entity {
-        ... on Sluggable {
-          slug
-        }
-        ... on Node {
-          id
-        }
-        ... on Entity {
-          title
-          schemaVersion {
-            name
-            number
+  fragment CollectionListSearchFragment on SearchScope
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    hasQuery: { type: "Boolean!" }
+  ) {
+    results(
+      query: $query
+      page: $page
+      perPage: 20
+      predicates: $predicates
+      order: $order
+      scope: COLLECTION
+    ) @include(if: $hasQuery) {
+      nodes {
+        slug
+        entity {
+          ... on Sluggable {
+            slug
+          }
+          ... on Node {
+            id
+          }
+          ... on Entity {
+            title
+            schemaVersion {
+              name
+              number
+            }
+          }
+          ... on Collection {
+            createdAt
+          }
+          ... on Item {
+            createdAt
+          }
+          ... on Entity {
+            allowedActions
+            ...PublishedDateColumnFragment
+            ...EntityThumbnailColumnFragment
           }
         }
-        ... on Collection {
-          createdAt
-        }
-        ... on Item {
-          createdAt
-        }
-        ... on Entity {
-          allowedActions
-          ...PublishedDateColumnFragment
-          ...EntityThumbnailColumnFragment
-        }
       }
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
+    ...ModelListPageSearchFragment
   }
 `;
 

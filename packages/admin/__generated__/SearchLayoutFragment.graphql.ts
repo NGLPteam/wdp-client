@@ -55,7 +55,13 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "visibility",
+          "value": "ALL"
+        }
+      ],
       "concreteType": "SearchScope",
       "kind": "LinkedField",
       "name": "search",
@@ -140,11 +146,11 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "search(visibility:\"ALL\")"
     }
   ],
   "type": "Searchable",
   "abstractKey": "__isSearchable"
 };
-(node as any).hash = '5129bbc1f673fd6c4d8c0ab9730f59af';
+(node as any).hash = '01c4b7d63334c315aa81913d2db60794';
 export default node;

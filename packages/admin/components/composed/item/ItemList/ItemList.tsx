@@ -2,7 +2,12 @@ import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
-import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
+import {
+  useMaybeFragment,
+  useDestroyer,
+  useDrawerHelper,
+  useSearchQueryVars,
+} from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -26,13 +31,16 @@ function ItemList<T extends OperationType>({
 }: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
 
-  const searchResults = useMaybeFragment<ItemListSearchFragment$key>(
+  const searchScope = useMaybeFragment<ItemListSearchFragment$key>(
     searchFragment,
     searchData
   );
 
   const destroy = useDestroyer();
+
   const drawerHelper = useDrawerHelper();
+
+  const searchQuery = useSearchQueryVars();
 
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
@@ -77,7 +85,13 @@ function ItemList<T extends OperationType>({
       modelName="item"
       actions={actions}
       columns={columns}
-      data={items || searchResults}
+      data={
+        searchQuery.query ||
+        (searchQuery.predicates && searchQuery.predicates.length > 0)
+          ? searchScope?.results
+          : items
+      }
+      searchData={searchScope}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
@@ -92,11 +106,15 @@ interface ItemListProps
   searchData?: ItemListSearchFragment$key | null;
 }
 
-type ListFragment = ItemListFragment | ItemListSearchFragment;
+type ListFragment =
+  | ItemListFragment
+  | NonNullable<ItemListSearchFragment["results"]>;
 
 type ItemNode = ItemListFragment["nodes"][number];
 
-type ItemSearchNode = ItemListSearchFragment["nodes"][number];
+type ItemSearchNode = NonNullable<
+  ItemListSearchFragment["results"]
+>["nodes"][number];
 
 type Node = ItemNode & ItemSearchNode;
 
@@ -126,38 +144,55 @@ const fragment = graphql`
 `;
 
 const searchFragment = graphql`
-  fragment ItemListSearchFragment on SearchResultConnection {
-    nodes {
-      slug
-      entity {
-        ... on Node {
-          id
-        }
-        ... on Sluggable {
-          slug
-        }
-        ... on Entity {
-          title
-          schemaVersion {
-            name
-            number
+  fragment ItemListSearchFragment on SearchScope
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    hasQuery: { type: "Boolean!" }
+  ) {
+    results(
+      query: $query
+      page: $page
+      perPage: 20
+      predicates: $predicates
+      order: $order
+      scope: ITEM
+    ) @include(if: $hasQuery) {
+      nodes {
+        slug
+        entity {
+          ... on Node {
+            id
           }
-          allowedActions
-          # eslint-disable-next-line relay/must-colocate-fragment-spreads
-          ...ContributorsColumnFragment
-          ...EntityThumbnailColumnFragment
-          ...PublishedDateColumnFragment
-        }
-        ... on Item {
-          items {
-            pageInfo {
-              totalCount
+          ... on Sluggable {
+            slug
+          }
+          ... on Entity {
+            title
+            schemaVersion {
+              name
+              number
+            }
+            allowedActions
+            # eslint-disable-next-line relay/must-colocate-fragment-spreads
+            ...ContributorsColumnFragment
+            ...EntityThumbnailColumnFragment
+            ...PublishedDateColumnFragment
+          }
+          ... on Item {
+            items {
+              pageInfo {
+                totalCount
+              }
             }
           }
         }
       }
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
+    ...ModelListPageSearchFragment
   }
 `;
 

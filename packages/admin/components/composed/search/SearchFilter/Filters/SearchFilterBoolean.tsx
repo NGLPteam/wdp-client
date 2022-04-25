@@ -1,8 +1,8 @@
 import { graphql, useFragment } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import { Checkbox } from "components/forms";
-import { SearchFilterBooleanFragment$key } from "@/relay/SearchFilterBooleanFragment.graphql";
 import BaseInputWrapper from "components/forms/BaseInputWrapper";
+import { SearchFilterBooleanFragment$key } from "@/relay/SearchFilterBooleanFragment.graphql";
 
 export default function SearchFilterBoolean({ data }: Props) {
   const filter = useFragment(fragment, data);

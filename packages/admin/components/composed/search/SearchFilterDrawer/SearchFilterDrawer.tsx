@@ -1,40 +1,38 @@
-import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
 import type { DialogProps } from "reakit/Dialog";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import SearchFilterForm from "../SearchFilterForm";
 import { Drawer } from "components/layout";
-import { SearchFilterDrawerQuery as Query } from "@/relay/SearchFilterDrawerQuery.graphql";
+import { SearchFilterDrawerFragment$key } from "@/relay/SearchFilterDrawerFragment.graphql";
 
-export default function SearchFilterDrawer({
-  dialog,
-}: {
+interface Props {
   dialog: DialogProps;
-  params: Record<string, string>;
-}) {
+  data?: SearchFilterDrawerFragment$key | null;
+}
+
+export default function SearchFilterDrawer({ dialog, data }: Props) {
+  const searchScope = useMaybeFragment(fragment, data);
+
   return (
-    <QueryWrapper<Query> query={query}>
-      {({ data }) => (
-        <Drawer
-          label={"Filtering"}
-          header={"Search Options"}
-          dialog={dialog}
-          hideOnClickOutside={false}
-        >
-          <SearchFilterForm
-            data={data?.search}
-            onSuccess={dialog.hide}
-            onCancel={dialog.hide}
-          />
-        </Drawer>
+    <Drawer
+      label={"Filtering"}
+      header={"Search Options"}
+      dialog={dialog}
+      hideOnClickOutside={false}
+    >
+      {searchScope && (
+        <SearchFilterForm
+          data={searchScope}
+          onSuccess={dialog.hide}
+          onCancel={dialog.hide}
+        />
       )}
-    </QueryWrapper>
+    </Drawer>
   );
 }
 
-const query = graphql`
-  query SearchFilterDrawerQuery {
-    search {
-      ...SearchFilterFormFragment
-    }
+const fragment = graphql`
+  fragment SearchFilterDrawerFragment on SearchScope {
+    ...SearchFilterFormFragment
   }
 `;

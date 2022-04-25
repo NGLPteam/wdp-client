@@ -7,14 +7,9 @@ import CollectionLayoutQuery from "components/composed/collection/CollectionLayo
 import ItemList from "components/composed/item/ItemList";
 
 function CollectionChildItems({ data }: Props) {
-  return data?.collection?.search ? (
+  return (
     <ItemList<Query>
-      searchData={data?.collection?.search?.results}
-      headerStyle="secondary"
-      hideHeader
-    />
-  ) : (
-    <ItemList<Query>
+      searchData={data?.collection?.search}
       data={data?.collection?.items}
       headerStyle="secondary"
       hideHeader
@@ -47,17 +42,15 @@ const query = graphql`
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }
-      search @include(if: $hasQuery) {
-        results(
-          query: $query
-          page: $page
-          perPage: 20
-          predicates: $predicates
-          order: $order
-          scope: ITEM
-        ) {
-          ...ItemListSearchFragment
-        }
+      search(visibility: ALL) {
+        ...ItemListSearchFragment
+          @arguments(
+            query: $query
+            page: $page
+            predicates: $predicates
+            order: $order
+            hasQuery: $hasQuery
+          )
       }
     }
   }

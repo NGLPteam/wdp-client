@@ -43,7 +43,7 @@ const fragment = graphql`
     page: { type: "Int", defaultValue: 1 }
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
   ) {
-    search {
+    search(visibility: ALL) {
       results(
         query: $query
         page: $page

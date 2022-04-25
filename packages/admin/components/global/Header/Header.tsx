@@ -17,7 +17,7 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
-import { Search } from "components/forms";
+import Search from "components/composed/search/Search";
 
 function Header() {
   const { t } = useTranslation();

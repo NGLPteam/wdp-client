@@ -3,7 +3,6 @@ import { tLabel } from "theme/mixins/typography";
 import { pxToRem } from "theme/mixins/functions";
 import { aBgDark, aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
-
 import { noInsetSupport } from "theme/mixins/base";
 import { IconFactory } from "components/factories";
 

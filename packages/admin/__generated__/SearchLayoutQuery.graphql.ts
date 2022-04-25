@@ -159,7 +159,7 @@ fragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {
 
 fragment SearchLayoutFragment_2QNE8l on Searchable {
   __isSearchable: __typename
-  search {
+  search(visibility: ALL) {
     results(query: $query, page: $page, predicates: $predicates, order: $order, perPage: 20) {
       nodes {
         entity {
@@ -303,7 +303,13 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": null,
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "visibility",
+                "value": "ALL"
+              }
+            ],
             "concreteType": "SearchScope",
             "kind": "LinkedField",
             "name": "search",
@@ -609,7 +615,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": null
+            "storageKey": "search(visibility:\"ALL\")"
           }
         ],
         "type": "Searchable",
@@ -618,12 +624,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dc77fc7bd981c8a44fdd1b1ca3ccfc54",
+    "cacheID": "1e47b6939002f218688d42808c0830bd",
     "id": null,
     "metadata": {},
     "name": "SearchLayoutQuery",
     "operationKind": "query",
-    "text": "query SearchLayoutQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n) {\n  ...SearchLayoutQueryFragment_2QNE8l\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {\n  __isReferencesGlobalEntityDates: __typename\n  published {\n    ...PrecisionDateFragment\n  }\n}\n\nfragment SearchLayoutFragment_2QNE8l on Searchable {\n  __isSearchable: __typename\n  search {\n    results(query: $query, page: $page, predicates: $predicates, order: $order, perPage: 20) {\n      nodes {\n        entity {\n          __typename\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n      ...SearchResultListFragment\n    }\n  }\n}\n\nfragment SearchLayoutQueryFragment_2QNE8l on Query {\n  ...SearchLayoutFragment_2QNE8l\n}\n\nfragment SearchResultListFragment on SearchResultConnection {\n  nodes {\n    slug\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n        schemaVersion {\n          name\n          number\n          kind\n          id\n        }\n        allowedActions\n        ...EntityThumbnailColumnFragment\n        ...PublishedDateColumnFragment\n      }\n    }\n  }\n  pageInfo {\n    totalCount\n  }\n  ...ModelListPageFragment\n}\n"
+    "text": "query SearchLayoutQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n) {\n  ...SearchLayoutQueryFragment_2QNE8l\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {\n  __isReferencesGlobalEntityDates: __typename\n  published {\n    ...PrecisionDateFragment\n  }\n}\n\nfragment SearchLayoutFragment_2QNE8l on Searchable {\n  __isSearchable: __typename\n  search(visibility: ALL) {\n    results(query: $query, page: $page, predicates: $predicates, order: $order, perPage: 20) {\n      nodes {\n        entity {\n          __typename\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n      ...SearchResultListFragment\n    }\n  }\n}\n\nfragment SearchLayoutQueryFragment_2QNE8l on Query {\n  ...SearchLayoutFragment_2QNE8l\n}\n\nfragment SearchResultListFragment on SearchResultConnection {\n  nodes {\n    slug\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n        schemaVersion {\n          name\n          number\n          kind\n          id\n        }\n        allowedActions\n        ...EntityThumbnailColumnFragment\n        ...PublishedDateColumnFragment\n      }\n    }\n  }\n  pageInfo {\n    totalCount\n  }\n  ...ModelListPageFragment\n}\n"
   }
 };
 })();

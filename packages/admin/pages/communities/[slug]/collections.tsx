@@ -6,15 +6,10 @@ import CollectionList from "components/composed/collection/CollectionList";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 
 function CommunityChildCollections({ data }: Props) {
-  return data?.community?.search ? (
-    <CollectionList<Query>
-      searchData={data?.community?.search?.results}
-      headerStyle="secondary"
-      hideHeader
-    />
-  ) : (
+  return (
     <CollectionList<Query>
       data={data?.community?.collections}
+      searchData={data?.community?.search}
       headerStyle="secondary"
       hideHeader
     />
@@ -46,17 +41,15 @@ const query = graphql`
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }
-      search @include(if: $hasQuery) {
-        results(
-          query: $query
-          page: $page
-          perPage: 20
-          predicates: $predicates
-          order: $order
-          scope: COLLECTION
-        ) {
-          ...CollectionListSearchFragment
-        }
+      search(visibility: ALL) {
+        ...CollectionListSearchFragment
+          @arguments(
+            query: $query
+            page: $page
+            predicates: $predicates
+            order: $order
+            hasQuery: $hasQuery
+          )
       }
     }
   }

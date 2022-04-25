@@ -3,60 +3,53 @@ import { graphql } from "react-relay";
 import CollectionList from "components/composed/collection/CollectionList";
 import { QueryWrapper } from "components/api";
 import { collectionsQuery as Query } from "__generated__/collectionsQuery.graphql";
-import { collectionsSearchQuery as SearchQuery } from "__generated__/collectionsSearchQuery.graphql";
-import { useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { useSearchQueryVars } from "hooks";
 
 export default function CollectionListView() {
-  const queryVars = useBaseListQueryVars();
-
   const searchQueryVars = useSearchQueryVars();
 
-  return searchQueryVars.query ||
-    (searchQueryVars.predicates && searchQueryVars.predicates.length > 0) ? (
-    <QueryWrapper<SearchQuery>
-      query={searchQuery}
-      initialVariables={searchQueryVars}
-      refetchTags={["search"]}
+  const hasQuery =
+    !!searchQueryVars?.query ||
+    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
+
+  return (
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ ...searchQueryVars, hasQuery }}
+      refetchTags={["collections"]}
     >
       {({ data }) => (
-        <CollectionList<SearchQuery> searchData={data?.search?.results} />
+        <CollectionList<Query>
+          data={data?.viewer?.collections}
+          searchData={data?.search}
+        />
       )}
-    </QueryWrapper>
-  ) : (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => <CollectionList<Query> data={data?.viewer?.collections} />}
     </QueryWrapper>
   );
 }
 
 const query = graphql`
-  query collectionsQuery($order: EntityOrder, $page: Int!) {
+  query collectionsQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $hasQuery: Boolean!
+  ) {
     viewer {
       collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }
     }
-  }
-`;
-
-const searchQuery = graphql`
-  query collectionsSearchQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-  ) {
-    search {
-      results(
-        query: $query
-        page: $page
-        perPage: 20
-        predicates: $predicates
-        order: $order
-        scope: COLLECTION
-      ) {
-        ...CollectionListSearchFragment
-      }
+    search(visibility: ALL) {
+      ...CollectionListSearchFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+          hasQuery: $hasQuery
+        )
     }
   }
 `;

@@ -15,7 +15,7 @@ import {
   SearchFilterFormFragment$key,
 } from "@/relay/SearchFilterFormFragment.graphql";
 
-export default function SearchFilterForm({ data, onCancel }: Props) {
+export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
   const searchData = useMaybeFragment(fragment, data);
 
   const router = useRouter();
@@ -32,6 +32,8 @@ export default function SearchFilterForm({ data, onCancel }: Props) {
     const cleanedQuery = omitBy(router.query, (value, key) => {
       return key && typeof key === "string" && key.startsWith("drawer");
     });
+
+    if (onSuccess) onSuccess();
 
     router.push(
       {
