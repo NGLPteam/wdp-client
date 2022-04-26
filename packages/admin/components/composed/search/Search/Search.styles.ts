@@ -5,6 +5,7 @@ import { aBgDark, aBgLight } from "theme/mixins/appearance";
 import { encodedIconClose } from "components/svgs/icons/Close";
 import { noInsetSupport } from "theme/mixins/base";
 import { IconFactory } from "components/factories";
+import { colors } from "theme/base/variables";
 
 export const SearchWrapper = styled.div<{ $darkTheme?: boolean }>`
   --search-top-padding: ${pxToRem(7)};
@@ -48,7 +49,7 @@ export const SearchInput = styled.input`
     width: 20px;
     border-radius: 10px;
     background: url(${encodedIconClose({
-        fill: "#D1E7F0",
+        fill: colors.brand[90],
       })})
       center no-repeat;
 

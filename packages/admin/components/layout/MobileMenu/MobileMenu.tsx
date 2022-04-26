@@ -37,7 +37,7 @@ const MobileMenu = forwardRef(
         <Styled.Header>
           {showGlobalSearch && (
             <Styled.SearchBlock>
-              <Search routeName="search" darkTheme />
+              <Search routeName="search" darkTheme clearOnSubmit />
             </Styled.SearchBlock>
           )}
           <MobileMenuToggle

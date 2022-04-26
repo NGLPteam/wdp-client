@@ -5,8 +5,14 @@ import { useRouter } from "next/router";
 import * as Styled from "./Search.styles";
 import { RouteHelper } from "routes";
 
-function Search({ className, routeName, darkTheme, filtersButton }: Props) {
-  const { register, handleSubmit } = useForm();
+function Search({
+  className,
+  routeName,
+  darkTheme,
+  filtersButton,
+  clearOnSubmit,
+}: Props) {
+  const { register, handleSubmit, reset } = useForm();
 
   const router = useRouter();
 
@@ -14,13 +20,15 @@ function Search({ className, routeName, darkTheme, filtersButton }: Props) {
 
   const route = routeName ? RouteHelper.findRouteByName(routeName) : null;
 
-  const defaultValue = router.query?.q || "";
+  const defaultValue = clearOnSubmit ? "" : router.query?.q || "";
 
   const onSubmit = (data: Record<string, string>) => {
     router.push({
       pathname: route?.path || router.pathname,
       query: { ...router.query, q: data.q },
     });
+
+    if (clearOnSubmit) reset();
   };
 
   return (
@@ -28,6 +36,7 @@ function Search({ className, routeName, darkTheme, filtersButton }: Props) {
       <Styled.SearchWrapper $darkTheme={darkTheme}>
         <Styled.SearchIcon icon="search" className={`${className}__icon`} />
         <Styled.SearchInput
+          type="search"
           placeholder={t("common.search")}
           defaultValue={defaultValue}
           {...register("q")}
@@ -46,6 +55,7 @@ interface Props {
   routeName?: string;
   darkTheme?: boolean;
   filtersButton?: React.ReactNode;
+  clearOnSubmit?: boolean;
 }
 
 export default Search;
