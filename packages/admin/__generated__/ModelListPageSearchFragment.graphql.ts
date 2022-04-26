@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type ModelListPageSearchFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"CurrentSearchFiltersFragment" | "SearchFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CurrentSearchFiltersFragment" | "SearchWithFiltersFragment">;
     readonly " $refType": "ModelListPageSearchFragment";
 };
 export type ModelListPageSearchFragment$data = ModelListPageSearchFragment;
@@ -31,11 +31,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "SearchFragment"
+      "name": "SearchWithFiltersFragment"
     }
   ],
   "type": "SearchScope",
   "abstractKey": null
 };
-(node as any).hash = '745b3c1ddaf2eba18c647e3b96aba8fa';
+(node as any).hash = '56923e286328361257e85b0c47115442';
 export default node;

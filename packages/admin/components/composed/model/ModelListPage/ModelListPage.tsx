@@ -16,9 +16,9 @@ import { QueryVariablesContext } from "contexts";
 import { PageHeader } from "components/layout";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
-import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
-import Search from "components/composed/search/Search";
 import CurrentSearchFilters from "components/composed/search/CurrentSearchFilters";
+import SearchWithFilters from "components/composed/search/SearchWithFilters";
+import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
 import { ModelListPageSearchFragment$key } from "@/relay/ModelListPageSearchFragment.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -89,11 +89,7 @@ function ModelListPage<
         selectedView={selectedView}
         setView={setView}
         listId={listId}
-        search={
-          showSearch && (
-            <Search data={searchScope} filterDrawer="searchFilters" />
-          )
-        }
+        search={showSearch && <SearchWithFilters data={searchScope} />}
       />
       {searchScope && <CurrentSearchFilters data={searchScope} />}
       <QueryVariablesContext.Consumer>
@@ -129,6 +125,6 @@ const fragment = graphql`
 const searchFragment = graphql`
   fragment ModelListPageSearchFragment on SearchScope {
     ...CurrentSearchFiltersFragment
-    ...SearchFragment
+    ...SearchWithFiltersFragment
   }
 `;

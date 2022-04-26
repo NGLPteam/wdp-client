@@ -5,14 +5,14 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SearchFragment = {
+export type SearchWithFiltersFragment = {
     readonly " $fragmentRefs": FragmentRefs<"SearchFilterDrawerFragment">;
-    readonly " $refType": "SearchFragment";
+    readonly " $refType": "SearchWithFiltersFragment";
 };
-export type SearchFragment$data = SearchFragment;
-export type SearchFragment$key = {
-    readonly " $data"?: SearchFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFragment">;
+export type SearchWithFiltersFragment$data = SearchWithFiltersFragment;
+export type SearchWithFiltersFragment$key = {
+    readonly " $data"?: SearchWithFiltersFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"SearchWithFiltersFragment">;
 };
 
 
@@ -21,7 +21,7 @@ const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SearchFragment",
+  "name": "SearchWithFiltersFragment",
   "selections": [
     {
       "args": null,
@@ -32,5 +32,5 @@ const node: ReaderFragment = {
   "type": "SearchScope",
   "abstractKey": null
 };
-(node as any).hash = '9e91aacd9edcb0333834a79ff7d98223';
+(node as any).hash = '9563a48181dade2f396d5c78fec848ad';
 export default node;
