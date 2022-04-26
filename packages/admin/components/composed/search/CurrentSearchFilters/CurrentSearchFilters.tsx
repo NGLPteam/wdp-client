@@ -24,13 +24,19 @@ export default function CurrentFilters({ data }: Props) {
   const handleClick = (filterKey: string) => {
     delete filters[filterKey];
 
-    push({
-      pathname,
-      query: {
-        ...query,
-        filters: JSON.stringify(filters),
+    push(
+      {
+        pathname,
+        query: {
+          ...query,
+          filters: JSON.stringify(filters),
+        },
       },
-    });
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
 
   // Get all filter options in a flat list

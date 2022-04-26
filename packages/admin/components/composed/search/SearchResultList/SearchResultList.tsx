@@ -3,7 +3,7 @@ import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { CellProps, ModelTableActionProps } from "react-table";
 import { Trans } from "react-i18next";
-import { useMaybeFragment, useDrawerHelper } from "hooks";
+import { useMaybeFragment, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -20,8 +20,9 @@ function SearchResultList<T extends OperationType>({
   data,
   headerStyle,
   hideHeader,
-  searchQuery,
 }: SearchResultListProps) {
+  const searchQuery = useSearchQueryVars();
+
   const searchScope = useMaybeFragment<SearchResultListFragment$key>(
     fragment,
     data
@@ -89,7 +90,7 @@ function SearchResultList<T extends OperationType>({
         <Trans
           i18nKey="search.results_for_name"
           values={{
-            name: searchQuery,
+            name: searchQuery.query,
           }}
         />
       }
@@ -109,6 +110,7 @@ interface SearchResultListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: SearchResultListFragment$key | null;
   searchQuery?: string | null;
+  isLoading?: boolean;
 }
 
 type Node = SearchResultListFragment["results"]["nodes"][number];
