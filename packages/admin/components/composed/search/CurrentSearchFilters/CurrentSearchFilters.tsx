@@ -66,11 +66,15 @@ export default function CurrentFilters({ data }: Props) {
 
     if (!filter) return null;
 
-    return t("search.filter_name_value", {
-      context: operator,
-      name: filter?.label || filterKey,
-      value,
-    });
+    const isBoolean = path.includes("boolean");
+
+    return isBoolean
+      ? filter?.label || filterKey
+      : t("search.filter_name_value", {
+          context: operator,
+          name: filter?.label || filterKey,
+          value,
+        });
   };
 
   return (
