@@ -8,6 +8,7 @@ import type {
   UseFormReturn,
 } from "react-hook-form";
 
+import { useTranslation } from "react-i18next";
 import { Button } from "components/atomic";
 import { ContentHeader } from "components/layout";
 
@@ -22,13 +23,17 @@ export default function NullForm<T extends FieldValues = FieldValues>({
   defaultValues,
   onSubmit: onSubmitCallback,
   onCancel: onCancelCallback,
+  onReset: onResetCallback,
+  resetLabel,
 }: Props<T>) {
+  const { t } = useTranslation();
+
   const form = useForm<T>({
     criteriaMode: "all",
     defaultValues,
   });
 
-  const { handleSubmit } = form;
+  const { handleSubmit, reset } = form;
 
   const submitHandler: SubmitHandler<T> = useCallback(
     (data) => {
@@ -43,6 +48,11 @@ export default function NullForm<T extends FieldValues = FieldValues>({
     () => handleSubmit(submitHandler),
     [handleSubmit, submitHandler]
   );
+
+  const onReset = useCallback(() => {
+    reset();
+    if (onResetCallback) onResetCallback();
+  }, [reset, onResetCallback]);
 
   const {
     formState: { isSubmitting, isValidating },
@@ -59,10 +69,20 @@ export default function NullForm<T extends FieldValues = FieldValues>({
         {children({ form })}
         <div className="l-flex l-flex--gap">
           <Button disabled={submitDisabled} type="submit">
-            Submit
+            {t("common.submit")}
           </Button>
+          {onResetCallback && (
+            <Button
+              disabled={isSubmitting}
+              onClick={onReset}
+              type="reset"
+              secondary
+            >
+              {t(resetLabel || "common.reset")}
+            </Button>
+          )}
           <Button type="button" secondary onClick={onCancelCallback}>
-            Cancel
+            {t("common.cancel")}
           </Button>
         </div>
       </form>
@@ -81,8 +101,12 @@ interface Props<T extends FieldValues = FieldValues> {
    * Optionally hook into the submit action for this null form.
    */
   onSubmit?: OnSubmitCallback<T>;
-
+  /** Optional callback that runs on cancel */
   onCancel?: () => void;
+  /** Adds a reset button that runs this callback */
+  onReset?: () => void;
+  /** Set the reset button label. Will be translated. */
+  resetLabel?: string;
 }
 
 type RenderProps<T extends FieldValues> = (props: {

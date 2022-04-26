@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { filterSearchableProperties } from "@wdp/lib/search";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
+import * as Styled from "./CurrentSearchFilters.styles";
 import { ButtonControl } from "components/atomic";
 import {
   CurrentSearchFiltersFragment$data,
@@ -73,7 +74,7 @@ export default function CurrentFilters({ data }: Props) {
   };
 
   return (
-    <div className="l-flex l-flex--gap-sm">
+    <Styled.Wrapper className="l-flex l-flex--gap-sm">
       {Object.keys(filters).map((filterKey) => {
         const filterLabel = renderFilter(filterKey, filters[filterKey]);
 
@@ -91,7 +92,7 @@ export default function CurrentFilters({ data }: Props) {
           </ButtonControl>
         ) : null;
       })}
-    </div>
+    </Styled.Wrapper>
   );
 }
 

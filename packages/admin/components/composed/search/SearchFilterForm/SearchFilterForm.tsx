@@ -49,6 +49,22 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
     );
   };
 
+  const onReset = () => {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          ...router.query,
+          page: 1,
+          filters: null,
+        },
+      },
+      undefined,
+      { shallow: true }
+    );
+    if (onCancel) onCancel();
+  };
+
   const schemaProps = useMemo(() => {
     if (!searchData) return [];
 
@@ -69,6 +85,8 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
     <NullForm
       onSubmit={onSubmit}
       onCancel={onCancel}
+      onReset={onReset}
+      resetLabel="search.clear_filters"
       defaultValues={defaultValues}
     >
       {() => (
