@@ -19,6 +19,11 @@ export type CommunityHeroFragment = {
             readonly width: number | null;
             readonly height: number | null;
         };
+        readonly placeholder: {
+            readonly webp: {
+                readonly url: string | null;
+            };
+        };
     };
     readonly heroImageLayout: HeroImageLayout;
     readonly " $refType": "CommunityHeroFragment";
@@ -31,7 +36,15 @@ export type CommunityHeroFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -88,13 +101,7 @@ const node: ReaderFragment = {
               "name": "alt",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -107,6 +114,29 @@ const node: ReaderFragment = {
               "args": null,
               "kind": "ScalarField",
               "name": "height",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": "placeholder",
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "thumb",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/)
+              ],
               "storageKey": null
             }
           ],
@@ -126,5 +156,6 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '725d7aee2c6d0765250da7427e0bec14';
+})();
+(node as any).hash = 'ed1fec9b38a3298089897df8ebbae340';
 export default node;

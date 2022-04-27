@@ -6,14 +6,19 @@ import { ContentImageFragment$key } from "@/relay/ContentImageFragment.graphql";
 
 export default function ContentImage({ data }: Props) {
   const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.image.webp;
+
+  if (!imageData) return null;
+
+  const { image, placeholder } = imageData;
 
   return image ? (
     <ContentImageBase
-      alt={image.alt}
-      url={image.url}
-      width={image.width}
-      height={image.height}
+      alt={image.webp.alt}
+      url={image.webp.url}
+      width={image.webp.width}
+      height={image.webp.height}
+      placeholder="blur"
+      blurDataURL={placeholder.webp.url}
     />
   ) : null;
 }
@@ -30,6 +35,11 @@ const fragment = graphql`
         url
         width
         height
+      }
+    }
+    placeholder: thumb {
+      webp {
+        url
       }
     }
   }

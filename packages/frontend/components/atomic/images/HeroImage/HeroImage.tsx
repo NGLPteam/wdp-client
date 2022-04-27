@@ -10,12 +10,16 @@ export default function HeroImage({ data, metadata }: Props) {
 
   const imageMetadata = useMaybeFragment(metadataFragment, metadata);
 
-  const image = imageData?.image;
+  if (!imageData) return null;
+
+  const { image, placeholder } = imageData;
 
   return image ? (
     <HeroImageBase
-      alt={imageMetadata?.alt || image.alt || ""}
+      alt={imageMetadata?.alt || ""}
       url={image.url}
+      placeholder="blur"
+      blurDataURL={placeholder?.webp?.url}
     />
   ) : null;
 }
@@ -28,8 +32,12 @@ interface Props {
 const fragment = graphql`
   fragment HeroImageFragment on ImageAttachment {
     image: original {
-      alt
       url
+    }
+    placeholder: thumb {
+      webp {
+        url
+      }
     }
   }
 `;

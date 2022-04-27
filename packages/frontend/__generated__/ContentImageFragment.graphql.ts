@@ -14,6 +14,11 @@ export type ContentImageFragment = {
             readonly height: number | null;
         };
     };
+    readonly placeholder: {
+        readonly webp: {
+            readonly url: string | null;
+        };
+    };
     readonly " $refType": "ContentImageFragment";
 };
 export type ContentImageFragment$data = ContentImageFragment;
@@ -24,7 +29,15 @@ export type ContentImageFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -53,13 +66,7 @@ const node: ReaderFragment = {
               "name": "alt",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -79,10 +86,34 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": "placeholder",
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "thumb",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageDerivative",
+          "kind": "LinkedField",
+          "name": "webp",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = 'c0a7cbaece3de69af57615d80e636eab';
+})();
+(node as any).hash = '5f086e33d828c95d8eaa0bc7b8669570';
 export default node;

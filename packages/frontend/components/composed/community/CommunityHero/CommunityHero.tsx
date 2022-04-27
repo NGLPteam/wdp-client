@@ -40,14 +40,16 @@ export default function CommunityHero({ data }: Props) {
             </Styled.Summary>
           )}
         </Styled.HeroInner>
-        {community.heroImage?.storage && community.heroImage.original.url && (
+        {community.heroImage?.storage && community.heroImage.original?.url && (
           <Styled.ImageWrapper>
             <Styled.Image
-              alt={community.heroImage.original.alt || ""}
-              src={community.heroImage.original.url}
+              alt=""
+              src={community.heroImage.original?.url}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
+              placeholder="blur"
+              blurDataURL={community.heroImage?.placeholder?.webp.url}
             />
           </Styled.ImageWrapper>
         )}
@@ -73,6 +75,11 @@ const fragment = graphql`
         url
         width
         height
+      }
+      placeholder: thumb {
+        webp {
+          url
+        }
       }
     }
     heroImageLayout
