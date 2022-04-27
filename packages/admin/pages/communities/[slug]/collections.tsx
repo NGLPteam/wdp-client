@@ -41,7 +41,7 @@ const query = graphql`
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }
-      search(visibility: ALL) {
+      search(visibility: ALL, maxDepth: 1) {
         ...CollectionListSearchFragment
           @arguments(
             query: $query

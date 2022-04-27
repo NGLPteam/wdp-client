@@ -42,7 +42,7 @@ const query = graphql`
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }
-      search(visibility: ALL) {
+      search(visibility: ALL, maxDepth: 1) {
         ...ItemListSearchFragment
           @arguments(
             query: $query

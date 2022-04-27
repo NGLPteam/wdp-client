@@ -11034,6 +11034,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -14178,6 +14190,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
@@ -23931,6 +23955,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -27677,7 +27713,7 @@
       {
         "kind": "INTERFACE",
         "name": "Image",
-        "description": "An abstract image interface. It includes the minimum amount of data to render an image in the browser.",
+        "description": "An interface for various component types of an image attachment\nthat allow it to be identified in name and purpose.\n",
         "fields": [
           {
             "name": "alt",
@@ -27719,6 +27755,34 @@
               "kind": "SCALAR",
               "name": "Int",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -27854,6 +27918,34 @@
             "deprecationReason": null
           },
           {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "small",
             "description": "A small-sized mapping for derivative formats",
             "args": [],
@@ -27903,6 +27995,11 @@
           {
             "kind": "INTERFACE",
             "name": "HasAttachmentStorage",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "ImageIdentification",
             "ofType": null
           }
         ],
@@ -28007,6 +28104,34 @@
             "deprecationReason": null
           },
           {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "size",
             "description": "The size of this derivative",
             "args": [],
@@ -28061,6 +28186,11 @@
         ],
         "inputFields": null,
         "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ImageIdentification",
+            "ofType": null
+          },
           {
             "kind": "INTERFACE",
             "name": "Image",
@@ -28127,6 +28257,66 @@
           }
         ],
         "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "ImageIdentification",
+        "description": "An interface for various component types of an image attachment\nthat allow it to be identified in name and purpose.\n",
+        "fields": [
+          {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "ImageAttachment",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ImageDerivative",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ImageOriginal",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ImageSize",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "OBJECT",
@@ -28224,6 +28414,34 @@
             "deprecationReason": null
           },
           {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "storage",
             "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
             "args": [],
@@ -28269,11 +28487,51 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "ImageIdentification",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "Image",
             "ofType": null
           }
         ],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ImagePurpose",
+        "description": "Image attachments on entities fulfill different purposes. This can\nbe used to distinguish them at the `ImageAttachment` level.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "HERO_IMAGE",
+            "description": "A hero image.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LOGO",
+            "description": "A logo (on a Community).",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "THUMBNAIL",
+            "description": "A thumbnail that appears next to the entity in lists, grids, etc.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER",
+            "description": "A fallback for otherwise-unspecified images.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -28310,6 +28568,18 @@
             "deprecationReason": null
           },
           {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "png",
             "description": "A png-formatted image derivative for this particular size.",
             "args": [],
@@ -28319,6 +28589,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "ImageDerivative",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
                 "ofType": null
               }
             },
@@ -28375,7 +28661,13 @@
           }
         ],
         "inputFields": null,
-        "interfaces": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ImageIdentification",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -31514,6 +31806,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
@@ -40580,6 +40884,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -43837,6 +44153,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -44755,6 +45083,38 @@
             "description": "The results of a search. Either `query` or `predicates` should be provided,\notherwise it will return as if everything matches.\n",
             "args": [
               {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "schema",
+                "description": "Filter by a namespace.name schema identifier",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "order",
                 "description": null,
                 "type": {
@@ -44930,6 +45290,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
@@ -56750,8 +57122,20 @@
             "deprecationReason": null
           },
           {
+            "name": "ADMINS_LAST",
+            "description": "Sort users with admins pushed to the bottom, followed by name Z-A",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "ADMINS_RECENT",
             "description": "Sort users with admins pushed to the top, followed by recent",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ADMINS_OLDEST",
+            "description": "Sort users with admins pushed to the bottom, followed by `OLDEST`",
             "isDeprecated": false,
             "deprecationReason": null
           },
