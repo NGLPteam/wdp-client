@@ -10,6 +10,7 @@ function CollectionChildCollections({ data }: Props) {
   return (
     <CollectionList<Query>
       data={data?.collection?.collections}
+      searchData={data?.collection?.search}
       headerStyle="secondary"
       hideHeader
     />
@@ -31,12 +32,25 @@ const query = graphql`
   query collectionsManageSlugCollectionsPagesQuery(
     $order: EntityOrder
     $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $query: String
+    $hasQuery: Boolean!
     $collectionSlug: Slug!
   ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
+      }
+      search(visibility: ALL, maxDepth: 1) {
+        ...CollectionListSearchFragment
+          @arguments(
+            query: $query
+            page: $page
+            predicates: $predicates
+            order: $order
+            hasQuery: $hasQuery
+          )
       }
     }
   }

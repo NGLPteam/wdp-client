@@ -10,6 +10,7 @@ function ItemChildItems({ data }: Props) {
   return (
     <ItemList<Query>
       data={data?.item?.items}
+      searchData={data?.item?.search}
       headerStyle="secondary"
       hideHeader
     />
@@ -31,12 +32,25 @@ const query = graphql`
   query itemsSlugItemsPagesQuery(
     $order: EntityOrder
     $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $query: String
+    $hasQuery: Boolean!
     $itemSlug: Slug!
   ) {
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
+      }
+      search(visibility: ALL, maxDepth: 1) {
+        ...ItemListSearchFragment
+          @arguments(
+            query: $query
+            page: $page
+            predicates: $predicates
+            order: $order
+            hasQuery: $hasQuery
+          )
       }
     }
   }

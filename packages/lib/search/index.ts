@@ -1,10 +1,8 @@
 const FILTER_SEARCH_PATHS = [
   "$core.published",
   "$core.doi",
-  "props.open_access#boolean",
   "props.peer_reviewed#boolean",
   "props.cc_license#select",
-  "props.access#select",
   "props.publisher#string",
 ];
 

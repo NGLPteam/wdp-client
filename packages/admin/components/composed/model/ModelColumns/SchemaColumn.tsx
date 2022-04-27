@@ -2,7 +2,7 @@ import { Column } from "react-table";
 import { useTranslation } from "react-i18next";
 import { PartialColumnish, SchemaVersionableNode } from "./types";
 
-const SchemaColumn = <NodeType extends SchemaVersionableNode>(
+const SchemaColumn = <NodeType extends Partial<SchemaVersionableNode>>(
   props: PartialColumnish<NodeType> = {}
 ): Column<NodeType> => {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ const SchemaColumn = <NodeType extends SchemaVersionableNode>(
     id: "schema",
     className: "t-truncate",
     accessor: (originalRow: NodeType) => {
-      return `${originalRow.schemaVersion.name}`;
+      return `${originalRow?.schemaVersion?.name}`;
     },
     ...props,
   };

@@ -9,6 +9,7 @@ import ItemList from "components/composed/item/ItemList";
 function CollectionChildItems({ data }: Props) {
   return (
     <ItemList<Query>
+      searchData={data?.collection?.search}
       data={data?.collection?.items}
       headerStyle="secondary"
       hideHeader
@@ -31,12 +32,25 @@ const query = graphql`
   query itemsSlugCollectionsPagesQuery(
     $order: EntityOrder
     $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $query: String
+    $hasQuery: Boolean!
     $collectionSlug: Slug!
   ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutQueryFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
+      }
+      search(visibility: ALL, maxDepth: 1) {
+        ...ItemListSearchFragment
+          @arguments(
+            query: $query
+            page: $page
+            predicates: $predicates
+            order: $order
+            hasQuery: $hasQuery
+          )
       }
     }
   }

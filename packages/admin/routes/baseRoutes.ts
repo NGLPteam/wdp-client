@@ -6,6 +6,10 @@ export const baseRoutes: BaseRoute[] = [
     path: "/",
   },
   {
+    name: "search",
+    path: "/search",
+  },
+  {
     name: "collections",
     path: "/collections",
     label: "glossary.collection_plural",
@@ -215,6 +219,11 @@ export const baseRoutes: BaseRoute[] = [
         ],
       },
     ],
+  },
+  {
+    name: "communities.search",
+    path: "/communities/search",
+    label: "Search Communities",
   },
   {
     name: "users",

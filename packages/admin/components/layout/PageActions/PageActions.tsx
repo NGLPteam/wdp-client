@@ -7,7 +7,7 @@ import * as Styled from "./PageActions.styled";
 const PageActions = ({ search, actions }: Props) => {
   return (
     <Styled.Wrapper className="l-grid">
-      {search && <div className="l-grid__item l-grid__item--4">{search}</div>}
+      {<div className="l-grid__item l-grid__item--4">{search}</div>}
       {actions && (
         <Styled.Actions className="l-grid__item l-grid__item--8">
           {actions}
@@ -19,9 +19,9 @@ const PageActions = ({ search, actions }: Props) => {
 
 interface Props {
   /** Search component */
-  search?: JSX.Element;
+  search?: React.ReactNode;
   /** One or more ButtonControl actions */
-  actions?: JSX.Element | JSX.Element[];
+  actions?: React.ReactNode | React.ReactNode[];
 }
 
 export default PageActions;

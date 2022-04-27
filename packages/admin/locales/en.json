@@ -28,7 +28,9 @@
       "search": "Search",
       "sign_in": "Sign In",
       "sign_out": "Sign Out",
-      "and_x_more": ", and {{count}} more"
+      "and_x_more": ", and {{count}} more",
+      "submit": "Submit",
+      "reset": "Reset"
     },
     "glossary": {
       "community": "community",
@@ -414,6 +416,15 @@
     "dashboard": {
       "installation_header": "Installation",
       "current_version_label": "Current Version"
+    },
+    "search": {
+      "results_for_name": "Search results for \"{{name}}\"",
+      "submit": "Submit Search",
+      "filter_name_value_dateGTE": "{{ name }} after {{ value }}",
+      "filter_name_value_dateLTE": "{{ name }} before {{ value }}",
+      "filter_name_value_in": "{{ name }} in {{ value }}",
+      "filter_name_value_equals": "{{ name }} is {{ value }}",
+      "clear_filters": "Clear Filters"
     }
   }
 }

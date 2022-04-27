@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import { SearchLayoutQueryVariables } from "@/relay/SearchLayoutQuery.graphql";
 import { getPredicates } from "helpers/search";
-import { EntityOrder } from "types/graphql-schema";
+import { EntityOrder, SearchPredicateInput } from "types/graphql-schema";
 
 const DEFAULTS = {
   query: "",
@@ -12,11 +11,18 @@ const DEFAULTS = {
   order: "PUBLISHED_ASCENDING" as EntityOrder,
 };
 
+interface Props {
+  order?: EntityOrder | null | undefined;
+  page?: number | null | undefined;
+  predicates?: SearchPredicateInput[] | null | undefined;
+  query?: string | null | undefined;
+}
+
 /**
  * Gets and returns search list query vars
  */
-export default function useSearchQueryVars(): SearchLayoutQueryVariables {
-  const [vars, setVars] = useState<SearchLayoutQueryVariables>(DEFAULTS);
+export default function useSearchQueryVars(): Props {
+  const [vars, setVars] = useState<Props>(DEFAULTS);
 
   const { query } = useRouter();
 

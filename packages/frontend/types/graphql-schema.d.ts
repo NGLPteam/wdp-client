@@ -1740,6 +1740,7 @@ export type CollectionSchemaPropertyArgs = {
 
 /** A collection of items */
 export type CollectionSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -2145,6 +2146,7 @@ export type CommunitySchemaPropertyArgs = {
 
 /** A community of users */
 export type CommunitySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -3644,6 +3646,7 @@ export type EntityPagesArgs = {
 
 /** An entity that exists in the hierarchy. */
 export type EntitySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -4337,7 +4340,10 @@ export type HierarchicalSchemaVersionRank = Node & DescribesSchema & {
 
 
 
-/** An abstract image interface. It includes the minimum amount of data to render an image in the browser. */
+/**
+ * An interface for various component types of an image attachment
+ * that allow it to be identified in name and purpose.
+ */
 export type Image = {
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
@@ -4345,6 +4351,19 @@ export type Image = {
   dimensions?: Maybe<Array<Scalars['Int']>>;
   /** The height of the image, if present */
   height?: Maybe<Scalars['Int']>;
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
@@ -4357,7 +4376,7 @@ export type Image = {
 };
 
 /** An attached image with standardized derivatives. */
-export type ImageAttachment = HasAttachmentStorage & {
+export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
   __typename?: 'ImageAttachment';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
@@ -4369,6 +4388,19 @@ export type ImageAttachment = HasAttachmentStorage & {
   metadata?: Maybe<ImageMetadata>;
   /** The original source for the image */
   original: ImageOriginal;
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
   /** A small-sized mapping for derivative formats */
   small: ImageSize;
   /**
@@ -4381,7 +4413,7 @@ export type ImageAttachment = HasAttachmentStorage & {
 };
 
 /** A derivative of the image with a specific size and format. */
-export type ImageDerivative = Image & {
+export type ImageDerivative = ImageIdentification & Image & {
   __typename?: 'ImageDerivative';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
@@ -4395,6 +4427,19 @@ export type ImageDerivative = Image & {
   maxHeight: Scalars['Int'];
   /** The maximum width this size can occupy */
   maxWidth: Scalars['Int'];
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
   /** The size of this derivative */
   size: ImageDerivativeSize;
   /**
@@ -4424,6 +4469,26 @@ export type ImageDerivativeSize =
   | 'THUMB'
   | '%future added value';
 
+/**
+ * An interface for various component types of an image attachment
+ * that allow it to be identified in name and purpose.
+ */
+export type ImageIdentification = {
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
+};
+
 /** Shared metadata for image attachments */
 export type ImageMetadata = {
   __typename?: 'ImageMetadata';
@@ -4444,7 +4509,7 @@ export type ImageMetadataInput = {
  * As this is the raw image, it is not optimized for display in the frontend and is best
  * used only as a fallback.
  */
-export type ImageOriginal = HasAttachmentStorage & Image & {
+export type ImageOriginal = HasAttachmentStorage & ImageIdentification & Image & {
   __typename?: 'ImageOriginal';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
@@ -4452,6 +4517,19 @@ export type ImageOriginal = HasAttachmentStorage & Image & {
   dimensions?: Maybe<Array<Scalars['Int']>>;
   /** The height of the image, if present */
   height?: Maybe<Scalars['Int']>;
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
@@ -4464,20 +4542,48 @@ export type ImageOriginal = HasAttachmentStorage & Image & {
 };
 
 /**
+ * Image attachments on entities fulfill different purposes. This can
+ * be used to distinguish them at the `ImageAttachment` level.
+ */
+export type ImagePurpose =
+  /** A hero image. */
+  | 'HERO_IMAGE'
+  /** A logo (on a Community). */
+  | 'LOGO'
+  /** A thumbnail that appears next to the entity in lists, grids, etc. */
+  | 'THUMBNAIL'
+  /** A fallback for otherwise-unspecified images. */
+  | 'OTHER'
+  | '%future added value';
+
+/**
  * This describes a specific derivative style
  * for an attachment, e.g. small, medium, thumb.
  *
  * It is further broken down into the various formats
  * the WDP generates, presently WEBP and PNG.
  */
-export type ImageSize = {
+export type ImageSize = ImageIdentification & {
   __typename?: 'ImageSize';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
   /** The (maximum) height for this size. */
   height: Scalars['Int'];
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
   /** A png-formatted image derivative for this particular size. */
   png: ImageDerivative;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
   size: ImageDerivativeSize;
   /** A webp-formatted image derivative for this particular size. */
   webp: ImageDerivative;
@@ -4994,6 +5100,7 @@ export type ItemSchemaPropertyArgs = {
 
 /** An item that belongs to a collection */
 export type ItemSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -6610,6 +6717,7 @@ export type QuerySchemaVersionsArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QuerySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -7266,6 +7374,7 @@ export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties &
 
 /** A specific version of a `SchemaDefinition`. */
 export type SchemaVersionSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -7417,6 +7526,8 @@ export type SearchScope = {
 
 
 export type SearchScopeResultsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
+  schema?: Maybe<Array<Scalars['String']>>;
   order?: Maybe<EntityOrder>;
   predicates?: Maybe<Array<SearchPredicateInput>>;
   query?: Maybe<Scalars['String']>;
@@ -7436,6 +7547,7 @@ export type Searchable = {
 
 
 export type SearchableSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -9186,8 +9298,12 @@ export type UserOrder =
   | 'OLDEST'
   /** Sort users with admins pushed to the top, followed by name A-Z */
   | 'ADMINS_FIRST'
+  /** Sort users with admins pushed to the bottom, followed by name Z-A */
+  | 'ADMINS_LAST'
   /** Sort users with admins pushed to the top, followed by recent */
   | 'ADMINS_RECENT'
+  /** Sort users with admins pushed to the bottom, followed by `OLDEST` */
+  | 'ADMINS_OLDEST'
   /** Sort users by their name A-Z */
   | 'NAME_ASCENDING'
   /** Sort users by their name Z-A */
@@ -9573,9 +9689,11 @@ export type ResolversTypes = {
   ImageDerivative: ResolverTypeWrapper<ImageDerivative>;
   ImageDerivativeFormat: ImageDerivativeFormat;
   ImageDerivativeSize: ImageDerivativeSize;
+  ImageIdentification: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'] | ResolversTypes['ImageSize'];
   ImageMetadata: ResolverTypeWrapper<ImageMetadata>;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ResolverTypeWrapper<ImageOriginal>;
+  ImagePurpose: ImagePurpose;
   ImageSize: ResolverTypeWrapper<ImageSize>;
   InAnyOperatorInput: InAnyOperatorInput;
   InstitutionSettings: ResolverTypeWrapper<InstitutionSettings>;
@@ -9961,6 +10079,7 @@ export type ResolversParentTypes = {
   Image: ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'];
   ImageAttachment: ImageAttachment;
   ImageDerivative: ImageDerivative;
+  ImageIdentification: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['ImageSize'];
   ImageMetadata: ImageMetadata;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ImageOriginal;
@@ -11567,6 +11686,8 @@ export type ImageResolvers<ContextType = any, ParentType extends ResolversParent
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -11578,6 +11699,8 @@ export type ImageAttachmentResolvers<ContextType = any, ParentType extends Resol
   medium?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   original?: Resolver<ResolversTypes['ImageOriginal'], ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   small?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
   thumb?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
@@ -11591,11 +11714,19 @@ export type ImageDerivativeResolvers<ContextType = any, ParentType extends Resol
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   maxHeight?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   maxWidth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageIdentificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageIdentification'] = ResolversParentTypes['ImageIdentification']> = {
+  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageDerivative' | 'ImageOriginal' | 'ImageSize', ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
 };
 
 export type ImageMetadataResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageMetadata'] = ResolversParentTypes['ImageMetadata']> = {
@@ -11607,6 +11738,8 @@ export type ImageOriginalResolvers<ContextType = any, ParentType extends Resolve
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -11616,7 +11749,9 @@ export type ImageOriginalResolvers<ContextType = any, ParentType extends Resolve
 export type ImageSizeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageSize'] = ResolversParentTypes['ImageSize']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   png?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
   webp?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
   width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -12438,7 +12573,7 @@ export type SearchScopeResolvers<ContextType = any, ParentType extends Resolvers
   availableSchemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   coreProperties?: Resolver<Array<ResolversTypes['SearchableCoreProperty']>, ParentType, ContextType>;
   originType?: Resolver<ResolversTypes['SearchOriginType'], ParentType, ContextType>;
-  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'order' | 'predicates' | 'pageDirection'>>;
+  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'scope' | 'order' | 'predicates' | 'pageDirection'>>;
   visibility?: Resolver<ResolversTypes['EntityVisibilityFilter'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -13222,6 +13357,7 @@ export type Resolvers<ContextType = any> = {
   Image?: ImageResolvers<ContextType>;
   ImageAttachment?: ImageAttachmentResolvers<ContextType>;
   ImageDerivative?: ImageDerivativeResolvers<ContextType>;
+  ImageIdentification?: ImageIdentificationResolvers<ContextType>;
   ImageMetadata?: ImageMetadataResolvers<ContextType>;
   ImageOriginal?: ImageOriginalResolvers<ContextType>;
   ImageSize?: ImageSizeResolvers<ContextType>;

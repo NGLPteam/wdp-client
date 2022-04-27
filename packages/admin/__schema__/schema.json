@@ -11034,6 +11034,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -14178,6 +14190,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
@@ -23931,6 +23955,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -31770,6 +31806,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
@@ -40836,6 +40884,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -44093,6 +44153,18 @@
             "description": "Search from this level of the API using it as the origin",
             "args": [
               {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
                 "type": {
@@ -45011,6 +45083,18 @@
             "description": "The results of a search. Either `query` or `predicates` should be provided,\notherwise it will return as if everything matches.\n",
             "args": [
               {
+                "name": "scope",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityDescendantScopeFilter",
+                  "ofType": null
+                },
+                "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "schema",
                 "description": "Filter by a namespace.name schema identifier",
                 "type": {
@@ -45206,6 +45290,18 @@
             "name": "search",
             "description": "Search from this level of the API using it as the origin",
             "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "visibility",
                 "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",

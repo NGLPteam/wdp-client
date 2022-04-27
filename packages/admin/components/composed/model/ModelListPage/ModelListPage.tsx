@@ -16,7 +16,10 @@ import { QueryVariablesContext } from "contexts";
 import { PageHeader } from "components/layout";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
+import CurrentSearchFilters from "components/composed/search/CurrentSearchFilters";
+import SearchWithFilters from "components/composed/search/SearchWithFilters";
 import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
+import { ModelListPageSearchFragment$key } from "@/relay/ModelListPageSearchFragment.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -30,7 +33,9 @@ type ModelListPageProps<
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: ReactNode;
-    header?: string;
+    header?: ReactNode;
+    showSearch?: boolean;
+    searchData?: ModelListPageSearchFragment$key | null;
   };
 
 function ModelListPage<
@@ -44,11 +49,16 @@ function ModelListPage<
   headerStyle,
   hideHeader,
   header,
+  showSearch,
+  data,
+  searchData,
   ...modelListProps
 }: ModelListPageProps<T, U, V>) {
   const { t } = useTranslation();
 
-  const instance = useMaybeFragment<U>(fragment, modelListProps.data);
+  const instance = useMaybeFragment<U>(fragment, data);
+
+  const searchScope = useMaybeFragment(searchFragment, searchData);
 
   const [selectedView, setView] = useViewPreference(
     `nglp::${modelName}.listView`
@@ -79,14 +89,16 @@ function ModelListPage<
         selectedView={selectedView}
         setView={setView}
         listId={listId}
+        search={showSearch && <SearchWithFilters data={searchScope} />}
       />
+      {searchScope && <CurrentSearchFilters data={searchScope} />}
       <QueryVariablesContext.Consumer>
         {({ queryVariables, setQueryVariables }) => (
           <>
             <ModelPageCountActions data={instance} />
             <ModelList<T, U, V>
               {...modelListProps}
-              data={modelListProps.data}
+              data={data}
               queryVariables={queryVariables}
               setQueryVariables={setQueryVariables}
               modelName={modelName}
@@ -107,5 +119,12 @@ const fragment = graphql`
   fragment ModelListPageFragment on Paginated {
     ...ModelPageCountActionsFragment
     ...ModelPaginationFragment
+  }
+`;
+
+const searchFragment = graphql`
+  fragment ModelListPageSearchFragment on SearchScope {
+    ...CurrentSearchFiltersFragment
+    ...SearchWithFiltersFragment
   }
 `;

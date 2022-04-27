@@ -2,7 +2,6 @@ export { default as Input, DatePicker, Email, Slug, AltText } from "./Input";
 export { default as Checkbox } from "./Checkbox";
 export { default as CheckboxGroup } from "./CheckboxGroup";
 export { default as FormGrid, default as Grid } from "./FormGrid";
-export { default as Search } from "./Search";
 export { default as Textarea } from "./Textarea";
 export { default as FileUpload } from "./FileUpload";
 export { default as Select } from "./Select";

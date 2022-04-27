@@ -1752,6 +1752,13 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   """Search from this level of the API using it as the origin"""
   search(
     """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
+    """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
     
@@ -2202,6 +2209,13 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
   search(
+    """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
     """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
@@ -3897,6 +3911,13 @@ interface Entity {
   """Search from this level of the API using it as the origin"""
   search(
     """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
+    """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
     
@@ -5545,6 +5566,13 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
   search(
+    """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
     """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
@@ -7195,6 +7223,13 @@ type Query implements Searchable {
   """Search from this level of the API using it as the origin"""
   search(
     """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
+    """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
     
@@ -7929,6 +7964,13 @@ type SchemaVersion implements DescribesSchema & Searchable & HasSchemaProperties
   """Search from this level of the API using it as the origin"""
   search(
     """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
+    """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
     
@@ -8091,6 +8133,7 @@ type SearchScope {
   
   """
   results(
+    scope: EntityDescendantScopeFilter = ALL
     """Filter by a namespace.name schema identifier"""
     schema: [String!]
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -8129,6 +8172,13 @@ type SearchScope {
 interface Searchable {
   """Search from this level of the API using it as the origin"""
   search(
+    """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
     """
     Restrict the results by a certain level of visibility. This requires an authenticated user
     for anything but `VISIBLE`: any other option will be silently discarded when anonymous.

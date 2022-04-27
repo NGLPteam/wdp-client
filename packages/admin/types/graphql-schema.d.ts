@@ -1740,6 +1740,7 @@ export type CollectionSchemaPropertyArgs = {
 
 /** A collection of items */
 export type CollectionSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -2145,6 +2146,7 @@ export type CommunitySchemaPropertyArgs = {
 
 /** A community of users */
 export type CommunitySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -3644,6 +3646,7 @@ export type EntityPagesArgs = {
 
 /** An entity that exists in the hierarchy. */
 export type EntitySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -5097,6 +5100,7 @@ export type ItemSchemaPropertyArgs = {
 
 /** An item that belongs to a collection */
 export type ItemSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -6713,6 +6717,7 @@ export type QuerySchemaVersionsArgs = {
 
 /** The entry point for retrieving data from within the WDP API. */
 export type QuerySearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -7369,6 +7374,7 @@ export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties &
 
 /** A specific version of a `SchemaDefinition`. */
 export type SchemaVersionSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -7520,6 +7526,7 @@ export type SearchScope = {
 
 
 export type SearchScopeResultsArgs = {
+  scope?: Maybe<EntityDescendantScopeFilter>;
   schema?: Maybe<Array<Scalars['String']>>;
   order?: Maybe<EntityOrder>;
   predicates?: Maybe<Array<SearchPredicateInput>>;
@@ -7540,6 +7547,7 @@ export type Searchable = {
 
 
 export type SearchableSearchArgs = {
+  maxDepth?: Maybe<Scalars['Int']>;
   visibility?: Maybe<EntityVisibilityFilter>;
 };
 
@@ -12565,7 +12573,7 @@ export type SearchScopeResolvers<ContextType = any, ParentType extends Resolvers
   availableSchemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   coreProperties?: Resolver<Array<ResolversTypes['SearchableCoreProperty']>, ParentType, ContextType>;
   originType?: Resolver<ResolversTypes['SearchOriginType'], ParentType, ContextType>;
-  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'order' | 'predicates' | 'pageDirection'>>;
+  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'scope' | 'order' | 'predicates' | 'pageDirection'>>;
   visibility?: Resolver<ResolversTypes['EntityVisibilityFilter'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

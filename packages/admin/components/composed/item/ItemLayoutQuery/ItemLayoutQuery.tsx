@@ -7,7 +7,7 @@ import type {
 } from "@wdp/lib/types/page";
 import ItemLayout from "../ItemLayout";
 import { QueryWrapper, FragmentWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 import type { ItemLayoutQueryFragment$key } from "@/relay/ItemLayoutQueryFragment.graphql";
 import { AuthContextProvider } from "contexts/AuthContext";
@@ -22,13 +22,24 @@ function ItemLayoutQuery<
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof ItemLayout>>) {
   const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
   const itemSlug = useRouteSlug();
   if (!itemSlug) return <ErrorPage statusCode={404} />;
+
+  const hasQuery =
+    !!searchQueryVars?.query ||
+    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
 
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={{ ...queryVars, itemSlug }}
+      initialVariables={{
+        ...queryVars,
+        ...searchQueryVars,
+        hasQuery,
+        itemSlug,
+      }}
     >
       {({ data }) => (
         <FragmentWrapper<ItemLayoutQueryFragment$key>
@@ -52,7 +63,7 @@ type ItemQuery = {
   readonly response: {
     item: HasFragment<"ItemLayoutQueryFragment"> | null;
   };
-  readonly variables: { itemSlug: string };
+  readonly variables: { itemSlug: string; hasQuery?: boolean };
 };
 
 const fragment = graphql`
