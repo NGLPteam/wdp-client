@@ -19,6 +19,9 @@ export type ArticleTextFragment = {
     } | null;
     readonly pdf: {
         readonly asset?: {
+            readonly fileSize?: number | undefined;
+            readonly name?: string | undefined;
+            readonly downloadUrl?: string | null | undefined;
             readonly " $fragmentRefs": FragmentRefs<"AssetInlinePDFFragment">;
         } | null | undefined;
     } | null;
@@ -134,6 +137,34 @@ const node: ReaderFragment = {
               "plural": false,
               "selections": [
                 {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "fileSize",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "name",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "downloadUrl",
+                      "storageKey": null
+                    }
+                  ],
+                  "type": "AssetPDF",
+                  "abstractKey": null
+                },
+                {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "AssetInlinePDFFragment"
@@ -152,5 +183,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'c76d83f0fc7bb18d9ae77bc1a1afcc55';
+(node as any).hash = 'f1c6eabe2f25a75bad11a95022a596c0';
 export default node;

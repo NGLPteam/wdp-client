@@ -127,6 +127,7 @@
     },
     "asset": {
       "pdf": "PDF",
+      "pdf_cannot_be_displayed": "This PDF is over 100 MB and cannot be displayed. Please <0>download the PDF</0> instead.",
       "image": "image",
       "audio": "audio",
       "video": "video",

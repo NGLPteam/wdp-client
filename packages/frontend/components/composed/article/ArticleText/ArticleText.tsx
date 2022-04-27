@@ -3,7 +3,6 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { convertToSlug } from "@wdp/lib/helpers";
 import dynamic from "next/dynamic";
-import { useTranslation } from "react-i18next";
 import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
@@ -25,7 +24,6 @@ export default function ArticleText({ data }: Props) {
   const pdf = useMemo(() => article?.pdf, [article]);
   const [toc, setTOC] = useState<TOCItem[]>();
   const textEl = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
 
   /* Get all headers and set table of contents */
   useEffect(() => {
@@ -79,11 +77,7 @@ export default function ArticleText({ data }: Props) {
     </Styled.BodyWrapper>
   ) : (
     <Styled.BodyWrapper className="l-container-wide">
-      {pdf?.asset ? (
-        <AssetInlinePDF data={pdf.asset} />
-      ) : (
-        t("common.no_content")
-      )}
+      <AssetInlinePDF data={pdf.asset} />
     </Styled.BodyWrapper>
   );
 }
@@ -109,6 +103,11 @@ const fragment = graphql`
     pdf: schemaProperty(fullPath: "pdf_version") {
       ... on AssetProperty {
         asset {
+          ... on AssetPDF {
+            fileSize
+            name
+            downloadUrl
+          }
           ...AssetInlinePDFFragment
         }
       }
