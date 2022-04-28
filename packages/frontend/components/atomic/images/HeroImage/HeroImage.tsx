@@ -18,8 +18,10 @@ export default function HeroImage({ data, metadata }: Props) {
     <HeroImageBase
       alt={imageMetadata?.alt || ""}
       url={image.url}
-      placeholder="blur"
-      blurDataURL={placeholder?.webp?.url}
+      {...(placeholder?.webp?.url && {
+        placeholder: "blur",
+        blurDataURL: placeholder.webp.url,
+      })}
     />
   ) : null;
 }

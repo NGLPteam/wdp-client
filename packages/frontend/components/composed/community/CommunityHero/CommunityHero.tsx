@@ -48,8 +48,10 @@ export default function CommunityHero({ data }: Props) {
               layout="fill"
               objectFit="cover"
               objectPosition="center"
-              placeholder="blur"
-              blurDataURL={community.heroImage?.placeholder?.webp.url}
+              {...(community.heroImage.placeholder?.webp?.url && {
+                placeholder: "blur",
+                blurDataURL: community.heroImage.placeholder.webp?.url,
+              })}
             />
           </Styled.ImageWrapper>
         )}

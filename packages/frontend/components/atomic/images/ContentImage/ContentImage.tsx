@@ -17,8 +17,10 @@ export default function ContentImage({ data }: Props) {
       url={image.webp.url}
       width={image.webp.width}
       height={image.webp.height}
-      placeholder="blur"
-      blurDataURL={placeholder.webp.url}
+      {...(placeholder?.webp?.url && {
+        placeholder: "blur",
+        blurDataURL: placeholder.webp.url,
+      })}
     />
   ) : null;
 }
