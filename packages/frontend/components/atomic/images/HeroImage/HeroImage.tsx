@@ -14,10 +14,10 @@ export default function HeroImage({ data, metadata }: Props) {
 
   const { image, placeholder } = imageData;
 
-  return image ? (
+  return image?.webp?.url ? (
     <HeroImageBase
       alt={imageMetadata?.alt || ""}
-      url={image.url}
+      url={image.webp.url}
       {...(placeholder?.webp?.url && {
         placeholder: "blur",
         blurDataURL: placeholder.webp.url,
@@ -33,8 +33,10 @@ interface Props {
 
 const fragment = graphql`
   fragment HeroImageFragment on ImageAttachment {
-    image: original {
-      url
+    image: hero {
+      webp {
+        url
+      }
     }
     placeholder: thumb {
       webp {

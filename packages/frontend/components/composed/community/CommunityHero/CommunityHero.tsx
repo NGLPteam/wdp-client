@@ -40,17 +40,18 @@ export default function CommunityHero({ data }: Props) {
             </Styled.Summary>
           )}
         </Styled.HeroInner>
-        {community.heroImage?.storage && community.heroImage.original?.url && (
+        {/* eslint-disable-next-line max-len */}
+        {community.heroImage?.storage && community.heroImage.image?.webp?.url && (
           <Styled.ImageWrapper>
             <Styled.Image
               alt=""
-              src={community.heroImage.original?.url}
+              src={community.heroImage.image?.webp?.url}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
               {...(community.heroImage.placeholder?.webp?.url && {
                 placeholder: "blur",
-                blurDataURL: community.heroImage.placeholder.webp?.url,
+                blurDataURL: community.heroImage.placeholder.webp.url,
               })}
             />
           </Styled.ImageWrapper>
@@ -72,11 +73,12 @@ const fragment = graphql`
     summary
     heroImage {
       storage
-      original {
-        alt
-        url
-        width
-        height
+      image: hero {
+        webp {
+          url
+          width
+          height
+        }
       }
       placeholder: thumb {
         webp {

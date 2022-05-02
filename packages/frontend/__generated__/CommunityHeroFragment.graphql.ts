@@ -13,11 +13,12 @@ export type CommunityHeroFragment = {
     readonly summary: string | null;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly alt: string | null;
-            readonly url: string | null;
-            readonly width: number | null;
-            readonly height: number | null;
+        readonly image: {
+            readonly webp: {
+                readonly url: string | null;
+                readonly width: number | null;
+                readonly height: number | null;
+            };
         };
         readonly placeholder: {
             readonly webp: {
@@ -87,33 +88,37 @@ return {
           "storageKey": null
         },
         {
-          "alias": null,
+          "alias": "image",
           "args": null,
-          "concreteType": "ImageOriginal",
+          "concreteType": "ImageSize",
           "kind": "LinkedField",
-          "name": "original",
+          "name": "hero",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "alt",
-              "storageKey": null
-            },
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "width",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "height",
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "width",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                }
+              ],
               "storageKey": null
             }
           ],
@@ -157,5 +162,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ed1fec9b38a3298089897df8ebbae340';
+(node as any).hash = '965c10c1e715d21fc156aff05ad5a316';
 export default node;
