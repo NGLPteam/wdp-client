@@ -24,6 +24,7 @@ export const Wrapper = styled.div<{
       ? css`
           border: 1px solid var(--border-color);
           border-radius: var(--border-radius-xs);
+          background-color: var(--color-base-neutral00);
         `
       : aButton("secondary", "sm")}
 

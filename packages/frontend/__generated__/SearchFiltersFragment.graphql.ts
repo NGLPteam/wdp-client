@@ -17,6 +17,7 @@ export type SearchFiltersFragment = {
             readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
         }>;
     }>;
+    readonly " $fragmentRefs": FragmentRefs<"SearchSchemaFilterFragment">;
     readonly " $refType": "SearchFiltersFragment";
 };
 export type SearchFiltersFragment$data = SearchFiltersFragment;
@@ -103,11 +104,16 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SearchSchemaFilterFragment"
     }
   ],
   "type": "SearchScope",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c59746e4ef9657a8dd28ffe475d42128';
+(node as any).hash = '94dc02f005d7c9cc6be5a8d9cfcfdde0';
 export default node;

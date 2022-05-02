@@ -1,0 +1,59 @@
+import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useController, useFormContext } from "react-hook-form";
+import { Checkbox, CheckboxGroup } from "components/forms";
+import { SearchSchemaFilterFragment$key } from "@/relay/SearchSchemaFilterFragment.graphql";
+
+export default function SearchSchemaFilter({ data }: Props) {
+  const { control } = useFormContext();
+
+  const schemaData = useFragment<SearchSchemaFilterFragment$key>(
+    fragment,
+    data
+  );
+
+  const { t } = useTranslation();
+
+  const { field } = useController({
+    control,
+    name: "schema",
+  });
+
+  // We don't want to render the checkboxes until we have the default value.
+  // schemaQuery should always return an array.
+  return (
+    <CheckboxGroup label={t("filter.type_header")}>
+      {schemaData.schemas.map(({ namespace, identifier, name }, i) => (
+        <Checkbox
+          key={`${namespace}:${identifier}`}
+          label={name}
+          onChange={(e) => {
+            const valueCopy = [...field.value];
+
+            // update checkbox value
+            valueCopy[i] = e.target.checked ? e.target.value : null;
+
+            // send data to react hook form
+            field.onChange(valueCopy);
+          }}
+          checked={field.value?.includes(`${namespace}:${identifier}`)}
+          value={`${namespace}:${identifier}`}
+        />
+      ))}
+    </CheckboxGroup>
+  );
+}
+
+interface Props {
+  data: SearchSchemaFilterFragment$key;
+}
+
+const fragment = graphql`
+  fragment SearchSchemaFilterFragment on SearchScope {
+    schemas: availableSchemaVersions {
+      namespace
+      identifier
+      name
+    }
+  }
+`;

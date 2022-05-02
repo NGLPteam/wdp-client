@@ -63,6 +63,7 @@ export type SearchLayoutEntityQueryVariables = {
     page?: number | null | undefined;
     predicates?: Array<SearchPredicateInput> | null | undefined;
     query?: string | null | undefined;
+    schema?: Array<string> | null | undefined;
     id: string;
 };
 export type SearchLayoutEntityQueryResponse = {
@@ -83,11 +84,12 @@ query SearchLayoutEntityQuery(
   $page: Int = 1
   $predicates: [SearchPredicateInput!] = []
   $query: String = ""
+  $schema: [String!] = []
   $id: ID!
 ) {
   node(id: $id) {
     __typename
-    ...searchCommunityQueryFragment_2QNE8l
+    ...searchCommunityQueryFragment_dJrY9
     id
   }
 }
@@ -195,6 +197,7 @@ fragment SearchFiltersFragment on SearchScope {
     }
     ...SearchFilterFragment
   }
+  ...SearchSchemaFilterFragment
   schemas: availableSchemaVersions {
     searchableProperties {
       __typename
@@ -209,10 +212,10 @@ fragment SearchFiltersFragment on SearchScope {
   }
 }
 
-fragment SearchLayoutFragment_2QNE8l on Searchable {
+fragment SearchLayoutFragment_dJrY9 on Searchable {
   __isSearchable: __typename
   search {
-    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order) {
+    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {
       ...SearchResultsFragment
     }
     ...SearchFiltersFragment
@@ -242,6 +245,15 @@ fragment SearchResultsFragment on SearchResultConnection {
   }
 }
 
+fragment SearchSchemaFilterFragment on SearchScope {
+  schemas: availableSchemaVersions {
+    namespace
+    identifier
+    name
+    id
+  }
+}
+
 fragment SquareThumbnailFragment on ImageAttachment {
   image: medium {
     webp {
@@ -251,9 +263,9 @@ fragment SquareThumbnailFragment on ImageAttachment {
   }
 }
 
-fragment searchCommunityQueryFragment_2QNE8l on Entity {
+fragment searchCommunityQueryFragment_dJrY9 on Entity {
   __isEntity: __typename
-  ...SearchLayoutFragment_2QNE8l
+  ...SearchLayoutFragment_dJrY9
   ... on Node {
     __isNode: __typename
     id
@@ -287,62 +299,79 @@ v4 = {
   "kind": "LocalArgument",
   "name": "query"
 },
-v5 = [
+v5 = {
+  "defaultValue": ([]/*: any*/),
+  "kind": "LocalArgument",
+  "name": "schema"
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v6 = {
+v7 = {
   "kind": "Variable",
   "name": "order",
   "variableName": "order"
 },
-v7 = {
+v8 = {
   "kind": "Variable",
   "name": "page",
   "variableName": "page"
 },
-v8 = {
+v9 = {
   "kind": "Variable",
   "name": "predicates",
   "variableName": "predicates"
 },
-v9 = {
+v10 = {
   "kind": "Variable",
   "name": "query",
   "variableName": "query"
 },
-v10 = {
+v11 = {
+  "kind": "Variable",
+  "name": "schema",
+  "variableName": "schema"
+},
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v11 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v12 = {
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "value",
   "storageKey": null
 },
-v13 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "label",
   "storageKey": null
 },
-v14 = {
+v17 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -352,7 +381,7 @@ v14 = {
       "name": "searchPath",
       "storageKey": null
     },
-    (v13/*: any*/),
+    (v16/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -392,8 +421,8 @@ v14 = {
           "name": "options",
           "plural": true,
           "selections": [
-            (v13/*: any*/),
-            (v12/*: any*/)
+            (v16/*: any*/),
+            (v15/*: any*/)
           ],
           "storageKey": null
         }
@@ -412,7 +441,8 @@ return {
       (v1/*: any*/),
       (v2/*: any*/),
       (v3/*: any*/),
-      (v4/*: any*/)
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -420,7 +450,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
@@ -428,10 +458,11 @@ return {
         "selections": [
           {
             "args": [
-              (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/)
+              (v9/*: any*/),
+              (v10/*: any*/),
+              (v11/*: any*/)
             ],
             "kind": "FragmentSpread",
             "name": "searchCommunityQueryFragment"
@@ -450,6 +481,7 @@ return {
       (v2/*: any*/),
       (v3/*: any*/),
       (v4/*: any*/),
+      (v5/*: any*/),
       (v0/*: any*/)
     ],
     "kind": "Operation",
@@ -457,14 +489,14 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v6/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
         "plural": false,
         "selections": [
-          (v10/*: any*/),
-          (v11/*: any*/),
+          (v12/*: any*/),
+          (v13/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -482,15 +514,16 @@ return {
                       {
                         "alias": null,
                         "args": [
-                          (v6/*: any*/),
                           (v7/*: any*/),
+                          (v8/*: any*/),
                           {
                             "kind": "Literal",
                             "name": "perPage",
                             "value": 20
                           },
-                          (v8/*: any*/),
-                          (v9/*: any*/)
+                          (v9/*: any*/),
+                          (v10/*: any*/),
+                          (v11/*: any*/)
                         ],
                         "concreteType": "SearchResultConnection",
                         "kind": "LinkedField",
@@ -513,7 +546,7 @@ return {
                                 "name": "entity",
                                 "plural": false,
                                 "selections": [
-                                  (v10/*: any*/),
+                                  (v12/*: any*/),
                                   {
                                     "kind": "TypeDiscriminator",
                                     "abstractKey": "__isAnyEntity"
@@ -521,7 +554,7 @@ return {
                                   {
                                     "kind": "InlineFragment",
                                     "selections": [
-                                      (v11/*: any*/)
+                                      (v13/*: any*/)
                                     ],
                                     "type": "Node",
                                     "abstractKey": "__isNode"
@@ -551,14 +584,8 @@ return {
                                         "name": "schemaVersion",
                                         "plural": false,
                                         "selections": [
-                                          {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "name",
-                                            "storageKey": null
-                                          },
-                                          (v11/*: any*/)
+                                          (v14/*: any*/),
+                                          (v13/*: any*/)
                                         ],
                                         "storageKey": null
                                       },
@@ -648,7 +675,7 @@ return {
                                                 "name": "precision",
                                                 "storageKey": null
                                               },
-                                              (v12/*: any*/)
+                                              (v15/*: any*/)
                                             ],
                                             "storageKey": null
                                           }
@@ -709,7 +736,7 @@ return {
                         "name": "coreProperties",
                         "plural": true,
                         "selections": [
-                          (v14/*: any*/)
+                          (v17/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -724,17 +751,32 @@ return {
                           {
                             "alias": null,
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "namespace",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "identifier",
+                            "storageKey": null
+                          },
+                          (v14/*: any*/),
+                          (v13/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
                             "concreteType": null,
                             "kind": "LinkedField",
                             "name": "searchableProperties",
                             "plural": true,
                             "selections": [
-                              (v10/*: any*/),
-                              (v14/*: any*/)
+                              (v12/*: any*/),
+                              (v17/*: any*/)
                             ],
                             "storageKey": null
-                          },
-                          (v11/*: any*/)
+                          }
                         ],
                         "storageKey": null
                       }
@@ -759,14 +801,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6c10107942f6f8d6b16530eb78bfa856",
+    "cacheID": "c1d5e89f3169fbed7391adc76e7c7988",
     "id": null,
     "metadata": {},
     "name": "SearchLayoutEntityQuery",
     "operationKind": "query",
-    "text": "query SearchLayoutEntityQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...searchCommunityQueryFragment_2QNE8l\n    id\n  }\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchEntityResultFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  summary\n  schemaVersion {\n    name\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      ...PrecisionDateFragment\n      value\n    }\n  }\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutFragment_2QNE8l on Searchable {\n  __isSearchable: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n}\n\nfragment SearchResultFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ...SearchEntityResultFragment\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...SearchResultFactoryFragment\n    }\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment searchCommunityQueryFragment_2QNE8l on Entity {\n  __isEntity: __typename\n  ...SearchLayoutFragment_2QNE8l\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n"
+    "text": "query SearchLayoutEntityQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n  $schema: [String!] = []\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...searchCommunityQueryFragment_dJrY9\n    id\n  }\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchEntityResultFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  summary\n  schemaVersion {\n    name\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      ...PrecisionDateFragment\n      value\n    }\n  }\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  ...SearchSchemaFilterFragment\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutFragment_dJrY9 on Searchable {\n  __isSearchable: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n}\n\nfragment SearchResultFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ...SearchEntityResultFragment\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...SearchResultFactoryFragment\n    }\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SearchSchemaFilterFragment on SearchScope {\n  schemas: availableSchemaVersions {\n    namespace\n    identifier\n    name\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment searchCommunityQueryFragment_dJrY9 on Entity {\n  __isEntity: __typename\n  ...SearchLayoutFragment_dJrY9\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'ffd77a4ef7231076cdad039cecbe23c9';
+(node as any).hash = '91f4c13b0e95e069787f3f0c12252c3f';
 export default node;

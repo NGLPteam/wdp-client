@@ -60,7 +60,9 @@
       "title_asc": "Title, ascending"
     },
     "filter": {
-      "results_header": "Filter by:"
+      "results_header": "Filter by:",
+      "type_header": "Type",
+      "clear_filters": "Clear Filters"
     },
     "glossary": {
       "community": "community",

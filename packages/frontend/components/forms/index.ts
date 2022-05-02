@@ -5,3 +5,4 @@ export { default as Checkbox } from "./Checkbox";
 export { default as Typeahead, TypeaheadController } from "./Typeahead";
 export { default as Fieldset } from "./Fieldset";
 export { default as Input } from "./Input";
+export { default as BaseForm } from "./BaseForm";
