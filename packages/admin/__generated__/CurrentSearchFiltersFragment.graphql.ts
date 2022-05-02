@@ -11,6 +11,12 @@ export type CurrentSearchFiltersFragment = {
         readonly label?: string | undefined;
     }>;
     readonly schemas: ReadonlyArray<{
+        readonly namespace: string;
+        readonly identifier: string;
+        readonly name: string;
+        readonly schemaDefinition: {
+            readonly slug: string;
+        };
         readonly searchableProperties: ReadonlyArray<{
             readonly searchPath?: string | undefined;
             readonly label?: string | undefined;
@@ -77,6 +83,45 @@ return {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "namespace",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaDefinition",
+          "kind": "LinkedField",
+          "name": "schemaDefinition",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": null,
           "kind": "LinkedField",
           "name": "searchableProperties",
@@ -92,5 +137,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bfd33aa9cd25e2c3bd0e3ada2cf01ef1';
+(node as any).hash = '079d829e1a48bbd732bd45f64f493ec3';
 export default node;

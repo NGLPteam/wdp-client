@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { filterSearchableProperties } from "@wdp/lib/search";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
+import { normalizeRouteQueryArray } from "@wdp/lib/routes";
 import * as Styled from "./CurrentSearchFilters.styles";
 import { ButtonControl } from "components/atomic";
 import {
@@ -21,7 +22,24 @@ export default function CurrentFilters({ data }: Props) {
 
   const filters = query?.filters ? JSON.parse(String(query.filters)) : [];
 
-  const handleClick = (filterKey: string) => {
+  const schemas = useMemo(() => {
+    const schemaQuery = query?.schema
+      ? normalizeRouteQueryArray(query.schema)
+      : [];
+
+    return schemaQuery.map((s) => {
+      const obj = searchData.schemas.find(
+        (schema) => `${schema.schemaDefinition.slug}` === s
+      );
+
+      return {
+        ...obj,
+        value: s,
+      };
+    });
+  }, [searchData, query]);
+
+  const handleFilterClick = (filterKey: string) => {
     delete filters[filterKey];
 
     push(
@@ -30,6 +48,22 @@ export default function CurrentFilters({ data }: Props) {
         query: {
           ...query,
           filters: JSON.stringify(filters),
+        },
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  };
+
+  const handleSchemaClick = (schema: string) => {
+    push(
+      {
+        pathname,
+        query: {
+          ...query,
+          schema: schemas.filter((s) => s.value !== schema).map((s) => s.value),
         },
       },
       undefined,
@@ -82,7 +116,6 @@ export default function CurrentFilters({ data }: Props) {
           value,
         });
   };
-
   return (
     <Styled.Wrapper className="l-flex l-flex--gap-sm">
       {Object.keys(filters).map((filterKey) => {
@@ -95,13 +128,26 @@ export default function CurrentFilters({ data }: Props) {
             icon="close"
             onClick={(e: React.MouseEvent) => {
               e.preventDefault();
-              handleClick(filterKey);
+              handleFilterClick(filterKey);
             }}
           >
             {filterLabel}
           </ButtonControl>
         ) : null;
       })}
+      {schemas.map((schema) => (
+        <ButtonControl
+          type="button"
+          key={schema.value}
+          icon="close"
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            handleSchemaClick(schema.value);
+          }}
+        >
+          {schema.name}
+        </ButtonControl>
+      ))}
     </Styled.Wrapper>
   );
 }
@@ -121,6 +167,10 @@ const fragment = graphql`
       }
     }
     schemas: availableSchemaVersions {
+      name
+      schemaDefinition {
+        slug
+      }
       searchableProperties {
         ... on SearchableProperty {
           searchPath

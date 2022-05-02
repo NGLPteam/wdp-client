@@ -23,9 +23,9 @@ export default function SearchSchemaFilter({ data }: Props) {
   // schemaQuery should always return an array.
   return (
     <CheckboxGroup label={t("filter.type_header")}>
-      {schemaData.schemas.map(({ namespace, identifier, name }) => (
+      {schemaData.schemas.map(({ schemaDefinition, name }) => (
         <Checkbox
-          key={`${namespace}:${identifier}`}
+          key={`${schemaDefinition.slug}`}
           label={name}
           onChange={(e) => {
             let valueCopy = field?.value ? [...field.value] : [];
@@ -41,8 +41,8 @@ export default function SearchSchemaFilter({ data }: Props) {
             // send data to react hook form
             field.onChange(valueCopy);
           }}
-          checked={field.value?.includes(`${namespace}:${identifier}`)}
-          value={`${namespace}:${identifier}`}
+          checked={field.value?.includes(`${schemaDefinition.slug}`)}
+          value={`${schemaDefinition.slug}`}
         />
       ))}
     </CheckboxGroup>
@@ -56,9 +56,10 @@ interface Props {
 const fragment = graphql`
   fragment SearchSchemaFilterFragment on SearchScope {
     schemas: availableSchemaVersions {
-      namespace
-      identifier
       name
+      schemaDefinition {
+        slug
+      }
     }
   }
 `;

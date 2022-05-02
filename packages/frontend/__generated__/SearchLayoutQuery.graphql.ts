@@ -239,9 +239,11 @@ fragment SearchResultsFragment on SearchResultConnection {
 
 fragment SearchSchemaFilterFragment on SearchScope {
   schemas: availableSchemaVersions {
-    namespace
-    identifier
     name
+    schemaDefinition {
+      slug
+      id
+    }
     id
   }
 }
@@ -338,17 +340,24 @@ v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "value",
+  "name": "slug",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "label",
+  "name": "value",
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "label",
+  "storageKey": null
+},
+v12 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -358,7 +367,7 @@ v11 = {
       "name": "searchPath",
       "storageKey": null
     },
-    (v10/*: any*/),
+    (v11/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -398,8 +407,8 @@ v11 = {
           "name": "options",
           "plural": true,
           "selections": [
-            (v10/*: any*/),
-            (v9/*: any*/)
+            (v11/*: any*/),
+            (v10/*: any*/)
           ],
           "storageKey": null
         }
@@ -585,13 +594,7 @@ return {
                               {
                                 "kind": "InlineFragment",
                                 "selections": [
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "slug",
-                                    "storageKey": null
-                                  }
+                                  (v9/*: any*/)
                                 ],
                                 "type": "Sluggable",
                                 "abstractKey": "__isSluggable"
@@ -614,7 +617,7 @@ return {
                                         "name": "precision",
                                         "storageKey": null
                                       },
-                                      (v9/*: any*/)
+                                      (v10/*: any*/)
                                     ],
                                     "storageKey": null
                                   }
@@ -675,7 +678,7 @@ return {
                 "name": "coreProperties",
                 "plural": true,
                 "selections": [
-                  (v11/*: any*/)
+                  (v12/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -687,21 +690,20 @@ return {
                 "name": "availableSchemaVersions",
                 "plural": true,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "namespace",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "identifier",
-                    "storageKey": null
-                  },
                   (v8/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SchemaDefinition",
+                    "kind": "LinkedField",
+                    "name": "schemaDefinition",
+                    "plural": false,
+                    "selections": [
+                      (v9/*: any*/),
+                      (v7/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
                   (v7/*: any*/),
                   {
                     "alias": null,
@@ -712,7 +714,7 @@ return {
                     "plural": true,
                     "selections": [
                       (v6/*: any*/),
-                      (v11/*: any*/)
+                      (v12/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -729,12 +731,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4ae0ba8717738bcefc2e4cb2b03393f5",
+    "cacheID": "36668266d928d4fef3100d4d7c2db090",
     "id": null,
     "metadata": {},
     "name": "SearchLayoutQuery",
     "operationKind": "query",
-    "text": "query SearchLayoutQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n  $schema: [String!] = []\n) {\n  ...searchQueryFragment_dJrY9\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchEntityResultFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  summary\n  schemaVersion {\n    name\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      ...PrecisionDateFragment\n      value\n    }\n  }\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  ...SearchSchemaFilterFragment\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutFragment_dJrY9 on Searchable {\n  __isSearchable: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n}\n\nfragment SearchResultFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ...SearchEntityResultFragment\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...SearchResultFactoryFragment\n    }\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SearchSchemaFilterFragment on SearchScope {\n  schemas: availableSchemaVersions {\n    namespace\n    identifier\n    name\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment searchQueryFragment_dJrY9 on Query {\n  ...SearchLayoutFragment_dJrY9\n}\n"
+    "text": "query SearchLayoutQuery(\n  $order: EntityOrder = PUBLISHED_ASCENDING\n  $page: Int = 1\n  $predicates: [SearchPredicateInput!] = []\n  $query: String = \"\"\n  $schema: [String!] = []\n) {\n  ...searchQueryFragment_dJrY9\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SearchEntityResultFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  summary\n  schemaVersion {\n    name\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      ...PrecisionDateFragment\n      value\n    }\n  }\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  ...SearchSchemaFilterFragment\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutFragment_dJrY9 on Searchable {\n  __isSearchable: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n}\n\nfragment SearchResultFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ...SearchEntityResultFragment\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...SearchResultFactoryFragment\n    }\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SearchSchemaFilterFragment on SearchScope {\n  schemas: availableSchemaVersions {\n    name\n    schemaDefinition {\n      slug\n      id\n    }\n    id\n  }\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  image: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment searchQueryFragment_dJrY9 on Query {\n  ...SearchLayoutFragment_dJrY9\n}\n"
   }
 };
 })();

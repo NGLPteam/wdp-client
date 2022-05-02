@@ -7,9 +7,10 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SearchSchemaFilterFragment = {
     readonly schemas: ReadonlyArray<{
-        readonly namespace: string;
-        readonly identifier: string;
         readonly name: string;
+        readonly schemaDefinition: {
+            readonly slug: string;
+        };
     }>;
     readonly " $refType": "SearchSchemaFilterFragment";
 };
@@ -39,21 +40,25 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "namespace",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
           "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaDefinition",
+          "kind": "LinkedField",
+          "name": "schemaDefinition",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -63,5 +68,5 @@ const node: ReaderFragment = {
   "type": "SearchScope",
   "abstractKey": null
 };
-(node as any).hash = 'db462319016f76f94ca8cd1671446a97';
+(node as any).hash = '7e9e58440599af9fccb929f5300055c4';
 export default node;
