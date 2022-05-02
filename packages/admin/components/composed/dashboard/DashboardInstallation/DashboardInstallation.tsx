@@ -32,11 +32,19 @@ export default function DashboardInstallation({ data }: Props) {
         </Styled.Item>
         <Styled.Item>
           <Styled.ItemLabel>{t("glossary.collection_plural")}</Styled.ItemLabel>
-          <Styled.ItemValue></Styled.ItemValue>
+          <Styled.ItemValue>
+            {formatNumberToString(
+              queryData.viewer?.allCollections?.pageInfo?.totalCount
+            )}
+          </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
           <Styled.ItemLabel>{t("glossary.item_plural")}</Styled.ItemLabel>
-          <Styled.ItemValue></Styled.ItemValue>
+          <Styled.ItemValue>
+            {formatNumberToString(
+              queryData.viewer?.allItems?.pageInfo?.totalCount
+            )}
+          </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
           <Styled.ItemLabel>{t("glossary.user_plural")}</Styled.ItemLabel>
@@ -76,6 +84,18 @@ const fragment = graphql`
     users {
       pageInfo {
         totalCount
+      }
+    }
+    viewer {
+      allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {
+        pageInfo {
+          totalCount
+        }
+      }
+      allItems: items(nodeFilter: ROOTS_AND_LEAVES) {
+        pageInfo {
+          totalCount
+        }
       }
     }
   }
