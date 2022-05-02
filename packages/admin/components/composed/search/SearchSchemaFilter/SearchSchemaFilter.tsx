@@ -22,29 +22,32 @@ export default function SearchSchemaFilter({ data }: Props) {
   // We don't want to render the checkboxes until we have the default value.
   // schemaQuery should always return an array.
   return (
-    <CheckboxGroup label={t("filter.type_header")}>
-      {schemaData.schemas.map(({ namespace, identifier, name }) => (
-        <Checkbox
-          key={`${namespace}:${identifier}`}
-          label={name}
-          onChange={(e) => {
-            let valueCopy = field?.value ? [...field.value] : [];
+    <CheckboxGroup name="schema" label={t("glossary.schema")}>
+      <>
+        {schemaData.schemas.map(({ namespace, identifier, name }, i) => (
+          <Checkbox
+            key={`${namespace}:${identifier}`}
+            onChange={(e) => {
+              let valueCopy = field?.value ? [...field.value] : [];
 
-            const { checked, value } = e.target;
+              const { checked, value } = e.target;
 
-            if (checked && !valueCopy.includes(value)) {
-              valueCopy.push(value);
-            } else {
-              valueCopy = valueCopy.filter((v) => v !== value);
-            }
+              if (checked && !valueCopy.includes(value)) {
+                valueCopy.push(value);
+              } else {
+                valueCopy = valueCopy.filter((v) => v !== value);
+              }
 
-            // send data to react hook form
-            field.onChange(valueCopy);
-          }}
-          checked={field.value?.includes(`${namespace}:${identifier}`)}
-          value={`${namespace}:${identifier}`}
-        />
-      ))}
+              // send data to react hook form
+              field.onChange(valueCopy);
+            }}
+            checked={field.value?.includes(`${namespace}:${identifier}`)}
+            value={`${namespace}:${identifier}`}
+          >
+            {name}
+          </Checkbox>
+        ))}
+      </>
     </CheckboxGroup>
   );
 }

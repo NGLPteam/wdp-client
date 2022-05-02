@@ -36,6 +36,7 @@ const query = graphql`
     $query: String
     $hasQuery: Boolean!
     $itemSlug: Slug!
+    $schema: [String!]
   ) {
     item(slug: $itemSlug) {
       ...ItemLayoutQueryFragment
@@ -50,6 +51,7 @@ const query = graphql`
             predicates: $predicates
             order: $order
             hasQuery: $hasQuery
+            schema: $schema
           )
       }
     }

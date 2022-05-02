@@ -7,7 +7,9 @@ import { filterSearchableProperties } from "@wdp/lib/search";
 import { removeEmptyKeys } from "@wdp/lib/helpers";
 import { useRouter } from "next/router";
 import omitBy from "lodash/omitBy";
+import { normalizeRouteQueryArray } from "@wdp/lib/routes";
 import SearchFilter from "../SearchFilter";
+import SearchSchemaFilter from "../SearchSchemaFilter";
 import { Grid } from "components/forms";
 import { NullForm } from "components/api";
 import {
@@ -24,6 +26,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
     ...(router.query.filters && {
       ...JSON.parse(String(router.query.filters)),
     }),
+    schema: normalizeRouteQueryArray(router.query.schema),
   };
 
   const onSubmit = (data: Record<string, string>) => {
@@ -33,6 +36,8 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
       return key && typeof key === "string" && key.startsWith("drawer");
     });
 
+    const { schema, ...filters } = data;
+
     if (onSuccess) onSuccess();
 
     router.push(
@@ -41,7 +46,8 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
         query: {
           ...cleanedQuery,
           page: 1,
-          filters: JSON.stringify(data),
+          filters: JSON.stringify(filters),
+          schema,
         },
       },
       undefined,
@@ -57,6 +63,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
           ...router.query,
           page: 1,
           filters: null,
+          schema: null,
         },
       },
       undefined,
@@ -92,6 +99,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
       {() => (
         <>
           <Grid>
+            {searchData && <SearchSchemaFilter data={searchData} />}
             {coreProps.map((prop: Node, i: number) => (
               <SearchFilter key={i} data={prop} />
             ))}
@@ -130,5 +138,6 @@ const fragment = graphql`
         ...SearchFilterFragment
       }
     }
+    ...SearchSchemaFilterFragment
   }
 `;

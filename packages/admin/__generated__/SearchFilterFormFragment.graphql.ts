@@ -17,6 +17,7 @@ export type SearchFilterFormFragment = {
             readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
         }>;
     }>;
+    readonly " $fragmentRefs": FragmentRefs<"SearchSchemaFilterFragment">;
     readonly " $refType": "SearchFilterFormFragment";
 };
 export type SearchFilterFormFragment$data = SearchFilterFormFragment;
@@ -103,11 +104,16 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SearchSchemaFilterFragment"
     }
   ],
   "type": "SearchScope",
   "abstractKey": null
 };
 })();
-(node as any).hash = '33f9f2afae96d5ba423f5b3c2c3e82a3';
+(node as any).hash = 'f43a48d3c0138252fcd59da69024ee46';
 export default node;

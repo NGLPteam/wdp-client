@@ -23,6 +23,7 @@ const query = graphql`
     $page: Int!
     $predicates: [SearchPredicateInput!]
     $order: EntityOrder
+    $schema: [String!]
   ) {
     ...SearchLayoutFragment
       @arguments(
@@ -30,6 +31,7 @@ const query = graphql`
         page: $page
         predicates: $predicates
         order: $order
+        schema: $schema
       )
   }
 `;

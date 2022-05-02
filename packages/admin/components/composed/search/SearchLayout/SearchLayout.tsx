@@ -25,6 +25,7 @@ const fragment = graphql`
     predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
     page: { type: "Int", defaultValue: 1 }
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    schema: { type: "[String!]", defaultValue: [] }
   ) {
     search(visibility: ALL) {
       ...SearchResultListFragment
@@ -33,6 +34,7 @@ const fragment = graphql`
           page: $page
           predicates: $predicates
           order: $order
+          schema: $schema
         )
     }
   }
