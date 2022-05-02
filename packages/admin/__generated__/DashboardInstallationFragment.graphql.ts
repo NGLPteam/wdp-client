@@ -21,6 +21,18 @@ export type DashboardInstallationFragment = {
             readonly totalCount: number;
         };
     };
+    readonly viewer: {
+        readonly allCollections: {
+            readonly pageInfo: {
+                readonly totalCount: number;
+            };
+        };
+        readonly allItems: {
+            readonly pageInfo: {
+                readonly totalCount: number;
+            };
+        };
+    };
     readonly " $refType": "DashboardInstallationFragment";
 };
 export type DashboardInstallationFragment$data = DashboardInstallationFragment;
@@ -50,6 +62,13 @@ var v0 = [
       }
     ],
     "storageKey": null
+  }
+],
+v1 = [
+  {
+    "kind": "Literal",
+    "name": "nodeFilter",
+    "value": "ROOTS_AND_LEAVES"
   }
 ];
 return {
@@ -87,11 +106,42 @@ return {
       "plural": false,
       "selections": (v0/*: any*/),
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "viewer",
+      "plural": false,
+      "selections": [
+        {
+          "alias": "allCollections",
+          "args": (v1/*: any*/),
+          "concreteType": "CollectionConnection",
+          "kind": "LinkedField",
+          "name": "collections",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": "collections(nodeFilter:\"ROOTS_AND_LEAVES\")"
+        },
+        {
+          "alias": "allItems",
+          "args": (v1/*: any*/),
+          "concreteType": "ItemConnection",
+          "kind": "LinkedField",
+          "name": "items",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": "items(nodeFilter:\"ROOTS_AND_LEAVES\")"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f681b51cb98a232391bc5af8a60e2d6f';
+(node as any).hash = '5a6202c1dbab3780bac90bcd3b85cc65';
 export default node;
