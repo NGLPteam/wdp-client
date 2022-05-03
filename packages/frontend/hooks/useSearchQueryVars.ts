@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { routeQueryArrayToString } from "@wdp/lib/routes";
+import {
+  normalizeRouteQueryArray,
+  routeQueryArrayToString,
+} from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { getPredicates } from "helpers/search";
 import { EntityOrder, SearchPredicateInput } from "types/graphql-schema";
@@ -16,6 +19,7 @@ interface Props {
   page?: number | null | undefined;
   predicates?: SearchPredicateInput[] | null | undefined;
   query?: string | null | undefined;
+  schema?: string[];
 }
 
 /**
@@ -31,6 +35,7 @@ export default function useSearchQueryVars(): Props {
     const page = routeQueryArrayToString(query.page);
     const q = routeQueryArrayToString(query.q);
     const order = routeQueryArrayToString(query.order) as EntityOrder;
+    const schema = normalizeRouteQueryArray(query.schema);
 
     const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
 
@@ -39,6 +44,7 @@ export default function useSearchQueryVars(): Props {
       predicates: predicates || DEFAULTS.predicates,
       page: parseInt(page) || DEFAULTS.page,
       order: order || DEFAULTS.order,
+      schema,
     });
   }, [query, setVars]);
 

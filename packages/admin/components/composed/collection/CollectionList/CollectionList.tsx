@@ -159,6 +159,7 @@ const searchFragment = graphql`
     predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
     hasQuery: { type: "Boolean!" }
+    schema: { type: "[String!]", defaultValue: [] }
   ) {
     results(
       query: $query
@@ -167,6 +168,7 @@ const searchFragment = graphql`
       predicates: $predicates
       order: $order
       scope: COLLECTION
+      schema: $schema
     ) @include(if: $hasQuery) {
       nodes {
         slug

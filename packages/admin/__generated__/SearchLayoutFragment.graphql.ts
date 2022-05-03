@@ -40,6 +40,11 @@ const node: ReaderFragment = {
       "defaultValue": "",
       "kind": "LocalArgument",
       "name": "query"
+    },
+    {
+      "defaultValue": [],
+      "kind": "LocalArgument",
+      "name": "schema"
     }
   ],
   "kind": "Fragment",
@@ -81,6 +86,11 @@ const node: ReaderFragment = {
               "kind": "Variable",
               "name": "query",
               "variableName": "query"
+            },
+            {
+              "kind": "Variable",
+              "name": "schema",
+              "variableName": "schema"
             }
           ],
           "kind": "FragmentSpread",
@@ -93,5 +103,5 @@ const node: ReaderFragment = {
   "type": "Searchable",
   "abstractKey": "__isSearchable"
 };
-(node as any).hash = 'cfa9c4cf27e9cdc687cd1cc12f374ff9';
+(node as any).hash = '6a8b538162f3c7c3ffae01ec3db7edff';
 export default node;

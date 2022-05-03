@@ -25,7 +25,7 @@ export default function SearchResultBase({
           </NamedLink>
         </h4>
         {description && (
-          <Styled.Description as="p" className="t-copy-sm a-color-light">
+          <Styled.Description className="t-copy-sm a-color-light">
             <Markdown.Summary>{description}</Markdown.Summary>
           </Styled.Description>
         )}

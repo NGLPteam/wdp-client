@@ -35,6 +35,7 @@ const query = graphql`
     $predicates: [SearchPredicateInput!]
     $order: EntityOrder
     $hasQuery: Boolean!
+    $schema: [String!]
   ) {
     viewer {
       collections(access: READ_ONLY, order: $order, page: $page, perPage: 20) {
@@ -49,6 +50,7 @@ const query = graphql`
           predicates: $predicates
           order: $order
           hasQuery: $hasQuery
+          schema: $schema
         )
     }
   }

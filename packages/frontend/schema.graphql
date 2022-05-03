@@ -4798,6 +4798,8 @@ interface Image {
 type ImageAttachment implements HasAttachmentStorage & ImageIdentification {
   """Alt text for accessible images"""
   alt: String
+  """A hero-sized mapping for derivative formats"""
+  hero: ImageSize!
   """A large-sized mapping for derivative formats"""
   large: ImageSize!
   """A medium-sized mapping for derivative formats"""
@@ -5001,7 +5003,7 @@ type ImageSize implements ImageIdentification {
   """Alt text for accessible images"""
   alt: String
   """The (maximum) height for this size."""
-  height: Int!
+  height: Int
   """
   The original filename, if one was detected during attachment.
   

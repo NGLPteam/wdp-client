@@ -15,8 +15,11 @@ export default function JournalHero({ data }: Props) {
         <NamedLink
           route="collection"
           routeParams={{ slug: journal.slug || "" }}
+          passHref
         >
-          <Markdown.Title>{journal.title}</Markdown.Title>
+          <a>
+            <Markdown.Title>{journal.title}</Markdown.Title>
+          </a>
         </NamedLink>
       }
       subtitle={<Markdown.Title>{journal.subtitle}</Markdown.Title>}

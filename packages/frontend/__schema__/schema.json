@@ -27858,6 +27858,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hero",
+            "description": "A hero-sized mapping for derivative formats",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "large",
             "description": "A large-sized mapping for derivative formats",
             "args": [],
@@ -28556,13 +28572,9 @@
             "description": "The (maximum) height for this size.",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

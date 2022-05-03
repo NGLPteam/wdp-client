@@ -4380,6 +4380,8 @@ export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
   __typename?: 'ImageAttachment';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
+  /** A hero-sized mapping for derivative formats */
+  hero: ImageSize;
   /** A large-sized mapping for derivative formats */
   large: ImageSize;
   /** A medium-sized mapping for derivative formats */
@@ -4568,7 +4570,7 @@ export type ImageSize = ImageIdentification & {
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
   /** The (maximum) height for this size. */
-  height: Scalars['Int'];
+  height?: Maybe<Scalars['Int']>;
   /**
    * The original filename, if one was detected during attachment.
    *
@@ -11695,6 +11697,7 @@ export type ImageResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type ImageAttachmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageAttachment'] = ResolversParentTypes['ImageAttachment']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hero?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
   large?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
   medium?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
@@ -11748,7 +11751,7 @@ export type ImageOriginalResolvers<ContextType = any, ParentType extends Resolve
 
 export type ImageSizeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageSize'] = ResolversParentTypes['ImageSize']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   png?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
   purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;

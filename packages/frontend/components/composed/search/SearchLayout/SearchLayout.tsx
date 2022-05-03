@@ -90,7 +90,13 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
         </Styled.Results>
       </Styled.Inner>
       <BaseDrawer label="Filters" dialog={dialog}>
-        {search && <SearchFilters id="mobileFilters" data={search} />}
+        {search && (
+          <SearchFilters
+            id="mobileFilters"
+            data={search}
+            onSubmit={() => dialog.hide()}
+          />
+        )}
       </BaseDrawer>
     </section>
   );
@@ -109,6 +115,7 @@ const fragment = graphql`
     predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
     page: { type: "Int", defaultValue: 1 }
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    schema: { type: "[String!]", defaultValue: [] }
   ) {
     search {
       results(
@@ -117,6 +124,7 @@ const fragment = graphql`
         perPage: 20
         predicates: $predicates
         order: $order
+        schema: $schema
       ) {
         ...SearchResultsFragment
       }

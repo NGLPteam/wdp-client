@@ -73,6 +73,11 @@ return {
       "defaultValue": "",
       "kind": "LocalArgument",
       "name": "query"
+    },
+    {
+      "defaultValue": [],
+      "kind": "LocalArgument",
+      "name": "schema"
     }
   ],
   "kind": "Fragment",
@@ -111,6 +116,11 @@ return {
               "kind": "Variable",
               "name": "query",
               "variableName": "query"
+            },
+            {
+              "kind": "Variable",
+              "name": "schema",
+              "variableName": "schema"
             },
             {
               "kind": "Literal",
@@ -285,5 +295,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '2d29c0c118534bfb319f634fb7885efd';
+(node as any).hash = 'cf6d78c19ce1cfb530d2e1db23c0ccd2';
 export default node;

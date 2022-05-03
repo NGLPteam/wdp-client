@@ -35,6 +35,7 @@ const query = graphql`
     $predicates: [SearchPredicateInput!]
     $query: String
     $hasQuery: Boolean!
+    $schema: [String!]
   ) {
     community(slug: $communitySlug) {
       ...CommunityLayoutQueryFragment
@@ -49,6 +50,7 @@ const query = graphql`
             predicates: $predicates
             order: $order
             hasQuery: $hasQuery
+            schema: $schema
           )
       }
     }

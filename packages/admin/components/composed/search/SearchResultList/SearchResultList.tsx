@@ -122,6 +122,7 @@ const fragment = graphql`
     page: { type: "Int", defaultValue: 1 }
     predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
     order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    schema: { type: "[String!]", defaultValue: [] }
   ) {
     results(
       query: $query
@@ -129,6 +130,7 @@ const fragment = graphql`
       predicates: $predicates
       order: $order
       perPage: 20
+      schema: $schema
     ) {
       nodes {
         slug
