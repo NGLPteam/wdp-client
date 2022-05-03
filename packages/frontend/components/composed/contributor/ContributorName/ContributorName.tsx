@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-
+import { AnyContributor } from "types/graphql-schema";
 import {
   ContributorNameFragment,
   ContributorNameFragment$key,
@@ -38,8 +38,9 @@ const fragment = graphql`
   }
 `;
 
-function getContributorDisplayName(
-  contributor: ContributorNameFragment
+export function getContributorDisplayName(
+  contributor: Partial<AnyContributor> | ContributorNameFragment,
+  reverse?: boolean
 ): string {
   if (!contributor) return "";
 
@@ -48,7 +49,9 @@ function getContributorDisplayName(
       return `${contributor.legalName}`;
 
     case "PersonContributor":
-      return `${contributor.givenName} ${contributor.familyName}`;
+      return reverse
+        ? `${contributor.familyName}, ${contributor.givenName}`
+        : `${contributor.givenName} ${contributor.familyName}`;
 
     default:
       return "";
