@@ -2,11 +2,14 @@ import React from "react";
 import Image from "next/image";
 import * as Styled from "./ContentImage.styles";
 
+type ImageProps = React.ComponentProps<typeof Image>;
+
 export default function ContentImageBase({
   alt,
   url,
   width,
   height,
+  ...imageProps
 }: BaseProps) {
   return url ? (
     <Styled.Wrapper>
@@ -16,12 +19,13 @@ export default function ContentImageBase({
         width={width || 0}
         height={height || 0}
         layout="responsive"
+        {...imageProps}
       />
     </Styled.Wrapper>
   ) : null;
 }
 
-interface BaseProps {
+interface BaseProps extends Pick<ImageProps, "placeholder" | "blurDataURL"> {
   alt?: string | null;
   url: string | null;
   width: number | null;

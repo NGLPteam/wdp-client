@@ -13,11 +13,17 @@ export type CommunityHeroFragment = {
     readonly summary: string | null;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly alt: string | null;
-            readonly url: string | null;
-            readonly width: number | null;
-            readonly height: number | null;
+        readonly image: {
+            readonly webp: {
+                readonly url: string | null;
+                readonly width: number | null;
+                readonly height: number | null;
+            };
+        };
+        readonly placeholder: {
+            readonly webp: {
+                readonly url: string | null;
+            };
         };
     };
     readonly heroImageLayout: HeroImageLayout;
@@ -31,7 +37,15 @@ export type CommunityHeroFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -74,39 +88,60 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
-          "alias": null,
+          "alias": "image",
           "args": null,
-          "concreteType": "ImageOriginal",
+          "concreteType": "ImageSize",
           "kind": "LinkedField",
-          "name": "original",
+          "name": "hero",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "alt",
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "width",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                }
+              ],
               "storageKey": null
-            },
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": "placeholder",
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "thumb",
+          "plural": false,
+          "selections": [
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "width",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "height",
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/)
+              ],
               "storageKey": null
             }
           ],
@@ -126,5 +161,6 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '725d7aee2c6d0765250da7427e0bec14';
+})();
+(node as any).hash = '965c10c1e715d21fc156aff05ad5a316';
 export default node;
