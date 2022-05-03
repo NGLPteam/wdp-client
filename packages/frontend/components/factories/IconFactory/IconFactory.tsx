@@ -28,6 +28,10 @@ export const ICON_MAP = {
   orcid: Icons.ORCID,
   plus: Icons.Plus,
   minus: Icons.Minus,
+  share: Icons.Share,
+  email: Icons.Email,
+  facebook: Icons.Facebook,
+  twitter: Icons.Twitter,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);
