@@ -12,7 +12,6 @@ export default function VolumeLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={volume} />
       <BreadcrumbsBar data={volume} />
       <VolumeHero data={volume} />
       <EntityNavBar data={volume} />
@@ -28,7 +27,6 @@ interface Props {
 
 const fragment = graphql`
   fragment VolumeLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...VolumeHeroFragment
     ...EntityNavBarFragment

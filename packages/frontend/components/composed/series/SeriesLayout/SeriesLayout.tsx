@@ -12,7 +12,6 @@ export default function SeriesLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={volume} />
       <BreadcrumbsBar data={volume} />
       <SeriesHero data={volume} />
       <EntityNavBar data={volume} />
@@ -28,7 +27,6 @@ interface Props {
 
 const fragment = graphql`
   fragment SeriesLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...SeriesHeroFragment
     ...EntityNavBarFragment

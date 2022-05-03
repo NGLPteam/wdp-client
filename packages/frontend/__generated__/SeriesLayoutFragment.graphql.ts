@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SeriesLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "SeriesHeroFragment" | "EntityNavBarFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "SeriesHeroFragment" | "EntityNavBarFragment">;
     readonly " $refType": "SeriesLayoutFragment";
 };
 export type SeriesLayoutFragment$data = SeriesLayoutFragment;
@@ -26,11 +26,6 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "EntityHTMLHeadFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "BreadcrumbsBarFragment"
     },
     {
@@ -47,5 +42,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '37e272c9ab6891b8ff43906b793aad6a';
+(node as any).hash = '813ebc1958f3a40b77dfa5883ddc6668';
 export default node;

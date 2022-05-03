@@ -78,16 +78,9 @@ fragment CommunityPickerFragment on Query {
   }
 }
 
-fragment EntityHTMLHeadGlobalFragment on GlobalConfiguration {
-  site {
-    installationName
-  }
-}
-
 fragment GlobalContextFragment on Query {
   globalConfiguration {
     ...InstallationNameFragment
-    ...EntityHTMLHeadGlobalFragment
     ...BreadcrumbsBarGlobalFragment
     id
   }
@@ -295,12 +288,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3b119b8b6fb7d09badd967d9972d3457",
+    "cacheID": "734fd3959b5b4d280dce90ec078ba868",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment EntityHTMLHeadGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...EntityHTMLHeadGlobalFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n"
   }
 };
 })();

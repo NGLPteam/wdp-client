@@ -4,7 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./BreadcrumbsBar.styles";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import { Breadcrumbs, Button, Dropdown, Link } from "components/atomic";
-import { getRouteByEntityType } from "helpers";
+import { getOrigin, getRouteByEntityType } from "helpers";
 import { RouteHelper } from "routes";
 import { useGlobalContext } from "contexts";
 import { BreadcrumbsBarGlobalFragment$key } from "@/relay/BreadcrumbsBarGlobalFragment.graphql";
@@ -24,10 +24,7 @@ export default function BreadCrumbsBar({ data }: Props) {
 
     const { slug, __typename: type } = breadcrumbData;
 
-    let origin = "";
-    if (typeof window !== "undefined") {
-      origin = window.location.origin;
-    }
+    const origin = getOrigin();
 
     const routeName = getRouteByEntityType(type);
 

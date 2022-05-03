@@ -12,7 +12,6 @@ export default function EntityLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={entity} />
       <BreadcrumbsBar data={entity} />
       <EntityHero data={entity} />
       <EntityNavBar data={entity} />
@@ -28,7 +27,6 @@ interface Props {
 
 const fragment = graphql`
   fragment EntityLayoutFragment on AnyEntity {
-    ...EntityHTMLHeadFragment
     ... on Entity {
       ...BreadcrumbsBarFragment
       ...EntityHeroFragment

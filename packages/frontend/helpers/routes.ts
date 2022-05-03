@@ -20,3 +20,13 @@ const TYPE_MAP: Record<string, string> = {
 export function getRouteByEntityType(typename?: string) {
   return typename ? TYPE_MAP[typename] : null;
 }
+
+export function getOrigin(): string | undefined {
+  let origin;
+
+  if (typeof window !== "undefined") {
+    origin = window.location.origin;
+  }
+
+  return origin;
+}

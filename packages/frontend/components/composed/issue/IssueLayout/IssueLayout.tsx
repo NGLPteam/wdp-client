@@ -13,7 +13,6 @@ export default function IssueLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={issue} />
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
       {children}
@@ -30,7 +29,6 @@ interface Props {
 
 const fragment = graphql`
   fragment IssueLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...IssueHeroFragment
     contributions {

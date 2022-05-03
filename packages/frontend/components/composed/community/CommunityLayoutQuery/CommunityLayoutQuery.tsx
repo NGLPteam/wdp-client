@@ -2,6 +2,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import AppLayout from "components/global/AppLayout";
 import { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
+import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
 export default function CommunityLayoutQuery({ data, children }: Props) {
   const queryData = useMaybeFragment(fragment, data);
@@ -11,6 +12,7 @@ export default function CommunityLayoutQuery({ data, children }: Props) {
       communityData={queryData?.community}
       entityData={queryData?.community}
     >
+      <EntityHTMLHead data={queryData?.community} appData={queryData} />
       {children}
     </AppLayout>
   );
@@ -27,6 +29,8 @@ const fragment = graphql`
     community(slug: $slug) {
       ...AppLayoutCommunityFragment
       ...AppLayoutEntityFragment
+      ...EntityHTMLHeadFragment
     }
+    ...EntityHTMLHeadAppFragment
   }
 `;

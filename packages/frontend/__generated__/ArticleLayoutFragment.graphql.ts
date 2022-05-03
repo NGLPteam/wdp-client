@@ -9,7 +9,7 @@ export type ArticleLayoutFragment = {
     readonly relatedItems: {
         readonly " $fragmentRefs": FragmentRefs<"RelatedArticlesFragment">;
     };
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment" | "BreadcrumbsBarFragment" | "ArticleParentHeaderFragment" | "ArticleHeroFragment" | "ArticleTabNavFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "ArticleParentHeaderFragment" | "ArticleHeroFragment" | "ArticleTabNavFragment">;
     readonly " $refType": "ArticleLayoutFragment";
 };
 export type ArticleLayoutFragment$data = ArticleLayoutFragment;
@@ -45,11 +45,6 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "EntityHTMLHeadFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "BreadcrumbsBarFragment"
     },
     {
@@ -71,5 +66,5 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'b35686d19e30a0d7e6b0dfc5684e62a9';
+(node as any).hash = '79ccdf1baaa754542e9043908dc2004b';
 export default node;

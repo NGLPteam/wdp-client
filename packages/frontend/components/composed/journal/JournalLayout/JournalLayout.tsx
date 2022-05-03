@@ -13,7 +13,6 @@ export default function JournalLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={journal} />
       <BreadcrumbsBar data={journal} />
       <JournalHero data={journal} />
       <EntityNavBar data={journal} />
@@ -30,7 +29,6 @@ interface Props {
 
 const fragment = graphql`
   fragment JournalLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...JournalHeroFragment
     ...EntityNavBarFragment
     ...BreadcrumbsBarFragment

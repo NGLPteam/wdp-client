@@ -15,7 +15,6 @@ export default function ArticleLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={article} />
       <BreadcrumbsBar data={article} />
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
@@ -37,7 +36,6 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleLayoutFragment on Item {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment
