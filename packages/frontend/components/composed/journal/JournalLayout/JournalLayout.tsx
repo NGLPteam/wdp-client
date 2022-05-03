@@ -5,7 +5,6 @@ import JournalHero from "../JournalHero";
 import { BreadcrumbsBar } from "components/layout";
 import { JournalLayoutFragment$key } from "@/relay/JournalLayoutFragment.graphql";
 import RelatedJournals from "components/composed/journal/RelatedJournals";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 
 export default function JournalLayout({ data, children }: Props) {

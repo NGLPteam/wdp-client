@@ -2,7 +2,6 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import EntityHero from "../EntityHero";
-import EntityHTMLHead from "../EntityHTMLHead";
 import { EntityLayoutFragment$key } from "@/relay/EntityLayoutFragment.graphql";
 import { BreadcrumbsBar } from "components/layout";
 import EntityNavBar from "components/composed/entity/EntityNavBar";

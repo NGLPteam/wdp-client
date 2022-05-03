@@ -8,7 +8,6 @@ import RelatedArticles from "../RelatedArticles";
 import * as Styled from "./ArticleLayout.styles";
 import { BreadcrumbsBar } from "components/layout";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
 export default function ArticleLayout({ data, children }: Props) {
   const article = useMaybeFragment(fragment, data);

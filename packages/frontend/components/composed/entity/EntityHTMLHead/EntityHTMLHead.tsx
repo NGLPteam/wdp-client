@@ -2,8 +2,8 @@ import React from "react";
 import Head from "next/head";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { EntityHTMLHeadFragment$key } from "@/relay/EntityHTMLHeadFragment.graphql";
 import { useRouter } from "next/router";
+import { EntityHTMLHeadFragment$key } from "@/relay/EntityHTMLHeadFragment.graphql";
 import { getOrigin } from "helpers";
 import { EntityHTMLHeadAppFragment$key } from "@/relay/EntityHTMLHeadAppFragment.graphql";
 
