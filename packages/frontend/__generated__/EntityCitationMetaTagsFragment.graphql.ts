@@ -11,6 +11,7 @@ export type EntityCitationMetaTagsFragment = {
     readonly schemaDefinition?: {
         readonly identifier: string;
     } | undefined;
+    readonly issn?: string | null | undefined;
     readonly published?: {
         readonly precision: DatePrecision;
         readonly value: string | null;
@@ -188,6 +189,13 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "issn",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -493,5 +501,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '9271e3647f7cc8f26dff2eac737fb781';
+(node as any).hash = 'a6497dbf831d2a55bd856f9feddc6d3c';
 export default node;
