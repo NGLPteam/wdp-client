@@ -17,6 +17,7 @@ export type InstanceContentLayoutFragment = {
         };
         readonly " $fragmentRefs": FragmentRefs<"InstanceCommunitiesFragment">;
     };
+    readonly " $fragmentRefs": FragmentRefs<"InstanceHeroFragment">;
     readonly " $refType": "InstanceContentLayoutFragment";
 };
 export type InstanceContentLayoutFragment$data = InstanceContentLayoutFragment;
@@ -95,10 +96,15 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "InstanceHeroFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'a745b2470c381191b73626955421e06f';
+(node as any).hash = 'ec308d4b375783b0fb0beb8ab694210c';
 export default node;

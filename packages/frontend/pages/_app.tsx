@@ -16,6 +16,7 @@ import { AppContextProvider } from "contexts";
 import { LoadingPage } from "components/atomic";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
+
 function App({
   Component,
   pageProps,
@@ -57,10 +58,10 @@ function App({
 
   return (
     <>
-      <AppHtmlHead />
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
+            <AppHtmlHead />
             {getLayout({
               PageComponent: Component,
               pageComponentProps: pageProps,

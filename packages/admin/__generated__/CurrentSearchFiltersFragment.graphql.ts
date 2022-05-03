@@ -11,8 +11,6 @@ export type CurrentSearchFiltersFragment = {
         readonly label?: string | undefined;
     }>;
     readonly schemas: ReadonlyArray<{
-        readonly namespace: string;
-        readonly identifier: string;
         readonly name: string;
         readonly schemaDefinition: {
             readonly slug: string;
@@ -84,20 +82,6 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "namespace",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
           "name": "name",
           "storageKey": null
         },
@@ -137,5 +121,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '079d829e1a48bbd732bd45f64f493ec3';
+(node as any).hash = '791c6f3369f5d9f548739afeb290e6c5';
 export default node;

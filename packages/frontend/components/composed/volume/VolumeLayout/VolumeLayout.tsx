@@ -3,7 +3,6 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import VolumeHero from "../VolumeHero";
 import { BreadcrumbsBar } from "components/layout";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import { VolumeLayoutFragment$key } from "@/relay/VolumeLayoutFragment.graphql";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 
@@ -12,7 +11,6 @@ export default function VolumeLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={volume} />
       <BreadcrumbsBar data={volume} />
       <VolumeHero data={volume} />
       <EntityNavBar data={volume} />
@@ -28,7 +26,6 @@ interface Props {
 
 const fragment = graphql`
   fragment VolumeLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...VolumeHeroFragment
     ...EntityNavBarFragment

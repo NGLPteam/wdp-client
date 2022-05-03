@@ -4,7 +4,6 @@ import { graphql } from "react-relay";
 import IssueHero from "../IssueHero";
 import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import { BreadcrumbsBar } from "components/layout";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import RelatedIssues from "components/composed/issue/RelatedIssues";
 import { IssueLayoutFragment$key } from "@/relay/IssueLayoutFragment.graphql";
 
@@ -13,7 +12,6 @@ export default function IssueLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={issue} />
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
       {children}
@@ -30,7 +28,6 @@ interface Props {
 
 const fragment = graphql`
   fragment IssueLayoutFragment on Collection {
-    ...EntityHTMLHeadFragment
     ...BreadcrumbsBarFragment
     ...IssueHeroFragment
     contributions {

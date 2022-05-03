@@ -18,3 +18,7 @@ export { default as Checkbox } from "./Checkbox";
 export { default as ORCID } from "./ORCID";
 export { default as Plus } from "./Plus";
 export { default as Minus } from "./Minus";
+export { default as Share } from "./Share";
+export { default as Email } from "./Email";
+export { default as Facebook } from "./Facebook";
+export { default as Twitter } from "./Twitter";

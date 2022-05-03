@@ -37,7 +37,7 @@ export default function InstanceContentLayout({ data }: Props) {
   // If there's more than one community, show instance landing page
   return instance && total > 1 ? (
     <>
-      <InstanceHero />
+      <InstanceHero data={instance} />
       <InstanceCommunities data={instance.communities} />
     </>
   ) : null;
@@ -60,5 +60,6 @@ const fragment = graphql`
       }
       ...InstanceCommunitiesFragment
     }
+    ...InstanceHeroFragment
   }
 `;

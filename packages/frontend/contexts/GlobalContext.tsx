@@ -29,6 +29,7 @@ const fragment = graphql`
   fragment GlobalContextFragment on Query {
     globalConfiguration {
       ...InstallationNameFragment
+      ...BreadcrumbsBarGlobalFragment
     }
     ...CommunityPickerFragment
     ...AppHeaderFragment

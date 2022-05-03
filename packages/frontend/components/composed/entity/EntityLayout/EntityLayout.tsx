@@ -2,7 +2,6 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import EntityHero from "../EntityHero";
-import EntityHTMLHead from "../EntityHTMLHead";
 import { EntityLayoutFragment$key } from "@/relay/EntityLayoutFragment.graphql";
 import { BreadcrumbsBar } from "components/layout";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
@@ -12,7 +11,6 @@ export default function EntityLayout({ data, children }: Props) {
 
   return (
     <>
-      <EntityHTMLHead data={entity} />
       <BreadcrumbsBar data={entity} />
       <EntityHero data={entity} />
       <EntityNavBar data={entity} />
@@ -28,7 +26,6 @@ interface Props {
 
 const fragment = graphql`
   fragment EntityLayoutFragment on AnyEntity {
-    ...EntityHTMLHeadFragment
     ... on Entity {
       ...BreadcrumbsBarFragment
       ...EntityHeroFragment
