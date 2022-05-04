@@ -1,8 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
-type MarkdownProps = React.ComponentProps<typeof ReactMarkdown>;
-
 export default function BaseMarkdown({ children, ...props }: Props) {
   const rehypePlugins = [rehypeRaw];
 
@@ -13,10 +11,12 @@ export default function BaseMarkdown({ children, ...props }: Props) {
   ) : null;
 }
 
-interface Props {
+type MarkdownProps = Pick<
+  React.ComponentProps<typeof ReactMarkdown>,
+  "allowedElements" | "components" | "disallowedElements"
+>;
+
+interface Props extends MarkdownProps {
   className?: string;
   children?: string | null;
-  components?: MarkdownProps["components"];
-  allowedElements?: MarkdownProps["allowedElements"];
-  disallowedElements?: MarkdownProps["disallowedElements"];
 }
