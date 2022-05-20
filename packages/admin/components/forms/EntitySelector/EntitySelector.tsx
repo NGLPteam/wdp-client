@@ -4,7 +4,7 @@ import * as Styled from "./EntitySelector.styles";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   children?: JSX.Element | string;
-  hasDescendants: boolean;
+  hasDescendants?: boolean;
   onShowDescendants: () => void;
   checked: boolean;
   onToggle: () => void;
@@ -32,7 +32,10 @@ const EntitySelector = forwardRef(
       onToggle();
     };
     return (
-      <Styled.Wrapper onClick={onShowDescendants}>
+      <Styled.Wrapper
+        onClick={hasDescendants ? onShowDescendants : undefined}
+        $descendants={hasDescendants}
+      >
         <Styled.Label
           aria-label={props["aria-label"] || undefined}
           onClick={handleCheck}
@@ -44,7 +47,9 @@ const EntitySelector = forwardRef(
             role="presentation"
           />
           {children && (
-            <Styled.LabelText ref={textRef}>{children}</Styled.LabelText>
+            <Styled.LabelText ref={textRef} $descendants={hasDescendants}>
+              {children}
+            </Styled.LabelText>
           )}
         </Styled.Label>
         {hasDescendants && (

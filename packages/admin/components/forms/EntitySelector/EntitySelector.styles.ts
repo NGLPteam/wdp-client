@@ -3,29 +3,45 @@ import { IconFactory } from "components/factories";
 import { aGlow, aLink, aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
-export const Wrapper = styled.button`
+interface WrapperProps extends React.HTMLProps<HTMLButtonElement> {
+  $descendants?: boolean;
+}
+
+interface TextProps extends React.HTMLProps<HTMLSpanElement> {
+  $descendants?: boolean;
+}
+
+export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
   display: flex;
   flex-wrap: none;
   align-items: center;
   justify-content: space-between;
   padding: ${pxToRem(16)};
-  cursor: pointer;
   width: 100%;
+  cursor: default;
 
   --button-control-opacity: 0;
   --button-control-visibility: 0;
 
-  &:hover,
-  &:focus,
-  &:focus-within {
-    ${aBgLight("brand10")}
-    transition: var(--background-transition);
+  ${({ $descendants }) =>
+    $descendants &&
+    `
+    cursor: pointer;
 
-    --button-control-opacity: 1;
-    --button-control-visibility: 1;
-    --checkbox-opacity: 1;
-    --checkbox-visibility: 1;
-  }
+    &:hover,
+    &:focus,
+    &:focus-within {
+      ${aBgLight("brand10")}
+      --background-color: var(--brand10);
+      --background-light: var(--brand20);
+      transition: var(--background-transition);
+
+      --button-control-opacity: 1;
+      --button-control-visibility: 1;
+      --checkbox-opacity: 1;
+      --checkbox-visibility: 1;
+    }
+  `}
 `;
 export const Label = styled.label`
   display: flex;
@@ -33,7 +49,7 @@ export const Label = styled.label`
   align-items: center;
 `;
 
-export const LabelText = styled.span`
+export const LabelText = styled.span<Pick<TextProps, "$descendants">>`
   ${aLink()}
   cursor: pointer;
   font-weight: var(--font-weight-medium);
@@ -41,6 +57,13 @@ export const LabelText = styled.span`
   input:disabled + & {
     cursor: default;
   }
+
+  ${({ $descendants }) =>
+    !$descendants &&
+    `&:hover {
+    text-decoration: none;
+    cursor: default;
+  }`}
 `;
 
 export const Icon = styled(IconFactory)`
@@ -96,11 +119,6 @@ export const Icon = styled(IconFactory)`
 `;
 
 export const Arrow = styled(IconFactory)`
-  display: none;
   transform: rotate(90deg);
   ${aLink()}
-
-  ${Wrapper}:hover & {
-    display: block;
-  }
 `;
