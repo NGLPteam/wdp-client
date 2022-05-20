@@ -6,6 +6,7 @@ import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import { Option } from "../BaseSelect/BaseSelect";
 import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";
+import { EntitySelectorUI } from "components/forms";
 import MutationForm, {
   Forms,
   useRenderForm,
@@ -71,20 +72,19 @@ export default function ParentSelectorModal({
   };
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
-      <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-        {({ data }) =>
-          data?.communities.edges.length ? (
-            <Forms.Select
-              options={getOptions(data)}
-              label={t("forms.parent.new_label")}
-              description={t("forms.parent.change_warning")}
-              {...register("parentId")}
-            />
-          ) : null
-        }
-      </QueryWrapper>
-    ),
+    ({ form: { register, watch, getValues, setValue } }) => {
+      console.log(getValues("parentId"));
+      console.log(register);
+      console.log(watch);
+      console.log(setValue);
+      return (
+        <EntitySelectorUI
+          setValue={setValue}
+          {...register("parentId")}
+          label={"Select a new parent..."}
+        />
+      );
+    },
     []
   );
 

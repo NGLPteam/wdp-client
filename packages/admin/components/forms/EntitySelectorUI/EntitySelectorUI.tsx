@@ -1,29 +1,19 @@
 import BaseInputWrapper from "../BaseInputWrapper";
+import Controller from "./Controller";
 import * as Styled from "./EntitySelectorUI.styles";
 
 type BaseProps = React.ComponentProps<typeof BaseInputWrapper>;
+type ControllerProps = React.ComponentProps<typeof Controller>;
 
-interface Props extends BaseProps {
-  parent?: string;
-  onParentClick: () => void;
+interface Props extends BaseProps, ControllerProps {
+  height?: string;
 }
 
-function EntitySelectorUI({
-  children,
-  parent,
-  onParentClick,
-  ...props
-}: Props) {
+function EntitySelectorUI({ height = "500px", ...props }: Props) {
   return (
     <BaseInputWrapper role="group" {...props}>
-      <Styled.Wrapper>
-        {parent && (
-          <Styled.Back onClick={onParentClick}>
-            <Styled.Arrow icon="arrow" role="presentation" />
-            {parent}
-          </Styled.Back>
-        )}
-        {children}
+      <Styled.Wrapper $height={height}>
+        <Controller {...props} />
       </Styled.Wrapper>
     </BaseInputWrapper>
   );

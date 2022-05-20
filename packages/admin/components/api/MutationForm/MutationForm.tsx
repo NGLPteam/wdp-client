@@ -142,6 +142,7 @@ export default function MutationForm<
 
   const submitHandler: SubmitHandler<T> = useCallback(
     async (values, event) => {
+      console.log("submitHandler");
       const variables = castVariables(values);
 
       dispatch({ type: "submit", variables, values });
@@ -221,10 +222,10 @@ export default function MutationForm<
   const { handleSubmit } = form;
 
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
-    handleSubmit,
-    submitHandler,
-  ]);
+  const onSubmit = useMemo(
+    () => handleSubmit(submitHandler),
+    [handleSubmit, submitHandler]
+  );
   /* eslint-enable prettier/prettier */
 
   const {

@@ -3,13 +3,19 @@ import { pxToRem } from "theme/mixins/functions";
 import { aBgLight } from "theme/mixins/appearance";
 import { IconFactory } from "components/factories";
 
-export const Wrapper = styled.div`
+interface WrapperProps extends React.HTMLProps<HTMLDivElement> {
+  $height: string;
+}
+
+export const Wrapper = styled.div<Pick<WrapperProps, "$height">>`
   padding-block: ${pxToRem(12)};
   border: 1px solid;
   border-color: var(--input-border-color);
   border-radius: ${pxToRem(4)};
   margin-block-end: ${pxToRem(8)};
   cursor: default;
+  height: ${({ $height }) => $height};
+  overflow: scroll;
 `;
 
 export const Back = styled.button`

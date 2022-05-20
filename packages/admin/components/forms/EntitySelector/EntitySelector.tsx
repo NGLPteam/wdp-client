@@ -28,19 +28,31 @@ const EntitySelector = forwardRef(
         e.preventDefault();
         return;
       }
+      e.preventDefault();
       e.stopPropagation();
       onToggle();
     };
+    const handleExpand = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      onShowDescendants();
+    };
     return (
       <Styled.Wrapper
-        onClick={hasDescendants ? onShowDescendants : undefined}
+        onClick={hasDescendants ? handleExpand : undefined}
         $descendants={hasDescendants}
       >
         <Styled.Label
           aria-label={props["aria-label"] || undefined}
           onClick={handleCheck}
         >
-          <input className="a-hidden" type="checkbox" ref={ref} {...props} />
+          <input
+            className="a-hidden"
+            type="checkbox"
+            ref={ref}
+            {...props}
+            checked={checked}
+            readOnly
+          />
           <Styled.Icon
             icon="checkbox"
             data-checked={checked}
