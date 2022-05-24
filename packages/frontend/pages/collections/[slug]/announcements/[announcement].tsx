@@ -1,32 +1,34 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
+import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
+import { GetLayout } from "@wdp/lib/types/page";
 import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSlugCollectionQuery.graphql";
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 
-export default function AnnouncementPage() {
-  const slug = useRouteSlug();
+export default function AnnouncementPage({ data }: Props) {
+  return <EntityAnnouncementLayoutFactory data={data?.collection} />;
+}
+
+const GetCollectionLayout: GetLayout<Props> = (props) => {
   const router = useRouter();
   const announcementSlug = routeQueryArrayToString(router.query.announcement);
 
-  return slug && announcementSlug ? (
-    <QueryWrapper<Query>
+  return (
+    <CollectionLayoutQuery<Query, Props>
       query={query}
-      initialVariables={{ slug, announcementSlug }}
-    >
-      {({ data }) => (
-        <CollectionLayoutQuery data={data}>
-          <EntityAnnouncementLayoutFactory data={data?.collection} />
-        </CollectionLayoutQuery>
-      )}
-    </QueryWrapper>
-  ) : (
-    <></>
+      variables={{ announcementSlug }}
+      {...props}
+    />
   );
-}
+};
+
+type Props = {
+  data: Query["response"];
+};
+
+AnnouncementPage.getLayout = GetCollectionLayout;
 
 const query = graphql`
   query AnnouncementSlugCollectionQuery(

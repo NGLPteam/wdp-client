@@ -1,32 +1,39 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
+import { useRoutePageSlug } from "@wdp/lib/routes";
+import { GetLayout } from "@wdp/lib/types/page";
 import { PageSlugCollectionQuery as Query } from "@/relay/PageSlugCollectionQuery.graphql";
-import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
+import EntityPageLayout from "components/composed/entity/EntityPageLayout";
 
-export default function CommunityPage() {
-  const slug = useRouteSlug();
+export default function CommunityPage({ data }: Props) {
+  return <EntityPageLayout data={data?.collection?.page} />;
+}
+
+const GetCollectionLayout: GetLayout<Props> = (props) => {
   const pageSlug = useRoutePageSlug();
 
-  return slug && pageSlug ? (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug, pageSlug }}>
-      {({ data }) => (
-        <CollectionLayoutQuery data={data}>
-          <EntityPageLayoutFactory data={data?.collection} />
-        </CollectionLayoutQuery>
-      )}
-    </QueryWrapper>
-  ) : (
-    <></>
+  return (
+    <CollectionLayoutQuery<Query, Props>
+      query={query}
+      variables={{ pageSlug }}
+      {...props}
+    />
   );
-}
+};
+
+type Props = {
+  data: Query["response"];
+};
+
+CommunityPage.getLayout = GetCollectionLayout;
 
 const query = graphql`
   query PageSlugCollectionQuery($slug: Slug!, $pageSlug: String!) {
     collection(slug: $slug) {
-      ...EntityPageLayoutFactoryFragment
+      page(slug: $pageSlug) {
+        ...EntityPageLayoutFragment
+      }
     }
     ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }

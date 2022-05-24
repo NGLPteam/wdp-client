@@ -1,12 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "..";
 import CommunityHTMLHead from "components/composed/community/CommunityHTMLHead";
 import { RouteHelper } from "routes";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
-import { LoadingBlock } from "components/atomic";
 import { AppLayoutEntityFragment$key } from "@/relay/AppLayoutEntityFragment.graphql";
 
 export default function AppLayout({
@@ -18,8 +17,6 @@ export default function AppLayout({
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const { loading } = usePageContext();
-
   const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
 
   return (
@@ -28,7 +25,7 @@ export default function AppLayout({
       {isCommunityRoot && (
         <CommunityNavBar data={community} entityData={entity} />
       )}
-      {loading ? <LoadingBlock /> : children}
+      {children}
     </AppBody>
   );
 }

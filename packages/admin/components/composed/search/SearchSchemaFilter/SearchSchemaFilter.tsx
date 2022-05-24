@@ -24,7 +24,7 @@ export default function SearchSchemaFilter({ data }: Props) {
   return (
     <CheckboxGroup name="schema" label={t("glossary.schema")}>
       <>
-        {schemaData.schemas.map(({ schemaDefinition, name }, i) => (
+        {schemaData.schemas.map(({ schemaDefinition, name }) => (
           <Checkbox
             key={`${schemaDefinition.slug}`}
             onChange={(e) => {
