@@ -49,14 +49,16 @@ export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
 `;
 export const Item = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const Label = styled.label<Pick<LabelProps, "$descendants">>`
   ${aLink()}
   cursor: pointer;
   font-weight: var(--font-weight-medium);
+  text-align: left;
+  padding-inline-end: ${pxToRem(15)};
+  margin-block-start: -4px;
 
   input:disabled + & {
     cursor: default;
@@ -74,6 +76,7 @@ export const Icon = styled(IconFactory)<Pick<IconProps, "$checked">>`
   cursor: pointer;
   display: inline-block;
   margin-inline-end: ${pxToRem(8)};
+  flex-shrink: 0;
 
   [data-path-name="check"] {
     color: transparent;
@@ -116,4 +119,5 @@ export const Icon = styled(IconFactory)<Pick<IconProps, "$checked">>`
 export const Arrow = styled(IconFactory)`
   transform: rotate(90deg);
   ${aLink()}
+  flex-shrink: 0;
 `;
