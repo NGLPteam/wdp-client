@@ -30,12 +30,15 @@ function CollectionSlugRedirect({ data }: Props) {
   useEffect(() => {
     // Check if we're getting cached data by comparing slugs
     if (!collection || collection?.slug !== slug) return;
-    const total = collection?.collections?.pageInfo?.totalCount;
+    const totalCollections = collection?.collections?.pageInfo?.totalCount;
+    const totalItems = collection?.items?.pageInfo?.totalCount;
 
-    if (total === 0) {
+    if (totalCollections > 0) {
+      redirect(slug, "collection.child.collections");
+    } else if (totalItems > 0) {
       redirect(slug, "collection.child.items");
     } else {
-      redirect(slug, "collection.child.collections");
+      redirect(slug, "collection.manage.details");
     }
   }, [collection, slug, redirect]);
 
@@ -50,6 +53,11 @@ const fragment = graphql`
   fragment CollectionSlugRedirectFragment on Collection {
     slug
     collections {
+      pageInfo {
+        totalCount
+      }
+    }
+    items {
       pageInfo {
         totalCount
       }
