@@ -15,6 +15,7 @@ const NamedLink = forwardRef(
       query,
       children,
       passHref,
+      hash,
       ...props
     }: Props,
     ref
@@ -42,7 +43,11 @@ const NamedLink = forwardRef(
 
     return isAuthorized ? (
       <Link
-        href={{ pathname: path, query: nextQuery }}
+        href={{
+          pathname: path,
+          query: nextQuery,
+          hash,
+        }}
         passHref={passHref}
         {...props}
       >
@@ -62,6 +67,8 @@ export interface Props extends Omit<LinkProps, "href"> {
   query?: { [key: string]: string | string[] | number | undefined };
   /** Pass href to child component */
   passHref?: boolean;
+  /** An option hash to scroll to */
+  hash?: string;
 }
 
 export default NamedLink;

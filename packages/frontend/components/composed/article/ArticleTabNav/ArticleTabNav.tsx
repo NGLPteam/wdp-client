@@ -48,6 +48,7 @@ export default function ArticleTabNav({ data }: Props) {
           route={route}
           routeParams={pageSlug ? { slug, page: pageSlug } : { slug }}
           passHref
+          scroll={false}
         >
           <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
             {t(label)}
@@ -58,7 +59,7 @@ export default function ArticleTabNav({ data }: Props) {
   }
 
   return nav ? (
-    <nav className="l-container-wide">
+    <nav className="l-container-wide" id="nav">
       <Styled.List>
         {getLink(
           "item",
