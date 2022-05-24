@@ -1,5 +1,6 @@
 import { forwardRef, useRef } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
+import { useUID } from "react-uid";
 import * as Styled from "./EntitySelector.styles";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
@@ -22,12 +23,12 @@ const EntitySelector = forwardRef(
     }: Props,
     ref: MaybeInputRef
   ) => {
-    const textRef = useRef(null);
-    const handleCheck = (e: React.MouseEvent<HTMLLabelElement>) => {
-      if (e.target === textRef.current) {
-        e.preventDefault();
-        return;
-      }
+    const id = useUID();
+    /* stopPropagation is required for input events to prevent clicking into the entity hierarchy; preventDefault is required to not trigger form submit events. -LD */
+    const handleCheck = (
+      e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement>
+    ) => {
+      console.log("here");
       e.preventDefault();
       e.stopPropagation();
       onToggle();
@@ -36,34 +37,38 @@ const EntitySelector = forwardRef(
       e.preventDefault();
       onShowDescendants();
     };
+
     return (
       <Styled.Wrapper
         onClick={hasDescendants ? handleExpand : undefined}
+        aria-disabled={!hasDescendants}
         $descendants={hasDescendants}
       >
-        <Styled.Label
-          aria-label={props["aria-label"] || undefined}
-          onClick={handleCheck}
-        >
+        <Styled.Item aria-label={props["aria-label"] ?? undefined}>
           <input
+            id={id}
             className="a-hidden"
             type="checkbox"
             ref={ref}
             {...props}
-            checked={checked}
-            readOnly
+            onChange={handleCheck}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
           />
           <Styled.Icon
             icon="checkbox"
-            data-checked={checked}
             role="presentation"
+            onClick={handleCheck}
+            $checked={checked}
           />
           {children && (
-            <Styled.LabelText ref={textRef} $descendants={hasDescendants}>
+            <Styled.Label htmlFor={id} $descendants={hasDescendants}>
               {children}
-            </Styled.LabelText>
+            </Styled.Label>
           )}
-        </Styled.Label>
+        </Styled.Item>
         {hasDescendants && (
           <Styled.Arrow icon="arrow" role="presentpresentation" />
         )}

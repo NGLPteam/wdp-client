@@ -20,9 +20,11 @@ const Template: Story<Props> = (args) => {
     setChecked(!checked);
   };
   return (
-    <EntitySelector {...args} checked={checked} onToggle={handleToggle}>
-      {args.children}
-    </EntitySelector>
+    <>
+      <EntitySelector {...args} checked={checked} onToggle={handleToggle}>
+        {args.children}
+      </EntitySelector>
+    </>
   );
 };
 Template.args = {

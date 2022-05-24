@@ -7,8 +7,12 @@ interface WrapperProps extends React.HTMLProps<HTMLButtonElement> {
   $descendants?: boolean;
 }
 
-interface TextProps extends React.HTMLProps<HTMLSpanElement> {
+interface LabelProps extends React.HTMLProps<HTMLLabelElement> {
   $descendants?: boolean;
+}
+
+interface IconProps extends React.HTMLProps<SVGSVGElement> {
+  $checked: boolean;
 }
 
 export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
@@ -29,8 +33,8 @@ export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
     cursor: pointer;
 
     &:hover,
-    &:focus,
-    &:focus-within {
+    &:focus
+    {
       ${aBgLight("brand10")}
       --background-color: var(--brand10);
       --background-light: var(--brand20);
@@ -43,13 +47,13 @@ export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
     }
   `}
 `;
-export const Label = styled.label`
+export const Item = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 `;
 
-export const LabelText = styled.span<Pick<TextProps, "$descendants">>`
+export const Label = styled.label<Pick<LabelProps, "$descendants">>`
   ${aLink()}
   cursor: pointer;
   font-weight: var(--font-weight-medium);
@@ -66,7 +70,7 @@ export const LabelText = styled.span<Pick<TextProps, "$descendants">>`
   }`}
 `;
 
-export const Icon = styled(IconFactory)`
+export const Icon = styled(IconFactory)<Pick<IconProps, "$checked">>`
   cursor: pointer;
   display: inline-block;
   margin-inline-end: ${pxToRem(8)};
@@ -79,32 +83,9 @@ export const Icon = styled(IconFactory)`
     fill: var(--neutral00);
   }
 
-  input:hover + & {
+  input:hover + &,
+  &:hover {
     color: var(--accent-light);
-  }
-
-  input:checked + & {
-    color: var(--accent-light);
-
-    [data-path-name="box"] {
-      fill: currentColor;
-    }
-
-    [data-path-name="check"] {
-      color: var(--background-color);
-    }
-  }
-
-  input:indeterminate + & {
-    color: var(--accent-light);
-
-    [data-path-name="box"] {
-      fill: currentColor;
-    }
-
-    [data-path-name="indeterminate"] {
-      stroke: var(--background-color);
-    }
   }
 
   input:disabled + & {
@@ -116,6 +97,20 @@ export const Icon = styled(IconFactory)`
     ${aGlow("lightMode")}
     color: var(--accent-light);
   }
+
+  ${({ $checked }) =>
+    $checked &&
+    `
+      color: var(--accent-light);
+
+      [data-path-name="box"] {
+        fill: currentColor;
+      }
+
+      [data-path-name="check"] {
+        color: var(--background-color);
+      }
+  `}
 `;
 
 export const Arrow = styled(IconFactory)`
