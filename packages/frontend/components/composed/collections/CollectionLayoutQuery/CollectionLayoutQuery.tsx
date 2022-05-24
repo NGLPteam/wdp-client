@@ -1,38 +1,64 @@
+import React, { ComponentProps } from "react";
+import ErrorPage from "next/error";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import AppLayout from "components/global/AppLayout";
+import type {
+  QueryLayoutProps,
+  QueryPageComponentProps,
+} from "@wdp/lib/types/page";
+import { FragmentWrapper, QueryWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import CollectionLayout from "../CollectionLayout";
+import { HasFragment } from "types/graphql-helpers";
 import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 
-export default function CollectionLayoutQuery({ data, children }: Props) {
-  const queryData = useMaybeFragment(fragment, data);
+type CollectionQuery = {
+  readonly response: HasFragment<"CollectionLayoutQueryFragment">;
+  readonly variables: { slug: string };
+};
+
+function CollectionLayoutQuery<
+  Query extends CollectionQuery,
+  P extends QueryPageComponentProps<Query>
+>({
+  query,
+  variables = {},
+  PageComponent,
+  pageComponentProps,
+  ...layoutProps
+}: QueryLayoutProps<P, ComponentProps<typeof CollectionLayout>> & {
+  variables?: Omit<CollectionQuery["variables"], "slug">;
+}) {
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
 
   return (
-    <AppLayout
-      communityData={queryData?.collection?.community}
-      entityData={queryData?.collection}
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={{ slug, ...variables }}
+      options={{ fetchPolicy: "store-or-network" }}
     >
-      <EntityHTMLHead data={queryData?.collection} appData={queryData} />
-      {children}
-    </AppLayout>
+      {({ data }) => (
+        <FragmentWrapper<CollectionLayoutQueryFragment$key>
+          data={data}
+          fragment={fragment}
+        >
+          {({ enhancedData }) => (
+            <CollectionLayout data={enhancedData} {...layoutProps}>
+              <PageComponent data={data} {...pageComponentProps} />
+            </CollectionLayout>
+          )}
+        </FragmentWrapper>
+      )}
+    </QueryWrapper>
   );
-}
-
-interface Props {
-  data?: CollectionLayoutQueryFragment$key | null;
-  children: React.ReactNode;
 }
 
 const fragment = graphql`
   fragment CollectionLayoutQueryFragment on Query
   @argumentDefinitions(slug: { type: "Slug!" }) {
-    collection(slug: $slug) {
-      ...AppLayoutEntityFragment
-      ...EntityHTMLHeadFragment
-      community {
-        ...AppLayoutCommunityFragment
-      }
-    }
-    ...EntityHTMLHeadAppFragment
+    ...CollectionLayoutFragment @arguments(slug: $slug)
   }
 `;
+
+export default CollectionLayoutQuery;

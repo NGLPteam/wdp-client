@@ -42,6 +42,7 @@ export default function EntityNavList({ data }: Props) {
             key={identifier}
             route={`${typeRoute}.browse`}
             routeParams={{ slug, ordering: identifier }}
+            scroll={false}
             passHref
           >
             <Button size="sm" secondary>
@@ -54,6 +55,7 @@ export default function EntityNavList({ data }: Props) {
             key={identifier}
             route={`${typeRoute}.browse`}
             routeParams={{ slug, ordering: identifier }}
+            scroll={false}
             passHref
           >
             <Link>
@@ -84,6 +86,7 @@ export default function EntityNavList({ data }: Props) {
             <NamedLink
               route={`${typeRoute}.page`}
               routeParams={{ slug, page: node.slug }}
+              scroll={false}
               passHref
             >
               <NavMenuLink

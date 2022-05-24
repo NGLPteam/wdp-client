@@ -1,13 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { useRouteSlug } from "@wdp/lib/routes";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
+import { GetLayout } from "@wdp/lib/types/page";
 import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
-import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 
 function SearchLayoutQuery({
@@ -29,31 +27,23 @@ function SearchLayoutQuery({
   );
 }
 
-export default function SearchPage() {
-  const slug = useRouteSlug();
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{
-        slug: slug || "",
-      }}
-    >
-      {({ data }) => (
-        <CollectionLayoutQuery data={data}>
-          <EntityLayoutFactory data={data?.collection}>
-            {data?.collection && <SearchLayoutQuery data={data.collection} />}
-          </EntityLayoutFactory>
-        </CollectionLayoutQuery>
-      )}
-    </QueryWrapper>
-  );
+export default function SearchPage({ data }: Props) {
+  return data.collection ? <SearchLayoutQuery data={data.collection} /> : null;
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return <CollectionLayoutQuery<Query, Props> query={query} {...props} />;
+};
+
+type Props = {
+  data: Query["response"];
+};
+
+SearchPage.getLayout = getLayout;
 
 const query = graphql`
   query searchCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
-      ...EntityLayoutFactoryFragment
       ...searchCollectionQueryFragment
     }
     ...CollectionLayoutQueryFragment @arguments(slug: $slug)
