@@ -35,9 +35,8 @@ export default function Controller({
   setValue,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startEntity);
-  const [selected, setSelected] = useState<
-    CommunityOption | CollectionOption | ItemOption | undefined
-  >();
+  const [selected, setSelected] =
+    useState<CommunityOption | CollectionOption | ItemOption | undefined>();
 
   useEffect(() => {
     if (setValue && selected) setValue("parentId", selected.id ?? "");
@@ -100,6 +99,7 @@ export default function Controller({
         : data?.item && data.item.parent?.__typename !== "%other"
         ? data.item.parent?.slug
         : "";
+    if (!data || (data.community && scopeToCommunity)) return null;
     return (
       <Styled.Back
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
