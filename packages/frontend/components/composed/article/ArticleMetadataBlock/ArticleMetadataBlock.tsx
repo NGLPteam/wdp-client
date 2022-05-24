@@ -36,35 +36,47 @@ export default function ArticleMetadataBlock({ data }: Props) {
             />
           </Styled.ListItem>
         )}
-        {entity && (
-          <>
-            <Styled.ListItem>
-              <ArticleIssueMetadata data={entity} />
-            </Styled.ListItem>
-            <Styled.ListItem>
-              <MetadataProperty label={"DOI"}>
-                {entity.doi ? <div>{entity.doi}</div> : "--"}
-              </MetadataProperty>
-            </Styled.ListItem>
-            <Styled.ListItem>
-              <MetadataProperty
-                label={t("metadata.author", { count: authors?.length ?? 1 })}
-              >
-                {authors?.length
-                  ? authors.map(({ node }, i) => (
-                      <ContributorName data={node.contributor} key={i} />
-                    ))
-                  : "--"}
-              </MetadataProperty>
-            </Styled.ListItem>
-          </>
+
+        <Styled.ListItem>
+          <ArticleIssueMetadata data={entity} />
+        </Styled.ListItem>
+        {entity.pageCountMeta && (
+          <Styled.ListItem>
+            <MetadataFactory data={entity.pageCountMeta} />
+          </Styled.ListItem>
         )}
+        <Styled.ListItem>
+          <MetadataProperty label={"DOI"}>
+            {entity.doi ? <div>{entity.doi}</div> : "--"}
+          </MetadataProperty>
+        </Styled.ListItem>
+        <Styled.ListItem>
+          <MetadataProperty
+            label={t("metadata.author", { count: authors?.length ?? 1 })}
+          >
+            {authors?.length
+              ? authors.map(({ node }, i) => (
+                  <ContributorName data={node.contributor} key={i} />
+                ))
+              : "--"}
+          </MetadataProperty>
+        </Styled.ListItem>
 
         {entity.published.value && (
           <Styled.ListItem>
             <MetadataProperty label={t("date.published")}>
               <PrecisionDate data={entity.published} />
             </MetadataProperty>
+          </Styled.ListItem>
+        )}
+
+        {entity.journal?.ccLicense && (
+          <Styled.ListItem>
+            <MetadataFactory
+              label={t("metadata.cc_license")}
+              data={entity.journal?.ccLicense}
+              showPlaceholder
+            />
           </Styled.ListItem>
         )}
 
@@ -98,12 +110,6 @@ export default function ArticleMetadataBlock({ data }: Props) {
         {entity.collectedMeta && (
           <Styled.ListItem>
             <MetadataFactory data={entity.collectedMeta} />
-          </Styled.ListItem>
-        )}
-
-        {entity.pageCountMeta && (
-          <Styled.ListItem>
-            <MetadataFactory data={entity.pageCountMeta} />
           </Styled.ListItem>
         )}
 
@@ -182,16 +188,6 @@ export default function ArticleMetadataBlock({ data }: Props) {
             />
           </Styled.ListItem>
         )}
-
-        {entity.ccLicense && (
-          <Styled.ListItem>
-            <MetadataFactory
-              label={t("metadata.license")}
-              data={entity.ccLicense}
-              showPlaceholder
-            />
-          </Styled.ListItem>
-        )}
       </Styled.List>
     </Styled.Section>
   ) : null;
@@ -207,6 +203,11 @@ const fragment = graphql`
     journal: ancestorOfType(schema: "nglp:journal") {
       ... on Entity {
         title
+      }
+      ... on Collection {
+        ccLicense: schemaProperty(fullPath: "cc_license") {
+          ...MetadataFactoryFragment
+        }
       }
     }
     contributions {
@@ -280,9 +281,6 @@ const fragment = graphql`
     }
 
     access: schemaProperty(fullPath: "access") {
-      ...MetadataFactoryFragment
-    }
-    ccLicense: schemaProperty(fullPath: "cc_license") {
       ...MetadataFactoryFragment
     }
 

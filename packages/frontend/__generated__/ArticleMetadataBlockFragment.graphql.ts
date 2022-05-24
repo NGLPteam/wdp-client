@@ -9,6 +9,9 @@ export type ArticleMetadataBlockFragment = {
     readonly doi: string | null;
     readonly journal: {
         readonly title?: string | undefined;
+        readonly ccLicense?: {
+            readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+        } | null | undefined;
     } | null;
     readonly contributions: {
         readonly edges: ReadonlyArray<{
@@ -65,9 +68,6 @@ export type ArticleMetadataBlockFragment = {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly access: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly ccLicense: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
@@ -130,6 +130,29 @@ return {
           ],
           "type": "Entity",
           "abstractKey": "__isEntity"
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": "ccLicense",
+              "args": [
+                {
+                  "kind": "Literal",
+                  "name": "fullPath",
+                  "value": "cc_license"
+                }
+              ],
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "schemaProperty",
+              "plural": false,
+              "selections": (v1/*: any*/),
+              "storageKey": "schemaProperty(fullPath:\"cc_license\")"
+            }
+          ],
+          "type": "Collection",
+          "abstractKey": null
         }
       ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
@@ -454,22 +477,6 @@ return {
       "storageKey": "schemaProperty(fullPath:\"access\")"
     },
     {
-      "alias": "ccLicense",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "cc_license"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"cc_license\")"
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ArticleIssueMetadataFragment"
@@ -479,5 +486,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0ade648805256ec2095378806028e8c9';
+(node as any).hash = '7ced05c2c7e43cc1f4b219316f3651ce';
 export default node;
