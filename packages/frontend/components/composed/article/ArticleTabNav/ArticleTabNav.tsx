@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
@@ -22,6 +22,18 @@ export default function ArticleTabNav({ data }: Props) {
   const {
     query: { slug: slugQuery, page: pageQuery },
   } = useRouter();
+
+  /** Scroll to the nav bar if the #nav hash is present */
+  const navRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!nav || !navRef?.current || !window) return;
+
+    const hash = window.location.hash;
+
+    if (hash !== "#nav") return;
+
+    navRef.current.scrollIntoView();
+  }, [navRef, nav]);
 
   const slug = routeQueryArrayToString(slugQuery);
 
@@ -48,7 +60,7 @@ export default function ArticleTabNav({ data }: Props) {
           route={route}
           routeParams={pageSlug ? { slug, page: pageSlug } : { slug }}
           passHref
-          scroll={false}
+          hash="nav"
         >
           <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
             {t(label)}
@@ -59,7 +71,7 @@ export default function ArticleTabNav({ data }: Props) {
   }
 
   return nav ? (
-    <nav className="l-container-wide" id="nav">
+    <Styled.Nav className="l-container-wide" ref={navRef} id="nav">
       <Styled.List>
         {getLink(
           "item",
@@ -79,7 +91,7 @@ export default function ArticleTabNav({ data }: Props) {
             )
           : null}
       </Styled.List>
-    </nav>
+    </Styled.Nav>
   ) : null;
 }
 
