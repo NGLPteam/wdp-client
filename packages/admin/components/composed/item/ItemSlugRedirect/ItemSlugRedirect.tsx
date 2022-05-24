@@ -30,9 +30,9 @@ function ItemSlugRedirect({ data }: Props) {
     const total = item?.items?.pageInfo?.totalCount;
 
     if (total === 0) {
-      redirect(slug, "item.child.items");
-    } else {
       redirect(slug, "item.manage.details");
+    } else {
+      redirect(slug, "item.child.items");
     }
   }, [item, slug, redirect]);
 

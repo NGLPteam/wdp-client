@@ -98,7 +98,6 @@ export const baseRoutes: BaseRoute[] = [
       {
         name: "item",
         path: "/items/[slug]",
-        redirect: "/items/[slug]/items",
         label: "glossary.item_plural",
         routes: [
           {
