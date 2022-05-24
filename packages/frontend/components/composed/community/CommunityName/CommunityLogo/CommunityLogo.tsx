@@ -3,8 +3,8 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import Image from "next/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { NamedLink } from "components/atomic";
 import * as Styled from "./CommunityLogo.styles";
+import { NamedLink } from "components/atomic";
 import { CommunityLogoFragment$key } from "@/relay/CommunityLogoFragment.graphql";
 
 const SIZE = 40;

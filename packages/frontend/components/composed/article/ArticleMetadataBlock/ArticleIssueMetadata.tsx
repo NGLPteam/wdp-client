@@ -10,7 +10,7 @@ export default function ArticleIssueMetadata({ data }: Props) {
   const { t } = useTranslation();
 
   return issue && issue.issueTitleMeta ? (
-    <MetadataProperty label="Issue">
+    <MetadataProperty label={t("metadata.issue")}>
       {issue.issueTitleMeta ? (
         <>
           {issue.issueTitleMeta.content} <br />
@@ -31,7 +31,9 @@ export default function ArticleIssueMetadata({ data }: Props) {
         </div>
       ) : null}
     </MetadataProperty>
-  ) : null;
+  ) : (
+    <MetadataProperty label={t("metadata.issue")}>--</MetadataProperty>
+  );
 }
 
 interface Props {
