@@ -142,7 +142,6 @@ export default function MutationForm<
 
   const submitHandler: SubmitHandler<T> = useCallback(
     async (values, event) => {
-      console.log("submitHandler");
       const variables = castVariables(values);
 
       dispatch({ type: "submit", variables, values });

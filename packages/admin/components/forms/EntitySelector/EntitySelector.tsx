@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from "react";
+import { forwardRef } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useUID } from "react-uid";
 import * as Styled from "./EntitySelector.styles";
@@ -28,7 +28,6 @@ const EntitySelector = forwardRef(
     const handleCheck = (
       e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement>
     ) => {
-      console.log("here");
       e.preventDefault();
       e.stopPropagation();
       onToggle();
@@ -69,9 +68,7 @@ const EntitySelector = forwardRef(
             </Styled.Label>
           )}
         </Styled.Item>
-        {hasDescendants && (
-          <Styled.Arrow icon="arrow" role="presentpresentation" />
-        )}
+        {hasDescendants && <Styled.Arrow icon="arrow" role="presentation" />}
       </Styled.Wrapper>
     );
   }

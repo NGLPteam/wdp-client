@@ -86,8 +86,8 @@ export const Icon = styled(IconFactory)<Pick<IconProps, "$checked">>`
     fill: var(--neutral00);
   }
 
-  input:hover + &,
-  &:hover {
+  &:hover,
+  input:hover + & {
     color: var(--accent-light);
   }
 

@@ -30,7 +30,7 @@ const Template: Story<Props> = (args) => {
 Template.args = {
   children: "Entity with select and expand",
   hasDescendants: true,
-  onShowDescendants: () => alert("opens descendants"),
+  onShowDescendants: () => console.log("opens descendants"),
 };
 
 export const Default = Template.bind({});

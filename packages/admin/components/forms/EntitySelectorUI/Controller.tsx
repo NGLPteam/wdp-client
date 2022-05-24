@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import EntitySelector from "../EntitySelector";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
+import type { UseFormSetValue } from "react-hook-form";
+import EntitySelector from "../EntitySelector";
+import * as Styled from "./EntitySelectorUI.styles";
 import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
 import {
   ControllerEntitySelectorEntityQuery as EntityQuery,
   ControllerEntitySelectorEntityQueryResponse as EntityResponse,
 } from "@/relay/ControllerEntitySelectorEntityQuery.graphql";
-import * as Styled from "./EntitySelectorUI.styles";
 
 import type { ReparentEntityInput } from "@/relay/ParentSelectorModalMutation.graphql";
-import type { UseFormSetValue } from "react-hook-form";
 import type { Community, Collection, Item } from "types/graphql-schema";
 
 interface Props {
@@ -35,17 +35,18 @@ export default function Controller({
   setValue,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startEntity);
-  const [selected, setSelected] =
-    useState<CommunityOption | CollectionOption | ItemOption | undefined>();
+  const [selected, setSelected] = useState<
+    CommunityOption | CollectionOption | ItemOption | undefined
+  >();
 
   useEffect(() => {
     if (setValue && selected) setValue("parentId", selected.id ?? "");
-  }, [selected]);
+  }, [selected, setValue]);
 
   if (scopeToCommunity && !startEntity) return null;
 
   const queryVars = {
-    slug: currentEntity ? currentEntity : "",
+    slug: currentEntity || "",
   };
 
   const renderOptions = (
