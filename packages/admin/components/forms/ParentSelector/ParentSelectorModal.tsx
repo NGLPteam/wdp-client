@@ -29,6 +29,7 @@ export default function ParentSelectorModal({
   entityId,
   entityKind,
   parentId,
+  parentSlug,
 }: Props) {
   const { t } = useTranslation();
 
@@ -72,16 +73,13 @@ export default function ParentSelectorModal({
   };
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register, watch, getValues, setValue } }) => {
-      console.log(getValues("parentId"));
-      console.log(register);
-      console.log(watch);
-      console.log(setValue);
+    ({ form: { register, setValue } }) => {
       return (
         <EntitySelectorUI
           setValue={setValue}
           {...register("parentId")}
           label={"Select a new parent..."}
+          startEntity={parentSlug}
         />
       );
     },
@@ -119,6 +117,7 @@ type Props = {
   entityId: string;
   entityKind: string;
   parentId: string;
+  parentSlug: string;
 };
 
 type Fields = ReparentEntityInput;

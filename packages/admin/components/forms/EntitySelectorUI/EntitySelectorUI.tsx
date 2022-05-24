@@ -5,7 +5,7 @@ import * as Styled from "./EntitySelectorUI.styles";
 type BaseProps = React.ComponentProps<typeof BaseInputWrapper>;
 type ControllerProps = React.ComponentProps<typeof Controller>;
 
-interface Props extends BaseProps, ControllerProps {
+interface Props extends Omit<BaseProps, "children">, ControllerProps {
   height?: string;
 }
 

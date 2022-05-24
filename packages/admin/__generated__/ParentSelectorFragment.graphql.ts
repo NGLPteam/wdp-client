@@ -10,6 +10,7 @@ export type ParentSelectorFragment = {
     readonly entityId: string;
     readonly parent: {
         readonly id?: string | undefined;
+        readonly slug?: string | undefined;
         readonly title?: string | undefined;
     } | null;
     readonly " $refType": "ParentSelectorFragment";
@@ -18,6 +19,7 @@ export type ParentSelectorFragment = {
     readonly entityId: string;
     readonly parent: {
         readonly id?: string | undefined;
+        readonly slug?: string | undefined;
         readonly title?: string | undefined;
     } | null;
     readonly " $refType": "ParentSelectorFragment";
@@ -56,6 +58,13 @@ v2 = [
     "args": null,
     "kind": "ScalarField",
     "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
     "storageKey": null
   },
   {
@@ -137,5 +146,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '4282f79d9e7dea5a12c2315f1f4b8c4f';
+(node as any).hash = '4fa46e3627b1dbeef36c146d167521a3';
 export default node;

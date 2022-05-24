@@ -36,6 +36,7 @@ const ParentSelector = ({ data }: Props) => {
         entityId={entity?.entityId}
         entityKind={entity?.__typename}
         parentId={parent?.id}
+        parentSlug={parent?.slug}
       />
     </>
   ) : null;
@@ -55,10 +56,12 @@ const fragment = graphql`
       parent {
         ... on Collection {
           id
+          slug
           title
         }
         ... on Community {
           id
+          slug
           title
         }
       }
@@ -69,10 +72,12 @@ const fragment = graphql`
       parent {
         ... on Collection {
           id
+          slug
           title
         }
         ... on Item {
           id
+          slug
           title
         }
       }

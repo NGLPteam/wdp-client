@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import EntitySelector from "../EntitySelector";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-import {
-  ControllerEntitySelectorCommunitiesQuery as Query,
-  ControllerEntitySelectorCommunitiesQueryResponse as Response,
-} from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
+import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
 import {
   ControllerEntitySelectorEntityQuery as EntityQuery,
   ControllerEntitySelectorEntityQueryResponse as EntityResponse,
@@ -14,11 +11,22 @@ import * as Styled from "./EntitySelectorUI.styles";
 
 import type { ReparentEntityInput } from "@/relay/ParentSelectorModalMutation.graphql";
 import type { UseFormSetValue } from "react-hook-form";
+import type { Community, Collection, Item } from "types/graphql-schema";
 
 interface Props {
   startEntity?: string;
   scopeToCommunity?: boolean;
   setValue?: UseFormSetValue<ReparentEntityInput>;
+}
+
+interface CommunityOption extends Omit<Partial<Community>, "__typename"> {
+  __typename: string;
+}
+interface CollectionOption extends Omit<Partial<Collection>, "__typename"> {
+  __typename: string;
+}
+interface ItemOption extends Omit<Item, "__typename"> {
+  __typename: string;
 }
 
 export default function Controller({
@@ -27,10 +35,11 @@ export default function Controller({
   setValue,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startEntity);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] =
+    useState<CommunityOption | CollectionOption | ItemOption | undefined>();
 
   useEffect(() => {
-    if (setValue && selected) setValue("parentId", selected.id);
+    if (setValue && selected) setValue("parentId", selected.id ?? "");
   }, [selected]);
 
   if (scopeToCommunity && !startEntity) return null;
@@ -40,21 +49,21 @@ export default function Controller({
   };
 
   const renderOptions = (
-    data:
-      | Response["communities"]["edges"]
-      | EntityResponse["community"]["collections"]["edges"]
-      | EntityResponse["collection"]["collections"]
-      | EntityResponse["item"]["items"]["edges"]
+    data: readonly { node: CommunityOption | CollectionOption | ItemOption }[]
   ) => {
     return data.map(({ node }) => {
       const hasDescendants =
-        node.__typename === "Community" || node.hasCollections || node.hasItems;
+        node.__typename === "Community" ||
+        ("hasCollections" in node && node.hasCollections) ||
+        ("hasItems" in node && node.hasItems);
       return (
         <EntitySelector
           hasDescendants={hasDescendants}
           onShowDescendants={() => setCurrent(node.slug)}
           checked={node.id === selected?.id}
-          onToggle={() => setSelected(node)}
+          onToggle={() => {
+            setSelected(node);
+          }}
           key={node.id}
         >
           {node.title}
@@ -63,8 +72,8 @@ export default function Controller({
     });
   };
 
-  const getDescendants = (data: EntityResponse | null | undefined) => {
-    if (data?.community) {
+  const getChildren = (data: EntityResponse | null | undefined) => {
+    if (data?.community?.collections) {
       return renderOptions(data.community.collections?.edges);
     }
     if (data?.collection) {
@@ -78,42 +87,47 @@ export default function Controller({
       : null;
   };
 
+  const renderBack = (data: EntityResponse | null | undefined) => {
+    const current = data?.community
+      ? data.community.title
+      : data?.collection
+      ? data?.collection.title
+      : data?.item?.title;
+    const parent =
+      data?.collection && data.collection.parent?.__typename !== "%other"
+        ? data.collection.parent?.slug
+        : data?.item && data.item.parent?.__typename !== "%other"
+        ? data.item.parent?.slug
+        : "";
+    return (
+      <Styled.Back
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          setCurrent(parent);
+        }}
+      >
+        <Styled.Arrow icon="arrow" role="presentation" />
+        {current}
+      </Styled.Back>
+    );
+  };
+
   return !currentEntity ? (
     <QueryWrapper<Query> query={communitiesQuery} initialVariables={queryVars}>
       {({ data }) =>
-        data?.communities.edges.length
-          ? renderOptions(data.communities.edges)
-          : null
+        data?.communities?.edges.length ? (
+          <>{renderOptions(data.communities.edges)}</>
+        ) : null
       }
     </QueryWrapper>
   ) : (
     <QueryWrapper<EntityQuery> query={entityQuery} initialVariables={queryVars}>
-      {({ data }) => {
-        const current = data?.community
-          ? data.community.title
-          : data?.collection
-          ? data?.collection.title
-          : data?.item?.title;
-        const parent = data?.community
-          ? ""
-          : data?.collection
-          ? data.collection.parent?.slug
-          : data?.item?.parent?.slug;
-        return (
-          <>
-            <Styled.Back
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.preventDefault();
-                setCurrent(parent);
-              }}
-            >
-              <Styled.Arrow icon="arrow" role="presentation" />
-              {current}
-            </Styled.Back>
-            {getDescendants(data)}
-          </>
-        );
-      }}
+      {({ data }) => (
+        <>
+          {renderBack(data)}
+          {getChildren(data)}
+        </>
+      )}
     </QueryWrapper>
   );
 }
@@ -136,11 +150,11 @@ const communitiesQuery = graphql`
 const entityQuery = graphql`
   query ControllerEntitySelectorEntityQuery($slug: Slug!) {
     community(slug: $slug) {
-      __typename
       title
       collections {
         edges {
           node {
+            __typename
             id
             title
             slug
@@ -151,14 +165,15 @@ const entityQuery = graphql`
       }
     }
     collection(slug: $slug) {
-      __typename
       title
       parent {
         ... on Collection {
+          __typename
           slug
           title
         }
         ... on Community {
+          __typename
           slug
           title
         }
@@ -166,6 +181,7 @@ const entityQuery = graphql`
       collections {
         edges {
           node {
+            __typename
             id
             title
             slug
@@ -177,6 +193,7 @@ const entityQuery = graphql`
       items {
         edges {
           node {
+            __typename
             id
             title
             slug
@@ -190,10 +207,12 @@ const entityQuery = graphql`
       title
       parent {
         ... on Collection {
+          __typename
           slug
           title
         }
         ... on Item {
+          __typename
           slug
           title
         }
@@ -201,6 +220,7 @@ const entityQuery = graphql`
       items {
         edges {
           node {
+            __typename
             id
             title
             slug

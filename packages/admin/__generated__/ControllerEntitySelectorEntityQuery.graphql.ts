@@ -9,11 +9,11 @@ export type ControllerEntitySelectorEntityQueryVariables = {
 };
 export type ControllerEntitySelectorEntityQueryResponse = {
     readonly community: {
-        readonly __typename: string;
         readonly title: string;
         readonly collections: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
+                    readonly __typename: string;
                     readonly id: string;
                     readonly title: string;
                     readonly slug: string;
@@ -24,15 +24,24 @@ export type ControllerEntitySelectorEntityQueryResponse = {
         };
     } | null;
     readonly collection: {
-        readonly __typename: string;
         readonly title: string;
-        readonly parent: {
-            readonly slug?: string | undefined;
-            readonly title?: string | undefined;
-        } | null;
+        readonly parent: ({
+            readonly __typename: "Collection";
+            readonly slug: string;
+            readonly title: string;
+        } | {
+            readonly __typename: "Community";
+            readonly slug: string;
+            readonly title: string;
+        } | {
+            /*This will never be '%other', but we need some
+            value in case none of the concrete values match.*/
+            readonly __typename: "%other";
+        }) | null;
         readonly collections: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
+                    readonly __typename: string;
                     readonly id: string;
                     readonly title: string;
                     readonly slug: string;
@@ -44,6 +53,7 @@ export type ControllerEntitySelectorEntityQueryResponse = {
         readonly items: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
+                    readonly __typename: string;
                     readonly id: string;
                     readonly title: string;
                     readonly slug: string;
@@ -55,13 +65,23 @@ export type ControllerEntitySelectorEntityQueryResponse = {
     readonly item: {
         readonly __typename: string;
         readonly title: string;
-        readonly parent: {
-            readonly slug?: string | undefined;
-            readonly title?: string | undefined;
-        } | null;
+        readonly parent: ({
+            readonly __typename: "Collection";
+            readonly slug: string;
+            readonly title: string;
+        } | {
+            readonly __typename: "Item";
+            readonly slug: string;
+            readonly title: string;
+        } | {
+            /*This will never be '%other', but we need some
+            value in case none of the concrete values match.*/
+            readonly __typename: "%other";
+        }) | null;
         readonly items: {
             readonly edges: ReadonlyArray<{
                 readonly node: {
+                    readonly __typename: string;
                     readonly id: string;
                     readonly title: string;
                     readonly slug: string;
@@ -83,11 +103,11 @@ query ControllerEntitySelectorEntityQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
-    __typename
     title
     collections {
       edges {
         node {
+          __typename
           id
           title
           slug
@@ -99,15 +119,16 @@ query ControllerEntitySelectorEntityQuery(
     id
   }
   collection(slug: $slug) {
-    __typename
     title
     parent {
       __typename
       ... on Collection {
+        __typename
         slug
         title
       }
       ... on Community {
+        __typename
         slug
         title
       }
@@ -119,6 +140,7 @@ query ControllerEntitySelectorEntityQuery(
     collections {
       edges {
         node {
+          __typename
           id
           title
           slug
@@ -130,6 +152,7 @@ query ControllerEntitySelectorEntityQuery(
     items {
       edges {
         node {
+          __typename
           id
           title
           slug
@@ -145,10 +168,12 @@ query ControllerEntitySelectorEntityQuery(
     parent {
       __typename
       ... on Collection {
+        __typename
         slug
         title
       }
       ... on Item {
+        __typename
         slug
         title
       }
@@ -160,6 +185,7 @@ query ControllerEntitySelectorEntityQuery(
     items {
       edges {
         node {
+          __typename
           id
           title
           slug
@@ -191,14 +217,14 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "title",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "__typename",
   "storageKey": null
 },
 v4 = {
@@ -246,8 +272,9 @@ v7 = {
           "name": "node",
           "plural": false,
           "selections": [
-            (v4/*: any*/),
             (v3/*: any*/),
+            (v4/*: any*/),
+            (v2/*: any*/),
             (v5/*: any*/),
             (v6/*: any*/),
             {
@@ -267,8 +294,9 @@ v7 = {
   "storageKey": null
 },
 v8 = [
+  (v3/*: any*/),
   (v5/*: any*/),
-  (v3/*: any*/)
+  (v2/*: any*/)
 ],
 v9 = {
   "kind": "InlineFragment",
@@ -277,12 +305,6 @@ v9 = {
   "abstractKey": null
 },
 v10 = {
-  "kind": "InlineFragment",
-  "selections": (v8/*: any*/),
-  "type": "Community",
-  "abstractKey": null
-},
-v11 = {
   "alias": null,
   "args": null,
   "concreteType": "ItemConnection",
@@ -306,8 +328,9 @@ v11 = {
           "name": "node",
           "plural": false,
           "selections": [
-            (v4/*: any*/),
             (v3/*: any*/),
+            (v4/*: any*/),
+            (v2/*: any*/),
             (v5/*: any*/),
             (v6/*: any*/)
           ],
@@ -319,10 +342,14 @@ v11 = {
   ],
   "storageKey": null
 },
+v11 = [
+  (v5/*: any*/),
+  (v2/*: any*/)
+],
 v12 = {
   "kind": "InlineFragment",
-  "selections": (v8/*: any*/),
-  "type": "Item",
+  "selections": (v11/*: any*/),
+  "type": "Collection",
   "abstractKey": null
 },
 v13 = {
@@ -349,7 +376,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           (v7/*: any*/)
         ],
         "storageKey": null
@@ -363,7 +389,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -373,12 +398,17 @@ return {
             "plural": false,
             "selections": [
               (v9/*: any*/),
-              (v10/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": (v8/*: any*/),
+                "type": "Community",
+                "abstractKey": null
+              }
             ],
             "storageKey": null
           },
           (v7/*: any*/),
-          (v11/*: any*/)
+          (v10/*: any*/)
         ],
         "storageKey": null
       },
@@ -390,8 +420,8 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -401,11 +431,16 @@ return {
             "plural": false,
             "selections": [
               (v9/*: any*/),
-              (v12/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": (v8/*: any*/),
+                "type": "Item",
+                "abstractKey": null
+              }
             ],
             "storageKey": null
           },
-          (v11/*: any*/)
+          (v10/*: any*/)
         ],
         "storageKey": null
       }
@@ -428,7 +463,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           (v7/*: any*/),
           (v4/*: any*/)
         ],
@@ -443,7 +477,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -452,15 +485,20 @@ return {
             "name": "parent",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v9/*: any*/),
-              (v10/*: any*/),
+              (v3/*: any*/),
+              (v12/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Community",
+                "abstractKey": null
+              },
               (v13/*: any*/)
             ],
             "storageKey": null
           },
           (v7/*: any*/),
-          (v11/*: any*/),
+          (v10/*: any*/),
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -473,8 +511,8 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -483,14 +521,19 @@ return {
             "name": "parent",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v9/*: any*/),
+              (v3/*: any*/),
               (v12/*: any*/),
+              {
+                "kind": "InlineFragment",
+                "selections": (v11/*: any*/),
+                "type": "Item",
+                "abstractKey": null
+              },
               (v13/*: any*/)
             ],
             "storageKey": null
           },
-          (v11/*: any*/),
+          (v10/*: any*/),
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -498,14 +541,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "51c6fe0e23367ad471c17b1ae45c3842",
+    "cacheID": "cb33693647d560b0532953ba019a2eaa",
     "id": null,
     "metadata": {},
     "name": "ControllerEntitySelectorEntityQuery",
     "operationKind": "query",
-    "text": "query ControllerEntitySelectorEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    __typename\n    title\n    collections {\n      edges {\n        node {\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        slug\n        title\n      }\n      ... on Community {\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          id\n          title\n          slug\n          hasItems\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        slug\n        title\n      }\n      ... on Item {\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          id\n          title\n          slug\n          hasItems\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ControllerEntitySelectorEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Community {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Item {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '686088c8d797759b5c16b756c8799bbd';
+(node as any).hash = '6acdaccaae3c4818d44da4223c642fd4';
 export default node;
