@@ -18,7 +18,10 @@ export const Label = styled.label`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-block-end: ${pxToRem(16)};
+
+  &:not(:last-child) {
+    margin-block-end: ${pxToRem(16)};
+  }
 `;
 
 export const LabelText = styled.span`

@@ -61,6 +61,10 @@ export type EntityOrderingEditFormMutationResponse = {
             }>;
             readonly select: {
                 readonly direct: OrderingDirectSelection;
+                readonly links: {
+                    readonly contains: boolean;
+                    readonly references: boolean;
+                };
             };
             readonly filter: {
                 readonly schemas: ReadonlyArray<{
@@ -97,6 +101,10 @@ mutation EntityOrderingEditFormMutation(
       }
       select {
         direct
+        links {
+          contains
+          references
+        }
       }
       filter {
         schemas {
@@ -220,6 +228,31 @@ v3 = {
           "args": null,
           "kind": "ScalarField",
           "name": "direct",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "OrderingSelectLinkDefinition",
+          "kind": "LinkedField",
+          "name": "links",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "contains",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "references",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -385,14 +418,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d7be1f7617eb2564cce11f93759a986e",
+    "cacheID": "f979ec0a10eb61ab1997c899e19e33dc",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityOrderingEditFormMutation(\n  $input: UpdateOrderingInput!\n) {\n  updateOrdering(input: $input) {\n    ordering {\n      id\n      name\n      render {\n        mode\n      }\n      order {\n        path\n        direction\n      }\n      select {\n        direct\n      }\n      filter {\n        schemas {\n          namespace\n          identifier\n          version\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityOrderingEditFormMutation(\n  $input: UpdateOrderingInput!\n) {\n  updateOrdering(input: $input) {\n    ordering {\n      id\n      name\n      render {\n        mode\n      }\n      order {\n        path\n        direction\n      }\n      select {\n        direct\n        links {\n          contains\n          references\n        }\n      }\n      filter {\n        schemas {\n          namespace\n          identifier\n          version\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1d344172129c473437b6a8ee30c21e71';
+(node as any).hash = 'bc6470ca858ab929bb70b4461d48e3a5';
 export default node;

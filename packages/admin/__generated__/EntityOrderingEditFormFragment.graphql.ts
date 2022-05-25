@@ -21,6 +21,10 @@ export type EntityOrderingEditFormFragment = {
         }>;
         readonly select: {
             readonly direct: OrderingDirectSelection;
+            readonly links: {
+                readonly contains: boolean;
+                readonly references: boolean;
+            };
         };
         readonly filter: {
             readonly schemas: ReadonlyArray<{
@@ -137,6 +141,31 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "direct",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "OrderingSelectLinkDefinition",
+              "kind": "LinkedField",
+              "name": "links",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "contains",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "references",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -201,5 +230,5 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'd623a17214aa82ec04a0bfa6856edb31';
+(node as any).hash = 'c319ce60a9b56f1967b4db795531be7b';
 export default node;
