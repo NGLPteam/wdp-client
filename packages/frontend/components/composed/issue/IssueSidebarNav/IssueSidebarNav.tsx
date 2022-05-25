@@ -32,7 +32,7 @@ interface Props {
 
 const fragment = graphql`
   fragment IssueSidebarNavFragment on Collection {
-    orderings {
+    orderings(availability: ENABLED) {
       ...EntityOrderSelectFragment
     }
     ...IssueSidebarNavListFragment
