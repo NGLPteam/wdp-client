@@ -12,7 +12,7 @@ export type EntityPageLayoutFactoryFragment = {
     readonly page?: {
         readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFragment" | "IssuePageLayoutFragment">;
     } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueLayoutFragment" | "IssueSidebarNavFragment" | "EntityLayoutFactoryFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment" | "EntityLayoutFactoryFragment">;
     readonly " $refType": "EntityPageLayoutFactoryFragment";
 };
 export type EntityPageLayoutFactoryFragment$data = EntityPageLayoutFactoryFragment;
@@ -94,11 +94,6 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "IssueLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
           "name": "IssueSidebarNavFragment"
         },
         (v3/*: any*/)
@@ -132,5 +127,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'b1a73c930362f25c0b09a60c84f10125';
+(node as any).hash = '79b29f7ff97d9433c487a7b9d6f09746';
 export default node;

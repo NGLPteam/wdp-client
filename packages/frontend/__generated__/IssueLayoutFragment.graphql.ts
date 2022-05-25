@@ -7,6 +7,9 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type IssueLayoutFragment = {
     readonly contributions: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
         readonly " $fragmentRefs": FragmentRefs<"ContributionsBlockFragment">;
     };
     readonly relatedCollections: {
@@ -37,6 +40,24 @@ const node: ReaderFragment = {
       "name": "contributions",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -86,5 +107,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '57dad860681264e9b5632a126c4b3187';
+(node as any).hash = '0c6d21c11508920579931ec021fe2c34';
 export default node;

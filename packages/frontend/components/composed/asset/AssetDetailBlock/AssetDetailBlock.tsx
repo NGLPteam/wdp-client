@@ -43,7 +43,12 @@ export default function AssetDetailBlock({ data }: Props) {
   return asset ? (
     <Styled.Section className="l-container-wide">
       {slug && (
-        <NamedLink route="item.files" routeParams={{ slug }} passHref>
+        <NamedLink
+          route="item.files"
+          routeParams={{ slug }}
+          scroll={false}
+          passHref
+        >
           <BackButton>Back to Files</BackButton>
         </NamedLink>
       )}

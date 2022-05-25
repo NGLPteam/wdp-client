@@ -4,7 +4,7 @@ import { lGrid, respond, fluidScale, tHeading } from "theme/mixins";
 
 export const BodyWrapper = styled.div`
   padding-block-start: var(--container-padding-md);
-  padding-block-end: var(--container-padding-md);
+  padding-block-end: var(--container-padding-xxl);
 `;
 
 export const BodyInner = styled.div`

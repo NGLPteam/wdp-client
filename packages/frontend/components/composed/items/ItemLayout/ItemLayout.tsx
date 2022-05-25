@@ -2,26 +2,26 @@ import { graphql } from "react-relay";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import AppLayout from "components/global/AppLayout";
-import { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
+import { ItemLayoutFragment$key } from "@/relay/ItemLayoutFragment.graphql";
 import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import { LoadingBlock } from "components/atomic";
 
-export default function CollectionLayout({ data, children }: Props) {
+export default function ItemLayout({ data, children }: Props) {
   const queryData = useMaybeFragment(fragment, data);
   const { current: memoizedData } = useLatestPresentValue(queryData);
   const { loading } = usePageContext();
 
   return (
     <AppLayout
-      communityData={memoizedData?.collection?.community}
-      entityData={memoizedData?.collection}
+      communityData={memoizedData?.item?.community}
+      entityData={memoizedData?.item}
     >
-      <EntityHTMLHead data={memoizedData?.collection} appData={memoizedData} />
-      {loading && !memoizedData?.collection ? (
+      <EntityHTMLHead data={memoizedData?.item} appData={memoizedData} />
+      {loading && !memoizedData?.item ? (
         <LoadingBlock />
       ) : (
-        <EntityLayoutFactory data={memoizedData?.collection}>
+        <EntityLayoutFactory data={memoizedData?.item}>
           {children}
         </EntityLayoutFactory>
       )}
@@ -30,17 +30,18 @@ export default function CollectionLayout({ data, children }: Props) {
 }
 
 interface Props {
-  data?: CollectionLayoutFragment$key | null;
+  data?: ItemLayoutFragment$key | null;
   children: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment CollectionLayoutFragment on Query
+  fragment ItemLayoutFragment on Query
   @argumentDefinitions(slug: { type: "Slug!" }) {
-    collection(slug: $slug) {
+    item(slug: $slug) {
       ...AppLayoutEntityFragment
       ...EntityHTMLHeadFragment
       ...EntityLayoutFactoryFragment
+
       community {
         ...AppLayoutCommunityFragment
       }

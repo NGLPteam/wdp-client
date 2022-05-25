@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { boxShadow, transition } from "theme/base/variables";
 import { aFocusReset, tLabel } from "theme/mixins";
 
+export const Nav = styled.nav`
+  padding-block-start: var(--container-padding-md);
+`;
+
 export const List = styled.ul`
   border-bottom: 1px solid var(--border-color);
   display: flex;

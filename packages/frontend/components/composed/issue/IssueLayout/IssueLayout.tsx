@@ -15,7 +15,9 @@ export default function IssueLayout({ data, children }: Props) {
       <BreadcrumbsBar data={issue} />
       <IssueHero data={issue} />
       {children}
-      <ContributionsBlock data={issue?.contributions} />
+      {issue && issue?.contributions?.pageInfo?.totalCount > 0 ? (
+        <ContributionsBlock data={issue?.contributions} />
+      ) : null}
       <RelatedIssues data={issue?.relatedCollections} />
     </>
   );
@@ -32,6 +34,9 @@ const fragment = graphql`
     ...IssueHeroFragment
     contributions {
       ...ContributionsBlockFragment
+      pageInfo {
+        totalCount
+      }
     }
     relatedCollections(page: 1, perPage: 4) {
       ...RelatedIssuesFragment
