@@ -32,3 +32,4 @@ export { default as Multiselect } from "./Multiselect";
 export { default as AssetsPropertyControl } from "./AssetsPropertyControl";
 export { default as VisibilityFields } from "./VisibilityFields";
 export { default as OrderRenderSelect } from "./OrderRenderSelect";
+export { default as OrderingLinksSelection } from "./OrderingLinksSelection";
