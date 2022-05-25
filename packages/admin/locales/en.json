@@ -167,7 +167,9 @@
         "global_settings_success": "Global settings updated successfully.",
         "global_settings_failure": "Failed to update global settings.",
         "file_success": "File updated successfully.",
-        "file_failure": "Failed to update file."
+        "file_failure": "Failed to update file.",
+        "ordering_success": "Ordering updated successfully.",
+        "ordering_failure": "Failed to update ordering."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",

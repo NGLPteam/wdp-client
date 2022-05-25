@@ -52,6 +52,7 @@ export default function EntityOrderingAddForm({
         order: data.order,
         filter,
         render: data.render,
+        select: data.select,
       };
 
       return { input };
@@ -62,6 +63,7 @@ export default function EntityOrderingAddForm({
   const defaultValues = {
     select: {
       direct: "CHILDREN" as OrderingDirectSelection,
+      links: { contains: false, references: false },
     },
     render: "FLAT" as OrderingRenderDefinitionInput,
   };
@@ -80,6 +82,10 @@ export default function EntityOrderingAddForm({
           )}
           <Forms.OrderRenderSelect {...register("render.mode")} />
           <Forms.OrderingDirectSelection {...register("select.direct")} />
+          <Forms.OrderingLinksSelection
+            contains={register("select.links.contains")}
+            references={register("select.links.references")}
+          />
           {entity && (
             <Forms.SchemaCheckboxGroup
               data={entity}

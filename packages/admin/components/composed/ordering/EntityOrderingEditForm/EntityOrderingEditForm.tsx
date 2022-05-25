@@ -87,6 +87,10 @@ export default function EntityOrderingEditForm({
           )}
           <Forms.OrderRenderSelect {...register("render.mode")} />
           <Forms.OrderingDirectSelection {...register("select.direct")} />
+          <Forms.OrderingLinksSelection
+            contains={register("select.links.contains")}
+            references={register("select.links.references")}
+          />
           {entity && (
             <Forms.SchemaCheckboxGroup
               data={entity}
@@ -105,8 +109,8 @@ export default function EntityOrderingEditForm({
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="messages.add.ordering_success"
-      failureNotification="messages.add.ordering_failure"
+      successNotification="messages.update.ordering_success"
+      failureNotification="messages.update.ordering_failure"
       name="updateOrdering"
       refetchTags={["orderings"]}
       toVariables={toVariables}
@@ -137,6 +141,10 @@ const fragment = graphql`
       }
       select {
         direct
+        links {
+          contains
+          references
+        }
       }
       filter {
         schemas {
@@ -164,6 +172,10 @@ const mutation = graphql`
         }
         select {
           direct
+          links {
+            contains
+            references
+          }
         }
         filter {
           schemas {
