@@ -7,45 +7,70 @@ import ContributorAvatar from "../../../contributor/ContributorAvatar";
 import * as Styled from "./ContributionBlockItem.styles";
 import { ContributionBlockItemFragment$key } from "@/relay/ContributionBlockItemFragment.graphql";
 import { NamedLink } from "components/atomic";
+import { IconFactory } from "components/factories";
 
 const ContributionBlockItem = ({ data, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
 
   return contribution && contribution.contributor.slug ? (
     <Styled.ListItem>
-      <NamedLink
-        route="contributor"
-        routeParams={{
-          slug: contribution.contributor.slug,
-          ...(contribution.item?.slug && { item: contribution.item.slug }),
-          ...(contribution.collection?.slug && {
-            collection: contribution.collection.slug,
-          }),
-        }}
-        passHref
-      >
-        <Styled.ItemLink>
-          {showAvatar && (
+      <Styled.ItemContent>
+        {showAvatar && (
+          <NamedLink
+            route="contributor"
+            routeParams={{
+              slug: contribution.contributor.slug,
+              ...(contribution.item?.slug && { item: contribution.item.slug }),
+              ...(contribution.collection?.slug && {
+                collection: contribution.collection.slug,
+              }),
+            }}
+            passHref
+          >
             <Styled.ItemAvatar>
               <ContributorAvatar data={contribution.contributor.image} />
             </Styled.ItemAvatar>
-          )}
-          <div>
-            <strong>
-              <ContributorName data={contribution.contributor} />
-            </strong>
-            <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">
-              {contribution.role && <p>{capitalize(contribution.role)}</p>}
-              {contribution.affiliation && (
-                <p>
-                  {contribution.affiliation ||
-                    contribution.contributor.affiliation}
-                </p>
-              )}
-            </Styled.ItemMetadata>
-          </div>
-        </Styled.ItemLink>
-      </NamedLink>
+          </NamedLink>
+        )}
+        <div>
+          <NamedLink
+            route="contributor"
+            routeParams={{
+              slug: contribution.contributor.slug,
+              ...(contribution.item?.slug && { item: contribution.item.slug }),
+              ...(contribution.collection?.slug && {
+                collection: contribution.collection.slug,
+              }),
+            }}
+            passHref
+          >
+            <a>
+              <strong>
+                <ContributorName data={contribution.contributor} />
+              </strong>
+            </a>
+          </NamedLink>
+          <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">
+            {contribution.role && <p>{capitalize(contribution.role)}</p>}
+            {(contribution.affiliation ||
+              contribution.contributor.affiliation) && (
+              <p>
+                {contribution.contributor.affiliation ||
+                  contribution.contributor.affiliation}
+              </p>
+            )}
+            {contribution.contributor.orcid && (
+              <Styled.ORCIDLink
+                href={contribution.contributor.orcid}
+                target="_blank"
+              >
+                <IconFactory icon="orcid" role="presentation" />
+                <span>{contribution.contributor.orcid}</span>
+              </Styled.ORCIDLink>
+            )}
+          </Styled.ItemMetadata>
+        </div>
+      </Styled.ItemContent>
     </Styled.ListItem>
   ) : null;
 };
@@ -74,6 +99,7 @@ const fragment = graphql`
       }
       ... on PersonContributor {
         affiliation
+        orcid
       }
       ...ContributorNameFragment
     }
