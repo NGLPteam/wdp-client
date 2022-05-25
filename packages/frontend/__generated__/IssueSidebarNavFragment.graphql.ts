@@ -28,7 +28,13 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "availability",
+          "value": "ENABLED"
+        }
+      ],
       "concreteType": "OrderingConnection",
       "kind": "LinkedField",
       "name": "orderings",
@@ -40,7 +46,7 @@ const node: ReaderFragment = {
           "name": "EntityOrderSelectFragment"
         }
       ],
-      "storageKey": null
+      "storageKey": "orderings(availability:\"ENABLED\")"
     },
     {
       "args": null,
@@ -51,5 +57,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'cf14589e19a6381fc4a1190f38de10bc';
+(node as any).hash = '02e2cab701a9ecbb4e3cfffdcf0ebfa1';
 export default node;
