@@ -17,6 +17,7 @@ export type ContributionBlockItemFragment = {
             readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
         } | undefined;
         readonly affiliation?: string | null | undefined;
+        readonly orcid?: string | null | undefined;
         readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
     };
     readonly item?: {
@@ -120,7 +121,14 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/)
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "orcid",
+              "storageKey": null
+            }
           ],
           "type": "PersonContributor",
           "abstractKey": null
@@ -172,5 +180,5 @@ return {
   "abstractKey": "__isContribution"
 };
 })();
-(node as any).hash = 'e47b4705cc412644d8f75089bf1dca02';
+(node as any).hash = '9a7fd2742290ca3dcede7b4428d4d547';
 export default node;

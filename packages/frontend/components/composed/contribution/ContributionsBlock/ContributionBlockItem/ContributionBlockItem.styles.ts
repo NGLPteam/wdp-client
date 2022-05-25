@@ -1,6 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { respond } from "theme/mixins";
+import { respond, aLink } from "theme/mixins";
 
 export const ListItem = styled.li`
   grid-column: span 3;
@@ -9,7 +9,7 @@ export const ListItem = styled.li`
   ${respond(`grid-column: span 12;`, 70)}
 `;
 
-export const ItemLink = styled.a`
+export const ItemContent = styled.div`
   display: flex;
 
   > * + * {
@@ -17,10 +17,24 @@ export const ItemLink = styled.a`
   }
 `;
 
-export const ItemAvatar = styled.div`
+export const ItemAvatar = styled.a`
   flex: none;
 `;
 
 export const ItemMetadata = styled.div`
   padding-block-start: var(--padding-xs);
+`;
+
+export const ORCIDLink = styled.a`
+  ${aLink}
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-inline-start: ${pxToRem(8)};
+  }
+
+  > svg {
+    color: var(--color-base);
+  }
 `;
