@@ -4,12 +4,16 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { StringPropertyFragment$key } from "@/relay/StringPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function StringProperty({ data, label }: Props) {
+export default function StringProperty({
+  data,
+  label,
+  showPlaceholder,
+}: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {property.content}
+  return property || (showPlaceholder && label) ? (
+    <MetadataProperty label={label ?? property?.label ?? ""}>
+      {property?.content ? property.content : "--"}
     </MetadataProperty>
   ) : null;
 }
@@ -17,6 +21,7 @@ export default function StringProperty({ data, label }: Props) {
 interface Props {
   data?: StringPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

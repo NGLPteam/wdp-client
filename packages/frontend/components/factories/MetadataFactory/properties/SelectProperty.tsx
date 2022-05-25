@@ -4,16 +4,20 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { SelectPropertyFragment$key } from "@/relay/SelectPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function SelectProperty({ data, label }: Props) {
+export default function SelectProperty({
+  data,
+  label,
+  showPlaceholder,
+}: Props) {
   const property = useMaybeFragment(fragment, data);
 
   const selectedOption = property?.options?.find(
     (o: { label: string; value: string }) => o.value === property.selection
   );
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {selectedOption ? selectedOption.value : null}
+  return property || (showPlaceholder && label) ? (
+    <MetadataProperty label={label ?? property?.label ?? ""}>
+      {selectedOption ? selectedOption.value : "--"}
     </MetadataProperty>
   ) : null;
 }
@@ -21,6 +25,7 @@ export default function SelectProperty({ data, label }: Props) {
 interface Props {
   data?: SelectPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

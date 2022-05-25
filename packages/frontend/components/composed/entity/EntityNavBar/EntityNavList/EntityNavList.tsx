@@ -108,7 +108,7 @@ type Node = EntityNavListFragment$data["orderings"]["nodes"][number];
 const fragment = graphql`
   fragment EntityNavListFragment on Entity {
     __typename
-    orderings {
+    orderings(availability: ENABLED) {
       nodes {
         name
         slug

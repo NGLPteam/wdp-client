@@ -19,7 +19,11 @@ import type { MetadataFactoryFragment$key } from "@/relay/MetadataFactoryFragmen
  * A factory that dispatches on `__typename` and renders
  * the appropriate property field.
  */
-export default function MetadataFactory({ data, label }: Props) {
+export default function MetadataFactory({
+  data,
+  label,
+  showPlaceholder = false,
+}: Props) {
   const field = useMaybeFragment(fragment, data);
 
   if (!field) return null;
@@ -37,9 +41,15 @@ export default function MetadataFactory({ data, label }: Props) {
     case "IntegerProperty":
       return <NumberProperty data={field} label={label} />;
     case "StringProperty":
-      return <StringProperty data={field} label={label} />;
+      return (
+        <StringProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "SelectProperty":
-      return <SelectProperty data={field} label={label} />;
+      return <SelectProperty data={field} label={label} showPlaceholder />;
     case "TagsProperty":
       return <TagsProperty data={field} label={label} />;
     case "URLProperty":
@@ -54,6 +64,7 @@ export default function MetadataFactory({ data, label }: Props) {
 interface Props {
   data: MetadataFactoryFragment$key;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

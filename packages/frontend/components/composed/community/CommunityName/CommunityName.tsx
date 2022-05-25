@@ -23,7 +23,7 @@ export default function CommunityName({ data }: Props) {
   return (
     <Styled.Wrapper className="l-flex l-flex--align-center">
       <>
-        <CommunityLogo data={community?.logo} />
+        <CommunityLogo data={community?.logo} slug={community?.slug} />
         <h4 className={hideName ? "a-hidden" : undefined}>
           <NamedLink
             route="community"

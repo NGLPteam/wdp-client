@@ -56,7 +56,13 @@ return {
     },
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "availability",
+          "value": "ENABLED"
+        }
+      ],
       "concreteType": "OrderingConnection",
       "kind": "LinkedField",
       "name": "orderings",
@@ -96,7 +102,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "orderings(availability:\"ENABLED\")"
     },
     {
       "alias": null,
@@ -144,5 +150,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '6a12a89e61dfdf5134b510867b9d06fc';
+(node as any).hash = 'ae90df0610ab9612dfa50d761f07206b';
 export default node;

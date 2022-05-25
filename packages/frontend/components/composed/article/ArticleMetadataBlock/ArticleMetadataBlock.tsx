@@ -8,9 +8,13 @@ import { ArticleMetadataBlockFragment$key } from "@/relay/ArticleMetadataBlockFr
 import MetadataFactory from "components/factories/MetadataFactory";
 import { MetadataProperty } from "components/layout";
 import { NamedLink, PrecisionDate } from "components/atomic";
+import ContributorName from "components/composed/contributor/ContributorName";
 
 export default function ArticleMetadataBlock({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
+  const authors = entity?.contributions?.edges?.filter(
+    ({ node }) => node.role?.toLowerCase() === "author"
+  );
 
   const { t } = useTranslation();
 
@@ -18,11 +22,61 @@ export default function ArticleMetadataBlock({ data }: Props) {
     <Styled.Section className="l-container-wide">
       <h3>{t("metadata.header")}</h3>
       <Styled.List>
+        <Styled.ListItem>
+          <MetadataProperty label={t("metadata.journal")}>
+            {entity.journal?.title ? <div>{entity.journal.title}</div> : "--"}
+          </MetadataProperty>
+        </Styled.ListItem>
+        {entity.volumeIdMeta && (
+          <Styled.ListItem>
+            <MetadataFactory
+              label={t("metadata.volume")}
+              data={entity.volumeIdMeta}
+              showPlaceholder
+            />
+          </Styled.ListItem>
+        )}
+
+        <Styled.ListItem>
+          <ArticleIssueMetadata data={entity} />
+        </Styled.ListItem>
+        {entity.pageCountMeta && (
+          <Styled.ListItem>
+            <MetadataFactory data={entity.pageCountMeta} />
+          </Styled.ListItem>
+        )}
+        <Styled.ListItem>
+          <MetadataProperty label={"DOI"}>
+            {entity.doi ? <div>{entity.doi}</div> : "--"}
+          </MetadataProperty>
+        </Styled.ListItem>
+        <Styled.ListItem>
+          <MetadataProperty
+            label={t("metadata.author", { count: authors?.length ?? 1 })}
+          >
+            {authors?.length
+              ? authors.map(({ node }, i) => (
+                  <ContributorName data={node.contributor} key={i} />
+                ))
+              : "--"}
+          </MetadataProperty>
+        </Styled.ListItem>
+
         {entity.published.value && (
           <Styled.ListItem>
             <MetadataProperty label={t("date.published")}>
               <PrecisionDate data={entity.published} />
             </MetadataProperty>
+          </Styled.ListItem>
+        )}
+
+        {entity.journal?.ccLicense && (
+          <Styled.ListItem>
+            <MetadataFactory
+              label={t("metadata.cc_license")}
+              data={entity.journal?.ccLicense}
+              showPlaceholder
+            />
           </Styled.ListItem>
         )}
 
@@ -56,21 +110,6 @@ export default function ArticleMetadataBlock({ data }: Props) {
         {entity.collectedMeta && (
           <Styled.ListItem>
             <MetadataFactory data={entity.collectedMeta} />
-          </Styled.ListItem>
-        )}
-
-        {entity.pageCountMeta && (
-          <Styled.ListItem>
-            <MetadataFactory data={entity.pageCountMeta} />
-          </Styled.ListItem>
-        )}
-
-        {entity.volumeIdMeta && (
-          <Styled.ListItem>
-            <MetadataFactory
-              label={t("metadata.volume_id")}
-              data={entity.volumeIdMeta}
-            />
           </Styled.ListItem>
         )}
 
@@ -149,12 +188,6 @@ export default function ArticleMetadataBlock({ data }: Props) {
             />
           </Styled.ListItem>
         )}
-
-        {entity && (
-          <Styled.ListItem>
-            <ArticleIssueMetadata data={entity} />
-          </Styled.ListItem>
-        )}
       </Styled.List>
     </Styled.Section>
   ) : null;
@@ -166,6 +199,27 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleMetadataBlockFragment on Item {
+    doi
+    journal: ancestorOfType(schema: "nglp:journal") {
+      ... on Entity {
+        title
+      }
+      ... on Collection {
+        ccLicense: schemaProperty(fullPath: "cc_license") {
+          ...MetadataFactoryFragment
+        }
+      }
+    }
+    contributions {
+      edges {
+        node {
+          role
+          contributor {
+            ...ContributorNameFragment
+          }
+        }
+      }
+    }
     collectedMeta: schemaProperty(fullPath: "meta.collected") {
       ...MetadataFactoryFragment
     }
