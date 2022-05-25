@@ -1,10 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityLayoutFactory from "../EntityLayoutFactory";
 import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
-import JournalLayout from "components/composed/journal/JournalLayout";
-import ArticleLayout from "components/composed/article/ArticleLayout";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
@@ -17,11 +14,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal":
-      return (
-        <JournalLayout data={entity}>
-          <JournalContent data={entity} />
-        </JournalLayout>
-      );
+      return <JournalContent data={entity} />;
 
     case "article":
     case "journal_article":
@@ -30,9 +23,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
       return (
         <>
           <EntityCitationMetaTags data={entity} />
-          <ArticleLayout data={entity}>
-            <ArticleText data={entity} />
-          </ArticleLayout>
+          <ArticleText data={entity} />
           <ArticleContributor data={entity?.contributions} />
           <HowToCite data={entity} />
         </>
@@ -40,11 +31,7 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
     // By default, return the entity's layout and show ordering content
     default:
-      return (
-        <EntityLayoutFactory data={entity}>
-          <EntityOrderingLayoutFactory data={entity} />
-        </EntityLayoutFactory>
-      );
+      return <EntityOrderingLayoutFactory data={entity} />;
   }
 }
 
@@ -60,9 +47,7 @@ const fragment = graphql`
         identifier
       }
 
-      ...EntityLayoutFactoryFragment
       ...EntityOrderingLayoutFactoryFragment
-      ...JournalLayoutFragment
       ...JournalContentFragment
     }
     ... on Item {
@@ -72,7 +57,6 @@ const fragment = graphql`
 
       ...EntityLayoutFactoryFragment
       ...EntityOrderingLayoutFactoryFragment
-      ...ArticleLayoutFragment
       ...ArticleTextFragment
       ...HowToCiteFragment
 

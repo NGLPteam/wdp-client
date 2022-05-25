@@ -50,6 +50,7 @@ export default function EntityOrderSelect({ data }: Props) {
                 ordering: node.identifier,
                 page: 1,
               }}
+              scroll={false}
               passHref
             >
               <Link active={selectedOrder?.node.identifier === node.identifier}>
@@ -68,6 +69,7 @@ export default function EntityOrderSelect({ data }: Props) {
             ordering: orderings.edges[0].node.identifier,
             page: 1,
           }}
+          scroll={false}
           passHref
         >
           <Button size="sm" type="button" secondary as="a" isBlock>

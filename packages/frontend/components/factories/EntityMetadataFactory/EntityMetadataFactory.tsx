@@ -7,13 +7,6 @@ import ArticleMetadataBlock from "components/composed/article/ArticleMetadataBlo
 export default function EntityMetadataFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
-  if (!entity) return null;
-
-  // switch (entity.schemaDefinition?.identifier) {
-  //   default:
-  //     return <ArticleMetadataBlock data={entity} />;
-  // }
-
   return <ArticleMetadataBlock data={entity} />;
 }
 

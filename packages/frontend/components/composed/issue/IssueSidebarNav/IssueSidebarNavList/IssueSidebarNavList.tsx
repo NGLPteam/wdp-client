@@ -18,6 +18,7 @@ export default function IssueSidebarNavList({ data }: Props) {
             <NamedLink
               route="collection.page"
               routeParams={{ slug, page: node.slug }}
+              scroll={false}
               passHref
             >
               <a className="t-label-sm t-copy-light">{node.title}</a>

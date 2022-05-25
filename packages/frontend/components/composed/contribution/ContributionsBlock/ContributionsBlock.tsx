@@ -28,17 +28,19 @@ const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
       (node.role && node.role.toLowerCase() === filterRole.toLowerCase())
   );
 
-  return contributions && contributions.length > 0 ? (
+  return (
     <BaseContributionsBlock {...baseProps}>
-      {contributions.map((node: Node) => (
-        <ContributionBlockItem
-          data={node}
-          key={node.slug}
-          showAvatar={showAvatars}
-        />
-      ))}
+      {contributions && contributions.length > 0
+        ? contributions.map((node: Node) => (
+            <ContributionBlockItem
+              data={node}
+              key={node.slug}
+              showAvatar={showAvatars}
+            />
+          ))
+        : null}
     </BaseContributionsBlock>
-  ) : null;
+  );
 };
 
 interface Props extends BaseProps {

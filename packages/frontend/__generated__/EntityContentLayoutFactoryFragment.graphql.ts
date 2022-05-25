@@ -12,7 +12,7 @@ export type EntityContentLayoutFactoryFragment = {
     readonly contributions?: {
         readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityCitationMetaTagsFragment" | "EntityLayoutFactoryFragment" | "EntityOrderingLayoutFactoryFragment" | "JournalLayoutFragment" | "JournalContentFragment" | "ArticleLayoutFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"EntityCitationMetaTagsFragment" | "EntityOrderingLayoutFactoryFragment" | "JournalContentFragment" | "EntityLayoutFactoryFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
     readonly " $refType": "EntityContentLayoutFactoryFragment";
 };
 export type EntityContentLayoutFactoryFragment$data = EntityContentLayoutFactoryFragment;
@@ -45,11 +45,6 @@ var v0 = {
 v1 = {
   "args": null,
   "kind": "FragmentSpread",
-  "name": "EntityLayoutFactoryFragment"
-},
-v2 = {
-  "args": null,
-  "kind": "FragmentSpread",
   "name": "EntityOrderingLayoutFactoryFragment"
 };
 return {
@@ -69,12 +64,6 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
-        (v2/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "JournalLayoutFragment"
-        },
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -104,13 +93,12 @@ return {
           ],
           "storageKey": null
         },
-        (v1/*: any*/),
-        (v2/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ArticleLayoutFragment"
+          "name": "EntityLayoutFactoryFragment"
         },
+        (v1/*: any*/),
         {
           "args": null,
           "kind": "FragmentSpread",
@@ -135,5 +123,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'f7afa28dfe84198116e30ed2e7a6067a';
+(node as any).hash = '782c8d63418d453f98e91288ff5eb497';
 export default node;
