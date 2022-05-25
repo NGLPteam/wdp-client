@@ -1,8 +1,30 @@
-import { Page } from "@wdp/lib/types/page";
+import { GetLayout } from "@wdp/lib/types/page";
+import { graphql } from "react-relay";
+import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
+import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
 
-// This is a redirect route. See routes/baseRoutes.ts.
-const ItemDetail: Page = () => {
-  return null;
+function ItemSlug({ data }: QueryProps) {
+  return <ItemSlugRedirect data={data?.item} />;
+}
+
+type QueryProps = {
+  data: Query["response"];
 };
 
-export default ItemDetail;
+const getLayout: GetLayout<QueryProps> = (props) => {
+  return <ItemLayoutQuery<Query, QueryProps> query={query} {...props} />;
+};
+
+ItemSlug.getLayout = getLayout;
+
+export default ItemSlug;
+
+const query = graphql`
+  query SlugItemsPageQuery($itemSlug: Slug!) {
+    item(slug: $itemSlug) {
+      ...ItemLayoutQueryFragment
+      ...ItemSlugRedirectFragment
+    }
+  }
+`;
