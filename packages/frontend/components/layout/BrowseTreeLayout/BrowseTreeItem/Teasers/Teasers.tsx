@@ -3,12 +3,13 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { DotList } from "components/atomic";
-import { SeriesTeasersFragment$key } from "@/relay/SeriesTeasersFragment.graphql";
+import { TeasersFragment$key } from "@/relay/TeasersFragment.graphql";
 
-export default function SeriesTeasers({ data }: Props) {
+export default function Teasers({ data }: Props) {
   const { t } = useTranslation();
   const entry = useMaybeFragment(fragment, data);
 
+  const entryIsSeries = entry?.schema?.identifier === "series";
   const series = entry?.series?.pageInfo?.totalCount;
   const papers = entry?.papers?.pageInfo?.totalCount;
 
@@ -21,30 +22,34 @@ export default function SeriesTeasers({ data }: Props) {
           })}
         </li>
       )}
-      {series ? (
+      {entryIsSeries && series ? (
         <li>
           {t("counts.series", {
             count: series,
           })}
         </li>
-      ) : (
+      ) : papers ? (
         <li>
           {t("counts.paper", {
             count: papers,
           })}
         </li>
-      )}
+      ) : null}
     </DotList>
   ) : null;
 }
 
 interface Props {
-  data: SeriesTeasersFragment$key;
+  data: TeasersFragment$key;
 }
 
 const fragment = graphql`
-  fragment SeriesTeasersFragment on Collection {
+  fragment TeasersFragment on Collection {
     updatedAt
+
+    schema: schemaVersion {
+      identifier
+    }
 
     papers: items(schema: "nglp:paper") {
       pageInfo {

@@ -5,8 +5,11 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type SeriesTeasersFragment = {
+export type TeasersFragment = {
     readonly updatedAt: string;
+    readonly schema: {
+        readonly identifier: string;
+    };
     readonly papers: {
         readonly pageInfo: {
             readonly totalCount: number;
@@ -17,12 +20,12 @@ export type SeriesTeasersFragment = {
             readonly totalCount: number;
         };
     };
-    readonly " $refType": "SeriesTeasersFragment";
+    readonly " $refType": "TeasersFragment";
 };
-export type SeriesTeasersFragment$data = SeriesTeasersFragment;
-export type SeriesTeasersFragment$key = {
-    readonly " $data"?: SeriesTeasersFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SeriesTeasersFragment">;
+export type TeasersFragment$data = TeasersFragment;
+export type TeasersFragment$key = {
+    readonly " $data"?: TeasersFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"TeasersFragment">;
 };
 
 
@@ -52,13 +55,31 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SeriesTeasersFragment",
+  "name": "TeasersFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "updatedAt",
+      "storageKey": null
+    },
+    {
+      "alias": "schema",
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "schemaVersion",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -98,5 +119,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cb4e55361b9c9306f268d16a0f20baa1';
+(node as any).hash = '385d07b37a823da3342eab8bd30cb34f';
 export default node;

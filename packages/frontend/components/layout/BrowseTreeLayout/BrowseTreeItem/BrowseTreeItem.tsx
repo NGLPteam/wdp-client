@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import * as Styled from "./BrowseTreeItem.styles";
-import SeriesTeasers from "./SeriesTeasers";
+import Teasers from "./Teasers";
 import { BrowseTreeItemFragment$key } from "@/relay/BrowseTreeItemFragment.graphql";
 import { Markdown, NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
@@ -26,8 +26,8 @@ export default function BrowseTreeItem({ data }: Props) {
           <Markdown.Title>{row.entry?.title}</Markdown.Title>
         </a>
       </NamedLink>
-      {row.entry?.schemaVersion?.identifier === "series" && (
-        <SeriesTeasers data={row.entry} />
+      {row.entry?.schemaVersion?.kind === "COLLECTION" && (
+        <Teasers data={row.entry} />
       )}
     </Styled.Row>
   ) : null;
@@ -51,9 +51,10 @@ const fragment = graphql`
         schemaVersion {
           namespace
           identifier
+          kind
         }
       }
-      ...SeriesTeasersFragment
+      ...TeasersFragment
     }
   }
 `;

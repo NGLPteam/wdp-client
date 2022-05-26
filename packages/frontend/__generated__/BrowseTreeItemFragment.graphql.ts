@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type BrowseTreeItemFragment = {
     readonly treeDepth: number | null;
     readonly entry: {
@@ -14,8 +15,9 @@ export type BrowseTreeItemFragment = {
         readonly schemaVersion?: {
             readonly namespace: string;
             readonly identifier: string;
+            readonly kind: SchemaKind;
         } | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"SeriesTeasersFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"TeasersFragment">;
     };
     readonly " $refType": "BrowseTreeItemFragment";
 };
@@ -100,6 +102,13 @@ const node: ReaderFragment = {
                   "kind": "ScalarField",
                   "name": "identifier",
                   "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "kind",
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -111,7 +120,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "SeriesTeasersFragment"
+          "name": "TeasersFragment"
         }
       ],
       "storageKey": null
@@ -120,5 +129,5 @@ const node: ReaderFragment = {
   "type": "OrderingEntry",
   "abstractKey": null
 };
-(node as any).hash = '3ce4f29b61bfcac53564774a300576e2';
+(node as any).hash = '1b4feba8325fa90bf0fc3831aab852ef';
 export default node;
