@@ -7,7 +7,6 @@ import ContributorAvatar from "../../../contributor/ContributorAvatar";
 import * as Styled from "./ContributionBlockItem.styles";
 import { ContributionBlockItemFragment$key } from "@/relay/ContributionBlockItemFragment.graphql";
 import { NamedLink } from "components/atomic";
-import { IconFactory } from "components/factories";
 
 const ContributionBlockItem = ({ data, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
@@ -60,11 +59,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
               </p>
             )}
             {contribution.contributor.orcid && (
-              <Styled.ORCIDLink
-                href={contribution.contributor.orcid}
-                target="_blank"
-              >
-                <IconFactory icon="orcid" role="presentation" />
+              <Styled.ORCIDLink href={contribution.contributor.orcid}>
                 <span>{contribution.contributor.orcid}</span>
               </Styled.ORCIDLink>
             )}

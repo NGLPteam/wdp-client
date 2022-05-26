@@ -1,6 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { respond, aLink } from "theme/mixins";
+import { ORCIDLink as ORCIDLinkBase } from "components/atomic";
 
 export const ListItem = styled.li`
   grid-column: span 3;
@@ -25,7 +26,7 @@ export const ItemMetadata = styled.div`
   padding-block-start: var(--padding-xs);
 `;
 
-export const ORCIDLink = styled.a`
+export const ORCIDLink = styled(ORCIDLinkBase)`
   ${aLink}
   display: flex;
   align-items: center;
