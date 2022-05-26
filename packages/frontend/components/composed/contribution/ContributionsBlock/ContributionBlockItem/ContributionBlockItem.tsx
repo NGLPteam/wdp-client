@@ -60,7 +60,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
             )}
             {contribution.contributor.orcid && (
               <Styled.ORCIDLink href={contribution.contributor.orcid}>
-                <span>{contribution.contributor.orcid}</span>
+                {contribution.contributor.orcid}
               </Styled.ORCIDLink>
             )}
           </Styled.ItemMetadata>
