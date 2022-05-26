@@ -15,6 +15,7 @@ export type BrowseTreeItemFragment = {
             readonly namespace: string;
             readonly identifier: string;
         } | undefined;
+        readonly " $fragmentRefs": FragmentRefs<"SeriesTeasersFragment">;
     };
     readonly " $refType": "BrowseTreeItemFragment";
 };
@@ -106,6 +107,11 @@ const node: ReaderFragment = {
           ],
           "type": "Entity",
           "abstractKey": "__isEntity"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "SeriesTeasersFragment"
         }
       ],
       "storageKey": null
@@ -114,5 +120,5 @@ const node: ReaderFragment = {
   "type": "OrderingEntry",
   "abstractKey": null
 };
-(node as any).hash = '6d81a611d8467390f901cdde86a282fd';
+(node as any).hash = '3ce4f29b61bfcac53564774a300576e2';
 export default node;
