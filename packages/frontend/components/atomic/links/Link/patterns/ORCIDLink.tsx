@@ -1,14 +1,17 @@
 import React from "react";
-import Link from "..";
+import * as Styled from "../Link.styles";
 
-type BaseProps = React.ComponentProps<typeof Link>;
+type Props = React.ComponentProps<typeof Styled.ORCIDLink>;
 
 /* Simple download text and icon,
  * style can be changed using the className property */
-export default function ORCIDLink({ children, ...props }: BaseProps) {
+export default function ORCIDLink({ children, ...props }: Props) {
   return children ? (
-    <Link {...props} target="_blank" icon="orcid" iconLeft>
-      {children}
-    </Link>
+    <Styled.ORCIDLink target="_blank" {...props}>
+      <Styled.IconFactory icon="orcid" role="presentation" />
+      <div>
+        <span className="a-link">{children}</span>
+      </div>
+    </Styled.ORCIDLink>
   ) : null;
 }

@@ -1,6 +1,6 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { respond, aLink } from "theme/mixins";
+import { respond } from "theme/mixins";
 import { ORCIDLink as ORCIDLinkBase } from "components/atomic";
 
 export const ListItem = styled.li`
@@ -12,6 +12,7 @@ export const ListItem = styled.li`
 
 export const ItemContent = styled.div`
   display: flex;
+  max-width: 100%;
 
   > * + * {
     padding-inline-start: ${pxToRem(20)};
@@ -27,15 +28,8 @@ export const ItemMetadata = styled.div`
 `;
 
 export const ORCIDLink = styled(ORCIDLinkBase)`
-  ${aLink}
-  display: flex;
-  align-items: center;
-
-  > * + * {
-    margin-inline-start: ${pxToRem(8)};
-  }
-
   > svg {
+    margin-block-start: ${pxToRem(2)};
     color: var(--color-base);
   }
 `;

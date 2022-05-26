@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { aLinkHoverFocus, aLinkBase } from "theme/mixins";
 import { IconFactory as BaseIconFactory } from "components/factories";
 
@@ -35,5 +36,15 @@ export const IconFactory = styled(BaseIconFactory)`
 
   * + & {
     margin-inline-start: var(--padding-xxs);
+  }
+`;
+
+export const ORCIDLink = styled.a`
+  display: inline-flex;
+  align-items: flex-start;
+  word-break: break-all;
+
+  > * + * {
+    margin-inline-start: ${pxToRem(8)};
   }
 `;
