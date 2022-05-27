@@ -27,14 +27,16 @@ export default function ArticleMetadata({ data }: Props) {
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
-        {authors?.length
-          ? authors.map(({ node }, i) => (
+        {!!authors?.length &&
+          authors.map(({ node }, i) => (
+            <>
               <ContributorName data={node.contributor} key={i} />
-            ))
-          : "--"}
+              {i < authors.length - 1 && ", "}
+            </>
+          ))}
       </MetadataProperty>
       <MetadataProperty label={t("metadata.journal")}>
-        {article.journal?.title ? <div>{article.journal.title}</div> : "--"}
+        {article.journal?.title}
       </MetadataProperty>
       <MetadataFactory
         label={t("metadata.volume")}
@@ -44,20 +46,14 @@ export default function ArticleMetadata({ data }: Props) {
       <ArticleIssueMetadata data={article} />
       <MetadataFactory data={article.collectedMeta} />
       <MetadataProperty label={t("date.published")}>
-        {article.published ? <PrecisionDate data={article.published} /> : "--"}
+        {article.published && <PrecisionDate data={article.published} />}
       </MetadataProperty>
       <MetadataFactory data={article.pageCountMeta} />
-      <MetadataProperty label={"DOI"}>
-        {article.doi ? <div>{article.doi}</div> : "--"}
-      </MetadataProperty>
+      <MetadataProperty label={"DOI"}>{article.doi}</MetadataProperty>
       <MetadataFactory
         label={t("metadata.license")}
         data={article.journal?.ccLicense}
         showPlaceholder
-      />
-      <MetadataFactory
-        label={t("metadata.online_version")}
-        data={article.onlineVersion}
       />
       <MetadataFactory
         label={t("metadata.pdf_version")}
@@ -66,6 +62,10 @@ export default function ArticleMetadata({ data }: Props) {
       <MetadataFactory
         label={t("metadata.preprint_version")}
         data={article.pdfVersion}
+      />
+      <MetadataFactory
+        label={t("metadata.online_version")}
+        data={article.onlineVersion}
       />
     </ArticleMetadataBlock>
   ) : null;

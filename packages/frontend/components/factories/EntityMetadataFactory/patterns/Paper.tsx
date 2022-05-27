@@ -25,20 +25,20 @@ export default function PaperMetadata({ data }: Props) {
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
-        {authors?.length
-          ? authors.map(({ node }, i) => (
+        {!!authors?.length &&
+          authors.map(({ node }, i) => (
+            <>
               <ContributorName data={node.contributor} key={i} />
-            ))
-          : "--"}
+              {i < authors.length - 1 && ", "}
+            </>
+          ))}
       </MetadataProperty>
       <MetadataFactory
         label={t("metadata.accessioned")}
         data={paper.accessioned}
       />
       <MetadataFactory label={t("metadata.available")} data={paper.available} />
-      <MetadataProperty label={"ISSN"}>
-        {paper.issn ? <div>{paper.issn}</div> : "--"}
-      </MetadataProperty>
+      <MetadataProperty label={"ISSN"}>{paper.issn}</MetadataProperty>
       <MetadataFactory
         label={t("metadata.text_version")}
         data={paper.textVersion}

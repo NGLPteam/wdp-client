@@ -4,12 +4,15 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { EmailPropertyFragment$key } from "@/relay/EmailPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function EmailProperty({ data, label }: Props) {
+export default function EmailProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {property.address || property.defaultAddress}
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel &&
+    (property?.defaultAddress || property?.address || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
+      {property?.address || property?.defaultAddress}
     </MetadataProperty>
   ) : null;
 }
@@ -17,6 +20,7 @@ export default function EmailProperty({ data, label }: Props) {
 interface Props {
   data?: EmailPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

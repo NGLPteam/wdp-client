@@ -5,12 +5,14 @@ import { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql
 import { DownloadLink } from "components/atomic";
 import { MetadataProperty } from "components/layout";
 
-export default function AssetProperty({ data, label }: Props) {
+export default function AssetProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {property.asset?.name && (
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (property?.asset || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
+      {property?.asset?.name && (
         <DownloadLink
           href={property.asset.downloadUrl || ""}
           className="t-copy"
@@ -25,6 +27,7 @@ export default function AssetProperty({ data, label }: Props) {
 interface Props {
   data?: AssetPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

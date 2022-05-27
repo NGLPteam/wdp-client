@@ -8,8 +8,10 @@ import { MetadataProperty } from "components/layout";
 export default function URLProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property?.url || (showPlaceholder && label) ? (
-    <MetadataProperty label={label ?? property?.label ?? ""}>
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (property?.url || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
       {property?.url && property.url.href && (
         <ExternalLink href={property.url.href || ""} className="t-copy">
           {property.url.title || property.url.label}

@@ -25,11 +25,13 @@ export default function DissertationMetadata({ data }: Props) {
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
-        {authors?.length
-          ? authors.map(({ node }, i) => (
+        {!!authors?.length &&
+          authors.map(({ node }, i) => (
+            <>
               <ContributorName data={node.contributor} key={i} />
-            ))
-          : "--"}
+              {i < authors.length - 1 && ", "}
+            </>
+          ))}
       </MetadataProperty>
       <MetadataFactory
         label={t("metadata.advisor")}
@@ -56,9 +58,7 @@ export default function DissertationMetadata({ data }: Props) {
         label={t("metadata.keywords")}
         data={dissertation.keywords}
       />
-      <MetadataProperty label={"ISSN"}>
-        {dissertation.issn ? <div>{dissertation.issn}</div> : "--"}
-      </MetadataProperty>
+      <MetadataProperty label={"ISSN"}>{dissertation.issn}</MetadataProperty>
       <MetadataFactory
         label={t("metadata.license")}
         data={dissertation.ccLicense}

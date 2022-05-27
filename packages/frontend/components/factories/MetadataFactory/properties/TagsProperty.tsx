@@ -7,8 +7,10 @@ import { MetadataProperty } from "components/layout";
 export default function TagsProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return !!property?.tags?.length || (showPlaceholder && label) ? (
-    <MetadataProperty label={label ?? property?.label ?? ""}>
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (!!property?.tags?.length || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
       {property?.tags.join(", ")}
     </MetadataProperty>
   ) : null;
