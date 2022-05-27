@@ -38,11 +38,13 @@
       "collection": "collection",
       "collection_plural": "collections",
       "collection_contribution": "collection $t(glossary.contribution)",
+      "collection_contributor": "collection $t(glossary.contributor)",
       "contribution": "contribution",
       "contribution_plural": "contributions",
       "item": "item",
       "item_plural": "items",
       "item_contribution": "item $t(glossary.contribution)",
+      "item_contributor": "item $t(glossary.contributor)",
       "user": "user",
       "user_plural": "users",
       "contributor": "contributor",
@@ -221,7 +223,8 @@
         "ordering": "Add Ordering",
         "ordering_header": "Add New Ordering",
         "announcement": "Add Announcement",
-        "announcement_header": "Add New Announcement"
+        "announcement_header": "Add New Announcement",
+        "contributor": "Add Contributor"
       },
       "create": {
         "contributor_person": "Create Person",

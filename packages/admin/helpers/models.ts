@@ -6,6 +6,8 @@ const MODEL_MAP = {
   CONTRIBUTOR: "contributors",
   COLLECTION_CONTRIBUTION: "collection contributions",
   ITEM_CONTRIBUTION: "item contributions",
+  COLLECTION_CONTRIBUTOR: "collection contributor",
+  ITEM_CONTRIBUTOR: "item contributor",
   LINK: "link",
   ORDERING: "ordering",
   FILE: "file",
