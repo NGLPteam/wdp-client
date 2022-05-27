@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./ArticleHero.styles";
 import {
   PrecisionDate,
@@ -11,6 +12,7 @@ import {
   DOI,
   FullText,
   Markdown,
+  Alert,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
@@ -20,8 +22,20 @@ import { PrimaryHero } from "components/layout/hero";
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
+  const { t } = useTranslation();
+
+  const visibilityMessage =
+    article?.visibility === "HIDDEN" || article?.currentlyHidden
+      ? t("messages.hidden", { schema: t("schema.nglp.article") })
+      : null;
+
   return article ? (
     <PrimaryHero
+      Alert={
+        visibilityMessage && (
+          <Alert message={visibilityMessage} badge color="blue" />
+        )
+      }
       title={<Markdown.Title>{article.title}</Markdown.Title>}
       subtitle={
         <h4 className="t-copy-italic">
@@ -82,6 +96,8 @@ const fragment = graphql`
     title
     subtitle
     summary
+    visibility
+    currentlyHidden
     ...DOIFragment
     published {
       ...PrecisionDateFragment

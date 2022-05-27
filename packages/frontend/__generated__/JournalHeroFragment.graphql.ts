@@ -6,10 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type JournalHeroFragment = {
     readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
+    readonly visibility: EntityVisibility;
+    readonly currentlyHidden: boolean;
     readonly heroImage: {
         readonly storage: AttachmentStorage | null;
         readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
@@ -53,6 +56,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "subtitle",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "visibility",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "currentlyHidden",
       "storageKey": null
     },
     {
@@ -108,5 +125,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'af5413589bd63b06a5a790a79992aa3f';
+(node as any).hash = '39ac9ce0774308a024b5b12ced75f01b';
 export default node;

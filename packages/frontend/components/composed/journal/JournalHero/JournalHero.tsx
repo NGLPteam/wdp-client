@@ -1,16 +1,29 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import JournalHeroMetadata from "../JournalHeroMetadata";
-import { HeroImage, DOI, NamedLink, Markdown } from "components/atomic";
+import { HeroImage, DOI, NamedLink, Markdown, Alert } from "components/atomic";
 import { PrimaryHero } from "components/layout/hero";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
 
 export default function JournalHero({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);
 
+  const { t } = useTranslation();
+
+  const visibilityMessage =
+    journal?.visibility === "HIDDEN" || journal?.currentlyHidden
+      ? t("messages.hidden", { schema: t("schema.nglp.journal") })
+      : null;
+
   return journal ? (
     <PrimaryHero
+      Alert={
+        visibilityMessage && (
+          <Alert message={visibilityMessage} badge color="blue" />
+        )
+      }
       title={
         <NamedLink
           route="collection"
@@ -50,6 +63,8 @@ const fragment = graphql`
     slug
     title
     subtitle
+    visibility
+    currentlyHidden
     heroImage {
       storage
       ...HeroImageFragment

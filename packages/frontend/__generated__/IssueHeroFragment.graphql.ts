@@ -5,11 +5,13 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type IssueHeroFragment = {
     readonly id: string;
     readonly title: string;
     readonly subtitle: string | null;
     readonly summary: string | null;
+    readonly visibility: EntityVisibility;
     readonly published: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -73,6 +75,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "summary",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "visibility",
       "storageKey": null
     },
     {
@@ -216,5 +225,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'df3000c902b0d6aad3e1367e1c20877c';
+(node as any).hash = '668464a67381e25789a858375b133bdd';
 export default node;

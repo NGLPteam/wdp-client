@@ -24,7 +24,8 @@
       "loading": "Loading",
       "loading_pdf": "Loading PDF",
       "avatar": "Avatar",
-      "no_content": "Sorry, this page has no content."
+      "no_content": "Sorry, this page has no content.",
+      "record": "record"
     },
     "date": {
       "published": "Published",
@@ -223,6 +224,9 @@
     },
     "actions": {
       "copy_citation": "Copy Citation"
+    },
+    "messages": {
+      "hidden": "This {{schema}} is hidden"
     }
   }
 }

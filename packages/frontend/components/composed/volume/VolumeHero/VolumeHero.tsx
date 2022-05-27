@@ -58,6 +58,7 @@ const fragment = graphql`
     subtitle
     summary
     ...DOIFragment
+    visibility
 
     published {
       value

@@ -13,8 +13,8 @@ export const Inner = styled.div`
   ${respond(
     `
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, auto); 
-  grid-template-areas: 
+  grid-template-rows: repeat(2, auto);
+  grid-template-areas:
     "left"
     "right";
   `,
@@ -60,4 +60,8 @@ export const LeftContent = styled.div`
   > * + * {
     margin-block-start: var(--padding-rg);
   }
+`;
+
+export const Alert = styled.div`
+  margin-block-end: var(--padding-rg);
 `;

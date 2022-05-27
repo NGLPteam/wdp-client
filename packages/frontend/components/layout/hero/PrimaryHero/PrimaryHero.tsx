@@ -8,11 +8,13 @@ export default function PrimaryHero({
   LeftComponent,
   RightComponent,
   LogoComponent,
+  Alert,
 }: Props) {
   return (
     <header className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
         <Styled.LeftSide>
+          {Alert && <Styled.Alert>{Alert}</Styled.Alert>}
           {LogoComponent && <Styled.Logo>{LogoComponent}</Styled.Logo>}
           <Styled.Title>
             <h2>{title}</h2>
@@ -50,4 +52,6 @@ interface Props {
   HeroImageComponent?: React.ReactNode | null;
   /** Logo, if any */
   LogoComponent?: React.ReactNode | null;
+  /** Visibility alert, if hidden or limited */
+  Alert?: React.ReactNode | null;
 }
