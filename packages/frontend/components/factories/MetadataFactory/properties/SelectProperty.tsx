@@ -15,7 +15,7 @@ export default function SelectProperty({
     (o: { label: string; value: string }) => o.value === property.selection
   );
 
-  return property || (showPlaceholder && label) ? (
+  return property?.selection || (showPlaceholder && label) ? (
     <MetadataProperty label={label ?? property?.label ?? ""}>
       {selectedOption ? selectedOption.value : "--"}
     </MetadataProperty>

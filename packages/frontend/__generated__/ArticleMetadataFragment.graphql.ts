@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type ArticleMetadataBlockFragment = {
+export type ArticleMetadataFragment = {
     readonly doi: string | null;
     readonly journal: {
         readonly title?: string | undefined;
@@ -26,70 +26,38 @@ export type ArticleMetadataBlockFragment = {
     readonly collectedMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly pageCountMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly volumeIdMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly onlineVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
     readonly published: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
     };
-    readonly accessioned: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly available: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly issued: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly series: {
-        readonly title?: string | undefined;
-        readonly slug?: string | undefined;
-    } | null;
-    readonly textVersion: {
+    readonly pageCountMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly pdfVersion: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly publisher: {
+    readonly onlineVersion: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly advisor: {
+    readonly preprintVersion: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly language: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly access: {
+    readonly volumeIdMeta: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
-    readonly " $refType": "ArticleMetadataBlockFragment";
+    readonly " $refType": "ArticleMetadataFragment";
 };
-export type ArticleMetadataBlockFragment$data = ArticleMetadataBlockFragment;
-export type ArticleMetadataBlockFragment$key = {
-    readonly " $data"?: ArticleMetadataBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataBlockFragment">;
+export type ArticleMetadataFragment$data = ArticleMetadataFragment;
+export type ArticleMetadataFragment$key = {
+    readonly " $data"?: ArticleMetadataFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataFragment">;
 };
 
 
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v1 = [
+var v0 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -100,7 +68,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ArticleMetadataBlockFragment",
+  "name": "ArticleMetadataFragment",
   "selections": [
     {
       "alias": null,
@@ -126,7 +94,13 @@ return {
         {
           "kind": "InlineFragment",
           "selections": [
-            (v0/*: any*/)
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            }
           ],
           "type": "Entity",
           "abstractKey": "__isEntity"
@@ -147,7 +121,7 @@ return {
               "kind": "LinkedField",
               "name": "schemaProperty",
               "plural": false,
-              "selections": (v1/*: any*/),
+              "selections": (v0/*: any*/),
               "storageKey": "schemaProperty(fullPath:\"cc_license\")"
             }
           ],
@@ -226,56 +200,8 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v0/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"meta.collected\")"
-    },
-    {
-      "alias": "pageCountMeta",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "meta.page_count"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"meta.page_count\")"
-    },
-    {
-      "alias": "volumeIdMeta",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "volume.id"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"volume.id\")"
-    },
-    {
-      "alias": "onlineVersion",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "online_version"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"online_version\")"
     },
     {
       "alias": null,
@@ -301,100 +227,20 @@ return {
       "storageKey": null
     },
     {
-      "alias": "accessioned",
+      "alias": "pageCountMeta",
       "args": [
         {
           "kind": "Literal",
           "name": "fullPath",
-          "value": "accessioned"
+          "value": "meta.page_count"
         }
       ],
       "concreteType": null,
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"accessioned\")"
-    },
-    {
-      "alias": "available",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "available"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"available\")"
-    },
-    {
-      "alias": "issued",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "issued"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"issued\")"
-    },
-    {
-      "alias": "series",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:series"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "ancestorOfType",
-      "plural": false,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            }
-          ],
-          "type": "Collection",
-          "abstractKey": null
-        }
-      ],
-      "storageKey": "ancestorOfType(schema:\"nglp:series\")"
-    },
-    {
-      "alias": "textVersion",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "text_version"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"text_version\")"
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"meta.page_count\")"
     },
     {
       "alias": "pdfVersion",
@@ -409,72 +255,56 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v0/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     },
     {
-      "alias": "publisher",
+      "alias": "onlineVersion",
       "args": [
         {
           "kind": "Literal",
           "name": "fullPath",
-          "value": "publisher"
+          "value": "online_version"
         }
       ],
       "concreteType": null,
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"publisher\")"
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"online_version\")"
     },
     {
-      "alias": "advisor",
+      "alias": "preprintVersion",
       "args": [
         {
           "kind": "Literal",
           "name": "fullPath",
-          "value": "advisor"
+          "value": "preprint_version"
         }
       ],
       "concreteType": null,
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"advisor\")"
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"preprint_version\")"
     },
     {
-      "alias": "language",
+      "alias": "volumeIdMeta",
       "args": [
         {
           "kind": "Literal",
           "name": "fullPath",
-          "value": "language"
+          "value": "volume.id"
         }
       ],
       "concreteType": null,
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"language\")"
-    },
-    {
-      "alias": "access",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "access"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": (v1/*: any*/),
-      "storageKey": "schemaProperty(fullPath:\"access\")"
+      "selections": (v0/*: any*/),
+      "storageKey": "schemaProperty(fullPath:\"volume.id\")"
     },
     {
       "args": null,
@@ -486,5 +316,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7ced05c2c7e43cc1f4b219316f3651ce';
+(node as any).hash = '4a9264fa2bf922b086bed948577423c0';
 export default node;

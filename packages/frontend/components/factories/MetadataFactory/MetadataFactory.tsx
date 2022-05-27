@@ -49,11 +49,29 @@ export default function MetadataFactory({
         />
       );
     case "SelectProperty":
-      return <SelectProperty data={field} label={label} showPlaceholder />;
+      return (
+        <SelectProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "TagsProperty":
-      return <TagsProperty data={field} label={label} />;
+      return (
+        <TagsProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "URLProperty":
-      return <URLProperty data={field} label={label} />;
+      return (
+        <URLProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "VariableDateProperty":
       return <VariableDateProperty data={field} label={label} />;
     default:
@@ -62,7 +80,7 @@ export default function MetadataFactory({
 }
 
 interface Props {
-  data: MetadataFactoryFragment$key;
+  data?: MetadataFactoryFragment$key | null;
   label?: string;
   showPlaceholder?: boolean;
 }

@@ -11,9 +11,9 @@ export default function StringProperty({
 }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property || (showPlaceholder && label) ? (
+  return property?.content || (showPlaceholder && label) ? (
     <MetadataProperty label={label ?? property?.label ?? ""}>
-      {property?.content ? property.content : "--"}
+      {property?.content ?? "--"}
     </MetadataProperty>
   ) : null;
 }

@@ -1,0 +1,81 @@
+import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import ArticleMetadataBlock from "components/composed/article/ArticleMetadataBlock/ArticleMetadataBlock";
+import { MetadataProperty } from "components/layout";
+import MetadataFactory from "components/factories/MetadataFactory";
+import ContributorName from "components/composed/contributor/ContributorName";
+
+import { PaperMetadataFragment$key } from "@/relay/PaperMetadataFragment.graphql";
+
+interface Props {
+  data?: PaperMetadataFragment$key | null;
+}
+
+export default function PaperMetadata({ data }: Props) {
+  const { t } = useTranslation();
+  const paper = useMaybeFragment(fragment, data);
+
+  const authors = paper?.contributions?.edges?.filter(
+    ({ node }) => node.role?.toLowerCase() === "author"
+  );
+
+  return paper ? (
+    <ArticleMetadataBlock>
+      <MetadataProperty
+        label={t("metadata.author", { count: authors?.length ?? 1 })}
+      >
+        {authors?.length
+          ? authors.map(({ node }, i) => (
+              <ContributorName data={node.contributor} key={i} />
+            ))
+          : "--"}
+      </MetadataProperty>
+      <MetadataFactory
+        label={t("metadata.accessioned")}
+        data={paper.accessioned}
+      />
+      <MetadataFactory label={t("metadata.available")} data={paper.available} />
+      <MetadataProperty label={"ISSN"}>
+        {paper.issn ? <div>{paper.issn}</div> : "--"}
+      </MetadataProperty>
+      <MetadataFactory
+        label={t("metadata.text_version")}
+        data={paper.textVersion}
+      />
+      <MetadataFactory
+        label={t("metadata.pdf_version")}
+        data={paper.pdfVersion}
+      />
+    </ArticleMetadataBlock>
+  ) : null;
+}
+
+const fragment = graphql`
+  fragment PaperMetadataFragment on Item {
+    issn
+    contributions {
+      edges {
+        node {
+          role
+          contributor {
+            ...ContributorNameFragment
+          }
+        }
+      }
+    }
+
+    pdfVersion: schemaProperty(fullPath: "pdf_version") {
+      ...MetadataFactoryFragment
+    }
+    textVersion: schemaProperty(fullPath: "text_version") {
+      ...MetadataFactoryFragment
+    }
+    accessioned: schemaProperty(fullPath: "accessioned") {
+      ...MetadataFactoryFragment
+    }
+    available: schemaProperty(fullPath: "available") {
+      ...MetadataFactoryFragment
+    }
+  }
+`;
