@@ -12,7 +12,7 @@ import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
@@ -31,11 +31,20 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
     <Controller<T>
       name={name}
       control={control}
+      rules={{
+        validate: (value) => {
+          return (
+            !!value ||
+            "Please select a collection. If the collection is not listed, you may need to create the collection first."
+          );
+        },
+      }}
       render={({ field }) => (
         <Typeahead
           label={label}
           options={options}
           disabled={disabled}
+          required={required}
           {...field}
         />
       )}

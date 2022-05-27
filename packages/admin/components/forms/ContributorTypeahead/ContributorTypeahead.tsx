@@ -62,7 +62,6 @@ interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
   data?: ContributorTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
-  required?: boolean;
 }
 
 type ContributorNode =

@@ -49,6 +49,14 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
       <Controller<T>
         name={name}
         control={control}
+        rules={{
+          validate: (value) => {
+            return (
+              !!value ||
+              "Please select a link target. If the target entity is not listed, you may need to create it first."
+            );
+          },
+        }}
         render={({ field }) => (
           <BaseTypeahead
             label={label}
