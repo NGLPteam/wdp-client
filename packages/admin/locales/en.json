@@ -177,6 +177,7 @@
         "collection_success": "Collection created successfully.",
         "community_success": "Community created successfully.",
         "contribution_success": "Contribution created successfully.",
+        "contribution_failure": "Failed to create contribution.",
         "contributor_success": "Contributor created successfully.",
         "file_success": "File created successfully."
       },

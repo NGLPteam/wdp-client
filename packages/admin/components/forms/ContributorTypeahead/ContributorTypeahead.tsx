@@ -14,7 +14,7 @@ import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const ContributorTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
@@ -33,14 +33,27 @@ const ContributorTypeahead = <T extends FieldValues = FieldValues>(
     <Controller<T>
       name={name}
       control={control}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          {...field}
-        />
-      )}
+      rules={{
+        validate: (value) => {
+          return (
+            !!value ||
+            "Please select a contributor. If the contributor is not listed, you may need to create the contributor first."
+          );
+        },
+      }}
+      render={({ field }) => {
+        return (
+          <>
+            <Typeahead
+              label={label}
+              options={options}
+              disabled={disabled}
+              required={required}
+              {...field}
+            />
+          </>
+        );
+      }}
     />
   ) : null;
 };
@@ -49,6 +62,7 @@ interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
   data?: ContributorTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
+  required?: boolean;
 }
 
 type ContributorNode =

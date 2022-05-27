@@ -12,15 +12,15 @@ export default function Message({ type, result }: Props) {
   if (typeof result === "string") {
     message = result;
   } else if (type === "required" && typeof result === "boolean") {
-    message = t("forms.validation.required");
+    message = capitalize(t("forms.validation.required"));
   } else if (type && !message) {
-    message = type;
+    message = capitalize(type);
   }
 
   return message ? (
     <Styled.Error>
       <Styled.ErrorIcon icon="warning" title="Error" />
-      <span>{capitalize(message)}</span>
+      <span>{message}</span>
     </Styled.Error>
   ) : null;
 }
