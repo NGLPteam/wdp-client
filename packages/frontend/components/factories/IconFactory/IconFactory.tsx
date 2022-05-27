@@ -2,6 +2,7 @@ import React from "react";
 import * as Icons from "../../svgs/icons";
 
 export const ICON_MAP = {
+  alertTriangle24: Icons.AlertTriangle24,
   arrowRight: Icons.ArrowRight,
   arrowDown: Icons.ArrowDown,
   arrowLeft: Icons.ArrowLeft,

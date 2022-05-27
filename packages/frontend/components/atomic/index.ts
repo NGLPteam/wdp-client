@@ -14,3 +14,4 @@ export * from "./properties";
 export { default as SearchButton } from "./SearchButton";
 export { default as CloseModalButton } from "./CloseModalButton";
 export { default as Markdown } from "./Markdown";
+export { default as Alert } from "./Alert";
