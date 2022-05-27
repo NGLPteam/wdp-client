@@ -2,6 +2,7 @@ import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
@@ -27,16 +28,15 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
     });
   }, [optionsData]);
 
+  const { t } = useTranslation();
+
   return options ? (
     <Controller<T>
       name={name}
       control={control}
       rules={{
         validate: (value) => {
-          return (
-            !!value ||
-            "Please select a collection. If the collection is not listed, you may need to create the collection first."
-          );
+          return !!value || (t("forms.validation.collection") as string);
         },
       }}
       render={({ field }) => (

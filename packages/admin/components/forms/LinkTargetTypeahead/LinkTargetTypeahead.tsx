@@ -4,6 +4,7 @@ import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "hooks";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
@@ -12,6 +13,7 @@ import {
 } from "@/relay/LinkTargetTypeaheadFragment.graphql";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
+
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
 
@@ -44,6 +46,8 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
     setVariables({ ...variables, title: value });
   }, 300);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <Controller<T>
@@ -51,10 +55,7 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
         control={control}
         rules={{
           validate: (value) => {
-            return (
-              !!value ||
-              "Please select a link target. If the target entity is not listed, you may need to create it first."
-            );
+            return !!value || (t("forms.validation.link_target") as string);
           },
         }}
         render={({ field }) => (

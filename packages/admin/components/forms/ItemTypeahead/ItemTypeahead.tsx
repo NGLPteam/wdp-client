@@ -2,6 +2,7 @@ import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
@@ -29,16 +30,15 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
     return options;
   }, [optionsData]);
 
+  const { t } = useTranslation();
+
   return options ? (
     <Controller<T>
       name={name}
       control={control}
       rules={{
         validate: (value) => {
-          return (
-            !!value ||
-            "Please select an item. If the item is not listed, you may need to add the item first."
-          );
+          return !!value || (t("forms.validation.item") as string);
         },
       }}
       render={({ field }) => (

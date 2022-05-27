@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import get from "lodash/get";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
@@ -29,16 +30,15 @@ const ContributorTypeahead = <T extends FieldValues = FieldValues>(
     });
   }, [optionsData]);
 
+  const { t } = useTranslation();
+
   return options ? (
     <Controller<T>
       name={name}
       control={control}
       rules={{
         validate: (value) => {
-          return (
-            !!value ||
-            "Please select a contributor. If the contributor is not listed, you may need to create the contributor first."
-          );
+          return !!value || (t("forms.validation.contributor") as string);
         },
       }}
       render={({ field }) => {

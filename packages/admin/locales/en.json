@@ -365,7 +365,12 @@
       },
       "validation": {
         "year": "Must be a four digit year",
-        "required": "This field is required"
+        "required": "This field is required",
+        "collection": "Please select a collection. If the collection is not listed, you may need to create the collection first.",
+        "contributor": "Please select a contributor. If the contributor is not listed, you may need to create the contributor first.",
+        "item": "Please select an item. If the item is not listed, you may need to add the item first.",
+        "link_target": "Please select a link target. If the target entity is not listed, you may need to create it first.",
+        "user": "Please select a user. If the user is not listed, you may need to create the user first."
       },
       "tags": {
         "label": "Tags",
