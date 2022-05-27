@@ -6,10 +6,13 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type SeriesHeroFragment = {
     readonly slug: string;
     readonly title: string;
     readonly subtitle: string | null;
+    readonly visibility: EntityVisibility;
+    readonly currentlyHidden: boolean;
     readonly published: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -57,6 +60,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "subtitle",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "visibility",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "currentlyHidden",
       "storageKey": null
     },
     {
@@ -145,5 +162,5 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'e02264ca004abf2bfa5fbae9150d6992';
+(node as any).hash = 'ff5aa500500d107b0f23f8d144c9128c';
 export default node;

@@ -21,5 +21,5 @@ export const Wrapper = styled.div<Pick<AlertProps, "color" | "badge">>`
   gap: ${pxToRem(12)};
   border: 1px solid;
   border-radius: var(--border-radius-xs);
-  min-width: 400px;
+  width: max-content;
 `;

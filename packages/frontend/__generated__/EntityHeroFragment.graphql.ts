@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type EntityHeroFragment = {
     readonly title?: string | undefined;
     readonly subtitle?: string | null | undefined;
@@ -21,6 +22,8 @@ export type EntityHeroFragment = {
     readonly heroImageMetadata?: {
         readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
     } | null | undefined;
+    readonly visibility?: EntityVisibility | undefined;
+    readonly currentlyHidden?: boolean | undefined;
     readonly published?: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -47,6 +50,20 @@ var v0 = {
   "storageKey": null
 },
 v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "visibility",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "currentlyHidden",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -203,5 +220,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '1ab44364608110b7edea917c2983c238';
+(node as any).hash = '1543b15be55a80349d104e0efe6dbddd';
 export default node;
