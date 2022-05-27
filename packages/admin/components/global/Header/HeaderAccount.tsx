@@ -45,20 +45,13 @@ const HeaderAccount = ({ accountNav }: Props) => {
 
   const isAuthenticated = useIsAuthenticated();
 
-  const { avatar, globalAdmin } = useViewerContext();
+  const { avatar } = useViewerContext();
 
   const renderSignInOut = () => (
     <NavLink key="auth" as="span">
       <SignInOut className="t-label-md" />
     </NavLink>
   );
-
-  const renderGlobalSettings = () =>
-    globalAdmin ? (
-      <DrawerLink key="settings" drawer="editSettings" passHref>
-        <NavLink>{t("nav.edit_global_settings")}</NavLink>
-      </DrawerLink>
-    ) : null;
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
@@ -79,7 +72,6 @@ const HeaderAccount = ({ accountNav }: Props) => {
           <DrawerLink key="profile" drawer="editProfile" passHref>
             <NavLink>{t("nav.edit_profile")}</NavLink>
           </DrawerLink>,
-          renderGlobalSettings(),
           renderSignInOut(),
         ]}
         alignRight
