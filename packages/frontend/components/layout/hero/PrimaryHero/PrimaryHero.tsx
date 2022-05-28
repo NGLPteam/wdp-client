@@ -52,6 +52,6 @@ interface Props {
   HeroImageComponent?: React.ReactNode | null;
   /** Logo, if any */
   LogoComponent?: React.ReactNode | null;
-  /** Visibility alert, if hidden or limited */
+  /** Visibility alert, if hidden */
   Alert?: React.ReactNode | null;
 }
