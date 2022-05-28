@@ -6,6 +6,7 @@ export default function SecondaryHero({
   LeftComponent,
   ThumbnailComponent,
   RightComponent,
+  Alert,
 }: Props) {
   return (
     <header className="a-bg-custom10">
@@ -15,6 +16,7 @@ export default function SecondaryHero({
             <Styled.Thumbnail>{ThumbnailComponent}</Styled.Thumbnail>
           )}
           <Styled.Text>
+            {Alert && Alert}
             <Styled.Title as="h3">{title}</Styled.Title>
             {LeftComponent && (
               <Styled.Description>{LeftComponent}</Styled.Description>
@@ -38,4 +40,6 @@ interface Props {
   LeftComponent?: React.ReactNode | null;
   /** Content for the right side... */
   RightComponent?: React.ReactNode | null;
+  /** Visibility alert, if hidden */
+  Alert?: React.ReactNode | null;
 }

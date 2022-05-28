@@ -12,6 +12,7 @@ export type IssueHeroFragment = {
     readonly subtitle: string | null;
     readonly summary: string | null;
     readonly visibility: EntityVisibility;
+    readonly currentlyHidden: boolean;
     readonly published: {
         readonly value: string | null;
         readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
@@ -82,6 +83,13 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "visibility",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "currentlyHidden",
       "storageKey": null
     },
     {
@@ -225,5 +233,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '668464a67381e25789a858375b133bdd';
+(node as any).hash = 'ffc30424e5222234805bbc78e0e27c76';
 export default node;

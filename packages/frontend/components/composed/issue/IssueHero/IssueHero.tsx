@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./IssueHero.styles";
 import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
 import {
@@ -9,6 +10,7 @@ import {
   DOI,
   CoverImage,
   Markdown,
+  Alert,
 } from "components/atomic";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
@@ -18,10 +20,22 @@ import { SecondaryHero } from "components/layout/hero";
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
 
+  const { t } = useTranslation();
+
+  const visibilityMessage =
+    issue?.visibility === "HIDDEN" || issue?.currentlyHidden
+      ? t("messages.hidden", { schema: t("schema.nglp.journal_issue") })
+      : null;
+
   return issue ? (
     <>
       <JournalHeroCompact data={issue.journal} />
       <SecondaryHero
+        Alert={
+          visibilityMessage && (
+            <Alert message={visibilityMessage} badge color="blue" />
+          )
+        }
         title={
           <>
             <Markdown.Title>{issue.title}</Markdown.Title>
@@ -86,6 +100,7 @@ const fragment = graphql`
     summary
     ...DOIFragment
     visibility
+    currentlyHidden
 
     published {
       value
