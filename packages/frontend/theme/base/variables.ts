@@ -22,12 +22,15 @@ export const baseColors = {
   greenDark: "#378556",
   greenAA: "#42A66A",
   greenTint: "#D7F5E3",
+  greenAlert: "#32784E",
   redDark: "#C94B42",
   redAA: "#E67067",
   redTint: "#FAE3E1",
+  redAlert: "#B2423B",
   blueDark: "#4073BF",
   blueAA: "#6596E0",
   blueTint: "#DAE6F7",
+  blueAlert: "#3767AD",
 };
 
 // Custom colors, color choice selected in admin

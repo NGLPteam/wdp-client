@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import Alert from "./Alert";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import Alert from "./Alert";
 
 type AlertProps = React.ComponentProps<typeof Alert>;
 
-export const Wrapper = styled.div<Pick<AlertProps, "color">>`
+export const Wrapper = styled.div<Pick<AlertProps, "color" | "badge">>`
   ${({ color }) =>
     `
     --alert-bg-color: var(--color-base-${color}Tint);
-    --alert-text-color: var(--color-base-${color}AA);
+    --alert-text-color: var(--color-base-${color}Alert);
   `}
 
   color: var(--alert-text-color);
-  background-color: var(--alert-background-color);
-  padding-block: ${pxToRem(12)};
-  padding-inline: var(--padding-rg);
+  background-color: var(--alert-bg-color);
+  padding-block: ${({ badge }) => (badge ? `var(--padding-xs)` : pxToRem(12))};
+  padding-inline: ${({ badge }) => (badge ? pxToRem(14) : `var(--padding-rg)`)};
   display: flex;
   align-items: center;
   justify-content: center;
