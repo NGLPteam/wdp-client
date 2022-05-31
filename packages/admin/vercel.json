@@ -1,9 +1,13 @@
 {
-  "routes": [
+  "headers": [
     {
-      "src": "/fonts/(.*)",
-      "headers": { "cache-control": "s-maxage=31536000" },
-      "dest": "/fonts/$1"
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-control",
+          "value": "public, immutable, max-age=31536000"
+        }
+      ]
     }
   ]
 }
