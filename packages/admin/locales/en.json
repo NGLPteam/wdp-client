@@ -242,8 +242,8 @@
         "file": "Download file"
       },
       "edit": {
-        "item_contribution": "Edit Item Contribution",
-        "collection_contribution": "Edit Collection Contribution",
+        "item_contribution": "Edit Item Contributor",
+        "collection_contribution": "Edit Collection Contributor",
         "community": "Edit Community",
         "collection": "Edit Collection",
         "contributor": "Edit Contributor",
