@@ -76,10 +76,11 @@ export const Header = styled.header`
   background: var(--background-color);
 `;
 
-export const HeaderBar = styled.div`
+export const HeaderBar = styled.div<{ $noLabel: boolean }>`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: ${({ $noLabel }) =>
+    $noLabel ? "flex-end" : "space-between"};
   align-items: center;
   color: var(--accent-color);
   padding-block-end: ${pxToRem(40)};
