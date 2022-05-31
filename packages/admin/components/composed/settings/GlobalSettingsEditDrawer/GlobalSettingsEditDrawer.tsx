@@ -24,7 +24,6 @@ export default function GlobalSettingsEditDrawer({
       {({ data }) => {
         return (
           <Drawer
-            label={t("actions.edit.global_settings")}
             header={t("actions.edit.global_settings_header")}
             dialog={dialog}
             hideOnClickOutside={false}
