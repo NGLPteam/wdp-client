@@ -106,7 +106,7 @@ function CollectionContributionList<T extends OperationType>({
       CollectionContributionListFragment,
       CollectionContributionNode
     >
-      modelName="collection_contribution"
+      modelName="collection_contributor"
       columns={columns}
       actions={actions}
       buttons={buttons}

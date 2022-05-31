@@ -95,6 +95,7 @@ export default function ContributionCreateForm({
       onSuccess={onSuccess}
       onCancel={onCancel}
       successNotification="messages.create.contribution_success"
+      failureNotification="messages.create.contribution_failure"
       mutation={mutation}
     >
       {renderForm}

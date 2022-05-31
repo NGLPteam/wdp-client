@@ -23,7 +23,6 @@ export default function UserGrantItemAccessDrawer({ dialog, params }: Props) {
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.add.access")}
           header={t("actions.add.access")}
           dialog={dialog}
           hideOnClickOutside={false}

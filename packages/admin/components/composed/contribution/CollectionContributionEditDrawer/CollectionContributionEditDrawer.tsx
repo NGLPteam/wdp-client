@@ -55,7 +55,6 @@ export default function CollectionContributionEditDrawer({
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.edit.collection_contribution")}
           header={t("actions.edit.collection_contribution")}
           dialog={dialog}
           hideOnClickOutside={false}

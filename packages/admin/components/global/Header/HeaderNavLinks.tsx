@@ -1,9 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Header.styles";
-import { Dropdown, NamedLink, NavLink } from "components/atomic";
+import { Dropdown, NamedLink, NavLink, DrawerLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
+import { useViewerContext } from "contexts";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -29,6 +30,8 @@ interface Props {
 function HeaderNavLinks({ navigation }: Props) {
   const { t } = useTranslation();
 
+  const { globalAdmin } = useViewerContext();
+
   const maybeAuthorize = (
     node: AuthorizeProps["children"],
     item: HeaderNavLink | HeaderNavParent,
@@ -41,6 +44,13 @@ function HeaderNavLinks({ navigation }: Props) {
       </Authorize>
     );
   };
+
+  const renderGlobalSettings = () =>
+    globalAdmin ? (
+      <DrawerLink key="settings" drawer="editSettings" passHref>
+        <NavLink>{t("nav.global_settings")}</NavLink>
+      </DrawerLink>
+    ) : null;
 
   const renderDropdown = (item: HeaderNavParent) => {
     // Check if the disclosure should be active
@@ -56,7 +66,7 @@ function HeaderNavLinks({ navigation }: Props) {
             {t(item.label)}
           </NavLink>
         }
-        menuItems={item.children.map(renderLink)}
+        menuItems={[...item.children.map(renderLink), renderGlobalSettings()]}
       />
     );
   };

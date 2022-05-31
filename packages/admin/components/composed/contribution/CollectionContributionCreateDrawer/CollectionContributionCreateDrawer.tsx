@@ -31,8 +31,7 @@ export default function CollectionContributionCreateDrawer({
       {({ data }) =>
         data?.collection?.id && data?.collection?.title ? (
           <Drawer
-            label={t("actions.create.contribution")}
-            header={t("actions.create.contribution_header")}
+            header={t("actions.add.contributor")}
             dialog={dialog}
             hideOnClickOutside={false}
           >

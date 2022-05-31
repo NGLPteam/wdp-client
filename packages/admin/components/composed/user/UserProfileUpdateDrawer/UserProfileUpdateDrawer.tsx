@@ -22,7 +22,6 @@ export default function UserProfileUpdateDrawer({ dialog }: Props) {
     <QueryWrapper<Query> query={query}>
       {({ data }) => (
         <Drawer
-          label={t("actions.edit.profile")}
           header={t("actions.edit.profile_header")}
           dialog={dialog}
           hideOnClickOutside={false}

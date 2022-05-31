@@ -40,10 +40,12 @@ const Drawer = ({
         {...dialog}
       >
         <Styled.Header>
-          <Styled.HeaderBar>
-            <div className="t-label-md" id={uidLabel}>
-              {label}
-            </div>
+          <Styled.HeaderBar $noLabel={!label}>
+            {label && (
+              <div className="t-label-md" id={uidLabel}>
+                {label}
+              </div>
+            )}
             <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
               {t("close")}
             </ButtonControl>
@@ -68,7 +70,7 @@ const Drawer = ({
 interface Props {
   dialog: DialogProps;
   /** Drawer label, displayed next to the close button */
-  label: string;
+  label?: string;
   /** Drawer header */
   header: string;
   /** A row of buttons below the header */

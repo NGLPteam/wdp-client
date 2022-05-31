@@ -3,6 +3,7 @@ import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import get from "lodash/get";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Typeahead from "components/forms/Typeahead";
 
 import type {
@@ -14,7 +15,7 @@ import { useMaybeFragment } from "hooks";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const ContributorTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
@@ -29,18 +30,30 @@ const ContributorTypeahead = <T extends FieldValues = FieldValues>(
     });
   }, [optionsData]);
 
+  const { t } = useTranslation();
+
   return options ? (
     <Controller<T>
       name={name}
       control={control}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          {...field}
-        />
-      )}
+      rules={{
+        validate: (value) => {
+          return !!value || (t("forms.validation.contributor") as string);
+        },
+      }}
+      render={({ field }) => {
+        return (
+          <>
+            <Typeahead
+              label={label}
+              options={options}
+              disabled={disabled}
+              required={required}
+              {...field}
+            />
+          </>
+        );
+      }}
     />
   ) : null;
 };

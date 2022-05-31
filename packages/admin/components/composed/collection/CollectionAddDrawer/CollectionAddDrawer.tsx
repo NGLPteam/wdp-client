@@ -28,7 +28,6 @@ export default function CollectionAddDrawer({
         <Drawer
           dialog={dialog}
           hideOnClickOutside={false}
-          label={t("actions.add.collection")}
           header={t("actions.add.collection_header")}
         >
           {data && (

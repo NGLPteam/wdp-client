@@ -13,7 +13,6 @@ export default function CommunityCreateDrawer({
 
   return (
     <Drawer
-      label={t("actions.create.community")}
       header={t("actions.create.community_header")}
       dialog={dialog}
       hideOnClickOutside={false}

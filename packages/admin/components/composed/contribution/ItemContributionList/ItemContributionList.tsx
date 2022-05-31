@@ -99,7 +99,7 @@ function ItemContributionList<T extends OperationType>({
 
   return (
     <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>
-      modelName="item_contribution"
+      modelName="item_contributor"
       columns={columns}
       actions={actions}
       buttons={buttons}

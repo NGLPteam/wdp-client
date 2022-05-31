@@ -2,6 +2,7 @@ import React, { Ref, useMemo } from "react";
 import { Controller } from "react-hook-form";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import Typeahead from "components/forms/Typeahead";
 
 import {
@@ -13,7 +14,7 @@ import UserAvatar from "components/composed/user/UserAvatar";
 type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
 
 const UserTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled }: Props<T>,
+  { data, control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
@@ -34,15 +35,23 @@ const UserTypeahead = <T extends FieldValues = FieldValues>(
     });
   }, [optionsData]);
 
+  const { t } = useTranslation();
+
   return options ? (
     <Controller<T>
       name={name}
       control={control}
+      rules={{
+        validate: (value) => {
+          return !!value || (t("forms.validation.user") as string);
+        },
+      }}
       render={({ field }) => (
         <Typeahead
           label={label}
           options={options}
           disabled={disabled}
+          required={required}
           {...field}
         />
       )}

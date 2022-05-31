@@ -30,7 +30,6 @@ export default function EntityPageUpdateDrawer({
           : undefined;
         return (
           <Drawer
-            label={t("actions.edit.page")}
             header={t("actions.edit.page_header")}
             dialog={dialog}
             hideOnClickOutside={false}

@@ -54,7 +54,6 @@ export default function ItemContributionEditDrawer({
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.edit.item_contribution")}
           header={t("actions.edit.item_contribution")}
           dialog={dialog}
           hideOnClickOutside={false}

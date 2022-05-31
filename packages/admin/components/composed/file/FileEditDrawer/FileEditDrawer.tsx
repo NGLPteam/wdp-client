@@ -31,7 +31,6 @@ export default function FileEditDrawer({
       {({ data }) =>
         data?.asset ? (
           <Drawer
-            label={t("actions.edit.file")}
             header={t("actions.edit.file_header")}
             dialog={dialog}
             hideOnClickOutside={false}

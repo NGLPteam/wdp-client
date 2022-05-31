@@ -34,7 +34,6 @@ export default function ContributorContributionCreateDrawer({
       {({ data }) =>
         data?.contributor?.id ? (
           <Drawer
-            label={t("actions.create.contribution")}
             header={t("actions.create.contribution")}
             dialog={dialog}
             hideOnClickOutside={false}
