@@ -30,7 +30,6 @@ export default function EntityAnnouncementAddDrawer({
           : undefined;
         return (
           <Drawer
-            label={t("actions.add.announcement")}
             header={t("actions.add.announcement_header")}
             dialog={dialog}
             hideOnClickOutside={false}
