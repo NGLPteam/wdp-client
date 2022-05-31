@@ -24,7 +24,6 @@ export default function ItemAddDrawer({
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.add.item")}
           header={t("actions.add.item_header")}
           dialog={dialog}
           hideOnClickOutside={false}
