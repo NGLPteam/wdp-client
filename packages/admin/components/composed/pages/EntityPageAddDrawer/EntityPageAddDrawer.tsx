@@ -30,7 +30,6 @@ export default function EntityPageAddDrawer({
           : undefined;
         return (
           <Drawer
-            label={t("actions.add.page")}
             header={t("actions.add.page_header")}
             dialog={dialog}
             hideOnClickOutside={false}
