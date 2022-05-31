@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { usePageContext } from "@wdp/lib/api/hooks";
-import * as Styled from "./ArticleMetadataBlock.styles";
+import * as Styled from "./EntityMetadataBlock.styles";
 import { LoadingBlock } from "components/atomic";
 
-export default function ArticleMetadataBlock({ children }: Props) {
+export default function EntityMetadataBlock({ children }: Props) {
   const { loading } = usePageContext();
 
   const { t } = useTranslation();

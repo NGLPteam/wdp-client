@@ -1,8 +1,8 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import ArticleMetadataBlock from "components/composed/article/ArticleMetadataBlock/ArticleMetadataBlock";
-import ArticleIssueMetadata from "components/composed/article/ArticleMetadataBlock/ArticleIssueMetadata";
+import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
+import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/EntityMetadataBlock";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
 import { PrecisionDate } from "components/atomic";
@@ -23,7 +23,7 @@ export default function ArticleMetadata({ data }: Props) {
   );
 
   return article ? (
-    <ArticleMetadataBlock>
+    <EntityMetadataBlock>
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
@@ -67,7 +67,7 @@ export default function ArticleMetadata({ data }: Props) {
         label={t("metadata.online_version")}
         data={article.onlineVersion}
       />
-    </ArticleMetadataBlock>
+    </EntityMetadataBlock>
   ) : null;
 }
 
