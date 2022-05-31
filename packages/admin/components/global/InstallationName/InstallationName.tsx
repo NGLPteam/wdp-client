@@ -15,7 +15,7 @@ export default function InstallationName() {
 
   return siteData ? (
     <LogoPlaceholder>
-      <span className="t-label-md">{siteData.site.installationName}</span>
+      <span className="t-weight-md">{siteData.site.installationName}</span>
     </LogoPlaceholder>
   ) : null;
 }
