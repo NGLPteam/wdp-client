@@ -26,7 +26,6 @@ export default function UserGrantCollectionAccessDrawer({
     >
       {({ data }) => (
         <Drawer
-          label={t("actions.add.access")}
           header={t("actions.add.access")}
           dialog={dialog}
           hideOnClickOutside={false}
