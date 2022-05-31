@@ -25,7 +25,6 @@ export default function EntityOrderingEditDrawer({
       {({ data }) => {
         return (
           <Drawer
-            label={t("actions.edit.ordering")}
             header={t("actions.edit.ordering_header")}
             dialog={dialog}
             hideOnClickOutside={false}
