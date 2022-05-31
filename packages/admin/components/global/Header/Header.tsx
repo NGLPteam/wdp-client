@@ -17,7 +17,7 @@ import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
-import Search from "components/composed/search/Search";
+import SearchModal from "components/composed/search/SearchModal";
 
 function Header() {
   const { t } = useTranslation();
@@ -45,7 +45,7 @@ function Header() {
             </ul>
           </Styled.DesktopNavBlock>
           <Styled.SearchBlock>
-            <Search routeName="search" darkTheme clearOnSubmit />
+            <SearchModal routeName="search" clearOnSubmit />
           </Styled.SearchBlock>
           <Styled.AccountBlock>
             <HeaderAccount accountNav={headerData.account} />

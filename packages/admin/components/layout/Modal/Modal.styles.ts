@@ -75,8 +75,10 @@ export const Header = styled.header`
   color: var(--accent-color);
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<{ $padTop: boolean }>`
   flex: 1 1 auto;
+  padding-block-start: ${({ $padTop }) =>
+    $padTop && `var(--modal-padding-inline)`};
   padding-block-end: var(--modal-padding-inline);
   padding-inline-start: var(--modal-padding-inline);
   padding-inline-end: var(--modal-padding-inline);

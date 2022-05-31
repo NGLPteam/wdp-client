@@ -28,15 +28,19 @@ const Modal = ({
           hideOnClickOutside={hideOnClickOutside}
           {...dialog}
         >
-          <Styled.Header>
-            <div className="t-label-md t-truncate" id={uidLabel}>
-              {label}
-            </div>
-            <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
-              {t("close")}
-            </ButtonControl>
-          </Styled.Header>
-          <Styled.Content>
+          {label ? (
+            <Styled.Header>
+              <div className="t-label-md t-truncate" id={uidLabel}>
+                {label}
+              </div>
+              <ButtonControl icon="close" iconRotate={0} onClick={handleClose}>
+                {t("close")}
+              </ButtonControl>
+            </Styled.Header>
+          ) : (
+            <button className="a-hidden">{t("close")}</button>
+          )}
+          <Styled.Content $padTop={!label}>
             {typeof children === "function"
               ? children({ handleClose })
               : children}

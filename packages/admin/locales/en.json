@@ -357,7 +357,8 @@
         "position": "Position",
         "select_placeholder": "Select an option",
         "orcid": "ORCID Link",
-        "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor."
+        "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor.",
+        "search_placeholder": "Enter keyword"
       },
       "validation": {
         "year": "Must be a four digit year",

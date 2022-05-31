@@ -7,3 +7,4 @@ export { default as ContentHeader } from "./ContentHeader";
 export { default as BackToAll } from "./BackToAll";
 export { default as MobileMenu } from "./MobileMenu";
 export { default as Drawer } from "./Drawer";
+export { default as Modal } from "./Modal";
