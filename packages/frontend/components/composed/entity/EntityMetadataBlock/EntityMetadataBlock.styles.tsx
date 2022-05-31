@@ -20,4 +20,8 @@ export const ListItem = styled.li`
   ${respond(`grid-column: span 4;`, 100)}
   ${respond(`grid-column: span 6;`, 70)}
   ${respond(`grid-column: span 1;`, 50)}
+
+  &:empty {
+    display: none;
+  }
 `;

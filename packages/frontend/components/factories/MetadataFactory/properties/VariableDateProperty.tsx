@@ -5,12 +5,18 @@ import { PrecisionDate } from "components/atomic";
 import { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function VariableDateProperty({ data, label }: Props) {
+export default function VariableDateProperty({
+  data,
+  label,
+  showPlaceholder,
+}: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {property.dateWithPrecision?.value && (
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (property?.dateWithPrecision?.value || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
+      {property?.dateWithPrecision?.value && (
         <PrecisionDate data={property.dateWithPrecision} />
       )}
     </MetadataProperty>
@@ -20,6 +26,7 @@ export default function VariableDateProperty({ data, label }: Props) {
 interface Props {
   data?: VariableDatePropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

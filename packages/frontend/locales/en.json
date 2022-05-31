@@ -152,6 +152,7 @@
       "volume": "Volume",
       "number": "Number {{number}}",
       "cc_license": "CC license",
+      "license": "License",
       "open_access": "Open access",
       "peer_reviewed": "Peer reviewed",
       "preprint_version": "Preprint Version",
@@ -165,7 +166,9 @@
       "pdf_version": "PDF Version",
       "online_version": "Online Version",
       "series": "Series",
-      "access": "Access"
+      "access": "Access",
+      "keywords": "Keywords",
+      "streaming_media": "Media"
     },
     "layouts": {
       "related_journals_header": "Related Journals",

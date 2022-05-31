@@ -4,12 +4,14 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { TagsPropertyFragment$key } from "@/relay/TagsPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function TagsProperty({ data, label }: Props) {
+export default function TagsProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
-    <MetadataProperty label={label || property.label}>
-      {property.tags.join(", ")}
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (!!property?.tags?.length || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
+      {property?.tags.join(", ")}
     </MetadataProperty>
   ) : null;
 }
@@ -17,6 +19,7 @@ export default function TagsProperty({ data, label }: Props) {
 interface Props {
   data?: TagsPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

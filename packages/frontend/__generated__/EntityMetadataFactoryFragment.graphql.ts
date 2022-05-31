@@ -5,11 +5,13 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type EntityMetadataFactoryFragment = {
     readonly schemaDefinition?: {
+        readonly kind: SchemaKind;
         readonly identifier: string;
     } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataBlockFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataFragment" | "DissertationMetadataFragment" | "PaperMetadataFragment">;
     readonly " $refType": "EntityMetadataFactoryFragment";
 };
 export type EntityMetadataFactoryFragment$data = EntityMetadataFactoryFragment;
@@ -29,6 +31,13 @@ var v0 = {
   "name": "schemaDefinition",
   "plural": false,
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "kind",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -60,7 +69,17 @@ return {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ArticleMetadataBlockFragment"
+          "name": "ArticleMetadataFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DissertationMetadataFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PaperMetadataFragment"
         }
       ],
       "type": "Item",
@@ -71,5 +90,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '68a791503acc90976bf8c17af3628e5b';
+(node as any).hash = '0f81756ab49083980bbb4db2ff67ba35';
 export default node;

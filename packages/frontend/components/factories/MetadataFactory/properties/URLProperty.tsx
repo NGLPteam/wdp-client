@@ -5,25 +5,26 @@ import { ExternalLink } from "components/atomic";
 import { URLPropertyFragment$key } from "@/relay/URLPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
 
-export default function URLProperty({ data, label }: Props) {
+export default function URLProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return (
-    property && (
-      <MetadataProperty label={label || property.label}>
-        {property.url && property.url.href && (
-          <ExternalLink href={property.url.href || ""} className="t-copy">
-            {property.url.title || property.url.label}
-          </ExternalLink>
-        )}
-      </MetadataProperty>
-    )
-  );
+  const hasLabel = label ?? property?.label;
+
+  return hasLabel && (property?.url || showPlaceholder) ? (
+    <MetadataProperty label={hasLabel}>
+      {property?.url && property.url.href && (
+        <ExternalLink href={property.url.href || ""} className="t-copy">
+          {property.url.title || property.url.label}
+        </ExternalLink>
+      )}
+    </MetadataProperty>
+  ) : null;
 }
 
 interface Props {
   data?: URLPropertyFragment$key | null;
   label?: string;
+  showPlaceholder?: boolean;
 }
 
 const fragment = graphql`

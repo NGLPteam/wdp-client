@@ -30,16 +30,40 @@ export default function MetadataFactory({
 
   switch (field.__typename) {
     case "AssetProperty":
-      return <AssetProperty data={field} label={label} />;
+      return (
+        <AssetProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "BooleanProperty":
       return <BooleanProperty data={field} label={label} />;
     case "DateProperty":
-      return <DateProperty data={field} label={label} />;
+      return (
+        <DateProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "EmailProperty":
-      return <EmailProperty data={field} label={label} />;
+      return (
+        <EmailProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "FloatProperty":
     case "IntegerProperty":
-      return <NumberProperty data={field} label={label} />;
+      return (
+        <NumberProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "StringProperty":
       return (
         <StringProperty
@@ -49,20 +73,44 @@ export default function MetadataFactory({
         />
       );
     case "SelectProperty":
-      return <SelectProperty data={field} label={label} showPlaceholder />;
+      return (
+        <SelectProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "TagsProperty":
-      return <TagsProperty data={field} label={label} />;
+      return (
+        <TagsProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "URLProperty":
-      return <URLProperty data={field} label={label} />;
+      return (
+        <URLProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     case "VariableDateProperty":
-      return <VariableDateProperty data={field} label={label} />;
+      return (
+        <VariableDateProperty
+          data={field}
+          label={label}
+          showPlaceholder={showPlaceholder}
+        />
+      );
     default:
       return null;
   }
 }
 
 interface Props {
-  data: MetadataFactoryFragment$key;
+  data?: MetadataFactoryFragment$key | null;
   label?: string;
   showPlaceholder?: boolean;
 }
