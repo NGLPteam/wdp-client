@@ -131,7 +131,7 @@
       "help": "Help",
       "contact": "Contact",
       "edit_profile": "Edit Profile",
-      "edit_global_settings": "Edit Global Settings"
+      "global_settings": "Global Settings"
     },
     "messages": {
       "add": {

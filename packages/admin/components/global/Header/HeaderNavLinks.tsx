@@ -48,7 +48,7 @@ function HeaderNavLinks({ navigation }: Props) {
   const renderGlobalSettings = () =>
     globalAdmin ? (
       <DrawerLink key="settings" drawer="editSettings" passHref>
-        <NavLink>{t("nav.edit_global_settings")}</NavLink>
+        <NavLink>{t("nav.global_settings")}</NavLink>
       </DrawerLink>
     ) : null;
 
