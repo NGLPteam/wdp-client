@@ -10,6 +10,7 @@ import { colors } from "theme/base/variables";
 export const SearchWrapper = styled.div`
   --search-block-padding: ${pxToRem(16)};
   --search-inline-padding: ${pxToRem(12)};
+  --search-icon-color: var(--brand90);
 
   position: relative;
   display: flex;
@@ -27,6 +28,7 @@ export const SearchWrapper = styled.div`
 
 export const SearchDisclosure = styled(SearchWrapper)`
   --search-inline-padding: ${pxToRem(8)};
+  --search-icon-color: var(--color-dark);
 
   padding-block: var(--search-inline-padding);
   color: var(--neutral-white);
@@ -74,6 +76,7 @@ export const SearchIcon = styled(IconFactory)`
   margin-inline-start: var(--search-inline-padding);
   margin-inline-end: var(--search-inline-padding);
   align-self: center;
+  color: var(--search-icon-color);
 `;
 
 export const SubmitButton = styled.button`
