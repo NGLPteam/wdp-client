@@ -14,7 +14,7 @@ export default function Teasers({ data }: Props) {
   const papers = entry?.papers?.pageInfo?.totalCount;
 
   return entry ? (
-    <DotList className="t-copy-lighter">
+    <DotList className="t-copy-lighter t-copy-sm">
       {entry.updatedAt && (
         <li>
           {t("common.last_updated", {
