@@ -1,14 +1,28 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useTranslation } from "react-i18next";
 import * as Styled from "./VolumeHero.styles";
 import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
-import { DotList, PrecisionDate, DOI, CoverImage } from "components/atomic";
+import {
+  DotList,
+  PrecisionDate,
+  DOI,
+  CoverImage,
+  Alert,
+} from "components/atomic";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
 
 export default function VolumeHero({ data }: Props) {
   const volume = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
+
+  const visibilityMessage =
+    volume?.visibility === "HIDDEN" || volume?.currentlyHidden
+      ? t("messages.hidden", { schema: t("schema.nglp.journal_volume") })
+      : null;
 
   return volume ? (
     <header className="a-bg-custom10">
@@ -25,6 +39,9 @@ export default function VolumeHero({ data }: Props) {
             />
           </Styled.Cover>
           <Styled.Issue>
+            {visibilityMessage && (
+              <Alert message={visibilityMessage} color="blue" badge />
+            )}
             <Styled.Title as="h3">{volume.title}</Styled.Title>
             <Styled.Description>
               <DotList className="t-copy-lighter">
@@ -59,6 +76,7 @@ const fragment = graphql`
     summary
     ...DOIFragment
     visibility
+    currentlyHidden
 
     published {
       value
