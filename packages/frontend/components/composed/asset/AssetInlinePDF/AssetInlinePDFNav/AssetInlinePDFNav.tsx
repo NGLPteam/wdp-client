@@ -1,8 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import AssetPDFPage from "../../AssetPDFPage";
 import * as Styled from "./AssetInlinePDFNav.styles";
 
 export default function AssetInlinePDFNav({ numPages, pageId }: Props) {
+  const { t } = useTranslation();
+
   return (
     <Styled.OutlineWrapper>
       <Styled.OutlineInner>
@@ -13,7 +16,12 @@ export default function AssetInlinePDFNav({ numPages, pageId }: Props) {
               width={100}
               renderAnnotationLayer={false}
               renderTextLayer={false}
-              renderPageNumber
+              pageLabel={
+                <>
+                  <span className="a-hidden">{t("list.page")}</span>
+                  <span>{page + 1}</span>
+                </>
+              }
             />
           </Styled.OutlineLink>
         ))}

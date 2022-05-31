@@ -32,6 +32,7 @@
       "updated": "Last Updated"
     },
     "list": {
+      "page": "Page",
       "page_number": "Page {{number}}",
       "pages_first_last": "Pages {{first}} - {{last}}",
       "page_count": "{{count}} Page",
