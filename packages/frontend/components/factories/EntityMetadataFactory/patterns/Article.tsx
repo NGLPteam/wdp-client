@@ -2,7 +2,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
-import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/EntityMetadataBlock";
+import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
 import { PrecisionDate } from "components/atomic";

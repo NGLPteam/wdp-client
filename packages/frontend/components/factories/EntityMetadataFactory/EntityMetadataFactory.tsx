@@ -1,18 +1,28 @@
 import React from "react";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import {
   ArticleMetadata,
   DissertationMetadata,
   PaperMetadata,
 } from "./patterns";
+import { LoadingBlock } from "components/atomic";
+import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock";
 import { EntityMetadataFactoryFragment$key } from "@/relay/EntityMetadataFactoryFragment.graphql";
 
 export default function EntityMetadataFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
+  const { loading } = usePageContext();
 
   // We aren't currently using this factory for collection metadata, and I don't think there's a need for it in design. But, since I left Collection in the fragment for now, this is here as a catch. -LD
   if (entity?.schemaDefinition?.kind === "COLLECTION") return null;
+
+  if (loading)
+    return (
+      <EntityMetadataBlock>
+        <LoadingBlock />
+      </EntityMetadataBlock>
+    );
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal_article":
