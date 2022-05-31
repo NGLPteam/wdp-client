@@ -22,4 +22,17 @@ module.exports = withTM({
   images: {
     domains: imageDomains,
   },
+  async headers() {
+    return [
+      {
+        source: "/fonts/(.*)",
+        headers: [
+          {
+            key: "Cache-control",
+            value: "public, immutable, max-age=31536000",
+          },
+        ],
+      },
+    ];
+  },
 });
