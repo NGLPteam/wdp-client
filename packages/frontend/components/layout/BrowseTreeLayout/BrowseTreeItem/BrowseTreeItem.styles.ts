@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { fluidScale } from "theme/mixins";
 
 export const Row = styled.div<{ $level?: number }>`
@@ -11,4 +12,8 @@ export const Row = styled.div<{ $level?: number }>`
       : $level === 2
       ? `var(--BrowseTreeItem-row-margin-left)`
       : `calc(var(--BrowseTreeItem-row-margin-left) * ${$level})`};
+
+  > * + * {
+    margin-block-start: ${pxToRem(4)};
+  }
 `;
