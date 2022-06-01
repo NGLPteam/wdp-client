@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { Document, pdfjs } from "react-pdf";
+import { Document, Page, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useIsMounted } from "@wdp/lib/hooks";
@@ -37,7 +37,11 @@ export default function AssetPDFPreview({ data }: Props) {
       loading={<LoadingBlock label="common.loading_pdf" />}
       onLoadError={(err) => console.info(err.message)}
     >
-      {numPages && <AssetPDFPage pageNumber={1} />}
+      {numPages && (
+        <AssetPDFPage>
+          <Page pageNumber={1} width={1159} />
+        </AssetPDFPage>
+      )}
     </Document>
   ) : null;
 }
