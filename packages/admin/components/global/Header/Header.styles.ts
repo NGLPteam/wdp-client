@@ -14,7 +14,6 @@ export const Nav = styled.nav`
 
 export const Inner = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: var(--grid-column-gap);
   margin: 0 auto;
