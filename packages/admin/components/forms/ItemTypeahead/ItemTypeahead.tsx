@@ -1,77 +1,100 @@
-import React, { Ref, useMemo } from "react";
+import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
+import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Typeahead from "components/forms/Typeahead";
+import BaseTypeahead from "components/forms/BaseTypeahead";
+import {
+  ItemTypeaheadQuery as Query,
+  ItemTypeaheadQueryResponse as Response,
+} from "__generated__/ItemTypeaheadQuery.graphql";
 
-import type {
-  ItemTypeaheadFragment$data,
-  ItemTypeaheadFragment$key,
-} from "__generated__/ItemTypeaheadFragment.graphql";
-import { useMaybeFragment } from "hooks";
-type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
+type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const ItemTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled, required }: Props<T>,
+  { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  const optionsData = useMaybeFragment(fragment, data);
+  const [q, setQ] = useState("fake");
 
-  const options = useMemo(() => {
-    const options = optionsData?.viewer.items.nodes.map((node: ItemNode) => {
+  const formatOptions = (data: Response) => {
+    if (!data || !data.search?.results?.edges?.length) return;
+
+    const results = data.search.results.edges;
+    const options = results.map(({ node }) => {
       return {
         label: node.title || "",
-        value: node.id,
+        value: node.entity.id ?? "",
       };
     });
-
     return options;
-  }, [optionsData]);
+  };
 
   const { t } = useTranslation();
 
-  return options ? (
-    <Controller<T>
-      name={name}
-      control={control}
-      rules={{
-        validate: (value) => {
-          return !!value || (t("forms.validation.item") as string);
-        },
+  return (
+    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+      {({ data }) => {
+        return (
+          <Controller<T>
+            name={name}
+            control={control}
+            rules={{
+              validate: (value) => {
+                return !!value || (t("forms.validation.item") as string);
+              },
+            }}
+            render={({ field }) => (
+              <BaseTypeahead
+                label={label}
+                options={data ? formatOptions(data) : []}
+                onInputChange={(value) => setQ(value)}
+                disabled={disabled}
+                required={required}
+                defaultValue={q}
+                {...field}
+              />
+            )}
+          />
+        );
       }}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          required={required}
-          {...field}
-        />
-      )}
-    />
-  ) : null;
+    </QueryWrapper>
+  );
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
-  data?: ItemTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
 
-type ItemNode = ItemTypeaheadFragment$data["viewer"]["items"]["nodes"][number];
-
 export default ItemTypeahead;
 
-// Currently limited to 50 items per query
-const fragment = graphql`
-  fragment ItemTypeaheadFragment on Query {
-    viewer {
-      items {
-        nodes {
-          id
-          title
+const query = graphql`
+  query ItemTypeaheadQuery($query: String!) {
+    search(visibility: ALL) {
+      results(
+        prefix: $query
+        page: 1
+        perPage: 50
+        order: TITLE_ASCENDING
+        schema: [
+          "default:item"
+          "nglp:dissertation"
+          "nglp:journal_article"
+          "nglp:paper"
+        ]
+      ) {
+        edges {
+          node {
+            title
+            entity {
+              ... on Node {
+                id
+              }
+            }
+          }
         }
       }
     }

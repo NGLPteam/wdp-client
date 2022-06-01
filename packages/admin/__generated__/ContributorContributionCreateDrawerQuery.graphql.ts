@@ -61,7 +61,6 @@ fragment CollectionTypeaheadFragment on Query {
 }
 
 fragment ContributionCreateFormFragment on Query {
-  ...ItemTypeaheadFragment
   ...CollectionTypeaheadFragment
   ...ContributorTypeaheadFragment
 }
@@ -84,18 +83,6 @@ fragment ContributorTypeaheadFragment on Query {
         id
       }
     }
-  }
-}
-
-fragment ItemTypeaheadFragment on Query {
-  viewer {
-    items {
-      nodes {
-        id
-        title
-      }
-    }
-    id
   }
 }
 */
@@ -177,14 +164,7 @@ v5 = [
     "type": "Node",
     "abstractKey": "__isNode"
   }
-],
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -241,31 +221,6 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Item",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  (v6/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "CollectionConnection",
             "kind": "LinkedField",
             "name": "collections",
@@ -280,7 +235,13 @@ return {
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
-                  (v6/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -293,7 +254,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       },
@@ -321,12 +283,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3e59aca45f64090edfc4080b3fdde6a2",
+    "cacheID": "39d7febd97b2ac4cd54c2cb6e545d22f",
     "id": null,
     "metadata": {},
     "name": "ContributorContributionCreateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n        slug\n      }\n    }\n    id\n  }\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...ItemTypeaheadFragment\n  ...CollectionTypeaheadFragment\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n\nfragment ItemTypeaheadFragment on Query {\n  viewer {\n    items {\n      nodes {\n        id\n        title\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n        slug\n      }\n    }\n    id\n  }\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...CollectionTypeaheadFragment\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

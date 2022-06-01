@@ -131,8 +131,6 @@ type Fields = UpsertContributionInput;
 const fragment = graphql`
   fragment ContributionCreateFormFragment on Query {
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
-    ...ItemTypeaheadFragment
-    # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...CollectionTypeaheadFragment
     # eslint-disable-next-line relay/must-colocate-fragment-spreads
     ...ContributorTypeaheadFragment

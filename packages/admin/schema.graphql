@@ -1467,6 +1467,11 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   contributors(
     order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
+    """
+    Search for contributors with names that start with the provided text.
+    
+    """
+    prefix: String
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -2347,6 +2352,11 @@ interface Contributable {
   contributors(
     order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
+    """
+    Search for contributors with names that start with the provided text.
+    
+    """
+    prefix: String
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -4768,6 +4778,8 @@ that allow it to be identified in name and purpose.
 interface Image {
   """Alt text for accessible images"""
   alt: String
+  """The MIME type of the image, if present"""
+  contentType: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
   """The height of the image, if present"""
   height: Int
@@ -4843,6 +4855,8 @@ type ImageAttachment implements HasAttachmentStorage & ImageIdentification {
 type ImageDerivative implements ImageIdentification & Image {
   """Alt text for accessible images"""
   alt: String
+  """The MIME type of the image, if present"""
+  contentType: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
   """The format of this derivative"""
   format: ImageDerivativeFormat!
@@ -4907,9 +4921,9 @@ enum ImageDerivativeSize {
   LARGE
   """A hero-sized image, constrained to 2880px wide with no height limit."""
   HERO
-  """A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit."""
+  """A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit."""
   SANS_TEXT
-  """A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high."""
+  """A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high."""
   WITH_TEXT
 }
 
@@ -4959,6 +4973,8 @@ used only as a fallback.
 type ImageOriginal implements HasAttachmentStorage & ImageIdentification & Image {
   """Alt text for accessible images"""
   alt: String
+  """The MIME type of the image, if present"""
+  contentType: String
   dimensions: [Int!] @deprecated(reason: "Use width and height directly.")
   """The height of the image, if present"""
   height: Int
@@ -5309,6 +5325,11 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   contributors(
     order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
+    """
+    Search for contributors with names that start with the provided text.
+    
+    """
+    prefix: String
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -7146,6 +7167,11 @@ type Query implements Searchable {
   contributors(
     order: ContributorOrder = NAME_ASCENDING
     kind: ContributorFilterKind = ALL
+    """
+    Search for contributors with names that start with the provided text.
+    
+    """
+    prefix: String
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -7261,6 +7287,11 @@ type Query implements Searchable {
   """A list of all users in the system"""
   users(
     order: UserOrder = RECENT
+    """
+    Search for users with given OR family names that start with the provided text.
+    
+    """
+    prefix: String
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """Returns the elements in the list that come before the specified cursor."""
@@ -8141,6 +8172,7 @@ An entity that's the result of a search.
 """
 type SearchResult {
   entity: AnyEntity!
+  id: ID!
   kind: EntityKind!
   schemaVersion: SchemaVersion!
   slug: Slug!
@@ -8188,6 +8220,11 @@ type SearchScope {
     
     """
     predicates: [SearchPredicateInput!] = []
+    """
+    Search for entities with titles that start with the provided text (case-insensitive).
+    
+    """
+    prefix: String
     """
     Search all text associated with individual entities.
     
@@ -8398,7 +8435,7 @@ type SiteLogoAttachment implements HasAttachmentStorage & ImageIdentification {
   
   """
   purpose: ImagePurpose!
-  """A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit."""
+  """A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit."""
   sansText: ImageSize!
   """
   This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
@@ -8406,7 +8443,7 @@ type SiteLogoAttachment implements HasAttachmentStorage & ImageIdentification {
   
   """
   storage: AttachmentStorage
-  """A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high."""
+  """A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high."""
   withText: ImageSize!
 }
 

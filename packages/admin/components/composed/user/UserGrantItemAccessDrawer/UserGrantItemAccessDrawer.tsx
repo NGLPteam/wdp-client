@@ -30,7 +30,6 @@ export default function UserGrantItemAccessDrawer({ dialog, params }: Props) {
           <UserGrantItemAccessForm
             onSuccess={dialog.hide}
             onCancel={dialog.hide}
-            data={data}
             userId={data?.user?.id}
           />
         </Drawer>
@@ -51,6 +50,5 @@ const query = graphql`
       id
       name
     }
-    ...UserGrantItemAccessFormFragment
   }
 `;

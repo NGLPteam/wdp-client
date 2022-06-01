@@ -9294,6 +9294,18 @@
                 "deprecationReason": null
               },
               {
+                "name": "prefix",
+                "description": "Search for contributors with names that start with the provided text.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -15148,6 +15160,18 @@
                   "ofType": null
                 },
                 "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "prefix",
+                "description": "Search for contributors with names that start with the provided text.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -27761,6 +27785,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contentType",
+            "description": "The MIME type of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dimensions",
             "description": null,
             "args": [],
@@ -28073,6 +28109,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contentType",
+            "description": "The MIME type of the image, if present",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dimensions",
             "description": null,
             "args": [],
@@ -28304,13 +28352,13 @@
           },
           {
             "name": "SANS_TEXT",
-            "description": "A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit.",
+            "description": "A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "WITH_TEXT",
-            "description": "A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high.",
+            "description": "A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high.",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -28436,6 +28484,18 @@
           {
             "name": "alt",
             "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contentType",
+            "description": "The MIME type of the image, if present",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -30198,6 +30258,18 @@
                   "ofType": null
                 },
                 "defaultValue": "ALL",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "prefix",
+                "description": "Search for contributors with names that start with the provided text.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -40206,6 +40278,18 @@
                 "deprecationReason": null
               },
               {
+                "name": "prefix",
+                "description": "Search for contributors with names that start with the provided text.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -41040,6 +41124,18 @@
                   "ofType": null
                 },
                 "defaultValue": "RECENT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "prefix",
+                "description": "Search for users with given OR family names that start with the provided text.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -45006,6 +45102,22 @@
             "deprecationReason": null
           },
           {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "kind",
             "description": null,
             "args": [],
@@ -45333,6 +45445,18 @@
                   }
                 },
                 "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "prefix",
+                "description": "Search for entities with titles that start with the provided text (case-insensitive).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -46477,7 +46601,7 @@
           },
           {
             "name": "sansText",
-            "description": "A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit.",
+            "description": "A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -46505,7 +46629,7 @@
           },
           {
             "name": "withText",
-            "description": "A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high.",
+            "description": "A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
