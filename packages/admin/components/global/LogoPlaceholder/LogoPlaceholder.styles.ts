@@ -10,8 +10,7 @@ export const LogoLink = styled.a`
   }
 
   display: inline-block;
-  padding: 0 ${pxToRem(16)};
+  padding-inline-end: ${pxToRem(16)};
   color: var(--logo-color);
-  line-height: ${pxToRem(34)};
   ${aLink()}
 `;
