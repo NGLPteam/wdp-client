@@ -4,6 +4,8 @@ import { tCopySmall } from "theme/mixins";
 
 export const Page = styled.div`
   box-shadow: ${boxShadow.popUp};
+  background-color: var(--neutral10);
+  border: 1px solid var(--neutral10);
 
   canvas {
     width: 100% !important;

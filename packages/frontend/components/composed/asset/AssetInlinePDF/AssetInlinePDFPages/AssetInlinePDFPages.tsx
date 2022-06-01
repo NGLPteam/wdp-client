@@ -1,6 +1,32 @@
 import React, { useState } from "react";
 import { Page } from "react-pdf";
+import { useInView } from "react-intersection-observer";
 import AssetPDFPage from "../../AssetPDFPage";
+import { LoadingBlock } from "components/atomic";
+
+function AssetPage({ pageNumber }: { pageNumber: number }) {
+  const [loaded, setLoaded] = useState(false);
+
+  const onRenderSuccess = () => setLoaded(true);
+
+  const { ref, inView } = useInView({ rootMargin: "200px" });
+
+  return (
+    <div ref={ref} style={{ height: loaded ? "auto" : `${1159 / 2}px` }}>
+      {(inView || loaded) && (
+        <AssetPDFPage pageNumber={pageNumber}>
+          <Page
+            key={`page_${pageNumber}`}
+            pageNumber={pageNumber}
+            width={1159}
+            onRenderSuccess={onRenderSuccess}
+            loading={<LoadingBlock />}
+          />
+        </AssetPDFPage>
+      )}
+    </div>
+  );
+}
 
 export default function AssetRenderPages({
   numPages,
@@ -9,45 +35,12 @@ export default function AssetRenderPages({
   numPages: number;
   pageId?: string;
 }) {
-  const [state, setState] = useState<{
-    pagesRendered: number;
-  }>({
-    pagesRendered: 0,
-  });
-
-  const onRenderSuccess = () =>
-    setState({
-      pagesRendered: state.pagesRendered + 1,
-    });
-
-  const { pagesRendered } = state;
-
-  /**
-   * The amount of pages we want to render now. Always 1 more than already rendered,
-   * no more than total amount of pages in the document.
-   */
-  const pagesRenderedPlusOne = Math.min(pagesRendered + 1, numPages);
-
   return numPages ? (
     <>
-      {Array.from(new Array(pagesRenderedPlusOne), (el, i) => {
-        const isCurrentlyRendering = pagesRenderedPlusOne === i + 1;
-        const isLastPage = numPages === i + 1;
-        const needsCallbackToRenderNextPage =
-          isCurrentlyRendering && !isLastPage;
-
+      {Array.from(new Array(numPages), (el, i) => {
         return (
           <div id={`${pageId}${i + 1}`}>
-            <AssetPDFPage pageNumber={i + 1}>
-              <Page
-                key={`page_${i + 1}`}
-                onRenderSuccess={
-                  needsCallbackToRenderNextPage ? onRenderSuccess : undefined
-                }
-                pageNumber={i + 1}
-                width={1159}
-              />
-            </AssetPDFPage>
+            <AssetPage pageNumber={i + 1} />
           </div>
         );
       })}
