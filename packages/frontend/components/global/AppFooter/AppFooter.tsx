@@ -24,6 +24,10 @@ function AppFooter({ communityData }: Props) {
 
   const community = useMaybeFragment(communityFragment, communityData);
 
+  const searchProps = community
+    ? { route: "community.search", placeholder: `Search ${community.title}` }
+    : null;
+
   const communityCount = app?.communities?.pageInfo?.totalCount || 0;
 
   const { t } = useTranslation();
@@ -64,10 +68,10 @@ function AppFooter({ communityData }: Props) {
           )}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
-          <Search id="footerSearch" />
+          <Search id="footerSearch" {...searchProps} />
         </Styled.SearchWrapper>
         <Styled.SearchMobile>
-          <Search mobile id="footerMobileSearch" />
+          <Search mobile id="footerMobileSearch" {...searchProps} />
         </Styled.SearchMobile>
         <Styled.AboutWrapper>
           {community && (
@@ -140,6 +144,8 @@ const fragment = graphql`
 
 const communityFragment = graphql`
   fragment AppFooterCommunityFragment on Community {
+    slug
+    title
     ...CommunityPickerActiveFragment
     ...CommunityNameFragment
   }
