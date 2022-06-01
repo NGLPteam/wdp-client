@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
+import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 import { SearchButton } from "components/atomic";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
@@ -39,6 +40,7 @@ function AppHeader({ communityData, entityData }: Props) {
   return (
     <>
       <Styled.Header>
+        <SkipLink toId="main" />
         <Styled.HeaderInner className="l-container-wide">
           <Styled.LeftSide>
             {(!isCommunityRoot ||
