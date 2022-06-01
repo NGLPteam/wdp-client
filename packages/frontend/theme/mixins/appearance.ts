@@ -155,7 +155,7 @@ export function aFocus(content?: CssContent) {
 
 // The box shadow's line height should be the same - .07em,
 // but it's placement changes based on the font style
-function getBoxShadow(fontStyle: string): string {
+function getBoxShadow(fontStyle?: string): string {
   switch (fontStyle) {
     case "style3":
       return "inset 0 -0.11em 0 0 var(--background-color), inset 0 -0.18em 0 0 var(--color-light)";
@@ -168,6 +168,7 @@ function getBoxShadow(fontStyle: string): string {
   }
 }
 
+// Setting the box shadow with theme caused font render issues
 export const aLinkHoverFocus = css`
   color: var(--color-base);
   text-shadow: 0.04em 0.04em var(--background-color),

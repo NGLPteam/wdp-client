@@ -24,24 +24,25 @@ const AppContextProvider = ({ children }: Props) => {
 
   const theme = useMemo(() => data?.globalConfiguration?.theme, [data]);
 
-  return isLoading ? (
-    <LoadingPage />
-  ) : (
-    <ThemeProvider
-      theme={{
-        fontStyle: theme?.font,
-        colorStyle: theme?.color,
-      }}
-    >
-      <ReakitSSRProvider>
+  return (
+    <>
+      {isLoading && <LoadingPage />}
+      <ThemeProvider
+        theme={{
+          fontStyle: theme?.font,
+          colorStyle: theme?.color,
+        }}
+      >
         <GlobalStyles />
-        <GlobalContextProvider data={data}>
-          <ViewerContextProvider data={viewerData}>
-            <PageContextProvider>{children}</PageContextProvider>
-          </ViewerContextProvider>
-        </GlobalContextProvider>
-      </ReakitSSRProvider>
-    </ThemeProvider>
+        <ReakitSSRProvider>
+          <GlobalContextProvider data={data}>
+            <ViewerContextProvider data={viewerData}>
+              <PageContextProvider>{children}</PageContextProvider>
+            </ViewerContextProvider>
+          </GlobalContextProvider>
+        </ReakitSSRProvider>
+      </ThemeProvider>
+    </>
   );
 };
 
