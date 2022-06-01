@@ -176,7 +176,7 @@ export const aLinkHoverFocus = css`
     -0.04em -0.04em var(--background-color),
     0.04em -0.04em var(--background-color), -0.04em 0 var(--background-color),
     0.04em 0 var(--background-color);
-  box-shadow: ${() => getBoxShadow()};
+  box-shadow: ${({ theme }) => getBoxShadow(theme.fontStyle)};
 `;
 
 export const aLinkBase = `

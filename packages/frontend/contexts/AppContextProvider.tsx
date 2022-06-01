@@ -11,7 +11,6 @@ import GlobalStyles from "theme";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
 import { AppContextProviderViewerQuery as ViewerQuery } from "@/relay/AppContextProviderViewerQuery.graphql";
 import { LoadingPage } from "components/atomic";
-// import { useLatestPresentValue } from "@wdp/lib/hooks";
 
 /** Wraps the app with all necessary providers
  * ReakitSSRProvider - Reakit SSR support
@@ -24,20 +23,17 @@ const AppContextProvider = ({ children }: Props) => {
   const { data: viewerData } = useAuthenticatedQuery<ViewerQuery>(viewerQuery);
 
   const theme = useMemo(() => data?.globalConfiguration?.theme, [data]);
-  // useLatestPresentValue had no effect on font loading issue
-  // const { current: currentTheme } = useLatestPresentValue(theme);
 
   return (
     <>
       {isLoading && <LoadingPage />}
-      {/* Moving GlobalStyles out of ThemeProvider helped reduce font load issues */}
-      <GlobalStyles />
       <ThemeProvider
         theme={{
           fontStyle: theme?.font,
           colorStyle: theme?.color,
         }}
       >
+        <GlobalStyles />
         <ReakitSSRProvider>
           <GlobalContextProvider data={data}>
             <ViewerContextProvider data={viewerData}>
