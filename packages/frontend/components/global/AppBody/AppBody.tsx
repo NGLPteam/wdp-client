@@ -15,7 +15,9 @@ function AppBody({ children, communityData, entityData }: Props) {
   return (
     <Styled.Body className="a-bg-neutral00">
       <AppHeader communityData={community} entityData={entity} />
-      <Styled.Main id="main">{children}</Styled.Main>
+      <Styled.Main id="main" tabIndex={-1}>
+        {children}
+      </Styled.Main>
       <AppFooter communityData={community} />
     </Styled.Body>
   );
