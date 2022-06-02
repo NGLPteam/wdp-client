@@ -33,6 +33,8 @@ export default function AssetInlinePDFNav({ numPages, pageId }: Props) {
                   }
                   pageNumber={i + 1}
                   width={100}
+                  renderAnnotationLayer={false}
+                  renderTextLayer={false}
                 />
               </AssetPDFPage>
             </Styled.OutlineLink>

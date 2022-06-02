@@ -4,7 +4,13 @@ import { useInView } from "react-intersection-observer";
 import AssetPDFPage from "../../AssetPDFPage";
 import { LoadingBlock } from "components/atomic";
 
-function AssetPage({ pageNumber }: { pageNumber: number }) {
+export default function AssetInlinePDFPage({
+  pageNumber,
+  pageId,
+}: {
+  pageNumber: number;
+  pageId?: string;
+}) {
   const [loaded, setLoaded] = useState(false);
 
   const onRenderSuccess = () => setLoaded(true);
@@ -12,7 +18,11 @@ function AssetPage({ pageNumber }: { pageNumber: number }) {
   const { ref, inView } = useInView({ rootMargin: "200px" });
 
   return (
-    <div ref={ref} style={{ height: loaded ? "auto" : `${1159 / 2}px` }}>
+    <div
+      id={`${pageId}${pageNumber}`}
+      ref={ref}
+      style={{ height: loaded ? "auto" : `${1159 / 2}px` }}
+    >
       {(inView || loaded) && (
         <AssetPDFPage pageNumber={pageNumber}>
           <Page
@@ -26,24 +36,4 @@ function AssetPage({ pageNumber }: { pageNumber: number }) {
       )}
     </div>
   );
-}
-
-export default function AssetRenderPages({
-  numPages,
-  pageId,
-}: {
-  numPages: number;
-  pageId?: string;
-}) {
-  return numPages ? (
-    <>
-      {Array.from(new Array(numPages), (el, i) => {
-        return (
-          <div id={`${pageId}${i + 1}`}>
-            <AssetPage pageNumber={i + 1} />
-          </div>
-        );
-      })}
-    </>
-  ) : null;
 }

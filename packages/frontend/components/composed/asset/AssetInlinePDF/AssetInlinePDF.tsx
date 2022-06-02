@@ -2,9 +2,10 @@ import React, { useState, useMemo, useRef } from "react";
 import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { Trans } from "react-i18next";
 import * as Styled from "./AssetInlinePDF.styles";
 import AssetInlinePDFNav from "./AssetInlinePDFNav";
-import AssetInlinePDFPages from "./AssetInlinePDFPages";
+import AssetInlinePDFPage from "./AssetInlinePDFPage";
 import { NoContent } from "components/layout";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
@@ -49,7 +50,26 @@ export default function AssetInlinePDF({ data }: Props) {
 
   const { numPages } = state;
 
-  return file ? (
+  const fileMb = pdf?.fileSize ? pdf.fileSize / 1024 ** 2 : 0;
+
+  return !file ? (
+    <NoContent message={"common.no_content"} />
+  ) : fileMb > 100 ? (
+    <NoContent
+      message={
+        <Trans
+          i18nKey="asset.pdf_cannot_be_displayed"
+          components={{
+            downloadLink: (
+              <a href={pdf?.downloadUrl || ""} download>
+                link text
+              </a>
+            ),
+          }}
+        />
+      }
+    />
+  ) : (
     <Styled.Wrapper ref={wrapperRef}>
       <Document
         file={file}
@@ -57,9 +77,30 @@ export default function AssetInlinePDF({ data }: Props) {
         loading={<LoadingBlock />}
       >
         <Styled.DocumentWrapper>
-          <AssetInlinePDFNav numPages={numPages} pageId="page" />
+          <AssetInlinePDFNav
+            numPages={numPages > 25 ? 25 : numPages}
+            pageId="page"
+          />
           <Styled.PagesWrapper>
-            <AssetInlinePDFPages numPages={numPages} pageId="page" />
+            {Array.from(new Array(numPages > 25 ? 25 : numPages), (el, i) => {
+              return (
+                <AssetInlinePDFPage key={i} pageId="page" pageNumber={i + 1} />
+              );
+            })}
+            <NoContent
+              message={
+                <Trans
+                  i18nKey="asset.view_full_pdf"
+                  components={{
+                    downloadLink: (
+                      <a href={pdf?.downloadUrl || ""} download>
+                        link text
+                      </a>
+                    ),
+                  }}
+                />
+              }
+            />
             <Styled.BackToTopWrapper>
               <BackToTopButton onClick={handleBackToTop} />
             </Styled.BackToTopWrapper>
@@ -67,8 +108,6 @@ export default function AssetInlinePDF({ data }: Props) {
         </Styled.DocumentWrapper>
       </Document>
     </Styled.Wrapper>
-  ) : (
-    <NoContent />
   );
 }
 
@@ -80,6 +119,7 @@ const fragment = graphql`
   fragment AssetInlinePDFFragment on Asset {
     ... on AssetPDF {
       downloadUrl
+      fileSize
     }
     ...AssetDownloadButtonFragment
   }

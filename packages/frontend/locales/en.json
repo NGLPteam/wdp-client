@@ -135,7 +135,9 @@
       "audio": "audio",
       "video": "video",
       "document": "document",
-      "file": "file"
+      "file": "file",
+      "view_full_pdf": "To view the rest of this document, please <downloadLink>download the PDF</downloadLink>.",
+      "pdf_cannot_be_displayed": "This PDF is over 100 MB and cannot be displayed. Please <downloadLink>download the PDF</downloadLink> instead."
     },
     "metadata": {
       "author": "Author",

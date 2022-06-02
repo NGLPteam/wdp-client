@@ -13,4 +13,9 @@ export const Wrapper = styled.div`
   border-radius: var(--border-radius-md);
   color: var(--color-lighter);
   text-align: center;
+
+  a {
+    color: var(--color-dark);
+    text-decoration: underline;
+  }
 `;

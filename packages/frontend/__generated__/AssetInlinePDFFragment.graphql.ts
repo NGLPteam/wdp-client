@@ -7,6 +7,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type AssetInlinePDFFragment = {
     readonly downloadUrl?: string | null | undefined;
+    readonly fileSize?: number | undefined;
     readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
     readonly " $refType": "AssetInlinePDFFragment";
 };
@@ -33,6 +34,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "downloadUrl",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "fileSize",
+          "storageKey": null
         }
       ],
       "type": "AssetPDF",
@@ -47,5 +55,5 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = 'b63d9ec38520d0c9138a89259863724d';
+(node as any).hash = '79262486c2651a3b8733ba3a0564fabe';
 export default node;

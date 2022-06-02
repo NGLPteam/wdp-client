@@ -7,14 +7,18 @@ const NoContent = ({ message }: Props) => {
 
   return (
     <Styled.Wrapper>
-      <p className="h4">{t(message || "common.no_content")}</p>
+      <p className="h4">
+        {typeof message === "string"
+          ? t(message, "common.no_content")
+          : message}
+      </p>
     </Styled.Wrapper>
   );
 };
 
 interface Props {
   /** Override the default message */
-  message?: string;
+  message?: string | React.ReactNode;
 }
 
 export default NoContent;
