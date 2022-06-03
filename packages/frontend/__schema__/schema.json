@@ -829,8 +829,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -2960,8 +2960,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -8005,8 +8005,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -16918,8 +16918,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -17150,8 +17150,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -17490,8 +17490,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -17802,8 +17802,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -18130,8 +18130,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -18406,8 +18406,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -18682,8 +18682,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -18918,8 +18918,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -19218,8 +19218,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -19386,8 +19386,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -20097,8 +20097,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -20278,8 +20278,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -20459,8 +20459,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -20640,8 +20640,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -20821,8 +20821,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21002,8 +21002,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21183,8 +21183,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21364,8 +21364,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21494,8 +21494,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21727,8 +21727,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -21908,8 +21908,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -26768,8 +26768,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -32982,8 +32982,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -41289,8 +41289,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -41441,8 +41441,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -41649,8 +41649,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -45725,8 +45725,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -46246,6 +46246,22 @@
             "deprecationReason": null
           },
           {
+            "name": "installationHomePageCopy",
+            "description": "The text that appears on the root page of the frontend. Supports basic markdown.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "installationName",
             "description": "The name of the installation.",
             "args": [],
@@ -46292,6 +46308,18 @@
           {
             "name": "installationName",
             "description": "The name of the installation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "installationHomePageCopy",
+            "description": "The text that appears on the root page of the frontend. Supports basic markdown.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -46563,8 +46591,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -48529,8 +48557,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -48709,8 +48737,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -48937,8 +48965,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -49301,8 +49329,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -49689,8 +49717,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -49901,8 +49929,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -50073,8 +50101,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalConfiguration",
@@ -50437,8 +50465,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -50721,8 +50749,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -51025,8 +51053,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -51273,8 +51301,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -51601,8 +51629,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -51785,8 +51813,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -52001,8 +52029,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -52201,8 +52229,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",
@@ -52542,8 +52570,8 @@
                 }
               }
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
           },
           {
             "name": "globalErrors",

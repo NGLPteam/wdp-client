@@ -157,7 +157,7 @@ type AlterSchemaVersionPayload implements StandardMutationPayload {
   collection: Collection
   community: Community
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -454,7 +454,7 @@ type ApplySchemaPropertiesPayload implements StandardMutationPayload {
   collection: Collection
   community: Community
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -1274,7 +1274,7 @@ type ClearInitialOrderingPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2726,7 +2726,7 @@ type CreateAnnouncementPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2759,7 +2759,7 @@ type CreateAssetPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2821,7 +2821,7 @@ type CreateCollectionPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   collection: Collection
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2881,7 +2881,7 @@ type CreateCommunityPayload implements StandardMutationPayload {
   clientMutationId: String
   """A representation of a successfully created community"""
   community: Community
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2942,7 +2942,7 @@ type CreateItemPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -2978,7 +2978,7 @@ type CreateOrderingPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3025,7 +3025,7 @@ type CreateOrganizationContributorPayload implements StandardMutationPayload {
   clientMutationId: String
   """The created organization"""
   contributor: OrganizationContributor
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3057,7 +3057,7 @@ type CreatePagePayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3103,7 +3103,7 @@ type CreatePersonContributorPayload implements StandardMutationPayload {
   clientMutationId: String
   """The created person"""
   contributor: PersonContributor
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3122,7 +3122,7 @@ type CreateRolePayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3272,7 +3272,7 @@ type DestroyAnnouncementPayload implements StandardMutationPayload & DestroyMuta
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3295,7 +3295,7 @@ type DestroyAssetPayload implements StandardMutationPayload & DestroyMutationPay
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3318,7 +3318,7 @@ type DestroyCollectionPayload implements StandardMutationPayload & DestroyMutati
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3341,7 +3341,7 @@ type DestroyCommunityPayload implements StandardMutationPayload & DestroyMutatio
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3363,7 +3363,7 @@ type DestroyContributionPayload implements StandardMutationPayload & DestroyMuta
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3385,7 +3385,7 @@ type DestroyContributorPayload implements StandardMutationPayload & DestroyMutat
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3408,7 +3408,7 @@ type DestroyEntityLinkPayload implements StandardMutationPayload & DestroyMutati
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3431,7 +3431,7 @@ type DestroyItemPayload implements StandardMutationPayload & DestroyMutationPayl
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3444,7 +3444,7 @@ interface DestroyMutationPayload {
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3467,7 +3467,7 @@ type DestroyOrderingPayload implements StandardMutationPayload & DestroyMutation
   """The ID of the deleted model"""
   destroyedId: ID
   disabled: Boolean
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -3489,7 +3489,7 @@ type DestroyPagePayload implements StandardMutationPayload & DestroyMutationPayl
   destroyed: Boolean
   """The ID of the deleted model"""
   destroyedId: ID
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -4574,7 +4574,7 @@ type GrantAccessPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Whether or not access was granted"""
   granted: Boolean
@@ -5735,7 +5735,7 @@ type LinkEntityPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -7300,7 +7300,7 @@ type ReparentEntityPayload implements StandardMutationPayload {
   child: AnyChildEntity
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -7318,7 +7318,7 @@ type ResetOrderingPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -7340,7 +7340,7 @@ type RevokeAccessPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -8218,7 +8218,7 @@ type SelectInitialOrderingPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   entity: AnyEntity
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -8335,6 +8335,8 @@ input SiteFooterInput {
 type SiteSettings {
   """Settings related to the site's footer"""
   footer: SiteFooter!
+  """The text that appears on the root page of the frontend. Supports basic markdown."""
+  installationHomePageCopy: String!
   """The name of the installation."""
   installationName: String!
   """The name of the provider supporting and maintaining this installation."""
@@ -8345,6 +8347,8 @@ type SiteSettings {
 input SiteSettingsInput {
   """The name of the installation."""
   installationName: String
+  """The text that appears on the root page of the frontend. Supports basic markdown."""
+  installationHomePageCopy: String
   """The name of the provider supporting and maintaining this installation."""
   providerName: String
   """Settings for the site's footer"""
@@ -8362,7 +8366,7 @@ interface Sluggable {
 """Most mutations implement this interface in their payload in order to offer a standardize response value"""
 interface StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -8876,7 +8880,7 @@ type UpdateAnnouncementPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -8901,7 +8905,7 @@ type UpdateAssetAttachmentPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -8936,7 +8940,7 @@ type UpdateAssetPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9010,7 +9014,7 @@ type UpdateCollectionPayload implements StandardMutationPayload {
   clientMutationId: String
   """A new representation of the collection, on a successful update"""
   collection: Collection
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9092,7 +9096,7 @@ type UpdateCommunityPayload implements StandardMutationPayload {
   clientMutationId: String
   """A new representation of the community, on a succesful update"""
   community: Community
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9115,7 +9119,7 @@ type UpdateContributionPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   contribution: AnyContribution
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9138,7 +9142,7 @@ type UpdateGlobalConfigurationPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   """Though a global configuration always exists, this will be null if it fails to apply for some reason."""
   globalConfiguration: GlobalConfiguration
   globalErrors: [MutationGlobalError!]!
@@ -9213,7 +9217,7 @@ type UpdateItemPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9248,7 +9252,7 @@ type UpdateOrderingPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9301,7 +9305,7 @@ type UpdateOrganizationContributorPayload implements StandardMutationPayload {
   clientMutationId: String
   """The updated organization"""
   contributor: OrganizationContributor
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9338,7 +9342,7 @@ type UpdatePagePayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9390,7 +9394,7 @@ type UpdatePersonContributorPayload implements StandardMutationPayload {
   clientMutationId: String
   """The created person"""
   contributor: PersonContributor
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9410,7 +9414,7 @@ type UpdateRolePayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9449,7 +9453,7 @@ type UpdateUserPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9487,7 +9491,7 @@ type UpdateViewerSettingsPayload implements StandardMutationPayload {
   attributeErrors: [MutationAttributeError!]!
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
@@ -9546,7 +9550,7 @@ type UpsertContributionPayload implements StandardMutationPayload {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   contribution: AnyContribution
-  errors: [UserError!]!
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
   globalErrors: [MutationGlobalError!]!
   """Not presently used"""
   haltCode: String
