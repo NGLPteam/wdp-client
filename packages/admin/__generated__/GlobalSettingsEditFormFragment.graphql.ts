@@ -9,6 +9,7 @@ export type GlobalSettingsEditFormFragment = {
     readonly site: {
         readonly providerName: string;
         readonly installationName: string;
+        readonly installationHomePageCopy: string;
         readonly footer: {
             readonly description: string;
             readonly copyrightStatement: string;
@@ -54,6 +55,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "installationName",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "installationHomePageCopy",
           "storageKey": null
         },
         {
@@ -113,5 +121,5 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = 'e9782c98bef2bdac999fd42ed33755f3';
+(node as any).hash = '4c063c9cddcb42b253aaf35fef29a536';
 export default node;

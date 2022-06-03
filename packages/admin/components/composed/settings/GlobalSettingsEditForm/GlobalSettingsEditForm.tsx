@@ -43,6 +43,11 @@ export default function GlobalSettingsEditForm({
           label="forms.fields.installation_name"
           {...register("site.installationName")}
         />
+        <Forms.Textarea
+          label="forms.fields.installation_home_copy"
+          description="forms.fields.installation_home_copy_description"
+          {...register("site.installationHomePageCopy")}
+        />
         <Forms.Select
           label="forms.fields.theme_color"
           description={t("forms.fields.theme_color_description")}
@@ -111,6 +116,7 @@ const fragment = graphql`
     site {
       providerName
       installationName
+      installationHomePageCopy
       footer {
         description
         copyrightStatement
@@ -132,6 +138,7 @@ const mutation = graphql`
         site {
           providerName
           installationName
+          installationHomePageCopy
           footer {
             description
             copyrightStatement

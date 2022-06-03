@@ -167,6 +167,7 @@ export type AlterSchemaVersionPayload = StandardMutationPayload & {
   collection?: Maybe<Collection>;
   community?: Maybe<Community>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -464,6 +465,7 @@ export type ApplySchemaPropertiesPayload = StandardMutationPayload & {
   collection?: Maybe<Collection>;
   community?: Maybe<Community>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -1285,6 +1287,7 @@ export type ClearInitialOrderingPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2593,6 +2596,7 @@ export type CreateAnnouncementPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2624,6 +2628,7 @@ export type CreateAssetPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2672,6 +2677,7 @@ export type CreateCollectionPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   collection?: Maybe<Collection>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2715,6 +2721,7 @@ export type CreateCommunityPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** A representation of a successfully created community */
   community?: Maybe<Community>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2762,6 +2769,7 @@ export type CreateItemPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2796,6 +2804,7 @@ export type CreateOrderingPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2835,6 +2844,7 @@ export type CreateOrganizationContributorPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** The created organization */
   contributor?: Maybe<OrganizationContributor>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2862,6 +2872,7 @@ export type CreatePagePayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2900,6 +2911,7 @@ export type CreatePersonContributorPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** The created person */
   contributor?: Maybe<PersonContributor>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -2920,6 +2932,7 @@ export type CreateRolePayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3049,6 +3062,7 @@ export type DestroyAnnouncementPayload = StandardMutationPayload & DestroyMutati
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3073,6 +3087,7 @@ export type DestroyAssetPayload = StandardMutationPayload & DestroyMutationPaylo
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3097,6 +3112,7 @@ export type DestroyCollectionPayload = StandardMutationPayload & DestroyMutation
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3121,6 +3137,7 @@ export type DestroyCommunityPayload = StandardMutationPayload & DestroyMutationP
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3144,6 +3161,7 @@ export type DestroyContributionPayload = StandardMutationPayload & DestroyMutati
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3167,6 +3185,7 @@ export type DestroyContributorPayload = StandardMutationPayload & DestroyMutatio
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3191,6 +3210,7 @@ export type DestroyEntityLinkPayload = StandardMutationPayload & DestroyMutation
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3215,6 +3235,7 @@ export type DestroyItemPayload = StandardMutationPayload & DestroyMutationPayloa
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3228,6 +3249,7 @@ export type DestroyMutationPayload = {
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3252,6 +3274,7 @@ export type DestroyOrderingPayload = StandardMutationPayload & DestroyMutationPa
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
   disabled?: Maybe<Scalars['Boolean']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -3275,6 +3298,7 @@ export type DestroyPagePayload = StandardMutationPayload & DestroyMutationPayloa
   destroyed?: Maybe<Scalars['Boolean']>;
   /** The ID of the deleted model */
   destroyedId?: Maybe<Scalars['ID']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -4180,6 +4204,7 @@ export type GrantAccessPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Whether or not access was granted */
@@ -5222,6 +5247,7 @@ export type LinkEntityPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -6774,6 +6800,7 @@ export type ReparentEntityPayload = StandardMutationPayload & {
   child?: Maybe<AnyChildEntity>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -6793,6 +6820,7 @@ export type ResetOrderingPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -6816,6 +6844,7 @@ export type RevokeAccessPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -7583,6 +7612,7 @@ export type SelectInitialOrderingPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -7691,6 +7721,8 @@ export type SiteSettings = {
   __typename?: 'SiteSettings';
   /** Settings related to the site's footer */
   footer: SiteFooter;
+  /** The text that appears on the root page of the frontend. Supports basic markdown. */
+  installationHomePageCopy: Scalars['String'];
   /** The name of the installation. */
   installationName: Scalars['String'];
   /** The name of the provider supporting and maintaining this installation. */
@@ -7701,6 +7733,8 @@ export type SiteSettings = {
 export type SiteSettingsInput = {
   /** The name of the installation. */
   installationName?: Maybe<Scalars['String']>;
+  /** The text that appears on the root page of the frontend. Supports basic markdown. */
+  installationHomePageCopy?: Maybe<Scalars['String']>;
   /** The name of the provider supporting and maintaining this installation. */
   providerName?: Maybe<Scalars['String']>;
   /** Settings for the site's footer */
@@ -7716,6 +7750,7 @@ export type Sluggable = {
 /** Most mutations implement this interface in their payload in order to offer a standardize response value */
 export type StandardMutationPayload = {
   attributeErrors: Array<MutationAttributeError>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8155,6 +8190,7 @@ export type UpdateAnnouncementPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8178,6 +8214,7 @@ export type UpdateAssetAttachmentPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8213,6 +8250,7 @@ export type UpdateAssetPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8269,6 +8307,7 @@ export type UpdateCollectionPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** A new representation of the collection, on a successful update */
   collection?: Maybe<Collection>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8324,6 +8363,7 @@ export type UpdateCommunityPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** A new representation of the community, on a succesful update */
   community?: Maybe<Community>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8348,6 +8388,7 @@ export type UpdateContributionPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   contribution?: Maybe<AnyContribution>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8372,6 +8413,7 @@ export type UpdateGlobalConfigurationPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   /** Though a global configuration always exists, this will be null if it fails to apply for some reason. */
   globalConfiguration?: Maybe<GlobalConfiguration>;
@@ -8429,6 +8471,7 @@ export type UpdateItemPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8462,6 +8505,7 @@ export type UpdateOrderingPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8504,6 +8548,7 @@ export type UpdateOrganizationContributorPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** The updated organization */
   contributor?: Maybe<OrganizationContributor>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8533,6 +8578,7 @@ export type UpdatePagePayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8574,6 +8620,7 @@ export type UpdatePersonContributorPayload = StandardMutationPayload & {
   clientMutationId?: Maybe<Scalars['String']>;
   /** The created person */
   contributor?: Maybe<PersonContributor>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8595,6 +8642,7 @@ export type UpdateRolePayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8623,6 +8671,7 @@ export type UpdateUserPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8650,6 +8699,7 @@ export type UpdateViewerSettingsPayload = StandardMutationPayload & {
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -8704,6 +8754,7 @@ export type UpsertContributionPayload = StandardMutationPayload & {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: Maybe<Scalars['String']>;
   contribution?: Maybe<AnyContribution>;
+  /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
@@ -12647,6 +12698,7 @@ export type SiteFooterResolvers<ContextType = any, ParentType extends ResolversP
 
 export type SiteSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteSettings'] = ResolversParentTypes['SiteSettings']> = {
   footer?: Resolver<ResolversTypes['SiteFooter'], ParentType, ContextType>;
+  installationHomePageCopy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   installationName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   providerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

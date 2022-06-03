@@ -10,6 +10,7 @@ export type InstanceHeroFragment = {
         readonly site: {
             readonly providerName: string;
             readonly installationName: string;
+            readonly installationHomePageCopy: string;
         };
     };
     readonly " $refType": "InstanceHeroFragment";
@@ -57,6 +58,13 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "installationName",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "installationHomePageCopy",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -68,5 +76,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '061f00774cc78b81f2a904884ad53c22';
+(node as any).hash = '85652069d01b688e09bfa35ecee2db71';
 export default node;

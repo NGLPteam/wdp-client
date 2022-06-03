@@ -348,6 +348,8 @@
         "fields": "Fields",
         "provider_name": "Provider Name",
         "installation_name": "Installation Name",
+        "installation_home_copy": "Installation home page copy",
+        "installation_home_copy_description": "This text will show on the installation's home page, if the installation has multiple communities.",
         "theme_color": "Color Theme",
         "theme_color_description": "Set the app color theme across all communities.",
         "theme_font": "Font Theme",
