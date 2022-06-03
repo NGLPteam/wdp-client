@@ -14,9 +14,11 @@ export default function InstanceHero({ data }: Props) {
         <div className="l-container-wide">
           <h2>{app?.globalConfiguration.site.installationName || "WDP"}</h2>
           {app?.globalConfiguration.site.installationHomePageCopy && (
-            <Markdown.Summary className="t-rte">
-              {app.globalConfiguration.site.installationHomePageCopy}
-            </Markdown.Summary>
+            <Styled.Text>
+              <Markdown.Summary>
+                {app.globalConfiguration.site.installationHomePageCopy}
+              </Markdown.Summary>
+            </Styled.Text>
           )}
         </div>
       </Styled.Header>
