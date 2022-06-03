@@ -1,58 +1,44 @@
 import styled from "styled-components";
-import { IconFactory } from "components/factories";
-import { aGlow, aLink, aBgLight } from "theme/mixins/appearance";
+import { aLink, aBgLight } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
 
 interface WrapperProps extends React.HTMLProps<HTMLButtonElement> {
-  $descendants?: boolean;
+  $checked?: boolean;
 }
 
-interface LabelProps extends React.HTMLProps<HTMLLabelElement> {
-  $descendants?: boolean;
-}
+const selectedStyles = `
+  ${aBgLight("brand10")}
+  --background-color: var(--brand10);
+  --background-light: var(--brand20);
+  transition: var(--background-transition);
+  --button-background: var(--brand10);
+`;
 
-interface IconProps extends React.HTMLProps<SVGSVGElement> {
-  $checked: boolean;
-}
-
-export const Wrapper = styled.button<Pick<WrapperProps, "$descendants">>`
+export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
   display: flex;
   flex-wrap: none;
   align-items: center;
   justify-content: space-between;
   padding: ${pxToRem(16)};
+  padding-inline-start: ${pxToRem(40)};
   width: 100%;
   cursor: default;
 
-  --button-control-opacity: 0;
-  --button-control-visibility: 0;
+  --button-background: transparent;
 
-  ${({ $descendants }) =>
-    $descendants &&
-    `
-    cursor: pointer;
+  &:hover,
+  &:focus {
+    ${selectedStyles}
+  }
 
-    &:hover,
-    &:focus
-    {
-      ${aBgLight("brand10")}
-      --background-color: var(--brand10);
-      --background-light: var(--brand20);
-      transition: var(--background-transition);
-
-      --button-control-opacity: 1;
-      --button-control-visibility: 1;
-      --checkbox-opacity: 1;
-      --checkbox-visibility: 1;
-    }
-  `}
+  ${({ $checked }) => $checked && selectedStyles}
 `;
 export const Item = styled.div`
   display: flex;
   align-items: flex-start;
 `;
 
-export const Label = styled.label<Pick<LabelProps, "$descendants">>`
+export const Label = styled.label`
   ${aLink()}
   cursor: pointer;
   font-weight: var(--font-weight-medium);
@@ -63,61 +49,10 @@ export const Label = styled.label<Pick<LabelProps, "$descendants">>`
   input:disabled + & {
     cursor: default;
   }
-
-  ${({ $descendants }) =>
-    !$descendants &&
-    `&:hover {
-    text-decoration: none;
-    cursor: default;
-  }`}
 `;
 
-export const Icon = styled(IconFactory)<Pick<IconProps, "$checked">>`
-  cursor: pointer;
-  display: inline-block;
-  margin-inline-end: ${pxToRem(8)};
-  flex-shrink: 0;
-
-  [data-path-name="check"] {
-    color: transparent;
-  }
-
-  [data-path-name="box"] {
-    fill: var(--neutral00);
-  }
-
-  &:hover,
-  input:hover + & {
-    color: var(--accent-light);
-  }
-
-  input:disabled + & {
-    color: var(--color-lighter);
-    cursor: default;
-  }
-
-  input:focus + & {
-    ${aGlow("lightMode")}
-    color: var(--accent-light);
-  }
-
-  ${({ $checked }) =>
-    $checked &&
-    `
-      color: var(--accent-light);
-
-      [data-path-name="box"] {
-        fill: currentColor;
-      }
-
-      [data-path-name="check"] {
-        color: var(--background-color);
-      }
-  `}
-`;
-
-export const Arrow = styled(IconFactory)`
-  transform: rotate(90deg);
-  ${aLink()}
-  flex-shrink: 0;
+export const Metadata = styled.span`
+  display: block;
+  color: var(--color-light);
+  margin-block-start: ${pxToRem(4)};
 `;

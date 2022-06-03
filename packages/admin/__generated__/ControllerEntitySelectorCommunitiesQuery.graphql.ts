@@ -13,6 +13,9 @@ export type ControllerEntitySelectorCommunitiesQueryResponse = {
                 readonly id: string;
                 readonly title: string;
                 readonly slug: string;
+                readonly schemaVersion: {
+                    readonly name: string;
+                };
             };
         }>;
     };
@@ -33,6 +36,10 @@ query ControllerEntitySelectorCommunitiesQuery {
         id
         title
         slug
+        schemaVersion {
+          name
+          id
+        }
       }
     }
   }
@@ -40,57 +47,89 @@ query ControllerEntitySelectorCommunitiesQuery {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "CommunityConnection",
-    "kind": "LinkedField",
-    "name": "communities",
-    "plural": false,
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
+return {
+  "fragment": {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ControllerEntitySelectorCommunitiesQuery",
     "selections": [
       {
         "alias": null,
         "args": null,
-        "concreteType": "CommunityEdge",
+        "concreteType": "CommunityConnection",
         "kind": "LinkedField",
-        "name": "edges",
-        "plural": true,
+        "name": "communities",
+        "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "Community",
+            "concreteType": "CommunityEdge",
             "kind": "LinkedField",
-            "name": "node",
-            "plural": false,
+            "name": "edges",
+            "plural": true,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "title",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "slug",
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SchemaVersion",
+                    "kind": "LinkedField",
+                    "name": "schemaVersion",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
                 "storageKey": null
               }
             ],
@@ -100,16 +139,6 @@ var v0 = [
         "storageKey": null
       }
     ],
-    "storageKey": null
-  }
-];
-return {
-  "fragment": {
-    "argumentDefinitions": [],
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "ControllerEntitySelectorCommunitiesQuery",
-    "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -118,17 +147,68 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "ControllerEntitySelectorCommunitiesQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  (v1/*: any*/),
+                  (v2/*: any*/),
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SchemaVersion",
+                    "kind": "LinkedField",
+                    "name": "schemaVersion",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v1/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "771124d2d932738f5b55bb72d62f72e3",
+    "cacheID": "52fba72757d767b02803a51120bfc7df",
     "id": null,
     "metadata": {},
     "name": "ControllerEntitySelectorCommunitiesQuery",
     "operationKind": "query",
-    "text": "query ControllerEntitySelectorCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n      }\n    }\n  }\n}\n"
+    "text": "query ControllerEntitySelectorCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '9cecf5a469d250792927a5f239b9524d';
+(node as any).hash = 'f3bb4067fcfb1d35cf7badb6ff622a4b';
 export default node;

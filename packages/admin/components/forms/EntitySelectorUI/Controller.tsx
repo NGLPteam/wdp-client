@@ -11,7 +11,12 @@ import {
 } from "@/relay/ControllerEntitySelectorEntityQuery.graphql";
 
 import type { ReparentEntityInput } from "@/relay/ParentSelectorModalMutation.graphql";
-import type { Community, Collection, Item } from "types/graphql-schema";
+import type {
+  Community,
+  Collection,
+  Item,
+  SchemaVersion,
+} from "types/graphql-schema";
 
 interface Props {
   startEntity?: string;
@@ -19,15 +24,23 @@ interface Props {
   setValue?: UseFormSetValue<ReparentEntityInput>;
 }
 
-interface CommunityOption extends Omit<Partial<Community>, "__typename"> {
+interface CommunityOption
+  extends Omit<Partial<Community>, "__typename" | "schemaVersion"> {
   __typename: string;
+  schemaVersion: Partial<SchemaVersion>;
 }
-interface CollectionOption extends Omit<Partial<Collection>, "__typename"> {
+interface CollectionOption
+  extends Omit<Partial<Collection>, "__typename" | "schemaVersion"> {
   __typename: string;
+  schemaVersion: Partial<SchemaVersion>;
 }
-interface ItemOption extends Omit<Item, "__typename"> {
+interface ItemOption
+  extends Omit<Partial<Item>, "__typename" | "schemaVersion"> {
   __typename: string;
+  schemaVersion: Partial<SchemaVersion>;
 }
+
+export type EntityOption = CommunityOption | CollectionOption | ItemOption;
 
 export default function Controller({
   startEntity,
@@ -35,8 +48,7 @@ export default function Controller({
   setValue,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startEntity);
-  const [selected, setSelected] =
-    useState<CommunityOption | CollectionOption | ItemOption | undefined>();
+  const [selected, setSelected] = useState<EntityOption | undefined>();
 
   useEffect(() => {
     if (setValue && selected) setValue("parentId", selected.id ?? "");
@@ -48,9 +60,7 @@ export default function Controller({
     slug: currentEntity || "",
   };
 
-  const renderOptions = (
-    data: readonly { node: CommunityOption | CollectionOption | ItemOption }[]
-  ) => {
+  const renderOptions = (data: readonly { node: EntityOption }[]) => {
     return data.map(({ node }) => {
       const hasDescendants =
         node.__typename === "Community" ||
@@ -65,9 +75,8 @@ export default function Controller({
             setSelected(node);
           }}
           key={node.id}
-        >
-          {node.title}
-        </EntitySelector>
+          entity={node}
+        />
       );
     });
   };
@@ -142,6 +151,9 @@ const communitiesQuery = graphql`
           id
           title
           slug
+          schemaVersion {
+            name
+          }
         }
       }
     }
@@ -161,6 +173,9 @@ const entityQuery = graphql`
             slug
             hasItems
             hasCollections
+            schemaVersion {
+              name
+            }
           }
         }
       }
@@ -188,6 +203,9 @@ const entityQuery = graphql`
             slug
             hasItems
             hasCollections
+            schemaVersion {
+              name
+            }
           }
         }
       }
@@ -199,6 +217,9 @@ const entityQuery = graphql`
             title
             slug
             hasItems
+            schemaVersion {
+              name
+            }
           }
         }
       }
@@ -226,6 +247,9 @@ const entityQuery = graphql`
             title
             slug
             hasItems
+            schemaVersion {
+              name
+            }
           }
         }
       }

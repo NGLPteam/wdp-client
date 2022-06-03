@@ -1,10 +1,12 @@
 import { forwardRef } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useUID } from "react-uid";
+import type { EntityOption } from "../EntitySelectorUI/Controller";
 import * as Styled from "./EntitySelector.styles";
+import { ButtonControl } from "components/atomic";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
-  children?: JSX.Element | string;
+  entity: EntityOption;
   hasDescendants?: boolean;
   onShowDescendants: () => void;
   checked: boolean;
@@ -14,7 +16,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 const EntitySelector = forwardRef(
   (
     {
-      children,
+      entity,
       hasDescendants,
       checked,
       onToggle,
@@ -25,8 +27,10 @@ const EntitySelector = forwardRef(
   ) => {
     const id = useUID();
     /* stopPropagation is required for input events to prevent clicking into the entity hierarchy; preventDefault is required to not trigger form submit events. -LD */
-    const handleCheck = (
-      e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement>
+    const handleSelect = (
+      e:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.MouseEvent<HTMLLabelElement>
     ) => {
       e.preventDefault();
       e.stopPropagation();
@@ -38,37 +42,34 @@ const EntitySelector = forwardRef(
     };
 
     return (
-      <Styled.Wrapper
-        onClick={hasDescendants ? handleExpand : undefined}
-        aria-disabled={!hasDescendants}
-        $descendants={hasDescendants}
-      >
+      <Styled.Wrapper $checked={checked}>
         <Styled.Item aria-label={props["aria-label"] ?? undefined}>
           <input
             id={id}
             className="a-hidden"
-            type="checkbox"
+            type="radio"
             ref={ref}
             {...props}
-            onChange={handleCheck}
+            onChange={handleSelect}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
             }}
           />
-          <Styled.Icon
-            icon="checkbox"
-            role="presentation"
-            onClick={handleCheck}
-            $checked={checked}
-          />
-          {children && (
-            <Styled.Label htmlFor={id} $descendants={hasDescendants}>
-              {children}
+          <div>
+            <Styled.Label htmlFor={id} onClick={handleSelect}>
+              {entity.title}
             </Styled.Label>
-          )}
+            {entity.schemaVersion && (
+              <Styled.Metadata className="t-copy-sm">
+                Schema: {entity.schemaVersion.name}
+              </Styled.Metadata>
+            )}
+          </div>
         </Styled.Item>
-        {hasDescendants && <Styled.Arrow icon="arrow" role="presentation" />}
+        {hasDescendants && (
+          <ButtonControl onClick={handleExpand} icon="arrow" iconRotate={90} />
+        )}
       </Styled.Wrapper>
     );
   }
