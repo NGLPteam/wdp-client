@@ -30,6 +30,7 @@ fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
   site {
     providerName
     installationName
+    installationHomePageCopy
     footer {
       description
       copyrightStatement
@@ -108,6 +109,13 @@ const node: ConcreteRequest = {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "installationHomePageCopy",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "SiteFooter",
                 "kind": "LinkedField",
                 "name": "footer",
@@ -171,12 +179,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "74b9d810cd9af1e8130ae74daaf4c71a",
+    "cacheID": "b644c9d883954ba9f3e8c4436b4d8a62",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    footer {\n      description\n      copyrightStatement\n    }\n  }\n  theme {\n    color\n    font\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n  }\n  theme {\n    color\n    font\n  }\n}\n"
   }
 };
 (node as any).hash = '14c05f979e57359ae35bfe24eb0c1ce9';

@@ -16,6 +16,7 @@ export type InstitutionSettingsInput = {
 };
 export type SiteSettingsInput = {
     installationName?: string | null | undefined;
+    installationHomePageCopy?: string | null | undefined;
     providerName?: string | null | undefined;
     footer?: SiteFooterInput | null | undefined;
 };
@@ -36,6 +37,7 @@ export type GlobalSettingsEditFormMutationResponse = {
             readonly site: {
                 readonly providerName: string;
                 readonly installationName: string;
+                readonly installationHomePageCopy: string;
                 readonly footer: {
                     readonly description: string;
                     readonly copyrightStatement: string;
@@ -65,6 +67,7 @@ mutation GlobalSettingsEditFormMutation(
       site {
         providerName
         installationName
+        installationHomePageCopy
         footer {
           description
           copyrightStatement
@@ -131,6 +134,13 @@ v2 = {
       "args": null,
       "kind": "ScalarField",
       "name": "installationName",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "installationHomePageCopy",
       "storageKey": null
     },
     {
@@ -337,14 +347,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f44d684ed7f409fab707b86fa35e7f86",
+    "cacheID": "ee5dcd7a3baed946f9d15388b69c064c",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        footer {\n          description\n          copyrightStatement\n        }\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '43c5d375f26f6da3f25ff051cbe25729';
+(node as any).hash = '5599b27e6c3442e3491e03a32ad44f1e';
 export default node;

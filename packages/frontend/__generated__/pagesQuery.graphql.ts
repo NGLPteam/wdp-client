@@ -87,6 +87,7 @@ fragment InstanceHeroFragment on Query {
     site {
       providerName
       installationName
+      installationHomePageCopy
     }
     id
   }
@@ -359,6 +360,13 @@ return {
                 "kind": "ScalarField",
                 "name": "installationName",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "installationHomePageCopy",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -370,12 +378,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fda0009a49f1bfdbce1b79724b8bf536",
+    "cacheID": "274237f5f3e30bf34c8e3f54b74f0250",
     "id": null,
     "metadata": {},
     "name": "pagesQuery",
     "operationKind": "query",
-    "text": "query pagesQuery {\n  ...InstanceContentLayoutFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n    }\n    id\n  }\n}\n"
+    "text": "query pagesQuery {\n  ...InstanceContentLayoutFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
   }
 };
 })();
