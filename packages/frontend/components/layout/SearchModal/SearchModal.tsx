@@ -75,8 +75,10 @@ export default function SearchModal({ dialog, data }: Props) {
               {t("search.search_area_label")}
             </Styled.SelectLabel>
             <Select id={selectId} {...register("entity")}>
+              <option value={""}>{t("search.instance_scope_label")}</option>
               {searchData && searchData.__typename !== "Item" && (
                 <option
+                  selected
                   value={JSON.stringify({
                     type: searchData.__typename,
                     slug: searchData.slug,

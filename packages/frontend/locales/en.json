@@ -52,7 +52,8 @@
       "count_results_for_name": "{{count}} <0>result for </0> <1>\"{{name}}\"</1>",
       "count_results_for_name_plural": "{{count}} <0>results for</0> <1>\"{{name}}\"</1>",
       "no_results": "Sorry, the search returned no results. Try a new search term, or remove filters.",
-      "start_search": "Start searching by entering a new search term, or use the filter panel."
+      "start_search": "Start searching by entering a new search term, or use the filter panel.",
+      "instance_scope_label": "All Communities"
     },
     "sort": {
       "results_header": "Sort by:",
