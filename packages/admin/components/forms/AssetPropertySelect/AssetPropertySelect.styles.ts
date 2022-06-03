@@ -15,6 +15,7 @@ export const Field = styled.div`
   }
 
   > *:last-child {
+    flex: 0 0 auto;
     border-color: var(--input-border-color);
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
