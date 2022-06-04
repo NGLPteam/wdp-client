@@ -36,11 +36,12 @@ export default function ParentSelectorModal({
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, setValue } }) => {
+      const onSelect = (id: string) => setValue("parentId", id);
       return (
         <EntitySelectorUI
-          setValue={setValue}
+          onSelect={onSelect}
           {...register("parentId")}
-          label={"Select a new parent..."}
+          label={"Parent"}
           startEntity={parentSlug}
         />
       );

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-import type { UseFormSetValue } from "react-hook-form";
 import EntitySelector from "../EntitySelector";
 import * as Styled from "./EntitySelectorUI.styles";
 import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
@@ -10,7 +9,6 @@ import {
   ControllerEntitySelectorEntityQueryResponse as EntityResponse,
 } from "@/relay/ControllerEntitySelectorEntityQuery.graphql";
 
-import type { ReparentEntityInput } from "@/relay/ParentSelectorModalMutation.graphql";
 import type {
   Community,
   Collection,
@@ -21,7 +19,7 @@ import type {
 interface Props {
   startEntity?: string;
   scopeToCommunity?: boolean;
-  setValue?: UseFormSetValue<ReparentEntityInput>;
+  onSelect?: (val?: string) => void;
 }
 
 interface CommunityOption
@@ -45,14 +43,14 @@ export type EntityOption = CommunityOption | CollectionOption | ItemOption;
 export default function Controller({
   startEntity,
   scopeToCommunity,
-  setValue,
+  onSelect,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startEntity);
   const [selected, setSelected] = useState<EntityOption | undefined>();
 
   useEffect(() => {
-    if (setValue && selected) setValue("parentId", selected.id ?? "");
-  }, [selected, setValue]);
+    if (onSelect) onSelect(selected?.id);
+  }, [selected, onSelect]);
 
   if (scopeToCommunity && !startEntity) return null;
 
@@ -71,9 +69,8 @@ export default function Controller({
           hasDescendants={hasDescendants}
           onShowDescendants={() => setCurrent(node.slug)}
           checked={node.id === selected?.id}
-          onToggle={() => {
-            setSelected(node);
-          }}
+          onSelectEntity={() => setSelected(node)}
+          onPageChange={() => setSelected(undefined)}
           key={node.id}
           entity={node}
         />
@@ -113,6 +110,7 @@ export default function Controller({
       <Styled.Back
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
+          setSelected(undefined);
           setCurrent(parent);
         }}
       >
