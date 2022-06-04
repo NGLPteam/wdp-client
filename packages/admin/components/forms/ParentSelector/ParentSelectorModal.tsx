@@ -41,8 +41,9 @@ export default function ParentSelectorModal({
         <EntitySelectorUI
           onSelect={onSelect}
           {...register("parentId")}
-          label={"Parent"}
+          label={t("forms.parent.label")}
           startEntity={parentSlug}
+          resetValue={parentId}
         />
       );
     },
@@ -57,7 +58,7 @@ export default function ParentSelectorModal({
     >
       {({ handleClose }) => (
         <Styled.ModalContent className="t-rte">
-          <p>{t("forms.parent.change_message")}</p>
+          <Styled.Message>{t("forms.parent.change_message")}</Styled.Message>
           <MutationForm<ParentSelectorModalMutation, Fields>
             name="reparentEntity"
             mutation={mutation}
