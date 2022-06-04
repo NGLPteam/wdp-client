@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { useTranslation } from "react-i18next";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useUID } from "react-uid";
 import type { EntityOption } from "../EntitySelectorUI/Controller";
@@ -28,6 +29,7 @@ const EntitySelector = forwardRef(
     ref: MaybeInputRef
   ) => {
     const id = useUID();
+    const { t } = useTranslation();
     /* stopPropagation is required for input events to prevent clicking into the entity hierarchy; preventDefault is required to not trigger form submit events. -LD */
     const handleSelect = (
       e:
@@ -65,7 +67,7 @@ const EntitySelector = forwardRef(
             </Styled.Label>
             {entity.schemaVersion && (
               <Styled.Metadata className="t-copy-sm">
-                Schema: {entity.schemaVersion.name}
+                {t("glossary.schema")}: {entity.schemaVersion.name}
               </Styled.Metadata>
             )}
           </div>

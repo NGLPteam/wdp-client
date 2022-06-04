@@ -18,8 +18,9 @@ import type {
 
 interface Props {
   startEntity?: string;
+  resetValue: string;
   scopeToCommunity?: boolean;
-  onSelect?: (val?: string) => void;
+  onSelect?: (val: string) => void;
 }
 
 interface CommunityOption
@@ -42,6 +43,7 @@ export type EntityOption = CommunityOption | CollectionOption | ItemOption;
 
 export default function Controller({
   startEntity,
+  resetValue,
   scopeToCommunity,
   onSelect,
 }: Props) {
@@ -49,7 +51,7 @@ export default function Controller({
   const [selected, setSelected] = useState<EntityOption | undefined>();
 
   useEffect(() => {
-    if (onSelect) onSelect(selected?.id);
+    if (onSelect) onSelect(selected?.id ?? resetValue);
   }, [selected, onSelect]);
 
   if (scopeToCommunity && !startEntity) return null;
