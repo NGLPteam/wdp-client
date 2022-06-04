@@ -30,14 +30,14 @@ const EntitySelector = forwardRef(
   ) => {
     const id = useUID();
     const { t } = useTranslation();
-    /* stopPropagation is required for input events to prevent clicking into the entity hierarchy; preventDefault is required to not trigger form submit events. -LD */
+
+    /* preventDefault is required to not trigger form submit events. -LD */
     const handleSelect = (
       e:
         | React.ChangeEvent<HTMLInputElement>
         | React.MouseEvent<HTMLLabelElement>
     ) => {
       e.preventDefault();
-      e.stopPropagation();
       onSelectEntity();
     };
     const handleExpand = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +58,6 @@ const EntitySelector = forwardRef(
             onChange={handleSelect}
             onClick={(e) => {
               e.preventDefault();
-              e.stopPropagation();
             }}
           />
           <div>

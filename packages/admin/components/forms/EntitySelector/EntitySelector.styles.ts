@@ -27,7 +27,8 @@ export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
   --button-background: transparent;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:focus-within {
     ${selectedStyles}
   }
 
