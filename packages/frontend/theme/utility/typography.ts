@@ -11,6 +11,10 @@ import {
 
 export default css`
   /* Headings - only add if needed */
+  .t-h2 {
+    ${tHeading(2)}
+  }
+
   .t-h3 {
     ${tHeading(3)}
   }

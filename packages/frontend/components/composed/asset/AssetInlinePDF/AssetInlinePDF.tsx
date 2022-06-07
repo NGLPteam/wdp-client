@@ -80,8 +80,9 @@ export default function AssetInlinePDF({ data }: Props) {
           <AssetInlinePDFNav
             numPages={numPages > 25 ? 25 : numPages}
             pageId="page"
+            contentId="pdfContent"
           />
-          <Styled.PagesWrapper>
+          <Styled.PagesWrapper id="pdfContent" tabIndex={-1}>
             {Array.from(new Array(numPages > 25 ? 25 : numPages), (el, i) => {
               return (
                 <AssetInlinePDFPage key={i} pageId="page" pageNumber={i + 1} />

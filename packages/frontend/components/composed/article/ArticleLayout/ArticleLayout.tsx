@@ -16,7 +16,8 @@ export default function ArticleLayout({ data, children }: Props) {
       <BreadcrumbsBar data={article} />
       <ArticleParentHeader data={article} />
       <ArticleHero data={article} />
-      <ArticleTabNav data={article} />
+      <ArticleTabNav data={article} contentId="articleContent" />
+      <div id="articleContent" tabIndex={-1} />
       {children}
       <RelatedArticles data={article?.relatedItems} />
     </>
