@@ -48,7 +48,7 @@ export default function CommunityUpdateForm({
 
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => {
-      const inputValues = pick(data, [
+      const { heroImage, heroImageMetadata, ...inputValues } = pick(data, [
         "title",
         "tagline",
         "logo",
@@ -65,6 +65,7 @@ export default function CommunityUpdateForm({
       return {
         input: {
           ...inputValues,
+          ...(heroImage && { heroImage, heroImageMetadata }),
           schemaProperties: { ...schemaValues },
           communityId,
         },
