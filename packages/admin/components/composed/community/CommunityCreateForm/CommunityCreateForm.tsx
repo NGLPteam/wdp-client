@@ -5,6 +5,7 @@ import { graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   Forms,
+  useToVariables,
 } from "components/api/MutationForm";
 
 import type {
@@ -13,6 +14,20 @@ import type {
 } from "@/relay/CommunityCreateFormMutation.graphql";
 
 export default function CommunityCreateForm({ onSuccess }: Props) {
+  const toVariables = useToVariables<CommunityCreateFormMutation, Fields>(
+    (data) => {
+      const { heroImage, heroImageMetadata, ...inputData } = data;
+
+      return {
+        input: {
+          ...inputData,
+          ...(heroImage && { heroImage, heroImageMetadata }),
+        },
+      };
+    },
+    []
+  );
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
@@ -57,6 +72,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
       successNotification="messages.create.community_success"
       name="createCommunity"
       refetchTags={["communities"]}
+      toVariables={toVariables}
     >
       {renderForm}
     </MutationForm>
