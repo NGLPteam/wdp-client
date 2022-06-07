@@ -37,7 +37,7 @@
       "page_count": "{{count}} Page",
       "page_count_plural": "{{count}} Pages",
       "of_count": "of {{count}}",
-      "showing_count_out_of_total": "<0>Showing</0> {{start}} - {{end}} <0>out of</0> {{total}} {{name}}",
+      "showing_count_out_of_total": "<0>Showing</0> {{start}} - {{end}} <0>out of</0> {{total, number}} {{name}}",
       "order_by_label": "Order by:",
       "and_x_more": "and {{count}} more"
     },

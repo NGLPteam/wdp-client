@@ -8,7 +8,7 @@ export const updateI18n = (lang: string) => {
   i18n.language !== lang && i18n.changeLanguage(lang);
 };
 
-export const DEFAULT_LNG = "en";
+export const DEFAULT_LNG = "en-US";
 
 export const SUPPORTED_LOCALES: Record<string, string> = {};
 
@@ -24,6 +24,8 @@ i18n
     resources,
     interpolation: {
       escapeValue: false,
+      format: (value, format, lng) =>
+        format === "number" ? new Intl.NumberFormat(lng).format(value) : value,
     },
     fallbackLng: {
       default: [DEFAULT_LNG],
