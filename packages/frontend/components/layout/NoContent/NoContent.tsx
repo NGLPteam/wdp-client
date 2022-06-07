@@ -9,7 +9,7 @@ const NoContent = ({ message }: Props) => {
     <Styled.Wrapper>
       <p className="h4">
         {typeof message === "string"
-          ? t(message, "common.no_content")
+          ? t(message || "common.no_content")
           : message}
       </p>
     </Styled.Wrapper>
