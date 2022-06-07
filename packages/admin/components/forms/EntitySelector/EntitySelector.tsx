@@ -1,10 +1,9 @@
 import { forwardRef } from "react";
-import { useTranslation } from "react-i18next";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useUID } from "react-uid";
 import type { EntityOption } from "../EntitySelectorUI/Controller";
 import * as Styled from "./EntitySelector.styles";
-import { ButtonControl } from "components/atomic";
+import { IconFactory } from "components/factories";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   entity: EntityOption;
@@ -29,7 +28,6 @@ const EntitySelector = forwardRef(
     ref: MaybeInputRef
   ) => {
     const id = useUID();
-    const { t } = useTranslation();
 
     /* preventDefault is required to not trigger form submit events. -LD */
     const handleSelect = (
@@ -48,7 +46,11 @@ const EntitySelector = forwardRef(
 
     return (
       <Styled.Wrapper $checked={checked}>
-        <Styled.Item aria-label={props["aria-label"] ?? undefined}>
+        <Styled.Item
+          aria-label={props["aria-label"] ?? undefined}
+          onClick={handleSelect}
+          $checked={checked}
+        >
           <input
             id={id}
             className="a-hidden"
@@ -61,18 +63,20 @@ const EntitySelector = forwardRef(
             }}
           />
           <div>
-            <Styled.Label htmlFor={id} onClick={handleSelect}>
-              {entity.title}
-            </Styled.Label>
+            <Styled.Label>{entity.title}</Styled.Label>
             {entity.schemaVersion && (
               <Styled.Metadata className="t-copy-sm">
-                {t("glossary.schema")}: {entity.schemaVersion.name}
+                {entity.schemaVersion.name}
               </Styled.Metadata>
             )}
           </div>
         </Styled.Item>
         {hasDescendants && (
-          <ButtonControl onClick={handleExpand} icon="arrow" iconRotate={90} />
+          <Styled.ExpandButton onClick={handleExpand} $checked={checked}>
+            <Styled.IconWrapper>
+              <IconFactory icon="arrow" rotate={90} />
+            </Styled.IconWrapper>
+          </Styled.ExpandButton>
         )}
       </Styled.Wrapper>
     );

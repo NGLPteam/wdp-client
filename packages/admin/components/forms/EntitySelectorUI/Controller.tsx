@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import EntitySelector from "../EntitySelector";
-import { LoadingCircle } from "components/atomic";
 import * as Styled from "./EntitySelectorUI.styles";
+import { LoadingCircle } from "components/atomic";
 import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
 import {
   ControllerEntitySelectorEntityQuery as EntityQuery,
