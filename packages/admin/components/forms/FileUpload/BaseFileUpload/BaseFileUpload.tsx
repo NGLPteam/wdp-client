@@ -177,6 +177,19 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
                     )}
                   </Styled.UploadText>
                 </>
+              ) : state.file ? (
+                <>
+                  <BaseFileUploadPreview
+                    file={state.file}
+                    isLoading={state.active}
+                  />
+                  <Styled.RemoveButton onClick={handleClear} type="button">
+                    {t("forms.file.remove")}
+                  </Styled.RemoveButton>
+                  <Styled.UploadText>
+                    {t("forms.file.upload_new")}
+                  </Styled.UploadText>
+                </>
               ) : storage === "CACHE" && !isCleared ? (
                 <>
                   <Styled.ProcessingFile>
@@ -185,19 +198,6 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
                       {t("forms.file.processing", { name: originalFilename })}
                     </div>
                   </Styled.ProcessingFile>
-                  <Styled.RemoveButton onClick={handleClear} type="button">
-                    {t("forms.file.remove")}
-                  </Styled.RemoveButton>
-                  <Styled.UploadText>
-                    {t("forms.file.upload_new")}
-                  </Styled.UploadText>
-                </>
-              ) : state.file ? (
-                <>
-                  <BaseFileUploadPreview
-                    file={state.file}
-                    isLoading={state.active}
-                  />
                   <Styled.RemoveButton onClick={handleClear} type="button">
                     {t("forms.file.remove")}
                   </Styled.RemoveButton>
