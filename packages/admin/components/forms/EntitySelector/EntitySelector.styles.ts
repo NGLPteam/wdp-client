@@ -58,7 +58,7 @@ export const Item = styled.label<Pick<LabelProps, "$checked">>`
   display: flex;
   align-items: flex-start;
   padding-block: ${pxToRem(16)};
-  padding-inline-start: ${pxToRem(56)};
+  padding-inline-start: ${pxToRem(40)};
   width: 80%;
   cursor: pointer;
 `;
