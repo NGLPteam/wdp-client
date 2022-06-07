@@ -10,8 +10,8 @@ import { pxToRem } from "theme/mixins/functions";
 export const DialogBackdrop = styled(BaseDialogBackdrop)`
   position: fixed;
   /* Center align short modals on the x-axis */
-  /* display: flex;
-  align-items: center; */
+  display: flex;
+  align-items: center;
   transition: opacity 0.1s var(--base-timing);
   opacity: 0;
   inset-block: 0;
@@ -34,7 +34,7 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 export const DialogWrapper = styled.div`
   position: absolute;
   inset-inline-start: 50%;
-  inset-block-start: var(--global-header-height);
+  /* inset-block-start: var(--global-header-height); */
   transform: translateX(-50%);
   z-index: var(--z-index-drawer);
   /* Center align modals on the y-axis */
@@ -45,7 +45,7 @@ export const DialogWrapper = styled.div`
   max-height: 100%;
   max-width: 100%;
   /* Scrolling should happen inside this container */
-  overflow: auto;
+  overflow: hidden;
   /* Padding so modal doesn't bump up against browser window */
   padding-block-start: ${fluidScale("24px", "12px")};
   padding-block-end: ${fluidScale("24px", "12px")};

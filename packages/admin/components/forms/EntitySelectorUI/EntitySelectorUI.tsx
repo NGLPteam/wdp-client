@@ -9,7 +9,7 @@ interface Props extends Omit<BaseProps, "children">, ControllerProps {
   height?: string;
 }
 
-function EntitySelectorUI({ height = "500px", ...props }: Props) {
+function EntitySelectorUI({ height = "400px", ...props }: Props) {
   return (
     <BaseInputWrapper role="group" {...props}>
       <Styled.Wrapper $height={height}>
