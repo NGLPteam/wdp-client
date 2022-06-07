@@ -17,9 +17,15 @@ import type {
 } from "types/graphql-schema";
 
 interface Props {
-  startEntity?: string;
-  resetValue: string;
+  /* Slug of the entity to show expanded at launch of the selector. If no slug, the selector opens at the all communities scope. A value is required if scopeToCommunity is true.  */
+  startSlug?: string;
+  /* The value of the select is reset on each page change as the user navigates through the hierarchy to prevent selecting an entity that is out of view. Defaults to "", but accepts a different default, e.g. if it's useful to preserve the previous value when a new entity is not selected. */
+  resetValue?: string;
+  /* Show the current community as the top-level entity in the hierarchy, e.g. to prevent the user from reparenting an item out of its current community. */
   scopeToCommunity?: boolean;
+  /* The id of the current entity to filter out of the selector hierarchy when selecting self is not an option.  */
+  omitSelfId?: string;
+  /* The specific setValue function from react-hook-form to call when the value of the selector changes. */
   onSelect?: (val: string) => void;
 }
 
@@ -42,42 +48,45 @@ interface ItemOption
 export type EntityOption = CommunityOption | CollectionOption | ItemOption;
 
 export default function Controller({
-  startEntity,
-  resetValue,
+  startSlug,
+  resetValue = "",
   scopeToCommunity,
+  omitSelfId,
   onSelect,
 }: Props) {
-  const [currentEntity, setCurrent] = useState(startEntity);
+  const [currentEntity, setCurrent] = useState(startSlug);
   const [selected, setSelected] = useState<EntityOption | undefined>();
 
   useEffect(() => {
     if (onSelect) onSelect(selected?.id ?? resetValue);
-  }, [selected, onSelect]);
+  }, [selected, onSelect, resetValue]);
 
-  if (scopeToCommunity && !startEntity) return null;
+  if (scopeToCommunity && !startSlug) return null;
 
   const queryVars = {
     slug: currentEntity || "",
   };
 
   const renderOptions = (data: readonly { node: EntityOption }[]) => {
-    return data.map(({ node }) => {
-      const hasDescendants =
-        node.__typename === "Community" ||
-        ("hasCollections" in node && node.hasCollections) ||
-        ("hasItems" in node && node.hasItems);
-      return (
-        <EntitySelector
-          hasDescendants={hasDescendants}
-          onShowDescendants={() => setCurrent(node.slug)}
-          checked={node.id === selected?.id}
-          onSelectEntity={() => setSelected(node)}
-          onPageChange={() => setSelected(undefined)}
-          key={node.id}
-          entity={node}
-        />
-      );
-    });
+    return data
+      .filter(({ node }) => node.id !== omitSelfId)
+      .map(({ node }) => {
+        const hasDescendants =
+          node.__typename === "Community" ||
+          ("hasCollections" in node && node.hasCollections) ||
+          ("hasItems" in node && node.hasItems);
+        return (
+          <EntitySelector
+            hasDescendants={hasDescendants}
+            onShowDescendants={() => setCurrent(node.slug)}
+            checked={node.id === selected?.id}
+            onSelectEntity={() => setSelected(node)}
+            onPageChange={() => setSelected(undefined)}
+            key={node.id}
+            entity={node}
+          />
+        );
+      });
   };
 
   const getChildren = (data: EntityResponse | null | undefined) => {
