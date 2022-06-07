@@ -38,9 +38,11 @@ export default function ArticleHero({ data }: Props) {
       }
       title={<Markdown.Title>{article.title}</Markdown.Title>}
       subtitle={
-        <h4 className="t-copy-italic">
-          <Markdown.Title>{article.subtitle}</Markdown.Title>
-        </h4>
+        article.subtitle && (
+          <h2 className="t-copy-italic">
+            <Markdown.Title>{article.subtitle}</Markdown.Title>
+          </h2>
+        )
       }
       LeftComponent={
         <>

@@ -135,7 +135,9 @@
       "audio": "audio",
       "video": "video",
       "document": "document",
-      "file": "file"
+      "file": "file",
+      "view_full_pdf": "To view the rest of this document, please <downloadLink>download the PDF</downloadLink>.",
+      "pdf_cannot_be_displayed": "This PDF is over 100 MB and cannot be displayed. Please <downloadLink>download the PDF</downloadLink> instead."
     },
     "metadata": {
       "author": "Author",
@@ -197,6 +199,9 @@
       "instance_communities_header": "Communities"
     },
     "nav": {
+      "content_navigation_label": "Content Navigation",
+      "article_navigation_label": "Article Navigation",
+      "pdf_navigation_label": "PDF Navigation",
       "home": "Home",
       "about": "About",
       "accessibility": "VPAT and Accessibility",
@@ -222,8 +227,8 @@
       "metadata": "Metadata",
       "files": "Files",
       "contributors": "Contributors",
-      "skip_to_content_label": "Skip to content",
-      "skip_to_content_message": "Skipped to main content"
+      "skip_to_content": "Skip to content",
+      "skip_to_pdf_content": "Skip to pdf content"
     },
     "form": {
       "order_label": "Order:"

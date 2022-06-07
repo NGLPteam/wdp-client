@@ -13,11 +13,7 @@ export default function SkipLink({ toId, label }: Props) {
 
   return (
     <Styled.SkipLink href={href}>
-      <Alert
-        message={label ?? t("nav.skip_to_content_label")}
-        color="blue"
-        badge
-      />
+      <Alert message={label ?? t("nav.skip_to_content")} color="blue" badge />
     </Styled.SkipLink>
   );
 }

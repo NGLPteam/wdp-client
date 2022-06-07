@@ -1,40 +1,40 @@
-import React, { useState, useMemo, useRef, useCallback } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useIsMounted } from "@wdp/lib/hooks";
-import { useTranslation } from "react-i18next";
-import AssetPDFPage from "../AssetPDFPage";
+import { Trans } from "react-i18next";
 import * as Styled from "./AssetInlinePDF.styles";
 import AssetInlinePDFNav from "./AssetInlinePDFNav";
-import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
+import AssetInlinePDFPage from "./AssetInlinePDFPage";
+import { NoContent } from "components/layout";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
+import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function AssetInlinePDF({ data }: Props) {
   const pdf = useMaybeFragment(fragment, data);
 
-  const { t } = useTranslation();
-
-  const [numPages, setNumPages] = useState<number | null>(null);
-
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const file = useMemo(() => pdf?.downloadUrl, [pdf]);
-
-  const isMounted = useIsMounted();
-
-  const onLoadSuccess = useCallback(
-    ({ numPages }) => {
-      setNumPages(numPages);
-    },
-    [setNumPages]
+  const file = useMemo(
+    () => ({
+      url: pdf?.downloadUrl,
+      httpHeaders: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }),
+    [pdf]
   );
+
+  const [state, setState] = useState<{
+    numPages: number;
+  }>({
+    numPages: 0,
+  });
 
   const handleBackToTop = () => {
     if (!wrapperRef || !wrapperRef.current || !document) return;
-
     const bounding = wrapperRef.current.getBoundingClientRect();
     const scrollTop = window.pageYOffset + bounding.top;
 
@@ -43,47 +43,71 @@ export default function AssetInlinePDF({ data }: Props) {
     document.documentElement.scrollTop = scrollTop; // For Chrome, Firefox, IE and Opera
   };
 
-  return (
-    <Styled.Wrapper ref={wrapperRef}>
-      {isMounted && file ? (
-        <Document
-          file={{
-            url: file,
-            httpHeaders: {
-              "Access-Control-Allow-Origin": "*",
-            },
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) =>
+    setState({
+      numPages,
+    });
+
+  const { numPages } = state;
+
+  const fileMb = pdf?.fileSize ? pdf.fileSize / 1024 ** 2 : 0;
+
+  return !file ? (
+    <NoContent message={"common.no_content"} />
+  ) : fileMb > 100 ? (
+    <NoContent
+      message={
+        <Trans
+          i18nKey="asset.pdf_cannot_be_displayed"
+          components={{
+            downloadLink: (
+              <a href={pdf?.downloadUrl || ""} download>
+                link text
+              </a>
+            ),
           }}
-          onLoadSuccess={onLoadSuccess}
-          loading={<LoadingBlock label="common.loading_pdf" />}
-          onLoadError={(err) => console.info(err.message)}
-        >
-          {numPages && (
-            <Styled.DocumentWrapper>
-              {numPages > 1 && (
-                <AssetInlinePDFNav numPages={numPages} pageId="page" />
-              )}
-              <Styled.PagesWrapper>
-                {[...Array(numPages).keys()].map((page) => (
-                  <div key={page} id={`page${page + 1}`}>
-                    <AssetPDFPage
-                      pageNumber={page + 1}
-                      renderPageNumber
-                      pageLabel={"list.page_number"}
-                    />
-                  </div>
-                ))}
-                {numPages > 1 && (
-                  <Styled.BackToTopWrapper>
-                    <BackToTopButton onClick={handleBackToTop} />
-                  </Styled.BackToTopWrapper>
-                )}
-              </Styled.PagesWrapper>
-            </Styled.DocumentWrapper>
-          )}
-        </Document>
-      ) : (
-        t("common.no_content")
-      )}
+        />
+      }
+    />
+  ) : (
+    <Styled.Wrapper ref={wrapperRef}>
+      <Document
+        file={file}
+        onLoadSuccess={onDocumentLoadSuccess}
+        loading={<LoadingBlock />}
+      >
+        <Styled.DocumentWrapper>
+          <AssetInlinePDFNav
+            numPages={numPages > 25 ? 25 : numPages}
+            pageId="page"
+            contentId="pdfContent"
+          />
+          <Styled.PagesWrapper id="pdfContent" tabIndex={-1}>
+            {Array.from(new Array(numPages > 25 ? 25 : numPages), (el, i) => {
+              return (
+                <AssetInlinePDFPage key={i} pageId="page" pageNumber={i + 1} />
+              );
+            })}
+            <NoContent
+              message={
+                <Trans
+                  i18nKey="asset.view_full_pdf"
+                  components={{
+                    downloadLink: (
+                      <a href={pdf?.downloadUrl || ""} download>
+                        link text
+                      </a>
+                    ),
+                  }}
+                />
+              }
+            />
+            <Styled.BackToTopWrapper>
+              <BackToTopButton onClick={handleBackToTop} />
+            </Styled.BackToTopWrapper>
+          </Styled.PagesWrapper>
+        </Styled.DocumentWrapper>
+      </Document>
     </Styled.Wrapper>
   );
 }
@@ -96,6 +120,7 @@ const fragment = graphql`
   fragment AssetInlinePDFFragment on Asset {
     ... on AssetPDF {
       downloadUrl
+      fileSize
     }
     ...AssetDownloadButtonFragment
   }

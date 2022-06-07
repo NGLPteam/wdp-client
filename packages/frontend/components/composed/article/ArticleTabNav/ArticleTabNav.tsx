@@ -11,10 +11,11 @@ import {
 } from "@/relay/ArticleTabNavFragment.graphql";
 import { NamedLink } from "components/atomic";
 import { RouteHelper } from "routes";
+import SkipLink from "components/global/SkipLink";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
-export default function ArticleTabNav({ data }: Props) {
+export default function ArticleTabNav({ data, contentId }: Props) {
   const nav = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
@@ -59,7 +60,15 @@ export default function ArticleTabNav({ data }: Props) {
   }
 
   return nav ? (
-    <Styled.Nav className="l-container-wide">
+    <Styled.Nav
+      className="l-container-wide"
+      aria-label={
+        nav.schemaVersion?.identifier === "journal_article"
+          ? t("nav.article_navigation_label")
+          : t("nav.content_navigation_label")
+      }
+    >
+      <SkipLink toId={contentId} label={t("nav.skip_to_content")} />
       <Styled.List>
         {getLink(
           "item",
@@ -85,6 +94,7 @@ export default function ArticleTabNav({ data }: Props) {
 
 interface Props {
   data?: ArticleTabNavFragment$key | null;
+  contentId: string;
 }
 
 const fragment = graphql`

@@ -17,9 +17,9 @@ export default function PrimaryHero({
           {Alert && <Styled.Alert>{Alert}</Styled.Alert>}
           {LogoComponent && <Styled.Logo>{LogoComponent}</Styled.Logo>}
           <Styled.Title>
-            <h2>{title}</h2>
+            <h1 className="t-h2">{title}</h1>
             {subtitle && typeof subtitle === "string" ? (
-              <h3>{subtitle}</h3>
+              <h2 className="t-h3">{subtitle}</h2>
             ) : (
               subtitle
             )}
