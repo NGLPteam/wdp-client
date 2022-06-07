@@ -8,7 +8,6 @@ interface WrapperProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 export const Wrapper = styled.div<Pick<WrapperProps, "$height">>`
-  padding-block: ${pxToRem(12)};
   border: 1px solid;
   border-color: var(--input-border-color);
   border-radius: ${pxToRem(4)};

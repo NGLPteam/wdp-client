@@ -33,6 +33,13 @@ export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
   }
 
   ${({ $checked }) => $checked && selectedStyles}
+
+  &:first-child {
+    margin-block-start: ${pxToRem(12)};
+  }
+  &:last-child {
+    margin-block-end: ${pxToRem(12)};
+  }
 `;
 export const Item = styled.div`
   display: flex;

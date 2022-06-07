@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import EntitySelector from "../EntitySelector";
+import { LoadingCircle } from "components/atomic";
 import * as Styled from "./EntitySelectorUI.styles";
 import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
 import {
@@ -136,17 +137,23 @@ export default function Controller({
       {({ data }) =>
         data?.communities?.edges.length ? (
           <>{renderOptions(data.communities.edges)}</>
-        ) : null
+        ) : (
+          <LoadingCircle />
+        )
       }
     </QueryWrapper>
   ) : (
     <QueryWrapper<EntityQuery> query={entityQuery} initialVariables={queryVars}>
-      {({ data }) => (
-        <>
-          {renderBack(data)}
-          {getChildren(data)}
-        </>
-      )}
+      {({ data }) =>
+        data ? (
+          <>
+            {renderBack(data)}
+            {getChildren(data)}
+          </>
+        ) : (
+          <LoadingCircle />
+        )
+      }
     </QueryWrapper>
   );
 }
