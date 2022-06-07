@@ -21,7 +21,7 @@ export default function SearchSchemaFilter({ data }: Props) {
 
   // We don't want to render the checkboxes until we have the default value.
   // schemaQuery should always return an array.
-  return (
+  return schemaData?.schemas?.length ? (
     <CheckboxGroup name="schema" label={t("glossary.schema")}>
       <>
         {schemaData.schemas.map(({ schemaDefinition, name }) => (
@@ -49,7 +49,7 @@ export default function SearchSchemaFilter({ data }: Props) {
         ))}
       </>
     </CheckboxGroup>
-  );
+  ) : null;
 }
 
 interface Props {
