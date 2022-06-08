@@ -36,12 +36,16 @@ import type {
   useDestroyerDestroyPageMutation,
 } from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
-import { RevokeAccessInput } from "types/graphql-schema";
+import {
+  DestroyAnnouncementInput,
+  RevokeAccessInput,
+} from "types/graphql-schema";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
   DestroyAssetInput,
   useDestroyerDestroyAssetMutation,
 } from "@/relay/useDestroyerDestroyAssetMutation.graphql";
+import { useDestroyerDestroyAnnouncementMutation } from "@/relay/useDestroyerDestroyAnnouncementMutation.graphql";
 
 export function useDestroyer() {
   const notify = useNotify();
@@ -201,6 +205,22 @@ export function useDestroyer() {
     [commitDestroyPage, handleResponse]
   );
 
+  /* Destroy an announcement */
+  const [commitDestroyAnnouncement] =
+    useMutation<useDestroyerDestroyAnnouncementMutation>(
+      destroyAnnouncementMutation
+    );
+
+  const announcement = useCallback(
+    async (input: DestroyAnnouncementInput, label: string) => {
+      const response = await commitDestroyAnnouncement({
+        variables: { input },
+      });
+      return handleResponse(response.destroyAnnouncement, label);
+    },
+    [commitDestroyAnnouncement, handleResponse]
+  );
+
   return {
     collection,
     item,
@@ -212,6 +232,7 @@ export function useDestroyer() {
     access,
     link,
     page,
+    announcement,
   };
 }
 export default useDestroyer;
@@ -310,6 +331,17 @@ const destroyEntityLinkMutation = graphql`
 const destroyPageMutation = graphql`
   mutation useDestroyerDestroyPageMutation($input: DestroyPageInput!) {
     destroyPage(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyAnnouncementMutation = graphql`
+  mutation useDestroyerDestroyAnnouncementMutation(
+    $input: DestroyAnnouncementInput!
+  ) {
+    destroyAnnouncement(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }

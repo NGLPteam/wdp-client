@@ -61,8 +61,8 @@ function EntityAnnouncementsList<T extends OperationType>({
         drawerAnnouncementSlug: row.original.slug,
       }),
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
-      destroy.page(
-        { pageId: row.original.id },
+      destroy.announcement(
+        { announcementId: row.original.id },
         row.original.header || "glossary.announcement"
       ),
   };
