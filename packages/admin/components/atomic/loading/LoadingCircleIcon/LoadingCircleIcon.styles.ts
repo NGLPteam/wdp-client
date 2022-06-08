@@ -5,8 +5,9 @@ import { spin } from "theme/base/animations";
 const CIRCLE_SIZE = pxToRem(80);
 
 export const Circle = styled.div`
-  height: ${CIRCLE_SIZE};
-  width: ${CIRCLE_SIZE};
+  height: 50%;
+  max-height: ${CIRCLE_SIZE};
+  aspect-ratio: 1/1;
   border-radius: 50%;
   border: 4px solid;
   border-top-color: var(--brand30);
