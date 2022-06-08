@@ -6,13 +6,9 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityAnnouncementLayoutFactoryFragment = {
-    readonly schemaDefinition?: {
-        readonly identifier: string;
-    } | undefined;
     readonly announcement?: {
         readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementLayoutFragment">;
     } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment">;
     readonly " $refType": "EntityAnnouncementLayoutFactoryFragment";
 };
 export type EntityAnnouncementLayoutFactoryFragment$data = EntityAnnouncementLayoutFactoryFragment;
@@ -39,24 +35,6 @@ const node: ReaderFragment = {
       "selections": [
         {
           "alias": null,
-          "args": null,
-          "concreteType": "SchemaDefinition",
-          "kind": "LinkedField",
-          "name": "schemaDefinition",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "identifier",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
           "args": [
             {
               "kind": "Variable",
@@ -76,11 +54,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityLayoutFactoryFragment"
         }
       ],
       "type": "Collection",
@@ -90,5 +63,5 @@ const node: ReaderFragment = {
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = '7055f6cee1d9153cfd7b0a76599aff27';
+(node as any).hash = 'e7ed12925b1fb692f451fe09f6a95571';
 export default node;
