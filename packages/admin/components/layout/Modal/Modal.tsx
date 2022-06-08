@@ -1,8 +1,8 @@
 import * as React from "react";
-import { useLayoutEffect } from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
+import usePreventBodyScroll from "./hooks/usePreventBodyScroll";
 import * as Styled from "./Modal.styles";
 import { ButtonControl } from "components/atomic/buttons";
 
@@ -16,24 +16,11 @@ const Modal = ({
   const uidDesc = useUID();
   const { t } = useTranslation();
 
+  usePreventBodyScroll(dialog.visible);
+
   const handleClose = () => {
     if (dialog && dialog.hide) dialog.hide();
   };
-
-  useLayoutEffect(() => {
-    const { documentElement } = document;
-    const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
-    const previousOverflow = documentElement.style.overflow;
-    const previousPaddingRight = documentElement.style.paddingRight;
-    if (dialog.visible) {
-      documentElement.style.overflow = "hidden";
-      documentElement.style.paddingRight = `${scrollBarWidth}px`;
-    }
-    return () => {
-      documentElement.style.overflow = previousOverflow;
-      documentElement.style.paddingRight = previousPaddingRight;
-    };
-  }, [dialog.visible]);
 
   return (
     <Styled.DialogBackdrop {...dialog}>
