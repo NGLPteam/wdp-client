@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useLayoutEffect } from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
@@ -19,6 +20,21 @@ const Modal = ({
     if (dialog && dialog.hide) dialog.hide();
   };
 
+  useLayoutEffect(() => {
+    const { documentElement } = document;
+    const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
+    const previousOverflow = documentElement.style.overflow;
+    const previousPaddingRight = documentElement.style.paddingRight;
+    if (dialog.visible) {
+      documentElement.style.overflow = "hidden";
+      documentElement.style.paddingRight = `${scrollBarWidth}px`;
+    }
+    return () => {
+      documentElement.style.overflow = previousOverflow;
+      documentElement.style.paddingRight = previousPaddingRight;
+    };
+  }, [dialog.visible]);
+
   return (
     <Styled.DialogBackdrop {...dialog}>
       <Styled.DialogWrapper>
@@ -27,6 +43,7 @@ const Modal = ({
           aria-describedby={uidDesc}
           hideOnClickOutside={hideOnClickOutside}
           {...dialog}
+          preventBodyScroll={false}
         >
           {label ? (
             <Styled.Header>
