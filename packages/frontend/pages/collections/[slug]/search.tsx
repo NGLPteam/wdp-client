@@ -28,7 +28,7 @@ function SearchLayoutQuery({
 }
 
 export default function SearchPage({ data }: Props) {
-  return data.collection ? <SearchLayoutQuery data={data.collection} /> : null;
+  return data?.collection ? <SearchLayoutQuery data={data.collection} /> : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
