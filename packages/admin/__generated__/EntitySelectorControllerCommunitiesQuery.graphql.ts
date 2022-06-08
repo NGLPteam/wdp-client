@@ -4,8 +4,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type ControllerEntitySelectorCommunitiesQueryVariables = {};
-export type ControllerEntitySelectorCommunitiesQueryResponse = {
+export type EntitySelectorControllerCommunitiesQueryVariables = {};
+export type EntitySelectorControllerCommunitiesQueryResponse = {
     readonly communities: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -20,15 +20,15 @@ export type ControllerEntitySelectorCommunitiesQueryResponse = {
         }>;
     };
 };
-export type ControllerEntitySelectorCommunitiesQuery = {
-    readonly response: ControllerEntitySelectorCommunitiesQueryResponse;
-    readonly variables: ControllerEntitySelectorCommunitiesQueryVariables;
+export type EntitySelectorControllerCommunitiesQuery = {
+    readonly response: EntitySelectorControllerCommunitiesQueryResponse;
+    readonly variables: EntitySelectorControllerCommunitiesQueryVariables;
 };
 
 
 
 /*
-query ControllerEntitySelectorCommunitiesQuery {
+query EntitySelectorControllerCommunitiesQuery {
   communities {
     edges {
       node {
@@ -87,7 +87,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ControllerEntitySelectorCommunitiesQuery",
+    "name": "EntitySelectorControllerCommunitiesQuery",
     "selections": [
       {
         "alias": null,
@@ -146,7 +146,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ControllerEntitySelectorCommunitiesQuery",
+    "name": "EntitySelectorControllerCommunitiesQuery",
     "selections": [
       {
         "alias": null,
@@ -201,14 +201,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "52fba72757d767b02803a51120bfc7df",
+    "cacheID": "4965b7f38c0b45c297a67e53c4d3e789",
     "id": null,
     "metadata": {},
-    "name": "ControllerEntitySelectorCommunitiesQuery",
+    "name": "EntitySelectorControllerCommunitiesQuery",
     "operationKind": "query",
-    "text": "query ControllerEntitySelectorCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query EntitySelectorControllerCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'f3bb4067fcfb1d35cf7badb6ff622a4b';
+(node as any).hash = '195daff0dab7139ac0eaa96a152e0962';
 export default node;

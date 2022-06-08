@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-import EntitySelector from "../EntitySelector";
-import * as Styled from "./EntitySelectorUI.styles";
+import EntitySelectorItem from "./EntitySelectorItem";
+import * as Styled from "./EntitySelector.styles";
 import { LoadingCircle } from "components/atomic";
-import { ControllerEntitySelectorCommunitiesQuery as Query } from "@/relay/ControllerEntitySelectorCommunitiesQuery.graphql";
+import { EntitySelectorControllerCommunitiesQuery as Query } from "@/relay/EntitySelectorControllerCommunitiesQuery.graphql";
 import {
-  ControllerEntitySelectorEntityQuery as EntityQuery,
-  ControllerEntitySelectorEntityQueryResponse as EntityResponse,
-} from "@/relay/ControllerEntitySelectorEntityQuery.graphql";
+  EntitySelectorControllerEntityQuery as EntityQuery,
+  EntitySelectorControllerEntityQueryResponse as EntityResponse,
+} from "@/relay/EntitySelectorControllerEntityQuery.graphql";
 
 import type {
   Community,
@@ -77,7 +77,7 @@ export default function Controller({
           ("hasCollections" in node && node.hasCollections) ||
           ("hasItems" in node && node.hasItems);
         return (
-          <EntitySelector
+          <EntitySelectorItem
             hasDescendants={hasDescendants}
             onShowDescendants={() => setCurrent(node.slug)}
             checked={node.id === selected?.id}
@@ -159,7 +159,7 @@ export default function Controller({
 }
 
 const communitiesQuery = graphql`
-  query ControllerEntitySelectorCommunitiesQuery {
+  query EntitySelectorControllerCommunitiesQuery {
     communities {
       edges {
         node {
@@ -177,7 +177,7 @@ const communitiesQuery = graphql`
 `;
 
 const entityQuery = graphql`
-  query ControllerEntitySelectorEntityQuery($slug: Slug!) {
+  query EntitySelectorControllerEntityQuery($slug: Slug!) {
     community(slug: $slug) {
       title
       collections {

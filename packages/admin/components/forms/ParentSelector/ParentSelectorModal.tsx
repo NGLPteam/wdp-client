@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
 import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";
-import { EntitySelectorUI } from "components/forms";
+import { EntitySelector } from "components/forms";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -38,7 +38,7 @@ export default function ParentSelectorModal({
     ({ form: { setValue, register } }) => {
       const onSelect = (id: string) => setValue("parentId", id);
       return (
-        <EntitySelectorUI
+        <EntitySelector
           {...register("parentId", { required: true })}
           onSelect={onSelect}
           label={t("forms.parent.label")}

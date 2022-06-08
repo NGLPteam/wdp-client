@@ -33,4 +33,4 @@ export { default as AssetsPropertyControl } from "./AssetsPropertyControl";
 export { default as VisibilityFields } from "./VisibilityFields";
 export { default as OrderRenderSelect } from "./OrderRenderSelect";
 export { default as OrderingLinksSelection } from "./OrderingLinksSelection";
-export { default as EntitySelectorUI } from "./EntitySelectorUI";
+export { default as EntitySelector } from "./EntitySelector";

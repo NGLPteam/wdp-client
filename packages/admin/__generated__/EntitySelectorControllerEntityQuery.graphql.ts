@@ -4,10 +4,10 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type ControllerEntitySelectorEntityQueryVariables = {
+export type EntitySelectorControllerEntityQueryVariables = {
     slug: string;
 };
-export type ControllerEntitySelectorEntityQueryResponse = {
+export type EntitySelectorControllerEntityQueryResponse = {
     readonly community: {
         readonly title: string;
         readonly collections: {
@@ -103,15 +103,15 @@ export type ControllerEntitySelectorEntityQueryResponse = {
         };
     } | null;
 };
-export type ControllerEntitySelectorEntityQuery = {
-    readonly response: ControllerEntitySelectorEntityQueryResponse;
-    readonly variables: ControllerEntitySelectorEntityQueryVariables;
+export type EntitySelectorControllerEntityQuery = {
+    readonly response: EntitySelectorControllerEntityQueryResponse;
+    readonly variables: EntitySelectorControllerEntityQueryVariables;
 };
 
 
 
 /*
-query ControllerEntitySelectorEntityQuery(
+query EntitySelectorControllerEntityQuery(
   $slug: Slug!
 ) {
   community(slug: $slug) {
@@ -507,7 +507,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ControllerEntitySelectorEntityQuery",
+    "name": "EntitySelectorControllerEntityQuery",
     "selections": [
       {
         "alias": null,
@@ -594,7 +594,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ControllerEntitySelectorEntityQuery",
+    "name": "EntitySelectorControllerEntityQuery",
     "selections": [
       {
         "alias": null,
@@ -683,14 +683,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c359fd68a80647d942ee74d05ca0b3b1",
+    "cacheID": "0f40973dfdc9d6d6473d43077569aacf",
     "id": null,
     "metadata": {},
-    "name": "ControllerEntitySelectorEntityQuery",
+    "name": "EntitySelectorControllerEntityQuery",
     "operationKind": "query",
-    "text": "query ControllerEntitySelectorEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Community {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Item {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query EntitySelectorControllerEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Community {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Item {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'debb86e762cd88e91c6b8f8cb8f465d1';
+(node as any).hash = 'a75fa4c967b20658f340c58513364699';
 export default node;
