@@ -34,7 +34,6 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
 export const DialogWrapper = styled.div`
   position: absolute;
   inset-inline-start: 50%;
-  /* inset-block-start: var(--global-header-height); */
   transform: translateX(-50%);
   z-index: var(--z-index-drawer);
   /* Center align modals on the y-axis */
@@ -45,7 +44,8 @@ export const DialogWrapper = styled.div`
   max-height: 100%;
   max-width: 100%;
   /* Scrolling should happen inside this container */
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   /* Padding so modal doesn't bump up against browser window */
   padding-block-start: ${fluidScale("24px", "12px")};
   padding-block-end: ${fluidScale("24px", "12px")};

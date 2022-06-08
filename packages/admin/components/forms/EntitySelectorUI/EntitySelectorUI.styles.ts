@@ -15,6 +15,7 @@ export const Wrapper = styled.div<Pick<WrapperProps, "$height">>`
   cursor: default;
   height: ${({ $height }) => $height};
   overflow: scroll;
+  position: relative;
 `;
 
 export const Back = styled.button`
