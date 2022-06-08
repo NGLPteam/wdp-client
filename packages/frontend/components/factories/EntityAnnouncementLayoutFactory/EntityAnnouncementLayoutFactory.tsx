@@ -1,7 +1,6 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityLayoutFactory from "../EntityLayoutFactory";
 import { EntityAnnouncementLayoutFactoryFragment$key } from "@/relay/EntityAnnouncementLayoutFactoryFragment.graphql";
 import EntityAnnouncementLayout from "components/composed/entity/EntityAnnouncementLayout";
 
@@ -10,11 +9,7 @@ export default function EntityAnnouncementLayoutFactory({ data }: Props) {
 
   if (!entity) return null;
 
-  return (
-    <EntityLayoutFactory data={entity}>
-      <EntityAnnouncementLayout data={entity.announcement} />
-    </EntityLayoutFactory>
-  );
+  return <EntityAnnouncementLayout data={entity.announcement} />;
 }
 
 interface Props {
@@ -24,12 +19,6 @@ interface Props {
 const fragment = graphql`
   fragment EntityAnnouncementLayoutFactoryFragment on AnyEntity {
     ... on Collection {
-      schemaDefinition {
-        identifier
-      }
-
-      ...EntityLayoutFactoryFragment
-
       announcement(slug: $announcementSlug) {
         ...EntityAnnouncementLayoutFragment
       }
