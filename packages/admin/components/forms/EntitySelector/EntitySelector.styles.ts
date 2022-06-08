@@ -22,6 +22,7 @@ export const Back = styled.button`
   display: flex;
   flex-wrap: none;
   align-items: center;
+  text-align: left;
   padding: ${pxToRem(16)};
   width: 100%;
 
@@ -48,4 +49,5 @@ export const Back = styled.button`
 export const Arrow = styled(IconFactory)`
   transform: rotate(-90deg);
   margin-inline-end: ${pxToRem(8)};
+  flex-shrink: 0;
 `;
