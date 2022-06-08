@@ -44,6 +44,7 @@ export default function ParentSelectorModal({
           label={t("forms.parent.label")}
           startSlug={parentSlug}
           resetValue={parentId}
+          omitSelfId={entityId}
           height="40vh"
         />
       );
