@@ -54,7 +54,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
             {(contribution.affiliation ||
               contribution.contributor.affiliation) && (
               <p>
-                {contribution.contributor.affiliation ||
+                {contribution.affiliation ||
                   contribution.contributor.affiliation}
               </p>
             )}
