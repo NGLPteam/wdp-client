@@ -11,7 +11,7 @@ function ManageDetails({ data }: Props) {
   return data && data.item ? (
     <ItemUpdateForm data={data?.item} />
   ) : (
-    <LoadingCircle />
+    <LoadingCircle className="l-page-loading" />
   );
 }
 

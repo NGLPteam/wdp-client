@@ -89,4 +89,12 @@ export default css`
     padding-inline-start: var(--container-column-margin);
     padding-inline-end: var(--container-column-margin);
   }
+
+  .l-page-loading {
+    min-height: 200px;
+
+    > * {
+      min-height: 80px;
+    }
+  }
 `;

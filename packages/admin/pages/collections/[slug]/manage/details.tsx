@@ -11,7 +11,7 @@ function CollectionDetails({ data }: Props) {
   return data && data.collection ? (
     <CollectionUpdateForm data={data?.collection} />
   ) : (
-    <LoadingCircle />
+    <LoadingCircle className="l-page-loading" />
   );
 }
 
