@@ -65,6 +65,11 @@ export const Modal = styled(BaseDialog)`
   ${aBgLight()}
 
   ${respond(`width: 100%;`, 50)}
+
+  /* Needed for Safari */
+  &:focus-within {
+    outline: none;
+  }
 `;
 
 export const Header = styled.header`

@@ -20,14 +20,14 @@ import type {
 interface Props {
   /* Slug of the entity to show expanded at launch of the selector. If no slug, the selector opens at the all communities scope. A value is required if scopeToCommunity is true.  */
   startSlug?: string;
-  /* The value of the select is reset on each page change as the user navigates through the hierarchy to prevent selecting an entity that is out of view. Defaults to "", but accepts a different default, e.g. if it's useful to preserve the previous value when a new entity is not selected. */
+  /* The value of the select is reset on each page change as the user navigates through the hierarchy to prevent selecting an entity that is out of view. Defaults to "", but accepts a different default, e.g. if it's useful to preserve the previously saved value when a new entity is not selected. */
   resetValue?: string;
   /* Show the current community as the top-level entity in the hierarchy, e.g. to prevent the user from reparenting an item out of its current community. */
   scopeToCommunity?: boolean;
   /* The id of the current entity to filter out of the selector hierarchy when selecting self is not an option.  */
   omitSelfId?: string;
   /* The specific setValue function from react-hook-form to call when the value of the selector changes. */
-  onSelect?: (val: string) => void;
+  onSelect: (val: string) => void;
 }
 
 interface CommunityOption

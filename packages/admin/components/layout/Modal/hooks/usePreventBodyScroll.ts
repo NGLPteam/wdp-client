@@ -15,14 +15,11 @@ export default function usePreventBodyScroll(visible = false) {
 
     const baseStyle = body.style.cssText;
 
-    const scrollBarWidth = window.innerWidth - documentElement.clientWidth;
-    const documentLeft = documentElement.getBoundingClientRect().left;
-    const scrollbarX = Math.round(documentLeft) + documentElement.scrollLeft;
-    const paddingProp = scrollbarX ? "paddingLeft" : "paddingRight";
-
     const modalVisibleStyle = {
       overflow: "hidden",
-      [paddingProp]: `${scrollBarWidth}px`,
+      scrollbarGutter: "stable",
+      position: "absolute",
+      width: "100%",
     };
 
     if (visible) {
