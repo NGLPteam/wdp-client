@@ -38,6 +38,8 @@ function ItemContributionList<T extends OperationType>({
   const slug = useRouteSlug();
   const { t } = useTranslation();
 
+  const onContributor = nameColumn !== "contributor";
+
   const collectionNameColumn = {
     Header: "Name",
     id: "targetTitle",
@@ -92,14 +94,14 @@ function ItemContributionList<T extends OperationType>({
       <CreateContributionButton
         type="item"
         parentSlug={slug}
-        onContributor={nameColumn !== "contributor"}
+        onContributor={onContributor}
       />
     </ButtonControlGroup>
   );
 
   return (
     <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>
-      modelName="item_contributor"
+      modelName={onContributor ? "item_contribution" : "item_contributor"}
       columns={columns}
       actions={actions}
       buttons={buttons}

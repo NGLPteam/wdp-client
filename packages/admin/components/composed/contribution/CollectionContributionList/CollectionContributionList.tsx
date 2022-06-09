@@ -34,6 +34,8 @@ function CollectionContributionList<T extends OperationType>({
   const slug = useRouteSlug();
   const { t } = useTranslation();
 
+  const onContributor = nameColumn !== "contributor";
+
   /* eslint-disable max-len */
   const collectionContributions =
     useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
@@ -95,7 +97,7 @@ function CollectionContributionList<T extends OperationType>({
       <CreateContributionButton
         type="collection"
         parentSlug={slug}
-        onContributor={nameColumn !== "contributor"}
+        onContributor={onContributor}
       />
     </ButtonControlGroup>
   );
@@ -106,7 +108,9 @@ function CollectionContributionList<T extends OperationType>({
       CollectionContributionListFragment,
       CollectionContributionNode
     >
-      modelName="collection_contributor"
+      modelName={
+        onContributor ? "collection_contribution" : "collection_contributor"
+      }
       columns={columns}
       actions={actions}
       buttons={buttons}
