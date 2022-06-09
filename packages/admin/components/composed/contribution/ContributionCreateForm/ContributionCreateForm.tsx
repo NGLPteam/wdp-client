@@ -1,10 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   Forms,
 } from "components/api/MutationForm";
-
+import { EntitySelector } from "components/forms";
 import { useMaybeFragment } from "hooks";
 import { ContributionCreateFormFragment$key } from "@/relay/ContributionCreateFormFragment.graphql";
 import type {
@@ -24,67 +25,73 @@ export default function ContributionCreateForm({
 }: Props) {
   const formData = useMaybeFragment(fragment, data);
 
+  const { t } = useTranslation();
+
   /** Render the form */
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register, control } }) => (
-      <Forms.Grid>
-        {contributorId ? (
-          <>
-            <Forms.Input
-              name=""
+    ({ form: { register, control, setValue } }) => {
+      const onSelect = (id: string) => setValue("contributableId", id);
+      return (
+        <Forms.Grid>
+          {contributorId ? (
+            <>
+              <Forms.Input
+                name=""
+                label="forms.fields.contributor"
+                disabled
+                defaultValue={contributorName}
+              />
+              <input
+                type="hidden"
+                {...register("contributorId")}
+                defaultValue={contributorId}
+              />
+            </>
+          ) : (
+            <Forms.ContributorTypeahead<Fields>
+              control={control}
+              name="contributorId"
               label="forms.fields.contributor"
-              disabled
-              defaultValue={contributorName}
+              required
+              data={formData}
             />
-            <input
-              type="hidden"
-              {...register("contributorId")}
-              defaultValue={contributorId}
+          )}
+          {contributableId ? (
+            <>
+              <Forms.Input
+                name=""
+                label={`forms.fields.${type}`}
+                disabled
+                defaultValue={contributableName}
+              />
+              <input
+                type="hidden"
+                {...register("contributableId")}
+                defaultValue={contributableId}
+              />
+            </>
+          ) : (
+            <EntitySelector
+              {...register("contributableId", { required: true })}
+              onSelect={onSelect}
+              label={
+                type === "item"
+                  ? t("forms.fields.item")
+                  : t("forms.fields.collection")
+              }
+              selectableTypes={{
+                kinds: [type === "item" ? "ITEM" : "COLLECTION"],
+              }}
             />
-          </>
-        ) : (
-          <Forms.ContributorTypeahead<Fields>
-            control={control}
-            name="contributorId"
-            label="forms.fields.contributor"
+          )}
+          <Forms.Input
+            label="forms.fields.role"
             required
-            data={formData}
+            {...register("role")}
           />
-        )}
-        {contributableId ? (
-          <>
-            <Forms.Input
-              name=""
-              label={`forms.fields.${type}`}
-              disabled
-              defaultValue={contributableName}
-            />
-            <input
-              type="hidden"
-              {...register("contributableId")}
-              defaultValue={contributableId}
-            />
-          </>
-        ) : type === "item" ? (
-          <Forms.ItemTypeahead<Fields>
-            control={control}
-            name="contributableId"
-            label="forms.fields.item"
-            required
-            data={formData}
-          />
-        ) : (
-          <Forms.CollectionTypeahead<Fields>
-            control={control}
-            name="contributableId"
-            label="forms.fields.collection"
-            required
-            data={formData}
-          />
-        )}
-        <Forms.Input label="forms.fields.role" required {...register("role")} />
-      </Forms.Grid>
-    ),
+        </Forms.Grid>
+      );
+    },
     []
   );
 
