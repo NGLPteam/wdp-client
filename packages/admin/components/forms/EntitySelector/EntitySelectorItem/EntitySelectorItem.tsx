@@ -12,6 +12,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   checked: boolean;
   onSelectEntity: () => void;
   onPageChange: () => void;
+  isSelectable: boolean;
 }
 
 const EntitySelectorItem = forwardRef(
@@ -23,6 +24,7 @@ const EntitySelectorItem = forwardRef(
       onSelectEntity,
       onPageChange,
       onShowDescendants,
+      isSelectable,
       ...props
     }: Props,
     ref: MaybeInputRef
@@ -36,6 +38,7 @@ const EntitySelectorItem = forwardRef(
         | React.MouseEvent<HTMLLabelElement>
     ) => {
       e.preventDefault();
+      if (!isSelectable) return;
       onSelectEntity();
     };
     const handleExpand = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,11 +48,12 @@ const EntitySelectorItem = forwardRef(
     };
 
     return (
-      <Styled.Wrapper $checked={checked}>
+      <Styled.Wrapper $checked={checked} $isSelectable={isSelectable}>
         <Styled.Item
           aria-label={props["aria-label"] ?? undefined}
           onClick={handleSelect}
           $checked={checked}
+          $isSelectable={isSelectable}
         >
           <input
             id={id}
@@ -61,6 +65,7 @@ const EntitySelectorItem = forwardRef(
             onClick={(e) => {
               e.preventDefault();
             }}
+            disabled={!isSelectable}
           />
           <div>
             <Styled.Label>{entity.title}</Styled.Label>

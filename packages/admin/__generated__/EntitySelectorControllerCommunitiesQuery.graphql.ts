@@ -4,6 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type EntitySelectorControllerCommunitiesQueryVariables = {};
 export type EntitySelectorControllerCommunitiesQueryResponse = {
     readonly communities: {
@@ -15,6 +16,9 @@ export type EntitySelectorControllerCommunitiesQueryResponse = {
                 readonly slug: string;
                 readonly schemaVersion: {
                     readonly name: string;
+                    readonly kind: SchemaKind;
+                    readonly identifier: string;
+                    readonly namespace: string;
                 };
             };
         }>;
@@ -38,6 +42,9 @@ query EntitySelectorControllerCommunitiesQuery {
         slug
         schemaVersion {
           name
+          kind
+          identifier
+          namespace
           id
         }
       }
@@ -80,6 +87,27 @@ v4 = {
   "args": null,
   "kind": "ScalarField",
   "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "namespace",
   "storageKey": null
 };
 return {
@@ -125,7 +153,10 @@ return {
                     "name": "schemaVersion",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/)
+                      (v4/*: any*/),
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -185,6 +216,9 @@ return {
                     "plural": false,
                     "selections": [
                       (v4/*: any*/),
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      (v7/*: any*/),
                       (v1/*: any*/)
                     ],
                     "storageKey": null
@@ -201,14 +235,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4965b7f38c0b45c297a67e53c4d3e789",
+    "cacheID": "eeed8a069aac70f6ab127d190ab15bac",
     "id": null,
     "metadata": {},
     "name": "EntitySelectorControllerCommunitiesQuery",
     "operationKind": "query",
-    "text": "query EntitySelectorControllerCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query EntitySelectorControllerCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          kind\n          identifier\n          namespace\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '195daff0dab7139ac0eaa96a152e0962';
+(node as any).hash = '1d2a3af828f943321a990b005eb97c05';
 export default node;

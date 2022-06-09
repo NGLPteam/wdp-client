@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
 interface WrapperProps extends React.HTMLProps<HTMLButtonElement> {
-  $checked?: boolean;
+  $checked: boolean;
+  $isSelectable: boolean;
 }
 
 interface LabelProps extends React.HTMLProps<HTMLLabelElement> {
-  $checked?: boolean;
+  $checked: boolean;
+  $isSelectable: boolean;
 }
 
 const hoverStyles = `
@@ -21,7 +23,9 @@ const selectedStyles = `
   --color-light: var(--neutral00);
 `;
 
-export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
+export const Wrapper = styled.div<
+  Pick<WrapperProps, "$checked" | "$isSelectable">
+>`
   --color: var(--brand100);
   --button-background: transparent;
 
@@ -34,15 +38,19 @@ export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
   background-color: var(--background-color);
   color: var(--color);
 
-  &:hover,
-  &:focus,
-  &:focus-within {
-    ${({ $checked }) => !$checked && hoverStyles}
+  &:hover {
+    ${({ $isSelectable, $checked }) =>
+      $isSelectable && !$checked && hoverStyles}
   }
 
   &:focus,
   &:focus-within {
-    ${({ $checked }) => $checked && `--background-color: var(--brand70);`}
+    ${({ $checked, $isSelectable }) =>
+      $checked
+        ? `--background-color: var(--brand70);`
+        : $isSelectable
+        ? hoverStyles
+        : ``}
   }
 
   ${({ $checked }) => $checked && selectedStyles}
@@ -54,13 +62,17 @@ export const Wrapper = styled.div<Pick<WrapperProps, "$checked">>`
     margin-block-end: ${pxToRem(12)};
   }
 `;
-export const Item = styled.label<Pick<LabelProps, "$checked">>`
+export const Item = styled.label<
+  Pick<LabelProps, "$checked" | "$isSelectable">
+>`
   display: flex;
   align-items: flex-start;
   padding-block: ${pxToRem(16)};
   padding-inline-start: ${pxToRem(40)};
   width: 80%;
   cursor: pointer;
+
+  ${({ $isSelectable }) => !$isSelectable && `opacity: 0.75; cursor: default;`}
 `;
 
 export const Label = styled.span`

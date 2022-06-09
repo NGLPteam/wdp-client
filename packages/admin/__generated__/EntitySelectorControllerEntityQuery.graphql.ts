@@ -4,6 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 export type EntitySelectorControllerEntityQueryVariables = {
     slug: string;
 };
@@ -21,6 +22,9 @@ export type EntitySelectorControllerEntityQueryResponse = {
                     readonly hasCollections: boolean;
                     readonly schemaVersion: {
                         readonly name: string;
+                        readonly kind: SchemaKind;
+                        readonly identifier: string;
+                        readonly namespace: string;
                     };
                 };
             }>;
@@ -52,6 +56,9 @@ export type EntitySelectorControllerEntityQueryResponse = {
                     readonly hasCollections: boolean;
                     readonly schemaVersion: {
                         readonly name: string;
+                        readonly kind: SchemaKind;
+                        readonly identifier: string;
+                        readonly namespace: string;
                     };
                 };
             }>;
@@ -66,6 +73,9 @@ export type EntitySelectorControllerEntityQueryResponse = {
                     readonly hasItems: boolean;
                     readonly schemaVersion: {
                         readonly name: string;
+                        readonly kind: SchemaKind;
+                        readonly identifier: string;
+                        readonly namespace: string;
                     };
                 };
             }>;
@@ -97,6 +107,9 @@ export type EntitySelectorControllerEntityQueryResponse = {
                     readonly hasItems: boolean;
                     readonly schemaVersion: {
                         readonly name: string;
+                        readonly kind: SchemaKind;
+                        readonly identifier: string;
+                        readonly namespace: string;
                     };
                 };
             }>;
@@ -127,6 +140,9 @@ query EntitySelectorControllerEntityQuery(
           hasCollections
           schemaVersion {
             name
+            kind
+            identifier
+            namespace
             id
           }
         }
@@ -164,6 +180,9 @@ query EntitySelectorControllerEntityQuery(
           hasCollections
           schemaVersion {
             name
+            kind
+            identifier
+            namespace
             id
           }
         }
@@ -179,6 +198,9 @@ query EntitySelectorControllerEntityQuery(
           hasItems
           schemaVersion {
             name
+            kind
+            identifier
+            namespace
             id
           }
         }
@@ -216,6 +238,9 @@ query EntitySelectorControllerEntityQuery(
           hasItems
           schemaVersion {
             name
+            kind
+            identifier
+            namespace
             id
           }
         }
@@ -293,106 +318,25 @@ v8 = {
 v9 = {
   "alias": null,
   "args": null,
-  "concreteType": "SchemaVersion",
-  "kind": "LinkedField",
-  "name": "schemaVersion",
-  "plural": false,
-  "selections": [
-    (v8/*: any*/)
-  ],
+  "kind": "ScalarField",
+  "name": "kind",
   "storageKey": null
 },
 v10 = {
   "alias": null,
   "args": null,
-  "concreteType": "CollectionConnection",
-  "kind": "LinkedField",
-  "name": "collections",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "CollectionEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": [
-            (v3/*: any*/),
-            (v4/*: any*/),
-            (v2/*: any*/),
-            (v5/*: any*/),
-            (v6/*: any*/),
-            (v7/*: any*/),
-            (v9/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "identifier",
   "storageKey": null
 },
-v11 = [
-  (v3/*: any*/),
-  (v5/*: any*/),
-  (v2/*: any*/)
-],
-v12 = {
-  "kind": "InlineFragment",
-  "selections": (v11/*: any*/),
-  "type": "Collection",
-  "abstractKey": null
-},
-v13 = {
+v11 = {
   "alias": null,
   "args": null,
-  "concreteType": "ItemConnection",
-  "kind": "LinkedField",
-  "name": "items",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Item",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": [
-            (v3/*: any*/),
-            (v4/*: any*/),
-            (v2/*: any*/),
-            (v5/*: any*/),
-            (v6/*: any*/),
-            (v9/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "namespace",
   "storageKey": null
 },
-v14 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "SchemaVersion",
@@ -401,11 +345,13 @@ v14 = {
   "plural": false,
   "selections": [
     (v8/*: any*/),
-    (v4/*: any*/)
+    (v9/*: any*/),
+    (v10/*: any*/),
+    (v11/*: any*/)
   ],
   "storageKey": null
 },
-v15 = {
+v13 = {
   "alias": null,
   "args": null,
   "concreteType": "CollectionConnection",
@@ -435,7 +381,7 @@ v15 = {
             (v5/*: any*/),
             (v6/*: any*/),
             (v7/*: any*/),
-            (v14/*: any*/)
+            (v12/*: any*/)
           ],
           "storageKey": null
         }
@@ -445,25 +391,18 @@ v15 = {
   ],
   "storageKey": null
 },
-v16 = [
+v14 = [
+  (v3/*: any*/),
   (v5/*: any*/),
   (v2/*: any*/)
 ],
-v17 = {
+v15 = {
   "kind": "InlineFragment",
-  "selections": (v16/*: any*/),
+  "selections": (v14/*: any*/),
   "type": "Collection",
   "abstractKey": null
 },
-v18 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v4/*: any*/)
-  ],
-  "type": "Node",
-  "abstractKey": "__isNode"
-},
-v19 = {
+v16 = {
   "alias": null,
   "args": null,
   "concreteType": "ItemConnection",
@@ -492,7 +431,120 @@ v19 = {
             (v2/*: any*/),
             (v5/*: any*/),
             (v6/*: any*/),
-            (v14/*: any*/)
+            (v12/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v17 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SchemaVersion",
+  "kind": "LinkedField",
+  "name": "schemaVersion",
+  "plural": false,
+  "selections": [
+    (v8/*: any*/),
+    (v9/*: any*/),
+    (v10/*: any*/),
+    (v11/*: any*/),
+    (v4/*: any*/)
+  ],
+  "storageKey": null
+},
+v18 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "CollectionConnection",
+  "kind": "LinkedField",
+  "name": "collections",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "CollectionEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Collection",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v3/*: any*/),
+            (v4/*: any*/),
+            (v2/*: any*/),
+            (v5/*: any*/),
+            (v6/*: any*/),
+            (v7/*: any*/),
+            (v17/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v19 = [
+  (v5/*: any*/),
+  (v2/*: any*/)
+],
+v20 = {
+  "kind": "InlineFragment",
+  "selections": (v19/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v21 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v4/*: any*/)
+  ],
+  "type": "Node",
+  "abstractKey": "__isNode"
+},
+v22 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ItemConnection",
+  "kind": "LinkedField",
+  "name": "items",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Item",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v3/*: any*/),
+            (v4/*: any*/),
+            (v2/*: any*/),
+            (v5/*: any*/),
+            (v6/*: any*/),
+            (v17/*: any*/)
           ],
           "storageKey": null
         }
@@ -518,7 +570,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v10/*: any*/)
+          (v13/*: any*/)
         ],
         "storageKey": null
       },
@@ -539,18 +591,18 @@ return {
             "name": "parent",
             "plural": false,
             "selections": [
-              (v12/*: any*/),
+              (v15/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v11/*: any*/),
+                "selections": (v14/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               }
             ],
             "storageKey": null
           },
-          (v10/*: any*/),
-          (v13/*: any*/)
+          (v13/*: any*/),
+          (v16/*: any*/)
         ],
         "storageKey": null
       },
@@ -572,17 +624,17 @@ return {
             "name": "parent",
             "plural": false,
             "selections": [
-              (v12/*: any*/),
+              (v15/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v11/*: any*/),
+                "selections": (v14/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               }
             ],
             "storageKey": null
           },
-          (v13/*: any*/)
+          (v16/*: any*/)
         ],
         "storageKey": null
       }
@@ -605,7 +657,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v15/*: any*/),
+          (v18/*: any*/),
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -628,19 +680,19 @@ return {
             "plural": false,
             "selections": [
               (v3/*: any*/),
-              (v17/*: any*/),
+              (v20/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v16/*: any*/),
+                "selections": (v19/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
-              (v18/*: any*/)
+              (v21/*: any*/)
             ],
             "storageKey": null
           },
-          (v15/*: any*/),
-          (v19/*: any*/),
+          (v18/*: any*/),
+          (v22/*: any*/),
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -664,18 +716,18 @@ return {
             "plural": false,
             "selections": [
               (v3/*: any*/),
-              (v17/*: any*/),
+              (v20/*: any*/),
               {
                 "kind": "InlineFragment",
-                "selections": (v16/*: any*/),
+                "selections": (v19/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               },
-              (v18/*: any*/)
+              (v21/*: any*/)
             ],
             "storageKey": null
           },
-          (v19/*: any*/),
+          (v22/*: any*/),
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -683,14 +735,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0f40973dfdc9d6d6473d43077569aacf",
+    "cacheID": "cfb3551a7feddc7f61bba0e218e796df",
     "id": null,
     "metadata": {},
     "name": "EntitySelectorControllerEntityQuery",
     "operationKind": "query",
-    "text": "query EntitySelectorControllerEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Community {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Item {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query EntitySelectorControllerEntityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    title\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            kind\n            identifier\n            namespace\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  collection(slug: $slug) {\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Community {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collections {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          hasCollections\n          schemaVersion {\n            name\n            kind\n            identifier\n            namespace\n            id\n          }\n        }\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            kind\n            identifier\n            namespace\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n  item(slug: $slug) {\n    __typename\n    title\n    parent {\n      __typename\n      ... on Collection {\n        __typename\n        slug\n        title\n      }\n      ... on Item {\n        __typename\n        slug\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    items {\n      edges {\n        node {\n          __typename\n          id\n          title\n          slug\n          hasItems\n          schemaVersion {\n            name\n            kind\n            identifier\n            namespace\n            id\n          }\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a75fa4c967b20658f340c58513364699';
+(node as any).hash = '00add991ce0abe760b87f7b0f8dbe4bc';
 export default node;

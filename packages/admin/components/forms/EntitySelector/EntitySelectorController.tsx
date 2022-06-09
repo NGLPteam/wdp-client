@@ -24,6 +24,8 @@ interface Props {
   resetValue?: string;
   /* Show the current community as the top-level entity in the hierarchy, e.g. to prevent the user from reparenting an item out of its current community. */
   scopeToCommunity?: boolean;
+  /* Scope the selectable entities to particular types or schemas. Note: In most cases, this is used with scopeToCommunity = true, scopeToCommunity is not true by default when this argument is passed in. */
+  selectableTypes?: { kinds?: string[]; schemas?: string[] };
   /* The id of the current entity to filter out of the selector hierarchy when selecting self is not an option.  */
   omitSelfId?: string;
   /* The specific setValue function from react-hook-form to call when the value of the selector changes. */
@@ -52,6 +54,7 @@ export default function Controller({
   startSlug,
   resetValue = "",
   scopeToCommunity,
+  selectableTypes,
   omitSelfId,
   onSelect,
 }: Props) {
@@ -66,6 +69,20 @@ export default function Controller({
 
   const queryVars = {
     slug: currentEntity || "",
+  };
+
+  const hasSelectableSchema = (schema: EntityOption["schemaVersion"]) => {
+    if (
+      !selectableTypes ||
+      (!selectableTypes.kinds?.length && !selectableTypes.schemas?.length)
+    )
+      return true;
+    return !!(
+      selectableTypes?.kinds?.includes(schema.kind ?? "") ||
+      selectableTypes?.schemas?.includes(
+        `${schema.namespace}:${schema.identifier}` ?? ""
+      )
+    );
   };
 
   const renderOptions = (data: readonly { node: EntityOption }[]) => {
@@ -85,6 +102,7 @@ export default function Controller({
             onPageChange={() => setSelected(undefined)}
             key={node.id}
             entity={node}
+            isSelectable={hasSelectableSchema(node.schemaVersion)}
           />
         );
       });
@@ -169,6 +187,9 @@ const communitiesQuery = graphql`
           slug
           schemaVersion {
             name
+            kind
+            identifier
+            namespace
           }
         }
       }
@@ -191,6 +212,9 @@ const entityQuery = graphql`
             hasCollections
             schemaVersion {
               name
+              kind
+              identifier
+              namespace
             }
           }
         }
@@ -221,6 +245,9 @@ const entityQuery = graphql`
             hasCollections
             schemaVersion {
               name
+              kind
+              identifier
+              namespace
             }
           }
         }
@@ -235,6 +262,9 @@ const entityQuery = graphql`
             hasItems
             schemaVersion {
               name
+              kind
+              identifier
+              namespace
             }
           }
         }
@@ -265,6 +295,9 @@ const entityQuery = graphql`
             hasItems
             schemaVersion {
               name
+              kind
+              identifier
+              namespace
             }
           }
         }
