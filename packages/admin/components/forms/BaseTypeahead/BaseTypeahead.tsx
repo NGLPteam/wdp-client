@@ -23,6 +23,7 @@ const Typeahead = forwardRef(
       onInputChange,
       value,
       isWide,
+      withBrowse,
       isLoading,
       ...inputProps
     }: Props,
@@ -49,6 +50,13 @@ const Typeahead = forwardRef(
       },
     });
 
+    const valueProp = withBrowse
+      ? {
+          value:
+            options?.find((option) => option?.value === value)?.label ?? value,
+        }
+      : null;
+
     return (
       <BaseInputWrapper
         name={name}
@@ -73,6 +81,8 @@ const Typeahead = forwardRef(
             {...getInputProps()}
             required={required}
             disabled={inputProps.disabled}
+            $withBrowse={withBrowse}
+            {...valueProp}
           />
           <Styled.Button
             type="button"
@@ -115,6 +125,8 @@ interface Props extends Omit<InputProps, "onChange"> {
   value?: Option["value"];
   /** Show loading indicator */
   isLoading?: boolean;
+  /** Include styles for integrated entity selector */
+  withBrowse?: boolean;
 }
 
 export default Typeahead;

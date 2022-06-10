@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { graphql } from "react-relay";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import EntitySelectorItem from "./EntitySelectorItem";
@@ -29,7 +29,10 @@ interface Props {
   /* The id of the current entity to filter out of the selector hierarchy when selecting self is not an option.  */
   omitSelfId?: string;
   /* The specific setValue function from react-hook-form to call when the value of the selector changes. */
-  onSelect: (val: string) => void;
+  onSelect: (entity: EntityOption | undefined) => void;
+  selected?: EntityOption | undefined;
+  isDisclosure?: boolean;
+  visible?: boolean;
 }
 
 interface CommunityOption
@@ -57,13 +60,20 @@ export default function Controller({
   selectableTypes,
   omitSelfId,
   onSelect,
+  selected,
+  isDisclosure,
+  visible,
 }: Props) {
   const [currentEntity, setCurrent] = useState(startSlug);
-  const [selected, setSelected] = useState<EntityOption | undefined>();
+  const prevVisible = useRef<boolean | undefined>(false);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (onSelect) onSelect(selected?.id ?? resetValue);
-  }, [selected, onSelect, resetValue]);
+    if (!prevVisible.current && startSlug !== currentEntity)
+      setCurrent(startSlug);
+    if (prevVisible.current !== visible) prevVisible.current = visible;
+  }, [startSlug, visible]);
+  /* eslint-disable react-hooks/exhaustive-deps */
 
   if (scopeToCommunity && !startSlug) return null;
 
@@ -98,8 +108,13 @@ export default function Controller({
             hasDescendants={hasDescendants}
             onShowDescendants={() => setCurrent(node.slug)}
             checked={node.id === selected?.id}
-            onSelectEntity={() => setSelected(node)}
-            onPageChange={() => setSelected(undefined)}
+            onSelectEntity={() => onSelect(node)}
+            onPageChange={
+              isDisclosure
+                ? null
+                : () =>
+                    onSelect(({ id: resetValue } as EntityOption) ?? undefined)
+            }
             key={node.id}
             entity={node}
             isSelectable={hasSelectableSchema(node.schemaVersion)}
@@ -140,7 +155,7 @@ export default function Controller({
       <Styled.Back
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
-          setSelected(undefined);
+          if (!isDisclosure) onSelect(undefined);
           setCurrent(parent);
         }}
       >
