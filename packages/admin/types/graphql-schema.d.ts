@@ -7377,6 +7377,26 @@ export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties &
   /** Configuration for controlling how instances of a schema handle certain optional core properties. */
   core: SchemaCoreDefinition;
   createdAt: Scalars['ISO8601DateTime'];
+  /** Declarations / slugs for `enforcedChildVersions`. */
+  enforcedChildDeclarations: Array<Scalars['Slug']>;
+  /**
+   * The versions that this schema accepts as a child.
+   *
+   * If there are no schemas, then this schema does not enforce its children.
+   */
+  enforcedChildVersions: Array<SchemaVersion>;
+  /** Declarations / slugs for `enforcedParentVersions`. */
+  enforcedParentDeclarations: Array<Scalars['Slug']>;
+  /**
+   * The versions that are allowed to parent this schema.
+   *
+   * If there are no schemas, then this schema does not enforce its parentage.
+   */
+  enforcedParentVersions: Array<SchemaVersion>;
+  /** A boolean for the logic on `enforcedChildVersions`. */
+  enforcesChildren: Scalars['Boolean'];
+  /** A boolean for the logic on `enforcedParentVersions`. */
+  enforcesParent: Scalars['Boolean'];
   id: Scalars['ID'];
   /** A unique (per-namespace) value that names the schema within the system. */
   identifier: Scalars['String'];
@@ -12560,6 +12580,12 @@ export type SchemaValueErrorResolvers<ContextType = any, ParentType extends Reso
 export type SchemaVersionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaVersion'] = ResolversParentTypes['SchemaVersion']> = {
   core?: Resolver<ResolversTypes['SchemaCoreDefinition'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  enforcedChildDeclarations?: Resolver<Array<ResolversTypes['Slug']>, ParentType, ContextType>;
+  enforcedChildVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
+  enforcedParentDeclarations?: Resolver<Array<ResolversTypes['Slug']>, ParentType, ContextType>;
+  enforcedParentVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
+  enforcesChildren?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  enforcesParent?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;

@@ -37,6 +37,7 @@ const ParentSelector = ({ data }: Props) => {
         entityKind={entity?.__typename}
         parentId={parent?.id}
         parentSlug={parent?.slug}
+        entitySchemaVersion={entity?.schemaVersion}
       />
     </>
   ) : null;
@@ -53,6 +54,13 @@ const fragment = graphql`
     ... on Collection {
       __typename
       entityId: id
+      schemaVersion {
+        enforcesParent
+        enforcedParentVersions {
+          identifier
+          namespace
+        }
+      }
       parent {
         ... on Collection {
           id
@@ -69,6 +77,13 @@ const fragment = graphql`
     ... on Item {
       __typename
       entityId: id
+      schemaVersion {
+        enforcesParent
+        enforcedParentVersions {
+          identifier
+          namespace
+        }
+      }
       parent {
         ... on Collection {
           id

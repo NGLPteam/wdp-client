@@ -8,6 +8,13 @@ import { FragmentRefs } from "relay-runtime";
 export type ParentSelectorFragment = {
     readonly __typename: "Collection";
     readonly entityId: string;
+    readonly schemaVersion: {
+        readonly enforcesParent: boolean;
+        readonly enforcedParentVersions: ReadonlyArray<{
+            readonly identifier: string;
+            readonly namespace: string;
+        }>;
+    };
     readonly parent: {
         readonly id?: string | undefined;
         readonly slug?: string | undefined;
@@ -17,6 +24,13 @@ export type ParentSelectorFragment = {
 } | {
     readonly __typename: "Item";
     readonly entityId: string;
+    readonly schemaVersion: {
+        readonly enforcesParent: boolean;
+        readonly enforcedParentVersions: ReadonlyArray<{
+            readonly identifier: string;
+            readonly namespace: string;
+        }>;
+    };
     readonly parent: {
         readonly id?: string | undefined;
         readonly slug?: string | undefined;
@@ -52,7 +66,50 @@ v1 = {
   "name": "id",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "SchemaVersion",
+  "kind": "LinkedField",
+  "name": "schemaVersion",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "enforcesParent",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "enforcedParentVersions",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "namespace",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -75,9 +132,9 @@ v2 = [
     "storageKey": null
   }
 ],
-v3 = {
+v4 = {
   "kind": "InlineFragment",
-  "selections": (v2/*: any*/),
+  "selections": (v3/*: any*/),
   "type": "Collection",
   "abstractKey": null
 };
@@ -92,6 +149,7 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -100,10 +158,10 @@ return {
           "name": "parent",
           "plural": false,
           "selections": [
-            (v3/*: any*/),
+            (v4/*: any*/),
             {
               "kind": "InlineFragment",
-              "selections": (v2/*: any*/),
+              "selections": (v3/*: any*/),
               "type": "Community",
               "abstractKey": null
             }
@@ -119,6 +177,7 @@ return {
       "selections": [
         (v0/*: any*/),
         (v1/*: any*/),
+        (v2/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -127,10 +186,10 @@ return {
           "name": "parent",
           "plural": false,
           "selections": [
-            (v3/*: any*/),
+            (v4/*: any*/),
             {
               "kind": "InlineFragment",
-              "selections": (v2/*: any*/),
+              "selections": (v3/*: any*/),
               "type": "Item",
               "abstractKey": null
             }
@@ -146,5 +205,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '4fa46e3627b1dbeef36c146d167521a3';
+(node as any).hash = 'ecc064f08a74455699582c7127178e1a';
 export default node;

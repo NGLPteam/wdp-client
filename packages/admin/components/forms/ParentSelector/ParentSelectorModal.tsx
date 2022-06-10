@@ -14,12 +14,15 @@ import {
   ReparentEntityInput,
   ParentSelectorModalMutation,
 } from "@/relay/ParentSelectorModalMutation.graphql";
+import type { SchemaVersion } from "types/graphql-schema";
 
 export default function ParentSelectorModal({
   dialog,
   entityId,
   parentId,
   parentSlug,
+  entityKind,
+  entitySchemaVersion,
 }: Props) {
   const { t } = useTranslation();
 
@@ -34,6 +37,13 @@ export default function ParentSelectorModal({
     []
   );
 
+  const parentSchemas = entitySchemaVersion.enforcesParent
+    ? entitySchemaVersion.enforcedParentVersions?.map(
+        (schema) => `${schema.namespace}:${schema.identifier}`
+      )
+    : [];
+  const parentKinds = entityKind === "collection" ? ["COLLECTION"] : [];
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { setValue, register } }) => {
       const onSelect = (id: string) => setValue("parentId", id);
@@ -45,6 +55,7 @@ export default function ParentSelectorModal({
           startSlug={parentSlug}
           resetValue={parentId}
           omitSelfId={entityId}
+          selectableTypes={{ kinds: parentKinds, schemas: parentSchemas }}
           height="40vh"
         />
       );
@@ -79,12 +90,18 @@ export default function ParentSelectorModal({
   );
 }
 
+interface EntitySchemaVersion
+  extends Omit<Partial<SchemaVersion>, "enforcedParentVersions"> {
+  enforcedParentVersions: readonly { identifier: string; namespace: string }[];
+}
+
 type Props = {
   dialog: DialogState;
   entityId: string;
   entityKind: string;
   parentId: string;
   parentSlug?: string;
+  entitySchemaVersion: EntitySchemaVersion;
 };
 
 type Fields = ReparentEntityInput;

@@ -72,7 +72,7 @@ export const Item = styled.label<
   width: 80%;
   cursor: pointer;
 
-  ${({ $isSelectable }) => !$isSelectable && `opacity: 0.75; cursor: default;`}
+  ${({ $isSelectable }) => !$isSelectable && `opacity: 0.5; cursor: default;`}
 `;
 
 export const Label = styled.span`
