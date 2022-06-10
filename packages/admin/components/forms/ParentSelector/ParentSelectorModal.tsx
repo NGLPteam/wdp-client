@@ -76,6 +76,7 @@ export default function ParentSelectorModal({
             name="reparentEntity"
             mutation={mutation}
             successNotification={t("messages.update.parent_success")}
+            failureNotification={t("messages.update.parent_failure")}
             toVariables={toVariables}
             onSuccess={handleClose}
             onCancel={handleClose}
