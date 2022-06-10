@@ -10,7 +10,7 @@ import {
 import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import type { Page } from "@wdp/lib/types/page";
-import { AppHtmlHead } from "components/global";
+import Head from "next/head";
 import { updateI18n } from "i18n";
 import { AppContextProvider } from "contexts";
 import { LoadingPage } from "components/atomic";
@@ -61,7 +61,9 @@ function App({
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
-            <AppHtmlHead />
+            <Head>
+              <title>WDP</title>
+            </Head>
             {getLayout({
               PageComponent: Component,
               pageComponentProps: pageProps,
