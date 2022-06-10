@@ -11,7 +11,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   onShowDescendants: () => void;
   checked: boolean;
   onSelectEntity: () => void;
-  onPageChange: () => void;
+  onPageChange: (() => void) | null;
   isSelectable: boolean;
 }
 
@@ -43,7 +43,7 @@ const EntitySelectorItem = forwardRef(
     };
     const handleExpand = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      onPageChange();
+      if (onPageChange) onPageChange();
       onShowDescendants();
     };
 
