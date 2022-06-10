@@ -69,6 +69,7 @@ export default function ParentSelectorModal({
             onSuccess={handleClose}
             onCancel={handleClose}
             defaultValues={defaultValues}
+            hideGlobalErrorHeader
           >
             {renderForm}
           </MutationForm>

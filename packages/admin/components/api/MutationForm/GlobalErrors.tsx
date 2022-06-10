@@ -4,14 +4,16 @@ import * as Styled from "./GlobalErrors.styles";
 import { ContentHeader } from "components/layout";
 import { IconFactory } from "components/factories";
 
-export default function GlobalErrors({ globalErrors }: Props) {
+export default function GlobalErrors({ globalErrors, hideHeader }: Props) {
   if (globalErrors.length === 0) {
     return null;
   }
 
   return (
     <Styled.Wrapper>
-      <ContentHeader headerStyle="secondary" title="Something went wrong" />
+      {!hideHeader && (
+        <ContentHeader headerStyle="secondary" title="Something went wrong" />
+      )}
       {globalErrors.map((message, index) => (
         <Message key={index} message={message} />
       ))}
@@ -21,6 +23,7 @@ export default function GlobalErrors({ globalErrors }: Props) {
 
 interface Props {
   globalErrors: readonly string[];
+  hideHeader?: boolean;
 }
 
 export function Message({ message }: MessageProps) {
