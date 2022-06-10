@@ -7946,6 +7946,34 @@ type SchemaVersion implements DescribesSchema & Searchable & HasSchemaProperties
   """Configuration for controlling how instances of a schema handle certain optional core properties."""
   core: SchemaCoreDefinition!
   createdAt: ISO8601DateTime!
+  """
+  Declarations / slugs for `enforcedChildVersions`.
+  
+  """
+  enforcedChildDeclarations: [Slug!]!
+  """
+  The versions that this schema accepts as a child.
+  
+  If there are no schemas, then this schema does not enforce its children.
+  
+  """
+  enforcedChildVersions: [SchemaVersion!]!
+  """
+  Declarations / slugs for `enforcedParentVersions`.
+  
+  """
+  enforcedParentDeclarations: [Slug!]!
+  """
+  The versions that are allowed to parent this schema.
+  
+  If there are no schemas, then this schema does not enforce its parentage.
+  
+  """
+  enforcedParentVersions: [SchemaVersion!]!
+  """A boolean for the logic on `enforcedChildVersions`."""
+  enforcesChildren: Boolean!
+  """A boolean for the logic on `enforcedParentVersions`."""
+  enforcesParent: Boolean!
   id: ID!
   """A unique (per-namespace) value that names the schema within the system."""
   identifier: String!

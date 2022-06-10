@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 
   /* @todo frontendos make this pretty please */
-  padding-block-start: ${pxToRem(20)};
+  padding-block-end: ${pxToRem(20)};
 `;
 
 export const Error = styled.div`

@@ -171,7 +171,9 @@
         "file_success": "File updated successfully.",
         "file_failure": "Failed to update file.",
         "ordering_success": "Ordering updated successfully.",
-        "ordering_failure": "Failed to update ordering."
+        "ordering_failure": "Failed to update ordering.",
+        "parent_success": "Parent updated successfully.",
+        "parent_failure": "Failed to update parent."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -398,7 +400,7 @@
         "change_warning": "Changing the parent may require additional schema updates.",
         "change_button": "Change",
         "change_label": "Change Parent",
-        "change_message": "Are you sure you want to change this entity's parent?"
+        "change_message": "Select a new parent for this entity."
       },
       "file": {
         "upload": "Upload a file or \n drag and drop here",

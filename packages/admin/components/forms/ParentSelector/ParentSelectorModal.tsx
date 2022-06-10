@@ -2,32 +2,27 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-import { Option } from "../BaseSelect/BaseSelect";
 import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";
+import { EntitySelector } from "components/forms";
 import MutationForm, {
-  Forms,
   useRenderForm,
   useToVariables,
 } from "components/api/MutationForm";
 
 import {
-  ParentSelectorModalOptionsQuery as Query,
-  ParentSelectorModalOptionsQueryResponse as Response,
-} from "@/relay/ParentSelectorModalOptionsQuery.graphql";
-import {
   ReparentEntityInput,
   ParentSelectorModalMutation,
 } from "@/relay/ParentSelectorModalMutation.graphql";
-
-import { EntityDescendantScopeFilter } from "types/graphql-schema";
+import type { SchemaVersion } from "types/graphql-schema";
 
 export default function ParentSelectorModal({
   dialog,
   entityId,
-  entityKind,
   parentId,
+  parentSlug,
+  entityKind,
+  entitySchemaVersion,
 }: Props) {
   const { t } = useTranslation();
 
@@ -42,49 +37,29 @@ export default function ParentSelectorModal({
     []
   );
 
-  const queryVars = {
-    scope:
-      entityKind === "Collection"
-        ? ("COLLECTION" as EntityDescendantScopeFilter)
-        : ("ANY_ENTITY" as EntityDescendantScopeFilter),
-  };
-
-  const getOptions = (data: Response | null | undefined) => {
-    const communityOptions =
-      data?.communities?.edges.map((community) => ({
-        label: `${community.node.title}`,
-        value: community.node.id,
-      })) || [];
-    const descendants = data?.communities?.edges
-      .map((community) =>
-        community.node.descendants?.edges.map((edge) => edge.node.descendant)
+  const parentSchemas = entitySchemaVersion.enforcesParent
+    ? entitySchemaVersion.enforcedParentVersions?.map(
+        (schema) => `${schema.namespace}:${schema.identifier}`
       )
-      .flat();
-    const collectionAndItemOptions =
-      descendants
-        ?.map((entity) => ({
-          label: `${entity.title}`,
-          value: entity.id,
-        }))
-        .filter((option) => option.value) || [];
-    return [...communityOptions, ...collectionAndItemOptions] as Option[];
-  };
+    : [];
+  const parentKinds = entityKind === "collection" ? ["COLLECTION"] : [];
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
-      <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-        {({ data }) =>
-          data?.communities.edges.length ? (
-            <Forms.Select
-              options={getOptions(data)}
-              label={t("forms.parent.new_label")}
-              description={t("forms.parent.change_warning")}
-              {...register("parentId")}
-            />
-          ) : null
-        }
-      </QueryWrapper>
-    ),
+    ({ form: { setValue, register } }) => {
+      const onSelect = (id: string) => setValue("parentId", id);
+      return (
+        <EntitySelector
+          {...register("parentId", { required: true })}
+          onSelect={onSelect}
+          label={t("forms.parent.label")}
+          startSlug={parentSlug}
+          resetValue={parentId}
+          omitSelfId={entityId}
+          selectableTypes={{ kinds: parentKinds, schemas: parentSchemas }}
+          height="40vh"
+        />
+      );
+    },
     []
   );
 
@@ -96,15 +71,17 @@ export default function ParentSelectorModal({
     >
       {({ handleClose }) => (
         <Styled.ModalContent className="t-rte">
-          <p>{t("forms.parent.change_message")}</p>
+          <Styled.Message>{t("forms.parent.change_message")}</Styled.Message>
           <MutationForm<ParentSelectorModalMutation, Fields>
             name="reparentEntity"
             mutation={mutation}
             successNotification={t("messages.update.parent_success")}
+            failureNotification={t("messages.update.parent_failure")}
             toVariables={toVariables}
             onSuccess={handleClose}
             onCancel={handleClose}
             defaultValues={defaultValues}
+            hideGlobalErrorHeader
           >
             {renderForm}
           </MutationForm>
@@ -114,43 +91,21 @@ export default function ParentSelectorModal({
   );
 }
 
+interface EntitySchemaVersion
+  extends Omit<Partial<SchemaVersion>, "enforcedParentVersions"> {
+  enforcedParentVersions: readonly { identifier: string; namespace: string }[];
+}
+
 type Props = {
   dialog: DialogState;
   entityId: string;
   entityKind: string;
   parentId: string;
+  parentSlug?: string;
+  entitySchemaVersion: EntitySchemaVersion;
 };
 
 type Fields = ReparentEntityInput;
-
-const query = graphql`
-  query ParentSelectorModalOptionsQuery($scope: EntityDescendantScopeFilter!) {
-    communities {
-      edges {
-        node {
-          id
-          title
-          descendants(scope: $scope) {
-            edges {
-              node {
-                descendant {
-                  ... on Collection {
-                    id
-                    title
-                  }
-                  ... on Item {
-                    id
-                    title
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const mutation = graphql`
   mutation ParentSelectorModalMutation($input: ReparentEntityInput!) {

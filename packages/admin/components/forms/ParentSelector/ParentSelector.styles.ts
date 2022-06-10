@@ -47,3 +47,8 @@ export const ModalContent = styled.div`
     }
   }
 `;
+
+export const Message = styled.p`
+  color: var(--accent-color);
+  font-weight: var(--font-weight-medium);
+`;

@@ -76,6 +76,7 @@ export default function MutationForm<
     successNotification,
     failureNotification,
     refetchTags = [],
+    hideGlobalErrorHeader,
   } = props;
   const notify = useNotify();
   const { t } = useTranslation();
@@ -221,10 +222,10 @@ export default function MutationForm<
   const { handleSubmit } = form;
 
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
-    handleSubmit,
-    submitHandler,
-  ]);
+  const onSubmit = useMemo(
+    () => handleSubmit(submitHandler),
+    [handleSubmit, submitHandler]
+  );
   /* eslint-enable prettier/prettier */
 
   const {
@@ -241,7 +242,10 @@ export default function MutationForm<
         {props.contentTitle && (
           <ContentHeader headerStyle="secondary" title={props.contentTitle} />
         )}
-        <GlobalErrors globalErrors={state.globalErrors} />
+        <GlobalErrors
+          globalErrors={state.globalErrors}
+          hideHeader={hideGlobalErrorHeader}
+        />
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
           <Button type="submit" disabled={submitDisabled}>
@@ -399,6 +403,10 @@ interface BaseProps<M extends MutationParameters, T extends FieldValues> {
    * choose to refresh itself if any of its refetchTags match these refetchTags.
    */
   refetchTags?: string[];
+  /**
+   * Option to hide header on global errors.
+   */
+  hideGlobalErrorHeader?: boolean;
 }
 
 type Props<M extends MutationParameters, T extends FieldValues> = BaseProps<
