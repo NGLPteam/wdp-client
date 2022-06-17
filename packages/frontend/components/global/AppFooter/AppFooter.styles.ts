@@ -119,11 +119,11 @@ export const CopyrightText = styled.p`
 export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: var(--grid-column-gap);
 `;
 
 export const InstallationDesktopName = styled.div`
-  margin-inline-end: var(--grid-column-gap);
-
   ${globalNavRespond(`
       display: none;
     `)}

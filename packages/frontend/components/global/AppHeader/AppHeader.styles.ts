@@ -1,6 +1,12 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
-import { globalNavRespond, aBgCustom10, aBgCustom20 } from "theme/mixins";
+import {
+  globalNavRespond,
+  aBgCustom10,
+  aBgCustom20,
+  respond,
+} from "theme/mixins";
+import { SiteLogoMode } from "types/graphql-schema";
 
 export const PrintHeader = styled.div`
   @media screen {
@@ -51,11 +57,25 @@ export const LeftSide = styled.div`
   ${globalNavRespond(`--button-secondary-bg-color: var(--color-custom20);`)}
 `;
 
-export const InstallationName = styled.span`
+export const InstallationNameWrapper = styled.span<{
+  $logoMode?: SiteLogoMode;
+}>`
   margin-inline-end: var(--grid-column-gap);
   margin-block-end: ${pxToRem(3)};
 
-  ${globalNavRespond(`display: none`)}
+  ${({ $logoMode }) => {
+    if ($logoMode === "WITH_TEXT") {
+      return respond(
+        `
+        max-width: 33vw;
+        margin-inline-end: var(--grid-column-gap-sm);
+      `,
+        80
+      );
+    }
+  }}
+
+  ${respond(`display: none;`, 70)}
 `;
 
 export const RightSide = styled.div`

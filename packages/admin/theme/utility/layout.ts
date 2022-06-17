@@ -78,6 +78,10 @@ export default css`
         margin-inline-start: var(--grid-column-gap-sm);
       `)}
     }
+
+    &--col {
+      flex-direction: column;
+    }
   }
 
   .l-container-max {

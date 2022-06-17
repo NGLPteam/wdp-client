@@ -1,7 +1,8 @@
 import * as React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import LogoPlaceholder from "../LogoPlaceholder";
+import Link from "next/link";
+import * as Styled from "./InstallationName.styles";
 import { useGlobalContext } from "contexts";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 
@@ -14,9 +15,11 @@ export default function InstallationName() {
   );
 
   return siteData ? (
-    <LogoPlaceholder>
-      <span className="t-weight-md">{siteData.site.installationName}</span>
-    </LogoPlaceholder>
+    <Link href="/" passHref>
+      <Styled.Link className="t-weight-md">
+        {siteData.site.installationName}
+      </Styled.Link>
+    </Link>
   ) : null;
 }
 

@@ -4553,6 +4553,10 @@ type GlobalConfiguration implements Node {
   id: ID!
   """Settings specific to this institution."""
   institution: InstitutionSettings!
+  """The logo attachment. It may not always be present."""
+  logo: SiteLogoAttachment!
+  """Configurable metadata for the logo attachment."""
+  logoMetadata: ImageMetadata
   """Settings specific to this site"""
   site: SiteSettings!
   """Settings specific to the site's theme"""
@@ -4845,9 +4849,9 @@ type ImageDerivative implements ImageIdentification & Image {
   """The height of the image, if present"""
   height: Int
   """The maximum height this size can occupy"""
-  maxHeight: Int!
+  maxHeight: Int
   """The maximum width this size can occupy"""
-  maxWidth: Int!
+  maxWidth: Int
   """
   The original filename, if one was detected during attachment.
   
@@ -4893,10 +4897,20 @@ enum ImageDerivativeFormat {
 
 """The size of a specific image derivative."""
 enum ImageDerivativeSize {
-  LARGE
-  MEDIUM
-  SMALL
+  """A thumb-sized image, constrained to 100px wide by 100px high."""
   THUMB
+  """A small-sized image, constrained to 250px wide by 250px high."""
+  SMALL
+  """A medium-sized image, constrained to 500px wide by 500px high."""
+  MEDIUM
+  """A large-sized image, constrained to 750px wide by 750px high."""
+  LARGE
+  """A hero-sized image, constrained to 2880px wide with no height limit."""
+  HERO
+  """A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit."""
+  SANS_TEXT
+  """A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high."""
+  WITH_TEXT
 }
 
 """
@@ -4985,6 +4999,8 @@ enum ImagePurpose {
   HERO_IMAGE
   """A logo (on a Community)."""
   LOGO
+  """The logo for the site."""
+  SITE_LOGO
   """A thumbnail that appears next to the entity in lists, grids, etc."""
   THUMBNAIL
   """A fallback for otherwise-unspecified images."""
@@ -5025,7 +5041,7 @@ type ImageSize implements ImageIdentification {
   """A webp-formatted image derivative for this particular size."""
   webp: ImageDerivative!
   """The (maximum) width for this size."""
-  width: Int!
+  width: Int
 }
 
 """
@@ -8359,6 +8375,51 @@ input SiteFooterInput {
   copyrightStatement: String
 }
 
+"""An interface for accessing derivatives of the site logo (if present)."""
+type SiteLogoAttachment implements HasAttachmentStorage & ImageIdentification {
+  """Alt text for accessible images"""
+  alt: String
+  """Configurable metadata for the image."""
+  metadata: ImageMetadata
+  """The original source for the image"""
+  original: ImageOriginal!
+  """
+  The original filename, if one was detected during attachment.
+  
+  Filename detection is not always consistent across browsers, so this
+  may not always be present, even with a valid attachment.
+  
+  """
+  originalFilename: String
+  """
+  The intended purpose of this image attachment. This is intended to
+  help fragments that operate solely on image subcomponents to have
+  some context for what they are without extra work.
+  
+  """
+  purpose: ImagePurpose!
+  """A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit."""
+  sansText: ImageSize!
+  """
+  This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+  Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+  
+  """
+  storage: AttachmentStorage
+  """A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high."""
+  withText: ImageSize!
+}
+
+"""An option that determines how the site logo should be rendered"""
+enum SiteLogoMode {
+  """The site logo should be displayed with the site title _hidden_."""
+  SANS_TEXT
+  """The site logo should be displayed with the site title _visible_."""
+  WITH_TEXT
+  """The site logo is unavailable."""
+  NONE
+}
+
 """Configuration settings for information about this installation."""
 type SiteSettings {
   """Settings related to the site's footer"""
@@ -8367,6 +8428,8 @@ type SiteSettings {
   installationHomePageCopy: String!
   """The name of the installation."""
   installationName: String!
+  """How the logo should be rendered"""
+  logoMode: SiteLogoMode!
   """The name of the provider supporting and maintaining this installation."""
   providerName: String!
 }
@@ -8377,6 +8440,8 @@ input SiteSettingsInput {
   installationName: String
   """The text that appears on the root page of the frontend. Supports basic markdown."""
   installationHomePageCopy: String
+  """How the logo should be rendered"""
+  logoMode: SiteLogoMode
   """The name of the provider supporting and maintaining this installation."""
   providerName: String
   """Settings for the site's footer"""
@@ -9157,6 +9222,21 @@ type UpdateContributionPayload implements StandardMutationPayload {
 input UpdateGlobalConfigurationInput {
   """Possible new settings for the institution"""
   institution: InstitutionSettingsInput
+  """
+  A reference to an uploaded image in Tus.
+  
+  """
+  logo: UploadedFileInput
+  """
+  Metadata for an image attachment.
+  
+  """
+  logoMetadata: ImageMetadataInput
+  """
+  If set to true, this will clear the attachment logo on this model.
+  
+  """
+  clearLogo: Boolean = false
   """Possible new settings for the site"""
   site: SiteSettingsInput
   """Possible new settings for the theme"""

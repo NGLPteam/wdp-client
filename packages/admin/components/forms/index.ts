@@ -34,3 +34,4 @@ export { default as VisibilityFields } from "./VisibilityFields";
 export { default as OrderRenderSelect } from "./OrderRenderSelect";
 export { default as OrderingLinksSelection } from "./OrderingLinksSelection";
 export { default as EntitySelector } from "./EntitySelector";
+export { default as SiteLogoUpload } from "./FileUpload/patterns/SiteLogoUpload";

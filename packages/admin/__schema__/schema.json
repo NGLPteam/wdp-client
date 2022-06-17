@@ -26580,6 +26580,34 @@
             "deprecationReason": null
           },
           {
+            "name": "logo",
+            "description": "The logo attachment. It may not always be present.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SiteLogoAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMetadata",
+            "description": "Configurable metadata for the logo attachment.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "site",
             "description": "Settings specific to this site",
             "args": [],
@@ -27038,6 +27066,11 @@
           {
             "kind": "OBJECT",
             "name": "ImageOriginal",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SiteLogoAttachment",
             "ofType": null
           }
         ]
@@ -28092,13 +28125,9 @@
             "description": "The maximum height this size can occupy",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28108,13 +28137,9 @@
             "description": "The maximum width this size can occupy",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -28248,26 +28273,44 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "LARGE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "MEDIUM",
-            "description": null,
+            "name": "THUMB",
+            "description": "A thumb-sized image, constrained to 100px wide by 100px high.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SMALL",
-            "description": null,
+            "description": "A small-sized image, constrained to 250px wide by 250px high.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "THUMB",
-            "description": null,
+            "name": "MEDIUM",
+            "description": "A medium-sized image, constrained to 500px wide by 500px high.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LARGE",
+            "description": "A large-sized image, constrained to 750px wide by 750px high.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HERO",
+            "description": "A hero-sized image, constrained to 2880px wide with no height limit.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SANS_TEXT",
+            "description": "A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WITH_TEXT",
+            "description": "A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high.",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -28330,6 +28373,11 @@
           {
             "kind": "OBJECT",
             "name": "ImageSize",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "SiteLogoAttachment",
             "ofType": null
           }
         ]
@@ -28536,6 +28584,12 @@
             "deprecationReason": null
           },
           {
+            "name": "SITE_LOGO",
+            "description": "The logo for the site.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "THUMBNAIL",
             "description": "A thumbnail that appears next to the entity in lists, grids, etc.",
             "isDeprecated": false,
@@ -28660,13 +28714,9 @@
             "description": "The (maximum) width for this size.",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -46354,6 +46404,169 @@
       },
       {
         "kind": "OBJECT",
+        "name": "SiteLogoAttachment",
+        "description": "An interface for accessing derivatives of the site logo (if present).",
+        "fields": [
+          {
+            "name": "alt",
+            "description": "Alt text for accessible images",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": "Configurable metadata for the image.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "original",
+            "description": "The original source for the image",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageOriginal",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "originalFilename",
+            "description": "The original filename, if one was detected during attachment.\n\nFilename detection is not always consistent across browsers, so this\nmay not always be present, even with a valid attachment.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "purpose",
+            "description": "The intended purpose of this image attachment. This is intended to\nhelp fragments that operate solely on image subcomponents to have\nsome context for what they are without extra work.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ImagePurpose",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "sansText",
+            "description": "A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "storage",
+            "description": "This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.\nOtherwise, see the documentation for AttachmentStorage to see what the individual fields mean.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "AttachmentStorage",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "withText",
+            "description": "A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageSize",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "HasAttachmentStorage",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "ImageIdentification",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SiteLogoMode",
+        "description": "An option that determines how the site logo should be rendered",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "SANS_TEXT",
+            "description": "The site logo should be displayed with the site title _hidden_.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WITH_TEXT",
+            "description": "The site logo should be displayed with the site title _visible_.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "The site logo is unavailable.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "SiteSettings",
         "description": "Configuration settings for information about this installation.",
         "fields": [
@@ -46406,6 +46619,22 @@
             "deprecationReason": null
           },
           {
+            "name": "logoMode",
+            "description": "How the logo should be rendered",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SiteLogoMode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "providerName",
             "description": "The name of the provider supporting and maintaining this installation.",
             "args": [],
@@ -46451,6 +46680,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMode",
+            "description": "How the logo should be rendered",
+            "type": {
+              "kind": "ENUM",
+              "name": "SiteLogoMode",
               "ofType": null
             },
             "defaultValue": null,
@@ -50123,6 +50364,42 @@
               "ofType": null
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logo",
+            "description": "A reference to an uploaded image in Tus.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "UploadedFileInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "logoMetadata",
+            "description": "Metadata for an image attachment.\n",
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "ImageMetadataInput",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clearLogo",
+            "description": "If set to true, this will clear the attachment logo on this model.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },

@@ -7,19 +7,20 @@ import { ImageMetadataFragment$key } from "@/relay/ImageMetadataFragment.graphql
 
 type ImageProps = React.ComponentProps<typeof NextImage>;
 
-export default function Image({ data, metadata, ...props }: Props) {
+export default function Image({ data, metadata, alt = "", ...props }: Props) {
   const image = useMaybeFragment(fragment, data);
 
   const meta = useMaybeFragment(metadataFragment, metadata);
 
   return image && image.url ? (
-    <NextImage {...props} alt={meta?.alt || image.alt || ""} src={image.url} />
+    <NextImage {...props} alt={meta?.alt || image.alt || alt} src={image.url} />
   ) : null;
 }
 
 interface Props extends Omit<ImageProps, "src" | "alt"> {
   data?: ImageFragment$key | null;
   metadata?: ImageMetadataFragment$key | null;
+  alt?: string;
 }
 
 const fragment = graphql`

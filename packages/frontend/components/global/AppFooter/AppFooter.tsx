@@ -64,7 +64,9 @@ function AppFooter({ communityData }: Props) {
           {community ? (
             <CommunityName data={community} />
           ) : (
-            <h4>{app?.globalConfiguration.site.installationName}</h4>
+            <h4>
+              <InstallationName className="t-h4" />
+            </h4>
           )}
         </Styled.CommunityNameWrapper>
         <Styled.SearchWrapper>
@@ -86,7 +88,9 @@ function AppFooter({ communityData }: Props) {
           )}
           <Styled.InstallationDesktop>
             {community && (
-              <Styled.InstallationDesktopName as={InstallationName} />
+              <Styled.InstallationDesktopName>
+                <InstallationName />
+              </Styled.InstallationDesktopName>
             )}
             {communityCount > 1 && <CommunityPicker active={community} />}
           </Styled.InstallationDesktop>

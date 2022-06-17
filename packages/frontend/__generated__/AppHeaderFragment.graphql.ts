@@ -5,10 +5,16 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
 export type AppHeaderFragment = {
     readonly communities: {
         readonly pageInfo: {
             readonly totalCount: number;
+        };
+    };
+    readonly globalConfiguration: {
+        readonly site: {
+            readonly logoMode: SiteLogoMode;
         };
     };
     readonly " $refType": "AppHeaderFragment";
@@ -55,10 +61,39 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "GlobalConfiguration",
+      "kind": "LinkedField",
+      "name": "globalConfiguration",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SiteSettings",
+          "kind": "LinkedField",
+          "name": "site",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "logoMode",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '6b3ef974fd276becc84d9ad8155e6c6a';
+(node as any).hash = '30faf2d5d1f1f43f2cd2ef1846bdfa2c';
 export default node;

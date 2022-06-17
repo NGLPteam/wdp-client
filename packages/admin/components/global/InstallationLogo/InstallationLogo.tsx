@@ -2,56 +2,51 @@ import * as React from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./InstallationName.styles";
-import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
+import * as Styled from "./InstallationLogo.styles";
 import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
+import { InstallationLogoFragment$key } from "@/relay/InstallationLogoFragment.graphql";
 
 const LOGO_SIZE = 40;
 
-export default function InstallationName({ className = "t-label-mix" }: Props) {
+const InstallationLogo = ({ className }: Props) => {
   const data = useGlobalContext();
 
-  const siteData = useMaybeFragment<InstallationNameFragment$key>(
+  const siteData = useMaybeFragment<InstallationLogoFragment$key>(
     fragment,
     data?.globalConfiguration
   );
 
-  const linkClasses = "a-link";
-
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
 
-  return siteData?.site?.installationName ? (
+  return (
     <Link href="/" passHref>
-      <Styled.Link className={className}>
+      <Styled.LogoLink className={className}>
         {siteData?.logo?.storage && (
           <Image
             data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
-            width={siteData.logo.sansText?.webp?.width || LOGO_SIZE}
+            width={siteData?.logo?.sansText?.webp?.width || LOGO_SIZE}
             height={LOGO_SIZE}
-            alt={siteData.site.installationName}
+            alt={siteData?.site?.installationName}
           />
         )}
         {(!siteData?.logo?.storage ||
           siteData?.site?.logoMode === "WITH_TEXT") && (
-          <Styled.Name>
-            {/* Extra wrapper is needed for hover link styles */}
-            <span className={linkClasses}>
-              {siteData.site.installationName}
-            </span>
-          </Styled.Name>
+          <Styled.LogoName>{siteData?.site?.installationName}</Styled.LogoName>
         )}
-      </Styled.Link>
+      </Styled.LogoLink>
     </Link>
-  ) : null;
-}
-
-type Props = {
-  className?: string;
+  );
 };
 
+interface Props {
+  className?: string;
+}
+
+export default InstallationLogo;
+
 const fragment = graphql`
-  fragment InstallationNameFragment on GlobalConfiguration {
+  fragment InstallationLogoFragment on GlobalConfiguration {
     site {
       installationName
       logoMode
