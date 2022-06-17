@@ -46,7 +46,11 @@ function AppHeader({ communityData, entityData }: Props) {
             {(!isCommunityRoot ||
               (isCommunityRoot && totalCommunities > 1)) && (
               <>
-                <Styled.InstallationName as={InstallationName} />
+                <Styled.InstallationNameWrapper
+                  $logoMode={appData?.globalConfiguration?.site?.logoMode}
+                >
+                  <InstallationName />
+                </Styled.InstallationNameWrapper>
                 <CommunityPicker active={community} />
               </>
             )}
@@ -98,6 +102,11 @@ const fragment = graphql`
     communities {
       pageInfo {
         totalCount
+      }
+    }
+    globalConfiguration {
+      site {
+        logoMode
       }
     }
   }

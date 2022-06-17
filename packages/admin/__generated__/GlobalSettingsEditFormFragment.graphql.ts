@@ -5,6 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
 export type GlobalSettingsEditFormFragment = {
     readonly site: {
         readonly providerName: string;
@@ -14,10 +15,14 @@ export type GlobalSettingsEditFormFragment = {
             readonly description: string;
             readonly copyrightStatement: string;
         };
+        readonly logoMode: SiteLogoMode;
     };
     readonly theme: {
         readonly color: string;
         readonly font: string;
+    };
+    readonly logo: {
+        readonly " $fragmentRefs": FragmentRefs<"SiteLogoUploadFragment">;
     };
     readonly " $refType": "GlobalSettingsEditFormFragment";
 };
@@ -88,6 +93,13 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "logoMode",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -116,10 +128,26 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SiteLogoAttachment",
+      "kind": "LinkedField",
+      "name": "logo",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "SiteLogoUploadFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '4c063c9cddcb42b253aaf35fef29a536';
+(node as any).hash = '68466ff87c0c38065073a60b36af424b';
 export default node;

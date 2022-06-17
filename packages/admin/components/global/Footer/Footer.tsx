@@ -2,9 +2,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import Link from "next/link";
 import * as Styled from "./Footer.styles";
 import appData from "fixtures/app.data";
-import { LogoPlaceholder } from "components/global";
+import { InstallationLogo } from "components/global";
 import { renderNavLink } from "helpers";
 import { Authorize } from "components/auth";
 import { useGlobalContext } from "contexts";
@@ -27,11 +28,14 @@ function Footer() {
     <Styled.Wrapper>
       <Styled.Nav className="l-grid">
         <div
-          className={`l-grid__item ${
+          className={`l-grid__item l-flex l-flex--gap l-flex--col ${
             description ? "l-grid__item--4" : "l-grid__item--10"
           }`}
         >
-          <LogoPlaceholder>{t("app.powered_by")}</LogoPlaceholder>
+          <InstallationLogo />
+          <Link href="/" passHref>
+            <a className="a-link">{t("app.powered_by")}</a>
+          </Link>
         </div>
         {footerData.navigation.map((nav, i) => (
           <Authorize key={i} actions={nav.actions}>

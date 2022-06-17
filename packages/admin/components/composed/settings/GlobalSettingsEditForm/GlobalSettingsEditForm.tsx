@@ -18,7 +18,7 @@ export default function GlobalSettingsEditForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const settings = useFragment<GlobalSettingsEditFormFragment$key>(
+  const { logo, ...settings } = useFragment<GlobalSettingsEditFormFragment$key>(
     fragment,
     data
   );
@@ -42,6 +42,23 @@ export default function GlobalSettingsEditForm({
         <Forms.Input
           label="forms.fields.installation_name"
           {...register("site.installationName")}
+        />
+        <Forms.SiteLogoUpload
+          label="forms.fields.logo"
+          name="logo"
+          data={logo}
+          clearName="clearLogo"
+        />
+        <Forms.Select
+          label="Logo Settings"
+          options={[
+            { label: "Display with Installation Name", value: "WITH_TEXT" },
+            { label: "Display without Installation Name", value: "SANS_TEXT" },
+          ]}
+          description={
+            "Choose if the logo should be displayed with or without the installation name."
+          }
+          {...register("site.logoMode")}
         />
         <Forms.Textarea
           label="forms.fields.installation_home_copy"
@@ -121,10 +138,14 @@ const fragment = graphql`
         description
         copyrightStatement
       }
+      logoMode
     }
     theme {
       color
       font
+    }
+    logo {
+      ...SiteLogoUploadFragment
     }
   }
 `;

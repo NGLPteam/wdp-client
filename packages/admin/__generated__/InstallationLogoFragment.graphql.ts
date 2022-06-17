@@ -8,7 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ImageDerivativeSize = "HERO" | "LARGE" | "MEDIUM" | "SANS_TEXT" | "SMALL" | "THUMB" | "WITH_TEXT" | "%future added value";
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type InstallationNameFragment = {
+export type InstallationLogoFragment = {
     readonly site: {
         readonly installationName: string;
         readonly logoMode: SiteLogoMode;
@@ -29,12 +29,12 @@ export type InstallationNameFragment = {
             };
         };
     };
-    readonly " $refType": "InstallationNameFragment";
+    readonly " $refType": "InstallationLogoFragment";
 };
-export type InstallationNameFragment$data = InstallationNameFragment;
-export type InstallationNameFragment$key = {
-    readonly " $data"?: InstallationNameFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstallationNameFragment">;
+export type InstallationLogoFragment$data = InstallationLogoFragment;
+export type InstallationLogoFragment$key = {
+    readonly " $data"?: InstallationLogoFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"InstallationLogoFragment">;
 };
 
 
@@ -56,7 +56,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "InstallationNameFragment",
+  "name": "InstallationLogoFragment",
   "selections": [
     {
       "alias": null,
@@ -161,5 +161,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bac5a83ce72ff79df5b16b77dffe6f71';
+(node as any).hash = '7c86c023984270c739e7cbb5d80a4bea';
 export default node;

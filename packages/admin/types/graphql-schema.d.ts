@@ -4182,6 +4182,10 @@ export type GlobalConfiguration = Node & {
   id: Scalars['ID'];
   /** Settings specific to this institution. */
   institution: InstitutionSettings;
+  /** The logo attachment. It may not always be present. */
+  logo: SiteLogoAttachment;
+  /** Configurable metadata for the logo attachment. */
+  logoMetadata?: Maybe<ImageMetadata>;
   /** Settings specific to this site */
   site: SiteSettings;
   /** Settings specific to the site's theme */
@@ -4451,9 +4455,9 @@ export type ImageDerivative = ImageIdentification & Image & {
   /** The height of the image, if present */
   height?: Maybe<Scalars['Int']>;
   /** The maximum height this size can occupy */
-  maxHeight: Scalars['Int'];
+  maxHeight?: Maybe<Scalars['Int']>;
   /** The maximum width this size can occupy */
-  maxWidth: Scalars['Int'];
+  maxWidth?: Maybe<Scalars['Int']>;
   /**
    * The original filename, if one was detected during attachment.
    *
@@ -4490,10 +4494,20 @@ export type ImageDerivativeFormat =
 
 /** The size of a specific image derivative. */
 export type ImageDerivativeSize =
-  | 'LARGE'
-  | 'MEDIUM'
-  | 'SMALL'
+  /** A thumb-sized image, constrained to 100px wide by 100px high. */
   | 'THUMB'
+  /** A small-sized image, constrained to 250px wide by 250px high. */
+  | 'SMALL'
+  /** A medium-sized image, constrained to 500px wide by 500px high. */
+  | 'MEDIUM'
+  /** A large-sized image, constrained to 750px wide by 750px high. */
+  | 'LARGE'
+  /** A hero-sized image, constrained to 2880px wide with no height limit. */
+  | 'HERO'
+  /** A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit. */
+  | 'SANS_TEXT'
+  /** A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high. */
+  | 'WITH_TEXT'
   | '%future added value';
 
 /**
@@ -4577,6 +4591,8 @@ export type ImagePurpose =
   | 'HERO_IMAGE'
   /** A logo (on a Community). */
   | 'LOGO'
+  /** The logo for the site. */
+  | 'SITE_LOGO'
   /** A thumbnail that appears next to the entity in lists, grids, etc. */
   | 'THUMBNAIL'
   /** A fallback for otherwise-unspecified images. */
@@ -4615,7 +4631,7 @@ export type ImageSize = ImageIdentification & {
   /** A webp-formatted image derivative for this particular size. */
   webp: ImageDerivative;
   /** The (maximum) width for this size. */
-  width: Scalars['Int'];
+  width?: Maybe<Scalars['Int']>;
 };
 
 /**
@@ -7736,6 +7752,49 @@ export type SiteFooterInput = {
   copyrightStatement?: Maybe<Scalars['String']>;
 };
 
+/** An interface for accessing derivatives of the site logo (if present). */
+export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
+  __typename?: 'SiteLogoAttachment';
+  /** Alt text for accessible images */
+  alt?: Maybe<Scalars['String']>;
+  /** Configurable metadata for the image. */
+  metadata?: Maybe<ImageMetadata>;
+  /** The original source for the image */
+  original: ImageOriginal;
+  /**
+   * The original filename, if one was detected during attachment.
+   *
+   * Filename detection is not always consistent across browsers, so this
+   * may not always be present, even with a valid attachment.
+   */
+  originalFilename?: Maybe<Scalars['String']>;
+  /**
+   * The intended purpose of this image attachment. This is intended to
+   * help fragments that operate solely on image subcomponents to have
+   * some context for what they are without extra work.
+   */
+  purpose: ImagePurpose;
+  /** A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit. */
+  sansText: ImageSize;
+  /**
+   * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
+   * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   */
+  storage?: Maybe<AttachmentStorage>;
+  /** A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high. */
+  withText: ImageSize;
+};
+
+/** An option that determines how the site logo should be rendered */
+export type SiteLogoMode =
+  /** The site logo should be displayed with the site title _hidden_. */
+  | 'SANS_TEXT'
+  /** The site logo should be displayed with the site title _visible_. */
+  | 'WITH_TEXT'
+  /** The site logo is unavailable. */
+  | 'NONE'
+  | '%future added value';
+
 /** Configuration settings for information about this installation. */
 export type SiteSettings = {
   __typename?: 'SiteSettings';
@@ -7745,6 +7804,8 @@ export type SiteSettings = {
   installationHomePageCopy: Scalars['String'];
   /** The name of the installation. */
   installationName: Scalars['String'];
+  /** How the logo should be rendered */
+  logoMode: SiteLogoMode;
   /** The name of the provider supporting and maintaining this installation. */
   providerName: Scalars['String'];
 };
@@ -7755,6 +7816,8 @@ export type SiteSettingsInput = {
   installationName?: Maybe<Scalars['String']>;
   /** The text that appears on the root page of the frontend. Supports basic markdown. */
   installationHomePageCopy?: Maybe<Scalars['String']>;
+  /** How the logo should be rendered */
+  logoMode?: Maybe<SiteLogoMode>;
   /** The name of the provider supporting and maintaining this installation. */
   providerName?: Maybe<Scalars['String']>;
   /** Settings for the site's footer */
@@ -8419,6 +8482,12 @@ export type UpdateContributionPayload = StandardMutationPayload & {
 export type UpdateGlobalConfigurationInput = {
   /** Possible new settings for the institution */
   institution?: Maybe<InstitutionSettingsInput>;
+  /** A reference to an uploaded image in Tus. */
+  logo?: Maybe<UploadedFileInput>;
+  /** Metadata for an image attachment. */
+  logoMetadata?: Maybe<ImageMetadataInput>;
+  /** If set to true, this will clear the attachment logo on this model. */
+  clearLogo?: Maybe<Scalars['Boolean']>;
   /** Possible new settings for the site */
   site?: Maybe<SiteSettingsInput>;
   /** Possible new settings for the theme */
@@ -9746,7 +9815,7 @@ export type ResolversTypes = {
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
-  HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'];
+  HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'] | ResolversTypes['SiteLogoAttachment'];
   HasAvailableEntities: ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'];
   HasDOI: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasEntityBreadcrumbs: ResolversTypes['Collection'] | ResolversTypes['EntitySelectOption'] | ResolversTypes['Item'];
@@ -9762,7 +9831,7 @@ export type ResolversTypes = {
   ImageDerivative: ResolverTypeWrapper<ImageDerivative>;
   ImageDerivativeFormat: ImageDerivativeFormat;
   ImageDerivativeSize: ImageDerivativeSize;
-  ImageIdentification: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'] | ResolversTypes['ImageSize'];
+  ImageIdentification: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'] | ResolversTypes['ImageSize'] | ResolversTypes['SiteLogoAttachment'];
   ImageMetadata: ResolverTypeWrapper<ImageMetadata>;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ResolverTypeWrapper<ImageOriginal>;
@@ -9892,6 +9961,8 @@ export type ResolversTypes = {
   SimpleOrder: SimpleOrder;
   SiteFooter: ResolverTypeWrapper<SiteFooter>;
   SiteFooterInput: SiteFooterInput;
+  SiteLogoAttachment: ResolverTypeWrapper<SiteLogoAttachment>;
+  SiteLogoMode: SiteLogoMode;
   SiteSettings: ResolverTypeWrapper<SiteSettings>;
   SiteSettingsInput: SiteSettingsInput;
   Slug: ResolverTypeWrapper<Scalars['Slug']>;
@@ -10139,7 +10210,7 @@ export type ResolversParentTypes = {
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
-  HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'];
+  HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['SiteLogoAttachment'];
   HasAvailableEntities: ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'];
   HasDOI: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HasEntityBreadcrumbs: ResolversParentTypes['Collection'] | ResolversParentTypes['EntitySelectOption'] | ResolversParentTypes['Item'];
@@ -10152,7 +10223,7 @@ export type ResolversParentTypes = {
   Image: ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'];
   ImageAttachment: ImageAttachment;
   ImageDerivative: ImageDerivative;
-  ImageIdentification: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['ImageSize'];
+  ImageIdentification: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['ImageSize'] | ResolversParentTypes['SiteLogoAttachment'];
   ImageMetadata: ImageMetadata;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ImageOriginal;
@@ -10255,6 +10326,7 @@ export type ResolversParentTypes = {
   SelectProperty: SelectProperty;
   SiteFooter: SiteFooter;
   SiteFooterInput: SiteFooterInput;
+  SiteLogoAttachment: SiteLogoAttachment;
   SiteSettings: SiteSettings;
   SiteSettingsInput: SiteSettingsInput;
   Slug: Scalars['Slug'];
@@ -11656,6 +11728,8 @@ export type GlobalAccessControlListResolvers<ContextType = any, ParentType exten
 export type GlobalConfigurationResolvers<ContextType = any, ParentType extends ResolversParentTypes['GlobalConfiguration'] = ResolversParentTypes['GlobalConfiguration']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   institution?: Resolver<ResolversTypes['InstitutionSettings'], ParentType, ContextType>;
+  logo?: Resolver<ResolversTypes['SiteLogoAttachment'], ParentType, ContextType>;
+  logoMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   site?: Resolver<ResolversTypes['SiteSettings'], ParentType, ContextType>;
   theme?: Resolver<ResolversTypes['ThemeSettings'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11687,7 +11761,7 @@ export type GroupPropertyResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type HasAttachmentStorageResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasAttachmentStorage'] = ResolversParentTypes['HasAttachmentStorage']> = {
-  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageOriginal', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageOriginal' | 'SiteLogoAttachment', ParentType, ContextType>;
   storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
 };
 
@@ -11786,8 +11860,8 @@ export type ImageDerivativeResolvers<ContextType = any, ParentType extends Resol
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   format?: Resolver<ResolversTypes['ImageDerivativeFormat'], ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  maxHeight?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  maxWidth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  maxHeight?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maxWidth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
@@ -11798,7 +11872,7 @@ export type ImageDerivativeResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type ImageIdentificationResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageIdentification'] = ResolversParentTypes['ImageIdentification']> = {
-  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageDerivative' | 'ImageOriginal' | 'ImageSize', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'ImageAttachment' | 'ImageDerivative' | 'ImageOriginal' | 'ImageSize' | 'SiteLogoAttachment', ParentType, ContextType>;
   originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
 };
@@ -11828,7 +11902,7 @@ export type ImageSizeResolvers<ContextType = any, ParentType extends ResolversPa
   purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
   size?: Resolver<ResolversTypes['ImageDerivativeSize'], ParentType, ContextType>;
   webp?: Resolver<ResolversTypes['ImageDerivative'], ParentType, ContextType>;
-  width?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -12722,10 +12796,23 @@ export type SiteFooterResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type SiteLogoAttachmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteLogoAttachment'] = ResolversParentTypes['SiteLogoAttachment']> = {
+  alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
+  original?: Resolver<ResolversTypes['ImageOriginal'], ParentType, ContextType>;
+  originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  purpose?: Resolver<ResolversTypes['ImagePurpose'], ParentType, ContextType>;
+  sansText?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  storage?: Resolver<Maybe<ResolversTypes['AttachmentStorage']>, ParentType, ContextType>;
+  withText?: Resolver<ResolversTypes['ImageSize'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type SiteSettingsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SiteSettings'] = ResolversParentTypes['SiteSettings']> = {
   footer?: Resolver<ResolversTypes['SiteFooter'], ParentType, ContextType>;
   installationHomePageCopy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   installationName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  logoMode?: Resolver<ResolversTypes['SiteLogoMode'], ParentType, ContextType>;
   providerName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -13521,6 +13608,7 @@ export type Resolvers<ContextType = any> = {
   SelectOption?: SelectOptionResolvers<ContextType>;
   SelectProperty?: SelectPropertyResolvers<ContextType>;
   SiteFooter?: SiteFooterResolvers<ContextType>;
+  SiteLogoAttachment?: SiteLogoAttachmentResolvers<ContextType>;
   SiteSettings?: SiteSettingsResolvers<ContextType>;
   Slug?: GraphQLScalarType;
   Sluggable?: SluggableResolvers<ContextType>;

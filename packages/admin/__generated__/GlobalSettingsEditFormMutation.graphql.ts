@@ -5,8 +5,13 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
+export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
+export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateGlobalConfigurationInput = {
     institution?: InstitutionSettingsInput | null | undefined;
+    logo?: UploadedFileInput | null | undefined;
+    logoMetadata?: ImageMetadataInput | null | undefined;
+    clearLogo?: boolean | null | undefined;
     site?: SiteSettingsInput | null | undefined;
     theme?: ThemeSettingsInput | null | undefined;
     clientMutationId?: string | null | undefined;
@@ -14,9 +19,23 @@ export type UpdateGlobalConfigurationInput = {
 export type InstitutionSettingsInput = {
     name?: string | null | undefined;
 };
+export type UploadedFileInput = {
+    id: unknown;
+    storage?: UploadStorage | null | undefined;
+    metadata?: UploadedFileMetadataInput | null | undefined;
+};
+export type UploadedFileMetadataInput = {
+    alt?: string | null | undefined;
+    filename?: string | null | undefined;
+    mimeType?: string | null | undefined;
+};
+export type ImageMetadataInput = {
+    alt?: string | null | undefined;
+};
 export type SiteSettingsInput = {
     installationName?: string | null | undefined;
     installationHomePageCopy?: string | null | undefined;
+    logoMode?: SiteLogoMode | null | undefined;
     providerName?: string | null | undefined;
     footer?: SiteFooterInput | null | undefined;
 };
