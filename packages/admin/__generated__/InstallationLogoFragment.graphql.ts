@@ -15,16 +15,14 @@ export type InstallationLogoFragment = {
     };
     readonly logo: {
         readonly storage: AttachmentStorage | null;
+        readonly original: {
+            readonly originalFilename: string | null;
+            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
+        };
         readonly sansText: {
             readonly size: ImageDerivativeSize;
             readonly webp: {
                 readonly width: number | null;
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
-        readonly withText: {
-            readonly size: ImageDerivativeSize;
-            readonly webp: {
                 readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
             };
         };
@@ -41,13 +39,6 @@ export type InstallationLogoFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "size",
-  "storageKey": null
-},
-v1 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "ImageFragment"
@@ -101,12 +92,37 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": "ImageOriginal",
+          "kind": "LinkedField",
+          "name": "original",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "originalFilename",
+              "storageKey": null
+            },
+            (v0/*: any*/)
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "ImageSize",
           "kind": "LinkedField",
           "name": "sansText",
           "plural": false,
           "selections": [
-            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "size",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -122,31 +138,7 @@ return {
                   "name": "width",
                   "storageKey": null
                 },
-                (v1/*: any*/)
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "withText",
-          "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "webp",
-              "plural": false,
-              "selections": [
-                (v1/*: any*/)
+                (v0/*: any*/)
               ],
               "storageKey": null
             }
@@ -161,5 +153,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7c86c023984270c739e7cbb5d80a4bea';
+(node as any).hash = '60b2eee562c94ceb58fbd24704a5c1bc';
 export default node;

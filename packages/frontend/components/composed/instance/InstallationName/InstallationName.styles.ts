@@ -6,7 +6,7 @@ export const Link = styled.a`
   align-items: center;
 
   > * + * {
-    margin-inline-start: ${pxToRem(8)};
+    margin-inline-start: ${pxToRem(12)};
   }
 
   > *:first-child {
@@ -15,5 +15,5 @@ export const Link = styled.a`
 `;
 
 export const Name = styled.div`
-  line-height: 1rem;
+  line-height: 1.25em;
 `;

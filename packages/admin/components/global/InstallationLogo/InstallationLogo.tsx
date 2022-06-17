@@ -17,27 +17,22 @@ const InstallationLogo = ({ className }: Props) => {
     data?.globalConfiguration
   );
 
+  const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
+
   return (
     <Link href="/" passHref>
       <Styled.LogoLink className={className}>
-        {siteData?.site?.logoMode === "SANS_TEXT" ? (
+        {siteData?.logo?.storage && (
           <Image
-            data={siteData?.logo?.sansText?.webp}
+            data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
             width={siteData?.logo?.sansText?.webp?.width || LOGO_SIZE}
             height={LOGO_SIZE}
             alt={siteData?.site?.installationName}
           />
-        ) : (
-          <>
-            <Image
-              data={siteData?.logo?.withText?.webp}
-              width={LOGO_SIZE}
-              height={LOGO_SIZE}
-            />
-            <Styled.LogoName>
-              {siteData?.site?.installationName}
-            </Styled.LogoName>
-          </>
+        )}
+        {(!siteData?.logo?.storage ||
+          siteData?.site?.logoMode === "WITH_TEXT") && (
+          <Styled.LogoName>{siteData?.site?.installationName}</Styled.LogoName>
         )}
       </Styled.LogoLink>
     </Link>
@@ -58,16 +53,14 @@ const fragment = graphql`
     }
     logo {
       storage
+      original {
+        originalFilename
+        ...ImageFragment
+      }
       sansText {
         size
         webp {
-          ...ImageFragment
           width
-        }
-      }
-      withText {
-        size
-        webp {
           ...ImageFragment
         }
       }

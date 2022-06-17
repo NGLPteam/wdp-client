@@ -110,16 +110,14 @@ fragment InstallationNameFragment on GlobalConfiguration {
   }
   logo {
     storage
+    original {
+      originalFilename
+      ...ImageFragment
+    }
     sansText {
       size
       webp {
-        ...ImageFragment
         width
-      }
-    }
-    withText {
-      size
-      webp {
         ...ImageFragment
       }
     }
@@ -157,38 +155,31 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "size",
+  "name": "alt",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "url",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "alt",
+  "name": "width",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -305,33 +296,28 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ImageSize",
+                "concreteType": "ImageOriginal",
                 "kind": "LinkedField",
-                "name": "sansText",
+                "name": "original",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "ImageDerivative",
-                    "kind": "LinkedField",
-                    "name": "webp",
-                    "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "kind": "InlineFragment",
-                        "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/),
-                          (v5/*: any*/)
-                        ],
-                        "type": "Image",
-                        "abstractKey": "__isImage"
-                      }
-                    ],
+                    "kind": "ScalarField",
+                    "name": "originalFilename",
                     "storageKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v1/*: any*/),
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "type": "Image",
+                    "abstractKey": "__isImage"
                   }
                 ],
                 "storageKey": null
@@ -341,10 +327,16 @@ return {
                 "args": null,
                 "concreteType": "ImageSize",
                 "kind": "LinkedField",
-                "name": "withText",
+                "name": "sansText",
                 "plural": false,
                 "selections": [
-                  (v1/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "size",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -353,13 +345,13 @@ return {
                     "name": "webp",
                     "plural": false,
                     "selections": [
+                      (v3/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/),
+                          (v1/*: any*/),
                           (v2/*: any*/),
-                          (v5/*: any*/)
+                          (v4/*: any*/)
                         ],
                         "type": "Image",
                         "abstractKey": "__isImage"
@@ -373,7 +365,7 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
+          (v5/*: any*/),
           (v0/*: any*/)
         ],
         "storageKey": null
@@ -416,7 +408,7 @@ return {
                     "name": "title",
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -447,12 +439,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1bc9097502a1a529c34934bb47795c92",
+    "cacheID": "c2c3f9f8d2b906242fe6810ba5e9514b",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    sansText {\n      size\n      webp {\n        ...ImageFragment\n        width\n      }\n    }\n    withText {\n      size\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

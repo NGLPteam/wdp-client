@@ -19,32 +19,28 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
 
   const linkClasses = "a-link";
 
+  const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
+
   return siteData?.site?.installationName ? (
     <Link href="/" passHref>
       <Styled.Link className={className}>
-        {siteData?.logo?.storage &&
-          (siteData?.site?.logoMode === "SANS_TEXT" ? (
-            <Image
-              data={siteData.logo.sansText?.webp}
-              width={siteData.logo.sansText?.webp?.width || LOGO_SIZE}
-              height={LOGO_SIZE}
-              alt={siteData.site.installationName}
-            />
-          ) : (
-            <>
-              <Image
-                data={siteData.logo.withText?.webp}
-                width={LOGO_SIZE}
-                height={LOGO_SIZE}
-              />
-              <Styled.Name>
-                {/* Extra wrapper is needed for hover link styles */}
-                <span className={linkClasses}>
-                  {siteData.site.installationName}
-                </span>
-              </Styled.Name>
-            </>
-          ))}
+        {siteData?.logo?.storage && (
+          <Image
+            data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
+            width={siteData.logo.sansText?.webp?.width || LOGO_SIZE}
+            height={LOGO_SIZE}
+            alt={siteData.site.installationName}
+          />
+        )}
+        {(!siteData?.logo?.storage ||
+          siteData?.site?.logoMode === "WITH_TEXT") && (
+          <Styled.Name>
+            {/* Extra wrapper is needed for hover link styles */}
+            <span className={linkClasses}>
+              {siteData.site.installationName}
+            </span>
+          </Styled.Name>
+        )}
       </Styled.Link>
     </Link>
   ) : null;
@@ -62,16 +58,14 @@ const fragment = graphql`
     }
     logo {
       storage
+      original {
+        originalFilename
+        ...ImageFragment
+      }
       sansText {
         size
         webp {
-          ...ImageFragment
           width
-        }
-      }
-      withText {
-        size
-        webp {
           ...ImageFragment
         }
       }
