@@ -7,6 +7,8 @@ import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
 import { InstallationLogoFragment$key } from "@/relay/InstallationLogoFragment.graphql";
 
+const LOGO_SIZE = 40;
+
 const InstallationLogo = ({ className }: Props) => {
   const data = useGlobalContext();
 
@@ -21,16 +23,16 @@ const InstallationLogo = ({ className }: Props) => {
         {siteData?.site?.logoMode === "SANS_TEXT" ? (
           <Image
             data={siteData?.logo?.sansText?.webp}
-            width={siteData?.logo?.sansText?.webp?.width || 40}
-            height={40}
+            width={siteData?.logo?.sansText?.webp?.width || LOGO_SIZE}
+            height={LOGO_SIZE}
             alt={siteData?.site?.installationName}
           />
         ) : (
           <>
             <Image
               data={siteData?.logo?.withText?.webp}
-              width={40}
-              height={40}
+              width={LOGO_SIZE}
+              height={LOGO_SIZE}
             />
             <Styled.LogoName>
               {siteData?.site?.installationName}

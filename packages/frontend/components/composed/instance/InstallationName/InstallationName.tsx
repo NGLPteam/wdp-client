@@ -7,6 +7,8 @@ import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.g
 import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
 
+const LOGO_SIZE = 40;
+
 export default function InstallationName({ className = "t-label-mix" }: Props) {
   const data = useGlobalContext();
 
@@ -24,16 +26,16 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
           (siteData?.site?.logoMode === "SANS_TEXT" ? (
             <Image
               data={siteData.logo.sansText?.webp}
-              width={siteData.logo.sansText?.webp?.width || 40}
-              height={40}
+              width={siteData.logo.sansText?.webp?.width || LOGO_SIZE}
+              height={LOGO_SIZE}
               alt={siteData.site.installationName}
             />
           ) : (
             <>
               <Image
                 data={siteData.logo.withText?.webp}
-                width={40}
-                height={40}
+                width={LOGO_SIZE}
+                height={LOGO_SIZE}
               />
               <Styled.Name>
                 {/* Extra wrapper is needed for hover link styles */}
