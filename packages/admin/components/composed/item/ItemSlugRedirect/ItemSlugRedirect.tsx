@@ -36,7 +36,7 @@ function ItemSlugRedirect({ data }: Props) {
     }
   }, [item, slug, redirect]);
 
-  return <LoadingCircle />;
+  return <LoadingCircle className="l-page-loading" />;
 }
 
 interface Props {

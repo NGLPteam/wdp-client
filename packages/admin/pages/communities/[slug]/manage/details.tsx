@@ -11,7 +11,7 @@ function CommunityDetails({ data }: Props) {
   return data && data.community ? (
     <CommunityUpdateForm data={data?.community} />
   ) : (
-    <LoadingCircle />
+    <LoadingCircle className="l-page-loading" />
   );
 }
 

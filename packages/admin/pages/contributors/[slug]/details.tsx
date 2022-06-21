@@ -11,7 +11,7 @@ function ContributorDetails({ data }: Props) {
   return data && data.contributor ? (
     <ContributorUpdateForm data={data.contributor} />
   ) : (
-    <LoadingCircle />
+    <LoadingCircle className="l-page-loading" />
   );
 }
 

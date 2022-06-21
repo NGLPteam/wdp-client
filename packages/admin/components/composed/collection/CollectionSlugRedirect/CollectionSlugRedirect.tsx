@@ -42,7 +42,7 @@ function CollectionSlugRedirect({ data }: Props) {
     }
   }, [collection, slug, redirect]);
 
-  return <LoadingCircle />;
+  return <LoadingCircle className="l-page-loading" />;
 }
 
 interface Props {

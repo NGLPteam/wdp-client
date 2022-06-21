@@ -10,7 +10,7 @@ function UserDetails({ data }: Props) {
   return data && data.user ? (
     <UserUpdateForm data={data.user} />
   ) : (
-    <LoadingCircle />
+    <LoadingCircle className="l-page-loading" />
   );
 }
 
