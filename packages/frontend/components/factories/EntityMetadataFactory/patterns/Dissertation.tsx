@@ -47,7 +47,7 @@ export default function DissertationMetadata({ data }: Props) {
         data={dissertation.publisher}
       />
       <MetadataFactory
-        label={t("metadata.accessioned")}
+        label={t("metadata.deposited")}
         data={dissertation.accessioned}
       />
       <MetadataFactory
