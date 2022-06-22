@@ -34,7 +34,7 @@ export default function PaperMetadata({ data }: Props) {
           ))}
       </MetadataProperty>
       <MetadataFactory
-        label={t("metadata.accessioned")}
+        label={t("metadata.deposited")}
         data={paper.accessioned}
       />
       <MetadataFactory label={t("metadata.available")} data={paper.available} />
