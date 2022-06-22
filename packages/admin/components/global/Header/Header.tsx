@@ -9,6 +9,7 @@ import HeaderAccount from "./HeaderAccount";
 import * as Styled from "./Header.styles";
 import HeaderNavLinks from "./HeaderNavLinks";
 import HeaderWrapper from "./HeaderWrapper";
+import { useViewerContext } from "contexts";
 import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
 
@@ -30,6 +31,16 @@ function Header() {
   });
 
   const { headerData, footerData } = appData;
+  const { globalAdmin } = useViewerContext();
+
+  const renderGlobalSettings = () =>
+    globalAdmin ? (
+      <li>
+        <DrawerLink key="settings" drawer="editSettings" passHref>
+          <a className="a-link">{t("nav.global_settings")}</a>
+        </DrawerLink>
+      </li>
+    ) : null;
 
   return (
     <HeaderWrapper>
@@ -71,6 +82,7 @@ function Header() {
             <MobileMenuList>
               {nav.children &&
                 nav.children.map((child, i) => renderNavLink(child, i, "li"))}
+              {renderGlobalSettings()}
             </MobileMenuList>
           </div>
         ))}

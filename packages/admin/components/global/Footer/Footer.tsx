@@ -8,7 +8,8 @@ import appData from "fixtures/app.data";
 import { InstallationLogo } from "components/global";
 import { renderNavLink } from "helpers";
 import { Authorize } from "components/auth";
-import { useGlobalContext } from "contexts";
+import { DrawerLink } from "components/atomic";
+import { useGlobalContext, useViewerContext } from "contexts";
 import { FooterFragment$key } from "@/relay/FooterFragment.graphql";
 
 function Footer() {
@@ -16,6 +17,7 @@ function Footer() {
   const { t } = useTranslation();
 
   const data = useGlobalContext();
+  const { globalAdmin } = useViewerContext();
 
   const siteData = useMaybeFragment<FooterFragment$key>(
     fragment,
@@ -23,6 +25,15 @@ function Footer() {
   );
 
   const description = siteData?.site.footer.description;
+
+  const renderGlobalSettings = () =>
+    globalAdmin ? (
+      <Styled.ListItem>
+        <DrawerLink key="settings" drawer="editSettings" passHref>
+          {t("nav.global_settings")}
+        </DrawerLink>
+      </Styled.ListItem>
+    ) : null;
 
   return (
     <Styled.Wrapper>
@@ -46,6 +57,7 @@ function Footer() {
                   nav.children.map((child, i) =>
                     renderNavLink(child, i, Styled.ListItem)
                   )}
+                {globalAdmin && renderGlobalSettings()}
               </Styled.List>
             </div>
           </Authorize>
