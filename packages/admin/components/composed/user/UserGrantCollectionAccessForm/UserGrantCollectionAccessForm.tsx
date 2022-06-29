@@ -5,7 +5,6 @@ import type {
   UserGrantCollectionAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantCollectionAccessFormMutation.graphql";
-import { UserGrantCollectionAccessFormFragment$key } from "@/relay/UserGrantCollectionAccessFormFragment.graphql";
 import { NodeRoleSelect } from "components/forms/RoleSelect";
 
 const UserGrantCollectionAccessForm = ({
@@ -51,7 +50,6 @@ interface Props
     "onSuccess" | "onCancel"
   > {
   userId?: string;
-  data?: UserGrantCollectionAccessFormFragment$key | null;
 }
 
 export default UserGrantCollectionAccessForm;

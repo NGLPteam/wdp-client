@@ -39,7 +39,6 @@ export default function ContributorContributionCreateDrawer({
             hideOnClickOutside={false}
           >
             <ContributionCreateForm
-              data={data}
               onSuccess={dialog.hide}
               onCancel={dialog.hide}
               contributorId={data.contributor.id}
@@ -69,6 +68,5 @@ const query = graphql`
         familyName
       }
     }
-    ...ContributionCreateFormFragment
   }
 `;

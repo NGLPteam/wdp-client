@@ -36,7 +36,6 @@ export default function ItemContributionCreateDrawer({
             hideOnClickOutside={false}
           >
             <ContributionCreateForm
-              data={data}
               onSuccess={dialog.hide}
               onCancel={dialog.hide}
               contributableId={data.item.id}
@@ -56,6 +55,5 @@ const query = graphql`
       id
       title
     }
-    ...ContributionCreateFormFragment
   }
 `;

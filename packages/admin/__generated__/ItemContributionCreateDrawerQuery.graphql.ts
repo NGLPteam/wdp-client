@@ -4,7 +4,6 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-import { FragmentRefs } from "relay-runtime";
 export type ItemContributionCreateDrawerQueryVariables = {
     slug: string;
 };
@@ -13,7 +12,6 @@ export type ItemContributionCreateDrawerQueryResponse = {
         readonly id: string;
         readonly title: string;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionCreateFormFragment">;
 };
 export type ItemContributionCreateDrawerQuery = {
     readonly response: ItemContributionCreateDrawerQueryResponse;
@@ -30,32 +28,6 @@ query ItemContributionCreateDrawerQuery(
     id
     title
   }
-  ...ContributionCreateFormFragment
-}
-
-fragment ContributionCreateFormFragment on Query {
-  ...ContributorTypeaheadFragment
-}
-
-fragment ContributorTypeaheadFragment on Query {
-  contributors {
-    nodes {
-      __typename
-      ... on OrganizationContributor {
-        id
-        legalName
-      }
-      ... on PersonContributor {
-        id
-        givenName
-        familyName
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-  }
 }
 */
 
@@ -67,52 +39,46 @@ var v0 = [
     "name": "slug"
   }
 ],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": [
-    {
-      "kind": "Variable",
-      "name": "slug",
-      "variableName": "slug"
-    }
-  ],
-  "concreteType": "Item",
-  "kind": "LinkedField",
-  "name": "item",
-  "plural": false,
-  "selections": [
-    (v1/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-};
+v1 = [
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "slug",
+        "variableName": "slug"
+      }
+    ],
+    "concreteType": "Item",
+    "kind": "LinkedField",
+    "name": "item",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "title",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "ItemContributionCreateDrawerQuery",
-    "selections": [
-      (v2/*: any*/),
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "ContributionCreateFormFragment"
-      }
-    ],
+    "selections": (v1/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -121,93 +87,17 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ItemContributionCreateDrawerQuery",
-    "selections": [
-      (v2/*: any*/),
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "AnyContributorConnection",
-        "kind": "LinkedField",
-        "name": "contributors",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": null,
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": [
-                  (v1/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "legalName",
-                    "storageKey": null
-                  }
-                ],
-                "type": "OrganizationContributor",
-                "abstractKey": null
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": [
-                  (v1/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "givenName",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "familyName",
-                    "storageKey": null
-                  }
-                ],
-                "type": "PersonContributor",
-                "abstractKey": null
-              },
-              {
-                "kind": "InlineFragment",
-                "selections": [
-                  (v1/*: any*/)
-                ],
-                "type": "Node",
-                "abstractKey": "__isNode"
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "1e17ac50eebf4b8a0f9c3d008f81ad51",
+    "cacheID": "313acec6960ef1b9b9912099949f26ac",
     "id": null,
     "metadata": {},
     "name": "ItemContributionCreateDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    id\n    title\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ItemContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '84597557e3bcbbd532efdea8f0a5828c';
+(node as any).hash = 'fa86f8218d0b5c7b51a12ba0966d6c5d';
 export default node;

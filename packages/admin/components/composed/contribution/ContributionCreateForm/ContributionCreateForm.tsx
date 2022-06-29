@@ -6,15 +6,12 @@ import MutationForm, {
   Forms,
 } from "components/api/MutationForm";
 import { EntitySelector } from "components/forms";
-import { useMaybeFragment } from "hooks";
-import { ContributionCreateFormFragment$key } from "@/relay/ContributionCreateFormFragment.graphql";
 import type {
   UpsertContributionInput,
   ContributionCreateFormMutation,
 } from "@/relay/ContributionCreateFormMutation.graphql";
 
 export default function ContributionCreateForm({
-  data,
   contributorId,
   contributorName,
   contributableId,
@@ -23,8 +20,6 @@ export default function ContributionCreateForm({
   onCancel,
   type,
 }: Props) {
-  const formData = useMaybeFragment(fragment, data);
-
   const { t } = useTranslation();
 
   /** Render the form */
@@ -53,7 +48,6 @@ export default function ContributionCreateForm({
               name="contributorId"
               label="forms.fields.contributor"
               required
-              data={formData}
             />
           )}
           {contributableId ? (
@@ -115,7 +109,6 @@ interface Props
     React.ComponentProps<typeof MutationForm>,
     "onSuccess" | "onCancel"
   > {
-  data: ContributionCreateFormFragment$key;
   /** The contributor */
   contributorId?: string;
   contributorName?: string;
@@ -127,13 +120,6 @@ interface Props
 }
 
 type Fields = UpsertContributionInput;
-
-const fragment = graphql`
-  fragment ContributionCreateFormFragment on Query {
-    # eslint-disable-next-line relay/must-colocate-fragment-spreads
-    ...ContributorTypeaheadFragment
-  }
-`;
 
 const mutation = graphql`
   mutation ContributionCreateFormMutation($input: UpsertContributionInput!) {
