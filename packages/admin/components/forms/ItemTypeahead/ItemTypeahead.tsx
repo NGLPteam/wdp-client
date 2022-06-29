@@ -9,6 +9,7 @@ import {
   ItemTypeaheadQuery as Query,
   ItemTypeaheadQueryResponse as Response,
 } from "__generated__/ItemTypeaheadQuery.graphql";
+import debounce from "lodash/debounce";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
@@ -17,7 +18,7 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  const [q, setQ] = useState("fake");
+  const [q, setQ] = useState("a");
 
   const formatOptions = (data: Response) => {
     if (!data || !data.search?.results?.edges?.length) return;
@@ -33,6 +34,8 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
   };
 
   const { t } = useTranslation();
+
+  const debouncedOnChange = debounce((value) => setQ(value), 500);
 
   return (
     <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
@@ -50,7 +53,7 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
               <BaseTypeahead
                 label={label}
                 options={data ? formatOptions(data) : []}
-                onInputChange={(value) => setQ(value)}
+                onInputChange={debouncedOnChange}
                 disabled={disabled}
                 required={required}
                 defaultValue={q}
