@@ -10,8 +10,18 @@ export default function Teasers({ data }: Props) {
   const entry = useMaybeFragment(fragment, data);
 
   const entryIsSeries = entry?.schema?.identifier === "series";
-  const series = entry?.series?.pageInfo?.totalCount;
-  const papers = entry?.papers?.pageInfo?.totalCount;
+
+  const getCountFromSchemaRank = (entity: string) => {
+    if (!entry?.schemaRanks || !entry?.schemaRanks.length) return null;
+    const rank = entry.schemaRanks.filter(
+      ({ namespace, identifier }) =>
+        namespace === "nglp" && identifier === entity
+    );
+    return rank.length ? rank[0].count : null;
+  };
+
+  const series = getCountFromSchemaRank("series");
+  const papers = getCountFromSchemaRank("paper");
 
   return entry ? (
     <DotList className="t-copy-lighter t-copy-sm">
@@ -51,16 +61,10 @@ const fragment = graphql`
       identifier
     }
 
-    papers: items(schema: "nglp:paper") {
-      pageInfo {
-        totalCount
-      }
-    }
-
-    series: collections(schema: "nglp:series") {
-      pageInfo {
-        totalCount
-      }
+    schemaRanks {
+      count
+      identifier
+      namespace
     }
   }
 `;
