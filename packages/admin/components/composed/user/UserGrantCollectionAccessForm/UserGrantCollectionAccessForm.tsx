@@ -5,18 +5,14 @@ import type {
   UserGrantCollectionAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantCollectionAccessFormMutation.graphql";
-import { useMaybeFragment } from "hooks";
 import { UserGrantCollectionAccessFormFragment$key } from "@/relay/UserGrantCollectionAccessFormFragment.graphql";
 import { NodeRoleSelect } from "components/forms/RoleSelect";
 
 const UserGrantCollectionAccessForm = ({
-  data,
   onSuccess,
   onCancel,
   userId,
 }: Props) => {
-  const formData = useMaybeFragment(fragment, data);
-
   const defaultValues = {
     userId,
   };
@@ -40,7 +36,6 @@ const UserGrantCollectionAccessForm = ({
               label="forms.fields.collection"
               name="entityId"
               control={control}
-              data={formData}
             />
             <NodeRoleSelect nodeId={entityId} name="roleId" required />
           </Forms.Grid>
@@ -60,14 +55,6 @@ interface Props
 }
 
 export default UserGrantCollectionAccessForm;
-
-// Load dropdown lists
-const fragment = graphql`
-  fragment UserGrantCollectionAccessFormFragment on Query {
-    # eslint-disable-next-line relay/must-colocate-fragment-spreads
-    ...CollectionTypeaheadFragment
-  }
-`;
 
 const mutation = graphql`
   mutation UserGrantCollectionAccessFormMutation($input: GrantAccessInput!) {

@@ -4,12 +4,12 @@ import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   ItemTypeaheadQuery as Query,
   ItemTypeaheadQueryResponse as Response,
 } from "__generated__/ItemTypeaheadQuery.graphql";
-import debounce from "lodash/debounce";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 

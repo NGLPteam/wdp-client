@@ -47,21 +47,7 @@ query ContributorContributionCreateDrawerQuery(
   ...ContributionCreateFormFragment
 }
 
-fragment CollectionTypeaheadFragment on Query {
-  viewer {
-    collections {
-      nodes {
-        id
-        title
-        slug
-      }
-    }
-    id
-  }
-}
-
 fragment ContributionCreateFormFragment on Query {
-  ...CollectionTypeaheadFragment
   ...ContributorTypeaheadFragment
 }
 
@@ -213,55 +199,6 @@ return {
       {
         "alias": null,
         "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "viewer",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "CollectionConnection",
-            "kind": "LinkedField",
-            "name": "collections",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Collection",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": [
-                  (v2/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "slug",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
         "concreteType": "AnyContributorConnection",
         "kind": "LinkedField",
         "name": "contributors",
@@ -283,12 +220,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "39d7febd97b2ac4cd54c2cb6e545d22f",
+    "cacheID": "8238dd0779949262db70f65e15114c40",
     "id": null,
     "metadata": {},
     "name": "ContributorContributionCreateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment CollectionTypeaheadFragment on Query {\n  viewer {\n    collections {\n      nodes {\n        id\n        title\n        slug\n      }\n    }\n    id\n  }\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...CollectionTypeaheadFragment\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query ContributorContributionCreateDrawerQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      givenName\n      familyName\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ContributionCreateFormFragment\n}\n\nfragment ContributionCreateFormFragment on Query {\n  ...ContributorTypeaheadFragment\n}\n\nfragment ContributorTypeaheadFragment on Query {\n  contributors {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        legalName\n      }\n      ... on PersonContributor {\n        id\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

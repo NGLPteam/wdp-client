@@ -54,6 +54,5 @@ const query = graphql`
       id
       name
     }
-    ...UserGrantCollectionAccessFormFragment
   }
 `;
