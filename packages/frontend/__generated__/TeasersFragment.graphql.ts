@@ -10,16 +10,11 @@ export type TeasersFragment = {
     readonly schema: {
         readonly identifier: string;
     };
-    readonly papers: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly series: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
+    readonly schemaRanks: ReadonlyArray<{
+        readonly count: number;
+        readonly identifier: string;
+        readonly namespace: string;
+    }>;
     readonly " $refType": "TeasersFragment";
 };
 export type TeasersFragment$data = TeasersFragment;
@@ -31,26 +26,13 @@ export type TeasersFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "PageInfo",
-    "kind": "LinkedField",
-    "name": "pageInfo",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "totalCount",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -72,52 +54,40 @@ return {
       "name": "schemaVersion",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        }
+        (v0/*: any*/)
       ],
       "storageKey": null
     },
     {
-      "alias": "papers",
-      "args": [
+      "alias": null,
+      "args": null,
+      "concreteType": "HierarchicalSchemaRank",
+      "kind": "LinkedField",
+      "name": "schemaRanks",
+      "plural": true,
+      "selections": [
         {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:paper"
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "count",
+          "storageKey": null
+        },
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "namespace",
+          "storageKey": null
         }
       ],
-      "concreteType": "ItemConnection",
-      "kind": "LinkedField",
-      "name": "items",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": "items(schema:\"nglp:paper\")"
-    },
-    {
-      "alias": "series",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "schema",
-          "value": "nglp:series"
-        }
-      ],
-      "concreteType": "CollectionConnection",
-      "kind": "LinkedField",
-      "name": "collections",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": "collections(schema:\"nglp:series\")"
+      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '385d07b37a823da3342eab8bd30cb34f';
+(node as any).hash = 'e15ba5de4154c6f2566c0d817561bcc3';
 export default node;
