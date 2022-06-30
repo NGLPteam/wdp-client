@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
+import { useFormContext } from "react-hook-form";
 import Select from "../Select";
 
 type Props = Omit<React.ComponentProps<typeof Select>, "options" | "label">;
@@ -9,6 +10,9 @@ function OrderRenderSelect(
   ref: Ref<HTMLSelectElement>
 ) {
   const { t } = useTranslation();
+
+  const { watch } = useFormContext();
+  const value = watch("render.mode");
 
   const renderOptions = [
     {
@@ -24,6 +28,9 @@ function OrderRenderSelect(
   return (
     <Select
       label={t("forms.order_render_select.label")}
+      description={
+        value === "TREE" ? "forms.order_render_select.description" : undefined
+      }
       options={renderOptions}
       {...props}
       ref={ref}

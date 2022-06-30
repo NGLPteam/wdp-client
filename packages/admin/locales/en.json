@@ -429,7 +429,8 @@
       "order_render_select": {
         "label": "Display as",
         "option_flat": "Flat list",
-        "option_tree": "Tree list"
+        "option_tree": "Tree list",
+        "description": "When \"Tree list\" is selected all descendants are included by default."
       }
     },
     "dashboard": {
