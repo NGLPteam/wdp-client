@@ -11,10 +11,10 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
 
   const { variables, setVariables } = useManagedVariables<T>(initialVariables);
 
-  useEffect(() => initialVariables && setVariables(initialVariables), [
-    initialVariables,
-    setVariables,
-  ]);
+  useEffect(
+    () => initialVariables && setVariables(initialVariables),
+    [initialVariables, setVariables]
+  );
 
   const { data, error, isLoading, retry } = useAuthenticatedQuery<T>(
     query,
@@ -27,7 +27,7 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   // If the global refetch tags changed, let's refetch the data. See MutationForm for
   // the other side of this mechanism.
   useEffect(() => {
-    if (!intersection(refetchTags, triggeredRefetchTags)) return;
+    if (!intersection(refetchTags, triggeredRefetchTags).length) return;
     retry();
   }, [triggeredRefetchTags, refetchTags, retry]);
 
