@@ -340,6 +340,7 @@
         "profile": "Profile",
         "display_name": "Display Name",
         "order_by": "Order By",
+        "order_by_description": "Select up to 7 properties.",
         "include_descendants": "Include",
         "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "include_links_description": "In addition, select whether to include linked entities in the ordering and which link types.",
@@ -375,7 +376,8 @@
         "contributor": "Please select a contributor. If the contributor is not listed, you may need to create the contributor first.",
         "item": "Please select an item. If the item is not listed, you may need to add the item first.",
         "link_target": "Please select a link target. If the target entity is not listed, you may need to create it first.",
-        "user": "Please select a user. If the user is not listed, you may need to create the user first."
+        "user": "Please select a user. If the user is not listed, you may need to create the user first.",
+        "order_by": "A maximum of 7 options can be selected."
       },
       "tags": {
         "label": "Tags",
