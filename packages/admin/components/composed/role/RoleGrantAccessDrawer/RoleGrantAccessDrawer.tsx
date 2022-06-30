@@ -76,7 +76,6 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
             onSuccess={dialog.hide}
             onCancel={dialog.hide}
             entityId={getEntityId(data)}
-            data={data}
             rolesData={getEntityData(data)}
           />
         </Drawer>
@@ -118,6 +117,5 @@ const query = graphql`
       title
       ...RoleGrantAccessFormRolesFragment
     }
-    ...RoleGrantAccessFormFragment
   }
 `;
