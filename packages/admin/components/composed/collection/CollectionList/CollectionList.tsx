@@ -3,6 +3,7 @@ import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
 import { useTranslation } from "react-i18next";
+import { useLatestPresentValue } from "@wdp/lib/hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import {
   useDestroyer,
@@ -40,10 +41,14 @@ function CollectionList<T extends OperationType>({
     data
   );
 
+  const { current: memoizedData } = useLatestPresentValue(collections);
+
   const searchScope = useMaybeFragment<CollectionListSearchFragment$key>(
     searchFragment,
     searchData
   );
+
+  const { current: memoizedSearch } = useLatestPresentValue(searchScope);
 
   const searchQuery = useSearchQueryVars();
 
@@ -101,10 +106,10 @@ function CollectionList<T extends OperationType>({
       data={
         searchQuery.query ||
         (searchQuery.predicates && searchQuery.predicates.length > 0)
-          ? searchScope?.results
-          : collections
+          ? memoizedSearch?.results
+          : memoizedData
       }
-      searchData={searchScope}
+      searchData={memoizedSearch}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}
