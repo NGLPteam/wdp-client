@@ -2,27 +2,40 @@ import { Fragment } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import { getFilterInputLabel, getFilterInputType } from "@wdp/lib/search";
+import * as Styled from "./SearchFilterInput.styles";
 import { Input } from "components/forms";
-import { SearchFilterInputFragment$key } from "@/relay/SearchFilterInputFragment.graphql";
+import {
+  SearchFilterInputFragment$key,
+  SearchFilterInputFragment$data,
+} from "@/relay/SearchFilterInputFragment.graphql";
+
+type SearchOperators = SearchFilterInputFragment$data["searchOperators"];
 
 export default function SearchFilterInput({ data }: Props) {
   const filter = useFragment(fragment, data);
 
   const { register } = useFormContext();
 
-  return filter && filter.searchOperators ? (
-    <>
-      {filter.searchOperators.map((operator, i) => (
-        <Fragment key={i}>
-          <Input
-            label={getFilterInputLabel(filter.label, operator)}
-            type={getFilterInputType(operator)}
-            {...register(`${filter.searchPath.replace(".", "-")}--${operator}`)}
-          />
-        </Fragment>
-      ))}
-    </>
-  ) : null;
+  const renderInputs = (operators: SearchOperators) =>
+    operators.map((operator, i) => (
+      <Fragment key={i}>
+        <Input
+          label={getFilterInputLabel(filter.label, operator)}
+          type={getFilterInputType(operator)}
+          {...register(`${filter.searchPath.replace(".", "-")}--${operator}`)}
+        />
+      </Fragment>
+    ));
+
+  if (!filter || !filter.searchOperators) return null;
+
+  return filter.searchPath === "$core.published" ? (
+    <Styled.FlexWrapper>
+      {renderInputs(filter.searchOperators)}
+    </Styled.FlexWrapper>
+  ) : (
+    <>{renderInputs(filter.searchOperators)}</>
+  );
 }
 
 interface Props {

@@ -446,7 +446,13 @@
       "filter_name_value_dateLTE": "{{ name }} before {{ value }}",
       "filter_name_value_in": "{{ name }} in {{ value }}",
       "filter_name_value_equals": "{{ name }} is {{ value }}",
-      "clear_filters": "Clear Filters"
+      "clear_filters": "Clear Filters",
+      "filter_options": "Filter Options",
+      "apply_filters": "Apply Filters",
+      "publication_filters": "Publication:",
+      "schema_filters": "Schema:",
+      "show_all_schemas": "Show all schemas",
+      "show_less": "Show less"
     }
   }
 }

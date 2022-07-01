@@ -76,14 +76,14 @@ export const Header = styled.header`
   background: var(--background-color);
 `;
 
-export const HeaderBar = styled.div<{ $noLabel: boolean }>`
+export const HeaderBar = styled.div<{ $noLabel: boolean; $noHeader: boolean }>`
   display: flex;
   flex-wrap: wrap;
   justify-content: ${({ $noLabel }) =>
     $noLabel ? "flex-end" : "space-between"};
   align-items: center;
   color: var(--accent-color);
-  padding-block-end: ${pxToRem(40)};
+  padding-block-end: ${({ $noHeader }) => ($noHeader ? 0 : pxToRem(40))};
 `;
 
 export const H1 = styled.h1``;

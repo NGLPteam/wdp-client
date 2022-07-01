@@ -1,5 +1,6 @@
 import { graphql } from "react-relay";
 import type { DialogProps } from "reakit/Dialog";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import SearchFilterForm from "../SearchFilterForm";
 import { Drawer } from "components/layout";
@@ -13,10 +14,11 @@ interface Props {
 export default function SearchFilterDrawer({ dialog, data }: Props) {
   const searchScope = useMaybeFragment(fragment, data);
 
+  const { t } = useTranslation();
+
   return (
     <Drawer
-      label={"Filtering"}
-      header={"Search Options"}
+      label={t("search.filter_options")}
       dialog={dialog}
       hideOnClickOutside={false}
     >
