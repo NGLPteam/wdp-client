@@ -45,6 +45,11 @@ export default function EntityOrderingAddForm({
         }
       }
 
+      const selectWithTree =
+        data.render?.mode === "TREE"
+          ? { ...data.select, direct: "DESCENDANTS" as OrderingDirectSelection }
+          : data.select;
+
       const input = {
         entityId: entity?.id || "",
         name: data.name,
@@ -52,7 +57,7 @@ export default function EntityOrderingAddForm({
         order: data.order,
         filter,
         render: data.render,
-        select: data.select,
+        select: selectWithTree,
       };
 
       return { input };
@@ -69,7 +74,9 @@ export default function EntityOrderingAddForm({
   };
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => {
+    ({ form: { register, watch } }) => {
+      const mode = watch("render.mode");
+      const isTree = mode === "TREE";
       return (
         <Forms.Grid>
           <Forms.Input
@@ -81,7 +88,9 @@ export default function EntityOrderingAddForm({
             <Forms.OrderDefinitionSelectControl name="order" data={entity} />
           )}
           <Forms.OrderRenderSelect {...register("render.mode")} />
-          <Forms.OrderingDirectSelection {...register("select.direct")} />
+          {!isTree && (
+            <Forms.OrderingDirectSelection {...register("select.direct")} />
+          )}
           <Forms.OrderingLinksSelection
             contains={register("select.links.contains")}
             references={register("select.links.references")}

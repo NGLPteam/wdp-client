@@ -78,7 +78,8 @@ function OrderDefinitionSelect(
     <Styled.Wrapper>
       {options && (
         <Select
-          label="order by"
+          label="forms.fields.order_by"
+          description="forms.fields.order_by_description"
           name={name}
           onChange={handleSelect}
           options={filteredOptions}
@@ -87,6 +88,7 @@ function OrderDefinitionSelect(
             if (typeof ref === "function") ref(e);
             selectRef.current = e;
           }}
+          disabled={value.length === 7}
         />
       )}
       <OrderDefinitionSelectedList

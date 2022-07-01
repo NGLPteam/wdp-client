@@ -11,6 +11,7 @@ import {
   OrderDefinitionInput,
   OrderingFilterDefinitionInput,
   UpdateOrderingInput,
+  OrderingDirectSelection,
 } from "@/relay/EntityOrderingEditFormMutation.graphql";
 import { EntityOrderingEditFormFragment$key } from "@/relay/EntityOrderingEditFormFragment.graphql";
 
@@ -58,6 +59,11 @@ export default function EntityOrderingEditForm({
   const toVariables = useToVariables<Mutation, Fields>((data) => {
     const { filterSchemas, ...values } = data;
 
+    const selectWithTree =
+      data.render?.mode === "TREE"
+        ? { ...data.select, direct: "DESCENDANTS" as OrderingDirectSelection }
+        : data.select;
+
     const input = {
       ...values,
       filter: {
@@ -67,6 +73,7 @@ export default function EntityOrderingEditForm({
             : data.filterSchemas.map((schema) => JSON.parse(schema)),
       },
       orderingId: ordering?.id || "",
+      select: selectWithTree,
     };
 
     return { input };
@@ -74,7 +81,9 @@ export default function EntityOrderingEditForm({
 
   // Render the form
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => {
+    ({ form: { register, watch } }) => {
+      const mode = watch("render.mode");
+      const isTree = mode === "TREE";
       return (
         <Forms.Grid>
           <Forms.Input
@@ -86,7 +95,9 @@ export default function EntityOrderingEditForm({
             <Forms.OrderDefinitionSelectControl name="order" data={entity} />
           )}
           <Forms.OrderRenderSelect {...register("render.mode")} />
-          <Forms.OrderingDirectSelection {...register("select.direct")} />
+          {!isTree && (
+            <Forms.OrderingDirectSelection {...register("select.direct")} />
+          )}
           <Forms.OrderingLinksSelection
             contains={register("select.links.contains")}
             references={register("select.links.references")}
