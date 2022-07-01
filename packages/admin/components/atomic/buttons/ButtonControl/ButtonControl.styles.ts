@@ -35,16 +35,16 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
       justify-content: space-between;
     `}
 
-  &:disabled,
-    &[aria-disabled="true"],
-    [aria-disabled="true"] & {
+    &:focus {
+    outline: 0;
+  }
+
+  &:disabled:not([aria-pressed="true"]),
+  &[aria-disabled="true"]:not([aria-pressed="true"]),
+  [aria-disabled="true"] &:not([aria-pressed="true"]) {
     opacity: 0.4;
     cursor: default;
     pointer-events: none;
-  }
-
-  &:focus {
-    outline: 0;
   }
 
   &[data-focus-visible-added]:not(:hover) {
@@ -59,7 +59,11 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   }
 
   &[aria-pressed="true"] {
-    background-color: var(--brand20);
+    background-color: var(--brand100);
+    color: var(--neutral00);
+    opacity: 1;
+    cursor: default;
+    pointer-events: none;
   }
 `;
 

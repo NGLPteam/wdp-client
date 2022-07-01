@@ -106,6 +106,14 @@ export const NavListItem = styled.li`
   & + & {
     margin-top: 8px;
   }
+
+  /* 
+    Needed for the DialogDisclosures for placeholder routes.
+    Can be removed once all routes are links.
+  */
+  button {
+    text-align: left;
+  }
 `;
 
 export const CopyrightText = styled.p`
