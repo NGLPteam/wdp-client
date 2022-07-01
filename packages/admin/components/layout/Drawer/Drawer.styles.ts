@@ -28,6 +28,10 @@ export const DialogBackdrop = styled(BaseDialogBackdrop)`
   &[data-enter] {
     opacity: 1;
   }
+
+  &[data-leave] {
+    opacity: 0;
+  }
 `;
 
 export const Dialog = styled(BaseDialog)`
