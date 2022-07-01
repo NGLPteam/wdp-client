@@ -20,7 +20,7 @@ export default function CommunityLogo({ data, slug }: Props) {
 
   return image && image.url ? (
     <NamedLink route="community" routeParams={{ slug: slug || "" }} passHref>
-      <a>
+      <a className="">
         <Styled.Logo
           style={{
             width: (SIZE * width) / height,
