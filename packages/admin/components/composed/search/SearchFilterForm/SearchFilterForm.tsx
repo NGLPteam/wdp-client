@@ -3,6 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import uniqBy from "lodash/uniqBy";
 import flatMap from "lodash/flatMap";
+import { useTranslation } from "react-i18next";
 import { filterSearchableProperties } from "@wdp/lib/search";
 import { removeEmptyKeys } from "@wdp/lib/helpers";
 import { useRouter } from "next/router";
@@ -89,13 +90,15 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
     return filterSearchableProperties<Node>(searchData?.coreProperties);
   }, [searchData]);
 
+  const { t } = useTranslation();
+
   return (
     <NullForm
       onSubmit={onSubmit}
       onCancel={onCancel}
       onReset={onReset}
       resetLabel="search.clear_filters"
-      submitLabel={"apply filters"}
+      submitLabel={"search.apply_filters"}
       defaultValues={defaultValues}
     >
       {() => (
@@ -103,7 +106,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
           <Grid>
             <Styled.FilterGroup>
               <Styled.GroupLabel className="t-label-lg">
-                Publication:
+                {t("search.publication_filters")}
               </Styled.GroupLabel>
               <Styled.FieldsWrapper>
                 {coreProps.map((prop: Node, i: number) => (
@@ -116,7 +119,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
             </Styled.FilterGroup>
             <Styled.FilterGroup>
               <Styled.GroupLabel className="t-label-lg">
-                Schema:
+                {t("search.schema_filters")}
               </Styled.GroupLabel>
               <Styled.FieldsWrapper>
                 {searchData && <SearchSchemaFilter data={searchData} />}

@@ -80,7 +80,7 @@ export default function SearchSchemaFilter({ data }: Props) {
               setExpanded(!expanded);
             }}
           >
-            {expanded ? "Show less" : "Show all schemas"}
+            {expanded ? t("search.show_less") : t("search.show_all_schemas")}
           </ButtonControl>
         )}
       </>
@@ -91,6 +91,8 @@ export default function SearchSchemaFilter({ data }: Props) {
 interface Props {
   data: SearchSchemaFilterFragment$key;
 }
+
+// // TODO: Scope this query to the search, e.g. collection schemas on the Collection List page
 
 const fragment = graphql`
   fragment SearchSchemaFilterFragment on SearchScope {
@@ -103,6 +105,7 @@ const fragment = graphql`
   }
 `;
 
+// TODO: add priority query to get schema ranks for sorting schemas in scoped queries.
 // const schemaRanksFragment = graphql`
 //   fragment SearchSchemaFilterSchemaRanksFragment on Entity {
 //     schemaRanks {
