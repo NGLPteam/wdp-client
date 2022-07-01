@@ -99,7 +99,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
       defaultValues={defaultValues}
     >
       {() => (
-        <>
+        <Styled.Wrapper>
           <Grid>
             <Styled.FilterGroup>
               <Styled.GroupLabel className="t-label-lg">
@@ -123,7 +123,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
               </Styled.FieldsWrapper>
             </Styled.FilterGroup>
           </Grid>
-        </>
+        </Styled.Wrapper>
       )}
     </NullForm>
   );
