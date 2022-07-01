@@ -33,7 +33,7 @@ query CollectionTypeaheadQuery(
   $query: String!
 ) {
   search(visibility: ALL) {
-    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, schema: ["default:collection", "nglp:journal", "nglp:journal_issue", "nglp:journal_volume", "nglp:series", "nglp:unit"]) {
+    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: COLLECTION) {
       edges {
         node {
           title
@@ -90,15 +90,8 @@ v2 = [
   },
   {
     "kind": "Literal",
-    "name": "schema",
-    "value": [
-      "default:collection",
-      "nglp:journal",
-      "nglp:journal_issue",
-      "nglp:journal_volume",
-      "nglp:series",
-      "nglp:unit"
-    ]
+    "name": "scope",
+    "value": "COLLECTION"
   }
 ],
 v3 = {
@@ -265,14 +258,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e796ccfe22c1145da650796b852d54ce",
+    "cacheID": "2b681a8c964d47f7166d5d045a519dc7",
     "id": null,
     "metadata": {},
     "name": "CollectionTypeaheadQuery",
     "operationKind": "query",
-    "text": "query CollectionTypeaheadQuery(\n  $query: String!\n) {\n  search(visibility: ALL) {\n    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, schema: [\"default:collection\", \"nglp:journal\", \"nglp:journal_issue\", \"nglp:journal_volume\", \"nglp:series\", \"nglp:unit\"]) {\n      edges {\n        node {\n          title\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query CollectionTypeaheadQuery(\n  $query: String!\n) {\n  search(visibility: ALL) {\n    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: COLLECTION) {\n      edges {\n        node {\n          title\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '31028a42b177b33759d25d78cbba8473';
+(node as any).hash = 'b9a01ea5a462c5bb91396c3c674478ac';
 export default node;

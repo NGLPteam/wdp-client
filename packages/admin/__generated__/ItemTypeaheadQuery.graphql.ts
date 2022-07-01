@@ -33,7 +33,7 @@ query ItemTypeaheadQuery(
   $query: String!
 ) {
   search(visibility: ALL) {
-    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, schema: ["default:item", "nglp:dissertation", "nglp:journal_article", "nglp:paper"]) {
+    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: ITEM) {
       edges {
         node {
           title
@@ -90,13 +90,8 @@ v2 = [
   },
   {
     "kind": "Literal",
-    "name": "schema",
-    "value": [
-      "default:item",
-      "nglp:dissertation",
-      "nglp:journal_article",
-      "nglp:paper"
-    ]
+    "name": "scope",
+    "value": "ITEM"
   }
 ],
 v3 = {
@@ -263,14 +258,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b876277b4ba0426f9bca8f5e274a5439",
+    "cacheID": "148f499b3eb03c999ac4b5faf2d4c3cd",
     "id": null,
     "metadata": {},
     "name": "ItemTypeaheadQuery",
     "operationKind": "query",
-    "text": "query ItemTypeaheadQuery(\n  $query: String!\n) {\n  search(visibility: ALL) {\n    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, schema: [\"default:item\", \"nglp:dissertation\", \"nglp:journal_article\", \"nglp:paper\"]) {\n      edges {\n        node {\n          title\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query ItemTypeaheadQuery(\n  $query: String!\n) {\n  search(visibility: ALL) {\n    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: ITEM) {\n      edges {\n        node {\n          title\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'de99bdec5e9354c8d726807ca9526f8e';
+(node as any).hash = 'e90c428fb9046e82dfb86e263638b5d9';
 export default node;

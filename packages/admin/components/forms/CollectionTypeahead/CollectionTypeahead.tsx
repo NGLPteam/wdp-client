@@ -82,14 +82,7 @@ const query = graphql`
         page: 1
         perPage: 50
         order: TITLE_ASCENDING
-        schema: [
-          "default:collection"
-          "nglp:journal"
-          "nglp:journal_issue"
-          "nglp:journal_volume"
-          "nglp:series"
-          "nglp:unit"
-        ]
+        scope: COLLECTION
       ) {
         edges {
           node {
