@@ -2,6 +2,7 @@ import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "react-table";
+import { useLatestPresentValue } from "@wdp/lib/hooks";
 import {
   useMaybeFragment,
   useDestroyer,
@@ -31,10 +32,14 @@ function ItemList<T extends OperationType>({
 }: ItemListProps) {
   const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
 
+  const { current: memoizedData } = useLatestPresentValue(items);
+
   const searchScope = useMaybeFragment<ItemListSearchFragment$key>(
     searchFragment,
     searchData
   );
+
+  const { current: memoizedSearch } = useLatestPresentValue(searchScope);
 
   const destroy = useDestroyer();
 
@@ -88,10 +93,10 @@ function ItemList<T extends OperationType>({
       data={
         searchQuery.query ||
         (searchQuery.predicates && searchQuery.predicates.length > 0)
-          ? searchScope?.results
-          : items
+          ? memoizedSearch?.results
+          : memoizedData
       }
-      searchData={searchScope}
+      searchData={memoizedSearch}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
       viewOptions={ALL_VIEW_OPTIONS}

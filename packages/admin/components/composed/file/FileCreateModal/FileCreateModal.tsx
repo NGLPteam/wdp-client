@@ -3,14 +3,18 @@ import { useTranslation } from "react-i18next";
 import type { DialogState } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "@wdp/lib/api/components";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import { useRouter } from "next/router";
 import Modal from "components/layout/Modal";
 import FileCreateForm from "components/composed/file/FileCreateForm";
 import type { FileCreateModalQuery as Query } from "__generated__/FileCreateModalQuery.graphql";
-import { useRouteSlug } from "hooks";
 
 const FileCreateModal = ({ dialog }: Props) => {
   const { t } = useTranslation();
-  const slug = useRouteSlug();
+  const router = useRouter();
+  const { slug: slugQ, drawerSlug: drawerSlugQ } = router.query;
+  const slug = routeQueryArrayToString(slugQ);
+  const drawerSlug = routeQueryArrayToString(drawerSlugQ);
 
   return (
     <Modal
@@ -21,7 +25,7 @@ const FileCreateModal = ({ dialog }: Props) => {
       {({ handleClose }) => (
         <QueryWrapper<Query>
           query={query}
-          initialVariables={{ slug: slug || "" }}
+          initialVariables={{ slug: slug || drawerSlug || "" }}
         >
           {({ data }) => (
             <FileCreateForm
