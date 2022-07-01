@@ -25,6 +25,7 @@ export default function NullForm<T extends FieldValues = FieldValues>({
   onCancel: onCancelCallback,
   onReset: onResetCallback,
   resetLabel,
+  submitLabel,
 }: Props<T>) {
   const { t } = useTranslation();
 
@@ -69,7 +70,7 @@ export default function NullForm<T extends FieldValues = FieldValues>({
         {children({ form })}
         <div className="l-flex l-flex--gap">
           <Button disabled={submitDisabled} type="submit">
-            {t("common.submit")}
+            {t(submitLabel || "common.submit")}
           </Button>
           {onResetCallback && (
             <Button
@@ -107,6 +108,7 @@ interface Props<T extends FieldValues = FieldValues> {
   onReset?: () => void;
   /** Set the reset button label. Will be translated. */
   resetLabel?: string;
+  submitLabel?: string;
 }
 
 type RenderProps<T extends FieldValues> = (props: {

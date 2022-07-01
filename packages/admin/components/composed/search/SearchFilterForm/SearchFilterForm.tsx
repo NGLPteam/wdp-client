@@ -10,6 +10,7 @@ import omitBy from "lodash/omitBy";
 import { normalizeRouteQueryArray } from "@wdp/lib/routes";
 import SearchFilter from "../SearchFilter";
 import SearchSchemaFilter from "../SearchSchemaFilter";
+import * as Styled from "./SearchFilterForm.styles";
 import { Grid } from "components/forms";
 import { NullForm } from "components/api";
 import {
@@ -94,18 +95,33 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
       onCancel={onCancel}
       onReset={onReset}
       resetLabel="search.clear_filters"
+      submitLabel={"apply filters"}
       defaultValues={defaultValues}
     >
       {() => (
         <>
           <Grid>
-            {searchData && <SearchSchemaFilter data={searchData} />}
-            {coreProps.map((prop: Node, i: number) => (
-              <SearchFilter key={i} data={prop} />
-            ))}
-            {schemaProps.map((prop: Node, i: number) => (
-              <SearchFilter key={i} data={prop} />
-            ))}
+            <Styled.FilterGroup>
+              <Styled.GroupLabel className="t-label-lg">
+                Publication:
+              </Styled.GroupLabel>
+              <Styled.FieldsWrapper>
+                {coreProps.map((prop: Node, i: number) => (
+                  <SearchFilter key={i} data={prop} />
+                ))}
+                {schemaProps.map((prop: Node, i: number) => (
+                  <SearchFilter key={i} data={prop} />
+                ))}
+              </Styled.FieldsWrapper>
+            </Styled.FilterGroup>
+            <Styled.FilterGroup>
+              <Styled.GroupLabel className="t-label-lg">
+                Schema:
+              </Styled.GroupLabel>
+              <Styled.FieldsWrapper>
+                {searchData && <SearchSchemaFilter data={searchData} />}
+              </Styled.FieldsWrapper>
+            </Styled.FilterGroup>
           </Grid>
         </>
       )}

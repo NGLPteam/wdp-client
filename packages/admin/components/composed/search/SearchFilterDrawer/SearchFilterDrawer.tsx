@@ -15,8 +15,8 @@ export default function SearchFilterDrawer({ dialog, data }: Props) {
 
   return (
     <Drawer
-      label={"Filtering"}
-      header={"Search Options"}
+      label={"Filter Options"}
+      header={""}
       dialog={dialog}
       hideOnClickOutside={false}
     >

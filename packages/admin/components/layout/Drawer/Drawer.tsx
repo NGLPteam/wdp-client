@@ -40,7 +40,7 @@ const Drawer = ({
         {...dialog}
       >
         <Styled.Header>
-          <Styled.HeaderBar $noLabel={!label}>
+          <Styled.HeaderBar $noLabel={!label} $noHeader={!header}>
             {label && (
               <div className="t-label-md" id={uidLabel}>
                 {label}
@@ -50,7 +50,7 @@ const Drawer = ({
               {t("close")}
             </ButtonControl>
           </Styled.HeaderBar>
-          <Styled.H1 id={uidDesc}>{header}</Styled.H1>
+          {header && <Styled.H1 id={uidDesc}>{header}</Styled.H1>}
         </Styled.Header>
         {loading ? (
           <Styled.Content>
@@ -58,7 +58,7 @@ const Drawer = ({
           </Styled.Content>
         ) : (
           <>
-            <Styled.HeaderButtons>{buttons}</Styled.HeaderButtons>
+            {header && <Styled.HeaderButtons>{buttons}</Styled.HeaderButtons>}
             <Styled.Content>{dialog.visible && children}</Styled.Content>
           </>
         )}
@@ -72,7 +72,7 @@ interface Props {
   /** Drawer label, displayed next to the close button */
   label?: string;
   /** Drawer header */
-  header: string;
+  header?: string;
   /** A row of buttons below the header */
   buttons?: React.ReactNode;
   /** Drawer content */
