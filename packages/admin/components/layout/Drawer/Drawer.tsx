@@ -7,6 +7,7 @@ import * as Styled from "./Drawer.styles";
 import { ButtonControl } from "components/atomic/buttons/";
 import { useQueryStateContext } from "hooks";
 import LoadingCircle from "components/atomic/loading/LoadingCircle";
+import usePreventBodyScroll from "components/layout/Modal/hooks/usePreventBodyScroll";
 
 /**
  * A drawer for complex actions, forms.
@@ -31,12 +32,15 @@ const Drawer = ({
     if (onClose) onClose();
   };
 
+  usePreventBodyScroll(dialog.visible);
+
   return (
     <Styled.DialogBackdrop {...dialog}>
       <Styled.Dialog
         aria-labelledby={uidLabel}
         aria-describedby={uidDesc}
         hideOnClickOutside={hideOnClickOutside}
+        preventBodyScroll={false}
         {...dialog}
       >
         <Styled.Header>
