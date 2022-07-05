@@ -9,6 +9,7 @@ export type ContributorOrder = "AFFILIATION_ASCENDING" | "AFFILIATION_DESCENDING
 export type contributorsQueryVariables = {
     order?: ContributorOrder | null | undefined;
     page: number;
+    query?: string | null | undefined;
 };
 export type contributorsQueryResponse = {
     readonly contributors: {
@@ -26,8 +27,9 @@ export type contributorsQuery = {
 query contributorsQuery(
   $order: ContributorOrder
   $page: Int!
+  $query: String
 ) {
-  contributors(order: $order, page: $page, perPage: 20) {
+  contributors(order: $order, page: $page, perPage: 20, prefix: $query) {
     ...ContributorListFragment
   }
 }
@@ -146,6 +148,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "page"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "query"
   }
 ],
 v1 = [
@@ -163,6 +170,11 @@ v1 = [
     "kind": "Literal",
     "name": "perPage",
     "value": 20
+  },
+  {
+    "kind": "Variable",
+    "name": "prefix",
+    "variableName": "query"
   }
 ],
 v2 = {
@@ -495,14 +507,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2a6a6dede4a37cc1a896258a57eb03d7",
+    "cacheID": "a15250c4a486c585550d1275755d7356",
     "id": null,
     "metadata": {},
     "name": "contributorsQuery",
     "operationKind": "query",
-    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n) {\n  contributors(order: $order, page: $page, perPage: 20) {\n    ...ContributorListFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorAffiliationColumnFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    affiliation\n  }\n}\n\nfragment ContributorContributionsColumnFragment on Contributor {\n  __isContributor: __typename\n  contributionCount\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      ...ContributorNameColumnFragment\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n    }\n    ...ContributorNameColumnFragment\n    ...ContributorAffiliationColumnFragment\n    ...ContributorContributionsColumnFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsQuery(\n  $order: ContributorOrder\n  $page: Int!\n  $query: String\n) {\n  contributors(order: $order, page: $page, perPage: 20, prefix: $query) {\n    ...ContributorListFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorAffiliationColumnFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    affiliation\n  }\n}\n\nfragment ContributorContributionsColumnFragment on Contributor {\n  __isContributor: __typename\n  contributionCount\n}\n\nfragment ContributorListFragment on AnyContributorConnection {\n  nodes {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n      createdAt\n      ...ContributorNameColumnFragment\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n      createdAt\n    }\n    ...ContributorNameColumnFragment\n    ...ContributorAffiliationColumnFragment\n    ...ContributorContributionsColumnFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4a2da19a795a946c74b9f0550562cec4';
+(node as any).hash = '7d1c4da727f974aabcda8585ff60e01b';
 export default node;
