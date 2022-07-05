@@ -1,30 +1,34 @@
-import React, { Ref, useMemo } from "react";
+import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
+import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Typeahead from "components/forms/Typeahead";
-
-import {
-  UserTypeaheadFragment$data,
-  UserTypeaheadFragment$key,
-} from "@/relay/UserTypeaheadFragment.graphql";
-import { useMaybeFragment } from "hooks";
+import debounce from "lodash/debounce";
+import BaseTypeahead from "components/forms/BaseTypeahead";
 import UserAvatar from "components/composed/user/UserAvatar";
-type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
+import {
+  UserTypeaheadQuery as Query,
+  UserTypeaheadQueryResponse as Response,
+} from "__generated__/UserTypeaheadQuery.graphql";
+
+type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const UserTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled, required }: Props<T>,
+  { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  const optionsData = useMaybeFragment(fragment, data);
+  const [q, setQ] = useState("a");
 
-  const options = useMemo(() => {
-    return optionsData?.users.edges.map(({ node }: UserNode) => {
+  const formatOptions = (data: Response) => {
+    if (!data || !data.users?.edges?.length) return;
+
+    const results = data.users.edges;
+    const options = results.map(({ node }) => {
       return {
-        label: node.name || "",
-        value: node.id,
+        label: node.name ?? "",
+        value: node.id ?? "",
         node: (
           <span className="l-flex l-flex--align-center l-flex--gap-sm">
             <UserAvatar data={node} />
@@ -33,45 +37,53 @@ const UserTypeahead = <T extends FieldValues = FieldValues>(
         ),
       };
     });
-  }, [optionsData]);
+    return options;
+  };
 
   const { t } = useTranslation();
 
-  return options ? (
-    <Controller<T>
-      name={name}
-      control={control}
-      rules={{
-        validate: (value) => {
-          return !!value || (t("forms.validation.user") as string);
-        },
+  const debouncedOnChange = debounce((value) => setQ(value), 500);
+
+  return (
+    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+      {({ data }) => {
+        return (
+          <Controller<T>
+            name={name}
+            control={control}
+            rules={{
+              validate: (value) => {
+                return !!value || (t("forms.validation.contributor") as string);
+              },
+            }}
+            render={({ field }) => (
+              <BaseTypeahead
+                label={label}
+                options={data ? formatOptions(data) : []}
+                onInputChange={debouncedOnChange}
+                disabled={disabled}
+                required={required}
+                defaultValue={q}
+                {...field}
+              />
+            )}
+          />
+        );
       }}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          required={required}
-          {...field}
-        />
-      )}
-    />
-  ) : null;
+    </QueryWrapper>
+  );
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
-  data?: UserTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
 
-type UserNode = UserTypeaheadFragment$data["users"]["edges"][number];
-
 export default UserTypeahead;
 
-const fragment = graphql`
-  fragment UserTypeaheadFragment on Query {
-    users {
+const query = graphql`
+  query UserTypeaheadQuery($query: String!) {
+    users(prefix: $query, page: 1, perPage: 50, order: NAME_ASCENDING) {
       edges {
         node {
           id

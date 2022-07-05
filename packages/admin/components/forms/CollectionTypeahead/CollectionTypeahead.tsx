@@ -1,77 +1,98 @@
-import React, { Ref, useMemo } from "react";
+import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
+import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Typeahead from "components/forms/Typeahead";
+import debounce from "lodash/debounce";
+import BaseTypeahead from "components/forms/BaseTypeahead";
+import {
+  CollectionTypeaheadQuery as Query,
+  CollectionTypeaheadQueryResponse as Response,
+} from "__generated__/CollectionTypeaheadQuery.graphql";
 
-import type {
-  CollectionTypeaheadFragment$data,
-  CollectionTypeaheadFragment$key,
-} from "__generated__/CollectionTypeaheadFragment.graphql";
-import { useMaybeFragment } from "hooks";
-type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
+type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled, required }: Props<T>,
+  { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  const optionsData = useMaybeFragment(fragment, data);
+  const [q, setQ] = useState("a");
 
-  const options = useMemo(() => {
-    return optionsData?.viewer.collections.nodes.map((node: CollectionNode) => {
+  const formatOptions = (data: Response) => {
+    if (!data || !data.search?.results?.edges?.length) return;
+
+    const results = data.search.results.edges;
+    const options = results.map(({ node }) => {
       return {
         label: node.title || "",
-        value: node.id,
+        value: node.entity.id ?? "",
       };
     });
-  }, [optionsData]);
+    return options;
+  };
 
   const { t } = useTranslation();
 
-  return options ? (
-    <Controller<T>
-      name={name}
-      control={control}
-      rules={{
-        validate: (value) => {
-          return !!value || (t("forms.validation.collection") as string);
-        },
+  const debouncedOnChange = debounce((value) => setQ(value), 500);
+
+  return (
+    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+      {({ data }) => {
+        return (
+          <Controller<T>
+            name={name}
+            control={control}
+            rules={{
+              validate: (value) => {
+                return !!value || (t("forms.validation.collection") as string);
+              },
+            }}
+            render={({ field }) => (
+              <BaseTypeahead
+                label={label}
+                options={data ? formatOptions(data) : []}
+                onInputChange={debouncedOnChange}
+                disabled={disabled}
+                required={required}
+                defaultValue={q}
+                {...field}
+              />
+            )}
+          />
+        );
       }}
-      render={({ field }) => (
-        <Typeahead
-          label={label}
-          options={options}
-          disabled={disabled}
-          required={required}
-          {...field}
-        />
-      )}
-    />
-  ) : null;
+    </QueryWrapper>
+  );
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
-  data?: CollectionTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
 
-type CollectionNode =
-  CollectionTypeaheadFragment$data["viewer"]["collections"]["nodes"][number];
-
 export default CollectionTypeahead;
 
-// Currently limited to 50 collections per query
-const fragment = graphql`
-  fragment CollectionTypeaheadFragment on Query {
-    viewer {
-      collections {
-        nodes {
-          id
-          title
-          slug
+const query = graphql`
+  query CollectionTypeaheadQuery($query: String!) {
+    search(visibility: ALL) {
+      results(
+        prefix: $query
+        page: 1
+        perPage: 50
+        order: TITLE_ASCENDING
+        scope: COLLECTION
+      ) {
+        edges {
+          node {
+            title
+            entity {
+              ... on Node {
+                id
+              }
+            }
+          }
         }
       }
     }

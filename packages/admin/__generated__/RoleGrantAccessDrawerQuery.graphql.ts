@@ -27,7 +27,6 @@ export type RoleGrantAccessDrawerQueryResponse = {
         readonly title: string;
         readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
     } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormFragment">;
 };
 export type RoleGrantAccessDrawerQuery = {
     readonly response: RoleGrantAccessDrawerQueryResponse;
@@ -58,28 +57,6 @@ query RoleGrantAccessDrawerQuery(
     title
     ...RoleGrantAccessFormRolesFragment
   }
-  ...RoleGrantAccessFormFragment
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment RoleGrantAccessFormFragment on Query {
-  ...UserTypeaheadFragment
 }
 
 fragment RoleGrantAccessFormRolesFragment on Entity {
@@ -92,24 +69,6 @@ fragment RoleSelectFragment on Entity {
   assignableRoles {
     id
     name
-  }
-}
-
-fragment UserAvatarFragment on User {
-  avatar {
-    ...AvatarFragment
-  }
-}
-
-fragment UserTypeaheadFragment on Query {
-  users {
-    edges {
-      node {
-        id
-        name
-        ...UserAvatarFragment
-      }
-    }
   }
 }
 */
@@ -165,14 +124,7 @@ v7 = [
     "name": "RoleGrantAccessFormRolesFragment"
   }
 ],
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v9 = [
+v8 = [
   (v5/*: any*/),
   (v6/*: any*/),
   {
@@ -187,7 +139,13 @@ v9 = [
         "plural": true,
         "selections": [
           (v5/*: any*/),
-          (v8/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "name",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -258,11 +216,6 @@ return {
             "storageKey": null
           }
         ]
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "RoleGrantAccessFormFragment"
       }
     ],
     "type": "Query",
@@ -280,116 +233,6 @@ return {
     "name": "RoleGrantAccessDrawerQuery",
     "selections": [
       {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserConnection",
-        "kind": "LinkedField",
-        "name": "users",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "UserEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "User",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v5/*: any*/),
-                  (v8/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageAttachment",
-                    "kind": "LinkedField",
-                    "name": "avatar",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "storage",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ImageSize",
-                        "kind": "LinkedField",
-                        "name": "small",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ImageDerivative",
-                            "kind": "LinkedField",
-                            "name": "webp",
-                            "plural": false,
-                            "selections": [
-                              {
-                                "kind": "InlineFragment",
-                                "selections": [
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "alt",
-                                    "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "url",
-                                    "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "width",
-                                    "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "height",
-                                    "storageKey": null
-                                  }
-                                ],
-                                "type": "Image",
-                                "abstractKey": "__isImage"
-                              }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
         "condition": "onCommunity",
         "kind": "Condition",
         "passingValue": true,
@@ -401,7 +244,7 @@ return {
             "kind": "LinkedField",
             "name": "community",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
@@ -418,7 +261,7 @@ return {
             "kind": "LinkedField",
             "name": "collection",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
@@ -435,7 +278,7 @@ return {
             "kind": "LinkedField",
             "name": "item",
             "plural": false,
-            "selections": (v9/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
@@ -443,14 +286,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "965ba290f88a4ba134976691bc82bc19",
+    "cacheID": "c0a73e6824a0151be55d0352b7beefc2",
     "id": null,
     "metadata": {},
     "name": "RoleGrantAccessDrawerQuery",
     "operationKind": "query",
-    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n  ...RoleGrantAccessFormFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment RoleGrantAccessFormFragment on Query {\n  ...UserTypeaheadFragment\n}\n\nfragment RoleGrantAccessFormRolesFragment on Entity {\n  __isEntity: __typename\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Entity {\n  __isEntity: __typename\n  assignableRoles {\n    id\n    name\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserTypeaheadFragment on Query {\n  users {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n"
+    "text": "query RoleGrantAccessDrawerQuery(\n  $slug: Slug!\n  $onCommunity: Boolean!\n  $onCollection: Boolean!\n  $onItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $onCommunity) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n  collection(slug: $slug) @include(if: $onCollection) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n  item(slug: $slug) @include(if: $onItem) {\n    id\n    title\n    ...RoleGrantAccessFormRolesFragment\n  }\n}\n\nfragment RoleGrantAccessFormRolesFragment on Entity {\n  __isEntity: __typename\n  ...RoleSelectFragment\n}\n\nfragment RoleSelectFragment on Entity {\n  __isEntity: __typename\n  assignableRoles {\n    id\n    name\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '2d629c5eac017086765be4a7c595f51a';
+(node as any).hash = '3e30d586254cb02f19f0c838ae31f6c6';
 export default node;

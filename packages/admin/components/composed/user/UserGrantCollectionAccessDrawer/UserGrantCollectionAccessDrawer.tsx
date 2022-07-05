@@ -33,7 +33,6 @@ export default function UserGrantCollectionAccessDrawer({
           <UserGrantCollectionAccessForm
             onSuccess={dialog.hide}
             onCancel={dialog.hide}
-            data={data}
             userId={data?.user?.id}
           />
         </Drawer>
@@ -54,6 +53,5 @@ const query = graphql`
       id
       name
     }
-    ...UserGrantCollectionAccessFormFragment
   }
 `;

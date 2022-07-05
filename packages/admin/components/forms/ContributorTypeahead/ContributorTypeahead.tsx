@@ -1,88 +1,95 @@
-import React, { Ref, useMemo } from "react";
+import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
+import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
-import get from "lodash/get";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Typeahead from "components/forms/Typeahead";
-
-import type {
-  ContributorTypeaheadFragment$key,
-  ContributorTypeaheadFragment$data,
-} from "__generated__/ContributorTypeaheadFragment.graphql";
+import debounce from "lodash/debounce";
+import BaseTypeahead from "components/forms/BaseTypeahead";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
-import { useMaybeFragment } from "hooks";
-type TypeaheadProps = React.ComponentProps<typeof Typeahead>;
+import {
+  ContributorTypeaheadQuery as Query,
+  ContributorTypeaheadQueryResponse as Response,
+} from "__generated__/ContributorTypeaheadQuery.graphql";
+
+type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const ContributorTypeahead = <T extends FieldValues = FieldValues>(
-  { data, control, name, label, disabled, required }: Props<T>,
+  { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ref: Ref<HTMLInputElement>
 ) => {
-  const optionsData = useMaybeFragment(fragment, data);
+  const [q, setQ] = useState("a");
 
-  const options = useMemo(() => {
-    return optionsData?.contributors.nodes.map((node: ContributorNode) => {
+  const formatOptions = (data: Response) => {
+    if (!data || !data.contributors?.edges?.length) return;
+
+    const results = data.contributors.edges;
+    const options = results.map(({ node }) => {
       return {
         label: getContributorDisplayName(node) || "",
-        value: get(node, "id", ""),
+        value: node.__typename !== "%other" ? node.id : "",
       };
     });
-  }, [optionsData]);
+    return options;
+  };
 
   const { t } = useTranslation();
 
-  return options ? (
-    <Controller<T>
-      name={name}
-      control={control}
-      rules={{
-        validate: (value) => {
-          return !!value || (t("forms.validation.contributor") as string);
-        },
-      }}
-      render={({ field }) => {
+  const debouncedOnChange = debounce((value) => setQ(value), 500);
+
+  return (
+    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+      {({ data }) => {
         return (
-          <>
-            <Typeahead
-              label={label}
-              options={options}
-              disabled={disabled}
-              required={required}
-              {...field}
-            />
-          </>
+          <Controller<T>
+            name={name}
+            control={control}
+            rules={{
+              validate: (value) => {
+                return !!value || (t("forms.validation.contributor") as string);
+              },
+            }}
+            render={({ field }) => (
+              <BaseTypeahead
+                label={label}
+                options={data ? formatOptions(data) : []}
+                onInputChange={debouncedOnChange}
+                disabled={disabled}
+                required={required}
+                defaultValue={q}
+                {...field}
+              />
+            )}
+          />
         );
       }}
-    />
-  ) : null;
+    </QueryWrapper>
+  );
 };
 
 interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
-  data?: ContributorTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;
 }
-
-type ContributorNode =
-  ContributorTypeaheadFragment$data["contributors"]["nodes"][number];
-
 export default ContributorTypeahead;
 
-// Currently limited to 50 contributors per query
-const fragment = graphql`
-  fragment ContributorTypeaheadFragment on Query {
-    contributors {
-      nodes {
-        __typename
-        ... on OrganizationContributor {
-          id
-          legalName
-        }
-        ... on PersonContributor {
-          id
-          givenName
-          familyName
+const query = graphql`
+  query ContributorTypeaheadQuery($query: String!) {
+    contributors(prefix: $query, page: 1, perPage: 50, order: NAME_ASCENDING) {
+      edges {
+        node {
+          ... on PersonContributor {
+            __typename
+            givenName
+            familyName
+            id
+          }
+          ... on OrganizationContributor {
+            __typename
+            legalName
+            id
+          }
         }
       }
     }
