@@ -25,7 +25,7 @@ function Search({
   const onSubmit = (data: Record<string, string>) => {
     router.push({
       pathname: route?.path || router.pathname,
-      query: { ...router.query, q: data.q },
+      query: { ...router.query, page: 1, q: data.q },
     });
 
     if (clearOnSubmit) reset();
