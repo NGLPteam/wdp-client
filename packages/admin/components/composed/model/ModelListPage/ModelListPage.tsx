@@ -18,6 +18,7 @@ import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
 import CurrentSearchFilters from "components/composed/search/CurrentSearchFilters";
 import SearchWithFilters from "components/composed/search/SearchWithFilters";
+import Search from "components/composed/search/Search";
 import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
 import { ModelListPageSearchFragment$key } from "@/relay/ModelListPageSearchFragment.graphql";
 
@@ -35,6 +36,7 @@ type ModelListPageProps<
     buttons?: ReactNode;
     header?: ReactNode;
     showSearch?: boolean;
+    hideFilters?: boolean;
     searchData?: ModelListPageSearchFragment$key | null;
   };
 
@@ -50,6 +52,7 @@ function ModelListPage<
   hideHeader,
   header,
   showSearch,
+  hideFilters,
   data,
   searchData,
   ...modelListProps
@@ -89,7 +92,13 @@ function ModelListPage<
         selectedView={selectedView}
         setView={setView}
         listId={listId}
-        search={showSearch && <SearchWithFilters data={searchScope} />}
+        search={
+          hideFilters ? (
+            <Search />
+          ) : (
+            showSearch && <SearchWithFilters data={searchScope} />
+          )
+        }
       />
       {searchScope && <CurrentSearchFilters data={searchScope} />}
       <QueryVariablesContext.Consumer>
