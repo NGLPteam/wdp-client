@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { lGrid, respond, fluidScale, tHeading } from "theme/mixins";
+import {
+  lGrid,
+  respond,
+  fluidScale,
+  tHeading,
+  aLinkHoverFocus,
+} from "theme/mixins";
 
 export const BodyWrapper = styled.div`
   padding-block-start: var(--container-padding-md);
@@ -69,5 +75,9 @@ export const TOCList = styled.ul`
 export const TOCListItem = styled.li`
   & + & {
     padding-block-start: ${pxToRem(20)};
+  }
+
+  > a:focus {
+    ${aLinkHoverFocus}
   }
 `;
