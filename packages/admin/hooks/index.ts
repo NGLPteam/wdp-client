@@ -29,3 +29,4 @@ export { default as useLocalStorage } from "./useLocalStorage";
 export { default as useViewPreference } from "./useViewPreference";
 export { default as useRouteOrder } from "./useRouteOrder";
 export { default as useSearchQueryVars } from "./useSearchQueryVars";
+export { default as useContributorQueryVars } from "./useContributorQueryVars";

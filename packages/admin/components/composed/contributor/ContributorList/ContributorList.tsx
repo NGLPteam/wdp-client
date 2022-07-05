@@ -72,6 +72,7 @@ function ContributorList<T extends OperationType>({
       data={contributors}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      hideFilters
     />
   );
 }
