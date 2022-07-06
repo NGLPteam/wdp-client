@@ -172,7 +172,11 @@
       "series": "Series",
       "access": "Access",
       "keywords": "Keywords",
-      "streaming_media": "Media"
+      "streaming_media": "Media",
+      "published_in": "Published In",
+      "first_page": "First Page",
+      "last_page": "Last Page",
+      "page_count": "Page Count"
     },
     "layouts": {
       "related_journals_header": "Related Journals",

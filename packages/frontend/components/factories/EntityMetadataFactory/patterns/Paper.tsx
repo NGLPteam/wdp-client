@@ -12,6 +12,18 @@ interface Props {
   data?: PaperMetadataFragment$key | null;
 }
 
+const HOST_LABELS_BY_PATH = {
+  title: "metadata.published_in",
+  volume: "metadata.volume",
+  issue: "metadata.issue",
+  fpage: "metadata.first_page",
+  lpage: "metadata.last_page",
+  /* eslint-disable-next-line camelcase */
+  page_count: "metadata.page_count",
+};
+
+type PathKey = keyof typeof HOST_LABELS_BY_PATH;
+
 export default function PaperMetadata({ data }: Props) {
   const { t } = useTranslation();
   const paper = useMaybeFragment(fragment, data);
@@ -39,6 +51,18 @@ export default function PaperMetadata({ data }: Props) {
       />
       <MetadataFactory label={t("metadata.available")} data={paper.available} />
       <MetadataProperty label={"ISSN"}>{paper.issn}</MetadataProperty>
+      {!!paper.host?.properties?.length &&
+        paper.host.properties.map((prop) => (
+          <MetadataFactory
+            key={prop.path}
+            label={
+              prop?.path
+                ? t(HOST_LABELS_BY_PATH[prop.path as PathKey])
+                : undefined
+            }
+            data={prop}
+          />
+        ))}
       <MetadataFactory
         label={t("metadata.text_version")}
         data={paper.textVersion}
@@ -76,6 +100,16 @@ const fragment = graphql`
     }
     available: schemaProperty(fullPath: "available") {
       ...MetadataFactoryFragment
+    }
+    host: schemaProperty(fullPath: "host") {
+      ... on GroupProperty {
+        properties {
+          ... on ScalarProperty {
+            path
+            ...MetadataFactoryFragment
+          }
+        }
+      }
     }
   }
 `;
