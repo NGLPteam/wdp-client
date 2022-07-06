@@ -1581,6 +1581,7 @@ export type CollectionContributionsArgs = {
 export type CollectionContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  prefix?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -2262,6 +2263,7 @@ export type Contributable = {
 export type ContributableContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  prefix?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -4376,6 +4378,8 @@ export type HierarchicalSchemaVersionRank = Node & DescribesSchema & {
 export type Image = {
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
+  /** The MIME type of the image, if present */
+  contentType?: Maybe<Scalars['String']>;
   /** @deprecated Use width and height directly. */
   dimensions?: Maybe<Array<Scalars['Int']>>;
   /** The height of the image, if present */
@@ -4448,6 +4452,8 @@ export type ImageDerivative = ImageIdentification & Image & {
   __typename?: 'ImageDerivative';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
+  /** The MIME type of the image, if present */
+  contentType?: Maybe<Scalars['String']>;
   /** @deprecated Use width and height directly. */
   dimensions?: Maybe<Array<Scalars['Int']>>;
   /** The format of this derivative */
@@ -4504,9 +4510,9 @@ export type ImageDerivativeSize =
   | 'LARGE'
   /** A hero-sized image, constrained to 2880px wide with no height limit. */
   | 'HERO'
-  /** A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit. */
+  /** A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit. */
   | 'SANS_TEXT'
-  /** A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high. */
+  /** A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high. */
   | 'WITH_TEXT'
   | '%future added value';
 
@@ -4554,6 +4560,8 @@ export type ImageOriginal = HasAttachmentStorage & ImageIdentification & Image &
   __typename?: 'ImageOriginal';
   /** Alt text for accessible images */
   alt?: Maybe<Scalars['String']>;
+  /** The MIME type of the image, if present */
+  contentType?: Maybe<Scalars['String']>;
   /** @deprecated Use width and height directly. */
   dimensions?: Maybe<Array<Scalars['Int']>>;
   /** The height of the image, if present */
@@ -4989,6 +4997,7 @@ export type ItemContributionsArgs = {
 export type ItemContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  prefix?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -6662,6 +6671,7 @@ export type QueryContributorLookupArgs = {
 export type QueryContributorsArgs = {
   order?: Maybe<ContributorOrder>;
   kind?: Maybe<ContributorFilterKind>;
+  prefix?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -6775,6 +6785,7 @@ export type QueryUserArgs = {
 /** The entry point for retrieving data from within the WDP API. */
 export type QueryUsersArgs = {
   order?: Maybe<UserOrder>;
+  prefix?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
   first?: Maybe<Scalars['Int']>;
@@ -7551,6 +7562,7 @@ export type SearchPredicateInput = {
 export type SearchResult = {
   __typename?: 'SearchResult';
   entity: AnyEntity;
+  id: Scalars['ID'];
   kind: EntityKind;
   schemaVersion: SchemaVersion;
   slug: Scalars['Slug'];
@@ -7597,6 +7609,7 @@ export type SearchScopeResultsArgs = {
   schema?: Maybe<Array<Scalars['String']>>;
   order?: Maybe<EntityOrder>;
   predicates?: Maybe<Array<SearchPredicateInput>>;
+  prefix?: Maybe<Scalars['String']>;
   query?: Maybe<Scalars['String']>;
   after?: Maybe<Scalars['String']>;
   before?: Maybe<Scalars['String']>;
@@ -7774,14 +7787,14 @@ export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
    * some context for what they are without extra work.
    */
   purpose: ImagePurpose;
-  /** A logo intended to be used when the site title is hidden, constrained to 40px high with no width limit. */
+  /** A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit. */
   sansText: ImageSize;
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
    */
   storage?: Maybe<AttachmentStorage>;
-  /** A logo intended to be used when the site title is visible, constrained to 40px wide by 40px high. */
+  /** A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high. */
   withText: ImageSize;
 };
 
@@ -11831,6 +11844,7 @@ export interface Iso8601DateTimeScalarConfig extends GraphQLScalarTypeConfig<Res
 export type ImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
   __resolveType: TypeResolveFn<'ImageDerivative' | 'ImageOriginal', ParentType, ContextType>;
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contentType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -11857,6 +11871,7 @@ export type ImageAttachmentResolvers<ContextType = any, ParentType extends Resol
 
 export type ImageDerivativeResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageDerivative'] = ResolversParentTypes['ImageDerivative']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contentType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   format?: Resolver<ResolversTypes['ImageDerivativeFormat'], ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -11884,6 +11899,7 @@ export type ImageMetadataResolvers<ContextType = any, ParentType extends Resolve
 
 export type ImageOriginalResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageOriginal'] = ResolversParentTypes['ImageOriginal']> = {
   alt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contentType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dimensions?: Resolver<Maybe<Array<ResolversTypes['Int']>>, ParentType, ContextType>;
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   originalFilename?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -12703,6 +12719,7 @@ export type SchemaVersionOptionResolvers<ContextType = any, ParentType extends R
 
 export type SearchResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchResult'] = ResolversParentTypes['SearchResult']> = {
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['EntityKind'], ParentType, ContextType>;
   schemaVersion?: Resolver<ResolversTypes['SchemaVersion'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;

@@ -29,6 +29,12 @@ export type PaperMetadataFragment = {
     readonly available: {
         readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
+    readonly host: {
+        readonly properties?: ReadonlyArray<{
+            readonly path?: string | undefined;
+            readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+        }> | undefined;
+    } | null;
     readonly " $refType": "PaperMetadataFragment";
 };
 export type PaperMetadataFragment$data = PaperMetadataFragment;
@@ -40,12 +46,13 @@ export type PaperMetadataFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "MetadataFactoryFragment"
-  }
+var v0 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "MetadataFactoryFragment"
+},
+v1 = [
+  (v0/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -129,7 +136,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     },
     {
@@ -145,7 +152,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"text_version\")"
     },
     {
@@ -161,7 +168,7 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"accessioned\")"
     },
     {
@@ -177,13 +184,63 @@ return {
       "kind": "LinkedField",
       "name": "schemaProperty",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": "schemaProperty(fullPath:\"available\")"
+    },
+    {
+      "alias": "host",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "host"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": null,
+              "kind": "LinkedField",
+              "name": "properties",
+              "plural": true,
+              "selections": [
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "path",
+                      "storageKey": null
+                    },
+                    (v0/*: any*/)
+                  ],
+                  "type": "ScalarProperty",
+                  "abstractKey": "__isScalarProperty"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "GroupProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"host\")"
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
 })();
-(node as any).hash = '509f7f1b3f6f366744053c209a248290';
+(node as any).hash = '1837ef7db7294e9ff5214d23b08b6110';
 export default node;
