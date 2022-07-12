@@ -5,10 +5,11 @@ import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
 import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
-import { PrecisionDate } from "components/atomic";
+import { ExternalLink, PrecisionDate } from "components/atomic";
 import ContributorName from "components/composed/contributor/ContributorName";
 
 import { ArticleMetadataFragment$key } from "@/relay/ArticleMetadataFragment.graphql";
+import { normalizeDoiUrl } from "helpers";
 
 interface Props {
   data?: ArticleMetadataFragment$key | null;
@@ -21,6 +22,8 @@ export default function ArticleMetadata({ data }: Props) {
   const authors = article?.contributions?.edges?.filter(
     ({ node }) => node.role?.toLowerCase() === "author"
   );
+
+  const doi = article?.doi ? normalizeDoiUrl(article.doi) : null;
 
   return article ? (
     <EntityMetadataBlock>
@@ -49,7 +52,9 @@ export default function ArticleMetadata({ data }: Props) {
         {article.published && <PrecisionDate data={article.published} />}
       </MetadataProperty>
       <MetadataFactory data={article.pageCountMeta} />
-      <MetadataProperty label={"DOI"}>{article.doi}</MetadataProperty>
+      <MetadataProperty label={"DOI"}>
+        {doi && <ExternalLink href={doi.url}>{doi.displayUrl}</ExternalLink>}
+      </MetadataProperty>
       <MetadataFactory
         label={t("metadata.license")}
         data={article.journal?.ccLicense}

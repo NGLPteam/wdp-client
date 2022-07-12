@@ -25,7 +25,8 @@
       "loading_pdf": "Loading PDF",
       "avatar": "Avatar",
       "no_content": "Sorry, this page has no content.",
-      "record": "record"
+      "record": "record",
+      "opens_new_window": "(Opens in a new window)"
     },
     "date": {
       "published": "Published",
@@ -144,6 +145,7 @@
       "author_plural": "Authors",
       "header": "Metadata",
       "doi": "DOI:",
+      "doi_link": "DOI link",
       "issn": "ISSN:",
       "authored_on": "Authored On",
       "tags": "Tags",
