@@ -13,7 +13,7 @@ export default function SquareThumbnail({
   ...props
 }: Props & ImageProps) {
   const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.image.webp;
+  const image = imageData?.image?.webp;
 
   return image ? (
     <SquareThumbnailBase {...props} alt={image.alt} url={image.url} />
