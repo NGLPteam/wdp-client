@@ -2,6 +2,7 @@ import React from "react";
 
 import { graphql } from "react-relay";
 
+import { Trans } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   Forms,
@@ -26,8 +27,31 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
       <Forms.Grid>
         <Forms.Input label="forms.fields.name" {...register("name")} />
         <Forms.FileUpload label="forms.fields.attachment" name="attachment" />
-        <Forms.Input label="forms.fields.alt_text" {...register("altText")} />
-        <Forms.Textarea label="forms.fields.caption" {...register("caption")} />
+        <Forms.Input
+          label="forms.fields.alt_text"
+          description={
+            <Trans
+              i18nKey="forms.fields.alt_text_description_file"
+              components={[
+                <a
+                  key="link"
+                  href="https://webaim.org/techniques/alttext/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="a-link"
+                >
+                  #
+                </a>,
+              ]}
+            />
+          }
+          {...register("altText")}
+        />
+        <Forms.Textarea
+          label="forms.fields.caption"
+          description="forms.fields.caption_description"
+          {...register("caption")}
+        />
       </Forms.Grid>
     ),
     []

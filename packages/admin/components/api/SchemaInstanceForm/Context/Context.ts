@@ -6,6 +6,7 @@ const Context = createContext<SchemaContextState>({
   contributors: [],
   defaultValues: {},
   fieldValues: {},
+  refetch: undefined,
 });
 
 Context.displayName = "forms.Schema.Context";

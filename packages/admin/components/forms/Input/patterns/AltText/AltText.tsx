@@ -26,6 +26,7 @@ const AltText = forwardRef(
                   href="https://webaim.org/techniques/alttext/"
                   target="_blank"
                   rel="noreferrer"
+                  className="a-link"
                 >
                   #
                 </a>,

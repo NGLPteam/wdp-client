@@ -3,12 +3,13 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-
+import SchemaFormFieldsRefetchQuery from "./SchemaFormFieldsRefetchQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type SchemaFormFieldsFragment = {
     readonly properties: ReadonlyArray<{
         readonly " $fragmentRefs": FragmentRefs<"SchemaInstancePropertyFragment">;
     }>;
+    readonly id?: string | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorDataFragment" | "SchemaFormFieldsContextFragment">;
     readonly " $refType": "SchemaFormFieldsFragment";
 };
@@ -23,7 +24,16 @@ export type SchemaFormFieldsFragment$key = {
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "refetch": {
+      "connection": null,
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": SchemaFormFieldsRefetchQuery,
+      "identifierField": "id"
+    }
+  },
   "name": "SchemaFormFieldsFragment",
   "selections": [
     {
@@ -51,10 +61,24 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SchemaFormFieldsContextFragment"
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        }
+      ],
+      "type": "Node",
+      "abstractKey": "__isNode"
     }
   ],
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '4c91bc6d15af2140f890208addefd04d';
+(node as any).hash = 'b1e49ae1d4c198d8a55bae7e83c70d8b';
 export default node;

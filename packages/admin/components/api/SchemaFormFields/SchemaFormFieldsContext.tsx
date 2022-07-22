@@ -1,23 +1,35 @@
 import React, { createContext, useContext } from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "react-relay";
+import { useRefetchable } from "relay-hooks";
 import type { SchemaContextState } from "components/api/hooks/types";
 import { useSchemaContext } from "components/api/hooks";
 import { SchemaFormFieldsContextFragment$key } from "@/relay/SchemaFormFieldsContextFragment.graphql";
+import { SchemaFormFieldsContextRefetchQuery } from "@/relay/SchemaFormFieldsContextRefetchQuery.graphql";
 
 const SchemaFormFieldsContext = createContext<SchemaContextState>({
   assets: [],
   contributors: [],
   defaultValues: {},
   fieldValues: {},
+  refetch: null,
 });
 
 function SchemaFormFieldsContextProvider({ data, children }: ProviderProps) {
-  const schema = useFragment(fragment, data);
+  const {
+    data: schema,
+    refetch,
+    isLoading,
+  } = useRefetchable<
+    SchemaFormFieldsContextRefetchQuery,
+    SchemaFormFieldsContextFragment$key
+  >(fragment, data);
 
   const context = useSchemaContext(schema.context);
 
   return (
-    <SchemaFormFieldsContext.Provider value={context}>
+    <SchemaFormFieldsContext.Provider
+      value={{ ...context, refetch, isLoading }}
+    >
       {children}
     </SchemaFormFieldsContext.Provider>
   );
@@ -37,7 +49,8 @@ export function useSchemaFormFieldsContext(): SchemaContextState {
 }
 
 const fragment = graphql`
-  fragment SchemaFormFieldsContextFragment on SchemaInstance {
+  fragment SchemaFormFieldsContextFragment on SchemaInstance
+  @refetchable(queryName: "SchemaFormFieldsContextRefetchQuery") {
     context: schemaInstanceContext {
       ...useSchemaContextFragment
     }

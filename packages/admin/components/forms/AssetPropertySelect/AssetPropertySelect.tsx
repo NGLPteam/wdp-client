@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref } from "react";
+import React, { forwardRef, Ref, useCallback } from "react";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import BaseInputWrapper from "../BaseInputWrapper";
@@ -8,7 +8,9 @@ import { ButtonControl } from "components/atomic/buttons/ButtonControl/ButtonCon
 import Select from "components/forms/Select";
 import FileCreateModal from "components/composed/file/FileCreateModal";
 
-type BaseProps = React.ComponentProps<typeof Select>;
+type BaseProps = React.ComponentProps<typeof Select> & {
+  refetchAssets?: () => void;
+};
 
 const AssetPropertySelect = forwardRef(
   (
@@ -19,12 +21,25 @@ const AssetPropertySelect = forwardRef(
       description,
       options,
       isWide,
+      refetchAssets,
+      onChange,
       ...inputProps
     }: Props,
     ref: Ref<HTMLSelectElement>
   ) => {
     const dialog = useDialogState({ visible: false, animated: true });
     const { t } = useTranslation();
+
+    const handleSuccess = useCallback(
+      (newAssetId: string) => {
+        if (refetchAssets) refetchAssets();
+        if (newAssetId) onChange(newAssetId);
+      },
+      [refetchAssets, onChange]
+    );
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
+      onChange(e.target.value ? e : null);
 
     return (
       <>
@@ -42,14 +57,20 @@ const AssetPropertySelect = forwardRef(
               ref={ref}
               placeholder={t("forms.asset_property_select.placeholder")}
               options={options}
+              onChange={handleChange}
               {...inputProps}
             />
-            <DialogDisclosure as={ButtonControl} icon="plus" {...dialog}>
+            <DialogDisclosure
+              as={ButtonControl}
+              type="button"
+              icon="plus"
+              {...dialog}
+            >
               {t("forms.asset_property_select.add_file")}
             </DialogDisclosure>
           </Styled.Field>
         </BaseInputWrapper>
-        <FileCreateModal dialog={dialog} />
+        <FileCreateModal dialog={dialog} onSuccess={handleSuccess} />
       </>
     );
   }

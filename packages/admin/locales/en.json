@@ -321,8 +321,10 @@
         "url": "URL",
         "user": "User",
         "caption": "Caption",
+        "caption_description": "A short description",
         "attachment": "Attachment",
         "alt_text": "Alt Text",
+        "alt_text_description_file": "If your file is an image, enter descriptive text for screen readers (<0>See WebAIM alt text techniques</0>)",
         "alt_text_description": "Descriptive text for the image (<0>See WebAIM alt text techniques</0>)",
         "username": "Username",
         "avatar": "Avatar",
@@ -425,8 +427,9 @@
         "lang_label": "Language"
       },
       "asset_property_select": {
-        "add_file": "Add File",
-        "placeholder": "Select a file"
+        "add_file": "Upload File",
+        "placeholder": "Select a file",
+        "description": "Select a file from the list above, or upload a new file."
       },
       "order_render_select": {
         "label": "Display as",
