@@ -188,9 +188,7 @@ export default function ItemUpdateForm({
         onSuccess={onSuccess}
         onSaveAndClose={onSaveAndClose}
         onCancel={onCancel}
-        successNotification={t("messages.update.item_success", {
-          name: values.title,
-        })}
+        successNotification={t("messages.update.item_success")}
         mutation={mutation}
         toVariables={toVariables}
         defaultValues={defaultValues}

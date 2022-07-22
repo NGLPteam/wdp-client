@@ -32,4 +32,18 @@ export interface SchemaContextState<T extends FieldValues = FieldValues> {
    * The slug for the current schema version
    */
   readonly schemaVersionSlug?: string;
+
+  /**
+   * The refetch method
+   */
+  refetch?: RefetchFnDynamic<
+    SchemaFormFieldsContextRefetchQuery,
+    SchemaFormFieldsContextFragment$key,
+    Options
+  >;
+
+  /**
+   * Is the fragment loading?
+   */
+  isLoading?: boolean;
 }

@@ -50,6 +50,7 @@ function enforceContext(
       contributors: [],
       defaultValues: {},
       fieldValues: {},
+      refetch: undefined,
     };
   }
 }
