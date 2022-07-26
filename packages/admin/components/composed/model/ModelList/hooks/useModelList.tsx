@@ -13,8 +13,13 @@ import { Connectionish } from "types/graphql-helpers";
 interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
   handleDelete?: (props: ModelTableActionProps<T>) => void;
+  hideDelete?: (props: ModelTableActionProps<T>) => boolean;
   handleDownload?: (props: ModelTableActionProps<T>) => void;
   handleView?: (props: ModelTableActionProps<T>) => void;
+  handleEnable?: (props: ModelTableActionProps<T>) => void;
+  hideEnable?: (props: ModelTableActionProps<T>) => boolean;
+  handleDisable?: (props: ModelTableActionProps<T>) => void;
+  hideDisable?: (props: ModelTableActionProps<T>) => boolean;
 }
 
 export interface UseModelListProps<
@@ -73,13 +78,31 @@ function useModelList<
     () => ({
       ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
       ...(actions.handleDelete && {
-        delete: { handleClick: actions.handleDelete, modalConfirm: true },
+        delete: {
+          handleClick: actions.handleDelete,
+          handleHide: actions.hideDelete,
+          modalConfirm: true,
+        },
       }),
       ...(actions.handleDownload && {
         download: { handleLink: actions.handleDownload },
       }),
       ...(actions.handleView && {
         view: { handleLink: actions.handleView },
+      }),
+      ...(actions.handleEnable && {
+        enable: {
+          handleClick: actions.handleEnable,
+          handleHide: actions.hideEnable,
+          modalConfirm: true,
+        },
+      }),
+      ...(actions.handleDisable && {
+        disable: {
+          handleClick: actions.handleDisable,
+          handleHide: actions.hideDisable,
+          modalConfirm: true,
+        },
       }),
     }),
     [actions]
