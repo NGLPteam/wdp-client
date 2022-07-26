@@ -2,12 +2,11 @@ import React, { useCallback } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import isFunction from "lodash/isFunction";
 import ScalarProperty from "../ScalarProperty";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
 import AssetPropertySelect from "components/forms/AssetPropertySelect";
 import type { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
-import isFunction from "lodash/isFunction";
 
 export default function AssetProperty(props: Props) {
   const { assets: options, refetch } = useSchemaFormFieldsContext();
@@ -20,8 +19,6 @@ export default function AssetProperty(props: Props) {
     () => (isFunction(refetch) ? refetch({}) : null),
     [refetch]
   );
-
-  const { t } = useTranslation();
 
   return (
     <ScalarProperty field={field}>

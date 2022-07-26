@@ -23,6 +23,7 @@ export type InstallationLogoFragment = {
             readonly size: ImageDerivativeSize;
             readonly webp: {
                 readonly width: number | null;
+                readonly height: number | null;
                 readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
             };
         };
@@ -138,6 +139,13 @@ return {
                   "name": "width",
                   "storageKey": null
                 },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                },
                 (v0/*: any*/)
               ],
               "storageKey": null
@@ -153,5 +161,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '60b2eee562c94ceb58fbd24704a5c1bc';
+(node as any).hash = 'cef254b3b342f0e6b157990bd0b88ab9';
 export default node;
