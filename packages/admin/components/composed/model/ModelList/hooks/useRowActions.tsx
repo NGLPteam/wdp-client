@@ -77,7 +77,6 @@ const availableActions: ActionDefinitions = {
   },
   enable: {
     label: i18next.t("common.enable"),
-    icon: "plus",
     action: "self.edit",
     modalLabel: i18next.t("messages.enable.confirm_label"),
     modalBody: (
@@ -86,7 +85,6 @@ const availableActions: ActionDefinitions = {
   },
   disable: {
     label: i18next.t("common.disable"),
-    icon: "delete",
     action: "self.delete",
     modalLabel: i18next.t("messages.disable.confirm_label"),
     modalBody: (
@@ -116,7 +114,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       })}
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}
-    ></ButtonControlConfirm>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControlConfirm>
   ) : action === "download" && actionConfig?.handleLink ? (
     <ButtonControlDownload
       key={action}
@@ -142,7 +142,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       {...(actionConfig?.handleClick && {
         onClick: () => actionConfig.handleClick({ row }),
       })}
-    ></ButtonControl>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControl>
   );
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
