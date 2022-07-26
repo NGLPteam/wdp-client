@@ -11,6 +11,7 @@ export type EntityOrderingLayoutFactoryFragment = {
     };
     readonly initialOrdering: {
         readonly identifier: string;
+        readonly disabled: boolean;
     } | null;
     readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment">;
     readonly " $refType": "EntityOrderingLayoutFactoryFragment";
@@ -24,15 +25,13 @@ export type EntityOrderingLayoutFactoryFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "identifier",
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -46,7 +45,9 @@ return {
       "kind": "LinkedField",
       "name": "schemaDefinition",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -56,7 +57,16 @@ return {
       "kind": "LinkedField",
       "name": "initialOrdering",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "disabled",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -69,5 +79,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '66f1422c002cb0e2bb7f5deeb67b56c1';
+(node as any).hash = 'b2c07441676eb36b6a35fd94bbb21faa';
 export default node;

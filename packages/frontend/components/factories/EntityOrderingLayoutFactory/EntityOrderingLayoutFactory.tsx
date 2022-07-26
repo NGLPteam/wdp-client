@@ -23,10 +23,14 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
 
   const { push: routerPush, ...router } = useRouter();
 
+  const initOrdering = !entity?.initialOrdering?.disabled
+    ? entity?.initialOrdering?.identifier
+    : "";
+
   const identifier =
     ordering ||
     routeQueryArrayToString(router.query.ordering) ||
-    entity?.initialOrdering?.identifier ||
+    initOrdering ||
     "";
 
   const slug = routeQueryArrayToString(router.query.slug);
@@ -101,6 +105,7 @@ const fragment = graphql`
 
     initialOrdering {
       identifier
+      disabled
     }
 
     ...IssueSidebarNavFragment
