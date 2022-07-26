@@ -18,9 +18,9 @@ function CollectionLayoutQuery<
   P extends QueryPageComponentProps<Query>
 >({
   query,
+  refetchTags,
   PageComponent,
   pageComponentProps,
-  refetchTags,
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof CollectionLayout>>) {
   const queryVars = useBaseListQueryVars();
