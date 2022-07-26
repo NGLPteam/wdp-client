@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery, useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
@@ -12,6 +12,7 @@ import {
 import { LoadingBlock } from "components/atomic";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
+import { RouteHelper } from "routes";
 
 /**
  * Fetches the ordering data and gets the right layout based on the schema identifier.
@@ -20,12 +21,16 @@ import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
 export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
-  const router = useRouter();
+  const { push: routerPush, ...router } = useRouter();
+
+  const initOrdering = !entity?.initialOrdering?.disabled
+    ? entity?.initialOrdering?.identifier
+    : "";
 
   const identifier =
     ordering ||
     routeQueryArrayToString(router.query.ordering) ||
-    entity?.initialOrdering?.identifier ||
+    initOrdering ||
     "";
 
   const slug = routeQueryArrayToString(router.query.slug);
@@ -40,6 +45,23 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
       slug,
     }
   );
+
+  // If an ordering is disabled, redirect to the parent entity
+  useEffect(() => {
+    const isDisabled =
+      !!orderingData?.collection?.ordering?.disabled ||
+      !!orderingData?.community?.ordering?.disabled;
+
+    const route = RouteHelper.findRouteByName(
+      orderingData?.collection ? "collection" : "community"
+    );
+
+    if (isDisabled) {
+      routerPush({ pathname: route?.path || "/", query: { slug } }, undefined, {
+        shallow: true,
+      });
+    }
+  }, [orderingData, slug, routerPush]);
 
   const getLayout = (
     data?: EntityOrderingLayoutFactoryQueryResponse | null
@@ -83,6 +105,7 @@ const fragment = graphql`
 
     initialOrdering {
       identifier
+      disabled
     }
 
     ...IssueSidebarNavFragment
@@ -97,12 +120,14 @@ const query = graphql`
   ) {
     collection(slug: $slug) {
       ordering(identifier: $identifier) {
+        disabled
         ...EntityOrderingLayoutFragment @arguments(page: $page)
         ...IssueOrderingLayoutFragment @arguments(page: $page)
       }
     }
     community(slug: $slug) {
       ordering(identifier: $identifier) {
+        disabled
         ...EntityOrderingLayoutFragment @arguments(page: $page)
         ...IssueOrderingLayoutFragment @arguments(page: $page)
       }

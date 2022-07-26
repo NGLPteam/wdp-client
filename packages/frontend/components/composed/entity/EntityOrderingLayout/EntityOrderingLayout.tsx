@@ -16,7 +16,6 @@ export default function EntityOrderingLayout({ data }: Props) {
   const pageInfo = useMemo(() => ordering?.children.pageInfo, [ordering]);
 
   const mode = ordering?.render?.mode;
-
   return ordering ? (
     mode === "TREE" ? (
       <BrowseTreeLayout
@@ -55,6 +54,12 @@ const fragment = graphql`
     header
     render {
       mode
+    }
+    entity {
+      __typename
+      ... on Sluggable {
+        slug
+      }
     }
     children(page: $page, perPage: $perPage) {
       edges {

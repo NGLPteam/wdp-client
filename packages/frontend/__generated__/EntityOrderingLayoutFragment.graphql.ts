@@ -12,6 +12,10 @@ export type EntityOrderingLayoutFragment = {
     readonly render: {
         readonly mode: OrderingRenderMode;
     };
+    readonly entity: {
+        readonly __typename: string;
+        readonly slug?: string | undefined;
+    };
     readonly children: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -37,7 +41,22 @@ export type EntityOrderingLayoutFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    }
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
+};
+return {
   "argumentDefinitions": [
     {
       "defaultValue": 1,
@@ -83,6 +102,25 @@ const node: ReaderFragment = {
           "name": "mode",
           "storageKey": null
         }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "entity",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        (v0/*: any*/)
       ],
       "storageKey": null
     },
@@ -136,20 +174,7 @@ const node: ReaderFragment = {
                   "name": "entry",
                   "plural": false,
                   "selections": [
-                    {
-                      "kind": "InlineFragment",
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "slug",
-                          "storageKey": null
-                        }
-                      ],
-                      "type": "Sluggable",
-                      "abstractKey": "__isSluggable"
-                    },
+                    (v0/*: any*/),
                     {
                       "args": null,
                       "kind": "FragmentSpread",
@@ -192,5 +217,6 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '7e62053eea583b7d93bc6ac721023873';
+})();
+(node as any).hash = '5761e0a1e0d6339a6e8283f4df86929e';
 export default node;
