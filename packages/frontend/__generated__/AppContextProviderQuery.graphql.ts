@@ -118,6 +118,7 @@ fragment InstallationNameFragment on GlobalConfiguration {
       size
       webp {
         width
+        height
         ...ImageFragment
       }
     }
@@ -346,12 +347,12 @@ return {
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
                           (v1/*: any*/),
-                          (v2/*: any*/),
-                          (v4/*: any*/)
+                          (v2/*: any*/)
                         ],
                         "type": "Image",
                         "abstractKey": "__isImage"
@@ -439,12 +440,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c2c3f9f8d2b906242fe6810ba5e9514b",
+    "cacheID": "94f3a4a6ce65313a755cbe6b642dde53",
     "id": null,
     "metadata": {},
     "name": "AppContextProviderQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query AppContextProviderQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      installationName\n      footer {\n        copyrightStatement\n        description\n      }\n    }\n    id\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  communities {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();

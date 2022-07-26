@@ -23,6 +23,7 @@ export type InstallationNameFragment = {
             readonly size: ImageDerivativeSize;
             readonly webp: {
                 readonly width: number | null;
+                readonly height: number | null;
                 readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
             };
         };
@@ -138,6 +139,13 @@ return {
                   "name": "width",
                   "storageKey": null
                 },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                },
                 (v0/*: any*/)
               ],
               "storageKey": null
@@ -153,5 +161,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'dc5cf34a7349dde6650c56f667e89c50';
+(node as any).hash = '82dc793688359f09deba93c750a8b0be';
 export default node;

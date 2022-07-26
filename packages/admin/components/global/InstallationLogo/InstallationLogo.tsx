@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -19,13 +19,20 @@ const InstallationLogo = ({ className }: Props) => {
 
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
 
+  const ratio = useMemo(() => {
+    return (
+      (siteData?.logo?.sansText?.webp?.width || 1) /
+      (siteData?.logo?.sansText?.webp?.height || 1)
+    );
+  }, [siteData]);
+
   return (
     <Link href="/" passHref>
       <Styled.LogoLink className={className}>
         {siteData?.logo?.storage && (
           <Image
             data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
-            width={siteData?.logo?.sansText?.webp?.width || LOGO_SIZE}
+            width={LOGO_SIZE * ratio}
             height={LOGO_SIZE}
             alt={siteData?.site?.installationName}
           />
@@ -61,6 +68,7 @@ const fragment = graphql`
         size
         webp {
           width
+          height
           ...ImageFragment
         }
       }

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import * as React from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
@@ -21,13 +22,20 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
 
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
 
+  const ratio = useMemo(() => {
+    return (
+      (siteData?.logo?.sansText?.webp?.width || 1) /
+      (siteData?.logo?.sansText?.webp?.height || 1)
+    );
+  }, [siteData]);
+
   return siteData?.site?.installationName ? (
     <Link href="/" passHref>
       <Styled.Link className={className}>
         {siteData?.logo?.storage && (
           <Image
             data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
-            width={siteData.logo.sansText?.webp?.width || LOGO_SIZE}
+            width={LOGO_SIZE * ratio}
             height={LOGO_SIZE}
             alt={siteData.site.installationName}
           />
@@ -66,6 +74,7 @@ const fragment = graphql`
         size
         webp {
           width
+          height
           ...ImageFragment
         }
       }
