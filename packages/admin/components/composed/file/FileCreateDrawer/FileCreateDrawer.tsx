@@ -31,7 +31,7 @@ export default function FileCreateDrawer({
       {({ data }) =>
         data?.item?.id || data?.collection?.id ? (
           <Drawer
-            header={t("actions.create.file_header")}
+            header={t("actions.add.file_header")}
             dialog={dialog}
             hideOnClickOutside={false}
           >
