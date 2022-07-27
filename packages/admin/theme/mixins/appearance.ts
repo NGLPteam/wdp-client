@@ -110,7 +110,7 @@ export function aBaseInput() {
 
     &:disabled,
     [aria-disabled="true"] {
-      opacity: 0.35;
+      opacity: var(--input-disabled-opacity);
       pointer-events: none;
       cursor: default;
     }

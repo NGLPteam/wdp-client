@@ -42,7 +42,7 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   &:disabled:not([aria-pressed="true"]),
   &[aria-disabled="true"]:not([aria-pressed="true"]),
   [aria-disabled="true"] &:not([aria-pressed="true"]) {
-    opacity: 0.4;
+    opacity: var(--button-disabled-opacity);
     cursor: default;
     pointer-events: none;
   }

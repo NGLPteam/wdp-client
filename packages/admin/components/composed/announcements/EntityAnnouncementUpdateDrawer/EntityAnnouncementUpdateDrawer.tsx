@@ -2,12 +2,12 @@ import * as React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
+import EntityAnnouncementDrawerActions from "./EntityAnnouncementDrawerActions";
 import EntityAnnouncementUpdateForm from "components/composed/announcements/EntityAnnouncementUpdateForm";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
 import type { EntityAnnouncementUpdateDrawerQuery as Query } from "__generated__/EntityAnnouncementUpdateDrawerQuery.graphql";
-import EntityAnnouncementDrawerActions from "./EntityAnnouncementDrawerActions";
 
 export default function EntityAnnouncementUpdateDrawer({
   dialog,

@@ -58,6 +58,7 @@ const AssetPropertySelect = forwardRef(
               placeholder={t("forms.asset_property_select.placeholder")}
               options={options}
               onChange={handleChange}
+              disabled={options?.length === 0}
               {...inputProps}
             />
             <DialogDisclosure
