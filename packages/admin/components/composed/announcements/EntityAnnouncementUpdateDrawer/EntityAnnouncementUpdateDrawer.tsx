@@ -7,6 +7,7 @@ import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 
 import type { EntityAnnouncementUpdateDrawerQuery as Query } from "__generated__/EntityAnnouncementUpdateDrawerQuery.graphql";
+import EntityAnnouncementDrawerActions from "./EntityAnnouncementDrawerActions";
 
 export default function EntityAnnouncementUpdateDrawer({
   dialog,
@@ -18,6 +19,10 @@ export default function EntityAnnouncementUpdateDrawer({
   const { t } = useTranslation();
 
   const { drawerSlug, drawerAnnouncementSlug } = params;
+
+  const onDelete = () => {
+    if (dialog?.hide) dialog.hide();
+  };
 
   return (
     <QueryWrapper<Query>
@@ -36,6 +41,12 @@ export default function EntityAnnouncementUpdateDrawer({
             header={t("actions.edit.announcement_header")}
             dialog={dialog}
             hideOnClickOutside={false}
+            buttons={
+              <EntityAnnouncementDrawerActions
+                data={entity}
+                onDelete={onDelete}
+              />
+            }
           >
             {entity && (
               <EntityAnnouncementUpdateForm
@@ -57,12 +68,15 @@ const query = graphql`
     $announcementSlug: Slug!
   ) {
     item(slug: $entitySlug) {
+      ...EntityAnnouncementDrawerActionsFragment
       ...EntityAnnouncementUpdateFormFragment
     }
     collection(slug: $entitySlug) {
+      ...EntityAnnouncementDrawerActionsFragment
       ...EntityAnnouncementUpdateFormFragment
     }
     community(slug: $entitySlug) {
+      ...EntityAnnouncementDrawerActionsFragment
       ...EntityAnnouncementUpdateFormFragment
     }
   }
