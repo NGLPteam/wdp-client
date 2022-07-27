@@ -20,6 +20,7 @@ function CollectionLayoutQuery<
   query,
   PageComponent,
   pageComponentProps,
+  refetchTags,
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof CollectionLayout>>) {
   const queryVars = useBaseListQueryVars();
@@ -41,6 +42,7 @@ function CollectionLayoutQuery<
         hasQuery,
         collectionSlug,
       }}
+      refetchTags={refetchTags}
     >
       {({ data }) => (
         <FragmentWrapper<CollectionLayoutQueryFragment$key>

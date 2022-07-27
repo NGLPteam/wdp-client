@@ -29,4 +29,5 @@ type QueryLayoutProps<P extends QueryPageComponentProps, LayoutProps> = Omit<
   PageComponent: ComponentType<P>;
   query: GraphQLTaggedNode;
   pageComponentProps: P;
+  refetchTags?: string[];
 };
