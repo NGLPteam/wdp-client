@@ -70,7 +70,7 @@ export default function EntityPageUpdateForm({
       successNotification="messages.update.page_success"
       failureNotification="messages.update.page_failure"
       name="updatePage"
-      refetchTags={["edges"]}
+      refetchTags={["pages"]}
       toVariables={toVariables}
       defaultValues={defaultValues}
     >

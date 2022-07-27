@@ -26,6 +26,7 @@ const getLayout: GetLayout<Props> = (props) => {
       showSidebar
       useRouteHeader={false}
       query={query}
+      refetchTags={["contributions"]}
       {...props}
     />
   );

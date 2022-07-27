@@ -18,8 +18,9 @@ const getLayout: GetLayout<Props> = (props) => {
     <CollectionLayoutQuery<Query, Props>
       showSidebar
       query={query}
-      {...props}
       useRouteHeader={false}
+      refetchTags={["links"]}
+      {...props}
     />
   );
 };

@@ -31,6 +31,7 @@ const RoleGrantAccessForm = ({
       onCancel={onCancel}
       successNotification="messages.add.access_success"
       defaultValues={defaultValues}
+      refetchTags={["allAccessGrants"]}
     >
       {({ form: { register, control } }) => (
         <Forms.Grid>

@@ -66,7 +66,7 @@ export default function EntityLinksAddForm({
       successNotification="messages.add.link_success"
       failureNotification="messages.add.link_failure"
       name="linkEntity"
-      refetchTags={["nodes"]}
+      refetchTags={["links"]}
       toVariables={toVariables}
     >
       {renderForm}

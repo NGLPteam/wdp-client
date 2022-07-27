@@ -70,7 +70,7 @@ export default function EntityAnnouncementAddForm({
       successNotification="messages.add.announcement_success"
       failureNotification="messages.add.announcement_failure"
       name="createAnnouncement"
-      refetchTags={["edges"]}
+      refetchTags={["announcements"]}
       toVariables={toVariables}
     >
       {renderForm}

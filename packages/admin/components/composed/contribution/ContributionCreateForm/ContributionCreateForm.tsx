@@ -98,6 +98,7 @@ export default function ContributionCreateForm({
       successNotification="messages.create.contribution_success"
       failureNotification="messages.create.contribution_failure"
       mutation={mutation}
+      refetchTags={["contributions"]}
     >
       {renderForm}
     </MutationForm>

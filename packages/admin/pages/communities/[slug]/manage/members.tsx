@@ -20,8 +20,9 @@ const getLayout: GetLayout<Props> = (props) => {
     <CommunityLayoutQuery<Query, Props>
       showSidebar
       query={query}
-      {...props}
       useRouteHeader={false}
+      refetchTags={["allAccessGrants", "assignedUsers"]}
+      {...props}
     />
   );
 };
