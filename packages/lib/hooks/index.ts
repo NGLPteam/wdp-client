@@ -6,3 +6,4 @@ export { default as useWindowSize } from "./useWindowSize";
 export { default as useIsOutOfViewport } from "./useIsOutOfViewport";
 export { default as useBoundingBox } from "./useBoundingBox";
 export { default as useDetailsToggle } from "./useDetailsToggle";
+export { default as usePrevious } from "./usePrevious";
