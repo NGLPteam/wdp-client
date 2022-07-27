@@ -116,7 +116,7 @@ export default function EntityOrderingAddForm({
       successNotification="messages.add.ordering_success"
       failureNotification="messages.add.ordering_failure"
       name="createOrdering"
-      refetchTags={["nodes"]}
+      refetchTags={["orderings"]}
       toVariables={toVariables}
       defaultValues={defaultValues}
     >
