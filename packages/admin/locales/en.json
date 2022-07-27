@@ -428,9 +428,9 @@
         "lang_label": "Language"
       },
       "asset_property_select": {
-        "add_file": "Upload File",
+        "add_file": "Add File",
         "placeholder": "Select a file",
-        "description": "Select a file from the list above, or upload a new file."
+        "description": "Select a file using the dropdown above, or add a new file. To manage this item’s files, <filesLink>visit this page.</filesLink>"
       },
       "order_render_select": {
         "label": "Display as",

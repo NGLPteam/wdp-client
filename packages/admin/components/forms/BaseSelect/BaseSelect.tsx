@@ -21,7 +21,11 @@ const BaseSelect = forwardRef(
             </option>
           ))}
         </Styled.SelectInput>
-        <Styled.Icon icon="chevron" rotate={180} />
+        <Styled.Icon
+          icon="chevron"
+          rotate={180}
+          $disabled={inputProps.disabled}
+        />
       </Styled.SelectWrapper>
     );
   }

@@ -22,10 +22,12 @@ export const SelectInput = styled.select`
   height: var(--input-min-height);
 `;
 
-export const Icon = styled(IconFactory)`
+export const Icon = styled(IconFactory)<{ $disabled?: boolean }>`
   position: absolute;
   inset-inline-end: ${pxToRem(16)};
   pointer-events: none;
+
+  ${({ $disabled }) => $disabled && `opacity: var(--input-disabled-opacity);`}
 
   ${noInsetSupport(`right: ${pxToRem(16)};`)}
 `;
