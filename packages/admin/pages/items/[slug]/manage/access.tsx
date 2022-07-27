@@ -21,8 +21,9 @@ const getLayout: GetLayout<Props> = (props) => {
     <ItemLayoutQuery<Query, Props>
       showSidebar
       query={query}
-      {...props}
       useRouteHeader={false}
+      refetchTags={["allAccessGrants", "assignedUsers"]}
+      {...props}
     />
   );
 };

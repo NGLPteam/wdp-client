@@ -64,7 +64,7 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
       onSuccess={onSuccess}
       successNotification="messages.create.file_success"
       toVariables={toVariables}
-      refetchTags={["properties", "asset"]}
+      refetchTags={["assets"]}
     >
       {renderForm}
     </MutationForm>
