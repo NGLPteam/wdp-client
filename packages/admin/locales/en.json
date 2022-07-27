@@ -146,7 +146,8 @@
         "ordering_success": "Ordering added successfully.",
         "ordering_failure": "Failed to add ordering.",
         "announcement_success": "Announcement added successfully.",
-        "announcement_failure": "Failed to add announcement."
+        "announcement_failure": "Failed to add announcement.",
+        "file_success": "File added successfully."
       },
       "update": {
         "success": "$t({{ name }}) updated successfully.",
@@ -182,8 +183,7 @@
         "community_success": "Community created successfully.",
         "contribution_success": "Contribution created successfully.",
         "contribution_failure": "Failed to create contribution.",
-        "contributor_success": "Contributor created successfully.",
-        "file_success": "File created successfully."
+        "contributor_success": "Contributor created successfully."
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -226,7 +226,9 @@
         "ordering_header": "Add New Ordering",
         "announcement": "Add Announcement",
         "announcement_header": "Add New Announcement",
-        "contributor": "Add Contributor"
+        "contributor": "Add Contributor",
+        "file": "Add File",
+        "file_header": "Add New File"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -236,9 +238,7 @@
         "contribution": "Create Contribution",
         "contribution_header": "Create New Contribution",
         "community": "Create Community",
-        "community_header": "Create New Community",
-        "file": "Create File",
-        "file_header": "Create New File"
+        "community_header": "Create New Community"
       },
       "download": {
         "file": "Download file"

@@ -62,7 +62,7 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
       name="createAsset"
       mutation={mutation}
       onSuccess={onSuccess}
-      successNotification="messages.create.file_success"
+      successNotification="messages.add.file_success"
       toVariables={toVariables}
       refetchTags={["properties", "asset"]}
     >
