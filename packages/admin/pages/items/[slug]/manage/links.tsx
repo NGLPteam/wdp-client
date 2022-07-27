@@ -18,6 +18,7 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       {...props}
       useRouteHeader={false}
+      refetchTags={["links"]}
     />
   );
 };

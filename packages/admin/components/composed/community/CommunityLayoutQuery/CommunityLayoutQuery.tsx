@@ -19,6 +19,7 @@ function CommunityLayoutQuery<
   query,
   PageComponent,
   pageComponentProps,
+  refetchTags,
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof CommunityLayout>> & {
   initialVariables?: Query["variables"];
@@ -42,6 +43,7 @@ function CommunityLayoutQuery<
         hasQuery,
         communitySlug,
       }}
+      refetchTags={refetchTags}
     >
       {({ data }) => (
         <FragmentWrapper<CommunityLayoutQueryFragment$key>

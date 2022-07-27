@@ -17,6 +17,7 @@ const getLayout: GetLayout<Props> = (props) => {
       showSidebar
       query={query}
       useRouteHeader={false}
+      refetchTags={["orderings"]}
       {...props}
     />
   );
