@@ -22,7 +22,11 @@ export default function OrderDefinitionSelectControl({ name, data }: Props) {
       control={control}
       rules={{
         validate: (val) =>
-          val.length <= 7 || (t("forms.validation.order_by") as string),
+          val && val?.length > 7
+            ? (t("forms.validation.order_by_max") as string)
+            : !val || val.length === 0
+            ? (t("forms.validation.order_by_min") as string)
+            : true,
       }}
       render={({ field: { ...props } }) => (
         <OrderDefinitionSelectDropdown data={entity} {...props} />
