@@ -14,7 +14,11 @@ export default function SchemaCheckboxGroup({ data, name, register }: Props) {
   const entity = useFragment<SchemaCheckboxGroupFragment$key>(fragment, data);
 
   return entity.schemaRanks.length > 0 ? (
-    <CheckboxGroup label="forms.fields.schemas" name={name}>
+    <CheckboxGroup
+      name={name}
+      label="forms.fields.ordering_schemas"
+      description="forms.fields.ordering_schemas_description"
+    >
       <>
         {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
           <Checkbox

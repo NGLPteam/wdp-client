@@ -7,9 +7,12 @@ export const Wrapper = styled.div`
   flex-basis: var(--form-grid-item-width);
 `;
 
-export const Description = styled.div`
+export const Description = styled.div<{ $descriptionTop?: boolean }>`
   font-size: var(--font-size-sm);
   color: var(--color-light);
   font-style: italic;
-  padding-block-start: ${pxToRem(8)};
+  ${({ $descriptionTop }) =>
+    $descriptionTop
+      ? `padding-block-end: ${pxToRem(8)}`
+      : `padding-block-start: ${pxToRem(8)}`};
 `;
