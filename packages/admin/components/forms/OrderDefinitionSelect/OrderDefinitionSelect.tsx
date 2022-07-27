@@ -11,6 +11,16 @@ import {
 import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
 
+const ORDER_PATHS =
+  process.env.NEXT_PUBLIC_ORDER_PATH_OPTIONS?.split(",") || [];
+const ORDER_PATH_OPTIONS = [
+  "entity.created_at",
+  "entity.published",
+  "entity.title",
+  "entity.updated_at",
+  [...ORDER_PATHS],
+];
+
 function OrderDefinitionSelect(
   { name, data, value = [], onChange }: Props,
   ref: Ref<HTMLSelectElement>
@@ -31,7 +41,11 @@ function OrderDefinitionSelect(
       ? orderingData.orderingPaths
           // Filter out repeating paths
           .filter((o, i, self) => {
-            return i === self.findIndex((t) => t.path === o.path);
+            return (
+              o.path &&
+              i === self.findIndex((t) => t.path === o.path) &&
+              (!ORDER_PATH_OPTIONS || ORDER_PATH_OPTIONS.includes(o.path))
+            );
           })
           // Map to select object
           .map((o) => ({

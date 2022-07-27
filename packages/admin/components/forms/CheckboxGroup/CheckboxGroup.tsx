@@ -6,7 +6,7 @@ type BaseProps = React.ComponentProps<typeof BaseInputWrapper>;
 
 function CheckboxGroup({ children, ...props }: BaseProps) {
   return (
-    <BaseInputWrapper role="group" {...props}>
+    <BaseInputWrapper role="group" descriptionTop {...props}>
       <Styled.CheckboxesWrapper>{children}</Styled.CheckboxesWrapper>
     </BaseInputWrapper>
   );

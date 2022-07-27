@@ -12,6 +12,7 @@ import BaseInputLabel from "components/forms/BaseInputLabel";
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,
   description,
+  descriptionTop,
   hideLabel,
   label,
   labelProps,
@@ -38,10 +39,15 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
           </span>
         )}
       </BaseInputLabel>
+      {description && descriptionTop && (
+        <Styled.Description $descriptionTop={descriptionTop}>
+          {typeof description === "string" ? t(description) : description}
+        </Styled.Description>
+      )}
       {isFunction(children)
         ? children({ uid })
         : React.cloneElement(children, { id: uid })}
-      {description && (
+      {description && !descriptionTop && (
         <Styled.Description>
           {typeof description === "string" ? t(description) : description}
         </Styled.Description>
@@ -60,6 +66,7 @@ interface Props<T extends FieldValues = FieldValues>
   isWide?: boolean;
   labelProps?: typeof HTMLLabelElement;
   role?: string;
+  descriptionTop?: boolean;
 }
 
 export default BaseInputWrapper;
