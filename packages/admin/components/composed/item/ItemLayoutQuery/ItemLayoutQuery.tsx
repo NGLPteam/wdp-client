@@ -19,6 +19,7 @@ function ItemLayoutQuery<
   query,
   PageComponent,
   pageComponentProps,
+  refetchTags,
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof ItemLayout>>) {
   const queryVars = useBaseListQueryVars();
@@ -40,6 +41,7 @@ function ItemLayoutQuery<
         hasQuery,
         itemSlug,
       }}
+      refetchTags={refetchTags}
     >
       {({ data }) => (
         <FragmentWrapper<ItemLayoutQueryFragment$key>
