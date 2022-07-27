@@ -18,6 +18,9 @@ const ORDER_PATH_OPTIONS = [
   "entity.published",
   "entity.title",
   "entity.updated_at",
+  "props.volume.sortable_number",
+  "props.sortable_number",
+  "props.id",
   ...ORDER_PATHS,
 ];
 
