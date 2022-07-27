@@ -18,7 +18,7 @@ const ORDER_PATH_OPTIONS = [
   "entity.published",
   "entity.title",
   "entity.updated_at",
-  [...ORDER_PATHS],
+  ...ORDER_PATHS,
 ];
 
 function OrderDefinitionSelect(
