@@ -92,7 +92,7 @@ export default function EntityPageAddForm({
       successNotification="messages.add.page_success"
       failureNotification="messages.add.page_failure"
       name="createPage"
-      refetchTags={["edges"]}
+      refetchTags={["pages"]}
       toVariables={toVariables}
     >
       {renderForm}

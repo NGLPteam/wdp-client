@@ -71,7 +71,7 @@ export default function EntityAnnouncementUpdateForm({
       successNotification="messages.update.announcement_success"
       failureNotification="messages.update.announcement_failure"
       name="updateAnnouncement"
-      refetchTags={["edges"]}
+      refetchTags={["announcements"]}
       toVariables={toVariables}
       defaultValues={defaultValues}
     >
