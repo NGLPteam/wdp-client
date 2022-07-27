@@ -11,13 +11,13 @@ export type EntityAnnouncementUpdateDrawerQueryVariables = {
 };
 export type EntityAnnouncementUpdateDrawerQueryResponse = {
     readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementUpdateFormFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
     } | null;
     readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementUpdateFormFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
     } | null;
     readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementUpdateFormFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
     } | null;
 };
 export type EntityAnnouncementUpdateDrawerQuery = {
@@ -33,15 +33,25 @@ query EntityAnnouncementUpdateDrawerQuery(
   $announcementSlug: Slug!
 ) {
   item(slug: $entitySlug) {
+    ...EntityAnnouncementDrawerActionsFragment
     ...EntityAnnouncementUpdateFormFragment
     id
   }
   collection(slug: $entitySlug) {
+    ...EntityAnnouncementDrawerActionsFragment
     ...EntityAnnouncementUpdateFormFragment
     id
   }
   community(slug: $entitySlug) {
+    ...EntityAnnouncementDrawerActionsFragment
     ...EntityAnnouncementUpdateFormFragment
+    id
+  }
+}
+
+fragment EntityAnnouncementDrawerActionsFragment on Entity {
+  __isEntity: __typename
+  announcement(slug: $announcementSlug) {
     id
   }
 }
@@ -103,6 +113,11 @@ v3 = [
   {
     "args": null,
     "kind": "FragmentSpread",
+    "name": "EntityAnnouncementDrawerActionsFragment"
+  },
+  {
+    "args": null,
+    "kind": "FragmentSpread",
     "name": "EntityAnnouncementUpdateFormFragment"
   }
 ],
@@ -115,14 +130,15 @@ v4 = {
 },
 v5 = [
   {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "announcementSlug"
+  }
+],
+v6 = [
+  {
     "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "announcementSlug"
-      }
-    ],
+    "args": (v5/*: any*/),
     "concreteType": "Announcement",
     "kind": "LinkedField",
     "name": "announcement",
@@ -168,26 +184,45 @@ v5 = [
     "storageKey": null
   }
 ],
-v6 = [
+v7 = [
   (v4/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
       {
+        "alias": null,
+        "args": (v5/*: any*/),
+        "concreteType": "Announcement",
+        "kind": "LinkedField",
+        "name": "announcement",
+        "plural": false,
+        "selections": [
+          (v4/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
+    "type": "Entity",
+    "abstractKey": "__isEntity"
+  },
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      {
         "kind": "InlineFragment",
-        "selections": (v5/*: any*/),
+        "selections": (v6/*: any*/),
         "type": "Community",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v5/*: any*/),
+        "selections": (v6/*: any*/),
         "type": "Collection",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v5/*: any*/),
+        "selections": (v6/*: any*/),
         "type": "Item",
         "abstractKey": null
       }
@@ -256,7 +291,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v6/*: any*/),
+        "selections": (v7/*: any*/),
         "storageKey": null
       },
       {
@@ -266,7 +301,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v6/*: any*/),
+        "selections": (v7/*: any*/),
         "storageKey": null
       },
       {
@@ -276,20 +311,20 @@ return {
         "kind": "LinkedField",
         "name": "community",
         "plural": false,
-        "selections": (v6/*: any*/),
+        "selections": (v7/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "72e663d3bf1f67139c65f2d5b8a2dd89",
+    "cacheID": "cbecdb3cd32db23c0a7511f17eefcd90",
     "id": null,
     "metadata": {},
     "name": "EntityAnnouncementUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityAnnouncementUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $announcementSlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Collection {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Item {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n}\n"
+    "text": "query EntityAnnouncementUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $announcementSlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementDrawerActionsFragment on Entity {\n  __isEntity: __typename\n  announcement(slug: $announcementSlug) {\n    id\n  }\n}\n\nfragment EntityAnnouncementUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Collection {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Item {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '1508acfed6c5d74c1d0495160fb7138d';
+(node as any).hash = '2e8774c3f55294d57146f0bf0cc0a703';
 export default node;
