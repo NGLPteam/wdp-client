@@ -379,7 +379,8 @@
         "item": "Please select an item. If the item is not listed, you may need to add the item first.",
         "link_target": "Please select a link target. If the target entity is not listed, you may need to create it first.",
         "user": "Please select a user. If the user is not listed, you may need to create the user first.",
-        "order_by": "A maximum of 7 options can be selected."
+        "order_by_max": "A maximum of 7 options can be selected.",
+        "order_by_min": "Select at least one option."
       },
       "tags": {
         "label": "Tags",
