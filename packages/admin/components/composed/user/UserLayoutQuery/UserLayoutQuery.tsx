@@ -18,6 +18,7 @@ function UserLayoutQuery<
   query,
   PageComponent,
   pageComponentProps,
+  refetchTags,
   ...layoutProps
 }: QueryLayoutProps<P, ComponentProps<typeof UserLayout>>) {
   const queryVars = useBaseListQueryVars();
@@ -28,6 +29,7 @@ function UserLayoutQuery<
     <QueryWrapper<Query>
       query={query}
       initialVariables={{ ...queryVars, userSlug }}
+      refetchTags={refetchTags}
     >
       {({ data }) => (
         <FragmentWrapper<UserLayoutQueryFragment$key>

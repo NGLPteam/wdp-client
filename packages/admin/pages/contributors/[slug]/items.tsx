@@ -16,7 +16,13 @@ function ContributorItemContributions({ data }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ContributorLayoutQuery<Query, Props> query={query} {...props} />;
+  return (
+    <ContributorLayoutQuery<Query, Props>
+      query={query}
+      {...props}
+      refetchTags={["contributions"]}
+    />
+  );
 };
 ContributorItemContributions.getLayout = getLayout;
 

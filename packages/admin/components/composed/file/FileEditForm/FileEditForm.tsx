@@ -51,7 +51,7 @@ export default function FileEditForm({ data, onSuccess }: Props) {
       onSuccess={onSuccess}
       successNotification="messages.update.file_success"
       failureNotification="messages.update.file_failure"
-      refetchTags={["properties", "asset"]}
+      refetchTags={["properties", "assets"]}
       toVariables={toVariables}
       defaultValues={values}
     >

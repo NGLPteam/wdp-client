@@ -18,7 +18,13 @@ function ItemChildItems({ data }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> query={query} {...props} />;
+  return (
+    <ItemLayoutQuery<Query, Props>
+      query={query}
+      {...props}
+      refetchTags={["items"]}
+    />
+  );
 };
 ItemChildItems.getLayout = getLayout;
 
@@ -26,6 +32,7 @@ export default ItemChildItems;
 
 type Props = {
   data: Query["response"];
+  refetchTags: string[];
 };
 
 const query = graphql`

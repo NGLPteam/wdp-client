@@ -10,7 +10,11 @@ export default function ContributorListView() {
   const queryVars = useBaseListQueryVars();
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
+    <QueryWrapper<Query>
+      query={query}
+      initialVariables={queryVars}
+      refetchTags={["contributors"]}
+    >
       {({ data }) => <ContributorList<Query> data={data?.contributors} />}
     </QueryWrapper>
   );

@@ -17,7 +17,13 @@ function CommunityChildCollections({ data }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <CommunityLayoutQuery<Query, Props> query={query} {...props} />;
+  return (
+    <CommunityLayoutQuery<Query, Props>
+      query={query}
+      {...props}
+      refetchTags={["collections"]}
+    />
+  );
 };
 CommunityChildCollections.getLayout = getLayout;
 
