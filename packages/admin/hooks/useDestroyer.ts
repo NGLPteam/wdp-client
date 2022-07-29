@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useMutation } from "relay-hooks";
 import { useTranslation } from "react-i18next";
 import { graphql, readInlineData } from "react-relay";
-import { useNotify } from "hooks";
+import { useNotify, usePageContext } from "hooks";
 import type {
   DestroyCommunityInput,
   useDestroyerDestroyCommunityMutation,
@@ -51,8 +51,14 @@ export function useDestroyer() {
   const notify = useNotify();
   const { t } = useTranslation();
 
+  const { setTriggeredRefetchTags } = usePageContext();
+
   const handleResponse = useCallback(
-    (data: useDestroyerFragment$key | null, name: string) => {
+    (
+      data: useDestroyerFragment$key | null,
+      name: string,
+      refetchTags: string[]
+    ) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment$key>(
         destroyFragment,
@@ -60,15 +66,18 @@ export function useDestroyer() {
       );
       if (results.revoked) {
         notify.success(t("messages.revoke.success", { name }));
+        setTriggeredRefetchTags(refetchTags);
       } else if (results.disabled) {
         notify.success(t("messages.disable.success", { name }));
+        setTriggeredRefetchTags(refetchTags);
       } else if (results.destroyed) {
         notify.success(t("messages.delete.success", { name }));
+        setTriggeredRefetchTags(refetchTags);
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
       }
     },
-    [notify, t]
+    [notify, t, setTriggeredRefetchTags]
   );
 
   /* Destroy a collection */
@@ -80,7 +89,7 @@ export function useDestroyer() {
   const collection = useCallback(
     async (input: DestroyCollectionInput, label: string) => {
       const response = await commitDestroyCollection({ variables: { input } });
-      return handleResponse(response.destroyCollection, label);
+      return handleResponse(response.destroyCollection, label, ["collections"]);
     },
     [commitDestroyCollection, handleResponse]
   );
@@ -92,7 +101,7 @@ export function useDestroyer() {
   const item = useCallback(
     async (input: DestroyItemInput, label: string) => {
       const response = await commitDestroyItem({ variables: { input } });
-      return handleResponse(response.destroyItem, label);
+      return handleResponse(response.destroyItem, label, ["items"]);
     },
     [commitDestroyItem, handleResponse]
   );
@@ -108,7 +117,9 @@ export function useDestroyer() {
       const response = await commitDestroyContribution({
         variables: { input },
       });
-      return handleResponse(response.destroyContribution, label);
+      return handleResponse(response.destroyContribution, label, [
+        "contributions",
+      ]);
     },
     [commitDestroyContribution, handleResponse]
   );
@@ -120,7 +131,7 @@ export function useDestroyer() {
   const community = useCallback(
     async (input: DestroyCommunityInput, label: string) => {
       const response = await commitDestroyCommunity({ variables: { input } });
-      return handleResponse(response.destroyCommunity, label);
+      return handleResponse(response.destroyCommunity, label, ["communities"]);
     },
     [commitDestroyCommunity, handleResponse]
   );
@@ -134,7 +145,9 @@ export function useDestroyer() {
   const contributor = useCallback(
     async (input: DestroyContributorInput, label: string) => {
       const response = await commitDestroyContributor({ variables: { input } });
-      return handleResponse(response.destroyContributor, label);
+      return handleResponse(response.destroyContributor, label, [
+        "contributors",
+      ]);
     },
     [commitDestroyContributor, handleResponse]
   );
@@ -148,7 +161,7 @@ export function useDestroyer() {
       const response = await commitDestroyAsset({
         variables: { input },
       });
-      return handleResponse(response.destroyAsset, label);
+      return handleResponse(response.destroyAsset, label, ["assets"]);
     },
     [commitDestroyAsset, handleResponse]
   );
@@ -162,7 +175,7 @@ export function useDestroyer() {
       const response = await commitDisableOrDestroyOrdering({
         variables: { input },
       });
-      return handleResponse(response.destroyOrdering, label);
+      return handleResponse(response.destroyOrdering, label, ["orderings"]);
     },
     [commitDisableOrDestroyOrdering, handleResponse]
   );
@@ -174,7 +187,7 @@ export function useDestroyer() {
   const access = useCallback(
     async (input: RevokeAccessInput, label: string) => {
       const response = await commitRevokeAccess({ variables: { input } });
-      return handleResponse(response.revokeAccess, label);
+      return handleResponse(response.revokeAccess, label, ["allAccessGrants"]);
     },
     [commitRevokeAccess, handleResponse]
   );
@@ -188,7 +201,7 @@ export function useDestroyer() {
   const link = useCallback(
     async (input: DestroyEntityLinkInput, label: string) => {
       const response = await commitDestroyLink({ variables: { input } });
-      return handleResponse(response.destroyEntityLink, label);
+      return handleResponse(response.destroyEntityLink, label, ["links"]);
     },
     [commitDestroyLink, handleResponse]
   );
@@ -200,7 +213,7 @@ export function useDestroyer() {
   const page = useCallback(
     async (input: DestroyPageInput, label: string) => {
       const response = await commitDestroyPage({ variables: { input } });
-      return handleResponse(response.destroyPage, label);
+      return handleResponse(response.destroyPage, label, ["pages"]);
     },
     [commitDestroyPage, handleResponse]
   );
@@ -216,7 +229,9 @@ export function useDestroyer() {
       const response = await commitDestroyAnnouncement({
         variables: { input },
       });
-      return handleResponse(response.destroyAnnouncement, label);
+      return handleResponse(response.destroyAnnouncement, label, [
+        "announcements",
+      ]);
     },
     [commitDestroyAnnouncement, handleResponse]
   );
