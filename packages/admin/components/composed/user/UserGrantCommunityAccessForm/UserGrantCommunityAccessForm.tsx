@@ -30,6 +30,7 @@ const UserGrantCommunityAccessForm = ({
       onCancel={onCancel}
       successNotification="messages.add.member_success"
       defaultValues={defaultValues}
+      refetchTags={["allAccessGrants"]}
     >
       {({ form: { register, watch } }) => {
         const entityId = watch("entityId");

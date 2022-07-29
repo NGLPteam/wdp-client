@@ -18,7 +18,13 @@ function CollectionChildCollections({ data }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <CollectionLayoutQuery<Query, Props> query={query} {...props} />;
+  return (
+    <CollectionLayoutQuery<Query, Props>
+      query={query}
+      {...props}
+      refetchTags={["collections"]}
+    />
+  );
 };
 CollectionChildCollections.getLayout = getLayout;
 

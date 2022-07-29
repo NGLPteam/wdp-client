@@ -24,6 +24,7 @@ const UserGrantCollectionAccessForm = ({
       onCancel={onCancel}
       successNotification="messages.add.access_success"
       defaultValues={defaultValues}
+      refetchTags={["allAccessGrants"]}
     >
       {({ form: { register, watch, control } }) => {
         const entityId = watch("entityId");
