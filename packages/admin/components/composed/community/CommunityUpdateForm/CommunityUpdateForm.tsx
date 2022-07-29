@@ -65,7 +65,8 @@ export default function CommunityUpdateForm({
       return {
         input: {
           ...inputValues,
-          ...(heroImage && { heroImage, heroImageMetadata }),
+          ...(heroImage && { heroImage }),
+          ...(heroImageMetadata && { heroImageMetadata }),
           schemaProperties: { ...schemaValues },
           communityId,
         },
