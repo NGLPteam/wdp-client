@@ -61,7 +61,7 @@ type RenderChildProps = {
 
 type RenderChild = (props: RenderChildProps) => JSX.Element;
 
-interface Props {
+export interface Props {
   dialog: DialogProps;
   /** Modal label, displayed next to the close button */
   label?: string;
