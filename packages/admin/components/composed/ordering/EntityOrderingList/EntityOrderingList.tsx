@@ -3,6 +3,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
 import type { ModelTableActionProps } from "react-table";
+import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
 import {
@@ -53,6 +54,10 @@ function EntityOrderingList<T extends OperationType>({
       Header: <>{t("lists.disabled_column")}</>,
       id: "disabled",
     }),
+    ModelColumns.BooleanColumn<EntityOrderingNode>({
+      Header: <>{t("lists.initial_ordering_column")}</>,
+      id: "initial",
+    }),
     ModelColumns.CreatedAtColumn<EntityOrderingNode>(),
   ];
 
@@ -73,6 +78,7 @@ function EntityOrderingList<T extends OperationType>({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <SetIntitialOrderingButton data={sourceEntity} />
       <ButtonControlDrawer
         drawer="addOrdering"
         drawerQuery={{
@@ -119,6 +125,7 @@ const orderingsfragment = graphql`
         disabled
         createdAt
         identifier
+        initial
       }
     }
     ...ModelListPageFragment
@@ -139,5 +146,6 @@ const fragment = graphql`
         ...EntityOrderingListDataFragment
       }
     }
+    ...SetIntitialOrderingButtonFragment
   }
 `;

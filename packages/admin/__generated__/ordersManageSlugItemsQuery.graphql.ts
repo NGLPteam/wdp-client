@@ -48,6 +48,7 @@ fragment EntityOrderingListDataFragment on OrderingConnection {
       disabled
       createdAt
       identifier
+      initial
     }
   }
   ...ModelListPageFragment
@@ -67,6 +68,7 @@ fragment EntityOrderingListFragment on AnyEntity {
       ...EntityOrderingListDataFragment
     }
   }
+  ...SetIntitialOrderingButtonFragment
 }
 
 fragment ItemLayoutFragment on Item {
@@ -105,6 +107,56 @@ fragment ModelPaginationFragment on Paginated {
   pageInfo {
     page
     pageCount
+  }
+}
+
+fragment SetIntitialOrderingButtonFragment on Entity {
+  __isEntity: __typename
+  ... on Item {
+    ...SetIntitialOrderingModalFragment
+    orderings {
+      pageInfo {
+        totalCount
+      }
+    }
+  }
+  ... on Collection {
+    ...SetIntitialOrderingModalFragment
+    orderings {
+      pageInfo {
+        totalCount
+      }
+    }
+  }
+}
+
+fragment SetIntitialOrderingModalFragment on Entity {
+  __isEntity: __typename
+  ... on Item {
+    id
+    title
+    orderings {
+      edges {
+        node {
+          id
+          name
+          initial
+        }
+      }
+    }
+  }
+  ... on Collection {
+    id
+    title
+    orderings {
+      edges {
+        node {
+          id
+          name
+          initial
+        }
+      }
+    }
   }
 }
 
@@ -165,7 +217,28 @@ v3 = {
   "name": "id",
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "initial",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
+  "storageKey": null
+},
+v7 = [
   {
     "alias": null,
     "args": [
@@ -197,13 +270,7 @@ v4 = [
             "plural": false,
             "selections": [
               (v3/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
+              (v4/*: any*/),
               (v2/*: any*/),
               {
                 "alias": null,
@@ -232,7 +299,8 @@ v4 = [
                 "kind": "ScalarField",
                 "name": "identifier",
                 "storageKey": null
-              }
+              },
+              (v5/*: any*/)
             ],
             "storageKey": null
           }
@@ -285,13 +353,7 @@ v4 = [
                 "name": "hasPreviousPage",
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              }
+              (v6/*: any*/)
             ],
             "storageKey": null
           }
@@ -301,6 +363,88 @@ v4 = [
       }
     ],
     "storageKey": null
+  }
+],
+v8 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "OrderingConnection",
+    "kind": "LinkedField",
+    "name": "orderings",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "OrderingEdge",
+        "kind": "LinkedField",
+        "name": "edges",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Ordering",
+            "kind": "LinkedField",
+            "name": "node",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v9 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "OrderingConnection",
+    "kind": "LinkedField",
+    "name": "orderings",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "PageInfo",
+        "kind": "LinkedField",
+        "name": "pageInfo",
+        "plural": false,
+        "selections": [
+          (v6/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  },
+  {
+    "kind": "InlineFragment",
+    "selections": [
+      {
+        "kind": "InlineFragment",
+        "selections": (v8/*: any*/),
+        "type": "Item",
+        "abstractKey": null
+      },
+      {
+        "kind": "InlineFragment",
+        "selections": (v8/*: any*/),
+        "type": "Collection",
+        "abstractKey": null
+      }
+    ],
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -422,15 +566,34 @@ return {
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v7/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v7/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "kind": "InlineFragment",
+                    "selections": (v9/*: any*/),
+                    "type": "Item",
+                    "abstractKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": (v9/*: any*/),
+                    "type": "Collection",
+                    "abstractKey": null
+                  }
+                ],
+                "type": "Entity",
+                "abstractKey": "__isEntity"
               }
             ],
             "type": "AnyEntity",
@@ -442,12 +605,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "45a278fead42417dc7a7aa9c520e2cf9",
+    "cacheID": "eccdc9b18e03988bef11d3634c163e26",
     "id": null,
     "metadata": {},
     "name": "ordersManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityOrderingListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...EntityOrderingListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n      initial\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ...SetIntitialOrderingButtonFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment SetIntitialOrderingButtonFragment on Entity {\n  __isEntity: __typename\n  ... on Item {\n    ...SetIntitialOrderingModalFragment\n    orderings {\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n  ... on Collection {\n    ...SetIntitialOrderingModalFragment\n    orderings {\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment SetIntitialOrderingModalFragment on Entity {\n  __isEntity: __typename\n  ... on Item {\n    id\n    title\n    orderings {\n      edges {\n        node {\n          id\n          name\n          initial\n        }\n      }\n    }\n  }\n  ... on Collection {\n    id\n    title\n    orderings {\n      edges {\n        node {\n          id\n          name\n          initial\n        }\n      }\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();

@@ -10,6 +10,7 @@ export type EntityOrderingListFragment = {
     readonly orderings?: {
         readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
     } | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingButtonFragment">;
     readonly " $refType": "EntityOrderingListFragment";
 };
 export type EntityOrderingListFragment$data = EntityOrderingListFragment;
@@ -74,11 +75,16 @@ return {
       "selections": (v0/*: any*/),
       "type": "Collection",
       "abstractKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SetIntitialOrderingButtonFragment"
     }
   ],
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '8af1724791b39b3c39573c748a33e425';
+(node as any).hash = '46e39c5673f6726ab99d9fa390492ac8';
 export default node;

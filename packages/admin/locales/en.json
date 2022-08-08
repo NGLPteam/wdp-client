@@ -101,7 +101,8 @@
         "label": "Sort",
         "ascending": "Sort ascending",
         "descending": "Sort descending"
-      }
+      },
+      "initial_ordering_column": "Initial"
     },
     "nav": {
       "manage_header": "Manage",
@@ -174,7 +175,9 @@
         "ordering_success": "Ordering updated successfully.",
         "ordering_failure": "Failed to update ordering.",
         "parent_success": "Parent updated successfully.",
-        "parent_failure": "Failed to update parent."
+        "parent_failure": "Failed to update parent.",
+        "initial_ordering_success": "Successfully updated initial ordering.",
+        "initial_ordering_failure": "Failed to update initial ordering."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -274,6 +277,9 @@
       },
       "show": {
         "inherited_roles": "Show Inherited Roles"
+      },
+      "set": {
+        "initial_ordering": "Set Initial Ordering"
       }
     },
     "sort": {
@@ -371,7 +377,9 @@
         "select_placeholder": "Select an option",
         "orcid": "ORCID Link",
         "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor.",
-        "search_placeholder": "Enter keyword"
+        "search_placeholder": "Enter keyword",
+        "initial_ordering": "Initial Ordering",
+        "initial_ordering_description": "Set which ordering should be displayed on the landing page of {{name}}."
       },
       "validation": {
         "year": "Must be a four digit year",
