@@ -6,9 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingListFragment = {
-    readonly id?: string | undefined;
     readonly slug?: string | undefined;
-    readonly title?: string | undefined;
     readonly orderings?: {
         readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
     } | undefined;
@@ -29,21 +27,7 @@ var v0 = [
     "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "id",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
     "name": "slug",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
     "storageKey": null
   },
   {
@@ -102,5 +86,5 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '58878865d0d88ee9202df7d0f248bf3b';
+(node as any).hash = '46e39c5673f6726ab99d9fa390492ac8';
 export default node;

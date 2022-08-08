@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
+import isEmpty from "lodash/isEmpty";
 import * as Styled from "./SetIntitialOrderingModal.styles";
 import { SetIntitialOrderingModalFragment$key } from "@/relay/SetIntitialOrderingModalFragment.graphql";
 import {
@@ -38,16 +39,18 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
 
   const options = useMemo(
     () =>
-      entity?.orderings?.edges.map(({ node }) => ({
-        label: node.name || "",
-        value: node.id,
-      })) || [],
+      entity?.orderings?.edges
+        .filter(({ node }) => !isEmpty(node) && node.name)
+        .map(({ node }) => ({
+          label: node.name,
+          value: node.id,
+        })) || [],
     [entity]
   );
 
   const defaultValues = useMemo(() => {
     const initialOrdering = entity?.orderings?.edges.find(
-      ({ node }) => node.initial
+      ({ node }) => node?.initial
     );
     return { orderingId: initialOrdering?.node.id };
   }, [entity]);

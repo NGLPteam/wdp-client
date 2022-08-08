@@ -6,6 +6,11 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type SetIntitialOrderingButtonFragment = {
+    readonly orderings?: {
+        readonly pageInfo: {
+            readonly totalCount: number;
+        };
+    } | undefined;
     readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingModalFragment">;
     readonly " $refType": "SetIntitialOrderingButtonFragment";
 };
@@ -19,6 +24,35 @@ export type SetIntitialOrderingButtonFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "OrderingConnection",
+    "kind": "LinkedField",
+    "name": "orderings",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "PageInfo",
+        "kind": "LinkedField",
+        "name": "pageInfo",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "totalCount",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  },
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -48,5 +82,5 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '6b3e10faee90de3d6667c1cb0dbf2208';
+(node as any).hash = 'b08fa88d150d61b67cd297d9120335de';
 export default node;
