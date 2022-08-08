@@ -40,9 +40,9 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
   const options = useMemo(
     () =>
       entity?.orderings?.edges
-        .filter(({ node }) => !isEmpty(node) && node.name)
+        .filter(({ node }) => !isEmpty(node))
         .map(({ node }) => ({
-          label: node.name,
+          label: node.name || "",
           value: node.id,
         })) || [],
     [entity]
