@@ -12,25 +12,40 @@ export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
+  const hasNonNumericTitle = useMemo(() => {
+    if (!issue) return null;
+    const titleRegex = /Issue\s[0-9]+/i;
+    return !titleRegex.test(issue.title);
+  }, [issue]);
+
   const issueNumber = useMemo(() => {
     if (!issue) return null;
 
     const issueNumber = issue?.issueNumber?.content;
-    const numberString = startCase(
-      `${t("schema.nglp.journal_issue")} ${issueNumber}`
-    );
-    return issueNumber &&
-      issueNumber !== "0" &&
-      issue.title.toLocaleLowerCase() !== numberString.toLocaleLowerCase()
-      ? numberString
+
+    return issueNumber && issueNumber !== "0" && hasNonNumericTitle
+      ? startCase(`${t("schema.nglp.journal_issue")} ${issueNumber}`)
       : null;
-  }, [issue, t]);
+  }, [issue, hasNonNumericTitle, t]);
+
+  const formattedTitle = useMemo(() => {
+    if (!issue) return null;
+
+    const volumeNum = issue.volumeNumber?.integerValue;
+    const issueNum = issue?.issueNumber?.content;
+
+    return hasNonNumericTitle
+      ? issue.title
+      : !volumeNum
+      ? t("list.issue_title_no_vol", { issueNum })
+      : t("list.issue_title", { volumeNum, issueNum });
+  }, [issue, t, hasNonNumericTitle]);
 
   return issue ? (
     <Summary
       route="collection"
       routeParams={{ slug: issue.slug }}
-      title={issue.title}
+      title={formattedTitle}
       subtitle={issue.subtitle}
       summary={issue.summary}
       thumbnail={
@@ -45,7 +60,6 @@ export default function IssueSummary({ data, showReadMore }: Props) {
       metadata={
         <>
           {issueNumber && <p>{issueNumber}</p>}
-          {issue.volume && <p>{issue.volume.title}</p>}
           <Styled.ItemPrimaryMetadata>
             {issue.journal && <li>{issue.journal.title}</li>}
             {issue.published.value && (
@@ -110,6 +124,11 @@ const fragment = graphql`
     issueNumber: schemaProperty(fullPath: "number") {
       ... on StringProperty {
         content
+      }
+    }
+    volumeNumber: schemaProperty(fullPath: "volume.sortable_number") {
+      ... on IntegerProperty {
+        integerValue
       }
     }
   }
