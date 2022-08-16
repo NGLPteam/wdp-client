@@ -32,6 +32,9 @@ export type IssueSummaryFragment = {
     readonly issueNumber: {
         readonly content?: string | null | undefined;
     } | null;
+    readonly volumeNumber: {
+        readonly integerValue?: number | null | undefined;
+    } | null;
     readonly " $refType": "IssueSummaryFragment";
 };
 export type IssueSummaryFragment$data = IssueSummaryFragment;
@@ -223,6 +226,37 @@ return {
       "storageKey": "schemaProperty(fullPath:\"number\")"
     },
     {
+      "alias": "volumeNumber",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "fullPath",
+          "value": "volume.sortable_number"
+        }
+      ],
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "schemaProperty",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "integerValue",
+              "storageKey": null
+            }
+          ],
+          "type": "IntegerProperty",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": "schemaProperty(fullPath:\"volume.sortable_number\")"
+    },
+    {
       "condition": "showJournal",
       "kind": "Condition",
       "passingValue": true,
@@ -250,5 +284,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f1f4536d2988e852b8ae5dec11689347';
+(node as any).hash = 'b14770db5d523045b97dd076bee40522';
 export default node;
