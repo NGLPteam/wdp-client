@@ -34,6 +34,9 @@ export type ArticleHeroFragment = {
     readonly entityViews: {
         readonly " $fragmentRefs": FragmentRefs<"ViewCountFragment">;
     };
+    readonly assetDownloads: {
+        readonly " $fragmentRefs": FragmentRefs<"DownloadCountFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "CCLicenseFragment" | "PeerReviewedFragment" | "OpenAccessFragment">;
     readonly " $refType": "ArticleHeroFragment";
 };
@@ -252,6 +255,22 @@ return {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "AnalyticsEventCountSummary",
+      "kind": "LinkedField",
+      "name": "assetDownloads",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DownloadCountFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DOIFragment"
@@ -264,5 +283,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '77884f33b29affe8b30d744a5723c9fd';
+(node as any).hash = '052141ecb2fb288b2c7db3789144caea';
 export default node;

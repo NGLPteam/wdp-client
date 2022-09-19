@@ -14,6 +14,7 @@ import {
   Markdown,
   Alert,
   ViewCount,
+  DownloadCount,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
@@ -76,6 +77,7 @@ export default function ArticleHero({ data }: Props) {
               <OpenAccess data={article.journal} />
               <PeerReviewed data={article.journal} />
               <ViewCount data={article.entityViews} />
+              <DownloadCount data={article.assetDownloads} />
             </>
           ) : (
             <>
@@ -83,6 +85,7 @@ export default function ArticleHero({ data }: Props) {
               <OpenAccess data={article} />
               <PeerReviewed data={article} />
               <ViewCount data={article.entityViews} />
+              <DownloadCount data={article.assetDownloads} />
             </>
           )}
         </>
@@ -129,6 +132,9 @@ const fragment = graphql`
     }
     entityViews {
       ...ViewCountFragment
+    }
+    assetDownloads {
+      ...DownloadCountFragment
     }
     ...CCLicenseFragment
     ...PeerReviewedFragment

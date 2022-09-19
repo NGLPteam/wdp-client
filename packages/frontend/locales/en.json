@@ -180,7 +180,9 @@
       "last_page": "Last Page",
       "page_count": "Page Count",
       "view_count": "{{count}} View",
-      "view_count_plural": "{{count}} Views"
+      "view_count_plural": "{{count}} Views",
+      "download_count": "{{count}} Download",
+      "download_count_plural": "{{count}} Downloads"
     },
     "layouts": {
       "related_journals_header": "Related Journals",
