@@ -13,6 +13,7 @@ import {
   FullText,
   Markdown,
   Alert,
+  ViewCount,
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
@@ -74,12 +75,14 @@ export default function ArticleHero({ data }: Props) {
               <CCLicense data={article.journal} />
               <OpenAccess data={article.journal} />
               <PeerReviewed data={article.journal} />
+              <ViewCount data={article.entityViews} />
             </>
           ) : (
             <>
               <CCLicense data={article} />
               <OpenAccess data={article} />
               <PeerReviewed data={article} />
+              <ViewCount data={article.entityViews} />
             </>
           )}
         </>
@@ -123,6 +126,9 @@ const fragment = graphql`
     }
     abstract: schemaProperty(fullPath: "abstract") {
       ...FullTextFragment
+    }
+    entityViews {
+      ...ViewCountFragment
     }
     ...CCLicenseFragment
     ...PeerReviewedFragment

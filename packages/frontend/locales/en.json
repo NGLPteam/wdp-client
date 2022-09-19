@@ -178,7 +178,9 @@
       "published_in": "Published In",
       "first_page": "First Page",
       "last_page": "Last Page",
-      "page_count": "Page Count"
+      "page_count": "Page Count",
+      "view_count": "{{count}} View",
+      "view_count_plural": "{{count}} Views"
     },
     "layouts": {
       "related_journals_header": "Related Journals",

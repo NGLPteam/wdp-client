@@ -917,6 +917,646 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "Analytics",
+        "description": null,
+        "fields": [
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "entityIds",
+                "description": "Optionally filter by specific entities.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "entityIds",
+                "description": "Optionally filter by specific entities.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViews",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "entityIds",
+                "description": "Optionally filter by specific entities.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViewsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "entityIds",
+                "description": "Optionally filter by specific entities.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AnalyticsEventCountResult",
+        "description": "A simple, date/time-keyed representation of a specific event's\noccurrences on a specific day (or time interval).\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The count of events for the given date / time.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "date",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601Date",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "time",
+            "description": "The time interval associated with this value. It will only\nbe populated when looking at `HOUR` precision.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AnalyticsEventCountSummary",
+        "description": "The summary of date-keyed event counts.\n",
+        "fields": [
+          {
+            "name": "maxDate",
+            "description": "The newest date in the set of results (if present).",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "minDate",
+            "description": "The oldest date in the set of results (if present).",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "precision",
+            "description": "The level of precision requested",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "AnalyticsPrecision",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "results",
+            "description": "Individual results. They are sorted in ascending date / time order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AnalyticsEventCountResult",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "total",
+            "description": "The filtered total of events in the date period.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "unfilteredTotal",
+            "description": "The unfiltered total of events across the entire system (excluding date filters, but including all other filters).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "AnalyticsPrecision",
+        "description": "The level of precision for analytics queries.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "HOUR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DAY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WEEK",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MONTH",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "QUARTER",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "YEAR",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AnalyticsRegionCountResult",
+        "description": "A count for specific events based on the visitor's detected country and region (if available).\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The count of events for the given country / region.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "countryCode",
+            "description": "The two-letter country code, if available. Unknown / null values will be `\"$unknown$\"`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "regionCode",
+            "description": "The shortened region code, if available. Unknown / null values will be `\"$unknown$\"`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AnalyticsRegionCountSummary",
+        "description": "The summary of country/region-keyed event counts.\n",
+        "fields": [
+          {
+            "name": "results",
+            "description": "Individual results. They are not in any deterministic order since they are based on countries / regions.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "AnalyticsRegionCountResult",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "total",
+            "description": "The filtered total of events in the date period.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "unfilteredTotal",
+            "description": "The unfiltered total of events across the entire system (excluding date filters, but including all other filters).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "AndOperatorInput",
         "description": "The boolean result of evaluating the left and right predicates. Both must be true.\n\nWhile this is implemented, it is not likely that the first version of the search\nUI will utilize it. It is intended for advanced searching.\n",
@@ -3065,6 +3705,88 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -3278,6 +4000,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3518,6 +4322,88 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -3748,6 +4634,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4089,6 +5057,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4451,16 +5501,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "SCALAR",
-        "name": "Boolean",
-        "description": "The `Boolean` scalar type represents `true` or `false`.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "AssetProperty",
         "description": null,
@@ -4743,6 +5783,88 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "attachable",
             "description": null,
             "args": [],
@@ -4973,6 +6095,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -8584,6 +9788,128 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "assets",
             "description": "Assets owned by this entity",
             "args": [
@@ -9627,6 +10953,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViews",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViewsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -11531,6 +12939,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "HasEntityAnalytics",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "HasDOI",
             "ofType": null
           },
@@ -12536,6 +13949,128 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "assets",
             "description": "Assets owned by this entity",
             "args": [
@@ -13194,6 +14729,88 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "EntityDescendantConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViews",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViewsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
                 "ofType": null
               }
             },
@@ -14596,6 +16213,11 @@
           {
             "kind": "INTERFACE",
             "name": "Entity",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasEntityAnalytics",
             "ofType": null
           },
           {
@@ -19506,6 +21128,53 @@
                 "name": "ISO8601Date",
                 "ofType": null
               }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateFilterInput",
+        "description": "A date-filter for various analytics and other resolvers.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "startDate",
+            "description": "The start date. Make sure it is <= `end_date` if provided.\n\nFor actual filtering, this will get turned into midnight in the provided `time_zone`.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "endDate",
+            "description": "The end date. Make sure it is >= `start_date` if provided.\n\nFor actual filtering, this will get turned into 23:59:59 in the provided `time_zone`.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Date",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timeZone",
+            "description": "The time zone to use for calculating the range.\n\nIf not provided, it will use the server's configured default,\nwhich is at present UTC, but may be configurable later on.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -27181,6 +28850,237 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "HasEntityAnalytics",
+        "description": "Entity models implement their own analytics views that come pre-filtered",
+        "fields": [
+          {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViews",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViewsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Community",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Item",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "HasEntityBreadcrumbs",
         "description": null,
         "fields": [
@@ -29685,6 +31585,128 @@
             "deprecationReason": null
           },
           {
+            "name": "assetDownloads",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetDownloadsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "subjectIds",
+                "description": "Optionally filter by specific subjects.\n\nPresently this is just assets, but it may expand in the future.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "assets",
             "description": "Assets owned by this entity",
             "args": [
@@ -30595,6 +32617,88 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViews",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "precision",
+                "description": "The precision to apply.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "AnalyticsPrecision",
+                  "ofType": null
+                },
+                "defaultValue": "DAY",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsEventCountSummary",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityViewsByRegion",
+            "description": null,
+            "args": [
+              {
+                "name": "dateFilter",
+                "description": "An optional date filter to apply.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "DateFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "{}",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "usOnly",
+                "description": "Filter by country_code = \"US\" only.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AnalyticsRegionCountSummary",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -32422,6 +34526,11 @@
           {
             "kind": "INTERFACE",
             "name": "ChildEntity",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasEntityAnalytics",
             "ofType": null
           },
           {
@@ -39891,6 +42000,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "AnyAccessGrantConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "analytics",
+            "description": "Access top-level analytics.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Analytics",
                 "ofType": null
               }
             },
