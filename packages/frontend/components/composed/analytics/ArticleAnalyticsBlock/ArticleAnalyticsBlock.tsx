@@ -12,10 +12,13 @@ import {
   ArticleAnalyticsBlockQueryVariables,
 } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import { LoadingBlock } from "components/atomic";
+import dynamic from "next/dynamic";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
 };
+
+const ChartComponent = dynamic(() => import("../ChartBlock"), { ssr: false });
 
 export default function ArticleAnalyticsBlock({ data }: Props) {
   const {
@@ -57,6 +60,8 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
   const region = settings.usOnly ? "US" : "world";
 
+  const isSSR = typeof window === "undefined";
+
   return (
     <Styled.Block className="l-container-wide">
       <Styled.Controls>
@@ -68,10 +73,10 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dispatchSettingsUpdate={dispatchSettingsUpdate}
         />
       </Styled.Controls>
-      {isLoading ? (
+      {isLoading || isSSR ? (
         <LoadingBlock />
       ) : (
-        <ChartBlock
+        <ChartComponent
           data={chartData}
           chartType={settings.chartType}
           region={region}
