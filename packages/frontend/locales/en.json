@@ -239,7 +239,8 @@
       "files": "Files",
       "contributors": "Contributors",
       "skip_to_content": "Skip to content",
-      "skip_to_pdf_content": "Skip to pdf content"
+      "skip_to_pdf_content": "Skip to pdf content",
+      "metrics": "Metrics"
     },
     "form": {
       "order_label": "Order:"
