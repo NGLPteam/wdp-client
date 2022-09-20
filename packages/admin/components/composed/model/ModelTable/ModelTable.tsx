@@ -42,11 +42,13 @@ function ModelTable<U extends Record<string, unknown>>({
       showCheckboxes={hasSelection}
       {...getTableProps()}
     >
-      <Table.Header<U>
-        withCheckbox={selectable}
-        checkboxProps={checkboxProps}
-        headerGroups={headerGroups}
-      />
+      {queryState.completed && (
+        <Table.Header<U>
+          withCheckbox={selectable}
+          checkboxProps={checkboxProps}
+          headerGroups={headerGroups}
+        />
+      )}
       <Table.Body
         loading={!queryState.completed}
         rows={rows}
