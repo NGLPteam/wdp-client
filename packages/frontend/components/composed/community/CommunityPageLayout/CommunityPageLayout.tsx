@@ -2,7 +2,7 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import * as Styled from "./CommunityPageLayout.styles";
-import { HeroImage, Markdown } from "components/atomic";
+import { HeroImage, LoadingBlock, Markdown } from "components/atomic";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
 
 export default function CommunityPageLayout({ data }: Props) {
@@ -18,7 +18,9 @@ export default function CommunityPageLayout({ data }: Props) {
         </Styled.Content>
       </div>
     </section>
-  ) : null;
+  ) : (
+    <LoadingBlock className="a-bg-custom10" />
+  );
 }
 
 interface Props {

@@ -6,10 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLayoutQueryFragment = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment" | "AppLayoutEntityFragment" | "EntityHTMLHeadFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadAppFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
     readonly " $refType": "CommunityLayoutQueryFragment";
 };
 export type CommunityLayoutQueryFragment$data = CommunityLayoutQueryFragment;
@@ -33,7 +30,6 @@ const node: ReaderFragment = {
   "name": "CommunityLayoutQueryFragment",
   "selections": [
     {
-      "alias": null,
       "args": [
         {
           "kind": "Variable",
@@ -41,37 +37,12 @@ const node: ReaderFragment = {
           "variableName": "slug"
         }
       ],
-      "concreteType": "Community",
-      "kind": "LinkedField",
-      "name": "community",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AppLayoutCommunityFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AppLayoutEntityFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityHTMLHeadFragment"
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "args": null,
       "kind": "FragmentSpread",
-      "name": "EntityHTMLHeadAppFragment"
+      "name": "CommunityLayoutFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '3443833239df035f488fbebc81b1527a';
+(node as any).hash = 'fb824ebedf507fe49b725fe1a91f544f';
 export default node;
