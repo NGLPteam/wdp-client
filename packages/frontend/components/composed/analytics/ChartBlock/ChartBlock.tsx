@@ -1,9 +1,9 @@
 import { useCallback } from "react";
+import { format, parseISO } from "date-fns";
 import GeoChart from "../GeoChart";
 import LineChart from "../LineChart";
-import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
-import { format, parseISO } from "date-fns";
 import * as Styled from "./ChartBlock.styles";
+import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$data;
@@ -62,8 +62,8 @@ export default function ChartBlock({
     (data: ArticleAnalyticsBlockFragment$data) => {
       const subset =
         mode === "views"
-          ? data.entityViews.results
-          : data.assetDownloads.results;
+          ? data.viewsByDate.results
+          : data.downloadsByDate.results;
 
       const formatDateLabel = (date: Date) => {
         switch (precision) {
@@ -87,7 +87,7 @@ export default function ChartBlock({
     [mode, precision]
   );
 
-  return (
+  return data ? (
     <Styled.ChartWrapper>
       {chartType === "map" ? (
         <GeoChart data={formatMapData(data)} region={region} />
@@ -95,5 +95,5 @@ export default function ChartBlock({
         <LineChart data={formatLineChartData(data)} />
       )}
     </Styled.ChartWrapper>
-  );
+  ) : null;
 }

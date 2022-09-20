@@ -7,9 +7,9 @@ export const Block = styled.div`
   grid-template-rows: 50px 150px 150px 150px;
   grid-template-areas:
     "controls controls controls controls"
-    "chart chart chart count1"
-    "chart chart chart count2"
-    "chart chart chart count3";
+    "chart chart chart stats"
+    "chart chart chart stats"
+    "chart chart chart stats";
   gap: 30px;
 `;
 

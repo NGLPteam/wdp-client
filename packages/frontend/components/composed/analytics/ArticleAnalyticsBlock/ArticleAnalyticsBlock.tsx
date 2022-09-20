@@ -1,14 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { graphql } from "react-relay";
 import { useRefetchable } from "relay-hooks";
 import ChartBlock from "../ChartBlock";
 import ChartControls from "../ChartControls";
-import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
-import { ArticleAnalyticsBlockQuery } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
-import { LoadingBlock } from "components/atomic";
-import { subDays, formatISO } from "date-fns";
-import { AnalyticsPrecision } from "types/graphql-schema";
+import StatBlocks from "../StatBlocks";
+import { chartSettingsReducer, State, Action } from "./settingsReducer";
 import * as Styled from "./ArticleAnalyticsBlock.styles";
+import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
+import {
+  ArticleAnalyticsBlockQuery,
+  ArticleAnalyticsBlockQueryVariables,
+} from "@/relay/ArticleAnalyticsBlockQuery.graphql";
+import { LoadingBlock } from "components/atomic";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
@@ -24,59 +27,45 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
     ArticleAnalyticsBlockFragment$key
   >(fragment, data);
 
-  const [region, setRegion] = useState("world");
   const [mode, setMode] = useState("views");
-  const [chartType, setChart] = useState("map");
-  const [precision, setPrecision] = useState("YEAR");
 
-  const handleDateRangeChange = useCallback(
-    (val: string) => {
-      const now = new Date();
+  const minDate =
+    mode === "views"
+      ? chartData.viewsByDate.minDate
+      : chartData.downloadsByDate.minDate;
 
-      let startDate;
-      let precision;
-      switch (val) {
-        case "week":
-          startDate = subDays(now, 7);
-          precision = "DAY";
-          break;
-        case "month":
-          startDate = subDays(now, 30);
-          precision = "DAY";
-          break;
-        case "year":
-          startDate = subDays(now, 365);
-          precision = "MONTH";
-          break;
-        case "all":
-        default:
-          precision = "YEAR";
-      }
+  const initalSettings = {
+    chartType: "map",
+    precision: "YEAR",
+    dateRange: {},
+    usOnly: false,
+    minDate,
+    updated: false,
+  };
 
-      const queryVars = startDate
-        ? {
-            dateRange: { startDate: formatISO(startDate) },
-            precision: precision as AnalyticsPrecision,
-          }
-        : { dateRange: {}, precision: precision as AnalyticsPrecision };
+  const [settings, dispatchSettingsUpdate] = useReducer<
+    (state: State, action: Action) => State
+  >(chartSettingsReducer, initalSettings);
 
-      refetch({ ...queryVars });
-      setPrecision(precision);
-    },
-    [refetch]
-  );
+  useEffect(() => {
+    // Don't refetch until the user interacts with the chart the first time to give the google scripts a chance to load. Could probably also fix this by not conditionally rendering on isLoading and passing LoadingBlock as a loader prop to the charts. Is this preferable?
+    if (settings.updated) {
+      const { chartType, minDate, ...queryVars } = settings;
+      refetch(queryVars as unknown as ArticleAnalyticsBlockQueryVariables);
+    }
+  }, [refetch, settings]);
+
+  const region = settings.usOnly ? "US" : "world";
 
   return (
     <Styled.Block className="l-container-wide">
       <Styled.Controls>
         <ChartControls
-          setRegion={setRegion}
-          region={region}
           setMode={setMode}
           mode={mode}
-          setChart={setChart}
-          chartType={chartType}
-          handleDateRangeChange={handleDateRangeChange}
+          region={region}
+          chartType={settings.chartType}
+          dispatchSettingsUpdate={dispatchSettingsUpdate}
         />
       </Styled.Controls>
       {isLoading ? (
@@ -84,15 +73,18 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
       ) : (
         <ChartBlock
           data={chartData}
-          chartType={chartType}
+          chartType={settings.chartType}
           region={region}
           mode={mode}
-          precision={precision}
+          precision={settings.precision}
         />
       )}
-      <Styled.CountBlock $order={1} />
-      <Styled.CountBlock $order={2} />
-      <Styled.CountBlock $order={3} />
+      <StatBlocks
+        data={chartData}
+        region={region}
+        mode={mode}
+        chartType={settings.chartType}
+      />
     </Styled.Block>
   );
 }
@@ -103,15 +95,20 @@ const fragment = graphql`
   @argumentDefinitions(
     dateRange: { type: "DateFilterInput", defaultValue: {} }
     precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
+    usOnly: { type: "Boolean", defaultValue: false }
   ) {
-    assetDownloads(dateFilter: $dateRange, precision: $precision) {
+    downloadsByDate: assetDownloads(
+      dateFilter: $dateRange
+      precision: $precision
+    ) {
       total
+      minDate
       results {
         count
         date
       }
     }
-    assetDownloadsByRegion(dateFilter: $dateRange) {
+    assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
       total
       results {
         countryCode
@@ -119,14 +116,15 @@ const fragment = graphql`
         count
       }
     }
-    entityViews(dateFilter: $dateRange, precision: $precision) {
+    viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {
       total
+      minDate
       results {
         count
         date
       }
     }
-    entityViewsByRegion(dateFilter: $dateRange) {
+    entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
       total
       results {
         countryCode

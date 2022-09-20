@@ -14,6 +14,7 @@ export type DateFilterInput = {
 export type ArticleAnalyticsBlockQueryVariables = {
     dateRange?: DateFilterInput | null | undefined;
     precision?: AnalyticsPrecision | null | undefined;
+    usOnly?: boolean | null | undefined;
     id: string;
 };
 export type ArticleAnalyticsBlockQueryResponse = {
@@ -32,24 +33,26 @@ export type ArticleAnalyticsBlockQuery = {
 query ArticleAnalyticsBlockQuery(
   $dateRange: DateFilterInput = {}
   $precision: AnalyticsPrecision = YEAR
+  $usOnly: Boolean = false
   $id: ID!
 ) {
   node(id: $id) {
     __typename
-    ...ArticleAnalyticsBlockFragment_1IRn52
+    ...ArticleAnalyticsBlockFragment_3yzii9
     id
   }
 }
 
-fragment ArticleAnalyticsBlockFragment_1IRn52 on Item {
-  assetDownloads(dateFilter: $dateRange, precision: $precision) {
+fragment ArticleAnalyticsBlockFragment_3yzii9 on Item {
+  downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {
     total
+    minDate
     results {
       count
       date
     }
   }
-  assetDownloadsByRegion(dateFilter: $dateRange) {
+  assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
     total
     results {
       countryCode
@@ -57,14 +60,15 @@ fragment ArticleAnalyticsBlockFragment_1IRn52 on Item {
       count
     }
   }
-  entityViews(dateFilter: $dateRange, precision: $precision) {
+  viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {
     total
+    minDate
     results {
       count
       date
     }
   }
-  entityViewsByRegion(dateFilter: $dateRange) {
+  entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
     total
     results {
       countryCode
@@ -92,43 +96,60 @@ v2 = {
   "kind": "LocalArgument",
   "name": "precision"
 },
-v3 = [
+v3 = {
+  "defaultValue": false,
+  "kind": "LocalArgument",
+  "name": "usOnly"
+},
+v4 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "id"
   }
 ],
-v4 = {
+v5 = {
   "kind": "Variable",
   "name": "precision",
   "variableName": "precision"
 },
-v5 = {
+v6 = {
+  "kind": "Variable",
+  "name": "usOnly",
+  "variableName": "usOnly"
+},
+v7 = {
   "kind": "Variable",
   "name": "dateFilter",
   "variableName": "dateRange"
 },
-v6 = [
-  (v5/*: any*/),
-  (v4/*: any*/)
+v8 = [
+  (v7/*: any*/),
+  (v5/*: any*/)
 ],
-v7 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "total",
   "storageKey": null
 },
-v8 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "count",
   "storageKey": null
 },
-v9 = [
-  (v7/*: any*/),
+v11 = [
+  (v9/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "minDate",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -137,7 +158,7 @@ v9 = [
     "name": "results",
     "plural": true,
     "selections": [
-      (v8/*: any*/),
+      (v10/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -149,11 +170,12 @@ v9 = [
     "storageKey": null
   }
 ],
-v10 = [
-  (v5/*: any*/)
-],
-v11 = [
+v12 = [
   (v7/*: any*/),
+  (v6/*: any*/)
+],
+v13 = [
+  (v9/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -176,7 +198,7 @@ v11 = [
         "name": "regionCode",
         "storageKey": null
       },
-      (v8/*: any*/)
+      (v10/*: any*/)
     ],
     "storageKey": null
   }
@@ -186,7 +208,8 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v1/*: any*/),
-      (v2/*: any*/)
+      (v2/*: any*/),
+      (v3/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -194,7 +217,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
@@ -207,7 +230,8 @@ return {
                 "name": "dateRange",
                 "variableName": "dateRange"
               },
-              (v4/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/)
             ],
             "kind": "FragmentSpread",
             "name": "ArticleAnalyticsBlockFragment"
@@ -224,6 +248,7 @@ return {
     "argumentDefinitions": [
       (v0/*: any*/),
       (v2/*: any*/),
+      (v3/*: any*/),
       (v1/*: any*/)
     ],
     "kind": "Operation",
@@ -231,7 +256,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
@@ -255,43 +280,43 @@ return {
             "kind": "InlineFragment",
             "selections": [
               {
-                "alias": null,
-                "args": (v6/*: any*/),
+                "alias": "downloadsByDate",
+                "args": (v8/*: any*/),
                 "concreteType": "AnalyticsEventCountSummary",
                 "kind": "LinkedField",
                 "name": "assetDownloads",
                 "plural": false,
-                "selections": (v9/*: any*/),
+                "selections": (v11/*: any*/),
                 "storageKey": null
               },
               {
                 "alias": null,
-                "args": (v10/*: any*/),
+                "args": (v12/*: any*/),
                 "concreteType": "AnalyticsRegionCountSummary",
                 "kind": "LinkedField",
                 "name": "assetDownloadsByRegion",
                 "plural": false,
-                "selections": (v11/*: any*/),
+                "selections": (v13/*: any*/),
                 "storageKey": null
               },
               {
-                "alias": null,
-                "args": (v6/*: any*/),
+                "alias": "viewsByDate",
+                "args": (v8/*: any*/),
                 "concreteType": "AnalyticsEventCountSummary",
                 "kind": "LinkedField",
                 "name": "entityViews",
                 "plural": false,
-                "selections": (v9/*: any*/),
+                "selections": (v11/*: any*/),
                 "storageKey": null
               },
               {
                 "alias": null,
-                "args": (v10/*: any*/),
+                "args": (v12/*: any*/),
                 "concreteType": "AnalyticsRegionCountSummary",
                 "kind": "LinkedField",
                 "name": "entityViewsByRegion",
                 "plural": false,
-                "selections": (v11/*: any*/),
+                "selections": (v13/*: any*/),
                 "storageKey": null
               }
             ],
@@ -304,14 +329,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2d82b42a83c44e5920f70afadf6b6292",
+    "cacheID": "23fcbd29f7dc1bfb5f98105ab5d06a89",
     "id": null,
     "metadata": {},
     "name": "ArticleAnalyticsBlockQuery",
     "operationKind": "query",
-    "text": "query ArticleAnalyticsBlockQuery(\n  $dateRange: DateFilterInput = {}\n  $precision: AnalyticsPrecision = YEAR\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleAnalyticsBlockFragment_1IRn52\n    id\n  }\n}\n\nfragment ArticleAnalyticsBlockFragment_1IRn52 on Item {\n  assetDownloads(dateFilter: $dateRange, precision: $precision) {\n    total\n    results {\n      count\n      date\n    }\n  }\n  assetDownloadsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  entityViews(dateFilter: $dateRange, precision: $precision) {\n    total\n    results {\n      count\n      date\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
+    "text": "query ArticleAnalyticsBlockQuery(\n  $dateRange: DateFilterInput = {}\n  $precision: AnalyticsPrecision = YEAR\n  $usOnly: Boolean = false\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleAnalyticsBlockFragment_3yzii9\n    id\n  }\n}\n\nfragment ArticleAnalyticsBlockFragment_3yzii9 on Item {\n  downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {\n    total\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {\n    total\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = 'bf1664d6aa89dca7eb3837be3d98c548';
+(node as any).hash = 'f5c07b3b9ec84773ae4ff36d2a17fd69';
 export default node;

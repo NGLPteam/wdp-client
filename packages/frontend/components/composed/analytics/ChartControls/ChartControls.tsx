@@ -4,23 +4,19 @@ import * as Styled from "./ChartControls.styles";
 import { Dropdown, Button } from "components/atomic";
 
 type Props = {
-  setRegion: (val: string) => void;
   setMode: (val: string) => void;
-  setChart: (val: string) => void;
   mode: string;
   region: string;
   chartType: string;
-  handleDateRangeChange: (val: string) => void;
+  dispatchSettingsUpdate: (args: { type: string; value: string }) => void;
 };
 
 export default function ChartControls({
-  setRegion,
   region,
   setMode,
   mode,
-  setChart,
   chartType,
-  handleDateRangeChange,
+  dispatchSettingsUpdate,
 }: Props) {
   const { t } = useTranslation();
 
@@ -44,7 +40,9 @@ export default function ChartControls({
   const dateOptions = dateRanges.map((dateRange) => (
     <button
       key={dateRange.value}
-      onClick={() => handleDateRangeChange(dateRange.value)}
+      onClick={() =>
+        dispatchSettingsUpdate({ type: "dateRange", value: dateRange.value })
+      }
     >
       {t(dateRange.label)}
     </button>
@@ -66,10 +64,16 @@ export default function ChartControls({
           { label: "analytics.chart", value: "chart" },
         ]}
         active={chartType}
-        onClick={setChart}
+        onClick={(val) => dispatchSettingsUpdate({ type: "chart", value: val })}
       />
       {chartType === "map" && (
-        <Switch options={regions} active={region} onClick={setRegion} />
+        <Switch
+          options={regions}
+          active={region}
+          onClick={(val) =>
+            dispatchSettingsUpdate({ type: "region", value: val })
+          }
+        />
       )}
       <Dropdown
         disclosure={getDisclosure("analytics.date_ranges.dropdown_label")}

@@ -264,7 +264,9 @@
         "year": "Last Year"
       },
       "views": "Views",
+      "total_views": "Total Views",
       "downloads": "Downloads",
+      "total_downloads": "Total Downloads",
       "map": "Map",
       "chart": "Chart"
     }

@@ -32,8 +32,6 @@ function ItemLayoutQuery<
 
   if (!slug) return <ErrorPage statusCode={404} />;
 
-  console.log({ slug, ...variables });
-
   return (
     <QueryWrapper<Query>
       query={query}

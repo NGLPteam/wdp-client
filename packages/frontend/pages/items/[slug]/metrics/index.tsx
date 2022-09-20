@@ -20,7 +20,11 @@ const getLayout: GetLayout<Props> = (props) => {
     <ItemLayoutQuery<Query, Props>
       query={query}
       {...props}
-      variables={{ dateRange: {}, precision: "YEAR" as AnalyticsPrecision }}
+      variables={{
+        dateRange: {},
+        precision: "YEAR" as AnalyticsPrecision,
+        usOnly: false,
+      }}
     />
   );
 };
@@ -34,12 +38,17 @@ MetricsSlugItemPage.getLayout = getLayout;
 const query = graphql`
   query metricsSlugItemQuery(
     $slug: Slug!
-    $dateRange: DateFilterInput
-    $precision: AnalyticsPrecision
+    $dateRange: DateFilterInput!
+    $precision: AnalyticsPrecision!
+    $usOnly: Boolean!
   ) {
     item(slug: $slug) {
       ...ArticleAnalyticsBlockFragment
-        @arguments(dateRange: $dateRange, precision: $precision)
+        @arguments(
+          dateRange: $dateRange
+          precision: $precision
+          usOnly: $usOnly
+        )
     }
     ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }

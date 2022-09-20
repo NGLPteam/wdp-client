@@ -6,8 +6,9 @@ import { ReaderFragment } from "relay-runtime";
 import ArticleAnalyticsBlockQuery from "./ArticleAnalyticsBlockQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type ArticleAnalyticsBlockFragment = {
-    readonly assetDownloads: {
+    readonly downloadsByDate: {
         readonly total: number;
+        readonly minDate: string | null;
         readonly results: ReadonlyArray<{
             readonly count: number;
             readonly date: string;
@@ -21,8 +22,9 @@ export type ArticleAnalyticsBlockFragment = {
             readonly count: number;
         }>;
     };
-    readonly entityViews: {
+    readonly viewsByDate: {
         readonly total: number;
+        readonly minDate: string | null;
         readonly results: ReadonlyArray<{
             readonly count: number;
             readonly date: string;
@@ -80,6 +82,13 @@ v4 = [
   {
     "alias": null,
     "args": null,
+    "kind": "ScalarField",
+    "name": "minDate",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
     "concreteType": "AnalyticsEventCountResult",
     "kind": "LinkedField",
     "name": "results",
@@ -98,7 +107,12 @@ v4 = [
   }
 ],
 v5 = [
-  (v0/*: any*/)
+  (v0/*: any*/),
+  {
+    "kind": "Variable",
+    "name": "usOnly",
+    "variableName": "usOnly"
+  }
 ],
 v6 = [
   (v2/*: any*/),
@@ -140,6 +154,11 @@ return {
       "defaultValue": "YEAR",
       "kind": "LocalArgument",
       "name": "precision"
+    },
+    {
+      "defaultValue": false,
+      "kind": "LocalArgument",
+      "name": "usOnly"
     }
   ],
   "kind": "Fragment",
@@ -156,7 +175,7 @@ return {
   "name": "ArticleAnalyticsBlockFragment",
   "selections": [
     {
-      "alias": null,
+      "alias": "downloadsByDate",
       "args": (v1/*: any*/),
       "concreteType": "AnalyticsEventCountSummary",
       "kind": "LinkedField",
@@ -176,7 +195,7 @@ return {
       "storageKey": null
     },
     {
-      "alias": null,
+      "alias": "viewsByDate",
       "args": (v1/*: any*/),
       "concreteType": "AnalyticsEventCountSummary",
       "kind": "LinkedField",
@@ -207,5 +226,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'bf1664d6aa89dca7eb3837be3d98c548';
+(node as any).hash = 'f5c07b3b9ec84773ae4ff36d2a17fd69';
 export default node;

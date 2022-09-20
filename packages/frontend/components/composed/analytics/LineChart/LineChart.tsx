@@ -18,6 +18,7 @@ export default function LineChart({
   };
   return (
     <Chart
+      loader={<div>Loading Chart</div>}
       chartType="LineChart"
       options={chartOptions}
       height="100%"

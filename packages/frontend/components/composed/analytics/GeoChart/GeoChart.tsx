@@ -19,6 +19,7 @@ export default function GeoChart({
     legend,
     colorAxis: { colors: ["#DAE6F7", "#6596E0"] },
   };
+
   return (
     <Chart
       chartType="GeoChart"
