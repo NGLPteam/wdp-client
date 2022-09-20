@@ -13,10 +13,6 @@ export const Block = styled.div`
   gap: 30px;
 `;
 
-export const ChartWrapper = styled.div`
-  grid-area: chart;
-`;
-
 export const CountBlock = styled.div<{ $order: number }>`
   grid-area: ${({ $order }) => `count${$order}`};
   background-color: var(--color-base-neutral10);

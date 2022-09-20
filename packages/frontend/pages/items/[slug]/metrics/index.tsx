@@ -5,6 +5,7 @@ import ArticleAnalyticsBlock from "components/composed/analytics/ArticleAnalytic
 import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { LoadingBlock } from "components/atomic";
+import { AnalyticsPrecision } from "types/graphql-schema";
 
 export default function MetricsSlugItemPage({ data }: Props) {
   return data?.item ? (
@@ -15,7 +16,13 @@ export default function MetricsSlugItemPage({ data }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> query={query} {...props} />;
+  return (
+    <ItemLayoutQuery<Query, Props>
+      query={query}
+      {...props}
+      variables={{ dateRange: {}, precision: "YEAR" as AnalyticsPrecision }}
+    />
+  );
 };
 
 type Props = {
@@ -25,9 +32,14 @@ type Props = {
 MetricsSlugItemPage.getLayout = getLayout;
 
 const query = graphql`
-  query metricsSlugItemQuery($slug: Slug!) {
+  query metricsSlugItemQuery(
+    $slug: Slug!
+    $dateRange: DateFilterInput
+    $precision: AnalyticsPrecision
+  ) {
     item(slug: $slug) {
       ...ArticleAnalyticsBlockFragment
+        @arguments(dateRange: $dateRange, precision: $precision)
     }
     ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }

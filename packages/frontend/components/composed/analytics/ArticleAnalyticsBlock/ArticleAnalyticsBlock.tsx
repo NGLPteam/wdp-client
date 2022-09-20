@@ -1,15 +1,13 @@
 import { useState, useCallback } from "react";
 import { graphql } from "react-relay";
 import { useRefetchable } from "relay-hooks";
-import GeoChart from "../GeoChart";
+import ChartBlock from "../ChartBlock";
 import ChartControls from "../ChartControls";
-import {
-  ArticleAnalyticsBlockFragment$key,
-  ArticleAnalyticsBlockFragment$data,
-} from "@/relay/ArticleAnalyticsBlockFragment.graphql";
+import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import { ArticleAnalyticsBlockQuery } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import { LoadingBlock } from "components/atomic";
 import { subDays, formatISO } from "date-fns";
+import { AnalyticsPrecision } from "types/graphql-schema";
 import * as Styled from "./ArticleAnalyticsBlock.styles";
 
 type Props = {
@@ -29,71 +27,41 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   const [region, setRegion] = useState("world");
   const [mode, setMode] = useState("views");
   const [chartType, setChart] = useState("map");
-
-  const formatData = useCallback(
-    (data: ArticleAnalyticsBlockFragment$data) => {
-      const subset =
-        mode === "views"
-          ? data.entityViewsByRegion.results
-          : data.assetDownloadsByRegion.results;
-
-      if (region === "US") {
-        return [
-          ["state", "count"],
-          ...subset.map(({ count, regionCode }) => [`US-${regionCode}`, count]),
-        ];
-      }
-
-      const aggregated = subset.reduce(
-        (obj: { [key: string]: number }, region) => {
-          const { count, countryCode } = region;
-          if (Object.keys(obj).includes(countryCode)) {
-            obj[countryCode] = obj[countryCode] + count;
-            return obj;
-          }
-          obj[countryCode] = count;
-          return obj;
-        },
-        {}
-      );
-
-      return [
-        ["country", "count"],
-        ...Object.keys(aggregated).map((country) => [
-          country,
-          aggregated[country],
-        ]),
-      ];
-    },
-    [mode, region]
-  );
+  const [precision, setPrecision] = useState("YEAR");
 
   const handleDateRangeChange = useCallback(
     (val: string) => {
       const now = new Date();
 
       let startDate;
+      let precision;
       switch (val) {
-        case "day":
-          startDate = subDays(now, 1);
-          break;
         case "week":
           startDate = subDays(now, 7);
+          precision = "DAY";
           break;
         case "month":
           startDate = subDays(now, 30);
+          precision = "DAY";
           break;
         case "year":
           startDate = subDays(now, 365);
+          precision = "MONTH";
           break;
         case "all":
         default:
-          null;
+          precision = "YEAR";
       }
 
-      refetch(
-        startDate ? { dateRange: { startDate: formatISO(startDate) } } : {}
-      );
+      const queryVars = startDate
+        ? {
+            dateRange: { startDate: formatISO(startDate) },
+            precision: precision as AnalyticsPrecision,
+          }
+        : { dateRange: {}, precision: precision as AnalyticsPrecision };
+
+      refetch({ ...queryVars });
+      setPrecision(precision);
     },
     [refetch]
   );
@@ -111,13 +79,17 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           handleDateRangeChange={handleDateRangeChange}
         />
       </Styled.Controls>
-      <Styled.ChartWrapper>
-        {isLoading ? (
-          <LoadingBlock />
-        ) : (
-          <GeoChart data={formatData(chartData)} region={region} />
-        )}
-      </Styled.ChartWrapper>
+      {isLoading ? (
+        <LoadingBlock />
+      ) : (
+        <ChartBlock
+          data={chartData}
+          chartType={chartType}
+          region={region}
+          mode={mode}
+          precision={precision}
+        />
+      )}
       <Styled.CountBlock $order={1} />
       <Styled.CountBlock $order={2} />
       <Styled.CountBlock $order={3} />
@@ -130,13 +102,28 @@ const fragment = graphql`
   @refetchable(queryName: "ArticleAnalyticsBlockQuery")
   @argumentDefinitions(
     dateRange: { type: "DateFilterInput", defaultValue: {} }
+    precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
   ) {
+    assetDownloads(dateFilter: $dateRange, precision: $precision) {
+      total
+      results {
+        count
+        date
+      }
+    }
     assetDownloadsByRegion(dateFilter: $dateRange) {
       total
       results {
         countryCode
         regionCode
         count
+      }
+    }
+    entityViews(dateFilter: $dateRange, precision: $precision) {
+      total
+      results {
+        count
+        date
       }
     }
     entityViewsByRegion(dateFilter: $dateRange) {

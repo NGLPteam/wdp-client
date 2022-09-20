@@ -6,12 +6,26 @@ import { ReaderFragment } from "relay-runtime";
 import ArticleAnalyticsBlockQuery from "./ArticleAnalyticsBlockQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type ArticleAnalyticsBlockFragment = {
+    readonly assetDownloads: {
+        readonly total: number;
+        readonly results: ReadonlyArray<{
+            readonly count: number;
+            readonly date: string;
+        }>;
+    };
     readonly assetDownloadsByRegion: {
         readonly total: number;
         readonly results: ReadonlyArray<{
             readonly countryCode: string;
             readonly regionCode: string;
             readonly count: number;
+        }>;
+    };
+    readonly entityViews: {
+        readonly total: number;
+        readonly results: ReadonlyArray<{
+            readonly count: number;
+            readonly date: string;
         }>;
     };
     readonly entityViewsByRegion: {
@@ -34,21 +48,60 @@ export type ArticleAnalyticsBlockFragment$key = {
 
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "kind": "Variable",
+  "name": "dateFilter",
+  "variableName": "dateRange"
+},
+v1 = [
+  (v0/*: any*/),
   {
     "kind": "Variable",
-    "name": "dateFilter",
-    "variableName": "dateRange"
+    "name": "precision",
+    "variableName": "precision"
   }
 ],
-v1 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "total",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "count",
+  "storageKey": null
+},
+v4 = [
+  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
-    "kind": "ScalarField",
-    "name": "total",
+    "concreteType": "AnalyticsEventCountResult",
+    "kind": "LinkedField",
+    "name": "results",
+    "plural": true,
+    "selections": [
+      (v3/*: any*/),
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "date",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
-  },
+  }
+],
+v5 = [
+  (v0/*: any*/)
+],
+v6 = [
+  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -71,13 +124,7 @@ v1 = [
         "name": "regionCode",
         "storageKey": null
       },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "count",
-        "storageKey": null
-      }
+      (v3/*: any*/)
     ],
     "storageKey": null
   }
@@ -88,6 +135,11 @@ return {
       "defaultValue": {},
       "kind": "LocalArgument",
       "name": "dateRange"
+    },
+    {
+      "defaultValue": "YEAR",
+      "kind": "LocalArgument",
+      "name": "precision"
     }
   ],
   "kind": "Fragment",
@@ -105,22 +157,42 @@ return {
   "selections": [
     {
       "alias": null,
-      "args": (v0/*: any*/),
-      "concreteType": "AnalyticsRegionCountSummary",
+      "args": (v1/*: any*/),
+      "concreteType": "AnalyticsEventCountSummary",
       "kind": "LinkedField",
-      "name": "assetDownloadsByRegion",
+      "name": "assetDownloads",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v4/*: any*/),
       "storageKey": null
     },
     {
       "alias": null,
-      "args": (v0/*: any*/),
+      "args": (v5/*: any*/),
+      "concreteType": "AnalyticsRegionCountSummary",
+      "kind": "LinkedField",
+      "name": "assetDownloadsByRegion",
+      "plural": false,
+      "selections": (v6/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": (v1/*: any*/),
+      "concreteType": "AnalyticsEventCountSummary",
+      "kind": "LinkedField",
+      "name": "entityViews",
+      "plural": false,
+      "selections": (v4/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": (v5/*: any*/),
       "concreteType": "AnalyticsRegionCountSummary",
       "kind": "LinkedField",
       "name": "entityViewsByRegion",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": (v6/*: any*/),
       "storageKey": null
     },
     {
@@ -135,5 +207,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b1f85406fa3e849ade4292df41a6ac95';
+(node as any).hash = 'bf1664d6aa89dca7eb3837be3d98c548';
 export default node;

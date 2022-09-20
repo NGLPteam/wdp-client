@@ -68,7 +68,9 @@ export default function ChartControls({
         active={chartType}
         onClick={setChart}
       />
-      <Switch options={regions} active={region} onClick={setRegion} />
+      {chartType === "map" && (
+        <Switch options={regions} active={region} onClick={setRegion} />
+      )}
       <Dropdown
         disclosure={getDisclosure("analytics.date_ranges.dropdown_label")}
         menuItems={dateOptions}
