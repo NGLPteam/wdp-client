@@ -63,7 +63,9 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
 
   return (
     <ListComponent condensed={condensed}>
-      <li className="t-capitalize">{exploreMenu}</li>
+      {schemaLinks.length > 0 && (
+        <li className="t-capitalize">{exploreMenu}</li>
+      )}
       {community &&
         community.slug &&
         community.pages.edges &&
