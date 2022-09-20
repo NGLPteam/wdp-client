@@ -10,35 +10,35 @@ export type DateFilterInput = {
     endDate?: string | null | undefined;
     timeZone?: string | null | undefined;
 };
-export type ArticleChartWrapperQueryVariables = {
+export type ArticleAnalyticsBlockQueryVariables = {
     dateRange?: DateFilterInput | null | undefined;
     id: string;
 };
-export type ArticleChartWrapperQueryResponse = {
+export type ArticleAnalyticsBlockQueryResponse = {
     readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"ArticleChartWrapperFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"ArticleAnalyticsBlockFragment">;
     } | null;
 };
-export type ArticleChartWrapperQuery = {
-    readonly response: ArticleChartWrapperQueryResponse;
-    readonly variables: ArticleChartWrapperQueryVariables;
+export type ArticleAnalyticsBlockQuery = {
+    readonly response: ArticleAnalyticsBlockQueryResponse;
+    readonly variables: ArticleAnalyticsBlockQueryVariables;
 };
 
 
 
 /*
-query ArticleChartWrapperQuery(
+query ArticleAnalyticsBlockQuery(
   $dateRange: DateFilterInput = {}
   $id: ID!
 ) {
   node(id: $id) {
     __typename
-    ...ArticleChartWrapperFragment_1ez6mB
+    ...ArticleAnalyticsBlockFragment_1ez6mB
     id
   }
 }
 
-fragment ArticleChartWrapperFragment_1ez6mB on Item {
+fragment ArticleAnalyticsBlockFragment_1ez6mB on Item {
   assetDownloadsByRegion(dateFilter: $dateRange) {
     total
     results {
@@ -132,7 +132,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ArticleChartWrapperQuery",
+    "name": "ArticleAnalyticsBlockQuery",
     "selections": [
       {
         "alias": null,
@@ -151,7 +151,7 @@ return {
               }
             ],
             "kind": "FragmentSpread",
-            "name": "ArticleChartWrapperFragment"
+            "name": "ArticleAnalyticsBlockFragment"
           }
         ],
         "storageKey": null
@@ -164,7 +164,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ArticleChartWrapperQuery",
+    "name": "ArticleAnalyticsBlockQuery",
     "selections": [
       {
         "alias": null,
@@ -221,14 +221,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1aa5529b10572087ee475e2cc0eb5f35",
+    "cacheID": "aaf13529b62af2ed58a28741b1177443",
     "id": null,
     "metadata": {},
-    "name": "ArticleChartWrapperQuery",
+    "name": "ArticleAnalyticsBlockQuery",
     "operationKind": "query",
-    "text": "query ArticleChartWrapperQuery(\n  $dateRange: DateFilterInput = {}\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleChartWrapperFragment_1ez6mB\n    id\n  }\n}\n\nfragment ArticleChartWrapperFragment_1ez6mB on Item {\n  assetDownloadsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
+    "text": "query ArticleAnalyticsBlockQuery(\n  $dateRange: DateFilterInput = {}\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleAnalyticsBlockFragment_1ez6mB\n    id\n  }\n}\n\nfragment ArticleAnalyticsBlockFragment_1ez6mB on Item {\n  assetDownloadsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '77bfbd5e62767027efd4924c544fa133';
+(node as any).hash = 'b1f85406fa3e849ade4292df41a6ac95';
 export default node;

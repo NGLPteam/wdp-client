@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import * as Styled from "./Switch.styles";
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export default function Switch({ options, active, onClick }: Props) {
+  const { t } = useTranslation();
+
   return (
     <Styled.Wrapper>
       {options.map((option) => (
@@ -16,7 +19,7 @@ export default function Switch({ options, active, onClick }: Props) {
           aria-disabled={option.value === active}
           onClick={() => onClick(option.value)}
         >
-          {option.label}
+          {t(option.label)}
         </Styled.SwitchButton>
       ))}
     </Styled.Wrapper>

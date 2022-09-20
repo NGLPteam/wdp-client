@@ -250,6 +250,23 @@
     },
     "messages": {
       "hidden": "This {{schema}} is hidden"
+    },
+    "analytics": {
+      "regions": {
+        "world": "World",
+        "united_states": "United States"
+      },
+      "date_ranges": {
+        "dropdown_label": "Date Range",
+        "all": "All Time",
+        "week": "Last 7 Days",
+        "month": "Last 30 Days",
+        "year": "Last Year"
+      },
+      "views": "Views",
+      "downloads": "Downloads",
+      "map": "Map",
+      "chart": "Chart"
     }
   }
 }

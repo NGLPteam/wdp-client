@@ -3,9 +3,9 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-import ArticleChartWrapperQuery from "./ArticleChartWrapperQuery.graphql";
+import ArticleAnalyticsBlockQuery from "./ArticleAnalyticsBlockQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
-export type ArticleChartWrapperFragment = {
+export type ArticleAnalyticsBlockFragment = {
     readonly assetDownloadsByRegion: {
         readonly total: number;
         readonly results: ReadonlyArray<{
@@ -23,12 +23,12 @@ export type ArticleChartWrapperFragment = {
         }>;
     };
     readonly id: string;
-    readonly " $refType": "ArticleChartWrapperFragment";
+    readonly " $refType": "ArticleAnalyticsBlockFragment";
 };
-export type ArticleChartWrapperFragment$data = ArticleChartWrapperFragment;
-export type ArticleChartWrapperFragment$key = {
-    readonly " $data"?: ArticleChartWrapperFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleChartWrapperFragment">;
+export type ArticleAnalyticsBlockFragment$data = ArticleAnalyticsBlockFragment;
+export type ArticleAnalyticsBlockFragment$key = {
+    readonly " $data"?: ArticleAnalyticsBlockFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"ArticleAnalyticsBlockFragment">;
 };
 
 
@@ -97,11 +97,11 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": ArticleChartWrapperQuery,
+      "operation": ArticleAnalyticsBlockQuery,
       "identifierField": "id"
     }
   },
-  "name": "ArticleChartWrapperFragment",
+  "name": "ArticleAnalyticsBlockFragment",
   "selections": [
     {
       "alias": null,
@@ -135,5 +135,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '77bfbd5e62767027efd4924c544fa133';
+(node as any).hash = 'b1f85406fa3e849ade4292df41a6ac95';
 export default node;

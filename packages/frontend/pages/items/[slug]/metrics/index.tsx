@@ -1,14 +1,14 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
-import ArticleChartWrapper from "components/composed/analytics/ArticleChartWrapper";
+import ArticleAnalyticsBlock from "components/composed/analytics/ArticleAnalyticsBlock";
 import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { LoadingBlock } from "components/atomic";
 
 export default function MetricsSlugItemPage({ data }: Props) {
   return data?.item ? (
-    <ArticleChartWrapper data={data.item} />
+    <ArticleAnalyticsBlock data={data.item} />
   ) : (
     <LoadingBlock />
   );
@@ -27,7 +27,7 @@ MetricsSlugItemPage.getLayout = getLayout;
 const query = graphql`
   query metricsSlugItemQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...ArticleChartWrapperFragment
+      ...ArticleAnalyticsBlockFragment
     }
     ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }

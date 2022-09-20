@@ -31,14 +31,14 @@ export default function ChartControls({
   );
 
   const regions = [
-    { label: "World", value: "world" },
-    { label: "United States", value: "US" },
+    { label: "analytics.regions.world", value: "world" },
+    { label: "analytics.regions.united_states", value: "US" },
   ];
   const dateRanges = [
-    { label: "All Time", value: "all" },
-    { label: "Last 7 Days", value: "week" },
-    { label: "Last 30 Days", value: "month" },
-    { label: "Last Year", value: "year" },
+    { label: "analytics.date_ranges.all", value: "all" },
+    { label: "analytics.date_ranges.week", value: "week" },
+    { label: "analytics.date_ranges.month", value: "month" },
+    { label: "analytics.date_ranges.year", value: "year" },
   ];
 
   const dateOptions = dateRanges.map((dateRange) => (
@@ -46,7 +46,7 @@ export default function ChartControls({
       key={dateRange.value}
       onClick={() => handleDateRangeChange(dateRange.value)}
     >
-      {dateRange.label}
+      {t(dateRange.label)}
     </button>
   ));
 
@@ -54,25 +54,25 @@ export default function ChartControls({
     <Styled.Wrapper>
       <Switch
         options={[
-          { label: "Views", value: "views" },
-          { label: "Downloads", value: "downloads" },
+          { label: "analytics.views", value: "views" },
+          { label: "analytics.downloads", value: "downloads" },
         ]}
         onClick={setMode}
         active={mode}
       />
       <Switch
         options={[
-          { label: "Map", value: "map" },
-          { label: "Chart", value: "chart" },
+          { label: "analytics.map", value: "map" },
+          { label: "analytics.chart", value: "chart" },
         ]}
         active={chartType}
         onClick={setChart}
       />
       <Switch options={regions} active={region} onClick={setRegion} />
       <Dropdown
-        disclosure={getDisclosure("Date Range")}
+        disclosure={getDisclosure("analytics.date_ranges.dropdown_label")}
         menuItems={dateOptions}
-        label="dateRange"
+        label="analytics.date_ranges.dropdown_label"
       />
     </Styled.Wrapper>
   );

@@ -3,35 +3,35 @@ import { graphql } from "react-relay";
 import { useRefetchable } from "relay-hooks";
 import GeoChart from "../GeoChart";
 import ChartControls from "../ChartControls";
-import * as Styled from "./ArticleChartWrapper.styles";
 import {
-  ArticleChartWrapperFragment$key,
-  ArticleChartWrapperFragment$data,
-} from "@/relay/ArticleChartWrapperFragment.graphql";
-import { ArticleChartWrapperQuery } from "@/relay/ArticleChartWrapperQuery.graphql";
+  ArticleAnalyticsBlockFragment$key,
+  ArticleAnalyticsBlockFragment$data,
+} from "@/relay/ArticleAnalyticsBlockFragment.graphql";
+import { ArticleAnalyticsBlockQuery } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import { LoadingBlock } from "components/atomic";
 import { subDays, formatISO } from "date-fns";
+import * as Styled from "./ArticleAnalyticsBlock.styles";
 
 type Props = {
-  data: ArticleChartWrapperFragment$key;
+  data: ArticleAnalyticsBlockFragment$key;
 };
 
-export default function ArticleChartWrapper({ data }: Props) {
+export default function ArticleAnalyticsBlock({ data }: Props) {
   const {
     data: chartData,
     refetch,
     isLoading,
-  } = useRefetchable<ArticleChartWrapperQuery, ArticleChartWrapperFragment$key>(
-    fragment,
-    data
-  );
+  } = useRefetchable<
+    ArticleAnalyticsBlockQuery,
+    ArticleAnalyticsBlockFragment$key
+  >(fragment, data);
 
   const [region, setRegion] = useState("world");
   const [mode, setMode] = useState("views");
   const [chartType, setChart] = useState("map");
 
   const formatData = useCallback(
-    (data: ArticleChartWrapperFragment$data) => {
+    (data: ArticleAnalyticsBlockFragment$data) => {
       const subset =
         mode === "views"
           ? data.entityViewsByRegion.results
@@ -126,8 +126,8 @@ export default function ArticleChartWrapper({ data }: Props) {
 }
 
 const fragment = graphql`
-  fragment ArticleChartWrapperFragment on Item
-  @refetchable(queryName: "ArticleChartWrapperQuery")
+  fragment ArticleAnalyticsBlockFragment on Item
+  @refetchable(queryName: "ArticleAnalyticsBlockQuery")
   @argumentDefinitions(
     dateRange: { type: "DateFilterInput", defaultValue: {} }
   ) {
