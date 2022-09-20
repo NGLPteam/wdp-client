@@ -1,8 +1,8 @@
+import { Chart } from "react-google-charts";
 import {
-  Chart,
   ReactGoogleChartProps,
   ChartWrapperOptions,
-} from "react-google-charts";
+} from "react-google-charts/dist/types";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
