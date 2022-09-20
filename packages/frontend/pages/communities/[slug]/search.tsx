@@ -1,13 +1,12 @@
-import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { useRouteSlug } from "@wdp/lib/routes";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
+import { GetLayout } from "@wdp/lib/types/page";
 import { searchCommunityQuery as Query } from "@/relay/searchCommunityQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCommunityQueryFragment$key } from "@/relay/searchCommunityQueryFragment.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { LoadingBlock } from "components/atomic";
 
 function SearchLayoutQuery({
   data,
@@ -28,24 +27,23 @@ function SearchLayoutQuery({
   );
 }
 
-export default function SearchPage() {
-  const slug = useRouteSlug();
-
-  return (
-    <QueryWrapper<Query>
-      query={query}
-      initialVariables={{
-        slug: slug || "",
-      }}
-    >
-      {({ data }) => (
-        <CommunityLayoutQuery data={data}>
-          {data?.community && <SearchLayoutQuery data={data.community} />}
-        </CommunityLayoutQuery>
-      )}
-    </QueryWrapper>
+export default function SearchPage({ data }: Props) {
+  return data?.community ? (
+    <SearchLayoutQuery data={data.community} />
+  ) : (
+    <LoadingBlock />
   );
 }
+
+const getLayout: GetLayout<Props> = (props) => {
+  return <CommunityLayoutQuery<Query, Props> query={query} {...props} />;
+};
+
+type Props = {
+  data: Query["response"];
+};
+
+SearchPage.getLayout = getLayout;
 
 const query = graphql`
   query searchCommunityQuery($slug: Slug!) {

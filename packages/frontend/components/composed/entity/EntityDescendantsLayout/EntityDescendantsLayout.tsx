@@ -11,6 +11,7 @@ import {
 import { useDescendantListQueryVars } from "hooks";
 import { getSchemaTranslationKey } from "helpers";
 import BrowseListLayout from "components/layout/BrowseListLayout";
+import { LoadingBlock } from "components/atomic";
 
 export default function EntityDescendantsLayout({ data }: Props) {
   const decendants = useMaybeFragment(fragment, data);
@@ -30,7 +31,9 @@ export default function EntityDescendantsLayout({ data }: Props) {
         <EntitySummaryFactory key={descendant.slug} data={descendant} />
       ))}
     />
-  ) : null;
+  ) : (
+    <LoadingBlock />
+  );
 }
 
 interface Props {

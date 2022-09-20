@@ -1,32 +1,39 @@
-import React from "react";
 import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { useDescendantListQueryVars } from "hooks";
+import { GetLayout } from "@wdp/lib/types/page";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityItemsQuery as Query } from "@/relay/SchemaCommunityItemsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { useDescendantListQueryVars } from "hooks";
 
-export default function CommunityItemsSchema() {
+export default function CommunityItemsSchema({ data }: Props) {
+  return data?.community?.orderingForSchema ? (
+    <EntityOrderingLayoutFactory
+      data={data.community}
+      ordering={data.community.orderingForSchema.identifier}
+    />
+  ) : (
+    <EntityDescendantsLayout data={data?.community?.descendants} />
+  );
+}
+
+const GetItemsLayout: GetLayout<Props> = (props) => {
   const queryVars = useDescendantListQueryVars();
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => (
-        <CommunityLayoutQuery data={data}>
-          {data?.community?.orderingForSchema ? (
-            <EntityOrderingLayoutFactory
-              data={data.community}
-              ordering={data.community.orderingForSchema.identifier}
-            />
-          ) : (
-            <EntityDescendantsLayout data={data?.community?.descendants} />
-          )}
-        </CommunityLayoutQuery>
-      )}
-    </QueryWrapper>
+    <CommunityLayoutQuery<Query, Props>
+      query={query}
+      variables={queryVars}
+      {...props}
+    />
   );
-}
+};
+
+type Props = {
+  data: Query["response"];
+};
+
+CommunityItemsSchema.getLayout = GetItemsLayout;
 
 const query = graphql`
   query SchemaCommunityItemsQuery(
