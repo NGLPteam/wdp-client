@@ -10,16 +10,21 @@ import {
 } from "@/relay/ArticleChartWrapperFragment.graphql";
 import { ArticleChartWrapperQuery } from "@/relay/ArticleChartWrapperQuery.graphql";
 import { LoadingBlock } from "components/atomic";
+import { subDays, formatISO } from "date-fns";
 
 type Props = {
   data: ArticleChartWrapperFragment$key;
 };
 
 export default function ArticleChartWrapper({ data }: Props) {
-  const { data: chartData, isLoading } = useRefetchable<
-    ArticleChartWrapperQuery,
-    ArticleChartWrapperFragment$key
-  >(fragment, data);
+  const {
+    data: chartData,
+    refetch,
+    isLoading,
+  } = useRefetchable<ArticleChartWrapperQuery, ArticleChartWrapperFragment$key>(
+    fragment,
+    data
+  );
 
   const [region, setRegion] = useState("world");
   const [mode, setMode] = useState("views");
@@ -63,6 +68,36 @@ export default function ArticleChartWrapper({ data }: Props) {
     [mode, region]
   );
 
+  const handleDateRangeChange = useCallback(
+    (val: string) => {
+      const now = new Date();
+
+      let startDate;
+      switch (val) {
+        case "day":
+          startDate = subDays(now, 1);
+          break;
+        case "week":
+          startDate = subDays(now, 7);
+          break;
+        case "month":
+          startDate = subDays(now, 30);
+          break;
+        case "year":
+          startDate = subDays(now, 365);
+          break;
+        case "all":
+        default:
+          null;
+      }
+
+      refetch(
+        startDate ? { dateRange: { startDate: formatISO(startDate) } } : {}
+      );
+    },
+    [refetch]
+  );
+
   return (
     <Styled.Block className="l-container-wide">
       <Styled.Controls>
@@ -73,6 +108,7 @@ export default function ArticleChartWrapper({ data }: Props) {
           mode={mode}
           setChart={setChart}
           chartType={chartType}
+          handleDateRangeChange={handleDateRangeChange}
         />
       </Styled.Controls>
       <Styled.ChartWrapper>

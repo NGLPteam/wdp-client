@@ -10,6 +10,7 @@ type Props = {
   mode: string;
   region: string;
   chartType: string;
+  handleDateRangeChange: (val: string) => void;
 };
 
 export default function ChartControls({
@@ -19,6 +20,7 @@ export default function ChartControls({
   mode,
   setChart,
   chartType,
+  handleDateRangeChange,
 }: Props) {
   const { t } = useTranslation();
 
@@ -32,10 +34,20 @@ export default function ChartControls({
     { label: "World", value: "world" },
     { label: "United States", value: "US" },
   ];
-  const dateRanges = ["All Time", "Last 7 Days", "Last 30 Days", "Last Year"];
+  const dateRanges = [
+    { label: "All Time", value: "all" },
+    { label: "Last 7 Days", value: "week" },
+    { label: "Last 30 Days", value: "month" },
+    { label: "Last Year", value: "year" },
+  ];
 
   const dateOptions = dateRanges.map((dateRange) => (
-    <button key={dateRange}>{dateRange}</button>
+    <button
+      key={dateRange.value}
+      onClick={() => handleDateRangeChange(dateRange.value)}
+    >
+      {dateRange.label}
+    </button>
   ));
 
   return (
