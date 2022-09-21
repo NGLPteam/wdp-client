@@ -46,6 +46,7 @@ query ArticleAnalyticsBlockQuery(
 fragment ArticleAnalyticsBlockFragment_3yzii9 on Item {
   downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {
     total
+    unfilteredTotal
     minDate
     results {
       count
@@ -62,6 +63,7 @@ fragment ArticleAnalyticsBlockFragment_3yzii9 on Item {
   }
   viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {
     total
+    unfilteredTotal
     minDate
     results {
       count
@@ -143,6 +145,13 @@ v10 = {
 },
 v11 = [
   (v9/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "unfilteredTotal",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -329,14 +338,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "23fcbd29f7dc1bfb5f98105ab5d06a89",
+    "cacheID": "fff8f80fa902fb0bd8847c7ae935eb8e",
     "id": null,
     "metadata": {},
     "name": "ArticleAnalyticsBlockQuery",
     "operationKind": "query",
-    "text": "query ArticleAnalyticsBlockQuery(\n  $dateRange: DateFilterInput = {}\n  $precision: AnalyticsPrecision = YEAR\n  $usOnly: Boolean = false\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleAnalyticsBlockFragment_3yzii9\n    id\n  }\n}\n\nfragment ArticleAnalyticsBlockFragment_3yzii9 on Item {\n  downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {\n    total\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {\n    total\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
+    "text": "query ArticleAnalyticsBlockQuery(\n  $dateRange: DateFilterInput = {}\n  $precision: AnalyticsPrecision = YEAR\n  $usOnly: Boolean = false\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ArticleAnalyticsBlockFragment_3yzii9\n    id\n  }\n}\n\nfragment ArticleAnalyticsBlockFragment_3yzii9 on Item {\n  downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {\n    total\n    unfilteredTotal\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {\n    total\n    unfilteredTotal\n    minDate\n    results {\n      count\n      date\n    }\n  }\n  entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {\n    total\n    results {\n      countryCode\n      regionCode\n      count\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = 'f5c07b3b9ec84773ae4ff36d2a17fd69';
+(node as any).hash = 'f614c7af4512d87593e7fd2e8f064b41';
 export default node;

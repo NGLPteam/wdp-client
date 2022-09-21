@@ -6,12 +6,29 @@ type Props = {
   data: ArticleAnalyticsBlockFragment$data;
   region: string;
   mode: string;
-  chartType: string;
+  dateLabel: string;
 };
 
-export default function StatBlocks({ data, region, mode, chartType }: Props) {
+export default function StatBlocks({
+  data,
+  region: map,
+  mode,
+  dateLabel,
+}: Props) {
   const total =
+    mode === "views"
+      ? data.viewsByDate.unfilteredTotal
+      : data.downloadsByDate.unfilteredTotal;
+  const filteredTotal =
     mode === "views" ? data.viewsByDate.total : data.downloadsByDate.total;
+  const regionsData =
+    mode === "views"
+      ? [...data.entityViewsByRegion.results]
+      : [...data.assetDownloadsByRegion.results];
+  const topRegion = regionsData.sort((a, b) => a.count - b.count)[
+    regionsData.length - 1
+  ];
+
   return (
     <Styled.BlockGroup>
       <StatBlock
@@ -23,20 +40,16 @@ export default function StatBlocks({ data, region, mode, chartType }: Props) {
         }
       />
       <StatBlock
-        stat={total}
+        stat={filteredTotal}
         label={
           mode === "views"
-            ? "analytics.total_views"
-            : "analytics.total_downloads"
+            ? `analytics.views_${dateLabel}`
+            : `analytics.downloads_${dateLabel}`
         }
       />
       <StatBlock
-        stat={total}
-        label={
-          mode === "views"
-            ? "analytics.total_views"
-            : "analytics.total_downloads"
-        }
+        stat={map === "US" ? topRegion.regionCode : topRegion.countryCode}
+        label={map === "US" ? "analytics.top_state" : "analytics.top_country"}
       />
     </Styled.BlockGroup>
   );

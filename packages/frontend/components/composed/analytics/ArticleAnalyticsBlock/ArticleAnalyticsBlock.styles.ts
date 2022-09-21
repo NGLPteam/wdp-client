@@ -22,3 +22,10 @@ export const CountBlock = styled.div<{ $order: number }>`
 export const Controls = styled.div`
   grid-area: controls;
 `;
+
+export const LoaderWrapper = styled.div`
+  grid-area: chart;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

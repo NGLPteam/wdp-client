@@ -10,6 +10,7 @@ export type State = {
   chartType: string;
   precision: string;
   dateRange: Record<string, unknown>;
+  dateLabel: string;
   usOnly: boolean;
   minDate: string | null;
   updated: boolean;
@@ -54,10 +55,12 @@ export const chartSettingsReducer = (state: State, action: Action) => {
       const dateVars = startDate
         ? {
             dateRange: { startDate: formatISO(startDate) },
+            dateLabel: action.type === "chart" ? state.dateLabel : action.value,
             precision: precision as AnalyticsPrecision,
           }
         : {
             dateRange: {},
+            dateLabel: action.type === "chart" ? state.dateLabel : action.value,
             precision: precision as AnalyticsPrecision,
           };
 

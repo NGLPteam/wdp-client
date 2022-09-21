@@ -3,6 +3,7 @@ import {
   ReactGoogleChartProps,
   ChartWrapperOptions,
 } from "react-google-charts/dist/types";
+import { LoadingBlock } from "components/atomic";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
@@ -22,6 +23,7 @@ export default function GeoChart({
 
   return (
     <Chart
+      loader={<LoadingBlock />}
       chartType="GeoChart"
       options={chartOptions}
       height="100%"

@@ -268,7 +268,17 @@
       "downloads": "Downloads",
       "total_downloads": "Total Downloads",
       "map": "Map",
-      "chart": "Chart"
+      "chart": "Chart",
+      "top_country": "Most by Country",
+      "top_state": "Most by State",
+      "views_all": "Views All Time",
+      "views_week": "Views Last 7 Days",
+      "views_month": "Views Last 30 Days",
+      "views_year": "Views Last Year",
+      "downloads_all": "Downloads All Time",
+      "downloads_week": "Downloads Last 7 Days",
+      "downloads_month": "Downloads Last 30 Days",
+      "downloads_year": "Downloads Last Year"
     }
   }
 }

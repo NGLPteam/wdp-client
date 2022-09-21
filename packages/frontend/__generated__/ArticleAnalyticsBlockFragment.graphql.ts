@@ -8,6 +8,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ArticleAnalyticsBlockFragment = {
     readonly downloadsByDate: {
         readonly total: number;
+        readonly unfilteredTotal: number;
         readonly minDate: string | null;
         readonly results: ReadonlyArray<{
             readonly count: number;
@@ -24,6 +25,7 @@ export type ArticleAnalyticsBlockFragment = {
     };
     readonly viewsByDate: {
         readonly total: number;
+        readonly unfilteredTotal: number;
         readonly minDate: string | null;
         readonly results: ReadonlyArray<{
             readonly count: number;
@@ -79,6 +81,13 @@ v3 = {
 },
 v4 = [
   (v2/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "unfilteredTotal",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -226,5 +235,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f5c07b3b9ec84773ae4ff36d2a17fd69';
+(node as any).hash = 'f614c7af4512d87593e7fd2e8f064b41';
 export default node;
