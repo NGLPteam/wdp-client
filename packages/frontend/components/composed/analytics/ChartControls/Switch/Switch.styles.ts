@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { tLabel, aFocus } from "theme/mixins";
+import { tLabel, aFocus, respond } from "theme/mixins";
 import { transition } from "theme/base/variables";
 
 export const Wrapper = styled.div`
@@ -7,10 +7,14 @@ export const Wrapper = styled.div`
   border: 1px solid var(--color-custom70);
   border-radius: 78px;
   height: 32px;
+  width: auto;
+
+  ${respond(`width: 100%;`, 60)}
 `;
 
 export const SwitchButton = styled.button<{ $active?: boolean }>`
   ${tLabel("mix")}
+  white-space: nowrap;
   transition: ${transition.color}, ${transition.background},
     ${transition.opacity};
 
@@ -56,4 +60,6 @@ export const SwitchButton = styled.button<{ $active?: boolean }>`
     background: var(--color-custom20);
     z-index: 10;
   `)}
+
+  ${respond(`width: 50%;`, 60)}
 `;

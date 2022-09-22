@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
 import Switch from "./Switch";
+import DateRangeDisclosure from "./DateRangeDisclosure";
 import * as Styled from "./ChartControls.styles";
-import { Dropdown, Button } from "components/atomic";
+import { Dropdown } from "components/atomic";
 
 type Props = {
   setMode: (val: string) => void;
@@ -19,12 +20,6 @@ export default function ChartControls({
   dispatchSettingsUpdate,
 }: Props) {
   const { t } = useTranslation();
-
-  const getDisclosure = (label: string) => (
-    <Button size="sm" icon="chevronDown" secondary>
-      {t(label)}
-    </Button>
-  );
 
   const regions = [
     { label: "analytics.regions.world", value: "world" },
@@ -44,7 +39,7 @@ export default function ChartControls({
         dispatchSettingsUpdate({ type: "dateRange", value: dateRange.value })
       }
     >
-      {t(dateRange.label)}
+      <Styled.LinkText>{t(dateRange.label)}</Styled.LinkText>
     </button>
   ));
 
@@ -76,7 +71,7 @@ export default function ChartControls({
         />
       )}
       <Dropdown
-        disclosure={getDisclosure("analytics.date_ranges.dropdown_label")}
+        disclosure={<DateRangeDisclosure active={"All Time"} />}
         menuItems={dateOptions}
         label="analytics.date_ranges.dropdown_label"
       />

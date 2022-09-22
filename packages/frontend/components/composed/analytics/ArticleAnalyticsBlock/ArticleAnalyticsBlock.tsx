@@ -63,15 +63,13 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   return (
     <div className="l-container-wide">
       <Styled.Block>
-        <Styled.Controls>
-          <ChartControls
-            setMode={setMode}
-            mode={mode}
-            region={region}
-            chartType={settings.chartType}
-            dispatchSettingsUpdate={dispatchSettingsUpdate}
-          />
-        </Styled.Controls>
+        <ChartControls
+          setMode={setMode}
+          mode={mode}
+          region={region}
+          chartType={settings.chartType}
+          dispatchSettingsUpdate={dispatchSettingsUpdate}
+        />
         {isLoading ? (
           <Styled.LoaderWrapper>
             <LoadingBlock />

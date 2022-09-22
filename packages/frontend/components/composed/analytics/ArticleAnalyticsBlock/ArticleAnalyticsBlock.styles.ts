@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { respond } from "theme/mixins";
 
 export const Block = styled.div`
   padding: var(--container-padding-md);
@@ -7,13 +8,25 @@ export const Block = styled.div`
   grid-template-rows: 50px 150px 150px 150px;
   grid-template-areas:
     "controls controls controls controls"
-    "chart chart chart stats"
-    "chart chart chart stats"
-    "chart chart chart stats";
+    "stats chart chart chart"
+    "stats chart chart chart"
+    "stats chart chart chart";
   gap: 30px;
   background-color: var(--color-custom10);
   margin-block: var(--container-padding-md);
   border-radius: 12px;
+
+  ${respond(
+    `
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "controls"
+      "chart"
+      "stats"
+    `,
+    100
+  )}
 `;
 
 export const CountBlock = styled.div<{ $order: number }>`
