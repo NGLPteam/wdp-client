@@ -53,7 +53,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   useEffect(() => {
     // Don't refetch until the user interacts with the chart the first time to give the google scripts a chance to load. Could probably also fix this by not conditionally rendering on isLoading, but we'd need to sync up state changes on chart labels with new data. Is this preferable?
     if (settings.updated) {
-      const { chartType, minDate, ...queryVars } = settings;
+      const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
       refetch(queryVars as unknown as ArticleAnalyticsBlockQueryVariables);
     }
   }, [refetch, settings]);
@@ -61,36 +61,38 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   const region = settings.usOnly ? "US" : "world";
 
   return (
-    <Styled.Block className="l-container-wide">
-      <Styled.Controls>
-        <ChartControls
-          setMode={setMode}
-          mode={mode}
-          region={region}
-          chartType={settings.chartType}
-          dispatchSettingsUpdate={dispatchSettingsUpdate}
-        />
-      </Styled.Controls>
-      {isLoading ? (
-        <Styled.LoaderWrapper>
-          <LoadingBlock />
-        </Styled.LoaderWrapper>
-      ) : (
-        <ChartBlock
+    <div className="l-container-wide">
+      <Styled.Block>
+        <Styled.Controls>
+          <ChartControls
+            setMode={setMode}
+            mode={mode}
+            region={region}
+            chartType={settings.chartType}
+            dispatchSettingsUpdate={dispatchSettingsUpdate}
+          />
+        </Styled.Controls>
+        {isLoading ? (
+          <Styled.LoaderWrapper>
+            <LoadingBlock />
+          </Styled.LoaderWrapper>
+        ) : (
+          <ChartBlock
+            data={chartData}
+            chartType={settings.chartType}
+            region={region}
+            mode={mode}
+            precision={settings.precision}
+          />
+        )}
+        <StatBlocks
           data={chartData}
-          chartType={settings.chartType}
           region={region}
           mode={mode}
-          precision={settings.precision}
+          dateLabel={settings.dateLabel}
         />
-      )}
-      <StatBlocks
-        data={chartData}
-        region={region}
-        mode={mode}
-        dateLabel={settings.dateLabel}
-      />
-    </Styled.Block>
+      </Styled.Block>
+    </div>
   );
 }
 

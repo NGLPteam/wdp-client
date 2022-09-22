@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Block = styled.div`
-  padding-block: var(--container-padding-md);
+  padding: var(--container-padding-md);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 50px 150px 150px 150px;
@@ -11,6 +11,9 @@ export const Block = styled.div`
     "chart chart chart stats"
     "chart chart chart stats";
   gap: 30px;
+  background-color: var(--color-custom10);
+  margin-block: var(--container-padding-md);
+  border-radius: 12px;
 `;
 
 export const CountBlock = styled.div<{ $order: number }>`

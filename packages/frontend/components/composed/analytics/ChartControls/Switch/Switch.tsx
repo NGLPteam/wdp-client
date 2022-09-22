@@ -16,7 +16,9 @@ export default function Switch({ options, active, onClick }: Props) {
         <Styled.SwitchButton
           key={option.value}
           $active={option.value === active}
+          disabled={option.value === active}
           aria-disabled={option.value === active}
+          tabIndex={option.value === active ? -1 : 0}
           onClick={() => onClick(option.value)}
         >
           {t(option.label)}
