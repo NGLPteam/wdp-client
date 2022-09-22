@@ -9,6 +9,7 @@ type Props = {
   mode: string;
   region: string;
   chartType: string;
+  dateLabel: string;
   dispatchSettingsUpdate: (args: { type: string; value: string }) => void;
 };
 
@@ -17,6 +18,7 @@ export default function ChartControls({
   setMode,
   mode,
   chartType,
+  dateLabel,
   dispatchSettingsUpdate,
 }: Props) {
   const { t } = useTranslation();
@@ -53,6 +55,12 @@ export default function ChartControls({
         onClick={setMode}
         active={mode}
       />
+      <Dropdown
+        disclosure={<DateRangeDisclosure active={dateLabel} />}
+        menuItems={dateOptions}
+        label="analytics.date_ranges.dropdown_label"
+        placement="bottom-end"
+      />
       <Switch
         options={[
           { label: "analytics.map", value: "map" },
@@ -70,11 +78,6 @@ export default function ChartControls({
           }
         />
       )}
-      <Dropdown
-        disclosure={<DateRangeDisclosure active={"All Time"} />}
-        menuItems={dateOptions}
-        label="analytics.date_ranges.dropdown_label"
-      />
     </Styled.Wrapper>
   );
 }

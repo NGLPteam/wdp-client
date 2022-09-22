@@ -10,8 +10,8 @@ export const Outer = styled.div`
   color: var(--color-custom70);
 `;
 
-export const Stat = styled.span`
-  ${tHeading(1)}
+export const Stat = styled.span<{ $level: 1 | 3 }>`
+  ${({ $level }) => tHeading($level)}
   display: block;
   padding-block-start: 20px;
 

@@ -5,25 +5,26 @@ export const Block = styled.div`
   padding: var(--container-padding-md);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 50px 150px 150px 150px;
+  grid-template-rows: repeat(2, auto);
   grid-template-areas:
     "controls controls controls controls"
-    "stats chart chart chart"
-    "stats chart chart chart"
     "stats chart chart chart";
-  gap: 30px;
+  gap: 45px;
   background-color: var(--color-custom10);
   margin-block: var(--container-padding-md);
   border-radius: 12px;
+  overflow-x: hidden;
+  max-width: 100%;
 
   ${respond(
     `
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-rows: auto;
     grid-template-areas:
       "controls"
       "chart"
-      "stats"
+      "stats";
+    gap: 30px;
     `,
     100
   )}

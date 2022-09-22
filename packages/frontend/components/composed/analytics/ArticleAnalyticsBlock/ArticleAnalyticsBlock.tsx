@@ -69,6 +69,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           region={region}
           chartType={settings.chartType}
           dispatchSettingsUpdate={dispatchSettingsUpdate}
+          dateLabel={settings.dateLabel}
         />
         {isLoading ? (
           <Styled.LoaderWrapper>

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { respond, aLinkBase, aLinkHoverFocus } from "theme/mixins";
 
 export const Wrapper = styled.div`
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
