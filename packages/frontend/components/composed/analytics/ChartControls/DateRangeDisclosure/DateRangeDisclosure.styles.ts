@@ -23,12 +23,20 @@ export const Wrapper = styled.button`
   ${respond(`width: 100%; justify-content: space-between;`, 60)}
 `;
 
+export const TextWrapper = styled.div`
+  display: flex;
+  gap: 6px;
+`;
+
 export const Label = styled.span`
   ${tLabel("sm")}
+  white-space: nowrap;
+
+  ${respond(`display: none;`, 50)}
 `;
 
 export const Selected = styled.span`
   ${tLabel("mix")}
-  margin-inline-start: 6px;
   margin-inline-end: 2px;
+  white-space: nowrap;
 `;

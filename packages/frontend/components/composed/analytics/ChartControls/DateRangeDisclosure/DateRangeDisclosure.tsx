@@ -16,12 +16,12 @@ const DateRangeDisclosure = (
 
   return (
     <Styled.Wrapper ref={ref} {...props}>
-      <div>
+      <Styled.TextWrapper>
         <Styled.Label>{t("analytics.date_ranges.dropdown_label")}</Styled.Label>
         <Styled.Selected>
           {t(`analytics.date_ranges.${active}`)}
         </Styled.Selected>
-      </div>
+      </Styled.TextWrapper>
       <IconFactory icon="chevronDown" role="presentation" />
     </Styled.Wrapper>
   );
