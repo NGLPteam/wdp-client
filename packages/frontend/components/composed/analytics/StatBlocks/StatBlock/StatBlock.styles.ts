@@ -1,24 +1,25 @@
 import styled from "styled-components";
-import { tHeading, tLabel } from "theme/mixins";
+import { tHeading, tLabel, respond } from "theme/mixins";
 
 export const Outer = styled.div`
   width: 100%;
   height: 100%;
-  border: 1px solid;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: 20px;
-  background-color: var(--color-base-neutral10);
+  color: var(--color-custom70);
 `;
 
 export const Stat = styled.span`
-  ${tHeading(2)}
+  ${tHeading(1)}
   display: block;
+  padding-block-start: 20px;
+
+  ${respond(tHeading(2), 100)}
 `;
 
 export const Label = styled.span`
-  ${tLabel("lg")}
+  ${tLabel("sm")}
+  padding-block-end: 6px;
+  border-bottom: 1px solid;
 `;

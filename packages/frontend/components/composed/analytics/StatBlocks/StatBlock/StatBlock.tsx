@@ -11,8 +11,8 @@ export default function StatBlock({ stat, label }: Props) {
 
   return (
     <Styled.Outer>
-      <Styled.Stat>{stat}</Styled.Stat>
       <Styled.Label>{t(label)}</Styled.Label>
+      <Styled.Stat>{stat}</Styled.Stat>
     </Styled.Outer>
   );
 }
