@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { lGrid, respond } from "theme/mixins";
 
 const TABLET_BREAK = 100;
-const MOBILE_BREAK = 70;
+const MOBILE_BREAK = 100;
 
 export const SectionInner = styled.div`
   padding-block-start: var(--container-padding-lg);

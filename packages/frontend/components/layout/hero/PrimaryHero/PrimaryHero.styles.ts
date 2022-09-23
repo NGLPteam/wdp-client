@@ -2,6 +2,7 @@ import { pxToRem } from "@wdp/lib/theme/functions";
 import styled from "styled-components";
 import { respond, lGrid, fluidScale } from "theme/mixins";
 
+const TABLET_BREAK = 120;
 const MOBILE_BREAK = 100;
 
 export const Inner = styled.div`
@@ -9,6 +10,11 @@ export const Inner = styled.div`
   grid-template-areas: "left left left left left left left left . right right right";
   padding-block-start: ${fluidScale("60px", "50px")};
   padding-block-end: ${fluidScale("60px", "50px")};
+
+  ${respond(
+    `grid-template-areas: "left left left left left left left left right right right right";`,
+    TABLET_BREAK
+  )}
 
   ${respond(
     `

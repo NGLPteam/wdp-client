@@ -26,15 +26,17 @@ export const Wrapper = styled.div<{
             / auto 1fr;
         `)}
 
-  ${respond(
-    css`
-      grid-template:
-        "thumbnail" auto
-        "text" auto
-        / auto;
-    `,
-    50
-  )}
+  ${({ $hasThumbnail }) =>
+    $hasThumbnail &&
+    respond(
+      css`
+        grid-template:
+          "thumbnail" auto
+          "text" auto
+          / auto;
+      `,
+      50
+    )}
 
   & + & {
     padding-block-start: var(--padding-xl);
