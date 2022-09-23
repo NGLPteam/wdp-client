@@ -14,26 +14,27 @@ export const Nav = styled.div`
 
 export const NavInner = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 
-  ${respond(
-    `
-    flex-direction: column;
-
-    > * + * {
-      margin-block-start: var(--padding-lg);
-    }
-  `,
-    70
-  )}
+  ${respond(`flex-direction: column;`, 60)}
 `;
 
 export const LeftSide = styled.div`
-  flex: 1 1 auto;
+  flex-basis: auto;
+  flex-grow: 1;
+  ${respond(`text-align: center;`, 60)}
 `;
 
 export const RightSide = styled.div`
-  flex: 1 1 auto;
-  max-width: ${pxToRem(376)};
+  flex-basis: calc(33% - 0.5rem);
+  flex-grow: 0;
+  flex-shrink: 1;
+  display: flex;
+  margin-left: auto;
+
+  ${respond(`flex-basis: 375px;`, 100)}
+  ${respond(`flex-basis: 100%; margin-left: 0;`, 60)}
 
   @media print {
     display: none;

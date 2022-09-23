@@ -53,6 +53,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   min-height: 100px;
   padding-inline-start: var(--container-v-padding-sm);
   padding-inline-end: var(--container-v-padding-sm);

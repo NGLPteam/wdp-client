@@ -1,3 +1,4 @@
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { aHidden } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
 import { aButton, respond } from "theme/mixins";
@@ -13,7 +14,7 @@ export const ButtonStyles = styled.button<{
   ${({ $isBlock }) => $isBlock && `display: flex; width: 100%;`}
 
   > * + * {
-    margin-inline-start: 8px;
+    margin-inline-start: ${pxToRem(8)};
   }
 
   svg {

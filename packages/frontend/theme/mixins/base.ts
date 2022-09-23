@@ -32,7 +32,7 @@ export function fluidScale(
 
 export function globalNavRespond(content: CssContent, operator?: string) {
   const breakpoint =
-    operator === "min" ? `${parseInt(breakpoints[70]) + 1}px` : 70;
+    operator === "min" ? `${parseInt(breakpoints[100]) + 1}px` : 100;
 
   return respond(content, breakpoint, operator);
 }

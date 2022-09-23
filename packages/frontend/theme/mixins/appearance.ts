@@ -1,3 +1,4 @@
+import { pxToRem } from "@wdp/lib/theme/functions";
 import { css } from "styled-components";
 import {
   baseColors,
@@ -96,10 +97,10 @@ export function aButton(style: "primary" | "secondary", size: "sm" | "lg") {
   return css`
     ${aButtonBase(style)}
     border-radius: ${borderRadius.xlg};
-    padding-block-start: ${size === "sm" ? "6px" : "14px"};
-    padding-block-end: ${size === "sm" ? "8px" : "17px"};
-    padding-inline-start: ${size === "sm" ? "16px" : "30px"};
-    padding-inline-end: ${size === "sm" ? "16px" : "30px"};
+    padding-block-start: ${size === "sm" ? pxToRem(6) : pxToRem(14)};
+    padding-block-end: ${size === "sm" ? pxToRem(8) : pxToRem(17)};
+    padding-inline-start: ${size === "sm" ? pxToRem(16) : pxToRem(30)};
+    padding-inline-end: ${size === "sm" ? pxToRem(16) : pxToRem(30)};
     ${tLabel("mix")}
   `;
 }
