@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   height: 32px;
   width: auto;
 
-  ${respond(`width: 100%;`, 60)}
+  ${respond(`width: 100%;`, 100)}
 `;
 
 export const SwitchButton = styled.button<{ $active?: boolean }>`
@@ -61,5 +61,5 @@ export const SwitchButton = styled.button<{ $active?: boolean }>`
     z-index: 10;
   `)}
 
-  ${respond(`width: 50%;`, 60)}
+  ${respond(`width: 50%;`, 100)}
 `;

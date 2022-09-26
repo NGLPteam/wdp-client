@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { format, parseISO } from "date-fns";
 import GeoChart from "../GeoChart";
-import LineChart from "../LineChart";
+import LineColChart from "../LineColChart";
 import * as Styled from "./ChartBlock.styles";
 import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 
@@ -92,7 +92,7 @@ export default function ChartBlock({
       {chartType === "map" ? (
         <GeoChart data={formatMapData(data)} region={region} />
       ) : (
-        <LineChart data={formatLineChartData(data)} />
+        <LineColChart data={formatLineChartData(data)} />
       )}
     </Styled.ChartWrapper>
   ) : null;

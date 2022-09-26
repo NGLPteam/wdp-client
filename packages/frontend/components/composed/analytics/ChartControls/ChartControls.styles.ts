@@ -7,7 +7,12 @@ export const Wrapper = styled.div`
   gap: 24px;
   grid-area: controls;
 
-  ${respond(`flex-direction: column; gap: 12px;`, 60)}
+  ${respond(
+    `display: grid; grid-template-columns: repeat(2, auto); row-gap: 12px; column-gap: 24px;`,
+    100
+  )}
+
+  ${respond(`display: flex; flex-direction: column; gap: 12px;`, 60)}
 `;
 
 export const LinkText = styled.span`

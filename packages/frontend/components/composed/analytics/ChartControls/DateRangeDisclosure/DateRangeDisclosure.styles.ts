@@ -20,7 +20,7 @@ export const Wrapper = styled.button`
     margin-block-start: 3px;
   }
 
-  ${respond(`width: 100%; justify-content: space-between;`, 60)}
+  ${respond(`width: 100%; justify-content: space-between;`, 100)}
 `;
 
 export const TextWrapper = styled.div`

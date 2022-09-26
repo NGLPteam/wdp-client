@@ -4,8 +4,8 @@ import { respond } from "theme/mixins";
 export const Block = styled.div`
   padding: var(--container-padding-md);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: 200px repeat(3, 1fr);
+  grid-template-rows: auto minmax(400px, 1fr);
   grid-template-areas:
     "controls controls controls controls"
     "stats chart chart chart";
@@ -13,7 +13,7 @@ export const Block = styled.div`
   background-color: var(--color-custom10);
   margin-block: var(--container-padding-md);
   border-radius: 12px;
-  overflow-x: hidden;
+  overflow: hidden;
   max-width: 100%;
 
   ${respond(
@@ -28,16 +28,10 @@ export const Block = styled.div`
     `,
     100
   )}
-`;
 
-export const CountBlock = styled.div<{ $order: number }>`
-  grid-area: ${({ $order }) => `count${$order}`};
-  background-color: var(--color-base-neutral10);
-  border-radius: 8px;
-`;
+  ${respond(`padding-inline: var(--container-padding-sm)`, 50)}
 
-export const Controls = styled.div`
-  grid-area: controls;
+  ${respond(`padding-inline: var(--container-padding-xs)`, 30)}
 `;
 
 export const LoaderWrapper = styled.div`
