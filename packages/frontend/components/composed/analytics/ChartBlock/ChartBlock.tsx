@@ -88,7 +88,7 @@ export default function ChartBlock({
   );
 
   return data ? (
-    <Styled.ChartWrapper>
+    <Styled.ChartWrapper $type={chartType}>
       {chartType === "map" ? (
         <GeoChart data={formatMapData(data)} region={region} />
       ) : (

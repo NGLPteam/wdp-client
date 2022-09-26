@@ -58,14 +58,13 @@ export default function LineColChart({
         min: 0,
       },
     },
-    chartArea: { left: "10%", top: "15%" },
   };
   return (
     <Chart
       chartType={chartType}
       options={chartOptions}
-      width="110%"
-      height="110%"
+      width="100%"
+      height="100%"
       data={data}
     />
   );
