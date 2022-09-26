@@ -9,10 +9,11 @@ import { customColors } from "theme/base/variables";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
-export default function LineChart({
+export default function LineColChart({
   data,
-  curveType = "function",
+  curveType,
   legend = "none",
+  chartType = "ColumnChart",
 }: Props) {
   const { colorStyle, fontStyle } =
     useContext<{ fontStyle: string; colorStyle: "blue" | "cream" | "gray" }>(
@@ -52,15 +53,19 @@ export default function LineChart({
         fontName,
         bold: true,
       },
+      minValue: 0,
+      viewWindow: {
+        min: 0,
+      },
     },
     chartArea: { left: "10%", top: "15%" },
   };
   return (
     <Chart
-      chartType="LineChart"
+      chartType={chartType}
       options={chartOptions}
       width="110%"
-      height="100%"
+      height="110%"
       data={data}
     />
   );
