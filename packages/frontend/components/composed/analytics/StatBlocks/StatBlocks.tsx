@@ -49,9 +49,9 @@ export default function StatBlocks({
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   const regionName =
-    map === "US"
+    map === "US" && topRegion?.regionCode
       ? STATES[topRegion.regionCode as keyof typeof STATES]
-      : regionNames.of(topAggregateRegion);
+      : topAggregateRegion && regionNames.of(topAggregateRegion);
 
   return (
     <Styled.BlockGroup>
@@ -73,7 +73,7 @@ export default function StatBlocks({
       />
       <StatBlock
         headingLevel={3}
-        stat={regionName}
+        stat={regionName ?? "--"}
         label={map === "US" ? "analytics.top_state" : "analytics.top_country"}
       />
     </Styled.BlockGroup>
