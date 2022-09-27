@@ -7,7 +7,10 @@ import {
 import { ThemeContext } from "styled-components";
 import { customColors } from "theme/base/variables";
 
-type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
+type Props = Partial<ReactGoogleChartProps> &
+  Partial<ChartWrapperOptions> & {
+    data: any[];
+  };
 
 export default function LineColChart({
   data,
@@ -19,6 +22,8 @@ export default function LineColChart({
     useContext<{ fontStyle: string; colorStyle: "blue" | "cream" | "gray" }>(
       ThemeContext
     ) ?? {};
+
+  const handleZero = data?.length === 1 ? [...data, [0, 0]] : data;
 
   const fontName =
     fontStyle === "style1"
@@ -32,7 +37,7 @@ export default function LineColChart({
     legend,
     backgroundColor: customColors[`${colorStyle}10`],
     colors: [customColors[`${colorStyle}70`]],
-    magnifyingGlass: { enable: false },
+    explorer: null,
     tooltip: {
       textStyle: {
         color: customColors[`${colorStyle}70`],
@@ -46,6 +51,10 @@ export default function LineColChart({
         bold: true,
       },
       slantedText: "automatic",
+      minValue: 0,
+      viewWindow: {
+        min: 0,
+      },
     },
     vAxis: {
       textStyle: {
@@ -65,7 +74,7 @@ export default function LineColChart({
       options={chartOptions}
       width="100%"
       height="100%"
-      data={data}
+      data={handleZero}
     />
   );
 }
