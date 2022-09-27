@@ -35,7 +35,7 @@ export default class AppDocument extends Document<Props> {
 
     const originalRenderPage = ctx.renderPage;
     const relayServerSSR = new RelayServerSSR();
-    const env = initialEnvironment(relayServerSSR, ssrCookies, ctx);
+    const env = initialEnvironment(relayServerSSR, ssrCookies, ctx, true);
 
     ctx.renderPage = () =>
       originalRenderPage({

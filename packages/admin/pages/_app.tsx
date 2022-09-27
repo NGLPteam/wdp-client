@@ -82,7 +82,7 @@ const NGLPApp = ({
       </Head>
       <GlobalStyles />
       <SSRKeycloakProvider {...ssrProps}>
-        <KeycloakRelayProvider records={records}>
+        <KeycloakRelayProvider records={records} isAdmin>
           <AppContextProvider>
             <AppBody>
               <Toast />
