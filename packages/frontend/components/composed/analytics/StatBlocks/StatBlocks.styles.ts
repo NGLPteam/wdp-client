@@ -8,9 +8,13 @@ export const BlockGroup = styled.div`
   flex-direction: column;
   gap: 32px;
   padding-block-start: 20px;
-  padding-inline: var(--AnalyticsBlock-inline-padding);
+  padding-inline-start: var(--AnalyticsBlock-inline-padding);
 
-  ${respond(`flex-direction: row;`, 100)}
+  ${respond(
+    `flex-direction: row; padding-inline-end: var(--AnalyticsBlock-inline-padding);
+`,
+    100
+  )}
 
   ${respond(`flex-direction: column;`, 70)}
 `;

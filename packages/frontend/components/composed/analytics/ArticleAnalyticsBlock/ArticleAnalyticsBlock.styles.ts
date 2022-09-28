@@ -27,7 +27,10 @@ export const Wrapper = styled.section`
 export const Block = styled.div`
   padding-block: var(--container-padding-md);
   display: grid;
-  grid-template-columns: 200px repeat(3, 1fr);
+  grid-template-columns: calc(200px + var(--AnalyticsBlock-inline-padding)) repeat(
+      3,
+      1fr
+    );
   grid-template-rows: auto minmax(400px, 1fr);
   grid-template-areas:
     "controls controls controls controls"
