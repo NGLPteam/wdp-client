@@ -1,8 +1,31 @@
 import styled from "styled-components";
+import { containerWidths } from "theme/base/variables";
 import { respond } from "theme/mixins";
 
+export const Wrapper = styled.section`
+  --AnalyticsBlock-inline-padding: var(--container-padding-md);
+
+  max-width: calc(${containerWidths.wide} + (var(--container-v-padding) * 2));
+  padding-inline: var(--container-v-padding);
+  margin-inline: auto;
+
+  ${respond(
+    `
+    padding-inline: 0;
+  `,
+    70
+  )}
+
+  ${respond(
+    `--AnalyticsBlock-inline-padding: var(--container-padding-sm);`,
+    50
+  )}
+
+  ${respond(`--AnalyticsBlock-inline-padding: var(--container-padding-xs)`, 30)}
+`;
+
 export const Block = styled.div`
-  padding: var(--container-padding-md);
+  padding-block: var(--container-padding-md);
   display: grid;
   grid-template-columns: 200px repeat(3, 1fr);
   grid-template-rows: auto minmax(400px, 1fr);
@@ -14,7 +37,7 @@ export const Block = styled.div`
   margin-block: var(--container-padding-md);
   border-radius: 12px;
   overflow: hidden;
-  max-width: 100%;
+  width: 100%;
 
   ${respond(
     `
@@ -29,9 +52,7 @@ export const Block = styled.div`
     100
   )}
 
-  ${respond(`padding-inline: var(--container-padding-sm)`, 50)}
-
-  ${respond(`padding-inline: var(--container-padding-xs)`, 30)}
+  ${respond(`border-radius: 0;`, 70)}
 `;
 
 export const LoaderWrapper = styled.div`

@@ -61,7 +61,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   const region = settings.usOnly ? "US" : "world";
 
   return (
-    <div className="l-container-wide">
+    <Styled.Wrapper>
       <Styled.Block>
         <ChartControls
           setMode={setMode}
@@ -91,7 +91,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dateLabel={settings.dateLabel}
         />
       </Styled.Block>
-    </div>
+    </Styled.Wrapper>
   );
 }
 
