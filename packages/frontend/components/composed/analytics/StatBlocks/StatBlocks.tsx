@@ -55,14 +55,14 @@ export default function StatBlocks({
 
   return (
     <Styled.BlockGroup>
-      <StatBlock
-        stat={total}
-        label={
-          mode === "views"
-            ? "analytics.total_views"
-            : "analytics.total_downloads"
-        }
-      />
+      {dateLabel !== "all" && (
+        <StatBlock
+          stat={total}
+          label={
+            mode === "views" ? "analytics.views_all" : "analytics.downloads_all"
+          }
+        />
+      )}
       <StatBlock
         stat={filteredTotal}
         label={
