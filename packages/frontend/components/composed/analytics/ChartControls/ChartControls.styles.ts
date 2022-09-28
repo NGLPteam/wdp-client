@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
   gap: 24px;
   grid-area: controls;
-  padding-inline: var(--AnalyticsBlock-inline-padding);
 
   ${respond(
     `display: grid; grid-template-columns: repeat(2, auto); row-gap: 12px; column-gap: 24px;`,

@@ -55,8 +55,8 @@ export default function GeoChart({
     <Chart
       chartType="GeoChart"
       options={chartOptions}
-      width="644px"
-      height="400px"
+      width="794px"
+      height="496px"
       data={data}
     />
   );

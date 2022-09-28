@@ -13,7 +13,7 @@ export const Wrapper = styled.section`
     `
     padding-inline: 0;
   `,
-    70
+    100
   )}
 
   ${respond(
@@ -26,11 +26,10 @@ export const Wrapper = styled.section`
 
 export const Block = styled.div`
   padding-block: var(--container-padding-md);
+  padding-inline: var(--AnalyticsBlock-inline-padding);
+
   display: grid;
-  grid-template-columns: calc(200px + var(--AnalyticsBlock-inline-padding)) repeat(
-      3,
-      1fr
-    );
+  grid-template-columns: 200px repeat(3, 1fr);
   grid-template-rows: auto minmax(400px, 1fr);
   grid-template-areas:
     "controls controls controls controls"
@@ -52,10 +51,10 @@ export const Block = styled.div`
       "stats";
     gap: 30px;
     `,
-    100
+    120
   )}
 
-  ${respond(`border-radius: 0;`, 70)}
+  ${respond(`border-radius: 0;`, 100)}
 `;
 
 export const LoaderWrapper = styled.div`
