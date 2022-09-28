@@ -4,6 +4,7 @@ import { respond } from "theme/mixins";
 
 export const Wrapper = styled.section`
   --AnalyticsBlock-inline-padding: var(--container-padding-md);
+  --AnalyticsBlock-gap: 45px;
 
   max-width: calc(${containerWidths.wide} + (var(--container-v-padding) * 2));
   padding-inline: var(--container-v-padding);
@@ -34,7 +35,7 @@ export const Block = styled.div`
   grid-template-areas:
     "controls controls controls controls"
     "stats chart chart chart";
-  gap: 45px;
+  gap: var(--AnalyticsBlock-gap);
   background-color: var(--color-custom10);
   margin-block: var(--container-padding-md);
   border-radius: 12px;

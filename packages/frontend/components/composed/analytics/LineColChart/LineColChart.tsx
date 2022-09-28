@@ -73,7 +73,7 @@ export default function LineColChart({
       chartType={chartType}
       options={chartOptions}
       width="100%"
-      height="100%"
+      height="496px"
       data={handleZero}
     />
   );
