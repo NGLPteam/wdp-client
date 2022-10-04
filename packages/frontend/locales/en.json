@@ -178,7 +178,11 @@
       "published_in": "Published In",
       "first_page": "First Page",
       "last_page": "Last Page",
-      "page_count": "Page Count"
+      "page_count": "Page Count",
+      "view_count": "{{count}} View",
+      "view_count_plural": "{{count}} Views",
+      "download_count": "{{count}} Download",
+      "download_count_plural": "{{count}} Downloads"
     },
     "layouts": {
       "related_journals_header": "Related Journals",
@@ -235,7 +239,8 @@
       "files": "Files",
       "contributors": "Contributors",
       "skip_to_content": "Skip to content",
-      "skip_to_pdf_content": "Skip to pdf content"
+      "skip_to_pdf_content": "Skip to pdf content",
+      "metrics": "Metrics"
     },
     "form": {
       "order_label": "Order:"
@@ -245,6 +250,35 @@
     },
     "messages": {
       "hidden": "This {{schema}} is hidden"
+    },
+    "analytics": {
+      "regions": {
+        "world": "World",
+        "united_states": "United States"
+      },
+      "date_ranges": {
+        "dropdown_label": "Date Range:",
+        "all": "All Time",
+        "week": "Last 7 Days",
+        "month": "Last 30 Days",
+        "year": "Last Year"
+      },
+      "views": "Views",
+      "total_views": "Total Views",
+      "downloads": "Downloads",
+      "total_downloads": "Total Downloads",
+      "map": "Map",
+      "chart": "Chart",
+      "top_country": "Most by Country",
+      "top_state": "Most by State",
+      "views_all": "Views All Time",
+      "views_week": "Views Last 7 Days",
+      "views_month": "Views Last 30 Days",
+      "views_year": "Views Last Year",
+      "downloads_all": "Downloads All Time",
+      "downloads_week": "Downloads Last 7 Days",
+      "downloads_month": "Downloads Last 30 Days",
+      "downloads_year": "Downloads Last Year"
     }
   }
 }

@@ -165,6 +165,196 @@ type AlterSchemaVersionPayload implements StandardMutationPayload {
   schemaErrors: [SchemaValueError!]!
 }
 
+type Analytics {
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific entities.
+    
+    """
+    entityIds: [ID!] = []
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific entities.
+    
+    """
+    entityIds: [ID!] = []
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
+  entityViews(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific entities.
+    
+    """
+    entityIds: [ID!] = []
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  entityViewsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific entities.
+    
+    """
+    entityIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
+}
+
+"""
+A simple, date/time-keyed representation of a specific event's
+occurrences on a specific day (or time interval).
+
+"""
+type AnalyticsEventCountResult {
+  """
+  The count of events for the given date / time.
+  
+  """
+  count: Int!
+  date: ISO8601Date!
+  """
+  The time interval associated with this value. It will only
+  be populated when looking at `HOUR` precision.
+  
+  """
+  time: ISO8601DateTime
+}
+
+"""
+The summary of date-keyed event counts.
+
+"""
+type AnalyticsEventCountSummary {
+  """The newest date in the set of results (if present)."""
+  maxDate: ISO8601Date
+  """The oldest date in the set of results (if present)."""
+  minDate: ISO8601Date
+  """The level of precision requested"""
+  precision: AnalyticsPrecision!
+  """
+  Individual results. They are sorted in ascending date / time order.
+  
+  """
+  results: [AnalyticsEventCountResult!]!
+  """
+  The filtered total of events in the date period.
+  
+  """
+  total: Int!
+  """
+  The unfiltered total of events across the entire system (excluding date filters, but including all other filters).
+  
+  """
+  unfilteredTotal: Int!
+}
+
+"""
+The level of precision for analytics queries.
+
+"""
+enum AnalyticsPrecision {
+  HOUR
+  DAY
+  WEEK
+  MONTH
+  QUARTER
+  YEAR
+}
+
+"""
+A count for specific events based on the visitor's detected country and region (if available).
+
+"""
+type AnalyticsRegionCountResult {
+  """
+  The count of events for the given country / region.
+  
+  """
+  count: Int!
+  """
+  The two-letter country code, if available. Unknown / null values will be `"$unknown$"`.
+  
+  """
+  countryCode: String!
+  """
+  The shortened region code, if available. Unknown / null values will be `"$unknown$"`.
+  
+  """
+  regionCode: String!
+}
+
+"""
+The summary of country/region-keyed event counts.
+
+"""
+type AnalyticsRegionCountSummary {
+  """
+  Individual results. They are not in any deterministic order since they are based on countries / regions.
+  
+  """
+  results: [AnalyticsRegionCountResult!]!
+  """
+  The filtered total of events in the date period.
+  
+  """
+  total: Int!
+  """
+  The unfiltered total of events across the entire system (excluding date filters, but including all other filters).
+  
+  """
+  unfilteredTotal: Int!
+}
+
 """
 The boolean result of evaluating the left and right predicates. Both must be true.
 
@@ -465,6 +655,30 @@ type ApplySchemaPropertiesPayload implements StandardMutationPayload {
 """A generic asset type, implemented by all the more specific kinds"""
 interface Asset {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -482,6 +696,30 @@ interface Asset {
 
 type AssetAudio implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -501,6 +739,30 @@ type AssetAudio implements Asset & Node & Sluggable {
 
 type AssetDocument implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -520,6 +782,30 @@ type AssetDocument implements Asset & Node & Sluggable {
 
 type AssetImage implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -562,6 +848,30 @@ enum AssetKindFilter {
 
 type AssetPDF implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -684,6 +994,30 @@ type AssetSelectOption {
 
 type AssetUnknown implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -703,6 +1037,30 @@ type AssetUnknown implements Asset & Node & Sluggable {
 
 type AssetVideo implements Asset & Node & Sluggable {
   altText: String
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   attachable: AnyAttachable!
   caption: String
   contentType: String!
@@ -1281,7 +1639,7 @@ type ClearInitialOrderingPayload implements StandardMutationPayload {
 }
 
 """A collection of items"""
-type Collection implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
+type Collection implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -1364,6 +1722,44 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]!
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -1529,6 +1925,30 @@ type Collection implements Accessible & HasEntityBreadcrumbs & Entity & Referenc
   
   """
   doi: String
+  entityViews(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  entityViewsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Retrieve the first matching collection beneath this collection."""
   firstCollection(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -1904,7 +2324,7 @@ type CollectionEdge {
 union CollectionParent = Collection | Community
 
 """A community of users"""
-type Community implements Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
+type Community implements Accessible & Entity & HasEntityAnalytics & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -1968,6 +2388,44 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]!
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -2064,6 +2522,30 @@ type Community implements Accessible & Entity & HasSchemaProperties & Attachable
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): EntityDescendantConnection!
+  entityViews(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  entityViewsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Retrieve the first matching collection beneath this collection."""
   firstCollection(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -3146,6 +3628,35 @@ Require that `path = value` while enforcing that value is a date.
 input DateEqualsOperatorInput {
   path: String!
   value: ISO8601Date!
+}
+
+"""
+A date-filter for various analytics and other resolvers.
+
+"""
+input DateFilterInput {
+  """
+  The start date. Make sure it is <= `end_date` if provided.
+  
+  For actual filtering, this will get turned into midnight in the provided `time_zone`.
+  
+  """
+  startDate: ISO8601Date
+  """
+  The end date. Make sure it is >= `start_date` if provided.
+  
+  For actual filtering, this will get turned into 23:59:59 in the provided `time_zone`.
+  
+  """
+  endDate: ISO8601Date
+  """
+  The time zone to use for calculating the range.
+  
+  If not provided, it will use the server's configured default,
+  which is at present UTC, but may be configurable later on.
+  
+  """
+  timeZone: String
 }
 
 """
@@ -4681,6 +5192,72 @@ interface HasDOI {
   doi: String
 }
 
+"""Entity models implement their own analytics views that come pre-filtered"""
+interface HasEntityAnalytics {
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
+  entityViews(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  entityViewsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
+}
+
 interface HasEntityBreadcrumbs {
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
@@ -5160,7 +5737,7 @@ type IntegerProperty implements SchemaProperty & ScalarProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
+type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDOI & HasISSN & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -5243,6 +5820,44 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   ): AnnouncementConnection!
   """The role(s) that gave the permissions to access this resource, if any."""
   applicableRoles: [Role!]!
+  assetDownloads(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+  ): AnalyticsEventCountSummary!
+  assetDownloadsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Optionally filter by specific subjects.
+    
+    Presently this is just assets, but it may expand in the future.
+    
+    """
+    subjectIds: [ID!] = []
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Assets owned by this entity"""
   assets(
     order: SimpleOrder = RECENT
@@ -5387,6 +6002,30 @@ type Item implements Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlob
   
   """
   doi: String
+  entityViews(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    The precision to apply.
+    
+    """
+    precision: AnalyticsPrecision = DAY
+  ): AnalyticsEventCountSummary!
+  entityViewsByRegion(
+    """
+    An optional date filter to apply.
+    
+    """
+    dateFilter: DateFilterInput = {}
+    """
+    Filter by country_code = "US" only.
+    
+    """
+    usOnly: Boolean = false
+  ): AnalyticsRegionCountSummary!
   """Retrieve the first matching item beneath this item."""
   firstItem(
     order: EntityOrder = PUBLISHED_DESCENDING
@@ -7109,6 +7748,8 @@ type Query implements Searchable {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): AnyAccessGrantConnection!
+  """Access top-level analytics."""
+  analytics: Analytics!
   """Look up an asset by slug"""
   asset(slug: Slug!): AnyAsset
   """Look up a collection by slug"""

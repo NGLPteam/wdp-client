@@ -33,6 +33,7 @@ export const ICON_MAP = {
   email: Icons.Email,
   facebook: Icons.Facebook,
   twitter: Icons.Twitter,
+  view: Icons.View,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

@@ -9,13 +9,14 @@ import { useLatest } from "../hooks";
 export default function KeycloakRelayProvider({
   children,
   records,
-}: KeycloakRelayProps) {
+  isAdmin,
+}: KeycloakRelayProps & { isAdmin?: boolean }) {
   const { keycloak } = useKeycloak<KeycloakInstance>();
 
   const keycloakRef = useLatest(keycloak);
 
   const env = useMemo(() => {
-    return environment(keycloakRef, records);
+    return environment(keycloakRef, records, isAdmin);
   }, [keycloakRef, records]);
 
   return (

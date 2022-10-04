@@ -6,3 +6,5 @@ export { default as OpenAccess } from "./OpenAccess";
 export { default as PeerReviewed } from "./PeerReviewed";
 export { default as PrecisionDate } from "./PrecisionDate";
 export { default as PreprintVersion } from "./PreprintVersion";
+export { default as ViewCount } from "./ViewCount";
+export { default as DownloadCount } from "./DownloadCount";

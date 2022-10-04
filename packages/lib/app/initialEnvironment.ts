@@ -17,7 +17,8 @@ type TokenPersistor = ReturnType<typeof SSRCookies>;
 export default function buildInitialEnvironment(
   relayServerSSR: RelayServerSSR,
   ssrCookies: TokenPersistor,
-  ctx: DocumentContext
+  ctx: DocumentContext,
+  isAdmin?: boolean
 ) {
   const network = new RelayNetworkLayer([
     relayServerSSR.getMiddleware(),
@@ -38,6 +39,7 @@ export default function buildInitialEnvironment(
     },
     urlMiddleware({
       url: process.env.NEXT_PUBLIC_API_URL || "",
+      headers: isAdmin ? { "X-Analytics-Context": "admin" } : {},
     }),
     retryMiddleware({
       statusCodes(statusCode) {

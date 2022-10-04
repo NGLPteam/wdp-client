@@ -31,6 +31,12 @@ export type ArticleHeroFragment = {
     readonly abstract: {
         readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
     } | null;
+    readonly entityViews: {
+        readonly " $fragmentRefs": FragmentRefs<"ViewCountFragment">;
+    };
+    readonly assetDownloads: {
+        readonly " $fragmentRefs": FragmentRefs<"DownloadCountFragment">;
+    };
     readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "CCLicenseFragment" | "PeerReviewedFragment" | "OpenAccessFragment">;
     readonly " $refType": "ArticleHeroFragment";
 };
@@ -233,6 +239,38 @@ return {
       "storageKey": "schemaProperty(fullPath:\"abstract\")"
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "AnalyticsEventCountSummary",
+      "kind": "LinkedField",
+      "name": "entityViews",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ViewCountFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "AnalyticsEventCountSummary",
+      "kind": "LinkedField",
+      "name": "assetDownloads",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DownloadCountFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DOIFragment"
@@ -245,5 +283,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '03f22121f09fc25e334513451fa53df0';
+(node as any).hash = '052141ecb2fb288b2c7db3789144caea';
 export default node;

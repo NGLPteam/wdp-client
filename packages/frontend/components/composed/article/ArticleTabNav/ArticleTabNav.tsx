@@ -81,7 +81,7 @@ export default function ArticleTabNav({ data, contentId }: Props) {
           getLink("item.files", "nav.files")}
         {nav.contributions?.pageInfo.totalCount > 0 &&
           getLink("item.contributors", "nav.contributors")}
-        {/* {getLink("item.metrics", "Metrics")} */}
+        {getLink("item.metrics", "nav.metrics")}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
               getLink("item.page", node.title, node.slug)
