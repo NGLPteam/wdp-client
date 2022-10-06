@@ -42,6 +42,11 @@ function TableHeader<T extends Record<string, unknown>>({
             ) : (
               <Styled.HeaderCell role="presentation" />
             )}
+            <Styled.HeaderCell data-move-cell="true">
+              <Styled.HeaderCellInner>
+                <span className="a-hidden">Reorder</span>
+              </Styled.HeaderCellInner>
+            </Styled.HeaderCell>
 
             {headerGroup.headers.map((column) => {
               return (

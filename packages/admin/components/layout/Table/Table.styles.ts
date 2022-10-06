@@ -63,6 +63,11 @@ export const HeaderCell = styled.th`
     border-bottom: 0;
   }
 
+  &[data-move-cell="true"] {
+    padding-inline-start: var(--table-column-gap);
+    width: 20px;
+  }
+
   &[role="presentation"] {
     border-bottom: 0;
   }

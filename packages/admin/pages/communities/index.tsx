@@ -12,7 +12,10 @@ export default function CommunityListView() {
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={queryVars}
+      initialVariables={{
+        ...queryVars,
+        order: null,
+      }}
       refetchTags={["communities"]}
     >
       {({ data }) => <CommunityList<Query> data={data?.communities} />}

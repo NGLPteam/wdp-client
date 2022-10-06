@@ -11,11 +11,12 @@ export type EntityPagesListDataFragment = {
             readonly id: string;
             readonly title: string;
             readonly slug: string;
+            readonly position: number | null;
             readonly entity: {
                 readonly __typename: string;
                 readonly slug?: string | undefined;
             };
-            readonly " $fragmentRefs": FragmentRefs<"PageHeroColumnFragment">;
+            readonly " $fragmentRefs": FragmentRefs<"usePagePositionFragment" | "PageHeroColumnFragment">;
         };
     }>;
     readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
@@ -34,7 +35,21 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "slug",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "position",
   "storageKey": null
 };
 return {
@@ -66,14 +81,9 @@ return {
               "name": "id",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
             (v0/*: any*/),
+            (v1/*: any*/),
+            (v2/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -92,13 +102,36 @@ return {
                 {
                   "kind": "InlineFragment",
                   "selections": [
-                    (v0/*: any*/)
+                    (v1/*: any*/)
                   ],
                   "type": "Sluggable",
                   "abstractKey": "__isSluggable"
                 }
               ],
               "storageKey": null
+            },
+            {
+              "kind": "InlineDataFragmentSpread",
+              "name": "usePagePositionFragment",
+              "selections": [
+                {
+                  "alias": "pageId",
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "id",
+                  "storageKey": null
+                },
+                (v0/*: any*/),
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "body",
+                  "storageKey": null
+                },
+                (v2/*: any*/)
+              ]
             },
             {
               "args": null,
@@ -121,5 +154,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c974d3ba35d88aa394debb3da2e66f94';
+(node as any).hash = '5511a2d26ab6203ed31936b83840d35e';
 export default node;

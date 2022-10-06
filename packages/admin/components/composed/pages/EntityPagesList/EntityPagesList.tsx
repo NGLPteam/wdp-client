@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { ModelTableActionProps } from "react-table";
-import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
+import usePagePosition from "./usePagePosition";
+import {
+  useDestroyer,
+  useDrawerHelper,
+  useMaybeFragment,
+  useQueryStateContext,
+} from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -24,6 +30,8 @@ function EntityPagesList<T extends OperationType>({
   const { t } = useTranslation();
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
+  const submitPagePosition = usePagePosition();
+  const { retry } = useQueryStateContext();
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
@@ -89,6 +97,22 @@ function EntityPagesList<T extends OperationType>({
     </ButtonControlGroup>
   );
 
+  const handleDragEnd = useCallback(
+    async (source: number, destination: number) => {
+      const dragNode = pagesData?.edges[source]?.node;
+      // Get the node that was dragged
+      if (!dragNode) return;
+      // Save the new position
+      await submitPagePosition({
+        destination: destination + 1,
+        data: dragNode,
+      });
+      // Reload the list
+      retry();
+    },
+    [retry, pagesData, submitPagePosition]
+  );
+
   return (
     <ModelListPage<T, EntityPagesListDataFragment, Node>
       modelName={"page"}
@@ -98,6 +122,7 @@ function EntityPagesList<T extends OperationType>({
       hideHeader={hideHeader}
       buttons={buttons}
       actions={actions}
+      onDragEnd={handleDragEnd}
     />
   );
 }
@@ -122,6 +147,7 @@ const linksFragment = graphql`
             slug
           }
         }
+        ...usePagePositionFragment
         ...PageHeroColumnFragment
       }
     }

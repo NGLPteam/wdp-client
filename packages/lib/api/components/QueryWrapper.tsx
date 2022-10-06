@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import type { QueryOptions } from "relay-hooks";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 import ErrorPage from "next/error";
@@ -26,7 +26,6 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
 
   const { setLoading: setPageLoading, triggeredRefetchTags } = usePageContext();
 
-
   const previousRefetchTags = usePrevious(refetchTags);
   const previoustriggeredRefetchTags = usePrevious(triggeredRefetchTags);
 
@@ -36,18 +35,20 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     // If one or more of the refetchTags associated with this query are present in the
     // triggeredRefetchTags prop on the mutationForm that fired, then we should probably
     // retry this query.
-    const tagIntersects = intersection(refetchTags, triggeredRefetchTags).length > 0;
+    const tagIntersects =
+      intersection(refetchTags, triggeredRefetchTags).length > 0;
     if (!tagIntersects) return;
 
     // We're not asking MutationForm consumers to memoize the refetchTags prop, which is
     // an array, so we need to store a reference to the previous version and do a deep
     // compare to avoid unnecessarily triggering the refetch.
-    const refetchTagsChanged = !isEqual(previousRefetchTags, refetchTags)
+    const refetchTagsChanged = !isEqual(previousRefetchTags, refetchTags);
 
     // In the case of the triggered refetch tags, we need to do a shallow comparison,
     // because the same tag can be triggered twice in a row, in which case the two arrays
     // have deep but not shallow equality. In this case, a refetch is necessary.
-    const triggeredRefetchTagsChanged = previoustriggeredRefetchTags !== triggeredRefetchTags;
+    const triggeredRefetchTagsChanged =
+      previoustriggeredRefetchTags !== triggeredRefetchTags;
 
     // If neither the query nor the mutation tags have changed, we can bail out without
     // retrying the query.
@@ -81,6 +82,7 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
         started: true,
         loading: isLoading,
         completed: !isLoading,
+        retry,
       }}
     >
       <QueryVariablesContext.Provider

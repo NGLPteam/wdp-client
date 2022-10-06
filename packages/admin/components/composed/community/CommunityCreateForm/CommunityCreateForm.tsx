@@ -44,7 +44,6 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
         />
         <Forms.FileUpload label="forms.fields.logo" name="logo" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
-
         <Forms.Fieldset label="Hero">
           <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
           <Forms.AltText {...register("heroImageMetadata.alt")} />
@@ -60,6 +59,13 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
             {...register("heroImageLayout")}
           />
         </Forms.Fieldset>
+        <Forms.Input
+          type="number"
+          label="forms.fields.position"
+          {...register("position", {
+            valueAsNumber: true,
+          })}
+        />
       </Forms.Grid>
     ),
     []

@@ -11,6 +11,7 @@ export type CommunityUpdateFormFieldsFragment = {
     readonly tagline: string | null;
     readonly summary: string | null;
     readonly heroImageLayout: HeroImageLayout;
+    readonly position: number | null;
     readonly heroImage: {
         readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
     };
@@ -75,6 +76,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "position",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "ImageAttachment",
       "kind": "LinkedField",
       "name": "heroImage",
@@ -115,5 +123,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '0ca0da7e793075179dff1cd338c0680e';
+(node as any).hash = '65370ec9f077bb21b16803da1bf2f955';
 export default node;

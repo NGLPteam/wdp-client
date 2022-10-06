@@ -17,6 +17,7 @@ type ModelTableProps<U extends Record<string, unknown>> = Pick<
     selectable: boolean;
     hasSelection: boolean;
     listId?: string;
+    onDragEnd?: (source: number, destination: number) => void;
   };
 
 function ModelTable<U extends Record<string, unknown>>({
@@ -29,6 +30,7 @@ function ModelTable<U extends Record<string, unknown>>({
   getTableProps,
   rows,
   listId,
+  onDragEnd,
 }: ModelTableProps<U>) {
   const queryState = useQueryStateContext();
   const checkboxProps =
@@ -40,6 +42,7 @@ function ModelTable<U extends Record<string, unknown>>({
       aria-label={title}
       withRowSelection={selectable}
       showCheckboxes={hasSelection}
+      onDragEnd={onDragEnd}
       {...getTableProps()}
     >
       {queryState.completed && (
@@ -50,6 +53,7 @@ function ModelTable<U extends Record<string, unknown>>({
         />
       )}
       <Table.Body
+        withDragDrop={!!onDragEnd}
         loading={!queryState.completed}
         rows={rows}
         {...getTableBodyProps()}

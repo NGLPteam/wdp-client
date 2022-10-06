@@ -41,6 +41,8 @@ fragment CommunityListFragment on CommunityConnection {
       updatedAt
       name
       allowedActions
+      position
+      heroImageLayout
       ...CommunityNameColumnFragment
     }
   }
@@ -207,6 +209,20 @@ return {
                     "kind": "ScalarField",
                     "name": "allowedActions",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "position",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "heroImageLayout",
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -280,12 +296,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d389bfd33060b49bb1df0d70deea9298",
+    "cacheID": "b0588f11a8dc154e6dfe2950b925d2bb",
     "id": null,
     "metadata": {},
     "name": "communitiesQuery",
     "operationKind": "query",
-    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      allowedActions\n      ...CommunityNameColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  communities(order: $order, page: $page, perPage: 20) {\n    ...CommunityListFragment\n  }\n}\n\nfragment CommunityListFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      id\n      createdAt\n      updatedAt\n      name\n      allowedActions\n      position\n      heroImageLayout\n      ...CommunityNameColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

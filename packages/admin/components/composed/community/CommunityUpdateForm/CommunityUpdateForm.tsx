@@ -58,6 +58,7 @@ export default function CommunityUpdateForm({
         "clearHeroImage",
         "heroImageMetadata",
         "heroImageLayout",
+        "position",
       ]);
 
       const schemaValues = pick(data, schemaProperties);
@@ -160,6 +161,13 @@ export default function CommunityUpdateForm({
               {...register("heroImageLayout")}
             />
           </Forms.Fieldset>
+          <Forms.Input
+            type="number"
+            label="forms.fields.position"
+            {...register("position", {
+              valueAsNumber: true,
+            })}
+          />
         </Forms.Grid>
         <SchemaFormFields data={fieldsData} schemaKind="COMMUNITY" />
       </>
@@ -200,6 +208,7 @@ const fieldsFragment = graphql`
     tagline
     summary
     heroImageLayout
+    position
     heroImage {
       ...FileUploadFragment
     }

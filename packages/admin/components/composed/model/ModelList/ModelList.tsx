@@ -20,6 +20,7 @@ export interface ModelListProps<
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
   listId?: string;
+  onDragEnd?: (source: number, destination: number) => void;
 }
 
 function ModelList<
@@ -37,6 +38,7 @@ function ModelList<
   actions,
   disableSortBy,
   listId,
+  onDragEnd,
 }: ModelListProps<T, U, V>) {
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
@@ -80,6 +82,7 @@ function ModelList<
             title={title}
             selectable={selectable}
             listId={listId}
+            onDragEnd={onDragEnd}
             {...modelGridOrTableProps}
           />
         </>
