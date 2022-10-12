@@ -6,6 +6,16 @@
     "packages/lib",
     "packages/common/*"
   ],
+  "cacheDirectories": [
+    "node_modules",
+    "packages/admin/node_modules",
+    "packages/admin/.next/cache",
+    "packages/frontend/node_modules",
+    "packages/frontend/.next/cache",
+    "packages/common/eslint-config/node_modules",
+    "packages/common/stylelint-config/node_modules",
+    "packages/lib/node_modules"
+  ],
   "private": "true",
   "version": "1.0.0",
   "description": "NGLP Web Delivery Platform client application",
