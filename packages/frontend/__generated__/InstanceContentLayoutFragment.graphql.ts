@@ -36,7 +36,13 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "POSITION_ASCENDING"
+        }
+      ],
       "concreteType": "CommunityConnection",
       "kind": "LinkedField",
       "name": "communities",
@@ -95,7 +101,7 @@ const node: ReaderFragment = {
           "name": "InstanceCommunitiesFragment"
         }
       ],
-      "storageKey": null
+      "storageKey": "communities(order:\"POSITION_ASCENDING\")"
     },
     {
       "args": null,
@@ -106,5 +112,5 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'ec308d4b375783b0fb0beb8ab694210c';
+(node as any).hash = '3f0a5792ceb06dabcecb124098ccdcf4';
 export default node;

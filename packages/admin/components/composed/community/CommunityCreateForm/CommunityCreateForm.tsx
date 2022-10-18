@@ -60,6 +60,13 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
             {...register("heroImageLayout")}
           />
         </Forms.Fieldset>
+        <Forms.Input
+          type="number"
+          label="forms.fields.position"
+          {...register("position", {
+            valueAsNumber: true,
+          })}
+        />
       </Forms.Grid>
     ),
     []

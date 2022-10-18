@@ -58,6 +58,7 @@ export default function CommunityUpdateForm({
         "clearHeroImage",
         "heroImageMetadata",
         "heroImageLayout",
+        "position",
       ]);
 
       const schemaValues = pick(data, schemaProperties);
@@ -160,6 +161,13 @@ export default function CommunityUpdateForm({
               {...register("heroImageLayout")}
             />
           </Forms.Fieldset>
+          <Forms.Input
+            type="number"
+            label="forms.fields.position"
+            {...register("position", {
+              valueAsNumber: true,
+            })}
+          />
         </Forms.Grid>
         <SchemaFormFields data={fieldsData} schemaKind="COMMUNITY" />
       </>
@@ -178,6 +186,7 @@ export default function CommunityUpdateForm({
       defaultValues={defaultValues}
       isSuccess={isSuccess}
       onFailure={onFailure}
+      refetchTags={["communities"]}
     >
       {renderForm}
     </MutationForm>
@@ -197,9 +206,11 @@ type Fields = Omit<UpdateCommunityInput, "communityId">;
 const fieldsFragment = graphql`
   fragment CommunityUpdateFormFieldsFragment on Community {
     title
+    name
     tagline
     summary
     heroImageLayout
+    position
     heroImage {
       ...FileUploadFragment
     }
@@ -216,6 +227,8 @@ const mutation = graphql`
   mutation CommunityUpdateFormMutation($input: UpdateCommunityInput!) {
     updateCommunity(input: $input) {
       community {
+        name
+        position
         ...CommunityUpdateFormFieldsFragment
       }
       ...MutationForm_mutationErrors

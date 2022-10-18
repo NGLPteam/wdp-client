@@ -6,18 +6,24 @@ import {
   ContributorOrder,
 } from "types/graphql-schema";
 
+interface Props {
+  defaultOrder: string;
+}
+
 /**
  * Gets and returns shared list query vars, like page and order
  *
  * @returns ViewerContext state
  */
-export default function useBaseListQueryVars(): {
+export default function useBaseListQueryVars(
+  { defaultOrder }: Props = { defaultOrder: "RECENT" }
+): {
   page: number;
   order?: EntityOrder & ContributorOrder & SimpleOrder;
 } {
   const router = useRouter();
   const page = parseInt(get(router, "query.page", 1));
-  const order = get(router, "query.order", "RECENT");
+  const order = get(router, "query.order") || defaultOrder;
 
   return { page, order };
 }

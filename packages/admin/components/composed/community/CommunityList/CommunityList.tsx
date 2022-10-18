@@ -31,6 +31,7 @@ function CommunityList<T extends OperationType>({
   );
 
   const columns = [
+    // ModelColumns.PositionColumn<Node>(),
     ModelColumns.CommunityNameColumn<Node>({
       accessor: (row: Node) => row,
     }),
@@ -90,6 +91,7 @@ const fragment = graphql`
         updatedAt
         name
         allowedActions
+        position
         ...CommunityNameColumnFragment
       }
     }

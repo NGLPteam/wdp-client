@@ -7,12 +7,16 @@ import { useBaseListQueryVars } from "hooks";
 import CommunityList from "components/composed/community/CommunityList";
 
 export default function CommunityListView() {
-  const queryVars = useBaseListQueryVars();
+  const queryVars = useBaseListQueryVars({
+    defaultOrder: "POSITION_ASCENDING",
+  });
 
   return (
     <QueryWrapper<Query>
       query={query}
-      initialVariables={queryVars}
+      initialVariables={{
+        ...queryVars,
+      }}
       refetchTags={["communities"]}
     >
       {({ data }) => <CommunityList<Query> data={data?.communities} />}

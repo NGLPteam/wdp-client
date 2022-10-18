@@ -16,6 +16,7 @@ import CommunityNameColumn from "./CommunityNameColumn";
 import CommunityThumbnailColumn from "./CommunityThumbnailColumn";
 import PageHeroColumn from "./PageHeroColumn";
 import PublishedDateColumn from "./PublishedDateColumn";
+import PositionColumn from "./PositionColumn";
 
 const modelColumns = {
   CreatedAtColumn,
@@ -36,6 +37,7 @@ const modelColumns = {
   CommunityThumbnailColumn,
   PageHeroColumn,
   PublishedDateColumn,
+  PositionColumn,
 };
 
 export default modelColumns;
