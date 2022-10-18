@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityPickerFragment = {
-    readonly communities: {
+    readonly pickerCommunities: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly slug: string;
@@ -31,8 +31,14 @@ const node: ReaderFragment = {
   "name": "CommunityPickerFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
+      "alias": "pickerCommunities",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "POSITION_ASCENDING"
+        }
+      ],
       "concreteType": "CommunityConnection",
       "kind": "LinkedField",
       "name": "communities",
@@ -75,11 +81,11 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "communities(order:\"POSITION_ASCENDING\")"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '8f1e327a018db041b2f112ef5a370d6f';
+(node as any).hash = '49b651af961bf605a6cbea7a2311cc4b';
 export default node;

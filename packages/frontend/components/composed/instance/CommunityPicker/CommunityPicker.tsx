@@ -21,7 +21,7 @@ export default function CommunityPicker({ active }: Props) {
   const { t } = useTranslation();
 
   const menuItems = useMemo(() => {
-    return communityData?.communities?.edges || [];
+    return communityData?.pickerCommunities?.edges || [];
   }, [communityData]);
 
   const { current: memoizedCommunity } = useLatestPresentValue(activeCommunity);
@@ -66,7 +66,7 @@ type Props = {
 
 const fragment = graphql`
   fragment CommunityPickerFragment on Query {
-    communities {
+    pickerCommunities: communities(order: POSITION_ASCENDING) {
       edges {
         node {
           slug

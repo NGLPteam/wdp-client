@@ -46,6 +46,8 @@ export type CommunityUpdateFormMutationVariables = {
 export type CommunityUpdateFormMutationResponse = {
     readonly updateCommunity: {
         readonly community: {
+            readonly name: string;
+            readonly position: number | null;
             readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
         } | null;
         readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors" | "CommunityUpdateFormSchemaErrorsFragment">;
@@ -64,6 +66,8 @@ mutation CommunityUpdateFormMutation(
 ) {
   updateCommunity(input: $input) {
     community {
+      name
+      position
       ...CommunityUpdateFormFieldsFragment
       id
     }
@@ -74,9 +78,11 @@ mutation CommunityUpdateFormMutation(
 
 fragment CommunityUpdateFormFieldsFragment on Community {
   title
+  name
   tagline
   summary
   heroImageLayout
+  position
   heroImage {
     ...FileUploadFragment
   }
@@ -143,20 +149,34 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "path",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "position",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "path",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "message",
   "storageKey": null
 },
-v4 = [
-  (v3/*: any*/)
+v6 = [
+  (v5/*: any*/)
 ],
-v5 = {
+v7 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -167,7 +187,7 @@ v5 = {
       "name": "attributeErrors",
       "plural": true,
       "selections": [
-        (v2/*: any*/),
+        (v4/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -192,7 +212,7 @@ v5 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v6/*: any*/),
       "storageKey": null
     },
     {
@@ -202,14 +222,14 @@ v5 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v6/*: any*/),
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
 },
-v6 = {
+v8 = {
   "alias": null,
   "args": null,
   "concreteType": "SchemaValueError",
@@ -224,7 +244,7 @@ v6 = {
       "name": "hint",
       "storageKey": null
     },
-    (v3/*: any*/),
+    (v5/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -232,18 +252,18 @@ v6 = {
       "name": "metadata",
       "storageKey": null
     },
-    (v2/*: any*/)
+    (v4/*: any*/)
   ],
   "storageKey": null
 },
-v7 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "alt",
   "storageKey": null
 },
-v8 = [
+v10 = [
   {
     "alias": null,
     "args": null,
@@ -274,7 +294,7 @@ v8 = [
         "name": "png",
         "plural": false,
         "selections": [
-          (v7/*: any*/),
+          (v9/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -312,6 +332,8 @@ return {
             "name": "community",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "args": null,
                 "kind": "FragmentSpread",
@@ -324,14 +346,14 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v5/*: any*/)
+              (v7/*: any*/)
             ]
           },
           {
             "kind": "InlineDataFragmentSpread",
             "name": "CommunityUpdateFormSchemaErrorsFragment",
             "selections": [
-              (v6/*: any*/)
+              (v8/*: any*/)
             ]
           }
         ],
@@ -363,6 +385,8 @@ return {
             "name": "community",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -398,7 +422,7 @@ return {
                 "kind": "LinkedField",
                 "name": "heroImage",
                 "plural": false,
-                "selections": (v8/*: any*/),
+                "selections": (v10/*: any*/),
                 "storageKey": null
               },
               {
@@ -408,7 +432,7 @@ return {
                 "kind": "LinkedField",
                 "name": "logo",
                 "plural": false,
-                "selections": (v8/*: any*/),
+                "selections": (v10/*: any*/),
                 "storageKey": null
               },
               {
@@ -419,7 +443,7 @@ return {
                 "name": "heroImageMetadata",
                 "plural": false,
                 "selections": [
-                  (v7/*: any*/)
+                  (v9/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -433,22 +457,22 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
-          (v5/*: any*/)
+          (v8/*: any*/),
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7d503523620ae7cdc1da9d728a232028",
+    "cacheID": "99e59c46eb62b81f9acaf747f1abe9f0",
     "id": null,
     "metadata": {},
     "name": "CommunityUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CommunityUpdateFormMutation(\n  $input: UpdateCommunityInput!\n) {\n  updateCommunity(input: $input) {\n    community {\n      ...CommunityUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CommunityUpdateFormSchemaErrorsFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  tagline\n  summary\n  heroImageLayout\n  heroImage {\n    ...FileUploadFragment\n  }\n  logo {\n    ...FileUploadFragment\n  }\n  heroImageMetadata {\n    alt\n  }\n}\n\nfragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation CommunityUpdateFormMutation(\n  $input: UpdateCommunityInput!\n) {\n  updateCommunity(input: $input) {\n    community {\n      name\n      position\n      ...CommunityUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n    ...CommunityUpdateFormSchemaErrorsFragment\n  }\n}\n\nfragment CommunityUpdateFormFieldsFragment on Community {\n  title\n  name\n  tagline\n  summary\n  heroImageLayout\n  position\n  heroImage {\n    ...FileUploadFragment\n  }\n  logo {\n    ...FileUploadFragment\n  }\n  heroImageMetadata {\n    alt\n  }\n}\n\nfragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {\n  schemaErrors {\n    hint\n    message\n    metadata\n    path\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '621a416c3093678d49e8e631c7ec0551';
+(node as any).hash = 'ca72c799ad4ca8c486a003fe79505010';
 export default node;

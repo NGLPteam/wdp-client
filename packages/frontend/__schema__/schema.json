@@ -26654,6 +26654,18 @@
             "deprecationReason": null
           },
           {
+            "name": "POSITION_ASCENDING",
+            "description": "Sort communities by position 0-9; other entities by RECENT",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "POSITION_DESCENDING",
+            "description": "Sort communities by position 9-0; other entities by OLDEST",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "PUBLISHED_ASCENDING",
             "description": "Sort entities by oldest published date (or OLDEST for communities)",
             "isDeprecated": false,

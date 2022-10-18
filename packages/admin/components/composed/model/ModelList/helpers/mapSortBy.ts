@@ -17,7 +17,8 @@ type OrderableProperties =
   | "contributions"
   | "globalAdmin"
   | "schema"
-  | "published";
+  | "published"
+  | "position";
 
 interface OrderConfig {
   id: OrderableProperties;
@@ -59,6 +60,9 @@ export const mapSortBy: MapSortBy = (id, desc) => {
 
     case "published":
       return desc ? "PUBLISHED_DESCENDING" : "PUBLISHED_ASCENDING";
+
+    case "position":
+      return desc ? "POSITION_DESCENDING" : "POSITION_ASCENDING";
 
     default:
       return null;
@@ -109,6 +113,10 @@ export const reverseMapSortBy: ReverseMapSortBy = (order) => {
     case "PUBLISHED_DESCENDING":
     case "PUBLISHED_ASCENDING":
       return { id: "published", desc: order === "PUBLISHED_DESCENDING" };
+
+    case "POSITION_DESCENDING":
+    case "POSITION_ASCENDING":
+      return { id: "position", desc: order === "POSITION_DESCENDING" };
 
     default:
       return null;

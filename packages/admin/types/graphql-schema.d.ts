@@ -176,6 +176,109 @@ export type AlterSchemaVersionPayload = StandardMutationPayload & {
   schemaErrors: Array<SchemaValueError>;
 };
 
+export type Analytics = {
+  __typename?: 'Analytics';
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
+  entityViews: AnalyticsEventCountSummary;
+  entityViewsByRegion: AnalyticsRegionCountSummary;
+};
+
+
+export type AnalyticsAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  entityIds?: Maybe<Array<Scalars['ID']>>;
+  precision?: Maybe<AnalyticsPrecision>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+export type AnalyticsAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  entityIds?: Maybe<Array<Scalars['ID']>>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type AnalyticsEntityViewsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  entityIds?: Maybe<Array<Scalars['ID']>>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AnalyticsEntityViewsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  entityIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+/**
+ * A simple, date/time-keyed representation of a specific event's
+ * occurrences on a specific day (or time interval).
+ */
+export type AnalyticsEventCountResult = {
+  __typename?: 'AnalyticsEventCountResult';
+  /** The count of events for the given date / time. */
+  count: Scalars['Int'];
+  date: Scalars['ISO8601Date'];
+  /**
+   * The time interval associated with this value. It will only
+   * be populated when looking at `HOUR` precision.
+   */
+  time?: Maybe<Scalars['ISO8601DateTime']>;
+};
+
+/** The summary of date-keyed event counts. */
+export type AnalyticsEventCountSummary = {
+  __typename?: 'AnalyticsEventCountSummary';
+  /** The newest date in the set of results (if present). */
+  maxDate?: Maybe<Scalars['ISO8601Date']>;
+  /** The oldest date in the set of results (if present). */
+  minDate?: Maybe<Scalars['ISO8601Date']>;
+  /** The level of precision requested */
+  precision: AnalyticsPrecision;
+  /** Individual results. They are sorted in ascending date / time order. */
+  results: Array<AnalyticsEventCountResult>;
+  /** The filtered total of events in the date period. */
+  total: Scalars['Int'];
+  /** The unfiltered total of events across the entire system (excluding date filters, but including all other filters). */
+  unfilteredTotal: Scalars['Int'];
+};
+
+/** The level of precision for analytics queries. */
+export type AnalyticsPrecision =
+  | 'HOUR'
+  | 'DAY'
+  | 'WEEK'
+  | 'MONTH'
+  | 'QUARTER'
+  | 'YEAR'
+  | '%future added value';
+
+/** A count for specific events based on the visitor's detected country and region (if available). */
+export type AnalyticsRegionCountResult = {
+  __typename?: 'AnalyticsRegionCountResult';
+  /** The count of events for the given country / region. */
+  count: Scalars['Int'];
+  /** The two-letter country code, if available. Unknown / null values will be `"$unknown$"`. */
+  countryCode: Scalars['String'];
+  /** The shortened region code, if available. Unknown / null values will be `"$unknown$"`. */
+  regionCode: Scalars['String'];
+};
+
+/** The summary of country/region-keyed event counts. */
+export type AnalyticsRegionCountSummary = {
+  __typename?: 'AnalyticsRegionCountSummary';
+  /** Individual results. They are not in any deterministic order since they are based on countries / regions. */
+  results: Array<AnalyticsRegionCountResult>;
+  /** The filtered total of events in the date period. */
+  total: Scalars['Int'];
+  /** The unfiltered total of events across the entire system (excluding date filters, but including all other filters). */
+  unfilteredTotal: Scalars['Int'];
+};
+
 /**
  * The boolean result of evaluating the left and right predicates. Both must be true.
  *
@@ -477,6 +580,8 @@ export type ApplySchemaPropertiesPayload = StandardMutationPayload & {
 /** A generic asset type, implemented by all the more specific kinds */
 export type Asset = {
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -490,11 +595,27 @@ export type Asset = {
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
+};
+
+
+/** A generic asset type, implemented by all the more specific kinds */
+export type AssetAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+/** A generic asset type, implemented by all the more specific kinds */
+export type AssetAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 export type AssetAudio = Asset & Node & Sluggable & {
   __typename?: 'AssetAudio';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -510,11 +631,25 @@ export type AssetAudio = Asset & Node & Sluggable & {
   previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+export type AssetAudioAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetAudioAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 export type AssetDocument = Asset & Node & Sluggable & {
   __typename?: 'AssetDocument';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -532,9 +667,23 @@ export type AssetDocument = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
+
+export type AssetDocumentAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetDocumentAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
 export type AssetImage = Asset & Node & Sluggable & {
   __typename?: 'AssetImage';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -550,6 +699,18 @@ export type AssetImage = Asset & Node & Sluggable & {
   previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+export type AssetImageAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetImageAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 /** The supported kinds of assets in the system */
@@ -578,6 +739,8 @@ export type AssetKindFilter =
 export type AssetPdf = Asset & Node & Sluggable & {
   __typename?: 'AssetPDF';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -593,6 +756,18 @@ export type AssetPdf = Asset & Node & Sluggable & {
   previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+export type AssetPdfAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetPdfAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 /** A grid of permissions for creating, retrieving, updating, and deleting an `Asset` */
@@ -687,6 +862,8 @@ export type AssetSelectOption = {
 export type AssetUnknown = Asset & Node & Sluggable & {
   __typename?: 'AssetUnknown';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -704,9 +881,23 @@ export type AssetUnknown = Asset & Node & Sluggable & {
   updatedAt: Scalars['ISO8601DateTime'];
 };
 
+
+export type AssetUnknownAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetUnknownAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
 export type AssetVideo = Asset & Node & Sluggable & {
   __typename?: 'AssetVideo';
   altText?: Maybe<Scalars['String']>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
   caption?: Maybe<Scalars['String']>;
   contentType: Scalars['String'];
@@ -722,6 +913,18 @@ export type AssetVideo = Asset & Node & Sluggable & {
   previewMetadata?: Maybe<ImageMetadata>;
   slug: Scalars['Slug'];
   updatedAt: Scalars['ISO8601DateTime'];
+};
+
+
+export type AssetVideoAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+export type AssetVideoAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 export type AssetsProperty = SchemaProperty & ScalarProperty & {
@@ -1295,7 +1498,7 @@ export type ClearInitialOrderingPayload = StandardMutationPayload & {
 };
 
 /** A collection of items */
-export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1321,6 +1524,8 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles: Array<Role>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
   /** The role(s) that the current user could assign to other users on this entity, if applicable. */
@@ -1349,6 +1554,8 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   descendants: EntityDescendantConnection;
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+  entityViews: AnalyticsEventCountSummary;
+  entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching collection beneath this collection. */
   firstCollection?: Maybe<Collection>;
   /** Retrieve the first matching item beneath this item. */
@@ -1508,6 +1715,22 @@ export type CollectionAnnouncementsArgs = {
 
 
 /** A collection of items */
+export type CollectionAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+/** A collection of items */
+export type CollectionAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+
+/** A collection of items */
 export type CollectionAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
@@ -1605,6 +1828,20 @@ export type CollectionDescendantsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A collection of items */
+export type CollectionEntityViewsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+/** A collection of items */
+export type CollectionEntityViewsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -1846,7 +2083,7 @@ export type CollectionEdge = {
 export type CollectionParent = Collection | Community | { __typename?: "%other" };
 
 /** A community of users */
-export type Community = Accessible & Entity & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Community';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1861,6 +2098,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles: Array<Role>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
   /** The role(s) that the current user could assign to other users on this entity, if applicable. */
@@ -1875,6 +2114,8 @@ export type Community = Accessible & Entity & HasSchemaProperties & Attachable &
   createdAt: Scalars['ISO8601DateTime'];
   /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
   descendants: EntityDescendantConnection;
+  entityViews: AnalyticsEventCountSummary;
+  entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching collection beneath this collection. */
   firstCollection?: Maybe<Collection>;
   /** Retrieve the first matching item beneath this item. */
@@ -1991,6 +2232,22 @@ export type CommunityAnnouncementsArgs = {
 
 
 /** A community of users */
+export type CommunityAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+/** A community of users */
+export type CommunityAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+
+/** A community of users */
 export type CommunityAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
@@ -2051,6 +2308,20 @@ export type CommunityDescendantsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** A community of users */
+export type CommunityEntityViewsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+/** A community of users */
+export type CommunityEntityViewsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -2948,6 +3219,29 @@ export type DateEqualsOperatorInput = {
   value: Scalars['ISO8601Date'];
 };
 
+/** A date-filter for various analytics and other resolvers. */
+export type DateFilterInput = {
+  /**
+   * The start date. Make sure it is <= `end_date` if provided.
+   *
+   * For actual filtering, this will get turned into midnight in the provided `time_zone`.
+   */
+  startDate?: Maybe<Scalars['ISO8601Date']>;
+  /**
+   * The end date. Make sure it is >= `start_date` if provided.
+   *
+   * For actual filtering, this will get turned into 23:59:59 in the provided `time_zone`.
+   */
+  endDate?: Maybe<Scalars['ISO8601Date']>;
+  /**
+   * The time zone to use for calculating the range.
+   *
+   * If not provided, it will use the server's configured default,
+   * which is at present UTC, but may be configurable later on.
+   */
+  timeZone?: Maybe<Scalars['String']>;
+};
+
 /** Require that `path ≥ value` while enforcing that value is a date. */
 export type DateGteOperatorInput = {
   path: Scalars['String'];
@@ -3834,6 +4128,10 @@ export type EntityOrder =
   | 'RECENT'
   /** Sort entities by oldest created date */
   | 'OLDEST'
+  /** Sort communities by position 0-9; other entities by RECENT */
+  | 'POSITION_ASCENDING'
+  /** Sort communities by position 9-0; other entities by OLDEST */
+  | 'POSITION_DESCENDING'
   /** Sort entities by oldest published date (or OLDEST for communities) */
   | 'PUBLISHED_ASCENDING'
   /** Sort entities by newest published date (or RECENT for communities) */
@@ -4289,6 +4587,44 @@ export type HasDoi = {
   doi?: Maybe<Scalars['String']>;
 };
 
+/** Entity models implement their own analytics views that come pre-filtered */
+export type HasEntityAnalytics = {
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
+  entityViews: AnalyticsEventCountSummary;
+  entityViewsByRegion: AnalyticsRegionCountSummary;
+};
+
+
+/** Entity models implement their own analytics views that come pre-filtered */
+export type HasEntityAnalyticsAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+/** Entity models implement their own analytics views that come pre-filtered */
+export type HasEntityAnalyticsAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+
+/** Entity models implement their own analytics views that come pre-filtered */
+export type HasEntityAnalyticsEntityViewsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+/** Entity models implement their own analytics views that come pre-filtered */
+export type HasEntityAnalyticsEntityViewsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
 export type HasEntityBreadcrumbs = {
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
@@ -4730,7 +5066,7 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProper
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -4756,6 +5092,8 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   announcements: AnnouncementConnection;
   /** The role(s) that gave the permissions to access this resource, if any. */
   applicableRoles: Array<Role>;
+  assetDownloads: AnalyticsEventCountSummary;
+  assetDownloadsByRegion: AnalyticsRegionCountSummary;
   /** Assets owned by this entity */
   assets: AnyAssetConnection;
   /** The role(s) that the current user could assign to other users on this entity, if applicable. */
@@ -4783,6 +5121,8 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   descendants: EntityDescendantConnection;
   /** The Digital Object Identifier for this entity. See https://doi.org */
   doi?: Maybe<Scalars['String']>;
+  entityViews: AnalyticsEventCountSummary;
+  entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
   /** Whether this item has any child items */
@@ -4939,6 +5279,22 @@ export type ItemAnnouncementsArgs = {
 
 
 /** An item that belongs to a collection */
+export type ItemAssetDownloadsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+};
+
+
+/** An item that belongs to a collection */
+export type ItemAssetDownloadsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  usOnly?: Maybe<Scalars['Boolean']>;
+};
+
+
+/** An item that belongs to a collection */
 export type ItemAssetsArgs = {
   order?: Maybe<SimpleOrder>;
   kind?: Maybe<AssetKindFilter>;
@@ -5021,6 +5377,20 @@ export type ItemDescendantsArgs = {
   page?: Maybe<Scalars['Int']>;
   pageDirection?: PageDirection;
   perPage?: Maybe<Scalars['Int']>;
+};
+
+
+/** An item that belongs to a collection */
+export type ItemEntityViewsArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  precision?: Maybe<AnalyticsPrecision>;
+};
+
+
+/** An item that belongs to a collection */
+export type ItemEntityViewsByRegionArgs = {
+  dateFilter?: Maybe<DateFilterInput>;
+  usOnly?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -6540,6 +6910,8 @@ export type Query = Searchable & {
   __typename?: 'Query';
   /** Retrieve all access grants */
   accessGrants: AnyAccessGrantConnection;
+  /** Access top-level analytics. */
+  analytics: Analytics;
   /** Look up an asset by slug */
   asset?: Maybe<AnyAsset>;
   /** Look up a collection by slug */
@@ -9655,6 +10027,13 @@ export type ResolversTypes = {
   AlterSchemaVersionInput: AlterSchemaVersionInput;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   AlterSchemaVersionPayload: ResolverTypeWrapper<Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
+  Analytics: ResolverTypeWrapper<Analytics>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  AnalyticsEventCountResult: ResolverTypeWrapper<AnalyticsEventCountResult>;
+  AnalyticsEventCountSummary: ResolverTypeWrapper<AnalyticsEventCountSummary>;
+  AnalyticsPrecision: AnalyticsPrecision;
+  AnalyticsRegionCountResult: ResolverTypeWrapper<AnalyticsRegionCountResult>;
+  AnalyticsRegionCountSummary: ResolverTypeWrapper<AnalyticsRegionCountSummary>;
   AndOperatorInput: AndOperatorInput;
   Announcement: ResolverTypeWrapper<Omit<Announcement, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   AnnouncementConnection: ResolverTypeWrapper<AnnouncementConnection>;
@@ -9701,7 +10080,6 @@ export type ResolversTypes = {
   AssetKindFilter: AssetKindFilter;
   AssetPDF: ResolverTypeWrapper<Omit<AssetPdf, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetPermissionGrid: ResolverTypeWrapper<AssetPermissionGrid>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   AssetProperty: ResolverTypeWrapper<Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversTypes['AnyAsset']> }>;
   AssetSelectOption: ResolverTypeWrapper<AssetSelectOption>;
   AssetUnknown: ResolverTypeWrapper<Omit<AssetUnknown, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
@@ -9764,6 +10142,7 @@ export type ResolversTypes = {
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: ResolverTypeWrapper<CreateRolePayload>;
   DateEqualsOperatorInput: DateEqualsOperatorInput;
+  DateFilterInput: DateFilterInput;
   DateGTEOperatorInput: DateGteOperatorInput;
   DateLTEOperatorInput: DateLteOperatorInput;
   DatePrecision: DatePrecision;
@@ -9831,6 +10210,7 @@ export type ResolversTypes = {
   HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'] | ResolversTypes['SiteLogoAttachment'];
   HasAvailableEntities: ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'];
   HasDOI: ResolversTypes['Collection'] | ResolversTypes['Item'];
+  HasEntityAnalytics: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
   HasEntityBreadcrumbs: ResolversTypes['Collection'] | ResolversTypes['EntitySelectOption'] | ResolversTypes['Item'];
   HasISSN: ResolversTypes['Collection'] | ResolversTypes['Item'];
   HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
@@ -10073,6 +10453,12 @@ export type ResolversParentTypes = {
   AlterSchemaVersionInput: AlterSchemaVersionInput;
   ID: Scalars['ID'];
   AlterSchemaVersionPayload: Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
+  Analytics: Analytics;
+  Boolean: Scalars['Boolean'];
+  AnalyticsEventCountResult: AnalyticsEventCountResult;
+  AnalyticsEventCountSummary: AnalyticsEventCountSummary;
+  AnalyticsRegionCountResult: AnalyticsRegionCountResult;
+  AnalyticsRegionCountSummary: AnalyticsRegionCountSummary;
   AndOperatorInput: AndOperatorInput;
   Announcement: Omit<Announcement, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   AnnouncementConnection: AnnouncementConnection;
@@ -10116,7 +10502,6 @@ export type ResolversParentTypes = {
   AssetImage: Omit<AssetImage, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetPDF: Omit<AssetPdf, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetPermissionGrid: AssetPermissionGrid;
-  Boolean: Scalars['Boolean'];
   AssetProperty: Omit<AssetProperty, 'asset'> & { asset?: Maybe<ResolversParentTypes['AnyAsset']> };
   AssetSelectOption: AssetSelectOption;
   AssetUnknown: Omit<AssetUnknown, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
@@ -10172,6 +10557,7 @@ export type ResolversParentTypes = {
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: CreateRolePayload;
   DateEqualsOperatorInput: DateEqualsOperatorInput;
+  DateFilterInput: DateFilterInput;
   DateGTEOperatorInput: DateGteOperatorInput;
   DateLTEOperatorInput: DateLteOperatorInput;
   DateProperty: DateProperty;
@@ -10226,6 +10612,7 @@ export type ResolversParentTypes = {
   HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['SiteLogoAttachment'];
   HasAvailableEntities: ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'];
   HasDOI: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
+  HasEntityAnalytics: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
   HasEntityBreadcrumbs: ResolversParentTypes['Collection'] | ResolversParentTypes['EntitySelectOption'] | ResolversParentTypes['Item'];
   HasISSN: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
   HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
@@ -10464,6 +10851,45 @@ export type AlterSchemaVersionPayloadResolvers<ContextType = any, ParentType ext
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type AnalyticsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Analytics'] = ResolversParentTypes['Analytics']> = {
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AnalyticsAssetDownloadsArgs, 'dateFilter' | 'entityIds' | 'precision' | 'subjectIds'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AnalyticsAssetDownloadsByRegionArgs, 'dateFilter' | 'entityIds' | 'subjectIds' | 'usOnly'>>;
+  entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AnalyticsEntityViewsArgs, 'dateFilter' | 'entityIds' | 'precision'>>;
+  entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AnalyticsEntityViewsByRegionArgs, 'dateFilter' | 'entityIds' | 'usOnly'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnalyticsEventCountResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnalyticsEventCountResult'] = ResolversParentTypes['AnalyticsEventCountResult']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  date?: Resolver<ResolversTypes['ISO8601Date'], ParentType, ContextType>;
+  time?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnalyticsEventCountSummaryResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnalyticsEventCountSummary'] = ResolversParentTypes['AnalyticsEventCountSummary']> = {
+  maxDate?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  minDate?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
+  precision?: Resolver<ResolversTypes['AnalyticsPrecision'], ParentType, ContextType>;
+  results?: Resolver<Array<ResolversTypes['AnalyticsEventCountResult']>, ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  unfilteredTotal?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnalyticsRegionCountResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnalyticsRegionCountResult'] = ResolversParentTypes['AnalyticsRegionCountResult']> = {
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  countryCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  regionCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AnalyticsRegionCountSummaryResolvers<ContextType = any, ParentType extends ResolversParentTypes['AnalyticsRegionCountSummary'] = ResolversParentTypes['AnalyticsRegionCountSummary']> = {
+  results?: Resolver<Array<ResolversTypes['AnalyticsRegionCountResult']>, ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  unfilteredTotal?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type AnnouncementResolvers<ContextType = any, ParentType extends ResolversParentTypes['Announcement'] = ResolversParentTypes['Announcement']> = {
   body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
@@ -10666,6 +11092,8 @@ export type ApplySchemaPropertiesPayloadResolvers<ContextType = any, ParentType 
 export type AssetResolvers<ContextType = any, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
   __resolveType: TypeResolveFn<'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo', ParentType, ContextType>;
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10681,6 +11109,8 @@ export type AssetResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type AssetAudioResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetAudio'] = ResolversParentTypes['AssetAudio']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetAudioAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetAudioAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10699,6 +11129,8 @@ export type AssetAudioResolvers<ContextType = any, ParentType extends ResolversP
 
 export type AssetDocumentResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetDocument'] = ResolversParentTypes['AssetDocument']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetDocumentAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetDocumentAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10717,6 +11149,8 @@ export type AssetDocumentResolvers<ContextType = any, ParentType extends Resolve
 
 export type AssetImageResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetImage'] = ResolversParentTypes['AssetImage']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetImageAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetImageAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10735,6 +11169,8 @@ export type AssetImageResolvers<ContextType = any, ParentType extends ResolversP
 
 export type AssetPdfResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetPDF'] = ResolversParentTypes['AssetPDF']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetPdfAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetPdfAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10786,6 +11222,8 @@ export type AssetSelectOptionResolvers<ContextType = any, ParentType extends Res
 
 export type AssetUnknownResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetUnknown'] = ResolversParentTypes['AssetUnknown']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetUnknownAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetUnknownAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10804,6 +11242,8 @@ export type AssetUnknownResolvers<ContextType = any, ParentType extends Resolver
 
 export type AssetVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['AssetVideo'] = ResolversParentTypes['AssetVideo']> = {
   altText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<AssetVideoAssetDownloadsArgs, 'dateFilter' | 'precision'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<AssetVideoAssetDownloadsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   attachable?: Resolver<ResolversTypes['AnyAttachable'], ParentType, ContextType>;
   caption?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   contentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -10947,6 +11387,8 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CollectionAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CollectionAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CollectionAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection'>>;
@@ -10962,6 +11404,8 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CollectionDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsArgs, 'dateFilter' | 'precision'>>;
+  entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'order' | 'nodeFilter'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'order' | 'nodeFilter'>>;
   hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -11071,6 +11515,8 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CommunityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CommunityAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CommunityAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CommunityAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CommunityAssignedUsersArgs, 'order' | 'pageDirection'>>;
@@ -11079,6 +11525,8 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CommunityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CommunityEntityViewsArgs, 'dateFilter' | 'precision'>>;
+  entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CommunityEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CommunityFirstCollectionArgs, 'order' | 'nodeFilter'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CommunityFirstItemArgs, 'order' | 'nodeFilter'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -11788,6 +12236,14 @@ export type HasDoiResolvers<ContextType = any, ParentType extends ResolversParen
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
+export type HasEntityAnalyticsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasEntityAnalytics'] = ResolversParentTypes['HasEntityAnalytics']> = {
+  __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<HasEntityAnalyticsAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<HasEntityAnalyticsAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
+  entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<HasEntityAnalyticsEntityViewsArgs, 'dateFilter' | 'precision'>>;
+  entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<HasEntityAnalyticsEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
+};
+
 export type HasEntityBreadcrumbsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasEntityBreadcrumbs'] = ResolversParentTypes['HasEntityBreadcrumbs']> = {
   __resolveType: TypeResolveFn<'Collection' | 'EntitySelectOption' | 'Item', ParentType, ContextType>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
@@ -11956,6 +12412,8 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<ItemAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<ItemAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
+  assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
+  assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
   assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection'>>;
@@ -11971,6 +12429,8 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ItemDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsArgs, 'dateFilter' | 'precision'>>;
+  entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'order' | 'nodeFilter'>>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -12461,6 +12921,7 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   accessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<QueryAccessGrantsArgs, 'entity' | 'subject' | 'order' | 'pageDirection'>>;
+  analytics?: Resolver<ResolversTypes['Analytics'], ParentType, ContextType>;
   asset?: Resolver<Maybe<ResolversTypes['AnyAsset']>, ParentType, ContextType, RequireFields<QueryAssetArgs, 'slug'>>;
   collection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<QueryCollectionArgs, 'slug'>>;
   collectionContribution?: Resolver<Maybe<ResolversTypes['CollectionContribution']>, ParentType, ContextType, RequireFields<QueryCollectionContributionArgs, 'slug'>>;
@@ -13411,6 +13872,11 @@ export type Resolvers<ContextType = any> = {
   AccessGrantSubject?: AccessGrantSubjectResolvers<ContextType>;
   Accessible?: AccessibleResolvers<ContextType>;
   AlterSchemaVersionPayload?: AlterSchemaVersionPayloadResolvers<ContextType>;
+  Analytics?: AnalyticsResolvers<ContextType>;
+  AnalyticsEventCountResult?: AnalyticsEventCountResultResolvers<ContextType>;
+  AnalyticsEventCountSummary?: AnalyticsEventCountSummaryResolvers<ContextType>;
+  AnalyticsRegionCountResult?: AnalyticsRegionCountResultResolvers<ContextType>;
+  AnalyticsRegionCountSummary?: AnalyticsRegionCountSummaryResolvers<ContextType>;
   Announcement?: AnnouncementResolvers<ContextType>;
   AnnouncementConnection?: AnnouncementConnectionResolvers<ContextType>;
   AnnouncementEdge?: AnnouncementEdgeResolvers<ContextType>;
@@ -13532,6 +13998,7 @@ export type Resolvers<ContextType = any> = {
   HasAttachmentStorage?: HasAttachmentStorageResolvers<ContextType>;
   HasAvailableEntities?: HasAvailableEntitiesResolvers<ContextType>;
   HasDOI?: HasDoiResolvers<ContextType>;
+  HasEntityAnalytics?: HasEntityAnalyticsResolvers<ContextType>;
   HasEntityBreadcrumbs?: HasEntityBreadcrumbsResolvers<ContextType>;
   HasISSN?: HasIssnResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;

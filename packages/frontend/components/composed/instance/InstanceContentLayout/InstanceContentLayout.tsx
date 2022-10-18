@@ -49,7 +49,7 @@ type Props = {
 
 const fragment = graphql`
   fragment InstanceContentLayoutFragment on Query {
-    communities {
+    communities(order: POSITION_ASCENDING) {
       edges {
         node {
           slug

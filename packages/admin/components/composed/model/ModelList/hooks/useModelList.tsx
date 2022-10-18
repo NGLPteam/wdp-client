@@ -122,16 +122,27 @@ function useModelList<
   const router = useRouter();
   useEffect(() => {
     if (!setQueryVariables || !queryVariables) return;
-    if (!Array.isArray(sortBy) || sortBy.length === 0) return;
-    const { id, desc } = sortBy[0];
-    const order = mapSortBy(id, desc);
-    if (!order) return;
 
-    setQueryVariables({ ...queryVariables, order });
-    // Quietly update query vars
-    router.push({ query: { ...router.query, order } }, undefined, {
-      shallow: true,
-    });
+    const { order: prevOrder, ...query } = queryVariables;
+
+    let order = null;
+
+    if (Array.isArray(sortBy) && sortBy.length > 0) {
+      // Sort by sortBy value
+      const { id, desc } = sortBy[0];
+      order = mapSortBy(id, desc);
+    }
+
+    if (order) {
+      setQueryVariables({ ...query, order });
+      router.push({ query: { ...router.query, order } }, undefined, {
+        shallow: true,
+      });
+    } else {
+      router.push({ query: { ...router.query, order: undefined } }, undefined, {
+        shallow: true,
+      });
+    }
   }, [sortBy]);
   /* eslint-enable react-hooks/exhaustive-deps */
 

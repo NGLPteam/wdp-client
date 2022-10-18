@@ -4636,6 +4636,10 @@ enum EntityOrder {
   RECENT
   """Sort entities by oldest created date"""
   OLDEST
+  """Sort communities by position 0-9; other entities by RECENT"""
+  POSITION_ASCENDING
+  """Sort communities by position 9-0; other entities by OLDEST"""
+  POSITION_DESCENDING
   """Sort entities by oldest published date (or OLDEST for communities)"""
   PUBLISHED_ASCENDING
   """Sort entities by newest published date (or RECENT for communities)"""
