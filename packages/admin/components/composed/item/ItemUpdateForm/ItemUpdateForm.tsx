@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, readInlineData, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";

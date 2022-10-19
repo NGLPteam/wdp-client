@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import i18next from "i18next";
-import type { Hooks, Row } from "react-table";
+import type {
+  ColumnDef,
+  ModelTableActionProps,
+  Row,
+} from "@tanstack/react-table";
 import {
   ButtonControlGroup,
   ButtonControl,
@@ -16,6 +20,15 @@ type ActionConfig<D extends Record<string, unknown>> = {
   modalConfirm?: boolean;
   handleLink?: ({ row }: { row: Row<D> }) => string;
   handleHide?: ({ row }: { row: Row<D> }) => boolean;
+  // handleEdit?: (props: ModelTableActionProps<T>) => void;
+  // handleDelete?: (props: ModelTableActionProps<T>) => void;
+  // hideDelete?: (props: ModelTableActionProps<T>) => boolean;
+  // handleDownload?: (props: ModelTableActionProps<T>) => void;
+  // handleView?: (props: ModelTableActionProps<T>) => void;
+  // handleEnable?: (props: ModelTableActionProps<T>) => void;
+  // hideEnable?: (props: ModelTableActionProps<T>) => boolean;
+  // handleDisable?: (props: ModelTableActionProps<T>) => void;
+  // hideDisable?: (props: ModelTableActionProps<T>) => boolean;
 };
 
 type ActionKeys =
@@ -189,21 +202,50 @@ function renderActions<D extends Record<string, unknown>>(
   ) : null;
 }
 
-function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {
-  hooks.allColumns.push((columns, { instance }) => {
-    const { actions } = instance;
-    if (!actions) return columns;
-    const actionColumn = {
-      Header: () => null,
-      id: "actions",
-      cellType: "actions",
-      Cell: ({ row }: { row: Row<D> }) => {
-        return renderActions<D>(row, actions);
-      },
-    };
+export interface Actions<T extends Record<string, unknown>> {
+  handleEdit?: (props: ModelTableActionProps<T>) => void;
+  handleDelete?: (props: ModelTableActionProps<T>) => void;
+  handleDownload?: (props: ModelTableActionProps<T>) => string;
+  handleView?: (props: ModelTableActionProps<T>) => string;
+}
 
-    return [...columns, actionColumn];
-  });
+function useRowActions<D extends Record<string, unknown>>(
+  columns: ColumnDef<D>[],
+  actions: Actions<D>
+) {
+  // Setup actions
+  const rowActions = useMemo(
+    () => ({
+      ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
+      ...(actions.handleDelete && {
+        delete: { handleClick: actions.handleDelete, modalConfirm: true },
+      }),
+      ...(actions.handleDownload && {
+        download: {
+          handleLink: actions.handleDownload,
+          handleClick: () => null,
+        },
+      }),
+      ...(actions.handleView && {
+        view: { handleLink: actions.handleView, handleClick: () => null },
+      }),
+    }),
+    [actions]
+  );
+
+  const actionColumn = {
+    header: () => <span className="a-hidden">Actions</span>,
+    id: "actions",
+    cell: ({ row }: { row: Row<D> }) => {
+      return renderActions<D>(row, rowActions);
+    },
+    meta: {
+      cellType: "actions",
+      columnAlign: "right",
+    },
+  };
+
+  return [...columns, actionColumn];
 }
 
 useRowActions.pluginName = "useRowActions";

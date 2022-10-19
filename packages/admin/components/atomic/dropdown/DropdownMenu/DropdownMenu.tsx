@@ -1,23 +1,23 @@
-import React from "react";
+import { cloneElement, forwardRef } from "react";
 import { useMenuState, MenuButton, MenuSeparator } from "reakit/Menu";
 import type { MenuHTMLProps } from "reakit/Menu";
 
 import * as Styled from "./DropdownMenu.styles";
 type ButtonProps = Partial<React.ComponentProps<typeof MenuButton>>;
 
-const DropdownMenu = React.forwardRef<HTMLButtonElement, Props>(
+const DropdownMenu = forwardRef<HTMLButtonElement, Props>(
   ({ disclosure, menuItems, menuProps, isMainNav, ...props }, ref) => {
     const menu = useMenuState();
     return (
       <>
         <MenuButton ref={ref} {...menu} {...props} {...disclosure.props}>
-          {(disclosureProps) => React.cloneElement(disclosure, disclosureProps)}
+          {(disclosureProps) => cloneElement(disclosure, disclosureProps)}
         </MenuButton>
         <Styled.MenuWrapper {...menu} {...menuProps} role="none">
           <Styled.Menu isMainNav={isMainNav}>
             {menuItems.map((item, i) => {
               if (item.type === MenuSeparator) {
-                return React.cloneElement(item, {
+                return cloneElement(item, {
                   ...menu,
                   key: item.key || i,
                   ...item.props,
@@ -25,7 +25,7 @@ const DropdownMenu = React.forwardRef<HTMLButtonElement, Props>(
               }
               return (
                 <Styled.Item {...menu} {...item.props} key={item.key || i}>
-                  {(itemProps) => React.cloneElement(item, itemProps)}
+                  {(itemProps) => cloneElement(item, itemProps)}
                 </Styled.Item>
               );
             })}

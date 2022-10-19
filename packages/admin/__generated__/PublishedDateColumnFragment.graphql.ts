@@ -2,7 +2,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { ReaderInlineDataFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type PublishedDateColumnFragment = {
@@ -19,31 +19,9 @@ export type PublishedDateColumnFragment$key = {
 
 
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "PublishedDateColumnFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "VariablePrecisionDate",
-      "kind": "LinkedField",
-      "name": "published",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "PrecisionDateFragment"
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "type": "ReferencesGlobalEntityDates",
-  "abstractKey": "__isReferencesGlobalEntityDates"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "PublishedDateColumnFragment"
 };
-(node as any).hash = 'f077ddb7a4dd8ad119822083188da2a6';
+(node as any).hash = '639d8cee49a6849552ed809202030da0';
 export default node;

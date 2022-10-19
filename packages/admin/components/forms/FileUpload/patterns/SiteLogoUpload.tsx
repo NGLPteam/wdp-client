@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import BaseFileUpload from "../BaseFileUpload";
 import { SiteLogoUploadFragment$key } from "@/relay/SiteLogoUploadFragment.graphql";

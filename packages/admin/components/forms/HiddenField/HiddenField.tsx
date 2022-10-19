@@ -1,4 +1,3 @@
-import React from "react";
 import type { FieldValues, Path, UseFormWatch } from "react-hook-form";
 import * as Styled from "./HiddenField.styles";
 

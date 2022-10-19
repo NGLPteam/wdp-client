@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import type { DialogProps } from "reakit/Dialog";

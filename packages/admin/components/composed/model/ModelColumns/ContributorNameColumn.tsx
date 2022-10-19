@@ -1,9 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import get from "lodash/get";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import { Avatar, NamedLink } from "components/atomic";
 import { ContributorNameColumnFragment$key } from "@/relay/ContributorNameColumnFragment.graphql";
@@ -15,17 +12,20 @@ type Row = Node & ContributorNameColumnFragment$key;
 
 const ContributorNameColumn = <T extends Node>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span>{t("lists.name_column")}</span>,
+    header: () => <span>{t("lists.name_column")}</span>,
     id: "name",
-    accessor: (originalRow: T | Row) => originalRow,
-    cellType: "name",
-    Cell: ({ value, state }: CellProps<T>) => {
-      const contributor = useMaybeFragment(fragment, value);
-      const lastNameFirst = get(state, "sortBy[0].id", "") === "name";
+    accessorFn: (originalRow: T | Row) => originalRow,
+    meta: {
+      cellType: "name",
+    },
+    cell: ({ getValue }) => {
+      const value = getValue() as ContributorNameColumnFragment$key;
+      const contributor = readInlineData(fragment, value);
+      const lastNameFirst = false; // get(state, "sortBy[0].id", "") === "name";
 
       return contributor ? (
         <NamedLink
@@ -47,7 +47,7 @@ const ContributorNameColumn = <T extends Node>(
 export default ContributorNameColumn;
 
 const fragment = graphql`
-  fragment ContributorNameColumnFragment on Contributor {
+  fragment ContributorNameColumnFragment on Contributor @inline {
     __typename
     image {
       ...AvatarFragment

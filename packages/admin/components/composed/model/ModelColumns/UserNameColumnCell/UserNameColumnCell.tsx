@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "hooks";
 import { NamedLink } from "components/atomic";

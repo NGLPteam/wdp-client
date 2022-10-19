@@ -1,8 +1,7 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { CellProps } from "react-table";
+import type { CellContext } from "@tanstack/react-table";
 import { useMaybeFragment } from "hooks";
 import { RoleAssignedUsersListFragment$key } from "@/relay/RoleAssignedUsersListFragment.graphql";
 
@@ -38,20 +37,23 @@ function RoleAssignedUsersList<T extends OperationType>({
   const columns = [
     ModelColumns.NameColumn<Node>({
       route: "user",
-      accessor: "user",
-      Cell: ({ row }: CellProps<Node>) => (
-        <UserNameColumnCell data={row.original.user} />
+      accessorKey: "user",
+      cell: (info: CellContext<Node, unknown>) => (
+        <UserNameColumnCell data={info.row.original.user} />
       ),
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
-      accessor: ({ user }: Node) => user?.email,
+      accessorFn: ({ user }: Node) => user?.email,
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.roles_column")}</>,
+      header: () => <>{t("lists.roles_column")}</>,
       id: "roles",
-      Cell: ({ value }: CellProps<T>) =>
-        value?.map(({ name }: { name: string }) => name).join(",") || "",
+      accessorKey: "roles",
+      cell: (info) => {
+        const value = info.getValue() as Node["roles"];
+        return value?.map(({ name }: { name: string }) => name).join(",") || "";
+      },
     }),
   ];
 

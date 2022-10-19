@@ -79,9 +79,55 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "AssetThumbnailColumnFragment"
+              "kind": "InlineDataFragmentSpread",
+              "name": "AssetThumbnailColumnFragment",
+              "selections": [
+                {
+                  "alias": "thumbnail",
+                  "args": null,
+                  "concreteType": "ImageAttachment",
+                  "kind": "LinkedField",
+                  "name": "preview",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "storage",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": "image",
+                      "args": null,
+                      "concreteType": "ImageSize",
+                      "kind": "LinkedField",
+                      "name": "medium",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "ImageDerivative",
+                          "kind": "LinkedField",
+                          "name": "png",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "ImageFragment"
+                            }
+                          ],
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ]
             }
           ],
           "type": "Asset",

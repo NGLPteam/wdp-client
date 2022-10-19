@@ -1,8 +1,6 @@
-import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
-import type { ModelTableActionProps } from "react-table";
-import { CellProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import CreateContributionButton from "../CreateContributionButton";
 import type {
@@ -42,12 +40,16 @@ function CollectionContributionList<T extends OperationType>({
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
-    Header: "Name",
+    header: () => "Name",
     id: "targetTitle",
-    accessor: (row: CollectionContributionNode) => {
+    accessorFn: (row: CollectionContributionNode) => {
       return row?.collection?.title;
     },
-    Cell: ({ row, value }: CellProps<CollectionContributionNode>) => {
+    cell: ({
+      row,
+      getValue,
+    }: CellContext<CollectionContributionNode, string>) => {
+      const value = getValue();
       return (
         <NamedLink
           route="collection"
@@ -62,7 +64,7 @@ function CollectionContributionList<T extends OperationType>({
 
   const contributorNameColumn =
     ModelColumns.ContributorNameColumn<CollectionContributionNode>({
-      accessor: (row: CollectionContributionNode) => {
+      accessorFn: (row: CollectionContributionNode) => {
         return row?.contributor;
       },
     });
@@ -70,7 +72,7 @@ function CollectionContributionList<T extends OperationType>({
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
     ModelColumns.StringColumn<CollectionContributionNode>({
-      Header: <>{t("lists.role_column")}</>,
+      header: () => <>{t("lists.role_column")}</>,
       id: "role",
     }),
     ModelColumns.CreatedAtColumn<CollectionContributionNode>(),

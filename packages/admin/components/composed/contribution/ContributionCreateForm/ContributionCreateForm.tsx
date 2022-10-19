@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {

@@ -46,6 +46,35 @@ var v0 = {
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
+},
+v1 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    }
+  ],
+  "type": "Node",
+  "abstractKey": "__isNode"
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v0/*: any*/)
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [
@@ -135,38 +164,12 @@ return {
               "name": "entity",
               "plural": false,
               "selections": [
+                (v1/*: any*/),
+                (v2/*: any*/),
                 {
                   "kind": "InlineFragment",
                   "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "id",
-                      "storageKey": null
-                    }
-                  ],
-                  "type": "Node",
-                  "abstractKey": "__isNode"
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": [
-                    (v0/*: any*/)
-                  ],
-                  "type": "Sluggable",
-                  "abstractKey": "__isSluggable"
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "title",
-                      "storageKey": null
-                    },
+                    (v3/*: any*/),
                     {
                       "alias": null,
                       "args": null,
@@ -207,14 +210,72 @@ return {
                       "storageKey": null
                     },
                     {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "EntityThumbnailColumnFragment"
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "EntityThumbnailColumnFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "__typename",
+                          "storageKey": null
+                        },
+                        (v3/*: any*/),
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "ImageAttachment",
+                          "kind": "LinkedField",
+                          "name": "thumbnail",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "storage",
+                              "storageKey": null
+                            },
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "CoverImageFragment"
+                            }
+                          ],
+                          "storageKey": null
+                        },
+                        (v1/*: any*/),
+                        (v2/*: any*/)
+                      ]
                     },
                     {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "PublishedDateColumnFragment"
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "PublishedDateColumnFragment",
+                      "selections": [
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "concreteType": "VariablePrecisionDate",
+                              "kind": "LinkedField",
+                              "name": "published",
+                              "plural": false,
+                              "selections": [
+                                {
+                                  "args": null,
+                                  "kind": "FragmentSpread",
+                                  "name": "PrecisionDateFragment"
+                                }
+                              ],
+                              "storageKey": null
+                            }
+                          ],
+                          "type": "ReferencesGlobalEntityDates",
+                          "abstractKey": "__isReferencesGlobalEntityDates"
+                        }
+                      ]
                     }
                   ],
                   "type": "Entity",

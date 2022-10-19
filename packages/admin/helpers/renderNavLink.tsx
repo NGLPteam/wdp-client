@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import i18next from "i18next";
 import { NamedLink } from "components/atomic";

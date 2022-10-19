@@ -1,4 +1,3 @@
-import React from "react";
 import { Story } from "@storybook/react";
 import ButtonControl from "../buttons/ButtonControl";
 import Toast from "./";

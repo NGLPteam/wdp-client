@@ -1,4 +1,3 @@
-import React from "react";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import SearchFilterDrawer from "../SearchFilterDrawer";

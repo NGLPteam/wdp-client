@@ -1,8 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
 import { PartialColumnish, Node } from "./types";
 import { EntityThumbnailColumnFragment$key } from "@/relay/EntityThumbnailColumnFragment.graphql";
@@ -14,18 +12,19 @@ type Row = Node & EntityThumbnailColumnFragment$key;
 
 const EntityThumbnailColumn = <T extends Node>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span className="a-hidden">{t("lists.thumbnail")}</span>,
+    header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
     id: "thumbnail",
     // By default, the thumbnail fragment should be on the row root
-    accessor: (originalRow: T | Row) => originalRow,
-    disableSortBy: true,
-    cellType: "thumbnail",
-    Cell: ({ value, grid }: CellProps<T>) => {
-      const entity = useMaybeFragment(fragment, value);
+    accessorFn: (originalRow: T | Row) => originalRow,
+    enableSorting: false,
+    cell: (info) => {
+      const value = info.getValue() as EntityThumbnailColumnFragment$key;
+      const grid = false; // info.getContext()?.table.options.meta?.grid;
+      const entity = readInlineData(fragment, value);
 
       const objectPosition = grid ? "bottom left" : "top right";
 
@@ -54,6 +53,9 @@ const EntityThumbnailColumn = <T extends Node>(
         </ImageLink>
       ) : null;
     },
+    meta: {
+      cellType: "thumbnail",
+    },
     ...props,
   };
 };
@@ -61,7 +63,7 @@ const EntityThumbnailColumn = <T extends Node>(
 export default EntityThumbnailColumn;
 
 const fragment = graphql`
-  fragment EntityThumbnailColumnFragment on Entity {
+  fragment EntityThumbnailColumnFragment on Entity @inline {
     __typename
     title
     thumbnail {

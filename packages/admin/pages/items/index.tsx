@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useSearchQueryVars } from "hooks";
 import { QueryWrapper } from "components/api";

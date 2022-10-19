@@ -2,7 +2,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { ReaderInlineDataFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type CommunityNameColumnFragment = {
@@ -18,29 +18,9 @@ export type CommunityNameColumnFragment$key = {
 
 
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "CommunityNameColumnFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    }
-  ],
-  "type": "Community",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "CommunityNameColumnFragment"
 };
-(node as any).hash = '8e53ce6274dd66696c0f48f1e205e7d8';
+(node as any).hash = '1d39e7d2d85dc1b4a7706453a91aca4e';
 export default node;

@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, useFragment, readInlineData } from "react-relay";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";

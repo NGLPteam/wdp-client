@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { useSchemaFormContext } from "../../Context";

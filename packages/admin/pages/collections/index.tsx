@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import CollectionList from "components/composed/collection/CollectionList";
 import { QueryWrapper } from "components/api";

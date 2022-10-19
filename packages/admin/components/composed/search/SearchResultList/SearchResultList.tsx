@@ -1,7 +1,6 @@
-import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { Trans } from "react-i18next";
 import { useMaybeFragment, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
@@ -32,11 +31,11 @@ function SearchResultList<T extends OperationType>({
 
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
-      accessor: "entity",
+      accessorKey: "entity",
     }),
     ModelColumns.NameColumn<Node>({
-      accessor: "entity",
-      Cell: ({ row, value }: CellProps<Node>) => {
+      accessorKey: "entity",
+      cell: ({ row, value }: CellContext<Node, unknown>) => {
         if (!row?.original?.entity?.slug) return value.slug;
 
         const route =
@@ -56,12 +55,12 @@ function SearchResultList<T extends OperationType>({
       },
     }),
     ModelColumns.SchemaColumn<Node>({
-      accessor: (originalRow: Node) => {
+      accessorFn: (originalRow: Node) => {
         return `${originalRow?.entity?.schemaVersion?.name}`;
       },
     }),
     ModelColumns.PublishedDateColumn<Node>({
-      accessor: "entity",
+      accessorKey: "entity",
     }),
   ];
 

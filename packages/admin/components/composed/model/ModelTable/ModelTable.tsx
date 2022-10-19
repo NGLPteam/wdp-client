@@ -1,18 +1,11 @@
-import React from "react";
-import type {
-  UseTableInstanceProps,
-  UseRowSelectInstanceProps,
-} from "react-table";
 import { Table } from "components/layout";
 import { useQueryStateContext } from "hooks";
 
 type ModelTableProps<U extends Record<string, unknown>> = Pick<
   UseTableInstanceProps<U>,
-  "headerGroups" | "getTableBodyProps" | "rows" | "getTableProps"
+  "headerGroups" | "rows"
 > &
-  Partial<
-    Pick<UseRowSelectInstanceProps<U>, "getToggleAllRowsSelectedProps">
-  > & {
+  Partial<Pick<UseRowSelectInstanceProps<U>>> & {
     title: string;
     selectable: boolean;
     hasSelection: boolean;
@@ -24,15 +17,10 @@ function ModelTable<U extends Record<string, unknown>>({
   selectable,
   hasSelection,
   headerGroups,
-  getToggleAllRowsSelectedProps,
-  getTableBodyProps,
-  getTableProps,
   rows,
   listId,
 }: ModelTableProps<U>) {
   const queryState = useQueryStateContext();
-  const checkboxProps =
-    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
   return (
     <Table
@@ -40,20 +28,15 @@ function ModelTable<U extends Record<string, unknown>>({
       aria-label={title}
       withRowSelection={selectable}
       showCheckboxes={hasSelection}
-      {...getTableProps()}
     >
       {queryState.completed && (
         <Table.Header<U>
           withCheckbox={selectable}
-          checkboxProps={checkboxProps}
+          // checkboxProps={checkboxProps}
           headerGroups={headerGroups}
         />
       )}
-      <Table.Body
-        loading={!queryState.completed}
-        rows={rows}
-        {...getTableBodyProps()}
-      />
+      <Table.Body loading={!queryState.completed} rows={rows} />
     </Table>
   );
 }

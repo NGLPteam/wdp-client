@@ -1,8 +1,6 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
-import { CellProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import CreateContributionButton from "../CreateContributionButton";
 import {
@@ -41,19 +39,19 @@ function ItemContributionList<T extends OperationType>({
   const onContributor = nameColumn !== "contributor";
 
   const collectionNameColumn = {
-    Header: "Name",
+    header: () => "Name",
     id: "targetTitle",
-    accessor: (row: ItemContributionNode) => {
+    accessorFn: (row: ItemContributionNode) => {
       return row?.item?.title;
     },
-    Cell: ({ row, value }: CellProps<ItemContributionNode>) => {
+    cell: ({ row, getValue }: CellContext<ItemContributionNode, string>) => {
       return (
         <NamedLink
           route="item"
           routeParams={{ slug: row.original.item.slug }}
           passHref
         >
-          <a className="t-weight-md a-link">{value}</a>
+          <a className="t-weight-md a-link">{getValue()}</a>
         </NamedLink>
       );
     },
@@ -61,7 +59,7 @@ function ItemContributionList<T extends OperationType>({
 
   const contributorNameColumn =
     ModelColumns.ContributorNameColumn<ItemContributionNode>({
-      accessor: (row: ItemContributionNode) => {
+      accessorFn: (row: ItemContributionNode) => {
         return row?.contributor;
       },
     });
@@ -69,7 +67,7 @@ function ItemContributionList<T extends OperationType>({
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
     ModelColumns.StringColumn<ItemContributionNode>({
-      Header: <>{t("lists.role_column")}</>,
+      header: () => <>{t("lists.role_column")}</>,
       id: "role",
     }),
     ModelColumns.CreatedAtColumn<ItemContributionNode>(),

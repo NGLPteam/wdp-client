@@ -1,8 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import UserNameColumnCell from "./UserNameColumnCell";
 import { UserNameColumnFragment$key } from "@/relay/UserNameColumnFragment.graphql";
@@ -11,16 +9,19 @@ type Props<T extends Node> = PartialColumnish<T>;
 
 type Row = Node & UserNameColumnFragment$key;
 
-const UserNameColumn = <T extends Node>(props: Props<T> = {}): Column<T> => {
+const UserNameColumn = <T extends Node>(props: Props<T> = {}): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("lists.name_column")}</>,
+    header: () => <>{t("lists.name_column")}</>,
     id: "name",
-    cellType: "name",
-    accessor: (originalRow: T | Row) => originalRow,
-    Cell: ({ value }: CellProps<T>) => {
-      const user = useMaybeFragment(fragment, value);
+    meta: {
+      cellType: "name",
+    },
+    accessorFn: (originalRow: T | Row) => originalRow,
+    cell: ({ getValue }) => {
+      const value = getValue() as UserNameColumnFragment$key;
+      const user = readInlineData(fragment, value);
 
       return <UserNameColumnCell data={user} />;
     },
@@ -31,7 +32,7 @@ const UserNameColumn = <T extends Node>(props: Props<T> = {}): Column<T> => {
 export default UserNameColumn;
 
 const fragment = graphql`
-  fragment UserNameColumnFragment on User {
+  fragment UserNameColumnFragment on User @inline {
     ...UserNameColumnCellFragment
   }
 `;

@@ -1,4 +1,3 @@
-import React from "react";
 import isEmpty from "lodash/isEmpty";
 import * as Styled from "./Grid.styles";
 import { Checkbox } from "components/forms";

@@ -1,4 +1,3 @@
-import React from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./CheckboxGroup.styles";
 

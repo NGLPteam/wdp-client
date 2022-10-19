@@ -1,4 +1,3 @@
-import React from "react";
 import { useUID } from "react-uid";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";

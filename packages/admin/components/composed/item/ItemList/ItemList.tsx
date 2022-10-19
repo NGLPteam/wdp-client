@@ -1,7 +1,6 @@
-import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import {
   useMaybeFragment,
@@ -49,23 +48,23 @@ function ItemList<T extends OperationType>({
 
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
-      accessor: (row: Node) => row.entity || row,
+      accessorFn: (row: Node) => row.entity || row,
     }),
     ModelColumns.NameColumn<Node>({
       id: "title",
       route: "item",
-      accessor: (row: Node) => row.entity?.title || row.title,
-      disableSortBy: false,
+      accessorFn: (row: Node) => row.entity?.title || row.title,
+      enableSorting: true,
     }),
     ModelColumns.ContributorsColumn<Node>({
-      accessor: (row: Node) => row.entity || row,
+      accessorFn: (row: Node) => row.entity || row,
     }),
     ModelColumns.SchemaColumn<Node>({
-      accessor: (row: Node) =>
+      accessorFn: (row: Node) =>
         row.entity?.schemaVersion?.name || row.schemaVersion?.name,
     }),
     ModelColumns.PublishedDateColumn<Node>({
-      accessor: (row: Node) => row.entity || row,
+      accessorFn: (row: Node) => row.entity || row,
     }),
   ];
 

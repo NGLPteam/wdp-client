@@ -1,5 +1,3 @@
-import React from "react";
-
 import { graphql } from "react-relay";
 
 import { Trans } from "react-i18next";

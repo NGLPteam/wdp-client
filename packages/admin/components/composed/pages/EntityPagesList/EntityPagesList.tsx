@@ -1,8 +1,7 @@
-import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { ModelTableActionProps } from "react-table";
+import { ModelTableActionProps } from "@tanstack/react-table";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -40,11 +39,11 @@ function EntityPagesList<T extends OperationType>({
   const columns = [
     ModelColumns.PageHeroColumn<Node>(),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.name_column")}</>,
+      header: () => <>{t("lists.name_column")}</>,
       id: "title",
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.slug_column")}</>,
+      header: () => <>{t("lists.slug_column")}</>,
       id: "slug",
     }),
   ];

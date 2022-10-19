@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import isNumber from "lodash/isNumber";
 import * as Styled from "./ProgressBar.styles";

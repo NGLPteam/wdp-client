@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, useFragment } from "react-relay";
 import { UserUpdateFormFragment$key } from "@/relay/UserUpdateFormFragment.graphql";
 import type {

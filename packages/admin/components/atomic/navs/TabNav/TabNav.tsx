@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./TabNav.styles";

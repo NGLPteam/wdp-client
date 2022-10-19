@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
 import { Connectionish } from "types/graphql-helpers";
@@ -27,8 +26,6 @@ function ModelList<
   U extends PaginatedConnectionish | Connectionish,
   V extends Record<string, unknown>
 >({
-  queryVariables,
-  setQueryVariables,
   modelName,
   selectable = false,
   data,
@@ -46,8 +43,6 @@ function ModelList<
   // We can also retrieve `selection` from useModelList if we need it, which we eventually
   // will.
   const { modelGridOrTableProps } = useModelList<T, U, V>({
-    queryVariables,
-    setQueryVariables,
     columns,
     actions,
     data,
@@ -70,19 +65,18 @@ function ModelList<
   if (!ModelListType) return null;
 
   const hasRows = modelGridOrTableProps.rows.length > 0;
+
   return (
     <>
       {queryState.completed && !hasRows ? (
         <NoResultsMessage />
       ) : (
-        <>
-          <ModelListType<V>
-            title={title}
-            selectable={selectable}
-            listId={listId}
-            {...modelGridOrTableProps}
-          />
-        </>
+        <ModelListType<V>
+          title={title}
+          selectable={selectable}
+          listId={listId}
+          {...modelGridOrTableProps}
+        />
       )}
     </>
   );

@@ -1,8 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import { NamedLink, Image } from "components/atomic";
 import { CommunityThumbnailColumnFragment$key } from "@/relay/CommunityThumbnailColumnFragment.graphql";
@@ -13,18 +11,23 @@ type Row = Node & CommunityThumbnailColumnFragment$key;
 
 const CommunityThumbnailColumn = <T extends Node>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span className="a-hidden">{t("lists.hero_or_logo_column")}</span>,
+    header: () => (
+      <span className="a-hidden">{t("lists.hero_or_logo_column")}</span>
+    ),
     id: "thumbnail",
     // By default, the thumbnail fragment should be on the row root
-    accessor: (originalRow: T | Row) => originalRow,
-    cellType: "thumbnail",
-    disableSortBy: true,
-    Cell: ({ value }: CellProps<T>) => {
-      const community = useMaybeFragment(fragment, value);
+    accessorFn: (originalRow: T | Row) => originalRow,
+    meta: {
+      cellType: "thumbnail",
+    },
+    enableSorting: false,
+    cell: ({ row }) => {
+      const value = row.original;
+      const community = readInlineData(fragment, value);
 
       const logo = community.logo?.storage ? community.logo.original : null;
 
@@ -63,7 +66,7 @@ const CommunityThumbnailColumn = <T extends Node>(
 export default CommunityThumbnailColumn;
 
 const fragment = graphql`
-  fragment CommunityThumbnailColumnFragment on Community {
+  fragment CommunityThumbnailColumnFragment on Community @inline {
     slug
     logo {
       storage

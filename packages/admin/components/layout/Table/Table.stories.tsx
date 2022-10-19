@@ -46,15 +46,15 @@ const rows = [
     cells: [
       {
         render: () => "John Milton",
-        getCellProps: () => ({ key: "1", role: "role" }),
+        getCellContext: () => ({ key: "1", role: "role" }),
       },
       {
         render: () => "December 9, 1608",
-        getCellProps: () => ({ key: "2", role: "role" }),
+        getCellContext: () => ({ key: "2", role: "role" }),
       },
       {
         render: () => "London",
-        getCellProps: () => ({ key: "3", role: "role" }),
+        getCellContext: () => ({ key: "3", role: "role" }),
       },
     ],
   },
@@ -63,15 +63,15 @@ const rows = [
     cells: [
       {
         render: () => "Christina Rossetti",
-        getCellProps: () => ({ key: "1", role: "role" }),
+        getCellContext: () => ({ key: "1", role: "role" }),
       },
       {
         render: () => "December 5, 1830",
-        getCellProps: () => ({ key: "2", role: "role" }),
+        getCellContext: () => ({ key: "2", role: "role" }),
       },
       {
         render: () => "London",
-        getCellProps: () => ({ key: "3", role: "role" }),
+        getCellContext: () => ({ key: "3", role: "role" }),
       },
     ],
   },

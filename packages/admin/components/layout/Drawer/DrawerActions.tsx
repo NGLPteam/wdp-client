@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import type { BaseRoute } from "@wdp/lib/routes";
 import { ButtonControlRoute, ButtonControlConfirm } from "components/atomic";

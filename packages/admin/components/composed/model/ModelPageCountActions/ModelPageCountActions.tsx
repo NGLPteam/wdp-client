@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { ModelPageCountActionsFragment$key } from "@/relay/ModelPageCountActionsFragment.graphql";
 import { PageCountActions } from "components/layout";

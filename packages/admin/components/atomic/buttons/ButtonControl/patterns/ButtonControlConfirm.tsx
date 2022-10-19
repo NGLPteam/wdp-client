@@ -1,4 +1,3 @@
-import React from "react";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { ButtonControl, ButtonControlGroup } from "components/atomic";
 import Modal from "components/layout/Modal";
