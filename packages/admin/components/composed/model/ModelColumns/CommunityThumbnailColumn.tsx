@@ -25,8 +25,8 @@ const CommunityThumbnailColumn = <T extends Node>(
       cellType: "thumbnail",
     },
     enableSorting: false,
-    cell: ({ row }) => {
-      const value = row.original;
+    cell: ({ row, getValue }) => {
+      const value = getValue() as CommunityThumbnailColumnFragment$key;
       const community = readInlineData(fragment, value);
 
       const logo = community.logo?.storage ? community.logo.original : null;

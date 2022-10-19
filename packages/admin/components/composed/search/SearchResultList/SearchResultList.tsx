@@ -35,7 +35,8 @@ function SearchResultList<T extends OperationType>({
     }),
     ModelColumns.NameColumn<Node>({
       accessorKey: "entity",
-      cell: ({ row, value }: CellContext<Node, unknown>) => {
+      cell: ({ row, getValue }: CellContext<Node, unknown>) => {
+        const value = getValue() as Node["entity"];
         if (!row?.original?.entity?.slug) return value.slug;
 
         const route =

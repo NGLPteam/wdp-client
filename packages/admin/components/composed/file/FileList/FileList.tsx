@@ -40,7 +40,7 @@ function FileList<T extends OperationType>({
       header: () => <>{t("lists.kind_column")}</>,
       id: "kind",
       cell: ({ getValue }) => {
-        const value = getValue();
+        const value = getValue() as string;
 
         return (
           <div className={value === "pdf" ? "t-uppercase" : "t-capitalize"}>

@@ -82,7 +82,7 @@ export const Header = styled.header`
 
 export const HeaderBar = styled.div<{
   $noLabel: boolean;
-  $noheader: () => boolean;
+  $noHeader: boolean;
 }>`
   display: flex;
   flex-wrap: wrap;

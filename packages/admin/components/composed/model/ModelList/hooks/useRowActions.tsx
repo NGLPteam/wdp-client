@@ -18,17 +18,8 @@ type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
   modalConfirm?: boolean;
-  handleLink?: ({ row }: { row: Row<D> }) => string;
   handleHide?: ({ row }: { row: Row<D> }) => boolean;
-  // handleEdit?: (props: ModelTableActionProps<T>) => void;
-  // handleDelete?: (props: ModelTableActionProps<T>) => void;
-  // hideDelete?: (props: ModelTableActionProps<T>) => boolean;
-  // handleDownload?: (props: ModelTableActionProps<T>) => void;
-  // handleView?: (props: ModelTableActionProps<T>) => void;
-  // handleEnable?: (props: ModelTableActionProps<T>) => void;
-  // hideEnable?: (props: ModelTableActionProps<T>) => boolean;
-  // handleDisable?: (props: ModelTableActionProps<T>) => void;
-  // hideDisable?: (props: ModelTableActionProps<T>) => boolean;
+  handleLink?: ({ row }: { row: Row<D> }) => string | void;
 };
 
 type ActionKeys =
@@ -205,8 +196,8 @@ function renderActions<D extends Record<string, unknown>>(
 export interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
   handleDelete?: (props: ModelTableActionProps<T>) => void;
-  handleDownload?: (props: ModelTableActionProps<T>) => string;
-  handleView?: (props: ModelTableActionProps<T>) => string;
+  handleDownload?: (props: ModelTableActionProps<T>) => void;
+  handleView?: (props: ModelTableActionProps<T>) => void;
 }
 
 function useRowActions<D extends Record<string, unknown>>(

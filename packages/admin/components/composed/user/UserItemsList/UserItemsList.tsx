@@ -40,7 +40,8 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
     ModelColumns.NameColumn<Node>({
       route: "item",
       accessorKey: "item",
-      cell: ({ row, value }: CellContext<Node, unknown>) => {
+      cell: ({ row, getValue }: CellContext<Node, unknown>) => {
+        const value = getValue();
         if (!row?.original?.item?.slug) return value;
         return (
           <NamedLink

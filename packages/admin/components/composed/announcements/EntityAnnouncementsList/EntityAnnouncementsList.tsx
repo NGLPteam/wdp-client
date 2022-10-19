@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { ModelTableActionProps } from "@tanstack/react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { formatDate } from "@wdp/lib/helpers";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";

@@ -13,13 +13,7 @@ type NameColumn<T extends Node> = Partial<ColumnDef<T>> & {
 
 // disableSortBy is getting replaced with enableSorting
 const NameColumn = <NodeType extends Node>(
-  {
-    route,
-    cellType,
-    className,
-    accessor,
-    ...props
-  }: NameColumnDef<NodeType> = {
+  { route, cellType, className, accessor, ...props }: NameColumn<NodeType> = {
     cellType: "name",
   }
 ): ColumnDef<NodeType> => {
@@ -39,7 +33,7 @@ const NameColumn = <NodeType extends Node>(
     },
     cell: (info) => {
       const slug = info.row?.original?.slug;
-      const value = info.getValue();
+      const value = info.getValue() as string;
 
       return route && slug ? (
         <NamedLink route={route} routeParams={{ slug }} passHref>

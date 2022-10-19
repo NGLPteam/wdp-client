@@ -1,5 +1,5 @@
 import React from "react";
-import { Column } from "react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import get from "lodash/get";
 import { PartialColumnish, Node } from "./types";
 
@@ -11,10 +11,10 @@ const PositionColumn = <T extends Node>(
   { Header, ...props }: Props<T> = {
     Header: "Position",
   }
-): Column<T> => {
+): ColumnDef<T> => {
   return {
     id: "position",
-    accessor: (originalRow: T) => get(originalRow, "position"),
+    accessorFn: (originalRow: T) => get(originalRow, "position"),
     ...props,
   };
 };

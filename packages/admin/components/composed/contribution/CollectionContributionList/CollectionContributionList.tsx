@@ -48,8 +48,8 @@ function CollectionContributionList<T extends OperationType>({
     cell: ({
       row,
       getValue,
-    }: CellContext<CollectionContributionNode, string>) => {
-      const value = getValue();
+    }: CellContext<CollectionContributionNode, unknown>) => {
+      const value = getValue() as string;
       return (
         <NamedLink
           route="collection"

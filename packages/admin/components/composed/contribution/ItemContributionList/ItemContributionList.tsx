@@ -44,14 +44,15 @@ function ItemContributionList<T extends OperationType>({
     accessorFn: (row: ItemContributionNode) => {
       return row?.item?.title;
     },
-    cell: ({ row, getValue }: CellContext<ItemContributionNode, string>) => {
+    cell: ({ row, getValue }: CellContext<ItemContributionNode, unknown>) => {
+      const value = getValue() as string;
       return (
         <NamedLink
           route="item"
           routeParams={{ slug: row.original.item.slug }}
           passHref
         >
-          <a className="t-weight-md a-link">{getValue()}</a>
+          <a className="t-weight-md a-link">{value}</a>
         </NamedLink>
       );
     },
