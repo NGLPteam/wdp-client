@@ -1,5 +1,6 @@
 import React, { Ref, forwardRef } from "react";
 import { useCombobox } from "downshift";
+import type { UseComboboxStateChange } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
 import * as Styled from "./BaseTypeahead.styles";
@@ -41,7 +42,7 @@ const Typeahead = forwardRef(
       items: options,
       initialSelectedItem: options?.find((option) => option.value === value),
       itemToString: (item) => (item ? item.label : ""),
-      onInputValueChange: ({ inputValue }) => {
+      onInputValueChange: ({ inputValue }: UseComboboxStateChange<Option>) => {
         if (onInputChange) onInputChange(inputValue || "");
       },
       onSelectedItemChange: ({ selectedItem }) => {
