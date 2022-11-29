@@ -18,6 +18,8 @@ export const Input = styled.input<{ $withBrowse: boolean }>`
   --input-border-radius: ${pxToRem(4)};
   width: 100%;
   ${aBaseInput()}
+  padding-inline-end: 2.75rem;
+  ${tTruncate}
 
   ${({ $withBrowse }) =>
     $withBrowse &&
