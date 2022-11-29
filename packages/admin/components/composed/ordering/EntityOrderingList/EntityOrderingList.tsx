@@ -88,7 +88,8 @@ function EntityOrderingList<T extends OperationType>({
     handleEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) => {
       resetOrdering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
+        ["orderings"]
       );
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
