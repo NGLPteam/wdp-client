@@ -51,3 +51,16 @@ export const Arrow = styled(IconFactory)`
   margin-inline-end: ${pxToRem(8)};
   flex-shrink: 0;
 `;
+
+export const DisclosureWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-basis: var(--form-grid-item-width);
+
+  > ${Wrapper} {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0;
+    z-index: 1;
+  }
+`;

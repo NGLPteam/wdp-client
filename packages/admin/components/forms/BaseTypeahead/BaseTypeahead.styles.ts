@@ -11,13 +11,22 @@ export const InputWrapper = styled.div`
   align-items: center;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ $withBrowse: boolean }>`
   --input-min-height: ${pxToRem(42)};
   --input-padding: 0 ${pxToRem(16)};
   --input-focus-background: var(--brand10);
   --input-border-radius: ${pxToRem(4)};
   width: 100%;
   ${aBaseInput()}
+  padding-inline-end: 2.75rem;
+  ${tTruncate}
+
+  ${({ $withBrowse }) =>
+    $withBrowse &&
+    `
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    `}
 
   [aria-expanded="true"] > & {
     border-bottom-left-radius: 0;

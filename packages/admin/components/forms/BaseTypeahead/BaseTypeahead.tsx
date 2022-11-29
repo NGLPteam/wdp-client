@@ -1,5 +1,6 @@
 import React, { Ref, forwardRef } from "react";
 import { useCombobox } from "downshift";
+import type { UseComboboxStateChange } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
 import type InputProps from "../inputType";
 import * as Styled from "./BaseTypeahead.styles";
@@ -23,6 +24,7 @@ const Typeahead = forwardRef(
       onInputChange,
       value,
       isWide,
+      withBrowse,
       isLoading,
       ...inputProps
     }: Props,
@@ -40,7 +42,7 @@ const Typeahead = forwardRef(
       items: options,
       initialSelectedItem: options?.find((option) => option.value === value),
       itemToString: (item) => (item ? item.label : ""),
-      onInputValueChange: ({ inputValue }) => {
+      onInputValueChange: ({ inputValue }: UseComboboxStateChange<Option>) => {
         if (onInputChange) onInputChange(inputValue || "");
       },
       onSelectedItemChange: ({ selectedItem }) => {
@@ -48,6 +50,13 @@ const Typeahead = forwardRef(
         if (onChange) onChange(selectedItem?.value || "");
       },
     });
+
+    const valueProp = withBrowse
+      ? {
+          value:
+            options?.find((option) => option?.value === value)?.label ?? value,
+        }
+      : null;
 
     return (
       <BaseInputWrapper
@@ -73,6 +82,8 @@ const Typeahead = forwardRef(
             {...getInputProps()}
             required={required}
             disabled={inputProps.disabled}
+            $withBrowse={withBrowse}
+            {...valueProp}
           />
           <Styled.Button
             type="button"
@@ -115,6 +126,8 @@ interface Props extends Omit<InputProps, "onChange"> {
   value?: Option["value"];
   /** Show loading indicator */
   isLoading?: boolean;
+  /** Include styles for integrated entity selector */
+  withBrowse?: boolean;
 }
 
 export default Typeahead;
