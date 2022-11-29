@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, readInlineData } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";

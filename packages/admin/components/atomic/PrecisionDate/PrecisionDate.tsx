@@ -1,4 +1,3 @@
-import React from "react";
 import { formatDate } from "@wdp/lib/helpers";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";

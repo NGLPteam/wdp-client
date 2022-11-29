@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import type { communitiesQuery as Query } from "__generated__/communitiesQuery.graphql";

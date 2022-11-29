@@ -1,4 +1,3 @@
-import React from "react";
 import NextImage from "next/image";
 type NextImageProps = React.ComponentProps<typeof NextImage>;
 

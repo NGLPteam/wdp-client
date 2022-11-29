@@ -52,6 +52,7 @@
     "storybook:build": "npm-run-all -l --parallel storybook:build:*",
     "storybook:build:frontend": "yarn workspace @wdp/frontend run build-storybook",
     "storybook:build:admin": "yarn workspace @wdp/admin run build-storybook",
+    "types": "run-p types:*",
     "types:frontend": "yarn workspace @wdp/frontend run types",
     "types:admin": "yarn workspace @wdp/admin run types"
   },

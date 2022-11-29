@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "relay-runtime";
 import { Controller, useFormContext } from "react-hook-form";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";

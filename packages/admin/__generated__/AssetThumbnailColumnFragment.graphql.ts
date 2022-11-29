@@ -2,7 +2,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
+import { ReaderInlineDataFragment } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
@@ -25,60 +25,9 @@ export type AssetThumbnailColumnFragment$key = {
 
 
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "AssetThumbnailColumnFragment",
-  "selections": [
-    {
-      "alias": "thumbnail",
-      "args": null,
-      "concreteType": "ImageAttachment",
-      "kind": "LinkedField",
-      "name": "preview",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
-        {
-          "alias": "image",
-          "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "medium",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ImageFragment"
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "type": "Asset",
-  "abstractKey": "__isAsset"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "AssetThumbnailColumnFragment"
 };
-(node as any).hash = '89b55acca6de415f3a1dbf2704d57906';
+(node as any).hash = 'ca0f2009b5f30a8b1aa46c1781dc1775';
 export default node;

@@ -1,4 +1,3 @@
-import React from "react";
 import { formatNumberToString } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";

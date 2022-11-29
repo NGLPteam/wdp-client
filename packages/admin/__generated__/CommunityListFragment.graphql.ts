@@ -29,7 +29,22 @@ export type CommunityListFragment$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -51,13 +66,7 @@ const node: ReaderFragment = {
           "name": "node",
           "plural": false,
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -79,13 +88,7 @@ const node: ReaderFragment = {
               "name": "updatedAt",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -101,9 +104,12 @@ const node: ReaderFragment = {
               "storageKey": null
             },
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "CommunityNameColumnFragment"
+              "kind": "InlineDataFragmentSpread",
+              "name": "CommunityNameColumnFragment",
+              "selections": [
+                (v1/*: any*/),
+                (v0/*: any*/)
+              ]
             }
           ],
           "storageKey": null
@@ -120,5 +126,6 @@ const node: ReaderFragment = {
   "type": "CommunityConnection",
   "abstractKey": null
 };
+})();
 (node as any).hash = 'cc27900d4befec6d8dc73111206a4f2e';
 export default node;

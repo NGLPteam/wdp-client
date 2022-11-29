@@ -1,5 +1,3 @@
-import React from "react";
-
 import * as Styled from "./FormGrid.styles";
 
 const FormGrid = ({ children }: Props) => {

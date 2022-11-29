@@ -1,8 +1,7 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
-import type { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
@@ -46,19 +45,19 @@ function EntityOrderingList<T extends OperationType>({
   /* Set the table columns */
   const columns = [
     ModelColumns.StringColumn<EntityOrderingNode>({
-      Header: <>{t("lists.name_column")}</>,
+      header: () => <>{t("lists.name_column")}</>,
       id: "name",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.inherited_from_schema_column")}</>,
+      header: () => <>{t("lists.inherited_from_schema_column")}</>,
       id: "inheritedFromSchema",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.disabled_column")}</>,
+      header: () => <>{t("lists.disabled_column")}</>,
       id: "disabled",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.initial_ordering_column")}</>,
+      header: () => <>{t("lists.initial_ordering_column")}</>,
       id: "initial",
     }),
     ModelColumns.CreatedAtColumn<EntityOrderingNode>(),

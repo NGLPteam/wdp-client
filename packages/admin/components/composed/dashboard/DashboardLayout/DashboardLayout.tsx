@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, useFragment } from "react-relay";
 import DashboardInstallation from "../DashboardInstallation";
 import DashboardCollections from "../DashboardCollections";

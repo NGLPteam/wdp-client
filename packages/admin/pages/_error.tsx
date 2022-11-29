@@ -1,4 +1,3 @@
-import React from "react";
 import { Page } from "@wdp/lib/types/page";
 import { ErrorMessage } from "components/atomic";
 

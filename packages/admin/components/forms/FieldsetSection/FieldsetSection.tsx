@@ -1,4 +1,3 @@
-import React from "react";
 import * as Styled from "./FieldsetSection.styles";
 
 const GroupFieldset = ({ label, children, description, style }: Props) => {

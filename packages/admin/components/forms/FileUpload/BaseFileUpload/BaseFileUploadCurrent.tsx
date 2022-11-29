@@ -1,4 +1,3 @@
-import React from "react";
 import { FileIconFactory } from "@wdp/lib/factories";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./BaseFileUpload.styles";

@@ -1,4 +1,3 @@
-import React from "react";
 import { Toaster } from "react-hot-toast";
 import * as Styled from "./Toast.styles";
 import { IconFactory } from "components/factories";

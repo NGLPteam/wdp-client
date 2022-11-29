@@ -91,9 +91,15 @@ v4 = {
       "storageKey": null
     },
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "UserNameColumnFragment"
+      "kind": "InlineDataFragmentSpread",
+      "name": "UserNameColumnFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "UserNameColumnCellFragment"
+        }
+      ]
     }
   ],
   "storageKey": null

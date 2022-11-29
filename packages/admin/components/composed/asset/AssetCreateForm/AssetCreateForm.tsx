@@ -1,5 +1,3 @@
-import React from "react";
-
 import { graphql } from "react-relay";
 
 import type { CreateAssetInput } from "types/graphql-schema";

@@ -1,4 +1,3 @@
-import React from "react";
 import { useFragment, graphql } from "react-relay";
 import CheckboxGroup from "../CheckboxGroup";
 import Checkbox from "../Checkbox";

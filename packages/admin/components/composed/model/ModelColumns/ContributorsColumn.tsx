@@ -1,8 +1,7 @@
-import { CellProps, Column, Row } from "react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql, readInlineData } from "react-relay";
 import { UpdatableNode, PartialColumnish } from "./types";
-import { useMaybeFragment } from "hooks";
 import { NamedLink } from "components/atomic";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
 import { ContributorsColumnFragment$key } from "@/relay/ContributorsColumnFragment.graphql";
@@ -12,7 +11,7 @@ function ContributorsColumnCell({
 }: {
   data: ContributorsColumnFragment$key;
 }) {
-  const fragmentData = useMaybeFragment(fragment, data);
+  const fragmentData = readInlineData(fragment, data);
   const { t } = useTranslation();
 
   function getColumnString() {
@@ -48,17 +47,15 @@ const ContributorsColumn = <
   NodeType extends UpdatableNode & ContributorsColumnFragment$key
 >(
   props: PartialColumnish<NodeType> = {}
-): Column<NodeType> => {
+): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("lists.contributors_column")}</>,
+    header: () => <>{t("lists.contributors_column")}</>,
     id: "contributions",
-    disableSortBy: true,
-    accessor: (originalRow: NodeType | Row) => originalRow,
-    Cell: ({ value }: CellProps<NodeType>) => (
-      <ContributorsColumnCell data={value} />
-    ),
+    enableSorting: false,
+    accessorKey: "contributions",
+    cell: ({ row }) => <ContributorsColumnCell data={row.original} />,
     ...props,
   };
 };
@@ -66,7 +63,7 @@ const ContributorsColumn = <
 export default ContributorsColumn;
 
 const fragment = graphql`
-  fragment ContributorsColumnFragment on AnyEntity {
+  fragment ContributorsColumnFragment on AnyEntity @inline {
     ... on Item {
       slug
       contributions(page: 1, perPage: 1) {

@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./Header.styles";
 import SignInOut from "components/auth/SignInOut";

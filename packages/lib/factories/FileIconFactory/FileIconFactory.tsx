@@ -1,4 +1,3 @@
-import React from "react";
 import type IconProps from "../../types/icon";
 import { Audio32, Image32, Text32, Video32 } from "../../svgs/icons";
 

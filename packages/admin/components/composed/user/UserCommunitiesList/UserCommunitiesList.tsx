@@ -1,8 +1,7 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { OperationType } from "relay-runtime";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -36,9 +35,9 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
   const columns = [
     ModelColumns.NameColumn<Node>({
       route: "community",
-      accessor: "community",
-      Cell: ({ row, value }: CellProps<Node>) => {
-        if (!row?.original?.community?.slug) return value;
+      accessorKey: "community",
+      cell: ({ row, getValue }: CellContext<Node, unknown>) => {
+        if (!row?.original?.community?.slug) return getValue() || null;
         return (
           <NamedLink
             route="community"
@@ -51,9 +50,9 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
       },
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.role_column")}</>,
+      header: () => <>{t("lists.role_column")}</>,
       id: "role",
-      accessor: (row: Node) => {
+      accessorFn: (row: Node) => {
         return row?.role.name;
       },
     }),
