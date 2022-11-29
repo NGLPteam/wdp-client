@@ -1,4 +1,3 @@
-import React from "react";
 import { Story } from "@storybook/react";
 import DropdownMenu from ".";
 import { ButtonControl, Button } from "components/atomic";

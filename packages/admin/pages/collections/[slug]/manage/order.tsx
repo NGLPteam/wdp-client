@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import type { GetLayout } from "@wdp/lib/types/page";
 import type { orderManageSlugOrderingsPagesQuery as Query } from "@/relay/orderManageSlugOrderingsPagesQuery.graphql";

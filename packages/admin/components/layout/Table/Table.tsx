@@ -9,7 +9,7 @@ import TableContext from "./contexts/TableContext";
 const Table = ({
   children,
   "aria-label": ariaLabel,
-  withRowSelection = false,
+  selectable = false,
   showCheckboxes = false,
   id,
   ...tableProps
@@ -19,7 +19,7 @@ const Table = ({
     <TableContext.Provider value={{ columnCount, setColumnCount }}>
       <Styled.TableWrapper
         id={id}
-        withRowSelection={withRowSelection}
+        selectable={selectable}
         showCheckboxes={showCheckboxes}
       >
         <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
@@ -33,7 +33,7 @@ const Table = ({
 interface Props {
   children: React.ReactNode[] | Element[];
   "aria-label": string;
-  withRowSelection?: boolean;
+  selectable?: boolean;
   showCheckboxes?: boolean;
   id?: string;
 }

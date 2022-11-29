@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import { useBaseListQueryVars, useIsAuthenticated } from "hooks";

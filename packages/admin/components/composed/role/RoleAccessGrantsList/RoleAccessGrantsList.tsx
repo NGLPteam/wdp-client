@@ -1,8 +1,7 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { CellProps, ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -18,6 +17,7 @@ import {
   RoleAccessGrantsListDataFragment,
   RoleAccessGrantsListDataFragment$key,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
+import { Role } from "types/graphql-schema";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -46,16 +46,17 @@ function RoleAccessGrantsList<T extends OperationType>({
   const columns = [
     ModelColumns.UserNameColumn<Node>({
       // Return the data where the user fragment is defined
-      accessor: ({ user }: Node) => user,
+      accessorFn: ({ user }: Node) => user,
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
-      accessor: ({ user }: Node) => user?.email,
+      accessorFn: ({ user }: Node) => user?.email,
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.role_column")}</>,
+      header: () => <>{t("lists.role_column")}</>,
       id: "role",
-      Cell: ({ value }: CellProps<T>) => value?.name || "",
+      accessorKey: "role",
+      cell: (info) => (info.getValue() as Role)?.name || "",
     }),
   ];
 

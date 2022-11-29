@@ -1,7 +1,6 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import ModelListPage from "components/composed/model/ModelListPage";

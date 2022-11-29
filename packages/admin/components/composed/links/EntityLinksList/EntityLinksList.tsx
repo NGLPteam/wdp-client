@@ -1,8 +1,7 @@
-import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { CellProps, ModelTableActionProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { capitalize } from "lodash";
 import { useMaybeFragment, useDestroyer } from "hooks";
 
@@ -46,8 +45,9 @@ function EntityLinksList<T extends OperationType>({
   const columns = [
     ModelColumns.NameColumn<EntityLinksNode>({
       route: "collection",
-      accessor: "target",
-      Cell: ({ row, value }: CellProps<EntityLinksNode>) => {
+      accessorKey: "target",
+      cell: ({ row, getValue }: CellContext<EntityLinksNode, unknown>) => {
+        const value = getValue() as EntityLinksNode & { title: string };
         if (!row?.original?.target?.slug) return value.slug;
 
         const route =
@@ -67,13 +67,14 @@ function EntityLinksList<T extends OperationType>({
       },
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
-      Header: <>{t("lists.schema_column")}</>,
+      header: () => <>{t("lists.schema_column")}</>,
       id: "target.schemaDefinition.name",
     }),
     ModelColumns.StringColumn<EntityLinksNode>({
-      Header: <>{t("lists.type_column")}</>,
+      header: () => <>{t("lists.type_column")}</>,
       id: "operator",
-      Cell: ({ value }: CellProps<EntityLinksNode>) => capitalize(value),
+      cell: ({ getValue }: CellContext<EntityLinksNode, unknown>) =>
+        capitalize(getValue() as string),
     }),
   ];
 

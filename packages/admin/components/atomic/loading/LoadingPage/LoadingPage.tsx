@@ -1,4 +1,3 @@
-import React from "react";
 import LoadingCircleIcon from "../LoadingCircleIcon";
 import * as Styled from "./LoadingPage.styles";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import type { ReactNode } from "react";
 import { graphql } from "react-relay";
 import startCase from "lodash/startCase";
@@ -12,7 +11,6 @@ import ModelList from "components/composed/model/ModelList";
 import ModelListActions from "components/composed/model/ModelListActions";
 import type { ModelListProps } from "components/composed/model/ModelList";
 import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
-import { QueryVariablesContext } from "contexts";
 import { PageHeader } from "components/layout";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
@@ -92,23 +90,15 @@ function ModelListPage<
         search={showSearch && <SearchWithFilters data={searchScope} />}
       />
       {searchScope && <CurrentSearchFilters data={searchScope} />}
-      <QueryVariablesContext.Consumer>
-        {({ queryVariables, setQueryVariables }) => (
-          <>
-            <ModelPageCountActions data={instance} />
-            <ModelList<T, U, V>
-              {...modelListProps}
-              data={data}
-              queryVariables={queryVariables}
-              setQueryVariables={setQueryVariables}
-              modelName={modelName}
-              view={view}
-              listId={listId}
-            />
-            <ModelPagination data={instance} />
-          </>
-        )}
-      </QueryVariablesContext.Consumer>
+      <ModelPageCountActions data={instance} />
+      <ModelList<T, U, V>
+        {...modelListProps}
+        data={data}
+        modelName={modelName}
+        view={view}
+        listId={listId}
+      />
+      <ModelPagination data={instance} />
     </section>
   );
 }

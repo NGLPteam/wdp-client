@@ -12,8 +12,8 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   --checkbox-opacity: 0;
   --checkbox-visibility: 0;
 
-  ${({ withRowSelection }) =>
-    withRowSelection &&
+  ${({ selectable }) =>
+    selectable &&
     css`
       --table-margin-left: ${pxToRem(52)};
     `}
@@ -29,8 +29,8 @@ export const TableWrapper = styled.div<TableWrapperProps>`
 `;
 
 interface TableWrapperProps {
-  withRowSelection: boolean;
-  showCheckboxes: boolean;
+  selectable?: boolean;
+  showCheckboxes?: boolean;
 }
 
 export const Table = styled.table`
@@ -128,7 +128,7 @@ export const SelectCell = styled.td`
   width: 0.1%;
   max-width: auto;
   white-space: nowrap;
-  padding: 0 var(--table-column-gap);
+  padding: ${pxToRem(14)} var(--table-column-gap) 0;
   border-top-left-radius: var(--table-border-radius);
   border-bottom-left-radius: var(--table-border-radius);
 `;

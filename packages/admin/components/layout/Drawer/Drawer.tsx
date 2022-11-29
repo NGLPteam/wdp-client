@@ -1,4 +1,3 @@
-import React from "react";
 import { useUID } from "react-uid";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";

@@ -1,8 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import { PrecisionDate } from "components/atomic";
 import { PublishedDateColumnFragment$key } from "@/relay/PublishedDateColumnFragment.graphql";
@@ -13,15 +11,16 @@ type Row = Node & PublishedDateColumnFragment$key;
 
 const PublishedDateColumn = <T extends Node>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span>{t("lists.published_column")}</span>,
+    header: () => <span>{t("lists.published_column")}</span>,
     id: "published",
-    accessor: (originalRow: T | Row) => originalRow,
-    Cell: ({ value }: CellProps<T>) => {
-      const entity = useMaybeFragment(fragment, value);
+    accessorFn: (originalRow: T | Row) => originalRow,
+    cell: ({ getValue }) => {
+      const value = getValue() as PublishedDateColumnFragment$key;
+      const entity = readInlineData(fragment, value);
 
       return entity ? <PrecisionDate data={entity.published} /> : null;
     },
@@ -32,7 +31,7 @@ const PublishedDateColumn = <T extends Node>(
 export default PublishedDateColumn;
 
 const fragment = graphql`
-  fragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {
+  fragment PublishedDateColumnFragment on ReferencesGlobalEntityDates @inline {
     published {
       ...PrecisionDateFragment
     }

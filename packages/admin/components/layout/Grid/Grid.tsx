@@ -1,4 +1,3 @@
-import React from "react";
 import times from "lodash/times";
 import { useBoundingBox } from "@wdp/lib/hooks";
 import * as Styled from "./Grid.styles";

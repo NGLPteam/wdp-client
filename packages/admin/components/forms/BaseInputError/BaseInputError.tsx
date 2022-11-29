@@ -1,4 +1,3 @@
-import React from "react";
 import * as Styled from "./BaseInputError.styles";
 import { IconFactory } from "components/factories";
 

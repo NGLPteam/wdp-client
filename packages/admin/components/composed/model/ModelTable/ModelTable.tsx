@@ -1,59 +1,49 @@
-import React from "react";
-import type {
-  UseTableInstanceProps,
-  UseRowSelectInstanceProps,
-} from "react-table";
+import type { HeaderGroup, Row } from "@tanstack/react-table";
 import { Table } from "components/layout";
 import { useQueryStateContext } from "hooks";
 
-type ModelTableProps<U extends Record<string, unknown>> = Pick<
-  UseTableInstanceProps<U>,
-  "headerGroups" | "getTableBodyProps" | "rows" | "getTableProps"
-> &
-  Partial<
-    Pick<UseRowSelectInstanceProps<U>, "getToggleAllRowsSelectedProps">
-  > & {
-    title: string;
-    selectable: boolean;
-    hasSelection: boolean;
-    listId?: string;
-  };
+type ModelTableProps<U extends Record<string, unknown>> = {
+  title: string;
+  selectable: boolean;
+  someRowsSelected?: boolean;
+  allRowsSelected?: boolean;
+  toggleAllRowsSelectedHandler?: (event: unknown) => void;
+  listId?: string;
+  headerGroups: HeaderGroup<U>[];
+  rows: Row<U>[];
+};
 
 function ModelTable<U extends Record<string, unknown>>({
   title,
   selectable,
-  hasSelection,
   headerGroups,
-  getToggleAllRowsSelectedProps,
-  getTableBodyProps,
-  getTableProps,
   rows,
   listId,
+  someRowsSelected,
+  allRowsSelected,
+  toggleAllRowsSelectedHandler,
 }: ModelTableProps<U>) {
   const queryState = useQueryStateContext();
-  const checkboxProps =
-    getToggleAllRowsSelectedProps && getToggleAllRowsSelectedProps();
 
   return (
     <Table
       id={listId}
       aria-label={title}
-      withRowSelection={selectable}
-      showCheckboxes={hasSelection}
-      {...getTableProps()}
+      selectable={selectable}
+      showCheckboxes={someRowsSelected || allRowsSelected}
     >
       {queryState.completed && (
         <Table.Header<U>
-          withCheckbox={selectable}
-          checkboxProps={checkboxProps}
-          headerGroups={headerGroups}
+          {...{
+            selectable,
+            headerGroups,
+            someRowsSelected,
+            allRowsSelected,
+            toggleAllRowsSelectedHandler,
+          }}
         />
       )}
-      <Table.Body
-        loading={!queryState.completed}
-        rows={rows}
-        {...getTableBodyProps()}
-      />
+      <Table.Body loading={!queryState.completed} rows={rows} />
     </Table>
   );
 }

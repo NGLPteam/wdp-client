@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
-import { HeaderGroup, ColumnInstance } from "react-table";
+import type { CoreHeaderGroup } from "@tanstack/react-table";
+import { flexRender } from "@tanstack/react-table";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortIcon from "./TableSortIcon";
 import useTableContext from "./hooks/useTableContext";
-import { CheckboxProps } from "types/form-fields";
 import { Checkbox } from "components/forms";
 
 function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],
-  withCheckbox,
-  checkboxProps,
+  selectable,
+  someRowsSelected,
+  allRowsSelected,
+  toggleAllRowsSelectedHandler,
 }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
@@ -27,35 +29,40 @@ function TableHeader<T extends Record<string, unknown>>({
   return (
     <thead>
       {headerGroups.map((headerGroup) => {
-        const headerGroupProps = {
-          ...(headerGroup.getHeaderGroupProps &&
-            headerGroup.getHeaderGroupProps()),
-        };
         return (
-          <TableHeaderRow {...headerGroupProps}>
-            {withCheckbox ? (
+          <TableHeaderRow key={headerGroup.id}>
+            {selectable ? (
               <Styled.HeaderCell role="columnheader" data-select-cell="true">
                 <Styled.SelectCellInner>
-                  <Checkbox {...checkboxProps} />
+                  <Checkbox
+                    {...{
+                      checked: allRowsSelected,
+                      indeterminate: someRowsSelected,
+                      onChange: toggleAllRowsSelectedHandler,
+                    }}
+                  />
                 </Styled.SelectCellInner>
               </Styled.HeaderCell>
             ) : (
               <Styled.HeaderCell role="presentation" />
             )}
 
-            {headerGroup.headers.map((column) => {
+            {headerGroup.headers.map((header) => {
               return (
                 <Styled.HeaderCell
-                  {...column.getHeaderProps()}
-                  {...(column.getSortByToggleProps &&
-                    column.getSortByToggleProps())}
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  onClick={header.column.getToggleSortingHandler()}
                 >
                   <Styled.HeaderCellInner>
-                    {column.render("Header")}
-                    {column.canSort && (
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.column.getCanSort() && (
                       <TableSortIcon
-                        desc={column.isSortedDesc}
-                        isSorted={column.isSorted}
+                        desc={header.column.getIsSorted() === "desc"}
+                        isSorted={!!header.column.getIsSorted()}
                       />
                     )}
                   </Styled.HeaderCellInner>
@@ -71,27 +78,25 @@ function TableHeader<T extends Record<string, unknown>>({
   /* eslint-enable react/jsx-key */
 }
 
-type RequiredHeaderProps<T extends Record<string, unknown>> = Pick<
-  ColumnInstance<T>,
-  "getHeaderProps" | "render" | "canSort"
->;
+// type RequiredHeaderProps<T extends Record<string, unknown>> = Column<T>;
+//  Pick<
+//   Column<T>,
+//   "getHeaderProps" | "render" | "canSort"
+// >;
 
-type OptionalHeaderProps<T extends Record<string, unknown>> = Partial<
-  Pick<ColumnInstance<T>, "getSortByToggleProps" | "isSorted" | "isSortedDesc">
->;
+// type OptionalHeaderProps<T extends Record<string, unknown>> = Partial<
+//   Pick<Column<T>, "getSortByToggleProps" | "isSorted" | "isSortedDesc">
+// >;
 
-type PartialHeader<T extends Record<string, unknown>> = RequiredHeaderProps<T> &
-  OptionalHeaderProps<T>;
-
-interface PartialHeaderGroup<T extends Record<string, unknown>>
-  extends Pick<HeaderGroup<T>, "getHeaderGroupProps"> {
-  headers: PartialHeader<T>[];
-}
+// type PartialHeader<T extends Record<string, unknown>> = RequiredHeaderProps<T> &
+//   OptionalHeaderProps<T>;
 
 interface Props<T extends Record<string, unknown>> {
-  headerGroups: PartialHeaderGroup<T>[];
-  withCheckbox?: boolean;
-  checkboxProps?: CheckboxProps;
+  headerGroups: CoreHeaderGroup<T>[];
+  selectable?: boolean;
+  someRowsSelected?: boolean;
+  allRowsSelected?: boolean;
+  toggleAllRowsSelectedHandler?: (event: unknown) => void;
 }
 
 export default TableHeader;

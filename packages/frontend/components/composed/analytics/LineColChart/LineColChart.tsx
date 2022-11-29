@@ -9,6 +9,7 @@ import { customColors } from "theme/base/variables";
 
 type Props = Partial<ReactGoogleChartProps> &
   Partial<ChartWrapperOptions> & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[];
   };
 

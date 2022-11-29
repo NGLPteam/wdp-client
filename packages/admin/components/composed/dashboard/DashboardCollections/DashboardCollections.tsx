@@ -1,8 +1,6 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
 import { OperationType } from "relay-runtime";
-import { QueryVariablesContext } from "@wdp/lib/api/contexts";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ContentHeader } from "components/layout";
 import ModelList from "components/composed/model/ModelList";
@@ -31,7 +29,7 @@ export default function DashboardCollections({ data }: Props) {
     ModelColumns.EntityThumbnailColumn<Node>(),
     ModelColumns.NameColumn<Node>({
       id: "title",
-      accessor: "title",
+      accessorKey: "title",
       route: "collection",
     }),
     ModelColumns.SchemaColumn<Node>(),
@@ -43,22 +41,14 @@ export default function DashboardCollections({ data }: Props) {
         headerStyle="secondary"
         title={t("glossary.collection_plural")}
       />
-      <QueryVariablesContext.Consumer>
-        {({ queryVariables, setQueryVariables }) => (
-          <>
-            <ModelPageCountActions data={collections} />
-            <ModelList<OperationType, DashboardCollectionsListFragment, Node>
-              queryVariables={queryVariables}
-              setQueryVariables={setQueryVariables}
-              view={ViewOptions.grid}
-              columns={columns}
-              data={collections}
-              modelName="collection"
-            />
-            <ModelPagination data={collections} />
-          </>
-        )}
-      </QueryVariablesContext.Consumer>
+      <ModelPageCountActions data={collections} />
+      <ModelList<OperationType, DashboardCollectionsListFragment, Node>
+        view={ViewOptions.grid}
+        columns={columns}
+        data={collections}
+        modelName="collection"
+      />
+      <ModelPagination data={collections} />
     </section>
   );
 }

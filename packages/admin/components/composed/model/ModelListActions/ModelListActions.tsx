@@ -1,4 +1,3 @@
-import React from "react";
 import { PageActions } from "components/layout";
 import { DataViewToggle } from "components/atomic";
 import useIsMobile from "hooks/useIsMobile";

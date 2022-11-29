@@ -40,6 +40,21 @@ var v0 = {
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v2 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v0/*: any*/)
+  ],
+  "type": "Sluggable",
+  "abstractKey": "__isSluggable"
 };
 return {
   "argumentDefinitions": [],
@@ -92,25 +107,73 @@ return {
           "name": "contributor",
           "plural": false,
           "selections": [
+            (v1/*: any*/),
+            (v2/*: any*/),
             {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "__typename",
-              "storageKey": null
-            },
-            {
-              "kind": "InlineFragment",
+              "kind": "InlineDataFragmentSpread",
+              "name": "ContributorNameColumnFragment",
               "selections": [
-                (v0/*: any*/)
-              ],
-              "type": "Sluggable",
-              "abstractKey": "__isSluggable"
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ContributorNameColumnFragment"
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    (v1/*: any*/),
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageAttachment",
+                      "kind": "LinkedField",
+                      "name": "image",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "AvatarFragment"
+                        }
+                      ],
+                      "storageKey": null
+                    },
+                    (v2/*: any*/),
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "legalName",
+                          "storageKey": null
+                        }
+                      ],
+                      "type": "OrganizationContributor",
+                      "abstractKey": null
+                    },
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "givenName",
+                          "storageKey": null
+                        },
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "familyName",
+                          "storageKey": null
+                        }
+                      ],
+                      "type": "PersonContributor",
+                      "abstractKey": null
+                    }
+                  ],
+                  "type": "Contributor",
+                  "abstractKey": "__isContributor"
+                }
+              ]
             }
           ],
           "storageKey": null

@@ -80,7 +80,10 @@ export const Header = styled.header`
   background: var(--background-color);
 `;
 
-export const HeaderBar = styled.div<{ $noLabel: boolean; $noHeader: boolean }>`
+export const HeaderBar = styled.div<{
+  $noLabel: boolean;
+  $noHeader: boolean;
+}>`
   display: flex;
   flex-wrap: wrap;
   justify-content: ${({ $noLabel }) =>

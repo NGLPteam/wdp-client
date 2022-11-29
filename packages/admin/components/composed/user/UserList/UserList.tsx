@@ -1,7 +1,6 @@
-import React from "react";
 import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper, useMaybeFragment } from "hooks";
 import type {
@@ -29,11 +28,11 @@ function UserList<T extends OperationType>({
     ModelColumns.UserNameColumn<UserNode>(),
     ModelColumns.EmailColumn<UserNode>(),
     ModelColumns.BooleanColumn<UserNode>({
-      Header: <>{t("lists.admin_column")}</>,
+      header: () => <>{t("lists.admin_column")}</>,
       id: "globalAdmin",
-      disableSortBy: false,
+      enableSorting: true,
     }),
-    ModelColumns.CreatedAtColumn<UserNode>({ disableSortBy: false }),
+    ModelColumns.CreatedAtColumn<UserNode>({ enableSorting: true }),
   ];
 
   const actions = {

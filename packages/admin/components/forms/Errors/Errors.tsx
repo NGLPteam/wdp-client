@@ -1,4 +1,3 @@
-import React from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import type { Path } from "react-hook-form";
 

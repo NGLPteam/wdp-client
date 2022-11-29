@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, readInlineData, useFragment } from "react-relay";
 import pick from "lodash/pick";
 import MutationForm, {

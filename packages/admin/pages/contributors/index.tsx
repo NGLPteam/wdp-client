@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { QueryWrapper } from "components/api";
 import { contributorsQuery as Query } from "__generated__/contributorsQuery.graphql";

@@ -1,14 +1,18 @@
-import React from "react";
-import isEmpty from "lodash/isEmpty";
 import * as Styled from "./Grid.styles";
 import { Checkbox } from "components/forms";
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>;
 
-const GridItem = ({ children, checkboxProps, actions, thumbnail }: Props) => {
+const GridItem = ({
+  children,
+  selectable,
+  checkboxProps,
+  actions,
+  thumbnail,
+}: Props) => {
   return (
-    <Styled.Item data-has-checkbox={!isEmpty(checkboxProps)}>
-      {checkboxProps && (
+    <Styled.Item data-has-checkbox={selectable}>
+      {selectable && (
         <Styled.Checkbox>
           <Checkbox {...checkboxProps} />
         </Styled.Checkbox>
@@ -22,6 +26,7 @@ const GridItem = ({ children, checkboxProps, actions, thumbnail }: Props) => {
 
 interface Props {
   children: JSX.Element;
+  selectable?: boolean;
   checkboxProps?: CheckboxProps;
   thumbnail?: JSX.Element | React.ReactNode;
   actions?: JSX.Element | React.ReactNode;

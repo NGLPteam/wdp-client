@@ -1,4 +1,3 @@
-import React from "react";
 import Props from "./iconType";
 
 const IconCheckbox = ({ title, fill, ...props }: CheckboxProps) => {

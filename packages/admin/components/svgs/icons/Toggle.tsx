@@ -1,4 +1,3 @@
-import React from "react";
 import IconProps from "./iconType";
 
 const IconToggle = ({ checked = false, title, ...props }: Props) => {

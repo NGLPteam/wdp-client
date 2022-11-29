@@ -1,4 +1,3 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
