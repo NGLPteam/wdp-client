@@ -15,6 +15,8 @@ import {
 } from "@/relay/ParentSelectorModalMutation.graphql";
 import type { SchemaVersion } from "types/graphql-schema";
 
+import type { EntityOption } from "components/forms/EntitySelector/EntitySelectorController";
+
 export default function ParentSelectorModal({
   dialog,
   entityId,
@@ -45,7 +47,8 @@ export default function ParentSelectorModal({
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { setValue, register } }) => {
-      const onSelect = (id: string) => setValue("parentId", id);
+      const onSelect = (entity: EntityOption | undefined) =>
+        setValue("parentId", entity?.id ?? parentId);
       return (
         <EntitySelector
           {...register("parentId", { required: true })}
