@@ -6,24 +6,30 @@ import { useQueryStateContext } from "hooks";
 type ModelGridProps<U extends Record<string, unknown>> = {
   rows: Row<U>[];
   title?: string;
-  selectable: boolean;
-  hasSelection: boolean;
+  selectable?: boolean;
+  someRowsSelected?: boolean;
+  allRowsSelected?: boolean;
   listId?: string;
 };
 
 function ModelGrid<U extends Record<string, unknown>>({
   rows,
   selectable,
-  hasSelection,
+  someRowsSelected,
+  allRowsSelected,
   listId,
 }: ModelGridProps<U>) {
   const { loading } = useQueryStateContext();
 
   return (
-    <Grid showCheckboxes={hasSelection} id={listId} loading={loading}>
+    <Grid
+      showCheckboxes={selectable && (someRowsSelected || allRowsSelected)}
+      id={listId}
+      loading={loading}
+    >
       <>
         {rows.map((row, i) => (
-          <ModelGridItem key={i} row={row} selectable={selectable} />
+          <ModelGridItem key={i} row={row} />
         ))}
       </>
     </Grid>

@@ -5,7 +5,9 @@ import { useQueryStateContext } from "hooks";
 type ModelTableProps<U extends Record<string, unknown>> = {
   title: string;
   selectable: boolean;
-  hasSelection: boolean;
+  someRowsSelected?: boolean;
+  allRowsSelected?: boolean;
+  toggleAllRowsSelectedHandler?: (event: unknown) => void;
   listId?: string;
   headerGroups: HeaderGroup<U>[];
   rows: Row<U>[];
@@ -14,10 +16,12 @@ type ModelTableProps<U extends Record<string, unknown>> = {
 function ModelTable<U extends Record<string, unknown>>({
   title,
   selectable,
-  hasSelection,
   headerGroups,
   rows,
   listId,
+  someRowsSelected,
+  allRowsSelected,
+  toggleAllRowsSelectedHandler,
 }: ModelTableProps<U>) {
   const queryState = useQueryStateContext();
 
@@ -25,14 +29,18 @@ function ModelTable<U extends Record<string, unknown>>({
     <Table
       id={listId}
       aria-label={title}
-      withRowSelection={selectable}
-      showCheckboxes={hasSelection}
+      selectable={selectable}
+      showCheckboxes={someRowsSelected || allRowsSelected}
     >
       {queryState.completed && (
         <Table.Header<U>
-          withCheckbox={selectable}
-          // checkboxProps={checkboxProps}
-          headerGroups={headerGroups}
+          {...{
+            selectable,
+            headerGroups,
+            someRowsSelected,
+            allRowsSelected,
+            toggleAllRowsSelectedHandler,
+          }}
         />
       )}
       <Table.Body loading={!queryState.completed} rows={rows} />

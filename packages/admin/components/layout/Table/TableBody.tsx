@@ -16,14 +16,16 @@ function TableBody<T extends Record<string, unknown>>({
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
   const renderCheckboxCell = (row: Row<T>) => {
-    // if (!row.getToggleRowSelectedProps) return;
-    // const props = row.getToggleRowSelectedProps();
-    const props = {};
-
     return (
       <Styled.SelectCell role="gridcell">
         <Styled.SelectCellInner>
-          <Checkbox {...props} />
+          <Checkbox
+            {...{
+              checked: row.getIsSelected(),
+              indeterminate: row.getIsSomeSelected(),
+              onChange: row.getToggleSelectedHandler(),
+            }}
+          />
         </Styled.SelectCellInner>
       </Styled.SelectCell>
     );
@@ -45,11 +47,11 @@ function TableBody<T extends Record<string, unknown>>({
           })
         : rows.map((row) => (
             <TableRow key={row.id}>
-              {/* {row.getToggleRowSelectedProps ? (
+              {row.getCanMultiSelect() ? (
                 renderCheckboxCell(row)
-              ) : ( */}
-              <Styled.Cell role="presentation" />
-              {/* )} */}
+              ) : (
+                <Styled.Cell role="presentation" />
+              )}
               {row.getVisibleCells().map((cell) => {
                 return (
                   <Styled.Cell

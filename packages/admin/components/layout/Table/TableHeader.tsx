@@ -5,13 +5,14 @@ import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortIcon from "./TableSortIcon";
 import useTableContext from "./hooks/useTableContext";
-import { CheckboxProps } from "types/form-fields";
 import { Checkbox } from "components/forms";
 
 function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],
-  withCheckbox,
-  checkboxProps,
+  selectable,
+  someRowsSelected,
+  allRowsSelected,
+  toggleAllRowsSelectedHandler,
 }: Props<T>) {
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
@@ -30,10 +31,16 @@ function TableHeader<T extends Record<string, unknown>>({
       {headerGroups.map((headerGroup) => {
         return (
           <TableHeaderRow key={headerGroup.id}>
-            {withCheckbox ? (
+            {selectable ? (
               <Styled.HeaderCell role="columnheader" data-select-cell="true">
                 <Styled.SelectCellInner>
-                  <Checkbox {...checkboxProps} />
+                  <Checkbox
+                    {...{
+                      checked: allRowsSelected,
+                      indeterminate: someRowsSelected,
+                      onChange: toggleAllRowsSelectedHandler,
+                    }}
+                  />
                 </Styled.SelectCellInner>
               </Styled.HeaderCell>
             ) : (
@@ -86,8 +93,10 @@ function TableHeader<T extends Record<string, unknown>>({
 
 interface Props<T extends Record<string, unknown>> {
   headerGroups: CoreHeaderGroup<T>[];
-  withCheckbox?: boolean;
-  checkboxProps?: CheckboxProps;
+  selectable?: boolean;
+  someRowsSelected?: boolean;
+  allRowsSelected?: boolean;
+  toggleAllRowsSelectedHandler?: (event: unknown) => void;
 }
 
 export default TableHeader;
