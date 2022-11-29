@@ -15,9 +15,26 @@ type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
   modalConfirm?: boolean;
   handleLink?: ({ row }: { row: Row<D> }) => string;
+  handleHide?: ({ row }: { row: Row<D> }) => boolean;
 };
 
-type ActionKeys = "download" | "edit" | "delete" | "view";
+type ActionKeys =
+  | "download"
+  | "edit"
+  | "delete"
+  | "view"
+  | "enable"
+  | "disable";
+
+// Change the sort order of action buttons here
+const ACTION_ORDER = [
+  "download",
+  "view",
+  "edit",
+  "enable",
+  "disable",
+  "delete",
+];
 
 interface ActionDefinition {
   label: string;
@@ -58,6 +75,22 @@ const availableActions: ActionDefinitions = {
   view: {
     label: i18next.t("common.view"),
   },
+  enable: {
+    label: i18next.t("common.enable"),
+    action: "self.edit",
+    modalLabel: i18next.t("messages.enable.confirm_label"),
+    modalBody: (
+      <p className="t-copy-sm">{i18next.t("messages.enable.confirm_body")}</p>
+    ),
+  },
+  disable: {
+    label: i18next.t("common.disable"),
+    action: "self.delete",
+    modalLabel: i18next.t("messages.disable.confirm_label"),
+    modalBody: (
+      <p className="t-copy-sm">{i18next.t("messages.disable.confirm_body")}</p>
+    ),
+  },
 };
 
 function getButtonControlChildren<D extends Record<string, unknown>>(
@@ -66,6 +99,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
   actionConfig?: ActionConfig<D>
 ) {
   const actionDefinition = availableActions[action];
+
+  if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
+    return <></>;
 
   const buttonControl = actionConfig?.modalConfirm ? (
     <ButtonControlConfirm
@@ -78,7 +114,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       })}
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}
-    ></ButtonControlConfirm>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControlConfirm>
   ) : action === "download" && actionConfig?.handleLink ? (
     <ButtonControlDownload
       key={action}
@@ -104,7 +142,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       {...(actionConfig?.handleClick && {
         onClick: () => actionConfig.handleClick({ row }),
       })}
-    ></ButtonControl>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControl>
   );
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
@@ -124,9 +164,8 @@ function renderActions<D extends Record<string, unknown>>(
   const keys = Object.keys(configuration) as Array<ActionKeys>;
 
   const buttons = keys
-    .sort((actionA) => {
-      // Delete button should be last
-      return actionA === "delete" ? 1 : -1;
+    .sort((actionA, actionB) => {
+      return ACTION_ORDER.indexOf(actionA) - ACTION_ORDER.indexOf(actionB);
     })
     .filter((action) => {
       // Filter out any actions that are not configured
