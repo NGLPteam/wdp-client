@@ -14,6 +14,7 @@ import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import useResetOrdering from "hooks/useResetOrdering";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,6 +26,8 @@ function EntityOrderingList<T extends OperationType>({
   const { t } = useTranslation();
 
   const destroy = useDestroyer();
+
+  const resetOrdering = useResetOrdering();
 
   const drawerHelper = useDrawerHelper();
 
@@ -68,11 +71,29 @@ function EntityOrderingList<T extends OperationType>({
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering"
       ),
+    hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      row.original.inheritedFromSchema,
+    handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      destroy.ordering(
+        { orderingId: row.original.id },
+        row.original.name || "glossary.ordering"
+      ),
+    hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      !row.original.inheritedFromSchema || row.original.disabled,
     handleEdit: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       drawerHelper.open("editOrdering", {
         drawerSlug: sourceEntity?.slug || "",
         drawerIdentifier: row.original.identifier || "",
       }),
+    handleEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) => {
+      resetOrdering(
+        { orderingId: row.original.id },
+        row.original.name || "glossary.ordering",
+        ["orderings"]
+      );
+    },
+    hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      !row.original.inheritedFromSchema || !row.original.disabled,
   };
   /* eslint-enable no-console */
 
