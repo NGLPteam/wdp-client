@@ -47,7 +47,7 @@ export type FeaturedIssueFragment = {
             readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
         }> | undefined;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"getEntityDisplayNameFragment" | "getEntityDisplayNumberFragment">;
+    readonly " $fragmentRefs": FragmentRefs<"getEntityDisplayNameFragment">;
     readonly " $refType": "FeaturedIssueFragment";
 };
 export type FeaturedIssueFragment$data = FeaturedIssueFragment;
@@ -136,81 +136,6 @@ v6 = [
       }
     ],
     "type": "StringProperty",
-    "abstractKey": null
-  }
-],
-v7 = {
-  "alias": "issueNumber",
-  "args": [
-    {
-      "kind": "Literal",
-      "name": "fullPath",
-      "value": "number"
-    }
-  ],
-  "concreteType": null,
-  "kind": "LinkedField",
-  "name": "schemaProperty",
-  "plural": false,
-  "selections": (v6/*: any*/),
-  "storageKey": "schemaProperty(fullPath:\"number\")"
-},
-v8 = [
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": "volume",
-        "args": (v5/*: any*/),
-        "concreteType": null,
-        "kind": "LinkedField",
-        "name": "ancestorByName",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": "number",
-                "args": [
-                  {
-                    "kind": "Literal",
-                    "name": "fullPath",
-                    "value": "id"
-                  }
-                ],
-                "concreteType": null,
-                "kind": "LinkedField",
-                "name": "schemaProperty",
-                "plural": false,
-                "selections": (v6/*: any*/),
-                "storageKey": "schemaProperty(fullPath:\"id\")"
-              }
-            ],
-            "type": "Collection",
-            "abstractKey": null
-          }
-        ],
-        "storageKey": "ancestorByName(name:\"volume\")"
-      },
-      {
-        "alias": "volumeNumber",
-        "args": [
-          {
-            "kind": "Literal",
-            "name": "fullPath",
-            "value": "volume.id"
-          }
-        ],
-        "concreteType": null,
-        "kind": "LinkedField",
-        "name": "schemaProperty",
-        "plural": false,
-        "selections": (v6/*: any*/),
-        "storageKey": "schemaProperty(fullPath:\"volume.id\")"
-      }
-    ],
-    "type": "Collection",
     "abstractKey": null
   }
 ];
@@ -438,7 +363,22 @@ return {
                   "selections": (v2/*: any*/),
                   "storageKey": "ancestorByName(name:\"volume\")"
                 },
-                (v7/*: any*/)
+                {
+                  "alias": "issueNumber",
+                  "args": [
+                    {
+                      "kind": "Literal",
+                      "name": "fullPath",
+                      "value": "number"
+                    }
+                  ],
+                  "concreteType": null,
+                  "kind": "LinkedField",
+                  "name": "schemaProperty",
+                  "plural": false,
+                  "selections": (v6/*: any*/),
+                  "storageKey": "schemaProperty(fullPath:\"number\")"
+                }
               ],
               "type": "Collection",
               "abstractKey": null
@@ -446,40 +386,65 @@ return {
             {
               "kind": "InlineDataFragmentSpread",
               "name": "getEntityVolumeNumberFragment",
-              "selections": (v8/*: any*/)
-            }
-          ],
-          "type": "AnyEntity",
-          "abstractKey": "__isAnyEntity"
-        }
-      ]
-    },
-    {
-      "kind": "InlineDataFragmentSpread",
-      "name": "getEntityDisplayNumberFragment",
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "kind": "InlineFragment",
               "selections": [
-                (v7/*: any*/),
                 {
-                  "kind": "InlineDataFragmentSpread",
-                  "name": "getEntityVolumeNumberFragment",
+                  "kind": "InlineFragment",
                   "selections": [
                     {
-                      "kind": "InlineFragment",
-                      "selections": (v8/*: any*/),
-                      "type": "AnyEntity",
-                      "abstractKey": "__isAnyEntity"
+                      "alias": "volume",
+                      "args": (v5/*: any*/),
+                      "concreteType": null,
+                      "kind": "LinkedField",
+                      "name": "ancestorByName",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "alias": "number",
+                              "args": [
+                                {
+                                  "kind": "Literal",
+                                  "name": "fullPath",
+                                  "value": "id"
+                                }
+                              ],
+                              "concreteType": null,
+                              "kind": "LinkedField",
+                              "name": "schemaProperty",
+                              "plural": false,
+                              "selections": (v6/*: any*/),
+                              "storageKey": "schemaProperty(fullPath:\"id\")"
+                            }
+                          ],
+                          "type": "Collection",
+                          "abstractKey": null
+                        }
+                      ],
+                      "storageKey": "ancestorByName(name:\"volume\")"
+                    },
+                    {
+                      "alias": "volumeNumber",
+                      "args": [
+                        {
+                          "kind": "Literal",
+                          "name": "fullPath",
+                          "value": "volume.id"
+                        }
+                      ],
+                      "concreteType": null,
+                      "kind": "LinkedField",
+                      "name": "schemaProperty",
+                      "plural": false,
+                      "selections": (v6/*: any*/),
+                      "storageKey": "schemaProperty(fullPath:\"volume.id\")"
                     }
-                  ]
+                  ],
+                  "type": "Collection",
+                  "abstractKey": null
                 }
-              ],
-              "type": "Collection",
-              "abstractKey": null
+              ]
             }
           ],
           "type": "AnyEntity",
@@ -492,5 +457,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7519c59d142a847e2a59eb4f9bc3d932';
+(node as any).hash = '99691aeb52483dcb6f5f66c78183d8c9';
 export default node;

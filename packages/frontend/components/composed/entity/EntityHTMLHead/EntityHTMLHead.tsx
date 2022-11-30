@@ -2,26 +2,19 @@ import React from "react";
 import Head from "next/head";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRouter } from "next/router";
 import { EntityHTMLHeadFragment$key } from "@/relay/EntityHTMLHeadFragment.graphql";
-import { getOrigin } from "helpers";
-import { EntityHTMLHeadAppFragment$key } from "@/relay/EntityHTMLHeadAppFragment.graphql";
+import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 
-export default function EntityHTMLHead({ data, appData }: Props) {
-  const app = useMaybeFragment(appFragment, appData);
+export default function EntityHTMLHead({ data }: Props) {
+  const staticData = useGlobalStaticContext();
+  const installationName =
+    staticData?.globalConfiguration?.site?.installationName || "WDP";
 
   const entity = useMaybeFragment(fragment, data);
 
-  const router = useRouter();
-
-  if (!entity || !app) return null;
-
-  const installationName =
-    app.globalConfiguration.site.installationName || "WDP";
+  if (!entity) return null;
 
   const title = `${entity.title} - ${installationName}`;
-
-  const origin = getOrigin();
 
   const image = entity.heroImage?.storage
     ? entity.heroImage.medium?.webp
@@ -42,10 +35,7 @@ export default function EntityHTMLHead({ data, appData }: Props) {
           <meta name="twitter:card" content={entity.summary} />
         </>
       )}
-      {origin && <meta name="og:url" content={`${origin}${router.asPath}`} />}
-      {installationName && (
-        <meta property="og:site_name" content={installationName} />
-      )}
+
       {image?.url && (
         <>
           <meta name="og:image" content={image.url} />
@@ -66,7 +56,6 @@ export default function EntityHTMLHead({ data, appData }: Props) {
 
 interface Props {
   data?: EntityHTMLHeadFragment$key | null;
-  appData?: EntityHTMLHeadAppFragment$key | null;
 }
 
 const fragment = graphql`
@@ -99,16 +88,6 @@ const fragment = graphql`
       }
       heroImageMetadata {
         alt
-      }
-    }
-  }
-`;
-
-const appFragment = graphql`
-  fragment EntityHTMLHeadAppFragment on Query {
-    globalConfiguration {
-      site {
-        installationName
       }
     }
   }

@@ -12,7 +12,6 @@ export type ItemLayoutFragment = {
         };
         readonly " $fragmentRefs": FragmentRefs<"AppLayoutEntityFragment" | "EntityHTMLHeadFragment" | "EntityLayoutFactoryFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadAppFragment">;
     readonly " $refType": "ItemLayoutFragment";
 };
 export type ItemLayoutFragment$data = ItemLayoutFragment;
@@ -82,15 +81,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityHTMLHeadAppFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '158152d1e252a3e6f99d12ff8da3a206';
+(node as any).hash = 'be5c26bc1e08a1bc5dd8272c65485f05';
 export default node;

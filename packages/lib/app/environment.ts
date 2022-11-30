@@ -13,7 +13,7 @@ interface KeycloakRef {
 }
 
 export default function buildEnvironment(
-  keycloakRef: KeycloakRef,
+  keycloakRef?: KeycloakRef,
   records?: RecordMap,
   isAdmin?: boolean
 ) {
@@ -29,12 +29,12 @@ export default function buildEnvironment(
     authMiddleware({
       allowEmptyToken: true,
       token: () => {
-        return keycloakRef.current?.token || "";
+        return keycloakRef?.current?.token || "";
       },
       tokenRefreshPromise: async () => {
-        await keycloakRef.current?.updateToken(86400);
+        await keycloakRef?.current?.updateToken(86400);
 
-        return keycloakRef.current?.token || "";
+        return keycloakRef?.current?.token || "";
       },
     }),
   ]);

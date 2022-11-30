@@ -15,9 +15,14 @@ import AnnouncementModal from "components/layout/AnnouncementModal";
 import { Link as LinkStyle, NamedLink } from "components/atomic";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
+import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 
 // Note: About text and community name will come from backend data
 function AppFooter({ communityData }: Props) {
+  const staticData = useGlobalStaticContext();
+
+  const footer = staticData?.globalConfiguration?.site?.footer;
+
   const globalData = useGlobalContext();
 
   const app = useMaybeFragment<AppFooterFragment$key>(fragment, globalData);
@@ -81,9 +86,9 @@ function AppFooter({ communityData }: Props) {
               <InstallationName />
             </Styled.InstallationMobile>
           )}
-          {app?.globalConfiguration.site.footer.description && (
+          {footer?.description && (
             <div className="t-copy-sm t-copy-lighter">
-              {app?.globalConfiguration.site.footer.description}
+              {footer?.description}
             </div>
           )}
           <Styled.InstallationDesktop>
@@ -108,9 +113,9 @@ function AppFooter({ communityData }: Props) {
             {renderRoute("admin")}
           </Styled.NavList>
         </Styled.NavWrapper>
-        {app?.globalConfiguration.site.footer.copyrightStatement && (
+        {footer?.copyrightStatement && (
           <Styled.CopyrightText className="t-copy-sm t-copy-light">
-            {`© ${app.globalConfiguration.site.footer.copyrightStatement}`}
+            {`© ${footer?.copyrightStatement}`}
           </Styled.CopyrightText>
         )}
       </Styled.FooterInner>
@@ -132,15 +137,6 @@ const fragment = graphql`
     communities {
       pageInfo {
         totalCount
-      }
-    }
-    globalConfiguration {
-      site {
-        installationName
-        footer {
-          copyrightStatement
-          description
-        }
       }
     }
   }

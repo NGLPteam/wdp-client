@@ -17,7 +17,7 @@ export default function ItemLayout({ data, children }: Props) {
       communityData={memoizedData?.item?.community}
       entityData={memoizedData?.item}
     >
-      <EntityHTMLHead data={memoizedData?.item} appData={memoizedData} />
+      <EntityHTMLHead data={memoizedData?.item} />
       {loading && !memoizedData?.item ? (
         <LoadingBlock />
       ) : (
@@ -46,6 +46,5 @@ const fragment = graphql`
         ...AppLayoutCommunityFragment
       }
     }
-    ...EntityHTMLHeadAppFragment
   }
 `;
