@@ -11,15 +11,6 @@ export type AppFooterFragment = {
             readonly totalCount: number;
         };
     };
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly installationName: string;
-            readonly footer: {
-                readonly copyrightStatement: string;
-                readonly description: string;
-            };
-        };
-    };
     readonly " $refType": "AppFooterFragment";
 };
 export type AppFooterFragment$data = AppFooterFragment;
@@ -64,64 +55,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "GlobalConfiguration",
-      "kind": "LinkedField",
-      "name": "globalConfiguration",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "SiteSettings",
-          "kind": "LinkedField",
-          "name": "site",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "installationName",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "SiteFooter",
-              "kind": "LinkedField",
-              "name": "footer",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "copyrightStatement",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "description",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '6de4effcd7f412dae643e92fb37800a4';
+(node as any).hash = '4794cc226705eef8c3f78ddbe7f8ce10';
 export default node;

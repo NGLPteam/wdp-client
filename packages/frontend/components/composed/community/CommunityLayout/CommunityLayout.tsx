@@ -20,7 +20,7 @@ export default function CommunityLayout({ data, children }: Props) {
         <LoadingBlock />
       ) : (
         <>
-          <EntityHTMLHead data={memoizedData?.community} appData={queryData} />
+          <EntityHTMLHead data={memoizedData?.community} />
           {children}
         </>
       )}
@@ -41,6 +41,5 @@ const fragment = graphql`
       ...AppLayoutEntityFragment
       ...EntityHTMLHeadFragment
     }
-    ...EntityHTMLHeadAppFragment
   }
 `;

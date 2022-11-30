@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBody } from "..";
-import CommunityHTMLHead from "components/composed/community/CommunityHTMLHead";
 import { RouteHelper } from "routes";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
@@ -21,7 +20,6 @@ export default function AppLayout({
 
   return (
     <AppBody communityData={community} entityData={entity}>
-      <CommunityHTMLHead data={community} />
       {isCommunityRoot && (
         <CommunityNavBar data={community} entityData={entity} />
       )}
@@ -38,7 +36,6 @@ interface Props {
 
 const fragment = graphql`
   fragment AppLayoutCommunityFragment on Community {
-    ...CommunityHTMLHeadFragment
     ...CommunityNavBarFragment
     ...AppBodyCommunityFragment
   }

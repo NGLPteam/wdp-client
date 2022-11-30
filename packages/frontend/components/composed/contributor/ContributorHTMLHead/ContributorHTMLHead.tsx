@@ -3,8 +3,13 @@ import { graphql } from "react-relay";
 import Head from "next/head";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ContributorHTMLHeadFragment$key } from "@/relay/ContributorHTMLHeadFragment.graphql";
+import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 
 export default function ContributorHTMLHead({ data }: Props) {
+  const staticData = useGlobalStaticContext();
+  const installationName =
+    staticData?.globalConfiguration?.site?.installationName || "WDP";
+
   const contributor = useMaybeFragment(fragment, data);
 
   return contributor ? (
@@ -15,7 +20,7 @@ export default function ContributorHTMLHead({ data }: Props) {
           : contributor.__typename === "PersonContributor"
           ? `${contributor.givenName} ${contributor.familyName} `
           : ""}
-        - WDP
+        - {installationName}
       </title>
     </Head>
   ) : null;

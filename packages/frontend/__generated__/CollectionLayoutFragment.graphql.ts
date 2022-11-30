@@ -12,7 +12,6 @@ export type CollectionLayoutFragment = {
         };
         readonly " $fragmentRefs": FragmentRefs<"AppLayoutEntityFragment" | "EntityHTMLHeadFragment" | "EntityLayoutFactoryFragment">;
     } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadAppFragment">;
     readonly " $refType": "CollectionLayoutFragment";
 };
 export type CollectionLayoutFragment$data = CollectionLayoutFragment;
@@ -82,15 +81,10 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityHTMLHeadAppFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '0ef8f3dc6c7c09b05019ba85dae5b122';
+(node as any).hash = 'd07d809cd676f598958585aac3e0ffb7';
 export default node;

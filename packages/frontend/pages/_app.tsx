@@ -14,6 +14,10 @@ import { AppHtmlHead } from "components/global";
 import { updateI18n } from "i18n";
 import { AppContextProvider } from "contexts";
 import { LoadingPage } from "components/atomic";
+import {
+  getStaticGlobalContextData,
+  GlobalStaticContextProvider,
+} from "contexts/GlobalStaticContext";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 
@@ -57,11 +61,11 @@ function App({
   const getLayout = Component.getLayout || defaultLayout;
 
   return (
-    <>
+    <GlobalStaticContextProvider staticData={pageProps}>
+      <AppHtmlHead />
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
-            <AppHtmlHead />
             {getLayout({
               PageComponent: Component,
               pageComponentProps: pageProps,
@@ -69,15 +73,17 @@ function App({
           </AppContextProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>
-    </>
+    </GlobalStaticContextProvider>
   );
 }
 export default App;
 
 App.getInitialProps = async (context: AppContext) => {
+  const queryProps = await getStaticGlobalContextData();
+
   return {
     cookies: parseCookies(context?.ctx?.req) || {},
-    pageProps: {},
+    pageProps: { ...queryProps },
   };
 };
 
