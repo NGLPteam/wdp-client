@@ -3,7 +3,6 @@ import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import AppLayout from "components/global/AppLayout";
 import { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import { LoadingBlock } from "components/atomic";
 
 export default function CommunityLayout({ data, children }: Props) {
@@ -16,14 +15,7 @@ export default function CommunityLayout({ data, children }: Props) {
       communityData={memoizedData?.community}
       entityData={memoizedData?.community}
     >
-      {loading && !memoizedData?.community ? (
-        <LoadingBlock />
-      ) : (
-        <>
-          <EntityHTMLHead data={memoizedData?.community} />
-          {children}
-        </>
-      )}
+      {loading && !memoizedData?.community ? <LoadingBlock /> : <>{children}</>}
     </AppLayout>
   );
 }
@@ -39,7 +31,6 @@ const fragment = graphql`
     community(slug: $slug) {
       ...AppLayoutCommunityFragment
       ...AppLayoutEntityFragment
-      ...EntityHTMLHeadFragment
     }
   }
 `;

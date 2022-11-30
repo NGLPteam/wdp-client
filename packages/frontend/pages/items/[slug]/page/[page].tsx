@@ -2,9 +2,19 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
 import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 export default function ItemPage({ data }: Props) {
   return <EntityPageLayoutFactory data={data?.item} />;

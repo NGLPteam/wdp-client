@@ -3,9 +3,19 @@ import { graphql } from "react-relay";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSlugCollectionQuery.graphql";
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 export default function AnnouncementPage({ data }: Props) {
   return <EntityAnnouncementLayoutFactory data={data?.collection} />;

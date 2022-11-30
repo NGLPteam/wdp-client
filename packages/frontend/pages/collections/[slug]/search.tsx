@@ -2,11 +2,21 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 function SearchLayoutQuery({
   data,
