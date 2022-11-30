@@ -1,11 +1,21 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import { useDescendantListQueryVars } from "hooks";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 export default function CommunityCollectionsSchema({ data }: Props) {
   return data?.community?.orderingForSchema ? (

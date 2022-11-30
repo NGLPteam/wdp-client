@@ -1,17 +1,18 @@
 import React, { createContext } from "react";
 import { getStaticGlobalContextDataQueryResponse } from "@/relay/getStaticGlobalContextDataQuery.graphql";
+import { getStaticEntityDataFragment$data } from "@/relay/getStaticEntityDataFragment.graphql";
 
 export type GlobalStaticData = getStaticGlobalContextDataQueryResponse;
 
-type GlobalStaticValue = GlobalStaticData | undefined;
+type GlobalEntityData = { entityData?: getStaticEntityDataFragment$data };
 
-const GlobalStaticContext = createContext<GlobalStaticValue>(undefined);
+type GlobalStaticValue = Partial<GlobalStaticData> & GlobalEntityData;
+
+const GlobalStaticContext = createContext<GlobalStaticValue>({});
 
 function GlobalStaticContextProvider({ children, staticData }: Props) {
-  console.info("global data", staticData);
-
   return (
-    <GlobalStaticContext.Provider value={staticData}>
+    <GlobalStaticContext.Provider value={staticData || {}}>
       {children}
     </GlobalStaticContext.Provider>
   );

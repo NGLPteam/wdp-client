@@ -1,11 +1,21 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import ArticleAnalyticsBlock from "components/composed/analytics/ArticleAnalyticsBlock";
 import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { LoadingBlock } from "components/atomic";
 import { AnalyticsPrecision } from "types/graphql-schema";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 export default function MetricsSlugItemPage({ data }: Props) {
   return data?.item ? (

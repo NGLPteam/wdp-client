@@ -3,7 +3,6 @@ import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import AppLayout from "components/global/AppLayout";
 import { ItemLayoutFragment$key } from "@/relay/ItemLayoutFragment.graphql";
-import EntityHTMLHead from "components/composed/entity/EntityHTMLHead";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import { LoadingBlock } from "components/atomic";
 
@@ -17,7 +16,6 @@ export default function ItemLayout({ data, children }: Props) {
       communityData={memoizedData?.item?.community}
       entityData={memoizedData?.item}
     >
-      <EntityHTMLHead data={memoizedData?.item} />
       {loading && !memoizedData?.item ? (
         <LoadingBlock />
       ) : (
@@ -39,7 +37,6 @@ const fragment = graphql`
   @argumentDefinitions(slug: { type: "Slug!" }) {
     item(slug: $slug) {
       ...AppLayoutEntityFragment
-      ...EntityHTMLHeadFragment
       ...EntityLayoutFactoryFragment
 
       community {

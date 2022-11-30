@@ -2,9 +2,19 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
+import { GetServerSidePropsContext } from "next";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { getStaticEntityData } from "contexts/GlobalStaticContext";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const entityData = await getStaticEntityData(context);
+
+  return {
+    props: { entityData },
+  };
+}
 
 export default function CommunityPage({ data }: Props) {
   return <CommunityPageLayout data={data?.community?.page} />;
