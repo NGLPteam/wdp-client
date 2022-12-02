@@ -50,9 +50,6 @@ export default function IssueHero({ data }: Props) {
         LeftComponent={
           <>
             <Styled.Summary>
-              {issue.volume && (
-                <Styled.VolumeMobile>{issue.volume.title}</Styled.VolumeMobile>
-              )}
               <DotList className="t-copy-lighter">
                 {issue.published.value && (
                   <li>
@@ -106,11 +103,6 @@ const fragment = graphql`
     journal: ancestorOfType(schema: "nglp:journal") {
       ...JournalHeroCompactFragment
       ...JournalHeroMetadataFragment
-    }
-    volume: ancestorOfType(schema: "nglp:journal_volume") {
-      ... on Entity {
-        title
-      }
     }
 
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
