@@ -13,9 +13,7 @@ export type getEntityDisplayNameFragment = {
     readonly issueNumber?: {
         readonly content?: string | null | undefined;
     } | null | undefined;
-    readonly volumeNumber?: {
-        readonly content?: string | null | undefined;
-    } | null | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"getEntityVolumeNumberFragment">;
     readonly " $refType": "getEntityDisplayNameFragment";
 };
 export type getEntityDisplayNameFragment$data = getEntityDisplayNameFragment;
@@ -30,5 +28,5 @@ const node: ReaderInlineDataFragment = {
   "kind": "InlineDataFragment",
   "name": "getEntityDisplayNameFragment"
 };
-(node as any).hash = '3d8e8c964d9ad885dff22d55e926c039';
+(node as any).hash = '542281836e69c75a5fdcac76b5b63314';
 export default node;

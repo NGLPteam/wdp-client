@@ -2,6 +2,7 @@ import { graphql } from "relay-runtime";
 import { readInlineData } from "react-relay";
 import hasNumericIssueTitle from "./hasNumericIssueTitle";
 import { getEntityDisplayNameFragment$key } from "@/relay/getEntityDisplayNameFragment.graphql";
+import getEntityVolumeNumber from "./getEntityVolumeNumber";
 
 export default function getEntityDisplayName(
   data: getEntityDisplayNameFragment$key
@@ -10,30 +11,31 @@ export default function getEntityDisplayName(
 
   const hasNumericTitle = hasNumericIssueTitle(entity?.title);
 
-  const vol = entity?.volumeNumber?.content;
+  const vol = getEntityVolumeNumber(entity);
+
   const volTitle = entity?.volume?.title
     ? entity?.volume?.title
     : vol
     ? `Volume ${vol}`
     : null;
 
-  const issue = entity?.issueNumber?.content;
-  const issueTitle = entity?.title
+  const number = entity?.issueNumber?.content;
+  const entityTitle = entity?.title
     ? entity?.title
-    : issue
-    ? `Issue ${issue}`
+    : number
+    ? `Issue ${number}`
     : null;
 
   return volTitle && hasNumericTitle
-    ? `${volTitle}, ${issueTitle}`
-    : issueTitle;
+    ? `${volTitle}, ${entityTitle}`
+    : entityTitle;
 }
 
 const fragment = graphql`
   fragment getEntityDisplayNameFragment on AnyEntity @inline {
     ... on Collection {
       title
-      volume: ancestorOfType(schema: "nglp:journal_volume") {
+      volume: ancestorByName(name: "volume") {
         ... on Collection {
           title
         }
@@ -43,11 +45,7 @@ const fragment = graphql`
           content
         }
       }
-      volumeNumber: schemaProperty(fullPath: "volume.id") {
-        ... on StringProperty {
-          content
-        }
-      }
+      ...getEntityVolumeNumberFragment
     }
   }
 `;
