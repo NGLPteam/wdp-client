@@ -15,6 +15,11 @@ import {
   FeaturedIssueFragment$data,
   FeaturedIssueFragment$key,
 } from "@/relay/FeaturedIssueFragment.graphql";
+import {
+  getEntityDisplayName,
+  getEntityDisplayNumber,
+  hasNumericIssueTitle,
+} from "helpers";
 
 export default function FeaturedIssue({ data, header }: Props) {
   const { t } = useTranslation();
@@ -24,6 +29,8 @@ export default function FeaturedIssue({ data, header }: Props) {
   const articles = issue?.ordering?.children?.edges;
 
   const featuredArticles = issue?.featuredArticles?.entities;
+
+  const issueNo = getEntityDisplayNumber(issue);
 
   return issue ? (
     <Styled.Section className="a-bg-netural00">
@@ -57,12 +64,7 @@ export default function FeaturedIssue({ data, header }: Props) {
                 passHref
               >
                 <Styled.IssueTitle as="a" className="a-link">
-                  <span>{issue.title}</span>
-                  {issue.volume && (
-                    <span className="a-color-lighter">
-                      {issue.volume?.title}
-                    </span>
-                  )}
+                  {getEntityDisplayName(issue)}
                 </Styled.IssueTitle>
               </NamedLink>
             </h3>
@@ -72,6 +74,9 @@ export default function FeaturedIssue({ data, header }: Props) {
               </div>
             )}
             <DotList className="t-copy-lighter">
+              {!hasNumericIssueTitle(issue.title) && issueNo && (
+                <li>{issueNo}</li>
+              )}
               {issue.published.value && (
                 <li>
                   <PrecisionDate data={issue.published} />
@@ -190,5 +195,8 @@ const fragment = graphql`
         }
       }
     }
+
+    ...getEntityDisplayNameFragment
+    ...getEntityDisplayNumberFragment
   }
 `;

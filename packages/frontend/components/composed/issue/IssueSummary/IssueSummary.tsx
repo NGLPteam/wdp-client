@@ -1,45 +1,22 @@
-import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
 import * as Styled from "./IssueSummary.styles";
 import { PrecisionDate, CoverImage } from "components/atomic";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 import Summary from "components/layout/Summary";
+import {
+  getEntityDisplayName,
+  getEntityDisplayNumber,
+  hasNumericIssueTitle,
+} from "helpers";
 
 export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
-  const hasNonNumericTitle = useMemo(() => {
-    if (!issue) return null;
-    const titleRegex = /Issue\s[0-9]+/i;
-    return !titleRegex.test(issue.title);
-  }, [issue]);
-
-  const issueNumber = useMemo(() => {
-    if (!issue) return null;
-
-    const issueNumber = issue?.issueNumber?.content;
-
-    return issueNumber && issueNumber !== "0" && hasNonNumericTitle
-      ? startCase(`${t("schema.nglp.journal_issue")} ${issueNumber}`)
-      : null;
-  }, [issue, hasNonNumericTitle, t]);
-
-  const formattedTitle = useMemo(() => {
-    if (!issue) return null;
-
-    const volumeNum = issue.volumeNumber?.integerValue;
-    const issueNum = issue?.issueNumber?.content;
-
-    return hasNonNumericTitle
-      ? issue.title
-      : !volumeNum
-      ? t("list.issue_title_no_vol", { issueNum })
-      : t("list.issue_title", { volumeNum, issueNum });
-  }, [issue, t, hasNonNumericTitle]);
+  const formattedTitle = getEntityDisplayName(issue);
+  const issueNumber = getEntityDisplayNumber(issue);
 
   return issue ? (
     <Summary
@@ -59,7 +36,9 @@ export default function IssueSummary({ data, showReadMore }: Props) {
       }
       metadata={
         <>
-          {issueNumber && <p>{issueNumber}</p>}
+          {!hasNumericIssueTitle(issue.title) && issueNumber && (
+            <p>{issueNumber}</p>
+          )}
           <Styled.ItemPrimaryMetadata>
             {issue.journal && <li>{issue.journal.title}</li>}
             {issue.published.value && (
@@ -121,15 +100,7 @@ const fragment = graphql`
         totalCount
       }
     }
-    issueNumber: schemaProperty(fullPath: "number") {
-      ... on StringProperty {
-        content
-      }
-    }
-    volumeNumber: schemaProperty(fullPath: "volume.sortable_number") {
-      ... on IntegerProperty {
-        integerValue
-      }
-    }
+    ...getEntityDisplayNameFragment
+    ...getEntityDisplayNumberFragment
   }
 `;

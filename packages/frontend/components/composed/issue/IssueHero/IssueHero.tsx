@@ -16,6 +16,7 @@ import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
 import { SecondaryHero } from "components/layout/hero";
+import { getEntityDisplayName } from "helpers";
 
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
@@ -36,16 +37,7 @@ export default function IssueHero({ data }: Props) {
             <Alert message={visibilityMessage} badge color="blue" />
           )
         }
-        title={
-          <>
-            <Markdown.Title>{issue.title}</Markdown.Title>
-            {issue.volume && (
-              <Styled.Volume>
-                <Markdown.Title>{issue.volume.title}</Markdown.Title>
-              </Styled.Volume>
-            )}
-          </>
-        }
+        title={<Markdown.Title>{getEntityDisplayName(issue)}</Markdown.Title>}
         ThumbnailComponent={
           <CoverImage
             id={issue.id}
@@ -128,5 +120,7 @@ const fragment = graphql`
         }
       }
     }
+
+    ...getEntityDisplayNameFragment
   }
 `;
