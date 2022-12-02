@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import IssueSummary from "components/composed/issue/IssueSummary";
@@ -23,7 +23,11 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
       return <DissertationSummary data={entity} {...props} />;
 
     case "journal_issue":
-      return <IssueSummary data={entity} {...props} />;
+      return (
+        <Suspense fallback={<></>}>
+          <IssueSummary data={entity} {...props} />
+        </Suspense>
+      );
 
     case "journal_volume":
       return <VolumeSummary data={entity} {...props} />;

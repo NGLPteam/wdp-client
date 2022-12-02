@@ -15,8 +15,8 @@ export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
-  const formattedTitle = getEntityDisplayName(issue);
-  const issueNumber = getEntityDisplayNumber(issue);
+  const formattedTitle = issue ? getEntityDisplayName(issue) : null;
+  const issueNumber = issue ? getEntityDisplayNumber(issue) : null;
 
   return issue ? (
     <Summary

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import CommunityHero from "../CommunityHero";
@@ -25,7 +25,9 @@ export default function CommunityLayout({ data }: Props) {
         <FeaturedUnits data={community?.featuredUnits} />
       )}
       {community?.featuredIssue && (
-        <FeaturedIssue data={community.featuredIssue.entity} />
+        <Suspense fallback={<></>}>
+          <FeaturedIssue data={community.featuredIssue.entity} />
+        </Suspense>
       )}
     </>
   );

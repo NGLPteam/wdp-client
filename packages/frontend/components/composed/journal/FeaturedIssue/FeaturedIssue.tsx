@@ -30,7 +30,7 @@ export default function FeaturedIssue({ data, header }: Props) {
 
   const featuredArticles = issue?.featuredArticles?.entities;
 
-  const issueNo = getEntityDisplayNumber(issue);
+  const issueNo = issue ? getEntityDisplayNumber(issue) : null;
 
   return issue ? (
     <Styled.Section className="a-bg-netural00">

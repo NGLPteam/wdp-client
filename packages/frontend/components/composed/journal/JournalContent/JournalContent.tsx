@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import FeaturedIssue from "../FeaturedIssue";
@@ -45,10 +45,12 @@ export default function JournalContent({ data }: Props) {
           </Styled.SectionInner>
         </section>
       )}
-      <FeaturedIssue
-        data={journal.currentIssue}
-        header="layouts.current_issue"
-      />
+      <Suspense fallback={<></>}>
+        <FeaturedIssue
+          data={journal.currentIssue}
+          header="layouts.current_issue"
+        />
+      </Suspense>
       <RecentIssues data={journal.issues} />
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
@@ -26,7 +26,9 @@ export default function RecentIssues({ data, limit = 4 }: Props) {
           {issues.edges.slice(0, limit).map(({ node }: Node) =>
             node.slug ? (
               <Styled.ListItem key={node.slug}>
-                <IssueSummary data={node} showReadMore />
+                <Suspense fallback={<></>}>
+                  <IssueSummary data={node} showReadMore />
+                </Suspense>
               </Styled.ListItem>
             ) : null
           )}
