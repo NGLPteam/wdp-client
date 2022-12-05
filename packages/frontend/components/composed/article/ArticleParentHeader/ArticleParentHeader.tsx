@@ -1,23 +1,16 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./ArticleParentHeader.styles";
 import { ArticleParentHeaderFragment$key } from "@/relay/ArticleParentHeaderFragment.graphql";
 import { CompactHero } from "components/layout/hero";
 import { Markdown } from "components/atomic";
+import { getEntityDisplayName } from "helpers";
 
 export default function ArticleParentHeader({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   const subtitleComponent = article?.issue ? (
-    <>
-      {article.issue && <Markdown.Title>{article.issue.title}</Markdown.Title>}
-      {article.volume && (
-        <Styled.Volume as={Markdown.Title} className="t-copy-lighter">
-          {article.volume.title}
-        </Styled.Volume>
-      )}
-    </>
+    <Markdown.Title>{getEntityDisplayName(article.issue)}</Markdown.Title>
   ) : (
     <>
       {article?.series && (
@@ -45,18 +38,19 @@ interface Props {
 
 const fragment = graphql`
   fragment ArticleParentHeaderFragment on Entity {
+    schemaDefinition {
+      identifier
+    }
+
     ... on Item {
       journal: ancestorOfType(schema: "nglp:journal") {
         ... on Entity {
           title
         }
       }
-      volume: ancestorOfType(schema: "nglp:journal_volume") {
-        ... on Entity {
-          title
-        }
-      }
       issue: ancestorOfType(schema: "nglp:journal_issue") {
+        ...getEntityDisplayNameFragment
+
         ... on Entity {
           title
         }

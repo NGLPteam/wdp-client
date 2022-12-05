@@ -1,15 +1,12 @@
 import { graphql } from "relay-runtime";
 import { readInlineData } from "react-relay";
-import hasNumericIssueTitle from "./hasNumericIssueTitle";
-import { getEntityDisplayNameFragment$key } from "@/relay/getEntityDisplayNameFragment.graphql";
 import getEntityVolumeNumber from "./getEntityVolumeNumber";
+import { getEntityDisplayNameFragment$key } from "@/relay/getEntityDisplayNameFragment.graphql";
 
 export default function getEntityDisplayName(
   data: getEntityDisplayNameFragment$key
 ) {
   const entity = readInlineData(fragment, data);
-
-  const hasNumericTitle = hasNumericIssueTitle(entity?.title);
 
   const vol = getEntityVolumeNumber(entity);
 
@@ -26,9 +23,7 @@ export default function getEntityDisplayName(
     ? `Issue ${number}`
     : null;
 
-  return volTitle && hasNumericTitle
-    ? `${volTitle}, ${entityTitle}`
-    : entityTitle;
+  return volTitle ? `${volTitle}, ${entityTitle}` : entityTitle;
 }
 
 const fragment = graphql`
@@ -45,7 +40,8 @@ const fragment = graphql`
           content
         }
       }
-      ...getEntityVolumeNumberFragment
     }
+
+    ...getEntityVolumeNumberFragment
   }
 `;
