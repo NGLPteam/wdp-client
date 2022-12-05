@@ -7,7 +7,6 @@ import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import HowToCite from "components/composed/article/HowToCite";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
-import EntityCitationMetaTags from "components/composed/entity/EntityCitationMetaTags";
 
 export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -22,7 +21,6 @@ export default function EntityContentLayoutFactory({ data }: Props) {
     case "paper":
       return (
         <>
-          <EntityCitationMetaTags data={entity} />
           <ArticleText data={entity} />
           <ArticleContributor data={entity?.contributions} />
           <HowToCite data={entity} />
@@ -64,7 +62,5 @@ const fragment = graphql`
         ...ArticleContributorFragment
       }
     }
-
-    ...EntityCitationMetaTagsFragment
   }
 `;

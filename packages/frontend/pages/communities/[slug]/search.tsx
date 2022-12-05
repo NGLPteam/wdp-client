@@ -9,9 +9,11 @@ import { searchCommunityQueryFragment$key } from "@/relay/searchCommunityQueryFr
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import { LoadingBlock } from "components/atomic";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

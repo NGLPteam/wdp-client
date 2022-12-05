@@ -2,6 +2,7 @@
   "translation": {
     "key": "English",
     "app": {
+      "title": "WDP",
       "cookies_statement": "Cookies are delicious. Vitae pharetra et rutrum maecenas amet eu luctus convallis. Feugiat pulvinar eleifend eu fames accumsan, ipsum diam.",
       "installation_name": "WDP Installation Name",
       "placeholder_page_text": "This is a placeholder page. A future version of the WDP will allow users to build out informational pages for their installation."

@@ -7,9 +7,11 @@ import CommunityPageLayout from "components/composed/community/CommunityPageLayo
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

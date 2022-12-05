@@ -7,13 +7,19 @@ import EntityDescendantsLayout from "components/composed/entity/EntityDescendant
 import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
-import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import {
+  getStaticEntityData,
+  getStaticGlobalContextData,
+} from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const queryProps = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
-    props: { entityData },
+    props: { ...queryProps, entityData },
   };
 }
 

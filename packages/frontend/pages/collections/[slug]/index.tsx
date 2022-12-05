@@ -7,9 +7,11 @@ import CollectionLayoutQuery from "components/composed/collections/CollectionLay
 import JournalContent from "components/composed/journal/JournalContent";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

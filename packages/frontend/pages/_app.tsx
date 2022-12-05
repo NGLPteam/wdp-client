@@ -18,12 +18,13 @@ import {
   getStaticGlobalContextData,
   GlobalStaticContextProvider,
 } from "contexts/GlobalStaticContext";
+import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 
 function App({
   Component,
-  pageProps,
+  pageProps = {},
   cookies = {},
   records: r,
 }: AppProps & InitialProps) {
@@ -59,10 +60,14 @@ function App({
   }) => <PageComponent {...pageComponentProps} />;
 
   const getLayout = Component.getLayout || defaultLayout;
+  const { googleScholarData, ...globalData } = pageProps;
 
   return (
-    <GlobalStaticContextProvider staticData={pageProps}>
+    <GlobalStaticContextProvider globalData={globalData}>
       <AppHtmlHead />
+      {googleScholarData && (
+        <GoogleScholarMetaTags entity={googleScholarData} />
+      )}
       <SSRKeycloakProvider {...ssrProps}>
         <KeycloakRelayProvider records={records}>
           <AppContextProvider>
@@ -79,11 +84,11 @@ function App({
 export default App;
 
 App.getInitialProps = async (context: AppContext) => {
-  const queryProps = await getStaticGlobalContextData();
+  const props = getStaticGlobalContextData();
 
   return {
     cookies: parseCookies(context?.ctx?.req) || {},
-    pageProps: { ...queryProps },
+    pageProps: { ...props },
   };
 };
 
