@@ -9,9 +9,12 @@ import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

@@ -6,9 +6,11 @@ import { OrderingSlugCollectionQuery as Query } from "@/relay/OrderingSlugCollec
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

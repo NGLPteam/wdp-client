@@ -7,9 +7,11 @@ import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactor
 import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

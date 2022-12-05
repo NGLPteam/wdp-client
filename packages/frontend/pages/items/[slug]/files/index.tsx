@@ -6,9 +6,11 @@ import { filesSlugItemQuery as Query } from "@/relay/filesSlugItemQuery.graphql"
 import AssetsBlock from "components/composed/asset/AssetsBlock";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

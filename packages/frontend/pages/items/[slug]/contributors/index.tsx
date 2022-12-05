@@ -6,9 +6,11 @@ import ContributionsBlock from "components/composed/contribution/ContributionsBl
 import { contributorsSlugItemQuery as Query } from "@/relay/contributorsSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

@@ -8,9 +8,11 @@ import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSl
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

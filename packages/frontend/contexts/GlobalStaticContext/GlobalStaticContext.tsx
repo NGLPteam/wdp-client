@@ -4,15 +4,17 @@ import { getStaticEntityDataFragment$data } from "@/relay/getStaticEntityDataFra
 
 export type GlobalStaticData = getStaticGlobalContextDataQueryResponse;
 
-type GlobalEntityData = { entityData?: getStaticEntityDataFragment$data };
+type GlobalEntityData = {
+  entityData?: getStaticEntityDataFragment$data;
+};
 
 type GlobalStaticValue = Partial<GlobalStaticData> & GlobalEntityData;
 
 const GlobalStaticContext = createContext<GlobalStaticValue>({});
 
-function GlobalStaticContextProvider({ children, staticData }: Props) {
+function GlobalStaticContextProvider({ children, globalData }: Props) {
   return (
-    <GlobalStaticContext.Provider value={staticData || {}}>
+    <GlobalStaticContext.Provider value={globalData || {}}>
       {children}
     </GlobalStaticContext.Provider>
   );
@@ -20,7 +22,7 @@ function GlobalStaticContextProvider({ children, staticData }: Props) {
 
 interface Props {
   children: React.ReactNode;
-  staticData?: GlobalStaticData;
+  globalData?: GlobalStaticData;
 }
 
 export default GlobalStaticContext;

@@ -1,9 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useTranslation } from "react-i18next";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { getOrigin } from "helpers";
 
 export default function AppHtmlHead() {
+  const { t } = useTranslation();
   const staticData = useGlobalStaticContext();
   const installationName =
     staticData?.globalConfiguration?.site?.installationName;
@@ -14,7 +16,7 @@ export default function AppHtmlHead() {
 
   const title = entity?.title
     ? `${entity.title} - ${installationName}`
-    : installationName || "WDP";
+    : installationName || t("app.title");
 
   const description =
     entity?.summary ??

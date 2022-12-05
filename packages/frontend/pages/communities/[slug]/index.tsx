@@ -6,9 +6,11 @@ import { SlugCommunityQuery as Query } from "@/relay/SlugCommunityQuery.graphql"
 import CommunityLandingLayout from "components/composed/community/CommunityLandingLayout";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  setCacheDefaults(context.res);
 
   return {
     props: { entityData },

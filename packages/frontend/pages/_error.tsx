@@ -1,5 +1,6 @@
-import React from "react";
 import { Page } from "@wdp/lib/types/page";
+import Head from "next/head";
+import { useTranslation } from "react-i18next";
 import Error404 from "./404";
 import AppLayout from "components/global/AppLayout";
 
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const Error: Page<Props> = ({ statusCode }) => {
+  const { t } = useTranslation();
+
   const message = (
     <p>
       {statusCode
@@ -20,6 +23,11 @@ const Error: Page<Props> = ({ statusCode }) => {
     <Error404 />
   ) : (
     <AppLayout>
+      <Head>
+        <title>
+          {t("app.title")} {statusCode ? ` - ${statusCode}` : ""}
+        </title>
+      </Head>
       <div className="l-container-max l-container-p-lg t-align-center t-rte">
         <h2>{statusCode}</h2>
         <p>{message}</p>

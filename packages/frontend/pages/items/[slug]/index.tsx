@@ -6,12 +6,16 @@ import { SlugItemQuery as Query } from "@/relay/SlugItemQuery.graphql";
 import EntityContentLayoutFactory from "components/factories/EntityContentLayoutFactory";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
+import { setCacheDefaults } from "helpers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const entityData = await getStaticEntityData(context);
+  const googleScholarData = await getStaticGoogleScholarData(context);
+  setCacheDefaults(context.res);
 
   return {
-    props: { entityData },
+    props: { entityData, googleScholarData },
   };
 }
 
