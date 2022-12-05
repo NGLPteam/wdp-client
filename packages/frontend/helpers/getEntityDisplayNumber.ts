@@ -1,7 +1,7 @@
 import { graphql } from "relay-runtime";
 import { readInlineData } from "react-relay";
-import { getEntityDisplayNumberFragment$key } from "@/relay/getEntityDisplayNumberFragment.graphql";
 import getEntityVolumeNumber from "./getEntityVolumeNumber";
+import { getEntityDisplayNumberFragment$key } from "@/relay/getEntityDisplayNumberFragment.graphql";
 
 export default function getEntityDisplayNumber(
   data: getEntityDisplayNumberFragment$key

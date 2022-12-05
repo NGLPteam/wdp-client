@@ -5,18 +5,13 @@ import * as Styled from "./IssueSummary.styles";
 import { PrecisionDate, CoverImage } from "components/atomic";
 import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 import Summary from "components/layout/Summary";
-import {
-  getEntityDisplayName,
-  getEntityDisplayNumber,
-  hasNumericIssueTitle,
-} from "helpers";
+import { getEntityDisplayName } from "helpers";
 
 export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
   const formattedTitle = issue ? getEntityDisplayName(issue) : null;
-  const issueNumber = issue ? getEntityDisplayNumber(issue) : null;
 
   return issue ? (
     <Summary
@@ -36,9 +31,6 @@ export default function IssueSummary({ data, showReadMore }: Props) {
       }
       metadata={
         <>
-          {!hasNumericIssueTitle(issue.title) && issueNumber && (
-            <p>{issueNumber}</p>
-          )}
           <Styled.ItemPrimaryMetadata>
             {issue.journal && <li>{issue.journal.title}</li>}
             {issue.published.value && (
@@ -101,6 +93,5 @@ const fragment = graphql`
       }
     }
     ...getEntityDisplayNameFragment
-    ...getEntityDisplayNumberFragment
   }
 `;

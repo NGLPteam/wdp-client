@@ -28,5 +28,5 @@ const node: ReaderInlineDataFragment = {
   "kind": "InlineDataFragment",
   "name": "getEntityDisplayNameFragment"
 };
-(node as any).hash = '542281836e69c75a5fdcac76b5b63314';
+(node as any).hash = 'cd43e9a71a158cfde7d339d54cea0d1d';
 export default node;
