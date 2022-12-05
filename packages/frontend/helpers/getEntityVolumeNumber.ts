@@ -1,5 +1,5 @@
-import { getEntityVolumeNumberFragment$key } from "@/relay/getEntityVolumeNumberFragment.graphql";
 import { graphql, readInlineData } from "relay-runtime";
+import { getEntityVolumeNumberFragment$key } from "@/relay/getEntityVolumeNumberFragment.graphql";
 
 export default function getEntityVolumeNumber(
   data: getEntityVolumeNumberFragment$key
