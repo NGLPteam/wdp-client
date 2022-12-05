@@ -5,26 +5,26 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type sitemapCommunityQueryVariables = {
+export type sitemapCollectionsQueryVariables = {
     slug: string;
 };
-export type sitemapCommunityQueryResponse = {
-    readonly community: {
+export type sitemapCollectionsQueryResponse = {
+    readonly collection: {
         readonly " $fragmentRefs": FragmentRefs<"getEntitySitemapFragment">;
     } | null;
 };
-export type sitemapCommunityQuery = {
-    readonly response: sitemapCommunityQueryResponse;
-    readonly variables: sitemapCommunityQueryVariables;
+export type sitemapCollectionsQuery = {
+    readonly response: sitemapCollectionsQueryResponse;
+    readonly variables: sitemapCollectionsQueryVariables;
 };
 
 
 
 /*
-query sitemapCommunityQuery(
+query sitemapCollectionsQuery(
   $slug: Slug!
 ) {
-  community(slug: $slug) {
+  collection(slug: $slug) {
     ...getEntitySitemapFragment
     id
   }
@@ -194,14 +194,14 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "sitemapCommunityQuery",
+    "name": "sitemapCollectionsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Community",
+        "concreteType": "Collection",
         "kind": "LinkedField",
-        "name": "community",
+        "name": "collection",
         "plural": false,
         "selections": [
           {
@@ -222,14 +222,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "sitemapCommunityQuery",
+    "name": "sitemapCollectionsQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Community",
+        "concreteType": "Collection",
         "kind": "LinkedField",
-        "name": "community",
+        "name": "collection",
         "plural": false,
         "selections": [
           {
@@ -246,14 +246,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "39f28151de2aded21e38bd1f182f7a99",
+    "cacheID": "fbbc1e62181bdb6c7cf55a21155dc4e7",
     "id": null,
     "metadata": {},
-    "name": "sitemapCommunityQuery",
+    "name": "sitemapCollectionsQuery",
     "operationKind": "query",
-    "text": "query sitemapCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...getEntitySitemapFragment\n    id\n  }\n}\n\nfragment getEntitySitemapFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ... on Community {\n    slug\n    updatedAt\n    collections(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n  ... on Collection {\n    slug\n    updatedAt\n    collections(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n    items(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n  ... on Item {\n    slug\n    updatedAt\n    items(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n}\n"
+    "text": "query sitemapCollectionsQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...getEntitySitemapFragment\n    id\n  }\n}\n\nfragment getEntitySitemapFragment on AnyEntity {\n  __isAnyEntity: __typename\n  __typename\n  ... on Community {\n    slug\n    updatedAt\n    collections(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n  ... on Collection {\n    slug\n    updatedAt\n    collections(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n    items(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n  ... on Item {\n    slug\n    updatedAt\n    items(perPage: 50) {\n      pageInfo {\n        pageCount\n      }\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '4f38917c135eafbc7ad3e827921432cd';
+(node as any).hash = 'cd73070fa5c27ce6e9361d4b87255625';
 export default node;

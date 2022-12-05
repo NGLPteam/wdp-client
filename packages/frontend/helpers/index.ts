@@ -5,4 +5,6 @@ export * from "./urls";
 export { default as getEntityDisplayName } from "./getEntityDisplayName";
 export { default as getEntityDisplayNumber } from "./getEntityDisplayNumber";
 export { default as getEntityVolumeNumber } from "./getEntityVolumeNumber";
+export { default as EXTERNAL_DATA_URL } from "./externalDataUrl";
+export { default as getEntitySitemap } from "./getEntitySitemap";
 export * from "./getStaticPaths";

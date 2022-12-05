@@ -2,9 +2,9 @@ import { environment } from "@wdp/lib/app";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
 import {
-  sitemapQuery,
-  sitemapQueryResponse,
-} from "@/relay/sitemapQuery.graphql";
+  sitemapPagesQuery,
+  sitemapPagesQueryResponse,
+} from "@/relay/sitemapPagesQuery.graphql";
 
 const env = process.env.VERCEL_ENV || "development";
 
@@ -14,22 +14,25 @@ const EXTERNAL_DATA_URL = {
   development: "http://localhost:3001",
 }[env];
 
-function generateSiteMap(data: sitemapQueryResponse) {
+function generateSiteMap(data: sitemapPagesQueryResponse) {
   return `<?xml version="1.0" encoding="UTF-8"?>
-   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     <sitemap>
-       <loc>${EXTERNAL_DATA_URL}/sitemap_pages.xml</loc>
-     </sitemap>
+   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     <url>
+       <loc>${EXTERNAL_DATA_URL}</loc>
+     </url>
+     <url>
+       <loc>${EXTERNAL_DATA_URL}/search</loc>
+     </url>
      ${data?.communities?.nodes
        .map(({ slug }) => {
          return `
-       <sitemap>
-          <loc>${`${EXTERNAL_DATA_URL}/communities/${slug}/sitemap.xml`}</loc>
-       </sitemap>
+       <url>
+          <loc>${`${EXTERNAL_DATA_URL}/communities/${slug}`}</loc>
+       </url>
      `;
        })
        .join("")}
-   </sitemapindex>
+   </urlset>
  `;
 }
 
@@ -40,7 +43,7 @@ function SiteMap() {
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
   const env = environment();
   // We make an API call to gather the URLs for our site
-  const data = await fetchQuery<sitemapQuery>(env, query, {}).toPromise();
+  const data = await fetchQuery<sitemapPagesQuery>(env, query, {}).toPromise();
 
   if (data) {
     // We generate the XML sitemap with the posts data
@@ -60,7 +63,7 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 export default SiteMap;
 
 const query = graphql`
-  query sitemapQuery {
+  query sitemapPagesQuery {
     communities {
       nodes {
         slug

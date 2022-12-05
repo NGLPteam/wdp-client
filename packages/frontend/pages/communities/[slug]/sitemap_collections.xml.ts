@@ -2,14 +2,16 @@ import { environment } from "@wdp/lib/app";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
-import getEntitySitemap from "helpers/getEntitySitemap";
+import getCollectionsSitemap from "helpers/getCollectionsSitemap";
 import {
-  sitemapCollectionsQuery,
-  sitemapCollectionsQueryResponse,
-} from "@/relay/sitemapCollectionsQuery.graphql";
+  sitemapCollectionsCommunityQuery,
+  sitemapCollectionsCommunityQueryResponse,
+} from "@/relay/sitemapCollectionsCommunityQuery.graphql";
 
-function generateSiteMap(data: sitemapCollectionsQueryResponse) {
-  return data.collection ? getEntitySitemap(data.collection) : "";
+function generateSiteMap(data: sitemapCollectionsCommunityQueryResponse) {
+  return data.community?.collections
+    ? getCollectionsSitemap(data.community.collections)
+    : "";
 }
 
 function SiteMap() {
@@ -21,11 +23,13 @@ export async function getServerSideProps({
   query: urlQuery,
 }: GetServerSidePropsContext) {
   const slug = routeQueryArrayToString(urlQuery?.slug);
+  const page = parseInt(routeQueryArrayToString(urlQuery?.page), 10);
 
   const env = environment();
   // We make an API call to gather the URLs for our site
-  const data = await fetchQuery<sitemapCollectionsQuery>(env, query, {
+  const data = await fetchQuery<sitemapCollectionsCommunityQuery>(env, query, {
     slug,
+    page,
   }).toPromise();
 
   if (data) {
@@ -46,9 +50,11 @@ export async function getServerSideProps({
 export default SiteMap;
 
 const query = graphql`
-  query sitemapCollectionsQuery($slug: Slug!) {
-    collection(slug: $slug) {
-      ...getEntitySitemapFragment
+  query sitemapCollectionsCommunityQuery($slug: Slug!, $page: Int!) {
+    community(slug: $slug) {
+      collections(page: $page, perPage: 50) {
+        ...getCollectionsSitemapFragment
+      }
     }
   }
 `;

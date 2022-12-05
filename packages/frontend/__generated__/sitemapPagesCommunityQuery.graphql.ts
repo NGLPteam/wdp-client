@@ -4,22 +4,20 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
-export type sitemapItemQueryVariables = {
+export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
+export type sitemapPagesCommunityQueryVariables = {
     slug: string;
 };
-export type sitemapItemQueryResponse = {
-    readonly item: {
+export type sitemapPagesCommunityQueryResponse = {
+    readonly community: {
         readonly slug: string;
         readonly updatedAt: string;
-        readonly schemaVersion: {
-            readonly identifier: string;
-        };
-        readonly items: {
-            readonly nodes: ReadonlyArray<{
-                readonly slug: string;
-                readonly updatedAt: string;
-            }>;
-        };
+        readonly schemaRanks: ReadonlyArray<{
+            readonly slug: string;
+            readonly name: string;
+            readonly count: number;
+            readonly kind: SchemaKind;
+        }>;
         readonly pages: {
             readonly nodes: ReadonlyArray<{
                 readonly slug: string;
@@ -28,30 +26,26 @@ export type sitemapItemQueryResponse = {
         };
     } | null;
 };
-export type sitemapItemQuery = {
-    readonly response: sitemapItemQueryResponse;
-    readonly variables: sitemapItemQueryVariables;
+export type sitemapPagesCommunityQuery = {
+    readonly response: sitemapPagesCommunityQueryResponse;
+    readonly variables: sitemapPagesCommunityQueryVariables;
 };
 
 
 
 /*
-query sitemapItemQuery(
+query sitemapPagesCommunityQuery(
   $slug: Slug!
 ) {
-  item(slug: $slug) {
+  community(slug: $slug) {
     slug
     updatedAt
-    schemaVersion {
-      identifier
+    schemaRanks {
+      slug
+      name
+      count
+      kind
       id
-    }
-    items(perPage: 50) {
-      nodes {
-        slug
-        updatedAt
-        id
-      }
     }
     pages {
       nodes {
@@ -98,45 +92,43 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "identifier",
+  "name": "name",
   "storageKey": null
 },
-v5 = [
-  {
-    "kind": "Literal",
-    "name": "perPage",
-    "value": 50
-  }
-],
-v6 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
-],
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "count",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v8 = [
-  (v2/*: any*/),
-  (v3/*: any*/),
-  (v7/*: any*/)
-];
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "sitemapItemQuery",
+    "name": "sitemapPagesCommunityQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -144,35 +136,17 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "SchemaVersion",
+            "concreteType": "HierarchicalSchemaRank",
             "kind": "LinkedField",
-            "name": "schemaVersion",
-            "plural": false,
+            "name": "schemaRanks",
+            "plural": true,
             "selections": [
-              (v4/*: any*/)
+              (v2/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/)
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v5/*: any*/),
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Item",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": (v6/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": "items(perPage:50)"
           },
           {
             "alias": null,
@@ -189,7 +163,10 @@ return {
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
-                "selections": (v6/*: any*/),
+                "selections": [
+                  (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -206,14 +183,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "sitemapItemQuery",
+    "name": "sitemapPagesCommunityQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Item",
+        "concreteType": "Community",
         "kind": "LinkedField",
-        "name": "item",
+        "name": "community",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -221,36 +198,18 @@ return {
           {
             "alias": null,
             "args": null,
-            "concreteType": "SchemaVersion",
+            "concreteType": "HierarchicalSchemaRank",
             "kind": "LinkedField",
-            "name": "schemaVersion",
-            "plural": false,
+            "name": "schemaRanks",
+            "plural": true,
             "selections": [
+              (v2/*: any*/),
               (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
               (v7/*: any*/)
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": (v5/*: any*/),
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Item",
-                "kind": "LinkedField",
-                "name": "nodes",
-                "plural": true,
-                "selections": (v8/*: any*/),
-                "storageKey": null
-              }
-            ],
-            "storageKey": "items(perPage:50)"
           },
           {
             "alias": null,
@@ -267,7 +226,11 @@ return {
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
-                "selections": (v8/*: any*/),
+                "selections": [
+                  (v2/*: any*/),
+                  (v3/*: any*/),
+                  (v7/*: any*/)
+                ],
                 "storageKey": null
               }
             ],
@@ -280,14 +243,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "457ae804ebd8496657d7dad9762ff85c",
+    "cacheID": "d3dcd1f4ba7ea8a4881b2edf848eb83b",
     "id": null,
     "metadata": {},
-    "name": "sitemapItemQuery",
+    "name": "sitemapPagesCommunityQuery",
     "operationKind": "query",
-    "text": "query sitemapItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    slug\n    updatedAt\n    schemaVersion {\n      identifier\n      id\n    }\n    items(perPage: 50) {\n      nodes {\n        slug\n        updatedAt\n        id\n      }\n    }\n    pages {\n      nodes {\n        slug\n        updatedAt\n        id\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query sitemapPagesCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    slug\n    updatedAt\n    schemaRanks {\n      slug\n      name\n      count\n      kind\n      id\n    }\n    pages {\n      nodes {\n        slug\n        updatedAt\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '207d9078cd17576d0dac532e1ef91926';
+(node as any).hash = 'e8a9d48c7e27db380e91767e2caf25e1';
 export default node;

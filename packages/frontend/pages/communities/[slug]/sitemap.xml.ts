@@ -1,67 +1,15 @@
-import {
-  sitemapCommunityQuery,
-  sitemapCommunityQueryResponse,
-} from "@/relay/sitemapCommunityQuery.graphql";
 import { environment } from "@wdp/lib/app";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
-
-const env = process.env.VERCEL_ENV || "development";
-
-const EXTERNAL_DATA_URL = {
-  production: process.env.NEXT_PUBLIC_FE_URL || process.env.VERCEL_URL,
-  preview: process.env.VERCEL_URL,
-  development: "http://localhost:3001",
-}[env];
+import getEntitySitemap from "helpers/getEntitySitemap";
+import {
+  sitemapCommunityQuery,
+  sitemapCommunityQueryResponse,
+} from "@/relay/sitemapCommunityQuery.graphql";
 
 function generateSiteMap(data: sitemapCommunityQueryResponse) {
-  const schemas = data?.community?.schemaRanks?.map(({ slug, kind }) => {
-    return `
-      <url>
-        <loc>${`${EXTERNAL_DATA_URL}/communities/${data?.community?.slug}/${
-          kind === "COLLECTION" ? "collections" : "items"
-        }/${slug}`}</loc>
-      </url>
-`;
-  });
-
-  const pages = data?.community?.pages?.nodes.map(({ slug, updatedAt }) => {
-    return `
-      <url>
-        <loc>${`${EXTERNAL_DATA_URL}/page/${slug}`}</loc>
-        <lastmod>${updatedAt}</lastmod>
-      </url>
-    `;
-  });
-
-  const collections = data?.community?.collections?.nodes.map(
-    ({ slug, updatedAt }) => {
-      return `
-        <sitemap>
-          <loc>${`${EXTERNAL_DATA_URL}/collections/${slug}/sitemap.xml`}</loc>
-          <lastmod>${updatedAt}</lastmod>
-        </sitemap>
-      `;
-    }
-  );
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     <url>
-       <loc>${EXTERNAL_DATA_URL}/communities/${data?.community?.slug}</loc>
-       <lastmod>${data?.community?.updatedAt}</lastmod>
-     </url>
-     <url>
-       <loc>${EXTERNAL_DATA_URL}/communities/${
-    data?.community?.slug
-  }/search</loc>
-     </url>
-     ${schemas?.join("")}
-     ${pages?.join("")}
-     ${collections?.join("")}
-   </urlset>
- `;
+  return data.community ? getEntitySitemap(data.community) : null;
 }
 
 function SiteMap() {
@@ -100,26 +48,7 @@ export default SiteMap;
 const query = graphql`
   query sitemapCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
-      slug
-      updatedAt
-      schemaRanks {
-        slug
-        name
-        count
-        kind
-      }
-      collections(perPage: 50) {
-        nodes {
-          slug
-          updatedAt
-        }
-      }
-      pages {
-        nodes {
-          slug
-          updatedAt
-        }
-      }
+      ...getEntitySitemapFragment
     }
   }
 `;
