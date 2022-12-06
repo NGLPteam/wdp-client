@@ -2,11 +2,11 @@ import { environment } from "@wdp/lib/app";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
-import getEntitySitemap from "helpers/getEntitySitemap";
 import {
   sitemapItemsQuery,
   sitemapItemsQueryResponse,
 } from "@/relay/sitemapItemsQuery.graphql";
+import { buildSiteMap, getEntitySitemap } from "helpers";
 
 function generateSiteMap(data: sitemapItemsQueryResponse) {
   return data.item ? getEntitySitemap(data.item) : "";
@@ -23,19 +23,13 @@ export async function getServerSideProps({
   const slug = routeQueryArrayToString(urlQuery?.slug);
 
   const env = environment();
-  // We make an API call to gather the URLs for our site
   const data = await fetchQuery<sitemapItemsQuery>(env, query, {
     slug,
   }).toPromise();
 
   if (data) {
-    // We generate the XML sitemap with the posts data
     const sitemap = generateSiteMap(data);
-
-    res.setHeader("Content-Type", "text/xml");
-    // we send the XML to the browser
-    res.write(sitemap);
-    res.end();
+    buildSiteMap(res, sitemap);
   }
 
   return {

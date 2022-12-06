@@ -2,7 +2,7 @@ import { environment } from "@wdp/lib/app";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
-import { EXTERNAL_DATA_URL } from "helpers";
+import { buildSiteMap, EXTERNAL_DATA_URL } from "helpers";
 import {
   sitemapPagesCollectionQuery,
   sitemapPagesCollectionQueryResponse,
@@ -45,19 +45,13 @@ export async function getServerSideProps({
   const slug = routeQueryArrayToString(urlQuery?.slug);
 
   const env = environment();
-  // We make an API call to gather the URLs for our site
   const data = await fetchQuery<sitemapPagesCollectionQuery>(env, query, {
     slug,
   }).toPromise();
 
   if (data) {
-    // We generate the XML sitemap with the posts data
     const sitemap = generateSiteMap(data);
-
-    res.setHeader("Content-Type", "text/xml");
-    // we send the XML to the browser
-    res.write(sitemap);
-    res.end();
+    buildSiteMap(res, sitemap);
   }
 
   return {
