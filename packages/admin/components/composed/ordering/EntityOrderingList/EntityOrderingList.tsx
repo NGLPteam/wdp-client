@@ -60,7 +60,9 @@ function EntityOrderingList<T extends OperationType>({
       header: () => <>{t("lists.initial_ordering_column")}</>,
       id: "initial",
     }),
-    ModelColumns.CreatedAtColumn<EntityOrderingNode>(),
+    ModelColumns.CreatedAtColumn<EntityOrderingNode>({
+      enableSorting: false,
+    }),
   ];
 
   /* eslint-disable no-console */

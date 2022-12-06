@@ -35,6 +35,7 @@ function FileList<T extends OperationType>({
     ModelColumns.AssetThumbnailColumn<FileNode>({}),
     ModelColumns.NameColumn<FileNode>({
       accessorKey: "name",
+      enableSorting: false,
     }),
     ModelColumns.StringColumn<FileNode>({
       header: () => <>{t("lists.kind_column")}</>,

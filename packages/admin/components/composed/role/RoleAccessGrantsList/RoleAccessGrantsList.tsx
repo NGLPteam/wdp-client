@@ -47,10 +47,12 @@ function RoleAccessGrantsList<T extends OperationType>({
     ModelColumns.UserNameColumn<Node>({
       // Return the data where the user fragment is defined
       accessorFn: ({ user }: Node) => user,
+      enableSorting: false,
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
       accessorFn: ({ user }: Node) => user?.email,
+      enableSorting: false,
     }),
     ModelColumns.StringColumn<Node>({
       header: () => <>{t("lists.role_column")}</>,

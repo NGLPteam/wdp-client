@@ -41,10 +41,12 @@ function RoleAssignedUsersList<T extends OperationType>({
       cell: (info: CellContext<Node, unknown>) => (
         <UserNameColumnCell data={info.row.original.user} />
       ),
+      enableSorting: false,
     }),
     ModelColumns.EmailColumn<Node>({
       id: "user.email",
       accessorFn: ({ user }: Node) => user?.email,
+      enableSorting: false,
     }),
     ModelColumns.StringColumn<Node>({
       header: () => <>{t("lists.roles_column")}</>,

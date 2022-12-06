@@ -34,13 +34,15 @@ export default function useTableSorting() {
     setQueryVariables({ ...queryVariables, order: order || undefined });
 
     // Quietly update query vars
-    router.push(
-      { query: { ...router.query, order: order || undefined } },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
+    if (order !== router.query.order) {
+      router.push(
+        { query: { ...router.query, order: order || undefined } },
+        undefined,
+        {
+          shallow: true,
+        }
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sorting]);
 
