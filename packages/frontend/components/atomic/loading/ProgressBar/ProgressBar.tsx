@@ -10,7 +10,7 @@ const ProgressBar = ({ label, loading = false, percentLoaded }: Props) => {
   // when the placeholder disappears.
 
   return !loading ? (
-    <Styled.Placeholder />
+    <></>
   ) : isNumber(percentLoaded) ? (
     <BaseProgressBar label={label} percentLoaded={percentLoaded} />
   ) : (

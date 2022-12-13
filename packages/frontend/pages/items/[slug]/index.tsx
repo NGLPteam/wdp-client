@@ -1,21 +1,32 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import { SlugItemQuery as Query } from "@/relay/SlugItemQuery.graphql";
 import EntityContentLayoutFactory from "components/factories/EntityContentLayoutFactory";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
-import { getStaticEntityData } from "contexts/GlobalStaticContext";
+import {
+  getStaticEntityData,
+  getStaticGlobalContextData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
-import { setCacheDefaults } from "helpers";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const props = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
   const googleScholarData = await getStaticGoogleScholarData(context);
-  setCacheDefaults(context.res);
 
   return {
-    props: { entityData, googleScholarData },
+    props: { ...props, entityData, googleScholarData },
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   };
 }
 

@@ -6,6 +6,19 @@ import InstanceContentLayout from "components/composed/instance/InstanceContentL
 import { pagesQuery as Query } from "@/relay/pagesQuery.graphql";
 
 import AppLayout from "components/global/AppLayout";
+import {
+  getStaticGlobalContextData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
+
+export async function getStaticProps() {
+  const props = await getStaticGlobalContextData();
+
+  return {
+    props,
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
 
 export default function HomePage() {
   const slug = useRouteSlug();

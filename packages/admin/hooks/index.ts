@@ -20,7 +20,6 @@ export { default as useToggle } from "./useToggle";
 export { default as useNoInitialEffect } from "./useNoInitialEffect";
 export { default as useRoutePage } from "./useRoutePage";
 export { default as useIsMobile } from "./useIsMobile";
-export { default as useAutoProgress } from "./useAutoProgress";
 export { default as useNotify } from "./useNotify";
 export { default as useDrawerHelper } from "./useDrawerHelper";
 export { default as useDestroyer } from "./useDestroyer";

@@ -11,6 +11,26 @@ import {
   ContributorCollectionDetailLayout,
   ContributorItemDetailLayout,
 } from "components/composed/contributor/ContributorDetailLayout";
+import {
+  getStaticGlobalContextData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
+
+export async function getStaticProps() {
+  const props = await getStaticGlobalContextData();
+
+  return {
+    props: { ...props },
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+}
 
 export default function SlugContributorPage() {
   const slug = useRouteSlug();

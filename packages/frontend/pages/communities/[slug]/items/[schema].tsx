@@ -1,24 +1,29 @@
 import { graphql } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityItemsQuery as Query } from "@/relay/SchemaCommunityItemsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import { useDescendantListQueryVars } from "hooks";
 import {
-  getStaticEntityData,
   getStaticGlobalContextData,
+  getStaticEntityData,
 } from "contexts/GlobalStaticContext";
-import { setCacheDefaults } from "helpers";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const queryProps = await getStaticGlobalContextData();
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const props = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
-  setCacheDefaults(context.res);
 
   return {
-    props: { ...queryProps, entityData },
+    props: { ...props, entityData },
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   };
 }
 

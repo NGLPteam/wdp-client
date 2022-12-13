@@ -1,13 +1,13 @@
 import { environment } from "@wdp/lib/app";
 import { fetchQuery, graphql, readInlineData } from "relay-runtime";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import { getStaticEntityDataQuery } from "@/relay/getStaticEntityDataQuery.graphql";
 
 export default async function getStaticEntityData(
-  context: GetServerSidePropsContext
+  context: GetStaticPropsContext
 ) {
-  const { query: urlQuery, resolvedUrl } = context;
+  const { params: urlQuery } = context;
 
   const slug = routeQueryArrayToString(urlQuery?.slug);
 
@@ -15,15 +15,8 @@ export default async function getStaticEntityData(
 
   const env = environment();
 
-  const isCommunity = resolvedUrl.includes("communities");
-  const isCollection = resolvedUrl.includes("collections");
-  const isItem = resolvedUrl.includes("items");
-
   const data = await fetchQuery<getStaticEntityDataQuery>(env, query, {
     slug,
-    isCommunity,
-    isCollection,
-    isItem,
   }).toPromise();
 
   if (data) {
@@ -35,19 +28,14 @@ export default async function getStaticEntityData(
 }
 
 const query = graphql`
-  query getStaticEntityDataQuery(
-    $slug: Slug!
-    $isCommunity: Boolean!
-    $isCollection: Boolean!
-    $isItem: Boolean!
-  ) {
-    community(slug: $slug) @include(if: $isCommunity) {
+  query getStaticEntityDataQuery($slug: Slug!) {
+    community(slug: $slug) {
       ...getStaticEntityDataFragment
     }
-    collection(slug: $slug) @include(if: $isCollection) {
+    collection(slug: $slug) {
       ...getStaticEntityDataFragment
     }
-    item(slug: $slug) @include(if: $isItem) {
+    item(slug: $slug) {
       ...getStaticEntityDataFragment
     }
   }

@@ -2,19 +2,31 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
-import { getStaticEntityData } from "contexts/GlobalStaticContext";
-import { setCacheDefaults } from "helpers";
+import {
+  getStaticGlobalContextData,
+  getStaticEntityData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
+import { getStaticCommunityPagePaths } from "helpers";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const props = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
-  setCacheDefaults(context.res);
 
   return {
-    props: { entityData },
+    props: { ...props, entityData },
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: await getStaticCommunityPagePaths(),
+    fallback: "blocking",
   };
 }
 

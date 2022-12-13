@@ -14,10 +14,7 @@ import { AppHtmlHead } from "components/global";
 import { updateI18n } from "i18n";
 import { AppContextProvider } from "contexts";
 import { LoadingPage } from "components/atomic";
-import {
-  getStaticGlobalContextData,
-  GlobalStaticContextProvider,
-} from "contexts/GlobalStaticContext";
+import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
@@ -84,11 +81,8 @@ function App({
 export default App;
 
 App.getInitialProps = async (context: AppContext) => {
-  const props = getStaticGlobalContextData();
-
   return {
     cookies: parseCookies(context?.ctx?.req) || {},
-    pageProps: { ...props },
   };
 };
 
